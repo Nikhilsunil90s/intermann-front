@@ -1,0 +1,61 @@
+.logo-hold {
+    margin: auto;
+    width: min(550px, 80%);
+    padding-top: 2rem;
+}
+
+.login-panel {
+    padding-top: 2.5rem;
+    padding-bottom: 2rem;
+    background: #c4c4c4;
+    text-align: center;
+    border-radius: 25px;
+    border: 1px solid #FF974A;
+    width: min(1270px, 90%);
+    margin: auto;
+}
+
+.login-panel .input-box {
+    background: #032339;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    gap: 0.5rem;
+    width: min(1000px, 90%);
+    margin: auto;
+    border: 2px solid #FF974A;
+}
+
+.login-panel .input-box .input {
+    width: 90%;
+}
+
+.login-panel .input-box input {
+    width: 100%;
+    background: transparent;
+    outline: none;
+    border: none;
+    font-size: larger;
+    color: #fff;
+}
+
+.login-panel .sign-in-btn {
+    color: white !important;
+    font-weight: 700;
+    background: linear-gradient(90deg, #FE8700 0%, #D5780E 100%);
+    width: min(370px, 80%);
+    border-radius: 25px;
+}
+
+.login-panel a {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.btn-dark {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+}

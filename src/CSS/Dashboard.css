@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Mulish';
+font-style: normal;
+}
+.card-top{
+    background: #FFFFFF;
+    box-shadow: 0px 2px 48px rgb(0 0 0 / 4%) !important;
+    border-radius: 22px !important;
+}
+.card{
+    padding-right: 20px;
+    border: unset;
+}
+.card-title{
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 23px;
+    letter-spacing: 1px;
+
+}
+.list-group-flush li{
+    font-weight: 500;
+font-size: 14px;
+line-height: 20px;
+/* identical to box height */
+
+letter-spacing: 1px;
+}
+.list-group-item span:last-child{
+    float: right;
+    padding-top: 6px;
+    font-weight: 500;
+font-size: 20px;
+line-height: 25px;
+color: #3F76E2;
+}
+.card-tops{
+    background: #FFFFFF;
+box-shadow: 0px 2px 48px rgba(0 0 0 / -8% ) !important;
+border-radius: 22px;
+}
+.list-group-flush a{
+    text-decoration-line: none !important ;
+}

@@ -1,0 +1,41 @@
+.hero-title{
+    border-bottom: 2px solid black;
+}
+.hero-title * {
+    font-weight: 700;
+}
+.add-form{
+    background: #E5E5E5;
+    padding: 1rem;
+}
+.text-small{
+    font-size: small;
+}
+.amount-fields span{
+    background: #ECEEEF;
+    display: grid;
+    place-items: center;
+    color: #999999;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid #CCCCCC;
+}
+.amount-fields input{
+    border: 1px solid #CCCCCC;
+    outline: none;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.submit-btn-hold{
+    border-radius: 25px;
+    overflow: hidden;
+    width: 90%;
+    display: flex;
+}
+.submit-btn-hold .btn{
+    border-radius: 25px;
+    width: 80%;
+    margin: auto;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+}

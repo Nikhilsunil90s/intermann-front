@@ -1,0 +1,88 @@
+.flex-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.titleAdd {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 39px;
+    line-height: 58px;
+}
+
+.vw-Box {
+    height: 100%;
+    width: 100vw;
+    background-color: #E5E5E5;
+    padding: 25px;
+}
+
+.bg-light {
+    background-color: #ffff !important;
+    text-align: center;
+    padding: 0px 35px;
+}
+
+.list-001 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 41px;
+    line-height: 50px;
+}
+
+.A0012 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 39px;
+    margin: 0px;
+}
+
+.Add-Class {
+    display: flex;
+    justify-content: right;
+}
+
+.btn-job {
+    background-color: #3F76E2;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    border-radius: 0px;
+    width: 122px;
+    height: 39px;
+    padding: 0px 0px;
+}
+
+.btn-resume {
+    background-color: #FE8700D9;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    border-radius: 0px;
+    width: 122px;
+    height: 39px;
+}
+
+.pd-lr {
+    padding: 5px 25px;
+    background-color: #C4C4C4;
+}
+
+.btn-green {
+    background-color: #489767;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 39px;
+    color: #ffff;
+    padding: 2px 45px;
+}
