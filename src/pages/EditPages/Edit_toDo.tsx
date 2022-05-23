@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import "../../CSS/EditTodo.css";
 import { useLocation } from "react-router-dom";
 import { API_BASE_URL } from '../../config/serverApiConfig';
-import { ToastContainer, toast } from 'react-toastify';
-
+import toast, { Toaster } from 'react-hot-toast';
 
 const EmployeeDataFormat = {
   candidatName: "",
@@ -64,18 +63,15 @@ function EditDo() {
   const [experienceChanged, setExperienceChanged] = useState(false);
   const [candidatMotivation, setCandidatMotivation] = useState(profile.candidatMotivation);
   const [selectedLanguages, setSelectedLanguages] = useState(profile.candidatLanguages);
-  const notifyCandidatEditSuccess = () => toast("Candidat Updated Successfully! View Candidat in To-Do List.", {
-    autoClose: 4000,
-    className: 'toast-success',
-    progressClassName: 'success-progress-bar',
-  });
 
-  const notifyCandidatEditError = () => toast("Candidat Cannot Be Added! Please Try Again.", {
-    position: toast.POSITION.TOP_RIGHT,
-    className: 'toast-error',
-    progressClassName: 'error-progress-bar',
-    autoClose: 4000
-  });
+  const  notifyCandidatEditSuccess=() =>toast.success('Successfully toasted!')
+const    notifyCandidatEditError=()=> toast.error("This didn't work.")
+  // const notifyCandidatEditError = () => toast("Candidat Cannot Be Added! Please Try Again.", {
+  //   position: toast.POSITION.TOP_RIGHT,
+  //   className: 'toast-error',
+  //   progressClassName: 'error-progress-bar',
+  //   autoClose: 4000
+  // });
 
   const fetchActivitySectors = async () => {
     return await fetch(API_BASE_URL + "fetchAllSectors", {
@@ -282,7 +278,7 @@ function EditDo() {
         });
 
       notifyCandidatEditSuccess()
-    } else {
+       } else {
       notifyCandidatEditError()
     }
 
@@ -290,6 +286,10 @@ function EditDo() {
 
   return (
     <>
+    <Toaster
+  position="top-right"
+  reverseOrder={false}
+/>
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 top-pd text-center">

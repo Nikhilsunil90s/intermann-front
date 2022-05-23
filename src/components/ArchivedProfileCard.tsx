@@ -61,14 +61,22 @@ const ArchivedProfileCard = (props: any) => {
                         <p>  REASON WHY CANCELED : <span> {props.props.candidatArchived?.reason ? props.props.candidatArchived?.reason : "No Reason Specified!"}</span></p>
 
                     </div>
-                    <div className='text-center'>
+                    <div className='col-12'>
+                    <div className='row'>
+                        <div className='col-6 text-center'>
                         <button className="btn btn-card" onClick={viewFullProfile}>
                             See Full Profile
                         </button>
+                        </div>
+                        <div className='col-6 text-center'>
                         <button className="btn btn-cardRight1">
                             Edit Profile
                         </button>
+                        </div>
+                        
+                                            </div>
                     </div>
+                 
 
                 </div>
             </div>

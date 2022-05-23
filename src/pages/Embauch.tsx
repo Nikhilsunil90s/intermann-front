@@ -10,12 +10,15 @@ function Embauch() {
   const [jobs, setJobs] = useState([]);
   const [profiles, setProfiles] = useState([]);
   const [filteredProfiles, setFilteredProfiles] = useState([]);
-  const [defaultCard, setDefaultCard] = useState(false)
+  const [defaultCard, setDefault] = useState(false)
   const [viewFilteredProfiles, setViewFilteredProfiles] = useState([]);
-  const [ProgressDetails, setProgressDetails] = useState([]);
   const [selectedSector, setSelectedSector] = useState("");
-  const [selecteSector, setSelecteSector] = useState([]);
-  const [filteredSector, setFilteredSector] = useState([]);
+  const [onChangesecter, setChange] = useState([]);
+  const [selectedJob, setSelectedJob] = useState("");
+  const [selectedLanguages, setSelectedLanguages] = useState([]);
+  const [sectorField,setSectorField]=useState([])
+  const [showCard,setshowCard]=useState(false)
+
 
   const fetchProfiles = async () => {
     return await fetch(API_BASE_URL + "allInProgressCandidats", {
@@ -62,38 +65,76 @@ function Embauch() {
     console.log(e.target.value);
     setSelectedSector(e.target.value);
     if (e.target.value === "Select Un Secteur") {
-      return;
+      return setDefault(false);
     }
-    let selecteSector = e.target.value;
-    setSelecteSector(selecteSector)
-    const filteredSector = profiles.filter((profile) => {
-      return profile.candidatActivitySector == selecteSector
+   else if(e.target.name==="candidatActivitySector"){
+        let sectorField=e.target.value;
+    setSectorField(sectorField)
+    const onChangesecter = profiles.filter((profile) => {
+      return profile.candidatActivitySector == sectorField
     })
-    setFilteredSector([...filteredSector]);
-    fetchAllJobs(e.target.value)
-      .then(data => {
-        console.log(data)
-        setJobs([...data.data])
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    setChange([...onChangesecter]);
+    setDefault(true)
+    console.log(onChangesecter,"hellooo")
+    console.log(sectorField,"field")
+    setshowCard(true)
+    }
+    fetchAllJobs(e.target.value).then(data => {
+      console.log(data)
+      setJobs([...data.data])
+    })
+    .catch(err => {
+      console.log(err)
+    })
+
+    
+   
+  }
+  const handleJobFilter = (job:any) => {
+    console.log(job.jobName,"jobname")
+   
+    let jobFilter = job.jobName;
+    setSelectedJob(jobFilter);
+    const filteredProfiles = profiles.filter((profile) => {
+      return profile.candidatJob == jobFilter
+    })
+    console.log(filteredProfiles,"dfgdfdf");
+    setFilteredProfiles([...filteredProfiles]);
+    setDefault(true);
+    setshowCard(false)
+  }
+  const getSelectedLanguage = (e: any) => {
+    if (e.target.checked) {
+      addLanguages(e.target.value);
+    } else {
+      removeLanguages(e.target.value);
+      setDefault(false);
+    }
+  }
+  const addLanguages = (lang: string) => {
+    setSelectedLanguages((prev) => ([...prev, lang]));
   }
 
-  const handleJobFilter = (e: any) => {
-    console.log(e.target.text)
-    if (e.target.text == "Select Un Secteur") {
-      setDefaultCard(false)
-      return;
-    }
-    let jobFilter = e.target.text;
-    const filteredProfiles = profiles.filter((profile) => {
-      return profile.candidatJob == jobFilter;
-    });
-    console.log(filteredProfiles);
-    setFilteredProfiles([...filteredProfiles]);
-    setDefaultCard(true);
+  const removeLanguages = (lang: string) => {
+    setSelectedLanguages(selectedLanguages.filter((l) => l !== lang));
   }
+  useEffect(() => {
+    console.log(selectedLanguages, selectedJob, selectedSector);
+    if (selectedLanguages.length > 0) {
+      let result = [];
+      profiles.map((profile) => {
+        selectedLanguages.map((selectedLanguage) => {
+          if (profile.candidatLanguages.includes(selectedLanguage) && !(result.includes(profile))) {
+            result.push(profile)
+          }
+        })
+      })
+      console.log(result);
+      setFilteredProfiles([...result]);
+      setDefault(true);
+    }
+
+  }, [selectedLanguages])
 
   useEffect(() => {
     setViewFilteredProfiles([...filteredProfiles]);
@@ -126,13 +167,13 @@ function Embauch() {
     }
   }, [jobs])
 
-  useEffect(() => {
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
-    });
-  })
+  // useEffect(() => {
+  //   window.scroll({
+  //     top: 0,
+  //     left: 0,
+  //     behavior: 'smooth'
+  //   });
+  // })
 
 
 
@@ -175,31 +216,31 @@ function Embauch() {
             <p className="last-child">Filtre Langues du candidat</p>
             <div>
               <div>
-                <input type="checkbox" />
+                <input type="checkbox" name="language" value="Roumain" onClick={getSelectedLanguage} />
                 <span className="ps-2">Roumain</span>
               </div>
               <div>
-                <input type="checkbox" />
+                <input type="checkbox" name="language" value="Francais" onClick={getSelectedLanguage} />
                 <span className="ps-2">Français</span>
               </div>
               <div>
-                <input type="checkbox" />
+                <input type="checkbox" name="language" value="Anglais" onClick={getSelectedLanguage} />
                 <span className="ps-2">Anglais</span>
               </div>
               <div>
-                <input type="checkbox" />
+                <input type="checkbox" name="language" value="Italien" onClick={getSelectedLanguage} />
                 <span className="ps-2">Italien</span>
               </div>
               <div>
-                <input type="checkbox" />
+                <input type="checkbox" name="language" value="Russe" onClick={getSelectedLanguage} />
                 <span className="ps-2">Russe</span>
               </div>
               <div>
-                <input type="checkbox" />
+                <input type="checkbox" name="language" value="Espagnol" onClick={getSelectedLanguage} />
                 <span className="ps-2">Espagnol</span>
               </div>
               <div>
-                <input type="checkbox" />
+                <input type="checkbox" name="language" value="Autre" onClick={getSelectedLanguage} />
                 <span className="ps-2">Autre</span>
               </div>
             </div>
@@ -210,7 +251,7 @@ function Embauch() {
               <ul className="list-group">
                 {
                   jobs.length > 0 ? jobs.map((job) =>
-                    <li className="job-ul list-group-item list-group-item-action" onClick={handleJobFilter}>
+                    <li className="job-ul list-group-item list-group-item-action" onClick={()=>{handleJobFilter(job)}}>
 
                       <a href="#">{job.jobName}</a>
                     </li>
@@ -220,45 +261,57 @@ function Embauch() {
             </div>
           </div>
           <hr className="new5" />
-          {
-            defaultCard ?
-              viewFilteredProfiles.length > 0
-                ? viewFilteredProfiles.map((filteredProfile) => (
-                  <div className="col-3 pd-left">
-                    <EmbaucheProfileCard props={filteredProfile} />
-                  </div>
-                ))
-                :
-                filteredSector.length > 0 ?
-                  filteredSector.map((profile) => (
-                    <div className="col-4 ">
+             {defaultCard?
+             <>
+              {
+                showCard?
+              <>              {
+                    defaultCard?
+                  onChangesecter.length>0?
+                  onChangesecter.map((profile)=>(
+                 
+                    <div className="col-4 pd-left">
                       <EmbaucheProfileCard props={profile} />
+                  </div>
+                  ))
+                  :
+                  viewFilteredProfiles.length > 0
+                  ? viewFilteredProfiles.map((filteredProfile) => (
+                    <div className="col-4 pd-left">
+                     <EmbaucheProfileCard props={filteredProfile} />
                     </div>
                   ))
                   :
-                  filteredProfiles.length > 0 ?
-                    filteredProfiles.map((profile) => (
-                      <div className="col-4 ">
+                  <p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>
+                :
+                    profiles.map((profile) => (
+                      <div className="col-4 pd-left">
                         <EmbaucheProfileCard props={profile} />
                       </div>
-                    ))
-
-                    :
-                    <p className="text-center">
-                      No Profiles in Candidat In-Progress! Please Move To-Do Candidat To In-Progress.
-                    </p>
-
-              :
-              (profiles.length > 0 ? profiles.map((profile) => (
-                <div className="col-4 ">
+                    ))  
+                
+                }
+                </>
+                :
+                <>
+                {
+                   filteredProfiles.length>0?
+                   filteredProfiles.map((filteredProfiles)=>(
+                     <div className="col-4 pd-left">
+                      <EmbaucheProfileCard props={filteredProfiles} />
+                   </div>
+                   ))
+                 : <p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>
+                 }
+                 </>
+                }
+          </>:
+               profiles.map((profile) => (
+                <div className="col-4 pd-left">
                   <EmbaucheProfileCard props={profile} />
                 </div>
-              )) :
-                <p className="text-center">
-                  No Profiles in Candidat In-Progress! Please Move To-Do Candidat To In-Progress.
-                </p>
-              )
-          }
+              ))  
+               }
         </div>
       </div>
     </>

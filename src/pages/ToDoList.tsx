@@ -9,6 +9,7 @@ function ToDoList() {
 
   const [profiles, setProfiles] = useState([]);
   const [filteredProfiles, setFilteredProfiles] = useState([]);
+  const [onChangesecter, setChange] = useState([]);
   const [viewFilteredProfiles, setViewFilteredProfiles] = useState([]);
   const [sectors, setSectors] = useState([]);
   const [jobs, setJobs] = useState([]);
@@ -16,6 +17,9 @@ function ToDoList() {
   const [defaultCard, setDefault] = useState(false)
   const [selectedSector, setSelectedSector] = useState("");
   const [selectedLanguages, setSelectedLanguages] = useState([]);
+  const [sectorField,setSectorField]=useState([])
+  const [showCard,setshowCard]=useState(false)
+  const [allProfile,setallProfile]=useState(false)
 
   const fetchAllSectors = async () => {
     return await fetch(API_BASE_URL + "fetchAllSectors", {
@@ -30,7 +34,7 @@ function ToDoList() {
       .then(respData => respData)
       .catch(err => err)
   }
-
+console.log(selectedJob,"selectedjob")
   const fetchAllJobs = async (sector: string) => {
     if (sector === "Select Un Secteur") {
       return {
@@ -82,31 +86,42 @@ function ToDoList() {
     console.log(e.target.value);
     setSelectedSector(e.target.value);
     if (e.target.value === "Select Un Secteur") {
-      return;
+      return setDefault(false);
+    }
+   else if(e.target.name==="candidatActivitySector"){
+        let sectorField=e.target.value;
+    setSectorField(sectorField)
+    const onChangesecter = profiles.filter((profile) => {
+      return profile.candidatActivitySector == sectorField
+    })
+    setChange([...onChangesecter]);
+    setDefault(true)
+    console.log(onChangesecter,"hellooo")
+    console.log(sectorField,"field")
+    setshowCard(true)
+    setallProfile(true)
+
     }
     fetchAllJobs(e.target.value).then(data => {
       console.log(data)
       setJobs([...data.data])
     })
-      .catch(err => {
-        console.log(err)
-      })
+    .catch(err => {
+      console.log(err)
+    }) 
   }
-
-  const handleJobFilter = (e: any) => {
-    console.log(e.target.text)
-    if (e.target.text == "Select Un Secteur") {
-      setDefault(false)
-      return;
-    }
-    let jobFilter = e.target.text;
+  const handleJobFilter = (job:any) => {
+    console.log(job,"jobname")
+   
+    let jobFilter = job.jobName;
     setSelectedJob(jobFilter);
     const filteredProfiles = profiles.filter((profile) => {
       return profile.candidatJob == jobFilter
     })
-    console.log(filteredProfiles);
+    console.log(filteredProfiles,"dfgdfdf");
     setFilteredProfiles([...filteredProfiles]);
     setDefault(true);
+    setshowCard(false)
   }
 
   const getSelectedLanguage = (e: any) => {
@@ -169,7 +184,7 @@ function ToDoList() {
         })
     }
   }, [jobs])
-
+  console.log(onChangesecter,"value")
   return (
     <>
       <div className="container-fluid">
@@ -203,9 +218,9 @@ function ToDoList() {
                   {
                     sectors && sectors.map((sector) =>
                       <option value={sector.sectorName}>
-                        <a className="dropdown-item" href="#">
+                        <button className="dropdown-item" >
                           {sector.sectorName}
-                        </a>
+                        </button>
                       </option>
                     )
                   }
@@ -251,7 +266,7 @@ function ToDoList() {
               <ul className="list-group">
                 {
                   jobs.length > 0 ? jobs.map((job) =>
-                    <li className="job-ul list-group-item list-group-item-action" onClick={handleJobFilter}>
+                    <li className="job-ul list-group-item list-group-item-action" onClick={()=>{handleJobFilter(job)}}>
 
                       <a href="#">{job.jobName}</a>
                     </li>
@@ -261,24 +276,59 @@ function ToDoList() {
             </div>
           </div>
           <hr className="new5" />
-          {
-            defaultCard ?
-              viewFilteredProfiles.length > 0
+        {allProfile?  
+        <>
+              {
+              showCard?
+            <>          
+                {
+                  defaultCard?
+                onChangesecter.length>0?
+                onChangesecter.map((profile)=>(
+               
+                  <div className="col-4 mt-2 pd-left">
+                  <ToDoProfileCard data={profile} />
+                </div>
+                ))
+                :
+                viewFilteredProfiles.length > 0
                 ? viewFilteredProfiles.map((filteredProfile) => (
-                  <div className="col-4 pd-left">
+                  <div className="col-4 mt-2 pd-left">
                     <ToDoProfileCard data={filteredProfile} />
                   </div>
                 ))
                 :
                 <p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>
               :
-              (profiles.length > 0 ?
-                profiles.map((profile) => (
-                  <div className="col-4 pd-left">
-                    <ToDoProfileCard data={profile} />
-                  </div>
-                )) : <p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>
-              )}
+                  profiles.map((profile) => (
+                    <div className="col-4 mt-2 pd-left">
+                      <ToDoProfileCard data={profile} />
+                    </div>
+                  ))  
+              
+              }
+              </>
+              : 
+              <>
+              {
+                 filteredProfiles.length>0?
+                 filteredProfiles.map((filteredProfiles)=>(
+                   <div className="col-4 mt-2 pd-left">
+                   <ToDoProfileCard data={filteredProfiles} />
+                 </div>
+                 ))
+               : <p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>
+               }
+               </>
+              }
+            
+              </>   :
+              
+              profiles.map((profile) => (
+                    <div className="col-4 mt-2 pd-left">
+                      <ToDoProfileCard data={profile} />
+                    </div>
+                  ))   }
         </div>
       </div>
     </>

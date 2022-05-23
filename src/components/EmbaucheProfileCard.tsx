@@ -31,7 +31,7 @@ const EmbaucheProfileCard = (props: any) => {
                     <div className="col-7 ">
                         <p>Name: {props.props.candidatName}</p>
                         <p>Age: {props.props.candidatAge}</p>
-                        <div >  <p>Motivation:{" "}
+                        <div >  <p>Motivation:
                             <StarRatings
                                 rating={props.props.candidatMotivation}
                                 starRatedColor="#ffc107"
@@ -67,17 +67,25 @@ const EmbaucheProfileCard = (props: any) => {
                         <p>Since <small>: {props.props.candidatCurrentWork[0].workingSince}</small></p>
                         <p>Salary <small>:  {props.props.candidatCurrentWork[0].salary} €</small></p>
                     </div>
-                    <div className="text-center">
+                  <div className="col-12">
+                    <div className="row">
+                        <div className="col-6 text-center">
                         <button className="btn btn-card" onClick={viewFullProfile}>
                             See Full Profile
                         </button>
-                        <button className="btn btn-cardRight1">
+                        </div>
+                     <div className="col-6 text-center">
+                     <button className="btn btn-cardRight1">
                             Edit Profile
                         </button>
-                        <button className="btn btn-cardRight" onClick={() => { setShowArchiveModal(true) }}>
+                     </div>
+                      <div className="col-12 text-center">
+                      <button className="btn btn-cardRight" onClick={() => { setShowArchiveModal(true) }}>
                             Archive
                         </button>
-                    </div>
+                      </div>
+                    
+                    </div></div>
 
                     {showArchiveModal ?
                         <ArchivedModal props={props.props} closeModal={setShowArchiveModal} /> : null

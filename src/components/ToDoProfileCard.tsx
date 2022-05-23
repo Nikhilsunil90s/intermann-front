@@ -73,27 +73,35 @@ const ToDoProfileCard = (props: any) => {
                     <div>
                         <input type="checkbox" name="candidatLicensePermis" checked={props.data.candidatLicensePermis} /> Permis
                     </div>
-                    <div className="text-center mt-2">
-
-                        <button className="btn btn-card" onClick={viewFullProfile}>
+                    <div className="col-12 mt-2">
+                        <div className="row">
+                            <div className="col-6 text-center">
+                            <button className="btn btn-card" onClick={viewFullProfile}>
                             See Full Profile
                         </button>
+                        </div>
+                        <div className="col-6">
                         <button onClick={editCandidatProfile} className="btn btn-cardRight1">
                             Edit Profile
                         </button>
+                            </div>
+                        <div className="col-6 text-center">                      
                         <button className="btn btn-cardLeft" onClick={() => { setShowInProgressModal(true) }} >
                             Move to In Progress
                         </button>
+                        </div>
                         {showInProgressModal ?
                             <InProgressModal props={props.data} closeModal={setShowInProgressModal} /> : null
                         }
+                        <div className="col-6">                      
                         <button className="btn btn-cardRight" onClick={() => { setShowArchiveModal(true) }} data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
                             Archive
                         </button>
+                        </div>
                         {showArchiveModal ?
                             <ArchivedModal props={props.data} closeModal={setShowArchiveModal} /> : null
                         }
-
+</div>
                     </div>
 
                 </div>
