@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { API_BASE_URL } from "../config/serverApiConfig";
+import toast, { Toaster } from 'react-hot-toast';
 
 function ArchivedModal({ props, closeModal }) {
   console.log(props);

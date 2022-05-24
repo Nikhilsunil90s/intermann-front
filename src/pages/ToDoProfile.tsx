@@ -102,34 +102,40 @@ function ToDoProfile() {
                 <div className="col-6 text-center">
                   <p>Mail : {profile.candidatEmail}</p>
                   <button className="btn btn-email">
+                    <a href="https://accounts.google.com/" target="_blank">
                     <span className="padding-email">
                       <img src={require("../images/gmail.svg").default} />
-                    </span>
+                    </span>  
                     Send Email
+                    </a>
                   </button>
                   <p>Facebook : </p>
-                  <Link to={profile.candidatFBURL} className="btn btn-primary btn-see">
+                  <a href={profile.candidatFBURL} target="_blank" className="btn btn-primary btn-see">
                     <span className="padding-email">
                       <img src={require("../images/facebook.svg").default} />
                     </span>
                     See Profile
-                  </Link>
+                  </a>
                 </div>
 
                 <div className="col-6">
                   <p>Phone : {profile.candidatPhone}</p>
                   <button className="btn btn-whatsapp btn-see">
+                   <a href={`https://wa.me/${profile.candidatPhone}`} target="_blank">
                     <span className="padding-email">
                       <img src={require("../images/whatsapp.svg").default} />
                     </span>
                     Send What’s App
+                    </a>
                   </button>
                   <p> Phone 2 : {profile.candidatAlternatePhone} </p>
                   <button className="btn btn-whatsapp btn-see">
+                  <a href={`https://wa.me/${profile.candidatAlternatePhone}`} target="_blank">
                     <span className="padding-email">
                       <img src={require("../images/whatsapp.svg").default} />
                     </span>
                     Send What’s App
+                    </a>
                   </button>
                 </div>
               </div>

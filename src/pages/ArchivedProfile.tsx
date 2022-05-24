@@ -96,35 +96,42 @@ const ArchivedProfile = () => {
               <div className="row">
                 <div className="col-6 text-center">
                   <p>Mail : {profile.candidatEmail}</p>
-                  <button className="btn btn-email">
+                  <button className="btn btn-email"> <a href="https://accounts.google.com/" target="_blank" >
                     <span className="padding-email">
-                      <img src={require("../images/gmail.svg").default} />
+                    <img src={require("../images/gmail.svg").default} />
                     </span>
-                    Send Email
+                    See Profile
+                    </a>
                   </button>
                   <p>Facebook : {profile.candidatFBURL}</p>
                   <button className="btn btn-primary btn-see">
+                  <a href={profile.candidatFBURL} target="_blank" >
                     <span className="padding-email">
                       <img src={require("../images/facebook.svg").default} />
                     </span>
                     See Profile
-                  </button>
+                    </a>
+                    </button>
                 </div>
 
                 <div className="col-6">
                   <p>Phone : {profile.candidatPhone}</p>
                   <button className="btn btn-whatsapp btn-see">
+                  <a href={`https://wa.me/${profile.candidatPhone}`} target="_blank">
                     <span className="padding-email">
                       <img src={require("../images/whatsapp.svg").default} />
                     </span>
                     Send What’s App
+                    </a>
                   </button>
                   <p> Phone 2 : {profile.candidatAlternatePhone} </p>
                   <button className="btn btn-whatsapp btn-see">
+                  <a href={`https://wa.me/${profile.candidatAlternatePhone}`} target="_blank">
                     <span className="padding-email">
                       <img src={require("../images/whatsapp.svg").default} />
                     </span>
                     Send What’s App
+                    </a>
                   </button>
                 </div>
               </div>

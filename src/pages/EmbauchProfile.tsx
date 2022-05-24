@@ -172,34 +172,42 @@ function ProgressCard() {
                 <div className="col-6 text-center">
                   <p>Mail: {profile.props.candidatEmail}</p>
                   <button className="btn btn-email">
+                    <a  href="https://accounts.google.com/" target="_blank">
                     <span className="padding-email">
                       <img src={require("../images/gmail.svg").default} />
                     </span>
                     Send Email
+                    </a>
                   </button>
                   <p>Facebook: {profile.props.candidatFBURL}</p>
                   <button className="btn btn-primary btn-see">
+                    <a href={profile.props.candidatFBURL} target="_blank" >
                     <span className="padding-email">
                       <img src={require("../images/facebook.svg").default} />
                     </span>
                     See Profile
+                    </a>
                   </button>
                 </div>
 
                 <div className="col-6">
                   <p>Phone : {profile.props.candidatPhone}</p>
                   <button className="btn btn-whatsapp btn-see">
+                  <a href={`https://wa.me/${profile.props.candidatPhone}`} target="_blank">
                     <span className="padding-email">
                       <img src={require("../images/whatsapp.svg").default} />
                     </span>
                     Send What’s App
+                    </a>
                   </button>
                   <p> Phone 2 : {profile.props.candidatAlternatePhone}</p>
                   <button className="btn btn-whatsapp btn-see">
+                  <a href={`https://wa.me/${profile.props.candidatAlternatePhone}`} target="_blank">
                     <span className="padding-email">
                       <img src={require("../images/whatsapp.svg").default} />
                     </span>
                     Send What’s App
+                    </a>
                   </button>
                 </div>
               </div>
