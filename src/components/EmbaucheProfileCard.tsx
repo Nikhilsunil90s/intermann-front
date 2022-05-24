@@ -88,7 +88,7 @@ const EmbaucheProfileCard = (props: any) => {
                     </div></div>
 
                     {showArchiveModal ?
-                        <ArchivedModal props={props.props} closeModal={setShowArchiveModal} /> : null
+                        <ArchivedModal props={props.props} closeModal={setShowArchiveModal}  /> : null
                     }
 
                 </div>

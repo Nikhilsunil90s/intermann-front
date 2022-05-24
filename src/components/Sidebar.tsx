@@ -44,25 +44,49 @@ function Sidebar(props: any) {
                     Résumé
                   </Link>
                 </li>
-                <li>
-                  <Link to="/addNewSector" className="nav-link" aria-current="page">
-                    <span className="pe-2">
-                      <img src={require("../images/Shape.svg").default} />
-                    </span>
-                    Add New Sector
-                  </Link>
-                </li>
-                <div className="accordion" id="accordionExample">
+                 
+                <div className="accordion accordion-flush" id="accordionFlushExample">
+                <div className="accordion-item">
+                    <h2 className="accordion-header" id="flush-headingOne">
+                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        <span className="pe-2">
+                          <img src={require("../images/Combine.svg").default} />
+                        </span>
+                        Manage
+                      </button>
+                    </h2>
+                    <div id="flush-collapseOne" className="accordion-collapse collapse " aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                      <div className="accordion-body">
+                        <ul>  <li>
+                    <Link to="/addNewSector" className="nav-link" aria-current="page">
+                      <span className="pe-2">
+                        <img src={require("../images/Shape.svg").default} />
+                      </span>
+                      Add New Sector
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/userList" className="nav-link" aria-current="page">
+                      <span className="pe-2">
+                        <img src={require("../images/Shape.svg").default} />
+                      </span>
+                     User List
+                    </Link>
+                  </li>
+                  </ul>
+                      </div>
+                    </div>
+                  </div>
                   <div className="accordion-item">
-                    <h2 className="accordion-header" id="headingOne">
-                      <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <h2 className="accordion-header" id="flush-headingTwo">
+                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="#flush-collapseTwo">
                         <span className="pe-2">
                           <img src={require("../images/Combine.svg").default} />
                         </span>
                         Leads  / Clients
                       </button>
                     </h2>
-                    <div id="collapseOne" className="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div id="flush-collapseTwo" className="accordion-collapse collapse " aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                       <div className="accordion-body">
                         <ul>  <li>
                           <Link to="/clientTodo" className="nav-link link-dark">
@@ -88,15 +112,15 @@ function Sidebar(props: any) {
                     </div>
                   </div>
                   <div className="accordion-item">
-                    <h2 className="accordion-header" id="headingTwo">
-                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <h2 className="accordion-header" id="flush-headingThree">
+                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
                         <span className="pe-2">
                           <img src={require("../images/employeeicon.svg").default} />
                         </span>
                         Candidats / Employés
                       </button>
                     </h2>
-                    <div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <div id="flush-collapseThree" className="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                       <div className="accordion-body">
                         <ul>
                           <li>

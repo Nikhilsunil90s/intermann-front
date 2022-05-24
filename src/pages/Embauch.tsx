@@ -3,6 +3,7 @@ import StarRatings from 'react-star-ratings';
 import "../CSS/Embauch.css";
 import EmbaucheProfileCard from "../components/EmbaucheProfileCard";
 import { API_BASE_URL } from "../config/serverApiConfig";
+import toast, { Toaster } from 'react-hot-toast';
 
 function Embauch() {
 
@@ -33,6 +34,9 @@ function Embauch() {
       .then(reD => reD)
       .catch(err => err)
   }
+ 
+  const  notifyMoveSuccess=() =>console.log("hello ")
+   const    notifyMoveError=()=> toast.error("This didn't work.")
 
   const fetchAllSectors = async () => {
     return await fetch(API_BASE_URL + "fetchAllSectors", {
@@ -179,6 +183,7 @@ function Embauch() {
 
   return (
     <>
+    <Toaster />
       <div className="container-fluid">
         <div className="row ">
           <div className="col-12 text-center">
@@ -271,7 +276,7 @@ function Embauch() {
                   onChangesecter.map((profile)=>(
                  
                     <div className="col-4 pd-left">
-                      <EmbaucheProfileCard props={profile} />
+                      <EmbaucheProfileCard props={profile} notifyMoveSuccess={notifyMoveSuccess} notifyMoveError={notifyMoveError}/>
                   </div>
                   ))
                   :

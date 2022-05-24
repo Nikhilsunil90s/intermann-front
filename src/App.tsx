@@ -18,6 +18,14 @@ import configureStore from "./redux/store";
 import EditProgress from "./pages/EditPages/EditProgress";
 import EditArchive from "./pages/EditPages/Edit_Archived";
 import AddSector from "./pages/AddNewSector";
+import UserList from "./pages/EditPages/UserList";
+import ClientToDoList from "./pages/ClientPages/ClientTodo";
+import ClientProgress from "./pages/ClientPages/ClientProgress"
+import ClientContract from "./pages/ClientPages/ClientContract";
+import ClientArchived from "./pages/ClientPages/ClientArchived";
+import ClientView from "./pages/ClientPages/ClientSeePage"
+import ClientProgressView from "./pages/ClientPages/ClientProgressFullview";
+import Signed from "./pages/ClientPages/SignedContract";
 
 function App() {
   return (
@@ -45,8 +53,18 @@ function App() {
           <Route path={"/editArchived"} element={<Sidebar> <EditArchive /></Sidebar>} />
 
           <Route path={"/addNewSector"} element={<Sidebar> <AddSector /> </Sidebar>} />
+          <Route path={"/userList"} element={<Sidebar> <UserList /> </Sidebar>} />
 
+          <Route path={"/clientTodo"} element={<Sidebar> <ClientToDoList /></Sidebar>} />
+          <Route path={"/clientProgress"} element={<Sidebar> <ClientProgress /></Sidebar>} />
 
+          <Route path={"/clientContract"} element={ <Sidebar><ClientContract /></Sidebar>} />
+          <Route path={"/archived"} element={ <Sidebar><ClientArchived /></Sidebar>} />
+
+          <Route path={"/clientFullprofile"} element={ <Sidebar><ClientView /></Sidebar>} />
+          <Route path={"/clientFullprogress"} element={ <Sidebar><ClientProgressView /></Sidebar>} /> 
+
+          <Route path={"/clientSigned"} element={ <Sidebar><Signed /></Sidebar>} /> 
         </Routes>
       </Router>
     </Provider>

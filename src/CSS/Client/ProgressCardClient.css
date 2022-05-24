@@ -1,0 +1,306 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins";
+  font-style: normal;
+}
+.text-family {
+  padding-top: 10px !important;
+}
+.pd {
+  padding-top: 30px;
+}
+.pd-left {
+  padding-right: 7px !important ;
+}
+.text-family span {
+  text-decoration: underline;
+}
+.child-text {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
+.box {
+  border: 1px solid black;
+  height: 50%;
+  width: 80%;
+}
+.box p {
+  padding-left: 10px;
+  padding-bottom: 2px;
+  margin-bottom: 0px !important;
+}
+.last-child {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 10px 0px;
+  margin-bottom: 0px !important;
+}
+hr.new5 {
+  margin-top: 20px;
+  border: 2px solid #000000;
+  height: 1px !important;
+  border-radius: 34px;
+}
+.card-upper img {
+  width: 65px;
+  padding: 10px 4px;
+}
+.card-upper {
+  display: flex;
+}
+.col-7 {
+  padding-top: 10px;
+}
+.col-7 p {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 0px;
+  color: #ffff;
+}
+.card-color {
+  background: #fe8700;
+  border-radius: 16px;
+  padding: 5px;
+}
+.card-body {
+  padding: 0.5rem 0rem !important;
+}
+.padding {
+  padding: 0.5rem 10px !important;
+}
+.ads-box {
+  display: grid;
+  justify-content: center;
+  background-color: #a461d8;
+  border-radius: 8px;
+  margin-bottom: 3px;
+}
+.progressCard {
+  background: #a461d8;
+  border: 1px solid black;
+  box-sizing: border-box;
+  border-radius: 13px;
+  text-align: center;
+  color: #ffff;
+  width: 80px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  text-transform: uppercase;
+}
+.btn-signed {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 7px;
+  line-height: 6px;
+  color: #ffffff;
+  background-color: #489767;
+  border-radius: 0px;
+}
+.card-body p {
+  margin-bottom: 0px !important;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 16px;
+  color: #ffff;
+}
+.blue {
+  font-weight: 700 !important;
+  font-size: 10px !important;
+  color: #3f76e2 !important;
+}
+.card-body small {
+  padding-right: 60px;
+  font-size: 11px !important;
+  color: #ffff;
+}
+.pd-left {
+  padding-right: 0px !important ;
+}
+.btn-card {
+  height: 20px;
+  background: #ffff;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  width: 70px;
+  font-size: 6px !important;
+  padding: 2px 0px 0px 0px !important;
+}
+.btn-cardLeft {
+  background-color: #a461d8;
+  color: #ffff;
+  height: 20px;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  width: 70px;
+  font-size: 6px !important;
+  padding: 2px 0px 0px 0px !important;
+}
+.box-gray small {
+  padding-right: 0px !important;
+  font-size: 11px;
+}
+
+.btn-cardRight1 {
+  height: 20px;
+  background: black;
+  color: #fe8700;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  width: 70px;
+  font-size: 6px !important;
+  padding: 2px 0px 0px 0px !important;
+  margin-left: 40px;
+}
+.btn-cardRight00x {
+  height: 20px;
+  background: #ff0000;
+  color: #ffff;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  width: 70px;
+  font-size: 6px !important;
+  padding: 2px 0px 0px 0px !important;
+  margin-left: 40px;
+}
+.btn-cardArchive {
+  height: 20px;
+  background: #ff0000;
+  color: #ffff;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  width: 70px;
+  font-size: 6px !important;
+  padding: 2px 0px 0px 0px !important;
+  margin-left: 58px;
+  border-radius: 0px;
+}
+.box-gray {
+  background-color: #c4c4c4 !important;
+  padding-left: 30px !important;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  display: grid;
+  justify-content: flex-start;
+}
+.box-gray p {
+  font-weight: 700;
+  color: black;
+}
+.permise {
+  color: #000000 !important;
+}
+
+/* ClientProgress card */
+
+.contract {
+  background: #489767;
+  border: 1px solid black;
+  box-sizing: border-box;
+  border-radius: 13px;
+  text-align: center;
+  color: #ffff;
+  width: 110px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+
+}
+.ad-box {
+  background-color: #489767;
+  box-sizing: border-box;
+  border-radius: 7px;
+  text-align: center;
+  color: #ffff;
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+
+}
+
+/* Archived Card */
+
+.Archive001 {
+  background: #ff0000;
+  border: 1px solid black;
+  box-sizing: border-box;
+  border-radius: 13px;
+  text-align: center;
+  color: #ffff;
+  width: 110px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+
+}
+.ads-box-red{
+    background-color: #ff0000;
+    box-sizing: border-box;
+    border-radius: 7px;
+    text-align: center;
+    color: #ffff;
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+   
+}
+.ad-box-sizing{
+  box-sizing: border-box;
+  border-radius: 7px;
+  text-align: center;
+  color: #ffff;
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 30px;
+}

@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-const ToDoProfileCard = (props: any) => {
+const ToDoProfileCard = (props: any,{ notifyMoveSuccess, notifyMoveError}) => {
 
     const navigate = useNavigate();
 
@@ -99,7 +99,7 @@ const ToDoProfileCard = (props: any) => {
                         </button>
                         </div>
                         {showArchiveModal ?
-                            <ArchivedModal props={props.data} closeModal={setShowArchiveModal} /> : null
+                            <ArchivedModal props={props.data} closeModal={setShowArchiveModal}  /> : null
                         }
 </div>
                     </div>

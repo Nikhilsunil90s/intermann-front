@@ -4,6 +4,7 @@ import StarRatings from 'react-star-ratings';
 import "../CSS/CanEmpl.css";
 import ToDoProfileCard from "../components/ToDoProfileCard";
 import { API_BASE_URL } from "../config/serverApiConfig";
+import toast, { Toaster } from 'react-hot-toast';
 
 function ToDoList() {
 
@@ -41,6 +42,7 @@ console.log(selectedJob,"selectedjob")
         data: []
       }
     }
+    
     return await fetch(API_BASE_URL + `fetchAllJobs/?sector=${sector}`, {
       method: "GET",
       headers: {
@@ -52,7 +54,8 @@ console.log(selectedJob,"selectedjob")
       .then(reD => reD)
       .catch(err => err)
   }
-
+  const  notifyMoveSuccess=() =>toast.success('Successfully toasted!')
+  const    notifyMoveError=()=> toast.error("This didn't work.")
   const fetchProfiles = async () => {
     return await fetch(API_BASE_URL + "allToDoCandidats", {
       method: "GET",
@@ -287,14 +290,14 @@ console.log(selectedJob,"selectedjob")
                 onChangesecter.map((profile)=>(
                
                   <div className="col-4 mt-2 pd-left">
-                  <ToDoProfileCard data={profile} />
+                  <ToDoProfileCard data={profile} notifyMoveSuccess={notifyMoveSuccess} notifyMoveError={notifyMoveError}/>
                 </div>
                 ))
                 :
                 viewFilteredProfiles.length > 0
                 ? viewFilteredProfiles.map((filteredProfile) => (
                   <div className="col-4 mt-2 pd-left">
-                    <ToDoProfileCard data={filteredProfile} />
+                    <ToDoProfileCard data={filteredProfile}  notifyMoveSuccess={notifyMoveSuccess} notifyMoveError={notifyMoveError}/>
                   </div>
                 ))
                 :
@@ -302,7 +305,7 @@ console.log(selectedJob,"selectedjob")
               :
                   profiles.map((profile) => (
                     <div className="col-4 mt-2 pd-left">
-                      <ToDoProfileCard data={profile} />
+                      <ToDoProfileCard data={profile}  notifyMoveSuccess={notifyMoveSuccess} notifyMoveError={notifyMoveError}/>
                     </div>
                   ))  
               
@@ -314,7 +317,7 @@ console.log(selectedJob,"selectedjob")
                  filteredProfiles.length>0?
                  filteredProfiles.map((filteredProfiles)=>(
                    <div className="col-4 mt-2 pd-left">
-                   <ToDoProfileCard data={filteredProfiles} />
+                   <ToDoProfileCard data={filteredProfiles}   notifyMoveSuccess={notifyMoveSuccess} notifyMoveError={notifyMoveError}/>
                  </div>
                  ))
                : <p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>
@@ -326,7 +329,7 @@ console.log(selectedJob,"selectedjob")
               
               profiles.map((profile) => (
                     <div className="col-4 mt-2 pd-left">
-                      <ToDoProfileCard data={profile} />
+                      <ToDoProfileCard data={profile}  notifyMoveSuccess={notifyMoveSuccess} notifyMoveError={notifyMoveError}/>
                     </div>
                   ))   }
         </div>

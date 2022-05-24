@@ -86,3 +86,31 @@
     color: #ffff;
     padding: 2px 45px;
 }
+
+
+/* UserList */
+
+.btn-delete{
+    background: #D1403F;
+    border-radius: unset !important;
+    font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 29px;
+color: black;
+}
+
+
+/* Modal Add user */
+
+.btn-addUser{
+    background: #489767;
+    padding: 8px 40px;
+    font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 32px;
+line-height: 28px;
+color: #ffff;
+}
