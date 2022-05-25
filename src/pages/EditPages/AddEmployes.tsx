@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../CSS/Employes.css";
-import { ToastContainer, toast } from 'react-toastify';
+import { Toaster, toast } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 import { API_BASE_URL } from "../../config/serverApiConfig";
 
@@ -49,14 +49,6 @@ const EmployeeDataFormat = {
 
 export default function Employes() {
 
-  const notifyCandidatAddSuccess = () => toast("Candidat Added Successfully! View Candidat in To-Do List.", {
-    autoClose: 4000
-  });
-
-  const notifyCandidatAddError = () => toast("Candidat Cannot Be Added! Please Try Again.", {
-    autoClose: 4000
-  });
-
   const [data, setData] = useState(EmployeeDataFormat);
   const [jobs, setJobs] = useState([{ jobName: "", associatedSector: "", _id: "" }]);
   const [activitySectors, setActivitySectors] = useState([]);
@@ -65,6 +57,14 @@ export default function Employes() {
   const [period, setPeriod] = useState("");
   const [location, setLocation] = useState("");
   const [workDoneSample, setWorkDoneSample] = useState("");
+
+  // Notifications //
+  const notifyCandidatAddSuccess = () => toast.success("Candidat Added Successfully! View Candidat in To-Do List.");
+  const notifyCandidatAddError = () => toast.error("Candidat Cannot Be Added! Please Try Again.");
+  const notifyShortError=()=>toast.error("Phone Number is less than 10")
+  const notifyMoreError=()=>toast.error("Phone Number is More than 10")
+  const notifyEmptyError=()=>toast.error("Please enter full input fields")
+  // End   //
 
   useEffect(() => {
     if (activitySectors.length == 0) {
@@ -75,7 +75,6 @@ export default function Employes() {
         .catch(err => console.log(err))
     }
   })
-
   const fetchAllJobs = async (sector: string) => {
     return await fetch(API_BASE_URL + `fetchAllJobs/?sector=${sector}`, {
       method: "GET",
@@ -212,14 +211,41 @@ export default function Employes() {
     e.preventDefault();
     // setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [] }));
     console.log(data);
-    saveCandidatData().then(data => {
-      console.log(data)
-      if (data.status) {
+    if(data.candidatName=="" ||data.candidatEmail==""){
+      notifyEmptyError()
+      return false   
+    }
+    if(data.candidatPhone.length<10){
+      notifyShortError()
+      return false
+    }
+    if(data.candidatPhone.length>10){
+      notifyMoreError()
+      return false
+    }
+       saveCandidatData().then(data => {
+      console.log(data,"resp")
+      if (data.status===true) {
         notifyCandidatAddSuccess()
-        window.location.href = "/addCandidate"
-      } else {
+        // window.history.pushState({},"","/addCandidate")
+        e.preventDefault()
+        setData(EmployeeDataFormat)
+        window.scroll({
+              top: 0,
+              left: 0,
+              behavior: 'smooth'
+            });
+        setJobs([{ jobName: "", associatedSector: "", _id: "" }])
+        setLangauges([])
+        setLocation("")
+        setWorkDoneSample("")
+        setActivitySectors([])
+        setFetes([])
+        setPeriod("")
+      }
+       else if(data.status===false){
         notifyCandidatAddError()
-        window.location.href = "/addCandidate"
+        // window.location.href = "/addCandidate"
       }
     })
       .catch(err => {
@@ -228,6 +254,7 @@ export default function Employes() {
   };
 
   return (
+    <> <Toaster position="top-right"/>
     <div className="p-2">
       <div className="text-center py-3">
         <span className="hero-title">
@@ -235,20 +262,24 @@ export default function Employes() {
         </span>
       </div>
       <div>
-        <form className="add-form form" onSubmit={onFormSubmit}>
+        <form className="add-form form needs-validation" name="contact-form" onSubmit={onFormSubmit} noValidate>
           <div className="d-flex flex-wrap justify-content-around">
             <div className="col-md-6">
               <div className="p-2">
-                <label>Candidat Name</label>
+                <label htmlFor="validationCustom01">Candidat Name</label>
                 <input
                   type="text"
                   className="form-control"
                   placeholder="Enter candidats name"
+                  id="validationCustom01"
                   name="candidatName"
                   required
                   value={data.candidatName}
                   onChange={onFormDataChange}
                 />
+                 <div className="valid-feedback">
+      Looks good!
+    </div>
                 <span className="text-small">
                   Mandatory, please add company candidat
                 </span>
@@ -277,6 +308,7 @@ export default function Employes() {
                   required
                   onChange={onFormDataChange}
                 >
+                  <option>Select Un Secteur</option>
                   {activitySectors.map((sector) =>
                     <option value={sector.name} >{sector.sectorName}</option> // fetch from api
                   )}
@@ -647,5 +679,6 @@ export default function Employes() {
           </div>
         </form>
       </div>
-    </div>)
+    </div>
+    </>)
 }

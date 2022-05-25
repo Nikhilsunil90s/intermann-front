@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
 import "../../CSS/EditProgress.css";
-import InModal from '../../components/inProgressModal';
 function EditProgress() {
   useEffect(() => {
     window.scroll({
@@ -115,7 +114,6 @@ function EditProgress() {
                 </div>
                 <div className="col-5 text-end end-class">
                   <div>
-                    <InModal />
                     <button
                       type="button"
                       className="btn btn-in-progress"

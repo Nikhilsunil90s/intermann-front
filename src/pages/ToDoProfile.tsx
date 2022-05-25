@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "../CSS/Candidatefile.css";
 import { useLocation } from 'react-router-dom';
 import InProgressModal from "../components/Modal/InProgressModal";
-import ArchivedModal from "../components/ArchivedModal";
+import ArchivedModal from "../components/Modal/ArchivedModal";
 import { useNavigate } from "react-router-dom";
 
 function ToDoProfile() {
@@ -226,7 +226,7 @@ function ToDoProfile() {
                     Archive / Canceled
                   </button>
                   {showArchiveModal ?
-                    <ArchivedModal props={profile.candidatName} closeModal={setShowArchiveModal} /> : null
+                    <ArchivedModal props={profile.candidatName} closeModal={setShowArchiveModal} path={"/todolist"} /> : null
                   }
                   <p className="italic-font">Si embauché</p>
                 </div>

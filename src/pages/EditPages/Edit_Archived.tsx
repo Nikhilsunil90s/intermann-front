@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
 import "../../CSS/EditArchive.css";
-import OpenModal from "../../components/ArchivedModal";
 
 function EditArchive() {
   useEffect(() => {

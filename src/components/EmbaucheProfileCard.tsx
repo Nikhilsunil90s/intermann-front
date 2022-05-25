@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import "../CSS/Embauch.css";
 import StarRatings from 'react-star-ratings';
-import ArchivedModal from "./ArchivedModal";
+import ArchivedModal from "./Modal/ArchivedModal";
 import { useNavigate } from "react-router-dom";
 
-const EmbaucheProfileCard = (props: any) => {
+const EmbaucheProfileCard = (props: any,{path}) => {
 
     const navigate = useNavigate();
 
@@ -88,7 +88,7 @@ const EmbaucheProfileCard = (props: any) => {
                     </div></div>
 
                     {showArchiveModal ?
-                        <ArchivedModal props={props.props} closeModal={setShowArchiveModal}  /> : null
+                        <ArchivedModal props={props.props} closeModal={setShowArchiveModal}  path={"/embauchlist"} /> : null
                     }
 
                 </div>

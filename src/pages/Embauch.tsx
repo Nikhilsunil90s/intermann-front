@@ -34,9 +34,6 @@ function Embauch() {
       .then(reD => reD)
       .catch(err => err)
   }
- 
-  const  notifyMoveSuccess=() =>console.log("hello ")
-   const    notifyMoveError=()=> toast.error("This didn't work.")
 
   const fetchAllSectors = async () => {
     return await fetch(API_BASE_URL + "fetchAllSectors", {
@@ -183,7 +180,7 @@ function Embauch() {
 
   return (
     <>
-    <Toaster />
+    <Toaster position="top-right"/>
       <div className="container-fluid">
         <div className="row ">
           <div className="col-12 text-center">
@@ -276,14 +273,14 @@ function Embauch() {
                   onChangesecter.map((profile)=>(
                  
                     <div className="col-4 pd-left">
-                      <EmbaucheProfileCard props={profile} notifyMoveSuccess={notifyMoveSuccess} notifyMoveError={notifyMoveError}/>
+                      <EmbaucheProfileCard path={false} props={profile} />
                   </div>
                   ))
                   :
                   viewFilteredProfiles.length > 0
                   ? viewFilteredProfiles.map((filteredProfile) => (
                     <div className="col-4 pd-left">
-                     <EmbaucheProfileCard props={filteredProfile} />
+                     <EmbaucheProfileCard path={false} props={filteredProfile}   />
                     </div>
                   ))
                   :
@@ -291,7 +288,7 @@ function Embauch() {
                 :
                     profiles.map((profile) => (
                       <div className="col-4 pd-left">
-                        <EmbaucheProfileCard props={profile} />
+                        <EmbaucheProfileCard path={false} props={profile}  />
                       </div>
                     ))  
                 
@@ -303,7 +300,7 @@ function Embauch() {
                    filteredProfiles.length>0?
                    filteredProfiles.map((filteredProfiles)=>(
                      <div className="col-4 pd-left">
-                      <EmbaucheProfileCard props={filteredProfiles} />
+                      <EmbaucheProfileCard path={false} props={filteredProfiles}   />
                    </div>
                    ))
                  : <p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>
@@ -311,12 +308,13 @@ function Embauch() {
                  </>
                 }
           </>:
+          profiles.length>0?
                profiles.map((profile) => (
                 <div className="col-4 pd-left">
-                  <EmbaucheProfileCard props={profile} />
+                  <EmbaucheProfileCard path={false} props={profile}  />
                 </div>
-              ))  
-               }
+           ))  
+            :<p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>   }
         </div>
       </div>
     </>

@@ -68,7 +68,7 @@ hr.new5 {
 .card-color {
   background: #fe8700;
   border-radius: 16px;
-  padding: 5px;
+  padding: 10px;
 }
 .card-body {
   padding: 0.5rem 0rem !important;
@@ -168,7 +168,6 @@ hr.new5 {
   width: 70px;
   font-size: 6px !important;
   padding: 2px 0px 0px 0px !important;
-  margin-left: 40px;
 }
 .btn-cardRight00x {
   height: 20px;
@@ -180,7 +179,6 @@ hr.new5 {
   width: 70px;
   font-size: 6px !important;
   padding: 2px 0px 0px 0px !important;
-  margin-left: 40px;
 }
 .btn-cardArchive {
   height: 20px;

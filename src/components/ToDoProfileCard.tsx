@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import "../CSS/CanEmpl.css";
 import StarRatings from 'react-star-ratings';
-import ArchivedModal from "./ArchivedModal";
+import ArchivedModal from "./Modal/ArchivedModal";
 import InProgressModal from "./Modal/InProgressModal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-const ToDoProfileCard = (props: any,{ notifyMoveSuccess, notifyMoveError}) => {
+const ToDoProfileCard = (props: any,{path}) => {
 
     const navigate = useNavigate();
 
@@ -80,7 +80,7 @@ const ToDoProfileCard = (props: any,{ notifyMoveSuccess, notifyMoveError}) => {
                             See Full Profile
                         </button>
                         </div>
-                        <div className="col-6">
+                        <div className="col-6 text-center">
                         <button onClick={editCandidatProfile} className="btn btn-cardRight1">
                             Edit Profile
                         </button>
@@ -93,13 +93,13 @@ const ToDoProfileCard = (props: any,{ notifyMoveSuccess, notifyMoveError}) => {
                         {showInProgressModal ?
                             <InProgressModal props={props.data} closeModal={setShowInProgressModal} /> : null
                         }
-                        <div className="col-6">                      
-                        <button className="btn btn-cardRight" onClick={() => { setShowArchiveModal(true) }} data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                        <div className="col-6 text-center">                      
+                        <button className="btn btn-cardRight" onClick={() => { setShowArchiveModal(true) }} >
                             Archive
                         </button>
                         </div>
                         {showArchiveModal ?
-                            <ArchivedModal props={props.data} closeModal={setShowArchiveModal}  /> : null
+                            <ArchivedModal props={props.data} closeModal={setShowArchiveModal} path={"/todolist"} /> : null
                         }
 </div>
                     </div>
