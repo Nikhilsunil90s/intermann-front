@@ -6,9 +6,7 @@ import { connect, useDispatch, useSelector, Connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import { loginUserAction } from "../redux/actions/userActions";
-import Dashboard from "./Dashboard";
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { Toaster, toast } from 'react-hot-toast';
 
 function Login() {
   const navigate = useNavigate();
@@ -21,9 +19,6 @@ function Login() {
   const notifyLogin = () => toast("Welcome To Intermann!",);
   const notifyLoginError = () => toast("Invalid Email or Password! Please Try Again.");
   const notifyMessage = () => toast("Please Sign In!", {
-    autoClose: 1000,
-    closeOnClick: true,
-    toastId: "custom-id-yes"
   });
 
   useEffect(() => {
@@ -163,16 +158,8 @@ function Login() {
             </div>
           </div>
         </form>
-        <ToastContainer
+        <Toaster
           position="top-right"
-          autoClose={10000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
         />
       </section>
     </main>

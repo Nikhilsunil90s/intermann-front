@@ -1,31 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useRef} from "react";
 import { Link } from "react-router-dom";
 import "../CSS/Dashboard.css";
-import { API_BASE_URL } from '../config/serverApiConfig';
-
-
+import { API_BASE_URL } from "../config/serverApiConfig";
 function Dashboard() {
-
   const [toDoCount, setToDoCount] = useState(0);
   const [inProgressCount, setInProgressCount] = useState(0);
   const [archivedCount, setArchivedCount] = useState(0);
-
-
+  const [loader, setLoader] = useState(false);
   const fetchCounts = async () => {
     return await fetch(API_BASE_URL + "getCounts", {
       method: "GET",
       headers: {
-        "Accept": 'application/json',
-        'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
     })
-      .then(resd => resd.json())
-      .then(d => d)
-      .catch(err => {
-        console.log(err)
-      })
-  }
+      .then((resd) => resd.json())
+      .then((d) => d)
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     window.scroll({
@@ -39,8 +35,9 @@ function Dashboard() {
         setToDoCount(data.toDoCount);
         setInProgressCount(data.inProgressCount);
         setArchivedCount(data.archivedCount);
+        setLoader(true);
       })
-      .catch(err => err)
+      .catch((err) => err);
   });
 
   return (
@@ -59,7 +56,17 @@ function Dashboard() {
                     <span className="px-2">
                       <img src={require("../images/Icon.svg").default} />
                     </span>
-                    En sommeil / To do<span> {toDoCount} </span>
+                    En sommeil / To do
+                    <span>
+                  {loader?
+                   (<>  {toDoCount}</> )
+                  :
+                 ( <>
+           <div className="load"></div>
+                  </>)
+}
+
+                    </span>
                   </li>
                 </Link>
                 <Link to="/embauchlist">
@@ -67,7 +74,7 @@ function Dashboard() {
                     <span className="px-2">
                       <img src={require("../images/Icon1.svg").default} />
                     </span>
-                    Embauché / Work with us<span> {inProgressCount}</span>
+                    Embauché / Work with us<span> {loader? (<>{inProgressCount}</>):(<><div className="load"></div></>)}</span>
                   </li>
                 </Link>
                 <Link to="/archivedlist">
@@ -75,7 +82,7 @@ function Dashboard() {
                     <span className="px-2">
                       <img src={require("../images/multiply.svg").default} />
                     </span>
-                    Archivé / Archived<span> {archivedCount}</span>
+                    Archivé / Archived<span> {loader? (<>{archivedCount}</>):(<><div className="load"></div></>)}</span>
                   </li>
                 </Link>
               </ul>
@@ -90,7 +97,6 @@ function Dashboard() {
               <ul className="list-group list-group-flush">
                 <Link to="#">
                   <li className="list-group-item">
-                    {" "}
                     <span className="px-2">
                       <img src={require("../images/Icon.svg").default} />
                     </span>
@@ -108,7 +114,6 @@ function Dashboard() {
                 </Link>
                 <Link to="#">
                   <li className="list-group-item">
-                    {" "}
                     <span className="px-2">
                       <img src={require("../images/Icon2.svg").default} />
                     </span>
@@ -117,7 +122,6 @@ function Dashboard() {
                 </Link>
                 <Link to="#">
                   <li className="list-group-item">
-                    {" "}
                     <span className="px-2">
                       <img src={require("../images/multiply.svg").default} />
                     </span>
@@ -129,6 +133,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
+     
     </>
   );
 }

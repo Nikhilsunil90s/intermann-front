@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../CSS/Employes.css";
 import { Toaster, toast } from 'react-hot-toast';
-import 'react-toastify/dist/ReactToastify.css';
 import { API_BASE_URL } from "../../config/serverApiConfig";
 
 const EmployeeDataFormat = {

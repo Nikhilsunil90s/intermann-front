@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Toaster, toast } from 'react-hot-toast';
+
 import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../../config/serverApiConfig';
 
@@ -8,14 +8,14 @@ import { API_BASE_URL } from '../../config/serverApiConfig';
 function AddJobModal({ props, closeModal }) {
 
   const notifyJobAddSuccess = () => toast("Job Added Successfully! You can Add More Jobs to this Sector", {
-    autoClose: 2000
+    
   });
   const notifyJobAddError = () => toast("Job Already Exists! Please Add another.", {
-    autoClose: 3000
+ 
   });
 
   const notifyGeneralError = () => toast("Job Add Failed! Please Try Again.", {
-    autoClose: 2000
+    
   });
 
 

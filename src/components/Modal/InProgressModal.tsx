@@ -101,8 +101,8 @@ function InProgressModal({ props, closeModal }) {
               ></button>
             </div>
             <h2 className="modal-title pRight" id="staticBackdropLabel">
-              Move {props.candidatName} to{" "}
-              <span className="col-spl">IN-PROGRESS</span>{" "}
+              Move {props.candidatName} to
+              <span className="col-spl">IN-PROGRESS</span>
             </h2>
             <form
               onSubmit={(e) => {
@@ -112,7 +112,7 @@ function InProgressModal({ props, closeModal }) {
             >
               <div className="modal-body text-start">
                 <span>
-                  {" "}
+                
                   Qui est le client qui a embauché {props.candidatName} ?
                 </span>
                 <select
@@ -127,13 +127,13 @@ function InProgressModal({ props, closeModal }) {
                   <option value="3">Client Three</option>
                 </select>
                 <div className="mt-3">
-                  <span className="note-spl">NOTE: </span>{" "}
+                  <span className="note-spl">NOTE: </span>
                   <span>
-                    {" "}
+                    
                     This action will automatically move this Candidat to status
-                    -{" "}
-                  </span>{" "}
-                  <span className="col-spl">In Progress</span>{" "}
+                    -
+                  </span>
+                  <span className="col-spl">In Progress</span>
                 </div>
                 <div>
                   <div className="col-12 pt-3">
@@ -152,7 +152,7 @@ function InProgressModal({ props, closeModal }) {
                 </div>
                 <div className="col-12 pt-2 d-grid">
                   <label className="salaire">
-                    Salaire Net de {props.candidatName} / {props.candidatName}{" "}
+                    Salaire Net de {props.candidatName} / {props.candidatName}
                     Net Salary:
                   </label>
                   <div>

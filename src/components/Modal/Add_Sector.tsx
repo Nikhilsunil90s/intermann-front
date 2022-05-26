@@ -1,18 +1,17 @@
 import React from 'react';
 import { useState, useEffect } from "react";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {  toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../../config/serverApiConfig';
 
 function SectorModal() {
 
   const notifySectorAddSuccess = () => toast("Sector Added Successfully!", {
-    autoClose: 1000
+    
   });
 
   const notifySectorAddFailure = () => toast("Sector Already Exists", {
-    autoClose: 1000
+   
   })
 
   const navigate = useNavigate();

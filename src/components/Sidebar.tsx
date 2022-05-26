@@ -4,8 +4,7 @@ import '../CSS/Sidebar.css';
 import Header from "./Header";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Toaster, toast } from 'react-hot-toast';
 import { logout } from '../redux/actions/userActions'
 function Sidebar(props: any) {
   const dispatch = useDispatch();
@@ -60,7 +59,7 @@ function Sidebar(props: any) {
                         <ul>  <li>
                     <Link to="/addNewSector" className="nav-link" aria-current="page">
                       <span className="pe-2">
-                        <img src={require("../images/Shape.svg").default} />
+                        <img src={require("../images/addsector.svg").default} />
                       </span>
                       Add New Sector
                     </Link>
@@ -68,7 +67,7 @@ function Sidebar(props: any) {
                   <li>
                     <Link to="/userList" className="nav-link" aria-current="page">
                       <span className="pe-2">
-                        <img src={require("../images/Shape.svg").default} />
+                        <img src={require("../images/adduser.svg").default} />
                       </span>
                      User List
                     </Link>
@@ -147,16 +146,8 @@ function Sidebar(props: any) {
                       <img className="logoutImage" src={require("../images/logout.svg").default} />
                     </span>
                     Log Out
-                    <ToastContainer
+                    <Toaster
                       position="top-right"
-                      autoClose={50000}
-                      hideProgressBar={false}
-                      newestOnTop={false}
-                      closeOnClick
-                      rtl={false}
-                      pauseOnFocusLoss
-                      draggable
-                      pauseOnHover
                     />
                   </Link>
                 </li>

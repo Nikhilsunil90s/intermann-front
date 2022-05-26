@@ -26,6 +26,7 @@ import ClientArchived from "./pages/ClientPages/ClientArchived";
 import ClientView from "./pages/ClientPages/ClientSeePage"
 import ClientProgressView from "./pages/ClientPages/ClientProgressFullview";
 import Signed from "./pages/ClientPages/SignedContract";
+import RenameSector from "./pages/EditPages/RenameSector";
 
 function App() {
   return (
@@ -65,6 +66,7 @@ function App() {
           <Route path={"/clientFullprogress"} element={ <Sidebar><ClientProgressView /></Sidebar>} /> 
 
           <Route path={"/clientSigned"} element={ <Sidebar><Signed /></Sidebar>} /> 
+          <Route path={"/joblist"} element={ <Sidebar><RenameSector /></Sidebar>} /> 
         </Routes>
       </Router>
     </Provider>

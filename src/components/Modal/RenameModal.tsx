@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {  toast } from 'react-hot-toast';
 import { API_BASE_URL } from '../../config/serverApiConfig';
 
 function RenameModal({ props, closeModal }) {
@@ -8,14 +7,14 @@ function RenameModal({ props, closeModal }) {
     const [newSectorName, setNewSectorName] = useState("");
 
     const notifySectorRenameSuccess = () => toast("Sector Renamed Successfully! You can Add More Jobs to this Sector", {
-        autoClose: 2000
+      
     });
     const notifySectorRenameError = () => toast("Cannot Be Renamed! Please Try Again.", {
-        autoClose: 3000
+      
     });
 
     const notifyGeneralError = () => toast("Sector Rename Failed! Please Try Again.", {
-        autoClose: 2000
+      
     });
 
     const handleSectorNameChange = (e: any) => {
@@ -56,7 +55,7 @@ function RenameModal({ props, closeModal }) {
     }
 
     return (<>
-        <div className="modal fade" id="renameModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal d-block"   style={{ backgroundColor: "#00000052" }} aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">

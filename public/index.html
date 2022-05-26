@@ -30,7 +30,6 @@
     <!-- BOOTSTRAP -->
    <!-- Bootstrap datepicker CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"/>
-
 <!-- Bootstrap datepicker JS-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
@@ -39,6 +38,19 @@
   <body>
     <div id="root"></div>
   </body>
+  <script>  
+  
+    LottieInteractivity.create({
+      mode: 'scroll',
+      player: '#firstLottie',
+      actions: [
+          {
+            visibility: [0,1],
+            type: 'seek',
+            frames: [0, 480],
+          },
+        ],
+    });</script>
   <script type="text/javascript">
     $(document).ready(function () {
         $('#datepicker').datepicker(); 
