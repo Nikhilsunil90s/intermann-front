@@ -210,7 +210,7 @@ export default function Employes() {
     e.preventDefault();
     // setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [] }));
     console.log(data);
-    if(data.candidatName=="" ||data.candidatEmail==""){
+    if(data.candidatName==""){
       notifyEmptyError()
       return false   
     }
@@ -438,7 +438,7 @@ export default function Employes() {
               <div className="p-2">
                 <label>Candidate Email</label>
                 <input
-                  type="email"
+                  type="text"
                   className="form-control"
                   placeholder="Enter email"
                   name="candidatEmail"

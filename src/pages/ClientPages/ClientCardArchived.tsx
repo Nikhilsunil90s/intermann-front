@@ -1,7 +1,7 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
 import {Link} from 'react-router-dom'
-import "../../CSS/Client/ProgressCardClient.css";
+import "../../CSS/Client/CardClient.css";
 
 function ClientCardArchived(){
     return(<>
@@ -72,16 +72,25 @@ function ClientCardArchived(){
                     <p>Reason archived : &#10100;reason_Text-Area&#10101; 
                          </p>
                     </div>
-                 
-                    <Link to="/embauchprofile" className="btn btn-card">
+                 <div className="col-12  mt-2">
+                     <div className="row">
+                         <div className="col-6 text-center">
+                         <Link to="/embauchprofile" className="btn btn-card">
                         See Full Profile
                     </Link>
-                    <Link to="#" className="btn btn-cardRight1">
+                         </div>
+                         <div className="col-6 text-center">
+                         <Link to="#" className="btn btn-cardRight1">
                         Edit Profile
                     </Link>
-                    <Link to="#" className="btn btn-cardArchive">
+                         </div>
+                         <div className="col-12 text-center">
+                         <Link to="#" className="btn btn-cardArchive">
                         Archive
                     </Link>
+                         </div>
+                     </div>
+                 </div>         
                     </div>
                 </div>
             </div>

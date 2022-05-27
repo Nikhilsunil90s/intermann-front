@@ -5,9 +5,17 @@ import "../CSS/CanEmpl.css";
 import ToDoProfileCard from "../components/ToDoProfileCard";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import  { Toaster } from 'react-hot-toast';
+import Item from '../components/Loader/loader'
 
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      Item: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+    }
+  }
+}
 function ToDoList() {
-
+  
   const [profiles, setProfiles] = useState([]);
   const [filteredProfiles, setFilteredProfiles] = useState([]);
   const [onChangesecter, setChange] = useState([]);
@@ -21,7 +29,11 @@ function ToDoList() {
   const [sectorField,setSectorField]=useState([])
   const [showCard,setshowCard]=useState(false)
   const [allProfile,setallProfile]=useState(false)
-
+  const [jobFilterdata,setjobFilterdata]=useState([])
+  const [load ,setload]=useState(false)
+  setTimeout(function(){
+   setload(true)
+  }, 2000);
   const fetchAllSectors = async () => {
     return await fetch(API_BASE_URL + "fetchAllSectors", {
       method: "GET",
@@ -96,6 +108,7 @@ console.log(selectedJob,"selectedjob")
       return profile.candidatActivitySector == sectorField
     })
     setChange([...onChangesecter]);
+    setjobFilterdata([...onChangesecter])
     setDefault(true)
     console.log(onChangesecter,"hellooo")
     console.log(sectorField,"field")
@@ -121,6 +134,7 @@ console.log(selectedJob,"selectedjob")
     })
     console.log(filteredProfiles,"dfgdfdf");
     setFilteredProfiles([...filteredProfiles]);
+    setjobFilterdata([...filteredProfiles])
     setDefault(true);
     setshowCard(false)
   }
@@ -131,6 +145,7 @@ console.log(selectedJob,"selectedjob")
     } else {
       removeLanguages(e.target.value);
       setDefault(false);
+
     }
   }
 
@@ -143,8 +158,37 @@ console.log(selectedJob,"selectedjob")
   }
 
   useEffect(() => {
-    console.log(selectedLanguages, selectedJob, selectedSector);
-    if (selectedLanguages.length > 0) {
+    console.log(selectedLanguages, selectedJob, selectedSector,"SABIR");
+       
+    if (selectedJob.length > 0) {
+      let result = [];
+      jobFilterdata.map((profile) => {
+        selectedLanguages.map((selectedLanguage) => {
+          if (profile.candidatLanguages.includes(selectedLanguage) && !(result.includes(profile))) {
+            result.push(profile)    
+          }    
+         
+        })
+      })
+      console.log(result);
+      setFilteredProfiles([...result]);
+      setDefault(true)
+    }
+   else if (selectedSector.length > 0) {
+      let result = [];
+      onChangesecter.map((profile) => {
+        selectedLanguages.map((selectedLanguage) => {
+          if (profile.candidatLanguages.includes(selectedLanguage) && !(result.includes(profile))) {
+            result.push(profile)    
+          }    
+         
+        })
+      })
+      console.log(result);
+      setFilteredProfiles([...result]);
+      setDefault(true)
+    }
+   else if (selectedLanguages.length > 0) {
       let result = [];
       profiles.map((profile) => {
         selectedLanguages.map((selectedLanguage) => {
@@ -157,19 +201,22 @@ console.log(selectedJob,"selectedjob")
       setFilteredProfiles([...result]);
       setDefault(true);
     }
-
   }, [selectedLanguages])
 
   useEffect(() => {
     setViewFilteredProfiles([...filteredProfiles]);
   }, [filteredProfiles])
-
+  useEffect(() => {
+    fetchProfiles();
+  }, []);
   useEffect(() => {
     if (profiles.length == 0) {
+      setload(true)
       fetchProfiles()
         .then(data => {
           console.log(data)
           setProfiles([...data])
+          setload(false)
         })
         .catch(err => {
           console.log(err)
@@ -185,7 +232,7 @@ console.log(selectedJob,"selectedjob")
         })
     }
   }, [jobs])
-  console.log(onChangesecter,"value")
+  console.log(viewFilteredProfiles,"value")
   return (
     <>
     <Toaster position="top-right"/>
@@ -278,7 +325,7 @@ console.log(selectedJob,"selectedjob")
             </div>
           </div>
           <hr className="new5" />
-        {allProfile?  
+        {defaultCard?  
         <>
               {
               showCard?
@@ -319,7 +366,15 @@ console.log(selectedJob,"selectedjob")
                    <ToDoProfileCard data={filteredProfiles}   />
                  </div>
                  ))
-               : <p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>
+               : 
+               jobFilterdata.length>0?
+               jobFilterdata.map((jobFilterdata)=>(
+                <div className="col-4 mt-2 pd-left">
+                <ToDoProfileCard data={jobFilterdata}   />
+              </div>
+              ))
+              :
+               <p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>
                }
                </>
               }
@@ -331,8 +386,21 @@ console.log(selectedJob,"selectedjob")
                       <ToDoProfileCard data={profile}  />
                     </div>
                   ))  
-                :<p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>
-                 }
+                :
+                
+                <>{
+                  load?
+                  <div className="col-12">
+                  <div className="row d-flex justify-content-center">
+                <Item /> 
+               </div>
+                </div>
+                  :
+                  <p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>
+                }
+                
+                </>
+               }
         </div>
       </div>
     </>

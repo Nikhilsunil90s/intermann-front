@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import StarRatings from "react-star-ratings";
-import "../../CSS/Client/ProgressCardClient.css";
+import "../../CSS/Client/CardClient.css";
 
 function ClientContractCard() {
   return (
@@ -131,16 +131,28 @@ function ClientContractCard() {
                 </div>
               </p>
             </div>
-
-            <Link to="/clientSigned" className="btn btn-card">
+   <div className="col-12 mt-2">
+     <div className="row">
+       <div className="col-6 text-center">
+       <Link to="/clientSigned" className="btn btn-card">
               See Full Profile
             </Link>
-            <Link to="#" className="btn btn-cardRight1">
+       </div>
+       <div className="col-6 text-center">
+       <Link to="#" className="btn btn-cardRight1">
               Edit Profile
             </Link>
-            <Link to="#" className="btn btn-cardRight">
+       </div>
+       <div className="col-12 text-center">
+       <Link to="#" className="btn btn-cardRight">
               Archive
             </Link>
+       </div>
+     </div>
+   </div>
+          
+           
+           
           </div>
         </div>
       </div>

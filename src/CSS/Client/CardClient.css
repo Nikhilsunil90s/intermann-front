@@ -132,7 +132,7 @@ hr.new5 {
 .pd-left {
   padding-right: 0px !important ;
 }
-.btn-card {
+.btn-SEE{
   height: 20px;
   background: #ffff;
   font-weight: 700;
@@ -141,8 +141,9 @@ hr.new5 {
   width: 70px;
   font-size: 6px !important;
   padding: 2px 0px 0px 0px !important;
+  border-radius: 0PX;
 }
-.btn-cardLeft {
+.btn-MOVE {
   background-color: #a461d8;
   color: #ffff;
   height: 20px;
@@ -152,13 +153,14 @@ hr.new5 {
   width: 70px;
   font-size: 6px !important;
   padding: 2px 0px 0px 0px !important;
+  border-radius: 0PX;
 }
 .box-gray small {
   padding-right: 0px !important;
   font-size: 11px;
 }
 
-.btn-cardRight1 {
+.btn-EDIT {
   height: 20px;
   background: black;
   color: #fe8700;
@@ -168,8 +170,9 @@ hr.new5 {
   width: 70px;
   font-size: 6px !important;
   padding: 2px 0px 0px 0px !important;
+  border-radius: 0PX;
 }
-.btn-cardRight00x {
+.btn-ARCHIVE {
   height: 20px;
   background: #ff0000;
   color: #ffff;
@@ -179,6 +182,7 @@ hr.new5 {
   width: 70px;
   font-size: 6px !important;
   padding: 2px 0px 0px 0px !important;
+  border-radius: 0PX;
 }
 .btn-cardArchive {
   height: 20px;
@@ -190,7 +194,6 @@ hr.new5 {
   width: 70px;
   font-size: 6px !important;
   padding: 2px 0px 0px 0px !important;
-  margin-left: 58px;
   border-radius: 0px;
 }
 .box-gray {

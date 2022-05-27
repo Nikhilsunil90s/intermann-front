@@ -68,18 +68,32 @@ const ClientToDoCard = (props: any) => {
                     <div>
                         <input type="checkbox" /> Permis
                     </div>
-                    <Link to="/clientFullprofile" className="btn btn-card">
+                    <div className="col-12">
+                        <div className="row">
+                            <div className="col-6 text-center">
+                            <Link to="/clientFullprofile" className="btn btn-SEE">
                         See Full Profile
                     </Link>
-                    <Link to="/editTodo" className="btn btn-cardRight1">
+                    </div>
+                    <div className="col-6">
+                    <Link to="/editTodo" className="btn btn-EDIT">
                         Edit Profile
                     </Link>
-                    <Link to="/editProgress" className="btn btn-cardLeft">
+                            </div>
+                            <div className="col-6 text-center">
+                            <Link to="/editProgress" className="btn btn-MOVE ">
                         Move to in Progress
                     </Link>
-                    <Link to="/archive" className="btn btn-cardRight00x">
+                            </div>
+                        
+                  <div className="col-6 ">
+                  <Link to="/archive" className="btn btn-ARCHIVE">
                         Archive
                     </Link>
+                  </div>
+                  </div>
+                    </div>
+                  
                 </div>
             </div>
         </>

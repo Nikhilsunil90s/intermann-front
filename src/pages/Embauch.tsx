@@ -4,6 +4,8 @@ import "../CSS/Embauch.css";
 import EmbaucheProfileCard from "../components/EmbaucheProfileCard";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import toast, { Toaster } from 'react-hot-toast';
+import Item from '../components/Loader/loader'
+import Loader from "../components/Loader/loader";
 
 function Embauch() {
 
@@ -19,7 +21,11 @@ function Embauch() {
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [sectorField,setSectorField]=useState([])
   const [showCard,setshowCard]=useState(false)
-
+  const [jobFilterdata,setjobFilterdata]=useState([])
+  const [load ,setload]=useState(true)
+ setTimeout(function(){
+   setload(false)
+  }, 2000);
 
   const fetchProfiles = async () => {
     return await fetch(API_BASE_URL + "allInProgressCandidats", {
@@ -75,9 +81,8 @@ function Embauch() {
       return profile.candidatActivitySector == sectorField
     })
     setChange([...onChangesecter]);
+    setjobFilterdata([...onChangesecter])
     setDefault(true)
-    console.log(onChangesecter,"hellooo")
-    console.log(sectorField,"field")
     setshowCard(true)
     }
     fetchAllJobs(e.target.value).then(data => {
@@ -101,6 +106,7 @@ function Embauch() {
     })
     console.log(filteredProfiles,"dfgdfdf");
     setFilteredProfiles([...filteredProfiles]);
+    setjobFilterdata([...filteredProfiles])
     setDefault(true);
     setshowCard(false)
   }
@@ -121,7 +127,22 @@ function Embauch() {
   }
   useEffect(() => {
     console.log(selectedLanguages, selectedJob, selectedSector);
-    if (selectedLanguages.length > 0) {
+    if (selectedSector.length > 0) {
+      console.log(filteredProfiles,"hey")
+      let result = [];
+      jobFilterdata.map((profile) => {
+        selectedLanguages.map((selectedLanguage) => {
+          if (profile.candidatLanguages.includes(selectedLanguage) && !(result.includes(profile))) {
+            result.push(profile)    
+          }    
+         
+        })
+      })
+      console.log(result);
+      setFilteredProfiles([...result]);
+      setDefault(true)
+    }
+   else if (selectedLanguages.length > 0) {
       let result = [];
       profiles.map((profile) => {
         selectedLanguages.map((selectedLanguage) => {
@@ -134,7 +155,6 @@ function Embauch() {
       setFilteredProfiles([...result]);
       setDefault(true);
     }
-
   }, [selectedLanguages])
 
   useEffect(() => {
@@ -148,10 +168,12 @@ function Embauch() {
 
   useEffect(() => {
     if (profiles.length == 0) {
+      setload(true)
       fetchProfiles()
         .then(data => {
           console.log(data)
           setProfiles([...data])
+          setload(false)
         })
         .catch(err => {
           console.log(err)
@@ -175,8 +197,9 @@ function Embauch() {
   //     behavior: 'smooth'
   //   });
   // })
-
-
+useEffect(()=>{
+ 
+},[])
 
   return (
     <>
@@ -297,14 +320,22 @@ function Embauch() {
                 :
                 <>
                 {
-                   filteredProfiles.length>0?
-                   filteredProfiles.map((filteredProfiles)=>(
-                     <div className="col-4 pd-left">
-                      <EmbaucheProfileCard path={false} props={filteredProfiles}   />
-                   </div>
-                   ))
-                 : <p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>
-                 }
+                 filteredProfiles.length>0?
+                 filteredProfiles.map((profile)=>(
+                   <div className="col-4 mt-2 pd-left">
+                   <EmbaucheProfileCard  path={false} props={profile} />
+                 </div>
+                 ))
+               : 
+               jobFilterdata.length>0?
+               jobFilterdata.map((profile)=>(
+                <div className="col-4 mt-2 pd-left">
+                <EmbaucheProfileCard path={false} props={profile}  />
+              </div>
+              ))
+              :
+               <p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>
+               }
                  </>
                 }
           </>:
@@ -314,7 +345,18 @@ function Embauch() {
                   <EmbaucheProfileCard path={false} props={profile}  />
                 </div>
            ))  
-            :<p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>   }
+            :
+            <>{
+              load?
+              <div className="col-12">
+              <div className="row d-flex justify-content-center">
+            <Item /> 
+           </div>
+            </div>
+              :
+              <p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>
+            }
+            </> }
         </div>
       </div>
     </>

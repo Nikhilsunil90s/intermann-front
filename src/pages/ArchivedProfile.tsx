@@ -36,6 +36,8 @@ const ArchivedProfile = () => {
             </div>
           </div>
           <div className="col-6  text-end ">
+            <Link to="/">
+            </Link>
             <button className="btn btn-edit-bgb">
               <img src={require("../images/Edit.svg").default} />
               Edit Profile

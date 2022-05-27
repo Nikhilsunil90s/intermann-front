@@ -78,7 +78,6 @@ function RenameSector() {
                                         } }>
                                     Rename
                                   </button>
-
                                   {renameModal ? (
                       <RenameModal
                         props={renameModalData}

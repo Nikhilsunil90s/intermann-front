@@ -3,6 +3,7 @@ import StarRatings from "react-star-ratings";
 import "../CSS/Canceled.css";
 import ArchivedProfileCard from "../components/ArchivedProfileCard";
 import { API_BASE_URL } from "../config/serverApiConfig";
+import Item from '../components/Loader/loader'
 
 function ArchivedList() {
   const [sectors, setSectors] = useState([]);
@@ -17,8 +18,12 @@ function ArchivedList() {
   const [sectorField, setSectorField] = useState([]);
   const [showCard, setshowCard] = useState(false);
   const [selectedSector, setSelectedSector] = useState("");
-  
-
+  const [FilterLanguage,setFilterLanguage]=useState()
+  const [jobFilterdata,setjobFilterdata]=useState([])
+  const [load ,setload]=useState(true)
+  setTimeout(function(){
+    setload(false)
+   }, 2000);
   const fetchProfiles = async () => {
     return await fetch(API_BASE_URL + "allArchivedCandidats", {
       method: "GET",
@@ -95,6 +100,7 @@ function ArchivedList() {
     });
     console.log(filteredProfiles, "dfgdfdf");
     setFilteredProfiles([...filteredProfiles]);
+    setjobFilterdata([...filteredProfiles])
     setDefaultCard(true);
     setshowCard(false);
   };
@@ -115,7 +121,36 @@ function ArchivedList() {
   }
   useEffect(() => {
     console.log(selectedLanguages, selectedJob, selectedSector);
-    if (selectedLanguages.length > 0) {
+   
+    if (selectedJob.length > 0) {
+      let result = [];
+      jobFilterdata.map((profile) => {
+        selectedLanguages.map((selectedLanguage) => {
+          if (profile.candidatLanguages.includes(selectedLanguage) && !(result.includes(profile))) {
+            result.push(profile)    
+          }    
+         
+        })
+      })
+      console.log(result);
+      setFilteredProfiles([...result]);
+      setDefaultCard(true)
+    }
+   else if (selectedSector.length > 0) {
+      let result = [];
+      onChangesecter.map((profile) => {
+        selectedLanguages.map((selectedLanguage) => {
+          if (profile.candidatLanguages.includes(selectedLanguage) && !(result.includes(profile))) {
+            result.push(profile)    
+          }    
+         
+        })
+      })
+      console.log(result);
+      setFilteredProfiles([...result]);
+      setDefaultCard(true)
+    }
+   else if (selectedLanguages.length > 0) {
       let result = [];
       profiles.map((profile) => {
         selectedLanguages.map((selectedLanguage) => {
@@ -128,15 +163,16 @@ function ArchivedList() {
       setFilteredProfiles([...result]);
       setDefaultCard(true);
     }
-
   }, [selectedLanguages])
 
   useEffect(() => {
     if (profiles.length == 0) {
+      setload(true)
       fetchProfiles()
         .then((data) => {
           console.log(data);
           // setProfiles([...data])
+          setload(false)
         })
         .catch((err) => {
           console.log(err);
@@ -162,6 +198,7 @@ function ArchivedList() {
   //     behavior: 'smooth'
   //   });
   // })
+  console.log(filteredProfiles,"filter")
   return (
     <>
       <div className="container-fluid">
@@ -256,7 +293,7 @@ function ArchivedList() {
             <>
               {showCard ? (
                 <>
-                  {" "}
+                
                   {defaultCard ? (
                     onChangesecter.length > 0 ? (
                       onChangesecter.map((profile) => (
@@ -285,27 +322,43 @@ function ArchivedList() {
                 </>
               ) : (
                 <>
-                  {filteredProfiles.length > 0 ? (
-                    filteredProfiles.map((filteredProfiles) => (
-                      <div className="col-4 pd-left">
-                        <ArchivedProfileCard props={filteredProfiles} />
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-center">
-                      No Profiles in Candidat To-Do! Please Add New Candidats.
-                    </p>
-                  )}
+                     {
+                 filteredProfiles.length>0?
+                 filteredProfiles.map((filteredProfiles)=>(
+                   <div className="col-4 mt-2 pd-left">
+                   <ArchivedProfileCard data={filteredProfiles}   />
+                 </div>
+                 ))
+               : 
+               jobFilterdata.length>0?
+               jobFilterdata.map((jobFilterdata)=>(
+                <div className="col-4 mt-2 pd-left">
+                <ArchivedProfileCard data={jobFilterdata}   />
+              </div>
+              ))
+              :
+               <p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>
+               }
                 </>
               )}
             </>
-          ) : (
+          ) : 
+            profiles.length>0?
             profiles.map((profile) => (
               <div className="col-4 pd-left">
                 <ArchivedProfileCard props={profile} />
               </div>
             ))
-          )}
+          
+          :
+          load?
+          <div className="col-12">
+          <div className="row  d-flex justify-content-center">  
+        <Item /> 
+       </div>
+        </div>
+        : <p className="text-center">No Profiles in Candidat To-Do! Pl</p>
+        }
         </div>
       </div>
     </>
