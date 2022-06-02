@@ -20,10 +20,18 @@ function ArchivedList() {
   const [selectedSector, setSelectedSector] = useState("");
   const [FilterLanguage,setFilterLanguage]=useState()
   const [jobFilterdata,setjobFilterdata]=useState([])
-  const [load ,setload]=useState(true)
+  const [Loader, setLoader] = useState(false);
+  const [filterData, setFilterData] = useState([])
+  const [status, setStatus] = useState(Boolean)
+  const [allProfile, setallProfile] = useState(true);
+
   setTimeout(function(){
-    setload(false)
+    setLoader(false)
    }, 2000);
+   useEffect(() => {
+    filterFunction()
+  }
+    , [selectedLanguages, selectedJob, selectedSector]);
   const fetchProfiles = async () => {
     return await fetch(API_BASE_URL + "allArchivedCandidats", {
       method: "GET",
@@ -34,7 +42,7 @@ function ArchivedList() {
       },
     })
       .then((resD) => resD.json())
-      .then((reD) => setProfiles(reD))
+      .then((reD) => reD)
       .catch((err) => err);
   };
 
@@ -53,21 +61,15 @@ function ArchivedList() {
   };
   const handleSectorChange = (e: any) => {
     console.log(e.target.value);
-    setSectorField(e.target.value);
+    setSelectedSector(e.target.value);
     if (e.target.value === "Select Un Secteur") {
-      return setDefaultCard(false);
-    } else if (e.target.name === "candidatActivitySector") {
-      let sectorField = e.target.value;
-      setSectorField(sectorField);
-      const onChangesecter = profiles.filter((profile) => {
-        return profile.candidatActivitySector == sectorField;
-      });
-      setChange([...onChangesecter]);
-      setDefaultCard(true);
-      console.log(onChangesecter, "hellooo");
-      console.log(sectorField, "field");
-      setshowCard(true);
+      return false
     }
+    else if (e.target.name === "candidatActivitySector") {
+      let sectorField = e.target.value;
+      setSectorField(sectorField)
+    }
+
     fetchAllJobs(e.target.value)
       .then((data) => {
         console.log(data);
@@ -92,17 +94,13 @@ function ArchivedList() {
   };
 
   const handleJobFilter = (job: any) => {
-    console.log(job.jobName, "jobname");
+    // arr=[]
     let jobFilter = job.jobName;
-    setSelectedSector(jobFilter);
-    const filteredProfiles = profiles.filter((profile) => {
-      return profile.candidatJob == jobFilter;
-    });
-    console.log(filteredProfiles, "dfgdfdf");
-    setFilteredProfiles([...filteredProfiles]);
-    setjobFilterdata([...filteredProfiles])
-    setDefaultCard(true);
-    setshowCard(false);
+    setSelectedJob(jobFilter);
+    // if(!selectedJob.includes(job.jobName)){
+    //   arr.push(job.jobName)
+    // }
+    // setSelectedJob(arr)
   };
   const getSelectedLanguage = (e: any) => {
     if (e.target.checked) {
@@ -119,77 +117,130 @@ function ArchivedList() {
   const removeLanguages = (lang: string) => {
     setSelectedLanguages(selectedLanguages.filter((l) => l !== lang));
   }
-  useEffect(() => {
-    console.log(selectedLanguages, selectedJob, selectedSector);
-   
-    if (selectedJob.length > 0) {
-      let result = [];
-      jobFilterdata.map((profile) => {
-        selectedLanguages.map((selectedLanguage) => {
-          if (profile.candidatLanguages.includes(selectedLanguage) && !(result.includes(profile))) {
-            result.push(profile)    
-          }    
-         
-        })
-      })
-      console.log(result);
-      setFilteredProfiles([...result]);
-      setDefaultCard(true)
-    }
-   else if (selectedSector.length > 0) {
-      let result = [];
-      onChangesecter.map((profile) => {
-        selectedLanguages.map((selectedLanguage) => {
-          if (profile.candidatLanguages.includes(selectedLanguage) && !(result.includes(profile))) {
-            result.push(profile)    
-          }    
-         
-        })
-      })
-      console.log(result);
-      setFilteredProfiles([...result]);
-      setDefaultCard(true)
-    }
-   else if (selectedLanguages.length > 0) {
-      let result = [];
-      profiles.map((profile) => {
-        selectedLanguages.map((selectedLanguage) => {
-          if (profile.candidatLanguages.includes(selectedLanguage) && !(result.includes(profile))) {
-            result.push(profile)
-          }
-        })
-      })
-      console.log(result);
-      setFilteredProfiles([...result]);
-      setDefaultCard(true);
-    }
-  }, [selectedLanguages])
+const filterFunction = async () => {
+  setLoader(false)
+  if (selectedSector.length > 0 && selectedJob.length == 0) {
+    const onChangesecter = profiles.filter((profile) => {
+      return profile.candidatActivitySector == sectorField
 
+    })
+
+   
+    if (onChangesecter.length <= 0) {
+      setStatus(false)
+    }
+    setFilterData([...onChangesecter]);
+     setLoader(true)
+    setallProfile(false)
+    setStatus(true)
+   return false
+  }
+      if (selectedSector.length > 0 &&  selectedLanguages.length > 0) {
+    await fetch(`${API_BASE_URL}filterArchivedSL/?sector=${selectedSector}&languages=${selectedLanguages}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+
+
+      },
+    })
+      .then((reD) => reD.json())
+      .then((result) => { { setFilterData([...result.data]) }; setStatus(result.status); })
+      .catch((err) => err);
+    setallProfile(false)
+    
+    return false
+  };
+  if (selectedSector.length > 0 && selectedJob.length > 0 && selectedLanguages.length > 0) {
+    await fetch(`${API_BASE_URL}filterArchivedSJL/?sector=${selectedSector}&jobs=${selectedJob}&languages=${selectedLanguages}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+
+
+      },
+    })
+      .then((reD) => reD.json())
+      .then((result) => { { setFilterData([...result.data]) }; setStatus(result.status); })
+      .catch((err) => err);
+    setallProfile(false)
+    return false
+  };
+
+  if (selectedSector.length > 0 && selectedJob.length > 0) {
+    await fetch(`${API_BASE_URL}filterArchivedSJ/?sector=${selectedSector}&jobs=${selectedJob}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+
+
+      },
+    })
+      .then((reD) => reD.json())
+      .then((result) => { { setFilterData([...result.data]) }; setStatus(result.status); })
+      .catch((err) => err);
+    setallProfile(false)
+    return false
+  }
+  if (selectedLanguages.length > 0) {
+    await fetch(`${API_BASE_URL}filterArchivedCandidatByLanguages/?languages=${selectedLanguages}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+
+
+      },
+    })
+      .then((reD) => reD.json())
+      .then((result) => { { setFilterData([...result.data]) }; setStatus(result.status); })
+      .catch((err) => err);
+    setallProfile(false)
+    return false
+  }
+}
+useEffect(() => {
+  fetchProfiles();
+}, []);
+console.log(status,"srtayusdhf")
   useEffect(() => {
     if (profiles.length == 0) {
-      setload(true)
+      setallProfile(false)
+      setLoader(true)
       fetchProfiles()
         .then((data) => {
           console.log(data);
-          // setProfiles([...data])
-          setload(false)
+          setProfiles([...data])
+          setallProfile(true)
+          setLoader(false)
+          setStatus(true)
+         
         })
         .catch((err) => {
           console.log(err);
         });
     }
     if (sectors.length == 0) {
+      setshowCard(false)
       fetchAllSectors()
         .then((data) => {
           console.log(data.data);
           setSectors([...data.data]);
+        
         })
         .catch((err) => {
           console.log(err);
         });
     }
   }, [jobs]);
-
+console.log("profile",profiles)
   // useEffect(() => {
 
   //   window.scroll({
@@ -289,7 +340,38 @@ function ArchivedList() {
             </div>
           </div>
           <hr className="new5" />
-          {defaultCard ? (
+          {!Loader?
+            <>
+              {allProfile ?
+                profiles.map((profile) => (
+                  <div className="col-4 mt-2 pd-left">
+                   <ArchivedProfileCard props={profile} />
+                  </div>
+                ))
+                :
+                <>
+                  {status ?
+                    filterData.map((profile, index) => (
+                      <div className="col-4 mt-2 pd-left">
+                        <ArchivedProfileCard props={profile} />
+                      </div>
+                    ))
+                    :
+                    <p className="text-center">
+                      No Profiles in Candidat Archived! Please Add New Candidats.
+                    </p>
+                  }
+                </>
+              }
+            </>
+             :
+            <div className="col-12">
+              <div className="row d-flex justify-content-center">
+                <Item />
+              </div>
+            </div>
+          } 
+          {/* {defaultCard ? (
             <>
               {showCard ? (
                 <>
@@ -358,7 +440,7 @@ function ArchivedList() {
        </div>
         </div>
         : <p className="text-center">No Profiles in Candidat To-Do! Pl</p>
-        }
+        } */}
         </div>
       </div>
     </>

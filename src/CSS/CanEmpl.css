@@ -196,3 +196,19 @@ hr.new5 {
     width: 100%;
     color: #000000;
 }
+
+
+/*  */
+
+  .label {
+    border: 1px solid #000;
+    display: inline-block;
+    padding: 3px;
+    background: #000000 no-repeat  center; 
+    padding-left: 15px;
+  }
+  input[type=checkbox]:checked + .label {
+    background: #f00;
+    color: #fff;
+     background-image: url("../images/tick.png");
+  }

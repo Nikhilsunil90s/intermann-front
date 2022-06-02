@@ -61,7 +61,8 @@ const ToDoProfileCard = (props: any,{path}) => {
                     <p>Secteur : {props.data.candidatActivitySector}</p>
 
                     <p>Job : {props.data.candidatJob} </p>
-                    <p>Langues : {props.data.candidatLanguages.join(", ")} </p>
+                    <p>Langues : {props.data.candidatLanguages}
+                     </p>
                     <p>Phone Number : {props.data.candidatPhone} </p>
                     <p>Facebook URL : <a href="#" className="fbURL">{props.data.candidatFBURL}</a> </p>
                     <p>Email : {props.data.candidatEmail} </p>

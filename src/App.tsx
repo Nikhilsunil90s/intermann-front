@@ -27,6 +27,10 @@ import ClientView from "./pages/ClientPages/ClientSeePage"
 import ClientProgressView from "./pages/ClientPages/ClientProgressFullview";
 import Signed from "./pages/ClientPages/SignedContract";
 import RenameSector from "./pages/EditPages/RenameSector";
+import ClientTodoEdit from "./pages/EditPages/ClientEdit_Page";
+import ClientinProgressEdit from "./pages/EditPages/Client_EditinProgress";
+
+
 
 function App() {
   return (
@@ -36,6 +40,7 @@ function App() {
           <Route path="/" element={<Login />} />
 
           <Route path={"/todolist"} element={<Sidebar> <ToDoList /></Sidebar>} />
+          {/* <Route path="/todolist" element={<Sidebar><ListTodo /></Sidebar>} /> */}
           <Route path={"/todoprofile"} element={<Sidebar> <ToDoProfile /> </Sidebar>} />
 
           <Route path={"/embauchlist"} element={<Sidebar> <Embauch /> </Sidebar>} />
@@ -67,6 +72,9 @@ function App() {
 
           <Route path={"/clientSigned"} element={ <Sidebar><Signed /></Sidebar>} /> 
           <Route path={"/joblist"} element={ <Sidebar><RenameSector /></Sidebar>} /> 
+
+          <Route path={"/Client_Edit"} element={<Sidebar><ClientTodoEdit /></Sidebar>} />
+          <Route path={"/Client_editProgress"} element={<Sidebar><ClientinProgressEdit /></Sidebar>} />
         </Routes>
       </Router>
     </Provider>
