@@ -8,6 +8,8 @@ import { Toaster } from "react-hot-toast";
 import Item from "../components/Loader/loader";
 import Loader from "../components/Loader/loader";
 import Multiselect from 'multiselect-react-dropdown';
+import { profile } from "console";
+import { type } from "os";
 
 declare global {
   namespace JSX {
@@ -47,19 +49,20 @@ function ToDoList() {
   const [allProfile, setallProfile] = useState(false);
   const [jobFilterdata, setjobFilterdata] = useState([]);
   const [Loader, setLoader] = useState(false);
-
+  
   const [filterData, setFilterData] = useState([])
   const [status, setStatus] = useState(Boolean)
+  const [unSelected,setunSelected]= useState<Boolean>(false)
 // console.log(newArr,"arrayaa")
-  setTimeout(function () {
-    setLoader(true);
-  }, 3000);
+  // setTimeout(function () {
+  //   setLoader(true);
+  // }, 3000);
 // console.log(selectedJob,"selected")
 console.log(arr.concat(),"arr")
   useEffect(() => {
-    filterFunction()
+    filterFunction() 
   }
-    , [selectedLanguages, selectedJob, selectedSector]);
+    , [selectedLanguages,selectedJob, selectedSector]);
   const fetchAllSectors = async () => {
     return await fetch(API_BASE_URL + "fetchAllSectors", {
       method: "GET",
@@ -76,11 +79,11 @@ console.log(arr.concat(),"arr")
   // console.log(selectedJob, "selectedjob");
   const fetchAllJobs = async (sector: string) => {
     if (sector === "Select Un Secteur") {
-      return {
+     return {
         data: [],
+       
       };
     }
-
     return await fetch(API_BASE_URL + `fetchAllJobs/?sector=${sector}`, {
       method: "GET",
       headers: {
@@ -123,15 +126,19 @@ console.log(arr.concat(),"arr")
   };
 
   const handleSectorChange = (e: any) => {
-    // console.log(e.target.value);
-    setSelectedSector(e.target.value);
+    // console.log(e.target.value)
+  
     arr=[]
     if (e.target.value === "Select Un Secteur") {
-      return setDefault(false);
+      setJobs([]);
+      setSelectedSector("")
+      setLoader(true)
+      setallProfile(true)
     }
     else if (e.target.name === "candidatActivitySector") {
       let sectorField = e.target.value;
       setSectorField(sectorField)
+      setSelectedSector(sectorField);
     }
 
     fetchAllJobs(e.target.value)
@@ -144,23 +151,35 @@ console.log(arr.concat(),"arr")
       });
   };
 
-  const handleJobFilter = (job: any) => {
-    // arr=[]
-        let jobFilter = job.jobName;
-    setSelectedJob(jobFilter);
-    
-    // if(!selectedJob.includes(job.jobName)){
-    //   arr.push(job.jobName)
-    //   setSelectedJob(arr)
-    //   // console.log((selectedJob.concat().toString),"arr")
-    //   console.log(selectedJob.toString(),"new arr")
-    // }
-    
-    // else{
-    //   let jobFilter = job.jobName;
-    // setSelectedJob(jobFilter);
-    // }   
-  };
+// const handleJobFilter = (job: any) => {
+  
+  
+  
+//   // setSelectedJob([])
+//   //     let jobFilter = job.jobName;
+//   // setSelectedJob(jobFilter);
+  
+//   if(!selectedJob.includes(job.jobName)){
+//     arr.push(job.jobName)
+//     setSelectedJob(arr)
+//     // console.log((selectedJob.concat().toString),"arr")
+//     console.log(selectedJob.toString(),"new arr")
+//   }
+  
+//   // else{
+//   //   let jobFilter = job.jobName;
+//   // setSelectedJob(jobFilter);
+//   // }   
+// };
+console.log(selectedLanguages.length,"length")
+const handleJobFilter = (job: any) => {
+  if (!(selectedJob.includes(job.jobName))) {
+    arr.push(job.jobName)
+    setSelectedJob(arr)
+    console.log(selectedJob,"new arr")
+  }
+};
+
   const getSelectedLanguage = (e: any) => {
     if (e.target.checked) {
       addLanguages(e.target.value);
@@ -181,6 +200,7 @@ console.log(arr.concat(),"arr")
 
   const filterFunction = async () => {
     setLoader(false)
+    setallProfile(false)
     // if (selectedSector.length > 0 && selectedJob.length == 0) {
     //   const onChangesecter = profiles.filter((profile) => {
     //     return profile.candidatActivitySector == sectorField
@@ -194,26 +214,35 @@ console.log(arr.concat(),"arr")
     //     setStatus(false)
     //   }
     // }
+    // if(unSelected==true){
+    //     setFilterData([...profiles])
+    //     setLoader(true)
+    //     setallProfile(true)
+    //     console.log(profiles)
+       
+    // }
     if(selectedSector.length > 0 && selectedJob.length==0 && selectedLanguages.length==0){
-          fetch(`${API_BASE_URL}filterToDoCandidatBySector/?sector=${selectedSector}`, {
-            method: "GET",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("token"),
+      fetch(`${API_BASE_URL}filterToDoCandidatBySector/?sector=${selectedSector}`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+
+
+        },
+      })
+      .then((reD) => reD.json())
+      .then((result) => { { setFilterData([...result.data]) }; setStatus(result.status); })
+      .catch((err) => err);
+      setLoader(true)
+      setallProfile(false)
     
     
-            },
-          })
-          .then((reD) => reD.json())
-          .then((result) => { { setFilterData([...result.data]) }; setStatus(result.status); })
-          .catch((err) => err);
-        setallProfile(false)
-        
-    }
-    if (selectedSector.length > 0 && selectedJob.length > 0 && selectedLanguages.length==0) {
-      console.log(arr.toString(),"seletedjobss")
-      await fetch(`${API_BASE_URL}filterToDoSJ/?sector=${selectedSector}&jobs=${selectedJob}`, {
+}
+    if (selectedSector.length > 0 && arr.length > 0 && selectedLanguages.length==0) {
+      console.log(arr,"seletedjobss")
+      await fetch(`${API_BASE_URL}filterToDoSJ/?sector=${selectedSector}&jobs=${arr}`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -226,9 +255,12 @@ console.log(arr.concat(),"arr")
         .then((reD) => reD.json())
         .then((result) => { { setFilterData([...result.data]) }; setStatus(result.status); })
         .catch((err) => err);
-      setallProfile(false)
+        setLoader(true)
+        setallProfile(false)
       
     }
+
+  
         if (selectedSector.length > 0 &&  selectedLanguages.length > 0 &&selectedJob.length==0) {
           
       await fetch(`${API_BASE_URL}filterToDoSL/?sector=${selectedSector}&languages=${selectedLanguages}`, {
@@ -244,8 +276,8 @@ console.log(arr.concat(),"arr")
         .then((reD) => reD.json())
         .then((result) => { { setFilterData([...result.data]) }; setStatus(result.status); })
         .catch((err) => err);
-      setallProfile(false)
-     
+        setLoader(true)
+        setallProfile(false)
    
     };
    if (selectedSector.length > 0 && selectedJob.length > 0 && selectedLanguages.length > 0) {
@@ -263,7 +295,8 @@ console.log(arr.concat(),"arr")
         .then((reD) => reD.json())
         .then((result) => { { setFilterData([...result.data]) }; setStatus(result.status); })
         .catch((err) => err);
-      setallProfile(false)
+        setLoader(true)
+        setallProfile(false)
   
     };
 
@@ -282,7 +315,8 @@ console.log(arr.concat(),"arr")
         .then((reD) => reD.json())
         .then((result) => { { setFilterData([...result.data]) }; setStatus(result.status); })
         .catch((err) => err);
-      setallProfile(false)
+        setLoader(true)
+        setallProfile(false)
   
     }
   }
@@ -298,10 +332,13 @@ console.log(arr.concat(),"arr")
           // console.log(data, "data");
           setProfiles([...data])
           setallProfile(true)
-          setStatus(true)
+          setLoader(true)
+          
         })
         .catch((err) => {
           // console.log(err);
+          setallProfile(false)
+          
         });
     }
     if (sectors.length == 0) {
@@ -315,6 +352,7 @@ console.log(arr.concat(),"arr")
         });
     }
   }, [jobs]);
+  console.log(profiles,"allprofile")
   return (
     <>
       <Toaster position="top-right" />
@@ -348,8 +386,9 @@ console.log(arr.concat(),"arr")
                   name="candidatActivitySector"
                   className="form-select"
                   onChange={handleSectorChange}
+                  onClick={()=>{setSelectedJob([]);filterFunction()}}
                 >
-                  <option>Select Un Secteur</option>
+                  <option value="Select Un Secteur">Select Un Secteur</option>
                   {sectors &&
                     sectors.map((sector) => (
                       <option value={sector.sectorName}>
@@ -432,49 +471,57 @@ console.log(arr.concat(),"arr")
             <p>Filtre selection métier / job</p>
             <div className="box">
               <ul className="list-group">
-                {/* { jobs.length > 0 ? (
-                  jobs.map((job) => {
-                    if (selectedJob.includes(job.jobName)) {
+                {  
+                
+                  jobs.map((job,index) => 
+                    {
+                      console.log(selectedJob,"select")
+
                       return (
                         <li
                           className="job-ul list-group-item list-group-item-action"
                           onClick={() => {
-                            handleJobFilter(job);
+                            handleJobFilter(job);filterFunction()
                           }}
                         >
-                          <lable><input type="checkbox" /> <span className="lable">{job.jobName}</span></lable>
+                          <lable className="d-flex align-item-center">{   selectedJob.find(e=>e==job.jobName)?
+                            <span><div className="tick"></div></span>
+                          :null
+                  
+                          }<div className="jobClass" ><span>{job.jobName}</span></div></lable>
                         </li>
                       )
                     }
-                    else {
-                      return (
-                        <li
-                          className="job-ul list-group-item list-group-item-action"
-                          onClick={() => {
-                            handleJobFilter(job);
-                          }}
-                        >
-                          <a href="#">{job.jobName}</a>
-                        </li>
-                      )
+                  )}
+                    {/* // else { */}
+                    {/* //   return (
+                    //     <li */}
+                    {/* //       className="job-ul list-group-item list-group-item-action"
+                    //       onClick={() => {
+                    //         handleJobFilter(job); */}
+                    {/* //       }}
+                    //     >
+                    //       <a href="#">{job.jobName}</a>
+                    //     </li>
+                    //   )
 
-                    } }) ) : 
-                    <p>Please Select a Sector to view Jobs!</p>} */}
-                      {
+                    // } }) ) : 
+                    // <p>Please Select a Sector to view Jobs!</p>} */}
+                      {/* {
                   jobs.length > 0 ? jobs.map((job) =>
                     <li className="job-ul list-group-item list-group-item-action" onClick={()=>{handleJobFilter(job)}}>
 
                       <a href="#">{job.jobName}</a>
                     </li>
                   ) : <p>Please Select a Sector to view Jobs!</p>
-                }
+                } */}
               </ul>
             </div>
           </div>
           <hr className="new5" />
 
 
-          {Loader ?
+          {/* {Loader ?
             <>
               {allProfile ?
                 profiles.map((el) => (
@@ -504,7 +551,49 @@ console.log(arr.concat(),"arr")
                 <Item />
               </div>
             </div>
-          }
+          } */}
+          
+           {Loader ?
+            
+          <>
+          {allProfile?
+            profiles.map((profile)=>(
+              <div className="col-4 mt-2 pd-left">
+              <ToDoProfileCard data={profile} />
+            </div>
+            ))
+            :
+                <>
+                  {status ?
+                  filterData.length > 0?
+                    filterData.map((profile, index) => (
+                      <div className="col-4 mt-2 pd-left">
+                        <ToDoProfileCard data={profile} />
+                      </div>
+                    ))
+                    :
+                    <div className="col-12">
+                    <div className="row d-flex justify-content-center">
+                      <Item />
+                    </div>
+                  </div>:
+                    <p className="text-center">
+                      No Profiles in Candidat To-Do! Please Add New Candidats.
+                    </p>
+                    
+                  
+                  }
+                </>
+}
+</>
+            :
+            <div className="col-12">
+              <div className="row d-flex justify-content-center">
+                <Item />
+              </div>
+            </div>
+          } 
+        
         </div>
       </div>
     </>

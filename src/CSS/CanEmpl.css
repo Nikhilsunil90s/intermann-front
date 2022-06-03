@@ -200,15 +200,17 @@ hr.new5 {
 
 /*  */
 
-  .label {
-    border: 1px solid #000;
-    display: inline-block;
-    padding: 3px;
-    background: #000000 no-repeat  center; 
-    padding-left: 15px;
+/* .inputBox{
+    display: none;
+ } */
+ .tick{
+     background-image: url("../images/tick.svg");
+     height: 20px;
+     width: 20px;
   }
-  input[type=checkbox]:checked + .label {
-    background: #f00;
-    color: #fff;
-     background-image: url("../images/tick.png");
-  }
+  .jobClass{
+      display:flex ;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+  } 
