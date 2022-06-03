@@ -5,29 +5,69 @@ import ArchivedProfileCard from "../components/ArchivedProfileCard";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import Item from '../components/Loader/loader'
 
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      Item: React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >;
+    }
+  }
+}
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      lable: React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >;
+    }
+  }
+}
+
+let arr = [];
 function ArchivedList() {
-  const [sectors, setSectors] = useState([]);
-  const [jobs, setJobs] = useState([]);
+  // const [sectors, setSectors] = useState([]);
+  // const [jobs, setJobs] = useState([]);
+  // const [profiles, setProfiles] = useState([]);
+  // const [filteredProfiles, setFilteredProfiles] = useState([]);
+  // const [defaultCard, setDefaultCard] = useState(false);
+  // const [viewFilteredProfiles, setViewFilteredProfiles] = useState([]);
+  // const [onChangesecter, setChange] = useState([]);
+  // const [selectedJob, setSelectedJob] = useState("");
+  // const [selectedLanguages, setSelectedLanguages] = useState([]);
+  // const [sectorField, setSectorField] = useState([]);
+  // const [showCard, setshowCard] = useState(false);
+  // const [selectedSector, setSelectedSector] = useState("");
+  // const [FilterLanguage,setFilterLanguage]=useState()
+  // const [jobFilterdata,setjobFilterdata]=useState([])
+  // const [Loader, setLoader] = useState(false);
+  // const [filterData, setFilterData] = useState([])
+  // const [status, setStatus] = useState(Boolean)
+  // const [allProfile, setallProfile] = useState(true);
   const [profiles, setProfiles] = useState([]);
   const [filteredProfiles, setFilteredProfiles] = useState([]);
-  const [defaultCard, setDefaultCard] = useState(false);
-  const [viewFilteredProfiles, setViewFilteredProfiles] = useState([]);
   const [onChangesecter, setChange] = useState([]);
-  const [selectedJob, setSelectedJob] = useState("");
+  const [viewFilteredProfiles, setViewFilteredProfiles] = useState([]);
+  const [sectors, setSectors] = useState([]);
+  const [jobs, setJobs] = useState([]);
+  const [selectedJob, setSelectedJob] = useState([]);
+  const [defaultCard, setDefault] = useState(false);
+  const [selectedSector, setSelectedSector] = useState("");
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [sectorField, setSectorField] = useState([]);
   const [showCard, setshowCard] = useState(false);
-  const [selectedSector, setSelectedSector] = useState("");
-  const [FilterLanguage,setFilterLanguage]=useState()
-  const [jobFilterdata,setjobFilterdata]=useState([])
+  const [allProfile, setallProfile] = useState(false);
+  const [jobFilterdata, setjobFilterdata] = useState([]);
   const [Loader, setLoader] = useState(false);
-  const [filterData, setFilterData] = useState([])
-  const [status, setStatus] = useState(Boolean)
-  const [allProfile, setallProfile] = useState(true);
+  const [filterData, setFilterData] = useState([]);
+  const [status, setStatus] = useState(Boolean);
+  const [unSelected, setunSelected] = useState<Boolean>(false);
 
-  setTimeout(function(){
-    setLoader(false)
-   }, 2000);
+  // setTimeout(function(){
+  //   setLoader(false)
+  //  }, 2000);
    useEffect(() => {
     filterFunction()
   }
@@ -60,14 +100,19 @@ function ArchivedList() {
       .catch((err) => err);
   };
   const handleSectorChange = (e: any) => {
+    arr = [];
     console.log(e.target.value);
     setSelectedSector(e.target.value);
     if (e.target.value === "Select Un Secteur") {
-      return false
+      setJobs([]);
+      setSelectedSector("");
+      setLoader(true);
+      setallProfile(true);
     }
     else if (e.target.name === "candidatActivitySector") {
       let sectorField = e.target.value;
-      setSectorField(sectorField)
+      setSectorField(sectorField);
+      setSelectedSector(sectorField);
     }
 
     fetchAllJobs(e.target.value)
@@ -94,152 +139,202 @@ function ArchivedList() {
   };
 
   const handleJobFilter = (job: any) => {
-    // arr=[]
-    let jobFilter = job.jobName;
-    setSelectedJob(jobFilter);
-    // if(!selectedJob.includes(job.jobName)){
-    //   arr.push(job.jobName)
-    // }
-    // setSelectedJob(arr)
+    if (!selectedJob.includes(job.jobName)) {
+      arr.push(job.jobName);
+      setSelectedJob(arr);
+      console.log(selectedJob, "new arr");
+    }
   };
   const getSelectedLanguage = (e: any) => {
     if (e.target.checked) {
       addLanguages(e.target.value);
+      setDefault(true);
     } else {
       removeLanguages(e.target.value);
-      setDefaultCard(false);
+      setDefault(false);
     }
-  }
+  };
+
   const addLanguages = (lang: string) => {
-    setSelectedLanguages((prev) => ([...prev, lang]));
-  }
+    setSelectedLanguages((prev) => [...prev, lang]);
+  };
 
   const removeLanguages = (lang: string) => {
     setSelectedLanguages(selectedLanguages.filter((l) => l !== lang));
-  }
-const filterFunction = async () => {
-  setLoader(false)
-  if (selectedSector.length > 0 && selectedJob.length == 0) {
-    const onChangesecter = profiles.filter((profile) => {
-      return profile.candidatActivitySector == sectorField
-
-    })
-
-   
-    if (onChangesecter.length <= 0) {
-      setStatus(false)
+  };
+  const filterFunction = async () => {
+    setLoader(false);
+    setallProfile(false);
+    if (
+      selectedSector.length > 0 &&
+      selectedJob.length == 0 &&
+      selectedLanguages.length == 0
+    ) {
+      fetch(
+        `${API_BASE_URL}filterArchivedCandidatBySector/?sector=${selectedSector}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          {
+            setFilterData([...result.data]);
+          }
+          setStatus(result.status);
+        })
+        .catch((err) => err);
+      setLoader(true);
+      setallProfile(false);
     }
-    setFilterData([...onChangesecter]);
-     setLoader(true)
-    setallProfile(false)
-    setStatus(true)
-   return false
-  }
-      if (selectedSector.length > 0 &&  selectedLanguages.length > 0) {
-    await fetch(`${API_BASE_URL}filterArchivedSL/?sector=${selectedSector}&languages=${selectedLanguages}`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+    if (
+      selectedSector.length > 0 &&
+      arr.length > 0 &&
+      selectedLanguages.length == 0
+    ) {
+      console.log(arr, "seletedjobss");
+      await fetch(
+        `${API_BASE_URL}filterArchivedSJ/?sector=${selectedSector}&jobs=${arr}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          {
+            setFilterData([...result.data]);
+          }
+          setStatus(result.status);
+        })
+        .catch((err) => err);
+      setLoader(true);
+      setallProfile(false);
+    }
 
+    if (
+      selectedSector.length > 0 &&
+      selectedLanguages.length > 0 &&
+      selectedJob.length == 0
+    ) {
+      await fetch(
+        `${API_BASE_URL}filterArchivedSL/?sector=${selectedSector}&languages=${selectedLanguages}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          {
+            setFilterData([...result.data]);
+          }
+          setStatus(result.status);
+        })
+        .catch((err) => err);
+      setLoader(true);
+      setallProfile(false);
+    }
+    if (
+      selectedSector.length > 0 &&
+      selectedJob.length > 0 &&
+      selectedLanguages.length > 0
+    ) {
+      await fetch(
+        `${API_BASE_URL}filterArchivedSJL/?sector=${selectedSector}&jobs=${selectedJob}&languages=${selectedLanguages}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          {
+            setFilterData([...result.data]);
+          }
+          setStatus(result.status);
+        })
+        .catch((err) => err);
+      setLoader(true);
+      setallProfile(false);
+    }
 
-      },
-    })
-      .then((reD) => reD.json())
-      .then((result) => { { setFilterData([...result.data]) }; setStatus(result.status); })
-      .catch((err) => err);
-    setallProfile(false)
-    
-    return false
+    if (
+      selectedLanguages.length > 0 &&
+      selectedJob.length == 0 &&
+      selectedSector.length == 0
+    ) {
+      await fetch(
+        `${API_BASE_URL}filterArchivedCandidatByLanguages/?languages=${selectedLanguages}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          {
+            setFilterData([...result.data]);
+          }
+          setStatus(result.status);
+        })
+        .catch((err) => err);
+      setLoader(true);
+      setallProfile(false);
+    }
   };
-  if (selectedSector.length > 0 && selectedJob.length > 0 && selectedLanguages.length > 0) {
-    await fetch(`${API_BASE_URL}filterArchivedSJL/?sector=${selectedSector}&jobs=${selectedJob}&languages=${selectedLanguages}`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-
-
-      },
-    })
-      .then((reD) => reD.json())
-      .then((result) => { { setFilterData([...result.data]) }; setStatus(result.status); })
-      .catch((err) => err);
-    setallProfile(false)
-    return false
-  };
-
-  if (selectedSector.length > 0 && selectedJob.length > 0) {
-    await fetch(`${API_BASE_URL}filterArchivedSJ/?sector=${selectedSector}&jobs=${selectedJob}`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-
-
-      },
-    })
-      .then((reD) => reD.json())
-      .then((result) => { { setFilterData([...result.data]) }; setStatus(result.status); })
-      .catch((err) => err);
-    setallProfile(false)
-    return false
-  }
-  if (selectedLanguages.length > 0) {
-    await fetch(`${API_BASE_URL}filterArchivedCandidatByLanguages/?languages=${selectedLanguages}`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-
-
-      },
-    })
-      .then((reD) => reD.json())
-      .then((result) => { { setFilterData([...result.data]) }; setStatus(result.status); })
-      .catch((err) => err);
-    setallProfile(false)
-    return false
-  }
-}
 useEffect(() => {
   fetchProfiles();
 }, []);
 console.log(status,"srtayusdhf")
-  useEffect(() => {
-    if (profiles.length == 0) {
-      setallProfile(false)
-      setLoader(true)
-      fetchProfiles()
-        .then((data) => {
-          console.log(data);
-          setProfiles([...data])
-          setallProfile(true)
-          setLoader(false)
-          setStatus(true)
-         
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-    if (sectors.length == 0) {
-      setshowCard(false)
-      fetchAllSectors()
-        .then((data) => {
-          console.log(data.data);
-          setSectors([...data.data]);
+useEffect(() => {
+  if (profiles.length == 0) {
+    setallProfile(false);
+    fetchProfiles()
+      .then((data) => {
+        // console.log(data, "data");
+        setProfiles([...data]);
+        setLoader(true);
+        setallProfile(true);
         
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [jobs]);
+      })
+      .catch((err) => {
+        // console.log(err);
+        setallProfile(false);
+      });
+  }
+  if (sectors.length == 0) {
+    fetchAllSectors()
+      .then((data) => {
+        // console.log(data.data);
+        setSectors([...data.data]);
+      })
+      .catch((err) => {
+        // console.log(err);
+      });
+  }
+}, [jobs]);
 console.log("profile",profiles)
   // useEffect(() => {
 
@@ -275,6 +370,10 @@ console.log("profile",profiles)
                   name="candidatActivitySector"
                   className="form-select"
                   onChange={handleSectorChange}
+                  onClick={() => {
+                    setSelectedJob([]);
+                    filterFunction();
+                  }}
                 >
                   <option>Select Sectors</option>
                   {sectors &&
@@ -328,9 +427,22 @@ console.log("profile",profiles)
                   jobs.map((job) => (
                     <li
                       className="job-ul list-group-item list-group-item-action"
-                      onClick={() => handleJobFilter(job)}
+                      onClick={(e) => {
+                        handleJobFilter(job);
+                        filterFunction();
+                      }}
+                      value={job.jobName}
                     >
-                      <a href="#">{job.jobName}</a>
+                    <lable className="d-flex align-item-center">
+                        {selectedJob.find((e) => e == job.jobName) ? (
+                          <span>
+                            <div className="tick"></div>
+                          </span>
+                        ) : null}
+                        <div className="jobClass">
+                          <span>{job.jobName}</span>
+                        </div>
+                      </lable>
                     </li>
                   ))
                 ) : (
@@ -340,7 +452,7 @@ console.log("profile",profiles)
             </div>
           </div>
           <hr className="new5" />
-          {!Loader?
+          {/* {!Loader?
             <>
               {allProfile ?
                 profiles.map((profile) => (
@@ -370,7 +482,56 @@ console.log("profile",profiles)
                 <Item />
               </div>
             </div>
-          } 
+          }  */}
+           {/* {Loader ?  */}
+            <>
+            {Loader ? 
+            <>
+              {allProfile ? 
+                profiles.map((profile) => (
+                  <div className="col-4 mt-2 pd-left">
+                    <ArchivedProfileCard props={profile} />
+                  </div>
+                ))
+               : 
+                <>
+                  {status ? 
+                    filterData.length > 0 ? 
+                      filterData.map((profile, index) => (
+                        <div className="col-4 mt-2 pd-left">
+                       <ArchivedProfileCard props={profile} />
+                        </div>
+                      ))
+                     : 
+                      <div className="col-12">
+                        <div className="row d-flex justify-content-center">
+                          <Item />
+                        </div>
+                      </div>
+                    
+                   : 
+                    <p className="text-center">
+                      No Profiles in Candidat To-Do! Please Add New Candidats.
+                    </p>
+                  }
+                </>
+              }
+            </>
+           : 
+            <div className="col-12">
+              <div className="row d-flex justify-content-center">
+                <Item />
+              </div>
+            </div>
+          }
+            </>
+           {/* : 
+            <div className="col-12">
+              <div className="row d-flex justify-content-center">
+                <Item />
+              </div>
+            </div>
+          } */}
           {/* {defaultCard ? (
             <>
               {showCard ? (

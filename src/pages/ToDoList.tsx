@@ -7,7 +7,7 @@ import { API_BASE_URL } from "../config/serverApiConfig";
 import { Toaster } from "react-hot-toast";
 import Item from "../components/Loader/loader";
 import Loader from "../components/Loader/loader";
-import Multiselect from 'multiselect-react-dropdown';
+import Multiselect from "multiselect-react-dropdown";
 import { profile } from "console";
 import { type } from "os";
 
@@ -32,7 +32,7 @@ declare global {
   }
 }
 
-let arr=[]
+let arr = [];
 function ToDoList() {
   const [profiles, setProfiles] = useState([]);
   const [filteredProfiles, setFilteredProfiles] = useState([]);
@@ -49,20 +49,19 @@ function ToDoList() {
   const [allProfile, setallProfile] = useState(false);
   const [jobFilterdata, setjobFilterdata] = useState([]);
   const [Loader, setLoader] = useState(false);
-  
-  const [filterData, setFilterData] = useState([])
-  const [status, setStatus] = useState(Boolean)
-  const [unSelected,setunSelected]= useState<Boolean>(false)
-// console.log(newArr,"arrayaa")
+
+  const [filterData, setFilterData] = useState([]);
+  const [status, setStatus] = useState(Boolean);
+  const [unSelected, setunSelected] = useState<Boolean>(false);
+  // console.log(newArr,"arrayaa")
   // setTimeout(function () {
   //   setLoader(true);
   // }, 3000);
-// console.log(selectedJob,"selected")
-console.log(arr.concat(),"arr")
+  // console.log(selectedJob,"selected")
+  console.log(arr.concat(), "arr");
   useEffect(() => {
-    filterFunction() 
-  }
-    , [selectedLanguages,selectedJob, selectedSector]);
+    filterFunction();
+  }, [selectedLanguages, selectedJob, selectedSector]);
   const fetchAllSectors = async () => {
     return await fetch(API_BASE_URL + "fetchAllSectors", {
       method: "GET",
@@ -79,9 +78,8 @@ console.log(arr.concat(),"arr")
   // console.log(selectedJob, "selectedjob");
   const fetchAllJobs = async (sector: string) => {
     if (sector === "Select Un Secteur") {
-     return {
+      return {
         data: [],
-       
       };
     }
     return await fetch(API_BASE_URL + `fetchAllJobs/?sector=${sector}`, {
@@ -127,17 +125,16 @@ console.log(arr.concat(),"arr")
 
   const handleSectorChange = (e: any) => {
     // console.log(e.target.value)
-  
-    arr=[]
+
+    arr = [];
     if (e.target.value === "Select Un Secteur") {
       setJobs([]);
-      setSelectedSector("")
-      setLoader(true)
-      setallProfile(true)
-    }
-    else if (e.target.name === "candidatActivitySector") {
+      setSelectedSector("");
+      setLoader(true);
+      setallProfile(true);
+    } else if (e.target.name === "candidatActivitySector") {
       let sectorField = e.target.value;
-      setSectorField(sectorField)
+      setSectorField(sectorField);
       setSelectedSector(sectorField);
     }
 
@@ -151,34 +148,43 @@ console.log(arr.concat(),"arr")
       });
   };
 
-// const handleJobFilter = (job: any) => {
+  // const handleJobFilter = (job: any) => {
+
+  //   // setSelectedJob([])
+  //   //     let jobFilter = job.jobName;
+  //   // setSelectedJob(jobFilter);
+
+  //   if(!selectedJob.includes(job.jobName)){
+  //     arr.push(job.jobName)
+  //     setSelectedJob(arr)
+  //     // console.log((selectedJob.concat().toString),"arr")
+  //     console.log(selectedJob.toString(),"new arr")
+  //   }
+
+  //   // else{
+  //   //   let jobFilter = job.jobName;
+  //   // setSelectedJob(jobFilter);
+  //   // }
+  // };
+  console.log(selectedLanguages.length, "length");
+  const handleJobFilter = (job: any) => {
+    if(!(selectedJob.includes(job.jobName)) && !(arr.includes(job.jobName))){
+      arr.push(job.jobName);
+      setSelectedJob(arr);
+      console.log(selectedJob, "new arr");
+    }
+    else {
+    
+   let newarr= selectedJob.filter((item)=>{unChecked(item,job.jobName)})
+      setSelectedJob(newarr)
+    }
+    };
+   const unChecked=(item,job)=>{
+     console.log(item,job,"hello")
+     arr=[]
+    return item!==job.jobName
   
-  
-  
-//   // setSelectedJob([])
-//   //     let jobFilter = job.jobName;
-//   // setSelectedJob(jobFilter);
-  
-//   if(!selectedJob.includes(job.jobName)){
-//     arr.push(job.jobName)
-//     setSelectedJob(arr)
-//     // console.log((selectedJob.concat().toString),"arr")
-//     console.log(selectedJob.toString(),"new arr")
-//   }
-  
-//   // else{
-//   //   let jobFilter = job.jobName;
-//   // setSelectedJob(jobFilter);
-//   // }   
-// };
-console.log(selectedLanguages.length,"length")
-const handleJobFilter = (job: any) => {
-  if (!(selectedJob.includes(job.jobName))) {
-    arr.push(job.jobName)
-    setSelectedJob(arr)
-    console.log(selectedJob,"new arr")
-  }
-};
+   }
 
   const getSelectedLanguage = (e: any) => {
     if (e.target.checked) {
@@ -199,146 +205,165 @@ const handleJobFilter = (job: any) => {
   };
 
   const filterFunction = async () => {
-    setLoader(false)
-    setallProfile(false)
-    // if (selectedSector.length > 0 && selectedJob.length == 0) {
-    //   const onChangesecter = profiles.filter((profile) => {
-    //     return profile.candidatActivitySector == sectorField
-
-    //   })
-
-    //   setFilterData([...onChangesecter]);
-    //   setallProfile(false)
-    //   setStatus(true)
-    //   if (onChangesecter.length <= 0) {
-    //     setStatus(false)
-    //   }
-    // }
-    // if(unSelected==true){
-    //     setFilterData([...profiles])
-    //     setLoader(true)
-    //     setallProfile(true)
-    //     console.log(profiles)
-       
-    // }
-    if(selectedSector.length > 0 && selectedJob.length==0 && selectedLanguages.length==0){
-      fetch(`${API_BASE_URL}filterToDoCandidatBySector/?sector=${selectedSector}`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-
-
-        },
-      })
-      .then((reD) => reD.json())
-      .then((result) => { { setFilterData([...result.data]) }; setStatus(result.status); })
-      .catch((err) => err);
-      setLoader(true)
-      setallProfile(false)
-    
-    
-}
-    if (selectedSector.length > 0 && arr.length > 0 && selectedLanguages.length==0) {
-      console.log(arr,"seletedjobss")
-      await fetch(`${API_BASE_URL}filterToDoSJ/?sector=${selectedSector}&jobs=${arr}`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-
-
-        },
-      })
+    setLoader(false);
+    setallProfile(false);
+    if (
+      selectedSector.length > 0 &&
+      selectedJob.length == 0 &&
+      selectedLanguages.length == 0
+    ) {
+      fetch(
+        `${API_BASE_URL}filterToDoCandidatBySector/?sector=${selectedSector}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
         .then((reD) => reD.json())
-        .then((result) => { { setFilterData([...result.data]) }; setStatus(result.status); })
+        .then((result) => {
+          {
+            setFilterData([...result.data]);
+          }
+          setStatus(result.status);
+        })
         .catch((err) => err);
-        setLoader(true)
-        setallProfile(false)
-      
+      setLoader(true);
+      setallProfile(false);
+    }
+    if (
+      selectedSector.length > 0 &&
+      arr.length > 0 &&
+      selectedLanguages.length == 0
+    ) {
+      console.log(arr, "seletedjobss");
+      await fetch(
+        `${API_BASE_URL}filterToDoSJ/?sector=${selectedSector}&jobs=${arr}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          {
+            setFilterData([...result.data]);
+          }
+          setStatus(result.status);
+        })
+        .catch((err) => err);
+      setLoader(true);
+      setallProfile(false);
     }
 
-  
-        if (selectedSector.length > 0 &&  selectedLanguages.length > 0 &&selectedJob.length==0) {
-          
-      await fetch(`${API_BASE_URL}filterToDoSL/?sector=${selectedSector}&languages=${selectedLanguages}`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-
-
-        },
-      })
+    if (
+      selectedSector.length > 0 &&
+      selectedLanguages.length > 0 &&
+      selectedJob.length == 0
+    ) {
+      await fetch(
+        `${API_BASE_URL}filterToDoSL/?sector=${selectedSector}&languages=${selectedLanguages}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
         .then((reD) => reD.json())
-        .then((result) => { { setFilterData([...result.data]) }; setStatus(result.status); })
+        .then((result) => {
+          {
+            setFilterData([...result.data]);
+          }
+          setStatus(result.status);
+        })
         .catch((err) => err);
-        setLoader(true)
-        setallProfile(false)
-   
-    };
-   if (selectedSector.length > 0 && selectedJob.length > 0 && selectedLanguages.length > 0) {
-     
-      await fetch(`${API_BASE_URL}filterToDoSJL/?sector=${selectedSector}&jobs=${selectedJob}&languages=${selectedLanguages}`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-
-
-        },
-      })
-        .then((reD) => reD.json())
-        .then((result) => { { setFilterData([...result.data]) }; setStatus(result.status); })
-        .catch((err) => err);
-        setLoader(true)
-        setallProfile(false)
-  
-    };
-
-  
-   if (selectedLanguages.length > 0 && selectedJob.length==0 && selectedSector.length==0) {
-      await fetch(`${API_BASE_URL}filterToDoCandidatByLanguages/?languages=${selectedLanguages}`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-
-
-        },
-      })
-        .then((reD) => reD.json())
-        .then((result) => { { setFilterData([...result.data]) }; setStatus(result.status); })
-        .catch((err) => err);
-        setLoader(true)
-        setallProfile(false)
-  
+      setLoader(true);
+      setallProfile(false);
     }
-  }
+    if (
+      selectedSector.length > 0 &&
+      selectedJob.length > 0 &&
+      selectedLanguages.length > 0
+    ) {
+      await fetch(
+        `${API_BASE_URL}filterToDoSJL/?sector=${selectedSector}&jobs=${selectedJob}&languages=${selectedLanguages}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          {
+            setFilterData([...result.data]);
+          }
+          setStatus(result.status);
+        })
+        .catch((err) => err);
+      setLoader(true);
+      setallProfile(false);
+    }
+
+    if (
+      selectedLanguages.length > 0 &&
+      selectedJob.length == 0 &&
+      selectedSector.length == 0
+    ) {
+      await fetch(
+        `${API_BASE_URL}filterToDoCandidatByLanguages/?languages=${selectedLanguages}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          {
+            setFilterData([...result.data]);
+          }
+          setStatus(result.status);
+        })
+        .catch((err) => err);
+      setLoader(true);
+      setallProfile(false);
+    }
+  };
 
   useEffect(() => {
     fetchProfiles();
   }, []);
   useEffect(() => {
     if (profiles.length == 0) {
-      setallProfile(false)
+      setallProfile(false);
       fetchProfiles()
         .then((data) => {
           // console.log(data, "data");
-          setProfiles([...data])
-          setallProfile(true)
-          setLoader(true)
+          setProfiles([...data]);
+          setLoader(true);
+          setallProfile(true);
           
         })
         .catch((err) => {
           // console.log(err);
-          setallProfile(false)
-          
+          setallProfile(false);
         });
     }
     if (sectors.length == 0) {
@@ -352,7 +377,24 @@ const handleJobFilter = (job: any) => {
         });
     }
   }, [jobs]);
-  console.log(profiles,"allprofile")
+  const handleCheck = (e) => {
+    var updatedList = [...selectedJob];
+    if (e.target.checked) {
+      updatedList = [...selectedJob, e.target.value];
+    } else {
+      updatedList.splice(selectedJob.indexOf(e.target.value), 1);
+    }
+    setSelectedJob(updatedList);
+  };
+
+  const checkedItems = selectedJob.length
+    ? selectedJob.reduce((total, item) => {
+        return total + ", " + item;
+      })
+    : "";
+  var isChecked = (item) =>
+    selectedJob.includes(item) ? "selectedJob-item" : "not-checked-item";
+  console.log(profiles, "allprofile");
   return (
     <>
       <Toaster position="top-right" />
@@ -386,7 +428,10 @@ const handleJobFilter = (job: any) => {
                   name="candidatActivitySector"
                   className="form-select"
                   onChange={handleSectorChange}
-                  onClick={()=>{setSelectedJob([]);filterFunction()}}
+                  onClick={() => {
+                    setSelectedJob([]);
+                    filterFunction();
+                  }}
                 >
                   <option value="Select Un Secteur">Select Un Secteur</option>
                   {sectors &&
@@ -471,35 +516,38 @@ const handleJobFilter = (job: any) => {
             <p>Filtre selection métier / job</p>
             <div className="box">
               <ul className="list-group">
-                {  
-                
-                  jobs.map((job,index) => 
-                    {
-                      console.log(selectedJob,"select")
+                {jobs.map((job, index) => {
+                  console.log(selectedJob, "select");
 
-                      return (
-                        <li
-                          className="job-ul list-group-item list-group-item-action"
-                          onClick={() => {
-                            handleJobFilter(job);filterFunction()
-                          }}
-                        >
-                          <lable className="d-flex align-item-center">{   selectedJob.find(e=>e==job.jobName)?
-                            <span><div className="tick"></div></span>
-                          :null
-                  
-                          }<div className="jobClass" ><span>{job.jobName}</span></div></lable>
-                        </li>
-                      )
-                    }
-                  )}
-                    {/* // else { */}
-                    {/* //   return (
+                  return (
+                    <li
+                      className="job-ul list-group-item list-group-item-action"
+                      onClick={(e) => {
+                        handleJobFilter(job);
+                        filterFunction();
+                      }}
+                      value={job.jobName}
+                    >
+                      <lable className="d-flex align-item-center">
+                        {selectedJob.find((e) => e == job.jobName) ? (
+                          <span>
+                            <div className="tick"></div>
+                          </span>
+                        ) : null}
+                        <div className="jobClass">
+                          <span>{job.jobName}</span>
+                        </div>
+                      </lable>
+                    </li>
+                  );
+                })}
+                {/* // else { */}
+                {/* //   return (
                     //     <li */}
-                    {/* //       className="job-ul list-group-item list-group-item-action"
+                {/* //       className="job-ul list-group-item list-group-item-action"
                     //       onClick={() => {
                     //         handleJobFilter(job); */}
-                    {/* //       }}
+                {/* //       }}
                     //     >
                     //       <a href="#">{job.jobName}</a>
                     //     </li>
@@ -507,7 +555,7 @@ const handleJobFilter = (job: any) => {
 
                     // } }) ) : 
                     // <p>Please Select a Sector to view Jobs!</p>} */}
-                      {/* {
+                {/* {
                   jobs.length > 0 ? jobs.map((job) =>
                     <li className="job-ul list-group-item list-group-item-action" onClick={()=>{handleJobFilter(job)}}>
 
@@ -519,7 +567,6 @@ const handleJobFilter = (job: any) => {
             </div>
           </div>
           <hr className="new5" />
-
 
           {/* {Loader ?
             <>
@@ -552,48 +599,46 @@ const handleJobFilter = (job: any) => {
               </div>
             </div>
           } */}
-          
-           {Loader ?
-            
-          <>
-          {allProfile?
-            profiles.map((profile)=>(
-              <div className="col-4 mt-2 pd-left">
-              <ToDoProfileCard data={profile} />
-            </div>
-            ))
-            :
+
+          {Loader ? (
+            <>
+              {allProfile ? (
+                profiles.map((profile) => (
+                  <div className="col-4 mt-2 pd-left">
+                    <ToDoProfileCard data={profile} />
+                  </div>
+                ))
+              ) : (
                 <>
-                  {status ?
-                  filterData.length > 0?
-                    filterData.map((profile, index) => (
-                      <div className="col-4 mt-2 pd-left">
-                        <ToDoProfileCard data={profile} />
+                  {status ? (
+                    filterData.length > 0 ? (
+                      filterData.map((profile, index) => (
+                        <div className="col-4 mt-2 pd-left">
+                          <ToDoProfileCard data={profile} />
+                        </div>
+                      ))
+                    ) : (
+                      <div className="col-12">
+                        <div className="row d-flex justify-content-center">
+                          <Item />
+                        </div>
                       </div>
-                    ))
-                    :
-                    <div className="col-12">
-                    <div className="row d-flex justify-content-center">
-                      <Item />
-                    </div>
-                  </div>:
+                    )
+                  ) : (
                     <p className="text-center">
                       No Profiles in Candidat To-Do! Please Add New Candidats.
                     </p>
-                    
-                  
-                  }
+                  )}
                 </>
-}
-</>
-            :
+              )}
+            </>
+          ) : (
             <div className="col-12">
               <div className="row d-flex justify-content-center">
                 <Item />
               </div>
             </div>
-          } 
-        
+          )}
         </div>
       </div>
     </>
