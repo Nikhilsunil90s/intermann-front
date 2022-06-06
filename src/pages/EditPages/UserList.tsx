@@ -87,15 +87,14 @@ function UserList(){
             <div className="row">
                 <div className="col-6 text-start d-flex align-item-center">
                  
-                            <p className="A0012">&#10100;{el.emailAddress}&#10101;</p>
+                            <p className="A0012">{el.emailAddress}</p>
                    
                     {/* <p className="A0012">&#10100;{el.password}&#10101;</p> */}
                 </div>
                 <div className="col-6 text-end">
                             <button
                                 className="btn btn-delete"
-                                onClick={(e)=>{deleteUser(el._id)}}
-                                
+                                onClick={(e)=>{deleteUser(el._id)}}   
                             >
                                Delete User
                             </button>
