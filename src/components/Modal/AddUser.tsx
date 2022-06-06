@@ -1,19 +1,38 @@
 import React, { useState } from "react";
 import '../../CSS/AddSector.css'
+import {API_BASE_URL} from "../../config/serverApiConfig"
+import { Toaster,toast } from 'react-hot-toast';
+
 function UserAddModal({ closeModal }) {
-  const [email, setEmail] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
-  let data = [
-    {
-      email,
-      password,
-    },
-  ];
-  const AddNewUser = () => {
-    alert(JSON.stringify(data));
-  };
+  const [res,setResponse]=useState([])
+ const data={
+   emailAddress:emailAddress,
+   password:password
+ }
+  // const AddNewUser = () => {
+  //   alert(JSON.stringify(data));
+  // };
+  const AddSuccess=()=>toast("SuccessFully User Added")
+  const saveUserData = async () => {
+    return await fetch(API_BASE_URL + "signup", {
+      method: "POST",
+      headers: {
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+      body: JSON.stringify({...data}),
+    })
+      .then(resp => resp.json())
+      .then(reD =>setResponse(reD))
+      .catch(err => err)
+  }
+console.log(res,"res")
   return (
     <>
+    <Toaster position="top-center" />
       <div
         className="modal d-block"
         id="addJobModal"
@@ -45,7 +64,7 @@ function UserAddModal({ closeModal }) {
                 name="email"
                 className="form-control"
                 onChange={(e) => {
-                  setEmail(e.target.value);
+                  setEmailAddress(e.target.value);
                 }}
                 placeholder="Enter email..."
               />
@@ -75,7 +94,7 @@ function UserAddModal({ closeModal }) {
                         <button
                 type="button"
                 className="btn btn-addUser"
-                onClick={AddNewUser}
+                onClick={()=>saveUserData()}
               >
               Add an user
               </button>

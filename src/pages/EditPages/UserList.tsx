@@ -6,28 +6,54 @@ import RenameModal from "../../components/Modal/RenameModal";
 import "../../CSS/AddSector.css";
 import { useState, useEffect } from "react";
 import UserAddModal from '../../components/Modal/AddUser';
-
+import {API_BASE_URL} from '../../config/serverApiConfig'
+import { Toaster,toast } from 'react-hot-toast';
 function UserList(){
     const [AddModal, setAddModal] = useState(false)
-    const [sectorsList, setSectorsList] = useState([{
-        email:"",
-        password:""
-    }])
-    // const getSectors = async () => {
-    //     return fetch(API_BASE_URL + "fetchAllSectors", {
-    //         method: "GET",
-    //         headers: {
-    //             "Accept": 'application/json',
-    //             'Content-Type': 'application/json',
-    //             "Authorization": "Bearer " + localStorage.getItem('token')
-    //         },
-    //     })
-    //         .then(result => result.json())
-    //         .then(respD => respD)
-    //         .catch(err => {
-    //             return err;
-    //         })
+    const [allUsers,setAllusers]=useState([{
+        emailAddress:"",
+        password:"",
+        _id:""
+}])
+   
+    const getAllUsers = async () => {
+        fetch(API_BASE_URL + "allusers", {
+           method: "GET",
+           headers: {
+               "Accept": 'application/json',
+               'Content-Type': 'application/json',
+               "Authorization": "Bearer " + localStorage.getItem('token')
+           },
+        }).then((result) => result.json())
+      .then((respD) =>{setAllusers([...respD.data])})
+      .catch((err) => {
+       return err;
+  })
+       }
+ useEffect(()=>{
+    getAllUsers()
+ },[])
+         
+       
+        const deleteUser = async (_id) => {
+            fetch(`${API_BASE_URL}deleteuser/?user=${_id}`, {
+               method: "GET",
+               headers: {
+                   "Accept": 'application/json',
+                   'Content-Type': 'application/json',
+                   "Authorization": "Bearer " + localStorage.getItem('token')
+               },
+           })
+               .then(result => result.json())
+               .then(data =>setAllusers([...data.data])
+               )
+               .catch(err => {
+                   return err;
+               })
+           } 
     // }
+   console.log(allUsers)
+
     // useEffect(() => {
     //     getSectors().then((resp) => {
     //         console.log(resp.data);
@@ -49,22 +75,27 @@ function UserList(){
                                 <div className="row">
                                     <h1 className="list-001">List of users</h1>
                                     <div className="col-12 pt-3">
-                                        {sectorsList.length > 0 ? sectorsList.map((sector) =>
+                                        {/* {sectorsList.length > 0 ? sectorsList.map((sector) => */}
 
-<div className="row">
+
+{
+                        allUsers.map((el)=>(
+                            <div className="row">
 <ul style={{ listStyle: "none" }}>
     <li className="pt-2">
         <div className="col-12 pd-lr">
             <div className="row">
                 <div className="col-6 text-start d-flex align-item-center">
-                    <p className="A0012">&#10100;email&#10101;</p>
-                    <p className="A0012">&#10100;password&#10101;</p>
+                 
+                            <p className="A0012">&#10100;{el.emailAddress}&#10101;</p>
+                   
+                    {/* <p className="A0012">&#10100;{el.password}&#10101;</p> */}
                 </div>
                 <div className="col-6 text-end">
                             <button
                                 className="btn btn-delete"
-                                data-bs-toggle="modal"
-                                data-bs-target="#renameModal"
+                                onClick={(e)=>{deleteUser(el._id)}}
+                                
                             >
                                Delete User
                             </button>
@@ -72,14 +103,17 @@ function UserList(){
             </div>
         </div>
     </li>
-</ul>
+    </ul>
 </div>
-                                        ) :
-                                        <p>
+         ))
+        }
+
+                                        {/* ) : */}
+                                        {/* <p>
                                         No Sectors Available Yet, <br></br>
                                         Start By Adding A New Sector !
-                                    </p>
-                                        }
+                                    </p> */}
+                                        {/* } */}
                                         {
 
                                             AddModal?

@@ -33,6 +33,7 @@ declare global {
 }
 
 let arr = [];
+let newarr =[]
 function ToDoList() {
   const [profiles, setProfiles] = useState([]);
   const [filteredProfiles, setFilteredProfiles] = useState([]);
@@ -52,13 +53,16 @@ function ToDoList() {
 
   const [filterData, setFilterData] = useState([]);
   const [status, setStatus] = useState(Boolean);
-  const [unSelected, setunSelected] = useState<Boolean>(false);
+  const [unSelected, setunSelected] = useState([]);
+  const [check,setCheck]=useState(false)
   // console.log(newArr,"arrayaa")
   // setTimeout(function () {
   //   setLoader(true);
   // }, 3000);
   // console.log(selectedJob,"selected")
-  console.log(arr.concat(), "arr");
+  // console.log(arr.concat(), "arr");
+
+
   useEffect(() => {
     filterFunction();
   }, [selectedLanguages, selectedJob, selectedSector]);
@@ -127,6 +131,7 @@ function ToDoList() {
     // console.log(e.target.value)
 
     arr = [];
+    setSelectedJob([])
     if (e.target.value === "Select Un Secteur") {
       setJobs([]);
       setSelectedSector("");
@@ -166,25 +171,56 @@ function ToDoList() {
   //   // setSelectedJob(jobFilter);
   //   // }
   // };
-  console.log(selectedLanguages.length, "length");
-  const handleJobFilter = (job: any) => {
-    if(!(selectedJob.includes(job.jobName)) && !(arr.includes(job.jobName))){
-      arr.push(job.jobName);
-      setSelectedJob(arr);
-      console.log(selectedJob, "new arr");
-    }
-    else {
+  // console.log(selectedLanguages.length, "length");
+  // const handleJobFilter = (job: any) => {
+  //   if(!(selectedJob.includes(job.jobName)) && !(arr.includes(job.jobName))){
+  //     arr.push(job.jobName);
+  //     setSelectedJob(arr);
+  //     // console.log(selectedJob, "new arr");
+  //   }
+  //   else {
     
-   let newarr= selectedJob.filter((item)=>{unChecked(item,job.jobName)})
-      setSelectedJob(newarr)
+  // //  let newarr= selectedJob.filter((item,i)=>{unChecked(item,job.jobName)})
+  //     // setSelectedJob(newarr)
+  //   }
+  //   };
+  useEffect(()=>{
+    setSelectedJob(arr)
+
+  },[selectedJob])
+    const HandleChecked=(e:any,job:any,index)=>{
+      // arr=[]
+   if(e.target.checked){
+      if(!arr.find((e) => e == job.jobName)){
+        console.log("hello")
+          arr.push(job.jobName);
+          setSelectedJob(arr);
+        console.log(selectedJob,"selectedjobif")
+       setCheck(false)
+      }
     }
-    };
-   const unChecked=(item,job)=>{
-     console.log(item,job,"hello")
-     arr=[]
-    return item!==job.jobName
-  
-   }
+      else {
+        if(arr.length===1){
+          arr=[]
+        }
+        console.log(arr.length,"index")
+       console.log("not checked")
+    newarr= arr.filter((item)=>{return item !==job.jobName})
+        console.log(arr.length,"newarr")
+
+        setSelectedJob(newarr)
+        // setSelectedJob(unSelected)
+        console.log(selectedJob,"else")
+        // console.log(unSelected,"unselected")
+        setCheck(true)
+      } 
+    }
+    // const unChecked=(item,job)=>{
+    //   console.log(item,job,"hello")
+     //  arr=[]
+
+      //  return selectedJob.indexOf(item)=== i
+    // }
 
   const getSelectedLanguage = (e: any) => {
     if (e.target.checked) {
@@ -234,34 +270,38 @@ function ToDoList() {
       setLoader(true);
       setallProfile(false);
     }
+   
     if (
       selectedSector.length > 0 &&
-      arr.length > 0 &&
+       selectedJob.length > 0 &&
       selectedLanguages.length == 0
     ) {
-      console.log(arr, "seletedjobss");
-      await fetch(
-        `${API_BASE_URL}filterToDoSJ/?sector=${selectedSector}&jobs=${arr}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-        .then((reD) => reD.json())
-        .then((result) => {
+    
+        await fetch(
+          `${API_BASE_URL}filterToDoSJ/?sector=${selectedSector}&jobs=${selectedJob}`,
           {
-            setFilterData([...result.data]);
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
           }
-          setStatus(result.status);
-        })
-        .catch((err) => err);
-      setLoader(true);
-      setallProfile(false);
+        )
+          .then((reD) => reD.json())
+          .then((result) => {
+            {
+              setFilterData([...result.data]);
+            }
+            setStatus(result.status);
+          })
+          .catch((err) => err);
+        setLoader(true);
+        setallProfile(false);
+      
+
     }
+  
 
     if (
       selectedSector.length > 0 &&
@@ -377,15 +417,15 @@ function ToDoList() {
         });
     }
   }, [jobs]);
-  const handleCheck = (e) => {
-    var updatedList = [...selectedJob];
-    if (e.target.checked) {
-      updatedList = [...selectedJob, e.target.value];
-    } else {
-      updatedList.splice(selectedJob.indexOf(e.target.value), 1);
-    }
-    setSelectedJob(updatedList);
-  };
+  // const handleCheck = (e) => {
+  //   var updatedList = [...selectedJob];
+  //   if (e.target.checked) {
+  //     updatedList = [...selectedJob, e.target.value];
+  //   } else {
+  //     updatedList.splice(selectedJob.indexOf(e.target.value), 1);
+  //   }
+  //   setSelectedJob(updatedList);
+  // };
 
   const checkedItems = selectedJob.length
     ? selectedJob.reduce((total, item) => {
@@ -394,7 +434,7 @@ function ToDoList() {
     : "";
   var isChecked = (item) =>
     selectedJob.includes(item) ? "selectedJob-item" : "not-checked-item";
-  console.log(profiles, "allprofile");
+  // console.log(profiles, "allprofile");
   return (
     <>
       <Toaster position="top-right" />
@@ -517,18 +557,18 @@ function ToDoList() {
             <div className="box">
               <ul className="list-group">
                 {jobs.map((job, index) => {
-                  console.log(selectedJob, "select");
+                  // console.log(selectedJob, "select");
 
                   return (
                     <li
                       className="job-ul list-group-item list-group-item-action"
-                      onClick={(e) => {
-                        handleJobFilter(job);
-                        filterFunction();
-                      }}
-                      value={job.jobName}
+                      // onClick={(e) => {
+                      //   handleJobFilter(job);
+                      //   filterFunction();
+                      // }}
+                      // value={job.jobName}
                     >
-                      <lable className="d-flex align-item-center">
+                      {/* <lable className="d-flex align-item-center">
                         {selectedJob.find((e) => e == job.jobName) ? (
                           <span>
                             <div className="tick"></div>
@@ -537,7 +577,8 @@ function ToDoList() {
                         <div className="jobClass">
                           <span>{job.jobName}</span>
                         </div>
-                      </lable>
+                      </lable> */}
+                      <input type="checkbox" onClick={(e)=>{HandleChecked(e,job,index);filterFunction()}} value={job.jobName} /><span>{job.jobName}</span>
                     </li>
                   );
                 })}
