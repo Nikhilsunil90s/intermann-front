@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import '../CSS/Sidebar.css';
 import Header from "./Header";
@@ -10,11 +10,11 @@ function Sidebar(props: any) {
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const LogNotify = () => toast("Log-Out!");
+  
   const LogOut = async () => {
     await dispatch(logout())
     await localStorage.removeItem("token")
-
-    navigate("/")
+    navigate('/')
     LogNotify()
   }
   return (

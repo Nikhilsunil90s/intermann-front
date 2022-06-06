@@ -19,7 +19,7 @@ function loginReducer(state = initialState, action: any) {
         ...state,
         loginerror: action.error
       };
-    case 'logout':
+    case types.LOGOUT_USER:
       return {
         state: initialState
       }

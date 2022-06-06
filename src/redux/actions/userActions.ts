@@ -1,5 +1,5 @@
 import {LOGIN_USER} from '../types'
-
+import {LOGOUT_USER} from '../types'
 export const loginUserAction = (user:any) => {
     return {
       type: LOGIN_USER,
@@ -8,6 +8,6 @@ export const loginUserAction = (user:any) => {
   };
 
   export const logout=()=>{
-    return{type :'logout'}
+    return{type :LOGOUT_USER}
   }
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState ,useRef} from "react";
 import { Link } from "react-router-dom";
 import "../CSS/Dashboard.css";
 import { API_BASE_URL } from "../config/serverApiConfig";
+import { Toaster } from "react-hot-toast";
 function Dashboard() {
   const [toDoCount, setToDoCount] = useState(0);
   const [inProgressCount, setInProgressCount] = useState(0);
@@ -42,6 +43,7 @@ function Dashboard() {
 
   return (
     <>
+    <Toaster position="top-center" />
       <div className="container-fluid">
         <div className="row">
           <div className="col-5 card-tops">

@@ -5,14 +5,17 @@ import { connect, useDispatch, useSelector, Connect } from "react-redux";
 // import { loginUser } from '../redux/actions/userActions';
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../config/serverApiConfig";
-import { loginUserAction } from "../redux/actions/userActions";
+import { loginUserAction,logout } from "../redux/actions/userActions";
 import { Toaster, toast } from 'react-hot-toast';
+import { useParams } from "react-router";
+import { useLocation } from "react-router";
 
 function Login() {
   const navigate = useNavigate();
   const state = useSelector((state: any) => state.loginReducer);
+  const action =useSelector((action:any)=>action.loginReducer)
   const dispatch = useDispatch();
-
+ console.log(state,"type")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
@@ -21,23 +24,36 @@ function Login() {
   const notifyMessage = () => toast("Please Sign In!", {
   });
 
-  useEffect(() => {
-    if (state?.login?.status) {
+  useEffect(()=> {
+    if(state?.login?.status) {
       notifyLogin();
       console.log(state.login.token);
       localStorage.setItem("token", state.login.token);
       navigate("/dashboard");
     } else if (state?.login?.error !== undefined) {
       notifyLoginError();
-    } else {
-      notifyMessage();
     }
+  
 
   }, [state])
+  useEffect(()=>{
+    let login = localStorage.getItem("token")
+    if(login){
+      navigate("/dashboard");
+    }
+  })
 
   const onLoginFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(loginUserAction({ email, password }));
+    if(state?.login?.status) {
+      notifyLogin();
+      console.log(state.login.token);
+      localStorage.setItem("token", state.login.token);
+      navigate("/dashboard");
+    } else if (state?.login?.error !== undefined) {
+      notifyLoginError();
+    }
   };
 
   return (
@@ -159,7 +175,7 @@ function Login() {
           </div>
         </form>
         <Toaster
-          position="top-right"
+          position="top-center"
         />
       </section>
     </main>
