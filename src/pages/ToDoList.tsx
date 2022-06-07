@@ -6,10 +6,7 @@ import ToDoProfileCard from "../components/ToDoProfileCard";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import { Toaster } from "react-hot-toast";
 import Item from "../components/Loader/loader";
-import Loader from "../components/Loader/loader";
-import Multiselect from "multiselect-react-dropdown";
-import { profile } from "console";
-import { type } from "os";
+
 
 declare global {
   namespace JSX {
@@ -32,37 +29,31 @@ declare global {
   }
 }
 
-let arr = [];
+let FilterJob = [];
 let newarr =[]
 function ToDoList() {
-  const [profiles, setProfiles] = useState([]);
-  const [filteredProfiles, setFilteredProfiles] = useState([]);
-  const [onChangesecter, setChange] = useState([]);
-  const [viewFilteredProfiles, setViewFilteredProfiles] = useState([]);
   const [sectors, setSectors] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState([]);
-  const [defaultCard, setDefault] = useState(false);
   const [selectedSector, setSelectedSector] = useState("");
   const [selectedLanguages, setSelectedLanguages] = useState([]);
-  const [sectorField, setSectorField] = useState([]);
-  const [showCard, setshowCard] = useState(false);
-  const [allProfile, setallProfile] = useState(false);
-  const [jobFilterdata, setjobFilterdata] = useState([]);
   const [Loader, setLoader] = useState(false);
-
   const [filterData, setFilterData] = useState([]);
   const [status, setStatus] = useState(Boolean);
-  const [unSelected, setunSelected] = useState([]);
-  const [check,setCheck]=useState(false)
-  // console.log(newArr,"arrayaa")
-  // setTimeout(function () {
-  //   setLoader(true);
-  // }, 3000);
-  // console.log(selectedJob,"selected")
-  // console.log(arr.concat(), "arr");
 
 
+  useEffect(() => {
+    if (sectors.length == 0) {
+      fetchAllSectors()
+        .then((data) => {
+          // console.log(data.data);
+          setSectors([...data.data]);
+        })
+        .catch((err) => {
+          // console.log(err);
+        });
+    }
+  }, [jobs]);
   useEffect(() => {
     filterFunction();
   }, [selectedLanguages, selectedJob, selectedSector]);
@@ -108,7 +99,7 @@ function ToDoList() {
       },
     })
       .then((resD) => resD.json())
-      .then((reD) => reD)
+      .then((reD) => setFilterData([...reD]))
       .catch((err) => err);
   };
 
@@ -130,16 +121,15 @@ function ToDoList() {
   const handleSectorChange = (e: any) => {
     // console.log(e.target.value)
 
-    arr = [];
+    FilterJob = [];
     setSelectedJob([])
     if (e.target.value === "Select Un Secteur") {
       setJobs([]);
       setSelectedSector("");
       setLoader(true);
-      setallProfile(true);
+     
     } else if (e.target.name === "candidatActivitySector") {
       let sectorField = e.target.value;
-      setSectorField(sectorField);
       setSelectedSector(sectorField);
     }
 
@@ -152,84 +142,37 @@ function ToDoList() {
         // console.log(err);
       });
   };
-
-  // const handleJobFilter = (job: any) => {
-
-  //   // setSelectedJob([])
-  //   //     let jobFilter = job.jobName;
-  //   // setSelectedJob(jobFilter);
-
-  //   if(!selectedJob.includes(job.jobName)){
-  //     arr.push(job.jobName)
-  //     setSelectedJob(arr)
-  //     // console.log((selectedJob.concat().toString),"arr")
-  //     console.log(selectedJob.toString(),"new arr")
-  //   }
-
-  //   // else{
-  //   //   let jobFilter = job.jobName;
-  //   // setSelectedJob(jobFilter);
-  //   // }
-  // };
-  // console.log(selectedLanguages.length, "length");
-  // const handleJobFilter = (job: any) => {
-  //   if(!(selectedJob.includes(job.jobName)) && !(arr.includes(job.jobName))){
-  //     arr.push(job.jobName);
-  //     setSelectedJob(arr);
-  //     // console.log(selectedJob, "new arr");
-  //   }
-  //   else {
-    
-  // //  let newarr= selectedJob.filter((item,i)=>{unChecked(item,job.jobName)})
-  //     // setSelectedJob(newarr)
-  //   }
-  //   };
   useEffect(()=>{
-    setSelectedJob(arr)
+    setSelectedJob(FilterJob)
 
   },[selectedJob])
-    const HandleChecked=(e:any,job:any,index)=>{
-      // arr=[]
-   if(e.target.checked){
-      if(!arr.find((e) => e == job.jobName)){
+    const HandleChecked=(e:any,job:any)=>{
+      // FilterJob=[]
+      if(!FilterJob.find((e) => e == job.jobName)){
         console.log("hello")
-          arr.push(job.jobName);
-          setSelectedJob(arr);
-        console.log(selectedJob,"selectedjobif")
-       setCheck(false)
-      }
+          FilterJob.push(job.jobName);
+          setSelectedJob(FilterJob);
     }
       else {
-        if(arr.length===1){
-          arr=[]
+        if(FilterJob.length===1){
+          FilterJob=[]
         }
-        console.log(arr.length,"index")
+        console.log(FilterJob.length,"index")
        console.log("not checked")
-    newarr= arr.filter((item)=>{return item !==job.jobName})
-        console.log(arr.length,"newarr")
+       FilterJob= FilterJob.filter((item)=>{return item !==job.jobName})
+        console.log(FilterJob.length,"newarr")
 
         setSelectedJob(newarr)
-        // setSelectedJob(unSelected)
         console.log(selectedJob,"else")
-        // console.log(unSelected,"unselected")
-        setCheck(true)
       } 
     }
-    // const unChecked=(item,job)=>{
-    //   console.log(item,job,"hello")
-     //  arr=[]
-
-      //  return selectedJob.indexOf(item)=== i
-    // }
 
   const getSelectedLanguage = (e: any) => {
     if (e.target.checked) {
       addLanguages(e.target.value);
-      setDefault(true);
     } else {
       removeLanguages(e.target.value);
-      setDefault(false);
-    }
+      }
   };
 
   const addLanguages = (lang: string) => {
@@ -238,11 +181,16 @@ function ToDoList() {
 
   const removeLanguages = (lang: string) => {
     setSelectedLanguages(selectedLanguages.filter((l) => l !== lang));
+    setSelectedLanguages([])
   };
 
   const filterFunction = async () => {
     setLoader(false);
-    setallProfile(false);
+    if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0){
+      setLoader(true)
+      setStatus(true)
+      fetchProfiles()
+    }
     if (
       selectedSector.length > 0 &&
       selectedJob.length == 0 &&
@@ -268,12 +216,11 @@ function ToDoList() {
         })
         .catch((err) => err);
       setLoader(true);
-      setallProfile(false);
     }
    
     if (
       selectedSector.length > 0 &&
-       selectedJob.length > 0 &&
+       FilterJob.length > 0 &&
       selectedLanguages.length == 0
     ) {
     
@@ -297,7 +244,7 @@ function ToDoList() {
           })
           .catch((err) => err);
         setLoader(true);
-        setallProfile(false);
+
       
 
     }
@@ -328,7 +275,6 @@ function ToDoList() {
         })
         .catch((err) => err);
       setLoader(true);
-      setallProfile(false);
     }
     if (
       selectedSector.length > 0 &&
@@ -355,7 +301,6 @@ function ToDoList() {
         })
         .catch((err) => err);
       setLoader(true);
-      setallProfile(false);
     }
 
     if (
@@ -383,58 +328,13 @@ function ToDoList() {
         })
         .catch((err) => err);
       setLoader(true);
-      setallProfile(false);
     }
   };
 
   useEffect(() => {
     fetchProfiles();
   }, []);
-  useEffect(() => {
-    if (profiles.length == 0) {
-      setallProfile(false);
-      fetchProfiles()
-        .then((data) => {
-          // console.log(data, "data");
-          setProfiles([...data]);
-          setLoader(true);
-          setallProfile(true);
-          
-        })
-        .catch((err) => {
-          // console.log(err);
-          setallProfile(false);
-        });
-    }
-    if (sectors.length == 0) {
-      fetchAllSectors()
-        .then((data) => {
-          // console.log(data.data);
-          setSectors([...data.data]);
-        })
-        .catch((err) => {
-          // console.log(err);
-        });
-    }
-  }, [jobs]);
-  // const handleCheck = (e) => {
-  //   var updatedList = [...selectedJob];
-  //   if (e.target.checked) {
-  //     updatedList = [...selectedJob, e.target.value];
-  //   } else {
-  //     updatedList.splice(selectedJob.indexOf(e.target.value), 1);
-  //   }
-  //   setSelectedJob(updatedList);
-  // };
-
-  const checkedItems = selectedJob.length
-    ? selectedJob.reduce((total, item) => {
-        return total + ", " + item;
-      })
-    : "";
-  var isChecked = (item) =>
-    selectedJob.includes(item) ? "selectedJob-item" : "not-checked-item";
-  // console.log(profiles, "allprofile");
+ 
   return (
     <>
       <Toaster position="top-right" />
@@ -556,32 +456,24 @@ function ToDoList() {
             <p>Filtre selection métier / job</p>
             <div className="box">
               <ul className="list-group">
-                {jobs.map((job, index) => {
+                {jobs.length > 0 ? (jobs.map((job, index) => {
                   // console.log(selectedJob, "select");
 
                   return (
                     <li
-                      className="job-ul list-group-item list-group-item-action"
-                      // onClick={(e) => {
-                      //   handleJobFilter(job);
-                      //   filterFunction();
-                      // }}
-                      // value={job.jobName}
-                    >
-                      {/* <lable className="d-flex align-item-center">
-                        {selectedJob.find((e) => e == job.jobName) ? (
-                          <span>
-                            <div className="tick"></div>
-                          </span>
-                        ) : null}
-                        <div className="jobClass">
-                          <span>{job.jobName}</span>
-                        </div>
-                      </lable> */}
-                      <input type="checkbox" onClick={(e)=>{HandleChecked(e,job,index);filterFunction()}} value={job.jobName} /><span>{job.jobName}</span>
-                    </li>
+                    className="job-ul list-group-item list-group-item-action"
+                    onClick={(e)=>{HandleChecked(e,job);filterFunction()}} value={job.jobName}
+                  > <span style={{color:"black",textAlign:"center",width:"100%",display:"flex",justifyContent:"space-between"}}>
+                   {selectedJob.find((e) => e == job.jobName) ? (
+                          <div className="tick"></div>
+                      ) : null} 
+                  <p>{job.jobName}</p></span>
+                   
+                  </li>
                   );
-                })}
+                })): (
+                  <p>Please Select a Sector to view Jobs!</p>
+                )}
                 {/* // else { */}
                 {/* //   return (
                     //     <li */}
@@ -608,78 +500,35 @@ function ToDoList() {
             </div>
           </div>
           <hr className="new5" />
-
-          {/* {Loader ?
-            <>
-              {allProfile ?
-                profiles.map((el) => (
-                  <div className="col-4 mt-2 pd-left">
-                    <ToDoProfileCard data={el} />
-                  </div>
-                ))
-                :
+         {Loader ? 
                 <>
-                  {status ?
-                    filterData.map((profile, index) => (
-                      <div className="col-4 mt-2 pd-left">
-                        <ToDoProfileCard data={profile} />
-                      </div>
-                    ))
-                    :
-                    <p className="text-center">
-                      No Profiles in Candidat To-Do! Please Add New Candidats.
-                    </p>
-                  }
-                </>
-               } 
-            </>
-            :
-            <div className="col-12">
-              <div className="row d-flex justify-content-center">
-                <Item />
-              </div>
-            </div>
-          } */}
-
-          {Loader ? (
-            <>
-              {allProfile ? (
-                profiles.map((profile) => (
-                  <div className="col-4 mt-2 pd-left">
-                    <ToDoProfileCard data={profile} />
-                  </div>
-                ))
-              ) : (
-                <>
-                  {status ? (
-                    filterData.length > 0 ? (
+                  {status ? 
+                    filterData.length > 0 ? 
                       filterData.map((profile, index) => (
                         <div className="col-4 mt-2 pd-left">
                           <ToDoProfileCard data={profile} />
                         </div>
                       ))
-                    ) : (
+                     : 
                       <div className="col-12">
                         <div className="row d-flex justify-content-center">
                           <Item />
                         </div>
                       </div>
-                    )
-                  ) : (
+                    
+                  : 
                     <p className="text-center">
                       No Profiles in Candidat To-Do! Please Add New Candidats.
                     </p>
-                  )}
-                </>
-              )}
+                  }
             </>
-          ) : (
+          : 
             <div className="col-12">
               <div className="row d-flex justify-content-center">
                 <Item />
               </div>
             </div>
-          )}
+          }
         </div>
       </div>
     </>

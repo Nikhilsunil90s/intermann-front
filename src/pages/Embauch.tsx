@@ -27,49 +27,29 @@ declare global {
     }
   }
 }
-let arr = [];
+let FilterJob = [];
 function Embauch() {
-  // const [sectors, setSectors] = useState([]);
-  // const [jobs, setJobs] = useState([]);
-  // const [profiles, setProfiles] = useState([]);
-  // const [filteredProfiles, setFilteredProfiles] = useState([]);
-  // const [defaultCard, setDefault] = useState(false)
-  // const [viewFilteredProfiles, setViewFilteredProfiles] = useState([]);
-  // const [selectedSector, setSelectedSector] = useState("");
-  // const [onChangesecter, setChange] = useState([]);
-  // const [selectedJob, setSelectedJob] = useState("");
-  // const [selectedLanguages, setSelectedLanguages] = useState([]);
-  // const [sectorField,setSectorField]=useState([])
-  // const [showCard,setshowCard]=useState(false)
-  // const [jobFilterdata,setjobFilterdata]=useState([])
-  // const [Loader ,setLoader]=useState(true)
-
-  // const [allProfile, setallProfile] = useState(false);
-  // const [filterData, setFilterData] = useState([])
-  // const [status, setStatus] = useState(Boolean)
-  const [profiles, setProfiles] = useState([]);
-  const [filteredProfiles, setFilteredProfiles] = useState([]);
-  const [onChangesecter, setChange] = useState([]);
-  const [viewFilteredProfiles, setViewFilteredProfiles] = useState([]);
   const [sectors, setSectors] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState([]);
-  const [defaultCard, setDefault] = useState(false);
   const [selectedSector, setSelectedSector] = useState("");
   const [selectedLanguages, setSelectedLanguages] = useState([]);
-  const [sectorField, setSectorField] = useState([]);
-  const [showCard, setshowCard] = useState(false);
-  const [allProfile, setallProfile] = useState(false);
-  const [jobFilterdata, setjobFilterdata] = useState([]);
   const [Loader, setLoader] = useState(false);
-
   const [filterData, setFilterData] = useState([]);
   const [status, setStatus] = useState(Boolean);
-  const [unSelected, setunSelected] = useState<Boolean>(false);
-  setTimeout(function () {
-    setLoader(true);
-  }, 3000);
 
+  useEffect(() => {
+    if (sectors.length == 0) {
+      fetchAllSectors()
+        .then((data) => {
+          // console.log(data.data);
+          setSectors([...data.data]);
+        })
+        .catch((err) => {
+          // console.log(err);
+        });
+    }
+  }, [jobs]);
   useEffect(() => {
     filterFunction();
   }, [selectedLanguages, selectedJob, selectedSector]);
@@ -83,11 +63,12 @@ function Embauch() {
       },
     })
       .then((resD) => resD.json())
-      .then((reD) => reD)
+      .then((reD) => setFilterData([...reD]))
       .catch((err) => err);
   };
 
-  const fetchAllSectors = async () => {
+
+ const fetchAllSectors = async () => {
     return await fetch(API_BASE_URL + "fetchAllSectors", {
       method: "GET",
       headers: {
@@ -102,6 +83,11 @@ function Embauch() {
   };
 
   const fetchAllJobs = async (sector: string) => {
+    if (sector === "Select Un Secteur") {
+      return {
+        data: [],
+      };
+    }
     return await fetch(API_BASE_URL + `fetchAllJobs/?sector=${sector}`, {
       method: "GET",
       headers: {
@@ -116,15 +102,15 @@ function Embauch() {
   };
 
   const handleSectorChange = (e: any) => {
-    arr = [];
+    FilterJob=[]
+    setSelectedJob([])
     if (e.target.value === "Select Un Secteur") {
       setJobs([]);
       setSelectedSector("");
       setLoader(true);
-      setallProfile(true);
+   
     } else if (e.target.name === "candidatActivitySector") {
       let sectorField = e.target.value;
-      setSectorField(sectorField);
       setSelectedSector(sectorField);
     }
 
@@ -137,26 +123,37 @@ function Embauch() {
         // console.log(err);
       });
   };
-  const handleJobFilter = (job: any) => {
-    if (!(selectedJob.includes(job.jobName)) && !(arr.includes(job.jobName))) {
-      arr.push(job.jobName);
-      setSelectedJob(arr);
-      console.log(selectedJob, "new arr");
-    }
+  useEffect(()=>{
+    setSelectedJob(FilterJob)
+
+  },[selectedJob])
+
+  const HandleChecked=(e:any,job:any)=>{
+    // FilterJob=[]
+    if(!FilterJob.find((e) => e == job.jobName)){
+      console.log("hello")
+        FilterJob.push(job.jobName);
+        setSelectedJob(FilterJob);
+  }
     else {
-    
-   let newarr= selectedJob.filter((item)=>{unChecked(item,job.jobName)})
-      setSelectedJob(newarr)
-    }
-    };
-   const unChecked=(item,job)=>{
-     console.log(item,job,"hello")
-    return item!==job.jobName
-  
-   }
+      if(FilterJob.length===1){
+        FilterJob=[]
+      }
+      console.log(FilterJob.length,"index")
+     console.log("not checked")
+     FilterJob= FilterJob.filter((item)=>{return item !==job.jobName})
+      console.log(FilterJob.length,"newarr")
+      setSelectedJob(FilterJob)
+      console.log(selectedJob,"else")
+    } 
+  }
   const filterFunction = async () => {
     setLoader(false);
-    setallProfile(false);
+    if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0){
+      setLoader(true)
+      setStatus(true)
+      fetchProfiles()
+    }
     if (
       selectedSector.length > 0 &&
       selectedJob.length == 0 &&
@@ -182,16 +179,15 @@ function Embauch() {
         })
         .catch((err) => err);
       setLoader(true);
-      setallProfile(false);
+     
     }
     if (
       selectedSector.length > 0 &&
-      selectedJob.length > 0 &&
+      FilterJob.length > 0 &&
       selectedLanguages.length == 0
     ) {
-      console.log(selectedJob, "seletedjobss");
       await fetch(
-        `${API_BASE_URL}filterInProgressSJ/?sector=${selectedSector}&jobs=${selectedJob}`,
+        `${API_BASE_URL}filterInProgressSJ/?sector=${selectedSector}&jobs=${FilterJob}`,
         {
           method: "GET",
           headers: {
@@ -210,7 +206,7 @@ function Embauch() {
         })
         .catch((err) => err);
       setLoader(true);
-      setallProfile(false);
+     
     }
 
     if (
@@ -238,15 +234,15 @@ function Embauch() {
         })
         .catch((err) => err);
       setLoader(true);
-      setallProfile(false);
+     
     }
     if (
       selectedSector.length > 0 &&
-      selectedJob.length > 0 &&
+      FilterJob.length > 0 &&
       selectedLanguages.length > 0
     ) {
       await fetch(
-        `${API_BASE_URL}filterInProgressSJL/?sector=${selectedSector}&jobs=${selectedJob}&languages=${selectedLanguages}`,
+        `${API_BASE_URL}filterInProgressSJL/?sector=${selectedSector}&jobs=${FilterJob}&languages=${selectedLanguages}`,
         {
           method: "GET",
           headers: {
@@ -265,7 +261,7 @@ function Embauch() {
         })
         .catch((err) => err);
       setLoader(true);
-      setallProfile(false);
+     
     }
 
     if (
@@ -293,7 +289,7 @@ function Embauch() {
         })
         .catch((err) => err);
       setLoader(true);
-      setallProfile(false);
+     
     }
   };
   const getSelectedLanguage = (e: any) => {
@@ -301,7 +297,6 @@ function Embauch() {
       addLanguages(e.target.value);
     } else {
       removeLanguages(e.target.value);
-      setDefault(false);
     }
   };
   const addLanguages = (lang: string) => {
@@ -310,41 +305,13 @@ function Embauch() {
 
   const removeLanguages = (lang: string) => {
     setSelectedLanguages(selectedLanguages.filter((l) => l !== lang));
+    setSelectedLanguages([])
   };
 
   useEffect(() => {
     fetchProfiles();
   }, []);
-
-  useEffect(() => {
-    fetchProfiles();
-  }, []);
-  useEffect(() => {
-    if (profiles.length == 0) {
-      setallProfile(false);
-      fetchProfiles()
-        .then((data) => {
-          // console.log(data, "data");
-          setProfiles([...data]);
-          setLoader(true);
-          setallProfile(true);
-        })
-        .catch((err) => {
-          // console.log(err);
-          setallProfile(false);
-        });
-    }
-    if (sectors.length == 0) {
-      fetchAllSectors()
-        .then((data) => {
-          // console.log(data.data);
-          setSectors([...data.data]);
-        })
-        .catch((err) => {
-          // console.log(err);
-        });
-    }
-  }, [jobs]);
+ 
 
   // useEffect(() => {
   //   window.scroll({
@@ -353,7 +320,6 @@ function Embauch() {
   //     behavior: 'smooth'
   //   });
   // })
-  useEffect(() => {}, []);
 
   return (
     <>
@@ -368,7 +334,7 @@ function Embauch() {
             <p className="text-family">
               Ici vous avez la liste des candidats qui travaillant
               <span>
-                {" "}
+              
                 déjà chez nous, il sont donc lier à un contrat dans la liste
                 lead
               </span>
@@ -481,25 +447,17 @@ function Embauch() {
               <ul className="list-group">
                 {jobs.length > 0 ? (
                   jobs.map((job) => (
+                   
                     <li
-                      className="job-ul list-group-item list-group-item-action"
-                      onClick={(e) => {
-                        handleJobFilter(job);
-                        filterFunction();
-                      }}
-                      value={job.jobName}
-                    >
-                      <lable className="d-flex align-item-center">
-                        {selectedJob.find((e) => e == job.jobName) ? (
-                          <span>
-                            <div className="tick"></div>
-                          </span>
-                        ) : null}
-                        <div className="jobClass">
-                          <span>{job.jobName}</span>
-                        </div>
-                      </lable>
-                    </li>
+                    className="job-ul list-group-item list-group-item-action"
+                    onClick={(e)=>{HandleChecked(e,job);filterFunction()}} value={job.jobName}
+                  > <span style={{color:"black",textAlign:"center",width:"100%",display:"flex",justifyContent:"space-between"}}>
+                   {selectedJob.find((e) => e == job.jobName) ? (
+                          <div className="tick"></div>
+                      ) : null} 
+                  <p>{job.jobName}</p></span>
+                   
+                  </li>
                   ))
                 ) : (
                   <p>Please Select a Sector to view Jobs!</p>
@@ -508,109 +466,35 @@ function Embauch() {
             </div>
           </div>
           <hr className="new5" />
-          {Loader ? (
-            <>
-              {allProfile ? (
-                profiles.map((profile) => (
-                  <div className="col-4 mt-2 pd-left">
-                    <EmbaucheProfileCard path={false} props={profile} />
-                  </div>
-                ))
-              ) : (
+            {Loader ? 
                 <>
-                  {status ? (
-                    filterData.map((profile, index) => (
-                      <div className="col-4 mt-2 pd-left">
-                        <EmbaucheProfileCard path={false} props={profile} />
+                  {status ? 
+                    filterData.length > 0 ? 
+                      filterData.map((profile, index) => (
+                        <div className="col-4 mt-2 pd-left">
+                          <EmbaucheProfileCard path={false} props={profile}  />
+                        </div>
+                      ))
+                     : 
+                      <div className="col-12">
+                        <div className="row d-flex justify-content-center">
+                          <Item />
+                        </div>
                       </div>
-                    ))
-                  ) : (
+                    
+                  : 
                     <p className="text-center">
                       No Profiles in Candidat To-Do! Please Add New Candidats.
                     </p>
-                  )}
-                </>
-              )}
+                  }
             </>
-          ) : (
+          : 
             <div className="col-12">
               <div className="row d-flex justify-content-center">
                 <Item />
               </div>
             </div>
-          )}
-
-          {/* {defaultCard?
-             <>
-              {
-                showCard?
-              <>              {
-                    defaultCard?
-                  onChangesecter.length>0?
-                  onChangesecter.map((profile)=>(
-                 
-                    <div className="col-4 pd-left">
-                      <EmbaucheProfileCard path={false} props={profile} />
-                  </div>
-                  ))
-                  :
-                  viewFilteredProfiles.length > 0
-                  ? viewFilteredProfiles.map((filteredProfile) => (
-                    <div className="col-4 pd-left">
-                     <EmbaucheProfileCard path={false} props={filteredProfile}   />
-                    </div>
-                  ))
-                  :
-                  <p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>
-                :
-                    profiles.map((profile) => (
-                      <div className="col-4 pd-left">
-                        <EmbaucheProfileCard path={false} props={profile}  />
-                      </div>
-                    ))  
-                
-                }
-                </>
-                :
-                <>
-                {
-                 filteredProfiles.length>0?
-                 filteredProfiles.map((profile)=>(
-                   <div className="col-4 mt-2 pd-left">
-                   <EmbaucheProfileCard  path={false} props={profile} />
-                 </div>
-                 ))
-               : 
-               jobFilterdata.length>0?
-               jobFilterdata.map((profile)=>(
-                <div className="col-4 mt-2 pd-left">
-                <EmbaucheProfileCard path={false} props={profile}  />
-              </div>
-              ))
-              :
-               <p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>
-               }
-                 </>
-                }
-          </>:
-          profiles.length>0?
-               profiles.map((profile) => (
-                <div className="col-4 pd-left">
-                  <EmbaucheProfileCard path={false} props={profile}  />
-                </div>
-           ))  
-            :
-            <>{
-              load?
-              <div className="col-12">
-              <div className="row d-flex justify-content-center">
-            <Item /> 
-           </div>
-            </div>
-              :
-              <p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>
-            }
-            </> } */}
+          }
         </div>
       </div>
     </>

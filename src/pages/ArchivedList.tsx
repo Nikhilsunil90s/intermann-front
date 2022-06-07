@@ -26,66 +26,49 @@ declare global {
   }
 }
 
-let arr = [];
+let FilterJob = [];
 function ArchivedList() {
-  // const [sectors, setSectors] = useState([]);
-  // const [jobs, setJobs] = useState([]);
-  // const [profiles, setProfiles] = useState([]);
-  // const [filteredProfiles, setFilteredProfiles] = useState([]);
-  // const [defaultCard, setDefaultCard] = useState(false);
-  // const [viewFilteredProfiles, setViewFilteredProfiles] = useState([]);
-  // const [onChangesecter, setChange] = useState([]);
-  // const [selectedJob, setSelectedJob] = useState("");
-  // const [selectedLanguages, setSelectedLanguages] = useState([]);
-  // const [sectorField, setSectorField] = useState([]);
-  // const [showCard, setshowCard] = useState(false);
-  // const [selectedSector, setSelectedSector] = useState("");
-  // const [FilterLanguage,setFilterLanguage]=useState()
-  // const [jobFilterdata,setjobFilterdata]=useState([])
-  // const [Loader, setLoader] = useState(false);
-  // const [filterData, setFilterData] = useState([])
-  // const [status, setStatus] = useState(Boolean)
-  // const [allProfile, setallProfile] = useState(true);
-  const [profiles, setProfiles] = useState([]);
-  const [filteredProfiles, setFilteredProfiles] = useState([]);
-  const [onChangesecter, setChange] = useState([]);
-  const [viewFilteredProfiles, setViewFilteredProfiles] = useState([]);
   const [sectors, setSectors] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState([]);
-  const [defaultCard, setDefault] = useState(false);
   const [selectedSector, setSelectedSector] = useState("");
   const [selectedLanguages, setSelectedLanguages] = useState([]);
-  const [sectorField, setSectorField] = useState([]);
-  const [showCard, setshowCard] = useState(false);
-  const [allProfile, setallProfile] = useState(false);
-  const [jobFilterdata, setjobFilterdata] = useState([]);
   const [Loader, setLoader] = useState(false);
   const [filterData, setFilterData] = useState([]);
   const [status, setStatus] = useState(Boolean);
-  const [unSelected, setunSelected] = useState<Boolean>(false);
 
-  // setTimeout(function(){
-  //   setLoader(false)
-  //  }, 2000);
+
+  useEffect(() => {
+    if (sectors.length == 0) {
+      fetchAllSectors()
+        .then((data) => {
+          // console.log(data.data);
+          setSectors([...data.data]);
+        })
+        .catch((err) => {
+          // console.log(err);
+        });
+    }
+  }, [jobs]);
+
    useEffect(() => {
     filterFunction()
   }
     , [selectedLanguages, selectedJob, selectedSector]);
-  const fetchProfiles = async () => {
-    return await fetch(API_BASE_URL + "allArchivedCandidats", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    })
-      .then((resD) => resD.json())
-      .then((reD) => reD)
-      .catch((err) => err);
-  };
-
+ 
+    const fetchProfiles = async () => {
+      return await fetch(API_BASE_URL + "allArchivedCandidats", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+        .then((resD) => resD.json())
+        .then((reD) => setFilterData([...reD]))
+        .catch((err) => err);
+    };
   const fetchAllSectors = async () => {
     return await fetch(API_BASE_URL + "fetchAllSectors", {
       method: "GET",
@@ -100,30 +83,33 @@ function ArchivedList() {
       .catch((err) => err);
   };
   const handleSectorChange = (e: any) => {
-    arr = [];
-    console.log(e.target.value);
-    setSelectedSector(e.target.value);
+    // console.log(e.target.value)
+
+    FilterJob = [];
+    setSelectedJob([])
     if (e.target.value === "Select Un Secteur") {
       setJobs([]);
       setSelectedSector("");
       setLoader(true);
-      setallProfile(true);
-    }
-    else if (e.target.name === "candidatActivitySector") {
+     
+    } else if (e.target.name === "candidatActivitySector") {
       let sectorField = e.target.value;
-      setSectorField(sectorField);
       setSelectedSector(sectorField);
     }
 
     fetchAllJobs(e.target.value)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setJobs([...data.data]);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
+  useEffect(()=>{
+    setSelectedJob(FilterJob)
+
+  },[selectedJob])
   const fetchAllJobs = async (sector: string) => {
     return await fetch(API_BASE_URL + `fetchAllJobs/?sector=${sector}`, {
       method: "GET",
@@ -138,23 +124,35 @@ function ArchivedList() {
       .catch((err) => err);
   };
 
-  const handleJobFilter = (job: any) => {
-    if (!selectedJob.includes(job.jobName)) {
-      arr.push(job.jobName);
-      setSelectedJob(arr);
-      console.log(selectedJob, "new arr");
+  const HandleChecked=(e:any,job:any)=>{
+    // FilterJob=[]
+    if(!FilterJob.find((e) => e == job.jobName)){
+      console.log("hello")
+        FilterJob.push(job.jobName);
+        setSelectedJob(FilterJob);
+      console.log(selectedJob,"selectedjobif")
     }
-  };
+    else {
+      if(FilterJob.length===1){
+        FilterJob=[]
+      }
+      console.log(FilterJob.length,"index")
+     console.log("not checked")
+     FilterJob= FilterJob.filter((item)=>{return item !==job.jobName})
+      console.log(FilterJob.length,"newarr")
+      setSelectedJob(FilterJob)
+      console.log(selectedJob,"else")
+    } 
+  }
+
+  
   const getSelectedLanguage = (e: any) => {
     if (e.target.checked) {
       addLanguages(e.target.value);
-      setDefault(true);
     } else {
       removeLanguages(e.target.value);
-      setDefault(false);
-    }
+      }
   };
-
   const addLanguages = (lang: string) => {
     setSelectedLanguages((prev) => [...prev, lang]);
   };
@@ -164,7 +162,11 @@ function ArchivedList() {
   };
   const filterFunction = async () => {
     setLoader(false);
-    setallProfile(false);
+    if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0){
+      setLoader(true)
+      setStatus(true)
+      fetchProfiles()
+    }
     if (
       selectedSector.length > 0 &&
       selectedJob.length == 0 &&
@@ -190,16 +192,15 @@ function ArchivedList() {
         })
         .catch((err) => err);
       setLoader(true);
-      setallProfile(false);
     }
     if (
       selectedSector.length > 0 &&
-      arr.length > 0 &&
+      FilterJob.length > 0 &&
       selectedLanguages.length == 0
     ) {
-      console.log(arr, "seletedjobss");
+      console.log(FilterJob, "seletedjobss");
       await fetch(
-        `${API_BASE_URL}filterArchivedSJ/?sector=${selectedSector}&jobs=${arr}`,
+        `${API_BASE_URL}filterArchivedSJ/?sector=${selectedSector}&jobs=${FilterJob}`,
         {
           method: "GET",
           headers: {
@@ -218,7 +219,6 @@ function ArchivedList() {
         })
         .catch((err) => err);
       setLoader(true);
-      setallProfile(false);
     }
 
     if (
@@ -246,7 +246,6 @@ function ArchivedList() {
         })
         .catch((err) => err);
       setLoader(true);
-      setallProfile(false);
     }
     if (
       selectedSector.length > 0 &&
@@ -273,7 +272,6 @@ function ArchivedList() {
         })
         .catch((err) => err);
       setLoader(true);
-      setallProfile(false);
     }
 
     if (
@@ -301,29 +299,12 @@ function ArchivedList() {
         })
         .catch((err) => err);
       setLoader(true);
-      setallProfile(false);
     }
   };
 useEffect(() => {
   fetchProfiles();
 }, []);
-console.log(status,"srtayusdhf")
 useEffect(() => {
-  if (profiles.length == 0) {
-    setallProfile(false);
-    fetchProfiles()
-      .then((data) => {
-        // console.log(data, "data");
-        setProfiles([...data]);
-        setLoader(true);
-        setallProfile(true);
-        
-      })
-      .catch((err) => {
-        // console.log(err);
-        setallProfile(false);
-      });
-  }
   if (sectors.length == 0) {
     fetchAllSectors()
       .then((data) => {
@@ -335,16 +316,6 @@ useEffect(() => {
       });
   }
 }, [jobs]);
-console.log("profile",profiles)
-  // useEffect(() => {
-
-  //   window.scroll({
-  //     top: 0,
-  //     left: 0,
-  //     behavior: 'smooth'
-  //   });
-  // })
-  console.log(filteredProfiles,"filter")
   return (
     <>
       <div className="container-fluid">
@@ -423,26 +394,18 @@ console.log("profile",profiles)
             <p>Filtre selection métier / job</p>
             <div className="box">
               <ul className="list-group">
-                {jobs.length > 0 ? (
+              {jobs.length > 0 ? (
                   jobs.map((job) => (
-                    <li
+                   
+                      <li
                       className="job-ul list-group-item list-group-item-action"
-                      onClick={(e) => {
-                        handleJobFilter(job);
-                        filterFunction();
-                      }}
-                      value={job.jobName}
-                    >
-                    <lable className="d-flex align-item-center">
-                        {selectedJob.find((e) => e == job.jobName) ? (
-                          <span>
+                      onClick={(e)=>{HandleChecked(e,job);filterFunction()}} value={job.jobName}
+                    > <span style={{color:"black",textAlign:"center",width:"100%",display:"flex",justifyContent:"space-between"}}>
+                     {selectedJob.find((e) => e == job.jobName) ? (
                             <div className="tick"></div>
-                          </span>
-                        ) : null}
-                        <div className="jobClass">
-                          <span>{job.jobName}</span>
-                        </div>
-                      </lable>
+                        ) : null} 
+                    <p>{job.jobName}</p></span>
+                     
                     </li>
                   ))
                 ) : (
@@ -452,54 +415,15 @@ console.log("profile",profiles)
             </div>
           </div>
           <hr className="new5" />
-          {/* {!Loader?
-            <>
-              {allProfile ?
-                profiles.map((profile) => (
-                  <div className="col-4 mt-2 pd-left">
-                   <ArchivedProfileCard props={profile} />
-                  </div>
-                ))
-                :
-                <>
-                  {status ?
-                    filterData.map((profile, index) => (
-                      <div className="col-4 mt-2 pd-left">
-                        <ArchivedProfileCard props={profile} />
-                      </div>
-                    ))
-                    :
-                    <p className="text-center">
-                      No Profiles in Candidat Archived! Please Add New Candidats.
-                    </p>
-                  }
-                </>
-              }
-            </>
-             :
-            <div className="col-12">
-              <div className="row d-flex justify-content-center">
-                <Item />
-              </div>
-            </div>
-          }  */}
-           {/* {Loader ?  */}
+         
             <>
             {Loader ? 
-            <>
-              {allProfile ? 
-                profiles.map((profile) => (
-                  <div className="col-4 mt-2 pd-left">
-                    <ArchivedProfileCard props={profile} />
-                  </div>
-                ))
-               : 
                 <>
                   {status ? 
                     filterData.length > 0 ? 
                       filterData.map((profile, index) => (
                         <div className="col-4 mt-2 pd-left">
-                       <ArchivedProfileCard props={profile} />
+                          <ArchivedProfileCard  props={profile}  />
                         </div>
                       ))
                      : 
@@ -509,15 +433,13 @@ console.log("profile",profiles)
                         </div>
                       </div>
                     
-                   : 
+                  : 
                     <p className="text-center">
                       No Profiles in Candidat To-Do! Please Add New Candidats.
                     </p>
                   }
-                </>
-              }
             </>
-           : 
+          : 
             <div className="col-12">
               <div className="row d-flex justify-content-center">
                 <Item />
@@ -525,83 +447,7 @@ console.log("profile",profiles)
             </div>
           }
             </>
-           {/* : 
-            <div className="col-12">
-              <div className="row d-flex justify-content-center">
-                <Item />
-              </div>
-            </div>
-          } */}
-          {/* {defaultCard ? (
-            <>
-              {showCard ? (
-                <>
-                
-                  {defaultCard ? (
-                    onChangesecter.length > 0 ? (
-                      onChangesecter.map((profile) => (
-                        <div className="col-4 pd-left">
-                          <ArchivedProfileCard props={profile} />
-                        </div>
-                      ))
-                    ) : viewFilteredProfiles.length > 0 ? (
-                      viewFilteredProfiles.map((filteredProfile) => (
-                        <div className="col-4 pd-left">
-                          <ArchivedProfileCard props={filteredProfile} />
-                        </div>
-                      ))
-                    ) : (
-                      <p className="text-center">
-                        No Profiles in Candidat To-Do! Please Add New Candidats.
-                      </p>
-                    )
-                  ) : (
-                    profiles.map((profile) => (
-                      <div className="col-4 pd-left">
-                        <ArchivedProfileCard props={profile} />
-                      </div>
-                    ))
-                  )}
-                </>
-              ) : (
-                <>
-                     {
-                 filteredProfiles.length>0?
-                 filteredProfiles.map((filteredProfiles)=>(
-                   <div className="col-4 mt-2 pd-left">
-                   <ArchivedProfileCard data={filteredProfiles}   />
-                 </div>
-                 ))
-               : 
-               jobFilterdata.length>0?
-               jobFilterdata.map((jobFilterdata)=>(
-                <div className="col-4 mt-2 pd-left">
-                <ArchivedProfileCard data={jobFilterdata}   />
-              </div>
-              ))
-              :
-               <p className="text-center">No Profiles in Candidat To-Do! Please Add New Candidats.</p>
-               }
-                </>
-              )}
-            </>
-          ) : 
-            profiles.length>0?
-            profiles.map((profile) => (
-              <div className="col-4 pd-left">
-                <ArchivedProfileCard props={profile} />
-              </div>
-            ))
-          
-          :
-          load?
-          <div className="col-12">
-          <div className="row  d-flex justify-content-center">  
-        <Item /> 
-       </div>
-        </div>
-        : <p className="text-center">No Profiles in Candidat To-Do! Pl</p>
-        } */}
+       
         </div>
       </div>
     </>

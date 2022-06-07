@@ -29,7 +29,7 @@ import Signed from "./pages/ClientPages/SignedContract";
 import RenameSector from "./pages/EditPages/RenameSector";
 import ClientTodoEdit from "./pages/EditPages/ClientEdit_Page";
 import ClientinProgressEdit from "./pages/EditPages/Client_EditinProgress";
-import PrivateRoute from "./ProtectedRoutes/ProctedRoute";
+import PrivateRoute from "./ProctetedRoute/ProctedRoute";
 
 
 
