@@ -8,15 +8,23 @@ import { useState, useEffect } from "react";
 import UserAddModal from '../../components/Modal/AddUser';
 import {API_BASE_URL} from '../../config/serverApiConfig'
 import { Toaster,toast } from 'react-hot-toast';
+import DeleteUser from '../../components/Modal/DeletedUser';
+
 function UserList(){
     const [AddModal, setAddModal] = useState(false)
+    const [deleteModal,setDeleteModal]=useState(false)
+    const [fields,setDeleteField]=useState({
+        _id:"",
+        emailAddress:"",
+        password:""
+    })
     const [allUsers,setAllusers]=useState([{
         emailAddress:"",
         password:"",
-        _id:""
+        _id:"",
 }])
    
-    const getAllUsers = async () => {
+        const getAllUsers = async () => {
         fetch(API_BASE_URL + "allusers", {
            method: "GET",
            headers: {
@@ -33,26 +41,10 @@ function UserList(){
  useEffect(()=>{
     getAllUsers()
  },[])
-         
+  console.log(allUsers)       
        
-        const deleteUser = async (_id) => {
-            fetch(`${API_BASE_URL}deleteuser/?user=${_id}`, {
-               method: "GET",
-               headers: {
-                   "Accept": 'application/json',
-                   'Content-Type': 'application/json',
-                   "Authorization": "Bearer " + localStorage.getItem('token')
-               },
-           })
-               .then(result => result.json())
-               .then(data =>setAllusers([...data.data])
-               )
-               .catch(err => {
-                   return err;
-               })
-           } 
+    
     // }
-   console.log(allUsers)
 
     // useEffect(() => {
     //     getSectors().then((resp) => {
@@ -86,15 +78,20 @@ function UserList(){
         <div className="col-12 pd-lr">
             <div className="row">
                 <div className="col-6 text-start d-flex align-item-center">
-                 
+                 {el.emailAddress?
                             <p className="A0012">{el.emailAddress}</p>
+                            :
+                            <div className='d-flex justify-content-start'>
+                            <div className="load"></div>
+                            </div>
+                 }
                    
-                    {/* <p className="A0012">&#10100;{el.password}&#10101;</p> */}
                 </div>
                 <div className="col-6 text-end">
+
                             <button
-                                className="btn btn-delete"
-                                onClick={(e)=>{deleteUser(el._id)}}   
+                                className="btn btn-delete"   
+                                onClick={(e)=>{setDeleteModal(true);setDeleteField(el)}}
                             >
                                Delete User
                             </button>
@@ -105,7 +102,14 @@ function UserList(){
     </ul>
 </div>
          ))
+       
         }
+                        {
+deleteModal?
+    <DeleteUser props={fields}  closeModal={setDeleteModal} />
+    : null
+}
+   
 
                                         {/* ) : */}
                                         {/* <p>

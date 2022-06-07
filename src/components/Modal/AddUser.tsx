@@ -14,7 +14,8 @@ function UserAddModal({ closeModal }) {
   // const AddNewUser = () => {
   //   alert(JSON.stringify(data));
   // };
-  const AddSuccess=()=>toast("SuccessFully User Added")
+  const AddSuccess=()=>toast("SuccessFully User Added !")
+  const AddFailure=()=>toast("User Added Fail !")
   const saveUserData = async () => {
     return await fetch(API_BASE_URL + "signup", {
       method: "POST",
@@ -26,8 +27,15 @@ function UserAddModal({ closeModal }) {
       body: JSON.stringify({...data}),
     })
       .then(resp => resp.json())
-      .then(reD =>setResponse(reD))
-      .catch(err => err)
+      .then(reD =>{setResponse(reD);setTimeout(function () {
+        window.location.href = "/userList";
+        
+      },
+    1000
+  );
+  AddSuccess()
+})
+      .catch((err) =>{console.log(err); AddFailure()})
   }
 console.log(res,"res")
   return (
@@ -40,6 +48,7 @@ console.log(res,"res")
         aria-hidden="true"
         style={{ backgroundColor: "#00000052" }}
       >
+       
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -56,7 +65,6 @@ console.log(res,"res")
                 }}
               ></button>
             </div>
-
             <div className="modal-body  text-start">
               <label className="form-label mb-0 fs-6">Email</label>
               <input
@@ -67,6 +75,7 @@ console.log(res,"res")
                   setEmailAddress(e.target.value);
                 }}
                 placeholder="Enter email..."
+            autoComplete="off"
               />
               <div className="mt-2">
                 <label
@@ -84,9 +93,11 @@ console.log(res,"res")
                     setPassword(e.target.value);
                   }}
                   placeholder="Enter password..."
+                  autoComplete="off"
                 />
               </div>
             </div>
+           
             <div className="modal-footer">
                 <div className="col-12">
                     <div className="row">
@@ -105,7 +116,9 @@ console.log(res,"res")
              
             </div>
           </div>
+      
         </div>
+    
       </div>
     </>
   );
