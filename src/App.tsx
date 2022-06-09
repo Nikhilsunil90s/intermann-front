@@ -68,14 +68,14 @@ function App() {
           <Route path={"/clientContract"} element={ <Sidebar><PrivateRoute Component={ClientContract} /></Sidebar>} />
           <Route path={"/archived"} element={ <Sidebar><PrivateRoute Component={ClientArchived} /></Sidebar>} />
 
-          <Route path={"/clientFullprofile"} element={ <Sidebar><PrivateRoute Component={ClientView} /></Sidebar>} />
-          <Route path={"/clientFullprogress"} element={ <Sidebar><PrivateRoute Component={ClientProgressView} /></Sidebar>} /> 
+          <Route path={"/clientToDoProfile"} element={ <Sidebar><PrivateRoute Component={ClientView} /></Sidebar>} />
+          <Route path={"/clientInProgressProfile"} element={ <Sidebar><PrivateRoute Component={ClientProgressView} /></Sidebar>} /> 
 
           <Route path={"/clientSigned"} element={ <Sidebar><PrivateRoute Component={Signed} /></Sidebar>} /> 
           <Route path={"/joblist"} element={ <Sidebar><PrivateRoute Component={RenameSector} /></Sidebar>} /> 
 
-          <Route path={"/Client_Edit"} element={<Sidebar><PrivateRoute Component={ClientTodoEdit} /></Sidebar>} />
-          <Route path={"/Client_editProgress"} element={<Sidebar><PrivateRoute Component={ClientinProgressEdit} /></Sidebar>} />
+          <Route path={"/clientToDoEdit"} element={<Sidebar><PrivateRoute Component={ClientTodoEdit} /></Sidebar>} />
+          <Route path={"/clientInProgressEdit"} element={<Sidebar><PrivateRoute Component={ClientinProgressEdit} /></Sidebar>} />
         </Routes>
       </Router>
     </Provider>

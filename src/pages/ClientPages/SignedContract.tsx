@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom"
 import StarRatings from 'react-star-ratings';
-import "../../CSS/Client/CardClient.css";
+import "../../CSS/Client/ProgressCardClient.css";
 
 
 function Signed(){

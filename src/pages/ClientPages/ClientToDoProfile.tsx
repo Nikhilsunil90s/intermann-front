@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
 import "../../CSS/Client/ClientSeepage.css";
@@ -6,23 +6,29 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import InProgressClientModal from "../../components/Modal/InProgressClientModal";
 import ArchivedClientModal from "../../components/Modal/ArchivedClientModal";
+
 function ClientSee() {
+
   const navigate = useNavigate();
   const { state } = useLocation();
   const [profile, setProfile] = useState<any>(state)
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false)
   const [documentsList, setDocumentsList] = useState([]);
+
   const editClientProfile = () => {
     navigate("/clientToDoEdit", { state: profile });
   }
-  useEffect(() => {
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
-  });
+
+
+  // useEffect(() => {
+  //   window.scroll({
+  //     top: 0,
+  //     left: 0,
+  //     behavior: "smooth",
+  //   });
+  //   console.log(profile)
+  // });
   return (
     <>
       <div className="containet-fluid">
@@ -49,7 +55,6 @@ function ClientSee() {
           <div className="bg-class">
             <div className="col-12 p-3 bg-color-card">
               <div className="row">
-                <div className="col-3">
               <div className="logo-bg">
                   <img
                       src={require("../../images/enterprise.svg").default}
@@ -57,19 +62,17 @@ function ClientSee() {
                     />
                  
                   </div>
-                  </div>
-
                 {/* <button type="button" className="btn btn-upload">
                     UPLOAD PHOTO
                   </button> */}
                 <div className="col-5 card-xl">
-                  <p>Company :{profile.clientCompanyName}</p>
-                  <p>Number of Positions :{profile.numberOfPosts}</p>
+                  <p>Company : {profile.clientCompanyName}</p>
+                  <p>Number of Positions : {profile.numberOfPosts}</p>
 
-                  <p>Secteur :{profile.clientActivitySector}</p>
-                  <p>Métier/Job :{profile.clientJob}</p>
+                  <p>Secteur : {profile.clientActivitySector}</p>
+                  <p>Métier/Job : {profile.clientJob}</p>
                   <p style={{ width: "145%" }}>
-                    Contact Name :{profile.clientReferenceName}
+                    Contact Name : {profile.clientReferenceName}
                   </p>
                 </div>
                 <div className="col-4 text-end end-class">
@@ -87,14 +90,14 @@ function ClientSee() {
             <div className="col-12 box-size">
               <div className="row">
                 <div className="col-6 text-center">
-                  <p>Company Mail :{profile.clientEmail}</p>
+                  <p>Company Mail : {profile.clientEmail}</p>
                   <button className="btn btn-email">
                     <span className="padding-email">
                       <img src={require("../../images/gmail.svg").default} />
                     </span>
                     Send Mail
                   </button>
-                  <p>Contact Mail : {profile.clientEmail}</p>
+                  <p>Contact Mail :  {profile.clientEmail}</p>
                   <button className="btn btn-primary btn-email">
                     <span className="padding-email">
                       <img src={require("../../images/gmail.svg").default} />
@@ -104,14 +107,14 @@ function ClientSee() {
                 </div>
 
                 <div className="col-6">
-                  <p>Company Phone :{profile.clientPhone}</p>
+                  <p>Company Phone : {profile.clientPhone}</p>
                   <button className="btn btn-whatsapp btn-see">
                     <span className="padding-email">
                       <img src={require("../../images/whatsapp.svg").default} />
                     </span>
                     Send What’s App
                   </button>
-                  <p>Contact Phone :{profile.clientReferenceNumber} </p>
+                  <p>Contact Phone : {profile.clientReferenceNumber} </p>
                   <button className="btn btn-whatsapp btn-see">
                     <span className="padding-email">
                       <img src={require("../../images/whatsapp.svg").default} />
@@ -125,34 +128,34 @@ function ClientSee() {
               <div className="parent-p">
                 <div className="d-flex">
                   <p>Company Adress </p>
-                  <span>:{profile.clientAddress}</span>
+                  <span>: {profile.clientAddress}</span>
                 </div>
                 <div className="d-flex ">
                   <p className="">Langues </p>
-                  <span className="">:{profile.clientLanguages}</span>
+                  <span className="">: {profile.clientLanguages}</span>
                 </div>
                 <div className="d-flex">
                   <p className="blue-text">Research for work</p>
                   <span className="blue-text">
-                    :  From{profile.jobStartDate != "" ? profile.jobStartDate : "___"} To{profile.jobEndDate != "" ? profile.jobEndDate : "___"}
+                    :   From {profile.jobStartDate != "" ? profile.jobStartDate : "___"} To {profile.jobEndDate != "" ? profile.jobEndDate : "___"}
                   </span>
                 </div>
                 <div className="d-flex">
                   <p>Note </p>
                   <span>
-                    :{profile.clientRequiredSkills != "" ? profile.clientRequiredSkills : "Not Available!"}
+                    : {profile.clientRequiredSkills != "" ? profile.clientRequiredSkills : "Not Available!"}
                   </span>
                 </div>
                 <div className="d-flex pt-4">
                   <p className="text-dark">Potential Turnover CA</p>
                   <span className="text-dark">
-                    : {profile.jobTotalBudget} €
+                    :  {profile.jobTotalBudget}  €
                   </span>
                 </div>
                 <div className="d-flex">
                   <p className="text-dark">Salary by person </p>
                   <span className="text-dark">
-                    : {profile.netSalary} €
+                    :  {profile.netSalary}  €
                   </span>
                 </div>
                 <div>

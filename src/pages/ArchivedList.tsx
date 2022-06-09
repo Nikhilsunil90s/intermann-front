@@ -3,16 +3,11 @@ import StarRatings from "react-star-ratings";
 import "../CSS/Canceled.css";
 import ArchivedProfileCard from "../components/ArchivedProfileCard";
 import { API_BASE_URL } from "../config/serverApiConfig";
-import Item from '../components/Loader/loader'
+import Loader from '../components/Loader/loader'
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      Item: React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement>,
-        HTMLElement
-      >;
-    }
+declare namespace JSX {
+  interface IntrinsicElements {
+    "lottie-player": any;
   }
 }
 declare global {
@@ -33,7 +28,7 @@ function ArchivedList() {
   const [selectedJob, setSelectedJob] = useState([]);
   const [selectedSector, setSelectedSector] = useState("");
   const [selectedLanguages, setSelectedLanguages] = useState([]);
-  const [Loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(false);
   const [filterData, setFilterData] = useState([]);
   const [status, setStatus] = useState(Boolean);
 
@@ -304,18 +299,7 @@ function ArchivedList() {
 useEffect(() => {
   fetchProfiles();
 }, []);
-useEffect(() => {
-  if (sectors.length == 0) {
-    fetchAllSectors()
-      .then((data) => {
-        // console.log(data.data);
-        setSectors([...data.data]);
-      })
-      .catch((err) => {
-        // console.log(err);
-      });
-  }
-}, [jobs]);
+
   return (
     <>
       <div className="container-fluid">
@@ -417,7 +401,7 @@ useEffect(() => {
           <hr className="new5" />
          
             <>
-            {Loader ? 
+            {loader ? 
                 <>
                   {status ? 
                     filterData.length > 0 ? 
@@ -429,7 +413,7 @@ useEffect(() => {
                      : 
                       <div className="col-12">
                         <div className="row d-flex justify-content-center">
-                          <Item />
+                          <Loader />
                         </div>
                       </div>
                     
@@ -442,7 +426,7 @@ useEffect(() => {
           : 
             <div className="col-12">
               <div className="row d-flex justify-content-center">
-                <Item />
+                <Loader />
               </div>
             </div>
           }

@@ -5,17 +5,12 @@ import "../CSS/CanEmpl.css";
 import ToDoProfileCard from "../components/ToDoProfileCard";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import { Toaster } from "react-hot-toast";
-import Item from "../components/Loader/loader";
+import Loader from "../components/Loader/loader";
 
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      Item: React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement>,
-        HTMLElement
-      >;
-    }
+declare namespace JSX {
+  interface IntrinsicElements {
+    "lottie-player": any;
   }
 }
 declare global {
@@ -30,14 +25,13 @@ declare global {
 }
 
 let FilterJob = [];
-let newarr =[]
 function ToDoList() {
   const [sectors, setSectors] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState([]);
   const [selectedSector, setSelectedSector] = useState("");
   const [selectedLanguages, setSelectedLanguages] = useState([]);
-  const [Loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(false);
   const [filterData, setFilterData] = useState([]);
   const [status, setStatus] = useState(Boolean);
 
@@ -162,7 +156,7 @@ function ToDoList() {
        FilterJob= FilterJob.filter((item)=>{return item !==job.jobName})
         console.log(FilterJob.length,"newarr")
 
-        setSelectedJob(newarr)
+        setSelectedJob(FilterJob)
         console.log(selectedJob,"else")
       } 
     }
@@ -500,7 +494,7 @@ function ToDoList() {
             </div>
           </div>
           <hr className="new5" />
-         {Loader ? 
+         {loader ? 
                 <>
                   {status ? 
                     filterData.length > 0 ? 
@@ -512,7 +506,7 @@ function ToDoList() {
                      : 
                       <div className="col-12">
                         <div className="row d-flex justify-content-center">
-                          <Item />
+                          <Loader />
                         </div>
                       </div>
                     
@@ -525,7 +519,7 @@ function ToDoList() {
           : 
             <div className="col-12">
               <div className="row d-flex justify-content-center">
-                <Item />
+                <Loader />
               </div>
             </div>
           }

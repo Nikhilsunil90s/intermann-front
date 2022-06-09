@@ -5,7 +5,6 @@ import EmbaucheProfileCard from "../components/EmbaucheProfileCard";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import toast, { Toaster } from "react-hot-toast";
 import Item from "../components/Loader/loader";
-import Loader from "../components/Loader/loader";
 
 declare global {
   namespace JSX {

@@ -1,9 +1,10 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
 import {Link} from 'react-router-dom'
-import "../../CSS/Client/CardClient.css";
+import "../../CSS/Client/ProgressCardClient.css";
 
-function ClientCardArchived(){
+function ClientCardArchived(props:any){
+console.log(props)
     return(<>
        <div className="card card-color">
                 <div className="card-upper">
@@ -15,14 +16,14 @@ function ClientCardArchived(){
                         />
                     </div>
                     <div className="col-7 ">
-                    <p>&#10100;Candidats_name&#10101;</p>
-                    <p>&#10100;Candidats_Age&#10101;</p>
+                    <p>{props.props.candidatName}</p>
+                  <p>{props.props.candidatAge}</p>
                         <div >  <p>Motivation:
                             <StarRatings
-                                rating={5}
+                                              rating={props.props.candidatMotivation}
                                 starRatedColor="#ffc107"
                                 // changeRating={}
-                                numberOfStars={5}
+                                numberOfStars={props.props.candidatMotivation}
                                 starDimension={'11px'}
                                 starSpacing={'0px'}
                                 name='rating'
@@ -72,25 +73,27 @@ function ClientCardArchived(){
                     <p>Reason archived : &#10100;reason_Text-Area&#10101; 
                          </p>
                     </div>
-                 <div className="col-12  mt-2">
-                     <div className="row">
-                         <div className="col-6 text-center">
-                         <Link to="/embauchprofile" className="btn btn-card">
+                    <div className="col-12">
+                        <div className="row">
+   
+                    <div className="col-6 text-center">
+                 <Link to="/embauchprofile" className="btn btn-card">
                         See Full Profile
                     </Link>
-                         </div>
-                         <div className="col-6 text-center">
-                         <Link to="#" className="btn btn-cardRight1">
+                 </div>
+                   <div className="col-6 text-center">
+                   <Link to="#" className="btn btn-cardRightOne">
                         Edit Profile
                     </Link>
-                         </div>
-                         <div className="col-12 text-center">
-                         <Link to="#" className="btn btn-cardArchive">
+                   </div>
+                   <div className="col-12 text-center">
+                   <Link to="#" className="btn btn-cardArchive">
                         Archive
                     </Link>
-                         </div>
-                     </div>
-                 </div>         
+                   </div>
+                  
+                    </div>
+                    </div>
                     </div>
                 </div>
             </div>

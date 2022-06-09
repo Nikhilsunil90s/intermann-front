@@ -1,30 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
 import "../../CSS/Client/ClientSeepage.css";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 function ClientProgressView() {
+
+  const { state } = useLocation();
+  const navigate = useNavigate();
+
+  const [profile, setProfile] = useState<any>(state)
+
+
+
   useEffect(() => {
     window.scroll({
       top: 0,
       left: 0,
       behavior: "smooth",
     });
+    console.log(profile);
   });
   return (
     <>
       <div className="containet-fluid">
         <div className="row">
           <div className="col-12 top-pd text-center">
-            <img
-              src={require("../../images/ClientseePage.svg").default}
-              style={{ width: "70%" }}
-            />
+            <div className="col-12 top-pd text-center">
+              <h1 style={{ textDecoration: 'underline' }}>CLIENT FILE: {profile.clientCompanyName}</h1>
+            </div>
           </div>
           <div className="col-6">
             <div className="stable">
-              <Link to="/todolist">
-              <button type="button" className="btn bg-Progress-btn">
+              <Link to="/clientProgress">
+                <button type="button" className="btn bg-Progress-btn">
                   <img src={require("../../images/return.svg").default} />
                   Return to client list IN PROGRESS
                 </button>
@@ -32,7 +43,7 @@ function ClientProgressView() {
             </div>
           </div>
           <div className="col-6  text-end ">
-            <Link to="/editTodo">
+            <Link to="/clientInProgressEdit">
               <button className="btn btn-bgb">
                 <img src={require("../../images/Edit.svg").default} />
                 Edit Profile
@@ -45,30 +56,28 @@ function ClientProgressView() {
                 <div
                   className="col-3     d-grid
     justify-content-center
-    align-items-center  text-center "
+    align-items-center  text-center"
                 >
                   <div className="logo-bg">
-                
-                    <img
+                  <img
                       src={require("../../images/enterprise.svg").default}
-                      style={{ padding: "40px" }}
+                      style={{ backgroundColor: "transparent" }}
                     />
+                 
                   </div>
-                  <button type="button" className="btn btn-upload">
-                    UPLOAD PHOTO
-                  </button>
+                
                 </div>
                 <div className="col-5 card-xl">
-                <p>Company : &#10100;Company_name&#10101;</p>
-                  <p>Number of position : &#10100;Number&#10101;</p>
-                  <p>Secteur : &#10100;client_Sector&#10101;</p>
-                  <p>Métier/Job : &#10100;Client_Metier_Job&#10101;</p>
-                  <p style={{width:"145%"}}>Contact name : &#10100;Contact_Name_In_Company&#10101; </p>
+                  <p>Company : {profile.clientCompanyName}</p>
+                  <p>Number of Position(s) : {profile.numberOfPosts}</p>
+                  <p>Secteur : {profile.clientActivitySector}</p>
+                  <p>Métier/Job : {profile.clientJob}</p>
+                  <p style={{ width: "145%" }}>Contact Name : {profile.clientReferenceName} </p>
                 </div>
                 <div className="col-4 text-end end-class">
                   <div>
-                  <button type="button" className="btn btn-in-progress" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                  <span style={{marginRight:"3px"}}><img src={require("../../images/level-up.svg").default} /></span>     IN PROGRESS
+                    <button type="button" className="btn btn-in-progress">
+                      <img src={require("../../images/level-up.svg").default} /><small> IN PROGRESS</small>
                     </button>
                   </div>
                   <p className="fw-bold">Lead en recherche active</p>
@@ -80,14 +89,14 @@ function ClientProgressView() {
             <div className="col-12 box-size">
               <div className="row">
                 <div className="col-6 text-center">
-                  <p>Company Mail : &#10100; Candidat_email&#10101;</p>
+                  <p>Company Mail : {profile.clientEmail}</p>
                   <button className="btn btn-email">
                     <span className="padding-email">
                       <img src={require("../../images/gmail.svg").default} />
                     </span>
                     Send Mail
                   </button>
-                  <p>Contact Mail : &#10100;Candidat_email&#10101; </p>
+                  <p>Contact Mail : {profile.clientEmail} </p>
                   <button className="btn btn-primary btn-email">
                     <span className="padding-email">
                       <img src={require("../../images/gmail.svg").default} />
@@ -97,14 +106,14 @@ function ClientProgressView() {
                 </div>
 
                 <div className="col-6">
-                  <p>Company Phone : &#10100;Company_Phone&#10101;</p>
+                  <p>Company Phone : {profile.clientPhone}</p>
                   <button className="btn btn-whatsapp btn-see">
                     <span className="padding-email">
                       <img src={require("../../images/whatsapp.svg").default} />
                     </span>
                     Send What’s App
                   </button>
-                  <p>Contact Phone : &#10100;Candidat_Phone&#10101; </p>
+                  <p>Contact Phone : {profile.clientReferenceNumber} </p>
                   <button className="btn btn-whatsapp btn-see">
                     <span className="padding-email">
                       <img src={require("../../images/whatsapp.svg").default} />
@@ -115,59 +124,51 @@ function ClientProgressView() {
               </div>
             </div>
             <div className="col-12 litle-box">
-                <div className="row">
-                    <div className="col-6">
-                        <p >Ads Spent on this client : &#10100;ad_Spent&#10101;</p>
-                    </div>
+              <div className="row">
+                <div className="col-6">
+                  <p >Ads Spent on this client : &#10100;ad_Spent&#10101;</p>
                 </div>
+              </div>
             </div>
-              <div className="col-12">
+            <div className="col-12">
               <div className="parent-p">
                 <div className="d-flex">
-                  <p>Company Adress </p>
-                  <span>&#10100;: Company_Adress&#10101;</span>
+                  <p>Company Address : </p>
+                  <span>{profile.clientAddress}</span>
                 </div>
                 <div className="d-flex ">
-                  <p className="">Langues </p>
-                  <span className="">: &#10100;Clients_Langues&#10101;</span>
+                  <p className="">Langues :</p>
+                  <span className="">{profile.clientLanguages}</span>
                 </div>
                 <div className="d-flex">
                   <p className="blue-text">Research for work : From </p>
                   <span className="blue-text">
-                    &#10100;date&#10101; - To &#10100;date&#10101;
+                    {profile.jobStartDate} - To {profile.jobEndDate}
                   </span>
                 </div>
                 <div className="d-flex">
                   <p>Note </p>
                   <span>
-                    : &#10100;Client_Note&#10101; Lorem Ipsum is simply dummy
-                    text of the printing and typesetting industry. Lorem Ipsum
-                    has been the industry's standard dummy text ever since the
-                    1500s, when an unknown printer took a galley of type and
-                    scrambled it to make a type specimen book. Lorem Ipsum is
-                    simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's standard dummy text ever
-                    since the 1500s, when an unknown printer took a galley of
-                    type and scrambled it to make a type specimen book.
+                    :{profile.clientRequiredSkills}
                   </span>
                 </div>
                 <div className="d-flex pt-4">
                   <p className="text-dark">Potential Turnover CA</p>
                   <span className="text-dark">
-                    :&#10100;Amont_turnover&#10101; €
+                    :{profile.jobTotalBudget}
                   </span>
                 </div>
                 <div className="d-flex">
                   <p className="text-dark">Salary by person </p>
                   <span className="text-dark">
-                    :&#10100;Amont_Salary&#10101; €
+                    :{profile.netSalary}
                   </span>
                 </div>
                 <div>
                   <p>
                     Motivation:
                     <StarRatings
-                      rating={5}
+                      rating={profile.clientMotivation}
                       starRatedColor="#ffc107"
                       // changeRating={}
                       numberOfStars={5}
@@ -181,7 +182,7 @@ function ClientProgressView() {
                   <p>
                     Importance:
                     <StarRatings
-                      rating={5}
+                      rating={profile.clientImportance}
                       starRatedColor="#ffc107"
                       // changeRating={}
                       numberOfStars={5}
@@ -195,7 +196,7 @@ function ClientProgressView() {
                 <div className="d-flex">
                   <p style={{ marginBottom: "0px" }}>Ajouté par/Added by :</p>
                   <span style={{ marginBottom: "0px" }}>
-                    &#10100;Added_by&#10101;
+                  {profile.enteredBy}
                   </span>
                 </div>
               </div>
@@ -228,7 +229,7 @@ function ClientProgressView() {
                   <div className="col-3 text-center">
                     <button type="button" className="btn btn-Contract">
                     Move to signed contract
-                    </button>
+                      </button>
                     <p className="italic-font">Si on lance les recherches</p>
                   </div>
                   <div className="col-3 text-center">
