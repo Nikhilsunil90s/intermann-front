@@ -32,31 +32,30 @@ export default function ClientArchived() {
   //     behavior: "smooth",
   //   });
   // });
-  const [sectors, setSectors] = useState([]);
-  const [jobs, setJobs] = useState([]);
-  const [selectedJob, setSelectedJob] = useState([]);
-  const [selectedSector, setSelectedSector] = useState("");
-  const [selectedLanguages, setSelectedLanguages] = useState([]);
-  const [loader, setLoader] = useState(false);
-  const [filterData, setFilterData] = useState([]);
-  const [status, setStatus] = useState(Boolean);
+  const [loader,setLoader] = useState(true);
+  const [sectors,setSectors] = useState([]);
+  const [jobs,setJobs] = useState([]);
+  const [selectedJob,setSelectedJob] = useState([]);
+  const [defaultCard,setDefault] = useState(false)
+  const [selectedSector,setSelectedSector] = useState("");
+  const [selectedLanguages,setSelectedLanguages] = useState([]);
+  const [filterData,setFilterData] = useState([]);
+  const [status,setStatus] = useState(Boolean);
   useEffect(() => {
     if (sectors.length == 0) {
-      fetchAllSectors()
-        .then((data) => {
-          // console.log(data.data);
-          setSectors([...data.data]);
+      fetchAllSectors().then(data => {
+        console.log(data.data);
+        setSectors([...data.data]);
+      })
+        .catch(err => {
+          console.log(err);
         })
-        .catch((err) => {
-          // console.log(err);
-        });
     }
-  }, [jobs]);
+  }, [jobs])
 
-   useEffect(() => {
-    filterFunction()
-  }
-    , [selectedLanguages, selectedJob, selectedSector]);
+  useEffect(() => {
+    filterFunction();
+  }, [selectedLanguages, selectedJob, selectedSector]);
  console.log(filterData,"data")
     const fetchProfiles = async () => {
       return await fetch(API_BASE_URL + "allArchivedClients", {
@@ -115,6 +114,13 @@ export default function ClientArchived() {
 
   },[selectedJob])
   const fetchAllJobs = async (sector: string) => {
+    if (sector === "Select Un Secteur") {
+      // return {
+      //   data: []
+      // }
+      setSelectedSector("")
+      setSelectedJob([])
+    }
     return await fetch(API_BASE_URL + `fetchAllJobs/?sector=${sector}`, {
       method: "GET",
       headers: {
@@ -134,18 +140,16 @@ export default function ClientArchived() {
       console.log("hello")
         FilterJob.push(job.jobName);
         setSelectedJob(FilterJob);
-      console.log(selectedJob,"selectedjobif")
-    }
+        filterFunction()
+  }
     else {
       if(FilterJob.length===1){
         FilterJob=[]
       }
-      console.log(FilterJob.length,"index")
-     console.log("not checked")
      FilterJob= FilterJob.filter((item)=>{return item !==job.jobName})
-      console.log(FilterJob.length,"newarr")
       setSelectedJob(FilterJob)
-      console.log(selectedJob,"else")
+      filterFunction()
+
     } 
   }
 
@@ -166,6 +170,7 @@ export default function ClientArchived() {
   };
   const filterFunction = async () => {
     setLoader(false);
+    setStatus(false)
     if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0){
       setLoader(true)
       setStatus(true)
@@ -199,12 +204,12 @@ export default function ClientArchived() {
     }
     if (
       selectedSector.length > 0 &&
-      FilterJob.length > 0 &&
+      selectedJob.length > 0 &&
       selectedLanguages.length == 0
     ) {
       console.log(FilterJob, "seletedjobss");
       await fetch(
-        `${API_BASE_URL}filterArchivedClientSJ/?sector=${selectedSector}&jobs=${FilterJob}`,
+        `${API_BASE_URL}filterArchivedClientSJ/?sector=${selectedSector}&jobs=${selectedJob}`,
         {
           method: "GET",
           headers: {
@@ -327,11 +332,11 @@ useEffect(() => {
             <div className="dropdown">
               <div aria-labelledby="dropdownMenuButton1">
               <select
-                  name="candidatActivitySector"
+                  name="clientActivitySector"
                   className="form-select"
                   onChange={handleSectorChange}
                 >
-                  <option>Select Sectors</option>
+                  <option value="Select Sectors">Select Sectors</option>
                   {sectors &&
                     sectors.map((sector) => (
                       <option value={sector.sectorName}>
@@ -384,7 +389,7 @@ useEffect(() => {
                    
                       <li
                       className="job-ul list-group-item list-group-item-action"
-                      onClick={(e)=>{HandleChecked(e,job);filterFunction()}} value={job.jobName}
+                      onClick={(e)=>{HandleChecked(e,job)}} value={job.jobName}
                     > <span style={{color:"black",textAlign:"center",width:"100%",display:"flex",justifyContent:"space-between"}}>
                      {selectedJob.find((e) => e == job.jobName) ? (
                             <div className="tick"></div>
@@ -401,19 +406,27 @@ useEffect(() => {
           </div>
           <hr className="new5" />
           <>
-            {loader ? 
+          {loader ? 
                 <>
-                  {
-                    filterData.length > 0 ? 
+                  {filterData.length > 0 ? 
+                  status ? 
                       filterData.map((profile, index) => (
                         <div className="col-4 mt-2 pd-left">
-                          <ClientCardArchived  props={profile}  />
+                          <ClientCardArchived  data={profile}  />
                         </div>
                       ))
                      : 
-                    <p className="text-center">
-                      No Profiles in Candidat To-Do! Please Add New Candidats.
-                    </p>
+                     
+                     <div className="col-12">
+                     <div className="row d-flex justify-content-center">
+                       <Loader />
+                     </div>
+                   </div>
+                  : 
+                  <p className="text-center">
+                  No Profiles in Candidat To-Do! Please Add New Candidats.
+                </p>
+                   
                   }
             </>
           : 

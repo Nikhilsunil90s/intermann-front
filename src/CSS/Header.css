@@ -19,6 +19,7 @@ body {
     padding-bottom: 0px !important;
     position: fixed;
     top: 0;
+    left: 405px;
     width: 100%;
     background-color: #ffff;
     z-index: 1000;

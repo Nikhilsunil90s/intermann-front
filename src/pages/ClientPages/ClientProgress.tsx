@@ -137,15 +137,15 @@ export default function ClientProgress() {
       console.log("hello")
         FilterJob.push(job.jobName);
         setSelectedJob(FilterJob);
+        filterFunction()
   }
     else {
       if(FilterJob.length===1){
         FilterJob=[]
       }
-      console.log(FilterJob.length,"index")
-     console.log("not checked")
      FilterJob= FilterJob.filter((item)=>{return item !==job.jobName})
       setSelectedJob(FilterJob)
+      filterFunction()
     
     } 
   }
@@ -386,7 +386,7 @@ console.log(filterData,"data")
               <ul className="list-group">
                 {
                   jobs.length > 0 ? jobs.map((job) =>
-                    <li className="job-ul list-group-item list-group-item-action" value={job.jobName} onClick={(e)=>{HandleChecked(e,job);filterFunction()}}>
+                    <li className="job-ul list-group-item list-group-item-action" value={job.jobName} onClick={(e)=>{HandleChecked(e,job)}}>
 
 <span style={{color:"black",textAlign:"center",width:"100%",display:"flex",justifyContent:"space-between"}}>
                    {selectedJob.find((e) => e == job.jobName) ? (

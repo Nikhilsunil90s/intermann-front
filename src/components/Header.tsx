@@ -15,6 +15,7 @@ const Header = () => {
                       className="nav-link active"
                       aria-current="page"
                       to="/addCustomer"
+                      style={{backgroundColor:"none"}}
                     >
                       <button className="btn btn-1"> Add Client/Customer</button>
                     </Link>

@@ -39,6 +39,61 @@ font-size: 20px;
 line-height: 25px;
 color: #3F76E2;
 }
+.fontStyling{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 24px;
+letter-spacing: 1px;
+color: #252726;
+}
+.NumberStyling{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 30px;
+line-height: 45px;
+text-align: right;
+color: #FE8700;
+
+}
+.card-Leads{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 22px;
+line-height: 33px;
+letter-spacing: 1px;
+color: #252726;
+}
+.Das-loader{
+    width: 40px;
+    height: 40px;
+    margin-bottom: 20px;
+    border: solid 7px #b51212;
+    border-radius: 80%;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    -webkit-transition: all 0.5s ease-in;
+    -webkit-animation-name: rotate;
+    -webkit-animation-duration: 1.0s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    transition: all 0.5s ease-in;
+    animation-name: rotate;
+    animation-duration: 1.0s;
+    animation-iteration-count: infinite;
+}
+.NumberStylingARchived{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 45px;
+    text-align: right;
+    color: #FF0000;  
+}
 .card-tops{
     background: #FFFFFF;
 box-shadow: 0px 2px 48px rgba(0 0 0 / -8% ) !important;

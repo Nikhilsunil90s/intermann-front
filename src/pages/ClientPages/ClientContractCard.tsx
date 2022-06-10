@@ -1,8 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 import "../../CSS/Client/ProgressCardClient.css";
 
-function ClientContractCard() {
+function ClientContractCard(props:any) {
+  console.log(props)
+
+  const navigate = useNavigate();
+
+  const SeeFullProfile=()=>{
+    navigate("/clientSigned", { state: props});
+  }
   return (
     <>
       <div className="card card-color">
@@ -15,8 +22,7 @@ function ClientContractCard() {
             />
           </div>
           <div className="col-7 ">
-            <p> &#10100;Company_name &#10101;</p>
-            <p>&#10100;Candidats_Age &#10101;</p>
+          <p>{props.data.clientCompanyName}</p>
             <div>
        
               <p>
@@ -46,98 +52,59 @@ function ClientContractCard() {
                   name="rating"
                 />
               </p>
+              <p>Num of position : {props.data.numberOfPosts}</p>
             </div>
             <div>
-              <p>Num of position :&#10100;&#10101; </p>
             </div>
             <button className="contract">SIGNED CONTRACT</button>
           </div>
         </div>
 
         <div className="card-body">
-          <p>Secteur :&#10100;Client_Sector&#10101;</p>
-          <p>Job : &#10100;Candidats_Job &#10101;</p>
-          <p>Langues : &#10100;Candidats_langues_List&#10101; : </p>
-          <p>Phone Number : &#10100;Candidats_Phone &#10101; </p>
+        <p>Secteur : {props.data.clientActivitySector}</p>
+                    <p>Job : {props.data.clientJob}</p>
+                    <p>Langues : {props.data.clientLanguages} </p>
+                    <p>Phone Number : {props.data.clientPhone} </p>
 
-          <p className="blue">
-            Recruiting :From &#10100;date &#10101; To &#10100;date &#10101;
-          </p>
-          <p>Estimated CA : &#10100;Turnover_Amount&#10101; </p>
-
-          <p>Salary by person : &#10100;Salary_Amount&#10101; </p>
-          <p>Client Phone : &#10100; Client_phone&#10101; </p>
-          <p>Contact Name : &#10100;Client_name_company &#10101; </p>
-          <p> Contact phone : &#10100;Client_name_phone &#10101; </p>
-          <span style={{ fontSize: "13px" }}>
-            <input type="checkbox" />
-            Permise
-          </span>
+                    <p className="blue">Recruiting :From {props.data.jobStartDate}To {props.data.jobEndDate} </p>
+                    <p>Estimated CA : {props.data.jobTotalBudget} </p>
+                   
+                    <p>Salary by person : {props.data.netSalary} </p>
+                    <p>Client Phone : {props.data.clientPhone} </p>
+                    <p>Contact Name : {props.data.clientReferenceName}</p>
+                    <p> Contact phone : {props.data.clientPhone} </p>
+                    <span style={{fontSize:"13px"}}>
+                        <input type="checkbox" />
+                        Permise
+                    </span>
 
           <div className="padding">
             <div className="ad-box">
-              <p>Ads Spent on this client:&#10100;ad_Spent&#10101; </p>
+              <p>Ads Spent on this client: {props.data.jobTotalBudget} </p>
               <p>
                 Employees working for this client :
-                <div className="d-flex ps-2">
+                {props.data.employeesWorkingUnder.map((el)=>(
+                                <div className="d-flex ps-2">
            
-                  <img
-                    src={require("../../images/menlogos.svg").default}
-                    style={{ width: "7%" }}
-                  />
-                  <p style={{ fontSize: "6px" }}>
-                    &#10100;Candidats_name&#10101;
-                  </p>
-                </div>
-                <div className="d-flex ps-2">
-           
-                  <img
-                    src={require("../../images/menlogos.svg").default}
-                    style={{ width: "7%" }}
-                  />
-                  <p style={{ fontSize: "6px" }}>
-                    &#10100;Candidats_name&#10101;
-                  </p>
-                </div>
-                <div className="d-flex ps-2">
-           
-                  <img
-                    src={require("../../images/menlogos.svg").default}
-                    style={{ width: "7%" }}
-                  />
-                  <p style={{ fontSize: "6px" }}>
-                    &#10100;Candidats_name&#10101;
-                  </p>
-                </div>
-                <div className="d-flex ps-2">
-           
-                  <img
-                    src={require("../../images/menlogos.svg").default}
-                    style={{ width: "7%" }}
-                  />
-                  <p style={{ fontSize: "6px" }}>
-                    &#10100;Candidats_name&#10101;
-                  </p>
-                </div>
-                <div className="d-flex ps-2">
-           
-                  <img
-                    src={require("../../images/menlogos.svg").default}
-                    style={{ width: "7%" }}
-                  />
-                  <p style={{ fontSize: "6px" }}>
-                    &#10100;Candidats_name&#10101;
-                  </p>
-                </div>
+                                <img
+                                  src={require("../../images/menlogos.svg").default}
+                                  style={{ width: "7%" }}
+                                />
+                                <p style={{ fontSize: "6px" }}>
+                                 {el}
+                                </p>
+                              </div>
+                ))
+                }
               </p>
             </div>
 
          <div className="col-12">
            <div className="row">
              <div className="col-6 text-center">
-             <Link to="/clientSigned" className="btn btn-card">
+             <button className="btn btn-card" onClick={SeeFullProfile}>
               See Full Profile
-            </Link>
+            </button>
              </div>
              <div className="col-6 text-center">
              <Link to="#" className="btn btn-cardRight1">

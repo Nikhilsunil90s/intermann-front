@@ -19,11 +19,11 @@ function Sidebar(props: any) {
   }
   return (
     <>
-      <div className="container-fluid">
-        <div className="row  bg-side" style={{ height: "100vh" }}>
-          <div className="col-lg-3 col-md-3 col-xs-3 fixed pd-gutter" style={{ height: "100vh" }}>
+      <div className="container-fluid"  style={{ height: "100%",backgroundColor:"white" }}>
+        <div className="row" >
+          <div className="col-lg-3 col-md-3 col-xs-3 fixed pd-gutter" style={{ height: "100vh",backgroundColor:"white" }}>
             <div
-              className="d-flex flex-column flex-shrink-0 pt-3 "
+              className="d-flex flex-column flex-shrink-0 pt-2 "
             >
               <Link
                 to="/dashboard"

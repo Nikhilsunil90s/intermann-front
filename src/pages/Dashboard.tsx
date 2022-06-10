@@ -1,28 +1,50 @@
-import React, { useEffect, useState ,useRef} from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import "../CSS/Dashboard.css";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import { Toaster } from "react-hot-toast";
 function Dashboard() {
-  const [toDoCount, setToDoCount] = useState(0);
-  const [inProgressCount, setInProgressCount] = useState(0);
-  const [archivedCount, setArchivedCount] = useState(0);
+  const [toDoCandidatCount, setToDoCandidatCount] = useState(0);
+  const [inProgressCandidatCount, setInProgressCandidatCount] = useState(0);
+  const [preSelectedCount, setInPreselectedCount] = useState(0);
+  const [archivedCandidatCount, setArchivedCandidatCount] = useState(0);
+  const [toDoClientCount, setToDoClientCount] = useState(0);
+  const [inProgressClientCount, setInProgressClientCount] = useState(0);
+  const [signedClientCount, setSignedClientCount] = useState(0);
+  const [archivedClientCount, setArchivedClientCount] = useState(0);
   const [loader, setLoader] = useState(false);
-  const fetchCounts = async () => {
+
+  const fetchCandidatCounts = async () => {
     return await fetch(API_BASE_URL + "getCounts", {
       method: "GET",
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
       },
     })
-      .then((resd) => resd.json())
-      .then((d) => d)
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+      .then(resd => resd.json())
+      .then(d => d)
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  const fetchClientCounts = async () => {
+    return await fetch(API_BASE_URL + "getLeadsCount", {
+      method: "GET",
+      headers: {
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+    })
+      .then(resd => resd.json())
+      .then(d => d)
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
   useEffect(() => {
     window.scroll({
@@ -30,112 +52,323 @@ function Dashboard() {
       left: 0,
       behavior: "smooth",
     });
-    fetchCounts()
+    fetchCandidatCounts()
       .then((data) => {
         console.log(data);
-        setToDoCount(data.toDoCount);
-        setInProgressCount(data.inProgressCount);
-        setArchivedCount(data.archivedCount);
+        setToDoCandidatCount(data.toDoCount);
+        setInProgressCandidatCount(data.inProgressCount);
+        setArchivedCandidatCount(data.archivedCount);
+        setInPreselectedCount(data.preSelectedCount)
         setLoader(true);
       })
-      .catch((err) => err);
-  });
+      .catch(err => err)
 
+    fetchClientCounts()
+      .then((resp) => {
+        console.log(resp)
+        setToDoClientCount(resp.toDoCount)
+        setInProgressClientCount(resp.inProgressCount)
+        setSignedClientCount(resp.signedCount)
+        setArchivedClientCount(resp.archivedCount)
+       
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  });
   return (
     <>
-    <Toaster position="top-center" />
+      <Toaster position="top-center" />
       <div className="container-fluid">
         <div className="row">
-          <div className="col-5 card-tops">
-            <div className="card ">
+          <div className="col-12 card-tops mt-2" style={{padding:"0px",marginBottom:"20px"}}>
+            <div className="card " style={{padding:"10px",borderRadius:"15px",marginBottom:"0px"}}>
               <div className="card-body">
-                <h5 className="card-title">Stats Candidats</h5>
+                <h2 className="card-Leads">Stats Leads / Clients</h2>
               </div>
-
-              <ul className="list-group list-group-flush">
-                <Link to="/todolist">
-                  <li className="list-group-item">
-                    <span className="px-2">
-                      <img src={require("../images/Icon.svg").default} />
-                    </span>
-                    En sommeil / To do
-                    <span>
-                  {loader?
-                   (<>  {toDoCount}</> )
-                  :
-                 ( <>
-           <div className="load"></div>
-                  </>)
-}
-
-                    </span>
-                  </li>
-                </Link>
-                <Link to="/embauchlist">
-                  <li className="list-group-item">
-                    <span className="px-2">
-                      <img src={require("../images/Icon1.svg").default} />
-                    </span>
-                    Embauché / Work with us<span> {loader? (<>{inProgressCount}</>):(<><div className="load"></div></>)}</span>
-                  </li>
-                </Link>
-                <Link to="/archivedlist">
-                  <li className="list-group-item">
-                    <span className="px-2">
-                      <img src={require("../images/multiply.svg").default} />
-                    </span>
-                    Archivé / Archived<span> {loader? (<>{archivedCount}</>):(<><div className="load"></div></>)}</span>
-                  </li>
-                </Link>
-              </ul>
             </div>
           </div>
-          <div className="col-5 card-top">
-            <div className="card ">
-              <div className="card-body">
-                <h5 className="card-title">Stats Leads / Contrats</h5>
-              </div>
 
-              <ul className="list-group list-group-flush">
-                <Link to="#">
-                  <li className="list-group-item">
-                    <span className="px-2">
-                      <img src={require("../images/Icon.svg").default} />
-                    </span>
-                    To Do/Non traité/Attente<span>12</span>
-                  </li>
-                </Link>
-                <Link to="#">
-                  <li className="list-group-item">
-                    <span className="px-2">
-                      <img src={require("../images/Icon1.svg").default} />
-                    </span>
-                    <span>En Cours</span>
-                    <span>8</span>
-                  </li>
-                </Link>
-                <Link to="#">
-                  <li className="list-group-item">
-                    <span className="px-2">
-                      <img src={require("../images/Icon2.svg").default} />
-                    </span>
-                    Contrat en cours / Done<span>32</span>
-                  </li>
-                </Link>
-                <Link to="#">
-                  <li className="list-group-item">
-                    <span className="px-2">
-                      <img src={require("../images/multiply.svg").default} />
-                    </span>
-                    Annulé / Archivé / Canceled<span>10</span>
-                  </li>
-                </Link>
-              </ul>
-            </div>{" "}
+          <div className=" container-fluid">
+            <section id="minimal-statistics">
+              <div className="row">
+ 
+                <div className="col-xl-4 col-sm-6 col-12">
+                <Link to="/clientTodo">
+                  <div
+                    className="card"
+                    style={{ padding: "20px", borderRadius: "15px" }}
+                  >
+                    <div className="card-content">
+                      <div className="card-body">
+                        <div className="row media d-flex">
+                          <div className="col-6 align-self-center">
+                            <img src={require("../images/Oval.svg").default} />
+                          </div>
+                          <div className="col-6 media-body text-right">
+                            {loader ? (
+                              <>
+                                <h3 className="pt-1 NumberStyling text-end">
+
+                                  {toDoClientCount}
+                                </h3>
+                              </>
+                            ) : (
+                              <>
+                                <div className="d-flex justify-content-end">
+                                  <div className="Das-loader"></div>
+                                </div>
+                              </>
+                            )}
+                          </div>
+                          <div className="text-start">
+                            <h3 className="fontStyling">
+                              To Do / Non traité / Non signé
+                            </h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </Link>
+                </div>
+               
+                <div className="col-xl-4 col-sm-6 col-12">
+                  <div
+                    className="card"
+                    style={{ padding: "20px", borderRadius: "15px" }}
+                  >
+                    <div className="card-content">
+                      <div className="card-body">
+                        <div className="row media d-flex">
+                          <div className="col-6 align-self-center">
+                            <img src={require("../images/CardPre.svg").default} />
+                          </div>
+                          <div className="col-6 media-body text-right">
+                          {loader? (<><h3 className="pt-1 NumberStyling text-end">{signedClientCount}</h3></>):(<> <div className="d-flex justify-content-end">
+                                  <div className="Das-loader"></div>
+                                </div></>)}
+                          </div>
+                          <div className="text-start">
+                            <h3 className="fontStyling">
+                            Recherche en cours / Proposal Signed
+                            </h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               
+                <div className="col-xl-4 col-sm-6 col-12">
+                <Link to="/clientProgress">
+                  <div
+                    className="card"
+                    style={{ padding: "20px", borderRadius: "15px" }}
+                  >
+                    <div className="card-content">
+                      <div className="card-body">
+                        <div className="row media d-flex">
+                          <div className="col-6 align-self-center">
+                            <img src={require("../images/CardTick.svg").default} />
+                          </div>
+                          <div className="col-6 media-body text-right">
+                          {loader? (<><h3 className="pt-1 NumberStyling text-end">{inProgressClientCount}</h3></>):(<> <div className="d-flex justify-content-end">
+                                  <div className="Das-loader"></div>
+                                </div></>)}
+                          </div>
+                          <div className="text-start">
+                            <h3 className="fontStyling">
+                            Contrat en cours / Done
+                            </h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </Link>
+                </div>
+  
+              
+                <div className="col-xl-4 col-sm-6 col-12">
+                <Link to="/archived">
+                  <div
+                    className="card"
+                    style={{ padding: "20px", borderRadius: "15px" }}
+                  >
+                    <div className="card-content">
+                      <div className="card-body">
+                        <div className="row media d-flex">
+                          <div className="col-6 align-self-center">
+                            <img src={require("../images/multiply.svg").default} />
+                          </div>
+                          <div className="col-6 media-body text-right">
+                          {loader? (<><h3 className="pt-1 NumberStylingARchived text-end">{archivedClientCount}</h3></>):(<> <div className="d-flex justify-content-end">
+                                  <div className="Das-loader"></div>
+                                </div></>)}
+                          </div>
+                          <div className="text-start">
+                            <h3 className="fontStyling">
+                            Annulé / Archivé / Canceled
+                            </h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </Link>
+                </div>
+  
+              </div>
+            </section>
           </div>
+
+
+
+          <div className="col-12 card-tops mt-2" style={{padding:"0px",marginBottom:"20px"}}>
+            <div className="card " style={{padding:"10px",borderRadius:"15px",marginBottom:"0px"}}>
+              <div className="card-body">
+                <h2 className="card-Leads">Stats Candidats / Employees</h2>
+              </div>
+            </div>
+          </div>
+
+          <div className=" container-fluid">
+            <section id="minimal-statistics">
+              <div className="row">
+              
+                <div className="col-xl-4 col-sm-6 col-12">
+                <Link to="/todolist">
+                  <div
+                    className="card"
+                    style={{ padding: "20px", borderRadius: "15px" }}
+                  >
+                    <div className="card-content">
+                      <div className="card-body">
+                        <div className="row media d-flex">
+                          <div className="col-6 align-self-center">
+                            <img src={require("../images/Oval.svg").default} />
+                          </div>
+                          <div className="col-6 media-body text-right">
+                            {loader ? (
+                              <>
+                                <h3 className="pt-1 NumberStyling text-end">
+
+                                  {toDoCandidatCount}
+                                </h3>
+                              </>
+                            ) : (
+                              <>
+                                <div className="d-flex justify-content-end">
+                                  <div className="Das-loader"></div>
+                                </div>
+                              </>
+                            )}
+                          </div>
+                          <div className="text-start">
+                            <h3 className="fontStyling">
+                            En sommeil / To do
+                            </h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </Link>
+                </div>
+                
+                <div className="col-xl-4 col-sm-6 col-12">
+                  <div
+                    className="card"
+                    style={{ padding: "20px", borderRadius: "15px" }}
+                  >
+                    <div className="card-content">
+                      <div className="card-body">
+                        <div className="row media d-flex">
+                          <div className="col-6 align-self-center">
+                            <img src={require("../images/Preselected.svg").default} />
+                          </div>
+                          <div className="col-6 media-body text-right">
+                          {loader? (<><h3 className="pt-1 NumberStyling text-end">{preSelectedCount}</h3></>):(<> <div className="d-flex justify-content-end">
+                                  <div className="Das-loader"></div>
+                                </div></>)}
+                          </div>
+                          <div className="text-start">
+                            <h3 className="fontStyling">
+                            Selected / Pre Selected
+                            </h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               
+                <div className="col-xl-4 col-sm-6 col-12" >
+                <Link to="/embauchlist">
+                  <div
+                    className="card"
+                    style={{ padding: "20px", borderRadius: "15px" }}
+                  >
+                    <div className="card-content">
+                      <div className="card-body">
+                        <div className="row media d-flex">
+                          <div className="col-6 align-self-center">
+                            <img src={require("../images/CardTick.svg").default} />
+                          </div>
+                          <div className="col-6 media-body text-right">
+                          {loader? (<><h3 className="pt-1 NumberStyling text-end">{inProgressCandidatCount}</h3></>):(<> <div className="d-flex justify-content-end">
+                                  <div className="Das-loader"></div>
+                                </div></>)}
+                          </div>
+                          <div className="text-start">
+                            <h3 className="fontStyling">
+                            Embauché / Work with us
+                            </h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </Link> 
+                </div>
+ 
+             
+                <div className="col-xl-4 col-sm-6 col-12">
+                <Link to="/archivedlist">
+                  <div
+                    className="card"
+                    style={{ padding: "20px", borderRadius: "15px" }}
+                  >
+                    <div className="card-content">
+                      <div className="card-body">
+                        <div className="row media d-flex">
+                          <div className="col-6 align-self-center">
+                            <img src={require("../images/multiply.svg").default} />
+                          </div>
+                          <div className="col-6 media-body text-right">
+                          {loader? (<><h3 className="pt-1 NumberStylingARchived text-end" >{archivedCandidatCount}</h3></>):(<> <div className="d-flex justify-content-end">
+                                  <div className="Das-loader"></div>
+                                </div></>)}
+                          </div>
+                          <div className="text-start">
+                            <h3 className="fontStyling">
+                            Archivé / Archived
+                            </h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </Link>
+                </div>
+               
+              </div>
+            </section>
+          </div>
+          
         </div>
       </div>
-     
     </>
   );
 }
