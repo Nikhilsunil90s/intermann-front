@@ -1,15 +1,14 @@
-import React from "react";
-import {Link} from "react-router-dom"
+import React, { useEffect ,useState} from "react";
+import {Link,useLocation} from "react-router-dom"
 import StarRatings from 'react-star-ratings';
 import "../../CSS/Client/ProgressCardClient.css";
-
+import { API_BASE_URL } from "../../config/serverApiConfig";
+import Loader from '../../components/Loader/loader'
 
 function Signed(){
-  window.scroll({
-    top: 0,
-    left: 0,
-    behavior: 'smooth'
-  });
+ const {state}=useLocation()
+ const [profile,setProfile]=useState<any>(state)
+ console.log(profile,"p")
     return(
         <>
              <div className="containet-fluid">
@@ -35,37 +34,35 @@ function Signed(){
               <button className="btn btn-bgb">
                 <img src={require("../../images/Edit.svg").default} />
                 Edit Profile
-              </button>
+data.              </button>
             </Link>
           </div>
           <div className="bg-class">
             <div className="col-12 p-3 bg-color-card">
               <div className="row">
-                <div
+              <div
                   className="col-3     d-grid
     justify-content-center
-    align-items-center  text-center "
+    align-items-center  text-center"
                 >
                   <div className="logo-bg">
-                
-                    <img
+                  <img
                       src={require("../../images/enterprise.svg").default}
-                      style={{ padding: "40px" }}
+                      style={{ backgroundColor: "transparent" }}
                     />
+                 
                   </div>
-                  <button type="button" className="btn btn-upload">
-                    UPLOAD PHOTO
-                  </button>
+                
                 </div>
                 <div className="col-5 card-xl">
-                <p>Company : &#10100;Company_name&#10101;</p>
-                  <p>Number of position : &#10100;Number&#10101;</p>
-                  <p>Secteur : &#10100;client_Sector&#10101;</p>
-                  <p>Métier/Job : &#10100;Client_Metier_Job&#10101;</p>
-                  <p style={{width:"145%"}}>Contact name : &#10100;Contact_Name_In_Company&#10101; </p>
+                <p>Company : {profile.data.clientCompanyName}</p>
+                  <p>Number of position : {profile.data.numberOfPosts}</p>
+                  <p>Secteur : {profile.data.clientActivitySector}</p>
+                  <p>Métier/Job : {profile.data.clientJob}</p>
+                  <p style={{width:"145%"}}>Contact name : {profile.data.clientReferenceName}</p>
                 </div>
-                <div className="col-4 text-end end-class">
-                  <div>
+                <div className="col-4 text-end ">
+                  <div className="d-flex justify-content-end">
                   <button type="button" className="btn Signed" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
              <span style={{marginRight:"3px"}}><img src={require("../../images/Path.svg").default} /></span>     SIGNED CONTRACT
                     </button>
@@ -79,14 +76,14 @@ function Signed(){
             <div className="col-12 box-size">
               <div className="row">
                 <div className="col-6 text-center">
-                  <p>Company Mail : &#10100; Candidat_email&#10101;</p>
+                  <p>Company Mail : {profile.data.clientEmail}</p>
                   <button className="btn btn-email">
                     <span className="padding-email">
                       <img src={require("../../images/gmail.svg").default} />
                     </span>
                     Send Mail
                   </button>
-                  <p>Contact Mail : &#10100;Candidat_email&#10101; </p>
+                  <p>Contact Mail : {profile.data.clientEmail} </p>
                   <button className="btn btn-primary btn-email">
                     <span className="padding-email">
                       <img src={require("../../images/gmail.svg").default} />
@@ -96,14 +93,14 @@ function Signed(){
                 </div>
 
                 <div className="col-6">
-                  <p>Company Phone : &#10100;Company_Phone&#10101;</p>
+                  <p>Company Phone :{profile.data.clientPhone}</p>
                   <button className="btn btn-whatsapp btn-see">
                     <span className="padding-email">
                       <img src={require("../../images/whatsapp.svg").default} />
                     </span>
                     Send What’s App
                   </button>
-                  <p>Contact Phone : &#10100;Candidat_Phone&#10101; </p>
+                  <p>Contact Phone : {profile.data.clientPhone} </p>
                   <button className="btn btn-whatsapp btn-see">
                     <span className="padding-email">
                       <img src={require("../../images/whatsapp.svg").default} />
@@ -119,58 +116,21 @@ function Signed(){
                     <div className="ad-box-sizing">
               <p>
                 Employees working for this client :
-                <div className="d-flex text-start align-items-f-start ps-2" >
+                {/* {profile?data..map((el)=>(
+                                <div className="d-flex ps-2">
            
-                  <img
-                    src={require("../../images/menlogos.svg").default}
-                    style={{ width: "5%",lineHeight:"30px" }}
-                  />
-                  <p style={{ fontSize: "17px" ,marginBottom:"0px"}}>
-                    &#10100;Candidats_name&#10101;  Since:&#10100;Since_date&#10101;Salary:&#10100;candidates_salary&#10101; €
-                  </p>
-                </div>
-                <div className="d-flex text-start align-items-flex-start ps-2">
-           
-                  <img
-                    src={require("../../images/menlogos.svg").default}
-                    style={{ width: "5%",lineHeight:"30px" }}
-                  />
-                 <p style={{ fontSize: "17px" ,marginBottom:"0px"}}>
-                    &#10100;Candidats_name&#10101;  Since:&#10100;Since_date&#10101;Salary:&#10100;candidates_salary&#10101; €
-                  </p>
-                </div>
-                <div className="d-flex text-start align-items-flex-start ps-2">
-           
-                  <img
-                    src={require("../../images/menlogos.svg").default}
-                    style={{ width: "5%",lineHeight:"30px" }}
-                  />
-                  <p style={{ fontSize: "17px" ,marginBottom:"0px"}}>
-                    &#10100;Candidats_name&#10101;  Since:&#10100;Since_date&#10101;Salary:&#10100;candidates_salary&#10101; €
-                  </p>
-                </div>
-                <div className="d-flex text-start align-items-flex-start ps-2">
-           
-                  <img
-                    src={require("../../images/menlogos.svg").default}
-                    style={{ width: "5%",lineHeight:"30px" }}
-                  />
-                 <p style={{ fontSize: "17px" ,marginBottom:"0px"}}>
-                    &#10100;Candidats_name&#10101;  Since:&#10100;Since_date&#10101;Salary:&#10100;candidates_salary&#10101; €
-                  </p>
-                </div>
-                <div className="d-flex text-start align-items-flex-start ps-2">
-           
-                  <img
-                    src={require("../../images/menlogos.svg").default}
-                    style={{ width: "5%",lineHeight:"30px" }}
-                  />
-                   <p style={{ fontSize: "17px" ,marginBottom:"0px"}}>
-                    &#10100;Candidats_name&#10101;  Since:&#10100;Since_date&#10101;Salary:&#10100;candidates_salary&#10101; €
-                  </p>
-                </div>
+                                <img
+                                  src={require("../../images/menlogos.svg").default}
+                                  style={{ width: "7%" }}
+                                />
+                                <p style={{ fontSize: "6px" }}>
+                                 {el.employeesWorkingUnder}
+                                </p>
+                              </div>
+                ))
+                } */}
                 <div className="text-start">
-                <p>Ads Spent on this client : ❴ad_Spent❵</p>
+                <p>Ads Spent on this client :{profile.data.jobTotalBudget}</p>
                 </div>
               </p>
             </div>
@@ -181,49 +141,41 @@ function Signed(){
               <div className="parent-p">
                 <div className="d-flex">
                   <p>Company Adress </p>
-                  <span>&#10100;: Company_Adress&#10101;</span>
+                  <span>{profile.data.clientAddress}</span>
                 </div>
                 <div className="d-flex ">
                   <p className="">Langues </p>
-                  <span className="">: &#10100;Clients_Langues&#10101;</span>
+                  <span className="">: {profile.data.clientLanguages}</span>
                 </div>
                 <div className="d-flex">
                   <p className="blue-text">Research for work : From </p>
                   <span className="blue-text">
-                    &#10100;date&#10101; - To &#10100;date&#10101;
+                   {profile.data.jobStartDate} - To {profile.data.jobEndDate}
                   </span>
                 </div>
                 <div className="d-flex">
                   <p>Note </p>
                   <span>
-                    : &#10100;Client_Note&#10101; Lorem Ipsum is simply dummy
-                    text of the printing and typesetting industry. Lorem Ipsum
-                    has been the industry's standard dummy text ever since the
-                    1500s, when an unknown printer took a galley of type and
-                    scrambled it to make a type specimen book. Lorem Ipsum is
-                    simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's standard dummy text ever
-                    since the 1500s, when an unknown printer took a galley of
-                    type and scrambled it to make a type specimen book.
+                    : {profile.data.clientRequiredSkills}
                   </span>
                 </div>
                 <div className="d-flex pt-4">
                   <p className="text-dark">Potential Turnover CA</p>
                   <span className="text-dark">
-                    :&#10100;Amont_turnover&#10101; €
+                    :{profile.data.jobTotalBudget} €
                   </span>
                 </div>
                 <div className="d-flex">
                   <p className="text-dark">Salary by person </p>
                   <span className="text-dark">
-                    :&#10100;Amont_Salary&#10101; €
+                    :{profile.data.netSalary} €
                   </span>
                 </div>
                 <div>
                   <p>
                     Motivation:
                     <StarRatings
-                      rating={5}
+                      rating={profile.data.clientMotivation}
                       starRatedColor="#ffc107"
                       // changeRating={}
                       numberOfStars={5}
@@ -237,7 +189,7 @@ function Signed(){
                   <p>
                     Importance:
                     <StarRatings
-                      rating={5}
+                      rating={profile.data.clientImportance}
                       starRatedColor="#ffc107"
                       // changeRating={}
                       numberOfStars={5}
@@ -251,7 +203,7 @@ function Signed(){
                 <div className="d-flex">
                   <p style={{ marginBottom: "0px" }}>Ajouté par/Added by :</p>
                   <span style={{ marginBottom: "0px" }}>
-                    &#10100;Added_by&#10101;
+                   {profile.data.enteredBy}
                   </span>
                 </div>
               </div>
@@ -291,7 +243,7 @@ function Signed(){
                     <button type="button" className="btn btn-black">
                       <img src={require("../../images/Edit.svg").default} />
                       Edit Profile
-                    </button>
+data.                    </button>
                     <p className="italic-font text-start">Editer le profil</p>
                   </div>
                   <div className="col-3 text-center">
@@ -314,7 +266,7 @@ function Signed(){
                     </button>
                     <p style={{ width: "106%" }}>Créer un contrat avec Drive</p>
                   </div>
-                  <div className="col-3">
+                  <div className="col-3 text-center">
                     <button type="button" className="btn btn-grille">
                       <img
                         src={require("../../images/salary.svg").default}
