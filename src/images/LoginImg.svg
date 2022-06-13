@@ -1,9 +1,9 @@
-<svg width="713" height="900" viewBox="0 0 713 900" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="713" height="900" fill="#E5E5E5"/>
+<svg width="613" height="800" viewBox="0 0 713 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="613" height="800" fill="#E5E5E5"/>
 <g clip-path="url(#clip0_606_2)">
-<rect width="1440" height="900" fill="white"/>
+<rect width="440" height="700" fill="white"/>
 <g filter="url(#filter0_b_606_2)">
-<rect width="712.796" height="903.524" transform="matrix(-1 0 0 1 712.797 -3.52368)" fill="#032339"/>
+<rect width="455.796" height="503.524" transform="matrix(-1 0 0 1 712.797 -3.52368)" fill="#032339"/>
 </g>
 <g opacity="0.8">
 <path d="M387.01 -0.00012207V149.362C387.01 177.668 376.835 205.031 358.341 226.459L292.369 302.9C268.124 330.992 224.585 330.992 200.34 302.9V302.9C176.095 274.808 132.556 274.808 108.311 302.9L0.00587294 428.39" stroke="#FE8700" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
@@ -24,7 +24,7 @@
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_606_2" result="shape"/>
 </filter>
 <clipPath id="clip0_606_2">
-<rect width="1440" height="900" fill="white"/>
+<rect width="640" height="900" fill="white"/>
 </clipPath>
 </defs>
 </svg>

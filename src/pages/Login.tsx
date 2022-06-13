@@ -56,21 +56,25 @@ function Login() {
 
   return (
     <main className="padding-x01">
-      <div className="container">
-        <div className="row">
+      <div className="container-fluid">
+        <div className="row m-0">
           <div className="col-12">
             <div className="row">
-              <div className="col-6 img-Back"></div>
+              <div className="col-6 ">
+                <div className="img-Back">
+
+                </div>
+              </div>
               <div className="col-6">
-                <div className="mt-3 d-flex justify-content-between">
-                  <div className="p-1">
+                <div className=" d-flex justify-content-between">
+                  <div className="">
                     <a href="http://intermann.ro/" target="_blank">
                       <button className="btn btn-001">
                         VOIR LE SITE EN ROUMAIN
                       </button>
                     </a>
                   </div>
-                  <div className="p-1">
+                  <div className="">
                     <a href="https://www.intermann.fr/" target="_blank">
                       <button className="btn btn-001">
                         VOIR LE SITE EN FRANçAIS
@@ -79,7 +83,7 @@ function Login() {
                   </div>
                 </div>
                 <br />
-                <section className="mb-2">
+                <section className="">
                   {/* <form className="login-panel" > */}
                   <form className="login-panel" onSubmit={onLoginFormSubmit}>
                     <div className="text-center">
@@ -91,7 +95,7 @@ function Login() {
                         adress
                       </p>
                     </div>
-                    <div className="mx-auto py-4">
+                    <div className="mx-auto ">
                       <div className="text-start">
                         <lable className="fw-bold">E-mail</lable>
                         <div className="d-flex input-box">

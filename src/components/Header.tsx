@@ -4,59 +4,69 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light">
-        <div className="container-fluid">
-          <div className="row" style={{ width: "75%", background: "#ffff" }}>
-            <div className="col-12">
+     
+        {/* <div className="container-fluid">
+        <div className="row" style={{ width: "100%", background: "#ffff" }}>
+       
+        
+            <div className="col-12"> */}
+            <nav className="navbar navbar-expand-lg navbar-light">
               <div className="collapse navbar-collapse" id="navbarText" style={{ height: "50px" }}>
-                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li className="nav-item">
-                    <Link
-                      className="nav-link active"
+                <div className="col-12">
+                  <div className="row">
+                    <div className="col-5">
+                   <div className="row">
+                     <div className="col-6 p-0">
+                     <Link
+                      className="nav-link active p-0"
                       aria-current="page"
                       to="/addCustomer"
                       style={{backgroundColor:"none"}}
                     >
                       <button className="btn btn-1"> Add Client/Customer</button>
                     </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/addCandidate">
+                     </div>
+                     <div className="col-6 ">
+                 <Link className="nav-link p-0" to="/addCandidate">
                       <button className="btn btn-2"> Add Candidate</button>
                     </Link>
-                  </li>
-                </ul>
-                <span className="navbar-text">
-                  <ul className="d-flex ul-li">
-                    <li className="nav-item">
-                      <a
-                        className="nav-link"
+                 </div>
+                   </div>
+                </div>
+
+
+                <div className="col-7 pt-0">
+                   <div className="row">
+                     <div className="col-6 text-end">
+                     <a
+                        className="nav-link p-0"
                         href="https://www.intermann.ro/"
                         target="_blank"
                       >
-                        <button className="btn btn-2">
-                          Voir le site Roumain
+                        <button className="btn btn-003">
+                        VOIR LE SITE EN ROUMAIN
                         </button>
                       </a>
-                    </li>
-                    <li className="nav-item">
-                      <a
-                        className="nav-link"
+                     </div>
+                     <div className="col-6 text-center">
+                     <a
+                        className="nav-link p-0"
                         href="https://www.intermann.fr/"
                         target="_blank"
                       >
-                        <button className=" btn btn-1">
-                          Voir le site Francais
+                        <button className=" btn btn-004">
+                        VOIR LE SITE EN FRANçAIS
                         </button>
                       </a>
-                    </li>
-                  </ul>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
+                 </div>
+                   </div>
+                </div>
+                    </div>            
+                  </div>
+                </div>
+               </nav>
+        
+
     </>
   );
 };

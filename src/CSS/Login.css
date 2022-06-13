@@ -5,14 +5,16 @@
 }
 
 .login-panel {
-    padding-top: 2.5rem;
-    padding-bottom: 2rem;
+    padding-top: 0rem;
+    padding-bottom: 0rem;
     text-align: center;
     border-radius: 25px;
     width: min(1270px, 90%);
     margin: auto;
 }
-
+.navbar-light .navbar-nav .active.nav-link {
+    background-color:unset;
+}
 .login-panel .input-box {
     align-items: center;
     justify-content: center;

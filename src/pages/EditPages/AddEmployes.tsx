@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../../CSS/Employes.css";
 import { Toaster, toast } from 'react-hot-toast';
 import { API_BASE_URL } from "../../config/serverApiConfig";
+import Select from 'react-select';
+
 
 const EmployeeDataFormat = {
   candidatName: "",
@@ -47,7 +49,7 @@ const EmployeeDataFormat = {
 
 
 export default function Employes() {
-
+  
   const [data, setData] = useState(EmployeeDataFormat);
   const [jobs, setJobs] = useState([{ jobName: "", associatedSector: "", _id: "" }]);
   const [activitySectors, setActivitySectors] = useState([]);
@@ -57,6 +59,8 @@ export default function Employes() {
   const [location, setLocation] = useState("");
   const [workDoneSample, setWorkDoneSample] = useState("");
 
+  const [la,setla]=useState(false)
+
   // Notifications //
   const notifyCandidatAddSuccess = () => toast.success("Candidat Added Successfully! View Candidat in To-Do List.");
   const notifyCandidatAddError = () => toast.error("Candidat Cannot Be Added! Please Try Again.");
@@ -64,7 +68,13 @@ export default function Employes() {
   const notifyMoreError=()=>toast.error("Phone Number is More than 10")
   const notifyEmptyError=()=>toast.error("Please enter full input fields")
   // End   //
-
+  function logChange(val) {
+    console.log("Selected: " + val);
+  }
+  let options = [
+    { value: 'one', label: 'One' },
+    { value: 'two', label: 'Two' }
+  ]as any;
   useEffect(() => {
     if (activitySectors.length == 0) {
       fetchActivitySectors()
@@ -254,18 +264,26 @@ export default function Employes() {
 
   return (
     <> <Toaster position="top-right"/>
-    <div className="p-2">
-      <div className="text-center py-3">
-        <span className="hero-title">
-          <h3>ADD A CANDIDATE / EMPLOYE</h3>
-        </span>
-      </div>
-      <div>
-        <form className="add-form form needs-validation" name="contact-form" onSubmit={onFormSubmit} noValidate>
+    <div className="container-fluid px-3">
+   <div className="row">
+        <div className="col-12 card-tops px-1 mt-2" style={{padding:"0px",marginBottom:"20px"}}>
+          <div className="row text-start">
+          <div className="card " style={{padding:"0px 15px",borderRadius:"15px",marginBottom:"0px"}}>
+              <div className="card-body">
+                <h2 className="card-Leads">Add a candidats / employes</h2>
+              </div>
+            </div>
+          </div>
+         
+          </div>
+    
+      <div className="col-12 p-0">
+        <div className="row px-1 pb-1">
+          <form className="add-form form needs-validation p-0" name="contact-form" onSubmit={onFormSubmit} noValidate>
           <div className="d-flex flex-wrap justify-content-around">
-            <div className="col-md-6">
-              <div className="p-2">
-                <label htmlFor="validationCustom01">Candidat Name</label>
+            <div className="col-4">
+            <div className="p-1">
+                <label className="Form-styling" htmlFor="validationCustom01">Candidat Name</label>
                 <input
                   type="text"
                   className="form-control"
@@ -283,27 +301,64 @@ export default function Employes() {
                   Mandatory, please add company candidat
                 </span>
               </div>
-              <div className="p-2">
-                <label>Candidats Phone Number</label>
+            </div>
+            <div className="col-4">
+            <div className="p-1">
+                <label className="Form-styling">Candidate Email</label>
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Enter Phone Number (+format)"
-                  name="candidatPhone"
-                  required
-                  value={data.candidatPhone}
+                  placeholder="Enter email"
+                  name="candidatEmail"
+                  value={data.candidatEmail}
                   onChange={onFormDataChange}
                 />
                 <span className="text-small">
-                  NOT Mandatory, please add phone candidat with +() . exemple :
-                  +33623167260
+
+                  NOT Mandatory, please add email candidats
                 </span>
               </div>
-              <div className="p-2">
-                <label>Secteur d’Activité</label>
+              </div>
+              <div className="col-4">
+              <div className="p-1">
+           <label className="Form-styling">Candidats Phone Number</label>
+           <input
+             type="text"
+             className="form-control"
+             placeholder="Enter Phone Number (+format)"
+             name="candidatPhone"
+             required
+             value={data.candidatPhone}
+             onChange={onFormDataChange}
+           />
+           <span className="text-small">
+             NOT Mandatory, please add phone candidat with +() . exemple :
+             +33623167260
+           </span>
+         </div>
+              </div>
+            <div className="col-4">
+            <div className="p-1">
+                <label className="Form-styling">Candidate Address</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter candidat adress (address, zip, city, country)"
+                  name="candidatAddress"
+                  value={data.candidatAddress}
+                  onChange={onFormDataChange}
+                />
+                <span className="text-small">
+                  Mandatory, Enter candidat adress (address, zip, city, country)
+                </span>
+              </div>
+            </div>
+            <div className="col-4">
+            <div className="p-1">
+                <label className="Form-styling">Secteur d’Activité</label>
                 <select
                   name="candidatActivitySector"
-                  className="form-select"
+                  className="form-select "
                   required
                   onChange={onFormDataChange}
                 >
@@ -317,8 +372,34 @@ export default function Employes() {
                   the BO.
                 </span>
               </div>
-              <div className="p-2">
-                <label>Facebook profile</label>
+            </div>
+            <div className="col-4">
+            <div className="p-1">
+                <label className="Form-styling">Métier / Job</label>
+                <select
+                  name="candidatJob"
+                  className="form-select"
+                  onChange={onFormDataChange}
+                >
+                  {
+                    jobs.map((job) =>
+                      <option value={job.jobName}>
+                        {job.jobName}
+                      </option>
+                    )
+                  }
+
+                </select>
+                <span className="text-small">
+
+                  Please select the job of this candidat, you can add job on the
+                  BO.
+                </span>
+              </div>
+            </div>
+        <div className="col-4">
+        <div className="p-1">
+                <label className="Form-styling">Facebook profile</label>
                 <input
                   type="text"
                   className="form-control"
@@ -332,8 +413,43 @@ export default function Employes() {
                   NOT Mendatory, please add contact person on this company.
                 </span>
               </div>
-              <div className="p-2">
-                <label>
+        </div>
+           <div className="col-4">
+           <div className="p-1">
+                <label className="Form-styling">Other phone number</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Phone number (+format)"
+                  name="candidatAlternatePhone"
+                  value={data.candidatAlternatePhone}
+                  onChange={onFormDataChange}
+                />
+                <span className="text-small">
+
+                  NOT Mandatory, please add phone number of our contact in this
+                  company if there is one, if not we will use company number.
+                </span>
+              </div>
+           </div>
+          <div className="col-4">
+          <div className="p-1">
+                <label className="Form-styling">Candidat Age </label>
+                <input
+                  type="number"
+                  className="form-control"
+                  name="candidatAge"
+                  placeholder="42"
+                  value={data.candidatAge}
+                  onChange={onFormDataChange}
+
+                />
+                <span className="text-small">NOT Mandatory, NUMBER ONLY</span>
+              </div>
+          </div>
+          <div className="col-12">
+          <div className="p-1">
+                <label className="Form-styling">
                   Skills / Notes Compétances (will be displayed on CV)
                 </label>
                 <textarea
@@ -350,11 +466,13 @@ export default function Employes() {
                   customer asks for this reasearch.
                 </span>
               </div>
-              <div className="p-2">
-                <label>
-                  Motivation de ce candidat à travailler avec nous(bigger number
-                  is more important)
-                </label>
+          </div>
+           <div className="col-6">
+           <div className="p-1">
+                <label className="Form-styling">
+                  Motivation de ce candidat à travailler avec nous
+                </label><span className="Form-styling fs-6">(bigger number
+                  is more important)</span>
                 <ul style={{ listStyle: "none" }}>
                   <li>
                     <input
@@ -402,125 +520,11 @@ export default function Employes() {
                     5
                   </li>
                 </ul>
-                <span className="text-small">
-                  If we find the candidates, does he take it immediately? Or
-                  will he still need to think?
-                </span>
-              </div>
-              <div className="p-2 d-flex">
-                <div className="col-6">
-                  <p>Permis / Licence drive</p>
-                  <div>
-                    <input type="radio" name="candidatLicensePermis" value="true" onChange={onFormDataChange} />
-                    <span>Yes (B)</span>
-                  </div>
-                  <div>
-
-                    <input type="radio" name="candidatLicensePermis" value="false" onChange={onFormDataChange} />
-                    <span>No</span>
-                  </div>
-                </div>
-                <div className="col-6">
-                  <p>Voyage en voiture vers France ?</p>
-                  <div>
-                    <input type="radio" name="candidatConduireEnFrance" value="true" onChange={onFormDataChange} />
-                    <span>Yes</span>
-                  </div>
-                  <div>
-
-                    <input type="radio" name="candidatConduireEnFrance" value="false" onChange={onFormDataChange} />
-                    <span>No</span>
-                  </div>
-                </div>
-              </div>
             </div>
-            <div className="col-md-6">
-              <div className="p-2">
-                <label>Candidate Email</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter email"
-                  name="candidatEmail"
-                  value={data.candidatEmail}
-                  onChange={onFormDataChange}
-                />
-                <span className="text-small">
-
-                  NOT Mandatory, please add email candidats
-                </span>
-              </div>
-
-              <div className="p-2">
-                <label>Candidate Address</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter candidat adress (address, zip, city, country)"
-                  name="candidatAddress"
-                  value={data.candidatAddress}
-                  onChange={onFormDataChange}
-                />
-                <span className="text-small">
-                  Mandatory, Enter candidat adress (address, zip, city, country)
-                </span>
-              </div>
-
-              <div className="p-2">
-                <label>Métier / Job</label>
-                <select
-                  name="candidatJob"
-                  className="form-select"
-                  onChange={onFormDataChange}
-                >
-                  {
-                    jobs.map((job) =>
-                      <option value={job.jobName}>
-                        {job.jobName}
-                      </option>
-                    )
-                  }
-
-                </select>
-                <span className="text-small">
-
-                  Please select the job of this candidat, you can add job on the
-                  BO.
-                </span>
-              </div>
-
-              <div className="p-2">
-                <label>Other phone number</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Phone number (+format)"
-                  name="candidatAlternatePhone"
-                  value={data.candidatAlternatePhone}
-                  onChange={onFormDataChange}
-                />
-                <span className="text-small">
-
-                  NOT Mandatory, please add phone number of our contact in this
-                  company if there is one, if not we will use company number.
-                </span>
-              </div>
-
-              <div className="p-2">
-                <label>Candidat Age </label>
-                <input
-                  type="number"
-                  className="form-control"
-                  name="candidatAge"
-                  placeholder="42"
-                  value={data.candidatAge}
-                  onChange={onFormDataChange}
-
-                />
-                <span className="text-small">NOT Mandatory, NUMBER ONLY</span>
-              </div>
-              <div className="p-2">
-                <p className="padding-bottom">Langues du candidat</p>
+           </div>
+           <div className="col-6">
+              <div className="p-1">
+                <p className="padding-bottom Form-styling" >Langues du candidat</p>
                 <div>
                   <input type="checkbox" onClick={onFormDataChange} id="language" name="candidatLanguages" value="Roumain" />
                   <span className="ps-2" >Roumain</span>
@@ -550,36 +554,92 @@ export default function Employes() {
                   <span className="ps-2">Autre</span>
                 </div>
               </div>
+              </div>
+              <div className="col-6">
+              <Select
+  name="form-field-name"
+  defaultValue={options}
+  options={options}
+  onChange={logChange}
+  isMulti
+/>
 
-              <div className="p-2">
-                <div className="card card-body">
-                  <label className="fw-bold">
-                    Quand ce candidat a besoin de travailler When this candidate
-                    is ready to work with us
-                  </label>
-                  <br />
-                  <label className="fw-bold">From date / A PARTIR DE </label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    name="candidatStartDate"
-                    value={data.candidatStartDate}
-                    onChange={onFormDataChange}
-                  />
-                  <br />
-                  <label className="fw-bold">UNTIL DATE / Jusqu’à </label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    name="candidatEndDate"
-                    value={data.candidatEndDate}
-                    onChange={onFormDataChange}
-                  />
+              </div>
+              <div className="col-6">
+              <h2 className="text-small">
+                  If we find the candidates, does he take it immediately? Or
+                  will he still need to think?
+                </h2>
+         
+              <div className="p-1 d-flex">
+                <div className="col-6 ">
+                  <p className="Form-styling"> Permis / Licence drive</p>
+                  <div className="d-flex"> 
+                 <button type="button" className="radioBtn" onClick={()=>setla(!la)}><input type="radio" name="candidatLicensePermis" value="true" onChange={onFormDataChange} checked={la} />Yes</button>
+                   
+  
+
+                 <button type="button" className="radioBtnNo" ><input type="radio" name="candidatLicensePermis"  value="false" onChange={onFormDataChange} />No</button>
+      
+                  </div>
+                </div>
+                <div className="col-6">
+                  <p className="Form-styling">Voyage en voiture vers France ?</p>
+                  <div className="d-flex">
+                <button type="button" className="radioBtn" >  <input type="radio" name="candidatConduireEnFrance" value="true" onChange={onFormDataChange} checked/>Yes</button>
+
+              <button className="radioBtnNo">    <input type="radio" name="candidatConduireEnFrance" value="false" onChange={onFormDataChange} />No</button>
+                    
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-md-12">
-              <p>
+              </div>
+            
+           <div className="col-12">
+             <div className="row">
+             <div className="col-6">
+              <label className="fw-bold Form-styling">
+                 Quand ce candidat a besoin de travailler When this candidate
+                 is ready to work with us
+               </label>
+              </div>
+               <div className="col-12">
+                 <div className="row">
+                   <div className="col-6">
+                   <div className="p-1">
+               
+              
+               <label className="fw-bold Form-styling">From date / A PARTIR DE </label>
+               <input
+                 type="date"
+                 className="form-control"
+                 name="candidatStartDate"
+                 value={data.candidatStartDate}
+                 onChange={onFormDataChange}
+               />     
+             </div>
+                   </div>
+                   <div className="col-6">
+                   <div className="p-1">
+                   <label className="fw-bold Form-styling">UNTIL DATE / Jusqu’à </label>
+               <input
+                 type="date"
+                 className="form-control"
+                 name="candidatEndDate"
+                 value={data.candidatEndDate}
+                 onChange={onFormDataChange}
+               />
+               </div>
+                   </div>
+                 </div>
+               </div>
+            
+             </div>
+            
+              </div>
+             
+            <div className="col-12 pt-1">
+              <p className="Form-styling">
                 Expérience du candidat (fill only lines, higher = more recent)
               </p>
               <table className="table table-bordered">
@@ -610,8 +670,8 @@ export default function Employes() {
               </table>
             </div>
             <div className="col-6">
-              <div className="p-2">
-                <label>
+              <div className="p-1">
+                <label className="Form-styling">
                   Total années d’expérience / Total experiance in years of this
                   candidate
                 </label>
@@ -628,8 +688,8 @@ export default function Employes() {
               </div>
             </div>
             <div className="col-6">
-              <div className="p-2">
-                <p className="padding-bottom">
+              <div className="p-1">
+                <p className="padding-bottom Form-styling">
                   Fetes/date pour lequel il veux impérativement rentrer
                 </p>
 
@@ -652,7 +712,7 @@ export default function Employes() {
               </div>
             </div>
             <div className="col-md-12">
-              <label>
+              <label className="Form-styling">
                 Ce candidat a été rentré par : / This customer was entered by
               </label>
               <input
@@ -677,6 +737,8 @@ export default function Employes() {
             </div>
           </div>
         </form>
+        </div>
+      </div>
       </div>
     </div>
     </>)

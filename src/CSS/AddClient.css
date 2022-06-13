@@ -5,8 +5,9 @@
     font-weight: 700;
 }
 .add-form{
-    background: #E5E5E5;
+    background: #ffff;
     padding: 1rem;
+    border-radius: 10px;
 }
 .text-small{
     font-size: small;

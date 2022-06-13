@@ -21,22 +21,23 @@ function Sidebar(props: any) {
     <>
       <div className="container-fluid"  style={{ height: "100%",backgroundColor:"white" }}>
         <div className="row" >
+          
           <div className="col-lg-3 col-md-3 col-xs-3 fixed pd-gutter" style={{ height: "100vh",backgroundColor:"white" }}>
             <div
-              className="d-flex flex-column flex-shrink-0 pt-2 "
+              className="d-flex flex-column flex-shrink-0"
             >
               <Link
                 to="/dashboard"
-                className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
+                className="d-flex bottom-radius logoSet align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
               ><span>
                   <img src={require("../images/logo-header.svg").default} />
                 </span>
                 <img src={require("../images/LogoName.svg").default} />
               </Link>
-              <hr />
+          
               <ul className="nav nav-pills flex-column mb-auto text-className">
                 <li className="nav-item">
-                  <Link to="#" className="nav-link" aria-current="page">
+                  <Link to="#" className="nav-link pd013" aria-current="page">
                     <span className="pe-2">
                       <img src={require("../images/Shape.svg").default} />
                     </span>
@@ -49,7 +50,7 @@ function Sidebar(props: any) {
                     <h2 className="accordion-header" id="flush-headingOne">
                       <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                         <span className="pe-2">
-                          <img src={require("../images/Combine.svg").default} />
+                          <img src={require("../images/settings.svg").default} />
                         </span>
                         Manage
                       </button>
@@ -57,7 +58,7 @@ function Sidebar(props: any) {
                     <div id="flush-collapseOne" className="accordion-collapse collapse " aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                       <div className="accordion-body">
                         <ul>  <li>
-                    <Link to="/addNewSector" className="nav-link" aria-current="page">
+                    <Link to="/addNewSector" className="nav-link FontStylingBar" aria-current="page">
                       <span className="pe-2">
                         <img src={require("../images/addsector.svg").default} />
                       </span>
@@ -65,7 +66,7 @@ function Sidebar(props: any) {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/userList" className="nav-link" aria-current="page">
+                    <Link to="/userList" className="nav-link FontStylingBar" aria-current="page">
                       <span className="pe-2">
                         <img src={require("../images/adduser.svg").default} />
                       </span>
@@ -88,23 +89,32 @@ function Sidebar(props: any) {
                     <div id="flush-collapseTwo" className="accordion-collapse collapse " aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                       <div className="accordion-body">
                         <ul>  <li>
-                          <Link to="/clientTodo" className="nav-link link-dark">
-
+                          <Link to="/clientTodo" className="nav-link link-dark FontStylingBar">
+                          <span className="pe-2">
+                        <img src={require("../images/todoList.svg").default} />
+                      </span>
                             To do / Non traité / Attente
                           </Link>
                         </li>
                           <li>
-                            <Link to="/clientProgress" className="nav-link link-dark">
-
+                            <Link to="/clientProgress" className="nav-link link-dark FontStylingBar">
+                            <span className="pe-2">
+                        <img src={require("../images/analytics.svg").default} />
+                      </span>
                               En cours de recherche
                             </Link>
                           </li>
                           <li>
-                            <Link to="/clientContract" className="nav-link link-dark">
+                            <Link to="/clientContract" className="nav-link link-dark FontStylingBar">
+                            <span className="pe-2">
+                        <img src={require("../images/contractList.svg").default} />
+                      </span>
                               Terminé / Contrat en cours
                             </Link>
                           </li> <li>
-                            <Link to="/archived" className="nav-link link-dark">Annulé / Archivé
+                            <Link to="/archived" className="nav-link link-dark FontStylingBar"> <span className="pe-2">
+                        <img src={require("../images/archivedList.svg").default} />
+                      </span>Annulé / Archivé
                             </Link>
                           </li></ul>
                       </div>
@@ -123,15 +133,25 @@ function Sidebar(props: any) {
                       <div className="accordion-body">
                         <ul>
                           <li>
-                            <Link to="/todolist" className="nav-link link-dark">
+                            <Link to="/todolist" className="nav-link link-dark FontStylingBar">
+                            <span className="pe-2">
+                        <img src={require("../images/list-text.svg").default} />
+                      </span>
                               En sommeil
                             </Link>
                           </li>
                           <li>
-                            <Link to="/embauchlist" className="nav-link link-dark">Embauché
+                            <Link to="/embauchlist" className="nav-link link-dark FontStylingBar">
+                            <span className="pe-2">
+                        <img src={require("../images/contractList.svg").default} />
+                      </span>Embauché
+                           
                             </Link>
                           </li> <li>
-                            <Link to="/archivedlist" className="nav-link link-dark">
+                            <Link to="/archivedlist" className="nav-link link-dark FontStylingBar">
+                            <span className="pe-2">
+                        <img src={require("../images/archivedList.svg").default} />
+                      </span>
                               Archivé
                             </Link>
                           </li></ul>

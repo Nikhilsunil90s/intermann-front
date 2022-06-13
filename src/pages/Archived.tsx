@@ -13,7 +13,7 @@ function Archived(){
       });
     return(
         <>
-         <div className="containet-fluid">
+         <div className="container-fluid">
         <div className="row">
           <div className="col-12 top-pd text-center">
             <img

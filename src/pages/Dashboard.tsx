@@ -97,7 +97,7 @@ function Dashboard() {
                 <Link to="/clientTodo">
                   <div
                     className="card"
-                    style={{ padding: "20px", borderRadius: "15px" }}
+                    style={{ padding: "5px 15px", borderRadius: "15px" }}
                   >
                     <div className="card-content">
                       <div className="card-body">
@@ -136,7 +136,7 @@ function Dashboard() {
                 <div className="col-xl-4 col-sm-6 col-12">
                   <div
                     className="card"
-                    style={{ padding: "20px", borderRadius: "15px" }}
+                    style={{ padding: "5px 15px", borderRadius: "15px" }}
                   >
                     <div className="card-content">
                       <div className="card-body">
@@ -164,7 +164,7 @@ function Dashboard() {
                 <Link to="/clientProgress">
                   <div
                     className="card"
-                    style={{ padding: "20px", borderRadius: "15px" }}
+                    style={{ padding: "5px 15px", borderRadius: "15px" }}
                   >
                     <div className="card-content">
                       <div className="card-body">
@@ -194,7 +194,7 @@ function Dashboard() {
                 <Link to="/archived">
                   <div
                     className="card"
-                    style={{ padding: "20px", borderRadius: "15px" }}
+                    style={{ padding: "5px 15px", borderRadius: "15px" }}
                   >
                     <div className="card-content">
                       <div className="card-body">
@@ -241,7 +241,7 @@ function Dashboard() {
                 <Link to="/todolist">
                   <div
                     className="card"
-                    style={{ padding: "20px", borderRadius: "15px" }}
+                    style={{ padding: "5px 15px", borderRadius: "15px" }}
                   >
                     <div className="card-content">
                       <div className="card-body">
@@ -280,7 +280,7 @@ function Dashboard() {
                 <div className="col-xl-4 col-sm-6 col-12">
                   <div
                     className="card"
-                    style={{ padding: "20px", borderRadius: "15px" }}
+                    style={{ padding: "5px 15px", borderRadius: "15px" }}
                   >
                     <div className="card-content">
                       <div className="card-body">
@@ -308,7 +308,7 @@ function Dashboard() {
                 <Link to="/embauchlist">
                   <div
                     className="card"
-                    style={{ padding: "20px", borderRadius: "15px" }}
+                    style={{ padding: "5px 15px", borderRadius: "15px" }}
                   >
                     <div className="card-content">
                       <div className="card-body">
@@ -338,7 +338,7 @@ function Dashboard() {
                 <Link to="/archivedlist">
                   <div
                     className="card"
-                    style={{ padding: "20px", borderRadius: "15px" }}
+                    style={{ padding: "5px 15px", borderRadius: "15px" }}
                   >
                     <div className="card-content">
                       <div className="card-body">

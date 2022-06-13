@@ -12,7 +12,29 @@
 .flex-shrink-0 {
     height: 100%;
 }
-
+.border-radius{
+    padding: 8px;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    width: 105%;
+}
+.pd013{
+    padding: 15px 22px 0px 22px;
+}
+.fontStylingBar{ 
+ font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 0px;
+display: flex;
+align-items: center;
+color: #999FA9;
+}
+.logoSet{
+    padding: 16px;
+    width: 105%;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}
 .navbar li {
     float: left;
     display: block;

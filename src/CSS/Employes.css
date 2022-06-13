@@ -12,11 +12,48 @@ tbody{
     font-weight: 700;
 }
 .add-form{
-    background: #E5E5E5;
+    background: #ffff;
     padding: 1rem;
 }
 .text-small{
-    font-size: small;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 9px !important;
+    line-height: 14px;
+    display: flex;
+    align-items: flex-end;  
+    color: #FF0000;
+}
+.form-select{
+    border-radius: 20px;
+    height: calc(2.75rem + 2px);
+}
+.radioBtn{
+    background: #FE8700;
+    border-radius: 100px;
+    border: 0px;
+    width: 50px;
+}
+.radioBtnNo{
+    background: #CCCCCC;
+border-radius: 100px;
+border: 0px;
+width: 50px;
+}
+.form-control{
+    border-radius: 20px;
+}
+.Form-styling{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+display: flex;
+align-items: flex-end;
+text-transform: capitalize;
+color: #373A3C;
 }
 .amount-fields span{
     background: #ECEEEF;
