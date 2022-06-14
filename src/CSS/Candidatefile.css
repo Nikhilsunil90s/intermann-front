@@ -1,5 +1,5 @@
 .bg-class{
-    background-color: #FE8700 !important;
+    background-color: #ffff !important;
         margin: 15px 0px;
         border-radius: 15px;
         padding: 20px;
@@ -21,10 +21,15 @@ text-transform: uppercase;
 }
 .btn-bgb{
     background-color: #032339;
-    color: orange;
+    color: #ffff;
+    font-family: 'Poppins';
+    font-style: normal;
     font-weight: 700;
-font-size: 20px;
-line-height: 16px;
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: -0.105991px;
+    text-transform: uppercase;  
+    color: #FFFFFF
 }
 .btn-bgb img{
     width: 20px;
@@ -83,7 +88,7 @@ font-size: 24px;
 line-height: 26px;
 text-decoration-line: underline;
 padding-right: 10px;
-color: #FFFFFF;
+color: #000000;
 }
 .blue-text{
 color:#3F76E2 !important
@@ -100,7 +105,7 @@ text-decoration-line: unset !important;
 font-weight: 600;
 font-size: 24px;
 line-height: 33px;
-color: #FFFFFF;
+color: #000000;
 }
 .exp{
     font-family: 'Arial';
@@ -133,7 +138,7 @@ tbody{
     background: currentColor;
  }
  .box-size p{
-     color: #ffff;
+     color: #000000;
      font-family: 'Inter';
 font-style: normal;
 font-weight: 400;
@@ -147,7 +152,7 @@ margin-bottom: 0px !important;
     line-height: 26px;
     text-decoration-line: underline;
     padding-right: 10px;
-    color: #FFFFFF;
+    color: #000000;
     margin-bottom: 0px;
  }
  .child-p span{
@@ -155,7 +160,7 @@ margin-bottom: 0px !important;
     font-weight: 600;
     font-size: 24px;
     line-height: 33px;
-    color: #ffff;
+    color: #000000;
  }
  .btn-move{
     background-color: #A461D8;
@@ -205,14 +210,47 @@ font-size: 21px;
 line-height: 24px;
 padding-left: 20px;
 }
-.card-xl p{
-    font-family: 'Inter';
+.card-xl p {
+    font-family: 'Poppins';
     font-style: normal;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 16px;
-    color: #FFFFFF;
-    padding-top: 5px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 16px;  
+    display: flex;
+    align-items: center; 
+    color: #000000;
+}
+.card-xl p:last-child {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 16px;  
+    display: flex;
+    align-items: center; 
+    color: #000000;
+    width: 125%;
+}
+.image-select{
+    width: 18px;
+    border-radius: 50px;
+    height: 18px;
+    position: relative;
+    right: -35px;
+    bottom: 20px;
+}
+.rounded001{
+    border-radius: 22px;
+}
+.card-xlSpan{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;  
+    display: flex;
+    align-items: center; 
+    color: #000000;
 }
 .btn:hover {
     color: #212529;

@@ -334,32 +334,33 @@ function ToDoList() {
       <Toaster position="top-right" />
       <div className="container-fluid">
         <div className="row pd ">
-          <div className="col-12 text-center">
-            <img
-              src={require("../images/todo.svg").default}
-              style={{ width: "70%" }}
+           
+             <div className="col-12 card-tops px-1 mt-2" style={{padding:"0px",marginBottom:"20px"}}>
+          <div className="row text-start">
+          <div className="card " style={{padding:"15px 15px",borderRadius:"15px",marginBottom:"0px"}}>
+              <div className="">
+              <img
+              src={require("../images/Stats.svg").default}
+              style={{ width: "70%" ,marginBottom:"10px"}}
             />
-            <p className="text-family">
-              Ici vous avez la liste des candidats ne travaillant
-              <span> pas encore avec nous</span>
+                <p className="child-text">
+                Ici vous avez la liste des candidats ne travaillant pas encore avec nous 
             </p>
             <p className="child-text">
-              Vous devez toujours vous assurer d’avoir un maximum d’information
-              sur cette liste et déplacer les candidats en archive si plus
-              d’actualité
+            Vous devez toujours vous assurer d’avoir un maximum d’information sur cette liste et déplacer les candidats en archive si plus d’actualité 
             </p>
-            <p>
-              You should always make sure you have as much information as
-              possible on this list and move the candidates to the archive if
-              the candidate is not serious.
-            </p>
+              </div>
+            </div>
           </div>
-          <div className="col-6">
-            <p>Filtre Secteur d’activité</p>
+          </div>
+          <div className="col-12 bg-white p-2 rounded001">
+            <div className="row">
+           <div className="col-4">
+            <p className="FiltreName">Filtre by name</p>
             <div className="dropdown">
               <div aria-labelledby="dropdownMenuButton1">
                 <select
-                  name="candidatActivitySector"
+                  name="candidatActivityName"
                   className="form-select"
                   onChange={handleSectorChange}
                   onClick={() => {
@@ -367,7 +368,7 @@ function ToDoList() {
                     filterFunction();
                   }}
                 >
-                  <option value="Select Un Secteur">Select Un Secteur</option>
+                  <option value="Select Un Secteur" className="fadeClass001">Jhon smith</option>
                   {sectors &&
                     sectors.map((sector) => (
                       <option value={sector.sectorName}>
@@ -379,6 +380,159 @@ function ToDoList() {
                 </select>
               </div>
             </div>
+            </div>
+          <div className="col-4">
+            <p className="FiltreName">Filtre Secteur d’activité</p>
+            <div className="dropdown">
+              <div aria-labelledby="dropdownMenuButton1">
+                <select
+                  name="candidatActivitySector"
+                  className="form-select"
+                  onChange={handleSectorChange}
+                  onClick={() => {
+                    setSelectedJob([]);
+                    filterFunction();
+                  }}
+                >
+                  <option value="Select Un Secteur" className="fadeClass001">Select Un Secteur</option>
+                  {sectors &&
+                    sectors.map((sector) => (
+                      <option value={sector.sectorName}>
+                        <button className="dropdown-item">
+                          {sector.sectorName}
+                        </button>
+                      </option>
+                    ))}
+                </select>
+              </div>
+            </div>
+            </div>
+            <div className="col-4">
+            <p className="FiltreName">Filtre selection métier / job</p>
+            <div className="box">
+              <ul className="list-group">
+                {jobs.length > 0 ? (jobs.map((job, index) => {
+                  // console.log(selectedJob, "select");
+
+                  return (
+                    <li
+                    className="job-ul list-group-item list-group-item-action p-0"
+                    onClick={(e)=>{HandleChecked(e,job);filterFunction()}} value={job.jobName}
+                  > <span style={{color:"black",textAlign:"center",width:"100%",display:"flex",justifyContent:"space-between"}}>
+                   {selectedJob.find((e) => e == job.jobName) ? (
+                          <div className="tick"></div>
+                      ) : null} 
+                  <p className="">{job.jobName}</p></span>
+                   
+                  </li>
+                  );
+                })): (
+                  <p>Please Select a Sector to view Jobs!</p>
+                )}
+                {/* // else { */}
+                {/* //   return (
+                    //     <li */}
+                {/* //       className="job-ul list-group-item list-group-item-action"
+                    //       onClick={() => {
+                    //         handleJobFilter(job); */}
+                {/* //       }}
+                    //     >
+                    //       <a href="#">{job.jobName}</a>
+                    //     </li>
+                    //   )
+
+                    // } }) ) : 
+                    // <p>Please Select a Sector to view Jobs!</p>} */}
+                {/* {
+                  jobs.length > 0 ? jobs.map((job) =>
+                    <li className="job-ul list-group-item list-group-item-action" onClick={()=>{handleJobFilter(job)}}>
+
+                      <a href="#">{job.jobName}</a>
+                    </li>
+                  ) : <p>Please Select a Sector to view Jobs!</p>
+                } */}
+              </ul>
+            </div>
+          </div>
+          <div className="col-4 pt-1">
+            <p className="FiltreName">Filtre by motivation</p>
+            <div className="dropdown">
+              <div aria-labelledby="dropdownMenuButton1">
+                <select
+                  name="candidatActivitySector"
+                  className="form-select"
+                  // onChange={handleSectorChange}
+                  // onClick={() => {
+                  //   setSelectedJob([]);
+                  //   filterFunction();
+                  // }}
+                >
+                  <option value="Select Un Secteur" className="fadeClass001">Great</option>
+                  {sectors &&
+                    sectors.map((sector) => (
+                      <option value={sector.sectorName}>
+                        <button className="dropdown-item">
+                          {sector.sectorName}
+                        </button>
+                      </option>
+                    ))}
+                </select>
+              </div>
+            </div>
+            </div>
+            <div className="col-4 pt-1">
+            <p className="FiltreName">Filter by date</p>
+            <div className="dropdown">
+              <div aria-labelledby="dropdownMenuButton1">
+                <select
+                  name="candidatActivitySector"
+                  className="form-select"
+                  // onChange={handleSectorChange}
+                  // onClick={() => {
+                  //   setSelectedJob([]);
+                  //   filterFunction();
+                  // }}
+                >
+                  <option value="Select Un Secteur" className="fadeClass001">Select Date</option>
+                  {sectors &&
+                    sectors.map((sector) => (
+                      <option value={sector.sectorName}>
+                        <button className="dropdown-item">
+                          {sector.sectorName}
+                        </button>
+                      </option>
+                    ))}
+                </select>
+              </div>
+            </div>
+            </div>
+            <div className="col-4 pt-1">
+            <p className="FiltreName">Filter by driver licence</p>
+            <div className="dropdown">
+              <div aria-labelledby="dropdownMenuButton1">
+                <select
+                  name="candidatActivitySector"
+                  className="form-select"
+                  // onChange={handleSectorChange}
+                  // onClick={() => {
+                  //   setSelectedJob([]);
+                  //   filterFunction();
+                  // }}
+                >
+                  <option value="Select Un Secteur" className="fadeClass001">Have licence</option>
+                  {sectors &&
+                    sectors.map((sector) => (
+                      <option value={sector.sectorName}>
+                        <button className="dropdown-item">
+                          {sector.sectorName}
+                        </button>
+                      </option>
+                    ))}
+                </select>
+              </div>
+            </div>
+            </div>
+          <div>
             <p className="last-child">Filtre Langues du candidat</p>
             <div>
               <div>
@@ -446,52 +600,7 @@ function ToDoList() {
               </div>
             </div>
           </div>
-          <div className="col-6">
-            <p>Filtre selection métier / job</p>
-            <div className="box">
-              <ul className="list-group">
-                {jobs.length > 0 ? (jobs.map((job, index) => {
-                  // console.log(selectedJob, "select");
-
-                  return (
-                    <li
-                    className="job-ul list-group-item list-group-item-action"
-                    onClick={(e)=>{HandleChecked(e,job);filterFunction()}} value={job.jobName}
-                  > <span style={{color:"black",textAlign:"center",width:"100%",display:"flex",justifyContent:"space-between"}}>
-                   {selectedJob.find((e) => e == job.jobName) ? (
-                          <div className="tick"></div>
-                      ) : null} 
-                  <p>{job.jobName}</p></span>
-                   
-                  </li>
-                  );
-                })): (
-                  <p>Please Select a Sector to view Jobs!</p>
-                )}
-                {/* // else { */}
-                {/* //   return (
-                    //     <li */}
-                {/* //       className="job-ul list-group-item list-group-item-action"
-                    //       onClick={() => {
-                    //         handleJobFilter(job); */}
-                {/* //       }}
-                    //     >
-                    //       <a href="#">{job.jobName}</a>
-                    //     </li>
-                    //   )
-
-                    // } }) ) : 
-                    // <p>Please Select a Sector to view Jobs!</p>} */}
-                {/* {
-                  jobs.length > 0 ? jobs.map((job) =>
-                    <li className="job-ul list-group-item list-group-item-action" onClick={()=>{handleJobFilter(job)}}>
-
-                      <a href="#">{job.jobName}</a>
-                    </li>
-                  ) : <p>Please Select a Sector to view Jobs!</p>
-                } */}
-              </ul>
-            </div>
+          </div>
           </div>
           <hr className="new5" />
          {loader ? 

@@ -65,11 +65,15 @@ hr.new5{
     color: #ffff;
 }
 .card-color{
-    background: #FE8700 ;
+   
 border-radius: 16px;
 padding: 5px;
 }
+.card-color p{
+    color: #000000;
+}
 .card-body{
+    
     padding: 0.5rem 0.5rem !important;
 }
 .Archived{
@@ -107,7 +111,7 @@ color:#ffff
 }
 .btn-card{
     height: 20px;
-    background: #ffff;
+    background: #032339;
     font-weight: 700;
 font-size: 12px;
 line-height: 16px;

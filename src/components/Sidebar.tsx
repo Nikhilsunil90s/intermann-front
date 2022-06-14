@@ -161,7 +161,7 @@ function Sidebar(props: any) {
 
                 </div>
                 <li className="nav-item text-center Log-Out" onClick={(e) => LogOut()}>
-                  <Link to="/" className="nav-link" aria-current="page">
+                  <Link to="/" className="nav-link " aria-current="page">
                     <span className="pe-2">
                       <img className="logoutImage" src={require("../images/logout.svg").default} />
                     </span>

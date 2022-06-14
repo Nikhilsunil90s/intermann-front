@@ -33,11 +33,17 @@
 }
 .btn-bgb {
   background-color: #032339;
-  color: orange;
   font-weight: 700;
-  font-size: 20px;
-  line-height: 16px;
-  padding: 11px 12px;
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 20px;
+letter-spacing: -0.105991px;
+text-transform: uppercase;
+border-radius: 25px;
+color: #FFFFFF;
+margin-top: 5px;
 }
 .btn-bgb img {
   width: 20px;

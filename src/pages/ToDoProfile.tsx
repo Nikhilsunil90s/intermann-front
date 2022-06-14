@@ -35,38 +35,47 @@ function ToDoProfile() {
           <div className="col-12 top-pd text-center">
             <h1 style={{ textDecoration: "underline" }}>CANDIDAT: {profile.candidatName}</h1>
           </div>
-          <div className="col-6">
-            <div className="stable">
+        
+             
+               <div className="card " style={{padding:"0px 15px",borderRadius:"15px",marginBottom:"0px"}}>
+               <div className="row text-start">
+                     <div className="col-6">
+                 <div className="stable">
               <Link to="/todolist">
-                <button type="button" className="btn bg-btn">
+                <button type="button" className="btn d-flex align-items-center">
                   <img src={require("../images/return.svg").default} />
-                  Return to - TO DO list Of candidates
+                <h2 className="card-Leads mb-0">  Candidate Profile</h2>
                 </button>
               </Link>
             </div>
-          </div>
-          <div className="col-6  text-end ">
+            </div>
+            <div className="col-6 text-end">
             <button className="btn btn-bgb" onClick={editCandidatProfile}>
               <img src={require("../images/Edit.svg").default} />
               Edit Profile
             </button>
-          </div>
-          <div className="bg-class">
-            <div className="col-12 p-3 bg-color-card">
-              <div className="row">
+            </div>
+                   
+                 </div>
+               </div>        
+               
+          <div className="">
+                <div className="col-12 p-0">
+                  <div className="row bg-class">
                 <div className="col-2 text-center ">
                   <img
                     src={require("../images/menlogos.svg").default}
                     style={{ width: "90%" }}
                   />
-
-                  <button type="button" className="btn btn-upload">
-                    UPLOAD PHOTO
-                  </button>
+                  <select className="image-select">
+                  <option>Upload Image</option>
+                  <option>Download Image</option>
+                  </select>
                 </div>
                 <div className="col-5 card-xl">
-                  <p>Name : {profile.candidatName}</p>
-                  <p>Age : {profile.candidatAge}</p>
+                  <div className="d-flex">
+                  <p>Name : {profile.candidatName}|{profile.candidatAge}</p> <span className="card-xlSpan">(Age)</span>
+                  </div>
                   <div>
 
                     <p>
@@ -83,7 +92,7 @@ function ToDoProfile() {
                     </p>
                   </div>
                   <p>Secteur : {profile.candidatActivitySector}</p>
-                  <p>Métier/Job : {profile.candidatJob}</p>
+                  <p  className="">Métier/Job : {profile.candidatJob}</p>
                 </div>
                 <div className="col-5 text-end end-class">
                   <div>
@@ -96,8 +105,8 @@ function ToDoProfile() {
                 </div>
               </div>
             </div>
-
-            <div className="col-12 box-size">
+            
+            <div className="col-12 box-size bg-class">
               <div className="row">
                 <div className="col-6 text-center">
                   <p>Mail : {profile.candidatEmail}</p>
@@ -116,9 +125,7 @@ function ToDoProfile() {
                     </span>
                     See Profile
                   </a>
-                </div>
-
-                <div className="col-6">
+              
                   <p>Phone : {profile.candidatPhone}</p>
                   <button className="btn btn-whatsapp btn-see">
                    <a href={`https://wa.me/${profile.candidatPhone}`} target="_blank">
@@ -138,9 +145,7 @@ function ToDoProfile() {
                     </a>
                   </button>
                 </div>
-              </div>
-            </div>
-            <div className="col-12">
+                <div className="col-6">
               <div className="parent-p">
                 <div className="d-flex">
                   <p>Langues : </p>
@@ -168,6 +173,9 @@ function ToDoProfile() {
                 </div>
               </div>
             </div>
+              </div>
+            </div>
+           
             <div className="col-12 pt-4">
               <h3 className="exp">Expérience du Candidat </h3>
               <table className="table table-bordered border-dark">

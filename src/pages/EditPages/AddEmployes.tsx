@@ -3,7 +3,7 @@ import "../../CSS/Employes.css";
 import { Toaster, toast } from 'react-hot-toast';
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import Select from 'react-select';
-
+import Multiselect from 'multiselect-react-dropdown';
 
 const EmployeeDataFormat = {
   candidatName: "",
@@ -58,8 +58,14 @@ export default function Employes() {
   const [period, setPeriod] = useState("");
   const [location, setLocation] = useState("");
   const [workDoneSample, setWorkDoneSample] = useState("");
+  const [Fetesdate,setFetesdate]=useState([
+   
+])as any;
 
-  const [la,setla]=useState(false)
+  const [permis,setPermis]=useState(false)
+  const [permisNo,setPermisNo]=useState(false)
+  const [Voyage,setVoyage]=useState(false)
+  const [VoyageNo,setVoyageNo]=useState(false)
 
   // Notifications //
   const notifyCandidatAddSuccess = () => toast.success("Candidat Added Successfully! View Candidat in To-Do List.");
@@ -72,8 +78,8 @@ export default function Employes() {
     console.log("Selected: " + val);
   }
   let options = [
-    { value: 'one', label: 'One' },
-    { value: 'two', label: 'Two' }
+    { value: 'Roumain',name:'candidatLanguages',lable:'Roumain' },
+    { value: 'Français',name:'candidatLanguages',lable:'Français' }
   ]as any;
   useEffect(() => {
     if (activitySectors.length == 0) {
@@ -136,7 +142,7 @@ export default function Employes() {
       changeSectorSelection(e.target.value);
     }
     if (e.target.name === 'candidatLanguages') {
-      if (e.target?.checked) {
+      if (e.target?.value) {
         addLanguages(e.target.value);
         return
       } else {
@@ -557,11 +563,19 @@ export default function Employes() {
               </div>
               <div className="col-6">
               <Select
-  name="form-field-name"
+  name={options}
   defaultValue={options}
+  value={options}
   options={options}
-  onChange={logChange}
+  onChange={()=>onFormDataChange}
   isMulti
+/>
+<Multiselect
+options={options}
+onSelect={()=>onFormDataChange}// Options to display in the dropdown
+ // Function will trigger on select event
+ // Function will trigger on remove event
+displayValue="value" // Property name to display in the dropdown options
 />
 
               </div>
@@ -575,20 +589,16 @@ export default function Employes() {
                 <div className="col-6 ">
                   <p className="Form-styling"> Permis / Licence drive</p>
                   <div className="d-flex"> 
-                 <button type="button" className="radioBtn" onClick={()=>setla(!la)}><input type="radio" name="candidatLicensePermis" value="true" onChange={onFormDataChange} checked={la} />Yes</button>
-                   
-  
-
-                 <button type="button" className="radioBtnNo" ><input type="radio" name="candidatLicensePermis"  value="false" onChange={onFormDataChange} />No</button>
-      
+                 <button type="button" className="radioBtn" onClick={()=>setPermis(!permis)}><input type="radio" name="candidatLicensePermis" value="true" onChange={onFormDataChange} checked={permis} />Yes</button>
+                 <button type="button" className="radioBtnNo mx-1" onClick={()=>setPermisNo(!permisNo)} ><input type="radio" name="candidatLicensePermis"  value="false" onChange={onFormDataChange} checked={permisNo} />No</button>
+       
                   </div>
                 </div>
                 <div className="col-6">
                   <p className="Form-styling">Voyage en voiture vers France ?</p>
                   <div className="d-flex">
-                <button type="button" className="radioBtn" >  <input type="radio" name="candidatConduireEnFrance" value="true" onChange={onFormDataChange} checked/>Yes</button>
-
-              <button className="radioBtnNo">    <input type="radio" name="candidatConduireEnFrance" value="false" onChange={onFormDataChange} />No</button>
+                <button type="button" className="radioBtn" onClick={()=>setVoyage(!Voyage)}>  <input type="radio" name="candidatConduireEnFrance" value="true" onChange={onFormDataChange} checked={Voyage}/>Yes</button>
+              <button type="button" className="radioBtnNo mx-1" onClick={()=>setVoyageNo(!VoyageNo)}>    <input type="radio" name="candidatConduireEnFrance" value="false" onChange={onFormDataChange} checked={VoyageNo}/>No</button>
                     
                   </div>
                 </div>
@@ -710,6 +720,25 @@ export default function Employes() {
                   <span className="ps-2">Autre / Other</span>
                 </div>
               </div>
+              <ul className="list-group">
+                {Fetesdate.length > 0 ? (
+                  Fetesdate.map((Fetes) => (
+                   
+                    <li
+                    className="job-ul list-group-item list-group-item-action"
+                    value={Fetes}
+                  > <span style={{color:"black",textAlign:"center",width:"100%",display:"flex",justifyContent:"space-between"}}>
+                   {/* {selectedJob.find((e) => e == Fetes) ? (
+                          <div className="tick"></div>
+                      ) : null}  */}
+                  <p>{Fetes}</p></span>
+                   
+                  </li>
+                  ))
+                ) : (
+                  <p>Please Select a Sector to view Jobs!</p>
+                )}
+              </ul>
             </div>
             <div className="col-md-12">
               <label className="Form-styling">

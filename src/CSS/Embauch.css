@@ -82,7 +82,7 @@ hr.new5 {
 }
 
 .card-color {
-    background: #FE8700;
+  
     border-radius: 16px;
     padding: 10px;
 }
@@ -116,7 +116,7 @@ hr.new5 {
     font-weight: 400;
     font-size: 10px;
     line-height: 16px;
-    color: #ffff
+
 }
 
 .blue {
@@ -137,7 +137,7 @@ hr.new5 {
 
 .btn-card {
     height: 20px;
-    background: #ffff;
+    background: #032339;
     font-weight: 700;
     font-size: 12px;
     line-height: 16px;
