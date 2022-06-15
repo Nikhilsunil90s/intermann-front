@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../../CSS/Employes.css";
 import { Toaster, toast } from 'react-hot-toast';
 import { API_BASE_URL } from "../../config/serverApiConfig";
-import Select from 'react-select';
-import Multiselect from 'multiselect-react-dropdown';
-
+import Select from "react-select"
+import Multiselect from "multiselect-react-dropdown"
 const EmployeeDataFormat = {
   candidatName: "",
   candidatEmail: "",
@@ -47,7 +46,7 @@ const EmployeeDataFormat = {
   }
 }
 
-
+let FilterJob=[]
 export default function Employes() {
   
   const [data, setData] = useState(EmployeeDataFormat);
@@ -66,6 +65,19 @@ export default function Employes() {
   const [permisNo,setPermisNo]=useState(false)
   const [Voyage,setVoyage]=useState(false)
   const [VoyageNo,setVoyageNo]=useState(false)
+  const [Language,setLanguage]=useState([
+    {
+      value:"Easter "
+    },
+    {
+      value:"Noel"
+    }
+    ,{
+      value:"Summer"
+    },{
+      value:"Autre / Other"
+    }
+  ])as any
 
   // Notifications //
   const notifyCandidatAddSuccess = () => toast.success("Candidat Added Successfully! View Candidat in To-Do List.");
@@ -74,13 +86,36 @@ export default function Employes() {
   const notifyMoreError=()=>toast.error("Phone Number is More than 10")
   const notifyEmptyError=()=>toast.error("Please enter full input fields")
   // End   //
-  function logChange(val) {
-    console.log("Selected: " + val);
+  const HandleChecked=(e:any)=>{
+    // FilterJob=[]
+    if(!FilterJob.find((e) => e == 0)){
+      console.log("hello")
+        FilterJob.push();
+        setLanguage(FilterJob);
   }
+    else {
+      if(FilterJob.length===1){
+        FilterJob=[]
+      }
+      console.log(FilterJob.length,"index")
+     console.log("not checked")
+     FilterJob= FilterJob.filter((item)=>{return item !==0})
+      console.log(FilterJob.length,"newarr")
+
+      setLanguage(FilterJob)
+      // console.log(selectedJob,"else")
+    } 
+  }
+  useEffect(()=>{
+
+  },[Language])
+
   let options = [
-    { value: 'Roumain',name:'candidatLanguages',lable:'Roumain' },
-    { value: 'Français',name:'candidatLanguages',lable:'Français' }
+    { value:'Roumain' ,lable:'Roumain'},
+    { value:'Françai' ,lable:'Françai'}
   ]as any;
+  
+  
   useEffect(() => {
     if (activitySectors.length == 0) {
       fetchActivitySectors()
@@ -131,7 +166,9 @@ export default function Employes() {
       .then(reD => reD)
       .catch(err => err)
   }
-
+ const FetesDate=(e)=>{
+  console.log(e)
+ }
   const onFormDataChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
@@ -164,12 +201,13 @@ export default function Employes() {
       return
     }
     if (e.target.name === 'candidatFetes') {
-      if (e.target?.checked) {
+      if (e.target?.value) {
+        alert("hello")
         addFetes(e.target.value)
         return
-      } else {
-        removeFetes(e.target.value)
-        return
+      // } else {
+      //   removeFetes(e.target.value)
+      //   return
       }
     }
     setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -479,15 +517,19 @@ export default function Employes() {
                   Motivation de ce candidat à travailler avec nous
                 </label><span className="Form-styling fs-6">(bigger number
                   is more important)</span>
-                <ul style={{ listStyle: "none" }}>
+                <ul className="coverClass d-flex px-0" style={{ listStyle: "none" }}>
                   <li>
                     <input
-                      type="radio"
+                      type="radio" 
                       name="candidatMotivation"
                       value={1}
                       onChange={onFormDataChange}
+                      id="r1"
                     />
-                    1
+                  <label htmlFor="r1" className="react" >
+<i data-icon="🙂"></i>
+<span className="font-Emoji">Dissapointed</span>
+</label>
                   </li>
                   <li>
                     <input
@@ -495,8 +537,12 @@ export default function Employes() {
                       name="candidatMotivation"
                       value={2}
                       onChange={onFormDataChange}
+                      id="r2"
                     />
-                    2
+                 <label htmlFor="r2" className="react">
+<i data-icon="🙁"></i>
+<span className="font-Emoji">Not really</span>
+</label>
                   </li>
                   <li>
                     <input
@@ -504,8 +550,12 @@ export default function Employes() {
                       name="candidatMotivation"
                       value={3}
                       onChange={onFormDataChange}
+                      id="r3"
                     />
-                    3
+                  <label htmlFor="r3" className="react">
+<i data-icon="😊"></i>
+<span className="font-Emoji">Like</span>
+</label>
                   </li>
                   <li>
                     <input
@@ -513,8 +563,12 @@ export default function Employes() {
                       name="candidatMotivation"
                       value={4}
                       onChange={onFormDataChange}
+                      id="r4"
                     />
-                    4
+                  <label htmlFor="r4" className="react">
+<i data-icon="🥰"></i>
+<span className="font-Emoji">Great</span>
+</label>
                   </li>
                   <li>
                     <input
@@ -522,11 +576,16 @@ export default function Employes() {
                       name="candidatMotivation"
                       value={5}
                       onChange={onFormDataChange}
+                      id="r5"
                     />
-                    5
+                 <label htmlFor="r5" className="react">
+<i data-icon="😍"></i>
+<span className="font-Emoji">Super lovely</span>
+</label>
                   </li>
                 </ul>
-            </div>
+              
+</div>
            </div>
            <div className="col-6">
               <div className="p-1">
@@ -562,21 +621,18 @@ export default function Employes() {
               </div>
               </div>
               <div className="col-6">
-              <Select
-  name={options}
-  defaultValue={options}
-  value={options}
+            <Select
+  name="candidatLanguages"
   options={options}
-  onChange={()=>onFormDataChange}
+  onChange={HandleChecked}
+  defaultValue={options[0]}
+  className="basic-multi-select"
+  classNamePrefix="select"
   isMulti
 />
-<Multiselect
-options={options}
-onSelect={()=>onFormDataChange}// Options to display in the dropdown
- // Function will trigger on select event
- // Function will trigger on remove event
-displayValue="value" // Property name to display in the dropdown options
-/>
+{/* <Multiselect  options={Language} displayValue={LanguageName} /> */}
+
+
 
               </div>
               <div className="col-6">
@@ -719,6 +775,13 @@ displayValue="value" // Property name to display in the dropdown options
                   <input type="checkbox" name="candidatFetes" id="fete" value="Autre" onClick={onFormDataChange} />
                   <span className="ps-2">Autre / Other</span>
                 </div>
+                <select name="candidatFetes" >
+                  {
+                    Language.map((el)=>(
+                      <option value={el.value} onClick={(e)=>FetesDate(e)}>{el.value}</option>
+                    ))
+                  }
+                </select>
               </div>
               <ul className="list-group">
                 {Fetesdate.length > 0 ? (

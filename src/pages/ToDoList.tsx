@@ -34,7 +34,7 @@ function ToDoList() {
   const [loader, setLoader] = useState(false);
   const [filterData, setFilterData] = useState([]);
   const [status, setStatus] = useState(Boolean);
-
+  const [SelectDropDown,setSelectDropDown]=useState([])
 
   useEffect(() => {
     if (sectors.length == 0) {
@@ -93,7 +93,7 @@ function ToDoList() {
       },
     })
       .then((resD) => resD.json())
-      .then((reD) => setFilterData([...reD]))
+      .then((reD) => {setFilterData([...reD]);setSelectDropDown([...reD])})
       .catch((err) => err);
   };
 
@@ -324,7 +324,7 @@ function ToDoList() {
       setLoader(true);
     }
   };
-
+console.log(SelectDropDown,"SelectDropDown")
   useEffect(() => {
     fetchProfiles();
   }, []);
@@ -368,12 +368,12 @@ function ToDoList() {
                     filterFunction();
                   }}
                 >
-                  <option value="Select Un Secteur" className="fadeClass001">Jhon smith</option>
-                  {sectors &&
-                    sectors.map((sector) => (
-                      <option value={sector.sectorName}>
+                  <option value="Select Un Name" className="fadeClass001">Select</option>
+                  {SelectDropDown &&
+                    SelectDropDown.map((Name) => (
+                      <option value={Name.candidatName}>
                         <button className="dropdown-item">
-                          {sector.sectorName}
+                          {Name.candidatName}
                         </button>
                       </option>
                     ))}
@@ -467,8 +467,8 @@ function ToDoList() {
                   //   filterFunction();
                   // }}
                 >
-                  <option value="Select Un Secteur" className="fadeClass001">Great</option>
-                  {sectors &&
+                  <option value="Select Un Secteur" className="fadeClass001">Select</option>
+                  {
                     sectors.map((sector) => (
                       <option value={sector.sectorName}>
                         <button className="dropdown-item">

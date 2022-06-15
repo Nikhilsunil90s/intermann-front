@@ -293,4 +293,15 @@ hr.new5 {
     display: none;
  } */
 
+ .fontStylinForcards{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 8px;
+    display: grid;
+    align-items: center;  
+    color: #000000;
+    padding: 10px 0px 0px 20px;
+ }
  

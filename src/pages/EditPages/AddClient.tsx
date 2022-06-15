@@ -1,7 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import "../../CSS/AddClient.css";
-import Select from 'react-select';
-import Multiselect from 'multiselect-react-dropdown';
+import Select from "react-select"
 
 export default function AddClient() {
     const [permis,setPermis]=useState(false)
@@ -10,8 +9,8 @@ export default function AddClient() {
     const [VoyageNo,setVoyageNo]=useState(false)
 
     let options = [
-        { value: 'Roumain',name:'candidatLanguages',lable:'Roumain' },
-        { value: 'Français',name:'candidatLanguages',lable:'Français' }
+      { value:'Roumain' ,lable:'Roumain'},
+      { value:'Françai' ,lable:'Françai'}
       ]as any;
 
     const [data, setData] = useState(fakeDataFormat);
@@ -324,21 +323,23 @@ export default function AddClient() {
               </div>
               </div>
               <div className="col-6">
-              <Select
+              {/* <Select
   name={options}
   defaultValue={options}
   value={options}
   options={options}
   onChange={()=>onFormDataChange}
   isMulti
+/> */}
+    <Select
+  name="candidatLanguages"
+  options={options}
+  defaultValue={options[0]}
+  className="basic-multi-select"
+  classNamePrefix="select"
+  isMulti
 />
-<Multiselect
-options={options}
-onSelect={()=>onFormDataChange}// Options to display in the dropdown
- // Function will trigger on select event
- // Function will trigger on remove event
-displayValue="value" // Property name to display in the dropdown options
-/>
+
 
               </div>
               <div className="col-6">
