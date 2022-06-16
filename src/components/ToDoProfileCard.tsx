@@ -3,7 +3,7 @@ import "../CSS/CanEmpl.css";
 import StarRatings from 'react-star-ratings';
 import ArchivedModal from "./Modal/ArchivedModal";
 import InProgressModal from "./Modal/InProgressModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -13,6 +13,11 @@ const ToDoProfileCard = (props: any,{path}) => {
 
     const [showInProgressModal, setShowInProgressModal] = useState(false);
     const [showArchiveModal, setShowArchiveModal] = useState(false)
+    const [Dissapointed,setDissapointed]=useState(false)
+    const [Notreally,setNotreally]=useState(false)
+    const [Like,setLike]=useState(false)
+    const [Great,setGreat]=useState(false)
+    const [Superlovely,setSuperlovely]=useState(false)
 
     const editCandidatProfile = () => {
         navigate("/editToDo", { state: props.data });
@@ -32,23 +37,42 @@ const ToDoProfileCard = (props: any,{path}) => {
         setShowArchiveModal(true) 
       }
     }
-
+    useEffect(()=>{
+        EmojiHandler()
+    },[])
+    const EmojiHandler=()=>{
+        if(props.data.candidatMotivation===1){
+           return setDissapointed(true)
+        }
+         if(props.data.candidatMotivation===2){
+          return  setNotreally(true)
+        }
+      if (props.data.candidatMotivation===3){
+          return  setLike(true)
+        }
+          if (props.data.candidatMotivation===4){
+       return     setGreat(true)
+        }
+       if(props.data.candidatMotivation===5){
+           return setSuperlovely(true)
+        }
+    }
     return (
         <>
             <div className="card card-color">
                 <div className="card-upper">
-                    <div className="col-4">
+                    <div className="col-3">
                         <img
                             src={require("../images/card-men.svg").default}
                             className="card-img-top"
                             alt="..."
                         />
                     </div>
-                    <div className="col-7 ">
+                    <div className="col-8 fontStylinForcards">
                         <p className="text-dark">{props.data.candidatName}</p>
                         <p className="text-dark">{props.data.candidatAge}</p>
-                        <div >  <p className="text-dark">Motivation:
-                            <StarRatings
+                        <div >  <p className="text-dark d-flex">Motivation:
+                            {/* <StarRatings
                     
                                 rating={props.data.candidatMotivation}
                                 starRatedColor="#ffc107"
@@ -57,7 +81,32 @@ const ToDoProfileCard = (props: any,{path}) => {
                                 starDimension={'9px'}
                                 starSpacing={'1px'}
                                 name='rating'
-                            />
+                            /> */
+    }
+    
+{Dissapointed?
+<div >🙂 Dissapointed</div>              
+ :null
+}
+{Notreally?               
+<div>🙁 Not really</div>
+:
+null}
+{Like?         
+<div>😊 Like</div>
+ :null}
+ {
+     Great?
+<div>🥰 Great</div>
+:
+null
+ }  
+ {
+   Superlovely?
+   <span>😍 Superlovely</span>
+   :
+   null
+ }           
                         </p>
                         </div>
                        
@@ -72,7 +121,7 @@ const ToDoProfileCard = (props: any,{path}) => {
                       
                         <div className="col-6 pd-00X1">
                         <Link to='#'>
-                            <button className="todo"><img src={require("../images/briefcase.svg").default} /></button>
+                            <button className="todo p-0"><img src={require("../images/briefcase.svg").default} /></button>
                         </Link>
                         </div>
                         <div className="col-6 d-flex justify-content-end mb-0 pd-00X1 form-group">
@@ -85,7 +134,29 @@ const ToDoProfileCard = (props: any,{path}) => {
                     </div>
                     <p>Name : {props.data.candidatName}</p>
                     <p>Age : {props.data.candidatAge}</p>
-                    <p>Motivation : {props.data.candidatMotivation} </p>
+                    <p className="d-flex">Motivation : {Dissapointed?
+<div >🙂 Dissapointed</div>              
+ :null
+}
+{Notreally?               
+<div>🙁 Not really</div>
+:
+null}
+{Like?         
+<div>😊 Like</div>
+ :null}
+ {
+     Great?
+<div>🥰 Great</div>
+:
+null
+ }  
+ {
+   Superlovely?
+   <span>😍 Superlovely</span>
+   :
+   null
+ }    </p>
                     <p>Secteur : {props.data.candidatActivitySector}</p>
 
                     <p>Job : {props.data.candidatJob} </p> 

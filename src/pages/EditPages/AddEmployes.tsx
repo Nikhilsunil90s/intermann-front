@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import "../../CSS/Employes.css";
 import { Toaster, toast } from 'react-hot-toast';
 import { API_BASE_URL } from "../../config/serverApiConfig";
-import Select from "react-select"
-import Multiselect from "multiselect-react-dropdown"
+import Select, { GroupBase, StylesConfig } from "react-select"
+import chroma from 'chroma-js'
+import { ColourOption, colourOptions,colourOptionsFetes,fromPerson } from '../../Selecteddata/data';
+
 const EmployeeDataFormat = {
   candidatName: "",
   candidatEmail: "",
@@ -23,6 +25,7 @@ const EmployeeDataFormat = {
   candidatLicensePermis: false,
   candidatConduireEnFrance: false,
   candidatStartDate: "",
+  candidatComingFrom:[],
   candidatEndDate: 1,
   candidatYearsExperience: "",
   candidatFetes: [],
@@ -57,28 +60,63 @@ export default function Employes() {
   const [period, setPeriod] = useState("");
   const [location, setLocation] = useState("");
   const [workDoneSample, setWorkDoneSample] = useState("");
-  const [Fetesdate,setFetesdate]=useState([
-   
-])as any;
+  const [Language,setLanguage]=useState([   
+  ])
+  const [FetesData,setFetesData]=useState([])
+  const [person,setPerson]=useState([])
 
-  const [permis,setPermis]=useState(false)
-  const [permisNo,setPermisNo]=useState(false)
-  const [Voyage,setVoyage]=useState(false)
-  const [VoyageNo,setVoyageNo]=useState(false)
-  const [Language,setLanguage]=useState([
-    {
-      value:"Easter "
+const colourStyles: StylesConfig<ColourOption, true> = {
+  control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+    const color = chroma(data.color);
+    return {
+      ...styles,
+      backgroundColor: isDisabled
+        ? undefined
+        : isSelected
+        ? data.color
+        : isFocused
+        ? color.alpha(0.1).css()
+        : undefined,
+      color: isDisabled
+        ? '#ccc'
+        : isSelected
+        ? chroma.contrast(color, 'white') > 2
+          ? 'white'
+          : 'black'
+        : data.color,
+      cursor: isDisabled ? 'not-allowed' : 'default',
+
+      ':active': {
+        ...styles[':active'],
+        backgroundColor: !isDisabled
+          ? isSelected
+            ? data.color
+            : color.alpha(0.3).css()
+          : undefined,
+      },
+    };
+  },
+  multiValue: (styles, { data }) => {
+    const color = chroma(data.color);
+    return {
+      ...styles,
+      backgroundColor: color.alpha(0.1).css(),
+    };
+  },
+  multiValueLabel: (styles, { data }) => ({
+    ...styles,
+    color: data.color,
+  }),
+  multiValueRemove: (styles, { data }) => ({
+    ...styles,
+    color: data.color,
+    ':hover': {
+      backgroundColor: data.color,
+      color: 'white',
     },
-    {
-      value:"Noel"
-    }
-    ,{
-      value:"Summer"
-    },{
-      value:"Autre / Other"
-    }
-  ])as any
-
+  }),
+};
   // Notifications //
   const notifyCandidatAddSuccess = () => toast.success("Candidat Added Successfully! View Candidat in To-Do List.");
   const notifyCandidatAddError = () => toast.error("Candidat Cannot Be Added! Please Try Again.");
@@ -86,36 +124,60 @@ export default function Employes() {
   const notifyMoreError=()=>toast.error("Phone Number is More than 10")
   const notifyEmptyError=()=>toast.error("Please enter full input fields")
   // End   //
-  const HandleChecked=(e:any)=>{
-    // FilterJob=[]
-    if(!FilterJob.find((e) => e == 0)){
-      console.log("hello")
-        FilterJob.push();
-        setLanguage(FilterJob);
-  }
-    else {
-      if(FilterJob.length===1){
-        FilterJob=[]
-      }
-      console.log(FilterJob.length,"index")
-     console.log("not checked")
-     FilterJob= FilterJob.filter((item)=>{return item !==0})
-      console.log(FilterJob.length,"newarr")
+  // const HandleChecked=(e:any)=>{
+  //   // FilterJob=[]
+  //   if(!FilterJob.find((e) => e == 0)){
+  //     console.log("hello")
+  //       FilterJob.push();
+  //       setLanguage(FilterJob);
+  // }
+  //   else {
+  //     if(FilterJob.length===1){
+  //       FilterJob=[]
+  //     }
+  //     console.log(FilterJob.length,"index")
+  //    console.log("not checked")
+  //    FilterJob= FilterJob.filter((item)=>{return item !==0})
+  //     console.log(FilterJob.length,"newarr")
 
-      setLanguage(FilterJob)
-      // console.log(selectedJob,"else")
-    } 
-  }
-  useEffect(()=>{
+  //     setLanguage(FilterJob)
+  //     // console.log(selectedJob,"else")
+  //   } 
+  // }
+  // useEffect(()=>{
 
-  },[Language])
+  // },[Language])
 
-  let options = [
-    { value:'Roumain' ,lable:'Roumain'},
-    { value:'Françai' ,lable:'Françai'}
-  ]as any;
-  
-  
+  const wherePerson=(selectedOption)=>{
+    let PersonFromarr=[]
+
+   selectedOption.map((el)=>{
+      PersonFromarr.push(el.value)
+ })
+ setData({...data,candidatComingFrom:PersonFromarr})
+ }
+
+   const   handleChange = (selectedOption) => {
+      console.log(`Option selected:`, selectedOption)
+      let arr=[]
+    
+      selectedOption.map((el)=>{
+  arr.push(el.value)
+   })
+   setLanguage(arr)
+   console.log(Language,"language")
+   setData({...data,candidatLanguages:arr})
+   }
+   const FetesDate=(selectedOption:any)=>{
+    let FetesArr=[]
+    selectedOption?.map((el)=>{
+      FetesArr.push(el.value)
+     })
+   
+   
+     setData({...data,candidatFetes:FetesArr})
+   }
+
   useEffect(() => {
     if (activitySectors.length == 0) {
       fetchActivitySectors()
@@ -166,9 +228,9 @@ export default function Employes() {
       .then(reD => reD)
       .catch(err => err)
   }
- const FetesDate=(e)=>{
-  console.log(e)
- }
+//  const FetesDate=(e)=>{
+//   console.log(e)
+//  }
   const onFormDataChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
@@ -205,11 +267,12 @@ export default function Employes() {
         alert("hello")
         addFetes(e.target.value)
         return
-      // } else {
-      //   removeFetes(e.target.value)
-      //   return
+      } else {
+        removeFetes(e.target.value)
+        return
       }
     }
+ 
     setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
@@ -517,80 +580,85 @@ export default function Employes() {
                   Motivation de ce candidat à travailler avec nous
                 </label><span className="Form-styling fs-6">(bigger number
                   is more important)</span>
-                <ul className="coverClass d-flex px-0" style={{ listStyle: "none" }}>
-                  <li>
-                    <input
+                <div  className="col-12 coverClass  px-0">
+                  <div className="row">
+                    <div className="col-3  d-flex flex-column text-center">
+                  
+               <div className="text-center" style={{height:"35px"}}>   <input
                       type="radio" 
                       name="candidatMotivation"
                       value={1}
                       onChange={onFormDataChange}
                       id="r1"
-                    />
-                  <label htmlFor="r1" className="react" >
+                    />     <label htmlFor="r1" className="react" >
 <i data-icon="🙂"></i>
+</label></div>
 <span className="font-Emoji">Dissapointed</span>
-</label>
-                  </li>
-                  <li>
-                    <input
+                </div>
+                                  <div className="col-2 both p-0 d-flex flex-column text-center">
+                  
+                <div className="text-center both" style={{height:"35px"}}>  <input
                       type="radio"
                       name="candidatMotivation"
                       value={2}
                       onChange={onFormDataChange}
                       id="r2"
-                    />
-                 <label htmlFor="r2" className="react">
+                    /> <label htmlFor="r2" className="react">
 <i data-icon="🙁"></i>
-<span className="font-Emoji">Not really</span>
+
 </label>
-                  </li>
-                  <li>
-                    <input
+</div>
+<span className="font-Emoji">Not really</span>
+                  </div>
+                  <div className="col-2 p-0 d-flex flex-column text-center">
+                   
+             <div className="text-center" style={{height:"35px"}}>  <input
                       type="radio"
                       name="candidatMotivation"
                       value={3}
                       onChange={onFormDataChange}
                       id="r3"
-                    />
-                  <label htmlFor="r3" className="react">
+                    />     <label htmlFor="r3" className="react">
 <i data-icon="😊"></i>
-<span className="font-Emoji">Like</span>
-</label>
-                  </li>
-                  <li>
-                    <input
+
+</label></div><span className="font-Emoji">Like</span>
+                  </div>
+                  <div className="col-2 p-0 d-flex flex-column text-center">
+                  
+               <div className="text-center" style={{height:"35px"}} >  <input
                       type="radio"
                       name="candidatMotivation"
                       value={4}
                       onChange={onFormDataChange}
                       id="r4"
-                    />
-                  <label htmlFor="r4" className="react">
+                    /><label htmlFor="r4" className="react">
 <i data-icon="🥰"></i>
-<span className="font-Emoji">Great</span>
-</label>
-                  </li>
-                  <li>
-                    <input
+
+</label></div><span className="font-Emoji">Great</span>
+                  </div>
+                  <div className="col-3 d-flex flex-column text-center">
+                   
+            <div className="text-center" style={{height:"35px"}}>  <input
                       type="radio"
                       name="candidatMotivation"
                       value={5}
                       onChange={onFormDataChange}
                       id="r5"
-                    />
-                 <label htmlFor="r5" className="react">
+                    /> <label htmlFor="r5" className="react">
 <i data-icon="😍"></i>
-<span className="font-Emoji">Super lovely</span>
 </label>
-                  </li>
-                </ul>
+</div>
+<span className="font-Emoji">Super lovely</span>
+                  </div>
+                </div>
+                </div>
               
 </div>
            </div>
            <div className="col-6">
               <div className="p-1">
                 <p className="padding-bottom Form-styling" >Langues du candidat</p>
-                <div>
+                {/* <div>
                   <input type="checkbox" onClick={onFormDataChange} id="language" name="candidatLanguages" value="Roumain" />
                   <span className="ps-2" >Roumain</span>
                 </div>
@@ -617,47 +685,126 @@ export default function Employes() {
                 <div>
                   <input type="checkbox" name="candidatLanguages" id="language" onChange={onFormDataChange} value="Autre" />
                   <span className="ps-2">Autre</span>
-                </div>
-              </div>
-              </div>
-              <div className="col-6">
-            <Select
+                </div> */}
+                <div className="pt-1">
+                       {/* <Select
   name="candidatLanguages"
   options={options}
-  onChange={HandleChecked}
-  defaultValue={options[0]}
+  onChange={handleChange}
+  placeholder="Select"
   className="basic-multi-select"
   classNamePrefix="select"
   isMulti
-/>
-{/* <Multiselect  options={Language} displayValue={LanguageName} /> */}
-
-
-
+/> */}
+<Select
+ name="candidatLanguages"
+    closeMenuOnSelect={false}
+    isMulti
+    placeholder="Select"
+    className="basic-multi-select"
+    classNamePrefix="select"
+    onChange={handleChange}
+    options={colourOptions}
+    styles={colourStyles}
+  /></div>
               </div>
+              </div>
+              <div className="col-6 p-1">
+              <p className="padding-bottom Form-styling">From where come this person</p>
+     
+              <Select
+ name="candidatComingFrom"
+ closeMenuOnSelect={false}
+ isMulti
+ placeholder="Select"
+ className="basic-multi-select"
+ classNamePrefix="select"
+ onChange={wherePerson}
+ options={fromPerson}
+ styles={colourStyles}
+/>
+
+</div>
+
+             
               <div className="col-6">
-              <h2 className="text-small">
+         
+              <div className="row p-1 d-flex">
+              <h2 className="Form-styling">
                   If we find the candidates, does he take it immediately? Or
                   will he still need to think?
                 </h2>
-         
-              <div className="p-1 d-flex">
                 <div className="col-6 ">
-                  <p className="Form-styling"> Permis / Licence drive</p>
-                  <div className="d-flex"> 
-                 <button type="button" className="radioBtn" onClick={()=>setPermis(!permis)}><input type="radio" name="candidatLicensePermis" value="true" onChange={onFormDataChange} checked={permis} />Yes</button>
-                 <button type="button" className="radioBtnNo mx-1" onClick={()=>setPermisNo(!permisNo)} ><input type="radio" name="candidatLicensePermis"  value="false" onChange={onFormDataChange} checked={permisNo} />No</button>
+                  <p className="Form-styling-child"> Permis / Licence drive</p>
+                  <div className="d-flex radiobtn"> 
+                  
+  <ul className="d-flex permis-UL p-0">
+  <li className="permis-LI">
+    <input type="radio" id="f-option"  name="candidatLicensePermis" value="true" onChange={onFormDataChange}  />
+    <label htmlFor="f-option"><p className="text-white">Yes</p></label>
+    <div className="check"></div>
+    
+  </li>
+  <li className="permis-LI mx-1">
+    <input type="radio" id="t-option" name="candidatLicensePermis" value="false" onChange={onFormDataChange}  />
+    <label htmlFor="t-option"><p className="text-white">No</p></label>
+    
+    <div className="check"><div className="inside"></div></div>
+  </li>
+</ul>
+</div>
+</div>
+<div className="col-6">
+                  <p className="Form-styling-child">Voyage en voiture vers France ?</p>
+                  <ul className="d-flex ul-check p-0">
+  <li className="li-check">
+    <input type="radio" id="e-option" name="candidatConduireEnFrance" value="false" onChange={onFormDataChange} />
+    <label htmlFor="e-option"><p className="text-white">Yes</p></label>
+    <div className="check"></div>
+    
+  </li>
+  <li className="li-check"> 
+    <input type="radio" id="s-option"  name="candidatConduireEnFrance" value="false" onChange={onFormDataChange}/>
+    <label htmlFor="s-option"><p className="text-white">No</p></label>
+    
+    <div className="check"><div className="inside"></div></div>
+  </li>
+</ul>
+</div>
+                  {/* {
+                    permis?
+                 <button type="button" className="radioBtn"  name="candidatConduireEnFrance" value="false" onChange={onFormDataChange} onClick={()=>setPermis(false)}><input type="radio" name="candidatLicensePermis" value="false" onChange={onFormDataChange} checked={true} />Yes</button>
+:
+<button type="button" className="radioBtnNo"  name="candidatConduireEnFrance" value="true" onChange={onFormDataChange} onClick={()=>setPermis(true)}><input type="radio" name="candidatLicensePermis" value="true" onChange={onFormDataChange} checked={false} />Yes</button>
+
+
+                  }
+                
+                {permisNo?
+                 <button type="button" className="radioBtn mx-1"  name="candidatConduireEnFrance" value="false" onChange={onFormDataChange} onClick={()=>setPermisNo(!permisNo)} ><input type="radio" name="candidatLicensePermis"  value="false" onChange={onFormDataChange} checked={permisNo} />No</button>
+:
+<button type="button" className="radioBtnNo mx-1"  name="candidatConduireEnFrance" value="false" onChange={onFormDataChange} onClick={()=>setPermisNo(!permisNo)} ><input type="radio" name="candidatLicensePermis" value="true" onChange={onFormDataChange} checked={permisNo} />NO</button>
+                }
        
                   </div>
                 </div>
                 <div className="col-6">
                   <p className="Form-styling">Voyage en voiture vers France ?</p>
                   <div className="d-flex">
-                <button type="button" className="radioBtn" onClick={()=>setVoyage(!Voyage)}>  <input type="radio" name="candidatConduireEnFrance" value="true" onChange={onFormDataChange} checked={Voyage}/>Yes</button>
-              <button type="button" className="radioBtnNo mx-1" onClick={()=>setVoyageNo(!VoyageNo)}>    <input type="radio" name="candidatConduireEnFrance" value="false" onChange={onFormDataChange} checked={VoyageNo}/>No</button>
-                    
-                  </div>
-                </div>
+              {Voyage?
+                <button type="button" className="radioBtn"  name="candidatConduireEnFrance" value="true" onChange={onFormDataChange} onClick={()=>setVoyage(!Voyage)}>  <input type="radio" name="candidatConduireEnFrance" value="true" onChange={onFormDataChange} checked={Voyage}/>Yes</button>
+                  :
+                <button type="button" className="radioBtnNo"  name="candidatConduireEnFrance" value="true" onChange={onFormDataChange} onClick={()=>setVoyage(!Voyage)}>  <input type="radio" name="candidatConduireEnFrance" value="true" onChange={onFormDataChange} checked={Voyage}/>Yes</button>
+              } 
+              { VoyageNo?
+                <button type="button" className="radioBtn mx-1"  name="candidatConduireEnFrance" value="flase" onChange={onFormDataChange} onClick={()=>setVoyageNo(!VoyageNo)}>    <input type="radio" name="candidatConduireEnFrance" value="false" onChange={onFormDataChange} checked={VoyageNo}/>No</button>
+                   :
+<button type="button" className="radioBtnNo mx-1"  name="candidatConduireEnFrance" value="flase" onChange={onFormDataChange} onClick={()=>setVoyageNo(!VoyageNo)}>    <input type="radio" name="candidatConduireEnFrance" value="false" onChange={onFormDataChange} checked={VoyageNo}/>No</button>
+
+              }
+                     */}
+                
+               
               </div>
               </div>
             
@@ -759,7 +906,7 @@ export default function Employes() {
                   Fetes/date pour lequel il veux impérativement rentrer
                 </p>
 
-                <div>
+                {/* <div>
                   <input type="checkbox" name="candidatFetes" id="fete" value="Easter" onClick={onFormDataChange} />
                   <span className="ps-2">Easter</span>
                 </div>
@@ -774,17 +921,30 @@ export default function Employes() {
                 <div>
                   <input type="checkbox" name="candidatFetes" id="fete" value="Autre" onClick={onFormDataChange} />
                   <span className="ps-2">Autre / Other</span>
-                </div>
-                <select name="candidatFetes" >
+                </div> */}
+                {/* <select name="candidatFetes" onChange={(e)=>FetesDate(e)}>
                   {
-                    Language.map((el)=>(
-                      <option value={el.value} onClick={(e)=>FetesDate(e)}>{el.value}</option>
+                    Fetesdate.map((el)=>(
+                      <option value={el.value} >{el.label}</option>
                     ))
                   }
-                </select>
+                </select> */}
+                <div className="pt-1">
+                      <Select
+  name="candidatFetes"
+  options={colourOptionsFetes}
+  styles={colourStyles}
+  onChange={FetesDate}
+  placeholder="Select"
+  className="basic-multi-select"
+  classNamePrefix="select"
+  isMulti
+  closeMenuOnSelect={false}
+/>
+</div>
               </div>
               <ul className="list-group">
-                {Fetesdate.length > 0 ? (
+                {/* {Fetesdate.length > 0 ? (
                   Fetesdate.map((Fetes) => (
                    
                     <li
@@ -794,13 +954,13 @@ export default function Employes() {
                    {/* {selectedJob.find((e) => e == Fetes) ? (
                           <div className="tick"></div>
                       ) : null}  */}
-                  <p>{Fetes}</p></span>
+                  {/* <p>{Fetes}</p></span>
                    
                   </li>
                   ))
                 ) : (
                   <p>Please Select a Sector to view Jobs!</p>
-                )}
+                )} */} 
               </ul>
             </div>
             <div className="col-md-12">
@@ -820,14 +980,12 @@ export default function Employes() {
                 customer on the database
               </span>
             </div>
-            <div className="col-md-12 col-12 py-4">
-              <div className="submit-btn-hold p-1 mx-auto d-flex">
-                <button className="btn btn-dark" type="submit">
+            <div className="col-md-12 py-4 d-flex justify-content-start px-2">   
+                <button className="btn  btn-stylingEnd" type="submit" >
                   Ajouter ce candidat / Add this candidate
                 </button>
-              </div>
             </div>
-          </div>
+            </div>
         </form>
         </div>
       </div>
