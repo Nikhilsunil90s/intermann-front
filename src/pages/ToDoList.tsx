@@ -23,8 +23,10 @@ declare global {
     }
   }
 }
-
+let SelectedName = []
 let FilterJob = [];
+let MotivationArr=[]
+let LicencePermisArr=[]
 function ToDoList() {
   const [sectors, setSectors] = useState([]);
   const [jobs, setJobs] = useState([]);
@@ -35,6 +37,21 @@ function ToDoList() {
   const [filterData, setFilterData] = useState([]);
   const [status, setStatus] = useState(Boolean);
   const [SelectDropDown,setSelectDropDown]=useState([])
+  const [Motivation,setMotivation]=useState([
+    {
+      value:"1",label:"😔 Dissapointed"
+    },{
+      value:"2",label:"🙁 Not really"
+    },{
+      value:"3",label:"😊 Like"
+    },{
+      value:"4",label:"🥰 Great"
+    },{
+      value:"5",label:"😍 Superlovely"
+    }
+  ])
+  const [LicensePermis,setLicensePermis]=useState(Boolean)as any
+  const [selectByName,setSelectName]=useState([])
 
   useEffect(() => {
     if (sectors.length == 0) {
@@ -111,6 +128,48 @@ function ToDoList() {
       .then((result) => result)
       .catch((err) => err);
   };
+  const handleNameChange = (e: any) => {
+    // console.log(e.target.value)
+    SelectedName=[]
+    MotivationArr=[]
+    LicencePermisArr=[]
+    FilterJob = [];
+    setSelectedJob([])
+    if (e.target.value === "Select Un Name") {
+      SelectedName=[]
+     
+    } else if (e.target.name === "candidatActivityName") {
+      SelectedName=[]
+      let NameField = e.target.value;
+     SelectedName.push(NameField)
+      console.log(MotivationArr,"Name")
+    }
+  };
+
+  const HandelLicence=(e)=>{
+    LicencePermisArr=[]
+    console.log(e.target.value)
+    LicencePermisArr.push(e.target.value)
+  }
+  const handleMotivationChange = (e: any) => {
+    // console.log(e.target.value)
+    MotivationArr=[]
+    LicencePermisArr=[]
+    SelectedName=[]
+    if (e.target.value === "Select Un Secteur") {
+      setJobs([]);
+      setSelectedSector("");
+      setLoader(true);
+     
+    } else if (e.target.name === "candidatActivityMotivation") {
+      MotivationArr=[]
+      let sectorField = e.target.value;
+      
+      console.log(sectorField,"motivation")
+      MotivationArr.push(sectorField)
+      // setSelectedSector(sectorField);
+    }
+  };
 
   const handleSectorChange = (e: any) => {
     // console.log(e.target.value)
@@ -140,10 +199,11 @@ function ToDoList() {
     setSelectedJob(FilterJob)
 
   },[selectedJob])
+
     const HandleChecked=(e:any,job:any)=>{
       // FilterJob=[]
       if(!FilterJob.find((e) => e == job.jobName)){
-        console.log("hello")
+        // console.log("hello")
           FilterJob.push(job.jobName);
           setSelectedJob(FilterJob);
     }
@@ -151,13 +211,13 @@ function ToDoList() {
         if(FilterJob.length===1){
           FilterJob=[]
         }
-        console.log(FilterJob.length,"index")
-       console.log("not checked")
+        // console.log(FilterJob.length,"index")
+      //  console.log("not checked")
        FilterJob= FilterJob.filter((item)=>{return item !==job.jobName})
         console.log(FilterJob.length,"newarr")
 
         setSelectedJob(FilterJob)
-        console.log(selectedJob,"else")
+        // console.log(selectedJob,"else")
       } 
     }
 
@@ -180,10 +240,79 @@ function ToDoList() {
 
   const filterFunction = async () => {
     setLoader(false);
-    if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0){
-      setLoader(true)
-      setStatus(true)
-      fetchProfiles()
+    
+    if(SelectedName.length>0 || MotivationArr.length>0 || LicencePermisArr.length>0){
+      if(SelectedName.length>0){
+        fetch(`${API_BASE_URL}getCandidats/?candidatName=${SelectedName}`,{
+        
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+      })
+      .then((reD) => reD.json())
+      .then((result) => {
+        {
+          // setFilterData([...result.data]);
+          // console.log(result,"result")
+          setFilterData([...result.data]);
+        }
+        // setStatus(result.status);
+      })
+      .catch((err) => err);
+      setLoader(true);
+      }
+      if(MotivationArr.length>0){
+        setFilterData([])
+        SelectedName=[]
+        fetch(`${API_BASE_URL}getCandidats/?candidatMotivation=${MotivationArr}`,{
+        
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+      })
+      .then((reD) => reD.json())
+      .then((result) => {
+        {
+          // setFilterData([...result.data]);
+          // console.log(result,"result")
+          setFilterData([...result.data]);
+        }
+        // setStatus(result.status);
+      })
+      .catch((err) => err);
+      setLoader(true);
+      }
+      if(LicencePermisArr.length>0){
+        setFilterData([])
+        SelectedName=[]
+        MotivationArr=[]
+        fetch(`${API_BASE_URL}getCandidats/?candidatLicensePermis=${LicencePermisArr}`,{
+        
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+      })
+      .then((reD) => reD.json())
+      .then((result) => {
+        {
+          // setFilterData([...result.data]);
+          // console.log(result,"result")
+          setFilterData([...result.data]);
+        }
+        // setStatus(result.status);
+      })
+      .catch((err) => err);
+      setLoader(true);
+      }
     }
     if (
       selectedSector.length > 0 &&
@@ -323,8 +452,15 @@ function ToDoList() {
         .catch((err) => err);
       setLoader(true);
     }
+     if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length===0 && MotivationArr.length===0 && LicencePermisArr.length===0){
+      {
+        setLoader(true)
+        setStatus(true)
+        fetchProfiles()
+      }
+    }
   };
-console.log(SelectDropDown,"SelectDropDown")
+console.log(SelectDropDown,"SelectDropDown") 
   useEffect(() => {
     fetchProfiles();
   }, []);
@@ -362,9 +498,9 @@ console.log(SelectDropDown,"SelectDropDown")
                 <select
                   name="candidatActivityName"
                   className="form-select"
-                  onChange={handleSectorChange}
+                  onChange={handleNameChange}
                   onClick={() => {
-                    setSelectedJob([]);
+                    // setSelectedJob([]);
                     filterFunction();
                   }}
                 >
@@ -459,20 +595,20 @@ console.log(SelectDropDown,"SelectDropDown")
             <div className="dropdown">
               <div aria-labelledby="dropdownMenuButton1">
                 <select
-                  name="candidatActivitySector"
+                  name="candidatActivityMotivation"
                   className="form-select"
-                  // onChange={handleSectorChange}
-                  // onClick={() => {
-                  //   setSelectedJob([]);
-                  //   filterFunction();
-                  // }}
+                  onChange={handleMotivationChange}
+                  onClick={() => {
+                    // setSelectedJob([]);
+                    filterFunction();
+                  }}
                 >
                   <option value="Select Un Secteur" className="fadeClass001">Select</option>
-                  {
-                    sectors.map((sector) => (
-                      <option value={sector.sectorName}>
+                  {Motivation &&
+                    Motivation.map((Motivation) => (
+                      <option value={Motivation.value}>
                         <button className="dropdown-item">
-                          {sector.sectorName}
+                          {Motivation.label}
                         </button>
                       </option>
                     ))}
@@ -511,23 +647,18 @@ console.log(SelectDropDown,"SelectDropDown")
             <div className="dropdown">
               <div aria-labelledby="dropdownMenuButton1">
                 <select
-                  name="candidatActivitySector"
+                  name=""
                   className="form-select"
                   // onChange={handleSectorChange}
-                  // onClick={() => {
-                  //   setSelectedJob([]);
-                  //   filterFunction();
-                  // }}
+                  onChange={HandelLicence}
+              
+                  onClick={() => {
+                    filterFunction();
+                  }}
                 >
                   <option value="Select Un Secteur" className="fadeClass001">Have licence</option>
-                  {sectors &&
-                    sectors.map((sector) => (
-                      <option value={sector.sectorName}>
-                        <button className="dropdown-item">
-                          {sector.sectorName}
-                        </button>
-                      </option>
-                    ))}
+                 <option value="true" onChange={HandelLicence}>true</option>
+                 <option value="false" onChange={HandelLicence}>false</option>
                 </select>
               </div>
             </div>
@@ -608,7 +739,7 @@ console.log(SelectDropDown,"SelectDropDown")
                   {status ? 
                     filterData.length > 0 ? 
                       filterData.map((profile, index) => (
-                        <div className="col-4 mt-2 pd-left">
+                        <div className="col-4  pd-left">
                           <ToDoProfileCard data={profile} />
                         </div>
                       ))
