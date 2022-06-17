@@ -37,6 +37,7 @@ function ToDoList() {
   const [filterData, setFilterData] = useState([]);
   const [status, setStatus] = useState(Boolean);
   const [SelectDropDown,setSelectDropDown]=useState([])
+  const [showMore,setShowMore]=useState(false)
   const [Motivation,setMotivation]=useState([
     {
       value:"1",label:"😔 Dissapointed"
@@ -53,6 +54,7 @@ function ToDoList() {
   const [LicensePermis,setLicensePermis]=useState(Boolean)as any
   const [selectByName,setSelectName]=useState([])
 
+
   useEffect(() => {
     if (sectors.length == 0) {
       fetchAllSectors()
@@ -67,7 +69,7 @@ function ToDoList() {
   }, [jobs]);
   useEffect(() => {
     filterFunction();
-  }, [selectedLanguages, selectedJob, selectedSector]);
+  }, [selectedLanguages, selectedJob, selectedSector,Motivation]);
   const fetchAllSectors = async () => {
     return await fetch(API_BASE_URL + "fetchAllSectors", {
       method: "GET",
@@ -133,13 +135,14 @@ function ToDoList() {
     SelectedName=[]
     MotivationArr=[]
     LicencePermisArr=[]
-    FilterJob = [];
+    setSelectedSector("")
     setSelectedJob([])
     if (e.target.value === "Select Un Name") {
       SelectedName=[]
      
     } else if (e.target.name === "candidatActivityName") {
       SelectedName=[]
+      MotivationArr=[]
       let NameField = e.target.value;
      SelectedName.push(NameField)
       console.log(MotivationArr,"Name")
@@ -148,13 +151,19 @@ function ToDoList() {
 
   const HandelLicence=(e)=>{
     LicencePermisArr=[]
+    SelectedName=[]
+    setSelectedSector("")
+    MotivationArr=[]
     console.log(e.target.value)
     LicencePermisArr.push(e.target.value)
+    filterFunction()
   }
+
   const handleMotivationChange = (e: any) => {
     // console.log(e.target.value)
     MotivationArr=[]
     LicencePermisArr=[]
+    setSelectedSector("")
     SelectedName=[]
     if (e.target.value === "Select Un Secteur") {
       setJobs([]);
@@ -167,13 +176,16 @@ function ToDoList() {
       
       console.log(sectorField,"motivation")
       MotivationArr.push(sectorField)
+     filterFunction()
       // setSelectedSector(sectorField);
     }
   };
 
   const handleSectorChange = (e: any) => {
     // console.log(e.target.value)
-
+    SelectedName=[]
+    MotivationArr=[]
+    LicencePermisArr=[]
     FilterJob = [];
     setSelectedJob([])
     if (e.target.value === "Select Un Secteur") {
@@ -243,6 +255,7 @@ function ToDoList() {
     
     if(SelectedName.length>0 || MotivationArr.length>0 || LicencePermisArr.length>0){
       if(SelectedName.length>0){
+        LicencePermisArr=[]
         fetch(`${API_BASE_URL}getCandidats/?candidatName=${SelectedName}`,{
         
           method: "GET",
@@ -257,7 +270,7 @@ function ToDoList() {
         {
           // setFilterData([...result.data]);
           // console.log(result,"result")
-          setFilterData([...result.data]);
+           setFilterData([...result.data]);
         }
         // setStatus(result.status);
       })
@@ -346,7 +359,6 @@ function ToDoList() {
        FilterJob.length > 0 &&
       selectedLanguages.length == 0
     ) {
-    
         await fetch(
           `${API_BASE_URL}filterToDoSJ/?sector=${selectedSector}&jobs=${selectedJob}`,
           {
@@ -461,9 +473,9 @@ function ToDoList() {
     }
   };
 console.log(SelectDropDown,"SelectDropDown") 
-  useEffect(() => {
-    fetchProfiles();
-  }, []);
+  // useEffect(() => {
+  //   fetchProfiles();
+  // }, []);
  
   return (
     <>
@@ -590,79 +602,102 @@ console.log(SelectDropDown,"SelectDropDown")
               </ul>
             </div>
           </div>
-          <div className="col-4 pt-1">
-            <p className="FiltreName">Filtre by motivation</p>
-            <div className="dropdown">
-              <div aria-labelledby="dropdownMenuButton1">
-                <select
-                  name="candidatActivityMotivation"
-                  className="form-select"
-                  onChange={handleMotivationChange}
-                  onClick={() => {
-                    // setSelectedJob([]);
-                    filterFunction();
-                  }}
-                >
-                  <option value="Select Un Secteur" className="fadeClass001">Select</option>
-                  {Motivation &&
-                    Motivation.map((Motivation) => (
-                      <option value={Motivation.value}>
-                        <button className="dropdown-item">
-                          {Motivation.label}
-                        </button>
-                      </option>
-                    ))}
-                </select>
-              </div>
-            </div>
-            </div>
+          {
+            showMore?
+            <>
+            <div className="col-12 pt-1">
+            <div className="row">
             <div className="col-4 pt-1">
-            <p className="FiltreName">Filter by date</p>
-            <div className="dropdown">
-              <div aria-labelledby="dropdownMenuButton1">
-                <select
-                  name="candidatActivitySector"
-                  className="form-select"
-                  // onChange={handleSectorChange}
-                  // onClick={() => {
-                  //   setSelectedJob([]);
-                  //   filterFunction();
-                  // }}
-                >
-                  <option value="Select Un Secteur" className="fadeClass001">Select Date</option>
-                  {sectors &&
-                    sectors.map((sector) => (
-                      <option value={sector.sectorName}>
-                        <button className="dropdown-item">
-                          {sector.sectorName}
-                        </button>
-                      </option>
-                    ))}
-                </select>
+        <p className="FiltreName">Filtre by motivation</p>
+        <div className="dropdown">
+          <div aria-labelledby="dropdownMenuButton1">
+            <select
+              name="candidatActivityMotivation"
+              className="form-select"
+              onChange={handleMotivationChange}
+              // onClick={() => {
+              //   // setSelectedJob([]);
+              //   filterFunction();
+              // }}
+            >
+              <option value="Select Un Secteur" className="fadeClass001">Select</option>
+              {Motivation &&
+                Motivation.map((Motivation) => (
+                  <option value={Motivation.value}>
+                    <button className="dropdown-item">
+                      {Motivation.label}
+                    </button>
+                  </option>
+                ))}
+            </select>
+          </div>
+        </div>
+        </div>
+        <div className="col-4 pt-1">
+        <p className="FiltreName">Filter by date</p>
+        <div className="dropdown">
+          <div aria-labelledby="dropdownMenuButton1">
+            <select
+              name="candidatActivitySector"
+              className="form-select"
+              // onChange={handleSectorChange}
+              // onClick={() => {
+              //   setSelectedJob([]);
+              //   filterFunction();
+              // }}
+            >
+              <option value="Select Un Secteur" className="fadeClass001">Select Date</option>
+              {sectors &&
+                sectors.map((sector) => (
+                  <option value={sector.sectorName}>
+                    <button className="dropdown-item">
+                      {sector.sectorName}
+                    </button>
+                  </option>
+                ))}
+            </select>
+          </div>
+        </div>
+        </div>
+        <div className="col-4 pt-1">
+        <p className="FiltreName">Filter by driver licence</p>
+        <div className="dropdown">
+          <div aria-labelledby="dropdownMenuButton1">
+            <select
+              name=""
+              className="form-select"
+              // onChange={handleSectorChange}
+              onChange={HandelLicence}
+            >
+              <option value="Select Un Secteur" className="fadeClass001">Have licence</option>
+             <option value="true" onChange={HandelLicence}>true</option>
+             <option value="false" onChange={HandelLicence}>false</option>
+            </select>
+          </div>
+        </div>
+        </div>
+        
               </div>
             </div>
+            <div className="extraPadding" onClick={()=>setShowMore(false)}>
+            <div className="col-12">
+       <div className="row justify-content-end">
+<div className="col-4 d-flex justify-content-end">    <p  className="filterStyling pt-2">Less Filters <img src={require("../images/downup.svg").default}  /></p>
+</div>
+         </div>
+        </div>
+           </div>
+            </>
+            
+            :
+            <div className="extraPadding" onClick={()=>setShowMore(true)}> <div className="col-12">
+            <div className="row justify-content-end">
+            <div className="col-4 d-flex justify-content-end">      <p className="filterStyling pt-2">More Filters <img src={require("../images/down.svg").default}  /></p>
             </div>
-            <div className="col-4 pt-1">
-            <p className="FiltreName">Filter by driver licence</p>
-            <div className="dropdown">
-              <div aria-labelledby="dropdownMenuButton1">
-                <select
-                  name=""
-                  className="form-select"
-                  // onChange={handleSectorChange}
-                  onChange={HandelLicence}
-              
-                  onClick={() => {
-                    filterFunction();
-                  }}
-                >
-                  <option value="Select Un Secteur" className="fadeClass001">Have licence</option>
-                 <option value="true" onChange={HandelLicence}>true</option>
-                 <option value="false" onChange={HandelLicence}>false</option>
-                </select>
               </div>
-            </div>
-            </div>
+             </div></div>
+          }
+        
           <div>
             <p className="last-child">Filtre Langues du candidat</p>
             <div>

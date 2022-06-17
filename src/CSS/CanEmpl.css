@@ -306,3 +306,14 @@ hr.new5 {
     padding: 10px 0px 0px 20px;
  }
  
+ .filterStyling{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+    color: #373A3C;
+ }
+ .extraPadding{
+    padding-left: 0px !important;
+ }
