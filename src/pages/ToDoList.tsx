@@ -27,6 +27,7 @@ let SelectedName = []
 let FilterJob = [];
 let MotivationArr=[]
 let LicencePermisArr=[]
+let DateArr=[]
 function ToDoList() {
   const [sectors, setSectors] = useState([]);
   const [jobs, setJobs] = useState([]);
@@ -253,7 +254,7 @@ function ToDoList() {
   const filterFunction = async () => {
     setLoader(false);
     
-    if(SelectedName.length>0 || MotivationArr.length>0 || LicencePermisArr.length>0){
+    if(SelectedName.length>0 || MotivationArr.length>0 || LicencePermisArr.length>0 || DateArr.length>0){
       if(SelectedName.length>0){
         LicencePermisArr=[]
         fetch(`${API_BASE_URL}getCandidats/?candidatName=${SelectedName}`,{
@@ -295,6 +296,32 @@ function ToDoList() {
           // setFilterData([...result.data]);
           // console.log(result,"result")
           setFilterData([...result.data]);
+        }
+        // setStatus(result.status);
+      })
+      .catch((err) => err);
+      setLoader(true);
+      }
+      if(DateArr.length>0){
+        LicencePermisArr=[]
+        MotivationArr=[]
+        SelectedName=[]
+        setSelectedSector("")
+        fetch(`${API_BASE_URL}getCandidats/?createdAt=${DateArr}`,{
+        
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+      })
+      .then((reD) => reD.json())
+      .then((result) => {
+        {
+          // setFilterData([...result.data]);
+          // console.log(result,"result")
+           setFilterData([...result.data]);
         }
         // setStatus(result.status);
       })
@@ -464,7 +491,7 @@ function ToDoList() {
         .catch((err) => err);
       setLoader(true);
     }
-     if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length===0 && MotivationArr.length===0 && LicencePermisArr.length===0){
+     if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length===0 && MotivationArr.length===0 && LicencePermisArr.length===0 && DateArr.length===0){
       {
         setLoader(true)
         setStatus(true)
@@ -472,6 +499,13 @@ function ToDoList() {
       }
     }
   };
+  const onDateChange=(e)=>{
+     DateArr=[]
+     let SelectedDate=[]
+     SelectedDate=e.target.value
+     DateArr.push(SelectedDate)
+     filterFunction()
+  }
 console.log(SelectDropDown,"SelectDropDown") 
   // useEffect(() => {
   //   fetchProfiles();
@@ -637,27 +671,16 @@ console.log(SelectDropDown,"SelectDropDown")
         <p className="FiltreName">Filter by date</p>
         <div className="dropdown">
           <div aria-labelledby="dropdownMenuButton1">
-            <select
-              name="candidatActivitySector"
-              className="form-select"
-              // onChange={handleSectorChange}
-              // onClick={() => {
-              //   setSelectedJob([]);
-              //   filterFunction();
-              // }}
-            >
-              <option value="Select Un Secteur" className="fadeClass001">Select Date</option>
-              {sectors &&
-                sectors.map((sector) => (
-                  <option value={sector.sectorName}>
-                    <button className="dropdown-item">
-                      {sector.sectorName}
-                    </button>
-                  </option>
-                ))}
-            </select>
-          </div>
-        </div>
+                          <input
+                              type="date"
+                              className="form-control"
+                              name="candidatStartDate"
+                                // value={data.candidatStartDate}
+                                onChange={onDateChange}
+                                
+                              />
+                            </div>
+                          </div>
         </div>
         <div className="col-4 pt-1">
         <p className="FiltreName">Filter by driver licence</p>

@@ -73,7 +73,7 @@ margin-bottom: 5px ;
     padding-right: 10px;
 }
 .padding-email img{
-width: 10%;
+width: 15%;
 }
 
 .btn-whatsapp{
@@ -89,6 +89,29 @@ line-height: 26px;
 text-decoration-line: underline;
 padding-right: 10px;
 color: #000000;
+}
+.Todo-CardMore{
+    padding: 10px;
+}
+.Todo-CardMore p{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 26px;
+    text-decoration-line: underline;
+    color: #000000;
+    margin-bottom:0px ;
+}
+.Todo-CardMore span{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 28px;
+    color: #000000;
+    margin-bottom:0px ;
+    margin-left:5px;
 }
 .blue-text{
 color:#3F76E2 !important
@@ -108,17 +131,20 @@ line-height: 33px;
 color: #000000;
 }
 .exp{
-    font-family: 'Arial';
-font-style: normal;
-font-weight: 900;
-font-size: 29px;
-line-height: 24px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;  
+    display: flex;
+    align-items: center;  
+    color: #000000;  
 }
 tbody{
     background-color: white !important;
  }
  thead{
-     background-color: #C4C4C4;
+    background: #F4F4F4;
  }
  .btn-upload{
      background-color: #C4C4C4;
@@ -201,14 +227,14 @@ border-radius: 8px;
     padding-right: 5px;
     width: 20%;
  }
-.italic-font{
-    font-family: 'Arial';
-font-style: italic;
-padding-top: 10px;
-font-weight: 400;
-font-size: 21px;
-line-height: 24px;
-padding-left: 20px;
+.italic-fontStyle{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 15px;
+    color: #000000;
+    padding-left: 10px;
 }
 .card-xl p {
     font-family: 'Poppins';
@@ -257,4 +283,254 @@ padding-left: 20px;
 }
 .btn-bgb:hover {
     color: #FE8700;
+}
+.card-TodoProfile{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 16px;
+color: #000000;
+}
+.bg-todoTodoDetails{
+    background: #FFFFFF;
+box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
+border-radius: 10px;
+margin-top: 10px;
+padding-top: 30px;
+}
+.todoBtnStyle{
+background: #E4F4FF;
+border-radius: 100px;
+border: 0px;
+padding: 5px 13px;
+}
+.Social-Card{
+background: #FFFFFF;
+box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
+border-radius: 10px;
+}
+.Span-Styling{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 16px;
+line-height: 0px;
+display: flex;
+align-items: center;
+color: #000000;
+}
+.btn-gmail{
+    background: #FFFFFF;
+    box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+    border-radius: 30px;
+    border: 1px solid #000000;
+    padding: 15px 115px;
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 15px;
+color: #000000;
+}
+.scroll-Style{
+    max-width: 49%;
+    overflow-y: scroll;
+    height: 378px;
+}
+.scrollbar
+{
+	float: left;
+	height: 388px;
+	width: 70px;
+	background: #ffff;
+	overflow-y: scroll;
+}
+
+.force-overflow
+{
+	min-height: 450px;
+}
+#style-3::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+#style-3::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-3::-webkit-scrollbar-thumb
+{
+	background: #E0E0E0;
+}
+.btn-preSelected{
+    background: #3F76E2;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 27px;
+color: #FFFFFF;
+}
+.btn-Archived{
+    background: #FF0000;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 27px;
+color: #FFFFFF;
+}
+.btn-EditProfile{
+    background: #032339;
+border-radius: 100px;
+padding: 10px 26px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 27px;
+color: #FFFFFF;
+}
+.btn-CVManual{
+    background: #032339;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 15px;
+line-height: 27px;
+color: #FFFFFF;
+}
+.CandidateCV{
+    background: #E6EEFF;
+border: 1px dashed #3F76E2;
+border-radius: 8px;
+max-width: 49%;
+}
+.UploadCandidat{
+    font-family: 'Work Sans';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 14px;
+color: #032339;
+}
+.dropFile{
+    font-family: 'Work Sans';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 14px;
+color: #032339;
+
+}
+.z-index{
+    z-index: 1000px;
+    
+}
+.FontStyleUpload{
+    font-family: 'Work Sans';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 19px;
+color: #3F3F44;
+}
+.candidatecVs{
+    font-family: 'Work Sans';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 19px;
+color: #3F3F44;
+}
+
+._react_fileupload_form_content
+ [type=submit]{
+border: 0px;
+padding: 2px 10px;
+margin-top: 12px;
+background: orange;
+border-radius: 15px;
+margin-left: 15px;
+}
+.btnDownload{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 10px;
+line-height: 15px;
+text-align: center;
+color: #3F76E2;
+background: #E5EEFF;
+border-radius: 100px;
+border:0px;
+padding: 10px;
+}
+.download-font{
+    font-family: 'Work Sans';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 14px;
+color: #3F3F44;
+}
+.CardClassDownload{
+    background: #FFFFFF;
+    border: 1px solid #C4C4C4;
+    border-radius: 8px;
+   padding: 10px;
+   width: 100%;
+}
+._react_fileupload_progress_content div:first-child{
+    width: 310px !important;
+}
+.FontMatchedStyle{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 16px;
+color: #000000;
+}
+.FontStylingCardtext{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 21px;
+color: #000000;
+padding-top: 3px;
+}
+.btnMatched{
+background: #032339;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 21px;
+color: #FFFFFF;
+padding: 5px 20px;
+}
+.btnNotMatched{
+    background: #FFFFFF;
+    box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #032339;
+    width: 90% !important;
+    padding: 5px 3px;
+    border-radius: 20px;
+
 }
