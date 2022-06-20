@@ -6,6 +6,8 @@ import ToDoProfileCard from "../components/ToDoProfileCard";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import { Toaster } from "react-hot-toast";
 import Loader from "../components/Loader/loader";
+import Select, { GroupBase, StylesConfig } from "react-select";
+// import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../../Selecteddata/data';
 
 
 declare namespace JSX {
@@ -28,6 +30,7 @@ let FilterJob = [];
 let MotivationArr=[]
 let LicencePermisArr=[]
 let DateArr=[]
+let optionsNames=[]
 function ToDoList() {
   const [sectors, setSectors] = useState([]);
   const [jobs, setJobs] = useState([]);
@@ -52,7 +55,9 @@ function ToDoList() {
       value:"5",label:"😍 Superlovely"
     }
   ])
-  const [LicensePermis,setLicensePermis]=useState(Boolean)as any
+  // const [SelectJobDropDown,setSelectedJobDropDown]=useState([{
+  //   value:optionsName
+  // }])as any
   const [selectByName,setSelectName]=useState([])
 
 
@@ -198,41 +203,53 @@ function ToDoList() {
       let sectorField = e.target.value;
       setSelectedSector(sectorField);
     }
-
+    
+   
+    console.log(optionsNames,"optionsName")
     fetchAllJobs(e.target.value)
       .then((data) => {
         // console.log(data);
         setJobs([...data.data]);
-      })
+        console.log([...data.data],"hello")
+         })
       .catch((err) => {
         // console.log(err);
       });
   };
   useEffect(()=>{
-    setSelectedJob(FilterJob)
-
-  },[selectedJob])
-
-    const HandleChecked=(e:any,job:any)=>{
-      // FilterJob=[]
-      if(!FilterJob.find((e) => e == job.jobName)){
-        // console.log("hello")
-          FilterJob.push(job.jobName);
-          setSelectedJob(FilterJob);
+    optionsNames = jobs.map((el)=>
+    {
+     return(
+       {value:el.jobName,label:el.jobName}
+     )
     }
-      else {
-        if(FilterJob.length===1){
-          FilterJob=[]
-        }
-        // console.log(FilterJob.length,"index")
-      //  console.log("not checked")
-       FilterJob= FilterJob.filter((item)=>{return item !==job.jobName})
-        console.log(FilterJob.length,"newarr")
+   )
+  
+  },[jobs])
 
-        setSelectedJob(FilterJob)
-        // console.log(selectedJob,"else")
-      } 
-    }
+ const HandleJob=(e)=>{
+  console.log(e.target.value)
+ }
+    // const HandleChecked=(e:any,job:any)=>{
+    //   // FilterJob=[]
+    //   if(!FilterJob.find((e) => e == job.jobName)){
+    //     // console.log("hello")
+    //       FilterJob.push(job.jobName);
+    //       setSelectedJob(FilterJob);
+    // }
+    //   else {
+    //     if(FilterJob.length===1){
+    //       FilterJob=[]
+    //     }
+    //     // console.log(FilterJob.length,"index")
+    //   //  console.log("not checked")
+    //    FilterJob= FilterJob.filter((item)=>{return item !==job.jobName})
+    //     console.log(FilterJob.length,"newarr")
+
+    //     setSelectedJob(FilterJob)
+    //     // console.log(selectedJob,"else")
+    //   } 
+    // }
 
   const getSelectedLanguage = (e: any) => {
     if (e.target.checked) {
@@ -592,7 +609,7 @@ console.log(SelectDropDown,"SelectDropDown")
             <div className="col-4">
             <p className="FiltreName">Filtre selection métier / job</p>
             <div className="box">
-              <ul className="list-group">
+              {/* <ul className="list-group">
                 {jobs.length > 0 ? (jobs.map((job, index) => {
                   // console.log(selectedJob, "select");
 
@@ -610,7 +627,7 @@ console.log(SelectDropDown,"SelectDropDown")
                   );
                 })): (
                   <p>Please Select a Sector to view Jobs!</p>
-                )}
+                )} */}
                 {/* // else { */}
                 {/* //   return (
                     //     <li */}
@@ -633,7 +650,20 @@ console.log(SelectDropDown,"SelectDropDown")
                     </li>
                   ) : <p>Please Select a Sector to view Jobs!</p>
                 } */}
-              </ul>
+              {/* </ul> */}
+            
+              <Select
+                          name="candidatFetes"
+                          options={optionsNames}
+                          // styles={}
+                          onChange={HandleJob}
+                          placeholder="Select"
+                          className="basic-multi-select"
+                          classNamePrefix="select"
+                          isMulti
+                          closeMenuOnSelect={false}
+                        />
+            
             </div>
           </div>
           {

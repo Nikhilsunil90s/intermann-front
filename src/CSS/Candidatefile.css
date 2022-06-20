@@ -532,5 +532,69 @@ padding: 5px 20px;
     width: 90% !important;
     padding: 5px 3px;
     border-radius: 20px;
+}
+.AnneesStyle p{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 27px;
+display: flex;
+align-items: center;
+text-decoration-line: underline;
+color: #000000;
+margin-bottom: 0px
 
 }
+.AddressEnteredBy p{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+    display: flex;
+    align-items: center;
+    text-decoration-line: underline;
+    color: #000000;  
+    margin-bottom: 0px;
+    padding-top:5px;
+
+}
+.AddressEnteredBy span{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+    display: flex;
+    align-items: center;
+    text-decoration-line: unset;
+    color: #000000; 
+    padding-top:5px;
+    padding-left: 5px;
+
+}
+.noteThis{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 22px;
+display: flex;
+align-items: flex-end;
+color: #000000;
+padding-top: 5px;
+}
+.AnneesStyle span{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 27px;
+display: flex;
+align-items: center;
+text-decoration-line: none !important;
+color: #000000;
+padding-left: 5px;
+
+} 

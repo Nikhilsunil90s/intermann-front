@@ -25,10 +25,10 @@ function ToDoProfile() {
   const editCandidatProfile = () => {
     navigate("/editToDo", { state: profile });
   };
-
   useEffect(() => {
     EmojiHandler();
   }, []);
+  console.log(profile)
   const EmojiHandler = () => {
     if (profile.candidatMotivation === 1) {
       return setDissapointed(true);
@@ -127,7 +127,7 @@ function ToDoProfile() {
                     <span className="card-xlSpan">(Age)</span>
                   </div>
                   <div>
-                    <p>
+                    <p className="d-flex">
                       Motivation:
                       {/* <StarRatings
                         rating={profile.candidatMotivation}
@@ -263,20 +263,18 @@ function ToDoProfile() {
                         {profile.candidatConduireEnFrance ? "Yes" : "No"}
                       </span>
                     </div>
-                    <div className="d-flex">
-                      <p className="text-dark">Années d’Expériance : </p>
-                      <span className="text-dark">
-                        {profile.candidatYearsExperience}
-                      </span>
-                    </div>
-                    <div className="d-flex">
-                      <p className="text-dark">Ajouté par/Added by :</p>
-                      <span className="text-dark"> {profile.enteredBy}</span>
-                    </div>
+                   
                     <div className="d-flex">
                       <p>Skills/note: </p>
                       <span>{profile.candidatSkills}</span>
                     </div>
+                    <div className="d-flex">
+                      <p className="text-dark">Trouvé sur  : </p>
+                      <span className="text-dark">
+                        {profile.candidatJob}
+                      </span>
+                    </div>
+                   
                   </div>
                 </div>
               </div>
@@ -307,6 +305,26 @@ function ToDoProfile() {
                     ))}
                 </tbody>
               </table>
+            </div>
+            <div className="col-12 mt-1 p-1 Social-Card">
+              <div className="row">
+                <div className="col-12 d-flex AnneesStyle">
+                 <p className="">Années d’expériance :</p>
+                 <span> {profile.candidatYearsExperience}years </span>
+                </div>
+                <div className="col-12 d-flex AddressEnteredBy">
+                 <p className="">Adresse : </p>
+                 <span> {profile.candidatAddress}</span>
+                </div><div className="col-12 d-flex AddressEnteredBy">
+                 <p className="">Ajouté par/Added by :</p>
+                 <span> {profile.enteredBy}</span>
+                  
+                  </div>
+                  <div className="col-12">
+                 <p className="noteThis">Note : Who entred this candidates/employe on the database</p>
+                  
+                  </div>
+              </div>
             </div>
             <div className="col-12 mt-1">
               <div className="row">

@@ -5,11 +5,8 @@ import { API_BASE_URL } from "../../config/serverApiConfig";
 import Select, { GroupBase, StylesConfig } from "react-select";
 import chroma from 'chroma-js';
 import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../../Selecteddata/data';
-import $ from 'jquery'
-import { Calendar } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
-import { format } from "date-fns";
 // import  DateRangePicker from 'react-bootstrap-daterangepicker/dist/index.es';
 const EmployeeDataFormat = {
   candidatName: "",
@@ -758,7 +755,8 @@ export default function Employes() {
                           onChange={handleChange}
                           options={colourOptions}
                           styles={colourStyles}
-                        /></div>
+                        />
+                        </div>
                     </div>
                   </div>
                   <div className="col-6 p-1">

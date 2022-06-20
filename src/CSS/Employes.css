@@ -133,6 +133,11 @@ border-radius: 35px;
 padding: 10px 40px;
 background-color: #032339;
 }
+.select__menu{
+  z-index: 4500000000000 !important;
+  max-height: 400px !important;
+
+}
 .css-xb97g8 {
     position: relative;
     top: -7px;

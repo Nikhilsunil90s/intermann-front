@@ -29,6 +29,7 @@ import Signed from "./pages/ClientPages/SignedContract";
 import RenameSector from "./pages/EditPages/RenameSector";
 import ClientTodoEdit from "./pages/EditPages/ClientEdit_Page";
 import ClientinProgressEdit from "./pages/EditPages/Client_EditinProgress";
+import Preselected from "./pages/preSelected";
 import PrivateRoute from "./ProctetedRoute/ProctedRoute";
 
 
@@ -76,6 +77,9 @@ function App() {
 
           <Route path={"/clientToDoEdit"} element={<Sidebar><PrivateRoute Component={ClientTodoEdit} /></Sidebar>} />
           <Route path={"/clientInProgressEdit"} element={<Sidebar><PrivateRoute Component={ClientinProgressEdit} /></Sidebar>} />
+
+          <Route path={"/preSelected"} element={<Sidebar> <PrivateRoute Component={Preselected} /> </Sidebar>} />
+
         </Routes>
       </Router>
     </Provider>

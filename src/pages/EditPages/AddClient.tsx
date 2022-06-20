@@ -56,7 +56,7 @@ export default function AddClient() {
                   className="form-control"
                   placeholder="Enter candidats name"
                   id="validationCustom01"
-                  name="CLIENTName"
+                  name="ClientName"
                   required
                  
                   onChange={onFormDataChange}
@@ -76,7 +76,7 @@ export default function AddClient() {
                   type="text"
                   className="form-control"
                   placeholder="Enter email"
-                  name="CLIENTEmail"
+                  name="ClientEmail"
               
                   onChange={onFormDataChange}
                 />
@@ -93,7 +93,7 @@ export default function AddClient() {
              type="text"
              className="form-control"
              placeholder="Enter Phone Number (+format)"
-             name="candidatPhone"
+             name="clientPhone"
              required
              value=""
              onChange={onFormDataChange}
@@ -111,7 +111,7 @@ export default function AddClient() {
                   type="text"
                   className="form-control"
                   placeholder="Enter CLIENT adress (address, zip, city, country)"
-                  name="CLIENTAddress"
+                  name="ClientAddress"
                   value=""
                   onChange={onFormDataChange}
                 />
@@ -144,7 +144,7 @@ export default function AddClient() {
             <div className="p-1">
                 <label className="Form-styling">Métier / Job</label>
                 <select
-                  name="CLIENTJob"
+                  name="ClientJob"
                   className="form-select"
                   onChange={onFormDataChange}
                 >
@@ -171,7 +171,7 @@ export default function AddClient() {
                   type="text"
                   className="form-control"
                   placeholder="Facebook link"
-                  name="CLIENTFBURL"
+                  name="ClientFBURL"
                   value=""
                   onChange={onFormDataChange}
                 />
@@ -188,7 +188,7 @@ export default function AddClient() {
                   type="text"
                   className="form-control"
                   placeholder="Phone number (+format)"
-                  name="CLIENTAlternatePhone"
+                  name="ClientAlternatePhone"
                   value=""
                   onChange={onFormDataChange}
                 />
@@ -205,7 +205,7 @@ export default function AddClient() {
                 <input
                   type="number"
                   className="form-control"
-                  name="CLIENTAge"
+                  name="ClientAge"
                   placeholder="42"
                   value=""
                   onChange={onFormDataChange}
@@ -222,7 +222,7 @@ export default function AddClient() {
                 <textarea
                   className="form-control"
                   placeholder="Note"
-                  name="CLIENTSkills"
+                  name="ClientSkills"
                   rows={4}
                   value=""
                   onChange={onFormDataChange}
@@ -238,13 +238,14 @@ export default function AddClient() {
            <div className="p-1">
                 <label className="Form-styling">
                   Motivation de ce CLIENT à travailler avec nous
-                </label><span className="Form-styling fs-6">(bigger number
-                  is more important)</span>
-                <ul style={{ listStyle: "none" }}>
+                </label>
+                {/* <span className="Form-styling fs-6">(bigger number
+                  is more important)</span> */}
+                {/* <ul style={{ listStyle: "none" }}>
                   <li>
                     <input
                       type="radio"
-                      name="CLIENTMotivation"
+                      name="ClientMotivation"
                       value={1}
                       onChange={onFormDataChange}
                     />
@@ -253,7 +254,7 @@ export default function AddClient() {
                   <li>
                     <input
                       type="radio"
-                      name="CLIENTMotivation"
+                      name="ClientMotivation"
                       value={2}
                       onChange={onFormDataChange}
                     />
@@ -262,7 +263,7 @@ export default function AddClient() {
                   <li>
                     <input
                       type="radio"
-                      name="CLIENTMotivation"
+                      name="ClientMotivation"
                       value={3}
                       onChange={onFormDataChange}
                     />
@@ -271,7 +272,7 @@ export default function AddClient() {
                   <li>
                     <input
                       type="radio"
-                      name="CLIENTMotivation"
+                      name="ClientMotivation"
                       value={4}
                       onChange={onFormDataChange}
                     />
@@ -280,19 +281,95 @@ export default function AddClient() {
                   <li>
                     <input
                       type="radio"
-                      name="CLIENTMotivation"
+                      name="ClientMotivation"
                       value={5}
                       onChange={onFormDataChange}
                     />
                     5
                   </li>
-                </ul>
+                </ul> */}
+                   <div className="col-12 coverClass  px-0">
+                        <div className="row">
+                          <div className="col-3  d-flex flex-column text-center">
+
+                            <div className="text-center" style={{ height: "35px" }}>   <input
+                              type="radio"
+                              name="candidatMotivation"
+                              value={1}
+                              onChange={onFormDataChange}
+                              id="r1"
+                            />     <label htmlFor="r1" className="react" >
+                                <i data-icon="😟"></i>
+                              </label></div>
+                            <span className="font-Emoji">Dissapointed</span>
+                          </div>
+                          <div className="col-2 both p-0 d-flex flex-column text-center">
+
+                            <div className="text-center both" style={{ height: "35px" }}>  <input
+                              type="radio"
+                              name="candidatMotivation"
+                              value={2}
+                              onChange={onFormDataChange}
+                              id="r2"
+                            /> <label htmlFor="r2" className="react">
+                                <i data-icon="🙁"></i>
+
+                              </label>
+                            </div>
+                            <span className="font-Emoji">Not really</span>
+                          </div>
+                          <div className="col-2 p-0 d-flex flex-column text-center">
+
+                            <div className="text-center" style={{ height: "35px" }}>  <input
+                              type="radio"
+                              name="candidatMotivation"
+                              value={3}
+                              onChange={onFormDataChange}
+                              id="r3"
+                            />     <label htmlFor="r3" className="react">
+                                <i data-icon="😊"></i>
+
+                              </label></div><span className="font-Emoji">Like</span>
+                          </div>
+                          <div className="col-2 p-0 d-flex flex-column text-center">
+
+                            <div className="text-center" style={{ height: "35px" }} >  <input
+                              type="radio"
+                              name="candidatMotivation"
+                              value={4}
+                              onChange={onFormDataChange}
+                              id="r4"
+                            /><label htmlFor="r4" className="react">
+                                <i data-icon="🥰"></i>
+                              </label></div><span className="font-Emoji">Great</span>
+                          </div>
+                          <div className="col-3 d-flex flex-column text-center">
+
+                            <div className="text-center" style={{ height: "35px" }}>  <input
+                              type="radio"
+                              name="candidatMotivation"
+                              value={5}
+                              onChange={onFormDataChange}
+                              id="r5"
+                            /> <label htmlFor="r5" className="react">
+                                <i data-icon="😍"></i>
+                              </label>
+                            </div>
+                            <span className="font-Emoji">Super lovely</span>
+                          </div>
+                        </div>
+                        {/* {showMessage ?
+                          <h5 className="Form-styling mt-1">
+                            Note: If we find the candidates, does he take it immediately? Or
+                            will he still need to think?
+                          </h5> : null} */}
+                      </div>
             </div>
            </div>
            <div className="col-6">
               <div className="p-1">
                 <p className="padding-bottom Form-styling" >Langues du CLIENT</p>
-                <div>
+                {/* <div>
                   <input type="checkbox" onClick={()=>onFormDataChange} id="language" name="candidatLanguages" value="Roumain" />
                   <span className="ps-2" >Roumain</span>
                 </div>
@@ -320,53 +397,79 @@ export default function AddClient() {
                   <input type="checkbox" name="candidatLanguages" id="language" onChange={onFormDataChange} value="Autre" />
                   <span className="ps-2">Autre</span>
                 </div>
+              </div> */}
+                  <Select
+                          name="candidatLanguages"
+                          closeMenuOnSelect={false}
+                          isMulti
+                          placeholder="Select"
+                          className="basic-multi-select"
+                          classNamePrefix="select"
+                          // onChange={handleChange}
+                          // options={colourOptions}
+                          // styles={colourStyles}
+                        />
               </div>
               </div>
-              <div className="col-6">
-              {/* <Select
-  name={options}
-  defaultValue={options}
-  value={options}
-  options={options}
-  onChange={()=>onFormDataChange}
+              <div className="col-6 p-1">
+              <p className="padding-bottom Form-styling">From where come this person</p>
+
+<Select
+  name="candidatComingFrom"
+  closeMenuOnSelect={false}
   isMulti
-/> */}
-    <Select
-  name="candidatLanguages"
-  options={options}
-  defaultValue={options[0]}
+  placeholder="Select"
   className="basic-multi-select"
   classNamePrefix="select"
-  isMulti
+  // onChange={wherePerson}
+  // options={fromPerson}
+  // styles={colourStyles}
 />
 
 
               </div>
               <div className="col-6">
-              <h2 className="text-small">
-                  If we find the candidates, does he take it immediately? Or
-                  will he still need to think?
-                </h2>
-         
-              <div className="p-1 d-flex">
-                <div className="col-6 ">
-                  <p className="Form-styling"> Permis / Licence drive</p>
-                  <div className="d-flex"> 
-                 <button type="button" className="radioBtn" onClick={()=>setPermis(!permis)}><input type="radio" name="candidatLicensePermis" value="true" onChange={onFormDataChange} checked={permis} />Yes</button>
-                 <button type="button" className="radioBtnNo mx-1" onClick={()=>setPermisNo(!permisNo)} ><input type="radio" name="candidatLicensePermis"  value="false" onChange={onFormDataChange} checked={permisNo} />No</button>
-       
-                  </div>
-                </div>
-                <div className="col-6">
-                  <p className="Form-styling">Voyage en voiture vers France ?</p>
-                  <div className="d-flex">
-                <button type="button" className="radioBtn" onClick={()=>setVoyage(!Voyage)}>  <input type="radio" name="candidatConduireEnFrance" value="true" onChange={onFormDataChange} checked={Voyage}/>Yes</button>
-              <button type="button" className="radioBtnNo mx-1" onClick={()=>setVoyageNo(!VoyageNo)}>    <input type="radio" name="candidatConduireEnFrance" value="false" onChange={onFormDataChange} checked={VoyageNo}/>No</button>
-                    
-                  </div>
-                </div>
-              </div>
-              </div>
+
+<div className="row p-1 d-flex">
+  <div className="col-6 ">
+    <p className="Form-styling"> Permis / Licence drive</p>
+    <div className="d-flex radiobtn">
+
+      <ul className="d-flex permis-UL p-0">
+        <li className="permis-LI">
+          <input type="radio" id="f-option" name="candidatLicensePermis" value="true" onChange={onFormDataChange} />
+          <label htmlFor="f-option"><p className="text-white">Yes</p></label>
+          <div className="check"></div>
+
+        </li>
+        <li className="permis-LI mx-1">
+          <input type="radio" id="t-option" name="candidatLicensePermis" value="false" onChange={onFormDataChange} />
+          <label htmlFor="t-option"><p className="text-white">No</p></label>
+
+          <div className="check"><div className="inside"></div></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div className="col-6">
+    <p className="Form-styling">Voyage en voiture vers France ?</p>
+    <ul className="d-flex ul-check p-0">
+      <li className="li-check">
+        <input type="radio" id="e-option" name="candidatConduireEnFrance" value="false" onChange={onFormDataChange} />
+        <label htmlFor="e-option"><p className="text-white">Yes</p></label>
+        <div className="check"></div>
+
+      </li>
+      <li className="li-check">
+        <input type="radio" id="s-option" name="candidatConduireEnFrance" value="false" onChange={onFormDataChange} />
+        <label htmlFor="s-option"><p className="text-white">No</p></label>
+
+        <div className="check"><div className="inside"></div></div>
+      </li>
+    </ul>
+  </div>
+</div>
+</div>
             
            <div className="col-12">
              <div className="row">
