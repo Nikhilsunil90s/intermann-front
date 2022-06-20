@@ -162,16 +162,6 @@ background-color: #032339;
 /* .radiobtn button::after   + input:checked {
     background-color: #FE8700;
 } */
-
-
-.container{
-    display: block;
-    position: relative;
-    margin: 40px auto;
-    height: auto;
-    width: 500px;
-    padding: 20px;
-  }
   
   
   .permis-UL .permis-LI{
@@ -430,6 +420,9 @@ background-color: #032339;
   .react i:after {
     background-size:calc(var(--r)/8) calc(var(--r)/8);
     transform:rotate(60deg) scale(0);
+  }
+  .pt-101{
+    padding-top: 8px;
   }
  /* input[type=radio]:checked + span{
    color: black !important;

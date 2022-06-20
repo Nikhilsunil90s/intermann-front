@@ -1,5 +1,5 @@
 import React from "react";
-import "../CSS/Client/Header.css";
+import "../CSS/Header.css";
 import { Link } from "react-router-dom";
 const Header = () => {
   return (
@@ -10,23 +10,23 @@ const Header = () => {
        
         
             <div className="col-12"> */}
-            <nav className="navbar navbar-expand-lg navbar-light">
-              <div className="collapse navbar-collapse" id="navbarText" style={{ height: "50px" }}>
-                <div className="col-12">
-                  <div className="row">
-                    <div className="col-5">
+            {/* <nav className="navbar navbar-expand-lg navbar-light">
+              <div className="collapse navbar-collapse" id="navbarText" style={{ height: "50px" }}> */}
+                <div className="col-12 px-0 position">
+                  <div className="row m-0 mainRow">
+                    <div className="col-4 paddingTopHeader">
                    <div className="row">
-                     <div className="col-6 p-0">
+                     <div className="col-6 text-center  px-0">
                      <Link
-                      className="nav-link active p-0"
+                      className="nav-link  p-0"
                       aria-current="page"
                       to="/addCustomer"
                       style={{backgroundColor:"none"}}
                     >
-                      <button className="btn btn-1"> Add Client/Customer</button>
+                      <button className="btn btn-1">Add customer</button>
                     </Link>
                      </div>
-                     <div className="col-6 ">
+                     <div className="col-6 pt-0 px-0">
                  <Link className="nav-link p-0" to="/addCandidate">
                       <button className="btn btn-2"> Add Candidate</button>
                     </Link>
@@ -35,9 +35,9 @@ const Header = () => {
                 </div>
 
 
-                <div className="col-7 pt-0">
+                <div className="col-8 paddingTopHeader">
                    <div className="row">
-                     <div className="col-6 text-end">
+                     <div className="col-8 pt-0 text-end">
                      <a
                         className="nav-link p-0"
                         href="https://www.intermann.ro/"
@@ -48,7 +48,7 @@ const Header = () => {
                         </button>
                       </a>
                      </div>
-                     <div className="col-6 text-center">
+                     <div className="col-4  text-end px-0">
                      <a
                         className="nav-link p-0"
                         href="https://www.intermann.fr/"
@@ -63,8 +63,8 @@ const Header = () => {
                 </div>
                     </div>            
                   </div>
-                </div>
-               </nav>
+                {/* </div>
+               </nav> */}
         
 
     </>

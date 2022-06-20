@@ -56,12 +56,16 @@ body {
 }
 
 .btn-1 {
+    font-family: 'Poppins';
+    font-style: normal;
     font-weight: 700;
-    font-size: 15px;
+    font-size: 13px;
     line-height: 20px;
-    color: #ffff !important;
-    background-color: #032339;
-    border-radius: 50px !important;
+    letter-spacing: -0.105991px;
+    text-transform: uppercase;
+    background: #032339;
+    border-radius: 100px;
+    color: #FFFFFF;
 }
 
 .btn-2 {
@@ -71,4 +75,18 @@ body {
     color: #ffff !important;
     background-color: #FE8700;
     border-radius: 50px !important;
+}
+.position{
+    position: absolute;
+    right: 15px;
+}
+.mainRow {
+    width: 76%;
+    background: white;
+    position: fixed;
+    height: 60px;
+    z-index: 9000000;
+}
+.paddingTopHeader{
+    padding-top: 5px;
 }
