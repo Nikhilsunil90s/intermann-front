@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import "../CSS/CanEmpl.css";
-import StarRatings from 'react-star-ratings';
 import ArchivedModal from "./Modal/ArchivedModal";
 import InProgressModal from "./Modal/InProgressModal";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Select,{StylesConfig} from 'react-select'
+import chroma from 'chroma-js';
 
 
 const ToDoProfileCard = (props: any,{path}) => {
@@ -13,12 +14,9 @@ const ToDoProfileCard = (props: any,{path}) => {
 
     const [showInProgressModal, setShowInProgressModal] = useState(false);
     const [showArchiveModal, setShowArchiveModal] = useState(false)
-    const [Dissapointed,setDissapointed]=useState(false)
-    const [Notreally,setNotreally]=useState(false)
-    const [Like,setLike]=useState(false)
-    const [Great,setGreat]=useState(false)
-    const [Superlovely,setSuperlovely]=useState(false)
-
+ 
+  
+    const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
     const editCandidatProfile = () => {
         navigate("/editToDo", { state: props.data });
     }
@@ -26,37 +24,36 @@ const ToDoProfileCard = (props: any,{path}) => {
     const viewFullProfile = () => {
         navigate("/todoprofile", { state: props.data });
     }
-    const MoreOption=(e)=>{
-      if(e.target.value==="editProfile"){
+    const MoreOption=(e:any)=>{
+      if(e.value=="Edit Profile"){
           editCandidatProfile()
       }
-      if(e.target.value==="moveProgress"){
+      if(e.value=="moveProgress"){
         setShowInProgressModal(true)
       }
-      if(e.target.value==="Archive"){
+      if(e.value==="Archive"){
         setShowArchiveModal(true) 
       }
+    console.log(e.value)
     }
-    useEffect(()=>{
-        EmojiHandler()
-    },[])
-    const EmojiHandler=()=>{
-        if(props.data.candidatMotivation===1){
-           return setDissapointed(true)
-        }
-         if(props.data.candidatMotivation===2){
-          return  setNotreally(true)
-        }
-      if (props.data.candidatMotivation===3){
-          return  setLike(true)
-        }
-          if (props.data.candidatMotivation===4){
-       return     setGreat(true)
-        }
-       if(props.data.candidatMotivation===5){
-           return setSuperlovely(true)
-        }
-    }
+   
+    // const EmojiHandler=()=>{
+    //     if(props.data.candidatMotivation===1){
+    //        return setDissapointed(true)
+    //     }
+    //      if(props.data.candidatMotivation===2){
+    //       return  setNotreally(true)
+    //     }
+    //   if (props.data.candidatMotivation===3){
+    //       return  setLike(true)
+    //     }
+    //       if (props.data.candidatMotivation===4){
+    //    return     setGreat(true)
+    //     }
+    //    if(props.data.candidatMotivation===5){
+    //        return setSuperlovely(true)
+    //     }
+    // }
     return (
         <>
             <div className="card card-color">
@@ -69,44 +66,9 @@ const ToDoProfileCard = (props: any,{path}) => {
                         />
                     </div>
                     <div className="col-8 fontStylinForcards">
-                        <p className="text-dark">{props.data.candidatName}</p>
-                        <p className="text-dark">{props.data.candidatAge}</p>
-                        <div >  <p className="text-dark d-flex">Motivation:
-                            {/* <StarRatings
-                    
-                                rating={props.data.candidatMotivation}
-                                starRatedColor="#ffc107"
-                                // changeRating={}
-                                numberOfStars={props.data.candidatMotivation}
-                                starDimension={'9px'}
-                                starSpacing={'1px'}
-                                name='rating'
-                            /> */
-    }
-    
-{Dissapointed?
-<div >🙂 Dissapointed</div>              
- :null
-}
-{Notreally?               
-<div>🙁 Not really</div>
-:
-null}
-{Like?         
-<div>😊 Like</div>
- :null}
- {
-     Great?
-<div>🥰 Great</div>
-:
-null
- }  
- {
-   Superlovely?
-   <span>😍 Superlovely</span>
-   :
-   null
- }           
+                    <p className="text-dark"><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
+                        <p className="text-dark"><b>{props.data.candidatAge ? props.data.candidatAge : "Age Not Available!"}</b></p>
+                        <div >  <p className="text-dark d-flex"> <b>{candidatMotivationIcons[props.data.candidatMotivation - 1].icon + " " + candidatMotivationIcons[props.data.candidatMotivation - 1].motivation}</b>
                         </p>
                         </div>
                        
@@ -125,49 +87,35 @@ null
                         </Link>
                         </div>
                         <div className="col-6 d-flex justify-content-end mb-0 pd-00X1 form-group">
-                            <form >
-                        <div className="d-flex  justify-content-center align-items-center ">
-                        <input type="checkbox" name="candidatLicensePermis"  id="css" checked={props.data.candidatLicensePermis} className="" /><label htmlFor="css" className="Licence">Have Licence</label>
-                    </div></form>
+                        {
+                                    props.data.candidatLicensePermis ?
+                                        <div className="d-flex  justify-content-center align-items-center">
+                                            <input type="checkbox" name="candidatLicensePermis" id="css" checked={props.data.candidatLicensePermis} />
+                                            <label htmlFor="css" className="Licence">Have Licence</label>
+                                        </div> :
+                                       <div className="d-flex  justify-content-center align-items-center">
+                                       <input type="checkbox" name="candidatLicensePermis" id="css" checked={props.data.candidatLicensePermis} />
+                                       <label htmlFor="css" className="NoLicence">No Licence</label>
+                                   </div>
+                                }
                         </div>
                     </div>
                     </div>
-                    <p>Name : {props.data.candidatName}</p>
-                    <p>Age : {props.data.candidatAge}</p>
-                    <p className="d-flex">Motivation : {Dissapointed?
-<div >🙂 Dissapointed</div>              
- :null
-}
-{Notreally?               
-<div>🙁 Not really</div>
-:
-null}
-{Like?         
-<div>😊 Like</div>
- :null}
- {
-     Great?
-<div>🥰 Great</div>
-:
-null
- }  
- {
-   Superlovely?
-   <span>😍 Superlovely</span>
-   :
-   null
- }    </p>
-                    <p>Secteur : {props.data.candidatActivitySector}</p>
+                    <p>Name : <b>{props.data.candidatName.toLocaleUpperCase()}</b></p>
+                    <p>Age : <b>{props.data.candidatAge ? props.data.candidatAge : "Age Not Available!"}</b></p>
+                    <p>Motivation : <b>{candidatMotivationIcons[props.data.candidatMotivation - 1].icon + " " + candidatMotivationIcons[props.data.candidatMotivation - 1].motivation}</b> </p>
+                    <p>Secteur : <b>{props.data.candidatActivitySector.toLocaleUpperCase()}</b></p>
 
-                    <p>Job : {props.data.candidatJob} </p> 
-                    <p>Langues : {props.data.candidatLanguages}
-                     </p>
-                    <p>Phone Number : {props.data.candidatPhone} </p>
-                    <p>Facebook URL : <a href="#" className="fbURL">{props.data.candidatFBURL}</a> </p>
-                    <p>Email : {props.data.candidatEmail} </p>
+                    <p>Job : <b>{props.data.candidatJob.toLocaleUpperCase()}</b> </p>
+                    <p>Langues : <b>{props.data.candidatLanguages.length > 0 ? props.data.candidatLanguages.join(", ") : "No Langues Selected!"}</b>
+                    </p>
+                    <p>Phone Number : <b>{props.data.candidatPhone}</b> </p>
+                    <p>Facebook URL : <b>{props.data.candidatFBURL ? <a href={props.data.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
+                    <p>Email : <b>{props.data.candidatEmail ? props.data.candidatEmail : "No Email Provided!"}</b> </p>
                     <p className="blue">
                         Ready for work : From {props.data.candidatStartDate} To {props.data.candidatEndDate}
                     </p>
+                   
                 </div>
                 <div className="card-body">
                   
@@ -175,38 +123,39 @@ null
                         <div className="row">
                             <div className="col-6">
                                 <select className="selectOption firstoption" onChange={MoreOption}>
-                                    <option>
+                                    <option  value="" disabled selected hidden>
                                         More options
                                     </option>
                                     <option value="editProfile">
-                                
-                            Edit Profile
-                        
+
+                                        Edit Profile
+
                                     </option>
                                     <option value="moveProgress"  >
-                                      
-                            Move to In Progress
-                    
+
+                                        Move to In Progress
+
                                     </option>
                                     <option value="Archive">
-                            
-                            Archive
-                       
+
+                                        Archive
+
                                     </option>
                                 </select>
+                 
                             </div>
                             <div className="col-6 text-center">
-                            <button className="btn btn-card" onClick={viewFullProfile}>
-                            See Full Profile
-                        </button>
+                                <button className="btn btn-dark btn-card" onClick={viewFullProfile}>
+                                    See Full Profile
+                                </button>
+                            </div>
+                            {showInProgressModal ?
+                                <InProgressModal props={props.data} closeModal={setShowInProgressModal} /> : null
+                            }
+                            {showArchiveModal ?
+                                <ArchivedModal props={props.data} closeModal={setShowArchiveModal} path={"/todolist"} /> : null
+                            }
                         </div>
-                        {showInProgressModal ?
-                            <InProgressModal props={props.data} closeModal={setShowInProgressModal} /> : null
-                        }
-                        {showArchiveModal ?
-                            <ArchivedModal props={props.data} closeModal={setShowArchiveModal} path={"/todolist"} /> : null
-                        }
-</div>
                     </div>
 
                 </div>
