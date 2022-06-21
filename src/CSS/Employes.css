@@ -405,6 +405,10 @@ line-height: 18px;
     transform:rotate(0.1deg);
     transition:transform 0.25s cubic-bezier(0.5,400,0.5,-400);
   }
+  .react:hover p{
+    transform:none !important;
+    transition:none  !important ;
+  }
   .react:before {
     grid-area:1/1;
     border-radius:50%;
@@ -435,8 +439,8 @@ line-height: 18px;
     color: #0000 !important;
     transform:scale(0);
   }
- input:checked + .react p:after{
-    color: #0000;
+ input:checked + .react + p{
+  color: black;
   }
   .react i:after {
     background-size:calc(var(--r)/8) calc(var(--r)/8);
@@ -449,7 +453,6 @@ line-height: 18px;
    color: black !important;
   } */
   input:checked + .react i{
-    color: black;
     filter:grayscale(0);
     transform:scale(0.95);
     transition:

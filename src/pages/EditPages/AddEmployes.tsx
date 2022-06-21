@@ -747,9 +747,11 @@ export default function Employes() {
                               onChange={onFormDataChange}
                               id="r1"
                             />     <label htmlFor="r1" className="react " >
-                                <i data-icon="😟" >
-                                  <p className="m-0 pt-1">Dissapointed</p></i>
-                              </label></div>
+                                <i data-icon="😟" style={{marginInline:"25px"}}>
+                                  </i>
+                              </label>
+                              <p className="m-0 font-Emoji">Dissapointed</p>
+                              </div>
                               </li>
                 <li>
 
@@ -759,10 +761,11 @@ export default function Employes() {
                               value={2}
                               onChange={onFormDataChange}
                               id="r2"
-                            /> <label htmlFor="r2" className="react text-center">
-                                <i data-icon="🙁" style={{width:"75px"}}><p className="m-0 pt-1">Not really</p></i>
+                            /> <label htmlFor="r2" style={{marginInline:"10px"}} className="react text-start">
+                                <i data-icon="🙁" ></i>
 
                               </label>
+                              <p className="m-0 font-Emoji">Not really</p>
                             </div>
                             
                             </li><li>
@@ -774,8 +777,10 @@ export default function Employes() {
                               onChange={onFormDataChange}
                               id="r3"
                             />     <label htmlFor="r3" className="react">
-                                <i data-icon="😊"><p className="m-0 pt-1">Like</p></i>
-                              </label></div>
+                                <i data-icon="😊"></i>
+                              </label>
+                              <p className="m-0 font-Emoji">Like</p>
+                              </div>
                               </li><li>
                         
                             <div className="text-center" style={{ height: "35px" }} >  <input
@@ -785,8 +790,10 @@ export default function Employes() {
                               onChange={onFormDataChange}
                               id="r4"
                             /><label htmlFor="r4" className="react">
-                                <i data-icon="🥰"><p className="m-0 pt-1">Great</p></i>
-                              </label></div>
+                                <i data-icon="🥰"></i>
+                              </label>
+                              <p className="m-0 font-Emoji">Great</p>
+                              </div>
                               </li>
                  <li>
                             <div className="text-center" style={{ height: "35px" }}>  <input
@@ -795,20 +802,24 @@ export default function Employes() {
                               value={5}
                               onChange={onFormDataChange}
                               id="r5"
-                            /> <label htmlFor="r5" className="react">
-                                <i data-icon="😍"  style={{width:"75px"}}><p className="m-0 pt-1">Super lovely</p></i>
+                            /> <label htmlFor="r5" className="react text-start">
+                                <i data-icon="😍"  style={{width:"75px"}}></i>
                               </label>
+                            <p className="m-0  font-Emoji">Super lovely</p>
+
                             </div>
+
                            
                             </li>
                             </ul>
-                        
+                        <div className="mt-3">
                      
                         {showMessage ?
                           <h5 className="Form-styling mt-1">
                             Note: If we find the candidates, does he take it immediately? Or
                             will he still need to think?
                           </h5> : null}
+                          </div>
                       </div>
                     </div>
                   </div>
