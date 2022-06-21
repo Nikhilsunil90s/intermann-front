@@ -134,7 +134,7 @@ padding: 10px 40px;
 background-color: #032339;
 }
 .select__menu{
-  z-index: 4500000000000 !important;
+  z-index: 1000000 !important;
   max-height: 400px !important;
 
 }
@@ -354,9 +354,7 @@ background-color: #032339;
     width: 65px;
     height: 25px;
   }
-  .select__menu{
-      z-index: 2000000000 !important;
-  }
+ 
   
 
 

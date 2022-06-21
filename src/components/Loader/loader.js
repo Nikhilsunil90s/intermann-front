@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Embauch from "../../pages/Embauch";
 import ToDoList from '../../pages/ToDoList'
-function Loader(){
+export default  function Loader(){
  
     return(
 <>
@@ -9,4 +9,5 @@ function Loader(){
 </>
     )
 }
-export default Loader;
+
+

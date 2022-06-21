@@ -224,6 +224,11 @@ hr.new5 {
     font-size: 10px;
     padding: 5px;
 }
+.NoLicence{
+    font-weight: 400;
+    font-size: 10px;
+    padding: 5px;
+}
 
 .pd-00X1{
     padding-top: 5px;
@@ -242,7 +247,7 @@ hr.new5 {
     cursor: pointer;
   }
   
-  .form-group label:before {
+  .form-group .Licence:before {
     content:'';
     -webkit-appearance: none;
     background-color: black;
@@ -270,12 +275,30 @@ hr.new5 {
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
   }
+  .form-group .NoLicence:before {
+    content:'';
+    -webkit-appearance: none;
+    background-image: url("../images/cross.svg");
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    padding: 7px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius:50px
+      
+  }
   .selectOption{
     background: #FFFFFF;
     border: 1px solid #CCCCCC;
     border-radius: 100px;
     width: 100%;
   }
+  .rounded001{
+    border-radius: 22px;
+    margin-bottom: 20px;
+}
   .firstoption{
     font-family: 'Poppins';
     font-style: normal;
@@ -316,4 +339,7 @@ hr.new5 {
  }
  .extraPadding{
     padding-left: 0px !important;
+ }
+ .cursor-pointer{
+    cursor: pointer;
  }
