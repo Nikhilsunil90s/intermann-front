@@ -30,7 +30,7 @@ let SelectedName = []
 let FilterJob = [];
 let MotivationArr = []
 let LicencePermisArr = []
-
+let DateArr=[]
 function ToDoList() {
 
   const [sectors, setSectors] = useState([]);
@@ -583,6 +583,14 @@ function ToDoList() {
   const jobChange = async (jobval) => {
     console.log(jobval)
   }
+  const onDateChange=(e:any)=>{
+    DateArr=[]
+    let SelectedDate=[]
+    console.log(e.target.value)
+    SelectedDate=e.target.value
+    DateArr.push(SelectedDate)
+    filterFunction()
+ }
 
   return (
     <>
@@ -747,31 +755,20 @@ function ToDoList() {
                           </div>
                         </div>
                         <div className="col-4 pt-1">
-                          <p className="FiltreName">Filter by date</p>
-                          <div className="dropdown">
-                            <div aria-labelledby="dropdownMenuButton1">
-                              <select
-                                name="candidatActivitySector"
-                                className="form-select"
-                              // onChange={handleSectorChange}
-                              // onClick={() => {
-                              //   setSelectedJob([]);
-                              //   filterFunction();
-                              // }}
-                              >
-                                <option value="Select Un Secteur" className="fadeClass001">Select Date</option>
-                                {sectors &&
-                                  sectors.map((sector) => (
-                                    <option value={sector.sectorName}>
-                                      <button className="dropdown-item">
-                                        {sector.sectorName}
-                                      </button>
-                                    </option>
-                                  ))}
-                              </select>
+        <p className="FiltreName">Filter by date</p>
+        <div className="dropdown">
+          <div aria-labelledby="dropdownMenuButton1">
+                          <input
+                              type="date"
+                              className="form-control"
+                              name="candidatStartDate"
+                                // value={data.candidatStartDate}
+                                onChange={onDateChange}
+                                
+                              />
                             </div>
                           </div>
-                        </div>
+        </div>
                         <div className="col-4 pt-1">
                           <p className="FiltreName">Filter by driver licence</p>
                           <div className="dropdown">
