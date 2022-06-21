@@ -16,36 +16,27 @@ function ToDoProfile() {
   const [profile, setProfile] = useState<any>(state);
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
-  const [Dissapointed, setDissapointed] = useState(false);
-  const [Notreally, setNotreally] = useState(false);
-  const [Like, setLike] = useState(false);
-  const [Great, setGreat] = useState(false);
-  const [Superlovely, setSuperlovely] = useState(false);
+  const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
+  const hiddenFileInput = React.useRef(null);
+  const [candidatContactOne, setCandidatContactOne] = useState(profile.candidatPhone != "" ? profile.candidatPhone.split(" ").join("") : "");
+  const [candidatContactTwo, setCandidatContactTwo] = useState(profile.candidatAlternatePhone != "" ? profile.candidatAlternatePhone.split(" ").join("") : "");
+
+  // const [Dissapointed, setDissapointed] = useState(false);
+  // const [Notreally, setNotreally] = useState(false);
+  // const [Like, setLike] = useState(false);
+  // const [Great, setGreat] = useState(false);
+  // const [Superlovely, setSuperlovely] = useState(false);
 
   const editCandidatProfile = () => {
     navigate("/editToDo", { state: profile });
   };
-  useEffect(() => {
-    EmojiHandler();
-  }, []);
-  console.log(profile)
-  const EmojiHandler = () => {
-    if (profile.candidatMotivation === 1) {
-      return setDissapointed(true);
-    }
-    if (profile.candidatMotivation === 2) {
-      return setNotreally(true);
-    }
-    if (profile.candidatMotivation === 3) {
-      return setLike(true);
-    }
-    if (profile.candidatMotivation === 4) {
-      return setGreat(true);
-    }
-    if (profile.candidatMotivation === 5) {
-      return setSuperlovely(true);
-    }
-  };
+  const handleFileUpload = () => {
+    hiddenFileInput.current.click();
+  }
+  const handleFileChange = (e: any) => {
+    const fileUploaded = e.target.files[0];
+    console.log(fileUploaded);
+  }
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -122,32 +113,25 @@ function ToDoProfile() {
                 <div className="col-5 card-TodoProfile">
                   <div className="d-flex">
                     <p>
-                      Name : {profile.candidatName}|{profile.candidatAge}
-                    </p>{" "}
+                      Name : {profile.candidatName.toLocaleUpperCase()}|{profile.candidatAge}
+                    </p>
                     <span className="card-xlSpan">(Age)</span>
                   </div>
                   <div>
                     <p className="d-flex">
-                      Motivation:
-                      {/* <StarRatings
-                        rating={profile.candidatMotivation}
-                        starRatedColor="#ffc107"
-                        // changeRating={}
-                        numberOfStars={profile.candidatMotivation}
-                        starDimension={"19px"}
-                        starSpacing={"0px"}
-                        name="rating"
-                      /> */}
-                      {Dissapointed ? <div>🙂 Dissapointed</div> : null}
+                    <p>Motivation : <b>{candidatMotivationIcons[profile.candidatMotivation - 1].icon + " " + candidatMotivationIcons[profile.candidatMotivation - 1].motivation}</b> </p>
+
+                  
+                      {/* {Dissapointed ? <div>🙂 Dissapointed</div> : null}
                       {Notreally ? <div>🙁 Not really</div> : null}
                       {Like ? <div>😊 Like</div> : null}
                       {Great ? <div>🥰 Great</div> : null}
-                      {Superlovely ? <span>😍 Superlovely</span> : null}
+                      {Superlovely ? <span>😍 Superlovely</span> : null} */}
                     </p>
                   </div>
-                  <p>Secteur : {profile.candidatActivitySector}</p>
+                  <p>Secteur : {profile.candidatActivitySector.toLocaleUpperCase()}</p>
                   <p className="" style={{ width: "150%" }}>
-                    Métier/Job :{profile.candidatJob}{" "}
+                    Métier/Job :{profile.candidatJob.toLocaleUpperCase()}
                   </p>
                 </div>
                 <div className="col-5 text-end end-class">
@@ -170,8 +154,9 @@ function ToDoProfile() {
                   style={{ maxWidth: "49%" }}
                 >
                   <p className="Span-Styling pt-2 px-3">
-                    Mail : {profile.candidatEmail}
+                    Mail : {profile.candidatEmail ? profile.candidatEmail : "No Email Provided!"}
                   </p>
+                  
                   <button className="btn btn-gmail">
                     <a
                       href="https://accounts.google.com/"
@@ -184,7 +169,7 @@ function ToDoProfile() {
                       Send Email
                     </a>
                   </button>
-                  <p className="Span-Styling mt-2 px-3">Facebook : </p>
+                  <p className="Span-Styling mt-2 px-3">Facebook : {profile.candidatFBURL ? profile.candidatFBURL : "No Facebook URL!"}</p>
                   <a
                     href={profile.candidatFBURL}
                     target="_blank"
@@ -200,7 +185,7 @@ function ToDoProfile() {
                   </a>
 
                   <p className="Span-Styling mt-2 px-3">
-                    Phone : {profile.candidatPhone}
+                    Phone : {profile.candidatPhone ? profile.candidatPhone : "No Phone Number!"}
                   </p>
                   <button className="btn btn-whatsapp btn-see">
                     <a
@@ -217,8 +202,7 @@ function ToDoProfile() {
                     </a>
                   </button>
                   <p className="Span-Styling mt-2 px-3">
-                    {" "}
-                    Phone 2 : {profile.candidatAlternatePhone}{" "}
+                    Phone 2 : {profile.candidatAlternatePhone ? profile.candidatAlternatePhone : "No Alternate Number!"}
                   </p>
                   <button className="btn btn-whatsapp btn-see">
                     <a
