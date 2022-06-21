@@ -661,35 +661,35 @@ export default function Employes() {
                       <label className="Form-styling">
                         Motivation de ce candidat à travailler avec nous
                       </label>
-                      <div className="col-12 coverClass  px-0">
+                      {/* <div className="col-12 coverClass  px-0">
                         <div className="row">
-                          <div className="col-3  d-flex flex-column text-center">
+                          <div className="col-3  d-flex flex-column ">
 
-                            <div className="text-center" style={{ height: "35px" }}>   <input
+                            <div className="" style={{ height: "35px" }}>   <input
                               type="radio"
                               name="candidatMotivation"
                               value={1}
                               onChange={onFormDataChange}
                               id="r1"
-                            />     <label htmlFor="r1" className="react" >
-                                <i data-icon="😟"></i>
+                            />     <label htmlFor="r1" className="react " >
+                                <i data-icon="😟">
+                                  <p className="m-0 pt-1">Dissapointed</p></i>
                               </label></div>
-                            <span className="font-Emoji">Dissapointed</span>
                           </div>
                           <div className="col-2 both p-0 d-flex flex-column text-center">
 
-                            <div className="text-center both" style={{ height: "35px" }}>  <input
+                            <div className=" both" style={{ height: "35px" }}>  <input
                               type="radio"
                               name="candidatMotivation"
                               value={2}
                               onChange={onFormDataChange}
                               id="r2"
-                            /> <label htmlFor="r2" className="react">
-                                <i data-icon="🙁"></i>
+                            /> <label htmlFor="r2" className="react text-center">
+                                <i data-icon="🙁" className=""><p className="m-0 pt-1">Not really</p></i>
 
                               </label>
                             </div>
-                            <span className="font-Emoji">Not really</span>
+                            
                           </div>
                           <div className="col-2 p-0 d-flex flex-column text-center">
 
@@ -700,9 +700,8 @@ export default function Employes() {
                               onChange={onFormDataChange}
                               id="r3"
                             />     <label htmlFor="r3" className="react">
-                                <i data-icon="😊"></i>
-
-                              </label></div><span className="font-Emoji">Like</span>
+                                <i data-icon="😊"><p className="m-0 pt-1">Like</p></i>
+                              </label></div>
                           </div>
                           <div className="col-2 p-0 d-flex flex-column text-center">
 
@@ -713,8 +712,8 @@ export default function Employes() {
                               onChange={onFormDataChange}
                               id="r4"
                             /><label htmlFor="r4" className="react">
-                                <i data-icon="🥰"></i>
-                              </label></div><span className="font-Emoji">Great</span>
+                                <i data-icon="🥰"><p className="m-0 pt-1">Great</p></i>
+                              </label></div>
                           </div>
                           <div className="col-3 d-flex flex-column text-center">
 
@@ -725,10 +724,10 @@ export default function Employes() {
                               onChange={onFormDataChange}
                               id="r5"
                             /> <label htmlFor="r5" className="react">
-                                <i data-icon="😍"></i>
+                                <i data-icon="😍"><p className="m-0 pt-1">Super lovely</p></i>
                               </label>
                             </div>
-                            <span className="font-Emoji">Super lovely</span>
+                           
                           </div>
                         </div>
                         {showMessage ?
@@ -736,8 +735,81 @@ export default function Employes() {
                             Note: If we find the candidates, does he take it immediately? Or
                             will he still need to think?
                           </h5> : null}
-                      </div>
+                      </div> */}
+ <div className=" coverClass  px-0">
+                       
+                          
+<ul className="ul-Styling"><li>
+                            <div className="" style={{ height: "35px" }}>   <input
+                              type="radio"
+                              name="candidatMotivation"
+                              value={1}
+                              onChange={onFormDataChange}
+                              id="r1"
+                            />     <label htmlFor="r1" className="react " >
+                                <i data-icon="😟" >
+                                  <p className="m-0 pt-1">Dissapointed</p></i>
+                              </label></div>
+                              </li>
+                <li>
 
+                            <div className=" both" style={{ height: "35px" }}>  <input
+                              type="radio"
+                              name="candidatMotivation"
+                              value={2}
+                              onChange={onFormDataChange}
+                              id="r2"
+                            /> <label htmlFor="r2" className="react text-center">
+                                <i data-icon="🙁" style={{width:"75px"}}><p className="m-0 pt-1">Not really</p></i>
+
+                              </label>
+                            </div>
+                            
+                            </li><li>
+                        
+                            <div className="text-center" style={{ height: "35px" }}>  <input
+                              type="radio"
+                              name="candidatMotivation"
+                              value={3}
+                              onChange={onFormDataChange}
+                              id="r3"
+                            />     <label htmlFor="r3" className="react">
+                                <i data-icon="😊"><p className="m-0 pt-1">Like</p></i>
+                              </label></div>
+                              </li><li>
+                        
+                            <div className="text-center" style={{ height: "35px" }} >  <input
+                              type="radio"
+                              name="candidatMotivation"
+                              value={4}
+                              onChange={onFormDataChange}
+                              id="r4"
+                            /><label htmlFor="r4" className="react">
+                                <i data-icon="🥰"><p className="m-0 pt-1">Great</p></i>
+                              </label></div>
+                              </li>
+                 <li>
+                            <div className="text-center" style={{ height: "35px" }}>  <input
+                              type="radio"
+                              name="candidatMotivation"
+                              value={5}
+                              onChange={onFormDataChange}
+                              id="r5"
+                            /> <label htmlFor="r5" className="react">
+                                <i data-icon="😍"  style={{width:"75px"}}><p className="m-0 pt-1">Super lovely</p></i>
+                              </label>
+                            </div>
+                           
+                            </li>
+                            </ul>
+                        
+                     
+                        {showMessage ?
+                          <h5 className="Form-styling mt-1">
+                            Note: If we find the candidates, does he take it immediately? Or
+                            will he still need to think?
+                          </h5> : null}
+                      </div>
                     </div>
                   </div>
                   <div className="col-6">
