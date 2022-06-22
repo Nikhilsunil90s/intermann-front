@@ -343,3 +343,11 @@ hr.new5 {
  .cursor-pointer{
     cursor: pointer;
  }
+
+ /* Modal  */
+ .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 900005000;
+ }

@@ -14,7 +14,14 @@ const ToDoProfileCard = (props: any,{path}) => {
 
     const [showInProgressModal, setShowInProgressModal] = useState(false);
     const [showArchiveModal, setShowArchiveModal] = useState(false)
- 
+    const CardOptions=[{
+   value:"Edit Profile",label:"Edit Profile"
+   },
+   {value:"moveProgress",label:"moveProgress"
+   },
+   {value:"Archive",label:"Archive"
+   }
+]
   
     const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
     const editCandidatProfile = () => {
@@ -31,7 +38,7 @@ const ToDoProfileCard = (props: any,{path}) => {
       if(e.value=="moveProgress"){
         setShowInProgressModal(true)
       }
-      if(e.value==="Archive"){
+      if(e.value=="Archive"){
         setShowArchiveModal(true) 
       }
     console.log(e.value)
@@ -122,7 +129,7 @@ const ToDoProfileCard = (props: any,{path}) => {
                     <div className="col-12 mt-2">
                         <div className="row">
                             <div className="col-6">
-                                <select className="selectOption firstoption" onChange={MoreOption}>
+                                {/* <select className="selectOption firstoption" onChange={MoreOption}>
                                     <option  value="" disabled selected hidden>
                                         More options
                                     </option>
@@ -141,8 +148,14 @@ const ToDoProfileCard = (props: any,{path}) => {
                                         Archive
 
                                     </option>
-                                </select>
-                 
+                                </select> */}
+                 <Select
+                    placeholder="More options"
+                    options={CardOptions}
+                    className="CardOptions"
+                    onChange={MoreOption}
+                    
+                 />
                             </div>
                             <div className="col-6 text-center">
                                 <button className="btn btn-dark btn-card" onClick={viewFullProfile}>

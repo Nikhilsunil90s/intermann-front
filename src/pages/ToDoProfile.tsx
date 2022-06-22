@@ -9,6 +9,9 @@ import { useNavigate } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import FileUploadProgress from "react-fileupload-progress";
+import Select from "react-select";
+import {ReactComponent as Upload} from "../images/upload.svg"
+import {ReactComponent as Download} from '../images/download.svg'
 
 function ToDoProfile() {
   const navigate = useNavigate();
@@ -20,7 +23,10 @@ function ToDoProfile() {
   const hiddenFileInput = React.useRef(null);
   const [candidatContactOne, setCandidatContactOne] = useState(profile.candidatPhone != "" ? profile.candidatPhone.split(" ").join("") : "");
   const [candidatContactTwo, setCandidatContactTwo] = useState(profile.candidatAlternatePhone != "" ? profile.candidatAlternatePhone.split(" ").join("") : "");
-
+ const uploadOption=[
+ {value:"upload",label:<Upload />,},
+ {value:"Download Image",label:<Download />} 
+ ]
   // const [Dissapointed, setDissapointed] = useState(false);
   // const [Notreally, setNotreally] = useState(false);
   // const [Like, setLike] = useState(false);
@@ -105,10 +111,15 @@ function ToDoProfile() {
                     src={require("../images/menlogos.svg").default}
                     style={{ width: "90%" }}
                   />
-                  <select className="image-select">
-                    <option>Upload Image</option>
-                    <option>Download Image</option>
-                  </select>
+               
+                  <Select
+                          closeMenuOnSelect={true}
+  // onChange={handleChange}
+  // components={ {SingleValue: customSingleValue } }
+  options={uploadOption}
+  className="upload"
+  // defaultValue={uploadOption[0]}
+/>
                 </div>
                 <div className="col-5 card-TodoProfile">
                   <div className="d-flex">
@@ -202,7 +213,7 @@ function ToDoProfile() {
                     </a>
                   </button>
                   <p className="Span-Styling mt-2 px-3">
-                    Phone 2 : {profile.candidatAlternatePhone ? profile.candidatAlternatePhone : "No Alternate Number!"}
+                    Phone 2 : {profile.candidatAlternatePhone ? profile.candidatAlternatePhone : "No AlternatePhone Number!"}
                   </p>
                   <button className="btn btn-whatsapp btn-see">
                     <a

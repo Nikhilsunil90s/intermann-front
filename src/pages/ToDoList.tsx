@@ -43,7 +43,7 @@ function ToDoList() {
   const [loader, setLoader] = useState(false);
   const [filterData, setFilterData] = useState([]);
   const [status, setStatus] = useState(Boolean);
-  const [nameOptions, setNameOptions] = useState([])
+  const [nameOptions, setNameOptions] = useState([])                        
   const [showMore, setShowMore] = useState(false)
   const [licenceOptions, setLicenseOptions] = useState([
     {
@@ -627,7 +627,7 @@ function ToDoList() {
                         <Select
                           name="candidatName"
                           closeMenuOnSelect={true}
-                          placeholder="Select Un Candidat"
+                          placeholder="‎ ‎ ‎ Select Un Candidat"
                           className="basic-multi-select"
                           classNamePrefix="select"
                           onChange={handleNameChange}
@@ -665,7 +665,7 @@ function ToDoList() {
                       <Select
                         name="candidatActivitySector"
                         closeMenuOnSelect={true}
-                        placeholder="Select Un Secteur"
+                        placeholder="‎ ‎ ‎ Select Un Secteur"
                         className="basic-multi-select"
                         classNamePrefix="select"
                         onChange={handleSectorChange}
@@ -703,7 +703,7 @@ function ToDoList() {
                       name="jobName"
                       closeMenuOnSelect={true}
                       isMulti
-                      placeholder="Select"
+                      placeholder="‎ ‎ ‎ Select"
                       className="basic-multi-select"
                       classNamePrefix="select"
                       onChange={jobChange}
@@ -744,7 +744,7 @@ function ToDoList() {
                               <Select
                                 name="candidatMotivation"
                                 closeMenuOnSelect={true}
-                                placeholder="Select Motivation du Candidat"
+                                placeholder="‎ ‎ ‎ Select Motivation du Candidat"
                                 className="basic-multi-select"
                                 classNamePrefix="select"
                                 onChange={handleMotivationChange}
@@ -786,7 +786,7 @@ function ToDoList() {
                               <Select
                                 name="candidatLicencePermis"
                                 closeMenuOnSelect={true}
-                                placeholder="Select Licence Permis"
+                                placeholder="‎ ‎ ‎ Select Licence Permis"
                                 className="basic-multi-select"
                                 classNamePrefix="select"
                                 onChange={HandelLicence}
