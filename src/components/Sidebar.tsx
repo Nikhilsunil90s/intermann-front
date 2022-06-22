@@ -21,6 +21,7 @@ function Sidebar(props: any) {
   useEffect(()=>{
     $(document).on('click','li',function(){
       $(this).addClass('active').siblings().removeClass('active')
+      $(this).removeClass('active')
     })
   })
   return (

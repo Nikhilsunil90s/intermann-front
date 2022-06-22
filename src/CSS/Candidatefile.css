@@ -235,6 +235,7 @@ border-radius: 8px;
     line-height: 15px;
     color: #000000;
     padding-left: 10px;
+    margin-top: 10px;
 }
 .card-xl p {
     font-family: 'Poppins';
@@ -701,4 +702,78 @@ color: #000000;
         white-space: nowrap;
         box-sizing: border-box;
         font-size: 12px;
+}
+
+/* PreSelected View Css */
+
+
+.preLargebtn{   font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 20px;
+letter-spacing: -0.105991px;
+text-transform: uppercase;
+color: #FE8700;
+border: 0px;
+background: #FFF7EE;
+border-radius: 100px;
+padding: 10px 20px !important;
+}
+.preColorRowSelected{
+    background: #FFF7EE;
+box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
+border-radius: 10px;
+}
+
+.preColorRowSelected p{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 16px;
+line-height: 24px;
+display: flex;
+align-items: center;
+text-transform: capitalize;
+color: #333333;
+
+}
+.customerProfil{
+    background: #032339;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 16px;
+display: flex;
+align-items: center;
+text-align: center;
+color: #FFFFFF;
+padding: 12px 30px;
+
+}
+.customerProfil img{
+margin-right: 8px;
+}
+.CommentSelection{
+    font-family: 'Poppins' !important;
+font-style: normal !important;
+font-weight: 500 !important;
+font-size: 16px !important;
+line-height: 24px !important;
+display: flex !important;
+align-items: center !important;
+color: #000000 !important;
+}
+
+.btn-moveProgress{
+    background: #A461D8;
+    border-radius: 100px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 27px;
+    color: #FFFFFF;
 }

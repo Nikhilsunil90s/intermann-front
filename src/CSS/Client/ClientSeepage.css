@@ -227,9 +227,9 @@ thead {
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
-  font-size: 24px;
+  font-size: 24px !important;
   line-height: 31px;
-  color: #ffffff;
+  color: #ffffff !important;
   padding-top: 5px;
 }
 .btn:hover {
@@ -383,3 +383,69 @@ border-bottom: 1px solid black;
 .pdf-store .col-3{
 text-align: end;
 }
+
+/* Archived View Page */
+
+
+.bg-return{
+  background: #FF0000;
+  border-radius: 13px;
+  border-radius: 13px;
+  font-weight: 700;
+  font-size: 13px;
+  color: #ffff;
+  line-height: 20px;
+  letter-spacing: -0.105991px;
+  text-transform: uppercase;
+  }
+  .ArchivedBtnLarge{
+      background: #FF0000;
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 42px;
+      color: #ffffff;
+      border: 1px solid #000000;
+      box-sizing: border-box;
+      display: flex;
+      border-radius: 19px; 
+      padding: 0px 12px;
+  }
+  .litle-box-redBox .ArchivedSpent{
+      background-color: #FF0000;
+      border-radius: 8px;
+      padding: 0px;
+      margin-top: 0px;
+      margin-bottom: 20px;
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+      color: #FFFFFF;
+    }
+    .litle-box-redBox {
+      background-color: #FF0000;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 5px;
+      margin-bottom: 20px;
+      
+    }
+     
+    .litle-box-redBox .classFont{
+      font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 23px;
+  color: #333333;
+    }
+    .Archived-XL p{
+      font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 25px;
+  color: #FFFFFF;
+  margin-bottom: 15px !important
+    }

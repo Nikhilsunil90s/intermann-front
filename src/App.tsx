@@ -31,7 +31,8 @@ import ClientTodoEdit from "./pages/EditPages/ClientEdit_Page";
 import ClientinProgressEdit from "./pages/EditPages/Client_EditinProgress";
 import Preselected from "./pages/preSelected";
 import PrivateRoute from "./ProctetedRoute/ProctedRoute";
-
+import ClientArchivedView from './pages/ClientPages/ClientArchivedView'
+import PreSelectedView from "./pages/preSelectedProfileView";
 
 
 function App() {
@@ -79,6 +80,13 @@ function App() {
           <Route path={"/clientInProgressEdit"} element={<Sidebar><PrivateRoute Component={ClientinProgressEdit} /></Sidebar>} />
 
           <Route path={"/preSelected"} element={<Sidebar> <PrivateRoute Component={Preselected} /> </Sidebar>} />
+          <Route path={"/preSelectedView"} element={ <Sidebar><PrivateRoute Component={PreSelectedView} /></Sidebar>} /> 
+                    
+         
+          <Route path={"/archivedClientSeeprofile"} element={ <Sidebar><PrivateRoute Component={ClientArchivedView} /></Sidebar>} /> 
+
+
+          
 
         </Routes>
       </Router>

@@ -1,53 +1,42 @@
-import React, { useEffect, useState } from "react";
-import StarRatings from "react-star-ratings";
-import { Link } from "react-router-dom";
+import React from "react";
+import {Link} from "react-router-dom"
+import StarRatings from 'react-star-ratings';
 import "../../CSS/Client/ClientSeepage.css";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 
-function ClientProgressView() {
-
-  const { state } = useLocation();
-  const navigate = useNavigate();
-
-  const [profile, setProfile] = useState<any>(state);
-  const [candidatContactOne, setCandidatContactOne] = useState(profile.clientPhone != "" ? profile.clientPhone.split(" ").join("") : "");
-  const [candidatContactTwo, setCandidatContactTwo] = useState(profile.clientReferenceNumber != "" ? profile.clientReferenceNumber.split(" ").join("") : "");
-
-
-  useEffect(() => {
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
-    console.log(profile);
+function ArchivedViewPage(){
+  window.scroll({
+    top: 0,
+    left: 0,
+    behavior: 'smooth'
   });
-  return (
-    <>
-      <div className="containet-fluid">
+    return(
+        <>
+             <div className="containet-fluid">
         <div className="row">
           <div className="col-12 top-pd text-center">
-            <div className="col-12 top-pd text-center">
-              <h1 style={{ textDecoration: 'underline' }}>CLIENT FILE: {profile.clientCompanyName}</h1>
-            </div>
+            <img
+              src={require("../../images/ClientseePage.svg").default}
+              style={{ width: "70%" }}
+            />
           </div>
           <div className="col-6">
             <div className="stable">
-              <Link to="/clientProgress">
-                <button type="button" className="btn bg-Progress-btn">
-                  <img src={require("../../images/return.svg").default} />
-                  Return to client list IN PROGRESS
+              <Link to="/todolist">
+              <button type="button" className="btn bg-return ">
+                  <img src={require("../../images/return1.svg").default} />
+                  Return to client list SIGNED CONTRACT
                 </button>
               </Link>
             </div>
           </div>
           <div className="col-6  text-end ">
-            <button className="btn btn-bgb">
-              <img src={require("../../images/Edit.svg").default} />
-              Edit Profile
-            </button>
+            <Link to="/editTodo">
+              <button className="btn btn-bgb">
+                <img src={require("../../images/Edit.svg").default} />
+                Edit Profile
+              </button>
+            </Link>
           </div>
           <div className="bg-class">
             <div className="col-12 p-3 bg-color-card">
@@ -55,28 +44,30 @@ function ClientProgressView() {
                 <div
                   className="col-3     d-grid
     justify-content-center
-    align-items-center  text-center"
+    align-items-center  text-center "
                 >
                   <div className="logo-bg">
+                
                     <img
                       src={require("../../images/enterprise.svg").default}
-                      style={{ backgroundColor: "transparent" }}
+                
                     />
-
                   </div>
-
+                  <button type="button" className="btn btn-upload">
+                    UPLOAD PHOTO
+                  </button>
                 </div>
-                <div className="col-5 card-xl">
-                  <p>Company : {profile.clientCompanyName}</p>
-                  <p>Number of Position(s) : {profile.numberOfPosts}</p>
-                  <p>Secteur : {profile.clientActivitySector}</p>
-                  <p>Métier/Job : {profile.clientJob}</p>
-                  <p style={{ width: "145%" }}>Contact Name : {profile.clientReferenceName} </p>
+                <div className="col-5 Archived-XL">
+                <p>Company : &#10100;Company_name&#10101;</p>
+                  <p>Number of position : &#10100;Number&#10101;</p>
+                  <p>Secteur : &#10100;client_Sector&#10101;</p>
+                  <p>Métier/Job : &#10100;Client_Metier_Job&#10101;</p>
+                  <p style={{width:"175%"}} className="text-white">Contact name : &#10100;Contact_Name_In_Company&#10101; </p>
                 </div>
                 <div className="col-4 text-end end-class">
                   <div>
-                    <button type="button" className="btn btn-in-progress">
-                      <img src={require("../../images/level-up.svg").default} /><small> IN PROGRESS</small>
+                  <button type="button" className="btn ArchivedBtnLarge" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+             <span style={{marginRight:"3px"}}><img src={require("../../images/Path.svg").default} /></span>     SIGNED CONTRACT
                     </button>
                   </div>
                   <p className="fw-bold">Lead en recherche active</p>
@@ -122,18 +113,23 @@ function ClientProgressView() {
                 </div>
               </div>
             </div>
-            <div className="col-12 litle-box">
-              <div className="row">
-                <div className="col-6">
-                  <p >Ads Spent on this client : &#10100;ad_Spent&#10101;</p>
+            <div className="col-12 litle-box-redBox">
+                <div className="row">
+                    <div className="col-12">
+                   
+                <div className="text-start ArchivedSpent">
+                <p>Ads Spent on this client : ❴ad_Spent❵</p>
                 </div>
-              </div>
+                <p className="classFont">WHY THIS LEAD/CLIENT HAVE BEEN ARCHIVED : <span className="text-white">&#10100;Reason_deleted&#10101; Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s </span></p>
+      
+                    </div>
+                </div>
             </div>
             <div className="col-12">
               <div className="parent-p">
                 <div className="d-flex">
-                  <p>Company Adress </p>
-                  <span>&#10100;: Company_Adress&#10101;</span>
+                  <p>Company Adress :</p>
+                  <span>&#10100; Company_Adress&#10101;</span>
                 </div>
                 <div className="d-flex ">
                   <p className="">Langues </p>
@@ -223,7 +219,7 @@ function ClientProgressView() {
                 <div className="row">
                   <div className="col-6 mb-3">
                     <p className="poppins">
-                      Par exemple : Contrat signé; Offre signé....
+                      Par exemple : Contrat signé; Offre signé.... 
                     </p>
                     <span className="poppins">
                       PDF; Word; PNG; Excel etc ......
@@ -233,18 +229,6 @@ function ClientProgressView() {
               </div>
               <div className="col-12">
                 <div className="row">
-                  <div className="col-3 text-center">
-                    <button type="button" className="btn btn-Contract">
-                    Move to signed contract
-                        </button>
-                     <p className="italic-font">Si on lance les recherches</p>
-                  </div>
-                  <div className="col-3 text-center">
-                    <button type="button" className="btn btn-red">
-                      Archive / Canceleld
-                    </button>
-                    <p className="italic-font">Si plus d’actualité</p>
-                  </div>
                   <div className="col-3 text-center">
                     <button type="button" className="btn btn-black">
                       <img src={require("../../images/Edit.svg").default} />
@@ -284,7 +268,9 @@ function ClientProgressView() {
                       Accès réstreint à Jeremy & Pat
                     </p>
                   </div>
-                  <div className="col-12">
+                </div>
+              </div>
+              <div className="col-12">
                     <div className="row">
                       <div className="col-5 pdf-store">
                         <div className="col-12">
@@ -390,13 +376,10 @@ function ClientProgressView() {
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
-      </div>
-    </>
-  );
+      </div></>
+    )
 }
-export default ClientProgressView;
+export default ArchivedViewPage;

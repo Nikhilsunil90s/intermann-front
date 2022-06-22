@@ -76,7 +76,7 @@ console.log(props)
                         <div className="row">
    
                     <div className="col-6 text-center">
-                 <Link to="#" className="btn btn-card">
+                 <Link to="/archivedClientSeeprofile" className="btn btn-card">
                         See Full Profile
                     </Link>
                  </div>
