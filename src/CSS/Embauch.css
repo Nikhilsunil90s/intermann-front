@@ -119,11 +119,7 @@ hr.new5 {
 
 }
 
-.blue {
-    font-weight: 700 !important;
-    font-size: 10px !important;
-    color: #3F76E2 !important;
-}
+
 
 .card-body small {
     padding-right: 60px;
@@ -199,8 +195,8 @@ hr.new5 {
     padding: 0px 0px 0px 0px !important;
 }
 
-.box-gray {
-    background-color: #A461D8 !important;
+.box-purple {
+    background-color: #F4E7FF !important;
     padding-left: 30px !important;
     margin-bottom: 10px;
     padding-bottom: 10px;
@@ -220,4 +216,75 @@ hr.new5 {
 
 .permise {
     color: #000000 !important;
+}
+.fontStylingEmbauche{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 22px;
+line-height: 33px;
+color: #252726;
+}
+.fontStylingEmbauche span{
+   color: #A461D8
+}
+.embauchChild{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+  font-size: 12px;
+  line-height: 8px;
+}
+.embauchChild span{
+    text-decoration: underline;
+}
+.filtersLabel{    font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 12px;
+margin-bottom: 0.5rem;
+}
+.EmbauchCard p{
+    font-family: 'Poppins' !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    font-size: 12px !important;
+    line-height: 16px !important;
+    color: #000000 !important;
+    margin-bottom: 0px;
+}
+.cardColorRowEmbaunch{
+    background-color: #F4E7FF;
+    padding: 3px;
+}
+.EmbaucheCardBtn{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 20px;
+letter-spacing: -0.105991px;
+text-transform: uppercase;
+color: #A461D8;
+background-color: transparent;
+border: 0px;
+
+}
+.EmbaucheCardBtn img{
+margin-right: 5px;
+}
+.EmbauchCardChildFonts p{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 400 !important;
+font-size: 12px !important;
+line-height: 18px !important;
+color: #000000 !important;
+}
+.EmbauchCardChildFonts .blue {
+    font-weight: 700 !important;
+    font-size: 10px !important;
+    color: #3F76E2 !important;
+    padding: 10px 0px;
 }

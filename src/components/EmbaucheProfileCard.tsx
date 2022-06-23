@@ -4,6 +4,7 @@ import "../CSS/Embauch.css";
 import StarRatings from 'react-star-ratings';
 import ArchivedModal from "./Modal/ArchivedModal";
 import { useNavigate } from "react-router-dom";
+import Select from 'react-select'
 
 const EmbaucheProfileCard = (props: any,{path}) => {
 
@@ -11,15 +12,28 @@ const EmbaucheProfileCard = (props: any,{path}) => {
 
     const [data, setData] = useState([props])
     const [showArchiveModal, setShowArchiveModal] = useState(false)
-
-
-    const viewFullProfile = () => {
-        navigate("/embauchprofile", { state: props });
+    const CardOptions=[{
+        value:"Edit Profile",label:"Edit Profile"
+        },
+        {value:"Archive",label:"Archive"
+        }
+     ]
+    const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
+    const viewFullProfile=()=>{
+     navigate("/embauchprofile" ,{ state: props.props })
     }
-
+    const MoreOption=(e:any)=>{
+      if(e.value=="Edit Profile"){
+        //   editCandidatProfile()
+      }
+      if(e.value=="Archive"){
+        setShowArchiveModal(true) 
+      }
+    console.log(e.value)
+    }
     return (
         <>
-            <div className="card card-color mt-3">
+            <div className="card card-color ">
                 <div className="card-upper">
                     <div className="col-4">
                         <img
@@ -28,63 +42,60 @@ const EmbaucheProfileCard = (props: any,{path}) => {
                             alt="..."
                         />
                     </div>
-                    <div className="col-7 ">
-                        <p>Name: {props.props.candidatName}</p>
-                        <p>Age: {props.props.candidatAge}</p>
-                        <div >  <p>Motivation:
-                            <StarRatings
-                                rating={props.props.candidatMotivation}
-                                starRatedColor="#ffc107"
-                                // changeRating={}
-                                numberOfStars={props.props.candidatMotivation}
-                                starDimension={'11px'}
-                                starSpacing={'1px'}
-                                name='rating'
-                            />
+                    <div className="col-7 EmbauchCard pt-1 px-0" >
+                        <p><b>{props.props.candidatName}</b></p>
+                        <p><b> {props.props.candidatAge}</b></p>
+                        <div >  <p className="text-dark d-flex"> <b>{candidatMotivationIcons[props.props.candidatMotivation - 1].icon + " " + candidatMotivationIcons[props.props.candidatMotivation - 1].motivation}</b>
                         </p>
                         </div>
-                        <button className="embauch">EMBAUCHé</button>
-
+                        
                     </div>
                 </div>
+                <div className="col-12 ">
+                        <div className="row cardColorRowEmbaunch">
 
-                <div className="card-body">
-                    <p>Name: {props.props.candidatName}</p>
-                    <p>Age: {props.props.candidatAge}</p>
-                    <p>Secteur:  {props.props.candidatActivitySector}</p>
-                    <p>Job:  {props.props.candidatJob} </p>
-                    <p>Langues:  {props.props.candidatLanguages.join(", ")} </p>
-                    <p>Phone Number:  {props.props.candidatPhone}</p>
-                    <p>Facebook URL:  <a href="#" className="fbURL">{props.props.candidatFBURL}</a></p>
-                    <p>Email:  {props.props.candidatEmail}</p>
+                      
+                        <div className="col-6 ">
+                        <Link to='#'>
+                            <button className="EmbaucheCardBtn p-0"><img src={require("../images/thundermini.svg").default} />IN PROGRESS</button>
+                        </Link>
+                        </div>
+                    </div>
+                    </div>
+                <div className="card-body ">
+                    <div className="px-1 EmbauchCardChildFonts">
+                    {/* <p>Name: {props.props.candidatName}</p> */}
+                    <p> <b>{props.props.candidatAge ? props.props.candidatAge +"years old" : "Age Not Available!"}</b></p>
+                    <p>Secteur: <b> {props.props.candidatActivitySector.toLocaleUpperCase()}</b></p>
+                    <p>Job: <b> {props.props.candidatJob.toLocaleUpperCase()}</b></p>
+                    <p>Langues:  <b> {props.props.candidatLanguages.join(", ")} </b></p>
+                    <p>Phone Number:  <b>{props.props.candidatPhone}</b></p>
+                    <p>Facebook URL:  <b>{props.props.candidatFBURL ? <a href={props.props.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
+                    <p>Email: <b>{props.props.candidatEmail ? props.props.candidatEmail : "No Email Provided!"}</b> </p>
                     <p className="blue">Ready for work:  {props.props.candidatStartDate} To {props.props.candidatEndDate} </p>
-                    <span>
-                        <input type="checkbox" name="candidatLicensePermis" checked={props.props.candidatLicensePermis} />
-                    </span>
-                    Permise
-                    <div className="box-gray">
-                        <p>Works At <small>: {props.props.candidatCurrentWork[0].workingFor}</small></p>
-                        <p>Since <small>: {props.props.candidatCurrentWork[0].workingSince}</small></p>
-                        <p>Salary <small>:  {props.props.candidatCurrentWork[0].salary} €</small></p>
+                    </div>
+                    <div className="">
+                    <div className="box-purple">
+                        <p><b>Works At : {props.props.candidatCurrentWork[0].workingFor}</b></p>
+                        <p><b>Since : {props.props.candidatCurrentWork[0].workingSince}</b></p>
+                        <p><b>Salary :  {props.props.candidatCurrentWork[0].salary} €</b></p>
+                    </div>
                     </div>
                   <div className="col-12">
                     <div className="row">
+                    <div className="col-6 text-center">
+                        <Select
+                    placeholder="More options"
+                    options={CardOptions}
+                    className="CardOptions"
+                    onChange={MoreOption} 
+                 />
+                     </div>
                         <div className="col-6 text-center">
-                        <button className="btn btn-card" onClick={viewFullProfile}>
+                        <button className="btn btn-card" onClick={()=>viewFullProfile()}>
                             See Full Profile
                         </button>
                         </div>
-                     <div className="col-6 text-center">
-                     <button className="btn btn-cardRight1">
-                            Edit Profile
-                        </button>
-                     </div>
-                      <div className="col-12 text-center">
-                      <button className="btn btn-cardRight" onClick={() => { setShowArchiveModal(true) }}>
-                            Archive
-                        </button>
-                      </div>
-                    
                     </div></div>
 
                     {showArchiveModal ?

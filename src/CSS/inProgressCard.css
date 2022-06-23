@@ -49,49 +49,64 @@
 }
 
 .workFont {
-  display: flex;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 19px;
-  line-height: 16px;
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 16px;
+line-height: 16px;
+display: flex;
+align-items: center;
+text-align: center;
+text-transform: capitalize;
+color: #333333;
 }
+
 
 .workFont span {
-  color: white !important;
+  color: #333333 !important;
 }
 
-.customerBtn {
-  background: #FFFFFF;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 19px;
-  line-height: 16px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #A461D8;
+.customerBtnEmbauch {
+  background: #032339;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 16px;
+display: flex;
+align-items: center;
+text-align: center;
+color: #FFFFFF;
+padding: 12px 30px;
+
+}
+.customerBtnEmbauch img{
+  margin-right: 8px;
+  }
+.InProLargebtn{
+  border: 0px;
+  color:#A461D8;
+  background: #F4E7FF;
+border-radius: 100px;
+padding: 8px 20px !important;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 20px;
+letter-spacing: -0.105991px;
+text-transform: uppercase;
+color: #A461D8;
 
 }
 
-.customerBtn span {
-  display: flex;
-  align-items: center;
-  width: 25px;
-}
-
-.customerBtn span img {
-  height: 16px;
-}
 
 .boxProgress {
-  background: #A461D8;
+  background: #F4E7FF;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 24px;
-  padding: 25px 80px;
+  padding: 25px 40px;
   width: 99%;
 }
 

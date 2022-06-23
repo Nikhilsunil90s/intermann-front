@@ -12,12 +12,13 @@ import FileUploadProgress from "react-fileupload-progress";
 import Select from "react-select";
 import {ReactComponent as Upload} from "../images/upload.svg"
 import {ReactComponent as Download} from '../images/download.svg'
+import PreModal from "../components/Modal/preSelectedModal";
 
 function ToDoProfile() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [profile, setProfile] = useState<any>(state);
-  const [showInProgressModal, setShowInProgressModal] = useState(false);
+  const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
   const hiddenFileInput = React.useRef(null);
@@ -380,12 +381,25 @@ function ToDoProfile() {
                 </div> */}
                 <div className="col-3 text-center">
                   <button
-                    type="button"
-                    className="btn btn-preSelected"
-                    onClick={() => setShowInProgressModal(true)}
-                  >
-                    Move to In Progress
-                  </button>
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+        className="btn btn-preSelected"
+        onClick={() => setShowInPreSelectedModal(true)}
+      >
+      Move to Preselected
+      </button>
+                  {showPreSelectedModal?
+                  <PreModal 
+                   props={profile}
+                   closepreModal={setShowInPreSelectedModal}
+                 
+
+                  />
+                  :
+                  null
+
+                  }
                   <p className="italic-fontStyle text-start">
                     Si vous le préselectionné pour un client en cours de
                     recherche

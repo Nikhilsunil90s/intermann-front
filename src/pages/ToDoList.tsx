@@ -462,7 +462,7 @@ function ToDoList() {
       selectedLanguages.length == 0
     ) {
       await fetch(
-        `${API_BASE_URL}filterToDoSJ/?sector=${selectedSector}&jobs=${selectedJob}`,
+        `${API_BASE_URL}filterToDoSJ/?sector=${selectedSector}&jobs=${FilterJob}`,
         {
           method: "GET",
           headers: {
@@ -581,7 +581,15 @@ function ToDoList() {
   };
 
   const jobChange = async (jobval) => {
-    console.log(jobval)
+    // console.log(jobval)
+    let JobArr=[]
+    jobval.map((el)=>{
+     
+     JobArr.push(el.value)
+  
+    })
+    FilterJob=JobArr
+    filterFunction()
   }
   const onDateChange=(e:any)=>{
     DateArr=[]

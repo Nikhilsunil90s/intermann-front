@@ -5,6 +5,11 @@ import EmbaucheProfileCard from "../components/EmbaucheProfileCard";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import toast, { Toaster } from "react-hot-toast";
 import Item from "../components/Loader/loader";
+import Select ,{StylesConfig }from 'react-select'
+import chroma from 'chroma-js'
+import SelectLoader from "../components/Loader/selectLoader"
+import { colourOptions, ColourOption } from "../Selecteddata/data";
+
 
 declare global {
   namespace JSX {
@@ -26,6 +31,7 @@ declare global {
     }
   }
 }
+let SelectedName = []
 let FilterJob = [];
 function Embauch() {
   const [sectors, setSectors] = useState([]);
@@ -36,7 +42,65 @@ function Embauch() {
   const [Loader, setLoader] = useState(false);
   const [filterData, setFilterData] = useState([]);
   const [status, setStatus] = useState(Boolean);
+  const [nameOptions, setNameOptions] = useState([])
+  const [sectorOptions, setSectorOptions] = useState([]);
+  const [jobOptions, setJobOptions] = useState([]);
+  const [showMore, setShowMore] = useState(false)
 
+
+
+  const colourStyles: StylesConfig<ColourOption, true> = {
+    control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      const color = chroma(data.color);
+      return {
+        ...styles,
+        backgroundColor: isDisabled
+          ? undefined
+          : isSelected
+            ? data.color
+            : isFocused
+              ? color.alpha(0.1).css()
+              : undefined,
+        color: isDisabled
+          ? '#ccc'
+          : isSelected
+            ? chroma.contrast(color, 'white') > 2
+              ? 'white'
+              : 'black'
+            : data.color,
+        cursor: isDisabled ? 'not-allowed' : 'default',
+
+        ':active': {
+          ...styles[':active'],
+          backgroundColor: !isDisabled
+            ? isSelected
+              ? data.color
+              : color.alpha(0.3).css()
+            : undefined,
+        },
+      };
+    },
+    multiValue: (styles, { data }) => {
+      const color = chroma(data.color);
+      return {
+        ...styles,
+        backgroundColor: color.alpha(0.1).css(),
+      };
+    },
+    multiValueLabel: (styles, { data }) => ({
+      ...styles,
+      color: data.color,
+    }),
+    multiValueRemove: (styles, { data }) => ({
+      ...styles,
+      color: data.color,
+      ':hover': {
+        backgroundColor: data.color,
+        color: 'white',
+      },
+    }),
+  };
   useEffect(() => {
     if (sectors.length == 0) {
       fetchAllSectors()
@@ -48,10 +112,24 @@ function Embauch() {
           // console.log(err);
         });
     }
+    let jobResults = jobs.map(ajob => {
+      return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
+    })
+    setJobOptions([...jobResults]);
+    console.log(jobs);
   }, [jobs]);
+  useEffect(() => {
+    console.log(sectors);
+    let sectorops = sectors.map((asector) => {
+      return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
+    })
+
+    setSectorOptions([...sectorops]);
+  }, [sectors])
   useEffect(() => {
     filterFunction();
   }, [selectedLanguages, selectedJob, selectedSector]);
+
   const fetchProfiles = async () => {
     return await fetch(API_BASE_URL + "allInProgressCandidats", {
       method: "GET",
@@ -62,10 +140,35 @@ function Embauch() {
       },
     })
       .then((resD) => resD.json())
-      .then((reD) => setFilterData([...reD]))
+      .then((reD) => reD)
       .catch((err) => err);
   };
+  useEffect(() => {
+    if (nameOptions.length == 0) {
+      fetchProfiles().then((profilesResult) => {
+        let nameops = profilesResult.map((pro) => {
+          return { value: pro.candidatName, label: pro.candidatName, color: '#FF8B00' }
+        })
+        setNameOptions([...nameops])
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+  })
+  const handleNameChange = (e: any) => {
+    // console.log(e.target.value)
+    SelectedName = []
+    setSelectedSector("")
+    setSelectedJob([])
+    if (e.value === "Select Un Name") {
+      SelectedName = []
 
+    } else if (e.value !== "") {
+      SelectedName = []
+      let NameField = e.value;
+      SelectedName.push(NameField)
+    }
+  };
 
  const fetchAllSectors = async () => {
     return await fetch(API_BASE_URL + "fetchAllSectors", {
@@ -101,19 +204,24 @@ function Embauch() {
   };
 
   const handleSectorChange = (e: any) => {
-    FilterJob=[]
+    // console.log(e.target.value)
+    SelectedName = []
+    FilterJob = [];
     setSelectedJob([])
-    if (e.target.value === "Select Un Secteur") {
+    console.log(e)
+    if (e.value === "Select Un Secteur") {
       setJobs([]);
       setSelectedSector("");
+      setJobOptions([]);
       setLoader(true);
-   
-    } else if (e.target.name === "candidatActivitySector") {
-      let sectorField = e.target.value;
+
+    } else if (e.value !== '') {
+      let sectorField = e.value;
       setSelectedSector(sectorField);
+      setJobOptions([]);
     }
 
-    fetchAllJobs(e.target.value)
+    fetchAllJobs(e.value)
       .then((data) => {
         // console.log(data);
         setJobs([...data.data]);
@@ -122,36 +230,38 @@ function Embauch() {
         // console.log(err);
       });
   };
-  useEffect(()=>{
-    setSelectedJob(FilterJob)
 
-  },[selectedJob])
+  // useEffect(()=>{
+  //   setSelectedJob(FilterJob)
 
-  const HandleChecked=(e:any,job:any)=>{
-    // FilterJob=[]
-    if(!FilterJob.find((e) => e == job.jobName)){
-      console.log("hello")
-        FilterJob.push(job.jobName);
-        setSelectedJob(FilterJob);
-  }
-    else {
-      if(FilterJob.length===1){
-        FilterJob=[]
-      }
-      console.log(FilterJob.length,"index")
-     console.log("not checked")
-     FilterJob= FilterJob.filter((item)=>{return item !==job.jobName})
-      console.log(FilterJob.length,"newarr")
-      setSelectedJob(FilterJob)
-      console.log(selectedJob,"else")
-    } 
-  }
+  // },[selectedJob])
+
   const filterFunction = async () => {
     setLoader(false);
-    if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0){
-      setLoader(true)
-      setStatus(true)
-      fetchProfiles()
+    if (SelectedName.length > 0 ) {
+      if (SelectedName.length > 0) {
+       
+        fetch(`${API_BASE_URL}getCandidats/?candidatName=${SelectedName}`, {
+
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+          .then((reD) => reD.json())
+          .then((result) => {
+            {
+              // setFilterData([...result.data]);
+              // console.log(result,"result")
+              setFilterData([...result.data]);
+            }
+            // setStatus(result.status);
+          })
+          .catch((err) => err);
+        setLoader(true);
+      }
     }
     if (
       selectedSector.length > 0 &&
@@ -262,34 +372,19 @@ function Embauch() {
       setLoader(true);
      
     }
-
-    if (
-      selectedLanguages.length > 0 &&
-      selectedJob.length == 0 &&
-      selectedSector.length == 0
-    ) {
-      await fetch(
-        `${API_BASE_URL}filterInProgressCandidatByLanguages/?languages=${selectedLanguages}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-        .then((reD) => reD.json())
-        .then((result) => {
-          {
-            setFilterData([...result.data]);
-          }
-          setStatus(result.status);
+    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 ) {
+      {
+        setLoader(true)
+        setStatus(true)
+        fetchProfiles().then(filteredresponse => {
+          setFilterData([...filteredresponse])
         })
-        .catch((err) => err);
-      setLoader(true);
-     
+          .catch(err => {
+            console.log(err);
+          })
+      }
     }
+  
   };
   const getSelectedLanguage = (e: any) => {
     if (e.target.checked) {
@@ -311,7 +406,18 @@ function Embauch() {
     fetchProfiles();
   }, []);
  
-
+  const jobChange = async (jobval) => {
+    // console.log(jobval)
+    let JobArr=[]
+    jobval.map((el)=>{
+     
+     JobArr.push(el.value)
+  
+    })
+    FilterJob=JobArr
+    filterFunction()
+    console.log(FilterJob,"jee")
+  }
   // useEffect(() => {
   //   window.scroll({
   //     top: 0,
@@ -324,31 +430,23 @@ function Embauch() {
     <>
       <Toaster position="top-right" />
       <div className="container-fluid">
-        <div className="row ">
-          <div className="col-12 text-center">
-            <img
-              src={require("../images/embauché.svg").default}
-              style={{ width: "70%", paddingTop: "30px" }}
-            />
-            <p className="text-family">
-              Ici vous avez la liste des candidats qui travaillant
-              <span>
-              
-                déjà chez nous, il sont donc lier à un contrat dans la liste
-                lead
-              </span>
-            </p>
-            <p className="child-text">
-              Vous devez toujours vous assurer d’avoir un maximum d’information
-              sur chaque personne, y compris son rib, ses coordonnées etc...
-            </p>
-            <p>
-              Here you have the list of candidates who are already working with
-              us, so they are linked to a contract in the lead list,ensure that
-              you have as much information as possible about each person
-            </p>
+        <div className="row">
+          <div className="col-12 card-tops px-1 mt-1" style={{ padding: "0px", marginBottom: "20px" }}>
+            <div className="row text-start">
+              <div className="card " style={{ padding: "15px 15px", borderRadius: "15px", marginBottom: "0px" }}>
+                <div className="">
+              <h1 className="fontStylingEmbauche">Candidats / Employes <span>Embauché / In Progress</span></h1>
+                 <p className="embauchChild">
+                 Ici vous avez la liste des candidats ne travaillant <span>pas encore avec nous</span> 
+                  </p>
+                  <p className="embauchChild">
+                  Vous devez toujours vous assurer d’avoir un maximum d’information sur cette liste et déplacer les candidats en archive si plus d’actualité 
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="col-6">
+          {/* <div className="col-6">
             <p>Filtre Secteur d’activité</p>
             <div className="dropdown">
               <div aria-labelledby="dropdownMenuButton1">
@@ -439,8 +537,151 @@ function Embauch() {
                 <span className="ps-2">Autre</span>
               </div>
             </div>
+          </div> */}
+             <div className="col-12 bg-white p-2 rounded001 mb-1">
+            <div className="row ">
+              <div className="col-4">
+                <p className="filtersLabel">Filtre by name</p>
+                <div className="dropdown">
+                  <div aria-labelledby="dropdownMenuButton1">
+                    {
+                      nameOptions.length > 0 ?
+                        <Select
+                          name="candidatName"
+                          closeMenuOnSelect={true}
+                          placeholder="‎ ‎ ‎ Select Un Candidat"
+                          className="basic-multi-select"
+                          classNamePrefix="select"
+                          onChange={handleNameChange}
+                          options={nameOptions}
+                          styles={colourStyles}
+                        /> :<SelectLoader />
+                                            }
+                    {/* <select
+                      name="candidatActivityName"
+                      className="form-select"
+                      onChange={handleNameChange}
+                      onClick={() => {
+                        // setSelectedJob([]);
+                        filterFunction();
+                      }}
+                    >
+                      <option value="Select Un Name" className="fadeClass001">Select</option>
+                      {nameOptions &&
+                        SelectDropDown.map((Name) => (
+                          <option value={Name.candidatName}>
+                            <button className="dropdown-item">
+                              {Name.candidatName}
+                            </button>
+                          </option>
+                        ))}
+                    </select> */}
+                  </div>
+                </div>
+              </div>
+              <div className="col-4">
+                <p className="filtersLabel">Filtre Secteur d’activité</p>
+                <div className="dropdown">
+                  <div aria-labelledby="dropdownMenuButton1">
+                    {sectorOptions.length > 0 ?
+                      <Select
+                        name="candidatActivitySector"
+                        closeMenuOnSelect={true}
+                        placeholder="‎ ‎ ‎ Select Un Secteur"
+                        className="basic-multi-select"
+                        classNamePrefix="select"
+                        onChange={handleSectorChange}
+                        options={sectorOptions}
+                        styles={colourStyles}
+                      /> : <p>Select Un Secteur!</p>
+                    }
+                    {/* <select
+                      name="candidatActivitySector"
+                      className="form-select"
+                      onChange={handleSectorChange}
+                      onClick={() => {
+                        setSelectedJob([]);
+                        filterFunction();
+                      }}
+                    >
+                      <option value="Select Un Secteur" className="fadeClass001">Select Un Secteur</option> */}
+                    {/* {sectors &&
+                        sectors.map((sector) => (
+                          <option value={sector.sectorName}>
+                            <button className="dropdown-item">
+                              {sector.sectorName}
+                            </button>
+                          </option>
+                        ))} */}
+                    {/* </select> */}
+                  </div>
+                </div>
+              </div>
+              <div className="col-4">
+                <p className="filtersLabel">Filtre selection métier / job</p>
+                <div>
+                  {jobOptions.length > 0 ?
+                    <Select
+                      name="jobName"
+                      closeMenuOnSelect={true}
+                      isMulti
+                      placeholder="‎ ‎ ‎ Select"
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                      onChange={jobChange}
+                      options={jobOptions}
+                      styles={colourStyles}
+                    /> : <p>Select A Sector!</p>
+                  }
+                </div>
+              </div>
+              {
+                showMore ?
+                  <>
+                    <div className="col-12 pt-1">
+                      <div className="row">
+                        <div className="col-4 pt-1">
+                          <p className="filtersLabel">Filtre by Client</p>
+                          <div className="dropdown">
+                            <div aria-labelledby="dropdownMenuButton1">
+                              <Select
+                                name="ClientFilter"
+                                closeMenuOnSelect={true}
+                                placeholder="‎ ‎ ‎ Select Motivation du Candidat"
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                                styles={colourStyles}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+                    <div className="extraPadding">
+                      <div className="col-12">
+                        <div className="row justify-content-end">
+                          <div className="col-4 d-flex justify-content-end">
+                            <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(false)}>Less Filters <img src={require("../images/downup.svg").default} /></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+
+                  :
+                  <div className="extraPadding">
+                    <div className="col-12">
+                      <div className="row justify-content-end">
+                        <div className="col-4 d-flex justify-content-end">
+                          <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(true)}>More Filters <img src={require("../images/down.svg").default} /></p>
+                        </div>
+                      </div>
+                    </div></div>
+              }
+            </div>
           </div>
-          <div className="col-6">
+          {/* <div className="col-6">
             <p>Filtre selection métier / job</p>
             <div className="box">
               <ul className="list-group">
@@ -463,14 +704,13 @@ function Embauch() {
                 )}
               </ul>
             </div>
-          </div>
-          <hr className="new5" />
+          </div> */}
             {Loader ? 
                 <>
                   {status ? 
                     filterData.length > 0 ? 
                       filterData.map((profile, index) => (
-                        <div className="col-4 mt-2 pd-left">
+                        <div className="col-4 mt-1  pd-left">
                           <EmbaucheProfileCard path={false} props={profile}  />
                         </div>
                       ))
