@@ -38,6 +38,43 @@ width: 60% !important;
     display: flex;
     margin-left: 15px;
 }
+
+.preSelectModal .css-1t8y0t9-control{
+    width: 60%;
+}
+.preSelectModal .css-1vp9nu5-control{
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: white;
+    border-color: #000000;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: none;
+    cursor: default;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    min-height: 45px;
+    outline: 0!important;
+    position: relative;
+    -webkit-transition: all 100ms;
+    transition: all 100ms;
+    box-sizing: border-box;
+    width: 60%;
+    border-radius: 25px;
+}
+
 .preSelectModal .css-1pahdxg-control{
     -webkit-align-items: center;
     -webkit-box-align: center;

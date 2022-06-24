@@ -4,7 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 function ArchivedModal({ props, closeModal,path }) {
   console.log(props);
-  console.log(path,"path")
+  console.log(props._id,"path")
   const [reasonToArchive, setReasonToArchive] = useState([]);
   const [candidatId, setCandidatId] = useState(props._id);
 
@@ -81,31 +81,30 @@ function ArchivedModal({ props, closeModal,path }) {
       >
         <div className="modal-dialog modal-lg">
           <div className="modal-content padding-full">
-            <div className="text-end">
+               <div className="modal-header">
+              <h5 className="modal-title modalStylingfontArchive" id="exampleModalLabel">
+              Move {props.candidatName} to <span className=""> Archived </span>
+              </h5>
               <button
                 type="button"
                 className="btn-close"
-                onClick={() => closeModal(false)}
                 data-bs-dismiss="modal"
                 aria-label="Close"
+              onClick={()=>{closeModal(false)}}
               ></button>
             </div>
-            <h2 className="modal-title pRight" id="staticBackdropLabel">
-              Move {props.candidatName} to
-              <span className="text-danger">Archived</span>
-            </h2>
             <div className="modal-body text-start">
               <p
                 style={{
                   fontFamily: "Poppins",
                   fontStyle: "normal",
-                  fontWeight: "400",
+                  fontWeight: "600",
                   fontSize: "16px",
                   lineHeight: "24px",
                   color: "#373A3C",
                 }}
               >
-                What is the reason of this archived ? Pourquoi
+                What is the reason of this archived ? Pourquoi‏‏‎ ‎
                 {props.candidatName} is archived ?
               </p>
               <form
@@ -121,23 +120,23 @@ function ArchivedModal({ props, closeModal,path }) {
                     required
                     className="form-control"
                     onChange={onFormDataChange}
+                    placeholder="Your message here"
                   ></textarea>
                 </div>
                 <div className="col-12 text-center pt-3">
-                  <div className="row ">
-                    <div className="col-3"></div>
-                    <div className="col-6">
+                  <div className="row justify-content-end">
+                    <div className="col-8">
                       <button
                         style={{
-                          borderRadius: "8px",
+                          borderRadius: "25px",
                           backgroundColor: "#FF0000",
                           width: "100%",
-                          padding: "11px",
+                          padding: "15px 0px",
                           fontFamily: "Inter",
                           fontStyle: "normal",
                           fontWeight: "700",
-                          fontSize: "20px",
-                          lineHeight: "16px",
+                          fontSize: "16px",
+                          lineHeight: "24px",
                           color: "white",
                           border: "unset",
                         }}
@@ -146,7 +145,6 @@ function ArchivedModal({ props, closeModal,path }) {
                       </button>
                     </div>
 
-                    <div className="col-3"></div>
                   </div>
                 </div>
               </form>

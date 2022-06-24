@@ -130,13 +130,6 @@ line-height: 16px;
    font-size: 6px !important;
    padding:  0px !important;
 }
-.box-red span{
-    padding-right: 0px !important;
-    font-size: 8px !important;
-    color: #ffff !important;
-    align-items: center;
-}
-
 .btn-cardRight1{
     height: 20px;
     background: black;
@@ -162,18 +155,24 @@ line-height: 16px;
   
 }
 .box-red{
-    background-color: #FF0000 !important;
-    padding-left: 0px !important;
-    margin-bottom: 3px;
-    padding-bottom: 30px;
-    display: flex;
-    justify-content: center;
+    background-color: #FFE0E0 !important;
+padding: 25px 15px;
 }
 .box-red p{
-    color:black;
-    font-size: 8px;
+    font-family: 'Poppins';
+    font-style: normal;
     font-weight: 700;
-
+    font-size: 10px;
+    line-height: 15px;
+    color: #000000;
+}
+.box-red span{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500 !important;
+    font-size: 10px !important;
+    line-height: 15px !important;
+    color: #000000 !important;
 }
 .btn-cardbottom{
     height: 20px;
@@ -187,3 +186,205 @@ line-height: 16px;
     font-size: 8px !important;
     padding: 0px 0px 0px 0px !important;
 }
+.fontStylingArchived{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 33px;
+    color: #252726;
+}
+.fontStylingArchived span{
+    color: #E21B1B;
+    margin-left: 10px;
+}
+
+.ArchivedChild{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+  font-size: 12px;
+  line-height: 8px;
+}
+.ArchivedChild span{
+    text-decoration: underline;
+}
+.ArchivedCard p{
+    font-family: 'Poppins' !important;
+font-style: normal !important;
+font-weight: 400 !important;
+font-size: 12px !important;
+line-height: 6px !important ;
+color: #000000 !important;
+
+}
+.ArchivedCardChildFonts p{
+    font-family: 'Poppins' !important;
+font-style: normal !important;
+font-weight: 400 !important;
+font-size: 12px !important;
+line-height: 18px !important;
+color: #000000 !important;
+}
+.ArchivedCardChildFonts .blue {
+    font-weight: 700 !important;
+    font-size: 10px !important;
+    color: #3F76E2 !important;
+    padding: 10px 0px;
+}
+
+.cardColorRowArchived{
+      background-color: #FFE0E0;
+    padding: 5px;
+}
+.ArchivedCardBtn{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: -0.105991px;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: 0px;
+}
+.ArchivedCardBtn img{
+margin-top: 4px;
+}
+
+/* Archived Profile */
+
+.EditArchive{
+    background-color: #032339;
+    font-weight: 700;
+    font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.105991px;
+  text-transform: uppercase;
+  border-radius: 25px;
+  color: #FFFFFF;
+  margin-top: 5px;
+  margin-bottom: 5PX;
+}
+.bg-ArchiveDetails{
+    background: #FFFFFF;
+    box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
+    margin-top: 10px;
+    padding-top: 30px;
+}
+.ArchiveLargebtn{
+    background: #FFE0E0;
+border-radius: 100px;
+border: 0px ;
+padding:10px 15px !important
+}
+.boxArchivedProfile{
+    background: #FFE0E0;
+    border: 1px solid #FF0000;
+    box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+    border-radius: 10px;
+    padding: 40px 0px;
+}
+.whyFont{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 28px;
+        color: #FF0000;
+      }
+      .whyFont span {
+        color: black !important;
+      }
+
+      .Archived-CardMore{
+        padding: 10px;
+    }
+    .Archived-CardMore p{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 45px;
+        text-decoration-line: underline;
+        color: #000000;
+        margin-bottom:0px ;
+    }
+    .Archived-CardMore span{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 45px;
+        color: #000000;
+        margin-bottom:0px ;
+        margin-left:5px;
+    }
+    .btn-ArchiveCVManual{
+        background: #032339;
+    border-radius: 100px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 27px;
+    color: #FFFFFF;
+    padding: 15px 10px;
+    margin-top: 5px;
+    }
+    .btn-ArchiveEditProfile{
+        background: #032339;
+    border-radius: 100px;
+    padding: 10px 26px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    color: #FFFFFF;
+    padding: 15px 25px;
+    margin-top: 5px;
+    }
+
+    .hideProfile{
+        background: #FF0000;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 27px;
+color: #FFFFFF;
+padding: 15px 10px;
+border: 0px;
+margin-top: 5px;
+     }
+     .restProfile{
+        background: #489767;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 27px;
+color: #FFFFFF;
+padding: 15px 10px;
+border: 0px;
+margin-top: 5px;
+     }
+     .hideProfile img{
+        margin:0px 5px
+     }
+     .restProfile img{
+   margin:0px 5px
+     }
+
+     .Archived-Card{
+        background: #FFFFFF;
+        box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+        border-radius: 10px;
+     }

@@ -334,7 +334,7 @@ function ProgressCard() {
                   <p className="italic-fontStyle text-start ">Si plus d’actualité</p>
                   {showArchiveModal ? (
                     <ArchivedModal
-                      props={profile.candidatName}
+                      props={profile}
                       closeModal={setShowArchiveModal}
                       path={"/todolist"}
                     />

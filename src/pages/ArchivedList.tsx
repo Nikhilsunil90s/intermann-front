@@ -4,6 +4,10 @@ import "../CSS/Canceled.css";
 import ArchivedProfileCard from "../components/ArchivedProfileCard";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import Loader from '../components/Loader/loader'
+import { colourOptions, ColourOption } from "../Selecteddata/data";
+import SelectLoader from "../components/Loader/selectLoader"
+import chroma from 'chroma-js'
+import Select ,{StylesConfig }from 'react-select'
 
 declare namespace JSX {
   interface IntrinsicElements {
@@ -20,8 +24,9 @@ declare global {
     }
   }
 }
-
+let SelectedName = []
 let FilterJob = [];
+let LanguageFilter=[]
 function ArchivedList() {
   const [sectors, setSectors] = useState([]);
   const [jobs, setJobs] = useState([]);
@@ -31,6 +36,64 @@ function ArchivedList() {
   const [loader, setLoader] = useState(false);
   const [filterData, setFilterData] = useState([]);
   const [status, setStatus] = useState(Boolean);
+  const [nameOptions, setNameOptions] = useState([])
+  const [sectorOptions, setSectorOptions] = useState([]);
+  const [jobOptions, setJobOptions] = useState([]);
+  const [showMore, setShowMore] = useState(false)
+
+
+  const colourStyles: StylesConfig<ColourOption, true> = {
+    control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      const color = chroma(data.color);
+      return {
+        ...styles,
+        backgroundColor: isDisabled
+          ? undefined
+          : isSelected
+            ? data.color
+            : isFocused
+              ? color.alpha(0.1).css()
+              : undefined,
+        color: isDisabled
+          ? '#ccc'
+          : isSelected
+            ? chroma.contrast(color, 'white') > 2
+              ? 'white'
+              : 'black'
+            : data.color,
+        cursor: isDisabled ? 'not-allowed' : 'default',
+
+        ':active': {
+          ...styles[':active'],
+          backgroundColor: !isDisabled
+            ? isSelected
+              ? data.color
+              : color.alpha(0.3).css()
+            : undefined,
+        },
+      };
+    },
+    multiValue: (styles, { data }) => {
+      const color = chroma(data.color);
+      return {
+        ...styles,
+        backgroundColor: color.alpha(0.1).css(),
+      };
+    },
+    multiValueLabel: (styles, { data }) => ({
+      ...styles,
+      color: data.color,
+    }),
+    multiValueRemove: (styles, { data }) => ({
+      ...styles,
+      color: data.color,
+      ':hover': {
+        backgroundColor: data.color,
+        color: 'white',
+      },
+    }),
+  };
 
 
   useEffect(() => {
@@ -44,8 +107,20 @@ function ArchivedList() {
           // console.log(err);
         });
     }
+    let jobResults = jobs.map(ajob => {
+      return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
+    })
+    setJobOptions([...jobResults]);
+    console.log(jobs);
   }, [jobs]);
+  useEffect(() => {
+    console.log(sectors);
+    let sectorops = sectors.map((asector) => {
+      return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
+    })
 
+    setSectorOptions([...sectorops]);
+  }, [sectors])
    useEffect(() => {
     filterFunction()
   }
@@ -61,7 +136,7 @@ function ArchivedList() {
         },
       })
         .then((resD) => resD.json())
-        .then((reD) => setFilterData([...reD]))
+        .then((reD) => reD)
         .catch((err) => err);
     };
   const fetchAllSectors = async () => {
@@ -77,29 +152,31 @@ function ArchivedList() {
       .then((respData) => respData)
       .catch((err) => err);
   };
-  const handleSectorChange = (e: any) => {
-    // console.log(e.target.value)
-
-    FilterJob = [];
-    setSelectedJob([])
-    if (e.target.value === "Select Un Secteur") {
-      setJobs([]);
-      setSelectedSector("");
-      setLoader(true);
-     
-    } else if (e.target.name === "candidatActivitySector") {
-      let sectorField = e.target.value;
-      setSelectedSector(sectorField);
-    }
-
-    fetchAllJobs(e.target.value)
-      .then((data) => {
-        // console.log(data);
-        setJobs([...data.data]);
+  useEffect(() => {
+    if (nameOptions.length == 0) {
+      fetchProfiles().then((profilesResult) => {
+        let nameops = profilesResult.map((pro) => {
+          return { value: pro.candidatName, label: pro.candidatName, color: '#FF8B00' }
+        })
+        setNameOptions([...nameops])
+      }).catch(err => {
+        console.log(err)
       })
-      .catch((err) => {
-        // console.log(err);
-      });
+    }
+  })
+  const handleNameChange = (e: any) => {
+    // console.log(e.target.value)
+    SelectedName = []
+    setSelectedSector("")
+    setSelectedJob([])
+    if (e.value === "Select Un Name") {
+      SelectedName = []
+
+    } else if (e.value !== "") {
+      SelectedName = []
+      let NameField = e.value;
+      SelectedName.push(NameField)
+    }
   };
   useEffect(()=>{
     setSelectedJob(FilterJob)
@@ -119,25 +196,60 @@ function ArchivedList() {
       .catch((err) => err);
   };
 
-  const HandleChecked=(e:any,job:any)=>{
-    // FilterJob=[]
-    if(!FilterJob.find((e) => e == job.jobName)){
-      console.log("hello")
-        FilterJob.push(job.jobName);
-        setSelectedJob(FilterJob);
-      console.log(selectedJob,"selectedjobif")
+  const handleSectorChange = (e: any) => {
+    // console.log(e.target.value)
+    SelectedName = []
+    FilterJob = [];
+    setSelectedJob([])
+    console.log(e)
+    if (e.value === "Select Un Secteur") {
+      setJobs([]);
+      setSelectedSector("");
+      setJobOptions([]);
+      setLoader(true);
+
+    } else if (e.value !== '') {
+      let sectorField = e.value;
+      setSelectedSector(sectorField);
+      setJobOptions([]);
     }
-    else {
-      if(FilterJob.length===1){
-        FilterJob=[]
-      }
-      console.log(FilterJob.length,"index")
-     console.log("not checked")
-     FilterJob= FilterJob.filter((item)=>{return item !==job.jobName})
-      console.log(FilterJob.length,"newarr")
-      setSelectedJob(FilterJob)
-      console.log(selectedJob,"else")
-    } 
+
+    fetchAllJobs(e.value)
+      .then((data) => {
+        // console.log(data);
+        setJobs([...data.data]);
+      })
+      .catch((err) => {
+        // console.log(err);
+      });
+  };
+
+  const jobChange = async (jobval) => {
+    // console.log(jobval)
+    let JobArr=[]
+    jobval.map((el)=>{
+     
+     JobArr.push(el.value)
+  
+    })
+    FilterJob=JobArr
+    filterFunction()
+    console.log(FilterJob,"jee")
+  } 
+
+  const LanguageChange = async (lang) => {
+ 
+
+    // console.log(jobval)
+    let LangArr=[]
+    lang.map((el)=>{
+     
+      LangArr.push(el.value)
+  
+    })
+    LanguageFilter=LangArr
+    filterFunction()
+    console.log(FilterJob,"jee")
   }
 
   
@@ -157,10 +269,30 @@ function ArchivedList() {
   };
   const filterFunction = async () => {
     setLoader(false);
-    if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0){
-      setLoader(true)
-      setStatus(true)
-      fetchProfiles()
+    if (SelectedName.length > 0 ) {
+      if (SelectedName.length > 0) {
+       
+        fetch(`${API_BASE_URL}getCandidats/?candidatName=${SelectedName}`, {
+
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+          .then((reD) => reD.json())
+          .then((result) => {
+            {
+              // setFilterData([...result.data]);
+              // console.log(result,"result")
+              setFilterData([...result.data]);
+            }
+            // setStatus(result.status);
+          })
+          .catch((err) => err);
+        setLoader(true);
+      }
     }
     if (
       selectedSector.length > 0 &&
@@ -244,11 +376,11 @@ function ArchivedList() {
     }
     if (
       selectedSector.length > 0 &&
-      selectedJob.length > 0 &&
-      selectedLanguages.length > 0
+      FilterJob.length > 0 &&
+      LanguageFilter.length > 0
     ) {
       await fetch(
-        `${API_BASE_URL}filterArchivedSJL/?sector=${selectedSector}&jobs=${selectedJob}&languages=${selectedLanguages}`,
+        `${API_BASE_URL}filterArchivedSJL/?sector=${selectedSector}&jobs=${FilterJob}&languages=${LanguageFilter}`,
         {
           method: "GET",
           headers: {
@@ -270,12 +402,15 @@ function ArchivedList() {
     }
 
     if (
-      selectedLanguages.length > 0 &&
+      LanguageFilter.length > 0 &&
       selectedJob.length == 0 &&
       selectedSector.length == 0
     ) {
+      SelectedName=[]
+      FilterJob=[]
+      setSelectedSector("")  
       await fetch(
-        `${API_BASE_URL}filterArchivedCandidatByLanguages/?languages=${selectedLanguages}`,
+        `${API_BASE_URL}filterArchivedCandidatByLanguages/?languages=${LanguageFilter}`,
         {
           method: "GET",
           headers: {
@@ -295,16 +430,30 @@ function ArchivedList() {
         .catch((err) => err);
       setLoader(true);
     }
+    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 ) {
+      {
+        setLoader(true)
+        setStatus(true)
+        fetchProfiles().then(filteredresponse => {
+          setFilterData([...filteredresponse])
+        })
+          .catch(err => {
+            console.log(err);
+          })
+      }
+    }
   };
 useEffect(() => {
   fetchProfiles();
 }, []);
 
+
+
   return (
     <>
       <div className="container-fluid">
         <div className="row pd">
-          <div className="col-12 text-center">
+          {/* <div className="col-12 text-center">
             <img
               src={require("../images/archive.svg").default}
               style={{ width: "70%" }}
@@ -316,89 +465,144 @@ useEffect(() => {
               Here you have the list of candidates who have been fired or
               archived
             </p>
-          </div>
-          <div className="col-6">
-            <p>Filtre Secteur d’Activité</p>
-            <div className="dropdown">
-              <div aria-labelledby="dropdownMenuButton1">
-                <select
-                  name="candidatActivitySector"
-                  className="form-select"
-                  onChange={handleSectorChange}
-                  onClick={() => {
-                    setSelectedJob([]);
-                    filterFunction();
-                  }}
-                >
-                  <option>Select Sectors</option>
-                  {sectors &&
-                    sectors.map((sector) => (
-                      <option value={sector.sectorName}>
-                        <a className="dropdown-item" href="#">
-                          {sector.sectorName}
-                        </a>
-                      </option>
-                    ))}
-                </select>
-              </div>
-            </div>
-            <p className="last-child">Filtre Langues du candidat</p>
-            <div>
-              <div>
-                <input type="checkbox" name="language" value="Roumain" onClick={getSelectedLanguage} />
-                <span className="ps-2">Roumain</span>
-              </div>
-              <div>
-                <input type="checkbox" name="language" value="Francais" onClick={getSelectedLanguage} />
-                <span className="ps-2">Français</span>
-              </div>
-              <div>
-                <input type="checkbox" name="language" value="Anglais" onClick={getSelectedLanguage} />
-                <span className="ps-2">Anglais</span>
-              </div>
-              <div>
-                <input type="checkbox" name="language" value="Italien" onClick={getSelectedLanguage} />
-                <span className="ps-2">Italien</span>
-              </div>
-              <div>
-                <input type="checkbox" name="language" value="Russe" onClick={getSelectedLanguage} />
-                <span className="ps-2">Russe</span>
-              </div>
-              <div>
-                <input type="checkbox" name="language" value="Espagnol" onClick={getSelectedLanguage} />
-                <span className="ps-2">Espagnol</span>
-              </div>
-              <div>
-                <input type="checkbox" name="language" value="Autre" onClick={getSelectedLanguage} />
-                <span className="ps-2">Autre</span>
+          </div> */}
+               <div className="col-12 card-tops px-1 mt-1" style={{ padding: "0px", marginBottom: "20px" }}>
+            <div className="row text-start">
+              <div className="card " style={{ padding: "15px 15px", borderRadius: "15px", marginBottom: "0px" }}>
+                <div className="">
+              <h1 className="fontStylingArchived">Candidats / Employes<span>Canceled/Archive</span></h1>
+                 <p className="ArchivedChild">
+                 Ici vous avez la liste des candidats ne travaillant<span> pas encore avec nous </span>
+                  </p>
+                  <p className="ArchivedChild">
+                  Here you have the list of candidates who have been fired or
+              archived
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-          <div className="col-6">
-            <p>Filtre selection métier / job</p>
-            <div className="box">
-              <ul className="list-group">
-              {jobs.length > 0 ? (
-                  jobs.map((job) => (
+          <div className="col-12 bg-white p-2 rounded001 mb-1">
+            <div className="row ">
+              <div className="col-4">
+                <p className="filtersLabel">Filtre by name</p>
+                <div className="dropdown">
+                  <div aria-labelledby="dropdownMenuButton1">
+                    {
+                      nameOptions.length > 0 ?
+                        <Select
+                          name="candidatName"
+                          closeMenuOnSelect={true}
+                          placeholder="‎ ‎ ‎ Select Un Candidat"
+                          className="basic-multi-select"
+                          classNamePrefix="select"
+                          onChange={handleNameChange}
+                          options={nameOptions}
+                          styles={colourStyles}
+                        /> :<SelectLoader />
+                                            }
+                  
+                  </div>
+                </div>
+              </div>
+              <div className="col-4">
+                <p className="filtersLabel">Filtre Secteur d’activité</p>
+                <div className="dropdown">
+                  <div aria-labelledby="dropdownMenuButton1">
+                    {sectorOptions.length > 0 ?
+                      <Select
+                        name="candidatActivitySector"
+                        closeMenuOnSelect={true}
+                        placeholder="‎ ‎ ‎ Select Un Secteur"
+                        className="basic-multi-select"
+                        classNamePrefix="select"
+                        onChange={handleSectorChange}
+                        options={sectorOptions}
+                        styles={colourStyles}
+                      /> : <p>Select Un Secteur!</p>
+                    }
                    
-                      <li
-                      className="job-ul list-group-item list-group-item-action"
-                      onClick={(e)=>{HandleChecked(e,job);filterFunction()}} value={job.jobName}
-                    > <span style={{color:"black",textAlign:"center",width:"100%",display:"flex",justifyContent:"space-between"}}>
-                     {selectedJob.find((e) => e == job.jobName) ? (
-                            <div className="tick"></div>
-                        ) : null} 
-                    <p>{job.jobName}</p></span>
-                     
-                    </li>
-                  ))
-                ) : (
-                  <p>Please Select a Sector to view Jobs!</p>
-                )}
-              </ul>
+                  </div>
+                </div>
+              </div>
+              <div className="col-4">
+                <p className="filtersLabel">Filtre selection métier / job</p>
+                <div>
+                  {jobOptions.length > 0 ?
+                    <Select
+                      name="jobName"
+                      closeMenuOnSelect={true}
+                      isMulti
+                      placeholder="‎ ‎ ‎ Select"
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                      onChange={jobChange}
+                      options={jobOptions}
+                      styles={colourStyles}
+                    /> : <p>Select A Sector!</p>
+                  }
+                </div>
+              </div>
+              {
+                showMore ?
+                  <>
+                    <div className="col-12 pt-1">
+                      <div className="row">
+                        <div className="col-4 pt-1">
+                          <p className="filtersLabel">Filtre by Client</p>
+                          <div className="dropdown">
+                            <div aria-labelledby="dropdownMenuButton1">
+                              <Select
+                                name="ClientFilter"
+                                closeMenuOnSelect={true}
+                                placeholder="‎ ‎ ‎ Select Motivation du Candidat"
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                                styles={colourStyles}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-4 pt-1">
+                          <p className="filtersLabel ">Filtre Langues du candidat</p>
+                        <Select
+                          name="candidatLanguages"
+                          closeMenuOnSelect={false}
+                          isMulti
+                          placeholder="‎ ‎ ‎Select Langues"
+                          className="basic-multi-select"
+                          classNamePrefix="select"
+                          onChange={LanguageChange}
+                          options={colourOptions}
+                          styles={colourStyles}
+                        />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="extraPadding">
+                      <div className="col-12">
+                        <div className="row justify-content-end">
+                          <div className="col-4 d-flex justify-content-end">
+                            <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(false)}>Less Filters <img src={require("../images/downup.svg").default} /></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+
+                  :
+                  <div className="extraPadding">
+                    <div className="col-12">
+                      <div className="row justify-content-end">
+                        <div className="col-4 d-flex justify-content-end">
+                          <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(true)}>More Filters <img src={require("../images/down.svg").default} /></p>
+                        </div>
+                      </div>
+                    </div></div>
+              }
             </div>
           </div>
-          <hr className="new5" />
+       
          
             <>
             {loader ? 
@@ -406,7 +610,7 @@ useEffect(() => {
                   {status ? 
                     filterData.length > 0 ? 
                       filterData.map((profile, index) => (
-                        <div className="col-4 mt-2 pd-left">
+                        <div className="col-4  pd-left">
                           <ArchivedProfileCard  props={profile}  />
                         </div>
                       ))

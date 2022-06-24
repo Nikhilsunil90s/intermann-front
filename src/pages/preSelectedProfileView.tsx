@@ -105,7 +105,7 @@ function PreSelectedView() {
 
           <div className="">
             <div className="col-12 p-0">
-              <div className="row bg-todoTodoDetails">
+              <div className="row bg-preDetails">
                 <div className="col-2 text-center ">
                   <img
                     src={require("../images/menlogos.svg").default}
@@ -121,7 +121,7 @@ function PreSelectedView() {
   // defaultValue={uploadOption[0]}
 />
                 </div>
-                <div className="col-5 card-TodoProfile">
+                <div className="col-5 card-preProfile">
                   <div className="d-flex">
                     <p>
                       Name : {profile.candidatName.toLocaleUpperCase()}|{profile.candidatAge}
@@ -179,7 +179,7 @@ function PreSelectedView() {
                   id="style-3"
                   style={{ maxWidth: "49%", marginRight: "10px" }}
                 >
-                  <div className="Todo-CardMore force-overflow">
+                  <div className="pre-CardMore force-overflow">
                     <div className="d-flex">
                       <p>Langues : </p>
                       <span> {profile.candidatLanguages.join(", ")}</span>
@@ -352,7 +352,7 @@ function PreSelectedView() {
                 <div className="col-3 text-center">
                   <button
                     type="button"
-                    className="btn btn-Archived"
+                    className="btn btn-pre-Archived"
                     onClick={() => setShowArchiveModal(true)}
                   >
                     Archive / Canceled
@@ -369,7 +369,7 @@ function PreSelectedView() {
                 <div className="col-3 text-center">
                   <button
                     type="button"
-                    className="btn btn-EditProfile"
+                    className="btn btn-pre-EditProfile"
                     onClick={editCandidatProfile}
                   >
                     <img src={require("../images/Edit.svg").default} />
@@ -380,7 +380,7 @@ function PreSelectedView() {
                 <div className="col-3 text-center">
                   <button
                     type="button"
-                    className="btn btn-CVManual"
+                    className="btn btn-pre-CVManual"
                     onClick={editCandidatProfile}
                   >
                     <img src={require("../images/resume.svg").default} />
@@ -391,7 +391,7 @@ function PreSelectedView() {
                   </p>
                 </div>
           <div className="col-3 text-center">
-                  <button type="button" className="btn btn-moveProgress" onClick={() => setShowInProgressModal(true)}>
+                  <button type="button" className="btn btn-pre-moveProgress" onClick={() => setShowInProgressModal(true)}>
                     Move to In Progress
                   </button>
                   {showInProgressModal ?
@@ -399,6 +399,10 @@ function PreSelectedView() {
                   }
                   <p className="italic-fontStyle">Si embaché pour un client en cours de recherche</p>
                 </div>
+                </div>
+              </div>
+              <div className="col-12 Social-Card mt-1">
+              <div className="row p-1 justify-content-between">
                 <div className="col-6 CandidateCV">
                   <div className="row p-2">
                     <div className="col-12">
@@ -514,6 +518,8 @@ function PreSelectedView() {
                       />
                     </div>
                   </div>
+                </div>
+                </div>
                 </div>
               </div>
             </div>
@@ -753,8 +759,6 @@ function PreSelectedView() {
                       />
                     </div>
                   </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

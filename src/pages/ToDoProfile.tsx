@@ -415,7 +415,7 @@ function ToDoProfile() {
                   </button>
                   {showArchiveModal ? (
                     <ArchivedModal
-                      props={profile.candidatName}
+                      props={profile}
                       closeModal={setShowArchiveModal}
                       path={"/todolist"}
                     />

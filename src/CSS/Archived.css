@@ -303,3 +303,19 @@ thead {
 .btn-bgb:hover {
   color: #fe8700;
 }
+
+
+
+/* Modal Archived */
+
+.modalStylingfontArchive{
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 24px;
+color: #000000;
+}
+.modalStylingfontArchive span{
+  color: #FF0000;
+}

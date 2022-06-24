@@ -1,15 +1,70 @@
 import React from "react";
 import '../../CSS/PreModal.css'
-import Select from 'react-select'
+import Select,{StylesConfig} from 'react-select'
+import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../../Selecteddata/data';
+import chroma from 'chroma-js';
 
 function PreModal({props,closepreModal}) {
     const option=[{
-        value:"hello",label:"hello"
+        value:"hello",label:"hello",color:"#FF8B00"
     }]
     console.log(props.candidatName)
     const HandelLicence=(e:any)=>{
-        debugger
+      // debugger
+   
     }
+    const colourStyles: StylesConfig<ColourOption, true> = {
+      control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+      option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+        const color = chroma(data.color);
+        return {
+          ...styles,
+          backgroundColor: isDisabled
+            ? undefined
+            : isSelected
+              ? data.color
+              : isFocused
+                ? color.alpha(0.1).css()
+                : undefined,
+          color: isDisabled
+            ? '#ccc'
+            : isSelected
+              ? chroma.contrast(color, 'white') > 2
+                ? 'white'
+                : 'black'
+              : data.color,
+          cursor: isDisabled ? 'not-allowed' : 'default',
+  
+          ':active': {
+            ...styles[':active'],
+            backgroundColor: !isDisabled
+              ? isSelected
+                ? data.color
+                : color.alpha(0.3).css()
+              : undefined,
+          },
+        };
+      },
+      multiValue: (styles, { data }) => {
+        const color = chroma(data.color);
+        return {
+          ...styles,
+          backgroundColor: color.alpha(0.1).css(),
+        };
+      },
+      multiValueLabel: (styles, { data }) => ({
+        ...styles,
+        color: data.color,
+      }),
+      multiValueRemove: (styles, { data }) => ({
+        ...styles,
+        color: data.color,
+        ':hover': {
+          backgroundColor: data.color,
+          color: 'white',
+        },
+      }),
+    };
   return (
     <>
     
@@ -38,13 +93,13 @@ function PreModal({props,closepreModal}) {
             <div className="modal-body">
 
 <p className="ChildStylePreModal">pour quel client {props.candidatName} est selectionné ?</p>
-<div > <Select
+<div >                        <Select
                                 name="candidatLicencePermis"
                                 closeMenuOnSelect={true}
                                 placeholder="{Client_List}"
                                 className="basic-select preSelectModal" 
-                                classNamePrefix="select "
-                                
+                                classNamePrefix="select"
+                                styles={colourStyles}
                                 onChange={HandelLicence}
                                 options={option}
                                 // styles={colourStyles}

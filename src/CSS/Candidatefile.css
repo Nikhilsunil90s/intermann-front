@@ -98,7 +98,7 @@ color: #000000;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
-    line-height: 26px;
+    line-height: 45px;
     text-decoration-line: underline;
     color: #000000;
     margin-bottom:0px ;
@@ -108,7 +108,7 @@ color: #000000;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
-    line-height: 28px;
+    line-height: 45px;
     color: #000000;
     margin-bottom:0px ;
     margin-left:5px;
@@ -375,6 +375,7 @@ font-weight: 700;
 font-size: 15px;
 line-height: 27px;
 color: #FFFFFF;
+padding: 15px 30px;
 }
 .btn-Archived{
     background: #FF0000;
@@ -385,6 +386,8 @@ font-weight: 600;
 font-size: 16px;
 line-height: 27px;
 color: #FFFFFF;
+padding: 15px 30px;
+
 }
 .btn-EditProfile{
     background: #032339;
@@ -396,6 +399,8 @@ font-weight: 600;
 font-size: 18px;
 line-height: 27px;
 color: #FFFFFF;
+padding: 15px 40px;
+
 }
 .btn-CVManual{
     background: #032339;
@@ -406,6 +411,8 @@ font-weight: 600;
 font-size: 15px;
 line-height: 27px;
 color: #FFFFFF;
+padding: 15px 30px;
+
 }
 .CandidateCV{
     background: #E6EEFF;
@@ -776,4 +783,5 @@ color: #000000 !important;
     font-size: 15px;
     line-height: 27px;
     color: #FFFFFF;
+    padding: 15px 30px;
 }
