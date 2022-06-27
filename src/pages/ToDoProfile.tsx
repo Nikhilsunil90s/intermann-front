@@ -24,6 +24,7 @@ function ToDoProfile() {
   const hiddenFileInput = React.useRef(null);
   const [candidatContactOne, setCandidatContactOne] = useState(profile.candidatPhone != "" ? profile.candidatPhone.split(" ").join("") : "");
   const [candidatContactTwo, setCandidatContactTwo] = useState(profile.candidatAlternatePhone != "" ? profile.candidatAlternatePhone.split(" ").join("") : "");
+  const [inputField,setinputField]=useState(true)
  const uploadOption=[
  {value:"upload",label:<Upload />,},
  {value:"Download Image",label:<Download />} 
@@ -444,8 +445,10 @@ function ToDoProfile() {
                     Edit CV with Canva
                   </p>
                 </div>
+                </div>
+                </div>
 
-                <div className="col-6 CandidateCV">
+                {/* <div className="col-6 CandidateCV">
                   <div className="row p-2">
                     <div className="col-12">
                       <div className="row">
@@ -483,9 +486,9 @@ function ToDoProfile() {
                       />
                     </div>
                   </div>
-                </div>
+                </div> */}
 
-                <div className="col-6 CandidateCV">
+                {/* <div className="col-6 CandidateCV">
                   <div className="row p-2">
                     <div className="col-12">
                       <div className="row">
@@ -523,10 +526,82 @@ function ToDoProfile() {
                       />
                     </div>
                   </div>
-                </div>
-                <div className="col-6">
-                  <p className="candidatecVs pt-2">Candidate CVs</p>
-                  <div className="row CardClassDownload mt-1">
+                </div> */}
+                <div className="col-12 Social-Card mt-1">
+                  <div className="row justify-content-center">
+                    {/* <div className="col-12 CandidateCV">
+                  <div className="row p-2">
+                    <div className="col-12">
+                      <div className="row">
+                        <div className="col-3 d-flex justify-content-end">
+                          <img
+                            style={{ width: "25%" }}
+                            src={require("../images/CandidateCv.svg").default}
+                          />
+                        </div>
+                        <div className="col-9 px-0 py-1 d-grid align-items-center">
+                       <div className=" align-items-center">   <p className="mb-0 UploadCandidat">
+                          Upload Candidate CV Made by candidate & Other document
+                          </p></div>
+                          <div className=" align-items-center">
+                          <p className="mb-0 dropFile">
+                          Drop your file here or browse
+                          </p>
+                          </div>
+                        </div>
+                    
+                
+                  </div>
+                  </div>
+                  <div className="col-12">
+                      <div className="row  justify-content-center">
+                      <div className="col-6">
+
+                      <FileUploadProgress
+                        key="ex1"
+                        onProgress={(e, request, progress) => {
+                          console.log("progress", e, request, progress);
+                        }}
+                        onLoad={(e, request) => {
+                          console.log("load", e, request);
+                        }}
+                        onError={(e, request) => {
+                          console.log("error", e, request);
+                        }}
+                        onAbort={(e, request) => {
+                          console.log("abort", e, request);
+                        }}
+                      />
+                    </div>
+                  </div>
+                  </div>
+                    </div>
+                    </div> */}
+                    <div className="col-12 d-flex justify-content-center">
+                       {inputField?
+                      <button className="CandidateCV" onClick={()=>setinputField(false)}>
+
+                         <div className="col-8">
+                            <img src={require("../images/Upload+text.svg").default} />
+                          </div>  
+                          </button>      
+                    :
+                <> 
+                      <button className="CandidateCV">
+                   <div className="col-8">
+                    <img src={require("../images/Upload+text.svg").default} />
+                    <input type="file" />   
+              
+                  </div>
+                
+                   </button>
+                   </>
+                       }
+                    </div>
+                <div className="col-12">
+                  <div className="row"><div className="col-6  pr-0 mb-1">
+                  <p className="candidatecVs pt-2">Candidate CV & Other Document</p>
+                  <div className="row CardClassDownload mt-1 mx-0 ">
                     <div className="col-4 d-flex align-items-center ">
                       <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
                     </div>
@@ -537,116 +612,43 @@ function ToDoProfile() {
                       </button>
                     </div>
                     <div className="col-2  d-flex align-item-end justify-content-end">
+                    <img
+                        src={require("../images/editSvg.svg").default}
+                        style={{ width: "20px",marginRight:"5px" }}
+                      />
                       <img
                         src={require("../images/Primaryfill.svg").default}
                         style={{ width: "20px" }}
                       />
                     </div>
                   </div>
-                </div>
-                <div className="col-6">
-                  <p className="candidatecVs pt-2">Candidate CVs</p>
-                  <div className="row CardClassDownload mt-1">
+                  
+                  </div>
+                  <div className="col-6 mx-0" style={{marginTop:"43px"}}>
+                  <div className="row CardClassDownload mt-1 mx-0">
                     <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
+                      <p className="download-font mb-0">Passport / ID.pdf</p>
                     </div>
                     <div className="col-6">
-                      <button className="btnDownload">Jhon-smith-cv.pdf</button>
+                      <button className="btnDownload">
+                        <img src={require("../images/dowBtn.svg").default} />
+                        Jhon-smith-cv.pdf
+                      </button>
                     </div>
-                    <div className="col-2 px-0 d-flex align-item-end justify-content-end">
+                    <div className="col-2  d-flex align-item-end justify-content-end">
+                    <img
+                        src={require("../images/editSvg.svg").default}
+                        style={{ width: "20px",marginRight:"5px" }}
+                      />
                       <img
                         src={require("../images/Primaryfill.svg").default}
                         style={{ width: "20px" }}
                       />
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-12 Social-Card mt-1">
-              <div className="row p-1 justify-content-between">
-                <div className="col-6 CandidateCV">
-                  <div className="row p-2">
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-3 d-flex justify-content-end">
-                          <img
-                            style={{ width: "50%" }}
-                            src={require("../images/CandidateCv.svg").default}
-                          />
-                        </div>
-                        <div className="col-9 px-0">
-                          <p className="mb-0 UploadCandidat">
-                            Upload Passport / ID{" "}
-                          </p>
-                          <p className="mb-0 dropFile">
-                            Drop your file here or browse
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pt-1 px-3">
-                      <FileUploadProgress
-                        key="ex1"
-                        onProgress={(e, request, progress) => {
-                          console.log("progress", e, request, progress);
-                        }}
-                        onLoad={(e, request) => {
-                          console.log("load", e, request);
-                        }}
-                        onError={(e, request) => {
-                          console.log("error", e, request);
-                        }}
-                        onAbort={(e, request) => {
-                          console.log("abort", e, request);
-                        }}
-                      />
-                    </div>
                   </div>
-                </div>
-
-                <div className="col-6 CandidateCV">
-                  <div className="row p-2">
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-3 d-flex justify-content-end">
-                          <img
-                            style={{ width: "50%" }}
-                            src={require("../images/CandidateCv.svg").default}
-                          />
-                        </div>
-                        <div className="col-9 px-0">
-                          <p className="mb-0 UploadCandidat">
-                            Upload Candidate A1 Document
-                          </p>
-                          <p className="mb-0 dropFile">
-                            Drop your file here or browse
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pt-1 px-3">
-                      <FileUploadProgress
-                        key="ex1"
-                        onProgress={(e, request, progress) => {
-                          console.log("progress", e, request, progress);
-                        }}
-                        onLoad={(e, request) => {
-                          console.log("load", e, request);
-                        }}
-                        onError={(e, request) => {
-                          console.log("error", e, request);
-                        }}
-                        onAbort={(e, request) => {
-                          console.log("abort", e, request);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-6">
-                  <p className="candidatecVs pt-2">Candidate Passport / ID </p>
-                  <div className="row CardClassDownload mt-1">
+                  <div className="col-6  pr-0">
+                  <div className="row CardClassDownload mt-1 mx-0">
                     <div className="col-4 d-flex align-items-center ">
                       <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
                     </div>
@@ -656,154 +658,26 @@ function ToDoProfile() {
                         Jhon-smith-cv.pdf
                       </button>
                     </div>
-                    <div className="col-2 px-0 d-flex align-item-end justify-content-end">
+                    <div className="col-2  d-flex align-item-end justify-content-end">
+                    <img
+                        src={require("../images/editSvg.svg").default}
+                        style={{ width: "20px",marginRight:"5px" }}
+                      />
                       <img
                         src={require("../images/Primaryfill.svg").default}
                         style={{ width: "20px" }}
                       />
                     </div>
                   </div>
-                </div>
-                <div className="col-6">
-                  <p className="candidatecVs pt-2">Candidate A1 Document</p>
-                  <div className="row CardClassDownload mt-1">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">Jhon-smith-cv.pdf</button>
-                    </div>
-                    <div className="col-2 px-0 d-flex align-item-end justify-content-end">
-                      <img
-                        src={require("../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
+                  
                   </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-12 Social-Card mt-1">
-              <div className="row p-1 justify-content-between">
-                <div className="col-6 CandidateCV">
-                  <div className="row p-2">
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-3 d-flex justify-content-end">
-                          <img
-                            style={{ width: "50%" }}
-                            src={require("../images/CandidateCv.svg").default}
-                          />
-                        </div>
-                        <div className="col-9 px-0">
-                          <p className="mb-0 UploadCandidat">
-                            Upload Passport / ID{" "}
-                          </p>
-                          <p className="mb-0 dropFile">
-                            Drop your file here or browse
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pt-1 px-3">
-                      <FileUploadProgress
-                        key="ex1"
-                        onProgress={(e, request, progress) => {
-                          console.log("progress", e, request, progress);
-                        }}
-                        onLoad={(e, request) => {
-                          console.log("load", e, request);
-                        }}
-                        onError={(e, request) => {
-                          console.log("error", e, request);
-                        }}
-                        onAbort={(e, request) => {
-                          console.log("abort", e, request);
-                        }}
-                      />
-                    </div>
                   </div>
                 </div>
 
-                <div className="col-6 CandidateCV">
-                  <div className="row p-2">
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-3 d-flex justify-content-end">
-                          <img
-                            style={{ width: "50%" }}
-                            src={require("../images/CandidateCv.svg").default}
-                          />
-                        </div>
-                        <div className="col-9 px-0">
-                          <p className="mb-0 UploadCandidat">
-                            Upload Candidate A1 Document
-                          </p>
-                          <p className="mb-0 dropFile">
-                            Drop your file here or browse
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pt-1 px-3">
-                      <FileUploadProgress
-                        key="ex1"
-                        onProgress={(e, request, progress) => {
-                          console.log("progress", e, request, progress);
-                        }}
-                        onLoad={(e, request) => {
-                          console.log("load", e, request);
-                        }}
-                        onError={(e, request) => {
-                          console.log("error", e, request);
-                        }}
-                        onAbort={(e, request) => {
-                          console.log("abort", e, request);
-                        }}
-                      />
-                    </div>
-                  </div>
                 </div>
-                <div className="col-6">
-                  <p className="candidatecVs pt-2">Candidate Other Document</p>
-                  <div className="row CardClassDownload mt-1">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">
-                        <img src={require("../images/dowBtn.svg").default} />
-                        Jhon-smith-cv.pdf
-                      </button>
-                    </div>
-                    <div className="col-2 px-0 d-flex align-item-end justify-content-end">
-                      <img
-                        src={require("../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-6">
-                  <div className="row mt-4 CardClassDownload mt-1">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">Jhon-smith-cv.pdf</button>
-                    </div>
-                    <div className="col-2 px-0 d-flex align-item-end justify-content-end">
-                      <img
-                        src={require("../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
       </div>
     </>
   );

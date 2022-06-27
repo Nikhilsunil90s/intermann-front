@@ -56,15 +56,15 @@ function ToDoList() {
 
   const [motivationOptions, setMotivationOptions] = useState([
     {
-      value: "1", label: "😔 Dissapointed", color: '#FF8B00'
+      value: "1", label: "Dissapointed", color: '#FF8B00'
     }, {
-      value: "2", label: "🙁 Not really", color: '#FF8B00'
+      value: "2", label: "Not really", color: '#FF8B00'
     }, {
-      value: "3", label: "😊 Like", color: '#FF8B00'
+      value: "3", label: "Like", color: '#FF8B00'
     }, {
-      value: "4", label: "🥰 Great", color: '#FF8B00'
+      value: "4", label: "Great", color: '#FF8B00'
     }, {
-      value: "5", label: "😍 Superlovely", color: '#FF8B00'
+      value: "5", label: "Superlovely", color: '#FF8B00'
     }
   ])
   const [LicensePermis, setLicensePermis] = useState(Boolean) as any

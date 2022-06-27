@@ -416,17 +416,32 @@ padding: 15px 30px;
 }
 .CandidateCV{
     background: #E6EEFF;
-border: 1px dashed #3F76E2;
-border-radius: 8px;
-max-width: 49%;
+    border: 1px dashed #3F76E2;
+    border-radius: 8px;
+    width: 100%;
+    height: 90px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .UploadCandidat{
     font-family: 'Work Sans';
-font-style: normal;
-font-weight: 500;
-font-size: 12px;
-line-height: 14px;
-color: #032339;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    color: #032339;
+    
+}
+input[type="file" i] {
+    background: transparent;
+    color: #E6EEFF;
+    width: 143% !important;
+    position: absolute;
+    height: 115%;
+    left: -134px !important;
+
 }
 .dropFile{
     font-family: 'Work Sans';
@@ -434,6 +449,8 @@ font-style: normal;
 font-weight: 300;
 font-size: 12px;
 line-height: 14px;
+display: flex;
+align-items: flex-start;
 color: #032339;
 
 }
