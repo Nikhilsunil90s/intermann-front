@@ -32,3 +32,70 @@ export interface ColourOption {
     {value: 'Jobble', label: 'Jobble', color: '#FF8B00'  },
 
   ];
+
+  export const NumberOfPost: readonly ColourOption[] = [
+    {value: '0', label: '0', color:  '#FF8B00' },
+    {  value: '1', label: '1',  color:  '#FF8B00', },
+    {value: '2', label: '2', color: '#FF8B00' },
+    {value: '3', label: '3', color: '#FF8B00'  },
+    {  value: '4', label: '4',  color:  '#FF8B00', },
+    {value: '5', label: '5', color: '#FF8B00' },
+    {value: '6', label: '6', color: '#FF8B00'  },
+    {value: '7', label: '7', color: '#FF8B00'  },
+    {value: '8', label: '8', color: '#FF8B00'  },
+    {value: '9', label: '9', color: '#FF8B00'  },
+    {value: '10', label: '10', color: '#FF8B00'  },
+    {value: '11', label: '11' ,color: '#FF8B00'  },
+    {value: '12', label: '12', color: '#FF8B00'  },
+    {value: '13', label: '13', color: '#FF8B00'  },
+    {value: '14', label: '14', color: '#FF8B00'  },
+    {value: '15', label: '15', color: '#FF8B00'  },
+    {value: '16', label: '16', color: '#FF8B00'  },
+    {value: '17', label: '17', color: '#FF8B00'  },
+    {value: '18', label: '18', color: '#FF8B00'  },
+    {value: '19', label: '19', color: '#FF8B00'  },
+    {value: '20', label: '20', color: '#FF8B00'  },
+    {value: '21', label: '21', color: '#FF8B00'  },
+    {value: '22', label: '22', color: '#FF8B00'  },
+    {value: '23', label: '23', color: '#FF8B00'  },
+    {value: '24', label: '24', color: '#FF8B00'  },
+    {value: '25', label: '25', color: '#FF8B00'  },
+    {value: '26', label: '26', color: '#FF8B00'  },
+    {value: '27', label: '27', color: '#FF8B00'  },
+    {value: '28', label: '28', color: '#FF8B00'  },
+    {value: '29', label: '29', color: '#FF8B00'  },
+    {value: '30', label: '30', color: '#FF8B00'  },
+    {value: '31', label: '31', color: '#FF8B00'  },
+    {value: '32', label: '32', color: '#FF8B00'  },
+    {value: '33', label: '33', color: '#FF8B00'  },
+    {value: '34', label: '34', color: '#FF8B00'  },
+    {value: '35', label: '35', color: '#FF8B00'  },
+  ];
+
+  
+  export const optionsOfSEO: readonly ColourOption[] = [
+    {value: 'GOOGLE ADS', label: 'GOOGLE ADS', color:  '#FF8B00' },
+    {  value: 'FACEBOOK', label: 'FACEBOOK',  color:  '#FF8B00', },
+    {value: 'EUROPAGES', label: 'EUROPAGES', color: '#FF8B00' },
+    {value: 'KOMPASS', label: 'KOMPASS', color: '#FF8B00'  },
+    {  value: 'BOGDAN', label: 'BOGDAN',  color:  '#FF8B00', },
+    {value: ' PATRICK ROGGY', label: 'PATRICK ROGGY', color: '#FF8B00' },
+    {value: 'ADRIAN TUDOR CONTACT', label: 'ADRIAN TUDOR CONTACT ', color: '#FF8B00'  },
+    {value: 'PATRICK B CONTACT', label: 'PATRICK B CONTACT', color: '#FF8B00'  },
+    {value: 'JEREMY CONTACT', label: 'JEREMY CONTACT', color: '#FF8B00'  },
+    {value: 'AUTRE', label: 'AUTRE', color: '#FF8B00'  },
+
+  ];
+  export const COFAC: readonly ColourOption[] = [
+    {value: '0', label: '0', color:  '#FF8B00' },
+    {  value: '1', label: '1',  color:  '#FF8B00', },
+    {value: '2', label: '2', color: '#FF8B00' },
+    {value: '3', label: '3', color: '#FF8B00'  },
+    {  value: '4', label: '4',  color:  '#FF8B00', },
+    {value: '5', label: '5', color: '#FF8B00' },
+    {value: '6', label: '6', color: '#FF8B00'  },
+    {value: '7', label: '7', color: '#FF8B00'  },
+    {value: '8', label: '8', color: '#FF8B00'  },
+    {value: '9', label: '9', color: '#FF8B00'  },
+    {value: '10', label: '10', color: '#FF8B00'  }
+  ]

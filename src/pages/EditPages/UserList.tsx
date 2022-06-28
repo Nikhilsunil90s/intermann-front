@@ -1,8 +1,4 @@
 import React from 'react'
-import { ClassificationType } from "typescript";
-import AddJobModal from "../../components/Modal/Add_Modal";
-import Add_Sector from "../../components/Modal/Add_Sector";
-import RenameModal from "../../components/Modal/RenameModal";
 import "../../CSS/AddSector.css";
 import { useState, useEffect } from "react";
 import UserAddModal from '../../components/Modal/AddUser';
@@ -58,15 +54,24 @@ function UserList(){
         <>
  <div className="container">
                 <div className="row">
-                    <div className="col-12 flex-wrap">
-                        <h1 className="titleAdd">ADD users</h1>
-                    </div>
-                    <div className="col-12 vw-Box">
+                    <div className="col-12 vw-UserBox">
                         <div className="row">
-                            <div className="col-12 bg-light">
-                                <div className="row">
-                                    <h1 className="list-001">List of users</h1>
-                                    <div className="col-12 pt-3">
+                            <div className="col-12">
+                                <div className="row Top-UserHeading">
+                                    <div className='col-6 d-flex align-items-center'>
+                                    <h1 className="list-0012 mb-0 ml-1">Users List</h1>
+                                    </div>
+                                    <div className='col-6  text-end'>
+                                    <button
+                                                        className="btn btn-AddUser"
+                                                      onClick={()=>setAddModal(true)}
+                                                    >
+                                                     + ‎ Add an user
+                                                    </button>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div className="col-12 bg-ListOfUsers pt-1">
                                         {/* {sectorsList.length > 0 ? sectorsList.map((sector) => */}
 
 
@@ -74,12 +79,12 @@ function UserList(){
                         allUsers.map((el)=>(
                             <div className="row">
 <ul style={{ listStyle: "none" }}>
-    <li className="pt-2">
-        <div className="col-12 pd-lr">
+    <li className="Radius-Border">
+        <div className="col-12 pd-Userlr">
             <div className="row">
                 <div className="col-6 text-start d-flex align-item-center">
                  {el.emailAddress?
-                            <p className="A0012">{el.emailAddress}</p>
+                            <p className="A0012">Email:‎ {el.emailAddress} ‎ -‎ Password:‎ ........</p>
                             :
                             <div className='d-flex justify-content-start'>
                             <div className="load"></div>
@@ -87,12 +92,13 @@ function UserList(){
                  }
                    
                 </div>
-                <div className="col-6 text-end">
+                <div className="col-6 d-flex justify-content-end">
 
                             <button
                                 className="btn btn-delete"   
                                 onClick={(e)=>{setDeleteModal(true);setDeleteField(el)}}
                             >
+                                <img src={require("../../images/Deletebucket.svg").default} />
                                Delete User
                             </button>
                         </div>
@@ -123,24 +129,8 @@ deleteModal?
                                                 <UserAddModal closeModal={setAddModal} />
                                                 : null
                                         }
-                                 
-                                        <div className="col-12  pb-3">
-                                            <div className="row ">
-                                                <div className="col-12 text-center">
-                                                  
-                                                    <button
-                                                        className="btn btn-green"
-                                                      onClick={()=>setAddModal(true)}
-                                                    >
-                                                      Add an user
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

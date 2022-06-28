@@ -239,7 +239,8 @@ function ToDoList() {
     if (e.value === "Select Un Name") {
       SelectedName = []
 
-    } else if (e.value !== "") {
+    }
+    else if (e.value !== "") {
       SelectedName = []
       MotivationArr = []
       let NameField = e.value;

@@ -50,10 +50,10 @@ console.log(res,"res")
       >
        
         <div className="modal-dialog">
-          <div className="modal-content">
+          <div className="modal-content" style={{width:"650px"}}>
             <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-              Add user
+              <h5 className="modal-title Add-ModalUserStyle" id="exampleModalLabel">
+              Add New user
               </h5>
               <button
                 type="button"
@@ -65,9 +65,12 @@ console.log(res,"res")
                 }}
               ></button>
             </div>
-            <div className="modal-body  text-start">
-              <label className="form-label mb-0 fs-6">Email</label>
-              <input
+            <div className="modal-body d-flex  text-start mt-1">
+            <div className="col-12">
+              <div className="row">
+                <div className="col-6">
+              <label className="form-label fontStylingLabel mb-0 fs-6">User Email</label>
+            <input
                 type="email"
                 name="email"
                 className="form-control"
@@ -77,10 +80,11 @@ console.log(res,"res")
                 placeholder="Enter email..."
             autoComplete="off"
               />
-              <div className="mt-2">
+              </div>
+              <div className="col-6">
                 <label
                   htmlFor="validationCustom02"
-                  className="form-label mb-0 fs-6"
+                  className="form-label mb-0 fontStylingLabel"
                 >
                   Password
                 </label>
@@ -96,24 +100,25 @@ console.log(res,"res")
                   autoComplete="off"
                 />
               </div>
-            </div>
-           
+           <div className="col-12 text-center">
             <div className="modal-footer">
-                <div className="col-12">
-                    <div className="row">
-                        <div className="col-12">
+                <div className="col-12 mt-2">
+                    <div className="row text-center">
+                        <div className="col-12 ">
                         <button
                 type="button"
                 className="btn btn-addUser"
                 onClick={()=>saveUserData()}
               >
-              Add an user
+             Add New User
               </button>
                         </div>
-                 
+                        </div>
+                    </div>
                     </div>
                 </div>
-             
+            </div>
+                </div>
             </div>
           </div>
       

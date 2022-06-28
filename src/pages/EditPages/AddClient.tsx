@@ -1,641 +1,1108 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import "../../CSS/AddClient.css";
-import Select from "react-select"
-
+import Select, { StylesConfig } from "react-select";
+import Empty from "../../images/emptyStar.svg";
+import StarRating from "../../images/RatingStar.svg";
+import ReactStars from "react-rating-stars-component";
+import Switch from "react-switch";
+import {
+  NumberOfPost,
+  ColourOption,
+  optionsOfSEO,
+  COFAC,
+} from "../../Selecteddata/data";
+import chroma from "chroma-js";
+import $ from "jquery";
+import { setHours } from "date-fns";
+let Amountarr = "";
+let Hours = "";
 export default function AddClient() {
-    const [permis,setPermis]=useState(false)
-    const [permisNo,setPermisNo]=useState(false)
-    const [Voyage,setVoyage]=useState(false)
-    const [VoyageNo,setVoyageNo]=useState(false)
+  const switchHandle = (event,id,e) => {
+  if(e==="Offre"){
+    setOffre(event)
+  }
+  if(e==="Signature"){
+        setSignature(event)
+  }
+  if(e==="Contrat"){
+    setContrat(event)
+}  
+if(e==="Public"){
+  setPublic(event)
+} 
+ if(e==="A1"){
+  setA1(event)
+}
+if(e==="Assurance"){
+  setAssurance(event)
+}
+if(e==="Agence"){
+  setAgence(event)
+}
+if(e==="SISPI"){
+  setChecked(event)
+}
+  //       setChecked(e);
+  //       setAgence(nextChecked);
+  //       setAssurance(nextChecked)
+  //       setA1(nextChecked)
+  //       setPublic(nextChecked)
+  //       setContrat(nextChecked)
+        
+    console.log(event,e);
+  };
+  const [SISPI, setChecked] = useState(false);
+  const [Agence,setAgence]=useState(false)
+  const [Assurance,setAssurance]=useState(false)
+  const [showHour, setShowHour] = useState("");
+  const [id, setID] = useState("");
+  const [A1,setA1]=useState(false)
+  const [Public,setPublic]=useState(false)
+  const [Contrat,setContrat]=useState(false)
+  const [Signature,setSignature]=useState(false)
+  const [Offre,setOffre]=useState(false)
 
-    let options = [
-      { value:'Roumain' ,lable:'Roumain'},
-      { value:'Françai' ,lable:'Françai'}
-      ]as any;
+  const [state, setState] = useState({
+    name: "bob",
+    color: "blue",
+  });
+  const handleColor = (e: any) => {
+    console.log(e.target.id, "hey");
+  };
+  // let n=35
+  //    const  NumberOfPost=()=>{
+  //    {  [...Array(n)].map((el)=>{
+  //       console.log(el)
+  //      })
+  //     }
+  //    }
 
-    const [data, setData] = useState(fakeDataFormat);
-    const onFormDataChange = (e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement>) => {
-        setData(prev => ({...prev, [e.target.name]: e.target.value}));
+  //    useEffect(()=>{
+  //     // NumberOfPost()
+  //     loopFun()
+  //    })
+
+  // const loopFun = () => {
+  // Amountarr=[]
+  // for (let i = 0; i <= 35; i++) {
+  //     Amountarr.push(i)
+  // }
+  // NumberOfPosts= Amountarr.map((el)=>{
+  //   return {value:el,label:el}
+  // })
+  // console.log[(NumberOfPosts,"k")
+  // };
+  // useEffect(()={
+  //   $(document).ready(function(){
+  //     $("#dam_return a").click(function(){
+  //         var value = $(this).html();
+  //         var input = $('#dam');
+  //         input.val(value);
+  //     });
+  // })
+  // })
+  const RemoveHandling=()=>{
+    setShowHour("")
+    setID("")
+  }
+  const HandleChange = (e: any) => {
+    console.log(e.target.value);
+    if (e.target.id === "1") {
+      setShowHour("35");
+      setID(e.target.id);
     }
-
-    const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        console.log(data);
+    if (e.target.id === "2") {
+      setShowHour("39");
+      setID(e.target.id);
     }
+    if (e.target.id === "3") {
+      setShowHour("40");
+      setID(e.target.id);
+    }
+    if (e.target.id === "4") {
+      setShowHour("41");
+      setID(e.target.id);
+    }
+    if (e.target.id === "5") {
+      setShowHour("42");
+      setID(e.target.id);
+    }
+    if (e.target.id === "6") {
+      setShowHour("43");
+      setID(e.target.id);
+    }
+    if (e.target.id === "7") {
+      setShowHour("44");
+      setID(e.target.id);
+    }
+    if (e.target.id === "8") {
+      setShowHour("45");
+      setID(e.target.id);
+    }
+  };
 
-    useEffect(()=>{
-  
-        window.scroll({
-          top: 0,
-          left: 0,
-          behavior: 'smooth'
-        });
-    })
-    return (
-        <div className="container-fluid px-3">
-        <div className="row">
-             <div className="col-12 card-tops px-1 mt-2" style={{padding:"0px",marginBottom:"20px"}}>
-               <div className="row text-start">
-               <div className="card " style={{padding:"0px 15px",borderRadius:"15px",marginBottom:"0px"}}>
-                   <div className="card-body">
-                     <h2 className="card-Leads">ADD A CLIENT / LEAD</h2>
-                   </div>
-                 </div>
-               </div>
-              
-               </div>
-               <div className="col-12 p-0">
-        <div className="row px-1 pb-1">
-          <form className="add-form form needs-validation p-0" name="contact-form" onSubmit={onFormSubmit} noValidate>
-          <div className="d-flex flex-wrap justify-content-around">
-            <div className="col-4">
-            <div className="p-1">
-                <label className="Form-styling" htmlFor="validationCustom01">CLIENT Name</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter candidats name"
-                  id="validationCustom01"
-                  name="ClientName"
-                  required
-                 
-                  onChange={onFormDataChange}
-                />
-                 <div className="valid-feedback">
-      Looks good!
-    </div>
-                <span className="text-small">
-                  Mandatory, please add company CLIENT
-                </span>
+  useEffect(() => {
+    $(document).ready(function () {
+      $("#dam_return button").click(function () {
+        Amountarr = $(this).val();
+        var input = $("#dam");
+        input.val(Amountarr);
+      });
+    });
+    console.log(Hours, "hr");
+  });
+  const [data, setData] = useState(fakeDataFormat);
+  const onFormDataChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(data);
+  };
+  const ratingChanged = (newRating) => {
+    console.log(newRating);
+  };
+  // useEffect(()=>{
+
+  //     window.scroll({
+  //       top: 0,
+  //       left: 0,
+  //       behavior: 'smooth'
+  //     });
+  // })
+  const colourStyles: StylesConfig<ColourOption, true> = {
+    control: (styles) => ({ ...styles, backgroundColor: "white" }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      const color = chroma(data.color);
+      return {
+        ...styles,
+        backgroundColor: isDisabled
+          ? undefined
+          : isSelected
+          ? data.color
+          : isFocused
+          ? color.alpha(0.1).css()
+          : undefined,
+        color: isDisabled
+          ? "#ccc"
+          : isSelected
+          ? chroma.contrast(color, "white") > 2
+            ? "white"
+            : "black"
+          : data.color,
+        cursor: isDisabled ? "not-allowed" : "default",
+
+        ":active": {
+          ...styles[":active"],
+          backgroundColor: !isDisabled
+            ? isSelected
+              ? data.color
+              : color.alpha(0.3).css()
+            : undefined,
+        },
+      };
+    },
+    multiValue: (styles, { data }) => {
+      const color = chroma(data.color);
+      return {
+        ...styles,
+        backgroundColor: color.alpha(0.1).css(),
+      };
+    },
+    multiValueLabel: (styles, { data }) => ({
+      ...styles,
+      color: data.color,
+    }),
+    multiValueRemove: (styles, { data }) => ({
+      ...styles,
+      color: data.color,
+      ":hover": {
+        backgroundColor: data.color,
+        color: "white",
+      },
+    }),
+  };
+  console.log(Amountarr);
+  return (
+    <div className="container-fluid px-3">
+      <div className="row">
+        <div
+          className="col-12 card-tops px-1 mt-2"
+          style={{ padding: "0px", marginBottom: "20px" }}
+        >
+          <div className="row text-start">
+            <div
+              className="card "
+              style={{
+                padding: "0px 15px",
+                borderRadius: "15px",
+                marginBottom: "0px",
+              }}
+            >
+              <div className="card-body">
+                <h2 className="card-Leads">ADD A CLIENT / LEAD</h2>
+                <p className="fonStylingPtag">
+                  Attention : si un client demande deux métiers différents = il
+                  faut faire deux fois ce formulaire
+                </p>
               </div>
             </div>
-            <div className="col-4">
-            <div className="p-1">
-                <label className="Form-styling">CLIENT Email</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter email"
-                  name="ClientEmail"
-              
-                  onChange={onFormDataChange}
-                />
-                <span className="text-small">
-
-                  NOT Mandatory, please add email CLIENT
-                </span>
-              </div>
-              </div>
-              <div className="col-4">
-              <div className="p-1">
-           <label className="Form-styling">CLIENT Phone Number</label>
-           <input
-             type="text"
-             className="form-control"
-             placeholder="Enter Phone Number (+format)"
-             name="clientPhone"
-             required
-             value=""
-             onChange={onFormDataChange}
-           />
-           <span className="text-small">
-             NOT Mandatory, please add phone CLIENT with +() . exemple :
-             +33623167260
-           </span>
-         </div>
-              </div>
-            <div className="col-4">
-            <div className="p-1">
-                <label className="Form-styling">CLIENT Address</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter CLIENT adress (address, zip, city, country)"
-                  name="ClientAddress"
-                  value=""
-                  onChange={onFormDataChange}
-                />
-                <span className="text-small">
-                  Mandatory, Enter CLIENT adress (address, zip, city, country)
-                </span>
-              </div>
-            </div>
-            <div className="col-4">
-            <div className="p-1">
-                <label className="Form-styling">Secteur d’Activité</label>
-                <select
-                  name="candidatActivitySector"
-                  className="form-select "
-                  required
-                  onChange={onFormDataChange}
-                >
-                  <option>Select Un Secteur</option>
-                  {/* {activitySectors.map((sector) =>
+          </div>
+        </div>
+        <div className="col-12 p-0">
+          <div className="row px-1 pb-1">
+            <form
+              className="add-form form needs-validation p-0"
+              name="contact-form"
+              onSubmit={onFormSubmit}
+            >
+              <div className="d-flex flex-wrap justify-content-around">
+                <div className="col-4">
+                  <div className="p-1">
+                    <label className="Form-styling">Company name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter candidats name"
+                      id="validationCustom01"
+                      name="ClientName"
+                      required
+                      onChange={onFormDataChange}
+                    />
+                    <span className="text-small">
+                      Mendatory, please add company client
+                    </span>
+                  </div>
+                </div>
+                <div className="col-4">
+                  <div className="p-1">
+                    <label className="Form-styling">CLIENT Email</label>
+                    <input
+                      type="text"
+                      className="form-control placeHolder"
+                      placeholder="Enter email"
+                      name="ClientEmail"
+                      onChange={onFormDataChange}
+                    />
+                    <span className="text-small">
+                      Mendatory, please add client email address
+                    </span>
+                  </div>
+                </div>
+                <div className="col-4">
+                  <div className="p-1">
+                    <label className="Form-styling">Company Phone number</label>
+                    <input
+                      type="text"
+                      className="form-control placeHolder"
+                      placeholder="Enter Phone Number (+format)"
+                      name="clientPhone"
+                      required
+                      onChange={onFormDataChange}
+                    />
+                    <span className="text-smallOG">
+                      Important Value, please add phone number
+                    </span>
+                  </div>
+                </div>
+                <div className="col-4">
+                  <div className="p-1">
+                    <label className="Form-styling">Company adress</label>
+                    <input
+                      type="text"
+                      className="form-control placeHolder"
+                      placeholder="Enter CLIENT adress (address, zip, city, country)"
+                      name="ClientAddress"
+                      onChange={onFormDataChange}
+                    />
+                    <span className="text-smallOG">Important value</span>
+                  </div>
+                </div>
+                <div className="col-4">
+                  <div className="p-1">
+                    <label className="Form-styling">Secteur d’Activité</label>
+                    <select
+                      name="candidatActivitySector"
+                      className="form-select placeHolder"
+                      onChange={onFormDataChange}
+                    >
+                      <option>Select Un Secteur</option>
+                      {/* {activitySectors.map((sector) =>
                     <option value={sector.name} >{sector.sectorName}</option> // fetch from api
                   )} */}
-                </select>
-                <span className="text-small">
-                  Please select the sector of this CLIENT, you can add sector on
-                  the BO.
-                </span>
-              </div>
-            </div>
-            <div className="col-4">
-            <div className="p-1">
-                <label className="Form-styling">Métier / Job</label>
-                <select
-                  name="ClientJob"
-                  className="form-select"
-                  onChange={onFormDataChange}
-                >
-                  {/* {
+                    </select>
+                    <span className="text-small">
+                      Please select the sector of this client, you can add
+                      sector on the BO
+                    </span>
+                  </div>
+                </div>
+                <div className="col-4">
+                  <div className="p-1">
+                    <label className="Form-styling">Métier / Job</label>
+                    <select
+                      name="ClientJob"
+                      className="form-select placeHolder"
+                      onChange={onFormDataChange}
+                    >
+                      {/* {
                     jobs.map((job) =>
                       <option value={job.jobName}>
                         {job.jobName}
                       </option>
                     )
                   } */}
-
-                </select>
-                <span className="text-small">
-
-                  Please select the job of this CLIENT, you can add job on the
-                  BO.
-                </span>
-              </div>
-            </div>
-        <div className="col-4">
-        <div className="p-1">
-                <label className="Form-styling">Facebook profile</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Facebook link"
-                  name="ClientFBURL"
-                  value=""
-                  onChange={onFormDataChange}
-                />
-                <span className="text-small">
-
-                  NOT Mendatory, please add contact person on this company.
-                </span>
-              </div>
-        </div>
-           <div className="col-4">
-           <div className="p-1">
-                <label className="Form-styling">Other phone number</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Phone number (+format)"
-                  name="ClientAlternatePhone"
-                  value=""
-                  onChange={onFormDataChange}
-                />
-                <span className="text-small">
-
-                  NOT Mandatory, please add phone number of our contact in this
-                  company if there is one, if not we will use company number.
-                </span>
-              </div>
-           </div>
-          <div className="col-4">
-          <div className="p-1">
-                <label className="Form-styling">CLIENT Age </label>
-                <input
+                    </select>
+                    <span className="text-small">
+                      Please select the job of this client, you can add job on
+                      the BO
+                    </span>
+                  </div>
+                </div>
+                <div className="col-4">
+                  <div className="p-1">
+                    <label className="Form-styling">
+                      Nom du contact dans l’entreprise
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control placeHolder"
+                      placeholder="Contact name"
+                      name="ClientFBURL"
+                      onChange={onFormDataChange}
+                    />
+                    <span className="text-smallOG">
+                      NOT Mendatory, please add contact person on this company.
+                    </span>
+                  </div>
+                </div>
+                <div className="col-4 pt-1">
+                  <div className="">
+                    <label className="Form-styling" style={{ width: "105%" }}>
+                      Téléphone du contact dans l’entreprise
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control placeHolder"
+                      placeholder="Phone number (+format)  "
+                      name="ClientAlternatePhone"
+                      onChange={onFormDataChange}
+                    />
+                    <span className="text-smallOG">
+                      Important Value, please add phone number of our contact in
+                      this company if there is one, if not we will use company
+                      number
+                    </span>
+                  </div>
+                </div>
+                <div className="col-4">
+                  <div className="p-1">
+                    <label className="Form-styling">
+                      Nombre de poste recherché
+                    </label>
+                    {/* <input
                   type="number"
-                  className="form-control"
+                  className="form-control placeHolder"
                   name="ClientAge"
                   placeholder="42"
-                  value=""
+               
                   onChange={onFormDataChange}
 
-                />
-                <span className="text-small">NOT Mandatory, NUMBER ONLY</span>
-              </div>
-          </div>
-          <div className="col-12">
-          <div className="p-1">
-                <label className="Form-styling">
-                  Skills / Notes Compétances (will be displayed on CV)
-                </label>
-                <textarea
-                  className="form-control"
-                  placeholder="Note"
-                  name="ClientSkills"
-                  rows={4}
-                  value=""
-                  onChange={onFormDataChange}
-                ></textarea>
-                <span className="text-small">
-
-                  NOT mandatory, please add some special skills that the
-                  customer asks for this reasearch.
-                </span>
-              </div>
-          </div>
-           <div className="col-6">
-           <div className="p-1">
-                <label className="Form-styling">
-                  Motivation de ce CLIENT à travailler avec nous
-                </label>
-                {/* <span className="Form-styling fs-6">(bigger number
-                  is more important)</span> */}
-                {/* <ul style={{ listStyle: "none" }}>
-                  <li>
-                    <input
-                      type="radio"
-                      name="ClientMotivation"
-                      value={1}
-                      onChange={onFormDataChange}
+                /> */}
+                    <Select
+                      name="NumberOfPosts"
+                      closeMenuOnSelect={false}
+                      isMulti={false}
+                      placeholder="Select value from 1  to 35"
+                      className="basic-select"
+                      classNamePrefix="select"
+                      // onChange={wherePerson}
+                      options={NumberOfPost}
+                      styles={colourStyles}
                     />
-                    1
-                  </li>
-                  <li>
-                    <input
-                      type="radio"
-                      name="ClientMotivation"
-                      value={2}
+                    <span className="text-small">
+                      Select the number of workers that this customer need
+                    </span>
+                  </div>
+                </div>
+                <div className="col-12">
+                  <div className="p-1">
+                    <label className="Form-styling">
+                      Skills / Notes Compétances (will be displayed on CV)
+                    </label>
+                    <textarea
+                      className="form-control"
+                      placeholder="Note"
+                      name="ClientSkills"
+                      rows={4}
                       onChange={onFormDataChange}
-                    />
-                    2
-                  </li>
-                  <li>
-                    <input
-                      type="radio"
-                      name="ClientMotivation"
-                      value={3}
-                      onChange={onFormDataChange}
-                    />
-                    3
-                  </li>
-                  <li>
-                    <input
-                      type="radio"
-                      name="ClientMotivation"
-                      value={4}
-                      onChange={onFormDataChange}
-                    />
-                    4
-                  </li>
-                  <li>
-                    <input
-                      type="radio"
-                      name="ClientMotivation"
-                      value={5}
-                      onChange={onFormDataChange}
-                    />
-                    5
-                  </li>
-                </ul> */}
-                   <div className="col-12 coverClass  px-0">
-                        <div className="row">
-                          <div className="col-3  d-flex flex-column text-center">
-
-                            <div className="text-center" style={{ height: "35px" }}>   <input
+                    ></textarea>
+                    <span className="text-smallOG">
+                      NOT mandatory, please add some special skills that the
+                      customer asks for this reasearch.
+                    </span>
+                  </div>
+                </div>
+                <div className="col-6">
+                  <div className="p-1">
+                    <label className="Form-styling">
+                      Motivation de ce CLIENT à travailler avec nous
+                    </label>
+                    <div className="col-12 coverClass  px-0">
+                      <div className="row">
+                        <div className="col-3  d-flex flex-column text-center">
+                          <div
+                            className="text-center"
+                            style={{ height: "35px" }}
+                          >
+                            {" "}
+                            <input
                               type="radio"
                               name="candidatMotivation"
                               value={1}
                               onChange={onFormDataChange}
                               id="r1"
-                            />     <label htmlFor="r1" className="react" >
-                                <i data-icon="😟"></i>
-                              </label></div>
-                            <span className="font-Emoji">Dissapointed</span>
+                            />{" "}
+                            <label htmlFor="r1" className="react">
+                              <i data-icon="😟"></i>
+                            </label>
                           </div>
-                          <div className="col-2 both p-0 d-flex flex-column text-center">
-
-                            <div className="text-center both" style={{ height: "35px" }}>  <input
+                          <span className="font-Emoji">Dissapointed</span>
+                        </div>
+                        <div className="col-2 both p-0 d-flex flex-column text-center">
+                          <div
+                            className="text-center both"
+                            style={{ height: "35px" }}
+                          >
+                            {" "}
+                            <input
                               type="radio"
                               name="candidatMotivation"
                               value={2}
                               onChange={onFormDataChange}
                               id="r2"
-                            /> <label htmlFor="r2" className="react">
-                                <i data-icon="🙁"></i>
-
-                              </label>
-                            </div>
-                            <span className="font-Emoji">Not really</span>
+                            />{" "}
+                            <label htmlFor="r2" className="react">
+                              <i data-icon="🙁"></i>
+                            </label>
                           </div>
-                          <div className="col-2 p-0 d-flex flex-column text-center">
-
-                            <div className="text-center" style={{ height: "35px" }}>  <input
+                          <span className="font-Emoji">Not really</span>
+                        </div>
+                        <div className="col-2 p-0 d-flex flex-column text-center">
+                          <div
+                            className="text-center"
+                            style={{ height: "35px" }}
+                          >
+                            {" "}
+                            <input
                               type="radio"
                               name="candidatMotivation"
                               value={3}
                               onChange={onFormDataChange}
                               id="r3"
-                            />     <label htmlFor="r3" className="react">
-                                <i data-icon="😊"></i>
-
-                              </label></div><span className="font-Emoji">Like</span>
+                            />{" "}
+                            <label htmlFor="r3" className="react">
+                              <i data-icon="😊"></i>
+                            </label>
                           </div>
-                          <div className="col-2 p-0 d-flex flex-column text-center">
-
-                            <div className="text-center" style={{ height: "35px" }} >  <input
+                          <span className="font-Emoji">Like</span>
+                        </div>
+                        <div className="col-2 p-0 d-flex flex-column text-center">
+                          <div
+                            className="text-center"
+                            style={{ height: "35px" }}
+                          >
+                            {" "}
+                            <input
                               type="radio"
                               name="candidatMotivation"
                               value={4}
                               onChange={onFormDataChange}
                               id="r4"
-                            /><label htmlFor="r4" className="react">
-                                <i data-icon="🥰"></i>
-                              </label></div><span className="font-Emoji">Great</span>
+                            />
+                            <label htmlFor="r4" className="react">
+                              <i data-icon="🥰"></i>
+                            </label>
                           </div>
-                          <div className="col-3 d-flex flex-column text-center">
-
-                            <div className="text-center" style={{ height: "35px" }}>  <input
+                          <span className="font-Emoji">Great</span>
+                        </div>
+                        <div className="col-3 d-flex flex-column text-center">
+                          <div
+                            className="text-center"
+                            style={{ height: "35px" }}
+                          >
+                            {" "}
+                            <input
                               type="radio"
                               name="candidatMotivation"
                               value={5}
                               onChange={onFormDataChange}
                               id="r5"
-                            /> <label htmlFor="r5" className="react">
-                                <i data-icon="😍"></i>
-                              </label>
-                            </div>
-                            <span className="font-Emoji">Super lovely</span>
+                            />{" "}
+                            <label htmlFor="r5" className="react">
+                              <i data-icon="😍"></i>
+                            </label>
                           </div>
+                          <span className="font-Emoji">Super lovely</span>
                         </div>
-                        {/* {showMessage ?
+                      </div>
+                      {/* {showMessage ?
                           <h5 className="Form-styling mt-1">
                             Note: If we find the candidates, does he take it immediately? Or
                             will he still need to think?
                           </h5> : null} */}
-                      </div>
-            </div>
-           </div>
-           <div className="col-6">
-              <div className="p-1">
-                <p className="padding-bottom Form-styling" >Langues du CLIENT</p>
-                {/* <div>
-                  <input type="checkbox" onClick={()=>onFormDataChange} id="language" name="candidatLanguages" value="Roumain" />
-                  <span className="ps-2" >Roumain</span>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <input type="checkbox" name="candidatLanguages" id="language" onClick={()=>onFormDataChange} value="Francais" />
-                  <span className="ps-2">Français</span>
+                <div className="col-6">
+                  <div className="">
+                    <label className="Form-styling d-grid">
+                      Importance de ce client{" "}
+                      <p className="mb-0">(bigger number is more important) </p>
+                    </label>
+                    <div className="col-12">
+                      <ReactStars
+                        count={5}
+                        color="#E7E7E7"
+                        onChange={ratingChanged}
+                        size={50}
+                        emptyIcon={
+                          <div>
+                            <i className="far fa-star"></i>
+                          </div>
+                        }
+                        fullIcon={<i className="fa fa-star"></i>}
+                        activeColor="#FFB608"
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <input type="checkbox" name="candidatLanguages" id="language" onClick={()=>onFormDataChange} value="Anglais" />
-                  <span className="ps-2">Anglais</span>
-                </div>
-                <div>
-                  <input type="checkbox" name="candidatLanguages" id="language" onClick={()=>onFormDataChange} value="Italien" />
-                  <span className="ps-2">Italien</span>
-                </div>
-                <div>
-                  <input type="checkbox" name="candidatLanguages" id="language" onClick={()=>onFormDataChange} value="Russe" />
-                  <span className="ps-2">Russe</span>
-                </div>
-                <div>
-                  <input type="checkbox" name="candidatLanguages" id="language" onChange={onFormDataChange} value="Espagnol" />
-                  <span className="ps-2">Espagnol</span>
-                </div>
-                <div>
-                  <input type="checkbox" name="candidatLanguages" id="language" onChange={onFormDataChange} value="Autre" />
-                  <span className="ps-2">Autre</span>
-                </div>
-              </div> */}
+                <div className="col-5 p-1">
+                  <p className="padding-bottom Form-styling mb-1">NOTE COFAC</p>
+
                   <Select
-                          name="candidatLanguages"
-                          closeMenuOnSelect={false}
-                          isMulti
-                          placeholder="Select"
-                          className="basic-multi-select"
-                          classNamePrefix="select"
-                          // onChange={handleChange}
-                          // options={colourOptions}
-                          // styles={colourStyles}
+                    name="candidatComingFrom"
+                    closeMenuOnSelect={false}
+                    isMulti
+                    placeholder="0"
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    // onChange={wherePerson}
+                    options={COFAC}
+                    styles={colourStyles}
+                  />
+                  <label className="paidHFontChild">
+                    Si possible (0 si non déterminé)
+                  </label>
+                </div>
+                <div className="col-5 py-1  mr-3">
+                  <p className="padding-bottom Form-styling mb-1">
+                    Provenance du lead
+                  </p>
+                  <Select
+                    name="candidatComingFrom"
+                    closeMenuOnSelect={false}
+                    isMulti
+                    placeholder="SEO"
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    // onChange={wherePerson}
+                    options={optionsOfSEO}
+                    styles={colourStyles}
+                  />
+                </div>
+
+                <div className="col-12">
+                  <div className="row">
+                    <label className="fw-bold Form-styling mt-1 mb-0">
+                      Quand ce CLIENT a besoin de travailler When this CLIENT is
+                      ready to work with us
+                    </label>
+                    <div className="col-6">
+                      <div className="p-1">
+                        <label className="fromDate">
+                          From date / A PARTIR DE{" "}
+                        </label>
+                        <input
+                          type="date"
+                          className="form-control placeHolder"
+                          name="CLIENTStartDate"
+                          onChange={onFormDataChange}
                         />
-              </div>
-              </div>
-              <div className="col-6 p-1">
-              <p className="padding-bottom Form-styling">From where come this person</p>
-
-<Select
-  name="candidatComingFrom"
-  closeMenuOnSelect={false}
-  isMulti
-  placeholder="Select"
-  className="basic-multi-select"
-  classNamePrefix="select"
-  // onChange={wherePerson}
-  // options={fromPerson}
-  // styles={colourStyles}
-/>
-
-
-              </div>
-              <div className="col-6">
-
-<div className="row p-1 d-flex">
-  <div className="col-6 ">
-    <p className="Form-styling"> Permis / Licence drive</p>
-    <div className="d-flex radiobtn">
-
-      <ul className="d-flex permis-UL p-0">
-        <li className="permis-LI">
-          <input type="radio" id="f-option" name="candidatLicensePermis" value="true" onChange={onFormDataChange} />
-          <label htmlFor="f-option"><p className="text-white">Yes</p></label>
-          <div className="check"></div>
-
-        </li>
-        <li className="permis-LI mx-1">
-          <input type="radio" id="t-option" name="candidatLicensePermis" value="false" onChange={onFormDataChange} />
-          <label htmlFor="t-option"><p className="text-white">No</p></label>
-
-          <div className="check"><div className="inside"></div></div>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div className="col-6">
-    <p className="Form-styling">Voyage en voiture vers France ?</p>
-    <ul className="d-flex ul-check p-0">
-      <li className="li-check">
-        <input type="radio" id="e-option" name="candidatConduireEnFrance" value="false" onChange={onFormDataChange} />
-        <label htmlFor="e-option"><p className="text-white">Yes</p></label>
-        <div className="check"></div>
-
-      </li>
-      <li className="li-check">
-        <input type="radio" id="s-option" name="candidatConduireEnFrance" value="false" onChange={onFormDataChange} />
-        <label htmlFor="s-option"><p className="text-white">No</p></label>
-
-        <div className="check"><div className="inside"></div></div>
-      </li>
-    </ul>
-  </div>
-</div>
-</div>
-            
-           <div className="col-12">
-             <div className="row">
-             <div className="col-6">
-              <label className="fw-bold Form-styling">
-                 Quand ce CLIENT a besoin de travailler When this CLIENT
-                 is ready to work with us
-               </label>
-              </div>
-               <div className="col-12">
-                 <div className="row">
-                   <div className="col-6">
-                   <div className="p-1">
-               
-              
-               <label className="fw-bold Form-styling">From date / A PARTIR DE </label>
-               <input
-                 type="date"
-                 className="form-control"
-                 name="CLIENTStartDate"
-                 value=""
-                 onChange={onFormDataChange}
-               />     
-             </div>
-                   </div>
-                   <div className="col-6">
-                   <div className="p-1">
-                   <label className="fw-bold Form-styling">UNTIL DATE / Jusqu’à </label>
-               <input
-                 type="date"
-                 className="form-control"
-                 name="CLIENTEndDate"
-                 value=""
-                 onChange={onFormDataChange}
-               />
-               </div>
-                   </div>
-                 </div>
-               </div>
-            
-             </div>
-            
-              </div>
-             
-            <div className="col-12 pt-1">
-              <p className="Form-styling">
-                Expérience du CLIENT (fill only lines, higher = more recent)
-              </p>
-              <table className="table table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col">Période (Exemple Janvier 2020 à Janvier 2021)</th>
-                    <th scope="col">Lieu de travail (Exemple Paris)</th>
-                    <th scope="col">Travail effectué (Exemple : Facadier Isolateur)</th>
-                    {/* <th scope="col">Action</th> */}
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <input type="text" name="period" required className="form-control" placeholder="Years" onChange={onFormDataChange} />
-                    </td>
-                    <td>
-                      <input type="text" name="location" required className="form-control" placeholder="Work Location" onChange={onFormDataChange} />
-                    </td>
-                    <td>
-                      <input type="text" name="workDoneSample" required className="form-control" placeholder="Work Done Sample" onChange={onFormDataChange} />
-                    </td>
-                    {/* <td>
-                      <button className="btn btn-warning">Add More</button>
-                    </td> */}
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="col-6">
-              <div className="p-1">
-                <label className="Form-styling">
-                  Total années d’expérience / Total experiance in years of this
-                  CLIENT
-                </label>
-                <input
-                  type="number"
-                  className="form-control"
-                  name="CLIENTYearsExperience"
-                  placeholder="33"
-          
-                  onChange={onFormDataChange}
-
-                />
-                <span className="text-small">NOT Mendatory, NUMBER ONLY</span>
-              </div>
-            </div>
-            <div className="col-6">
-              <div className="p-1">
-                <p className="padding-bottom Form-styling">
-                  Fetes/date pour lequel il veux impérativement rentrer
-                </p>
-
-                <div>
-                  <input type="checkbox" name="candidatFetes" id="fete" value="Easter" onClick={()=>onFormDataChange} />
-                  <span className="ps-2">Easter</span>
+                      </div>
+                    </div>
+                    <div className="col-6">
+                      <div className="p-1">
+                        <label className="fromDate">
+                          UNTIL DATE / Jusqu’à{" "}
+                        </label>
+                        <input
+                          type="date"
+                          className="form-control placeHolder"
+                          name="CLIENTEndDate"
+                          onChange={onFormDataChange}
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <input type="checkbox" name="candidatFetes" id="fete" value="Noel"onClick={()=>onFormDataChange} />
-                  <span className="ps-2">Noel</span>
+                <div className="col-12 mt-1">
+                  <div className="row">
+                    <p className="padding-bottom Form-styling pb-1">
+                      Select salaries Hours
+                    </p>
+                    <div className="d-flex " id="dam_return">
+                      <div className="pr-1">
+                        <button
+                          type="button"
+                          value="10000rs"
+                          id="1"
+                          onClick={(e) => {
+                            HandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: id == "1" ? " #F4E7FF" : "",
+                            color: id == "1" ? "#A461D8" : "#979797",
+                          }}
+                          className="btn btnHPaid "
+                        >
+                          35H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button
+                          type="button"
+                          value="20000rs"
+                          id="2"
+                          onClick={(e) => {
+                            HandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: id == "2" ? " #F4E7FF" : "",
+                            color: id == "2" ? "#A461D8" : "#979797",
+                          }}
+                          className="btn btnHPaid "
+                        >
+                          39H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button
+                          type="button"
+                          value="30000rs"
+                          id="3"
+                          onClick={(e) => {
+                            HandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: id == "3" ? " #F4E7FF" : "",
+                            color: id == "3" ? "#A461D8" : "#979797",
+                          }}
+                          className="btn btnHPaid "
+                        >
+                          40H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button
+                          type="button"
+                          value="40000rs"
+                          id="4"
+                          onClick={(e) => {
+                            HandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: id == "4" ? " #F4E7FF" : "",
+                            color: id == "4" ? "#A461D8" : "#979797",
+                          }}
+                          className="btn btnHPaid "
+                        >
+                          41H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button
+                          type="button"
+                          value="50000rs"
+                          id="5"
+                          onClick={(e) => {
+                            HandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: id == "5" ? " #F4E7FF" : "",
+                            color: id == "5" ? "#A461D8" : "#979797",
+                          }}
+                          className="btn btnHPaid "
+                        >
+                          42H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button
+                          type="button"
+                          value="60000rs"
+                          id="6"
+                          onClick={(e) => {
+                            HandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: id == "6" ? " #F4E7FF" : "",
+                            color: id == "6" ? "#A461D8" : "#979797",
+                          }}
+                          className="btn btnHPaid "
+                        >
+                          43H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button
+                          type="button"
+                          value="70000rs"
+                          id="7"
+                          onClick={(e) => {
+                            HandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: id == "7" ? " #F4E7FF" : "",
+                            color: id == "7" ? "#A461D8" : "#979797",
+                          }}
+                          className="btn btnHPaid "
+                        >
+                          44H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button
+                          type="button"
+                          value="80000rs"
+                          id="8"
+                          onClick={(e) => {
+                            HandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: id == "8" ? " #F4E7FF" : "",
+                            color: id == "8" ? "#A461D8" : "#979797",
+                          }}
+                          className="btn btnHPaid "
+                        >
+                          45H
+                        </button>
+                      </div>
+                    </div>
+                    <div className="col-5 mt-1">
+                      <div
+                        className="d-flex amount-fieldsModal"
+                        style={{ width: "100%" }}
+                      >
+                        <span>€</span>
+                        <input
+                          style={{ marginBottom: "0px" }}
+                          type="text"
+                          id="dam"
+                          className="form-control "
+                          name="turnover"
+                          placeholder="Amount"
+                        />
+                        <span>.00</span>
+                      </div>
+                    </div>
+                    <div className="col-3 mt-1 px-1 ">
+                      <button type="button" className="btn saveSalary" id="Hour">
+                        Save Salary {showHour}H
+                      </button>
+                    </div>
+                    <div className="col-4 mt-1 px-1">
+                      <button type="button" onClick={()=>RemoveHandling()} className="btn RemoveSalary">
+                        REMOVE Salary {showHour}H
+                      </button>
+                    </div>
+                    <p className="paidHFontChild">
+                      A remplir si possible, il faut selectionner les heures
+                      négociées et mettre une valeur du salaire mensuel pour Xh{" "}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <input type="checkbox" name="candidatFetes" id="fete" value="Summer"onClick={()=>onFormDataChange} />
-                  <span className="ps-2">Summer</span>
+                <div className="col-12">
+                  <div className="row">
+                    <p className="padding-bottom Form-styling pb-1 mt-2">
+                      taux horraire Hours
+                    </p>
+                    <div className="d-flex">
+                      <div className="pr-1">
+                        <button type="button" className="btn btnHPaid ">
+                          35H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button type="button" className="btn btnHPaid ">
+                          39H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button type="button" className="btn btnHPaid ">
+                          40H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button type="button" className="btn btnHPaid ">
+                          41H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button type="button" className="btn btnHPaid ">
+                          42H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button type="button" className="btn btnHPaid ">
+                          43H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button type="button" className="btn btnHPaid ">
+                          44H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button type="button" className="btn btnHPaid ">
+                          45H
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="col-5 mt-1">
+                      <div
+                        className="d-flex amount-fieldsModal"
+                        style={{ width: "100%" }}
+                      >
+                        <span>€</span>
+                        <input
+                          style={{ marginBottom: "0px" }}
+                          type="text"
+                          className="form-control "
+                          name="turnover"
+                          placeholder="Amount"
+                          onChange={null}
+                        />
+                        <span>.00</span>
+                      </div>
+                    </div>
+                    <div className="col-3 mt-1 px-1">
+                      <button className="btn SaveTAUX ">
+                        Save TAUX HORRAIRE 35 H
+                      </button>
+                    </div>
+                    <div className="col-4 mt-1 px-1">
+                      <button className="btn RemoveSalary">
+                        REMOVE Salary 35 H
+                      </button>
+                    </div>
+                    <p className="paidHFontChild">
+                      A remplir si possible, il faut selectionner les heures
+                      négociées et mettre une valeur du salaire mensuel pour Xh{" "}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <input type="checkbox" name="candidatFetes" id="fete" value="Autre"onClick={()=>onFormDataChange} />
-                  <span className="ps-2">Autre / Other</span>
+                <div className="col-12 mt-1">
+                  <p className="Form-styling  ">
+                    CA Potentiel / Potential Turnonver{" "}
+                  </p>
+                  <div
+                    className="d-flex amount-fieldsModal mt-0 pt-0"
+                    style={{ width: "40%" }}
+                  >
+                    <span>€</span>
+                    <input
+                      style={{ marginBottom: "0px" }}
+                      type="number"
+                      className="form-control "
+                      name="turnover"
+                      placeholder="Amount"
+                      onChange={onFormDataChange}
+                    />
+                    <span>.00</span>
+                  </div>
+                  <p className="paidHFontChild">
+                    A remplir si possible, c’est le CA qu’on peut réaliser avec
+                    ce client{" "}
+                  </p>
+                </div>
+                <div className="col-12">
+                  <div className="row">
+                    <div className="col-md-6">
+                      <label className="Form-styling mb-0">
+                        Ce client a été rentré par : / This customer was entered
+                        by
+                      </label>
+                      <input
+                        type="text"
+                        name="enteredBy"
+                        placeholder="Contact name "
+                        className="form-control placeHolder"
+                        value={data.enteredBy}
+                        onChange={onFormDataChange}
+                      />
+                      <span className="text-small">
+                        Exemple : Jeremy Roggy; Patrick Bueno; TDR .... Who
+                        entred this customer on the database
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-12 mt-2 ">
+                  <div className="row bg-Switch">
+                    <div className="col-2 d-flex px-0 justify-content-center">
+                      <div className="d-flex align-items-center ">
+                        <p className="fontSizeReactSwitch mb-0">
+                          Offre envoyé ?
+                        </p>
+                        <Switch
+                          className="ml-left"
+                          onChange={switchHandle}
+                          // onClick={(e)=>switchHandle(e)}
+                          checked={Offre}
+                          id="Offre"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-3 d-flex px-0 justify-content-center">
+                      <div className="d-flex align-items-center ">
+                        <p className="fontSizeReactSwitch mb-0">
+                          Signature digitale envoyé ?
+                        </p>
+                        <Switch
+                          className="ml-left"
+                          onChange={switchHandle}
+                          checked={Signature}
+                          id="Signature"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-2 d-flex px-0 justify-content-end ml-1">
+                      <div className="d-flex align-items-center ">
+                        <p className="fontSizeReactSwitch mb-0">
+                          Contrat singé ?
+                        </p>
+                        <Switch
+                          className="ml-left"
+                          onChange={switchHandle}
+                          checked={Contrat}
+                          id="Contrat"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-3 d-flex px-0 justify-content-end">
+                      <div className="d-flex align-items-center ">
+                        <p className="fontSizeReactSwitch mb-0">
+                          Publicité commencé ?
+                        </p>
+                        <Switch
+                          className="ml-left"
+                          onChange={switchHandle}
+                          checked={Public}
+                          id="Public"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-1 d-flex px-0 justify-content-center ml-1">
+                      <div className="d-flex align-items-center ">
+                        <p className="fontSizeReactSwitch mb-0">A1 ?</p>
+                        <Switch
+                          className="ml-left"
+                          onChange={switchHandle}
+                          checked={A1}
+                          id="A1"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-3 d-flex pt-1 px-0 justify-content-center">
+                      <div className="d-flex align-items-center ">
+                        <p className="fontSizeReactSwitch mb-0">
+                          Assurance faite ?
+                        </p>
+                        <Switch
+                          className="ml-left"
+                          onChange={switchHandle}
+                          checked={Assurance}
+                          id="Assurance"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-3 d-flex pt-1 px-0 justify-content-center">
+                      <div className="d-flex align-items-center ">
+                        <p className="fontSizeReactSwitch mb-0">
+                          Agence de voyage ok ?
+                        </p>
+                        <Switch
+                          className="ml-left"
+                          onChange={switchHandle}
+                          checked={Agence}
+                          id="Agence"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-3 d-flex pt-1 px-0">
+                      <div className="d-flex align-items-center ">
+                        <p className="fontSizeReactSwitch mb-0">
+                          SISPI déclaré ?
+                        </p>
+                        <Switch
+                          className="ml-left"
+                          onChange={switchHandle}
+                          checked={SISPI}
+                          id="SISPI"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-12 col-12 py-4">
+                  <div className="row">
+                    <div className="col-8">
+                      <button className="btn btn-CLIENTSB px-4" type="submit">
+                        Ajouter ce CLIENT / Add this CLIENT
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-md-12">
-              <label className="Form-styling">
-                Ce CLIENT a été rentré par : / This customer was entered by
-              </label>
-              <input
-                type="text"
-                name="enteredBy"
-                placeholder="Entered By: "
-                className="form-control"
-                value={data.enteredBy}
-                onChange={onFormDataChange}
-              />
-              <span className="text-small">
-                Exemple : Jeremy Roggy; Patrick Bueno; TDR. Who entred this
-                customer on the database
-              </span>
-            </div>
-            <div className="col-md-12 col-12 py-4">
-              <div className="submit-btn-hold p-1 mx-auto d-flex">
-                <button className="btn btn-dark" type="submit">
-                  Ajouter ce CLIENT / Add this CLIENT
-                </button>
-              </div>
-            </div>
+            </form>
           </div>
-        </form>
         </div>
       </div>
-            </div>
-        </div>
-    )
+    </div>
+  );
 }
 
 const fakeDataFormat = {
-    companyName: '',
-    companyNumber: '',
-    clientEmail: '',
-    companyAddress: '',
-    sector: '',
-    companyContactName: '',
-    companyContactNumber: '',
-    skills: '',
-    immediateClient: '',
-    turnover: 0,
-    salary: 0,
-    job: '',
-    postCount: 1,
-    fromDate: '',
-    toDate: '',
-    importanceClient: '',
-    enteredBy: ''
-}
+  companyName: "",
+  companyNumber: "",
+  clientEmail: "",
+  companyAddress: "",
+  sector: "",
+  companyContactName: "",
+  companyContactNumber: "",
+  skills: "",
+  immediateClient: "",
+  turnover: 0,
+  salary: 0,
+  job: "",
+  postCount: 1,
+  fromDate: "",
+  toDate: "",
+  importanceClient: "",
+  enteredBy: "",
+};

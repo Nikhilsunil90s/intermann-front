@@ -45,6 +45,8 @@
 <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+<script type="text/javascript" src="jquery.min.js"></script>
+
 
     <title>Intermann CRM</title>
   </head>
@@ -67,4 +69,11 @@
   
 
   </script>
+  <script type="text/javascript" >$(document).ready(function(){
+    $("#dam_return a").click(function(){
+        var value = $(this).html();
+        var input = $('#dam');
+        input.val(value);
+    });
+  }); </script>
 </html>
