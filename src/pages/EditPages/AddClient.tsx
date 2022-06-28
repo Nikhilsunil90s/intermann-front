@@ -964,7 +964,7 @@ if(e==="SISPI"){
                 </div>
                 <div className="col-12 mt-2 ">
                   <div className="row bg-Switch">
-                    <div className="col-2 d-flex px-0 justify-content-center">
+                    <div className="col-2 d-flex px-0 justify-content-start">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Offre envoyé ?
@@ -1028,7 +1028,7 @@ if(e==="SISPI"){
                         />
                       </div>
                     </div>
-                    <div className="col-3 d-flex pt-1 px-0 justify-content-center">
+                    <div className="col-3 d-flex pt-1 px-0 justify-content-start">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Assurance faite ?
@@ -1041,7 +1041,7 @@ if(e==="SISPI"){
                         />
                       </div>
                     </div>
-                    <div className="col-3 d-flex pt-1 px-0 justify-content-center">
+                    <div className="col-3 d-flex pt-1 px-0 justify-content-start">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Agence de voyage ok ?
@@ -1054,8 +1054,8 @@ if(e==="SISPI"){
                         />
                       </div>
                     </div>
-                    <div className="col-3 d-flex pt-1 px-0">
-                      <div className="d-flex align-items-center ">
+                    <div className="col-3 d-flex pt-1 px-0 ">
+                      <div className="d-flex align-items-start ">
                         <p className="fontSizeReactSwitch mb-0">
                           SISPI déclaré ?
                         </p>
