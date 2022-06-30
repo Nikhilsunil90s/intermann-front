@@ -20,11 +20,29 @@
 }
 
 .child-text {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400 !important;
+    font-size: 14px !important;
+    line-height: 24px !important;
+    display: flex;
+    align-items: flex-end;
+    text-align: center;
+    color: #000000; 
 }
-
+.child-text b{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 25px;
+    display: flex;
+    align-items: flex-end;
+    text-align: center;
+    color: #000000; 
+    text-decoration: underline;
+    margin-left:5px !important;
+}
 .box {
     border: 1px solid black;
     height: 50%;
@@ -67,14 +85,19 @@ hr.new5 {
     /* padding-right: unset !important; */
 }
 
-.card-upper img {
+.cardClient-img {
     width: 65px;
     padding: 10px 4px;
 }
 
-.card-upper {
-    display: flex;
+.cardTODO{
+  border-radius: 16px;
+  padding: 10px 16px !important;
 
+}
+.cardTODO-img {
+    width: 75px;
+    padding: 30px 4px;
 }
 
 .col-7 {
@@ -189,3 +212,129 @@ hr.new5 {
   
     border-radius: 0px !important;
 }
+.ClientTOPFamily{
+font-family:'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 22px;
+line-height: 33px;
+letter-spacing: 1px;
+text-transform: capitalize;
+color: #252726;
+}
+.ClientTOPFamily span{
+    font-family:'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 33px;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    color: #3F76E2 !important;
+    }
+    .textClientCard{
+        font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 21px;
+display: flex;
+align-items: center;
+color: #000000;
+margin-bottom: 0px;
+    }
+    .todoClient{
+        background-color: #E4F4FF;
+        padding: 10px 15px;
+        border: 0px;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+    }
+    .color-rowClientCard{
+        background: #E4F4FF;
+    position: relative;
+    width: 511px;
+    left: -16px;
+
+    }
+    .color-rowClientCard p{
+        font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 12px;
+line-height: 18px;
+display: flex;
+align-items: center;
+color: #3F76E2;
+margin-bottom: 0px;
+padding: 10px 15px;
+
+    }
+    .fontStylingCardDetails p{
+        font-family: 'Poppins' !important;
+font-style: normal ;
+font-weight: 400;
+font-size: 12px ;
+line-height: 16px ;
+align-items: center;
+color: #000000 ;
+margin-bottom: 5px;
+
+    }
+    .fontStylingCardP{
+        font-family: 'Poppins';
+font-style: normal;
+font-weight: 700 !important;
+font-size: 12px !important;
+line-height: 16px !important;
+display: flex;
+align-items: center;
+color: #000000;
+margin-bottom: 0px;
+margin-top: 5px;
+
+    }
+    .switch-fontCard{
+        font-family: 'Poppins';
+font-style: normal;
+font-weight: 500 !important;
+font-size: 11px !important;
+line-height: 16px !important;
+display: flex;
+align-items: center;
+padding: 9px 0px !important;
+color: #000000 !important;
+    }
+    .miniSwitch .react-switch-bg{
+        height: 21px !important;
+        width: 42px !important;
+    }
+    .miniSwitch .react-switch-handle{
+        height: 19px !important;
+        width: 19px !important;
+    }
+    .btn-SEEFULLprofile{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 0px;
+        display: flex;
+        align-items: center;
+        color: #FFFFFF;
+        background: #032339;
+border-radius: 100px;
+    }
+    .missing{
+        font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 24px;
+display: flex;
+align-items: flex-end;
+text-transform: capitalize;
+color: #373A3C;
+margin-right: 10px;
+    }

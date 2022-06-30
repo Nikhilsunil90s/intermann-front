@@ -4,9 +4,7 @@
   border-radius: 15px;
   padding: 20px;
 }
-.top-pd {
-  padding: 15px 0px;
-}
+
 .stable img {
   padding-right: 10px;
 }
@@ -448,4 +446,49 @@ text-align: end;
   line-height: 25px;
   color: #FFFFFF;
   margin-bottom: 15px !important
+    }
+    .top-pd{
+      background: #FFFFFF;
+      box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
+      border-radius: 10px;
+      padding: 5px 0px;
+    }
+    .FontStyle-TODOSEE{
+      font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 22px;
+line-height: 33px;
+/* identical to box height */
+
+letter-spacing: 1px;
+text-transform: capitalize;
+
+color: #252726;
+
+    }
+    .ClientSEE-TopDetails{
+      background: #FFFFFF;
+box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
+border-radius: 10px;
+    }
+    .ClientSEEBtnStyle{
+      background: #E4F4FF;
+      border-radius: 100px;
+      border: 0px;
+      padding: 5px 13px;
+    }
+    .ClientSEEPtags{
+      font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 16px;
+/* identical to box height, or 89% */
+
+display: flex;
+align-items: center;
+
+color: #000000;
+
     }
