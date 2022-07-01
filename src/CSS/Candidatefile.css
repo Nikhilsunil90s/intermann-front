@@ -626,8 +626,8 @@ padding-left: 5px;
     min-height:25px !important;
     border-radius: 25px !important;
     position: relative;
-    top: -29px;
-    left: 104px;
+    top: -25px;
+    left: 99px;
 }
 .upload .css-319lph-ValueContainer{
     display: none !important;
@@ -726,6 +726,7 @@ color: #000000;
         white-space: nowrap;
         box-sizing: border-box;
         font-size: 12px;
+        z-index: 9999999;
 }
 
 /* PreSelected View Css */

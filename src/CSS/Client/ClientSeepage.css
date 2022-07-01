@@ -11,13 +11,13 @@
 .logo-bg {
   width: 130px;
   height: 125px;
-  background: #C4C4C4;
+  background: #c4c4c4;
   border-radius: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.logo-bg img{
+.logo-bg img {
   height: 70%;
 }
 .bg-btn {
@@ -32,16 +32,16 @@
 .btn-bgb {
   background-color: #032339;
   font-weight: 700;
-  font-family: 'Poppins';
-font-style: normal;
-font-weight: 700;
-font-size: 13px;
-line-height: 20px;
-letter-spacing: -0.105991px;
-text-transform: uppercase;
-border-radius: 25px;
-color: #FFFFFF;
-margin-top: 5px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.105991px;
+  text-transform: uppercase;
+  border-radius: 25px;
+  color: #ffffff;
+  margin-top: 5px;
 }
 .btn-bgb img {
   width: 20px;
@@ -237,29 +237,27 @@ thead {
   color: #fe8700;
 }
 
-
-
 /* Client Progress Page */
 
-.litle-box{
+.litle-box {
   background-color: #a461d8;
   border-radius: 8px;
   padding: 20px;
   margin-top: 5px;
   margin-bottom: 20px;
 }
-.litle-box p{
-display: flex;
-align-items: center;
-margin-bottom: 0px;
-color: #ffff;
-font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 20px;
-line-height: 24px;
+.litle-box p {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0px;
+  color: #ffff;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
 }
-.btn-Contract{
+.btn-Contract {
   background-color: #489767;
   color: #ffff;
   font-family: "Inter";
@@ -272,7 +270,7 @@ line-height: 24px;
 }
 /* Signed Contract */
 
-.bg-Signed{
+.bg-Signed {
   background: #489767;
   border-radius: 13px;
   font-weight: 700;
@@ -282,8 +280,8 @@ line-height: 24px;
   letter-spacing: -0.105991px;
   text-transform: uppercase;
 }
-.Signed{
-  background-color:#489767;
+.Signed {
+  background-color: #489767;
   font-weight: 400;
   font-size: 24px;
   line-height: 42px;
@@ -291,30 +289,38 @@ line-height: 24px;
   border: 1px solid #000000;
   box-sizing: border-box;
   display: flex;
-  border-radius: 13px; 
+  border-radius: 13px;
   padding: 0px 12px;
-
 }
-.litle-box-green{
+.litle-box-green {
   background-color: #489767;
   border-radius: 8px;
   padding: 20px;
   margin-top: 5px;
   margin-bottom: 20px;
 }
- 
+
 /* todo see page doc */
 
-.pdf-btn{   background: #C4C4C4;
-  ;
-border-radius: 20px;
-padding: 10px;
+.pdf-btn {
+  background: #3F76E2;
+  border-radius: 100px;
+  border: 0px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-family: 'Arial';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 24px;
 display: flex;
-align-items: center;
-margin-bottom: 10px;
+align-items: flex-end;
+padding: 18px 25px;
+color: #FFFFFF;
 }
-.btn-contract{
-  background-color: #208FDC;
+.btn-contract {
+  background-color: #208fdc;
   color: #ffff;
   font-family: "Inter";
   font-style: normal;
@@ -324,8 +330,8 @@ margin-bottom: 10px;
   padding: 5px 30px;
   border-radius: 8px;
 }
-.poppins{
-  font-family: 'Poppins';
+.poppins {
+  font-family: "Poppins";
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -333,9 +339,9 @@ margin-bottom: 10px;
   color: #000000;
   margin-bottom: 0px;
 }
-.btn-career{
+.btn-career {
   padding: 12px 25;
-  background-color: #208FDC;
+  background-color: #208fdc;
   color: #ffff;
   font-family: "Inter";
   font-style: normal;
@@ -345,10 +351,10 @@ margin-bottom: 10px;
   padding: 5px 18px;
   border-radius: 8px;
 }
-.btn-career img{
+.btn-career img {
   width: 50px;
 }
-.btn-grille{
+.btn-grille {
   padding: 12px 25;
   background-color: #489767;
   color: #ffff;
@@ -360,33 +366,32 @@ margin-bottom: 10px;
   padding: 2px 14px;
   border-radius: 8px;
 }
-.pdf-store{
+.pdf-store {
   border: 2px solid #ffff;
-  background-color: #C4C4C4;
+  background-color: #c4c4c4;
   height: 400px;
 }
-.pdf-store p{
-  font-family: 'Arial';
-font-style: italic;
-font-weight: 400;
-font-size: 16px;
-line-height: 24px;
-color: #000000;
+.pdf-store p {
+  font-family: "Arial";
+  font-style: italic;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #000000;
 }
-.pdf-store .row{
-display: flex;
-align-items: center;
-border-bottom: 1px solid black;
+.pdf-store .row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid black;
 }
-.pdf-store .col-3{
-text-align: end;
+.pdf-store .col-3 {
+  text-align: end;
 }
 
 /* Archived View Page */
 
-
-.bg-return{
-  background: #FF0000;
+.bg-return {
+  background: #ff0000;
   border-radius: 13px;
   border-radius: 13px;
   font-weight: 700;
@@ -395,100 +400,285 @@ text-align: end;
   line-height: 20px;
   letter-spacing: -0.105991px;
   text-transform: uppercase;
-  }
-  .ArchivedBtnLarge{
-      background: #FF0000;
-      font-weight: 400;
-      font-size: 24px;
-      line-height: 42px;
-      color: #ffffff;
-      border: 1px solid #000000;
-      box-sizing: border-box;
-      display: flex;
-      border-radius: 19px; 
-      padding: 0px 12px;
-  }
-  .litle-box-redBox .ArchivedSpent{
-      background-color: #FF0000;
-      border-radius: 8px;
-      padding: 0px;
-      margin-top: 0px;
-      margin-bottom: 20px;
-      font-family: 'Inter';
-      font-style: normal;
-      font-weight: 400;
-      font-size: 20px;
-      line-height: 24px;
-      color: #FFFFFF;
-    }
-    .litle-box-redBox {
-      background-color: #FF0000;
-      border-radius: 8px;
-      padding: 20px;
-      margin-top: 5px;
-      margin-bottom: 20px;
-      
-    }
-     
-    .litle-box-redBox .classFont{
-      font-family: 'Inter';
+}
+.ArchivedBtnLarge {
+  background: #ff0000;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 42px;
+  color: #ffffff;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  display: flex;
+  border-radius: 19px;
+  padding: 0px 12px;
+}
+.litle-box-redBox .ArchivedSpent {
+  background-color: #ff0000;
+  border-radius: 8px;
+  padding: 0px;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #ffffff;
+}
+.litle-box-redBox {
+  background-color: #ff0000;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.litle-box-redBox .classFont {
+  font-family: "Inter";
   font-style: normal;
   font-weight: 700;
   font-size: 19px;
   line-height: 23px;
   color: #333333;
-    }
-    .Archived-XL p{
-      font-family: 'Inter';
+}
+.Archived-XL p {
+  font-family: "Inter";
   font-style: normal;
   font-weight: 600;
   font-size: 24px;
   line-height: 25px;
+  color: #ffffff;
+  margin-bottom: 15px !important;
+}
+.top-pd {
+  background: #ffffff;
+  box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
+  border-radius: 10px;
+  padding: 5px 0px;
+}
+.FontStyle-TODOSEE {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 33px;
+  /* identical to box height */
+
+  letter-spacing: 1px;
+  text-transform: capitalize;
+
+  color: #252726;
+}
+.ClientSEE-TopDetails {
+  background: #ffffff;
+  box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
+  border-radius: 10px;
+}
+.ClientSEEBtnStyle {
+  background: #e4f4ff;
+  border-radius: 100px;
+  border: 0px;
+  padding: 5px 13px;
+}
+.ClientSEEPtags {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 16px;
+  color: #000000;
+}
+.Lead-encore p:first-child {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  color: #000000;
+}
+.Lead-encore p:last-child {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  color: #000000;
+}
+.btn-Clientgmail {
+  background: #ffffff;
+  box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+  border-radius: 30px;
+  border: 1px solid #000000;
+  padding: 15px 140px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 15px;
+  color: #000000;
+}
+.ClientSpan-Styling {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 0px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+}
+.Client-Whatsapp {
+  color: white;
+  border: 1px solid #000000;
+  width: 417px;
+  height: 50px;
+  box-sizing: border-box;
+  border-radius: 30px;
+  margin-bottom: 5px;
+  background-color: #489767;
+}
+.ClientFontMotivationsStyling p span{
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  padding: 10px 0px;
+}
+.ClientFontMotivationsStyling p {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  padding: 10px 0px;
+}
+.clientNote{
+  font-family: 'Poppins' !important;
+font-style: normal !important;
+font-weight: 400 !important;
+font-size: 13px !important;
+line-height: 20px !important;
+display: flex !important;
+align-items: center !important; 
+padding-top: 0px !important;
+}
+.docImg{
+  margin-right: 7px;
+}
+.btn-BlackEdit{
+  background: #032339;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 27px;
+color: #FFFFFF;
+padding: 15px 40px;
+}
+.btn-contractClient{
+  background: #032339;
+  border-radius: 100px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 27px;
+  padding: 15px 40px;
   color: #FFFFFF;
-  margin-bottom: 15px !important
-    }
-    .top-pd{
-      background: #FFFFFF;
-      box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
-      border-radius: 10px;
-      padding: 5px 0px;
-    }
-    .FontStyle-TODOSEE{
-      font-family: 'Poppins';
+}
+.btn-ArchivedClient{
+  background: #FF0000;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 27px;
+color: #FFFFFF;
+padding: 15px 24px;
+}
+.btn-grilleClient{
+background: #489767;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 27px;
+color: #FFFFFF;
+padding: 15px 40px;
+}
+.btn-moveClient{
+  background: #A461D8;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 27px;
+color: #FFFFFF;
+padding: 15px 25px;
+}
+.btn-careerClient{
+  background: #032339;
+  border-radius: 100px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 27px;
+  padding: 15px 33px;
+  color: #FFFFFF;
+}
+.btn-Down{
+  font-family: 'Poppins';
 font-style: normal;
 font-weight: 700;
-font-size: 22px;
-line-height: 33px;
-/* identical to box height */
-
-letter-spacing: 1px;
-text-transform: capitalize;
-
-color: #252726;
-
-    }
-    .ClientSEE-TopDetails{
-      background: #FFFFFF;
-box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
-border-radius: 10px;
-    }
-    .ClientSEEBtnStyle{
-      background: #E4F4FF;
-      border-radius: 100px;
-      border: 0px;
-      padding: 5px 13px;
-    }
-    .ClientSEEPtags{
-      font-family: 'Poppins';
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 16px;
-/* identical to box height, or 89% */
-
-display: flex;
-align-items: center;
-
+font-size: 12px;
+line-height: 24px;
 color: #000000;
+margin-top: 5px;
+}
+.Social-CardClient{
+  background: #FFFFFF;
+  box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+  border-radius: 10px;
+}
 
-    }
+.upload-Client .css-1s2u09g-control{
+  width: 25px;
+  min-height:25px !important;
+  border-radius: 25px !important;
+  position: relative;
+  top: -27px;
+  left: 95px;
+}
+.upload-Client .css-319lph-ValueContainer{
+  display: none !important;
+}
+.upload-Client .css-tlfecz-indicatorContainer{
+  padding: 0px !important;
+}
+.upload-Client .css-26l3qy-menu{
+position: relative !important;
+top: -30px !important;
+right: 11px !important;
+
+}
+.upload-Client .css-1n7v3ny-option {
+
+  padding: 8px 2px !important
+}
+
+.upload-Client .css-yt9ioa-option{
+  padding: 8px 2px !important
+}

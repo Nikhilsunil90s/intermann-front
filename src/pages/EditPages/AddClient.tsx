@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../../CSS/AddClient.css";
 import Select, { StylesConfig } from "react-select";
-import Empty from "../../images/emptyStar.svg";
-import StarRating from "../../images/RatingStar.svg";
-import ReactStars from "react-rating-stars-component";
 import Switch from "react-switch";
+import RatingCmp from "../../components/AddClientRating/Rating";
 import {
   NumberOfPost,
   ColourOption,
@@ -13,10 +11,19 @@ import {
 } from "../../Selecteddata/data";
 import chroma from "chroma-js";
 import $ from "jquery";
-import { setHours } from "date-fns";
 let Amountarr = "";
 let Hours = "";
-export default function AddClient() {
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      Rating: React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >;
+    }
+  }
+}
+export default function AddClient(props) {
   const switchHandle = (event,id,e) => {
   if(e==="Offre"){
     setOffre(event)
@@ -61,7 +68,8 @@ if(e==="SISPI"){
   const [Contrat,setContrat]=useState(false)
   const [Signature,setSignature]=useState(false)
   const [Offre,setOffre]=useState(false)
-
+  const [StarRatings,setRatings]=useState([])
+console.log(StarRatings,"hello")
   const [state, setState] = useState({
     name: "bob",
     color: "blue",
@@ -460,14 +468,14 @@ if(e==="SISPI"){
                             className="text-center"
                             style={{ height: "35px" }}
                           >
-                            {" "}
+                            
                             <input
                               type="radio"
                               name="candidatMotivation"
                               value={1}
                               onChange={onFormDataChange}
                               id="r1"
-                            />{" "}
+                            />
                             <label htmlFor="r1" className="react">
                               <i data-icon="😟"></i>
                             </label>
@@ -479,14 +487,14 @@ if(e==="SISPI"){
                             className="text-center both"
                             style={{ height: "35px" }}
                           >
-                            {" "}
+                            
                             <input
                               type="radio"
                               name="candidatMotivation"
                               value={2}
                               onChange={onFormDataChange}
                               id="r2"
-                            />{" "}
+                            />
                             <label htmlFor="r2" className="react">
                               <i data-icon="🙁"></i>
                             </label>
@@ -498,14 +506,14 @@ if(e==="SISPI"){
                             className="text-center"
                             style={{ height: "35px" }}
                           >
-                            {" "}
+                            
                             <input
                               type="radio"
                               name="candidatMotivation"
                               value={3}
                               onChange={onFormDataChange}
                               id="r3"
-                            />{" "}
+                            />
                             <label htmlFor="r3" className="react">
                               <i data-icon="😊"></i>
                             </label>
@@ -517,7 +525,7 @@ if(e==="SISPI"){
                             className="text-center"
                             style={{ height: "35px" }}
                           >
-                            {" "}
+                            
                             <input
                               type="radio"
                               name="candidatMotivation"
@@ -536,14 +544,14 @@ if(e==="SISPI"){
                             className="text-center"
                             style={{ height: "35px" }}
                           >
-                            {" "}
+                            
                             <input
                               type="radio"
                               name="candidatMotivation"
                               value={5}
                               onChange={onFormDataChange}
                               id="r5"
-                            />{" "}
+                            />
                             <label htmlFor="r5" className="react">
                               <i data-icon="😍"></i>
                             </label>
@@ -562,11 +570,11 @@ if(e==="SISPI"){
                 <div className="col-6">
                   <div className="">
                     <label className="Form-styling d-grid">
-                      Importance de ce client{" "}
+                      Importance de ce client
                       <p className="mb-0">(bigger number is more important) </p>
                     </label>
                     <div className="col-12">
-                      <ReactStars
+                      {/* <ReactStars
                         count={5}
                         color="#E7E7E7"
                         onChange={ratingChanged}
@@ -578,7 +586,27 @@ if(e==="SISPI"){
                         }
                         fullIcon={<i className="fa fa-star"></i>}
                         activeColor="#FFB608"
-                      />
+                      /> */}
+                      
+{/* <div className="star-rating">
+  <input type="radio" id="5-stars" name="rating" value="5" />
+  <label htmlFor="5-stars" className="star"><Empty /></label>
+  <input type="radio" id="4-stars" name="rating" value="4" />
+  <label htmlFor="4-stars" className="star"><Empty /></label>
+  <input type="radio" id="3-stars" name="rating" value="3" />
+  <label htmlFor="3-stars" className="star"><Empty /></label>
+  <input type="radio" id="2-stars" name="rating" value="2" />
+  <label htmlFor="2-stars" className="star"><Empty /></label>
+  <input type="radio" id="1-star" name="rating" value="1" />
+  <label htmlFor="1-star" className="star"><Empty /></label>
+</div> */}
+{/* <Rating
+  emptySymbol={<img style={{marginLeft:"10px"}} src={require("../../images/emptyStar.svg").default} />}
+  fullSymbol={<img style={{marginLeft:"10px"}} src={require("../../images/RatingStar.svg").default} />}
+  placeholderRating={0}
+  
+/> */}
+<RatingCmp  StarRatings={setRatings} />
                     </div>
                   </div>
                 </div>
@@ -626,7 +654,7 @@ if(e==="SISPI"){
                     <div className="col-6">
                       <div className="p-1">
                         <label className="fromDate">
-                          From date / A PARTIR DE{" "}
+                          From date / A PARTIR DE
                         </label>
                         <input
                           type="date"
@@ -639,7 +667,7 @@ if(e==="SISPI"){
                     <div className="col-6">
                       <div className="p-1">
                         <label className="fromDate">
-                          UNTIL DATE / Jusqu’à{" "}
+                          UNTIL DATE / Jusqu’à
                         </label>
                         <input
                           type="date"
@@ -831,7 +859,7 @@ if(e==="SISPI"){
                     </div>
                     <p className="paidHFontChild">
                       A remplir si possible, il faut selectionner les heures
-                      négociées et mettre une valeur du salaire mensuel pour Xh{" "}
+                      négociées et mettre une valeur du salaire mensuel pour Xh
                     </p>
                   </div>
                 </div>
@@ -912,13 +940,13 @@ if(e==="SISPI"){
                     </div>
                     <p className="paidHFontChild">
                       A remplir si possible, il faut selectionner les heures
-                      négociées et mettre une valeur du salaire mensuel pour Xh{" "}
+                      négociées et mettre une valeur du salaire mensuel pour Xh
                     </p>
                   </div>
                 </div>
                 <div className="col-12 mt-1">
                   <p className="Form-styling  ">
-                    CA Potentiel / Potential Turnonver{" "}
+                    CA Potentiel / Potential Turnonver
                   </p>
                   <div
                     className="d-flex amount-fieldsModal mt-0 pt-0"
@@ -937,7 +965,7 @@ if(e==="SISPI"){
                   </div>
                   <p className="paidHFontChild">
                     A remplir si possible, c’est le CA qu’on peut réaliser avec
-                    ce client{" "}
+                    ce client
                   </p>
                 </div>
                 <div className="col-12">

@@ -29,11 +29,6 @@ function ToDoProfile() {
  {value:"upload",label:<Upload />,},
  {value:"Download Image",label:<Download />} 
  ]
-  // const [Dissapointed, setDissapointed] = useState(false);
-  // const [Notreally, setNotreally] = useState(false);
-  // const [Like, setLike] = useState(false);
-  // const [Great, setGreat] = useState(false);
-  // const [Superlovely, setSuperlovely] = useState(false);
 
   const editCandidatProfile = () => {
     navigate("/editToDo", { state: profile });
@@ -114,7 +109,7 @@ function ToDoProfile() {
                     style={{ width: "90%" }}
                   />
                
-                  <Select
+               <Select
                           closeMenuOnSelect={true}
   // onChange={handleChange}
   // components={ {SingleValue: customSingleValue } }
@@ -133,13 +128,6 @@ function ToDoProfile() {
                   <div>
                     <p className="d-flex">
                     <p>Motivation : <b>{candidatMotivationIcons[profile.candidatMotivation - 1].icon + " " + candidatMotivationIcons[profile.candidatMotivation - 1].motivation}</b> </p>
-
-                  
-                      {/* {Dissapointed ? <div>🙂 Dissapointed</div> : null}
-                      {Notreally ? <div>🙁 Not really</div> : null}
-                      {Like ? <div>😊 Like</div> : null}
-                      {Great ? <div>🥰 Great</div> : null}
-                      {Superlovely ? <span>😍 Superlovely</span> : null} */}
                     </p>
                   </div>
                   <p>Secteur : {profile.candidatActivitySector.toLocaleUpperCase()}</p>

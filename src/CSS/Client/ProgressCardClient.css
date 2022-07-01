@@ -336,3 +336,51 @@ hr.new5 {
   font-size: 19px;
   line-height: 30px;
 }
+
+
+/* Modal inProgress Client */
+
+.TopHeaderModalInprogress h2{
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 24px;
+display: flex;
+align-items: flex-end;
+color: #000000;
+}
+.TopHeaderModalInprogress span{
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 24px;
+display: flex;
+align-items: flex-end;
+color: #A461D8;
+margin-left: 5px;
+}
+.Modal-bodyText{
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 13px;
+line-height: 5px;
+text-align: center;
+color: #000000;
+}
+.btnClient-Modal{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  color: #FFFFFF;
+background: #A461D8;
+border-radius: 100px;
+border: 0px;
+padding: 15px 35px;
+}

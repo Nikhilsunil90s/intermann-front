@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { API_BASE_URL } from "../../config/serverApiConfig";
-
+import "../../CSS/Client/ArchivedCardClient.css"
 function ArchivedClientModal({ props, closeModal, path }) {
 
     console.log(props);
@@ -78,10 +78,18 @@ function ArchivedClientModal({ props, closeModal, path }) {
         <div className="modal d-block" style={{ backgroundColor: "#00000052" }} id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div className="modal-dialog modal-lg">
                 <div className="modal-content padding-full">
-                    <div className="text-end">
-                        <button type="button" className="btn-close" onClick={() => closeModal(false)} data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div className="modal-header p-0">
+                    <div className="col-12">
+                        <div className="row">
+                            <div className="col-8 px-0 clientArchivedModal-font">
+                    <h2 className="modal-title  py-1 pRight" id="staticBackdropLabel">Move {props.clientCompanyName} to <span className="text-danger">Archived</span> </h2>
                     </div>
-                    <h2 className="modal-title pRight" id="staticBackdropLabel">Move {props.clientCompanyName} to <span className="text-danger">Archived</span> </h2>
+                    <div className="col-4 text-end">
+                    <button type="button" className="btn-close" onClick={() => closeModal(false)} data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
                     <div className="modal-body text-start">
                         <p style={{
                             fontFamily: 'Poppins',
@@ -99,26 +107,23 @@ function ArchivedClientModal({ props, closeModal, path }) {
                                     required
                                     className="form-control"
                                     onChange={onFormDataChange}
+                                    placeholder="Client_List"
                                 >
                                 </textarea>
                             </div>
-                            <div className="col-12 text-center pt-3">
+                            <div className="col-12 text-center mt-1">
                                 <div className="row ">
-                                    <div className="col-3"></div>
-                                    <div className="col-6">
+                                   <div className="col-12 d-flex NoteArchivedModal mb-1">
+                                    <p className="">Note</p> <span> : This action mean that is not wanted anymore If you have any question please contact your manager or contact@textone.fr</span>
+                                   </div>
+                                    <div className="col-12 d-flex justify-content-end">
                                         <button
                                             type="submit"
-                                            style={{
-                                                borderRadius: "8px", backgroundColor: "#FF0000", width: "100%", padding: "11px", fontFamily: 'Inter',
-                                                fontStyle: "normal",
-                                                fontWeight: "700",
-                                                fontSize: "20px",
-                                                lineHeight: "16px", color: "white", border: "unset"
-                                            }}
+                                         className="btnClient-ArchivedModal"
                                         >Move {props.clientCompanyName} to Status Archived.</button>
                                     </div>
 
-                                    <div className="col-3"></div>
+                                
 
 
                                 </div>

@@ -32,7 +32,7 @@ const ClientDataFormat = {
     clientReferenceEmail: "",
 }
 
-function ClientTodoEdit() {
+function ClientArchivedEdit() {
 
     const notifyClientEditSuccess = () => toast.success("Client Updated Successfully! View Client in To-Do Clients/Leads List.");
 
@@ -332,47 +332,34 @@ function ClientTodoEdit() {
             />
             <div className="container-fluid">
                 <div className="row">
-                <div className="col-12 top-pd mt-1">
-            {/* <h1 style={{ textDecoration: 'underline' }}>CLIENT FILE: {profile.clientCompanyName}</h1> */}
-         <div className="row">
-          <div className="col-6">
-            <div className="stable">
-              <Link to="/clientTodo">
-                <button type="button" className="btn FontStyle-TODOSEE">
-                  <img src={require("../../images/return.svg").default} />
-               Client File : {profile.clientCompanyName}
-                </button>
-              </Link>
-            </div>
-          </div>
-          <div className="col-4 d-flex align-items-center justify-content-end">
-          <button className="btn bg-ClientCancel">
+                    <div className="col-12 top-pd text-center">
+                        <h1 style={{ textDecoration: "underline" }}>EDIT FILE: {profile.clientCompanyName}</h1>
+                    </div>
+                    <form className="form" onSubmit={onFormSubmit}>
+
+                        <div className="col-12 d-flex justify-content-end text-end ">
+                            <Link to="/clientTodo" style={{ textDecoration: "none" }}>
+                                <button className="btn bg-red">
                                     <img
                                         style={{ width: "25%" }}
                                         src={require("../../images/multiply.svg").default}
                                     />
-                                    <p className="mb-0">Cancel</p>
+                                    <p>Cancel</p>
                                 </button>
-          </div>
-          <div className="col-2 d-flex align-items-center justify-content-center pr-1 pl-0">
-          <Link to="/clientTodo" style={{ textDecoration: "none" }}>
-                                <button className="btn btn-Clientsave" type="submit">
-                                <img src={require("../../images/ClientSave.svg").default} style={{marginRight:"5px"}} />
-                                Save Profile
-                            </button>
                             </Link>
-          </div>
-          </div>
-          </div>
-                    
-                    <form className="form px-0" onSubmit={onFormSubmit}>
-                        <div className="">
-                            <div className="col-12 p-2 Social-CardClient mt-1">
+
+                            <button className="btn btn-save" type="submit">
+                                <img src={require("../../images/check.svg").default} />
+                                Save
+                            </button>
+                        </div>
+                        <div className="bg-class">
+                            <div className="col-12 p-3 bg-color-card">
                                 <div className="row">
-                                    <div className="col-2 text-center">
+                                    <div className="col-3 text-center">
                                         <img
-                                            src={imgSource != "" ? API_BASE_URL + imgSource : require("../../images/ClientCardPhoto.svg").default}
-                                            style={{ width: "100%" }}
+                                            src={imgSource != "" ? API_BASE_URL + imgSource : require("../../images/menlogos.svg").default}
+                                            style={{ width: "90%" }}
                                         />
 
                                         <button type="button" onClick={handleFileUpload} className="btn btn-upload">
@@ -392,34 +379,36 @@ function ClientTodoEdit() {
                                     </div>
                                     <div className="col-5 card-xl">
                                         <div className="row">
-                                            <div className="col-12 flex-grid Edit-LabelsFonts">
-                                                <label >Company Name</label>
+                                            <div className="col-12 flex-grid">
+                                                <label>Company Name</label>
                                                 <input className="form-control" name="clientCompanyName" defaultValue={profile.clientCompanyName} onChange={onFormDataChange} />
                                             </div>
-                                            <div className="col-12 pt-2">
-                                                <label className="Edit-LabelsFonts">Number of position</label>
-                                                <input name="numberOfPosts" placeholder="Num Only" className="form-control" defaultValue={profile.numberOfPosts} />
+                                            <div className="col-12 flex-grid pt-3">
+                                                <label>Number of position</label>
+                                                <input name="numberOfPosts" className="form-control" defaultValue={profile.numberOfPosts} />
+                                                <label className="fw-normal">Number only</label>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-5 d-grid align-items-center">
-                  <div className="text-end ml-5">
-                    <button className="ClientEditStylebtn">
-                      <img src={require("../../images/briefcase2.svg").default} />
-                    </button>
-               <div className="Lead-pas">
-                  <p className="mb-0  pt-1">
-                  Lead pas encore traité
-                  </p>
-                  <p className="">Ce lead est en sommeil, pas traité</p>
-                  </div>
-                  </div>
-                {/* </div> */}
-                </div>
+                                    <div className="col-3 text-end end-class">
+                                        <div className="text-center">
+                                        <div>
+                      <button type="button" className="btn d-flex btnArchive"
+                      >
+
+                        <span><img src={require("../../images/multiplyyy.svg").default} /></span>
+                        ARCHIVED
+                      </button>
+                      <p className="fw-bold mx-2">Lead pas encore traité</p>
+                                                <p className="mx-2">Ce lead est en sommeil, pas traité</p>
+                    </div>
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div className="col-12 Social-CardClient mt-1 p-1">
+                            <div className="col-12 ">
                                 <div className="row">
                                     <div className="col-6">
                                         <p className="Arial">Secteur d’Activité</p>
@@ -860,4 +849,4 @@ function ClientTodoEdit() {
         </>
     );
 }
-export default ClientTodoEdit;
+export default ClientArchivedEdit;

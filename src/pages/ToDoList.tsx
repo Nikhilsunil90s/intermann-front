@@ -37,7 +37,7 @@ function ToDoList() {
   const [jobs, setJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState([]);
   const [selectedSector, setSelectedSector] = useState("");
-  const [sectorOptions, setSectorOptions] = useState([]);
+  const [sectorOptions, setSectorOptions] = useState([{value:"",label:"select",color:"color"}])as any;
   const [jobOptions, setJobOptions] = useState([]);
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [loader, setLoader] = useState(false);
@@ -45,6 +45,7 @@ function ToDoList() {
   const [status, setStatus] = useState(Boolean);
   const [nameOptions, setNameOptions] = useState([])                        
   const [showMore, setShowMore] = useState(false)
+  const [email,setEmail]=useState([])
   const [licenceOptions, setLicenseOptions] = useState([
     {
       value: "true", label: "Have Licence", color: '#FF8B00'
@@ -67,8 +68,7 @@ function ToDoList() {
       value: "5", label: "Superlovely", color: '#FF8B00'
     }
   ])
-  const [LicensePermis, setLicensePermis] = useState(Boolean) as any
-  const [selectByName, setSelectName] = useState([])
+
 
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
@@ -186,7 +186,26 @@ function ToDoList() {
       .then((reD) => reD)
       .catch((err) => err);
   };
+  const DateFilter=()=>{
+    fetch(`${API_BASE_URL}getCandidats/?candidatStartDate=${DateArr}`, {
 
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((reD) => reD.json())
+      .then((result) =>{
+       if(result.total === 0){
+    setLoader(true) 
+    setStatus(false)
+       }else{
+     setFilterData([...result.data]) ; setLoader(true); setStatus(true)
+     }   })
+      .catch((err) => err);
+  }
   const fetchProfiles = async () => {
     return await fetch(API_BASE_URL + "allToDoCandidats", {
       method: "GET",
@@ -212,7 +231,21 @@ function ToDoList() {
         console.log(err)
       })
     }
-  })
+    if (email.length == 0) {
+      let emailops=[]as any
+      fetchProfiles().then((profileResult) => {
+        profileResult.filter((item) => {
+          if(item.candidatEmail){
+         emailops.push({ value: item.candidatEmail, label: item.candidatEmail, color: '#FF8B00' })
+          }
+      })
+         setEmail(emailops)
+        console.log(emailops,"emailops")
+      })
+        console.log([...email],"email")
+      }
+    
+  } )
 
   const fetchProfilesForAJob = async (jobName: string) => {
     return await fetch(API_BASE_URL + "fetchProfilesForAJob", {
@@ -231,6 +264,7 @@ function ToDoList() {
 
   const handleNameChange = (e: any) => {
     // console.log(e.target.value)
+
     SelectedName = []
     MotivationArr = []
     LicencePermisArr = []
@@ -315,26 +349,7 @@ function ToDoList() {
 
   }, [selectedJob])
 
-  const HandleChecked = (e: any, job: any) => {
-    // FilterJob=[]
-    if (!FilterJob.find((e) => e == job.jobName)) {
-      // console.log("hello")
-      FilterJob.push(job.jobName);
-      setSelectedJob(FilterJob);
-    }
-    else {
-      if (FilterJob.length === 1) {
-        FilterJob = []
-      }
-      // console.log(FilterJob.length,"index")
-      //  console.log("not checked")
-      FilterJob = FilterJob.filter((item) => { return item !== job.jobName })
-      console.log(FilterJob.length, "newarr")
 
-      setSelectedJob(FilterJob)
-      // console.log(selectedJob,"else")
-    }
-  }
 
   const getSelectedLanguage = (e: any) => {
     if (e.target.checked) {
@@ -356,8 +371,8 @@ function ToDoList() {
   const filterFunction = async () => {
     setLoader(false);
 
-    if (SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0) {
-      if (SelectedName.length > 0) {
+    if (SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length>0) {
+      if (SelectedName.length > 0 && MotivationArr.length == 0 && LicencePermisArr.length == 0 && DateArr.length==0) {
         LicencePermisArr = []
         fetch(`${API_BASE_URL}getCandidats/?candidatName=${SelectedName}`, {
 
@@ -380,7 +395,7 @@ function ToDoList() {
           .catch((err) => err);
         setLoader(true);
       }
-      if (MotivationArr.length > 0) {
+      if (SelectedName.length == 0 && MotivationArr.length > 0 && LicencePermisArr.length == 0 && DateArr.length == 0) {
         setFilterData([])
         SelectedName = []
         fetch(`${API_BASE_URL}getCandidats/?candidatMotivation=${MotivationArr}`, {
@@ -404,7 +419,7 @@ function ToDoList() {
           .catch((err) => err);
         setLoader(true);
       }
-      if (LicencePermisArr.length > 0) {
+      if (LicencePermisArr.length > 0 && MotivationArr.length == 0 && SelectedName.length  == 0 && DateArr.length == 0) {
         setFilterData([])
         SelectedName = []
         MotivationArr = []
@@ -429,7 +444,39 @@ function ToDoList() {
           .catch((err) => err);
         setLoader(true);
       }
+      if (DateArr.length > 0 && SelectedName.length == 0 && MotivationArr.length == 0 && LicencePermisArr.length == 0 ) {
+        setFilterData([])
+        SelectedName = []
+        MotivationArr = []
+        LicencePermisArr=[]
+        setSelectedSector("")
+        
+        DateFilter()
+      }
+      // if (DateArr.length > 0 && SelectedName.length > 0 && MotivationArr.length > 0 && LicencePermisArr.length > 0 ) {
+      //   fetch(`${API_BASE_URL}getCandidats/?candidatLicensePermis=${LicencePermisArr}?candidatMotivation=${MotivationArr}?candidatName=${SelectedName}?candidatStartDate=${DateArr}`, {
+
+      //     method: "GET",
+      //     headers: {
+      //       Accept: "application/json",
+      //       "Content-Type": "application/json",
+      //       Authorization: "Bearer " + localStorage.getItem("token"),
+      //     },
+      //   })
+      //     .then((reD) => reD.json())
+      //     .then((result) => {
+      //       {
+      //         // setFilterData([...result.data]);
+      //         // console.log(result,"result")
+      //         setFilterData([...result.data]);
+      //       }
+      //       // setStatus(result.status);
+      //     })
+      //     .catch((err) => err);
+      //   setLoader(true);
+      // }
     }
+    
     if (
       selectedSector.length > 0 &&
       selectedJob.length == 0 &&
@@ -567,7 +614,7 @@ function ToDoList() {
         .catch((err) => err);
       setLoader(true);
     }
-    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0) {
+    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0) {
       {
         setLoader(true)
         setStatus(true)
@@ -594,11 +641,13 @@ function ToDoList() {
   }
   const onDateChange=(e:any)=>{
     DateArr=[]
+    if(e.target.name==="candidatStartDate"){
     let SelectedDate=[]
-    console.log(e.target.value)
     SelectedDate=e.target.value
     DateArr.push(SelectedDate)
+    console.log(DateArr,"hey")
     filterFunction()
+    }
  }
 
   return (
@@ -679,6 +728,7 @@ function ToDoList() {
                         classNamePrefix="select"
                         onChange={handleSectorChange}
                         options={sectorOptions}
+                        defaultInputValue="Select Un Secteur"
                         styles={colourStyles}
                       /> : <p>Select Un Secteur!</p>
                     }
@@ -765,21 +815,66 @@ function ToDoList() {
                         </div>
                         <div className="col-4 pt-1">
         <p className="FiltreName">Filter by date</p>
-        <div className="dropdown">
-          <div aria-labelledby="dropdownMenuButton1">
-                          <input
+                          {/* <input
                               type="date"
                               className="form-control"
                               name="candidatStartDate"
                                 // value={data.candidatStartDate}
-                                onChange={onDateChange}
+                                onClick={onDateChange}
                                 
-                              />
-                            </div>
-                          </div>
+                              /> */}
+                        <input type="date"  className="form-control"
+                              name="candidatStartDate"   onChange={onDateChange} />
         </div>
                         <div className="col-4 pt-1">
                           <p className="FiltreName">Filter by driver licence</p>
+                          <div className="dropdown">
+                            <div aria-labelledby="dropdownMenuButton1">
+                              {/* <select
+                                name=""
+                                className="form-select"
+                                // onChange={handleSectorChange}
+                                onChange={HandelLicence}
+                              >
+                                <option value="Select Un Secteur" className="fadeClass001" selected disabled hidden>Have licence</option>
+                                <option value="true" onChange={HandelLicence}>Have Licence</option>
+                                <option value="false" onChange={HandelLicence}>Doesn't Have Licence</option>
+                              </select> */}
+                              <Select
+                                name="candidatLicencePermis"
+                                closeMenuOnSelect={true}
+                                placeholder="‎ ‎ ‎ Select Licence Permis"
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                                onChange={HandelLicence}
+                                options={licenceOptions}
+                                styles={colourStyles}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-4 pt-2">
+                          <p className="FiltreName">Filtre by email</p>
+                          <div className="dropdown">
+                            <div aria-labelledby="dropdownMenuButton1">
+                            {email.length>0?
+                              <Select
+                                name="candidatLicencePermis"
+                                closeMenuOnSelect={true}
+                                placeholder="‎ ‎ ‎ Select Licence Permis"
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                                onChange={HandelLicence}
+                                options={email}
+                                styles={colourStyles}
+                              />
+                              :<SelectLoader />
+                            }
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-4 pt-2">
+                          <p className="FiltreName">Filtre by contact</p>
                           <div className="dropdown">
                             <div aria-labelledby="dropdownMenuButton1">
                               {/* <select

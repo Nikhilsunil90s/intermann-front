@@ -1,0 +1,66 @@
+/* Modal Client  */
+
+.clientArchivedModal-font h2{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 24px;
+display: flex;
+align-items: flex-end;
+color: #000000;
+}
+.clientArchivedModal-font h2 span{
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 24px;
+display: flex;
+align-items: flex-end;
+color: #E21B1B;
+}
+.NoteArchivedModal {
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 300;
+font-size: 13px;
+line-height: 24px;
+display: flex;
+text-decoration-line: underline;
+color: #000000;
+
+}
+.NoteArchivedModal span{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 300;
+font-size: 13px;
+line-height: 24px;
+text-align: left;
+color: #000000;
+text-decoration-line: unset !important;
+}
+.NoteArchivedModal p{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 300;
+font-size: 13px;
+line-height: 24px;
+color: #000000;
+text-decoration-line: underline;
+}
+.btnClient-ArchivedModal{
+    background: #E21B1B;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+display: flex;
+align-items: center;
+color: #FFFFFF;
+border: 0px ;
+padding: 15px 50px;
+}
