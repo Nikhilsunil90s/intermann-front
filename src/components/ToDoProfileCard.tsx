@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "../CSS/CanEmpl.css";
 import ArchivedModal from "./Modal/ArchivedModal";
 import InProgressModal from "./Modal/InProgressModal";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select,{StylesConfig} from 'react-select'
 import chroma from 'chroma-js';
@@ -32,6 +32,7 @@ const ToDoProfileCard = (props: any,{path}) => {
         navigate("/todoprofile", { state: props.data });
     }
     const MoreOption=(e:any)=>{
+        debugger
       if(e.value=="Edit Profile"){
           editCandidatProfile()
       }
@@ -63,9 +64,9 @@ const ToDoProfileCard = (props: any,{path}) => {
     // }
     return (
         <>
-            <div className="card card-color">
-                <div className="card-upper">
-                    <div className="col-3">
+            <div className="card card-color mb-1 px-0">
+                <div onClick={viewFullProfile} className="card-upper cursor-pointer">
+                    <div className="col-4">
                         <img
                             src={require("../images/card-men.svg").default}
                             className="card-img-top"
@@ -73,17 +74,15 @@ const ToDoProfileCard = (props: any,{path}) => {
                         />
                     </div>
                     <div className="col-8 fontStylinForcards">
-                    <p className="text-dark"><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
-                        <p className="text-dark"><b>{props.data.candidatAge ? props.data.candidatAge : "Age Not Available!"}</b></p>
-                        <div >  <p className="text-dark d-flex"> <b>{candidatMotivationIcons[props.data.candidatMotivation - 1].icon + " " + candidatMotivationIcons[props.data.candidatMotivation - 1].motivation}</b>
+                    <p className="text-dark mb-0"><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
+                        <p className="text-dark mb-0">{props.data.candidatAge ?  <p className="age00 mb-0">Age : <b> {props.data.candidatAge}</b></p> : <b>Age Not Available!</b>}</p>
+                        <div >  <p className="text-dark d-flex mb-0"> <b>{candidatMotivationIcons[props.data.candidatMotivation - 1].icon + " " + candidatMotivationIcons[props.data.candidatMotivation - 1].motivation}</b>
                         </p>
                         </div>
                        
-                    </div>
                    
                 </div>
-
-                <div className="card-body">
+                </div>
                 <div className="col-12 ">
                         <div className="row cardColorRow">
 
@@ -93,7 +92,7 @@ const ToDoProfileCard = (props: any,{path}) => {
                             <button className="todo p-0"><img src={require("../images/briefcase.svg").default} /></button>
                         </Link>
                         </div>
-                        <div className="col-6 d-flex justify-content-end mb-0 pd-00X1 form-group">
+                        <div className="col-6 d-flex justify-content-end mb-0 pd-00X1 px-0 form-group">
                         {
                                     props.data.candidatLicensePermis ?
                                         <div className="d-flex  justify-content-center align-items-center">
@@ -108,6 +107,9 @@ const ToDoProfileCard = (props: any,{path}) => {
                         </div>
                     </div>
                     </div>
+                    <div className=" px-1">
+                <div className="card-body">
+               
                     <p>Name : <b>{props.data.candidatName.toLocaleUpperCase()}</b></p>
                     <p>Age : <b>{props.data.candidatAge ? props.data.candidatAge : "Age Not Available!"}</b></p>
                     <p>Motivation : <b>{candidatMotivationIcons[props.data.candidatMotivation - 1].icon + " " + candidatMotivationIcons[props.data.candidatMotivation - 1].motivation}</b> </p>
@@ -122,13 +124,13 @@ const ToDoProfileCard = (props: any,{path}) => {
                     <p className="blue">
                         Ready for work : From {props.data.candidatStartDate} To {props.data.candidatEndDate}
                     </p>
-                   
+                    </div>
                 </div>
-                <div className="card-body">
-                  
-                    <div className="col-12 mt-2">
+                <div className="card-body" >
+                    <div className=""  style={{padding:"0px 5px"}}>
+                    <div className="col-xxl-12 col-xl-12 col-md-12 col-lg-12 px-0 mt-0">
                         <div className="row">
-                            <div className="col-6">
+                            <div className="col-xxl-6 col-xl-6 col-md-6 col-lg-6">
                                 {/* <select className="selectOption firstoption" onChange={MoreOption}>
                                     <option  value="" disabled selected hidden>
                                         More options
@@ -157,8 +159,8 @@ const ToDoProfileCard = (props: any,{path}) => {
                     
                  />
                             </div>
-                            <div className="col-6 text-center">
-                                <button className="btn btn-dark btn-card" onClick={viewFullProfile}>
+                            <div className="col-xxl-6 col-xl-6 col-md-6 col-lg-6  text-end pl-0">
+                                <button className="btn btn-dark btn-viewprofile-card" onClick={viewFullProfile}>
                                     See Full Profile
                                 </button>
                             </div>
@@ -170,7 +172,7 @@ const ToDoProfileCard = (props: any,{path}) => {
                             }
                         </div>
                     </div>
-
+                    </div>
                 </div>
             </div>
         </>

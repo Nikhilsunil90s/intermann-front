@@ -97,21 +97,23 @@ color: #000000;
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 45px;
     text-decoration-line: underline;
     color: #000000;
     margin-bottom:0px ;
 }
-.Todo-CardMore span{
+
+.Todo-CardMore-span{
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;
-    font-size: 16px;
-    line-height: 45px;
+    font-size: 18px;
+    line-height: 43px;
     color: #000000;
     margin-bottom:0px ;
     margin-left:5px;
+    text-decoration-line: unset !important;
 }
 .blue-text{
 color:#3F76E2 !important
@@ -288,7 +290,7 @@ border-radius: 8px;
 font-style: normal;
 font-weight: 500;
 font-size: 18px;
-line-height: 16px;
+line-height: 24px;
 color: #000000;
 }
 .bg-todoTodoDetails{
@@ -302,7 +304,7 @@ padding-top: 30px;
 background: #E4F4FF;
 border-radius: 100px;
 border: 0px;
-padding: 5px 13px;
+padding: 13px 30px;
 }
 .Social-Card{
 background: #FFFFFF;
@@ -315,8 +317,7 @@ font-style: normal;
 font-weight: 700;
 font-size: 16px;
 line-height: 0px;
-display: flex;
-align-items: center;
+
 color: #000000;
 }
 .btn-gmail{
@@ -627,7 +628,7 @@ padding-left: 5px;
     border-radius: 25px !important;
     position: relative;
     top: -25px;
-    left: 99px;
+    left: 68%;
 }
 .upload .css-319lph-ValueContainer{
     display: none !important;
@@ -661,7 +662,21 @@ right: 11px !important;
     border-radius: 25px !important;
     min-height: 25px !important;
     display: flex;
-    width: 130px;
+    width: 112px;
+    height: 32px !important;
+}
+.css-1okebmr-indicatorSeparator {
+   display: none;
+}
+.CardOptions .css-1okebmr-indicatorSeparator {
+    -webkit-align-self: stretch;
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
+    background-color: #FFFFFF;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    width: 1px;
+    box-sizing: border-box;
 }
 .CardOptions .css-14el2xx-placeholder {
 display: flex;
@@ -671,13 +686,13 @@ display: flex;
     padding: 0px !important;
 }
 .CardOptions .css-1pahdxg-control{
-    min-height: 24px !important;
-    box-shadow: 0 0 0 1px #000000 !important;
-    max-height: 17px !important;
-    display: flex;
-    width: 130px;
-    border-radius: 25px !important;
-    border: none !important;
+      box-shadow: 0 0 0 1px #000000 !important;
+      max-height: 17px !important;
+      display: flex;
+      width: 112px;
+      border-radius: 25px !important;
+      border: none !important;
+      min-height: 31px !important;
 }
 .CardOptions .css-1pahdxg-control:focus{
 border: #3F3F44 !important;
@@ -699,12 +714,14 @@ border: #3F3F44 !important;
 font-family: 'Poppins';
 font-style: normal;
 font-weight: 600;
-font-size: 12px;
+font-size: 11px;
 line-height: 16px;
 display: flex;
 justify-content: center;
 align-items: center;
 color: #000000;
+margin-left: 6px;
+margin-right: 0px !important;
 }
 
 .CardOptions .css-1n7v3ny-option{
@@ -802,4 +819,71 @@ color: #000000 !important;
     line-height: 27px;
     color: #FFFFFF;
     padding: 15px 30px;
+}
+.experience{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 30px;
+display: flex;
+align-items: center;
+color: #000000;
+}
+@media (min-width: 1400px) { 
+.detailsCardClientSee{
+    max-width: 56%;
+}
+}
+@media (min-width: 1200px) { 
+    .detailsCardClientSee{
+        max-width: 55%;
+    }
+    .btn-gmail {
+        background: #FFFFFF;
+        box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+        border-radius: 30px;
+        border: 1px solid #000000;
+       width: 85%;
+       padding: 8px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 15px;
+        color: #000000;
+    }
+    .btn-facebook{
+       
+        color: white;
+        box-sizing: border-box;
+        background-color: #3F76E2;
+        box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+        border-radius: 30px;
+        width: 85%;
+        padding: 12 px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        color: #FFFFFF;
+    }
+    .btn-whatsapp a{
+        background-color: #489767;
+        color: white !important;
+        border-radius: 30px;
+       width: 85%;
+        box-sizing: border-box;
+        border-radius: 100px;
+        margin-bottom: 5px;
+    }
+    .btn-whatsapp {
+        background-color: #489767;
+        color: white !important;
+        border-radius: 30px;
+       width: 85%;
+        box-sizing: border-box;
+        border-radius: 100px;
+        margin-bottom: 5px;
+    }
 }

@@ -72,13 +72,12 @@
   border-radius: 18px;
 }
 .btn-see {
-  background-color: #3f76e2;
   color: white;
-  border: 1px solid #000000;
+  border: 1px solid #ffff;
   width: 379px;
   height: 50px;
   box-sizing: border-box;
-  border-radius: 18px;
+  border-radius: 100px;
   margin-bottom: 5px;
 }
 .padding-email {

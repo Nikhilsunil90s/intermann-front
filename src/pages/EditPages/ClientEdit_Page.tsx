@@ -5,7 +5,9 @@ import { useLocation } from "react-router-dom";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
-
+import Select, { GroupBase, StylesConfig } from "react-select";
+import chroma from 'chroma-js';
+import { ColourOption } from "../../Selecteddata/data";
 
 const ClientDataFormat = {
     clientCompanyName: "",
@@ -52,6 +54,10 @@ function ClientTodoEdit() {
     const [clientImage, setClientImage] = useState("");
     const hiddenFileInput = React.useRef(null);
     const [imgSource, setImgSource] = useState("");
+  const [sectorOptions, setSectorOptions] = useState([])as any;
+  const [jobOptions, setJobOptions] = useState([]);
+
+
 
     const notifyPhotoUploadSuccess = () => toast.success("Client/Company Image Uploaded Successfully!");
 
@@ -112,7 +118,14 @@ function ClientTodoEdit() {
                 console.log(err)
             })
     }, [state])
-
+    useEffect(() => {
+        console.log(activitySectors);
+        let sectorops = activitySectors.map((asector) => {
+          return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
+        })
+    
+        setSectorOptions([...sectorops]);
+      }, [activitySectors])
 
     const fetchAllJobs = async (sector: string) => {
         return await fetch(API_BASE_URL + `fetchAllJobs/?sector=${sector}`, {
@@ -154,7 +167,59 @@ function ClientTodoEdit() {
 
     }
 
-    const changeJobSelection = (value: string) => {
+    const colourStyles: StylesConfig<ColourOption, true> = {
+        control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+        option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+          const color = chroma(data.color);
+          return {
+            ...styles,
+            backgroundColor: isDisabled
+              ? undefined
+              : isSelected
+                ? data.color
+                : isFocused
+                  ? color.alpha(0.1).css()
+                  : undefined,
+            color: isDisabled
+              ? '#ccc'
+              : isSelected
+                ? chroma.contrast(color, 'white') > 2
+                  ? 'white'
+                  : 'black'
+                : data.color,
+            cursor: isDisabled ? 'not-allowed' : 'default',
+    
+            ':active': {
+              ...styles[':active'],
+              backgroundColor: !isDisabled
+                ? isSelected
+                  ? data.color
+                  : color.alpha(0.3).css()
+                : undefined,
+            },
+          };
+        },
+        multiValue: (styles, { data }) => {
+          const color = chroma(data.color);
+          return {
+            ...styles,
+            backgroundColor: color.alpha(0.1).css(),
+          };
+        },
+        multiValueLabel: (styles, { data }) => ({
+          ...styles,
+          color: data.color,
+        }),
+        multiValueRemove: (styles, { data }) => ({
+          ...styles,
+          color: data.color,
+          ':hover': {
+            backgroundColor: data.color,
+            color: 'white',
+          },
+        }),
+      };
+    const changeJobSelection = (value) => {
         setData((prev) => ({ ...prev, ["clientJob"]: value }));
     }
 
@@ -186,6 +251,22 @@ function ClientTodoEdit() {
 
     const handleFileUpload = () => {
         hiddenFileInput.current.click();
+    }
+    const handleSectorChange = (e: any) => {
+        // console.log(e.target.value)
+    
+setJobOptions([])
+        console.log(e)
+        if (e.value === "Select Un Secteur") {
+          setJobs([]);
+          setSelectedSector("");
+          setJobOptions([]);
+    
+        } else if (e.value !== '') {
+          let sectorField = e.value;
+          setSelectedSector(sectorField);
+        //   setJobOptions([]);
+        }
     }
 
     const onFormDataChange = (
@@ -295,10 +376,6 @@ function ClientTodoEdit() {
 
 
     useEffect(() => {
-        // console.log(data, languages);
-    }, [selectedLanguages])
-
-    useEffect(() => {
         if (activitySectors.length === 0) {
             fetchActivitySectors()
                 .then(redata => {
@@ -320,10 +397,25 @@ function ClientTodoEdit() {
                     console.log(err)
                 })
         }
+                   
         console.log(data);
-    }, [])
+        let jobResults = jobs.map(ajob => {
+            return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
+          })
+          setJobOptions([...jobResults]);
+          console.log(jobs);
+    }, [jobs])
 
-
+    const jobChange = async (jobval) => {
+        // console.log(jobval)
+        let JobArr=[]as any
+        jobval.map((el)=>{
+         
+         JobArr.push(el.value)
+      
+        })
+        changeJobSelection(JobArr)
+      }
     return (
         <>
             <Toaster
@@ -421,10 +513,10 @@ function ClientTodoEdit() {
 
                             <div className="col-12 Social-CardClient mt-1 p-1">
                                 <div className="row">
-                                    <div className="col-6">
+                                    <div className="col-4">
                                         <p className="Arial">Secteur d’Activité</p>
                                         <div className="dropdown">
-                                            <select
+                                            {/* <select
                                                 className="form-select"
                                                 name="clientActivitySector"
                                                 onChange={onFormDataChange}
@@ -434,9 +526,19 @@ function ClientTodoEdit() {
                                                 {activitySectors.map((sector) =>
                                                     <option defaultValue={sector.sectorName} selected={profile.clientActivitySector == sector.sectorName}>{sector.sectorName}</option> // fetch from api
                                                 )}
-                                            </select>
+                                            </select> */}
+                                            <Select
+                                            options={sectorOptions}
+                                            onChange={handleSectorChange}
+                                            defaultValue={{label:profile.clientActivitySector,value:profile.clientActivitySector,color:""}}
+                                            styles={colourStyles}
+                                            className="basic-multi-select"
+                                            classNamePrefix="select"
+                                            closeMenuOnSelect={true}
+                                            placeholder="‎ ‎ ‎ Select Un Secteur"
+                                            />
                                         </div>
-                                        <p className="last-child">Langues du Client</p>
+                                        {/* <p className="last-child">Langues du Client</p>
                                         <div>
                                             <div>
                                                 <input
@@ -507,14 +609,14 @@ function ClientTodoEdit() {
                                                     defaultChecked={profile.clientLanguages.indexOf("Autre") > -1} onChange={onFormDataChange}
                                                 />
                                                 <span className="ps-2">Autre</span>
-                                            </div>
-                                        </div>
+                                            </div> */}
+                                        {/* </div> */}
                                     </div>
-                                    <div className="col-6">
+                                    <div className="col-4">
                                         <p className="Arial">Metier/Job</p>
                                         <div className="dropdown">
                                             <div aria-labelledby="dropdownMenuButton1">
-                                                <select
+                                                {/* <select
                                                     name="clientJob"
                                                     onChange={onFormDataChange}
                                                     className="form-select"
@@ -527,8 +629,21 @@ function ClientTodoEdit() {
                                                             </option>
                                                         )
                                                     }
-                                                </select>
-
+                                                </select> */}
+       {jobOptions.length > 0 ?
+                    <Select
+                      name="jobName"
+                      closeMenuOnSelect={true}
+                      isMulti
+                      placeholder="‎ ‎ ‎ Select"
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                      defaultValue={profile.clientJob}
+                      onChange={jobChange}
+                      options={jobOptions}
+                      styles={colourStyles}
+                    /> : <p>Select A Sector!</p>
+                  }
                                             </div>
                                         </div>
                                         <div className="pt-2">

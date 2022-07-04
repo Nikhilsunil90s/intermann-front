@@ -29,7 +29,7 @@ function Sidebar(props: any) {
       <div className="container-fluid"  style={{ height: "100%",backgroundColor:"white",zIndex:9000000 }}>
         <div className="row" >
           
-          <div className="col-lg-3  col-md-3 col-xs-3 fixed pd-gutter" style={{ height: "100vh",backgroundColor:"white" }}>
+          <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-3 col-xs-3 fixed pd-gutter" style={{ height: "100vh",backgroundColor:"white" }}>
             <div
               className="d-flex flex-column flex-shrink-0"
             >
@@ -173,8 +173,8 @@ function Sidebar(props: any) {
                     </div>
                   </div>
                 </div>
-                <li className="nav-item text-center Log-Out" onClick={(e) => LogOut()}>
-                  <Link to="/" className="nav-link signOut" aria-current="page">
+                <li style={{ border: '0px' }} className="list-group-item" onClick={(e) => LogOut()}>
+                  <Link to="/" className="signOut" aria-current="page">
                     <span className="pe-2">
                       <img className="logoutImage" src={require("../images/logout.svg").default} />
                     </span>
@@ -188,7 +188,7 @@ function Sidebar(props: any) {
               </ul>
             </div>
           </div>
-          <div className="col-lg-9 col-md-9 col-xs-9  scroll">
+          <div className="col-xxl-9 col-lg-9 col-md-9 col-xs-9  scroll">
           <Header />
             <section style={{ marginTop: "60px" }}>
               {props.children}

@@ -80,12 +80,12 @@ function Dashboard() {
     <>
       <Toaster position="top-center" />
       <div className="container-fluid">
-        <div className="row">
-          <div className="col-12 card-tops mt-2" style={{padding:"0px",marginBottom:"20px"}}>
-            <div className="card " style={{padding:"10px",borderRadius:"15px",marginBottom:"0px"}}>
-              <div className="card-body">
-                <h2 className="card-Leads">Stats Leads / Clients</h2>
-              </div>
+        <div className="row mx-0">
+          <div className="col-12  card-tops mt-2" style={{padding:"0px",marginBottom:"20px"}}>
+            <div className="card d-flex justify-content-center" style={{padding:"0px 15px",borderRadius:"10px",marginBottom:"0px",height:"77px"}}>
+              {/* <div className="card-body "> */}
+                <h2 className="card-Leads mb-0">Stats Leads / Clients</h2>
+              {/* </div> */}
             </div>
           </div>
 
@@ -93,11 +93,11 @@ function Dashboard() {
             <section id="minimal-statistics">
               <div className="row">
  
-                <div className="col-xl-4 col-sm-6 col-12">
+                <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 ">
                 <Link to="/clientTodo">
                   <div
                     className="card"
-                    style={{ padding: "5px 15px", borderRadius: "15px" }}
+                    style={{ padding: "5px 10px", borderRadius: "10px" }}
                   >
                     <div className="card-content">
                       <div className="card-body">
@@ -133,10 +133,10 @@ function Dashboard() {
                   </Link>
                 </div>
                
-                <div className="col-xl-4 col-sm-6 col-12">
+                <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4">
                   <div
                     className="card"
-                    style={{ padding: "5px 15px", borderRadius: "15px" }}
+                    style={{ padding: "5px 10px", borderRadius: "10px" }}
                   >
                     <div className="card-content">
                       <div className="card-body">
@@ -160,11 +160,11 @@ function Dashboard() {
                   </div>
                 </div>
                
-                <div className="col-xl-4 col-sm-6 col-12">
+                <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4">
                 <Link to="/clientProgress">
                   <div
                     className="card"
-                    style={{ padding: "5px 15px", borderRadius: "15px" }}
+                    style={{ padding: "5px 10px", borderRadius: "10px" }}
                   >
                     <div className="card-content">
                       <div className="card-body">
@@ -190,11 +190,11 @@ function Dashboard() {
                 </div>
   
               
-                <div className="col-xl-4 col-sm-6 col-12">
+                <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4">
                 <Link to="/archived">
                   <div
                     className="card"
-                    style={{ padding: "5px 15px", borderRadius: "15px" }}
+                    style={{ padding: "5px 10px", borderRadius: "10px" }}
                   >
                     <div className="card-content">
                       <div className="card-body">
@@ -225,11 +225,11 @@ function Dashboard() {
 
 
 
-          <div className="col-12 card-tops mt-2" style={{padding:"0px",marginBottom:"20px"}}>
-            <div className="card " style={{padding:"10px",borderRadius:"15px",marginBottom:"0px"}}>
-              <div className="card-body">
-                <h2 className="card-Leads">Stats Candidats / Employees</h2>
-              </div>
+          <div className="col-12 card-tops " style={{padding:"0px",marginBottom:"20px"}}>
+            <div className="card d-flex justify-content-center" style={{padding:"0px 15px",borderRadius:"10px",marginBottom:"0px",height:"77px"}}>
+             
+                <h2 className="card-Leads mb-0">Stats Candidats / Employees</h2>
+             
             </div>
           </div>
 
@@ -237,11 +237,11 @@ function Dashboard() {
             <section id="minimal-statistics">
               <div className="row">
               
-                <div className="col-xl-4 col-sm-6 col-12">
+                <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 ">
                 <Link to="/todolist">
                   <div
-                    className="card"
-                    style={{ padding: "5px 15px", borderRadius: "15px" }}
+                    className="card mb-0"
+                    style={{ padding: "5px 10px", borderRadius: "10px" }}
                   >
                     <div className="card-content">
                       <div className="card-body">
@@ -277,10 +277,10 @@ function Dashboard() {
                   </Link>
                 </div>
                 
-                <div className="col-xl-4 col-sm-6 col-12">
+                <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4">
                   <div
                     className="card"
-                    style={{ padding: "5px 15px", borderRadius: "15px" }}
+                    style={{ padding: "5px 10px", borderRadius: "10px" }}
                   >
                     <div className="card-content">
                       <div className="card-body">
@@ -304,11 +304,11 @@ function Dashboard() {
                   </div>
                 </div>
                
-                <div className="col-xl-4 col-sm-6 col-12" >
+                <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4" >
                 <Link to="/embauchlist">
                   <div
                     className="card"
-                    style={{ padding: "5px 15px", borderRadius: "15px" }}
+                    style={{ padding: "5px 10px", borderRadius: "10px" }}
                   >
                     <div className="card-content">
                       <div className="card-body">
@@ -334,11 +334,11 @@ function Dashboard() {
                 </div>
  
              
-                <div className="col-xl-4 col-sm-6 col-12">
+                <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4">
                 <Link to="/archivedlist">
                   <div
                     className="card"
-                    style={{ padding: "5px 15px", borderRadius: "15px" }}
+                    style={{ padding: "5px 10px", borderRadius: "10px" }}
                   >
                     <div className="card-content">
                       <div className="card-body">

@@ -61,29 +61,30 @@ function ToDoProfile() {
   };
   return (
     <>
-      <div className="containet-fluid">
-        <div className="row">
-          <div className="col-12 top-pd text-center">
+      <div className="containet-fluid ">
+        <div className="row mx-0">
+          {/* <div className="col-12 top-pd text-center">
             <h1 style={{ textDecoration: "underline" }}>
               CANDIDAT: {profile.candidatName}
             </h1>
-          </div>
+          </div> */}
 
           <div
-            className="card "
-            style={{
-              padding: "0px 15px",
-              borderRadius: "15px",
-              marginBottom: "0px",
-            }}
+            className="card mt-2 mb-0"
+            
           >
-            <div className="row text-start">
-              <div className="col-6">
+            <div className="row text-start" style={{
+              padding: "0px 15px",
+              borderRadius: "10px",
+              marginBottom: "0px",
+              height: "77px",
+            }}>
+              <div className="col-6 d-flex align-items-center">
                 <div className="stable">
                   <Link to="/todolist">
                     <button
                       type="button"
-                      className="btn d-flex align-items-center"
+                      className="btn d-flex align-items-center p-0"
                     >
                       <img src={require("../images/return.svg").default} />
                       <h2 className="card-Leads mb-0"> Candidate Profile</h2>
@@ -91,7 +92,7 @@ function ToDoProfile() {
                   </Link>
                 </div>
               </div>
-              <div className="col-6 text-end">
+              <div className="col-6 d-flex align-items-center justify-content-end">
                 <button className="btn btn-bgb" onClick={editCandidatProfile}>
                   <img src={require("../images/Edit.svg").default} />
                   Edit Profile
@@ -100,10 +101,10 @@ function ToDoProfile() {
             </div>
           </div>
 
-          <div className="">
-            <div className="col-12 p-0">
-              <div className="row bg-todoTodoDetails">
-                <div className="col-2 text-center ">
+   
+            <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-1">
+              <div className="row bg-todoTodoDetails mt-0">
+                <div className="col-xxl-2 col-xl-2 col-g-12 col-md-2 col-sm-2 text-center ">
                   <img
                     src={require("../images/menlogos.svg").default}
                     style={{ width: "90%" }}
@@ -118,7 +119,7 @@ function ToDoProfile() {
   // defaultValue={uploadOption[0]}
 />
                 </div>
-                <div className="col-5 card-TodoProfile">
+                <div className="col-xxl-5 col-xl-5 col-g-12 col-md-5 col-sm-5 card-TodoProfile">
                   <div className="d-flex">
                     <p>
                       Name : {profile.candidatName.toLocaleUpperCase()}|{profile.candidatAge}
@@ -126,7 +127,7 @@ function ToDoProfile() {
                     <span className="card-xlSpan">(Age)</span>
                   </div>
                   <div>
-                    <p className="d-flex">
+                    <p className="d-flex mb-0">
                     <p>Motivation : <b>{candidatMotivationIcons[profile.candidatMotivation - 1].icon + " " + candidatMotivationIcons[profile.candidatMotivation - 1].motivation}</b> </p>
                     </p>
                   </div>
@@ -137,24 +138,27 @@ function ToDoProfile() {
                 </div>
                 <div className="col-5 text-end end-class">
                   <div className="text-center ml-5">
+                    <div className="text-center">
                     <button className="todoBtnStyle">
                       <img src={require("../images/briefcase2.svg").default} />
                     </button>
-                  </div>
-                  <p className="fw-bold text-center pl-5 pt-1">
+                    </div>
+                    <p className="fw-bold text-center pl-5 pt-1">
                     En recherche de contrat
                   </p>
+                  </div>
+              
                 </div>
               </div>
-            </div>
+            
 
-            <div className="col-12 pt-1 p-0">
+            <div className="col-12 pt-1 px-0">
               <div className="row justify-content-between">
                 <div
-                  className="col-6 Social-Card text-center p-0"
-                  style={{ maxWidth: "49%" }}
+                  className="col-5 Social-Card text-center p-0"
+                  style={{ maxWidth: "49%" ,height:"500px"}}
                 >
-                  <p className="Span-Styling pt-2 px-3">
+                  <p className="Span-Styling pt-2 pb-1 px-3 my-1">
                     Mail : {profile.candidatEmail ? profile.candidatEmail : "No Email Provided!"}
                   </p>
                   
@@ -164,17 +168,18 @@ function ToDoProfile() {
                       className="text-dark fw-bold"
                       target="_blank"
                     >
-                      <span className="padding-email">
+                      <span className="padding-email"    style={{height:"56px"}}>
                         <img src={require("../images/gmail.svg").default} />
                       </span>
                       Send Email
                     </a>
                   </button>
-                  <p className="Span-Styling mt-2 px-3">Facebook : {profile.candidatFBURL ? profile.candidatFBURL : "No Facebook URL!"}</p>
+                  <p className="Span-Styling my-2 pt-1 px-3 ">Facebook : {profile.candidatFBURL ? profile.candidatFBURL : "No Facebook URL!"}</p>
                   <a
                     href={profile.candidatFBURL}
                     target="_blank"
-                    className="btn  btn-see"
+                    className="btn  btn-facebook"
+  
                   >
                     <span className="padding-email">
                       <img
@@ -185,10 +190,10 @@ function ToDoProfile() {
                     See Profile
                   </a>
 
-                  <p className="Span-Styling mt-2 px-3">
+                  <p className="Span-Styling my-2 px-3 pt-1  my-1">
                     Phone : {profile.candidatPhone ? profile.candidatPhone : "No Phone Number!"}
                   </p>
-                  <button className="btn btn-whatsapp btn-see">
+                  <button className="btn btn-whatsapp "   >
                     <a
                       href={`https://wa.me/${profile.candidatPhone}`}
                       target="_blank"
@@ -202,10 +207,10 @@ function ToDoProfile() {
                       Send What’s App
                     </a>
                   </button>
-                  <p className="Span-Styling mt-2 px-3">
+                  <p className="Span-Styling my-2 px-3">
                     Phone 2 : {profile.candidatAlternatePhone ? profile.candidatAlternatePhone : "No AlternatePhone Number!"}
                   </p>
-                  <button className="btn btn-whatsapp btn-see">
+                  <button className="btn btn-whatsapp ">
                     <a
                       href={`https://wa.me/${profile.candidatAlternatePhone}`}
                       target="_blank"
@@ -221,42 +226,42 @@ function ToDoProfile() {
                   </button>
                 </div>
                 <div
-                  className="col-6 Social-Card px-1  scrollbar"
+                  className="col-xxl-7 col-xl-8 col-lg-8 col-md-8 Social-Card px-1 detailsCardClientSee scrollbar"
                   id="style-3"
-                  style={{ maxWidth: "49%", marginRight: "10px" }}
+                  style={{ marginRight: "10px" ,height:"500px"}}
                 >
                   <div className="Todo-CardMore force-overflow">
-                    <div className="d-flex">
+                    <div className="d-flex align-items-center">
                       <p>Langues : </p>
-                      <span> {profile.candidatLanguages.join(", ")}</span>
+                      <span className="Todo-CardMore-span"> {profile.candidatLanguages ? profile.candidatLanguages.join(", ") : "No Langues!"}</span>
                     </div>
-                    <div className="d-flex ">
+                    <div className="d-flex align-items-center">
                       <p className="blue-text">Ready for work :</p>
                       <span className="blue-text">
                         {profile.candidatStartDate} -{profile.candidatEndDate}
                       </span>
                     </div>
-                    <div className="d-flex">
+                    <div className="d-flex align-items-center">
                       <p>Permis :</p>
-                      <span>
+                      <span className="Todo-CardMore-span">
                         {profile.candidatLicensePermis ? "Yes" : "No"}
                       </span>
                     </div>
-                    <div className="d-flex">
+                    <div className="d-flex align-items-center">
                       <p>Voyage en voiture :</p>
-                      <span>
+                      <span className="Todo-CardMore-span">
                         {profile.candidatConduireEnFrance ? "Yes" : "No"}
                       </span>
                     </div>
                    
-                    <div className="d-flex">
-                      <p>Skills/note: </p>
-                      <span>{profile.candidatSkills}</span>
+                    <div className="d-flex align-items-center">
+                    <div className="d-flex">  <p>Skills/note: </p> <span className="Todo-CardMore-span">{profile.candidatSkills ? profile.candidatSkills : "No Skills!"}</span></div>
+                     
                     </div>
-                    <div className="d-flex">
+                    <div className="d-flex align-items-center">
                       <p className="text-dark">Trouvé sur  : </p>
-                      <span className="text-dark">
-                        {profile.candidatJob}
+                      <span className="text-dark Todo-CardMore-span">
+                        {profile.candidatJob ? profile.candidatJob : "No Trouvé!"}
                       </span>
                     </div>
                    
@@ -265,8 +270,8 @@ function ToDoProfile() {
               </div>
             </div>
 
-            <div className="col-12  p-2 Social-Card mt-2">
-              <h3 className="exp">Expérience du Candidat </h3>
+            <div className="col-12 px-0  p-2 Social-Card mt-2">
+              <h3 className="experience">Expérience du Candidat </h3>
               <table className="table table-bordered border-dark">
                 <thead>
                   <tr>

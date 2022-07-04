@@ -37,14 +37,14 @@ function ToDoList() {
   const [jobs, setJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState([]);
   const [selectedSector, setSelectedSector] = useState("");
-  const [sectorOptions, setSectorOptions] = useState([{value:"",label:"select",color:"color"}])as any;
+  const [sectorOptions, setSectorOptions] = useState([])as any;
   const [jobOptions, setJobOptions] = useState([]);
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [loader, setLoader] = useState(false);
   const [filterData, setFilterData] = useState([]);
   const [status, setStatus] = useState(Boolean);
   const [nameOptions, setNameOptions] = useState([])                        
-  const [showMore, setShowMore] = useState(false)
+  const [showMore, setShowMore] = useState(true)
   const [email,setEmail]=useState([])
   const [licenceOptions, setLicenseOptions] = useState([
     {
@@ -57,16 +57,21 @@ function ToDoList() {
 
   const [motivationOptions, setMotivationOptions] = useState([
     {
-      value: "1", label: "Dissapointed", color: '#FF8B00'
+      value: "1", label: "😔", color: '#FF8B00'
     }, {
-      value: "2", label: "Not really", color: '#FF8B00'
+      value: "2", label: "🙁", color: '#FF8B00'
     }, {
-      value: "3", label: "Like", color: '#FF8B00'
+      value: "3", label: "😊", color: '#FF8B00'
     }, {
-      value: "4", label: "Great", color: '#FF8B00'
+      value: "4", label: "🥰", color: '#FF8B00'
     }, {
-      value: "5", label: "Superlovely", color: '#FF8B00'
+      value: "5", label: "😍", color: '#FF8B00'
     }
+  ])
+  const [ContectOptions,setContectOptions]=useState([
+    {
+      value: "0987656783456", label: "0987656783456", color: '#FF8B00'
+    }, 
   ])
 
 
@@ -658,23 +663,23 @@ function ToDoList() {
 
           <div className="col-12 card-tops px-1 mt-1" style={{ padding: "0px", marginBottom: "20px" }}>
             <div className="row text-start">
-              <div className="card " style={{ padding: "15px 15px", borderRadius: "15px", marginBottom: "0px" }}>
+              <div className="card " style={{ padding: "15px 15px", borderRadius: "10px", marginBottom: "0px" }}>
                 <div className="">
                   <img
                     src={require("../images/Stats.svg").default}
                     style={{ width: "70%", marginBottom: "10px" }}
                   />
-                  <p className="child-text">
+                  <p className="h-child-text mb-0">
                     Ici vous avez la liste des candidats ne travaillant pas encore avec nous
                   </p>
-                  <p className="child-text">
+                  <p className="h-child-text mb-0">
                     Vous devez toujours vous assurer d’avoir un maximum d’information sur cette liste et déplacer les candidats en archive si plus d’actualité
                   </p>
                 </div>
               </div>
             </div>
           </div>
-          <div className="col-12 bg-white p-2 rounded001 mb-3">
+          <div className="col-12 bg-white p-2 rounded001 mb-2">
             <div className="row ">
               <div className="col-4">
                 <p className="FiltreName">Filtre by name</p>
@@ -685,7 +690,7 @@ function ToDoList() {
                         <Select
                           name="candidatName"
                           closeMenuOnSelect={true}
-                          placeholder="‎ ‎ ‎ Select Un Candidat"
+                          placeholder="‎ ‎ ‎ ‎ ‎ ‎Select Un Candidat"
                           className="basic-multi-select"
                           classNamePrefix="select"
                           onChange={handleNameChange}
@@ -719,16 +724,15 @@ function ToDoList() {
                 <p className="FiltreName">Filtre Secteur d’activité</p>
                 <div className="dropdown">
                   <div aria-labelledby="dropdownMenuButton1">
-                    {sectorOptions.length > 0 ?
+                  {sectorOptions.length > 0 ?
                       <Select
                         name="candidatActivitySector"
                         closeMenuOnSelect={true}
-                        placeholder="‎ ‎ ‎ Select Un Secteur"
+                        placeholder="‎ ‎ ‎‎ ‎ ‎Select Un Secteur"
                         className="basic-multi-select"
                         classNamePrefix="select"
                         onChange={handleSectorChange}
                         options={sectorOptions}
-                        defaultInputValue="Select Un Secteur"
                         styles={colourStyles}
                       /> : <p>Select Un Secteur!</p>
                     }
@@ -762,7 +766,7 @@ function ToDoList() {
                       name="jobName"
                       closeMenuOnSelect={true}
                       isMulti
-                      placeholder="‎ ‎ ‎ Select"
+                      placeholder="‎ ‎ ‎ ‎ ‎ ‎Select"
                       className="basic-multi-select"
                       classNamePrefix="select"
                       onChange={jobChange}
@@ -803,7 +807,7 @@ function ToDoList() {
                               <Select
                                 name="candidatMotivation"
                                 closeMenuOnSelect={true}
-                                placeholder="‎ ‎ ‎ Select Motivation du Candidat"
+                                placeholder="‎ ‎ ‎ ‎ ‎ ‎Select Motivation du Candidat"
                                 className="basic-multi-select"
                                 classNamePrefix="select"
                                 onChange={handleMotivationChange}
@@ -823,7 +827,7 @@ function ToDoList() {
                                 onClick={onDateChange}
                                 
                               /> */}
-                        <input type="date"  className="form-control"
+                        <input type="date"  className="form-control inputDate"
                               name="candidatStartDate"   onChange={onDateChange} />
         </div>
                         <div className="col-4 pt-1">
@@ -843,7 +847,7 @@ function ToDoList() {
                               <Select
                                 name="candidatLicencePermis"
                                 closeMenuOnSelect={true}
-                                placeholder="‎ ‎ ‎ Select Licence Permis"
+                                placeholder="‎ ‎ ‎ ‎ ‎  ‎ Select Licence Permis"
                                 className="basic-multi-select"
                                 classNamePrefix="select"
                                 onChange={HandelLicence}
@@ -859,9 +863,9 @@ function ToDoList() {
                             <div aria-labelledby="dropdownMenuButton1">
                             {email.length>0?
                               <Select
-                                name="candidatLicencePermis"
+                                name="candiatEmail"
                                 closeMenuOnSelect={true}
-                                placeholder="‎ ‎ ‎ Select Licence Permis"
+                                placeholder="‎ ‎ ‎ ‎ ‎  ‎ yourmail@mail.com"
                                 className="basic-multi-select"
                                 classNamePrefix="select"
                                 onChange={HandelLicence}
@@ -888,13 +892,13 @@ function ToDoList() {
                                 <option value="false" onChange={HandelLicence}>Doesn't Have Licence</option>
                               </select> */}
                               <Select
-                                name="candidatLicencePermis"
+                                name="candidatPhone"
                                 closeMenuOnSelect={true}
-                                placeholder="‎ ‎ ‎ Select Licence Permis"
+                                placeholder="‎ ‎ ‎ ‎ ‎  ‎ Candidat's Phone Number"
                                 className="basic-multi-select"
                                 classNamePrefix="select"
-                                onChange={HandelLicence}
-                                options={licenceOptions}
+                                // onChange={HandelLicence}
+                                options={ContectOptions}
                                 styles={colourStyles}
                               />
                             </div>
@@ -931,7 +935,7 @@ function ToDoList() {
               {status ?
                 filterData.length > 0 ?
                   filterData.map((profile, index) => (
-                    <div className="col-4 pd-left">
+                    <div className="col-md-4 col-xxl-3 pl-0 col-xl-4 col-lg-4 ">
                       <ToDoProfileCard data={profile} />
                     </div>
                   ))
