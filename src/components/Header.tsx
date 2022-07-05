@@ -14,7 +14,7 @@ const Header = () => {
               <div className="collapse navbar-collapse" id="navbarText" style={{ height: "50px" }}> */}
                 <div className="col-12 px-0 position">
                   <div className="row m-0 mainRow">
-                    <div className="col-5 ">
+                    <div className="col-xxl-5 col-xl-5 col-lg-5 col-md-5">
                    <div className="row">
                   <div className="d-flex">
                      <Link
@@ -35,7 +35,7 @@ const Header = () => {
                 </div>
 
 
-                <div className="col-7">
+                <div className="col-xxl-7 col-xl-7 col-lg-7 col-md-7">
                    <div className="row text-end">
                     <div className="d-flex justify-content-end">
                      <a

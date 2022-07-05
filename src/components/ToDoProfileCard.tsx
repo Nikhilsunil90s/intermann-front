@@ -29,7 +29,9 @@ const ToDoProfileCard = (props: any,{path}) => {
     }
 
     const viewFullProfile = () => {
-        navigate("/todoprofile", { state: props.data });
+        // navigate("/todoprofile", { state: props.data });
+        localStorage.setItem('profile', JSON.stringify(props.data));
+        window.open("/todoprofile", "_blank")
     }
     const MoreOption=(e:any)=>{
         debugger

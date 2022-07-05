@@ -337,7 +337,7 @@ const fetchRecommendations = async (candidatSector: string) => {
             <div className="col-xxl-12 col-xl-12 col-lg-12 col-12-md  pt-1 px-0">
               <div className="row justify-content-between">
                 <div
-                  className="col-xxl-4 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-0 Social-btns"
+                  className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-0 Social-btns"
  
                 >
                   <p className="Span-Styling pt-2 pb-1 px-3 my-1">
@@ -460,7 +460,7 @@ const fetchRecommendations = async (candidatSector: string) => {
 }
                 </div>
                 <div
-                  className="col-xxl-7 col-xl-8 col-lg-8 col-md-7 Social-Card px-1 detailsCardClientSee scrollbar Social-btnsTwo"
+                  className="col-xxl-8 col-xl-8 col-lg-8 col-md-7 Social-Card px-1 detailsCardClientSee scrollbar Social-btnsTwo"
                   id="style-3"
                 >
                   <div className="Todo-CardMore force-overflow">
