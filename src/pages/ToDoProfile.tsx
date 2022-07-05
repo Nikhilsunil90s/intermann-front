@@ -13,38 +13,215 @@ import Select from "react-select";
 import {ReactComponent as Upload} from "../images/upload.svg"
 import {ReactComponent as Download} from '../images/download.svg'
 import PreModal from "../components/Modal/preSelectedModal";
+import SelectedLoader from "../components/Loader/selectLoader";
+import { API_BASE_URL } from '../config/serverApiConfig';
+import { Toaster, toast } from 'react-hot-toast';
+import "react-multi-carousel/lib/styles.css";
+import axios from "axios";
+import { ProgressBar } from "react-bootstrap";
 
+
+const axiosInstance = axios.create({
+  baseURL: API_BASE_URL,
+})
 function ToDoProfile() {
+
+
+  const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
+  const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
+ 
+  const profileData = JSON.parse(localStorage.getItem("profile"));
+
+
+  const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
+  const notifyDocumentDeleteError = () => toast.error("Document Not Removed! Please Try Again in few minutes.")
+
   const navigate = useNavigate();
   const { state } = useLocation();
-  const [profile, setProfile] = useState<any>(state);
+  const [profile, setProfile] = useState<any>(state? state : profileData);
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
   const hiddenFileInput = React.useRef(null);
+  const [recommendations, setRecommendations] = useState([]);
   const [candidatContactOne, setCandidatContactOne] = useState(profile.candidatPhone != "" ? profile.candidatPhone.split(" ").join("") : "");
   const [candidatContactTwo, setCandidatContactTwo] = useState(profile.candidatAlternatePhone != "" ? profile.candidatAlternatePhone.split(" ").join("") : "");
   const [inputField,setinputField]=useState(true)
+  const [loader, setLoader] = useState(false);
+  const hiddenImageInput = React.useRef(null);
+  const [documentList, setDocumentList] = useState([]);
+  const [renameDoc, setRenameDoc] = useState(false);
+  const [candidatDocument, setCandidatDocument] = useState("");
+  const [progress, setProgress] = useState<any>(0);
+  const [docUploaded, setDocUploaded] = useState(false);
+  const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
+
+
  const uploadOption=[
  {value:"upload",label:<Upload />,},
  {value:"Download Image",label:<Download />} 
  ]
-
+ const deleteCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
+  let headers = {
+    "Accept": 'application/json',
+    "Authorization": "Bearer " + localStorage.getItem('token')
+  }
+  return await fetch(API_BASE_URL + `deleteDocument/?documentId=${docId}&documentName=${docName}&candidatId=${candidatId}`, {
+    method: "GET",
+    headers: headers
+  })
+    .then(reD => reD.json())
+    .then(resD => resD)
+    .catch(err => err)
+}
+const renameCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
+  let headers = {
+    "Accept": 'application/json',
+    "Authorization": "Bearer " + localStorage.getItem('token')
+  }
+  return await fetch(API_BASE_URL + `renameDocument/?documentId=${docId}&documentName=${docName}&candidatId=${candidatId}`, {
+    method: "GET",
+    headers: headers
+  })
+    .then(reD => reD.json())
+    .then(resD => resD)
+    .catch(err => err)
+}
+const deleteDocument = async (docId: any, docName: any) => {
+  await deleteCandidatDocument(docId, docName, profile._id).then(resData => {
+    console.log(resData);
+    if (resData.status) {
+      notifyDocumentDeleteSuccess()
+      setDocumentList([...documentList.filter((doc) => {
+        return doc.documentName !== docName
+      })])
+    } else {
+      notifyDocumentDeleteError()
+    }
+  }).catch(err => {
+    console.log(err)
+  })
+}
+ const removeRecommendation = (rId: any) => {
+  console.log(recommendations);
+  let filteredRecommendations = recommendations.filter((recomm) => {
+    return recomm._id !== rId;
+  })
+  console.log(filteredRecommendations)
+  setRecommendations([...filteredRecommendations])
+  setLoader(true);
+}
+const fetchRecommendations = async (candidatSector: string) => {
+  return await fetch(API_BASE_URL + `clientRecommendations/?candidatSector=${candidatSector}`, {
+    method: "GET",
+    headers: {
+      "Accept": 'application/json',
+      "Authorization": "Bearer " + localStorage.getItem('token')
+    },
+  })
+    .then(resp => resp.json())
+    .then(respData => respData)
+    .catch(err => err)
+}
   const editCandidatProfile = () => {
     navigate("/editToDo", { state: profile });
   };
+  const handleImageUpload = () => {
+    hiddenImageInput.current.click();
+  }
+
   const handleFileUpload = () => {
     hiddenFileInput.current.click();
   }
-  const handleFileChange = (e: any) => {
-    const fileUploaded = e.target.files[0];
-    console.log(fileUploaded);
+  const handleImageChange = (e: any) => {
+    if (e.value == 'upload') {
+      console.log("upload")
+      handleImageUpload()
+    } else if (e.value == 'Download Image') {
+      console.log("download")
+      window.open(API_BASE_URL + candidatImage);
+    }
   }
+  const renameDocument = (docId: any, docName: any) => {
+    setRenameDoc(true);
+    renameCandidatDocument(docId, docName, profile._id).then(resData => {
+      console.log(resData)
+      setRenameDoc(false);
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+  const fileChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
+    >
+  ) => {
+
+    if (e.target.name === 'candidatPhoto') {
+      const fileUploaded = e.target.files[0]
+      let formdata = new FormData();
+      formdata.append('candidatId', profile._id)
+      formdata.append('image', fileUploaded)
+      axiosInstance.post("uploadCandidatImage", formdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": "Bearer " + localStorage.getItem('token')
+        }
+      })
+        .then(datares => {
+          console.log(datares)
+          if (datares.data.status) {
+            notifyDocumentUploadSuccess()
+            // setCandidatImage(datares.data.filename)
+            window.location.href = "/todoprofile"
+          } else {
+            notifyDocumentUploadError()
+          }
+        })
+        .catch(err => { console.log(err) })
+      return;
+    }
+    if (e.target.name === 'candidatDocuments') {
+      const fileUploaded = e.target.files[0];
+      setCandidatDocument(fileUploaded)
+      let formdata = new FormData();
+      formdata.append('candidatId', profile._id)
+      formdata.append('document', fileUploaded)
+      axiosInstance.post("uploadCandidatDocuments", formdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": "Bearer " + localStorage.getItem('token')
+        },
+        onUploadProgress: data => {
+          //Set the progress value to show the progress bar
+          setProgress(Math.round((100 * data.loaded) / data.total))
+        },
+      })
+        .then(resData => {
+          if (resData.data.status) {
+            console.log(resData.data)
+            setDocUploaded(true);
+            setProgress(0);
+            notifyDocumentUploadSuccess();
+          } else {
+            console.log(resData)
+            setDocUploaded(false);
+          }
+        })
+        .catch(err => {
+          console.log(err)
+          setDocUploaded(false);
+
+        })
+      return;
+    }
+  }
+
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
-      items: 5,
+      items: 3,
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -61,6 +238,7 @@ function ToDoProfile() {
   };
   return (
     <>
+      <Toaster position="top-right" containerStyle={{ zIndex: '99999999999' }} />
       <div className="containet-fluid ">
         <div className="row mx-0">
           {/* <div className="col-12 top-pd text-center">
@@ -73,12 +251,7 @@ function ToDoProfile() {
             className="card mt-2 mb-0"
             
           >
-            <div className="row text-start" style={{
-              padding: "0px 15px",
-              borderRadius: "10px",
-              marginBottom: "0px",
-              height: "77px",
-            }}>
+            <div className="row text-start topCandidateHeader" >
               <div className="col-6 d-flex align-items-center">
                 <div className="stable">
                   <Link to="/todolist">
@@ -93,7 +266,7 @@ function ToDoProfile() {
                 </div>
               </div>
               <div className="col-6 d-flex align-items-center justify-content-end">
-                <button className="btn btn-bgb" onClick={editCandidatProfile}>
+                <button className="btn-bgblack" onClick={editCandidatProfile}>
                   <img src={require("../images/Edit.svg").default} />
                   Edit Profile
                 </button>
@@ -105,18 +278,27 @@ function ToDoProfile() {
             <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-1">
               <div className="row bg-todoTodoDetails mt-0">
                 <div className="col-xxl-2 col-xl-2 col-g-12 col-md-2 col-sm-2 text-center ">
-                  <img
-                    src={require("../images/menlogos.svg").default}
-                    style={{ width: "90%" }}
-                  />
+                {candidatImage !== "" ?
+                    loader ?
+                      <img
+                        // src={require("../images/menlogos.svg").default}
+                        src={API_BASE_URL + candidatImage}
+                     className="img-upload-Download"
+                      /> : <SelectedLoader />
+                    :
+                    <img
+                      src={require("../images/menlogos.svg").default}
+                     className="img-upload-Download"
+                    />
+                    // 
+                  }
                
                <Select
                           closeMenuOnSelect={true}
-  // onChange={handleChange}
-  // components={ {SingleValue: customSingleValue } }
+                          onChange={handleImageChange}
   options={uploadOption}
   className="upload"
-  // defaultValue={uploadOption[0]}
+
 />
                 </div>
                 <div className="col-xxl-5 col-xl-5 col-g-12 col-md-5 col-sm-5 card-TodoProfile">
@@ -137,13 +319,13 @@ function ToDoProfile() {
                   </p>
                 </div>
                 <div className="col-5 text-end end-class">
-                  <div className="text-center ml-5">
+                  <div className="text-center d-grid justify-content-end align-items-center mt-2 ml-5">
                     <div className="text-center">
                     <button className="todoBtnStyle">
                       <img src={require("../images/briefcase2.svg").default} />
                     </button>
                     </div>
-                    <p className="fw-bold text-center pl-5 pt-1">
+                    <p className="fw-boldEn text-center pl-5 pt-1">
                     En recherche de contrat
                   </p>
                   </div>
@@ -152,17 +334,18 @@ function ToDoProfile() {
               </div>
             
 
-            <div className="col-12 pt-1 px-0">
+            <div className="col-xxl-12 col-xl-12 col-lg-12 col-12-md  pt-1 px-0">
               <div className="row justify-content-between">
                 <div
-                  className="col-5 Social-Card text-center p-0"
-                  style={{ maxWidth: "49%" ,height:"500px"}}
+                  className="col-xxl-4 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-0 Social-btns"
+ 
                 >
                   <p className="Span-Styling pt-2 pb-1 px-3 my-1">
                     Mail : {profile.candidatEmail ? profile.candidatEmail : "No Email Provided!"}
                   </p>
-                  
-                  <button className="btn btn-gmail">
+                  {
+                    profile.candidatEmail != undefined ?
+                  <button className="btn-gmail">
                     <a
                       href="https://accounts.google.com/"
                       className="text-dark fw-bold"
@@ -174,61 +357,111 @@ function ToDoProfile() {
                       Send Email
                     </a>
                   </button>
+                  :
+                  <button className="btn-gmail" style={{fontSize:"12px",padding:"15px 20px"}}>
+                  <a>
+                    <span className="padding-email">
+                      <img src={require("../images/gmail.svg").default} />
+                    </span>
+                    No Email Available
+                  </a>
+                </button>
+                  }
+
                   <p className="Span-Styling my-2 pt-1 px-3 ">Facebook : {profile.candidatFBURL ? profile.candidatFBURL : "No Facebook URL!"}</p>
+                  {
+                    profile.candidatFBURL != "" ?
                   <a
                     href={profile.candidatFBURL}
                     target="_blank"
-                    className="btn  btn-facebook"
   
                   >
+                    <button className=" btn-facebook">
                     <span className="padding-email">
                       <img
-                        style={{ width: "8%" }}
+                        style={{ width: "12%" }}
                         src={require("../images/facebook.svg").default}
                       />
                     </span>
                     See Profile
+                    </button>
                   </a>
+                  :
+                  <button className="btn-facebook" style={{fontSize:"12px",padding:"15px 20px"}}>
+                  <a>
+                    <span className="padding-email">
+                      <img src={require("../images/facebook.svg").default} />
+                    </span>
+                    No Profile Available
+                  </a>
+                </button>
+}
 
                   <p className="Span-Styling my-2 px-3 pt-1  my-1">
                     Phone : {profile.candidatPhone ? profile.candidatPhone : "No Phone Number!"}
                   </p>
-                  <button className="btn btn-whatsapp "   >
+                  {
+                    candidatContactOne != "" ?
                     <a
                       href={`https://wa.me/${profile.candidatPhone}`}
                       target="_blank"
                     >
+                                        <button className=" btn-whatsapp"   >
                       <span className="padding-email">
                         <img
-                          style={{ width: "8%" }}
+                          style={{ width: "11%" }}
                           src={require("../images/whatsapp.svg").default}
                         />
                       </span>
                       Send What’s App
+</button>
+
+                    </a>
+                    :
+                    <button className=" btn-whatsapp" style={{fontSize:"12px",padding:"15px 20px"}}>
+                    <a>
+                      <span className="padding-email">
+                        <img src={require("../images/whatsapp.svg").default} />
+                      </span>
+                      Number Not Available
                     </a>
                   </button>
+}
                   <p className="Span-Styling my-2 px-3">
                     Phone 2 : {profile.candidatAlternatePhone ? profile.candidatAlternatePhone : "No AlternatePhone Number!"}
                   </p>
-                  <button className="btn btn-whatsapp ">
+                  {
+                    candidatContactTwo != "" ?
                     <a
                       href={`https://wa.me/${profile.candidatAlternatePhone}`}
                       target="_blank"
                     >
+                  <button className=" btn-whatsapp " >
+
                       <span className="padding-email">
                         <img
-                          style={{ width: "8%" }}
+                          style={{ width: "11%" }}
                           src={require("../images/whatsapp.svg").default}
                         />
                       </span>
                       Send What’s App
+                  </button>
+
+                    </a>
+                    :
+                    <button className="btn-whatsapp" style={{fontSize:"12px",padding:"14px 13px"}}>
+                    <a>
+                      <span className="padding-email">
+                        <img src={require("../images/whatsapp.svg").default} />
+                      </span>
+                      Number Not Available
                     </a>
                   </button>
+}
                 </div>
                 <div
-                  className="col-xxl-7 col-xl-8 col-lg-8 col-md-8 Social-Card px-1 detailsCardClientSee scrollbar"
+                  className="col-xxl-7 col-xl-8 col-lg-8 col-md-7 Social-Card px-1 detailsCardClientSee scrollbar Social-btnsTwo"
                   id="style-3"
-                  style={{ marginRight: "10px" ,height:"500px"}}
                 >
                   <div className="Todo-CardMore force-overflow">
                     <div className="d-flex align-items-center">
@@ -237,7 +470,7 @@ function ToDoProfile() {
                     </div>
                     <div className="d-flex align-items-center">
                       <p className="blue-text">Ready for work :</p>
-                      <span className="blue-text">
+                      <span className="bluetextCardSee">
                         {profile.candidatStartDate} -{profile.candidatEndDate}
                       </span>
                     </div>
@@ -285,18 +518,29 @@ function ToDoProfile() {
                   </tr>
                 </thead>
                 <tbody>
-                  {profile.candidatExperienceDetails.length > 0 &&
-                    profile.candidatExperienceDetails.map((detail) => (
-                      <tr>
-                        <td>{detail.period}</td>
-                        <td>{detail.location}</td>
-                        <td>{detail.workDoneSample}</td>
-                      </tr>
-                    ))}
+                {
+                    profile.candidatExperienceDetails.length > 0 &&
+                      profile.candidatExperienceDetails[0].period != "" ?
+                      (profile.candidatExperienceDetails.map((detail) =>
+                        <tr>
+                          <td>{detail.period}</td>
+                          <td>{detail.location}</td>
+                          <td>{detail.workDoneSample}</td>
+                        </tr>
+                      )
+                      ) : (
+                        <tr>
+                          <td colSpan={3} className="text-center">
+                            <p>No Experience Details Available!</p>
+                            <button className="btn btn-sm text-light btn-dark" onClick={editCandidatProfile}>Edit Candidat To Add Experience Details!</button>
+                          </td>
+                        </tr>
+                      )
+                  }
                 </tbody>
               </table>
             </div>
-            <div className="col-12 mt-1 p-1 Social-Card">
+            <div className="col-12 mt-1 pd-00x12 Social-Card">
               <div className="row">
                 <div className="col-12 d-flex AnneesStyle">
                  <p className="">Années d’expériance :</p>
@@ -311,17 +555,17 @@ function ToDoProfile() {
                   
                   </div>
                   <div className="col-12">
-                 <p className="noteThis">Note : Who entred this candidates/employe on the database</p>
+                 <p className="noteThis mb-0">Note : Who entred this candidates/employe on the database</p>
                   
                   </div>
               </div>
             </div>
-            <div className="col-12 mt-1">
-              <div className="row">
-                <Carousel responsive={responsive}>
-                  <div className="Social-Card">
-                    <div className="col-12">
-                      <div className="row p-1 justify-content-around">
+            <div className="mt-1" style={{ display: 'grid' }}>
+              <Carousel responsive={responsive}>
+                {
+                  recommendations && recommendations.length > 0 ?
+                    recommendations.map(recommendation => (
+                      <div className="row p-1 m-1 Social-Card client-Card">
                         <div className="col-3">
                           <img
                             src={
@@ -330,37 +574,51 @@ function ToDoProfile() {
                           />
                         </div>
                         <div className="col-9 d-flex align-items-center">
-                          <p className="mb-0 FontMatchedStyle">Client Name</p>
-                        </div>
-                        <div className="col-12">
-                          <p className="mb-0 FontStylingCardtext">
-                            Secteur : &#10100;Client_Sector&#10101;{" "}
+                          <p className="mb-0 FontMatchedStyle" style={{ marginTop: '-15px' }}>
+                            <b>{recommendation.clientCompanyName.length > 20 ? recommendation.clientCompanyName.slice(0, 21).toLocaleUpperCase() + "..." : recommendation.clientCompanyName.toLocaleUpperCase()}</b>
                           </p>
                         </div>
                         <div className="col-12">
                           <p className="mb-0 FontStylingCardtext">
-                            Job : &#10100;Candidats_Job&#10101;{" "}
+                            Secteur : <b>{recommendation.clientActivitySector !== "" ? recommendation.clientActivitySector.toLocaleUpperCase() : "Sector Not Selected!"}</b>
+                          </p>
+                        </div>
+                        <div className="col-12">
+                          <p className="mb-0 FontStylingCardtext">
+                            Job : <b>{recommendation.clientJob !== "" ? recommendation.clientJob.toLocaleUpperCase() : "Job Not Selected!"}</b>
                           </p>
                         </div>
                         <div className="col-12 mb-1">
-                          <p className="mb-0 FontStylingCardtext">Note :</p>
-                          <p className="mb-0 FontStylingCardtext">
-                            Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. Lorem Ipsum has been the
-                            industry's standard.
+                          <p className="mb-0 FontStylingCardtext">Notes:</p>
+                          <p className="mb-0 FontStylingCardtext styledNotes">
+                            {recommendation.clientRequiredSkills !== "" ? recommendation.clientRequiredSkills : 'No Notes/Skills Available!'}
                           </p>
                         </div>
-                        <div className="col-5 px-0">
-<button className="btnMatched">Matched</button>
+                        <div className="col-6 text-center px-0">
+                          <button className="btnMatched" onClick={() => setShowInPreSelectedModal(true)}>Matched</button>
+                          {showPreSelectedModal ?
+                            <PreModal
+                              props={profile}
+                              closepreModal={setShowInPreSelectedModal}
+                            />
+                            :
+                            null
+                          }
                         </div>
-                        <div className="col-5  px-0">
-                        <button className="btnNotMatched">Not Matched</button>
-</div>
+                        <div className="col-6 text-center px-0">
+                          <button className="btnNotMatched" onClick={() => removeRecommendation(recommendation._id)}>Not Matched</button>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </Carousel>
-              </div>
+
+
+                    ))
+                    :
+                    loader ?
+                      <div className="col-12 mx-auto">
+                        <SelectedLoader />
+                      </div> : <div className="Social-Card m-1 text-center">No More Client Recommendations!</div>
+                }
+              </Carousel>
             </div>
             <div className="col-12 Social-Card mt-1">
               <div className="row p-1 justify-content-between">
@@ -426,14 +684,15 @@ function ToDoProfile() {
                   </button>
                 </div>
                 <div className="col-3 text-center">
-                  <button
+                <a
                     type="button"
-                    className="btn btn-CVManual"
-                    onClick={editCandidatProfile}
+                    href="https://www.canva.com/design/DAFA1_f9AmA/ZBNOgKbj-tCDJa9QRj9kNA/edit"
+                    target="_blank"
+                    className="btn text-white btn-CVManual"
                   >
                     <img src={require("../images/resume.svg").default} />
                     Créer CV Manuel
-                  </button>
+                  </a>
                   <p className="italic-fontStyle text-start">
                     Edit CV with Canva
                   </p>
@@ -520,155 +779,71 @@ function ToDoProfile() {
                     </div>
                   </div>
                 </div> */}
-                <div className="col-12 Social-Card mt-1">
-                  <div className="row justify-content-center">
-                    {/* <div className="col-12 CandidateCV">
-                  <div className="row p-2">
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-3 d-flex justify-content-end">
-                          <img
-                            style={{ width: "25%" }}
-                            src={require("../images/CandidateCv.svg").default}
-                          />
-                        </div>
-                        <div className="col-9 px-0 py-1 d-grid align-items-center">
-                       <div className=" align-items-center">   <p className="mb-0 UploadCandidat">
-                          Upload Candidate CV Made by candidate & Other document
-                          </p></div>
-                          <div className=" align-items-center">
-                          <p className="mb-0 dropFile">
-                          Drop your file here or browse
-                          </p>
+                         <div className="col-12 Social-Card mt-1">
+              <div className="row justify-content-center">
+                <div className="col-12 d-flex justify-content-center">
+                  <button className="CandidateCV" onClick={handleFileUpload}>
+                    <div className="col-8" >
+                      <img src={require("../images/Upload+text.svg").default} />
+                    </div>
+                  </button>
+                  <input
+                    type="file"
+                    ref={hiddenFileInput}
+                    onChange={fileChange}
+                    name="candidatDocuments"
+                    style={{ display: 'none' }}
+                  />
+                </div>
+                <div className="col-12 mb-1">
+                  <div className="row">
+
+                    <div className="col-6  pr-0 mb-1">
+                      <p className="candidatecVs pt-2">Candidate CV & Other Document</p>
+                    </div>
+                  </div>
+                  <div className="row" style={{ marginRight: '1px' }}>
+                    {
+                      documentList.length > 0 ?
+                        documentList.map((doc, index) =>
+                          <div className="col-6 mx-0">
+                            <div className="row CardClassDownload mt-1 mx-0">
+                              <div className="col-4 d-flex align-items-center ">
+                                <p className="download-font mb-0">{doc.originalName}</p>
+                              </div>
+                              <div className="col-6 text-center">
+                                {progress > 0 && docUploaded ?
+                                  <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
+                                  :
+                                  <button className="btnDownload">
+                                    <img src={require("../images/dowBtn.svg").default} />
+                                    {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
+                                  </button>
+                                }
+                              </div>
+                              <div className="col-2  d-flex align-item-end justify-content-end">
+                                <img
+                                  src={require("../images/editSvg.svg").default}
+                                  style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                                  onClick={() => renameDocument(doc._id, doc.documentName)}
+                                />
+                                <img
+                                  src={require("../images/Primaryfill.svg").default}
+                                  style={{ width: "20px", cursor: 'pointer' }}
+                                  onClick={() => deleteDocument(doc._id, doc.documentName)}
+                                />
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                    
-                
-                  </div>
-                  </div>
-                  <div className="col-12">
-                      <div className="row  justify-content-center">
-                      <div className="col-6">
+                        ) : <p className="text-center">No Documents Uploaded!</p>
+                    }
 
-                      <FileUploadProgress
-                        key="ex1"
-                        onProgress={(e, request, progress) => {
-                          console.log("progress", e, request, progress);
-                        }}
-                        onLoad={(e, request) => {
-                          console.log("load", e, request);
-                        }}
-                        onError={(e, request) => {
-                          console.log("error", e, request);
-                        }}
-                        onAbort={(e, request) => {
-                          console.log("abort", e, request);
-                        }}
-                      />
-                    </div>
-                  </div>
-                  </div>
-                    </div>
-                    </div> */}
-                    <div className="col-12 d-flex justify-content-center">
-                       {inputField?
-                      <button className="CandidateCV" onClick={()=>setinputField(false)}>
-
-                         <div className="col-8">
-                            <img src={require("../images/Upload+text.svg").default} />
-                          </div>  
-                          </button>      
-                    :
-                <> 
-                      <button className="CandidateCV">
-                   <div className="col-8">
-                    <img src={require("../images/Upload+text.svg").default} />
-                    <input type="file" />   
-              
-                  </div>
-                
-                   </button>
-                   </>
-                       }
-                    </div>
-                <div className="col-12">
-                  <div className="row"><div className="col-6  pr-0 mb-1">
-                  <p className="candidatecVs pt-2">Candidate CV & Other Document</p>
-                  <div className="row CardClassDownload mt-1 mx-0 ">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">
-                        <img src={require("../images/dowBtn.svg").default} />
-                        Jhon-smith-cv.pdf
-                      </button>
-                    </div>
-                    <div className="col-2  d-flex align-item-end justify-content-end">
-                    <img
-                        src={require("../images/editSvg.svg").default}
-                        style={{ width: "20px",marginRight:"5px" }}
-                      />
-                      <img
-                        src={require("../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                  
-                  </div>
-                  <div className="col-6 mx-0" style={{marginTop:"43px"}}>
-                  <div className="row CardClassDownload mt-1 mx-0">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Passport / ID.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">
-                        <img src={require("../images/dowBtn.svg").default} />
-                        Jhon-smith-cv.pdf
-                      </button>
-                    </div>
-                    <div className="col-2  d-flex align-item-end justify-content-end">
-                    <img
-                        src={require("../images/editSvg.svg").default}
-                        style={{ width: "20px",marginRight:"5px" }}
-                      />
-                      <img
-                        src={require("../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                  </div>
-                  <div className="col-6  pr-0">
-                  <div className="row CardClassDownload mt-1 mx-0">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">
-                        <img src={require("../images/dowBtn.svg").default} />
-                        Jhon-smith-cv.pdf
-                      </button>
-                    </div>
-                    <div className="col-2  d-flex align-item-end justify-content-end">
-                    <img
-                        src={require("../images/editSvg.svg").default}
-                        style={{ width: "20px",marginRight:"5px" }}
-                      />
-                      <img
-                        src={require("../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                  
-                  </div>
                   </div>
                 </div>
 
-                </div>
-                </div>
+
+              </div>
+            </div>
               </div>
             </div>
       </div>

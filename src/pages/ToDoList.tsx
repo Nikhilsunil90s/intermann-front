@@ -661,15 +661,15 @@ function ToDoList() {
       <div className="container-fluid">
         <div className="row pd ">
 
-          <div className="col-12 card-tops px-1 mt-1" style={{ padding: "0px", marginBottom: "20px" }}>
+          <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 card-tops px-1 mt-1 " style={{ padding: "0px", marginBottom: "20px" }}>
             <div className="row text-start">
-              <div className="card " style={{ padding: "15px 15px", borderRadius: "10px", marginBottom: "0px" }}>
+              <div className="card mdquery" style={{ padding: "15px 15px", borderRadius: "10px", marginBottom: "0px" }}>
                 <div className="">
                   <img
                     src={require("../images/Stats.svg").default}
                     style={{ width: "70%", marginBottom: "10px" }}
                   />
-                  <p className="h-child-text mb-0">
+                  <p className="h-child-text d-flex mb-0">
                     Ici vous avez la liste des candidats ne travaillant pas encore avec nous
                   </p>
                   <p className="h-child-text mb-0">
@@ -679,9 +679,9 @@ function ToDoList() {
               </div>
             </div>
           </div>
-          <div className="col-12 bg-white p-2 rounded001 mb-2">
+          <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 bg-white p-2 rounded001 mdquery mb-2">
             <div className="row ">
-              <div className="col-4">
+              <div className="col-md-6 col-xxl-4 col-xl-4 col-lg-4 ">
                 <p className="FiltreName">Filtre by name</p>
                 <div className="dropdown">
                   <div aria-labelledby="dropdownMenuButton1">
@@ -720,7 +720,7 @@ function ToDoList() {
                   </div>
                 </div>
               </div>
-              <div className="col-4">
+              <div className="col-md-6 col-xxl-4 col-xl-4 col-lg-4">
                 <p className="FiltreName">Filtre Secteur d’activité</p>
                 <div className="dropdown">
                   <div aria-labelledby="dropdownMenuButton1">
@@ -758,7 +758,7 @@ function ToDoList() {
                   </div>
                 </div>
               </div>
-              <div className="col-4">
+              <div className="col-md-6 col-xxl-4 col-xl-4 col-lg-4 pt-1101">
                 <p className="FiltreName">Filtre selection métier / job</p>
                 <div>
                   {jobOptions.length > 0 ?
@@ -781,7 +781,7 @@ function ToDoList() {
                   <>
                     <div className="col-12 pt-1">
                       <div className="row">
-                        <div className="col-4 pt-1">
+                        <div className="col-md-6 col-xxl-4 col-xl-4 col-lg-4 pt-1">
                           <p className="FiltreName">Filtre by Motivation</p>
                           <div className="dropdown">
                             <div aria-labelledby="dropdownMenuButton1">
@@ -817,7 +817,7 @@ function ToDoList() {
                             </div>
                           </div>
                         </div>
-                        <div className="col-4 pt-1">
+                        <div className="col-md-6 col-xxl-4 col-xl-4 col-lg-4 pt-1">
         <p className="FiltreName">Filter by date</p>
                           {/* <input
                               type="date"
@@ -830,7 +830,7 @@ function ToDoList() {
                         <input type="date"  className="form-control inputDate"
                               name="candidatStartDate"   onChange={onDateChange} />
         </div>
-                        <div className="col-4 pt-1">
+                        <div className="col-md-6 col-xxl-4 col-xl-4 col-lg-4 pt-1">
                           <p className="FiltreName">Filter by driver licence</p>
                           <div className="dropdown">
                             <div aria-labelledby="dropdownMenuButton1">
@@ -857,7 +857,7 @@ function ToDoList() {
                             </div>
                           </div>
                         </div>
-                        <div className="col-4 pt-2">
+                        <div className="col-md-6 col-xxl-4 col-xl-4 col-lg-4 pt-2">
                           <p className="FiltreName">Filtre by email</p>
                           <div className="dropdown">
                             <div aria-labelledby="dropdownMenuButton1">
@@ -877,7 +877,7 @@ function ToDoList() {
                             </div>
                           </div>
                         </div>
-                        <div className="col-4 pt-2">
+                        <div className="col-md-6 col-xxl-4 col-xl-4 col-lg-4 pt-2">
                           <p className="FiltreName">Filtre by contact</p>
                           <div className="dropdown">
                             <div aria-labelledby="dropdownMenuButton1">
@@ -935,7 +935,7 @@ function ToDoList() {
               {status ?
                 filterData.length > 0 ?
                   filterData.map((profile, index) => (
-                    <div className="col-md-4 col-xxl-3 pl-0 col-xl-4 col-lg-4 ">
+                    <div className="col-md-6 col-xxl-3 pl-0 col-xl-4 col-lg-4 ">
                       <ToDoProfileCard data={profile} />
                     </div>
                   ))
