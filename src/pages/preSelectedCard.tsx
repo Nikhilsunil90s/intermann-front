@@ -48,14 +48,14 @@ const PreSelectedCard = (props: any,{path}) => {
         <>
             <div className="card card-color">
                 <div className="card-upper">
-                    <div className="col-3">
+                    <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-3 ">
                         <img
                             src={require("../images/card-men.svg").default}
                             className="card-img-top"
                             alt="..."
                         />
                     </div>
-                    <div className="col-8 fontStylinForPrecards">
+                    <div className="col-xxl-8 col-xl-8 col-md-8 col-lg-8 fontStylinForPrecards">
                         <p className="text-dark"><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
                         <p className="text-dark"><b>{props.data.candidatAge ? props.data.candidatAge : "Age Not Available!"}</b></p>
                         <div >  <p className="text-dark d-flex"><b>{candidatMotivationIcons[props.data.candidatMotivation - 1].icon + " " + candidatMotivationIcons[props.data.candidatMotivation - 1].motivation}</b>
@@ -65,18 +65,16 @@ const PreSelectedCard = (props: any,{path}) => {
                     </div>
                    
                 </div>
-
-                <div className="card-body">
                 <div className="col-12 ">
                         <div className="row cardPreSelectedColorRow">
 
                       
-                        <div className="col-6 pd-00X1">
+                        <div className="col-6 pd-00X11">
                         <Link to='#'>
                             <button className="preStylingO11 p-0"><img src={require("../images/preselectedCard.svg").default} />    PRE SELECTED</button>
                         </Link>
                         </div>
-                        <div className="col-6 d-flex justify-content-end mb-0 pd-00X1 form-group">
+                        <div className="col-6 d-flex justify-content-end mb-0 pd-00P1 form-group">
                         {
                                     props.data.candidatLicensePermis ?
                                         <div className="d-flex  justify-content-center align-items-center">
@@ -91,6 +89,8 @@ const PreSelectedCard = (props: any,{path}) => {
                         </div>
                     </div>
                     </div>
+                <div className="card-body CardDetails">
+               
                     <p className="preCard-Body">Secteur : {props.data.candidatActivitySector.toLocaleUpperCase()}</p>
                     <p className="preCard-Body">Job :{props.data.candidatJob.toLocaleUpperCase()}</p> 
                 <p>Candidats Age : <b>{props.data.candidatAge}</b></p> 
@@ -111,9 +111,9 @@ const PreSelectedCard = (props: any,{path}) => {
                 </div>
                 <div className="card-body">
                   
-                    <div className="col-12 mt-2">
+                    <div className="col-12 mt-1">
                         <div className="row">
-                            <div className="col-6">
+                            <div className="col-6 px-0">
                             <Select
                     placeholder="More options"
                     options={CardOptions}
@@ -122,8 +122,8 @@ const PreSelectedCard = (props: any,{path}) => {
                     
                  />
                             </div>
-                            <div className="col-6 text-center">
-                            <button className="btn btn-card" onClick={viewFullProfile}>
+                            <div className="col-6 px-0 text-center">
+                            <button className="btn btn-SeePreCard" onClick={viewFullProfile}>
                             See Full Profile
                         </button>
                         </div>

@@ -102,13 +102,7 @@ color: #000000 !important;
 .css-319lph-ValueContainer{
     padding: 0px !important;
 }
-.bg-preDetails{
-    background: #FFFFFF;
-box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
-border-radius: 10px;
-margin-top: 10px;
-padding-top: 30px;
-}
+
 .card-preProfile{
     font-family: 'Poppins';
 font-style: normal;
@@ -188,3 +182,156 @@ padding: 15px 30px;
     color: #FFFFFF;
     padding: 15px 30px;
 }
+ @media (min-width:768px){
+    .fontStylinForPrecards {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 8px;
+        display: grid;
+        align-items: center;
+        color: #000000;
+        padding: 10px 0px 0px 34px;
+    }
+    .card-color {
+        border-radius: 16px;
+        padding: 0px;
+    }
+    .CardDetails{
+        padding: 4px 10px !important;
+    }
+    .btn-SeePreCard{
+        height: 30px;
+        background: #032339;
+        color: #ffffff;
+        width: 100%;
+        border-radius: 15px !important;
+        font-weight: 600;
+        font-size: 12px !important;
+        line-height: 16px;
+        width: 107px !important;
+        padding: 0px 0px 0px 0px !important;
+    }
+    .fontStylinForPrecards{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 10px;
+        line-height: 22px;
+        color: #000000;
+        padding: 10px 0px 0px 34px;
+        margin-bottom: 0px;
+    }
+    .fontStylinForPrecards p{
+        margin-bottom: 0px;
+    }
+    .CardDetails {
+        padding: 10px 10px !important;
+    }
+    .preCard-Body {
+        font-family: 'Poppins' !important;
+        font-style: normal !important;
+        font-weight: 600 !important;
+        font-size: 10px !important;
+        line-height: 19px !important;
+        display: flex;
+        align-items: center;
+        color: #000000 !important;
+    }
+    .card-body {
+        padding: 0.5rem 0rem 0.5rem 0.5rem  !important;
+    }
+    .preSelect .css-1t8y0t9-control {
+        border-radius: 25px !important;
+        min-height: 35px !important;
+    }
+   .m-query{
+    margin-top: 15px;
+   }
+   .pd-00X11{
+    padding:6px 5px;
+   }
+   .pd-00P1{
+    padding: 4px 4px 0px 0px;
+   }
+ }
+ @media (min-width:1200px){
+    .preLargebtn {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 13px;
+        line-height: 20px;
+        letter-spacing: -0.105991px;
+        text-transform: uppercase;
+        color: #FE8700;
+        border: 0px;
+        background: #FFF7EE;
+        border-radius: 100px;
+        padding: 10px 20px !important;
+    }
+    .fontStylinForPrecards {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 8px;
+        display: grid;
+        align-items: center;
+        color: #000000;
+        padding: 10px 0px 0px 20px;
+    }
+    .topCandidateHeaderPre {
+        padding: 0px 15px;
+        border-radius: 10px;
+        margin-bottom: 0px;
+        height: 77px;
+    }
+    .bg-preDetails{
+        background: #FFFFFF;
+        box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+        border-radius: 10px;
+        padding-top: 30px;
+    
+}
+ }
+ @media (min-width:1400px){
+    .preLargebtn {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 13px;
+        line-height: 20px;
+        letter-spacing: -0.105991px;
+        text-transform: uppercase;
+        color: #FE8700;
+        border: 0px;
+        background: #FFF7EE;
+        border-radius: 100px;
+        padding: 10px 20px !important;
+    }
+    .fontStylinForPrecards {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 8px;
+        display: grid;
+        align-items: center;
+        color: #000000;
+        padding: 10px 0px 0px 35px;
+    }
+    .topCandidateHeaderPre {
+        padding: 0px 15px;
+        border-radius: 10px;
+        margin-bottom: 0px;
+        height: 77px;
+    }
+    .bg-preDetails{
+        background: #FFFFFF;
+        box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+        border-radius: 10px;
+        padding-top: 30px;  
+}
+ }

@@ -65,28 +65,24 @@ function PreSelectedView() {
   return (
     <>
       <div className="containet-fluid">
-        <div className="row">
-          <div className="col-12 top-pd text-center">
+        <div className="row mx-0">
+          {/* <div className="col-12 top-pd text-center">
             <h1 style={{ textDecoration: "underline" }}>
               CANDIDAT: {profile.candidatName}
             </h1>
-          </div>
+          </div> */}
 
           <div
-            className="card "
-            style={{
-              padding: "0px 15px",
-              borderRadius: "15px",
-              marginBottom: "0px",
-            }}
+            className="card mt-2 mb-0"
+         
           >
-            <div className="row text-start">
-              <div className="col-6">
+            <div className="row text-start topCandidateHeaderPre">
+              <div className="col-6 d-flex align-items-center">
                 <div className="stable">
                   <Link to="/todolist">
                     <button
                       type="button"
-                      className="btn d-flex align-items-center"
+                      className="btn d-flex align-items-center p-0"
                     >
                       <img src={require("../images/return.svg").default} />
                       <h2 className="card-Leads mb-0"> Candidate Profile</h2>
@@ -94,8 +90,8 @@ function PreSelectedView() {
                   </Link>
                 </div>
               </div>
-              <div className="col-6 text-end">
-                <button className="btn btn-bgb" onClick={editCandidatProfile}>
+              <div className="col-6 d-flex align-items-center justify-content-end">
+                <button className="btn-bgblack" onClick={editCandidatProfile}>
                   <img src={require("../images/Edit.svg").default} />
                   Edit Profile
                 </button>
@@ -103,10 +99,9 @@ function PreSelectedView() {
             </div>
           </div>
 
-          <div className="">
-            <div className="col-12 p-0">
+            <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-1">
               <div className="row bg-preDetails">
-                <div className="col-2 text-center ">
+                <div className="col-xxl-2 col-xl-2 col-g-12 col-md-2 col-sm-2 text-center ">
                   <img
                     src={require("../images/menlogos.svg").default}
                     style={{ width: "90%" }}
@@ -121,7 +116,7 @@ function PreSelectedView() {
   // defaultValue={uploadOption[0]}
 />
                 </div>
-                <div className="col-5 card-preProfile">
+                <div className="col-xxl-5 col-xl-5 col-g-12 col-md-5 col-sm-5 card-preProfile">
                   <div className="d-flex">
                     <p>
                       Name : {profile.candidatName.toLocaleUpperCase()}|{profile.candidatAge}
@@ -146,17 +141,18 @@ function PreSelectedView() {
                   </p>
                 </div>
                 <div className="col-5 text-end end-class">
-                  <div className="text-center ml-5">
-                  <button className="preLargebtn p-0"><img src={require("../images/preselectedCard.svg").default} />    PRE SELECTED</button>
-                  </div>
-                  <p className="fw-bold text-center pl-5 pt-1">
+                  <div className=" ml-5">
+                  <button className="preLargebtn"><img src={require("../images/preselectedCard.svg").default} />    PRE SELECTED</button>
+                
+                  <p className="fw-bold text-end pl-5 pt-1">
                   Selectionné pour un client
                   </p>
-                  <p className="text-center">This candidate have been selected for a client</p>
+                  <p className="text-end">This candidate have been selected for a client</p>
+                </div>
                 </div>
               </div>
             </div>
-           <div className="col-12 p-0 mt-1">
+           <div className="col-12 p-1">
             <div className="row preColorRowSelected p-2">
                 <div className="col-12">
    <p>Selected  For  client : </p>
@@ -171,7 +167,7 @@ function PreSelectedView() {
            </div>
            
            
-            <div className="col-12 pt-1 p-0">
+            <div className="col-xxl-12 col-xl-12 col-lg-12 col-12-md pt-1 px-1">
               <div className="row justify-content-between">
               
                 <div
@@ -217,7 +213,7 @@ function PreSelectedView() {
                   </div>
                 </div>
                 <div
-                  className="col-6 Social-Card text-center p-0"
+                  className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-0"
                   style={{ maxWidth: "49%" }}
                 >
                   <p className="Span-Styling pt-2 px-3">
@@ -758,7 +754,6 @@ function PreSelectedView() {
                         style={{ width: "20px" }}
                       />
                     </div>
-                  </div>
             </div>
           </div>
         </div>

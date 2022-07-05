@@ -614,7 +614,7 @@ function Preselected(){
               style={{ width: "70%" ,marginBottom:"10px"}}
             /> */}
                <div className="d-flex topHeading">  <h2 className="">candidats / employes</h2> <span className="topBluetext"> Preselected</span></div>
-                <p className="child-text">
+                <p className="h-child-text">
                   Vous devez toujours vous assurer d’avoir un maximum d’information sur cette liste et déplacer les candidats en archive si plus d’actualité 
             </p>
               </div>
@@ -623,7 +623,7 @@ function Preselected(){
           </div>
           <div className="col-12 bg-white p-2 rounded001 mb-3">
             <div className="row ">
-              <div className="col-4">
+              <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
                 <p className="FiltreName">Filtre by name</p>
                 <div className="dropdown">
                   <div aria-labelledby="dropdownMenuButton1">
@@ -633,7 +633,7 @@ function Preselected(){
                           name="candidatName"
                           closeMenuOnSelect={true}
                           placeholder="‎ ‎ ‎ Select Un Candidat"
-                          className="basic-multi-select"
+                          className="basic-multi-select preSelect"
                           classNamePrefix="select"
                           onChange={handleNameChange}
                           options={nameOptions}
@@ -662,7 +662,7 @@ function Preselected(){
                   </div>
                 </div>
               </div>
-              <div className="col-4">
+              <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
                 <p className="FiltreName">Filtre Secteur d’activité</p>
                 <div className="dropdown">
                   <div aria-labelledby="dropdownMenuButton1">
@@ -671,7 +671,7 @@ function Preselected(){
                         name="candidatActivitySector"
                         closeMenuOnSelect={true}
                         placeholder="‎ ‎ ‎ Select Un Secteur"
-                        className="basic-multi-select"
+                        className="basic-multi-select preSelect"
                         classNamePrefix="select"
                         onChange={handleSectorChange}
                         options={sectorOptions}
@@ -700,7 +700,7 @@ function Preselected(){
                   </div>
                 </div>
               </div>
-              <div className="col-4">
+              <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 m-query">
                 <p className="FiltreName">Filtre selection métier / job</p>
                 <div>
                   {jobOptions.length > 0 ?
@@ -709,7 +709,7 @@ function Preselected(){
                       closeMenuOnSelect={true}
                       isMulti
                       placeholder="‎ ‎ ‎ Select"
-                      className="basic-multi-select"
+                      className="basic-multi-select preSelect"
                       classNamePrefix="select"
                       onChange={jobChange}
                       options={jobOptions}
@@ -723,7 +723,7 @@ function Preselected(){
                   <>
                     <div className="col-12 pt-1">
                       <div className="row">
-                        <div className="col-4 pt-1">
+                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 pt-1">
                           <p className="FiltreName">Filtre by Motivation</p>
                           <div className="dropdown">
                             <div aria-labelledby="dropdownMenuButton1">
@@ -750,7 +750,7 @@ function Preselected(){
                                 name="candidatMotivation"
                                 closeMenuOnSelect={true}
                                 placeholder="‎ ‎ ‎ Select Motivation du Candidat"
-                                className="basic-multi-select"
+                                className="basic-multi-select preSelect"
                                 classNamePrefix="select"
                                 onChange={handleMotivationChange}
                                 options={motivationOptions}
@@ -759,7 +759,7 @@ function Preselected(){
                             </div>
                           </div>
                         </div>
-                        <div className="col-4 pt-1">
+                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 pt-1">
         <p className="FiltreName">Filter by date</p>
         <div className="dropdown">
           <div aria-labelledby="dropdownMenuButton1">
@@ -774,7 +774,7 @@ function Preselected(){
                             </div>
                           </div>
         </div>
-                        <div className="col-4 pt-1">
+                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 pt-1">
                           <p className="FiltreName">Filter by driver licence</p>
                           <div className="dropdown">
                             <div aria-labelledby="dropdownMenuButton1">
@@ -792,7 +792,7 @@ function Preselected(){
                                 name="candidatLicencePermis"
                                 closeMenuOnSelect={true}
                                 placeholder="‎ ‎ ‎ Select Licence Permis"
-                                className="basic-multi-select"
+                                className="basic-multi-select preSelect"
                                 classNamePrefix="select"
                                 onChange={HandelLicence}
                                 options={licenceOptions}
@@ -833,7 +833,7 @@ function Preselected(){
                   {status ? 
                     filterData.length > 0 ? 
                       filterData.map((profile, index) => (
-                        <div className="col-4  pd-left">
+                        <div className="col-xxl-3 col-xl-4 col-lg-6 col-md-6  pd-left">
                           <PreSelectedCard data={profile} />
 
                         </div>
