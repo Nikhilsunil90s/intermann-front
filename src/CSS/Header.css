@@ -318,20 +318,6 @@ padding-top:0px ;
         width: 100%;
         border-bottom: 1px solid rgba(0,0,0,.1);
     }
-    .btn-bgblack {
-        background-color: #032339;
-        font-weight: 700;
-        font-family: "Poppins";
-        font-style: normal;
-        font-weight: 700;
-        font-size: 13px ;
-        line-height: 20px ;
-        letter-spacing: -0.105991px;
-        text-transform: uppercase;
-        border-radius: 25px;
-        color: #ffffff;
-        margin-top: 5px;
-        padding: 8px 20px;
-    }
+ 
    
 }
