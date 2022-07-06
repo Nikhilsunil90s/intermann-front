@@ -295,8 +295,106 @@ padding: 15px 30px;
         padding-top: 30px;
     
 }
+.btn-gmail {
+    background: #FFFFFF;
+    box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+    border-radius: 30px;
+    border: 1px solid #000000;
+    width: 350px;
+    height: 54px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px !important;
+    line-height: 16px;
+    color: #000000;
+
+}
+.btn-whatsapp a {
+    background-color: #489767;
+    color: white !important;
+    border-radius: 30px;
+    width: 350px;
+    height: 54px;
+    box-sizing: border-box;
+    border-radius: 100px;
+    margin-bottom: 5px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    color: #FFFFFF;
+}
+.btn-Facebookpresee {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    color: #FFFFFF;
+    width: 350px;
+    height: 56px;
+    box-sizing: border-box;
+    border-radius: 100px;
+    background: #3F76E2;
+border-radius: 100px;
+}
+.btn-see {
+    border: 1px solid #ffff;
+    width: 350px;
+    height: 56px;
+    box-sizing: border-box;
+    border-radius: 100px;
+    margin-bottom: 5px;
+    margin-top: 25px;
+    background-color: #489767;
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 26px;
+color: #FFFFFF;
+
+}
+.scrollbarpree {
+    float: left;
+    height: 551px;
+    width: 70px;
+    background: #ffff;
+    overflow-y: scroll;
+}
+.btn-Facebookpresee:hover{
+    color:#ffffff !important
+} 
  }
  @media (min-width:1400px){
+    .btn-gmail {
+        background: #FFFFFF;
+    box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+    border-radius: 30px;
+    border: 1px solid #000000;
+    width: 350px;
+    height: 54px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px !important;
+    line-height: 33px;
+    color: #000000;
+    }
+    .btn-Facebookpresee {
+        color: white;
+        border: 1px solid #ffff;
+        width: 350px;
+        height: 56px;
+        box-sizing: border-box;
+        border-radius: 100px;
+        margin-bottom: 5px;
+        margin-top: 25px;
+        background: #3F76E2;
+border-radius: 100px;
+    }
     .preLargebtn {
         font-family: 'Poppins';
         font-style: normal;

@@ -322,7 +322,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                   <div className="text-center d-grid justify-content-end align-items-center mt-2 ml-5">
                     <div className="text-center">
                     <button className="todoBtnStyle">
-                      <img src={require("../images/briefcase2.svg").default} />
+                      <img style={{width:"8%"}} src={require("../images/briefcase2.svg").default} />
                     </button>
                     </div>
                     <p className="fw-boldEn text-center pl-5 pt-1">
@@ -337,38 +337,43 @@ const fetchRecommendations = async (candidatSector: string) => {
             <div className="col-xxl-12 col-xl-12 col-lg-12 col-12-md  pt-1 px-0">
               <div className="row justify-content-between">
                 <div
-                  className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-0 Social-btns"
- 
-                >
+                  className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-1 Social-btns"
+                  style={{ maxWidth: "49%" }}
+                ><div className="text-start px-1">
                   <p className="Span-Styling pt-2 pb-1 px-3 my-1">
                     Mail : {profile.candidatEmail ? profile.candidatEmail : "No Email Provided!"}
                   </p>
+                  </div>
                   {
                     profile.candidatEmail != undefined ?
-                  <button className="btn-gmail">
                     <a
-                      href="https://accounts.google.com/"
-                      className="text-dark fw-bold"
-                      target="_blank"
-                    >
-                      <span className="padding-email"    style={{height:"56px"}}>
-                        <img src={require("../images/gmail.svg").default} />
+                    href="https://accounts.google.com/"
+                    className="text-dark fw-bold"
+                    target="_blank"
+                  >
+                  <button className="btn-TODOgmail my-1">
+                   
+                      <span className="" >
+                        <img style={{width:"8%"}} src={require("../images/gmail.svg").default} />
                       </span>
                       Send Email
-                    </a>
                   </button>
-                  :
-                  <button className="btn-gmail" style={{fontSize:"12px",padding:"15px 20px"}}>
-                  <a>
-                    <span className="padding-email">
-                      <img src={require("../images/gmail.svg").default} />
-                    </span>
-                    No Email Available
                   </a>
-                </button>
-                  }
 
-                  <p className="Span-Styling my-2 pt-1 px-3 ">Facebook : {profile.candidatFBURL ? profile.candidatFBURL : "No Facebook URL!"}</p>
+                  :
+                  <a>
+                  <button className="btn-TODOgmail my-1" >
+                    <span className="">
+                      <img style={{width:"8%",marginRight:"5px"}} src={require("../images/gmail.svg").default} />
+                    </span>
+                    No Email !  
+                </button>
+                </a>
+
+                  }
+<div className="text-start px-1">
+                  <p className="Span-Styling my-2 px-3 ">Facebook : {profile.candidatFBURL ? profile.candidatFBURL : "No Facebook URL!"}</p>
+                  </div>
                   {
                     profile.candidatFBURL != "" ?
                   <a
@@ -376,10 +381,9 @@ const fetchRecommendations = async (candidatSector: string) => {
                     target="_blank"
   
                   >
-                    <button className=" btn-facebook">
-                    <span className="padding-email">
-                      <img
-                        style={{ width: "12%" }}
+                    <button className=" btn-facebook my-1">
+                    <span className="">
+                      <img style={{width:"5%",marginRight:"5px"}}
                         src={require("../images/facebook.svg").default}
                       />
                     </span>
@@ -387,29 +391,30 @@ const fetchRecommendations = async (candidatSector: string) => {
                     </button>
                   </a>
                   :
-                  <button className="btn-facebook" style={{fontSize:"12px",padding:"15px 20px"}}>
+                  <button className="btn-facebook my-1">
                   <a>
-                    <span className="padding-email">
-                      <img src={require("../images/facebook.svg").default} />
+                    <span className="">
+                      <img style={{width:"5%",marginRight:"5px"}}  src={require("../images/facebook.svg").default} />
                     </span>
-                    No Profile Available
+                    No FB URL!
                   </a>
                 </button>
 }
-
+<div className="text-start px-1">
                   <p className="Span-Styling my-2 px-3 pt-1  my-1">
                     Phone : {profile.candidatPhone ? profile.candidatPhone : "No Phone Number!"}
                   </p>
+                  </div>
                   {
                     candidatContactOne != "" ?
                     <a
                       href={`https://wa.me/${profile.candidatPhone}`}
                       target="_blank"
                     >
-                                        <button className=" btn-whatsapp"   >
-                      <span className="padding-email">
-                        <img
-                          style={{ width: "11%" }}
+                                        <button className=" btn-whatsapp my-1"   >
+                      <span className="">
+                        <img 
+                          style={{ width: "8%",marginRight:"5px" }}
                           src={require("../images/whatsapp.svg").default}
                         />
                       </span>
@@ -418,29 +423,31 @@ const fetchRecommendations = async (candidatSector: string) => {
 
                     </a>
                     :
-                    <button className=" btn-whatsapp" style={{fontSize:"12px",padding:"15px 20px"}}>
+                    <button className=" btn-whatsapp my-1" style={{fontSize:"12px",padding:"15px 20px"}}>
                     <a>
-                      <span className="padding-email">
-                        <img src={require("../images/whatsapp.svg").default} />
+                      <span className="">
+                        <img style={{width:"8%",marginRight:"5px"}} src={require("../images/whatsapp.svg").default} />
                       </span>
-                      Number Not Available
+                      No Phone Number!
                     </a>
                   </button>
 }
-                  <p className="Span-Styling my-2 px-3">
+<div className="text-start px-1">
+                  <p className="Span-Styling my-2 ">
                     Phone 2 : {profile.candidatAlternatePhone ? profile.candidatAlternatePhone : "No AlternatePhone Number!"}
                   </p>
+                  </div>
                   {
                     candidatContactTwo != "" ?
                     <a
                       href={`https://wa.me/${profile.candidatAlternatePhone}`}
                       target="_blank"
                     >
-                  <button className=" btn-whatsapp " >
+                  <button className=" btn-whatsapp my-1" >
 
-                      <span className="padding-email">
-                        <img
-                          style={{ width: "11%" }}
+                      <span className="">
+                        <img style={{width:"8%",marginRight:"5px"}}
+   
                           src={require("../images/whatsapp.svg").default}
                         />
                       </span>
@@ -449,12 +456,12 @@ const fetchRecommendations = async (candidatSector: string) => {
 
                     </a>
                     :
-                    <button className="btn-whatsapp" style={{fontSize:"12px",padding:"14px 13px"}}>
+                    <button className="btn-whatsapp my-1">
                     <a>
-                      <span className="padding-email">
-                        <img src={require("../images/whatsapp.svg").default} />
+                      <span className="">
+                        <img style={{width:"8%",marginRight:"5px"}}  src={require("../images/whatsapp.svg").default } />
                       </span>
-                      Number Not Available
+                      No Phone Number!
                     </a>
                   </button>
 }
@@ -567,7 +574,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                     recommendations.map(recommendation => (
                       <div className="row p-1 m-1 Social-Card client-Card">
                         <div className="col-3">
-                          <img
+                          <img 
                             src={
                               require("../images/Card-ImageStar.svg").default
                             }
@@ -636,7 +643,7 @@ const fetchRecommendations = async (candidatSector: string) => {
         type="button"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
-        className="btn btn-preSelected"
+        className=" btn-preSelected"
         onClick={() => setShowInPreSelectedModal(true)}
       >
       Move to Preselected
@@ -660,7 +667,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                 <div className="col-3 text-center">
                   <button
                     type="button"
-                    className="btn btn-Archived"
+                    className="btn-Archived"
                     onClick={() => setShowArchiveModal(true)}
                   >
                     Archive / Canceled
@@ -676,7 +683,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                 <div className="col-3 text-center">
                   <button
                     type="button"
-                    className="btn btn-EditProfile"
+                    className="btn-EditProfile"
                     onClick={editCandidatProfile}
                   >
                     <img src={require("../images/Edit.svg").default} />

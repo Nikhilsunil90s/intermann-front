@@ -46,7 +46,7 @@ function Preselected(){
           const [filterData, setFilterData] = useState([]);
           const [status, setStatus] = useState(Boolean);
           const [nameOptions, setNameOptions] = useState([])                        
-          const [showMore, setShowMore] = useState(false)
+          const [showMore, setShowMore] = useState(true)
           const [licenceOptions, setLicenseOptions] = useState([
             {
               value: "true", label: "Have Licence", color: '#FF8B00'

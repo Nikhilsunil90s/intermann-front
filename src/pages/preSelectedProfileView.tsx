@@ -91,7 +91,7 @@ function PreSelectedView() {
                 </div>
               </div>
               <div className="col-6 d-flex align-items-center justify-content-end">
-                <button className="btn-bgblack" onClick={editCandidatProfile}>
+                <button className="btn-bgblack mt-0" onClick={editCandidatProfile}>
                   <img src={require("../images/Edit.svg").default} />
                   Edit Profile
                 </button>
@@ -99,7 +99,7 @@ function PreSelectedView() {
             </div>
           </div>
 
-            <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-1">
+            <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pb-0 px-1 pt-1">
               <div className="row bg-preDetails">
                 <div className="col-xxl-2 col-xl-2 col-g-12 col-md-2 col-sm-2 text-center ">
                   <img
@@ -152,28 +152,27 @@ function PreSelectedView() {
                 </div>
               </div>
             </div>
-           <div className="col-12 p-1">
+           <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pb-0 px-1 pt-1">
             <div className="row preColorRowSelected p-2">
-                <div className="col-12">
-   <p>Selected  For  client : </p>
-                </div>
+ 
                 <div className="col-8 p-0">
+                <p>Selected  For  client : </p>
 <p className="CommentSelection">Comment about selection : Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès qu'il est prêt </p>
                 </div>
-                <div className="col-4 d-flex justify-content-center align-items-start">
+                <div className="col-4 d-flex justify-content-end align-items-center">
 <button  className="btn customerProfil"><img src={require("../images/eyeProfil.svg").default}/>CUSTOMER PROFIL</button>
                 </div>
             </div>
            </div>
            
            
-            <div className="col-xxl-12 col-xl-12 col-lg-12 col-12-md pt-1 px-1">
+            <div className="col-xxl-12 col-xl-12 col-lg-12 col-12-md pb-0 pt-1 px-1">
               <div className="row justify-content-between">
               
                 <div
-                  className="col-6 Social-Card px-1  scrollbar"
+                  className="col-7 Social-Card px-1  scrollbarpree"
                   id="style-3"
-                  style={{ maxWidth: "49%", marginRight: "10px" }}
+                  style={{ maxWidth: "57%" }}
                 >
                   <div className="pre-CardMore force-overflow">
                     <div className="d-flex">
@@ -213,44 +212,82 @@ function PreSelectedView() {
                   </div>
                 </div>
                 <div
-                  className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-0"
+                  className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-1"
                   style={{ maxWidth: "49%" }}
                 >
-                  <p className="Span-Styling pt-2 px-3">
+                  <div className="text-start px-1">
+                  <p className="Span-Styling pt-2 my-1">
                     Mail : {profile.candidatEmail ? profile.candidatEmail : "No Email Provided!"}
                   </p>
-                  
-                  <button className="btn btn-gmail">
+                  </div>
+                  {
+                    profile.candidatEmail ?       <button className=" btn-gmail my-1">
                     <a
                       href="https://accounts.google.com/"
                       className="text-dark fw-bold"
                       target="_blank"
                     >
                       <span className="padding-email">
-                        <img src={require("../images/gmail.svg").default} />
+                        <img  src={require("../images/gmail.svg").default} />
                       </span>
                       Send Email
                     </a>
-                  </button>
-                  <p className="Span-Styling mt-2 px-3">Facebook : {profile.candidatFBURL ? profile.candidatFBURL : "No Facebook URL!"}</p>
-                  <a
-                    href={profile.candidatFBURL}
-                    target="_blank"
-                    className="btn  btn-see"
-                  >
-                    <span className="padding-email">
-                      <img
-                        style={{ width: "8%" }}
-                        src={require("../images/facebook.svg").default}
-                      />
-                    </span>
-                    See Profile
-                  </a>
+                  </button> : 
+                      <button className="btn-gmail my-1">
+                      <a
+                        href="https://accounts.google.com/"
+                        className="text-dark fw-bold"
+                        target="_blank"
+                      >
+                        <span className="padding-email">
+                          <img src={require("../images/gmail.svg").default}  style={{ width: "8%" }} />
+                        </span>
+                        No Email !
+                      </a>
+                    </button>
+                  }
+                <div className="text-start px-1">
+                  <p className="Span-Styling my-2 px-3">Facebook : {profile.candidatFBURL ? profile.candidatFBURL : "No Facebook URL!"}</p>
+                  </div>
+                  {
+profile.candidatFBURL ?
+<a
+href={profile.candidatFBURL}
+target="_blank"
+className="btn btn-Facebookpresee my-1"
+>
+<span className="padding-email">
+  <img
+    style={{ width: "4%" }}
+    src={require("../images/facebook.svg").default}
+  />
+</span>
+See Profile
+</a>  :
+<a
+href={profile.candidatFBURL}
+target="_blank"
+className="btn btn-Facebookpresee my-1"
+>
+<span className="padding-email">
+  <img
+    style={{ width: "4%" }}
+    src={require("../images/facebook.svg").default}
+  />
+</span>
+No FB URL!
+</a> 
 
-                  <p className="Span-Styling mt-2 px-3">
+                  }
+            
+            <div className="text-start px-1">
+                  <p className="Span-Styling my-2 px-3">
                     Phone : {profile.candidatPhone ? profile.candidatPhone : "No Phone Number!"}
                   </p>
-                  <button className="btn btn-whatsapp btn-see">
+                  </div>
+                  {
+                    profile.candidatPhone ?
+                    <button className="btn-whatsapp mt-1 mb-1 btn-see">
                     <a
                       href={`https://wa.me/${profile.candidatPhone}`}
                       target="_blank"
@@ -264,29 +301,67 @@ function PreSelectedView() {
                       Send What’s App
                     </a>
                   </button>
-                  <p className="Span-Styling mt-2 px-3">
+                  :
+                  <button className="btn-whatsapp mt-1 mb-1 btn-see">
+                  <a
+                    href={`https://wa.me/${profile.candidatPhone}`}
+                    target="_blank"
+                  >
+                    <span className="padding-email">
+                      <img
+                        style={{ width: "8%" }}
+                        src={require("../images/whatsapp.svg").default}
+                      />
+                    </span>
+                    No Phone Number!
+                  </a>
+                </button>
+                  }
+               <div className="text-start px-1">
+                  <p className="Span-Styling mt-2 mb-1 px-3">
                     Phone 2 : {profile.candidatAlternatePhone ? profile.candidatAlternatePhone : "No AlternatePhone Number!"}
                   </p>
-                  <button className="btn btn-whatsapp btn-see">
-                    <a
-                      href={`https://wa.me/${profile.candidatAlternatePhone}`}
-                      target="_blank"
-                    >
-                      <span className="padding-email">
-                        <img
-                          style={{ width: "8%" }}
-                          src={require("../images/whatsapp.svg").default}
-                        />
-                      </span>
-                      Send What’s App
-                    </a>
-                  </button>
+                  </div>
+                 {
+                    profile.cadidatAlternatePhone ?
+                  <button className="btn-whatsapp btn-see">
+                  <a
+                    href={`https://wa.me/${profile.candidatAlternatePhone}`}
+                    target="_blank"
+                  >
+                    <span className="padding-email">
+                      <img
+                        style={{ width: "8%" }}
+                        src={require("../images/whatsapp.svg").default}
+                      />
+                    </span>
+                    Send What’s App
+                  </a>
+                </button>
+                  :
+                
+                  <button className="btn btn-whatsapp mt-1 mb-1 btn-see">
+                  <a
+                    href={`https://wa.me/${profile.candidatPhone}`}
+                    target="_blank"
+                  >
+                    <span className="padding-email">
+                      <img
+                        style={{ width: "8%" }}
+                        src={require("../images/whatsapp.svg").default}
+                      />
+                    </span>
+                    No Phone Number!
+                  </a>
+                </button>
+                 }
+
                 </div>
               </div>
             </div>
            
 
-            <div className="col-12  p-2 Social-Card mt-2">
+            <div className="col-xxl-12 col-xl-12 col-lg-12 col-12-md pb-0 pt-1 px-1 Social-Card mt-1">
               <h3 className="exp">Expérience du Candidat </h3>
               <table className="table table-bordered border-dark">
                 <thead>
