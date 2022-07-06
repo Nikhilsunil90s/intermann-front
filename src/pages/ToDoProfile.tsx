@@ -239,7 +239,7 @@ const fetchRecommendations = async (candidatSector: string) => {
   return (
     <>
       <Toaster position="top-right" containerStyle={{ zIndex: '99999999999' }} />
-      <div className="containet-fluid ">
+      <div className="containet-fluid">
         <div className="row mx-0">
           {/* <div className="col-12 top-pd text-center">
             <h1 style={{ textDecoration: "underline" }}>
@@ -277,18 +277,18 @@ const fetchRecommendations = async (candidatSector: string) => {
    
             <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-1">
               <div className="row bg-todoTodoDetails mt-0">
-                <div className="col-xxl-2 col-xl-2 col-g-12 col-md-2 col-sm-2 text-center ">
+                <div className="col-xxl-2 col-xl-2 col-md-2 col-sm-2 text-center ">
                 {candidatImage !== "" ?
                     loader ?
                       <img
                         // src={require("../images/menlogos.svg").default}
                         src={API_BASE_URL + candidatImage}
-                     className="img-upload-Download"
+                     className="img-uploadTodo-Download"
                       /> : <SelectedLoader />
                     :
                     <img
                       src={require("../images/menlogos.svg").default}
-                     className="img-upload-Download"
+                     className="img-uploadTodo-Download"
                     />
                     // 
                   }
@@ -297,11 +297,11 @@ const fetchRecommendations = async (candidatSector: string) => {
                           closeMenuOnSelect={true}
                           onChange={handleImageChange}
   options={uploadOption}
-  className="upload"
+  className="Todoupload"
 
 />
                 </div>
-                <div className="col-xxl-5 col-xl-5 col-g-12 col-md-5 col-sm-5 card-TodoProfile">
+                <div className="col-xxl-7 col-xl-7 col-lg-7 col-md-7 col-sm-7 card-TodoProfile">
                   <div className="d-flex">
                     <p>
                       Name : {profile.candidatName.toLocaleUpperCase()}|{profile.candidatAge}
@@ -318,14 +318,14 @@ const fetchRecommendations = async (candidatSector: string) => {
                     Métier/Job :{profile.candidatJob.toLocaleUpperCase()}
                   </p>
                 </div>
-                <div className="col-5 text-end end-class">
-                  <div className="text-center d-grid justify-content-end align-items-center mt-2 ml-5">
+                <div className="col-3 px-0 text-end end-class">
+                  <div className="text-center d-grid justify-content-end align-items-center mt-2">
                     <div className="text-center">
                     <button className="todoBtnStyle">
                       <img style={{width:"8%"}} src={require("../images/briefcase2.svg").default} />
                     </button>
                     </div>
-                    <p className="fw-boldEn text-center pl-5 pt-1">
+                    <p className="fw-boldEn text-center  pl-0 pt-1" style={{marginRight:"10px"}}>
                     En recherche de contrat
                   </p>
                   </div>
@@ -638,7 +638,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                   }
                   <p className="italic-font">Si embauché</p>
                 </div> */}
-                <div className="col-3 text-center">
+                <div className="col-3 px-0 text-center">
                   <button
         type="button"
         data-bs-toggle="modal"
@@ -664,7 +664,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                     recherche
                   </p>
                 </div>
-                <div className="col-3 text-center">
+                <div className="col-3 px-0 text-center">
                   <button
                     type="button"
                     className="btn-Archived"
@@ -680,7 +680,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                     />
                   ) : null}
                 </div>
-                <div className="col-3 text-center">
+                <div className="col-3 px-0 text-center">
                   <button
                     type="button"
                     className="btn-EditProfile"
@@ -690,7 +690,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                     Edit Profile
                   </button>
                 </div>
-                <div className="col-3 text-center">
+                <div className="col-3 px-0 text-center">
                 <a
                     type="button"
                     href="https://www.canva.com/design/DAFA1_f9AmA/ZBNOgKbj-tCDJa9QRj9kNA/edit"

@@ -1,3 +1,13 @@
+body::-webkit-scrollbar {
+    width: 5px;               /* width of the entire scrollbar */
+  }
+  body::-webkit-scrollbar-track {
+    background: #e7e7e7;        /* color of the tracking area */
+  }
+  body::-webkit-scrollbar-thumb {
+    background-color: orange;    /* color of the scroll thumb */
+    border-radius: 10px;       /* roundness of the scroll thumb */  /* creates padding around scroll thumb */
+  }
 .bg-class{
     background-color: #ffff !important;
         margin: 15px 0px;
@@ -148,7 +158,7 @@ tbody{
  thead{
     background: #F4F4F4;
  }
- .btn-upload{
+ .btn-Todoupload{
      background-color: #C4C4C4;
      font-family: 'Poppins';
      font-style: normal;
@@ -378,7 +388,7 @@ height: 54PX;
     font-size: 15px;
     line-height: 27px;
     color: #FFFFFF;
-    padding: 15px 12px;
+    padding: 15px 29px;
     border: 0px;
 }
 .btn-Archived{
@@ -390,7 +400,7 @@ font-weight: 600;
 font-size: 16px;
 line-height: 27px;
 color: #FFFFFF;
-padding: 16px 11px;
+padding: 16px 25px;
 border: 0px;
 
 }
@@ -404,7 +414,7 @@ font-weight: 600;
 font-size: 18px;
 line-height: 27px;
 color: #FFFFFF;
-padding: 15px 27px;
+padding: 14px 38px;
 
 }
 .btn-CVManual{
@@ -416,7 +426,7 @@ font-weight: 600;
 font-size: 15px;
 line-height: 27px;
 color: #FFFFFF;
-padding: 15px 13px;
+padding: 14px 24px;
 
 }
 .CandidateCV{
@@ -626,7 +636,7 @@ color: #000000;
 padding-left: 5px;
 
 } 
-.upload .css-1s2u09g-control{
+.Todoupload .css-1s2u09g-control{
     width: 25px;
     min-height:25px !important;
     border-radius: 25px !important;
@@ -634,24 +644,24 @@ padding-left: 5px;
     top: -25px;
     left: 68%;
 }
-.upload .css-319lph-ValueContainer{
+.Todoupload .css-319lph-ValueContainer{
     display: none !important;
 }
-.upload .css-tlfecz-indicatorContainer{
+.Todoupload .css-tlfecz-indicatorContainer{
     padding: 0px !important;
 }
-.upload .css-26l3qy-menu{
+.Todoupload .css-26l3qy-menu{
 position: relative !important;
 top: -30px !important;
 right: 11px !important;
 
 }
-.upload .css-1n7v3ny-option {
+.Todoupload .css-1n7v3ny-option {
 
     padding: 8px 2px !important
 }
 
-.upload .css-yt9ioa-option{
+.Todoupload .css-yt9ioa-option{
     padding: 8px 2px !important
 }
 
@@ -847,7 +857,7 @@ color: #000000;
     margin-right: 10px;
     height: 500px;    max-width: 57% !important;
 }
-.img-upload-Download{
+.img-Todoupload-Download{
 
     width: 125px;
     object-fit: cover;
@@ -960,10 +970,11 @@ color: #000000;
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
-    font-size: 9px;
+    font-size: 10px;
     line-height: 0px;
     color: #000000;
     padding: 0px !important;
+    width: 112%;
 }
 .btn-TODOgmail {
         background: #FFFFFF;
@@ -1003,7 +1014,7 @@ margin:0px !important;
     font-style: normal;
     font-weight: 400;
     font-size: 9px;
-    line-height: 13px;
+    line-height: 0px;
     color: #FFFFFF;
     border: 0px;
     padding: 13px 27px;
@@ -1122,26 +1133,27 @@ padding: 10px 20px;
     color: #000000;
     padding-top: 3px;
 }
-.upload .css-1s2u09g-control {
-    width: 22px;
+.Todoupload .css-1s2u09g-control {
+    width: 24px;
     min-height: 19px !important;
-    border-radius: 50px !important;
+    border-radius: 66px !important;
     position: relative;
-    top: -15px;
-    left: 66%;
+    top: -21px;
+    left: 85%;
+    border: 2px solid #979797;
 }
 .table thead th {
     vertical-align: top;
     border-bottom: 2px solid #dee2e6;
 }
-.img-upload-Download{
+.img-uploadTodo-Download{
         width: 80px;
         object-fit: cover;
         height: 80px;
         border-radius: 100px;
         border: 4px solid rgb(63, 118, 226);
 }
-.upload .css-26l3qy-menu {
+.Todoupload .css-26l3qy-menu {
     top: 100%;
     background-color: hsl(0, 0%, 100%);
     border: 1px solid #e2e2e285;
@@ -1161,7 +1173,14 @@ padding: 10px 20px;
     .detailsCardClientSee{
         max-width: 56%;
     }
-    .upload .css-26l3qy-menu {
+    .img-uploadTodo-Download {
+        width: 110px;
+        object-fit: cover;
+        height: 110px;
+        border-radius: 100px;
+        border: 4px solid rgb(63, 118, 226);
+    }
+    .Todoupload .css-26l3qy-menu {
         top: 100%;
         background-color: hsl(0, 0%, 100%);
         border: 1px solid #e2e2e285;
@@ -1192,7 +1211,7 @@ padding: 10px 20px;
         line-height: 24px;
         color: #000000;
     }
-    .img-upload-Download {
+    .img-Todoupload-Download {
         width: 125px;
         object-fit: cover;
         height: 125px;
@@ -1337,6 +1356,17 @@ padding: 10px 20px;
 }
     }
     @media (min-width: 1200px) { 
+        .img-uploadTodo-Download {
+            width: 125px;
+            object-fit: cover;
+            height: 125px;
+            border-radius: 100px;
+            border: 4px solid rgb(63, 118, 226);
+        }
+.btn-EditProfile img {
+    width: 21px;
+    margin-right: 5px;
+}
         .detailsCardClientSee{
             max-width: 55%;
         }
@@ -1358,7 +1388,7 @@ padding: 10px 20px;
             margin-top: 0px;
             padding: 10px 20px;
         }
-        .upload .css-26l3qy-menu {
+        .Todoupload .css-26l3qy-menu {
             top: 100%;
             background-color: hsl(0, 0%, 100%);
             border: 1px solid #e2e2e285;
@@ -1515,7 +1545,7 @@ padding: 10px 20px;
             border: 0px;
             padding: 13px 30px;
         }
-        .img-upload-Download {
+        .img-Todoupload-Download {
             width: 125px;
             object-fit: cover;
             height: 125px;
@@ -1617,12 +1647,31 @@ padding: 10px 20px;
         .todoBtnStyle img {
             width: 100% !important;
         }
+        .Todoupload .css-1s2u09g-control {
+            width: 24px;
+            min-height: 19px !important;
+            border-radius: 66px !important;
+            position: relative;
+            top: -21px;
+            left: 70%;
+            border: 2px solid #979797;
+        }
+     
     }
      @media (min-width:1400px){
         .Social-btns {
             height: 584px;
             padding: 10px 0px !important;
 
+        }
+        .Todoupload .css-1s2u09g-control {
+            width: 24px;
+            min-height: 19px !important;
+            border-radius: 66px !important;
+            position: relative;
+            top: -21px;
+            left: 64%;
+            border: 2px solid #979797;
         }
         .todoBtnStyle img {
             width: 100% !important;

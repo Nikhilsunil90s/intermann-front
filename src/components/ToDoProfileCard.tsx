@@ -158,7 +158,7 @@ const ToDoProfileCard = (props: any,{path}) => {
                     options={CardOptions}
                     className="CardOptions"
                     onChange={MoreOption}
-                    
+                    isSearchable={false}
                  />
                             </div>
                             <div className="col-xxl-6 col-xl-6 col-md-6 col-lg-6  text-end pl-0">

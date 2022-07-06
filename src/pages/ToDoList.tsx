@@ -696,6 +696,8 @@ function ToDoList() {
                           onChange={handleNameChange}
                           options={nameOptions}
                           styles={colourStyles}
+
+                          
                         /> :<SelectLoader />
                                             }
                     {/* <select

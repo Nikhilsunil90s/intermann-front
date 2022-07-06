@@ -15,8 +15,9 @@ import {ReactComponent as Download} from '../images/download.svg'
 
 function PreSelectedView() {
   const navigate = useNavigate();
+  const profileData = JSON.parse(localStorage.getItem("profile"));
   const { state } = useLocation();
-  const [profile, setProfile] = useState<any>(state);
+  const [profile, setProfile] = useState<any>(state ? state : profileData);
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
@@ -64,8 +65,8 @@ function PreSelectedView() {
   };
   return (
     <>
-      <div className="containet-fluid">
-        <div className="row mx-0">
+      <div className="container-fluid">
+        <div className="row pr-1">
           {/* <div className="col-12 top-pd text-center">
             <h1 style={{ textDecoration: "underline" }}>
               CANDIDAT: {profile.candidatName}
@@ -99,24 +100,22 @@ function PreSelectedView() {
             </div>
           </div>
 
-            <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pb-0 px-1 pt-1">
-              <div className="row bg-preDetails">
-                <div className="col-xxl-2 col-xl-2 col-g-12 col-md-2 col-sm-2 text-center ">
-                  <img
-                    src={require("../images/menlogos.svg").default}
-                    style={{ width: "90%" }}
-                  />
-               
-                  <Select
+            <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pb-0 mt-1">
+              <div className="row bg-todoTodoDetails mt-0">
+                <div className="col-xxl-2 col-xl-2 col-md-2 col-sm-2 text-center ">
+                    <img
+                      src={require("../images/menlogos.svg").default}
+                     className="img-upload-Download"
+                    />
+               <Select
                           closeMenuOnSelect={true}
-  // onChange={handleChange}
-  // components={ {SingleValue: customSingleValue } }
+                          // onChange={handleImageChange}
   options={uploadOption}
-  className="upload"
-  // defaultValue={uploadOption[0]}
+  className="Todoupload"
+
 />
                 </div>
-                <div className="col-xxl-5 col-xl-5 col-g-12 col-md-5 col-sm-5 card-preProfile">
+                <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 card-preProfile">
                   <div className="d-flex">
                     <p>
                       Name : {profile.candidatName.toLocaleUpperCase()}|{profile.candidatAge}
@@ -124,15 +123,8 @@ function PreSelectedView() {
                     <span className="card-xlSpan">(Age)</span>
                   </div>
                   <div>
-                    <p className="d-flex">
+                    <p className="d-flex mb-0">
                     <p>Motivation : <b>{candidatMotivationIcons[profile.candidatMotivation - 1].icon + " " + candidatMotivationIcons[profile.candidatMotivation - 1].motivation}</b> </p>
-
-                  
-                      {/* {Dissapointed ? <div>🙂 Dissapointed</div> : null}
-                      {Notreally ? <div>🙁 Not really</div> : null}
-                      {Like ? <div>😊 Like</div> : null}
-                      {Great ? <div>🥰 Great</div> : null}
-                      {Superlovely ? <span>😍 Superlovely</span> : null} */}
                     </p>
                   </div>
                   <p>Secteur : {profile.candidatActivitySector.toLocaleUpperCase()}</p>
@@ -140,15 +132,21 @@ function PreSelectedView() {
                     Métier/Job :{profile.candidatJob.toLocaleUpperCase()}
                   </p>
                 </div>
-                <div className="col-5 text-end end-class">
-                  <div className=" ml-5">
-                  <button className="preLargebtn"><img src={require("../images/preselectedCard.svg").default} />    PRE SELECTED</button>
-                
-                  <p className="fw-bold text-end pl-5 pt-1">
+                <div className="col-4 px-0 text-end end-class">
+                  <div className="text-center d-grid justify-content-end align-items-center mt-2 pr-1">
+                    <div className="text-end">
+                    <button className="preLargebtn">
+                      <img src={require("../images/preselectedCard.svg").default} />
+                      PRE SELECTED
+                    </button>
+                    </div>
+                    <p className="fw-bold textPRE-end pl-5 pt-1">
                   Selectionné pour un client
                   </p>
-                  <p className="text-end">This candidate have been selected for a client</p>
-                </div>
+                  <p className="text-PREBtn-child">This candidate have been selected for a client</p>
+               
+                  </div>
+              
                 </div>
               </div>
             </div>
@@ -264,9 +262,7 @@ className="btn btn-Facebookpresee my-1"
 </span>
 See Profile
 </a>  :
-<a
-href={profile.candidatFBURL}
-target="_blank"
+<button
 className="btn btn-Facebookpresee my-1"
 >
 <span className="padding-email">
@@ -276,7 +272,7 @@ className="btn btn-Facebookpresee my-1"
   />
 </span>
 No FB URL!
-</a> 
+</button> 
 
                   }
             
@@ -286,12 +282,14 @@ No FB URL!
                   </p>
                   </div>
                   {
-                    profile.candidatPhone ?
-                    <button className="btn-whatsapp mt-1 mb-1 btn-see">
-                    <a
+                  profile.candidatPhone ?
+
+                      <a
                       href={`https://wa.me/${profile.candidatPhone}`}
                       target="_blank"
                     >
+                    <button className="btn-whatsapp mt-1 mb-1">
+                  
                       <span className="padding-email">
                         <img
                           style={{ width: "8%" }}
@@ -299,14 +297,13 @@ No FB URL!
                         />
                       </span>
                       Send What’s App
-                    </a>
                   </button>
+                  </a>
+
                   :
-                  <button className="btn-whatsapp mt-1 mb-1 btn-see">
-                  <a
-                    href={`https://wa.me/${profile.candidatPhone}`}
-                    target="_blank"
-                  >
+            
+                  <button className="btn-whatsapp mt-1 mb-1">
+                
                     <span className="padding-email">
                       <img
                         style={{ width: "8%" }}
@@ -314,7 +311,6 @@ No FB URL!
                       />
                     </span>
                     No Phone Number!
-                  </a>
                 </button>
                   }
                <div className="text-start px-1">
@@ -324,11 +320,12 @@ No FB URL!
                   </div>
                  {
                     profile.cadidatAlternatePhone ?
-                  <button className="btn-whatsapp btn-see">
-                  <a
+                    <a
                     href={`https://wa.me/${profile.candidatAlternatePhone}`}
                     target="_blank"
                   >
+                  <button className="btn-whatsapp btn-see">
+               
                     <span className="padding-email">
                       <img
                         style={{ width: "8%" }}
@@ -336,15 +333,13 @@ No FB URL!
                       />
                     </span>
                     Send What’s App
-                  </a>
                 </button>
+                </a>
+
                   :
                 
-                  <button className="btn btn-whatsapp mt-1 mb-1 btn-see">
-                  <a
-                    href={`https://wa.me/${profile.candidatPhone}`}
-                    target="_blank"
-                  >
+                  <button className="btn btn-whatsapp mt-1 mb-1">
+             
                     <span className="padding-email">
                       <img
                         style={{ width: "8%" }}
@@ -352,7 +347,7 @@ No FB URL!
                       />
                     </span>
                     No Phone Number!
-                  </a>
+                
                 </button>
                  }
 
@@ -376,14 +371,25 @@ No FB URL!
                   </tr>
                 </thead>
                 <tbody>
-                  {profile.candidatExperienceDetails.length > 0 &&
-                    profile.candidatExperienceDetails.map((detail) => (
-                      <tr>
-                        <td>{detail.period}</td>
-                        <td>{detail.location}</td>
-                        <td>{detail.workDoneSample}</td>
-                      </tr>
-                    ))}
+                {
+                    profile.candidatExperienceDetails.length > 0 &&
+                      profile.candidatExperienceDetails[0].period != "" ?
+                      (profile.candidatExperienceDetails.map((detail) =>
+                        <tr>
+                          <td>{detail.period}</td>
+                          <td>{detail.location}</td>
+                          <td>{detail.workDoneSample}</td>
+                        </tr>
+                      )
+                      ) : (
+                        <tr>
+                          <td colSpan={3} className="text-center">
+                            <p>No Experience Details Available!</p>
+                            <button className="btn btn-sm text-light btn-dark" onClick={editCandidatProfile}>Edit Candidat To Add Experience Details!</button>
+                          </td>
+                        </tr>
+                      )
+                  }
                 </tbody>
               </table>
             </div>

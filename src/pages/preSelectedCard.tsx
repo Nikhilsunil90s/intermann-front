@@ -6,7 +6,7 @@ import InProgressModal from "../components/Modal/InProgressModal";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select,{StylesConfig} from 'react-select'
-
+import ReadMoreReact from 'read-more-react';
 
 const PreSelectedCard = (props: any,{path}) => {
 
@@ -29,7 +29,9 @@ const PreSelectedCard = (props: any,{path}) => {
     }
 
     const viewFullProfile = () => {
-        navigate("/preSelectedView", { state: props.data });
+        // navigate("/preSelectedView", { state: props.data });
+               localStorage.setItem('profile', JSON.stringify(props.data));
+               window.open("/preSelectedView", "_blank")
     }
     const MoreOption=(e)=>{
       if(e.target.value==="editProfile"){
@@ -47,7 +49,7 @@ const PreSelectedCard = (props: any,{path}) => {
     return (
         <>
             <div className="card card-color">
-                <div className="card-upper">
+                <div onClick={viewFullProfile} className="card-upper  cursor-pointer">
                     <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-3 ">
                         <img
                             src={require("../images/card-men.svg").default}
@@ -103,10 +105,14 @@ const PreSelectedCard = (props: any,{path}) => {
                         Ready for work : From <b>{props.data.candidatStartDate} To {props.data.candidatEndDate}</b>
                     </p>
                 </div>
-                <div className="col-12 ">
+                <div className="col-12 py-1">
                  <div className="row preSelectedCommentBox">
-                    <div className="col-12 preCard-Body">Preselected for client : {props.data.candidatName}</div>
-                    <div className="col-12">Comment about selection : Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès qu'il est prêt </div>
+                    <div className="col-12 preCard-Body ">Preselected for client : {props.data.candidatName}</div>
+                    <div className="col-12"><ReadMoreReact text="Comment about selection : Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès qu'il est prêt "
+            min={100}
+            ideal={150}
+            max={200}
+            readMoreText={"....."}/></div>
                  </div>
                 </div>
                 <div className="card-body">
@@ -119,6 +125,8 @@ const PreSelectedCard = (props: any,{path}) => {
                     options={CardOptions}
                     className="CardOptions"
                     onChange={MoreOption}
+                    isSearchable={false}
+
                     
                  />
                             </div>

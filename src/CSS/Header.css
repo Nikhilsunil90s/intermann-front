@@ -274,6 +274,13 @@ padding-top:0px ;
         border-radius: 100px;
         color: #FFFFFF;
     }
+    .btn-1:hover ,.btn-2:hover{
+      color: #ffff;
+    }
+    .btn-003:hover,.btn-004:hover{
+        color: #FE8700 !important;
+    }
+
     .btn-2 {
         font-weight: 700;
         font-size: 15px;
