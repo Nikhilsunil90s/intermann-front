@@ -48,42 +48,8 @@
   border-radius: 13px;
 }
 
-.workFont {
-  font-family: 'Poppins';
-font-style: normal;
-font-weight: 700;
-font-size: 16px;
-line-height: 16px;
-display: flex;
-align-items: center;
-text-align: center;
-text-transform: capitalize;
-color: #333333;
-}
 
 
-.workFont span {
-  color: #333333 !important;
-}
-
-.customerBtnEmbauch {
-  background: #032339;
-border-radius: 100px;
-font-family: 'Poppins';
-font-style: normal;
-font-weight: 600;
-font-size: 16px;
-line-height: 16px;
-display: flex;
-align-items: center;
-text-align: center;
-color: #FFFFFF;
-padding: 12px 30px;
-
-}
-.customerBtnEmbauch img{
-  margin-right: 8px;
-  }
 .InProLargebtn{
   border: 0px;
   color:#A461D8;
@@ -105,7 +71,7 @@ color: #A461D8;
 .boxProgress {
   background: #F4E7FF;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 24px;
+  border-radius: 10px;
   padding: 25px 40px;
   width: 99%;
 }

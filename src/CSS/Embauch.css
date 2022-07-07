@@ -68,13 +68,6 @@ hr.new5 {
   display: flex;
 }
 
-.col-7 p {
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 5px;
-  color: #ffff;
-}
-
 .card-color {
   border-radius: 16px;
   padding: 10px;
@@ -458,8 +451,130 @@ hr.new5 {
   display: flex;
   margin-left: 15px;
 }
+.btn-EDITbgb:hover {
+color: #ffffff !important;
+}
 
 @media (min-width: 768px) {
+  .btn-ArchivedEmbauch:hover {
+    color: #ffffff !important;
+    }
+    .btn-EditProfileEmbauch:hover {
+    color: #ffff !important;
+    }
+    .btn-CVManualEmbauch:hover {
+    color: #ffffff !important;
+    }
+    .btn-ArchivedEmbauch {
+        background: #FF0000;
+    border-radius: 100px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 20px;
+    color: #FFFFFF;
+    padding: 16px 20px;
+    border: 0px;
+    }
+    .btn-EditProfileEmbauch {
+        background: #032339;
+        border-radius: 100px;
+        padding: 10px 26px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 20px;
+        color: #FFFFFF;
+        padding: 14px 34px;
+    }
+    .btn-CVManualEmbauch {
+        background: #032339;
+        border-radius: 100px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 20px;
+        color: #FFFFFF;
+        padding: 14px 14px;
+    }
+    .btn-CVManualEmbauch img{
+width: 18px;
+margin-right: 5px;
+    }
+    .btn-EditProfileEmbauch img{
+        width: 17px;
+        margin-right: 5px;
+    }
+    .InProLargebtn img{
+        height: 20px;
+        margin-right: 5px;
+    }
+    .boxProgress {
+        background: #F4E7FF;
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+        border-radius: 24px;
+        padding: 15px 20px 5px 20px;
+        width: 99%;
+    }
+    .workFont {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 9px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        text-transform: capitalize;
+        color: #333333;
+    }
+
+    .customerBtnEmbauch {
+        background: #032339;
+        border-radius: 100px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 16px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: #FFFFFF;
+        padding: 10px 15px;
+    }
+    .customerBtnEmbauch img {
+        margin-right: 6px;
+        width: 17px;
+    }
+    .imgEmbauch-upload-Download {
+        width: 80px !important;
+        object-fit: cover;
+        height: 80px;
+        border-radius: 100px;
+        border: 4px solid #A461D8;
+    }
+    .textinPro{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        text-align: end;
+        font-size: 11px;
+        line-height: 21px;
+        color: #000000;
+    }
+    .card-bodyEmbauch {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1 1 auto;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        min-height: 1px;
+        padding: 1.5rem;
+        padding: 10px 0rem 0.5rem 0rem !important;
+      }
   .embauchChild {
     font-family: "Poppins";
     font-style: normal;
@@ -510,7 +625,7 @@ hr.new5 {
     color: #000000;
     background-color: #f4e7ff !important;
     padding: 10px;
-    padding-left: 17px !important;
+    padding-left: 9px !important;
     display: grid;
     align-items: center;
   }
@@ -528,8 +643,155 @@ hr.new5 {
     margin-right: 5px;
     width: 20px;
   }
+  .EmbauchFull-CardMore p {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600 ;
+    font-size: 13px ;
+    line-height: 31px ;
+    text-decoration-line: underline ;
+    color: #000000 ;
+    margin-bottom: 0px;
+}
+.EmbauchFull-CardMore span {
+    font-family: 'Poppins'  ;
+    font-style: normal ;
+    font-weight: 600 ;
+    font-size: 13px ;
+    line-height: 31px ;
+    color: #000000 ; 
+    margin-bottom: 0px ;
+    margin-left: 5px ;
+}
+  .EmbauchFull-CardMoreSpan  {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600  ;
+    font-size: 13px ;
+    line-height: 31px ;
+    text-decoration-line: underline ;
+    color: #3F76E2 !important;
+    margin-bottom: 0px;
+}
+.EmbauchFull-CardMoreSpan {
+    font-family: 'Poppins'  ;
+    font-style: normal ;
+    font-weight: 600 ;
+    font-size: 13px ;
+    line-height: 31px ;
+    color: #3F76E2 !important; 
+    margin-bottom: 0px ;
+}
+.btn-EDITbgb {
+    background-color: #032339;
+    font-weight: 700;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 8px !important;
+    line-height: 7px;
+    letter-spacing: -0.105991px;
+    text-transform: uppercase;
+    border-radius: 25px;
+    color: #ffffff;
+    padding: 7px 9px !important;
+    margin-top: 0px !important;
+}
 }
 @media (min-width: 1200px) {
+  .btn-ArchivedEmbauch:hover {
+    color: #ffffff !important;
+    }
+    .btn-EditProfileEmbauch:hover {
+    color: #ffff !important;
+    }
+    .btn-CVManualEmbauch:hover {
+    color: #ffffff !important;
+    }
+    .imgEmbauch-upload-Download {
+        width: 112px !important;
+        object-fit: cover;
+        height: 112px;
+        border-radius: 100px;
+        border: 4px solid #A461D8;
+    }
+    .EmbauchFull-CardMore p{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 45px;
+        text-decoration-line: underline;
+        color: #000000;
+        margin-bottom: 0px;
+    }
+    .EmbauchFull-CardMore span{
+        font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 45px;
+    color: #000000;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    }
+    
+    
+    .btn-EDITbgb {
+        background-color: #032339;
+        color: #ffff;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 13px !important;
+        line-height: 20px;
+        letter-spacing: -0.105991px;
+        text-transform: uppercase;
+        color: #FFFFFF;
+    padding: 10px 15px !important;
+
+    }
+    .topCandidateHeader {
+        padding: 0px 15px;
+        border-radius: 10px;
+        margin-bottom: 0px;
+        height: 77px;
+    }
+    .workFont {
+        font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 16px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      text-transform: capitalize;
+      color: #333333;
+      }
+      
+      
+      .workFont span {
+        color: #333333 !important;
+      }
+      .customerBtnEmbauch {
+        background: #032339;
+      border-radius: 100px;
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 16px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #FFFFFF;
+      padding: 12px 30px;
+      
+      }
+      .customerBtnEmbauch img{
+        margin-right: 8px;
+        }      
   .embauchChild {
     font-family: "Poppins";
     font-style: normal;
@@ -569,4 +831,85 @@ hr.new5 {
   .EmbauchCardChildFonts {
     padding-left: 13px !important;
   }
+  .textinPro {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    text-align: end;
+    font-size: 14px;
+    line-height: 21px;
+    color: #000000;
+}
+}
+@media (min-width:1400px){
+  .btn-ArchivedEmbauch:hover {
+    color: #ffffff !important;
+    }
+    .btn-EditProfileEmbauch:hover {
+    color: #ffff !important;
+    }
+    .btn-CVManualEmbauch:hover {
+    color: #ffffff !important;
+    }
+    .btn-ArchivedEmbauch {
+        background: #FF0000;
+        border-radius: 100px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 18px;
+        color: #FFFFFF;
+        padding: 22px 71px;
+        border: 0px;
+    }
+    .btn-EditProfileEmbauch {
+        background: #032339;
+        border-radius: 100px;
+        padding: 10px 26px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 20px;
+        color: #FFFFFF;
+        padding: 19px 89px;
+    }
+    .btn-CVManualEmbauch {
+        background: #032339;
+        border-radius: 100px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        color: #FFFFFF;
+        padding: 19px 80px;
+    }
+    .btn-CVManualEmbauch img {
+        width: 20px;
+        margin-right: 5px;
+    }
+    .customerBtnEmbauch img {
+        margin-right: 10px;
+        width: 28px;
+    }
+    .customerBtnEmbauch {
+        background: #032339;
+        border-radius: 100px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 16px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: #FFFFFF;
+        padding: 20px 48px;
+    }
+    .btn-EditProfileEmbauch img {
+        width: 22px;
+        margin-right: 5px;
+    }
 }

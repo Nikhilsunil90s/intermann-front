@@ -93,7 +93,7 @@ const PreSelectedCard = (props: any,{path}) => {
                     </div>
                 <div className="card-body CardDetails">
                
-                    <p className="preCard-Body">Secteur : {props.data.candidatActivitySector.toLocaleUpperCase()}</p>
+                    <p className="preCard-Body ">Secteur : {props.data.candidatActivitySector.toLocaleUpperCase()}</p>
                     <p className="preCard-Body">Job : {props.data.candidatJob.toLocaleUpperCase()}</p> 
                 <p className="preCard-Body-p">Candidats Age : <b>{props.data.candidatAge}</b></p> 
                     <p className="preCard-Body-p">Langues :  <b>{props.data.candidatLanguages.length > 0 ? props.data.candidatLanguages.join(", ") : "No Langues Selected!"}</b>

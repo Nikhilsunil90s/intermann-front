@@ -200,7 +200,7 @@ function PreSelectedView() {
     <>
       <Toaster position="top-right" containerStyle={{ zIndex: '99999999999' }} />
       <div className="container-fluid">
-        <div className="row pr-1">
+        <div className="row pt-1 pr-1">
           {/* <div className="col-12 top-pd text-center">
             <h1 style={{ textDecoration: "underline" }}>
               CANDIDAT: {profile.candidatName}
@@ -612,8 +612,7 @@ No FB URL!
                 </div>
                 </div>
               </div>
-
-            <div className="col-12 Social-Card mt-1 mb-2">
+  <div className="col-12 Social-Card mt-1 mb-2">
               <div className="row justify-content-center">
                 <div className="col-12 d-flex justify-content-center">
                   <button className="CandidateCV" onClick={handleFileUpload}>
@@ -676,6 +675,7 @@ No FB URL!
                 </div>
                 </div>
                 </div>
+          
        </div>
       </div>
     </>

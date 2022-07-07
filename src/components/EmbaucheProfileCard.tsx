@@ -62,17 +62,17 @@ const EmbaucheProfileCard = (props: any,{path}) => {
                         </div>
                     </div>
                     </div>
-                <div className="card-bodyEmbauch pl-0 ">
+                <div className="card-bodyEmbauch pl-0 " style={{marginLeft:"5px"}}>
                     <div className="pr-0 EmbauchCardChildFonts">
                     {/* <p>Name: {props.props.candidatName}</p> */}
-                    <p> <b>{props.props.candidatAge ? props.props.candidatAge +"years old" : "Age Not Available!"}</b></p>
-                    <p>Secteur: <b> {props.props.candidatActivitySector.toLocaleUpperCase()}</b></p>
-                    <p>Job: <b> {props.props.candidatJob.toLocaleUpperCase()}</b></p>
-                    <p>Langues:  <b> {props.props.candidatLanguages.join(", ")} </b></p>
-                    <p>Phone Number:  <b>{props.props.candidatPhone}</b></p>
-                    <p>Facebook URL:  <b>{props.props.candidatFBURL ? <a href={props.props.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
-                    <p>Email: <b>{props.props.candidatEmail ? props.props.candidatEmail : "No Email Provided!"}</b> </p>
-                    <p className="blue">Ready for work:  {props.props.candidatStartDate} To {props.props.candidatEndDate} </p>
+                    <p className="mb-0"> <b>{props.props.candidatAge ? props.props.candidatAge +"years old" : "Age Not Available!"}</b></p>
+                    <p className="mb-0">Secteur: <b> {props.props.candidatActivitySector.toLocaleUpperCase()}</b></p>
+                    <p className="mb-0">Job: <b> {props.props.candidatJob.toLocaleUpperCase()}</b></p>
+                    <p className="mb-0">Langues:  <b> {props.props.candidatLanguages.join(", ")} </b></p>
+                    <p className="mb-0">Phone Number:  <b>{props.props.candidatPhone}</b></p>
+                    <p className="mb-0">Facebook URL:  <b>{props.props.candidatFBURL ? <a href={props.props.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
+                    <p className="mb-0">Email: <b>{props.props.candidatEmail ? props.props.candidatEmail : "No Email Provided!"}</b> </p>
+                    <p className="blue mb-0">Ready for work:  {props.props.candidatStartDate} To {props.props.candidatEndDate} </p>
                     </div>
                  
 

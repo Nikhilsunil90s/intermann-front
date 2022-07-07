@@ -109,16 +109,6 @@ hr.new5 {
     display: flex;
 
 }
-
-
-
-.col-7 p {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 5px;
-    color: #ffff;
-}
-
 .card-color {
     background-color: #ffff;
     border-radius: 16px;

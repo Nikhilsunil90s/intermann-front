@@ -9,6 +9,16 @@ import InProgressModal from "../components/Modal/InProgressModal";
 import ArchivedModal from "../components/Modal/ArchivedModal";
 import Select from 'react-select'
 import FileUploadProgress from "react-fileupload-progress";
+import { ProgressBar } from "react-bootstrap";
+import { API_BASE_URL } from '../config/serverApiConfig';
+import axios from "axios";
+import { Toaster, toast } from 'react-hot-toast';
+
+
+const axiosInstance = axios.create({
+  baseURL: API_BASE_URL,
+})
+
 
 function ProgressCard() {
 
@@ -19,6 +29,12 @@ function ProgressCard() {
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
+  const [documentList, setDocumentList] = useState([]);
+  const hiddenFileInput = React.useRef(null);
+  const [candidatDocument, setCandidatDocument] = useState("");
+  const [progress, setProgress] = useState<any>(0);
+  const [docUploaded, setDocUploaded] = useState(false);
+  const [renameDoc, setRenameDoc] = useState(false);
   const uploadOption=[
     {value:"upload",label:<Upload />,},
     {value:"Download Image",label:<Download />} 
@@ -36,22 +52,140 @@ function ProgressCard() {
   //   });
   //   console.log(profile,"hello");
   // });
+  const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
+  const notifyDocumentDeleteError = () => toast.error("Document Not Removed! Please Try Again in few minutes.")
+  const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
+  const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
 
+  const fileChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
+    >
+  ) => {
 
+    if (e.target.name === 'candidatPhoto') {
+      const fileUploaded = e.target.files[0]
+      let formdata = new FormData();
+      formdata.append('candidatId', profile._id)
+      formdata.append('image', fileUploaded)
+      axiosInstance.post("uploadCandidatImage", formdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": "Bearer " + localStorage.getItem('token')
+        }
+      })
+        .then(datares => {
+          console.log(datares)
+          if (datares.data.status) {
+            notifyDocumentUploadSuccess()
+            // setCandidatImage(datares.data.filename)
+            window.location.href = "/todoprofile"
+          } else {
+            notifyDocumentUploadError()
+          }
+        })
+        .catch(err => { console.log(err) })
+      return;
+    }
+    if (e.target.name === 'candidatDocuments') {
+      const fileUploaded = e.target.files[0];
+      setCandidatDocument(fileUploaded)
+      let formdata = new FormData();
+      formdata.append('candidatId', profile._id)
+      formdata.append('document', fileUploaded)
+      axiosInstance.post("uploadCandidatDocuments", formdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": "Bearer " + localStorage.getItem('token')
+        },
+        onUploadProgress: data => {
+          //Set the progress value to show the progress bar
+          setProgress(Math.round((100 * data.loaded) / data.total))
+        },
+      })
+        .then(resData => {
+          if (resData.data.status) {
+            console.log(resData.data)
+            setDocUploaded(true);
+            setProgress(0);
+            notifyDocumentUploadSuccess();
+          } else {
+            console.log(resData)
+            setDocUploaded(false);
+          }
+        })
+        .catch(err => {
+          console.log(err)
+          setDocUploaded(false);
+
+        })
+      return;
+    }
+  }
+  const renameCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
+    let headers = {
+      "Accept": 'application/json',
+      "Authorization": "Bearer " + localStorage.getItem('token')
+    }
+    return await fetch(API_BASE_URL + `renameDocument/?documentId=${docId}&documentName=${docName}&candidatId=${candidatId}`, {
+      method: "GET",
+      headers: headers
+    })
+      .then(reD => reD.json())
+      .then(resD => resD)
+      .catch(err => err)
+  }
+  const renameDocument = (docId: any, docName: any) => {
+    setRenameDoc(true);
+    renameCandidatDocument(docId, docName, profile._id).then(resData => {
+      console.log(resData)
+      setRenameDoc(false);
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+  const deleteCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
+    let headers = {
+      "Accept": 'application/json',
+      "Authorization": "Bearer " + localStorage.getItem('token')
+    }
+    return await fetch(API_BASE_URL + `deleteDocument/?documentId=${docId}&documentName=${docName}&candidatId=${candidatId}`, {
+      method: "GET",
+      headers: headers
+    })
+      .then(reD => reD.json())
+      .then(resD => resD)
+      .catch(err => err)
+  }
+  const deleteDocument = async (docId: any, docName: any) => {
+    await deleteCandidatDocument(docId, docName, profile._id).then(resData => {
+      console.log(resData);
+      if (resData.status) {
+        notifyDocumentDeleteSuccess()
+        setDocumentList([...documentList.filter((doc) => {
+          return doc.documentName !== docName
+        })])
+      } else {
+        notifyDocumentDeleteError()
+      }
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+  const handleFileUpload = () => {
+    hiddenFileInput.current.click();
+  }
   return (
     <>
+      <Toaster position="top-right" containerStyle={{ zIndex: '99999999999' }} />
       <div className="containet-fluid">
-        <div className="row pd">
+        <div className="row pt-1  px-1">
           <div
-            className="card "
-            style={{
-              padding: "0px 15px",
-              borderRadius: "15px",
-              marginBottom: "0px",
-            }}
+            className="card mt-2 mb-0"
+         
           >
-            <div className="row text-start">
-              <div className="col-6">
+            <div className="row topCandidateHeader">
+              <div className="col-6 d-flex align-items-center">
                 <div className="stable">
                   <Link to="/embauchlist">
                     <button
@@ -64,9 +198,9 @@ function ProgressCard() {
                   </Link>
                 </div>
               </div>
-              <div className="col-6 text-end">
+              <div className="col-6 d-flex align-items-center justify-content-end">
                 <Link to="/editInProgress">
-                <button className="btn btn-bgb" 
+                <button className="btn btn-EDITbgb" 
                 // onClick={editCandidatProfile}
                 >
                   <img src={require("../images/Edit.svg").default} />
@@ -76,21 +210,22 @@ function ProgressCard() {
               </div>
             </div>
           </div>
-          <div className="col-12 ">
-              <div className="row bg-todoTodoDetails">
-                <div className="col-2 text-center ">
-                  <img
-                    src={require("../images/menlogos.svg").default}
-                    style={{ width: "90%" }}
-                  />
-               
-                  <Select
+              <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pb-0 mt-1">
+              <div className="row bg-todoTodoDetails mt-0">
+                <div className="col-xxl-2 col-xl-2 col-md-2 col-sm-2 text-center ">
+                    <img
+                      src={require("../images/menlogos.svg").default}
+                     className="imgEmbauch-upload-Download"
+                    />
+               <Select
                           closeMenuOnSelect={true}
+                          // onChange={handleImageChange}
   options={uploadOption}
-  className="upload"
+  className="Todoupload"
+
 />
                 </div>
-                <div className="col-5 card-TodoProfile">
+                <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 card-preProfile">
                   <div className="d-flex">
                     <p>
                       Name : {profile.candidatName.toLocaleUpperCase()}|{profile.candidatAge}
@@ -98,7 +233,7 @@ function ProgressCard() {
                     <span className="card-xlSpan">(Age)</span>
                   </div>
                   <div>
-                    <p className="d-flex">
+                    <p className="d-flex mb-0">
                     <p>Motivation : <b>{candidatMotivationIcons[profile.candidatMotivation - 1].icon + " " + candidatMotivationIcons[profile.candidatMotivation - 1].motivation}</b> </p>
                     </p>
                   </div>
@@ -107,14 +242,21 @@ function ProgressCard() {
                     Métier/Job :{profile.candidatJob.toLocaleUpperCase()}
                   </p>
                 </div>
-                <div className="col-5 text-end end-class">
-                  <div className="text-center ml-5">
-                  <button className="InProLargebtn p-0"><img src={require("../images/thundermini.svg").default} />IN PROGRESS</button>
-                  </div>
-                  <p className="fw-bold text-center pl-5 pt-1">
-                  Contrat en cours avec Interman
+                <div className="col-4 px-0 text-end end-class d-flex align-items-center justify-content-center">
+                  <div className="text-center d-grid justify-content-end align-items-center pr-1">
+                    <div className="text-end">
+                    <button className="InProLargebtn">
+                      <img src={require("../images/thundermini.svg").default} />
+                      IN PROGRESS
+                    </button>
+                    </div>
+                    <p className="textinPro pl-5 pt-1">
+                    Contrat en cours avec Interman
                   </p>
-                  <p className="text-center">This candidate have active contract with us</p>
+                  <p className="text-PREBtn-child">This candidate have active contract with us</p>
+               
+                  </div>
+              
                 </div>
               </div>
             </div>
@@ -141,7 +283,7 @@ function ProgressCard() {
                 </div>
               
             </div>
-            <div className="col-12 mt-1 ">
+            {/* <div className="col-12 mt-1 ">
               <div className="row justify-content-between">
               
                 <div
@@ -257,8 +399,197 @@ function ProgressCard() {
                   </button>
                 </div>
               </div>
-            </div>
-           
+            </div> */}
+             <div className="col-xxl-12 col-xl-12 col-lg-12 col-12-md pb-0 pt-1 px-1">
+              <div className="row justify-content-between">
+              
+                <div
+                  className="col-7 Social-Card px-1  scrollbarpree scrollbar  heightWidth"
+                  id="style-3"
+                  style={{ maxWidth: "57%" }}
+                >
+                  <div className="EmbauchFull-CardMore force-overflow">
+                    <div className="d-flex">
+                      <p>Langues : </p>
+                      <span> {profile.candidatLanguages.join(", ")}</span>
+                    </div>
+                    <div className="d-flex ">
+                      <p className="EmbauchFull-CardMoreSpan">Ready for work :</p>
+                      <span className="EmbauchFull-CardMoreSpan">
+                        {profile.candidatStartDate} -{profile.candidatEndDate}
+                      </span>
+                    </div>
+                    <div className="d-flex">
+                      <p>Permis :</p>
+                      <span>
+                        {profile.candidatLicensePermis ? "Yes" : "No"}
+                      </span>
+                    </div>
+                    <div className="d-flex">
+                      <p>Voyage en voiture :</p>
+                      <span>
+                        {profile.candidatConduireEnFrance ? "Yes" : "No"}
+                      </span>
+                    </div>
+                   
+                    <div className="d-flex">
+                      <p>Skills/note: </p>
+                      <span>{profile.candidatSkills}</span>
+                    </div>
+                    <div className="d-flex">
+                      <p className="text-dark">Trouvé sur  : </p>
+                      <span className="text-dark">
+                        {profile.candidatJob}
+                      </span>
+                    </div>
+                   
+                  </div>
+                </div>
+                <div
+                  className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-1 heightWidth"
+                  style={{ maxWidth: "49%" }}
+                >
+                  <div className="text-start px-1">
+                  <p className="Span-Styling pt-2 my-1">
+                    Mail : {profile.candidatEmail ? profile.candidatEmail : "No Email Provided!"}
+                  </p>
+                  </div>
+                  {
+                    profile.candidatEmail ?       <button className=" btn-gmail my-1">
+                    <a
+                      href="https://accounts.google.com/"
+                      className="text-dark fw-bold"
+                      target="_blank"
+                    >
+                      <span className="padding-email">
+                        <img  src={require("../images/gmail.svg").default} />
+                      </span>
+                      Send Email
+                    </a>
+                  </button> : 
+                      <button className="btn-gmail my-1">
+                      <a
+                        href="https://accounts.google.com/"
+                        className="text-dark fw-bold"
+                        target="_blank"
+                      >
+                        <span className="padding-email">
+                          <img src={require("../images/gmail.svg").default}  style={{ width: "8%" }} />
+                        </span>
+                        No Email !
+                      </a>
+                    </button>
+                  }
+                <div className="text-start px-1">
+                  <p className="Span-Styling my-2 px-3">Facebook : {profile.candidatFBURL ? profile.candidatFBURL : "No Facebook URL!"}</p>
+                  </div>
+                  {
+profile.candidatFBURL ?
+<a
+href={profile.candidatFBURL}
+target="_blank"
+className="btn btn-Facebookpresee my-1"
+>
+<span className="padding-email">
+  <img
+    style={{ width: "4%" }}
+    src={require("../images/facebook.svg").default}
+  />
+</span>
+See Profile
+</a>  :
+<button
+className="btn btn-Facebookpresee my-1"
+>
+<span className="padding-email">
+  <img
+    style={{ width: "4%" }}
+    src={require("../images/facebook.svg").default}
+  />
+</span>
+No FB URL!
+</button> 
+
+                  }
+            
+            <div className="text-start px-1">
+                  <p className="Span-Styling my-2 px-3">
+                    Phone : {profile.candidatPhone ? profile.candidatPhone : "No Phone Number!"}
+                  </p>
+                  </div>
+                  {
+                  profile.candidatPhone ?
+
+                      <a
+                      href={`https://wa.me/${profile.candidatPhone}`}
+                      target="_blank"
+                    >
+                    <button className="btn-whatsapp mt-1 mb-1">
+                  
+                      <span className="padding-email">
+                        <img
+                          style={{ width: "8%" }}
+                          src={require("../images/whatsapp.svg").default}
+                        />
+                      </span>
+                      Send What’s App
+                  </button>
+                  </a>
+
+                  :
+            
+                  <button className="btn-whatsapp mt-1 mb-1">
+                
+                    <span className="padding-email">
+                      <img
+                        style={{ width: "8%" }}
+                        src={require("../images/whatsapp.svg").default}
+                      />
+                    </span>
+                    No Phone Number!
+                </button>
+                  }
+               <div className="text-start px-1">
+                  <p className="Span-Styling mt-2 mb-1 px-3">
+                    Phone 2 : {profile.candidatAlternatePhone ? profile.candidatAlternatePhone : "No AlternatePhone Number!"}
+                  </p>
+                  </div>
+                 {
+                    profile.cadidatAlternatePhone ?
+                    <a
+                    href={`https://wa.me/${profile.candidatAlternatePhone}`}
+                    target="_blank"
+                  >
+                  <button className="btn-whatsapp btn-see">
+               
+                    <span className="padding-email">
+                      <img
+                        style={{ width: "8%" }}
+                        src={require("../images/whatsapp.svg").default}
+                      />
+                    </span>
+                    Send What’s App
+                </button>
+                </a>
+
+                  :
+                
+                  <button className="btn-whatsapp mt-1 mb-1">
+             
+                    <span className="padding-email">
+                      <img
+                        style={{ width: "8%" }}
+                        src={require("../images/whatsapp.svg").default}
+                      />
+                    </span>
+                    No Phone Number!
+                
+                </button>
+                 }
+
+                </div>
+                </div>
+                </div>
           <div className="col-12  p-2 Social-Card mt-2">
               <h3 className="exp">Expérience du Candidat </h3>
               <table className="table table-bordered border-dark">
@@ -317,10 +648,10 @@ function ProgressCard() {
                   <p className="italic-font">Si embauché</p>
                 </div> */}
                
-                <div className="col-3 text-center">
+                <div className="col-xxl-3  col-lg-3 col-md-4 col-sm-4 text-center">
                   <button
                     type="button"
-                    className="btn btn-Archived"
+                    className="btn btn-ArchivedEmbauch"
                     onClick={() => setShowArchiveModal(true)}
                   >
                     Archive / Canceled
@@ -334,11 +665,11 @@ function ProgressCard() {
                     />
                   ) : null}
                 </div>
-                <div className="col-3 text-center">
+                <div className="col-xxl-3  col-lg-3 col-md-4 col-sm-4 text-center">
                   <Link to="/editInProgress">
                   <button
                     type="button"
-                    className="btn btn-EditProfile"
+                    className="btn btn-EditProfileEmbauch"
                     onClick={editCandidatProfile}
                   >
                     <img src={require("../images/Edit.svg").default} />
@@ -347,10 +678,10 @@ function ProgressCard() {
                   </Link>
                   <p className="italic-fontStyle text-start">Editer le profil</p>
                 </div>
-                <div className="col-3 text-center">
+                <div className="col-xxl-3 col-lg-3 col-md-4 col-sm-4 text-center">
                   <button
                     type="button"
-                    className="btn btn-CVManual"
+                    className="btn btn-CVManualEmbauch"
                     onClick={editCandidatProfile}
                   >
                     <img src={require("../images/resume.svg").default} />
@@ -360,373 +691,75 @@ function ProgressCard() {
                     Edit CV with Canva
                   </p>
                 </div>
-                <div className="col-3">
+          <div className="col-xxl-3 col-lg-3 col-md-4 col-sm-4">
 
-                </div>
-                </div >
-                </div>
-                <div className="col-12 Social-Card mt-1 ">
-                  <div className="row p-1 justify-content-between">
+          </div>
          
-                  <div className="col-6 CandidateCV">
-                  <div className="row p-2">
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-3 d-flex justify-content-end">
-                          <img
-                            style={{ width: "50%" }}
-                            src={require("../images/CandidateCv.svg").default}
-                          />
-                        </div>
-                        <div className="col-9 px-0">
-                          <p className="mb-0 UploadCandidat">
-                            Upload Candidate CV Made by candidate{" "}
-                          </p>
-                          <p className="mb-0 dropFile">
-                            Drop your file here or browse
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pt-1 px-3">
-                      <FileUploadProgress
-                        key="ex1"
-                        onProgress={(e, request, progress) => {
-                          console.log("progress", e, request, progress);
-                        }}
-                        onLoad={(e, request) => {
-                          console.log("load", e, request);
-                        }}
-                        onError={(e, request) => {
-                          console.log("error", e, request);
-                        }}
-                        onAbort={(e, request) => {
-                          console.log("abort", e, request);
-                        }}
-                      />
-                    </div>
                   </div>
+              
                 </div>
+                <div className="col-12 Social-Card mt-1 mb-2">
+              <div className="row justify-content-center">
+                <div className="col-12 d-flex justify-content-center">
+                  <button className="CandidateCV" onClick={handleFileUpload}>
+                    <div className="col-8" >
+                      <img src={require("../images/Upload+text.svg").default} />
+                    </div>
+                  </button>
+                  <input
+                    type="file"
+                    ref={hiddenFileInput}
+                    onChange={fileChange}
+                    name="candidatDocuments"
+                    style={{ display: 'none' }}
+                  />
+                </div>
+             
+                <div className="col-12 mb-1">
+                  <div className="row">
 
-                <div className="col-6 CandidateCV">
-                  <div className="row p-2">
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-3 d-flex justify-content-end">
-                          <img
-                            style={{ width: "50%" }}
-                            src={require("../images/CandidateCv.svg").default}
-                          />
-                        </div>
-                        <div className="col-9 px-0">
-                          <p className="mb-0 UploadCandidat">
-                            Upload Candidate CV Made by candidate{" "}
-                          </p>
-                          <p className="mb-0 dropFile">
-                            Drop your file here or browse
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pt-1 px-3">
-                      <FileUploadProgress
-                        key="ex1"
-                        onProgress={(e, request, progress) => {
-                          console.log("progress", e, request, progress);
-                        }}
-                        onLoad={(e, request) => {
-                          console.log("load", e, request);
-                        }}
-                        onError={(e, request) => {
-                          console.log("error", e, request);
-                        }}
-                        onAbort={(e, request) => {
-                          console.log("abort", e, request);
-                        }}
-                      />
+                    <div className="col-6  pr-0 mb-1">
+                      <p className="candidatecVs pt-2">Candidate CV & Other Document</p>
                     </div>
                   </div>
+                  <div className="row" style={{ marginRight: '1px' }}>
+                    {
+                      documentList.length > 0 ?
+                        documentList.map((doc, index) =>
+                          <div className="col-6 mx-0">
+                            <div className="row CardClassDownload mt-1 mx-0">
+                              <div className="col-4 d-flex align-items-center ">
+                                <p className="download-font mb-0">{doc.originalName}</p>
+                              </div>
+                              <div className="col-6 text-center">
+                                {progress > 0 && docUploaded ?
+                                  <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
+                                  :
+                                  <button className="btnDownload">
+                                    <img src={require("../images/dowBtn.svg").default} />
+                                    {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
+                                  </button>
+                                }
+                              </div>
+                              <div className="col-2  d-flex align-item-end justify-content-end">
+                                <img
+                                  src={require("../images/editSvg.svg").default}
+                                  style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                                  onClick={() => renameDocument(doc._id, doc.documentName)}
+                                />
+                                <img
+                                  src={require("../images/Primaryfill.svg").default}
+                                  style={{ width: "20px", cursor: 'pointer' }}
+                                  onClick={() => deleteDocument(doc._id, doc.documentName)}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        ) : <p className="text-center">No Documents Uploaded!</p>
+                    }
+     </div>     </div>
+     </div>
                 </div>
-                <div className="col-6">
-                  <p className="candidatecVs pt-2">Candidate CVs</p>
-                  <div className="row CardClassDownload mt-1">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">
-                        <img src={require("../images/dowBtn.svg").default} />
-                        Jhon-smith-cv.pdf
-                      </button>
-                    </div>
-                    <div className="col-2  d-flex align-item-end justify-content-end">
-                      <img
-                        src={require("../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-6">
-                  <p className="candidatecVs pt-2">Candidate CVs</p>
-                  <div className="row CardClassDownload mt-1">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">Jhon-smith-cv.pdf</button>
-                    </div>
-                    <div className="col-2 px-0 d-flex align-item-end justify-content-end">
-                      <img
-                        src={require("../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                </div>
-         
-          
-              </div>
-            </div>
-            <div className="col-12 Social-Card mt-1">
-              <div className="row p-1 justify-content-between">
-                <div className="col-6 CandidateCV">
-                  <div className="row p-2">
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-3 d-flex justify-content-end">
-                          <img
-                            style={{ width: "50%" }}
-                            src={require("../images/CandidateCv.svg").default}
-                          />
-                        </div>
-                        <div className="col-9 px-0">
-                          <p className="mb-0 UploadCandidat">
-                            Upload Passport / ID{" "}
-                          </p>
-                          <p className="mb-0 dropFile">
-                            Drop your file here or browse
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pt-1 px-3">
-                      <FileUploadProgress
-                        key="ex1"
-                        onProgress={(e, request, progress) => {
-                          console.log("progress", e, request, progress);
-                        }}
-                        onLoad={(e, request) => {
-                          console.log("load", e, request);
-                        }}
-                        onError={(e, request) => {
-                          console.log("error", e, request);
-                        }}
-                        onAbort={(e, request) => {
-                          console.log("abort", e, request);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-6 CandidateCV">
-                  <div className="row p-2">
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-3 d-flex justify-content-end">
-                          <img
-                            style={{ width: "50%" }}
-                            src={require("../images/CandidateCv.svg").default}
-                          />
-                        </div>
-                        <div className="col-9 px-0">
-                          <p className="mb-0 UploadCandidat">
-                            Upload Candidate A1 Document
-                          </p>
-                          <p className="mb-0 dropFile">
-                            Drop your file here or browse
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pt-1 px-3">
-                      <FileUploadProgress
-                        key="ex1"
-                        onProgress={(e, request, progress) => {
-                          console.log("progress", e, request, progress);
-                        }}
-                        onLoad={(e, request) => {
-                          console.log("load", e, request);
-                        }}
-                        onError={(e, request) => {
-                          console.log("error", e, request);
-                        }}
-                        onAbort={(e, request) => {
-                          console.log("abort", e, request);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-6">
-                  <p className="candidatecVs pt-2">Candidate Passport / ID </p>
-                  <div className="row CardClassDownload mt-1">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">
-                        <img src={require("../images/dowBtn.svg").default} />
-                        Jhon-smith-cv.pdf
-                      </button>
-                    </div>
-                    <div className="col-2 px-0 d-flex align-item-end justify-content-end">
-                      <img
-                        src={require("../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-6">
-                  <p className="candidatecVs pt-2">Candidate A1 Document</p>
-                  <div className="row CardClassDownload mt-1">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">Jhon-smith-cv.pdf</button>
-                    </div>
-                    <div className="col-2 px-0 d-flex align-item-end justify-content-end">
-                      <img
-                        src={require("../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-12 Social-Card mt-1">
-              <div className="row p-1 justify-content-between">
-                <div className="col-6 CandidateCV">
-                  <div className="row p-2">
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-3 d-flex justify-content-end">
-                          <img
-                            style={{ width: "50%" }}
-                            src={require("../images/CandidateCv.svg").default}
-                          />
-                        </div>
-                        <div className="col-9 px-0">
-                          <p className="mb-0 UploadCandidat">
-                            Upload Passport / ID{" "}
-                          </p>
-                          <p className="mb-0 dropFile">
-                            Drop your file here or browse
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pt-1 px-3">
-                      <FileUploadProgress
-                        key="ex1"
-                        onProgress={(e, request, progress) => {
-                          console.log("progress", e, request, progress);
-                        }}
-                        onLoad={(e, request) => {
-                          console.log("load", e, request);
-                        }}
-                        onError={(e, request) => {
-                          console.log("error", e, request);
-                        }}
-                        onAbort={(e, request) => {
-                          console.log("abort", e, request);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-6 CandidateCV">
-                  <div className="row p-2">
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-3 d-flex justify-content-end">
-                          <img
-                            style={{ width: "50%" }}
-                            src={require("../images/CandidateCv.svg").default}
-                          />
-                        </div>
-                        <div className="col-9 px-0">
-                          <p className="mb-0 UploadCandidat">
-                            Upload Candidate A1 Document
-                          </p>
-                          <p className="mb-0 dropFile">
-                            Drop your file here or browse
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pt-1 px-3">
-                      <FileUploadProgress
-                        key="ex1"
-                        onProgress={(e, request, progress) => {
-                          console.log("progress", e, request, progress);
-                        }}
-                        onLoad={(e, request) => {
-                          console.log("load", e, request);
-                        }}
-                        onError={(e, request) => {
-                          console.log("error", e, request);
-                        }}
-                        onAbort={(e, request) => {
-                          console.log("abort", e, request);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-6">
-                  <p className="candidatecVs pt-2">Candidate Other Document</p>
-                  <div className="row CardClassDownload mt-1">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">
-                        <img src={require("../images/dowBtn.svg").default} />
-                        Jhon-smith-cv.pdf
-                      </button>
-                    </div>
-                    <div className="col-2 px-0 d-flex align-item-end justify-content-end">
-                      <img
-                        src={require("../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-6">
-                  <div className="row mt-4 CardClassDownload mt-1">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">Jhon-smith-cv.pdf</button>
-                    </div>
-                    <div className="col-2 px-0 d-flex align-item-end justify-content-end">
-                      <img
-                        src={require("../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
     </>
