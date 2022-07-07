@@ -48,16 +48,16 @@ const PreSelectedCard = (props: any,{path}) => {
 
     return (
         <>
-            <div className="card card-color">
+            <div className="card card-color mb-1">
                 <div onClick={viewFullProfile} className="card-upper  cursor-pointer">
-                    <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-3 ">
+                    <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-3 " style={{paddingLeft:"5px"}}>
                         <img
                             src={require("../images/card-men.svg").default}
                             className="card-img-top"
                             alt="..."
                         />
                     </div>
-                    <div className="col-xxl-8 col-xl-8 col-md-8 col-lg-8 fontStylinForPrecards">
+                    <div className="col-xxl-9 col-xl-8 col-md-8 col-lg-8 fontStylinForPrecards">
                         <p className="text-dark"><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
                         <p className="text-dark"><b>{props.data.candidatAge ? props.data.candidatAge : "Age Not Available!"}</b></p>
                         <div >  <p className="text-dark d-flex"><b>{candidatMotivationIcons[props.data.candidatMotivation - 1].icon + " " + candidatMotivationIcons[props.data.candidatMotivation - 1].motivation}</b>
@@ -94,15 +94,15 @@ const PreSelectedCard = (props: any,{path}) => {
                 <div className="card-body CardDetails">
                
                     <p className="preCard-Body">Secteur : {props.data.candidatActivitySector.toLocaleUpperCase()}</p>
-                    <p className="preCard-Body">Job :{props.data.candidatJob.toLocaleUpperCase()}</p> 
-                <p>Candidats Age : <b>{props.data.candidatAge}</b></p> 
-                    <p>Langues :  <b>{props.data.candidatLanguages.length > 0 ? props.data.candidatLanguages.join(", ") : "No Langues Selected!"}</b>
+                    <p className="preCard-Body">Job : {props.data.candidatJob.toLocaleUpperCase()}</p> 
+                <p className="preCard-Body-p">Candidats Age : <b>{props.data.candidatAge}</b></p> 
+                    <p className="preCard-Body-p">Langues :  <b>{props.data.candidatLanguages.length > 0 ? props.data.candidatLanguages.join(", ") : "No Langues Selected!"}</b>
                      </p>
-                    <p>Phone Number : <b>{props.data.candidatPhone} </b></p>
-                    <p>Facebook URL : <b>{props.data.candidatFBURL ? <a href={props.data.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
-                    <p>Email : <b>{props.data.candidatEmail ? props.data.candidatEmail : "No Email Provided!"}</b></p>
-                    <p className="blue">
-                        Ready for work : From <b>{props.data.candidatStartDate} To {props.data.candidatEndDate}</b>
+                    <p className="preCard-Body-p">Phone Number : <b>{props.data.candidatPhone} </b></p>
+                    <p className="preCard-Body-p">Facebook URL : <b>{props.data.candidatFBURL ? <a href={props.data.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
+                    <p className="preCard-Body-p">Email :  <b> {props.data.candidatEmail ? props.data.candidatEmail : "No Email Provided!"}</b></p>
+                    <p className="preCard-Body-blue mt-1">
+                        Ready for work :<b>{props.data.candidatStartDate} To {props.data.candidatEndDate}</b>
                     </p>
                 </div>
                 <div className="col-12 py-1">
@@ -115,9 +115,9 @@ const PreSelectedCard = (props: any,{path}) => {
             readMoreText={"....."}/></div>
                  </div>
                 </div>
-                <div className="card-body">
+                <div className="my-1 px-1">
                   
-                    <div className="col-12 mt-1">
+                    <div className="col-12">
                         <div className="row">
                             <div className="col-6 px-0">
                             <Select
@@ -130,7 +130,7 @@ const PreSelectedCard = (props: any,{path}) => {
                     
                  />
                             </div>
-                            <div className="col-6 px-0 text-center">
+                            <div className="col-6 px-0 text-end">
                             <button className="btn btn-SeePreCard" onClick={viewFullProfile}>
                             See Full Profile
                         </button>

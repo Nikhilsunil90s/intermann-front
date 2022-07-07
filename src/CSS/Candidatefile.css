@@ -1167,6 +1167,15 @@ padding: 10px 20px;
     box-sizing: border-box;
     margin-top: 19px;
 }
+.card-bodyTodo {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.5rem;
+    padding: 0rem 0rem 0rem 0rem !important;
+}
 
 }
 @media (min-width: 1400px) { 
@@ -1356,6 +1365,37 @@ padding: 10px 20px;
 }
     }
     @media (min-width: 1200px) { 
+        .todoCardbody{
+            font-family: 'Poppins';
+font-style: normal;
+font-weight: 500 !important;
+font-size: 12px !important;
+line-height: 21px !important;
+color: #000000 !important;
+        }
+        .todoCardbody-p{
+            font-family: 'Poppins';
+font-style: normal;
+font-weight: 400 !important;
+font-size: 12px !important;
+line-height: 21px !important;
+color: #000000 !important;
+        }
+        .todoCardbodyBlue{
+            font-family: 'Poppins';
+font-style: normal;
+font-weight: 600 !important;
+font-size: 12px !important;
+line-height: 16px !important;
+color: #3F76E2 !important;
+        }
+        .card-todoBody{
+            -webkit-box-flex: 1;
+            flex: 1 1 auto;
+            min-height: 1px;
+            padding-bottom: 5px;
+            padding-top: 5px;
+        }
         .img-uploadTodo-Download {
             width: 125px;
             object-fit: cover;

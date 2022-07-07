@@ -264,15 +264,7 @@ padding: 15px 30px;
      width: 10px;
 
         }
-    .upload .css-1s2u09g-control {
-        width: 24px;
-        min-height: 19px !important;
-        border-radius: 66px !important;
-        position: relative;
-        top: 60px;
-        left: -95%;
-        border: 2px solid #979797;
-    }
+    
     .card-preProfile {
         font-family: 'Poppins';
         font-style: normal;
@@ -346,12 +338,34 @@ border-radius: 10px;
         font-family: 'Poppins' !important;
         font-style: normal !important;
         font-weight: 600 !important;
-        font-size: 10px !important;
-        line-height: 13px !important;
+        font-size: 12px !important;
+        line-height: 21px !important;
         display: flex;
         align-items: center;
         color: #000000 !important;
     }
+    .preCard-Body-p {
+        font-family: 'Poppins' !important;
+        font-style: normal !important;
+        font-weight: 400 !important;
+        font-size: 12px !important;
+        line-height: 21px !important;
+        display: flex;
+        align-items: center;
+        color: #000000 !important;
+    }
+    .preCard-Body-blue {
+        font-family: 'Poppins' !important;
+        font-style: normal !important;
+        font-weight: 400 !important;
+        font-size: 12px !important;
+        line-height: 21px !important;
+        display: flex;
+        align-items: center;
+        color: #3F76E2 !important;
+    }
+ 
+
     .card-body {
         padding: 0.5rem 0rem 0.5rem 0.5rem  !important;
     }
@@ -448,6 +462,27 @@ width:13px
 }
  }
  @media (min-width:1200px){
+    
+.pre-CardMore p{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 45px;
+    text-decoration-line: underline;
+    color: #000000;
+    margin-bottom:0px ;
+}
+.pre-CardMore span{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 45px;
+    color: #000000;
+    margin-bottom:0px ;
+    margin-left:5px;
+}
     .exp {
         font-family: 'Arial';
         font-style: normal;
@@ -528,17 +563,7 @@ line-height: 21px;
 text-align: end;
 color: #000000;
    }
-    .upload .css-1s2u09g-control {
-      
-            width: 25px;
-            min-height: 19px !important;
-            border-radius: 66px !important;
-            position: relative;
-            top: 40px;
-            left: -109%;
-            border: 2px solid #979797;
-        
-    }
+  
     .img-upload-Download {
         width: 112px !important;
         object-fit: cover;
@@ -589,7 +614,7 @@ color: #000000;
     box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
     border-radius: 30px;
     border: 1px solid #000000;
-    width: 350px;
+    width: 100%;
     height: 54px;
     font-family: 'Poppins';
     font-style: normal;
@@ -597,7 +622,7 @@ color: #000000;
     font-size: 16px !important;
     line-height: 16px;
     color: #000000;
-
+margin:16px 0px !important;
 }
 .btn-whatsapp a {
     background-color: #489767;
@@ -628,6 +653,7 @@ color: #000000;
     border-radius: 100px;
     background: #3F76E2;
 border-radius: 100px;
+margin: 16px 0px !important;
 }
 .btn-see {
     border: 1px solid #ffff;
@@ -655,9 +681,190 @@ color: #FFFFFF;
 }
 .btn-Facebookpresee:hover{
     color:#ffffff !important
-} 
+}
+.heightWidth{
+    height: 533px;
+}.btn-pre-Archived {
+    background: #FF0000;
+    border-radius: 100px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 11px;
+    color: #FFFFFF;
+    margin-top: 5px;
+    width: 100%;
+    height: 50px;
+    padding: 0px;
+
+}.btn-pre-Archived:hover {
+color: #fff;
+}
+.btn-pre-EditProfile:hover {
+color: #ffff;
+}
+.btn-pre-EditProfile {
+    background: #032339;
+    border-radius: 100px;
+    /* padding: 10px 26px; */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 27px;
+    width: 100%;
+    height: 50px;
+    color: #FFFFFF;
+    margin-top: 5px;
+    padding: 0px;
+    /* padding: 15px 40px; */
+}
+.btn-pre-EditProfile img {
+    width: 20px;
+}
+.btn-pre-CVManual:hover{
+color: #ffff;
+}
+.btn-pre-CVManual {
+    background: #032339;
+    border-radius: 100px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 27px;
+    color: #FFFFFF;
+    margin-top: 5px;
+    padding:0px;
+    width: 100%;
+    height: 50px;
+}
+.btn-pre-moveProgress:hover {
+color: #ffff;
+}
+.btn-pre-moveProgress {
+    background: #A461D8;
+    border-radius: 100px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 27px;
+    color: #FFFFFF;
+    padding: 0px;
+    width: 100%;
+    height: 50px;
+
  }
+}
  @media (min-width:1400px){
+    .btn-pre-Archived {
+
+        background: #FF0000;
+        border-radius: 100px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 22px;
+        color: #FFFFFF;
+        margin-top: 5px;
+        width: 96%;
+        height: 63px;
+    
+    }
+    .btn-pre-Archived:hover {
+color: #ffffff;
+    }
+    .italic-fontStyle {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 15px;
+        color: #000000;
+        padding-left: 10px;
+        margin-top: 10px;
+    }
+    .btn-pre-EditProfile:hover {
+    color:#ffff
+    }
+    .btn-pre-EditProfile {
+        background: #032339;
+        border-radius: 100px;
+        padding: 10px 26px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 27px;
+        color: #FFFFFF;
+        margin-top: 5px;
+        /* padding: 15px 40px; */
+        width: 97%;
+        height: 63px;
+    }
+    .btn-pre-EditProfile img {
+        width: 31px;
+    }
+    .btn-pre-CVManual:hover {
+
+color: #ffff;
+    }
+    .btn-pre-CVManual {
+        background: #032339;
+        border-radius: 100px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 27px;
+        color: #FFFFFF;
+        margin-top: 5px;
+        /* padding: 15px 30px; */
+        width: 100%;
+        height: 63px;
+    }
+    .btn-pre-moveProgress:hover {
+color: #ffff;
+    }
+    .btn-pre-moveProgress {
+        background: #A461D8;
+        border-radius: 100px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 27px;
+        color: #FFFFFF;
+        /* padding: 15px 30px; */
+        width: 100%;
+        height: 63px;
+    }
+    .heightWidth{
+        height: 585px;
+    }   
+.pre-CardMore p{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 45px;
+    text-decoration-line: underline;
+    color: #000000;
+    margin-bottom:0px ;
+}
+.pre-CardMore span{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 45px;
+    color: #000000;
+    margin-bottom:0px ;
+    margin-left:5px;
+}
     .exp {
         font-family: 'Arial';
         font-style: normal;
@@ -667,29 +874,31 @@ color: #FFFFFF;
     }
     .btn-gmail {
         background: #FFFFFF;
-    box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
-    border-radius: 30px;
-    border: 1px solid #000000;
-    width: 350px;
-    height: 54px;
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px !important;
-    line-height: 33px;
-    color: #000000;
+        box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+        border-radius: 30px;
+        border: 1px solid #000000;
+        width: 90%;
+        height: 69px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px !important;
+        line-height: 33px;
+        color: #000000;
+        margin: 15px 0px !important;
     }
     .btn-Facebookpresee {
         color: white;
         border: 1px solid #ffff;
-        width: 350px;
-        height: 56px;
+        width: 90%;
+        height: 69px;
         box-sizing: border-box;
         border-radius: 100px;
         margin-bottom: 5px;
         margin-top: 25px;
         background: #3F76E2;
-border-radius: 100px;
+        border-radius: 100px;
+        margin: 15px 0px !important;
     }
     .preLargebtn {
         font-family: 'Poppins';
@@ -714,7 +923,7 @@ border-radius: 100px;
         display: grid;
         align-items: center;
         color: #000000;
-        padding: 10px 0px 0px 35px;
+        padding: 10px 0px 0px 24px;
     }
     .topCandidateHeaderPre {
         padding: 0px 15px;

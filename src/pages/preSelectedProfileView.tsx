@@ -12,6 +12,14 @@ import FileUploadProgress from "react-fileupload-progress";
 import Select from "react-select";
 import {ReactComponent as Upload} from "../images/upload.svg"
 import {ReactComponent as Download} from '../images/download.svg'
+import axios from "axios";
+import { API_BASE_URL } from '../config/serverApiConfig';
+import { ProgressBar } from "react-bootstrap";
+import { Toaster, toast } from 'react-hot-toast';
+
+const axiosInstance = axios.create({
+  baseURL: API_BASE_URL,
+})
 
 function PreSelectedView() {
   const navigate = useNavigate();
@@ -24,16 +32,91 @@ function PreSelectedView() {
   const hiddenFileInput = React.useRef(null);
   const [candidatContactOne, setCandidatContactOne] = useState(profile.candidatPhone != "" ? profile.candidatPhone.split(" ").join("") : "");
   const [candidatContactTwo, setCandidatContactTwo] = useState(profile.candidatAlternatePhone != "" ? profile.candidatAlternatePhone.split(" ").join("") : "");
+  const [candidatDocument, setCandidatDocument] = useState("");
+  const [progress, setProgress] = useState<any>(0);
+  const [docUploaded, setDocUploaded] = useState(false);
+  const [documentList, setDocumentList] = useState([]);
+  const [renameDoc, setRenameDoc] = useState(false);
+
+  
  const uploadOption=[
  {value:"upload",label:<Upload />,},
  {value:"Download Image",label:<Download />} 
  ]
+ const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
+ const notifyDocumentDeleteError = () => toast.error("Document Not Removed! Please Try Again in few minutes.")
+ const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
+ const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
   // const [Dissapointed, setDissapointed] = useState(false);
   // const [Notreally, setNotreally] = useState(false);
   // const [Like, setLike] = useState(false);
   // const [Great, setGreat] = useState(false);
   // const [Superlovely, setSuperlovely] = useState(false);
+  const fileChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
+    >
+  ) => {
 
+    if (e.target.name === 'candidatPhoto') {
+      const fileUploaded = e.target.files[0]
+      let formdata = new FormData();
+      formdata.append('candidatId', profile._id)
+      formdata.append('image', fileUploaded)
+      axiosInstance.post("uploadCandidatImage", formdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": "Bearer " + localStorage.getItem('token')
+        }
+      })
+        .then(datares => {
+          console.log(datares)
+          if (datares.data.status) {
+            notifyDocumentUploadSuccess()
+            // setCandidatImage(datares.data.filename)
+            window.location.href = "/todoprofile"
+          } else {
+            notifyDocumentUploadError()
+          }
+        })
+        .catch(err => { console.log(err) })
+      return;
+    }
+    if (e.target.name === 'candidatDocuments') {
+      const fileUploaded = e.target.files[0];
+      setCandidatDocument(fileUploaded)
+      let formdata = new FormData();
+      formdata.append('candidatId', profile._id)
+      formdata.append('document', fileUploaded)
+      axiosInstance.post("uploadCandidatDocuments", formdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": "Bearer " + localStorage.getItem('token')
+        },
+        onUploadProgress: data => {
+          //Set the progress value to show the progress bar
+          setProgress(Math.round((100 * data.loaded) / data.total))
+        },
+      })
+        .then(resData => {
+          if (resData.data.status) {
+            console.log(resData.data)
+            setDocUploaded(true);
+            setProgress(0);
+            notifyDocumentUploadSuccess();
+          } else {
+            console.log(resData)
+            setDocUploaded(false);
+          }
+        })
+        .catch(err => {
+          console.log(err)
+          setDocUploaded(false);
+
+        })
+      return;
+    }
+  }
   const editCandidatProfile = () => {
     navigate("/editToDo", { state: profile });
   };
@@ -43,6 +126,56 @@ function PreSelectedView() {
   const handleFileChange = (e: any) => {
     const fileUploaded = e.target.files[0];
     console.log(fileUploaded);
+  }
+  const renameCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
+    let headers = {
+      "Accept": 'application/json',
+      "Authorization": "Bearer " + localStorage.getItem('token')
+    }
+    return await fetch(API_BASE_URL + `renameDocument/?documentId=${docId}&documentName=${docName}&candidatId=${candidatId}`, {
+      method: "GET",
+      headers: headers
+    })
+      .then(reD => reD.json())
+      .then(resD => resD)
+      .catch(err => err)
+  }
+  const renameDocument = (docId: any, docName: any) => {
+    setRenameDoc(true);
+    renameCandidatDocument(docId, docName, profile._id).then(resData => {
+      console.log(resData)
+      setRenameDoc(false);
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+  const deleteCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
+    let headers = {
+      "Accept": 'application/json',
+      "Authorization": "Bearer " + localStorage.getItem('token')
+    }
+    return await fetch(API_BASE_URL + `deleteDocument/?documentId=${docId}&documentName=${docName}&candidatId=${candidatId}`, {
+      method: "GET",
+      headers: headers
+    })
+      .then(reD => reD.json())
+      .then(resD => resD)
+      .catch(err => err)
+  }
+  const deleteDocument = async (docId: any, docName: any) => {
+    await deleteCandidatDocument(docId, docName, profile._id).then(resData => {
+      console.log(resData);
+      if (resData.status) {
+        notifyDocumentDeleteSuccess()
+        setDocumentList([...documentList.filter((doc) => {
+          return doc.documentName !== docName
+        })])
+      } else {
+        notifyDocumentDeleteError()
+      }
+    }).catch(err => {
+      console.log(err)
+    })
   }
   const responsive = {
     superLargeDesktop: {
@@ -65,6 +198,7 @@ function PreSelectedView() {
   };
   return (
     <>
+      <Toaster position="top-right" containerStyle={{ zIndex: '99999999999' }} />
       <div className="container-fluid">
         <div className="row pr-1">
           {/* <div className="col-12 top-pd text-center">
@@ -168,7 +302,7 @@ function PreSelectedView() {
               <div className="row justify-content-between">
               
                 <div
-                  className="col-7 Social-Card px-1  scrollbarpree"
+                  className="col-7 Social-Card px-1  scrollbarpree heightWidth"
                   id="style-3"
                   style={{ maxWidth: "57%" }}
                 >
@@ -210,7 +344,7 @@ function PreSelectedView() {
                   </div>
                 </div>
                 <div
-                  className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-1"
+                  className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-1 heightWidth"
                   style={{ maxWidth: "49%" }}
                 >
                   <div className="text-start px-1">
@@ -338,7 +472,7 @@ No FB URL!
 
                   :
                 
-                  <button className="btn btn-whatsapp mt-1 mb-1">
+                  <button className="btn-whatsapp mt-1 mb-1">
              
                     <span className="padding-email">
                       <img
@@ -478,366 +612,71 @@ No FB URL!
                 </div>
                 </div>
               </div>
-              <div className="col-12 Social-Card mt-1">
-              <div className="row p-1 justify-content-between">
-                <div className="col-6 CandidateCV">
-                  <div className="row p-2">
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-3 d-flex justify-content-end">
-                          <img
-                            style={{ width: "50%" }}
-                            src={require("../images/CandidateCv.svg").default}
-                          />
-                        </div>
-                        <div className="col-9 px-0">
-                          <p className="mb-0 UploadCandidat">
-                            Upload Candidate CV Made by candidate{" "}
-                          </p>
-                          <p className="mb-0 dropFile">
-                            Drop your file here or browse
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pt-1 px-3">
-                      <FileUploadProgress
-                        key="ex1"
-                        onProgress={(e, request, progress) => {
-                          console.log("progress", e, request, progress);
-                        }}
-                        onLoad={(e, request) => {
-                          console.log("load", e, request);
-                        }}
-                        onError={(e, request) => {
-                          console.log("error", e, request);
-                        }}
-                        onAbort={(e, request) => {
-                          console.log("abort", e, request);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
 
-                <div className="col-6 CandidateCV">
-                  <div className="row p-2">
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-3 d-flex justify-content-end">
-                          <img
-                            style={{ width: "50%" }}
-                            src={require("../images/CandidateCv.svg").default}
-                          />
-                        </div>
-                        <div className="col-9 px-0">
-                          <p className="mb-0 UploadCandidat">
-                            Upload Candidate CV Made by candidate{" "}
-                          </p>
-                          <p className="mb-0 dropFile">
-                            Drop your file here or browse
-                          </p>
-                        </div>
-                      </div>
+            <div className="col-12 Social-Card mt-1 mb-2">
+              <div className="row justify-content-center">
+                <div className="col-12 d-flex justify-content-center">
+                  <button className="CandidateCV" onClick={handleFileUpload}>
+                    <div className="col-8" >
+                      <img src={require("../images/Upload+text.svg").default} />
                     </div>
-                    <div className="pt-1 px-3">
-                      <FileUploadProgress
-                        key="ex1"
-                        onProgress={(e, request, progress) => {
-                          console.log("progress", e, request, progress);
-                        }}
-                        onLoad={(e, request) => {
-                          console.log("load", e, request);
-                        }}
-                        onError={(e, request) => {
-                          console.log("error", e, request);
-                        }}
-                        onAbort={(e, request) => {
-                          console.log("abort", e, request);
-                        }}
-                      />
-                    </div>
-                  </div>
+                  </button>
+                  <input
+                    type="file"
+                    ref={hiddenFileInput}
+                    onChange={fileChange}
+                    name="candidatDocuments"
+                    style={{ display: 'none' }}
+                  />
                 </div>
-                <div className="col-6">
-                  <p className="candidatecVs pt-2">Candidate CVs</p>
-                  <div className="row CardClassDownload mt-1">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">
-                        <img src={require("../images/dowBtn.svg").default} />
-                        Jhon-smith-cv.pdf
-                      </button>
-                    </div>
-                    <div className="col-2  d-flex align-item-end justify-content-end">
-                      <img
-                        src={require("../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-6">
-                  <p className="candidatecVs pt-2">Candidate CVs</p>
-                  <div className="row CardClassDownload mt-1">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">Jhon-smith-cv.pdf</button>
-                    </div>
-                    <div className="col-2 px-0 d-flex align-item-end justify-content-end">
-                      <img
-                        src={require("../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                </div>
-                </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-12 Social-Card mt-1">
-              <div className="row p-1 justify-content-between">
-                <div className="col-6 CandidateCV">
-                  <div className="row p-2">
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-3 d-flex justify-content-end">
-                          <img
-                            style={{ width: "50%" }}
-                            src={require("../images/CandidateCv.svg").default}
-                          />
-                        </div>
-                        <div className="col-9 px-0">
-                          <p className="mb-0 UploadCandidat">
-                            Upload Passport / ID{" "}
-                          </p>
-                          <p className="mb-0 dropFile">
-                            Drop your file here or browse
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pt-1 px-3">
-                      <FileUploadProgress
-                        key="ex1"
-                        onProgress={(e, request, progress) => {
-                          console.log("progress", e, request, progress);
-                        }}
-                        onLoad={(e, request) => {
-                          console.log("load", e, request);
-                        }}
-                        onError={(e, request) => {
-                          console.log("error", e, request);
-                        }}
-                        onAbort={(e, request) => {
-                          console.log("abort", e, request);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
+                <div className="col-12 mb-1">
+                  <div className="row">
 
-                <div className="col-6 CandidateCV">
-                  <div className="row p-2">
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-3 d-flex justify-content-end">
-                          <img
-                            style={{ width: "50%" }}
-                            src={require("../images/CandidateCv.svg").default}
-                          />
-                        </div>
-                        <div className="col-9 px-0">
-                          <p className="mb-0 UploadCandidat">
-                            Upload Candidate A1 Document
-                          </p>
-                          <p className="mb-0 dropFile">
-                            Drop your file here or browse
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pt-1 px-3">
-                      <FileUploadProgress
-                        key="ex1"
-                        onProgress={(e, request, progress) => {
-                          console.log("progress", e, request, progress);
-                        }}
-                        onLoad={(e, request) => {
-                          console.log("load", e, request);
-                        }}
-                        onError={(e, request) => {
-                          console.log("error", e, request);
-                        }}
-                        onAbort={(e, request) => {
-                          console.log("abort", e, request);
-                        }}
-                      />
+                    <div className="col-6  pr-0 mb-1">
+                      <p className="candidatecVs pt-2">Candidate CV & Other Document</p>
                     </div>
                   </div>
-                </div>
-                <div className="col-6">
-                  <p className="candidatecVs pt-2">Candidate Passport / ID </p>
-                  <div className="row CardClassDownload mt-1">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">
-                        <img src={require("../images/dowBtn.svg").default} />
-                        Jhon-smith-cv.pdf
-                      </button>
-                    </div>
-                    <div className="col-2 px-0 d-flex align-item-end justify-content-end">
-                      <img
-                        src={require("../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-6">
-                  <p className="candidatecVs pt-2">Candidate A1 Document</p>
-                  <div className="row CardClassDownload mt-1">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">Jhon-smith-cv.pdf</button>
-                    </div>
-                    <div className="col-2 px-0 d-flex align-item-end justify-content-end">
-                      <img
-                        src={require("../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-12 Social-Card mt-1">
-              <div className="row p-1 justify-content-between">
-                <div className="col-6 CandidateCV">
-                  <div className="row p-2">
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-3 d-flex justify-content-end">
-                          <img
-                            style={{ width: "50%" }}
-                            src={require("../images/CandidateCv.svg").default}
-                          />
-                        </div>
-                        <div className="col-9 px-0">
-                          <p className="mb-0 UploadCandidat">
-                            Upload Passport / ID{" "}
-                          </p>
-                          <p className="mb-0 dropFile">
-                            Drop your file here or browse
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pt-1 px-3">
-                      <FileUploadProgress
-                        key="ex1"
-                        onProgress={(e, request, progress) => {
-                          console.log("progress", e, request, progress);
-                        }}
-                        onLoad={(e, request) => {
-                          console.log("load", e, request);
-                        }}
-                        onError={(e, request) => {
-                          console.log("error", e, request);
-                        }}
-                        onAbort={(e, request) => {
-                          console.log("abort", e, request);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
+                  <div className="row" style={{ marginRight: '1px' }}>
+                    {
+                      documentList.length > 0 ?
+                        documentList.map((doc, index) =>
+                          <div className="col-6 mx-0">
+                            <div className="row CardClassDownload mt-1 mx-0">
+                              <div className="col-4 d-flex align-items-center ">
+                                <p className="download-font mb-0">{doc.originalName}</p>
+                              </div>
+                              <div className="col-6 text-center">
+                                {progress > 0 && docUploaded ?
+                                  <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
+                                  :
+                                  <button className="btnDownload">
+                                    <img src={require("../images/dowBtn.svg").default} />
+                                    {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
+                                  </button>
+                                }
+                              </div>
+                              <div className="col-2  d-flex align-item-end justify-content-end">
+                                <img
+                                  src={require("../images/editSvg.svg").default}
+                                  style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                                  onClick={() => renameDocument(doc._id, doc.documentName)}
+                                />
+                                <img
+                                  src={require("../images/Primaryfill.svg").default}
+                                  style={{ width: "20px", cursor: 'pointer' }}
+                                  onClick={() => deleteDocument(doc._id, doc.documentName)}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        ) : <p className="text-center">No Documents Uploaded!</p>
+                    }
 
-                <div className="col-6 CandidateCV">
-                  <div className="row p-2">
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-3 d-flex justify-content-end">
-                          <img
-                            style={{ width: "50%" }}
-                            src={require("../images/CandidateCv.svg").default}
-                          />
-                        </div>
-                        <div className="col-9 px-0">
-                          <p className="mb-0 UploadCandidat">
-                            Upload Candidate A1 Document
-                          </p>
-                          <p className="mb-0 dropFile">
-                            Drop your file here or browse
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pt-1 px-3">
-                      <FileUploadProgress
-                        key="ex1"
-                        onProgress={(e, request, progress) => {
-                          console.log("progress", e, request, progress);
-                        }}
-                        onLoad={(e, request) => {
-                          console.log("load", e, request);
-                        }}
-                        onError={(e, request) => {
-                          console.log("error", e, request);
-                        }}
-                        onAbort={(e, request) => {
-                          console.log("abort", e, request);
-                        }}
-                      />
-                    </div>
                   </div>
                 </div>
-                <div className="col-6">
-                  <p className="candidatecVs pt-2">Candidate Other Document</p>
-                  <div className="row CardClassDownload mt-1">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">
-                        <img src={require("../images/dowBtn.svg").default} />
-                        Jhon-smith-cv.pdf
-                      </button>
-                    </div>
-                    <div className="col-2 px-0 d-flex align-item-end justify-content-end">
-                      <img
-                        src={require("../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
                 </div>
-                <div className="col-6">
-                  <div className="row mt-4 CardClassDownload mt-1">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">Jhon-smith-cv.pdf</button>
-                    </div>
-                    <div className="col-2 px-0 d-flex align-item-end justify-content-end">
-                      <img
-                        src={require("../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-            </div>
-          </div>
-        </div>
+                </div>
+       </div>
       </div>
     </>
   );

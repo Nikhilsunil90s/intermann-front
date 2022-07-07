@@ -109,28 +109,28 @@ const ToDoProfileCard = (props: any,{path}) => {
                         </div>
                     </div>
                     </div>
-                    <div className=" px-1">
-                <div className="card-body">
-               
-                    <p>Name : <b>{props.data.candidatName.toLocaleUpperCase()}</b></p>
-                    <p>Age : <b>{props.data.candidatAge ? props.data.candidatAge : "Age Not Available!"}</b></p>
-                    <p>Motivation : <b>{candidatMotivationIcons[props.data.candidatMotivation - 1].icon + " " + candidatMotivationIcons[props.data.candidatMotivation - 1].motivation}</b> </p>
-                    <p>Secteur : <b>{props.data.candidatActivitySector.toLocaleUpperCase()}</b></p>
+  
+                <div className="card-todoBody" style={{paddingLeft:"5px"}}>
+{/*                
+                    <p className="todoCardbody">Name : <b>{props.data.candidatName.toLocaleUpperCase()}</b></p>
+                    <p className="todoCardbody">Age : <b>{props.data.candidatAge ? props.data.candidatAge : "Age Not Available!"}</b></p> */}
+                    {/* <p className="todoCardbody">Motivation : <b>{candidatMotivationIcons[props.data.candidatMotivation - 1].icon + " " + candidatMotivationIcons[props.data.candidatMotivation - 1].motivation}</b> </p> */}
+                    <p className="todoCardbody mb-0"><b>Secteur : {props.data.candidatActivitySector.toLocaleUpperCase()}</b></p>
 
-                    <p>Job : <b>{props.data.candidatJob.toLocaleUpperCase()}</b> </p>
-                    <p>Langues : <b>{props.data.candidatLanguages.length > 0 ? props.data.candidatLanguages.join(", ") : "No Langues Selected!"}</b>
+                    <p className="todoCardbody mb-0"><b>Job : {props.data.candidatJob.toLocaleUpperCase()}</b> </p>
+                    <p className="todoCardbody-p mb-0">Langues : <b>{props.data.candidatLanguages.length > 0 ? props.data.candidatLanguages.join(", ") : "No Langues Selected!"}</b>
                     </p>
-                    <p>Phone Number : <b>{props.data.candidatPhone}</b> </p>
-                    <p>Facebook URL : <b>{props.data.candidatFBURL ? <a href={props.data.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
-                    <p>Email : <b>{props.data.candidatEmail ? props.data.candidatEmail : "No Email Provided!"}</b> </p>
-                    <p className="blue">
-                        Ready for work : From {props.data.candidatStartDate} To {props.data.candidatEndDate}
+                    <p className="todoCardbody-p mb-0">Phone Number : <b>{props.data.candidatPhone}</b> </p>
+                    <p className="todoCardbody-p mb-0">Facebook URL : <b>{props.data.candidatFBURL ? <a href={props.data.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
+                    <p className="todoCardbody-p mb-0">Email : <b>{props.data.candidatEmail ? props.data.candidatEmail : "No Email Provided!"}</b> </p>
+                    <p className="todoCardbodyBlue py-1">
+                        Ready for work : {props.data.candidatStartDate} To {props.data.candidatEndDate}
                     </p>
                     </div>
-                </div>
-                <div className="card-body" >
+            
+                <div className="card-bodyTodo mb-1 py-0" >
                     <div className=""  style={{padding:"0px 5px"}}>
-                    <div className="col-xxl-12 col-xl-12 col-md-12 col-lg-12 px-0 mt-0">
+                    <div className="col-xxl-12 col-xl-12 col-md-12 col-lg-12 py-0 px-0 mt-0">
                         <div className="row">
                             <div className="col-xxl-6 col-xl-6 col-md-6 col-lg-6">
                                 {/* <select className="selectOption firstoption" onChange={MoreOption}>

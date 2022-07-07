@@ -41,13 +41,7 @@ function ProgressCard() {
   return (
     <>
       <div className="containet-fluid">
-        <div className="row">
-          <div className="col-12 top-pd text-center">
-            <h1 style={{ textDecoration: "underline" }}>
-              CANDIDAT: {profile.candidatName}
-            </h1>
-          </div>
-
+        <div className="row pd">
           <div
             className="card "
             style={{

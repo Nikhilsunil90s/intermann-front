@@ -33,7 +33,7 @@ const EmbaucheProfileCard = (props: any,{path}) => {
     }
     return (
         <>
-            <div className="card card-color ">
+            <div className="card card-color mb-0">
                 <div className="card-upper">
                     <div className="col-4">
                         <img
@@ -55,15 +55,15 @@ const EmbaucheProfileCard = (props: any,{path}) => {
                         <div className="row cardColorRowEmbaunch">
 
                       
-                        <div className="col-6 ">
+                        <div className="col-8">
                         <Link to='#'>
                             <button className="EmbaucheCardBtn p-0"><img src={require("../images/thundermini.svg").default} />IN PROGRESS</button>
                         </Link>
                         </div>
                     </div>
                     </div>
-                <div className="card-body ">
-                    <div className="px-1 EmbauchCardChildFonts">
+                <div className="card-bodyEmbauch pl-0 ">
+                    <div className="pr-0 EmbauchCardChildFonts">
                     {/* <p>Name: {props.props.candidatName}</p> */}
                     <p> <b>{props.props.candidatAge ? props.props.candidatAge +"years old" : "Age Not Available!"}</b></p>
                     <p>Secteur: <b> {props.props.candidatActivitySector.toLocaleUpperCase()}</b></p>
@@ -74,14 +74,19 @@ const EmbaucheProfileCard = (props: any,{path}) => {
                     <p>Email: <b>{props.props.candidatEmail ? props.props.candidatEmail : "No Email Provided!"}</b> </p>
                     <p className="blue">Ready for work:  {props.props.candidatStartDate} To {props.props.candidatEndDate} </p>
                     </div>
-                    <div className="">
-                    <div className="box-purple">
-                        <p><b>Works At : {props.props.candidatCurrentWork[0].workingFor}</b></p>
-                        <p><b>Since : {props.props.candidatCurrentWork[0].workingSince}</b></p>
-                        <p><b>Salary :  {props.props.candidatCurrentWork[0].salary} €</b></p>
+                 
+
+                    {showArchiveModal ?
+                        <ArchivedModal props={props.props} closeModal={setShowArchiveModal}  path={"/embauchlist"} /> : null
+                    }
+
+                </div>
+                <div className="box-purple">
+                        <p className="mb-0"><b>Works At : {props.props.candidatCurrentWork[0].workingFor}</b></p>
+                        <p className="mb-0"><b>Since : {props.props.candidatCurrentWork[0].workingSince}</b></p>
+                        <p className="mb-0"><b>Salary :  {props.props.candidatCurrentWork[0].salary} €</b></p>
                     </div>
-                    </div>
-                  <div className="col-12">
+                    <div className="col-12 my-1">
                     <div className="row">
                     <div className="col-6 text-center">
                         <Select
@@ -89,6 +94,7 @@ const EmbaucheProfileCard = (props: any,{path}) => {
                     options={CardOptions}
                     className="CardOptions"
                     onChange={MoreOption} 
+                    isSearchable={false}
                  />
                      </div>
                         <div className="col-6 text-center">
@@ -98,11 +104,6 @@ const EmbaucheProfileCard = (props: any,{path}) => {
                         </div>
                     </div></div>
 
-                    {showArchiveModal ?
-                        <ArchivedModal props={props.props} closeModal={setShowArchiveModal}  path={"/embauchlist"} /> : null
-                    }
-
-                </div>
             </div>
         </>
     )
