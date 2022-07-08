@@ -60,7 +60,7 @@ function Login() {
         <div className="row m-0">
           <div className="col-12">
             <div className="row">
-              <div className="col-6 ">
+              <div className="col-6 px-0">
                 <div className="img-Back">
 
                 </div>

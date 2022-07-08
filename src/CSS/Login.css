@@ -57,13 +57,15 @@
     font-size: 20px;
     line-height: 30px;
 }
-.img-Back{
-    background-image: url('../images/LoginImg.svg');
+.img-Back{    background-image: url('../images/LoginImg.svg');
     background-position: center;
-    background-size: 102%;
+    /* background-size: 102%; */
     background-repeat: no-repeat;
     padding-right: 0px;
-    padding-left:0px;
+    padding-left: 0px;
+    height: 100vh;
+    position: relative !important;
+    left: -15px;
 }
 .Remember-me{
     font-family: 'Plus Jakarta Sans';

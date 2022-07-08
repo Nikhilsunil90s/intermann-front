@@ -44,7 +44,7 @@ function Sidebar(props: any) {
           
               <ul className="nav nav-pills flex-column mb-auto text-className">
                 <li className="nav-item active mt-1">
-                  <Link to="#" className="nav-link link-dark  pd013" aria-current="page">
+                  <Link to="/dashboard" className="nav-link link-dark  pd013" aria-current="page">
                     <span className="pe-2">
                       <img src={require("../images/Shape.svg").default} />
                     </span>
