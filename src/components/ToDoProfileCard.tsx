@@ -17,7 +17,7 @@ const ToDoProfileCard = (props: any,{path}) => {
     const CardOptions=[{
    value:"Edit Profile",label:"Edit Profile"
    },
-   {value:"moveProgress",label:"moveProgress"
+   {value:"Move to In Progress",label:"Move to In Progress"
    },
    {value:"Archive",label:"Archive"
    }
@@ -34,11 +34,10 @@ const ToDoProfileCard = (props: any,{path}) => {
         window.open("/todoprofile", "_blank")
     }
     const MoreOption=(e:any)=>{
-        debugger
       if(e.value=="Edit Profile"){
           editCandidatProfile()
       }
-      if(e.value=="moveProgress"){
+      if(e.value=="Move to In Progress"){
         setShowInProgressModal(true)
       }
       if(e.value=="Archive"){

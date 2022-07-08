@@ -18,7 +18,7 @@ const PreSelectedCard = (props: any,{path}) => {
     const CardOptions=[{
         value:"Edit Profile",label:"Edit Profile"
         },
-        {value:"moveProgress",label:"moveProgress"
+        {value:"Move to In Progress",label:"Move to In Progress"
         },
         {value:"Archive",label:"Archive"
         }
@@ -37,7 +37,7 @@ const PreSelectedCard = (props: any,{path}) => {
       if(e.target.value==="editProfile"){
           editCandidatProfile()
       }
-      if(e.target.value==="moveProgress"){
+      if(e.target.value==="Move to In Progress"){
         setShowInProgressModal(true)
       }
       if(e.target.value==="Archive"){

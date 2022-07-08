@@ -13,12 +13,14 @@ import Select from "react-select";
 import {ReactComponent as Upload} from "../images/upload.svg"
 import {ReactComponent as Download} from '../images/download.svg'
 import PreModal from "../components/Modal/preSelectedModal";
+import ProfileLoader from "../components/Loader/ProfilesLoader";
 import SelectedLoader from "../components/Loader/selectLoader";
 import { API_BASE_URL } from '../config/serverApiConfig';
 import { Toaster, toast } from 'react-hot-toast';
 import "react-multi-carousel/lib/styles.css";
 import axios from "axios";
 import { ProgressBar } from "react-bootstrap";
+import ReadMoreReact from 'read-more-react';
 
 
 const axiosInstance = axios.create({
@@ -55,6 +57,7 @@ function ToDoProfile() {
   const [progress, setProgress] = useState<any>(0);
   const [docUploaded, setDocUploaded] = useState(false);
   const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
+  const [clientList, setClientList] = useState([]);
 
 
  const uploadOption=[
@@ -103,6 +106,7 @@ const deleteDocument = async (docId: any, docName: any) => {
   })
 }
  const removeRecommendation = (rId: any) => {
+
   console.log(recommendations);
   let filteredRecommendations = recommendations.filter((recomm) => {
     return recomm._id !== rId;
@@ -216,7 +220,29 @@ const fetchRecommendations = async (candidatSector: string) => {
       return;
     }
   }
+  useEffect(() => {
+    setProfile((prev) => ({ ...prev, ["clients"]: [...recommendations] }));
+    setLoader(false);
+  }, [recommendations])
 
+  useEffect(() => {
+    setLoader(true);
+    fetchRecommendations(profile.candidatActivitySector)
+      .then(respData => {
+        if (respData.status) {
+          setRecommendations([...respData.data]);
+          setClientList([...respData.data]);
+          setLoader(true);
+        } else {
+          setRecommendations([])
+          setLoader(false);
+
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [state])
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -318,7 +344,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                     Métier/Job :{profile.candidatJob.toLocaleUpperCase()}
                   </p>
                 </div>
-                <div className="col-3 px-0 text-end end-class">
+                <div className="col-3  text-end end-class" style={{paddingRight:"20px"}}>
                   <div className="text-center d-grid justify-content-end align-items-center mt-2">
                     <div className="text-center">
                     <button className="todoBtnStyle">
@@ -536,7 +562,8 @@ const fetchRecommendations = async (candidatSector: string) => {
                         </tr>
                       )
                       ) : (
-                        <tr>
+                      
+                        <tr className="">
                           <td colSpan={3} className="text-center">
                             <p>No Experience Details Available!</p>
                             <button className="btn btn-sm text-light btn-dark" onClick={editCandidatProfile}>Edit Candidat To Add Experience Details!</button>
@@ -572,7 +599,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                 {
                   recommendations && recommendations.length > 0 ?
                     recommendations.map(recommendation => (
-                      <div className="row p-1 m-1 Social-Card client-Card">
+                      <div className="row p-1 m-1 Social-Card client-Card" style={{height:"308px"}}>
                         <div className="col-3">
                           <img 
                             src={
@@ -585,23 +612,27 @@ const fetchRecommendations = async (candidatSector: string) => {
                             <b>{recommendation.clientCompanyName.length > 20 ? recommendation.clientCompanyName.slice(0, 21).toLocaleUpperCase() + "..." : recommendation.clientCompanyName.toLocaleUpperCase()}</b>
                           </p>
                         </div>
-                        <div className="col-12">
+
                           <p className="mb-0 FontStylingCardtext">
                             Secteur : <b>{recommendation.clientActivitySector !== "" ? recommendation.clientActivitySector.toLocaleUpperCase() : "Sector Not Selected!"}</b>
                           </p>
-                        </div>
-                        <div className="col-12">
+                      
+
                           <p className="mb-0 FontStylingCardtext">
                             Job : <b>{recommendation.clientJob !== "" ? recommendation.clientJob.toLocaleUpperCase() : "Job Not Selected!"}</b>
                           </p>
-                        </div>
+                      
                         <div className="col-12 mb-1">
                           <p className="mb-0 FontStylingCardtext">Notes:</p>
                           <p className="mb-0 FontStylingCardtext styledNotes">
-                            {recommendation.clientRequiredSkills !== "" ? recommendation.clientRequiredSkills : 'No Notes/Skills Available!'}
+                          {recommendation.clientRequiredSkills !== "" ? <div style={{height:"100px"}}>  <ReadMoreReact text={recommendation.clientRequiredSkills}
+            min={0}
+            ideal={50}
+            max={150}
+            readMoreText={"....."}/></div>  : <p style={{height:"100px"}} className="mb-0 FontStylingCardtext">No Notes/Skills Available!</p>}
                           </p>
                         </div>
-                        <div className="col-6 text-center px-0">
+                        <div className="col-6 text-center d-flex align-items-center px-0">
                           <button className="btnMatched" onClick={() => setShowInPreSelectedModal(true)}>Matched</button>
                           {showPreSelectedModal ?
                             <PreModal
@@ -612,7 +643,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                             null
                           }
                         </div>
-                        <div className="col-6 text-center px-0">
+                        <div className="col-6 text-center d-flex align-items-center px-0">
                           <button className="btnNotMatched" onClick={() => removeRecommendation(recommendation._id)}>Not Matched</button>
                         </div>
                       </div>
@@ -622,9 +653,11 @@ const fetchRecommendations = async (candidatSector: string) => {
                     :
                     loader ?
                       <div className="col-12 mx-auto">
-                        <SelectedLoader />
-                      </div> : <div className="Social-Card m-1 text-center">No More Client Recommendations!</div>
-                }
+                        <ProfileLoader />
+                      </div> : 
+                      <div className="Social-Card m-1 text-center">No More Client Recommendations!</div>
+            
+}
               </Carousel>
             </div>
             <div className="col-12 Social-Card mt-1">
