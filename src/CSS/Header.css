@@ -275,7 +275,7 @@ padding-top:0px ;
         color: #FFFFFF;
     }
     .btn-1:hover ,.btn-2:hover{
-      color: #ffff;
+      color: #ffff !important;
     }
     .btn-003:hover,.btn-004:hover{
         color: #FE8700 !important;

@@ -29,7 +29,7 @@ function Sidebar(props: any) {
       <div className="container-fluid"  style={{ height: "100%",backgroundColor:"white",zIndex:9000000 }}>
         <div className="row" >
           
-          <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-3 col-xs-3 fixed pd-gutter" style={{ height: "100vh",backgroundColor:"white" }}>
+          <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-3 col-xs-3 fixed pd-gutter pl-0" style={{ height: "100vh",backgroundColor:"white" }}>
             <div
               className="d-flex flex-column flex-shrink-0"
             >

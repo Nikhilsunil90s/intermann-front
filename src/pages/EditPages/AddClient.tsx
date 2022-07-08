@@ -235,9 +235,8 @@ console.log(StarRatings,"hello")
       },
     }),
   };
-  console.log(Amountarr);
   return (
-    <div className="container-fluid px-3">
+    <div className="container-fluid px-2">
       <div className="row">
         <div
           className="col-12 card-tops px-1 mt-2"
@@ -606,7 +605,7 @@ console.log(StarRatings,"hello")
   placeholderRating={0}
   
 /> */}
-<RatingCmp  StarRatings={setRatings} />
+<RatingCmp  StarRatings={setRatings} StarR={StarRatings}/>
                     </div>
                   </div>
                 </div>

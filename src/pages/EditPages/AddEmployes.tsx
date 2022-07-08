@@ -447,13 +447,13 @@ export default function Employes() {
 
   return (
     <> <Toaster position="bottom-right" />
-      <div className="container-fluid px-3">
+      <div className="container-fluid px-2">
         <div className="row">
           <div className="col-12 card-tops px-1 mt-2" style={{ padding: "0px", marginBottom: "20px" }}>
             <div className="row text-start">
-              <div className="card " style={{ padding: "0px 15px", borderRadius: "15px", marginBottom: "0px" }}>
-                <div className="card-body">
-                  <h2 className="card-Leads">Add a Candidat / Employes</h2>
+              <div className="card " style={{ height:"77px", borderRadius: "15px", marginBottom: "0px" }}>
+                <div className="card-body d-flex align-items-center">
+                  <h2 className="card-Leads mb-0">ADD A candidats / employes</h2>
                 </div>
               </div>
             </div>
@@ -661,7 +661,7 @@ export default function Employes() {
                       <label className="Form-styling">
                         Motivation de ce candidat à travailler avec nous
                       </label>
-                      {/* <div className="col-12 coverClass  px-0">
+                      {/* <div className="col-12   px-0">
                         <div className="row">
                           <div className="col-3  d-flex flex-column ">
 
@@ -736,18 +736,18 @@ export default function Employes() {
                             will he still need to think?
                           </h5> : null}
                       </div> */}
- <div className=" coverClass  px-0">
+ <div className="coverClass  px-0">
                        
                           
 <ul className="ul-Styling"><li>
-                            <div className="" style={{ height: "35px" }}>   <input
+                            <div className="text-center" style={{ height: "35px" }}>   <input
                               type="radio"
                               name="candidatMotivation"
                               value={1}
                               onChange={onFormDataChange}
                               id="r1"
                             />     <label htmlFor="r1" className="react " >
-                                <i data-icon="😟" style={{marginInline:"25px"}}>
+                                <i data-icon="😟" >
                                   </i>
                               </label>
                               <p className="m-0 font-Emoji">Dissapointed</p>
@@ -803,7 +803,7 @@ export default function Employes() {
                               onChange={onFormDataChange}
                               id="r5"
                             /> <label htmlFor="r5" className="react text-start">
-                                <i data-icon="😍"  style={{width:"75px"}}></i>
+                                <i data-icon="😍"  style={{width:"35px"}}></i>
                               </label>
                             <p className="m-0  font-Emoji">Super lovely</p>
 
@@ -1033,7 +1033,7 @@ export default function Employes() {
                       <p className="padding-bottom Form-styling">
                         Fetes/date pour lequel il veux impérativement rentrer
                       </p>
-                      <div className="pt-1">
+                      <div style={{marginTop:"30px"}}>
                         <Select
                           name="candidatFetes"
                           options={colourOptionsFetes}

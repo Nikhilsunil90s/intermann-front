@@ -8,7 +8,6 @@ import ArchivedModal from "../components/Modal/ArchivedModal";
 import { useNavigate } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import FileUploadProgress from "react-fileupload-progress";
 import Select from "react-select";
 import {ReactComponent as Upload} from "../images/upload.svg"
 import {ReactComponent as Download} from '../images/download.svg'
@@ -739,86 +738,6 @@ const fetchRecommendations = async (candidatSector: string) => {
                 </div>
                 </div>
                 </div>
-
-                {/* <div className="col-6 CandidateCV">
-                  <div className="row p-2">
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-3 d-flex justify-content-end">
-                          <img
-                            style={{ width: "50%" }}
-                            src={require("../images/CandidateCv.svg").default}
-                          />
-                        </div>
-                        <div className="col-9 px-0">
-                          <p className="mb-0 UploadCandidat">
-                            Upload Candidate CV Made by candidate{" "}
-                          </p>
-                          <p className="mb-0 dropFile">
-                            Drop your file here or browse
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pt-1 px-3">
-                      <FileUploadProgress
-                        key="ex1"
-                        onProgress={(e, request, progress) => {
-                          console.log("progress", e, request, progress);
-                        }}
-                        onLoad={(e, request) => {
-                          console.log("load", e, request);
-                        }}
-                        onError={(e, request) => {
-                          console.log("error", e, request);
-                        }}
-                        onAbort={(e, request) => {
-                          console.log("abort", e, request);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div> */}
-
-                {/* <div className="col-6 CandidateCV">
-                  <div className="row p-2">
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-3 d-flex justify-content-end">
-                          <img
-                            style={{ width: "50%" }}
-                            src={require("../images/CandidateCv.svg").default}
-                          />
-                        </div>
-                        <div className="col-9 px-0">
-                          <p className="mb-0 UploadCandidat">
-                            Upload Candidate CV Made by candidate{" "}
-                          </p>
-                          <p className="mb-0 dropFile">
-                            Drop your file here or browse
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pt-1 px-3">
-                      <FileUploadProgress
-                        key="ex1"
-                        onProgress={(e, request, progress) => {
-                          console.log("progress", e, request, progress);
-                        }}
-                        onLoad={(e, request) => {
-                          console.log("load", e, request);
-                        }}
-                        onError={(e, request) => {
-                          console.log("error", e, request);
-                        }}
-                        onAbort={(e, request) => {
-                          console.log("abort", e, request);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div> */}
                          <div className="col-12 Social-Card mt-1">
               <div className="row justify-content-center">
                 <div className="col-12 d-flex justify-content-center">

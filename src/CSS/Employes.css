@@ -357,6 +357,7 @@ background-color: #032339;
 
 
 /* Emoji css */
+
 .ul-Styling{
 display: flex;
 justify-content: space-around;
@@ -459,7 +460,15 @@ line-height: 18px;
        filter .5s .5s,
        transform 1s cubic-bezier(0,26.67,.5,26.67);
        
+       
   }
+  .react:before {
+    content: "";
+    grid-area: 1/1;
+    border-radius: 50%;
+    border: solid orange calc(var(--r)/2);
+    transform: scale(0);
+}
   input:checked + .react:before {
     border-width:0;
     transform:scale(1);
@@ -484,6 +493,8 @@ line-height: 18px;
   }
   input:checked + .react i:after {
     transform:rotate(55deg) scale(1);
+    background-color: #FE8700;
+
 
   }  
  .coverClass input[type=radio]{

@@ -8,7 +8,6 @@ import {ReactComponent as Download} from '../images/download.svg'
 import InProgressModal from "../components/Modal/InProgressModal";
 import ArchivedModal from "../components/Modal/ArchivedModal";
 import Select from 'react-select'
-import FileUploadProgress from "react-fileupload-progress";
 import { ProgressBar } from "react-bootstrap";
 import { API_BASE_URL } from '../config/serverApiConfig';
 import axios from "axios";

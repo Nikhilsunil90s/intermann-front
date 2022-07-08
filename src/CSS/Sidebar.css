@@ -60,11 +60,6 @@ color: #000000;
     display: block;
 }
 
-.container-fluid {
-    padding-right: 0px !important;
-    padding-left: 0px !important;
-}
-
 .scroll {
     position: absolute;
     right: 0;
