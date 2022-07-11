@@ -939,13 +939,53 @@ color: #ffff;
         font-family: 'Poppins';
         font-style: normal;
         font-weight: 400;
-        font-size: 12px;
+        font-size: 16px;
         line-height: 8px;
         display: grid;
         align-items: center;
         color: #000000;
         padding: 10px 0px 0px 24px;
     }
+    .preCard-Body {
+        font-family: 'Poppins' !important;
+        font-style: normal !important;
+        font-weight: 600 !important;
+        font-size: 16px !important;
+        line-height: 21px !important;
+        display: flex;
+        align-items: center;
+        color: #000000 !important;
+    }
+    .preCard-Body-p {
+        font-family: 'Poppins' !important;
+        font-style: normal !important;
+        font-weight: 400 !important;
+        font-size: 16px !important;
+        line-height: 26px !important;
+        display: flex;
+        align-items: center;
+        color: #000000 !important;
+    }
+    .preCard-Body {
+        font-family: 'Poppins' !important;
+        font-style: normal !important;
+        font-weight: 600 !important;
+        font-size: 16px !important;
+        line-height: 26px !important;
+        display: flex;
+        align-items: center;
+        color: #000000 !important;
+    }
+    .preCard-Body-blue {
+        font-family: 'Poppins' !important;
+        font-style: normal !important;
+        font-weight: 400 !important;
+        font-size: 16px !important;
+        line-height: 21px !important;
+        display: flex;
+        align-items: center;
+        color: #3F76E2 !important;
+    }    
     .topCandidateHeaderPre {
         padding: 0px 15px;
         border-radius: 10px;

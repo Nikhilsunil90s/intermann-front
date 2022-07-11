@@ -20,11 +20,12 @@ import "react-multi-carousel/lib/styles.css";
 import axios from "axios";
 import { ProgressBar } from "react-bootstrap";
 import ReadMoreReact from 'read-more-react';
-import Loader from '../components/Loader/loader'
-
+import RenameDoc from '../components/Modal/RenameDoc_Modal'
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
 })
+ 
+let RenameData=[]
 function ToDoProfile() {
 
 
@@ -57,8 +58,7 @@ function ToDoProfile() {
   const [docUploaded, setDocUploaded] = useState(false);
   const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
   const [clientList, setClientList] = useState([]);
-
-
+  const [RenameDocStatus,setRenameDocStatus]=useState(false)
  const uploadOption=[
  {value:"upload",label:<Upload />,},
  {value:"Download Image",label:<Download />} 
@@ -147,12 +147,17 @@ const fetchRecommendations = async (candidatSector: string) => {
   }
   const renameDocument = (docId: any, docName: any) => {
     setRenameDoc(true);
-    renameCandidatDocument(docId, docName, profile._id).then(resData => {
-      console.log(resData)
-      setRenameDoc(false);
-    }).catch(err => {
-      console.log(err)
-    })
+    RenameData=[
+      docId,
+      docName,
+      profile._id
+    ]
+    // renameCandidatDocument(docId, docName, profile._id).then(resData => {
+    //   console.log(resData)
+    //   setRenameDoc(false);
+    // }).catch(err => {
+    //   console.log(err)
+    // })
   }
   const fileChange = (
     e: React.ChangeEvent<
@@ -228,7 +233,8 @@ const fetchRecommendations = async (candidatSector: string) => {
   }, [recommendations])
 
   useEffect(() => {
-    console.log(profile._id, profile.candidatDocuments)
+    console.log(profile._id,"id")
+    console.log(profile.candidatDocuments,"doc")
     fetchCandidat(profile._id).then(resData => {
       console.log(resData)
       setCandidatImage("")
@@ -831,7 +837,8 @@ const fetchRecommendations = async (candidatSector: string) => {
                                 <img
                                   src={require("../images/editSvg.svg").default}
                                   style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
-                                  onClick={() => renameDocument(doc._id, doc.documentName)}
+                                  // onClick={() => renameDocument(doc._id, doc.documentName)}
+                                  onClick={()=>{setRenameDocStatus(true);renameDocument(doc._id, doc.documentName)}}
                                 />
                                 <img
                                   src={require("../images/Primaryfill.svg").default}
@@ -842,7 +849,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                             </div>
                           </div>
                         ) :
-                        progress > 0 && progress < 100?
+                        progress > 0 && progress < 100 && documentList.length == 0?
                         <div className="col-6 mx-0">
                         <div className="row CardClassDownload p-0 mt-1 mx-0">
                           <div className="col-4 pr-0 d-flex align-items-center ">
@@ -869,7 +876,7 @@ const fetchRecommendations = async (candidatSector: string) => {
 <p className="text-center">No Documents Uploaded!</p>
    
                     }
-    {progress > 0 && progress < 100  ?
+    {progress > 0 && progress < 100 && documentList.length > 0 ?
                         <div className="col-6 mx-0">
                         <div className="row CardClassDownload p-0 mt-1 mx-0">
                           <div className="col-4 pr-0 d-flex align-items-center ">
@@ -896,6 +903,13 @@ const fetchRecommendations = async (candidatSector: string) => {
                   
 
                           }
+                          {
+                            RenameDocStatus? 
+                            <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus}  />
+                            :
+                            null
+                          }
+              
                   </div>
                 </div>
 

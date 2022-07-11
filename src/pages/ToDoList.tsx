@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import StarRatings from "react-star-ratings";
 import "../CSS/CanEmpl.css";
 import ToDoProfileCard from "../components/ToDoProfileCard";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import { Toaster } from "react-hot-toast";
 import Loader from "../components/Loader/loader";
-import Select, { GroupBase, StylesConfig } from "react-select";
+import Select, { StylesConfig } from "react-select";
 import chroma from 'chroma-js';
-import { colourOptions, ColourOption } from "../Selecteddata/data";
-import SelectLoader from "../components/Loader/selectLoader"
+import { ColourOption } from "../Selecteddata/data";
+import ProfileLoader from "../components/Loader/ProfilesLoader"
+
 
 declare namespace JSX {
   interface IntrinsicElements {
@@ -693,7 +692,9 @@ function ToDoList() {
                           styles={colourStyles}
 
                           
-                        /> :<SelectLoader />
+                        /> :  
+                                           <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+
                                             }
                     {/* <select
                       name="candidatActivityName"
@@ -869,7 +870,8 @@ function ToDoList() {
                                 options={email}
                                 styles={colourStyles}
                               />
-                              :<SelectLoader />
+  :
+                        <div >   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
                             }
                             </div>
                           </div>
@@ -932,7 +934,7 @@ function ToDoList() {
               {status ?
                 filterData.length > 0 ?
                   filterData.map((profile, index) => (
-                    <div className="col-md-6 col-xxl-4 pl-0 col-xl-4 col-lg-4 ">
+                    <div className="col-md-6 col-xxl-4  col-xl-4 col-lg-4 col-sm-6 pl-0">
                       <ToDoProfileCard data={profile} />
                     </div>
                   ))

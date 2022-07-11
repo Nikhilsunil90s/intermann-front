@@ -265,17 +265,17 @@ hr.new5 {
 .EmbauchCardChildFonts p {
   font-family: "Poppins";
   font-style: normal;
-  font-weight: 400 !important;
+  font-weight: 600 !important;
   font-size: 12px !important;
   line-height: 18px !important;
-  color: #000000 !important;
+  color: #000000 ;
 }
-.EmbauchCardChildFonts .blue {
+/* .EmbauchCardChildFonts .blue {
   font-weight: 700 !important;
   font-size: 10px !important;
   color: #3f76e2 !important;
   padding: 10px 0px;
-}
+} */
 
 /* Modal In-Progress */
 
@@ -454,8 +454,21 @@ hr.new5 {
 .btn-EDITbgb:hover {
 color: #ffffff !important;
 }
+.btn-SeePreCard:hover{
+  color: #ffff !important;
+}
 
 @media (min-width: 768px) {
+  .preSelectedCommentBox div:last-child {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 12px;
+    display: flex;
+    align-items: center;
+    color: #000000;
+}
   .btn-ArchivedEmbauch:hover {
     color: #ffffff !important;
     }
@@ -699,6 +712,27 @@ margin-right: 5px;
 }
 }
 @media (min-width: 1200px) {
+  .box-purple {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 16px;
+    color: #000000;
+    background-color: #f4e7ff !important;
+    padding: 10px;
+    padding-left: 18px !important;
+    display: grid;
+    align-items: center;
+}
+.todoCardbodyBlue {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  color: #3F76E2 !important;
+}
   .btn-ArchivedEmbauch:hover {
     color: #ffffff !important;
     }
@@ -842,6 +876,47 @@ margin-right: 5px;
 }
 }
 @media (min-width:1400px){
+  .preSelectedCommentBox div:last-child {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 12px;
+    display: flex;
+    align-items: center;
+    color: #000000;
+}
+  .box-purple {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    color: #000000;
+    background-color: #f4e7ff !important;
+    padding: 10px;
+    padding-left: 18px !important;
+    display: grid;
+    align-items: center;
+}
+  .EmbauchCard p {
+    font-family: "Poppins" !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    line-height: 25px !important;
+    color: #000000 !important;
+    margin-bottom: 0px;
+    margin-left: 10px;
+}
+.EmbauchCardChildFonts p {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  line-height: 26px !important;
+  color: #000000 !important;
+}
   .btn-ArchivedEmbauch:hover {
     color: #ffffff !important;
     }

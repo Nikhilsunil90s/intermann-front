@@ -9,6 +9,7 @@ import Select ,{StylesConfig }from 'react-select'
 import chroma from 'chroma-js'
 import SelectLoader from "../components/Loader/selectLoader"
 import { colourOptions, ColourOption } from "../Selecteddata/data";
+import ProfileLoader from "../components/Loader/ProfilesLoader"
 
 
 declare global {
@@ -555,7 +556,9 @@ function Embauch() {
                           onChange={handleNameChange}
                           options={nameOptions}
                           styles={colourStyles}
-                        /> :<SelectLoader />
+                        /> :
+                        <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+
                                             }
                     {/* <select
                       name="candidatActivityName"
@@ -710,7 +713,7 @@ function Embauch() {
                   {status ? 
                     filterData.length > 0 ? 
                       filterData.map((profile, index) => (
-                        <div className="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 mt-1  pr-0">
+                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 mt-1  pr-0">
                           <EmbaucheProfileCard path={false} props={profile}  />
                         </div>
                       ))

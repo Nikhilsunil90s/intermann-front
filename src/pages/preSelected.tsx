@@ -9,8 +9,8 @@ import Loader from "../components/Loader/loader";
 import Select, { GroupBase, StylesConfig } from "react-select";
 import { colourOptions, ColourOption } from "../Selecteddata/data";
 import PreSelectedCard from "./preSelectedCard";
-import SelectLoader from "../components/Loader/selectLoader"
 import chroma from 'chroma-js';
+import ProfileLoader from "../components/Loader/ProfilesLoader"
 
 
 declare namespace JSX {
@@ -638,27 +638,8 @@ function Preselected(){
                           onChange={handleNameChange}
                           options={nameOptions}
                           styles={colourStyles}
-                        /> :<SelectLoader />
+                       /> :   <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
                                             }
-                    {/* <select
-                      name="candidatActivityName"
-                      className="form-select"
-                      onChange={handleNameChange}
-                      onClick={() => {
-                        // setSelectedJob([]);
-                        filterFunction();
-                      }}
-                    >
-                      <option value="Select Un Name" className="fadeClass001">Select</option>
-                      {nameOptions &&
-                        SelectDropDown.map((Name) => (
-                          <option value={Name.candidatName}>
-                            <button className="dropdown-item">
-                              {Name.candidatName}
-                            </button>
-                          </option>
-                        ))}
-                    </select> */}
                   </div>
                 </div>
               </div>
@@ -833,7 +814,7 @@ function Preselected(){
                   {status ? 
                     filterData.length > 0 ? 
                       filterData.map((profile, index) => (
-                        <div className="col-xxl-3 col-xl-4 col-lg-6 col-md-6  pd-left">
+                        <div className="col-md-6 col-xxl-4  col-xl-4 col-lg-4 pd-left">
                           <PreSelectedCard data={profile} />
 
                         </div>

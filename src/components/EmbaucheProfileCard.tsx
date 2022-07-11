@@ -34,7 +34,7 @@ const EmbaucheProfileCard = (props: any,{path}) => {
     return (
         <>
             <div className="card card-color mb-0">
-                <div className="card-upper">
+                <div className="card-upper cursor-pointer" onClick={()=>viewFullProfile()}>
                     <div className="col-4">
                         <img
                             src={require("../images/card-men.svg").default}
@@ -72,7 +72,7 @@ const EmbaucheProfileCard = (props: any,{path}) => {
                     <p className="mb-0">Phone Number:  <b>{props.props.candidatPhone}</b></p>
                     <p className="mb-0">Facebook URL:  <b>{props.props.candidatFBURL ? <a href={props.props.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
                     <p className="mb-0">Email: <b>{props.props.candidatEmail ? props.props.candidatEmail : "No Email Provided!"}</b> </p>
-                    <p className="blue mb-0">Ready for work:  {props.props.candidatStartDate} To {props.props.candidatEndDate} </p>
+                    <p className="todoCardbodyBlue mb-0 my-1">Ready for work:  {props.props.candidatStartDate} To {props.props.candidatEndDate} </p>
                     </div>
                  
 
@@ -97,7 +97,7 @@ const EmbaucheProfileCard = (props: any,{path}) => {
                     isSearchable={false}
                  />
                      </div>
-                        <div className="col-6 text-center">
+                        <div className="col-6 text-end">
                         <button className="btn btn-card" onClick={()=>viewFullProfile()}>
                             See Full Profile
                         </button>
