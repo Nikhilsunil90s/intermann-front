@@ -397,6 +397,14 @@ line-height: 16px;
 color: #000000;
 
 }
+.WAIT-font {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    color: #3F3F44;
+}
 
 @media (min-width:768px) {
     .fontStylinForcards {

@@ -20,7 +20,7 @@ import "react-multi-carousel/lib/styles.css";
 import axios from "axios";
 import { ProgressBar } from "react-bootstrap";
 import ReadMoreReact from 'read-more-react';
-
+import Loader from '../components/Loader/loader'
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -161,6 +161,9 @@ const fetchRecommendations = async (candidatSector: string) => {
   ) => {
 
     if (e.target.name === 'candidatPhoto') {
+      console.log(e.target.files,"e.target.files")
+      console.log(e.target.files[0],"e.target.files[]")
+
       const fileUploaded = e.target.files[0]
       let formdata = new FormData();
       formdata.append('candidatId', profile._id)
@@ -358,6 +361,13 @@ const fetchRecommendations = async (candidatSector: string) => {
   className="Todoupload"
 
 />
+<input
+                    type="file"
+                    ref={hiddenImageInput}
+                    onChange={fileChange}
+                    name="candidatPhoto"
+                    style={{ display: 'none' }}
+                  />
                 </div>
                 <div className="col-xxl-7 col-xl-7 col-lg-7 col-md-7 col-sm-7 card-TodoProfile">
                   <div className="d-flex">
@@ -685,7 +695,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                     :
                     loader ?
                       <div className="col-12 mx-auto">
-                        <ProfileLoader />
+                        <ProfileLoader width={"300px"} height={"300px"} fontSize={"22px"} fontWeight={700} Title={"Loading.."}/>
                       </div> : 
                       <div className="Social-Card m-1 text-center">No More Client Recommendations!</div>
             
@@ -804,14 +814,18 @@ const fetchRecommendations = async (candidatSector: string) => {
                                 <p className="download-font mb-0">{doc.originalName}</p>
                               </div>
                               <div className="col-6 text-center">
-                                {progress > 0 && progress < 100  ?
+                                {/* {progress > 0 && progress < 100  ?
                                   <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
                                   :
                                   <button className="btnDownload">
                                     <img src={require("../images/dowBtn.svg").default} />
                                     {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
                                   </button>
-                                }
+                                } */}
+                                     <button className="btnDownload">
+                                    <img src={require("../images/dowBtn.svg").default} />
+                                    {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
+                                  </button>
                               </div>
                               <div className="col-2  d-flex align-item-end justify-content-end">
                                 <img
@@ -827,9 +841,36 @@ const fetchRecommendations = async (candidatSector: string) => {
                               </div>
                             </div>
                           </div>
-                        ) : <p className="text-center">No Documents Uploaded!</p>
+                        ) :
+                        <p className="text-center">No Documents Uploaded!</p>
                     }
+    {progress > 0 && progress < 100  ?
+                        <div className="col-6 mx-0">
+                        <div className="row CardClassDownload p-0 mt-1 mx-0">
+                          <div className="col-4 pr-0 d-flex align-items-center ">
+                        <ProfileLoader width={"90"} height={"56px"} fontSize={"12px"} fontWeight={600} Title={"Uploading!"}/>
+                          </div>
+                          <div className="col-6 text-center  mb-0" style={{marginTop:"21px"}}>
+                              <ProgressBar className="mb-0" now={progress} label={`${progress}%`} />
+                          </div>
+                          <div className="col-2  d-flex align-item-end justify-content-end">
+                            <img
+                              src={require("../images/editSvg.svg").default}
+                              style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                              // onClick={() => renameDocument(doc._id, doc.documentName)}
+                            />
+                            <img
+                              src={require("../images/Primaryfill.svg").default}
+                              style={{ width: "20px", cursor: 'pointer' }}
+                              // onClick={() => deleteDocument(doc._id, doc.documentName)}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                        :
+                     null
 
+                          }
                   </div>
                 </div>
 
