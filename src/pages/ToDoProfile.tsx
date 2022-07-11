@@ -806,7 +806,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                   </div>
                   <div className="row" style={{ marginRight: '1px' }}>
                     {
-                      documentList.length > 0 ?
+                      documentList.length > 0  ?
                         documentList.map((doc, index) =>
                           <div className="col-6 mx-0">
                             <div className="row CardClassDownload mt-1 mx-0">
@@ -842,9 +842,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                             </div>
                           </div>
                         ) :
-                        <p className="text-center">No Documents Uploaded!</p>
-                    }
-    {progress > 0 && progress < 100  ?
+                        progress > 0 && progress < 100?
                         <div className="col-6 mx-0">
                         <div className="row CardClassDownload p-0 mt-1 mx-0">
                           <div className="col-4 pr-0 d-flex align-items-center ">
@@ -867,8 +865,35 @@ const fetchRecommendations = async (candidatSector: string) => {
                           </div>
                         </div>
                       </div>
+                      :  
+<p className="text-center">No Documents Uploaded!</p>
+   
+                    }
+    {progress > 0 && progress < 100  ?
+                        <div className="col-6 mx-0">
+                        <div className="row CardClassDownload p-0 mt-1 mx-0">
+                          <div className="col-4 pr-0 d-flex align-items-center ">
+                        <ProfileLoader width={"90"} height={"56px"} fontSize={"12px"} fontWeight={600} Title={"Uploading!"}/>
+                          </div>
+                          <div className="col-6 text-center  mb-0" style={{marginTop:"21px"}}>
+                              <ProgressBar className="mb-0" now={progress} label={`${progress}%`} />
+                          </div>
+                          <div className="col-2  d-flex align-item-end justify-content-end">
+                            <img
+                              src={require("../images/editSvg.svg").default}
+                              style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                            />
+                            <img
+                              src={require("../images/Primaryfill.svg").default}
+                              style={{ width: "20px", cursor: 'pointer' }}
+                            />
+                          </div>
+                        </div>
+                      </div>
                         :
-                     null
+                      
+                 null 
+                  
 
                           }
                   </div>
