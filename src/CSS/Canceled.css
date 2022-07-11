@@ -46,10 +46,6 @@ hr.new5{
     height: 1px !important;
     border-radius: 34px;
 }
-.card-upper img{
-    width: 65px;
-    padding: 10px 4px;
-}
 .card-upper{
     display: flex;
 

@@ -876,6 +876,9 @@ color: #000000;
     .btn-bgblack img{
         width:15px
     }
+    .paddingForLarge{
+padding: 0px;
+    }
     .btn-bgblack {
         background-color: #032339;
         font-weight: 700;
@@ -1188,6 +1191,9 @@ padding: 10px 20px;
     .detailsCardClientSee{
         max-width: 56%;
     }
+    .paddingForLarge{
+        padding: 0px;
+    }
     .img-uploadTodo-Download {
         width: 110px;
         object-fit: cover;
@@ -1371,30 +1377,8 @@ padding: 10px 20px;
 }
     }
     @media (min-width: 1200px) { 
-        .todoCardbody{
-            font-family: 'Poppins';
-font-style: normal;
-font-weight: 500 !important;
-font-size: 12px !important;
-line-height: 21px !important;
-color: #000000 !important;
-        }
-        .todoCardbody-p{
-            font-family: 'Poppins';
-font-style: normal;
-font-weight: 400 !important;
-font-size: 12px !important;
-line-height: 21px !important;
-color: #000000 !important;
-        }
-        .todoCardbodyBlue{
-            font-family: 'Poppins';
-font-style: normal;
-font-weight: 600 !important;
-font-size: 12px !important;
-line-height: 16px !important;
-color: #3F76E2 !important;
-        }
+  
+   
         .card-todoBody{
             -webkit-box-flex: 1;
             flex: 1 1 auto;
@@ -1705,6 +1689,9 @@ color: #3F76E2 !important;
      
     }
      @media (min-width:1400px){
+        .paddingForLarge{
+        padding: 5px;
+        }
         .Social-btns {
             height: 584px;
             padding: 10px 0px !important;

@@ -225,6 +225,39 @@ const fetchRecommendations = async (candidatSector: string) => {
   }, [recommendations])
 
   useEffect(() => {
+    console.log(profile._id, profile.candidatDocuments)
+    fetchCandidat(profile._id).then(resData => {
+      console.log(resData)
+      setCandidatImage("")
+      if (resData.status) {
+        setProfile(resData.data)
+        setDocumentList([...resData.data.candidatDocuments])
+        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
+        setDocUploaded(false);
+      } else {
+        setDocumentList([...documentList])
+        setDocUploaded(false);
+      }
+    })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [docUploaded])
+  
+  const fetchCandidat = async (candidatId: any) => {
+    return await fetch(API_BASE_URL + `getCandidatById/?candidatId=${candidatId}`, {
+      method: "GET",
+      headers: {
+        "Accept": 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+    })
+      .then(resp => resp.json())
+      .then(respData => respData)
+      .catch(err => err)
+  }
+
+  useEffect(() => {
     setLoader(true);
     fetchRecommendations(profile.candidatActivitySector)
       .then(respData => {
@@ -265,7 +298,7 @@ const fetchRecommendations = async (candidatSector: string) => {
     <>
       <Toaster position="top-right" containerStyle={{ zIndex: '99999999999' }} />
       <div className="containet-fluid">
-        <div className="row mx-0">
+        <div className="row mx-0 paddingForLarge">
           {/* <div className="col-12 top-pd text-center">
             <h1 style={{ textDecoration: "underline" }}>
               CANDIDAT: {profile.candidatName}
@@ -598,7 +631,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                 {
                   recommendations && recommendations.length > 0 ?
                     recommendations.map(recommendation => (
-                      <div className="row p-1 m-1 Social-Card client-Card" style={{height:"308px"}}>
+                      <div className="row  m-1 Social-Card client-Card" style={{height:"308px"}}>
                         <div className="col-3">
                           <img 
                             src={
@@ -631,7 +664,7 @@ const fetchRecommendations = async (candidatSector: string) => {
             readMoreText={"....."}/></div>  : <p style={{height:"100px"}} className="mb-0 FontStylingCardtext">No Notes/Skills Available!</p>}
                           </p>
                         </div>
-                        <div className="col-6 text-center d-flex align-items-center px-0">
+                        <div className="col-6 text-center d-flex align-items-center justify-content-center px-0">
                           <button className="btnMatched" onClick={() => setShowInPreSelectedModal(true)}>Matched</button>
                           {showPreSelectedModal ?
                             <PreModal
@@ -691,7 +724,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                   null
 
                   }
-                  <p className="italic-fontStyle text-start">
+                  <p className="italic-fontStyle text-center">
                     Si vous le préselectionné pour un client en cours de
                     recherche
                   </p>
@@ -732,7 +765,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                     <img src={require("../images/resume.svg").default} />
                     Créer CV Manuel
                   </a>
-                  <p className="italic-fontStyle text-start">
+                  <p className="italic-fontStyle text-center">
                     Edit CV with Canva
                   </p>
                 </div>
@@ -771,7 +804,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                                 <p className="download-font mb-0">{doc.originalName}</p>
                               </div>
                               <div className="col-6 text-center">
-                                {progress > 0 && docUploaded ?
+                                {progress > 0 && progress < 100  ?
                                   <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
                                   :
                                   <button className="btnDownload">

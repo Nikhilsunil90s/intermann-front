@@ -664,18 +664,13 @@ function ToDoList() {
           <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 card-tops px-1 mt-1 " style={{ padding: "0px", marginBottom: "20px" }}>
             <div className="row text-start">
               <div className="card mdquery" style={{ padding: "15px 15px", borderRadius: "10px", marginBottom: "0px" }}>
-                <div className="">
-                  <img
-                    src={require("../images/Stats.svg").default}
-                    style={{ width: "70%", marginBottom: "10px" }}
-                  />
+                <div className="d-flex topHeading"> <h2 className="">candidats / employes</h2> <span className="topBluetext">list to do / En Sommeil</span></div>
                   <p className="h-child-text d-flex mb-0">
                     Ici vous avez la liste des candidats ne travaillant pas encore avec nous
                   </p>
                   <p className="h-child-text mb-0">
                     Vous devez toujours vous assurer d’avoir un maximum d’information sur cette liste et déplacer les candidats en archive si plus d’actualité
                   </p>
-                </div>
               </div>
             </div>
           </div>
@@ -774,7 +769,7 @@ function ToDoList() {
                       onChange={jobChange}
                       options={jobOptions}
                       styles={colourStyles}
-                    /> : <p>Select A Sector!</p>
+                    /> : <p className="FiltreName mt-1">Select A Sector!</p>
                   }
                 </div>
               </div>
@@ -937,7 +932,7 @@ function ToDoList() {
               {status ?
                 filterData.length > 0 ?
                   filterData.map((profile, index) => (
-                    <div className="col-md-6 col-xxl-3 pl-0 col-xl-4 col-lg-4 ">
+                    <div className="col-md-6 col-xxl-4 pl-0 col-xl-4 col-lg-4 ">
                       <ToDoProfileCard data={profile} />
                     </div>
                   ))

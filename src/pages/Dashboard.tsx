@@ -79,7 +79,7 @@ function Dashboard() {
   return (
     <>
       <Toaster position="top-center" />
-      <div className="container-fluid">
+      <div className="container-fluid px-0">
         <div className="row mx-0">
           <div className="col-12  card-tops mt-2" style={{padding:"0px",marginBottom:"20px"}}>
             <div className="card d-flex justify-content-center" style={{padding:"0px 15px",borderRadius:"10px",marginBottom:"0px",height:"77px"}}>

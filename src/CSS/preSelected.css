@@ -184,6 +184,27 @@ padding: 15px 30px;
     padding: 15px 30px;
 }
  @media (min-width:768px){
+    .topHeading h2 {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 33px;
+        letter-spacing: 1px;
+        text-transform: capitalize;
+        color: #252726;
+    }
+    .topHeading span {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 33px;
+        letter-spacing: 1px;
+        text-transform: capitalize;
+        color: #3F76E2 !important;
+        margin-left: 5px;
+    }
     .scrollbarpree {
         height: 356px;
     }

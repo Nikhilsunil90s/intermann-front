@@ -399,6 +399,17 @@ color: #000000;
 }
 
 @media (min-width:768px) {
+    .fontStylinForcards {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 8px;
+        display: grid;
+        align-items: center;
+        color: #000000;
+        padding: 10px 3px;
+    }
     .FiltreName {
         font-family: 'Poppins';
         font-style: normal;
@@ -407,9 +418,58 @@ color: #000000;
         line-height: 12px;
         margin-bottom: 0.5rem;
     }
+    .card-upper img {
+        width: 75px;
+        padding: 10px 4px;
+    }
+    .todoCardbody {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500 ;
+        font-size: 12px ;
+        line-height: 21px;
+        color: #000000;
+    }
+    .todoCardbody-p{
+        font-family: 'Poppins';
+font-style: normal;
+font-weight: 400 ;
+font-size: 12px ;
+line-height: 21px ;
+color: #000000 ;
+    }
+    .h-child-text {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 300;
+        font-size: 11px;
+        line-height: 20px;
+        display: flex;
+        align-items: flex-end;
+        color: #000000;
+    }
+    .todoCardbodyBlue {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px;
+        color: #3F76E2 !important;
+    }
 }
 
+
 @media (min-width: 1200px) { 
+    .h-child-text {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 20px;
+        display: flex;
+        align-items: flex-end;
+        color: #000000;
+    }
     .CardOptions .css-1s2u09g-control {
         border-radius: 25px !important;
         min-height: 25px !important;
@@ -417,6 +477,7 @@ color: #000000;
         width: 130px;
         height: 32px !important;
     }
+    
     .btn-viewprofile-card {
         height: 24px;
         background: #032339;
@@ -436,8 +497,46 @@ color: #000000;
         line-height: 12px;
         margin-bottom: 0.5rem;
     }
+    .card-upper img {
+        width: 75px;
+        padding: 10px 4px;
+    }
+    .todoCardbody{
+        font-family: 'Poppins';
+font-style: normal;
+font-weight: 500 ;
+font-size: 12px ;
+line-height: 21px ;
+color: #000000 ;
+    }
+    .todoCardbody-p{
+        font-family: 'Poppins';
+font-style: normal;
+font-weight: 400 ;
+font-size: 12px ;
+line-height: 21px ;
+color: #000000 ;
+    }
+    .todoCardbodyBlue{
+        font-family: 'Poppins';
+font-style: normal;
+font-weight: 600 ;
+font-size: 12px ;
+line-height: 16px ;
+color: #3F76E2 !important;
+    }
 }
 @media (min-width: 1400px) { 
+    .h-child-text {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 20px;
+        display: flex;
+        align-items: flex-end;
+        color: #000000;
+    }
     .FiltreName {
         font-family: 'Poppins';
         font-style: normal;
@@ -465,5 +564,52 @@ color: #000000;
         width: 110px !important;
         padding: 0px  !important;
     }
+    .card-upper img {
+        width: 90px;
+        padding: 10px 4px;
+    }
+    .fontStylinForcards {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 8px;
+        display: grid;
+        align-items: center;
+        color: #000000;
+        padding: 10px 0px;
+    }
+.age00 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 15px;
+    color: #000000;
+}
+.todoCardbody {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500 ;
+    font-size: 16px ;
+    line-height: 26px ;
+    color: #000000 ;
+}
+.todoCardbody-p {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400 ;
+    font-size: 16px ;
+    line-height: 26px ;
+    color: #000000 ;
+}
+.todoCardbodyBlue {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    line-height: 16px !important;
+    color: #3F76E2 !important;
+}
 }
 
