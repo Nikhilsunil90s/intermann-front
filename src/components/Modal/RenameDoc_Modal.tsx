@@ -9,29 +9,44 @@ import { API_BASE_URL } from "../../config/serverApiConfig";
 function RenameDoc({props,closepreModal}) {
   const notifyCandidatMovedSuccess = () => toast.success("Document Name Changed Successfully!");
   const notifyCandidatMovedError = () => toast.error("Document Name Not Change Please Try Again.");
-
+console.log(props,"props")
   const [NewName, setNewName] = useState("");
   const onDataChange = (e: React.ChangeEvent<
     HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
   >) => {
     // debugger
-    console.log(e.target.value)
-    setNewName(e.target.value);
+    if(props[3].split(".")[1]){
+    console.log(e.target.value.concat("."+ props[3].split(".")[1]))
+    setNewName(e.target.value.concat("."+ props[3].split(".")[1]));
+    }
+    else{
+    setNewName(e.target.value);  
+    }
   }
- 
+ console.log(props[3],"props")
   const renameCandidatDocument = async () => {
     let headers = {
       "Accept": 'application/json',
       "Authorization": "Bearer " + localStorage.getItem('token')
     }
-    return await fetch(API_BASE_URL + `renameDocument/?documentId=${props[0]}&documentName=${NewName}&candidatId=${props[2]}`, {
+    return await fetch(API_BASE_URL + `renameDocument/?documentId=${props[0]}&newName=${NewName}&candidatId=${props[2]}`, {
       method: "GET",
       headers: headers
     })
       .then(reD => reD.json())
-      .then(resD => resD.status === true ? notifyCandidatMovedSuccess : notifyCandidatMovedError()
+      .then(resD => resD.status === true ?  RenameMoved()  : notifyCandidatMovedError()
       )
       .catch(err => err )
+  }
+
+  const RenameMoved=()=>{
+    notifyCandidatMovedSuccess()
+    setTimeout(function () {
+      window.location.href = "/todoprofile";
+    },
+      2000
+    );
+
   }
 
   return (
@@ -61,7 +76,7 @@ function RenameDoc({props,closepreModal}) {
             </div>
             <div className="modal-body">
 
-<p className="ChildStylePreModal">Document Name : <span className="text-success"> {props[1]}</span></p>
+<p className="ChildStylePreModal">Document Name : <span className="text-success"> {props[3]}</span></p>
 <div >           </div>
                               <p className="ChildStylePreModal mt-2">Enter new Name..</p>
 <div><div className="form-floating">

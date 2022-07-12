@@ -190,7 +190,7 @@ function Preselected(){
           };
         
           const fetchProfiles = async () => {
-            return await fetch(API_BASE_URL + "allToDoCandidats", {
+            return await fetch(API_BASE_URL + "allPreSelectedCandidats", {
               method: "GET",
               headers: {
                 Accept: "application/json",
@@ -206,13 +206,21 @@ function Preselected(){
           useEffect(() => {
             if (nameOptions.length == 0) {
               fetchProfiles().then((profilesResult) => {
+                if(profilesResult.length>0){ 
                 let nameops = profilesResult.map((pro) => {
                   return { value: pro.candidatName, label: pro.candidatName, color: '#FF8B00' }
                 })
                 setNameOptions([...nameops])
+              }
+              else{
+            return    setLoader(false)
+              }
               }).catch(err => {
                 console.log(err)
               })
+            }
+            else{
+              return
             }
           })
         
@@ -570,11 +578,23 @@ function Preselected(){
             }
             if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0) {
               {
-                setLoader(true)
-                setStatus(true)
+
                 fetchProfiles().then(filteredresponse => {
+                console.log(filteredresponse,"filteredresponse")
+
+                  if(filteredresponse.data.length > 0){
                   setFilterData([...filteredresponse])
-                })
+                  setLoader(true)
+                setStatus(true)
+                  }
+                else{
+              return   setLoader(true),  setStatus(false)
+
+                
+                  }
+
+                }
+                )
                   .catch(err => {
                     console.log(err);
                   })
@@ -816,7 +836,6 @@ function Preselected(){
                       filterData.map((profile, index) => (
                         <div className="col-md-6 col-xxl-4  col-xl-4 col-lg-4 pd-left">
                           <PreSelectedCard data={profile} />
-
                         </div>
                       ))
                      : 

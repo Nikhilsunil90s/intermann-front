@@ -34,13 +34,13 @@ const PreSelectedCard = (props: any,{path}) => {
                window.open("/preSelectedView", "_blank")
     }
     const MoreOption=(e)=>{
-      if(e.target.value==="editProfile"){
+      if(e.value==="editProfile"){
           editCandidatProfile()
       }
-      if(e.target.value==="Move to In Progress"){
+      if(e.value==="Move to In Progress"){
         setShowInProgressModal(true)
       }
-      if(e.target.value==="Archive"){
+      if(e.value==="Archive"){
         setShowArchiveModal(true) 
       }
     }

@@ -8,6 +8,7 @@ import { colourOptions, ColourOption } from "../Selecteddata/data";
 import SelectLoader from "../components/Loader/selectLoader"
 import chroma from 'chroma-js'
 import Select ,{StylesConfig }from 'react-select'
+import ProfileLoader from "../components/Loader/ProfilesLoader"
 
 declare namespace JSX {
   interface IntrinsicElements {
@@ -39,7 +40,7 @@ function ArchivedList() {
   const [nameOptions, setNameOptions] = useState([])
   const [sectorOptions, setSectorOptions] = useState([]);
   const [jobOptions, setJobOptions] = useState([]);
-  const [showMore, setShowMore] = useState(false)
+  const [showMore, setShowMore] = useState(true)
 
 
   const colourStyles: StylesConfig<ColourOption, true> = {
@@ -484,7 +485,7 @@ useEffect(() => {
           </div>
           <div className="col-12 bg-white p-2 rounded001 mb-1">
             <div className="row ">
-              <div className="col-4">
+              <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6">
                 <p className="filtersLabel">Filtre by name</p>
                 <div className="dropdown">
                   <div aria-labelledby="dropdownMenuButton1">
@@ -499,13 +500,15 @@ useEffect(() => {
                           onChange={handleNameChange}
                           options={nameOptions}
                           styles={colourStyles}
-                        /> :<SelectLoader />
+                        /> :
+                        <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+
                                             }
                   
                   </div>
                 </div>
               </div>
-              <div className="col-4">
+              <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6">
                 <p className="filtersLabel">Filtre Secteur d’activité</p>
                 <div className="dropdown">
                   <div aria-labelledby="dropdownMenuButton1">
@@ -525,7 +528,7 @@ useEffect(() => {
                   </div>
                 </div>
               </div>
-              <div className="col-4">
+              <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 JobPD">
                 <p className="filtersLabel">Filtre selection métier / job</p>
                 <div>
                   {jobOptions.length > 0 ?
@@ -546,9 +549,9 @@ useEffect(() => {
               {
                 showMore ?
                   <>
-                    <div className="col-12 pt-1">
+                    <div className="col-12 ">
                       <div className="row">
-                        <div className="col-4 pt-1">
+                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 pt-1">
                           <p className="filtersLabel">Filtre by Client</p>
                           <div className="dropdown">
                             <div aria-labelledby="dropdownMenuButton1">
@@ -563,7 +566,7 @@ useEffect(() => {
                             </div>
                           </div>
                         </div>
-                        <div className="col-4 pt-1">
+                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 pt-1">
                           <p className="filtersLabel ">Filtre Langues du candidat</p>
                         <Select
                           name="candidatLanguages"

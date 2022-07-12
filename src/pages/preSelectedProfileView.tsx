@@ -15,11 +15,14 @@ import axios from "axios";
 import { API_BASE_URL } from '../config/serverApiConfig';
 import { ProgressBar } from "react-bootstrap";
 import { Toaster, toast } from 'react-hot-toast';
+import ProfileLoader from "../components/Loader/ProfilesLoader";
+import RenameDoc from '../components/Modal/RenameDoc_Modal'
+
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
 })
-
+let RenameData=[]
 function PreSelectedView() {
   const navigate = useNavigate();
   const profileData = JSON.parse(localStorage.getItem("profile"));
@@ -36,6 +39,10 @@ function PreSelectedView() {
   const [docUploaded, setDocUploaded] = useState(false);
   const [documentList, setDocumentList] = useState([]);
   const [renameDoc, setRenameDoc] = useState(false);
+  const [RenameDocStatus,setRenameDocStatus]=useState(false)
+  const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
+  const hiddenImageInput = React.useRef(null);
+  const [loader, setLoader] = useState(false);
 
   
  const uploadOption=[
@@ -116,6 +123,18 @@ function PreSelectedView() {
       return;
     }
   }
+  const handleImageChange = (e: any) => {
+    if (e.value == 'upload') {
+      console.log("upload")
+      handleImageUpload()
+    } else if (e.value == 'Download Image') {
+      console.log("download")
+      window.open(API_BASE_URL + candidatImage);
+    }
+  }
+  const handleImageUpload = () => {
+    hiddenImageInput.current.click();
+  }
   const editCandidatProfile = () => {
     navigate("/editToDo", { state: profile });
   };
@@ -126,6 +145,7 @@ function PreSelectedView() {
     const fileUploaded = e.target.files[0];
     console.log(fileUploaded);
   }
+  
   const renameCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
     let headers = {
       "Accept": 'application/json',
@@ -139,15 +159,15 @@ function PreSelectedView() {
       .then(resD => resD)
       .catch(err => err)
   }
-  const renameDocument = (docId: any, docName: any) => {
-    setRenameDoc(true);
-    renameCandidatDocument(docId, docName, profile._id).then(resData => {
-      console.log(resData)
-      setRenameDoc(false);
-    }).catch(err => {
-      console.log(err)
-    })
-  }
+  // const renameDocument = (docId: any, docName: any) => {
+  //   setRenameDoc(true);
+  //   renameCandidatDocument(docId, docName, profile._id).then(resData => {
+  //     console.log(resData)
+  //     setRenameDoc(false);
+  //   }).catch(err => {
+  //     console.log(err)
+  //   })
+  // }
   const deleteCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
     let headers = {
       "Accept": 'application/json',
@@ -176,6 +196,60 @@ function PreSelectedView() {
       console.log(err)
     })
   }
+  const renameDocument = (docId: any, docName: any,originalName:any) => {
+    setRenameDoc(true);
+    console.log(originalName,"originalName")
+    RenameData=[
+      docId,
+      docName,
+      profile._id,
+      originalName
+  
+    ]
+    // renameCandidatDocument(docId, docName, profile._id).then(resData => {
+    //   console.log(resData)
+    //   setRenameDoc(false);
+    // }).catch(err => {
+    //   console.log(err)
+    // })
+  }
+
+    
+    useEffect(() => {
+    console.log(profile._id,"id")
+    console.log(documentList,"doc")
+    fetchCandidat(profile._id).then(resData => {
+      console.log(resData)
+
+      setCandidatImage("")
+      if (resData.status) {
+        setProfile(resData.data)
+        setDocumentList([...resData.data.candidatDocuments])
+        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
+        setDocUploaded(false);
+      } else {
+        setDocumentList([...documentList])
+        setDocUploaded(false);
+      }
+    })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [docUploaded])
+
+  const fetchCandidat = async (candidatId: any) => {
+    return await fetch(API_BASE_URL + `getCandidatById/?candidatId=${candidatId}`, {
+      method: "GET",
+      headers: {
+        "Accept": 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+    })
+      .then(resp => resp.json())
+      .then(respData => respData)
+      .catch(err => err)
+  }
+
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -195,6 +269,9 @@ function PreSelectedView() {
       items: 1,
     },
   };
+  const  ViewDownloadFiles =( documentName:any)=>{
+    window.open(API_BASE_URL + documentName)
+   }
   return (
     <>
       <Toaster position="top-right" containerStyle={{ zIndex: '99999999999' }} />
@@ -236,17 +313,32 @@ function PreSelectedView() {
             <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pb-0 mt-1">
               <div className="row bg-todoTodoDetails mt-0">
                 <div className="col-xxl-2 col-xl-2 col-md-2 col-sm-2 text-center ">
+   
+                     {candidatImage !== "" ?
+                      <img
+                        // src={require("../images/menlogos.svg").default}
+                        src={API_BASE_URL + candidatImage}
+                     className="img-upload-Download"
+                      /> :
                     <img
                       src={require("../images/menlogos.svg").default}
                      className="img-upload-Download"
                     />
+                    // 
+                  }
                <Select
                           closeMenuOnSelect={true}
-                          // onChange={handleImageChange}
+                          onChange={handleImageChange}
   options={uploadOption}
   className="Todoupload"
-
 />
+<input
+                    type="file"
+                    ref={hiddenImageInput}
+                    onChange={fileChange}
+                    name="candidatPhoto"
+                    style={{ display: 'none' }}
+                  />
                 </div>
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 card-preProfile">
                   <div className="d-flex">
@@ -635,8 +727,8 @@ No FB URL!
                     </div>
                   </div>
                   <div className="row" style={{ marginRight: '1px' }}>
-                    {
-                      documentList.length > 0 ?
+                  {
+                      documentList.length > 0  ?
                         documentList.map((doc, index) =>
                           <div className="col-6 mx-0">
                             <div className="row CardClassDownload mt-1 mx-0">
@@ -644,20 +736,25 @@ No FB URL!
                                 <p className="download-font mb-0">{doc.originalName}</p>
                               </div>
                               <div className="col-6 text-center">
-                                {progress > 0 && docUploaded ?
+                                {/* {progress > 0 && progress < 100  ?
                                   <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
                                   :
                                   <button className="btnDownload">
                                     <img src={require("../images/dowBtn.svg").default} />
                                     {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
                                   </button>
-                                }
+                                } */}
+                                     <button className="btnDownload" onClick={()=>ViewDownloadFiles(doc.documentName)}>
+                                    <img src={require("../images/dowBtn.svg").default} />
+                                    {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
+                                  </button>
                               </div>
                               <div className="col-2  d-flex align-item-end justify-content-end">
                                 <img
                                   src={require("../images/editSvg.svg").default}
                                   style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
-                                  onClick={() => renameDocument(doc._id, doc.documentName)}
+                                  // onClick={() => renameDocument(doc._id, doc.documentName)}
+                                  onClick={()=>{setRenameDocStatus(true);renameDocument(doc._id,doc.documentName,doc.originalName)}}
                                 />
                                 <img
                                   src={require("../images/Primaryfill.svg").default}
@@ -667,9 +764,67 @@ No FB URL!
                               </div>
                             </div>
                           </div>
-                        ) : <p className="text-center">No Documents Uploaded!</p>
+                        ) :
+                        progress > 0 && progress < 100 && documentList.length == 0?
+                        <div className="col-6 mx-0">
+                        <div className="row CardClassDownload p-0 mt-1 mx-0">
+                          <div className="col-4 pr-0 d-flex align-items-center ">
+                        <ProfileLoader width={"90"} height={"56px"} fontSize={"12px"} fontWeight={600} Title={"Uploading!"}/>
+                          </div>
+                          <div className="col-6 text-center  mb-0" style={{marginTop:"21px"}}>
+                              <ProgressBar className="mb-0" now={progress} label={`${progress}%`} />
+                          </div>
+                          <div className="col-2  d-flex align-item-end justify-content-end">
+                            <img
+                              src={require("../images/editSvg.svg").default}
+                              style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                              // onClick={() => renameDocument(doc._id, doc.documentName)}
+                            />
+                            <img
+                              src={require("../images/Primaryfill.svg").default}
+                              style={{ width: "20px", cursor: 'pointer' }}
+                              // onClick={() => deleteDocument(doc._id, doc.documentName)}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      :  
+<p className="text-center">No Documents Uploaded!</p>
+   
                     }
+    {progress > 0 && progress < 100 && documentList.length > 0 ?
+                        <div className="col-6 mx-0">
+                        <div className="row CardClassDownload p-0 mt-1 mx-0">
+                          <div className="col-4 pr-0 d-flex align-items-center ">
+                        <ProfileLoader width={"90"} height={"56px"} fontSize={"12px"} fontWeight={600} Title={"Uploading!"}/>
+                          </div>
+                          <div className="col-6 text-center  mb-0" style={{marginTop:"21px"}}>
+                              <ProgressBar className="mb-0" now={progress} label={`${progress}%`} />
+                          </div>
+                          <div className="col-2  d-flex align-item-end justify-content-end">
+                            <img
+                              src={require("../images/editSvg.svg").default}
+                              style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                            />
+                            <img
+                              src={require("../images/Primaryfill.svg").default}
+                              style={{ width: "20px", cursor: 'pointer' }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                        :
+                      
+                 null 
+                  
 
+                          }
+    {
+                            RenameDocStatus? 
+                            <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus}  />
+                            :
+                            null
+                          }
                   </div>
                 </div>
                 </div>

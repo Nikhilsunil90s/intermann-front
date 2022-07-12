@@ -4,28 +4,19 @@ import Select,{StylesConfig} from "react-select";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../../Selecteddata/data';
 import chroma from 'chroma-js';
+import { useNavigate } from "react-router-dom";
 
-let opArr=[]
+let CName=[]
 function InProgressModal({ props, closeModal }) {
   console.log(props);
-  // Notifications //
-  const notifyMoveSuccess = () =>
-    toast.success("Moved to In-Progress Successfully!");
-   const notifyMoveError = () => toast.error("Not Moved..");
   //  End   //
-  const [workingFor, setWorkingFor] = useState(opArr);
-  const [workingSince, setWorking] = useState("");
-  const [salary, setSalary] = useState("");
-  const [candidatId, setCandidateID] = useState(props._id);
-  const [clientOption,setClientOption]=useState([{
-value:"Client ONE",label:"Client One",color:  '#FF8B00',name:"clientName"
-  }
-,{
-  value:"Client TWO",label:"Client TWO",color:  '#FF8B00',name:"clientName"
-    },{
-      value:"Client THREE",label:"Client THREE",color:  '#FF8B00',name:"clientName"
-        }
-])as any
+  const navigate = useNavigate();
+  const [workingFor, setWorkingFor] = useState("")
+  const [workingSince, setWorking] = useState("")
+  const [salary, setSalary] = useState("")
+  const [clients, setClients] = useState([]);
+  const [candidatId, setCandidateID] = useState(props._id)
+
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -78,74 +69,98 @@ value:"Client ONE",label:"Client One",color:  '#FF8B00',name:"clientName"
       },
     }),
   };
-
   let data = {
-    workingFor,
-    workingSince,
-    salary,
-    candidatId,
-  };
+    workingFor, workingSince, salary, candidatId
+  }
+  const notifyMoveSuccess = () => toast.success("Moved to In-Progress Successfully!");
+
+  const notifyMoveError = () => toast.error("Not Moved To In-Progress");
+
+  const fetchClients = () => {
+    return fetch(API_BASE_URL + "getClients", {
+      method: "GET",
+      headers: {
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+    })
+      .then(red => red.json())
+      .then(d => d)
+      .catch(err => err)
+  }
+
+  useEffect(() => {
+    if (clients.length == 0) {
+      fetchClients()
+        .then(result => {
+          console.log(result.data,"result")
+          if (result.status) {
+         
+        CName=    result.data.map((el)=>{
+         return { value:el.clientCompanyName,label:el.clientCompanyName,color:  '#FF8B00',name:"clientName"}            })
+    }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  })
 
   const saveModalData = async () => {
-    console.log(data);
+    console.log(data)
     return await fetch(API_BASE_URL + "moveToInProgress", {
       method: "POST",
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
       },
       body: JSON.stringify(data),
     })
-      .then((resp) => resp.json())
-      .then((reD) => {
-        {
-          console.log(reD);
-        }
-      })
-      .catch((err) => err);
-  };
+      .then(resp => resp.json())
+      .then(reD => reD)
+      .catch(err => err)
+  }
 
-  const saveFormData = (e) => {
-    e.preventDefault();
+  const saveFormData = (e: React.FormEvent<HTMLFormElement>) => {
     console.log(data);
+    e.preventDefault();
     saveModalData()
       .then((resp) => {
-        console.log(resp);
+        console.log(resp)
         closeModal(false);
-        setTimeout(function () {
-              window.location.href = "/todolist";
-            },
-          2000
-        );    
         notifyMoveSuccess();
+        setTimeout(function () {
+          // window.location.href = "/todolist";
+          navigate("/dashboard");
+        },
+          2000
+        );
       })
-      .catch((err) => {
-        console.log(err);
-        notifyMoveError()
-      });
-  };
-  const Client=(ClientOp)=>{
-    if(ClientOp.value !== "")
-    opArr=ClientOp.value
+      .catch(err => {
+        console.log(err)
+        notifyMoveError();
+      })
   }
+
   const onFormDataChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
-    >
+    e: any
   ) => {
-    // if (e.target.value !== "") {
-    //   console.log(e.target.name, e.target.value);
-    //   setWorkingFor(e.target.value);
-    //   alert("hello")
-    if (e.target.name === "date") {
-      console.log(e.target.name, e.target.value);
-      setWorking(e.target.value);
-    } else if (e.target.name === "turnover") {
-      console.log(e.target.value);
-      setSalary(e.target.value);
+
+    if (e.name === 'clientName') {
+      console.log(e.name, e.value);
+      setWorkingFor(e.value);
     }
-  };
+    else if (e.target.name === "date") {
+      console.log(e.target.name, e.target.value);
+      setWorking(e.target.value)
+    }
+    else if (e.target.name === "turnover") {
+      console.log(e.target.value)
+      setSalary(e.target.value)
+    }
+  }
   return (
     <>
       <div
@@ -157,7 +172,7 @@ value:"Client ONE",label:"Client One",color:  '#FF8B00',name:"clientName"
         aria-labelledby="staticBackdropLabel"
       >
         <div className="modal-dialog modal-lg">
-          <div className="modal-content padding-full">
+          <div className="modal-content">
           <div className="modal-header">
           <h2 className="modal-title modalStylingfontProgress" id="staticBackdropLabel">
               Move {props.candidatName} to
@@ -201,8 +216,8 @@ value:"Client ONE",label:"Client One",color:  '#FF8B00',name:"clientName"
                   <option value="3">Client Three</option>
                 </select> */}
                 <Select 
-                options={clientOption}
-                onChange={Client}
+                options={CName}
+                onChange={onFormDataChange}
                 styles={colourStyles}
                 className="inProgress"
                 placeholder="{Client_list}"

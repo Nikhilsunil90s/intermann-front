@@ -6,19 +6,27 @@ import { useLocation } from "react-router-dom";
 import {ReactComponent as Upload} from "../images/upload.svg"
 import {ReactComponent as Download} from '../images/download.svg'
 import Select from 'react-select'
+import ProfileLoader from "../components/Loader/ProfilesLoader";
+import { API_BASE_URL } from '../config/serverApiConfig';
+import axios from "axios";
 
+
+const axiosInstance = axios.create({
+  baseURL: API_BASE_URL,
+})
 
 const ArchivedProfile = () => {
  const navigate=useNavigate()
   const { state } = useLocation();
+
   const [profile, setProfile] = useState<any>(state);
   const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
   const uploadOption=[
     {value:"upload",label:<Upload />,},
     {value:"Download Image",label:<Download />} 
     ]
-
-
+    const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
+    const [loader, setLoader] = useState(false);
     const editCandidatProfile = () => {
       navigate("/editArchived", { state: profile });
     };
@@ -33,11 +41,8 @@ const ArchivedProfile = () => {
 
   return (
     <>
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-12 top-pd text-center">
-            <h1 style={{ textDecoration: "underline" }}>CANDIDAT: {profile.candidatName}</h1>
-          </div>
+      <div className="container-fluid " style={{marginTop:"100px"}}>
+        <div className="row px-1">
           {/* <div className="col-6">
             <div className="stable">
               <Link to="/archivedlist">
@@ -57,15 +62,11 @@ const ArchivedProfile = () => {
             </button>
           </div> */}
              <div
-            className="card "
-            style={{
-              padding: "0px 15px",
-              borderRadius: "15px",
-              marginBottom: "0px",
-            }}
+            className="card mt-2 mb-0"
+        
           >
-            <div className="row text-start">
-              <div className="col-6">
+            <div className="row topCandidateHeader">
+              <div className="col-6  d-flex align-items-center">
                 <div className="stable">
                   <Link to="/archivedlist">
                     <button
@@ -78,7 +79,7 @@ const ArchivedProfile = () => {
                   </Link>
                 </div>
               </div>
-              <div className="col-6 text-end">
+              <div className="col-6  d-flex align-items-center justify-content-end">
                 <Link to="/editArchived">
                 <button className="btn EditArchive" 
                 onClick={editCandidatProfile}
@@ -135,21 +136,33 @@ const ArchivedProfile = () => {
                 </div>
               </div>
             </div> */}
-             <div className="col-12 ">
-              <div className="row bg-ArchiveDetails">
-                <div className="col-2 text-center ">
-                  <img
+             <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pb-0 mt-1 ">
+              <div className="row bg-ArchiveDetails mt-0">
+                <div className="col-xxl-2 col-xl-2 col-md-2 col-sm-2 text-center">
+                {candidatImage !== "" ?
+                    loader ?
+                      <img
+                        // src={require("../images/menlogos.svg").default}
+                        src={API_BASE_URL + candidatImage}
+                     className="imgEmbauch-upload-Download"
+                      /> :  <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+                    :
+                    <img
                     src={require("../images/menlogos.svg").default}
-                    style={{ width: "90%" }}
+                   className="imgEmbauch-upload-Download"
+
                   />
-               
-                  <Select
+                    // 
+                  }
+                   <Select
                           closeMenuOnSelect={true}
+                          // onChange={handleImageChange}
   options={uploadOption}
-  className="upload"
+  className="Todoupload"
+
 />
                 </div>
-                <div className="col-5 card-TodoProfile">
+                <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 card-TodoProfile">
                   <div className="d-flex">
                     <p>
                      {profile.candidatName.toLocaleUpperCase()}|{profile.candidatAge}
@@ -166,8 +179,8 @@ const ArchivedProfile = () => {
                     Métier/Job : {profile.candidatJob.toLocaleUpperCase()}
                   </p>
                 </div>
-                <div className="col-5 text-end end-class">
-                  <div className="text-end ml-5">
+                <div className="col-4 px-0 text-end end-class d-flex align-items-center justify-content-center">
+                  <div className="d-grid justify-content-end align-items-center pr-1">
                   <button className="ArchiveLargebtn p-0"><img src={require("../images/ArchivedBtn.svg").default} /></button>
                   </div>
                   <p className="fw-bold text-end pl-5 pt-1">

@@ -12,17 +12,20 @@ import { ProgressBar } from "react-bootstrap";
 import { API_BASE_URL } from '../config/serverApiConfig';
 import axios from "axios";
 import { Toaster, toast } from 'react-hot-toast';
+import ProfileLoader from "../components/Loader/ProfilesLoader";
+import RenameDoc from '../components/Modal/RenameDoc_Modal'
 
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
 })
 
-
+let RenameData=[]
 function ProgressCard() {
 
   const { state } = useLocation();
 
+  const [loader, setLoader] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [profile, setProfile] = useState<any>(state);
   const [showInProgressModal, setShowInProgressModal] = useState(false);
@@ -34,13 +37,18 @@ function ProgressCard() {
   const [progress, setProgress] = useState<any>(0);
   const [docUploaded, setDocUploaded] = useState(false);
   const [renameDoc, setRenameDoc] = useState(false);
+  const [recommendations, setRecommendations] = useState([]);
+  const [clientList, setClientList] = useState([]);
+  const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
+  const [RenameDocStatus,setRenameDocStatus]=useState(false)
+
   const uploadOption=[
     {value:"upload",label:<Upload />,},
     {value:"Download Image",label:<Download />} 
     ]
     const navigate = useNavigate()
     const editCandidatProfile = () => {
-      navigate("/editToDo", { state: profile });
+      navigate("/editInProgress", { state: profile });
     };
 
   // useEffect(() => {
@@ -55,6 +63,59 @@ function ProgressCard() {
   const notifyDocumentDeleteError = () => toast.error("Document Not Removed! Please Try Again in few minutes.")
   const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
   const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
+
+  useEffect(() => {
+    setLoader(true);
+    fetchRecommendations(profile.candidatActivitySector)
+      .then(respData => {
+        if (respData.status) {
+          setRecommendations([...respData.data]);
+          setClientList([...respData.data]);
+          setLoader(true);
+        } else {
+          setRecommendations([])
+          setLoader(false);
+
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [state])
+  useEffect(() => {
+    console.log(profile._id,"id")
+    console.log(documentList,"doc")
+    fetchCandidat(profile._id).then(resData => {
+      console.log(resData)
+
+      setCandidatImage("")
+      if (resData.status) {
+        setProfile(resData.data)
+        setDocumentList([...resData.data.candidatDocuments])
+        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
+        setDocUploaded(false);
+      } else {
+        setDocumentList([...documentList])
+        setDocUploaded(false);
+      }
+    })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [docUploaded])
+
+  const fetchCandidat = async (candidatId: any) => {
+    return await fetch(API_BASE_URL + `getCandidatById/?candidatId=${candidatId}`, {
+      method: "GET",
+      headers: {
+        "Accept": 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+    })
+      .then(resp => resp.json())
+      .then(respData => respData)
+      .catch(err => err)
+  }
 
   const fileChange = (
     e: React.ChangeEvent<
@@ -121,27 +182,35 @@ function ProgressCard() {
       return;
     }
   }
-  const renameCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
-    let headers = {
-      "Accept": 'application/json',
-      "Authorization": "Bearer " + localStorage.getItem('token')
-    }
-    return await fetch(API_BASE_URL + `renameDocument/?documentId=${docId}&documentName=${docName}&candidatId=${candidatId}`, {
+  const fetchRecommendations = async (candidatSector: string) => {
+    return await fetch(API_BASE_URL + `clientRecommendations/?candidatSector=${candidatSector}`, {
       method: "GET",
-      headers: headers
+      headers: {
+        "Accept": 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
     })
-      .then(reD => reD.json())
-      .then(resD => resD)
+      .then(resp => resp.json())
+      .then(respData => respData)
       .catch(err => err)
   }
-  const renameDocument = (docId: any, docName: any) => {
+
+  const renameDocument = (docId: any, docName: any ,originalName:any) => {
+    console.log(originalName,"originalName")
     setRenameDoc(true);
-    renameCandidatDocument(docId, docName, profile._id).then(resData => {
-      console.log(resData)
-      setRenameDoc(false);
-    }).catch(err => {
-      console.log(err)
-    })
+
+    RenameData=[
+      docId,
+      docName,
+      profile._id,
+      originalName
+    ]
+    // renameCandidatDocument(docId, docName, profile._id).then(resData => {
+    //   console.log(resData)
+    //   setRenameDoc(false);
+    // }).catch(err => {
+    //   console.log(err)
+    // })
   }
   const deleteCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
     let headers = {
@@ -174,6 +243,10 @@ function ProgressCard() {
   const handleFileUpload = () => {
     hiddenFileInput.current.click();
   }
+  const  ViewDownloadFiles =( documentName:any)=>{
+    window.open(API_BASE_URL + documentName)
+   }
+  
   return (
     <>
       <Toaster position="top-right" containerStyle={{ zIndex: '99999999999' }} />
@@ -212,10 +285,20 @@ function ProgressCard() {
               <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pb-0 mt-1">
               <div className="row bg-todoTodoDetails mt-0">
                 <div className="col-xxl-2 col-xl-2 col-md-2 col-sm-2 text-center ">
-                    <img
-                      src={require("../images/menlogos.svg").default}
+                 
+                      {candidatImage !== "" ?
+                      <img
+                        // src={require("../images/menlogos.svg").default}
+                        src={API_BASE_URL + candidatImage}
                      className="imgEmbauch-upload-Download"
-                    />
+                      /> :
+                    <img
+                    src={require("../images/menlogos.svg").default}
+                   className="imgEmbauch-upload-Download"
+
+                  />
+                    // 
+                  }
                <Select
                           closeMenuOnSelect={true}
                           // onChange={handleImageChange}
@@ -604,14 +687,26 @@ No FB URL!
                   </tr>
                 </thead>
                 <tbody>
-                  {profile.candidatExperienceDetails.length > 0 &&
-                    profile.candidatExperienceDetails.map((detail) => (
-                      <tr>
-                        <td>{detail.period}</td>
-                        <td>{detail.location}</td>
-                        <td>{detail.workDoneSample}</td>
-                      </tr>
-                    ))}
+                {
+                    profile.candidatExperienceDetails.length > 0 &&
+                      profile.candidatExperienceDetails[0].period != "" ?
+                      (profile.candidatExperienceDetails.map((detail) =>
+                        <tr>
+                          <td>{detail.period}</td>
+                          <td>{detail.location}</td>
+                          <td>{detail.workDoneSample}</td>
+                        </tr>
+                      )
+                      ) : (
+                      
+                        <tr className="">
+                          <td colSpan={3} className="text-center">
+                            <p>No Experience Details Available!</p>
+                            <button className="btn btn-sm text-light btn-dark" onClick={editCandidatProfile}>Edit Candidat To Add Experience Details!</button>
+                          </td>
+                        </tr>
+                      )
+                  }
                 </tbody>
               </table>
             </div>
@@ -722,8 +817,8 @@ No FB URL!
                     </div>
                   </div>
                   <div className="row" style={{ marginRight: '1px' }}>
-                    {
-                      documentList.length > 0 ?
+                  {
+                      documentList.length > 0  ?
                         documentList.map((doc, index) =>
                           <div className="col-6 mx-0">
                             <div className="row CardClassDownload mt-1 mx-0">
@@ -731,20 +826,25 @@ No FB URL!
                                 <p className="download-font mb-0">{doc.originalName}</p>
                               </div>
                               <div className="col-6 text-center">
-                                {progress > 0 && docUploaded ?
+                                {/* {progress > 0 && progress < 100  ?
                                   <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
                                   :
                                   <button className="btnDownload">
                                     <img src={require("../images/dowBtn.svg").default} />
                                     {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
                                   </button>
-                                }
+                                } */}
+                                     <button className="btnDownload" onClick={()=>ViewDownloadFiles( doc.documentName)}>
+                                    <img src={require("../images/dowBtn.svg").default} />
+                                    {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
+                                  </button>
                               </div>
                               <div className="col-2  d-flex align-item-end justify-content-end">
                                 <img
                                   src={require("../images/editSvg.svg").default}
                                   style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
-                                  onClick={() => renameDocument(doc._id, doc.documentName)}
+                                  // onClick={() => renameDocument(doc._id, doc.documentName)}
+                                  onClick={()=>{setRenameDocStatus(true);renameDocument(doc._id,doc.documentName,doc.origianlName)}}
                                 />
                                 <img
                                   src={require("../images/Primaryfill.svg").default}
@@ -754,8 +854,67 @@ No FB URL!
                               </div>
                             </div>
                           </div>
-                        ) : <p className="text-center">No Documents Uploaded!</p>
+                        ) :
+                        progress > 0 && progress < 100 && documentList.length == 0?
+                        <div className="col-6 mx-0">
+                        <div className="row CardClassDownload p-0 mt-1 mx-0">
+                          <div className="col-4 pr-0 d-flex align-items-center ">
+                        <ProfileLoader width={"90"} height={"56px"} fontSize={"12px"} fontWeight={600} Title={"Uploading!"}/>
+                          </div>
+                          <div className="col-6 text-center  mb-0" style={{marginTop:"21px"}}>
+                              <ProgressBar className="mb-0" now={progress} label={`${progress}%`} />
+                          </div>
+                          <div className="col-2  d-flex align-item-end justify-content-end">
+                            <img
+                              src={require("../images/editSvg.svg").default}
+                              style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                              // onClick={() => renameDocument(doc._id, doc.documentName)}
+                            />
+                            <img
+                              src={require("../images/Primaryfill.svg").default}
+                              style={{ width: "20px", cursor: 'pointer' }}
+                              // onClick={() => deleteDocument(doc._id, doc.documentName)}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      :  
+<p className="text-center">No Documents Uploaded!</p>
+   
                     }
+    {progress > 0 && progress < 100 && documentList.length > 0 ?
+                        <div className="col-6 mx-0">
+                        <div className="row CardClassDownload p-0 mt-1 mx-0">
+                          <div className="col-4 pr-0 d-flex align-items-center ">
+                        <ProfileLoader width={"90"} height={"56px"} fontSize={"12px"} fontWeight={600} Title={"Uploading!"}/>
+                          </div>
+                          <div className="col-6 text-center  mb-0" style={{marginTop:"21px"}}>
+                              <ProgressBar className="mb-0" now={progress} label={`${progress}%`} />
+                          </div>
+                          <div className="col-2  d-flex align-item-end justify-content-end">
+                            <img
+                              src={require("../images/editSvg.svg").default}
+                              style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                            />
+                            <img
+                              src={require("../images/Primaryfill.svg").default}
+                              style={{ width: "20px", cursor: 'pointer' }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                        :
+                      
+                 null 
+                  
+
+                          }
+                          {
+                            RenameDocStatus? 
+                            <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus}  />
+                            :
+                            null
+                          }
      </div>     </div>
      </div>
                 </div>

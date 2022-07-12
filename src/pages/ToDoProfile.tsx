@@ -76,19 +76,6 @@ function ToDoProfile() {
     .then(resD => resD)
     .catch(err => err)
 }
-const renameCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
-  let headers = {
-    "Accept": 'application/json',
-    "Authorization": "Bearer " + localStorage.getItem('token')
-  }
-  return await fetch(API_BASE_URL + `renameDocument/?documentId=${docId}&documentName=${docName}&candidatId=${candidatId}`, {
-    method: "GET",
-    headers: headers
-  })
-    .then(reD => reD.json())
-    .then(resD => resD)
-    .catch(err => err)
-}
 const deleteDocument = async (docId: any, docName: any) => {
   await deleteCandidatDocument(docId, docName, profile._id).then(resData => {
     console.log(resData);
@@ -145,12 +132,14 @@ const fetchRecommendations = async (candidatSector: string) => {
       window.open(API_BASE_URL + candidatImage);
     }
   }
-  const renameDocument = (docId: any, docName: any) => {
+  const renameDocument = (docId: any, docName: any ,originalName:any) => {
     setRenameDoc(true);
+
     RenameData=[
       docId,
       docName,
-      profile._id
+      profile._id,
+      originalName
     ]
     // renameCandidatDocument(docId, docName, profile._id).then(resData => {
     //   console.log(resData)
@@ -164,11 +153,9 @@ const fetchRecommendations = async (candidatSector: string) => {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
     >
   ) => {
-
     if (e.target.name === 'candidatPhoto') {
       console.log(e.target.files,"e.target.files")
       console.log(e.target.files[0],"e.target.files[]")
-
       const fileUploaded = e.target.files[0]
       let formdata = new FormData();
       formdata.append('candidatId', profile._id)
@@ -182,6 +169,8 @@ const fetchRecommendations = async (candidatSector: string) => {
         .then(datares => {
           console.log(datares)
           if (datares.data.status) {
+            
+            console.log(datares.data.status,"datares.data.status")
             notifyDocumentUploadSuccess()
             // setCandidatImage(datares.data.filename)
             window.location.href = "/todoprofile"
@@ -210,9 +199,9 @@ const fetchRecommendations = async (candidatSector: string) => {
       })
         .then(resData => {
           if (resData.data.status) {
-            console.log(resData.data)
+            console.log(resData.data,"resData")
             setDocUploaded(true);
-            setProgress(0);
+            setProgress(0); 
             notifyDocumentUploadSuccess();
           } else {
             console.log(resData)
@@ -234,9 +223,10 @@ const fetchRecommendations = async (candidatSector: string) => {
 
   useEffect(() => {
     console.log(profile._id,"id")
-    console.log(profile.candidatDocuments,"doc")
+    console.log(documentList,"doc")
     fetchCandidat(profile._id).then(resData => {
       console.log(resData)
+
       setCandidatImage("")
       if (resData.status) {
         setProfile(resData.data)
@@ -303,6 +293,9 @@ const fetchRecommendations = async (candidatSector: string) => {
       items: 1,
     },
   };
+ const  ViewDownloadFiles =( documentName:any)=>{
+  window.open(API_BASE_URL + documentName)
+ }
   return (
     <>
       <Toaster position="top-right" containerStyle={{ zIndex: '99999999999' }} />
@@ -346,13 +339,11 @@ const fetchRecommendations = async (candidatSector: string) => {
               <div className="row bg-todoTodoDetails mt-0">
                 <div className="col-xxl-2 col-xl-2 col-md-2 col-sm-2 text-center ">
                 {candidatImage !== "" ?
-                    loader ?
                       <img
                         // src={require("../images/menlogos.svg").default}
                         src={API_BASE_URL + candidatImage}
                      className="img-uploadTodo-Download"
-                      /> : <SelectedLoader />
-                    :
+                      /> :
                     <img
                       src={require("../images/menlogos.svg").default}
                      className="img-uploadTodo-Download"
@@ -733,8 +724,6 @@ const fetchRecommendations = async (candidatSector: string) => {
                   <PreModal 
                    props={profile}
                    closepreModal={setShowInPreSelectedModal}
-                 
-
                   />
                   :
                   null
@@ -828,7 +817,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                                     {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
                                   </button>
                                 } */}
-                                     <button className="btnDownload">
+                                     <button className="btnDownload" onClick={()=>ViewDownloadFiles( doc.documentName)}>
                                     <img src={require("../images/dowBtn.svg").default} />
                                     {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
                                   </button>
@@ -838,7 +827,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                                   src={require("../images/editSvg.svg").default}
                                   style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
                                   // onClick={() => renameDocument(doc._id, doc.documentName)}
-                                  onClick={()=>{setRenameDocStatus(true);renameDocument(doc._id, doc.documentName)}}
+                                  onClick={()=>{setRenameDocStatus(true);renameDocument(doc._id, doc.documentName,doc.originalName)}}
                                 />
                                 <img
                                   src={require("../images/Primaryfill.svg").default}

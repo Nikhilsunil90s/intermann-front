@@ -46,7 +46,7 @@ function Embauch() {
   const [nameOptions, setNameOptions] = useState([])
   const [sectorOptions, setSectorOptions] = useState([]);
   const [jobOptions, setJobOptions] = useState([]);
-  const [showMore, setShowMore] = useState(false)
+  const [showMore, setShowMore] = useState(true)
 
 
 

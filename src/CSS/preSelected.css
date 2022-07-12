@@ -388,7 +388,7 @@ border-radius: 10px;
  
 
     .card-body {
-        padding: 0.5rem 0rem 0.5rem 0.5rem  !important;
+        padding: 0.5rem 0rem 0.5rem 0.5rem  ;
     }
     .preSelect .css-1t8y0t9-control {
         border-radius: 25px !important;
