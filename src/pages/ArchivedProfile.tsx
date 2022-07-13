@@ -9,6 +9,8 @@ import Select from 'react-select'
 import ProfileLoader from "../components/Loader/ProfilesLoader";
 import { API_BASE_URL } from '../config/serverApiConfig';
 import axios from "axios";
+import HideProfile from "../components/Modal/HideProfileModalForArchived";
+import RestProfile from "../components/Modal/RestProfileForArchived";
 
 
 const axiosInstance = axios.create({
@@ -20,6 +22,8 @@ const ArchivedProfile = () => {
   const { state } = useLocation();
 
   const [profile, setProfile] = useState<any>(state);
+  const [hideProfile,setHideProfile]=useState(false)
+  const [RestModalProfile,setRestModalProfile]=useState(false)
   const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
   const uploadOption=[
     {value:"upload",label:<Upload />,},
@@ -41,7 +45,7 @@ const ArchivedProfile = () => {
 
   return (
     <>
-      <div className="container-fluid " style={{marginTop:"100px"}}>
+      <div className="container-fluid " style={{marginTop:"80px"}}>
         <div className="row px-1">
           {/* <div className="col-6">
             <div className="stable">
@@ -62,7 +66,7 @@ const ArchivedProfile = () => {
             </button>
           </div> */}
              <div
-            className="card mt-2 mb-0"
+            className="card mt-2 marginTopCard mb-0"
         
           >
             <div className="row topCandidateHeader">
@@ -71,7 +75,7 @@ const ArchivedProfile = () => {
                   <Link to="/archivedlist">
                     <button
                       type="button"
-                      className="btn d-flex align-items-center"
+                      className="btn d-flex align-items-center pd-none"
                     >
                       <img src={require("../images/return.svg").default} />
                       <h2 className="card-Leads mb-0"> Candidate Profile</h2>
@@ -136,7 +140,7 @@ const ArchivedProfile = () => {
                 </div>
               </div>
             </div> */}
-             <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pb-0 mt-1 ">
+             <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pb-0 mt-2">
               <div className="row bg-ArchiveDetails mt-0">
                 <div className="col-xxl-2 col-xl-2 col-md-2 col-sm-2 text-center">
                 {candidatImage !== "" ?
@@ -144,12 +148,12 @@ const ArchivedProfile = () => {
                       <img
                         // src={require("../images/menlogos.svg").default}
                         src={API_BASE_URL + candidatImage}
-                     className="imgEmbauch-upload-Download"
+                     className="imgArchived-upload-download"
                       /> :  <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
                     :
                     <img
                     src={require("../images/menlogos.svg").default}
-                   className="imgEmbauch-upload-Download"
+                   className="imgArchived-upload-download"
 
                   />
                     // 
@@ -179,18 +183,20 @@ const ArchivedProfile = () => {
                     Métier/Job : {profile.candidatJob.toLocaleUpperCase()}
                   </p>
                 </div>
-                <div className="col-4 px-0 text-end end-class d-flex align-items-center justify-content-center">
-                  <div className="d-grid justify-content-end align-items-center pr-1">
-                  <button className="ArchiveLargebtn p-0"><img src={require("../images/ArchivedBtn.svg").default} /></button>
+                <div className="col-4 px-0 text-end end-class align-items-center justify-content-end pt-1 pr-2">
+                  <div className="d-grid justify-content-end align-items-center pb-1">
+                  <button className="ArchiveLargebtn pb-1 p-0"><img src={require("../images/ArchivedBtn.svg").default} /></button>
                   </div>
-                  <p className="fw-bold text-end pl-5 pt-1">
+                  <p className="textinPro text-end pl-5 ">
                   Candidat Archivé/Annulé/Viré
                   </p>
-                  <p className="text-end">This candidate have archived</p>
+                  <p className="text-PREBtn-child pb-1">This candidate have archived</p>
+
+                 
                 </div>
               </div>
             </div>
-            <div className="col-12 mt-1">
+            <div className="col-12 mt-2">
               <div className="row boxArchivedProfile">
                 <div className="whyFont"><p>WHY THIS CANDIDATES HAVE BEEN ARCHIVED: <span> {profile?.candidatArchived?.reason}</span></p></div>
               </div>
@@ -239,13 +245,13 @@ const ArchivedProfile = () => {
                 </div>
               </div>
             </div> */}
-             <div className="col-12 mt-1 ">
+             <div className="col-12 mt-2 ">
               <div className="row justify-content-between">
               
                 <div
-                  className="col-6 Archived-Card px-1  scrollbar"
+                  className="col-7 Archived-Card px-1  scrollbar heightWidth"
                   id="style-3"
-                  style={{ maxWidth: "49%", marginRight: "10px" }}
+                  style={{ maxWidth: "56%", marginRight: "10px" }}
                 >
                   <div className="Archived-CardMore force-overflow">
                     <div className="d-flex">
@@ -285,48 +291,86 @@ const ArchivedProfile = () => {
                   </div>
                 </div>
                 <div
-                  className="col-6 Archived-Card text-center p-0"
+                  className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-1 heightWidth"
                   style={{ maxWidth: "49%" }}
                 >
-                  <p className="Span-Styling pt-2 px-3">
+                  <div className="text-start px-1">
+                  <p className="Span-Styling pt-2 my-1">
                     Mail : {profile.candidatEmail ? profile.candidatEmail : "No Email Provided!"}
                   </p>
-                  
-                  <button className="btn btn-gmail">
+                  </div>
+                  {
+                    profile.candidatEmail ?       <button className=" btn-gmail my-1">
                     <a
                       href="https://accounts.google.com/"
                       className="text-dark fw-bold"
                       target="_blank"
                     >
                       <span className="padding-email">
-                        <img src={require("../images/gmail.svg").default} />
+                        <img  src={require("../images/gmail.svg").default} />
                       </span>
                       Send Email
                     </a>
-                  </button>
-                  <p className="Span-Styling mt-2 px-3">Facebook : {profile.candidatFBURL ? profile.candidatFBURL : "No Facebook URL!"}</p>
-                  <a
-                    href={profile.candidatFBURL}
-                    target="_blank"
-                    className="btn  btn-see"
-                  >
-                    <span className="padding-email">
-                      <img
-                        style={{ width: "8%" }}
-                        src={require("../images/facebook.svg").default}
-                      />
-                    </span>
-                    See Profile
-                  </a>
+                  </button> : 
+                      <button className="btn-gmail my-1">
+                      <a
+                        href="https://accounts.google.com/"
+                        className="text-dark fw-bold"
+                        target="_blank"
+                      >
+                        <span className="padding-email">
+                          <img src={require("../images/gmail.svg").default}  style={{ width: "8%" }} />
+                        </span>
+                        No Email !
+                      </a>
+                    </button>
+                  }
+                <div className="text-start px-1">
+                  <p className="Span-Styling my-2 px-3">Facebook : {profile.candidatFBURL ? profile.candidatFBURL : "No Facebook URL!"}</p>
+                  </div>
+                  {
+profile.candidatFBURL ?
+<a
+href={profile.candidatFBURL}
+target="_blank"
+className="btn btn-Facebookpresee my-1"
+>
+<span className="padding-email">
+  <img
+    style={{ width: "4%" }}
+    src={require("../images/facebook.svg").default}
+  />
+</span>
+See Profile
+</a>  :
+<button
+className="btn btn-Facebookpresee my-1"
+>
+<span className="padding-email">
+  <img
+    style={{ width: "4%" }}
+    src={require("../images/facebook.svg").default}
+  />
+</span>
+No FB URL!
+</button> 
 
-                  <p className="Span-Styling mt-2 px-3">
+                  }
+            
+            <div className="text-start px-1">
+                  <p className="Span-Styling my-2 px-3">
                     Phone : {profile.candidatPhone ? profile.candidatPhone : "No Phone Number!"}
                   </p>
-                  <button className="btn btn-whatsapp btn-see">
-                    <a
+                  </div>
+                  {
+                  profile.candidatPhone ?
+
+                      <a
                       href={`https://wa.me/${profile.candidatPhone}`}
                       target="_blank"
                     >
+                    <button className="btn-whatsapp mt-1 mb-1">
+                  
                       <span className="padding-email">
                         <img
                           style={{ width: "8%" }}
@@ -334,25 +378,60 @@ const ArchivedProfile = () => {
                         />
                       </span>
                       Send What’s App
-                    </a>
                   </button>
-                  <p className="Span-Styling mt-2 px-3">
+                  </a>
+
+                  :
+            
+                  <button className="btn-whatsapp mt-1 mb-1">
+                
+                    <span className="padding-email">
+                      <img
+                        style={{ width: "8%" }}
+                        src={require("../images/whatsapp.svg").default}
+                      />
+                    </span>
+                    No Phone Number!
+                </button>
+                  }
+               <div className="text-start px-1">
+                  <p className="Span-Styling mt-2 mb-1 px-3">
                     Phone 2 : {profile.candidatAlternatePhone ? profile.candidatAlternatePhone : "No AlternatePhone Number!"}
                   </p>
-                  <button className="btn btn-whatsapp btn-see">
+                  </div>
+                 {
+                    profile.cadidatAlternatePhone ?
                     <a
-                      href={`https://wa.me/${profile.candidatAlternatePhone}`}
-                      target="_blank"
-                    >
-                      <span className="padding-email">
-                        <img
-                          style={{ width: "8%" }}
-                          src={require("../images/whatsapp.svg").default}
-                        />
-                      </span>
-                      Send What’s App
-                    </a>
-                  </button>
+                    href={`https://wa.me/${profile.candidatAlternatePhone}`}
+                    target="_blank"
+                  >
+                  <button className="btn-whatsapp btn-see">
+               
+                    <span className="padding-email">
+                      <img
+                        style={{ width: "8%" }}
+                        src={require("../images/whatsapp.svg").default}
+                      />
+                    </span>
+                    Send What’s App
+                </button>
+                </a>
+
+                  :
+                
+                  <button className="btn-whatsapp mt-1 mb-1">
+             
+                    <span className="padding-email">
+                      <img
+                        style={{ width: "8%" }}
+                        src={require("../images/whatsapp.svg").default}
+                      />
+                    </span>
+                    No Phone Number!
+                
+                </button>
+                 }
+
                 </div>
               </div>
             </div>
@@ -371,18 +450,30 @@ const ArchivedProfile = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {profile.candidatExperienceDetails.length > 0 &&
-                    profile.candidatExperienceDetails.map((detail) => (
-                      <tr>
-                        <td>{detail.period}</td>
-                        <td>{detail.location}</td>
-                        <td>{detail.workDoneSample}</td>
-                      </tr>
-                    ))}
+                {
+                    profile.candidatExperienceDetails.length > 0 &&
+                      profile.candidatExperienceDetails[0].period != "" ?
+                      (profile.candidatExperienceDetails.map((detail) =>
+                        <tr>
+                          <td>{detail.period}</td>
+                          <td>{detail.location}</td>
+                          <td>{detail.workDoneSample}</td>
+                        </tr>
+                      )
+                      ) : (
+                      
+                        <tr className="">
+                          <td colSpan={3} className="text-center">
+                            <p>No Experience Details Available!</p>
+                            <button className="btn btn-sm text-light btn-dark" onClick={editCandidatProfile}>Edit Candidat To Add Experience Details!</button>
+                          </td>
+                        </tr>
+                      )
+                  }
                 </tbody>
               </table>
             </div>
-            <div className="col-12 mt-1 p-1 Archived-Card">
+            <div className="col-12 mt-2 p-1 Archived-Card">
               <div className="row">
                 <div className="col-12 d-flex AnneesStyle">
                  <p className="">Années d’expériance :</p>
@@ -399,7 +490,7 @@ const ArchivedProfile = () => {
                   </div>
               </div>
             </div>
-            <div className="col-12 Archived-Card mt-1">
+            <div className="col-12 Archived-Card mt-2">
               <div className="row p-1 justify-content-between">
                 {/* <div className="col-3 text-center">
                   <button type="button" className="btn btn-move" onClick={() => setShowInProgressModal(true)}>
@@ -421,7 +512,7 @@ const ArchivedProfile = () => {
                     <img src={require("../images/Edit.svg").default} />
                     Edit Profile
                   </button>
-                  <p className="italic-fontStyle text-start">Editer le profil</p>
+                  <p className="italic-fontStyle text-center">Editer le profil</p>
                 </div>
                 <div className="col-3 text-center">
                   <button
@@ -432,25 +523,36 @@ const ArchivedProfile = () => {
                     <img src={require("../images/resume.svg").default} />
                     Créer CV Manuel
                   </button>
-                  <p className="italic-fontStyle text-start">
+                  <p className="italic-fontStyle text-center">
                     Edit CV with Canva
                   </p>
                 </div>
-                <div className="col-3">
-                     <button className="hideProfile">
+                <div className="col-3 text-center">
+                     <button className="hideProfile" onClick={()=>setHideProfile(true)}>
                     <img src={require("../images/visibility.svg").default} />
                       Hide this profile</button>
-                      <p className="italic-fontStyle text-start">Profile will be not deleted but hidded</p>
+                      <p className="italic-fontStyle text-center">Profile will be not deleted but hidded</p>
                 </div>
                 <div className="col-3">
-                     <button className="restProfile">
+                     <button className="restProfile" onClick={()=>setRestModalProfile(true)}>
                     <img src={require("../images/rest.svg").default} />
                     Reset this profile</button>
-                    <p className="italic-fontStyle text-start">Profile will be reset to todo stage</p>
+                    <p className="italic-fontStyle text-center">Profile will be reset to todo stage</p>
                 </div>
                 </div >
                 </div>
-       
+       {
+        hideProfile?
+        <HideProfile props={profile} closeModal={setHideProfile}  path={"/todolist"}/>
+        :
+        null
+       }
+        {
+        RestModalProfile?
+        <RestProfile props={profile} closeModal={setRestModalProfile}  path={"/todolist"}/>
+        :
+        null
+       }
       </div>
       </div>
     </>

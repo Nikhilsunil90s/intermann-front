@@ -35,7 +35,7 @@ const ArchivedProfileCard = (props: any) => {
 
     return (
         <>
-            <div className="card card-color mt-1">
+            <div className="card card-color mt-1 mb-0">
                 <div className="card-upper cursor-pointer" onClick={()=>viewFullProfile()}>
                     <div className="col-4">
                         <img
@@ -45,7 +45,7 @@ const ArchivedProfileCard = (props: any) => {
                         />
                     </div>
                     <div className="col-7 ArchivedCard pt-1 px-0" >
-                        <p><b>{props.props.candidatName}</b></p>
+                        <p style={{width:"112%"}}><b>{props.props.candidatName}</b></p>
                         <p><b> {props.props.candidatAge}</b></p>
                         <div >  <p className="text-dark d-flex"> <b>{candidatMotivationIcons[props.props.candidatMotivation - 1].icon + " " + candidatMotivationIcons[props.props.candidatMotivation - 1].motivation}</b>
                         </p>
@@ -104,7 +104,7 @@ const ArchivedProfileCard = (props: any) => {
                     onChange={MoreOption} 
                  />
                         </div>
-                        <div className='col-6 text-center'>
+                        <div className='col-6 text-end'>
                         <button className="btn btn-card" onClick={viewFullProfile}>
                             See Full Profile
                         </button>

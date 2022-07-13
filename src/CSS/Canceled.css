@@ -367,13 +367,177 @@ margin-top: 5px;
         box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
         border-radius: 10px;
      }
+     .btnHide-ArchivedModal {
+        background: #E21B1B;
+        border-radius: 100px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        display: flex;
+        align-items: center;
+        color: #FFFFFF;
+        border: 0px;
+        padding: 12px 40px;
+    }
 @media (min-width:768px){
+    .boxArchivedProfile {
+        background: #FFE0E0;
+        border: 1px solid #FF0000;
+        box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+        border-radius: 10px;
+        padding: 10px 0px;
+    }
+    .boxArchivedProfile {
+        background: #FFE0E0;
+        border: 1px solid #FF0000;
+        box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+        border-radius: 10px;
+        padding: 40px 0px;
+    }
+    .boxArchivedProfile .whyFont p{
+margin-bottom: 0px !important;
+    }
+.ArchiveLargebtn {
+    background: #FFE0E0;
+    border-radius: 100px;
+    border: 0px;
+    padding: 5px 9px !important;
+}
+.whyFont {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 28px;
+    color: #FF0000;
+}
+.Archived-CardMore p {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 26px;
+    text-decoration-line: underline;
+    color: #000000;
+    margin-bottom: 0px;
+}
+.Archived-CardMore span {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 26px;
+    color: #000000;
+    margin-bottom: 0px;
+    margin-left: 5px;
+}
+    .imgArchived-upload-download {
+        width: 80px !important;
+        object-fit: cover;
+        height: 80px;
+        border-radius: 100px;
+        border: 4px solid #FF0000;
+    }
+    .EditArchive {
+        background-color: #032339;
+        font-weight: 700;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 10px;
+        line-height: 5px;
+        letter-spacing: -0.105991px;
+        text-transform: uppercase;
+        border-radius: 25px;
+        color: #FFFFFF;
+        margin-top: 0px; 
+        margin-bottom: 0PX;
+        padding: 5px 10px !important;
+    }
     .JobPD{
         padding-top: 16px;
+    }
+    .marginTopCard{
+        margin-top: -5px !important;
+    }
+    .pd-none{
+        padding: 0px;
     }
 
 }
 @media (min-width:1200px){
+    .whyFont {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 28px;
+        color: #FF0000;
+    }
+    .Archived-CardMore p {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 45px;
+        text-decoration-line: underline;
+        color: #000000;
+        margin-bottom: 0px;
+    }
+    .btn-ArchiveEditProfile {
+        background: #032339;
+        border-radius: 100px;
+        padding: 10px 26px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 27px;
+        color: #FFFFFF;
+        padding: 10px 35px;
+        margin-top: 5px;
+    }
+    .btn-ArchiveCVManual {
+        background: #032339;
+        border-radius: 100px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 27px;
+        color: #FFFFFF;
+        padding: 11px 15px;
+        margin-top: 5px;
+    }
+    .hideProfile {
+        background: #FF0000;
+        border-radius: 100px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 27px;
+        color: #FFFFFF;
+        padding: 11px 17px;
+        border: 0px;
+        margin-top: 5px;
+    }
+    .restProfile {
+        background: #489767;
+        border-radius: 100px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 27px;
+        color: #FFFFFF;
+        padding: 11px 16px;
+        border: 0px;
+        margin-top: 5px;
+    }
+ 
     .JobPD{
         padding: 0px;
     }
@@ -409,8 +573,98 @@ font-size: 12px !important;
 line-height: 18px !important;
 color: #000000 !important;
 }
+.imgArchived-upload-download{
+width: 112px !important;
+    object-fit: cover;
+    height: 112px;
+    border-radius: 100px;
+    border: 4px solid #FF0000;
+}
+.Archived-CardMore span {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 45px;
+    color: #000000;
+    margin-bottom: 0px;
+    margin-left: 5px;
+}.marginTopCard {
+    margin-top: 11px !important;
+}.EditArchive {
+    background-color: #032339;
+    font-weight: 700;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: -0.105991px;
+    text-transform: uppercase;
+    border-radius: 25px;
+    color: #FFFFFF;
+    margin-top: 5px;
+    margin-bottom: 5PX;
+    padding: 10px 20px !important;
+
+}
+
+
     }
     @media (min-width:1400px){
+        .ArchiveLargebtn {
+            background: #FFE0E0;
+            border-radius: 100px;
+            border: 0px;
+            padding: 10px 20px !important;
+        }
+        .marginTopCard {
+            margin-top: 11px !important;
+        }
+        
+        .EditArchive {
+            background-color: #032339;
+            font-weight: 700;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 13px;
+            line-height: 20px;
+            letter-spacing: -0.105991px;
+            text-transform: uppercase;
+            border-radius: 25px;
+            color: #FFFFFF;
+            margin-top: 5px;
+            margin-bottom: 5PX;
+        }        
+        .Archived-CardMore span {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 45px;
+            color: #000000;
+            margin-bottom: 0px;
+            margin-left: 5px;
+        }
+        .Archived-CardMore p {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 45px;
+            text-decoration-line: underline;
+            color: #000000;
+            margin-bottom: 0px;
+        }
+        .whyFont {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 28px;
+            color: #FF0000;
+        }
         .JobPD{
             padding: 0px;
         }
@@ -459,5 +713,83 @@ color: #000000 !important;
             line-height: 24px;
             color: #373A3C;
         }
-
+        .imgArchived-upload-download{
+            width: 130px !important;
+            object-fit: cover;
+            height: 130px;
+            border-radius: 100px;
+            border: 4px solid #FF0000;
+          }
+          .Archived-CardMore p {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 45px;
+            color: #000000;
+            margin-bottom: 0px;
+            margin-left: 5px;
+        }
+        .Archived-CardMore span{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 45px;
+        color: #000000;
+        margin-bottom: 0px;
+        margin-left: 5px;
+        }
+        .btn-ArchiveEditProfile {
+            background: #032339;
+            border-radius: 100px;
+            padding: 10px 26px;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 27px;
+            color: #FFFFFF;
+            width: 100%;
+            padding: 15px 10px;
+            margin-top: 5px;
+        }
+        .btn-ArchiveCVManual {
+            background: #032339;
+            border-radius: 100px;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 27px;
+            color: #FFFFFF;
+          width: 100%;
+            margin-top: 5px;
+        }
+        .hideProfile {
+            background: #FF0000;
+            border-radius: 100px;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 27px;
+            color: #FFFFFF;
+           width: 100%;
+            border: 0px;
+            margin-top: 5px;
+        }
+        .restProfile {
+            background: #489767;
+            border-radius: 100px;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 27px;
+            color: #FFFFFF;
+          width: 100%;
+            border: 0px;
+            margin-top: 5px;
+        }
     }

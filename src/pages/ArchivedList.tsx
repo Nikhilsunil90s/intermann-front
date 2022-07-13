@@ -467,7 +467,7 @@ useEffect(() => {
               archived
             </p>
           </div> */}
-               <div className="col-12 card-tops px-1 mt-1" style={{ padding: "0px", marginBottom: "20px" }}>
+               <div className="col-12 card-tops px-1" style={{ padding: "0px", marginBottom: "20px" }}>
             <div className="row text-start">
               <div className="card " style={{ padding: "15px 15px", borderRadius: "15px", marginBottom: "0px" }}>
                 <div className="">
@@ -613,7 +613,7 @@ useEffect(() => {
                   {status ? 
                     filterData.length > 0 ? 
                       filterData.map((profile, index) => (
-                        <div className="col-4  pd-left">
+                        <div className="col-4 mb-1 pd-left">
                           <ArchivedProfileCard  props={profile}  />
                         </div>
                       ))

@@ -42,7 +42,7 @@ function ToDoList() {
   const [loader, setLoader] = useState(false);
   const [filterData, setFilterData] = useState([]);
   const [status, setStatus] = useState(Boolean);
-  const [nameOptions, setNameOptions] = useState([])                        
+  const [nameOptions, setNameOptions] = useState([])as any                      
   const [showMore, setShowMore] = useState(true)
   const [email,setEmail]=useState([])
   const [licenceOptions, setLicenseOptions] = useState([
@@ -230,7 +230,7 @@ function ToDoList() {
         let nameops = profilesResult.map((pro) => {
           return { value: pro.candidatName, label: pro.candidatName, color: '#FF8B00' }
         })
-        setNameOptions([...nameops])
+        setNameOptions([{value:"Select",label:"Select",color:"#ff8b00"},...nameops])
       }).catch(err => {
         console.log(err)
       })
@@ -274,11 +274,11 @@ function ToDoList() {
     LicencePermisArr = []
     setSelectedSector("")
     setSelectedJob([])
-    if (e.value === "Select Un Name") {
+    if (e.value === "Select") {
       SelectedName = []
 
     }
-    else if (e.value !== "") {
+    else if (e.value !== "" && e.value!=="Select") {
       SelectedName = []
       MotivationArr = []
       let NameField = e.value;
@@ -690,7 +690,9 @@ function ToDoList() {
                           onChange={handleNameChange}
                           options={nameOptions}
                           styles={colourStyles}
-
+                          isClearable={false}
+                      
+                          
                           
                         /> :  
                                            <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>

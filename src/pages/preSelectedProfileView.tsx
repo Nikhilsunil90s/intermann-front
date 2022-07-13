@@ -380,7 +380,7 @@ function PreSelectedView() {
  
                 <div className="col-8 p-0">
                 <p>Selected  For  client : </p>
-<p className="CommentSelection">{profile.candidatPreSelectedFor[0].reasonForPreSelection} </p>
+<p className="CommentSelection">{profile.candidatPreSelectedFor[0].reasonForPreSelection ?profile.candidatPreSelectedFor[0].reasonForPreSelection : "No Reason Available!"} </p>
                 </div>
                 <div className="col-4 d-flex justify-content-end align-items-center">
 <button  className="btn customerProfil"><img src={require("../images/eyeProfil.svg").default}/>CUSTOMER PROFIL</button>

@@ -108,7 +108,7 @@ const PreSelectedCard = (props: any,{path}) => {
                 <div className="col-12 py-1">
                  <div className="row preSelectedCommentBox">
                     <div className="col-12 preCard-Body ">Preselected for client : {props.data.candidatName}</div>
-                    <div className="col-12"><ReadMoreReact text={props.data.candidatPreSelectedFor[0].reasonForPreSelection}
+                    <div className="col-12"><ReadMoreReact text={props.data.candidatPreSelectedFor[0].reasonForPreSelection ? props.data.candidatPreSelectedFor[0].reasonForPreSelection : "No Reason Available!"}
             min={100}
             ideal={150}
             max={200}
