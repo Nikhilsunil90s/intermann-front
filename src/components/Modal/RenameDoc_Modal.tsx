@@ -6,7 +6,7 @@ import chroma from 'chroma-js';
 import { Toaster, toast } from "react-hot-toast";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 
-function RenameDoc({props,closepreModal}) {
+function RenameDoc({props,closepreModal,path}) {
   const notifyCandidatMovedSuccess = () => toast.success("Document Name Changed Successfully!");
   const notifyCandidatMovedError = () => toast.error("Document Name Not Change Please Try Again.");
 console.log(props,"props")
@@ -15,12 +15,11 @@ console.log(props,"props")
     HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
   >) => {
     // debugger
-    if(props[3].split(".")[1]){
-    console.log(e.target.value.concat("."+ props[3].split(".")[1]))
+    if(!e.target.value.includes(".")){
     setNewName(e.target.value.concat("."+ props[3].split(".")[1]));
     }
-    else{
-    setNewName(e.target.value);  
+    if(!e.target.value.split(".")[1] && !props[3].split(".")[1]){
+    setNewName(e.target.value); 
     }
   }
  console.log(props[3],"props")
@@ -42,7 +41,7 @@ console.log(props,"props")
   const RenameMoved=()=>{
     notifyCandidatMovedSuccess()
     setTimeout(function () {
-      window.location.href = "/todoprofile";
+      window.location.href = path;
     },
       2000
     );

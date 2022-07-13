@@ -22,12 +22,20 @@ const axiosInstance = axios.create({
 
 let RenameData=[]
 function ProgressCard() {
+  // console.log(localStorage.getItem("profile"),"poiu")
+ const  profileData = JSON.parse(localStorage.getItem("embauch"))
 
   const { state } = useLocation();
+  // const profileData = ||"");
+ 
+  // const profileData=async()=>{
+   
+  //   console.log(await JSON.parse(await localStorage.getItem("embauch")))
+  // }
 
   const [loader, setLoader] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [profile, setProfile] = useState<any>(state);
+  const [profile, setProfile] = useState<any>( state ? state :profileData );
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
@@ -41,6 +49,7 @@ function ProgressCard() {
   const [clientList, setClientList] = useState([]);
   const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
   const [RenameDocStatus,setRenameDocStatus]=useState(false)
+  const hiddenImageInput = React.useRef(null);
 
   const uploadOption=[
     {value:"upload",label:<Upload />,},
@@ -64,7 +73,7 @@ function ProgressCard() {
   const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
   const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
 
-  useEffect(() => {
+  useEffect(() => {    
     setLoader(true);
     fetchRecommendations(profile.candidatActivitySector)
       .then(respData => {
@@ -103,7 +112,18 @@ function ProgressCard() {
         console.log(err)
       })
   }, [docUploaded])
-
+  const handleImageUpload = () => {
+    hiddenImageInput.current.click();
+  }
+  const handleImageChange = (e: any) => {
+    if (e.value == 'upload') {
+      console.log("upload")
+      handleImageUpload()
+    } else if (e.value == 'Download Image') {
+      console.log("download")
+      window.open(API_BASE_URL + candidatImage);
+    }
+  }
   const fetchCandidat = async (candidatId: any) => {
     return await fetch(API_BASE_URL + `getCandidatById/?candidatId=${candidatId}`, {
       method: "GET",
@@ -139,7 +159,7 @@ function ProgressCard() {
           if (datares.data.status) {
             notifyDocumentUploadSuccess()
             // setCandidatImage(datares.data.filename)
-            window.location.href = "/todoprofile"
+            window.location.href = "/embauchlist"
           } else {
             notifyDocumentUploadError()
           }
@@ -250,7 +270,7 @@ function ProgressCard() {
   return (
     <>
       <Toaster position="top-right" containerStyle={{ zIndex: '99999999999' }} />
-      <div className="containet-fluid">
+      <div className="containet-fluid px-1">
         <div className="row pt-1  px-1">
           <div
             className="card mt-2 mb-0"
@@ -301,11 +321,18 @@ function ProgressCard() {
                   }
                <Select
                           closeMenuOnSelect={true}
-                          // onChange={handleImageChange}
+                          onChange={handleImageChange}
   options={uploadOption}
   className="Todoupload"
 
 />
+<input
+                    type="file"
+                    ref={hiddenImageInput}
+                    onChange={fileChange}
+                    name="candidatPhoto"
+                    style={{ display: 'none' }}
+                  />
                 </div>
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 card-preProfile">
                   <div className="d-flex">
@@ -844,7 +871,7 @@ No FB URL!
                                   src={require("../images/editSvg.svg").default}
                                   style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
                                   // onClick={() => renameDocument(doc._id, doc.documentName)}
-                                  onClick={()=>{setRenameDocStatus(true);renameDocument(doc._id,doc.documentName,doc.origianlName)}}
+                                  onClick={()=>{setRenameDocStatus(true);renameDocument(doc._id,doc.documentName,doc.originalName)}}
                                 />
                                 <img
                                   src={require("../images/Primaryfill.svg").default}
@@ -911,7 +938,7 @@ No FB URL!
                           }
                           {
                             RenameDocStatus? 
-                            <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus}  />
+                            <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus} path={"/embauchprofile"} />
                             :
                             null
                           }

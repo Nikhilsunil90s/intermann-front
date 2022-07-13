@@ -927,39 +927,39 @@ margin-right: 5px;
     color: #ffffff !important;
     }
     .btn-ArchivedEmbauch {
-        background: #FF0000;
-        border-radius: 100px;
-        font-family: 'Poppins';
-        font-style: normal;
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 18px;
-        color: #FFFFFF;
-        padding: 22px 71px;
-        border: 0px;
+      background: #FF0000;
+      border-radius: 100px;
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 18px;
+      color: #FFFFFF;
+      padding: 22px 60px;
+      border: 0px;
     }
     .btn-EditProfileEmbauch {
-        background: #032339;
-        border-radius: 100px;
-        padding: 10px 26px;
-        font-family: 'Poppins';
-        font-style: normal;
-        font-weight: 600;
-        font-size: 15px;
-        line-height: 20px;
-        color: #FFFFFF;
-        padding: 19px 89px;
+      background: #032339;
+      border-radius: 100px;
+      padding: 10px 26px;
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 20px;
+      color: #FFFFFF;
+      padding: 19px 75px;
     }
     .btn-CVManualEmbauch {
-        background: #032339;
-        border-radius: 100px;
-        font-family: 'Poppins';
-        font-style: normal;
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 20px;
-        color: #FFFFFF;
-        padding: 19px 80px;
+      background: #032339;
+      border-radius: 100px;
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      color: #FFFFFF;
+      padding: 19px 55px;
     }
     .btn-CVManualEmbauch img {
         width: 20px;

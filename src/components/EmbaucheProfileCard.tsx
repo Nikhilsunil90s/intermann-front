@@ -20,7 +20,8 @@ const EmbaucheProfileCard = (props: any,{path}) => {
      ]
     const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
     const viewFullProfile=()=>{
-     navigate("/embauchprofile" ,{ state: props.props })
+     localStorage.setItem('embauch', JSON.stringify(props.props));
+     window.open("/embauchprofile" ,"_blank")
     }
     const MoreOption=(e:any)=>{
       if(e.value=="Edit Profile"){

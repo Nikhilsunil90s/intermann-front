@@ -47,6 +47,7 @@ function Preselected(){
           const [status, setStatus] = useState(Boolean);
           const [nameOptions, setNameOptions] = useState([])                        
           const [showMore, setShowMore] = useState(true)
+          const [statusProfiles,setStatusProfile]=useState(false)
           const [licenceOptions, setLicenseOptions] = useState([
             {
               value: "true", label: "Have Licence", color: '#FF8B00'
@@ -58,15 +59,15 @@ function Preselected(){
         
           const [motivationOptions, setMotivationOptions] = useState([
             {
-              value: "1", label: "😔 Dissapointed", color: '#FF8B00'
+              value: "1", label: "😔", color: '#FF8B00'
             }, {
-              value: "2", label: "🙁 Not really", color: '#FF8B00'
+              value: "2", label: "🙁", color: '#FF8B00'
             }, {
-              value: "3", label: "😊 Like", color: '#FF8B00'
+              value: "3", label: "😊", color: '#FF8B00'
             }, {
-              value: "4", label: "🥰 Great", color: '#FF8B00'
+              value: "4", label: "🥰", color: '#FF8B00'
             }, {
-              value: "5", label: "😍 Superlovely", color: '#FF8B00'
+              value: "5", label: "😍", color: '#FF8B00'
             }
           ])
           const [LicensePermis, setLicensePermis] = useState(Boolean) as any
@@ -204,25 +205,34 @@ function Preselected(){
           };
         
           useEffect(() => {
-            if (nameOptions.length == 0) {
+            if (nameOptions.length == 0 && statusProfiles===true) {
               fetchProfiles().then((profilesResult) => {
-                if(profilesResult.length>0){ 
-                let nameops = profilesResult.map((pro) => {
+                console.log(profilesResult.data,"profilesResult")
+                if(profilesResult.data.length>0){ 
+                let nameops = profilesResult.data.map((pro) => {
+                  console.log(pro,"pro")
                   return { value: pro.candidatName, label: pro.candidatName, color: '#FF8B00' }
                 })
                 setNameOptions([...nameops])
-              }
-              else{
-            return    setLoader(false)
-              }
-              }).catch(err => {
+            }})
+              .catch(err => {
                 console.log(err)
               })
             }
-            else{
-              return
-            }
-          })
+           else if(nameOptions.length == 0 && statusProfiles===false)
+              {
+                fetchProfiles().then((profilesResult) => {
+                 if(profilesResult.status===false){
+                  setStatusProfile(profilesResult.status)
+                  setNameOptions([{ value: "", label: "No Name", color: "#ff8b00" }])
+                 }
+                 if(profilesResult.status===true){
+                  setStatusProfile(profilesResult.status)
+                 }
+                }
+           ) } 
+                 
+              }  )
         
           const fetchProfilesForAJob = async (jobName: string) => {
             return await fetch(API_BASE_URL + "fetchProfilesForAJob", {
@@ -321,7 +331,7 @@ function Preselected(){
         
           useEffect(() => {
             setSelectedJob(FilterJob)
-        
+           
           }, [selectedJob])
         
           const HandleChecked = (e: any, job: any) => {
@@ -580,15 +590,18 @@ function Preselected(){
               {
 
                 fetchProfiles().then(filteredresponse => {
-                console.log(filteredresponse,"filteredresponse")
-
                   if(filteredresponse.data.length > 0){
-                  setFilterData([...filteredresponse])
+                   
+                  console.log(filteredresponse.status,"fisponse.statu")
+setStatusProfile(filteredresponse.status)
+console.log(statusProfiles,"filteredresponse.status")
+
+                  setFilterData([...filteredresponse.data])
                   setLoader(true)
                 setStatus(true)
                   }
-                else{
-              return   setLoader(true),  setStatus(false)
+                if(filteredresponse.status==false){
+              return   setLoader(true),setStatus(false)
 
                 
                   }
@@ -847,7 +860,7 @@ function Preselected(){
                     
                   : 
                     <p className="text-center">
-                      No Profiles in Candidat To-Do! Please Add New Candidats.
+                      No Profiles in Candidat Pre-Selected ! Please Add New Candidats.
                     </p>
                   }
             </>

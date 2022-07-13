@@ -894,7 +894,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                           }
                           {
                             RenameDocStatus? 
-                            <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus}  />
+                            <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus}  path={"/todoprofile"}/>
                             :
                             null
                           }

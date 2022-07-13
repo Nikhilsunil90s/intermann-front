@@ -108,7 +108,7 @@ const PreSelectedCard = (props: any,{path}) => {
                 <div className="col-12 py-1">
                  <div className="row preSelectedCommentBox">
                     <div className="col-12 preCard-Body ">Preselected for client : {props.data.candidatName}</div>
-                    <div className="col-12"><ReadMoreReact text="Comment about selection : Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès qu'il est prêt "
+                    <div className="col-12"><ReadMoreReact text={props.data.candidatPreSelectedFor[0].reasonForPreSelection}
             min={100}
             ideal={150}
             max={200}

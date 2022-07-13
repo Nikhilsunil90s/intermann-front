@@ -380,7 +380,7 @@ function PreSelectedView() {
  
                 <div className="col-8 p-0">
                 <p>Selected  For  client : </p>
-<p className="CommentSelection">Comment about selection : Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès qu'il est prêt </p>
+<p className="CommentSelection">{profile.candidatPreSelectedFor[0].reasonForPreSelection} </p>
                 </div>
                 <div className="col-4 d-flex justify-content-end align-items-center">
 <button  className="btn customerProfil"><img src={require("../images/eyeProfil.svg").default}/>CUSTOMER PROFIL</button>
@@ -821,7 +821,7 @@ No FB URL!
                           }
     {
                             RenameDocStatus? 
-                            <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus}  />
+                            <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus} path={"/preSelectedView"} />
                             :
                             null
                           }
