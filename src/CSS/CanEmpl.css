@@ -22,6 +22,30 @@
 .css-1d8n9bt {
 padding: 0px !important;
 }
+.UploadSelect{
+    padding: 10px !important;
+}
+.UploadModalContainer{
+    position: relative !important;
+    width: 168px !important;
+    height: 135px !important;
+    left: -99px !important;
+    top: -25px !important;
+}
+.UploadModal{
+        max-width: 164px;
+        margin: 1.75rem auto;
+}
+.SelectBtn{
+    background: white;
+    border-radius: 40px;
+    border: 2px solid #979797;
+    width: 25px;
+    height: 25px;
+    top: -22px;
+    position: relative;
+    right: -34px;
+}
 .css-1vp9nu5-control {
     -webkit-align-items: center;
     -webkit-box-align: center;

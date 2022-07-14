@@ -17,6 +17,7 @@ import { ProgressBar } from "react-bootstrap";
 import { Toaster, toast } from 'react-hot-toast';
 import ProfileLoader from "../components/Loader/ProfilesLoader";
 import RenameDoc from '../components/Modal/RenameDoc_Modal'
+import UploadDow from '../components/Modal/SelectUploadDownload'
 
 
 const axiosInstance = axios.create({
@@ -42,13 +43,7 @@ function PreSelectedView() {
   const [RenameDocStatus,setRenameDocStatus]=useState(false)
   const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
   const hiddenImageInput = React.useRef(null);
-  const [loader, setLoader] = useState(false);
-
-  
- const uploadOption=[
- {value:"upload",label:<Upload />,},
- {value:"Download Image",label:<Download />} 
- ]
+  const [UploadBtn,setSelectUpload]= useState(false)
  const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
  const notifyDocumentDeleteError = () => toast.error("Document Not Removed! Please Try Again in few minutes.")
  const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
@@ -80,7 +75,10 @@ function PreSelectedView() {
           if (datares.data.status) {
             notifyDocumentUploadSuccess()
             // setCandidatImage(datares.data.filename)
-            window.location.href = "/todoprofile"
+            setTimeout(()=>{
+              window.location.href = "/preSelectedView"
+            },2000)
+            
           } else {
             notifyDocumentUploadError()
           }
@@ -123,11 +121,11 @@ function PreSelectedView() {
       return;
     }
   }
-  const handleImageChange = (e: any) => {
-    if (e.value == 'upload') {
+  const handleImageChange = (val) => {
+    if (val == 'upload') {
       console.log("upload")
       handleImageUpload()
-    } else if (e.value == 'Download Image') {
+    } else if (val == 'Download') {
       console.log("download")
       window.open(API_BASE_URL + candidatImage);
     }
@@ -326,12 +324,30 @@ function PreSelectedView() {
                     />
                     // 
                   }
-               <Select
+               {/* <Select
                           closeMenuOnSelect={true}
                           onChange={handleImageChange}
   options={uploadOption}
   className="Todoupload"
-/>
+/> */}
+<button
+ onClick={()=>{setSelectUpload(!UploadBtn);}}
+className="SelectBtn"
+ ><img className="" src={require("../images/select.svg").default} />
+ {
+  UploadBtn? 
+  <UploadDow  closeModal={setSelectUpload}  FunModal={handleImageChange} />
+  :
+  null
+ }
+ </button>
+<input
+                    type="file"
+                    ref={hiddenImageInput}
+                    onChange={fileChange}
+                    name="candidatPhoto"
+                    style={{ display: 'none' }}
+                  />
 <input
                     type="file"
                     ref={hiddenImageInput}

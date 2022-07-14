@@ -14,6 +14,7 @@ import axios from "axios";
 import { Toaster, toast } from 'react-hot-toast';
 import ProfileLoader from "../components/Loader/ProfilesLoader";
 import RenameDoc from '../components/Modal/RenameDoc_Modal'
+import UploadDow from '../components/Modal/SelectUploadDownload'
 
 
 const axiosInstance = axios.create({
@@ -50,7 +51,7 @@ function ProgressCard() {
   const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
   const [RenameDocStatus,setRenameDocStatus]=useState(false)
   const hiddenImageInput = React.useRef(null);
-
+  const [UploadBtn,setSelectUpload]= useState(false)
   const uploadOption=[
     {value:"upload",label:<Upload />,},
     {value:"Download Image",label:<Download />} 
@@ -115,12 +116,10 @@ function ProgressCard() {
   const handleImageUpload = () => {
     hiddenImageInput.current.click();
   }
-  const handleImageChange = (e: any) => {
-    if (e.value == 'upload') {
-      console.log("upload")
+  const handleImageChange = (val) => {
+    if (val === 'upload') {
       handleImageUpload()
-    } else if (e.value == 'Download Image') {
-      console.log("download")
+    } else if (val === 'Download') {
       window.open(API_BASE_URL + candidatImage);
     }
   }
@@ -159,7 +158,9 @@ function ProgressCard() {
           if (datares.data.status) {
             notifyDocumentUploadSuccess()
             // setCandidatImage(datares.data.filename)
-            window.location.href = "/embauchlist"
+            setTimeout(()=>{
+              window.location.href = "/embauchprofile"
+            },2000)
           } else {
             notifyDocumentUploadError()
           }
@@ -319,13 +320,24 @@ function ProgressCard() {
                   />
                     // 
                   }
-               <Select
+               {/* <Select
                           closeMenuOnSelect={true}
                           onChange={handleImageChange}
   options={uploadOption}
   className="Todoupload"
 
-/>
+/> */}
+<button
+ onClick={()=>{setSelectUpload(!UploadBtn);}}
+className="SelectBtn"
+ ><img className="" src={require("../images/select.svg").default} />
+ {
+  UploadBtn? 
+  <UploadDow  closeModal={setSelectUpload}  FunModal={handleImageChange} />
+  :
+  null
+ }
+ </button>
 <input
                     type="file"
                     ref={hiddenImageInput}

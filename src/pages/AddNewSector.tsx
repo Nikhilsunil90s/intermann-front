@@ -102,7 +102,7 @@ function AddSector() {
                                             setJobModalData(sector?.sectorName);
                                           }}
                                         >
-                                          Add job
+                                       +   Add job
                                         </button>
                                       </div>
                                       <div className="col-4 text-end">
@@ -115,7 +115,7 @@ function AddSector() {
                                             );
                                           }}
                                         >
-                                          Rename
+                                         <img src={require("../images/editResume.svg").default} /> Rename
                                         </button>
                                       </div>
                                     </div>

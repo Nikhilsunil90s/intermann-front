@@ -21,6 +21,9 @@ import axios from "axios";
 import { ProgressBar } from "react-bootstrap";
 import ReadMoreReact from 'read-more-react';
 import RenameDoc from '../components/Modal/RenameDoc_Modal'
+import UploadDow from '../components/Modal/SelectUploadDownload'
+
+
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
 })
@@ -58,7 +61,9 @@ function ToDoProfile() {
   const [docUploaded, setDocUploaded] = useState(false);
   const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
   const [clientList, setClientList] = useState([]);
+  const [UploadBtn,setSelectUpload]= useState(false)
   const [RenameDocStatus,setRenameDocStatus]=useState(false)
+
  const uploadOption=[
  {value:"upload",label:<Upload />,},
  {value:"Download Image",label:<Download />} 
@@ -123,11 +128,12 @@ const fetchRecommendations = async (candidatSector: string) => {
   const handleFileUpload = () => {
     hiddenFileInput.current.click();
   }
-  const handleImageChange = (e: any) => {
-    if (e.value == 'upload') {
+  
+  const handleImageChange = (val) => {
+    if (val === 'upload') {
       console.log("upload")
       handleImageUpload()
-    } else if (e.value == 'Download Image') {
+    } else if (val === 'Download') {
       console.log("download")
       window.open(API_BASE_URL + candidatImage);
     }
@@ -171,9 +177,13 @@ const fetchRecommendations = async (candidatSector: string) => {
           if (datares.data.status) {
             
             console.log(datares.data.status,"datares.data.status")
-            notifyDocumentUploadSuccess()
-            // setCandidatImage(datares.data.filename)
-            window.location.href = "/todoprofile"
+     // setCandidatImage(datares.data.filename)
+     notifyDocumentUploadSuccess()
+
+     
+            setTimeout(()=>{
+              window.location.href = "/todoprofile"
+            },2000)
           } else {
             notifyDocumentUploadError()
           }
@@ -359,8 +369,16 @@ const fetchRecommendations = async (candidatSector: string) => {
 
 /> */}
 <button
-//  onClick={}
- ></button>
+ onClick={()=>{setSelectUpload(!UploadBtn);}}
+className="SelectBtn"
+ ><img className="" src={require("../images/select.svg").default} />
+ {
+  UploadBtn? 
+  <UploadDow closeModal={setSelectUpload}  FunModal={handleImageChange} />
+  :
+  null
+ }
+ </button>
 <input
                     type="file"
                     ref={hiddenImageInput}

@@ -12,6 +12,7 @@ import axios from "axios";
 import HideProfile from "../components/Modal/HideProfileModalForArchived";
 import RestProfile from "../components/Modal/RestProfileForArchived";
 import { Toaster, toast } from 'react-hot-toast';
+import UploadDow from '../components/Modal/SelectUploadDownload'
 
 
 const axiosInstance = axios.create({
@@ -32,8 +33,8 @@ const ArchivedProfile = () => {
     {value:"Download Image",label:<Download />} 
     ]
   const hiddenImageInput = React.useRef(null);
+  const [UploadBtn,setSelectUpload]= useState(false)
     const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
-    const [loader, setLoader] = useState(false);
     const editCandidatProfile = () => {
       navigate("/editArchived", { state: profile });
     };
@@ -43,11 +44,11 @@ const ArchivedProfile = () => {
     const handleImageUpload = () => {
       hiddenImageInput.current.click();
     }
-    const handleImageChange = (e: any) => {
-      if (e.value == 'upload') {
+    const handleImageChange = (val) => {
+      if (val === 'upload') {
         console.log("upload")
         handleImageUpload()
-      } else if (e.value == 'Download Image') {
+      } else if (val === 'Download') {
         console.log("download")
         window.open(API_BASE_URL + candidatImage);
       }
@@ -87,7 +88,10 @@ const ArchivedProfile = () => {
             if (datares.data.status) {
               notifyDocumentUploadSuccess()
               // setCandidatImage(datares.data.filename)
-              window.location.href = "/archivedprofile"
+              setTimeout(()=>{
+                window.location.href = "/archivedprofile"
+              },2000)
+            
             } else {
               notifyDocumentUploadError()
             }
@@ -97,30 +101,28 @@ const ArchivedProfile = () => {
       }
    
     }
-
+    useEffect(() => {
+      console.log(profile._id,"id")
+      fetchCandidat(profile._id).then(resData => {
+        console.log(resData)
+  
+        setCandidatImage("")
+        if (resData.status) {
+          setProfile(resData.data)
+        
+          setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
+        
+        }
+      })
+        .catch(err => {
+          console.log(err)
+        })
+    }, [])
   return (
     <>
       <Toaster position="top-right" containerStyle={{ zIndex: '99999999999' }} />
       <div className="container-fluid " style={{marginTop:"80px"}}>
         <div className="row px-1">
-          {/* <div className="col-6">
-            <div className="stable">
-              <Link to="/archivedlist">
-                <button type="button" className="btn bg-archive-btn">
-                  <img src={require("../images/return.svg").default} />
-                  Retrun to - Archived List Of candidates
-                </button>
-              </Link>
-            </div>
-          </div>
-          <div className="col-6  text-end ">
-            <Link to="/">
-            </Link>
-            <button className="btn btn-edit-bgb">
-              <img src={require("../images/Edit.svg").default} />
-              Edit Profile
-            </button>
-          </div> */}
              <div
             className="card mt-2 marginTopCard mb-0"
         
@@ -211,16 +213,27 @@ const ArchivedProfile = () => {
                    className="imgArchived-upload-download"
 
                   />
-                    // 
+              
                   }
-                   <Select
+                    {/* <Select
                           closeMenuOnSelect={true}
                           onChange={handleImageChange}
   options={uploadOption}
   className="Todoupload"
 
-/><input
-                    type="file"
+/> */}
+<button
+ onClick={()=>{setSelectUpload(!UploadBtn);}}
+className="SelectBtn"
+ ><img className="" src={require("../images/select.svg").default} />
+ {
+  UploadBtn? 
+  <UploadDow closeModal={setSelectUpload}  FunModal={handleImageChange} />
+  :
+  null
+ }
+ </button>
+<input                     type="file"
                     ref={hiddenImageInput}
                     onChange={fileChange}
                     name="candidatPhoto"
