@@ -14,7 +14,9 @@ const ArchivedProfileCard = (props: any) => {
     const [showArchiveModal, setShowArchiveModal] = useState(false)
     
     const viewFullProfile = () => {
-        navigate("/archivedprofile", { state: props.props })
+        // navigate("/archivedprofile", { state: props.props })
+        localStorage.setItem("archive", JSON.stringify(props.props))
+        window.open("/archivedprofile","_blank")
     }
     const CardOptions=[{
         value:"Edit Profile",label:"Edit Profile"

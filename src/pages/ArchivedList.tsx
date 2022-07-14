@@ -119,8 +119,8 @@ function ArchivedList() {
     let sectorops = sectors.map((asector) => {
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
+    setSectorOptions([{value:"Select Sector",label:"Select Sector",color:"#ff8b00"},...sectorops]);
 
-    setSectorOptions([...sectorops]);
   }, [sectors])
    useEffect(() => {
     filterFunction()
@@ -159,7 +159,7 @@ function ArchivedList() {
         let nameops = profilesResult.map((pro) => {
           return { value: pro.candidatName, label: pro.candidatName, color: '#FF8B00' }
         })
-        setNameOptions([...nameops])
+        setNameOptions([{value:"Select Name",label:"Select Name",color:"#ff8b00"},...nameops])
       }).catch(err => {
         console.log(err)
       })
@@ -170,10 +170,10 @@ function ArchivedList() {
     SelectedName = []
     setSelectedSector("")
     setSelectedJob([])
-    if (e.value === "Select Un Name") {
+    if (e.value === "Select Name") {
       SelectedName = []
-
-    } else if (e.value !== "") {
+    filterFunction();
+    } else if (e.value !== ""  && e.value!=="Select Name") {
       SelectedName = []
       let NameField = e.value;
       SelectedName.push(NameField)
@@ -203,13 +203,13 @@ function ArchivedList() {
     FilterJob = [];
     setSelectedJob([])
     console.log(e)
-    if (e.value === "Select Un Secteur") {
+    if  (e.value === "Select Sector") {
       setJobs([]);
       setSelectedSector("");
       setJobOptions([]);
       setLoader(true);
 
-    } else if (e.value !== '') {
+    } else if (e.value !== '' && e.value !== "Select Sector") {
       let sectorField = e.value;
       setSelectedSector(sectorField);
       setJobOptions([]);
@@ -243,14 +243,20 @@ function ArchivedList() {
 
     // console.log(jobval)
     let LangArr=[]
+    if(lang.value == "Select Language"){
+     LangArr=[]
+    filterFunction()
+    }
+    if(lang.vlaue !== "" && lang.value !== "Select Language"){
     lang.map((el)=>{
      
-      LangArr.push(el.value)
+       LangArr.push(el.value)
   
     })
     LanguageFilter=LangArr
     filterFunction()
-    console.log(FilterJob,"jee")
+    console.log(LanguageFilter,"jee")
+  }
   }
 
   
@@ -431,7 +437,7 @@ function ArchivedList() {
         .catch((err) => err);
       setLoader(true);
     }
-    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 ) {
+    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0  && LanguageFilter.length ===0) {
       {
         setLoader(true)
         setStatus(true)
@@ -444,9 +450,9 @@ function ArchivedList() {
       }
     }
   };
-useEffect(() => {
-  fetchProfiles();
-}, []);
+// useEffect(() => {
+//   fetchProfiles();
+// }, []);
 
 
 
@@ -558,7 +564,7 @@ useEffect(() => {
                               <Select
                                 name="ClientFilter"
                                 closeMenuOnSelect={true}
-                                placeholder="‎ ‎ ‎ Select Motivation du Candidat"
+                                placeholder="‎ ‎ ‎ Select Filtre by Client"
                                 className="basic-multi-select"
                                 classNamePrefix="select"
                                 styles={colourStyles}
@@ -613,7 +619,7 @@ useEffect(() => {
                   {status ? 
                     filterData.length > 0 ? 
                       filterData.map((profile, index) => (
-                        <div className="col-4 mb-1 pd-left">
+                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-1 pd-left">
                           <ArchivedProfileCard  props={profile}  />
                         </div>
                       ))

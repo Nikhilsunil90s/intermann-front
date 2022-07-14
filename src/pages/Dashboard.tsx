@@ -133,7 +133,8 @@ function Dashboard() {
                   </Link>
                 </div>
                
-                <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4">
+                <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer">
+                  <Link to="/clientProgress">
                   <div
                     className="card"
                     style={{ padding: "5px 10px", borderRadius: "10px" }}
@@ -158,10 +159,11 @@ function Dashboard() {
                       </div>
                     </div>
                   </div>
+                  </Link>
                 </div>
                
                 <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4">
-                <Link to="/clientProgress">
+                <Link to="/clientContract">
                   <div
                     className="card"
                     style={{ padding: "5px 10px", borderRadius: "10px" }}
@@ -278,6 +280,7 @@ function Dashboard() {
                 </div>
                 
                 <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4">
+                  <Link to="/preSelected">
                   <div
                     className="card"
                     style={{ padding: "5px 10px", borderRadius: "10px" }}
@@ -302,6 +305,7 @@ function Dashboard() {
                       </div>
                     </div>
                   </div>
+                  </Link>
                 </div>
                
                 <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4" >

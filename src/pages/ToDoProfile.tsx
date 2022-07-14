@@ -351,13 +351,16 @@ const fetchRecommendations = async (candidatSector: string) => {
                     // 
                   }
                
-               <Select
+               {/* <Select
                           closeMenuOnSelect={true}
                           onChange={handleImageChange}
   options={uploadOption}
   className="Todoupload"
 
-/>
+/> */}
+<button
+//  onClick={}
+ ></button>
 <input
                     type="file"
                     ref={hiddenImageInput}

@@ -101,11 +101,11 @@ const PreSelectedCard = (props: any,{path}) => {
                     <p className="preCard-Body-p">Phone Number : <b>{props.data.candidatPhone} </b></p>
                     <p className="preCard-Body-p">Facebook URL : <b>{props.data.candidatFBURL ? <a href={props.data.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
                     <p className="preCard-Body-p">Email :  <b> {props.data.candidatEmail ? props.data.candidatEmail : "No Email Provided!"}</b></p>
-                    <p className="preCard-Body-blue mt-1">
+                    <p className="preCard-Body-blue ">
                         Ready for work :<b>{props.data.candidatStartDate} To {props.data.candidatEndDate}</b>
                     </p>
                 </div>
-                <div className="col-12 py-1">
+                <div className="col-12">
                  <div className="row preSelectedCommentBox">
                     <div className="col-12 preCard-Body ">Preselected for client : {props.data.candidatName}</div>
                     <div className="col-12"><ReadMoreReact text={props.data.candidatPreSelectedFor[0].reasonForPreSelection ? props.data.candidatPreSelectedFor[0].reasonForPreSelection : "No Reason Available!"}

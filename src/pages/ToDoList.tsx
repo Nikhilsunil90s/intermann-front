@@ -47,6 +47,9 @@ function ToDoList() {
   const [email,setEmail]=useState([])
   const [licenceOptions, setLicenseOptions] = useState([
     {
+      value: "Select Licence", label: "Select Licence", color: '#FF8B00'
+    },
+    {
       value: "true", label: "Have Licence", color: '#FF8B00'
     },
     {
@@ -55,6 +58,9 @@ function ToDoList() {
   ])
 
   const [motivationOptions, setMotivationOptions] = useState([
+    {
+      value: "Select Motivations", label: "Select Motivations", color: '#FF8B00'
+    },
     {
       value: "1", label: "😔", color: '#FF8B00'
     }, {
@@ -67,11 +73,7 @@ function ToDoList() {
       value: "5", label: "😍", color: '#FF8B00'
     }
   ])
-  const [ContectOptions,setContectOptions]=useState([
-    {
-      value: "0987656783456", label: "0987656783456", color: '#FF8B00'
-    }, 
-  ])
+  const [ContactOptions,setContactOptions]=useState([])
 
 
   const colourStyles: StylesConfig<ColourOption, true> = {
@@ -151,7 +153,7 @@ function ToDoList() {
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
 
-    setSectorOptions([...sectorops]);
+    setSectorOptions([{value:"Select Sector",label:"Select Sector",color:"#ff8b00"},...sectorops]);
   }, [sectors])
 
   useEffect(() => {
@@ -230,7 +232,7 @@ function ToDoList() {
         let nameops = profilesResult.map((pro) => {
           return { value: pro.candidatName, label: pro.candidatName, color: '#FF8B00' }
         })
-        setNameOptions([{value:"Select",label:"Select",color:"#ff8b00"},...nameops])
+        setNameOptions([{value:"Select Name",label:"Select Name",color:"#ff8b00"},...nameops])
       }).catch(err => {
         console.log(err)
       })
@@ -243,11 +245,28 @@ function ToDoList() {
          emailops.push({ value: item.candidatEmail, label: item.candidatEmail, color: '#FF8B00' })
           }
       })
-         setEmail(emailops)
+         setEmail([  {
+          value: "Select Email", label: "Select Email", color: '#FF8B00'
+        },...emailops])
         console.log(emailops,"emailops")
       })
         console.log([...email],"email")
       }
+      if (ContactOptions.length == 0) {
+        let ContactOp =[]as any
+        fetchProfiles().then((profileResult) => {
+          profileResult.filter((item) => {
+            if(item.candidatPhone){
+              ContactOp.push({ value: item.candidatPhone, label: item.candidatPhone, color: '#FF8B00' })
+            }
+        })
+           setContactOptions([  {
+            value: "Select Contact", label: "Select Contact", color: '#FF8B00'
+          },...ContactOp])
+          console.log(ContactOp,"ContactOp")
+        })
+          console.log([...email],"email")
+        }
     
   } )
 
@@ -268,17 +287,16 @@ function ToDoList() {
 
   const handleNameChange = (e: any) => {
     // console.log(e.target.value)
-
     SelectedName = []
     MotivationArr = []
     LicencePermisArr = []
     setSelectedSector("")
     setSelectedJob([])
-    if (e.value === "Select") {
+    if (e.value === "Select Name") {
       SelectedName = []
-
+    filterFunction();
     }
-    else if (e.value !== "" && e.value!=="Select") {
+    else if (e.value !== "" && e.value!=="Select Name") {
       SelectedName = []
       MotivationArr = []
       let NameField = e.value;
@@ -292,8 +310,14 @@ function ToDoList() {
     setSelectedSector("")
     MotivationArr = []
     console.log(e.value)
+    if(e.value=="Select Licence"){
+      LicencePermisArr=[]
+      filterFunction()
+    }
+    if(e.value !=="" && e.value !=="Select Licence"){
     LicencePermisArr.push(e.value)
     filterFunction()
+    }
   }
 
   const handleMotivationChange = (e: any) => {
@@ -302,12 +326,11 @@ function ToDoList() {
     LicencePermisArr = []
     setSelectedSector("")
     SelectedName = []
-    if (e.value === "Select Motivation") {
+    if (e.value === "Select Motivations") {
       MotivationArr = []
       filterFunction()
-      setLoader(true);
 
-    } else if (e.value !== "") {
+    } else if (e.value !== "" && e.value !== "Select Motivations") {
       MotivationArr = []
       let sectorField = e.value;
 
@@ -326,13 +349,13 @@ function ToDoList() {
     FilterJob = [];
     setSelectedJob([])
     console.log(e)
-    if (e.value === "Select Un Secteur") {
+    if (e.value === "Select Sector") {
       setJobs([]);
       setSelectedSector("");
       setJobOptions([]);
-      setLoader(true);
+    filterFunction()
 
-    } else if (e.value !== '') {
+    } else if (e.value !== '' && e.value !== "Select Sector") {
       let sectorField = e.value;
       setSelectedSector(sectorField);
       setJobOptions([]);
@@ -892,16 +915,22 @@ function ToDoList() {
                                 <option value="true" onChange={HandelLicence}>Have Licence</option>
                                 <option value="false" onChange={HandelLicence}>Doesn't Have Licence</option>
                               </select> */}
-                              <Select
-                                name="candidatPhone"
-                                closeMenuOnSelect={true}
-                                placeholder="‎ ‎ ‎ ‎ ‎  ‎ Candidat's Phone Number"
-                                className="basic-multi-select"
-                                classNamePrefix="select"
-                                // onChange={HandelLicence}
-                                options={ContectOptions}
-                                styles={colourStyles}
-                              />
+                             {
+ContactOptions.length>0 ?
+<Select
+name="candidatPhone"
+closeMenuOnSelect={true}
+placeholder="‎ ‎ ‎ ‎ ‎  ‎ Candidat's Phone Number"
+className="basic-multi-select"
+classNamePrefix="select"
+// onChange={HandelLicence}
+options={ContactOptions}
+styles={colourStyles}
+/>
+:
+<div >   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+                             }
+                         
                             </div>
                           </div>
                         </div>

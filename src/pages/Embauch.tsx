@@ -125,7 +125,7 @@ function Embauch() {
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
 
-    setSectorOptions([...sectorops]);
+    setSectorOptions([{value:"Select Sector",label:"Select Sector",color:"#ff8b00"},...sectorops]);
   }, [sectors])
   useEffect(() => {
     filterFunction();
@@ -150,7 +150,7 @@ function Embauch() {
         let nameops = profilesResult.map((pro) => {
           return { value: pro.candidatName, label: pro.candidatName, color: '#FF8B00' }
         })
-        setNameOptions([...nameops])
+        setNameOptions([{value:"Select Name",label:"Select Name",color:"#ff8b00"},...nameops])
       }).catch(err => {
         console.log(err)
       })
@@ -161,10 +161,10 @@ function Embauch() {
     SelectedName = []
     setSelectedSector("")
     setSelectedJob([])
-    if (e.value === "Select Un Name") {
+    if (e.value === "Select Name") {
       SelectedName = []
-
-    } else if (e.value !== "") {
+    filterFunction();
+    }    else if (e.value !== "" && e.value!=="Select Name") {
       SelectedName = []
       let NameField = e.value;
       SelectedName.push(NameField)
@@ -210,13 +210,13 @@ function Embauch() {
     FilterJob = [];
     setSelectedJob([])
     console.log(e)
-    if (e.value === "Select Un Secteur") {
+    if (e.value === "Select Sector") {
       setJobs([]);
       setSelectedSector("");
       setJobOptions([]);
-      setLoader(true);
+    filterFunction()
 
-    } else if (e.value !== '') {
+    } else if (e.value !== '' && e.value !== "Select Sector") {
       let sectorField = e.value;
       setSelectedSector(sectorField);
       setJobOptions([]);

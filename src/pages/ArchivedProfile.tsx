@@ -11,6 +11,7 @@ import { API_BASE_URL } from '../config/serverApiConfig';
 import axios from "axios";
 import HideProfile from "../components/Modal/HideProfileModalForArchived";
 import RestProfile from "../components/Modal/RestProfileForArchived";
+import { Toaster, toast } from 'react-hot-toast';
 
 
 const axiosInstance = axios.create({
@@ -18,10 +19,11 @@ const axiosInstance = axios.create({
 })
 
 const ArchivedProfile = () => {
+  const profileData=JSON.parse(localStorage.getItem("archive"))
  const navigate=useNavigate()
   const { state } = useLocation();
 
-  const [profile, setProfile] = useState<any>(state);
+  const [profile, setProfile] = useState<any>(state ? state : profileData);
   const [hideProfile,setHideProfile]=useState(false)
   const [RestModalProfile,setRestModalProfile]=useState(false)
   const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
@@ -29,22 +31,76 @@ const ArchivedProfile = () => {
     {value:"upload",label:<Upload />,},
     {value:"Download Image",label:<Download />} 
     ]
+  const hiddenImageInput = React.useRef(null);
     const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
     const [loader, setLoader] = useState(false);
     const editCandidatProfile = () => {
       navigate("/editArchived", { state: profile });
     };
-  // useEffect(() => {
-  //   window.scroll({
-  //     top: 0,
-  //     left: 0,
-  //     behavior: "smooth",
-  //   });
-  //   console.log(profile);
-  // });
+    const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
+    const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
+
+    const handleImageUpload = () => {
+      hiddenImageInput.current.click();
+    }
+    const handleImageChange = (e: any) => {
+      if (e.value == 'upload') {
+        console.log("upload")
+        handleImageUpload()
+      } else if (e.value == 'Download Image') {
+        console.log("download")
+        window.open(API_BASE_URL + candidatImage);
+      }
+    }
+    const fetchCandidat = async (candidatId: any) => {
+      return await fetch(API_BASE_URL + `getCandidatById/?candidatId=${candidatId}`, {
+        method: "GET",
+        headers: {
+          "Accept": 'application/json',
+          "Authorization": "Bearer " + localStorage.getItem('token')
+        },
+      })
+        .then(resp => resp.json())
+        .then(respData => respData)
+        .catch(err => err)
+    }
+  
+    const fileChange = (
+      e: React.ChangeEvent<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
+      >
+    ) => {
+  
+      if (e.target.name === 'candidatPhoto') {
+        const fileUploaded = e.target.files[0]
+        let formdata = new FormData();
+        formdata.append('candidatId', profile._id)
+        formdata.append('image', fileUploaded)
+        axiosInstance.post("uploadCandidatImage", formdata, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "Authorization": "Bearer " + localStorage.getItem('token')
+          }
+        })
+          .then(datares => {
+            console.log(datares)
+            if (datares.data.status) {
+              notifyDocumentUploadSuccess()
+              // setCandidatImage(datares.data.filename)
+              window.location.href = "/archivedprofile"
+            } else {
+              notifyDocumentUploadError()
+            }
+          })
+          .catch(err => { console.log(err) })
+        return;
+      }
+   
+    }
 
   return (
     <>
+      <Toaster position="top-right" containerStyle={{ zIndex: '99999999999' }} />
       <div className="container-fluid " style={{marginTop:"80px"}}>
         <div className="row px-1">
           {/* <div className="col-6">
@@ -144,13 +200,12 @@ const ArchivedProfile = () => {
               <div className="row bg-ArchiveDetails mt-0">
                 <div className="col-xxl-2 col-xl-2 col-md-2 col-sm-2 text-center">
                 {candidatImage !== "" ?
-                    loader ?
+                   
                       <img
                         // src={require("../images/menlogos.svg").default}
                         src={API_BASE_URL + candidatImage}
                      className="imgArchived-upload-download"
-                      /> :  <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
-                    :
+                      /> :
                     <img
                     src={require("../images/menlogos.svg").default}
                    className="imgArchived-upload-download"
@@ -160,11 +215,17 @@ const ArchivedProfile = () => {
                   }
                    <Select
                           closeMenuOnSelect={true}
-                          // onChange={handleImageChange}
+                          onChange={handleImageChange}
   options={uploadOption}
   className="Todoupload"
 
-/>
+/><input
+                    type="file"
+                    ref={hiddenImageInput}
+                    onChange={fileChange}
+                    name="candidatPhoto"
+                    style={{ display: 'none' }}
+                  />
                 </div>
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 card-TodoProfile">
                   <div className="d-flex">

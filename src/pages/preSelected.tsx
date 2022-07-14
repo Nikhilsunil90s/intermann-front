@@ -48,8 +48,11 @@ function Preselected(){
           const [nameOptions, setNameOptions] = useState([])                        
           const [showMore, setShowMore] = useState(true)
           const [statusProfiles,setStatusProfile]=useState(false)
+          const [email,setEmail]=useState([])
           const [licenceOptions, setLicenseOptions] = useState([
             {
+              value: "Select Licence", label: "Select Licence", color: '#FF8B00'
+            }, {
               value: "true", label: "Have Licence", color: '#FF8B00'
             },
             {
@@ -59,6 +62,8 @@ function Preselected(){
         
           const [motivationOptions, setMotivationOptions] = useState([
             {
+              value: "Select Motivations", label: "Select Motivations", color: '#FF8B00'
+            },   {
               value: "1", label: "😔", color: '#FF8B00'
             }, {
               value: "2", label: "🙁", color: '#FF8B00'
@@ -70,6 +75,7 @@ function Preselected(){
               value: "5", label: "😍", color: '#FF8B00'
             }
           ])
+          const [ContactOptions,setContactOptions]=useState([])
           const [LicensePermis, setLicensePermis] = useState(Boolean) as any
           const [selectByName, setSelectName] = useState([])
         
@@ -204,7 +210,7 @@ function Preselected(){
               .catch((err) => err);
           };
         
-          useEffect(() => {
+        useEffect(()=>  {
             if (nameOptions.length == 0 && statusProfiles===true) {
               fetchProfiles().then((profilesResult) => {
                 console.log(profilesResult.data,"profilesResult")
@@ -213,7 +219,7 @@ function Preselected(){
                   console.log(pro,"pro")
                   return { value: pro.candidatName, label: pro.candidatName, color: '#FF8B00' }
                 })
-                setNameOptions([...nameops])
+                setNameOptions([{value:"Select Name",label:"Select Name",color:"#ff8b00"},...nameops])
             }})
               .catch(err => {
                 console.log(err)
@@ -232,8 +238,8 @@ function Preselected(){
                 }
            ) } 
                  
-              }  )
-        
+              }
+        )
           const fetchProfilesForAJob = async (jobName: string) => {
             return await fetch(API_BASE_URL + "fetchProfilesForAJob", {
               method: "POST",
@@ -256,49 +262,53 @@ function Preselected(){
             LicencePermisArr = []
             setSelectedSector("")
             setSelectedJob([])
-            if (e.value === "Select Un Name") {
+            if (e.value === "Select Name") {
               SelectedName = []
-        
-            } else if (e.value !== "") {
+              filterFunction();
+            } else if (e.value !== ""  && e.value!=="Select Name") {
               SelectedName = []
               MotivationArr = []
               let NameField = e.value;
               SelectedName.push(NameField)
             }
           };
-        
           const HandelLicence = (e) => {
             LicencePermisArr = []
             SelectedName = []
             setSelectedSector("")
             MotivationArr = []
             console.log(e.value)
+            if(e.value=="Select Licence"){
+              LicencePermisArr=[]
+              filterFunction()
+            }
+            if(e.value !=="" && e.value !=="Select Licence"){
             LicencePermisArr.push(e.value)
             filterFunction()
-          }
-        
-          const handleMotivationChange = (e: any) => {
-            // console.log(e.target.value)
-            MotivationArr = []
-            LicencePermisArr = []
-            setSelectedSector("")
-            SelectedName = []
-            if (e.value === "Select Motivation") {
+
+                }  
+              }
+              const handleMotivationChange = (e: any) => {
+              // console.log(e.target.value)
               MotivationArr = []
-              filterFunction()
-              setLoader(true);
-        
-            } else if (e.value !== "") {
-              MotivationArr = []
-              let sectorField = e.value;
-        
-              console.log(sectorField, "motivation")
-              MotivationArr.push(sectorField)
-              filterFunction()
-              // setSelectedSector(sectorField);
-            }
-          };
-        
+              LicencePermisArr = []
+              setSelectedSector("")
+              SelectedName = []
+              if (e.value === "Select Motivations") {
+                MotivationArr = []
+                filterFunction()
+          
+              } else if (e.value !== "" && e.value !== "Select Motivations") {
+                MotivationArr = []
+                let sectorField = e.value;
+          
+                console.log(sectorField, "motivation")
+                MotivationArr.push(sectorField)
+                filterFunction()
+                // setSelectedSector(sectorField);
+              }
+            };
+          
           const handleSectorChange = (e: any) => {
             // console.log(e.target.value)
             SelectedName = []
@@ -307,13 +317,13 @@ function Preselected(){
             FilterJob = [];
             setSelectedJob([])
             console.log(e)
-            if (e.value === "Select Un Secteur") {
+            if (e.value === "Select Sector") {
               setJobs([]);
               setSelectedSector("");
               setJobOptions([]);
-              setLoader(true);
+            filterFunction()
         
-            } else if (e.value !== '') {
+            }  else if (e.value !== '' && e.value !== "Select Sector") {
               let sectorField = e.value;
               setSelectedSector(sectorField);
               setJobOptions([]);

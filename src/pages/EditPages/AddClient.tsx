@@ -152,7 +152,7 @@ console.log(StarRatings,"hello")
   useEffect(() => {
     $(document).ready(function () {
       $("#dam_return button").click(function () {
-        Amountarr = $(this).val();
+        Amountarr = $(this).val().toString();
         var input = $("#dam");
         input.val(Amountarr);
       });
