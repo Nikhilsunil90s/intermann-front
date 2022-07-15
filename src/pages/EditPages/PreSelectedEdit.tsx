@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
-import "../../CSS/EditArchive.css";
+import "../../CSS/EditTodo.css";
 import { useLocation } from "react-router-dom";
-import { API_BASE_URL } from "../../config/serverApiConfig";
+import { API_BASE_URL } from '../../config/serverApiConfig';
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
 import UploadDow from '../../components/Modal/SelectUploadDownload'
@@ -12,6 +12,7 @@ import Switch from "react-switch";
 import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../../Selecteddata/data';
 import chroma from 'chroma-js';
 import Select, {StylesConfig } from "react-select";
+
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -39,7 +40,7 @@ const EmployeeDataFormat = {
   candidatEndDate: "",
   candidatYearsExperience: "",
   candidatFetes: [],
-  candidatPhoto: "",
+  candidatPhoto: {},
   candidatExperienceDetails: [{
     period: "",
     location: "",
@@ -53,53 +54,59 @@ const EmployeeDataFormat = {
     }
   ],
   enteredBy: "",
-  candiatStatus: "Archived",
-  candidatArchived: {
+  candiatStatus: "To-Do",
+  candidateArchived: {
     reason: ""
   }
 }
 
-function EditArchive() {
+function PreSelectedEdit() {
+
+  const navigate = useNavigate();
 
   const { state } = useLocation();
-  const navigate = useNavigate();
-  const [data, setData] = useState(EmployeeDataFormat);
-  const [profile, setProfile] = useState<any>(state);
-  const [activitySectors, setActivitySectors] = useState([])
-  const [selectedSector, setSelectedSector] = useState("");
-  const [formTouched, setFormTouched] = useState(false);
-  const [candidatMotivation, setCandidatMotivation] = useState(profile.candidatMotivation);
-  const [jobs, setJobs] = useState([]);
-  const [period, setPeriod] = useState("");
-  const [location, setLocation] = useState("");
-  const [workDoneSample, setWorkDoneSample] = useState("");
-  const [selectedLanguages, setSelectedLanguages] = useState(profile.candidatLanguages);
-  const hiddenFileInput = React.useRef(null);
-  const [candidatImage, setCandidatImage] = useState("");
-  const [clients, setClients] = useState([]);
-  const [UploadDownBtn,setUPDownState]= useState(false)
-  const hiddenImageInput = React.useRef(null);
-  const [Permis,setPermis]=useState(Boolean)
-  const [DefPermis,setDefPermis]=useState(Permis ? Permis : profile.candidatLicensePermis  )
-  const [Language, setLanguage] = useState([])
-  const [workExperience, setWorkExperience] = useState(profile.candidatExperienceDetails.length > 0 ? [...profile.candidatExperienceDetails] : []);
-  const [displayRow, setDisplayRow] = useState(false);
-  const [periodModified, setPeriodModified] = useState(false);
-  const [locationModified, setLocationModified] = useState(false);
-  const [workDoneModified, setWorkDoneModified] = useState(false);
-  const [inputDisabled, setInputDisabled] = useState(false);
-  const [reasonArchived, setReasonArchived] = useState(profile.candidatArchived.reason);
-  
+
   const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
   const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
 
 
-  const notifyCandidatEditSuccess = () => toast.success("Candidat Updated Successfully! View Candidat in Archived List.");
+  const [data, setData] = useState(EmployeeDataFormat);
+  const [formTouched, setFormTouched] = useState(false);
+  const [profile, setProfile] = useState<any>(state.data);
+  const [activitySectors, setActivitySectors] = useState([])
+  const [selectedSector, setSelectedSector] = useState("");
+  const [jobs, setJobs] = useState([]);
+  const [period, setPeriod] = useState("");
+  const [location, setLocation] = useState("");
+  const [workDoneSample, setWorkDoneSample] = useState("");
+  const [experienceChanged, setExperienceChanged] = useState(false);
+  const [candidatMotivation, setCandidatMotivation] = useState(profile.candidatMotivation);
+  const [selectedLanguages, setSelectedLanguages] = useState(profile.candidatLanguages);
+  const [candidatImage, setCandidatImage] = useState("");
+  const hiddenFileInput = React.useRef(null);
+  const [displayRow, setDisplayRow] = useState(false);
+  const [workExperience, setWorkExperience] = useState(profile.candidatExperienceDetails.length > 0 ? [...profile.candidatExperienceDetails] : []);
+  const [allowEditExperience, setAllowEditExperience] = useState(false);
+  const [inputDisabled, setInputDisabled] = useState(false);
+  const [periodModified, setPeriodModified] = useState(false);
+  const [locationModified, setLocationModified] = useState(false);
+  const [workDoneModified, setWorkDoneModified] = useState(false);
+  const [UploadDownBtn,setUPDownState]= useState(false)
+  const [Permis,setPermis]=useState(Boolean)
+  const [DefPermis,setDefPermis]=useState(Permis ? Permis : profile.candidatLicensePermis  )
+  const hiddenImageInput = React.useRef(null);
+  const [Language, setLanguage] = useState([])
+ 
+  console.log(profile,"dls")
 
-  const notifyCandidatEditError = () => toast.error("Cannot Edit Candidat! Please Try Again.");
+  const editExperience = (e: any) => {
+    e.preventDefault()
+    setAllowEditExperience(true);
+    console.log(workExperience)
+    setWorkExperience([{ period: "", location: "", workDoneSample: "" }])
+  }
 
-  const notifyCandidatUntouched = () => toast.error("Cannot Edit This Candidat, Since No Data Changed!");
-
+  
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -152,10 +159,49 @@ function EditArchive() {
       },
     }),
   };
+
+  const notifyCandidatEditSuccess = () => toast.success("Candidat Updated Successfully! View Candidat in To-Do List.");
+
+  const notifyCandidatEditError = () => toast.error("Cannot Edit Candidat! Please Try Again.");
+
+  const switchHandle=(checked,id,e)=>{
+    if(e=="Permis"){
+   console.log(checked)
+    }
+    if(e=="Voyage"){
+
+    }
+  }
+
+  const fetchActivitySectors = async () => {
+    return await fetch(API_BASE_URL + "fetchAllSectors", {
+      method: "GET",
+      headers: {
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      }
+    })
+      .then(resp => resp.json())
+      .then(respData => respData)
+      .catch(err => err)
+  }
+
+  const fetchAllJobs = async (sector: string) => {
+    return await fetch(API_BASE_URL + `fetchAllJobs/?sector=${sector}`, {
+      method: "GET",
+      headers: {
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      }
+    }).then(resD => resD.json())
+      .then(reD => reD)
+      .catch(err => err)
+  }
   const handleImageUpload = () => {
     hiddenImageInput.current.click();
   }
-  
   const handleImageChange = (val) => {
     if (val === 'upload') {
       console.log("upload")
@@ -165,6 +211,155 @@ function EditArchive() {
       window.open(API_BASE_URL + candidatImage);
     }
   }
+  const onFormDataChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
+    >
+  ) => {
+    console.log(e.target.name, e.target.value)
+    setFormTouched(true);
+    if (e.target.name === 'candidatPhoto') {
+      console.log("Check photo")
+      const fileUploaded = e.target.files[0];
+      setCandidatImage(fileUploaded);
+      // setData((prev) => ({ ...prev, [e.target.name]: e.target.files[0] }));
+      return;
+    }
+    if (e.target.name === "candidatActivitySector") {
+      changeSectorSelection(e.target.value);
+      return;
+    }
+    if (e.target.name === "candidatJob") {
+      changeJobSelection(e.target.value);
+      return;
+    }
+    if (e.target.name === 'candidatMotivation ') {
+      console.log(e.target.value);
+      changeCandidatMotivation(e.target.value);
+    }
+    if (e.target.name === 'candidatLanguages') {
+      if (e.target?.checked) {
+        addLanguages(e.target.value);
+        console.log(selectedLanguages)
+        return
+      } else {
+        removeLanguages(e.target.value);
+        console.log(selectedLanguages)
+
+        return
+      }
+    }
+    if (e.target.name === 'period') {
+      setPeriod(e.target.value);
+      if (e.target.value) {
+        setPeriodModified(true);
+        setDisplayRow(true);
+      }
+      setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [{ period: e.target.value, location: location, workDoneSample: workDoneSample }] }))
+      return
+    }
+    if (e.target.name === 'location') {
+      console.log(e.target.defaultValue);
+      setLocation(e.target.value);
+      if (e.target.value) {
+        setLocationModified(true);
+        setDisplayRow(true);
+      }
+      setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [{ period: period, location: e.target.value, workDoneSample: workDoneSample }] }))
+      return
+    }
+    if (e.target.name === 'workDoneSample') {
+      setWorkDoneSample(e.target.value);
+      if (e.target.value) {
+        setWorkDoneModified(true);
+        setDisplayRow(true);
+      }
+      setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [{ period: period, location: location, workDoneSample: e.target.value }] }))
+      return
+    }
+    setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  }
+
+  const addLanguages = (lang: string) => {
+    setSelectedLanguages((prev) => ([...prev, lang]));
+    setData((prev) => ({ ...prev, ['candidatLanguages']: [...selectedLanguages, lang] }));
+  }
+
+  const removeLanguages = (lang: string) => {
+    setSelectedLanguages(selectedLanguages.filter((l) => l !== lang));
+    setData((prev) => ({ ...prev, ['candidatLanguages']: [...selectedLanguages.filter((l) => l !== lang)] }));
+  }
+
+  useEffect(() => {
+    // console.log(data, languages);
+  }, [selectedLanguages])
+
+  const changeCandidatMotivation = (value: any) => {
+    setData((prev) => ({ ...prev, ["candidatMotivation"]: value }));
+    setCandidatMotivation(value);
+  }
+
+  const changeSectorSelection = async (sec: string) => {
+    if (sec) {
+      setSelectedSector(sec);
+      await fetchAllJobs(sec)
+        .then(data => {
+          console.log(data.data)
+          setJobs([...data.data]);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      console.log(jobs);
+    }
+
+  }
+
+  const changeJobSelection = (value: string) => {
+    setData((prev) => ({ ...prev, ["candidatJob"]: value }));
+  }
+
+  useEffect(() => {
+    // console.log(profile)
+    if (activitySectors.length === 0) {
+      fetchActivitySectors()
+        .then(redata => {
+          console.log(redata);
+          setActivitySectors([...redata.data]);
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+    console.log(profile.candidatActivitySector)
+    if (jobs.length === 0 && profile.candidatActivitySector !== "") {
+      fetchAllJobs(profile.candidatActivitySector)
+        .then((data) => {
+          console.log(data);
+          setJobs([...data.data])
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+
+    if (data.candidatLanguages.length == 0) {
+      console.log(selectedLanguages);
+      setData((prev) => ({ ...prev, ["candidatLanguages"]: selectedLanguages }));
+    }
+
+    if (period == "") {
+      profile.candidatExperienceDetails.map((detail) => {
+        setPeriod(detail.period)
+        setLocation(detail.location)
+        setWorkDoneSample(detail.workDoneSample)
+        setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [{ period: detail.period, location: detail.location, workDoneSample: detail.workDoneSample }] }))
+      })
+    }
+    console.log(data);
+  }, []);
+
+
   const addWorkExperience = (e: any) => {
     e.preventDefault();
     console.log(period, location, workDoneSample);
@@ -200,152 +395,25 @@ function EditArchive() {
     setData((prev) => ({ ...prev, ["candidatExperienceDetails"]: wex }));
   }, [workExperience])
 
-  const editExperience = (e: any) => {
-    e.preventDefault()
-    console.log(workExperience)
-    setWorkExperience([{ period: "", location: "", workDoneSample: "" }])
-  }
-
-
-  const fetchActivitySectors = async () => {
-    return await fetch(API_BASE_URL + "fetchAllSectors", {
-      method: "GET",
-      headers: {
-        "Accept": 'application/json',
-        'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
-      }
-    })
-      .then(resp => resp.json())
-      .then(respData => respData)
-      .catch(err => err)
-  }
-
-  const fetchAllJobs = async (sector: string) => {
-    return await fetch(API_BASE_URL + `fetchAllJobs/?sector=${sector}`, {
-      method: "GET",
-      headers: {
-        "Accept": 'application/json',
-        'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
-      }
-    }).then(resD => resD.json())
-      .then(reD => reD)
-      .catch(err => err)
-  }
-
-  const addLanguages = (lang: string) => {
-    setSelectedLanguages((prev) => ([...prev, lang]));
-    setData((prev) => ({ ...prev, ['candidatLanguages']: [...selectedLanguages, lang] }));
-  }
-
-  const removeLanguages = (lang: string) => {
-    setSelectedLanguages(selectedLanguages.filter((l) => l !== lang));
-    setData((prev) => ({ ...prev, ['candidatLanguages']: [...selectedLanguages.filter((l) => l !== lang)] }));
-  }
-
-  const changeCandidatMotivation = (value: any) => {
-    setData((prev) => ({ ...prev, ["candidatMotivation"]: value }));
-    setCandidatMotivation(value);
-  }
-
-  const changeSectorSelection = async (sec: string) => {
-    if (sec) {
-      setSelectedSector(sec);
-      await fetchAllJobs(sec)
-        .then(data => {
-          console.log(data.data)
-          setJobs([...data.data]);
-        })
-        .catch(err => {
-          console.log(err);
-        })
-      console.log(jobs);
-    }
-
-  }
-
-  const changeJobSelection = (value: string) => {
-    setData((prev) => ({ ...prev, ["candidatJob"]: value }));
-  }
-
   const updateCandidat = async (updatedData: any) => {
-    return await fetch(API_BASE_URL + "editArchivedCandidat", {
+    console.log(updatedData)
+    let headers = {
+      "Accept": 'application/json',
+      "Authorization": "Bearer " + localStorage.getItem('token')
+    }
+    return await fetch(API_BASE_URL + "editToDoCandidat", {
       method: "POST",
-      headers: {
-        "Accept": 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
-      },
+      headers: headers,
       body: updatedData
     })
-      .then(d => d.json())
-      .then(r => r)
-      .catch(err => {
-        console.log(err)
-      })
-  }
-
-  const onFormDataChange = (e: React.ChangeEvent<
-    HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
-  >) => {
-    setFormTouched(true);
-    if (e.target.name === 'candidatPhoto') {
-      console.log("Check photo")
-      const fileUploaded = e.target.files[0];
-      setCandidatImage(fileUploaded);
-      // setData((prev) => ({ ...prev, [e.target.name]: e.target.files[0] }));
-      return;
-    }
-    if (e.target.name === "candidatActivitySector") {
-      changeSectorSelection(e.target.value);
-      return;
-    }
-    if (e.target.name === "candidatJob") {
-      changeJobSelection(e.target.value);
-      return;
-    }
-    if (e.target.name === 'candidatMotivation ') {
-      console.log(e.target.value);
-      changeCandidatMotivation(e.target.value);
-    }
-    if (e.target.name === 'candidatLanguages') {
-      if (e.target?.checked) {
-        addLanguages(e.target.value);
-        console.log(selectedLanguages)
-        return
-      } else {
-        removeLanguages(e.target.value);
-        console.log(selectedLanguages)
-
-        return
-      }
-    }
-    if (e.target.name === 'period') {
-      setPeriod(e.target.value);
-      setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [{ period: e.target.value, location: location, workDoneSample: workDoneSample }] }))
-      return
-    }
-    if (e.target.name === 'location') {
-      console.log(e.target.defaultValue);
-      setLocation(e.target.value);
-      setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [{ period: period, location: e.target.value, workDoneSample: workDoneSample }] }))
-      return
-    }
-    if (e.target.name === 'workDoneSample') {
-      setWorkDoneSample(e.target.value);
-      setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [{ period: period, location: location, workDoneSample: e.target.value }] }))
-      return
-    }
-    if (e.target.name === 'reasonArchived') {
-      setReasonArchived(e.target.value);
-      setData((prev) => ({ ...prev, ['candidatArchived']: { reason: e.target.value } }))
-      return;
-    }
-    setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+      .then(reD => reD.json())
+      .then(resD => resD)
+      .catch(err => err)
   }
 
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(formTouched, data);
     if (formTouched) {
       const updatedData = {
         candidatId: profile._id,
@@ -366,16 +434,15 @@ function EditArchive() {
         candidatAddress: data.candidatAddress != "" ? data.candidatAddress : profile.candidatAddress,
         candidatFBURL: data.candidatFBURL != "" ? data.candidatFBURL : profile.candidatFBURL,
         candidatYearsExperience: data.candidatYearsExperience != "" ? data.candidatYearsExperience : profile.candidatYearsExperience,
-        candidatArchived: data.candidatArchived.reason != "" ? data.candidatArchived : profile.candidatArchived
       }
-      console.log(updatedData);
+      console.log(updatedData)
+      // fileData.append('data', JSON.stringify(updatedData))
       let formdata = new FormData();
       formdata.append('image', candidatImage)
       formdata.append("data", JSON.stringify(updatedData))
       updateCandidat(formdata)
-        .then(data => {
-          console.log(data);
-          if (data.status) {
+        .then(response => {
+          if (response.status) {
             notifyCandidatEditSuccess()
             setTimeout(() => {
               navigate(state.path);
@@ -384,31 +451,11 @@ function EditArchive() {
         })
         .catch(err => {
           console.log(err);
-          notifyCandidatEditError();
-        })
+          notifyCandidatEditError()
+        });
     } else {
-      console.log("Modify Something !");
-      notifyCandidatUntouched()
+      notifyCandidatEditError()
     }
-  }
-  const switchHandle=(checked,id,e)=>{
-    if(e=="Permis"){
-   console.log(checked)
-    }
-    if(e=="Voyage"){
-
-    }
-  }
-  const handleChange = (selectedOption) => {
-    console.log(`Option selected:`, selectedOption)
-    let arr = []
-
-    selectedOption.map((el) => {
-      arr.push(el.value)
-    })
-    setLanguage(arr)
-    console.log(Language, "language")
-    setData({ ...data, candidatLanguages: arr })
   }
   const fileChange = (
     e: React.ChangeEvent<
@@ -438,7 +485,7 @@ function EditArchive() {
 
      
             setTimeout(()=>{
-              window.location.href = "/editArchived"
+              window.location.href = "/todoprofile"
             },2000)
           } else {
             notifyDocumentUploadError()
@@ -448,6 +495,27 @@ function EditArchive() {
       return;
     }
   }
+  const handleChange = (selectedOption) => {
+    console.log(`Option selected:`, selectedOption)
+    let arr = []
+
+    selectedOption.map((el) => {
+      arr.push(el.value)
+    })
+    setLanguage(arr)
+    console.log(Language, "language")
+    setData({ ...data, candidatLanguages: arr })
+  }
+  const FetesDate = (selectedOption: any) => {
+    let FetesArr = []
+    selectedOption?.map((el) => {
+      FetesArr.push(el.value)
+    })
+
+
+    setData({ ...data, candidatFetes: FetesArr })
+  }
+
   const fetchCandidat = async (candidatId: any) => {
     return await fetch(API_BASE_URL + `getCandidatById/?candidatId=${candidatId}`, {
       method: "GET",
@@ -478,51 +546,9 @@ function EditArchive() {
         console.log(err)
       })
   }, [])
-  useEffect(() => {
-
-    if (activitySectors.length === 0) {
-      fetchActivitySectors()
-        .then(redata => {
-          console.log([...redata.data],"red");
-          setActivitySectors([...redata.data]);
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
-
-    if (jobs.length === 0) {
-      fetchAllJobs(profile.candidatActivitySector)
-        .then((data) => {
-          console.log(data);
-          setJobs([...data.data])
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
-
-    if (data.candidatLanguages.length == 0) {
-      console.log(selectedLanguages);
-      setData((prev) => ({ ...prev, ["candidatLanguages"]: selectedLanguages }));
-    }
-
-    if (period == "") {
-      profile.candidatExperienceDetails.map((detail) => {
-        setPeriod(detail.period)
-        setLocation(detail.location)
-        setWorkDoneSample(detail.workDoneSample)
-        setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [{ period: detail.period, location: detail.location, workDoneSample: detail.workDoneSample }] }))
-      })
-    }
-
-    console.log(data);
-  });
-
   return (
     <>
-    
-       <Toaster
+      <Toaster
         position="top-right"
         reverseOrder={false}
         containerStyle={{ zIndex: '99999999999' }}
@@ -537,7 +563,7 @@ function EditArchive() {
             <div className="col-12 ">
               <div className="row EditTopHeaderColor">
                 <div className="col-6  d-flex align-items-center">
-                <Link to="/archivedlist">
+                <Link to="/todoprofile">
                     <button
                       type="button"
                       className="btn d-flex align-items-center p-0"
@@ -548,8 +574,8 @@ function EditArchive() {
                   </Link>
                 </div>
                 <div className="col-6 d-flex justify-content-end align-items-center">
-              <Link to="/archivedlist" style={{ textDecoration: "none" }}>
-                <button className="btn edit-btnCancel mr-1" type="button">
+              <Link to="/todolist" style={{ textDecoration: "none" }}>
+                <button className="btn edit-btnCancel mr-1">
                   <img
                     style={{ width: "25%",marginRight:"5px" }}
                     src={require("../../images/multiply.svg").default}
@@ -570,19 +596,16 @@ function EditArchive() {
                 <div className="row">
                   <div className="col-2 text-center ">
                   {candidatImage !== "" ?
+                      <img
+                        src={API_BASE_URL + candidatImage}
+                     className="img-upload-Download"
+                      /> :
+                    <img
+                      src={require("../../images/menlogos.svg").default}
+                     className="img-upload-Download"
+                    />
                    
-                   <img
-                     // src={require("../images/menlogos.svg").default}
-                     src={API_BASE_URL + candidatImage}
-                  className="imgArchived-upload-download"
-                   /> :
-                 <img
-                 src={require("../../images/menlogos.svg").default}
-                className="imgArchived-upload-download"
-
-               />
-           
-               }
+                  }
                
 <button
 type="button"
@@ -617,16 +640,21 @@ className="SelectBtn"
                      
                     </div>
                   </div>
-                  <div className="col-4 px-0 text-end end-class align-items-center justify-content-end pt-1 pr-2">
-                  <div className="d-grid justify-content-end align-items-center pb-1">
-                  <button className="ArchiveLargebtn pb-1 p-0"><img src={require("../../images/ArchivedBtn.svg").default} /></button>
-                  </div>
-                  <p className="textinPro text-end pl-5 ">
-                  Candidat Archivé/Annulé/Viré
+                  <div className="col-4 px-0 text-end end-class">
+                  <div className="text-center d-grid justify-content-end align-items-center mt-2 pr-1">
+                    <div className="text-end">
+                    <button className="preLargebtn">
+                      <img src={require("../../images/preselectedCard.svg").default} />
+                      PRE SELECTED
+                    </button>
+                    </div>
+                    <p className="fw-bold textPRE-end pl-5 pt-1">
+                  Selectionné pour un client
                   </p>
-                  <p className="text-PREBtn-child pb-1">This candidate have archived</p>
-
-                 
+                  <p className="text-PREBtn-child">This candidate have been selected for a client</p>
+               
+                  </div>
+              
                 </div>
                 </div>
               </div>
@@ -636,11 +664,13 @@ className="SelectBtn"
                   <div className="col-4">
                     <label className="LabelStylingEdits mb-0" >Secteur d’Activité</label>
                     <div className="dropdown">
-                    <select className="form-select" name="candidatActivitySector" onChange={onFormDataChange}>
-                          {activitySectors.map((sector) =>
-                            <option defaultValue={sector.sectorName} >{sector.sectorName}</option> // fetch from api
-                          )}
-                        </select>
+                      <select className="form-select" name="candidatActivitySector" onChange={onFormDataChange}>
+                        <option>Select Un Secteur</option>
+
+                        {activitySectors.map((sector) =>
+                          <option defaultValue={sector.sectorName} selected={profile.candidatActivitySector == sector.sectorName}>{sector.sectorName}</option> // fetch from api
+                        )}
+                      </select>
                     </div>
                    
                   </div>
@@ -921,28 +951,10 @@ className="SelectBtn"
                       >
                       </textarea>
                 </div>
-                <div className="col-12 px-0 mt-2">
-                  <div className="row">
-                    <div className="col-12 ">
-                      <p className="LabelStylingEdits mb-0">Reason why <span style={{color:"#ff0000",marginLeft:"5px"}}> archived</span></p>
-                    </div>
-                    <div className="col-12">
-                      <textarea
-                        id="skills"
-                        name="reasonArchived"
-                        className="form-control"
-                        defaultValue={profile.candidatArchived.reason}
-                        onChange={onFormDataChange}
-                        rows={4}
-                      >
-                      </textarea>
-                    </div>
-                  </div>
-                </div>
                 <div className="col-12 px-0 mt-3">
                   <div className="row justify-content-end">
                     <div className="col-6 d-flex justify-content-end">
-                      <Link to="/archivedlist" style={{ textDecoration: "none" }}>
+                      <Link to="/todolist" style={{ textDecoration: "none" }}>
 
                         <button type="button" className="btn edit-btnCancel mr-1">
                           <img
@@ -963,7 +975,6 @@ className="SelectBtn"
 
                   </div>
                 </div>
-
             </div>
           </form>
         </div>
@@ -971,4 +982,5 @@ className="SelectBtn"
     </>
   );
 }
-export default EditArchive;
+
+export default PreSelectedEdit;

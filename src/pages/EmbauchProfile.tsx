@@ -27,6 +27,8 @@ function ProgressCard() {
  const  profileData = JSON.parse(localStorage.getItem("embauch"))
 
   const { state } = useLocation();
+ const navigate = useNavigate()
+
   // const profileData = ||"");
  
   // const profileData=async()=>{
@@ -52,13 +54,10 @@ function ProgressCard() {
   const [RenameDocStatus,setRenameDocStatus]=useState(false)
   const hiddenImageInput = React.useRef(null);
   const [UploadBtn,setSelectUpload]= useState(false)
-  const uploadOption=[
-    {value:"upload",label:<Upload />,},
-    {value:"Download Image",label:<Download />} 
-    ]
-    const navigate = useNavigate()
+
+  let data = {data:profile,path:"/embauchprofile"}
     const editCandidatProfile = () => {
-      navigate("/editInProgress", { state: profile });
+      navigate("/editInProgress", { state: data });
     };
 
   // useEffect(() => {
@@ -292,14 +291,14 @@ function ProgressCard() {
                 </div>
               </div>
               <div className="col-6 d-flex align-items-center justify-content-end">
-                <Link to="/editInProgress">
+                {/* <Link to="/editInProgress"> */}
                 <button className="btn btn-EDITbgb" 
-                // onClick={editCandidatProfile}
+                onClick={editCandidatProfile}
                 >
                   <img src={require("../images/Edit.svg").default} />
                   Edit Profile
                 </button>
-                </Link>
+                {/* </Link> */}
               </div>
             </div>
           </div>

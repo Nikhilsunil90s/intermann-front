@@ -53,6 +53,9 @@ function PreSelectedView() {
   // const [Like, setLike] = useState(false);
   // const [Great, setGreat] = useState(false);
   // const [Superlovely, setSuperlovely] = useState(false);
+  let data={data:profile ,path:"/todoprofile"}
+
+
   const fileChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
@@ -134,28 +137,10 @@ function PreSelectedView() {
     hiddenImageInput.current.click();
   }
   const editCandidatProfile = () => {
-    navigate("/editToDo", { state: profile });
+    navigate("/editPreSelected", { state: data });
   };
   const handleFileUpload = () => {
     hiddenFileInput.current.click();
-  }
-  const handleFileChange = (e: any) => {
-    const fileUploaded = e.target.files[0];
-    console.log(fileUploaded);
-  }
-  
-  const renameCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
-    let headers = {
-      "Accept": 'application/json',
-      "Authorization": "Bearer " + localStorage.getItem('token')
-    }
-    return await fetch(API_BASE_URL + `renameDocument/?documentId=${docId}&documentName=${docName}&candidatId=${candidatId}`, {
-      method: "GET",
-      headers: headers
-    })
-      .then(reD => reD.json())
-      .then(resD => resD)
-      .catch(err => err)
   }
   // const renameDocument = (docId: any, docName: any) => {
   //   setRenameDoc(true);

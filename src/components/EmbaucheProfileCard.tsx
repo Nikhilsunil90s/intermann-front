@@ -10,7 +10,6 @@ const EmbaucheProfileCard = (props: any,{path}) => {
 
     const navigate = useNavigate();
 
-    const [data, setData] = useState([props])
     const [showArchiveModal, setShowArchiveModal] = useState(false)
     const CardOptions=[{
         value:"Edit Profile",label:"Edit Profile"
@@ -23,9 +22,13 @@ const EmbaucheProfileCard = (props: any,{path}) => {
      localStorage.setItem('embauch', JSON.stringify(props.props));
      window.open("/embauchprofile" ,"_blank")
     }
+    let data = {data:props.props,path:"/embauchlist"}
+    const editCandidatProfile = () => {
+      navigate("/editInProgress", { state: data});
+    };
     const MoreOption=(e:any)=>{
       if(e.value=="Edit Profile"){
-        //   editCandidatProfile()
+          editCandidatProfile()
       }
       if(e.value=="Archive"){
         setShowArchiveModal(true) 

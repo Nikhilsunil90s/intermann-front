@@ -6,7 +6,17 @@ import { useLocation } from "react-router-dom";
 import { API_BASE_URL } from '../../config/serverApiConfig';
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
+import UploadDow from '../../components/Modal/SelectUploadDownload'
+import axios from "axios";
+import Switch from "react-switch";
+import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../../Selecteddata/data';
+import chroma from 'chroma-js';
+import Select, {StylesConfig } from "react-select";
 
+
+const axiosInstance = axios.create({
+  baseURL: API_BASE_URL,
+})
 
 const EmployeeDataFormat = {
   candidatName: "",
@@ -55,10 +65,14 @@ function EditDo() {
   const navigate = useNavigate();
 
   const { state } = useLocation();
+  console.log(state,"dls")
+  const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
+  const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
+
 
   const [data, setData] = useState(EmployeeDataFormat);
   const [formTouched, setFormTouched] = useState(false);
-  const [profile, setProfile] = useState<any>(state);
+  const [profile, setProfile] = useState<any>(state.data);
   const [activitySectors, setActivitySectors] = useState([])
   const [selectedSector, setSelectedSector] = useState("");
   const [jobs, setJobs] = useState([]);
@@ -77,6 +91,13 @@ function EditDo() {
   const [periodModified, setPeriodModified] = useState(false);
   const [locationModified, setLocationModified] = useState(false);
   const [workDoneModified, setWorkDoneModified] = useState(false);
+  const [UploadDownBtn,setUPDownState]= useState(false)
+  const [Permis,setPermis]=useState(Boolean)
+  const [DefPermis,setDefPermis]=useState(Permis ? Permis : profile.candidatLicensePermis  )
+  const hiddenImageInput = React.useRef(null);
+  const [Language, setLanguage] = useState([])
+ 
+
 
   const editExperience = (e: any) => {
     e.preventDefault()
@@ -85,13 +106,72 @@ function EditDo() {
     setWorkExperience([{ period: "", location: "", workDoneSample: "" }])
   }
 
-  const handleFileUpload = () => {
-    hiddenFileInput.current.click();
-  }
+  
+  const colourStyles: StylesConfig<ColourOption, true> = {
+    control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      const color = chroma(data.color);
+      return {
+        ...styles,
+        backgroundColor: isDisabled
+          ? undefined
+          : isSelected
+            ? data.color
+            : isFocused
+              ? color.alpha(0.1).css()
+              : undefined,
+        color: isDisabled
+          ? '#ccc'
+          : isSelected
+            ? chroma.contrast(color, 'white') > 2
+              ? 'white'
+              : 'black'
+            : data.color,
+        cursor: isDisabled ? 'not-allowed' : 'default',
+
+        ':active': {
+          ...styles[':active'],
+          backgroundColor: !isDisabled
+            ? isSelected
+              ? data.color
+              : color.alpha(0.3).css()
+            : undefined,
+        },
+      };
+    },
+    multiValue: (styles, { data }) => {
+      const color = chroma(data.color);
+      return {
+        ...styles,
+        backgroundColor: color.alpha(0.1).css(),
+      };
+    },
+    multiValueLabel: (styles, { data }) => ({
+      ...styles,
+      color: data.color,
+    }),
+    multiValueRemove: (styles, { data }) => ({
+      ...styles,
+      color: data.color,
+      ':hover': {
+        backgroundColor: data.color,
+        color: 'white',
+      },
+    }),
+  };
 
   const notifyCandidatEditSuccess = () => toast.success("Candidat Updated Successfully! View Candidat in To-Do List.");
 
   const notifyCandidatEditError = () => toast.error("Cannot Edit Candidat! Please Try Again.");
+
+  const switchHandle=(checked,id,e)=>{
+    if(e=="Permis"){
+   console.log(checked)
+    }
+    if(e=="Voyage"){
+
+    }
+  }
 
   const fetchActivitySectors = async () => {
     return await fetch(API_BASE_URL + "fetchAllSectors", {
@@ -119,7 +199,18 @@ function EditDo() {
       .then(reD => reD)
       .catch(err => err)
   }
-
+  const handleImageUpload = () => {
+    hiddenImageInput.current.click();
+  }
+  const handleImageChange = (val) => {
+    if (val === 'upload') {
+      console.log("upload")
+      handleImageUpload()
+    } else if (val === 'Download') {
+      console.log("download")
+      window.open(API_BASE_URL + candidatImage);
+    }
+  }
   const onFormDataChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
@@ -354,7 +445,7 @@ function EditDo() {
           if (response.status) {
             notifyCandidatEditSuccess()
             setTimeout(() => {
-              navigate("/todolist");
+              navigate(state.path);
             }, 2000)
           }
         })
@@ -366,147 +457,210 @@ function EditDo() {
       notifyCandidatEditError()
     }
   }
+  const fileChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
+    >
+  ) => {
+    if (e.target.name === 'candidatPhoto') {
+      console.log(e.target.files,"e.target.files")
+      console.log(e.target.files[0],"e.target.files[]")
+      const fileUploaded = e.target.files[0]
+      let formdata = new FormData();
+      formdata.append('candidatId', profile._id)
+      formdata.append('image', fileUploaded)
+      axiosInstance.post("uploadCandidatImage", formdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": "Bearer " + localStorage.getItem('token')
+        }
+      })
+        .then(datares => {
+          console.log(datares)
+          if (datares.data.status) {
+            
+            console.log(datares.data.status,"datares.data.status")
+     // setCandidatImage(datares.data.filename)
+     notifyDocumentUploadSuccess()
+
+     
+            setTimeout(()=>{
+              window.location.href = "/editToDo"
+            },2000)
+          } else {
+            notifyDocumentUploadError()
+          }
+        })
+        .catch(err => { console.log(err) })
+      return;
+    }
+  }
+  const handleChange = (selectedOption) => {
+    console.log(`Option selected:`, selectedOption)
+    let arr = []
+
+    selectedOption.map((el) => {
+      arr.push(el.value)
+    })
+    setLanguage(arr)
+    console.log(Language, "language")
+    setData({ ...data, candidatLanguages: arr })
+  }
+  const FetesDate = (selectedOption: any) => {
+    let FetesArr = []
+    selectedOption?.map((el) => {
+      FetesArr.push(el.value)
+    })
+
+
+    setData({ ...data, candidatFetes: FetesArr })
+  }
+  const fetchCandidat = async (candidatId: any) => {
+    return await fetch(API_BASE_URL + `getCandidatById/?candidatId=${candidatId}`, {
+      method: "GET",
+      headers: {
+        "Accept": 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+    })
+      .then(resp => resp.json())
+      .then(respData => respData)
+      .catch(err => err)
+  }
+
+  useEffect(() => {
+    console.log(profile._id,"id")
+    fetchCandidat(profile._id).then(resData => {
+      console.log(resData)
+
+      setCandidatImage("")
+      if (resData.status) {
+        setProfile(resData.data)
+      
+        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
+      
+      }
+    })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [])
 
   return (
     <>
       <Toaster
         position="top-right"
         reverseOrder={false}
+        containerStyle={{ zIndex: '99999999999' }}
       />
-      <div className="container-fluid">
+      <div className="container-fluid" style={{marginTop:"90px"}}>
         <div className="row">
-          <div className="col-12 top-pd text-center">
+          {/* <div className="col-12 top-pd text-center">
             <h1 style={{ textDecoration: "underline" }}>EDIT: {profile.candidatName}</h1>
-          </div>
+          </div> */}
 
           <form className="form" onSubmit={onFormSubmit}>
-            <div className="col-12 d-flex justify-content-end text-end ">
+            <div className="col-12 ">
+              <div className="row EditTopHeaderColor">
+                <div className="col-6  d-flex align-items-center">
+                <Link to="/todoprofile">
+                    <button
+                      type="button"
+                      className="btn d-flex align-items-center p-0"
+                    >
+                      <img src={require("../../images/return.svg").default} />
+                      <h2 className="card-Leads mb-0 pl-1"> Edit File : {profile.candidatName}</h2>
+                    </button>
+                  </Link>
+                </div>
+                <div className="col-6 d-flex justify-content-end align-items-center">
               <Link to="/todolist" style={{ textDecoration: "none" }}>
-                <button className="btn bg-red">
+                <button className="btn edit-btnCancel mr-1" type="button">
                   <img
-                    style={{ width: "25%" }}
+                    style={{ width: "25%",marginRight:"5px" }}
                     src={require("../../images/multiply.svg").default}
                   />
-                  <p>Cancel</p>
+                  <p className="mb-0 ">Cancel</p>
                 </button>
 
               </Link>
-
-              <button className="btn btn-save" type="submit">
-                <img src={require("../../images/check.svg").default} />
-                Save
+              <button className="btn editBtnSave" type="submit">
+                <img  style={{ width: "16%",marginRight:"5px" }} src={require("../../images/savebtn.svg").default} />
+                Save Profile
               </button>
+              </div>
+              </div>
             </div>
-            <div className="bg-class">
-              <div className="col-12 p-3 bg-color-card">
+            <div className="mt-1">
+              <div className="col-12  p-1 bg-colorForEdit">
                 <div className="row">
                   <div className="col-2 text-center ">
+                  {candidatImage !== "" ?
+                      <img
+                        // src={require("../images/menlogos.svg").default}
+                        src={API_BASE_URL + candidatImage}
+                     className="img-uploadTodo-Download"
+                      /> :
                     <img
-                      src={profile.candidatPhoto ? API_BASE_URL + profile.candidatPhoto.data : require("../../images/menlogos.svg").default}
-                      style={{ width: "90%" }}
+                      src={require("../../images/menlogos.svg").default}
+                     className="img-uploadTodo-Download"
                     />
-
-                    <button type="button" onClick={handleFileUpload} className="btn btn-upload">
-                      UPLOAD PHOTO
-                    </button>
-                    <input
-                      type="file"
-                      ref={hiddenFileInput}
-                      name="candidatPhoto"
-                      onChange={onFormDataChange}
-                      style={{ display: 'none' }}
-                    />
+                    // 
+                  }
+               
+<button
+type="button"
+ onClick={()=>{setUPDownState(!UploadDownBtn);}}
+className="SelectBtn"
+ ><img className="" src={require("../../images/select.svg").default} />
+ {
+  UploadDownBtn? 
+  <UploadDow closeModal={setUPDownState}  FunModal={handleImageChange} />
+  :
+  null
+ }
+ </button>
+<input
+                    type="file"
+                    ref={hiddenImageInput}
+                    onChange={fileChange}
+                    name="candidatPhoto"
+                    style={{ display: 'none' }}
+                  />
                   </div>
-                  <div className="col-5 card-xl">
+                  <div className="col-7 card-xl">
                     <div className="row">
-                      <div className="col-12 flex-grid">
-                        <label>Candidat Name</label>
-                        <input defaultValue={profile.candidatName} className="form-control" name="candidatName" onChange={onFormDataChange} />
+                      <div className="col-12">
+                        <label className="LabelStylingEdits mb-0">Candidat Name</label>
+                        <input style={{width:"71%"}} defaultValue={profile.candidatName} className="form-control" name="candidatName" onChange={onFormDataChange} />
                       </div>
-                      <div className="col-12 flex-grid pt-3">
-                        <label>Candidat Age</label>
-                        <input defaultValue={profile.candidatAge} name="candidatAge" className="form-control" onChange={onFormDataChange} />
+                      <div className="col-12 pt-2">
+                        <label className="LabelStylingEdits mb-0" >Candidat Age<span className="LabelStylingSpanEdits">(IN YEARS)</span></label>
+                        <input style={{width:"71%"}} defaultValue={profile.candidatAge} name="candidatAge" className="form-control" onChange={onFormDataChange} />
                       </div>
-                      <div className="col-12 flex-grid pt-3">
-                        <label>Candidat Motivation</label>
-                        <div className="d-flex">
-                          <div>
-                            <input
-                              className="form-check-input"
-                              type="radio"
-                              name="candidatMotivation"
-                              value={1}
-                              defaultChecked={candidatMotivation == 1}
-                              onChange={onFormDataChange}
-                            />
-                            <span className="ps-1">1</span>
-                          </div>
-                          <div className="ps-3">
-                            <input
-                              className="form-check-input"
-                              type="radio"
-                              name="candidatMotivation"
-                              value={2}
-                              onChange={onFormDataChange}
-                              defaultChecked={candidatMotivation == 2}
-
-                            />
-                            <span className="ps-1">2</span>
-                          </div>
-                          <div className="ps-3">
-                            <input
-                              className="form-check-input"
-                              type="radio"
-                              name="candidatMotivation"
-                              value={3}
-                              onChange={onFormDataChange}
-                              defaultChecked={candidatMotivation == 3}
-                            />
-                            <span className="ps-1">3</span>
-                          </div>
-                          <div className="ps-3">
-                            <input
-                              className="form-check-input"
-                              type="radio"
-                              name="candidatMotivation"
-                              value={4}
-                              onChange={onFormDataChange}
-                              defaultChecked={candidatMotivation == 4}
-
-                            />
-                            <span className="ps-1">4</span>
-                          </div>
-                          <div className="ps-3">
-                            <input
-                              className="form-check-input"
-                              type="radio"
-                              name="candidatMotivation"
-                              value={5}
-                              onChange={onFormDataChange}
-                              defaultChecked={candidatMotivation == 5}
-
-                            /><span className="ps-1">5</span>
-                          </div>
-                        </div>
-                      </div>
+                     
                     </div>
                   </div>
-                  <div className="col-5 text-end end-class">
-                    <div>
-                      <button type="button" className="btn btn-gray">
-                        TO DO
-                      </button>
+                  <div className="col-3 d-flex align-items-center  text-end end-class" style={{paddingRight:"20px"}}>
+                  <div className="text-center d-grid justify-content-end">
+                    <div className="text-center">
+                    <button className="todoBtnStyle">
+                      <img style={{width:"8%"}} src={require("../../images/briefcase2.svg").default} />
+                    </button>
                     </div>
-                    <p className="fw-bold">En recherche de contrat</p>
-                    <p>This candidate is looking for a job</p>
+                    <p className="fw-boldEn text-center  pl-0 pt-1" style={{marginRight:"10px"}}>
+                    En recherche de contrat
+                  </p>
                   </div>
+              
+                </div>
                 </div>
               </div>
 
-              <div className="col-12 ">
-                <div className="row">
-                  <div className="col-6">
-                    <p className="Arial">Secteur d’Activité</p>
+              <div className="col-12 mt-1 px-1 p mb-2">
+                <div className="row bg-colorForEdit pt-1 px-1 pb-1">
+                  <div className="col-4">
+                    <label className="LabelStylingEdits mb-0" >Secteur d’Activité</label>
                     <div className="dropdown">
                       <select className="form-select" name="candidatActivitySector" onChange={onFormDataChange}>
                         <option>Select Un Secteur</option>
@@ -516,40 +670,10 @@ function EditDo() {
                         )}
                       </select>
                     </div>
-                    <p className="last-child">Langues du Candidat</p>
-                    <div>
-                      <div>
-                        <input type="checkbox" name="candidatLanguages" className="form-check-input" value="Roumain" defaultChecked={profile.candidatLanguages.indexOf("Roumain") > -1} onChange={onFormDataChange} />
-                        <span className="ps-2">Roumain</span>
-                      </div>
-                      <div>
-                        <input type="checkbox" name="candidatLanguages" className="form-check-input" value="Francais" defaultChecked={profile.candidatLanguages.indexOf("Francais") > -1} onChange={onFormDataChange} />
-                        <span className="ps-2">Français</span>
-                      </div>
-                      <div>
-                        <input type="checkbox" name="candidatLanguages" className="form-check-input" value="Anglais" defaultChecked={profile.candidatLanguages.indexOf("Anglais") > -1} onChange={onFormDataChange} />
-                        <span className="ps-2">Anglais</span>
-                      </div>
-                      <div>
-                        <input type="checkbox" name="candidatLanguages" className="form-check-input" value="Italien" defaultChecked={profile.candidatLanguages.indexOf("Italien") > -1} onChange={onFormDataChange} />
-                        <span className="ps-2">Italien</span>
-                      </div>
-                      <div>
-                        <input type="checkbox" name="candidatLanguages" className="form-check-input" value="Russe" defaultChecked={profile.candidatLanguages.indexOf("Russe") > -1} onChange={onFormDataChange} />
-                        <span className="ps-2">Russe</span>
-                      </div>
-                      <div>
-                        <input type="checkbox" name="candidatLanguages" className="form-check-input" value="Espagnol" defaultChecked={profile.candidatLanguages.indexOf("Espagnol") > -1} onChange={onFormDataChange} />
-                        <span className="ps-2">Espagnol</span>
-                      </div>
-                      <div>
-                        <input type="checkbox" name="candidatLanguages" className="form-check-input" value="Autre" defaultChecked={profile.candidatLanguages.indexOf("Autre") > -1} onChange={onFormDataChange} />
-                        <span className="ps-2">Autre</span>
-                      </div>
-                    </div>
+                   
                   </div>
-                  <div className="col-6">
-                    <p className="Arial">Metier/Job</p>
+                  <div className="col-4">
+                    <label className="LabelStylingEdits mb-0" >Metier/Job</label>
                     <div className="dropdown">
                       <div aria-labelledby="dropdownMenuButton1">
                         <select
@@ -568,14 +692,123 @@ function EditDo() {
                         </select>
                       </div>
                     </div>
-                    <div className="pt-2">
-                      <div className="card card-body">
-                        <label className="fw-bold px-2">
+                  </div>
+                  <div className="col-4 ">
+                      <label className="LabelStylingEdits mb-0"> Candidat Email</label>
+                      <input placeholder="Candidat Email" className="form-control" name="candidatEmail" defaultValue={profile.candidatEmail} onChange={onFormDataChange} />
+                    </div>
+                    <div className="col-5 mt-3 pr-0">
+              
+                    <label className="LabelStylingEdits mb-0">Candidat Motivation</label>
+                    <span className="LabelStylingSpanEdits">(bigger number is more important)</span>
+                    <div className="coverClass  px-0">
+                       
+                          
+                       <ul className="ul-Styling"><li>
+                                                   <div className="text-center" style={{ height: "35px" }}>   <input
+                                                     type="radio"
+                                                     name="candidatMotivation"
+                                                     value={1}
+                              defaultChecked={candidatMotivation == 1}
+                                                     onChange={onFormDataChange}
+                                                     id="r1"
+                                                   />     <label htmlFor="r1" className="react " >
+                                                       <i data-icon="😟" >
+                                                         </i>
+                                                     </label>
+                                                     <p className="m-0 font-Emoji">Dissapointed</p>
+                                                     </div>
+                                                     </li>
+                                       <li>
+                       
+                                                   <div className=" both" style={{ height: "35px" }}>  <input
+                                                     type="radio"
+                                                     name="candidatMotivation"
+                                                     value={2}
+                              defaultChecked={candidatMotivation == 2}
+                                                     onChange={onFormDataChange}
+                                                     id="r2"
+                                                   /> <label htmlFor="r2" style={{marginInline:"10px"}} className="react text-start">
+                                                       <i data-icon="🙁" ></i>
+                       
+                                                     </label>
+                                                     <p className="m-0 font-Emoji">Not really</p>
+                                                   </div>
+                                                   
+                                                   </li><li>
+                                               
+                                                   <div className="text-center" style={{ height: "35px" }}>  <input
+                                                     type="radio"
+                                                     name="candidatMotivation"
+                                                     value={3}
+                              defaultChecked={candidatMotivation == 3}
+                                                     onChange={onFormDataChange}
+                                                     id="r3"
+                                                   />     <label htmlFor="r3" className="react">
+                                                       <i data-icon="😊"></i>
+                                                     </label>
+                                                     <p className="m-0 font-Emoji">Like</p>
+                                                     </div>
+                                                     </li><li>
+                                               
+                                                   <div className="text-center" style={{ height: "35px" }} >  <input
+                                                     type="radio"
+                                                     name="candidatMotivation"
+                                                     value={4}
+                              defaultChecked={candidatMotivation == 4}
+                                                     onChange={onFormDataChange}
+                                                     id="r4"
+                                                   /><label htmlFor="r4" className="react">
+                                                       <i data-icon="🥰"></i>
+                                                     </label>
+                                                     <p className="m-0 font-Emoji">Great</p>
+                                                     </div>
+                                                     </li>
+                                        <li>
+                                                   <div className="text-center" style={{ height: "35px" }}>  <input
+                                                     type="radio"
+                                                     name="candidatMotivation"
+                                                     value={5}
+                              defaultChecked={candidatMotivation == 5}
+                                                     onChange={onFormDataChange}
+                                                     id="r5"
+                                                   /> <label htmlFor="r5" className="react text-start">
+                                                       <i data-icon="😍"  style={{width:"35px"}}></i>
+                                                     </label>
+                                                   <p className="m-0  font-Emoji">Super lovely</p>
+                       
+                                                   </div>
+                       
+                                                  
+                                                   </li>
+                                                   </ul>
+                    </div>
+                    </div>
+                    <div className="col-3 px-0 mt-3"><div className="d-flex"><label className="Permis ">Permis / Licence drive</label><span>    <Switch
+                          className=""
+                          onChange={switchHandle}
+                         checked={Permis}
+                          defaultValue={DefPermis}
+                          id="Contrat"
+                        /></span></div></div>
+                    <div className="col-4  pr-0  mt-3">
+                    <div className="d-flex"><label className="Permis" style={{width:"64%"}}>Voyage en voiture vers France ?</label><span>    <Switch
+                          className=""
+                          onChange={switchHandle}
+                         checked={profile.candidatConduireEnFrance}
+                          defaultValue={profile.candidatConduireEnFrance}
+                          id="Contrat"
+                        /></span></div>
+                    </div>
+                  <div className="col-12 pt-4 d-flex">
+                    <div className="row">
+                        <label className="LabelStylingEdits mb-0" >
                           Quand ce candidat a besoin de travailler When this
                           candidate is ready to work with us
                         </label>
                         <br />
-                        <label className="fw-bold px-2">
+                        <div className="col-5 mt-1">
+                        <label className="FromDateEdit mb-0" >
                           From date / A PARTIR DE
                         </label>
                         <input
@@ -585,8 +818,9 @@ function EditDo() {
                           defaultValue={profile.candidatStartDate}
                           onChange={onFormDataChange}
                         />
-                        <br />
-                        <label className="fw-bold px-2">UNTIL DATE / Jusqu’à </label>
+                        </div>
+                  <div className="col-5 mt-1">
+                        <label className="FromDateEdit mb-0" >UNTIL DATE / Jusqu’à </label>
                         <input
                           type="date"
                           className="form-control"
@@ -594,57 +828,52 @@ function EditDo() {
                           defaultValue={profile.candidatEndDate}
                           onChange={onFormDataChange}
                         />
-                      </div>
+                        </div>
+                        <div className="col-5 mt-2">
+                        <label className="LabelStylingEdits"> Candidat phone number</label>
+                      <input placeholder="Candidat Phone" className="form-control" name="candidatPhone" defaultValue={profile.candidatPhone} onChange={onFormDataChange} />
+                      <p className="child-label">Use international format</p>
+                        </div>
+                        <div className="col-7 mt-2">
+                      <label className="LabelStylingEdits " >Langues du candidat</label>
+                        <div className="">
+                        <Select
+                          name="candidatLanguages"
+                          closeMenuOnSelect={false}
+                          isMulti
+                          placeholder="Select"
+                          className="basic-multi-select"
+                          classNamePrefix="select"
+                          onChange={handleChange}
+                          options={colourOptions}
+                          styles={colourStyles}
+                          defaultInputValue={profile.candidatLanguages}
+                        />
+                        </div>
+                        </div>
+                        <div className="col-4 mt-1">
+                        <label className="LabelStylingEdits">Candidat phone number 2</label>
+                      <input placeholder="Candidat Phone Number" className="form-control" name="candidatPhone2"  onChange={onFormDataChange} />
+                      <p className="child-label">Use international format</p>
+                        </div>
+                        <div className="col-4 mt-1">
+                        <label className="LabelStylingEdits">Candidat Facebook</label>
+                        <input placeholder="Candidat Facebook Profile" className="form-control" name="candidatFBURL" defaultValue={profile.candidatFBURL} onChange={onFormDataChange} />
+                        </div>
+                        <div className="col-4 mt-1 ">
+                      <label className="LabelStylingEdits"> Candidat Experience in Years</label>
+                      <input placeholder="Number only" className="form-control" name="candidatYearsExperience" defaultValue={profile.candidatYearsExperience} onChange={onFormDataChange} />
                     </div>
-                  </div>
-                  <div className="col-12 pt-4 d-flex">
-                    <div className="row">
-                      <div className="col-6 ">
-                        <p>Permis / Licence drive</p>
-                        <div>
-                          <input type="radio" name="candidatLicensePermis" value="true" className="form-check-input" defaultChecked={profile.candidatLicensePermis === true} onChange={onFormDataChange} />
-                          <span>Yes</span>
-                        </div>
-                        <div>
-                          <input type="radio" name="candidatLicensePermis" value="false" className="form-check-input" defaultChecked={profile.candidatLicensePermis === false} onChange={onFormDataChange} />
-                          <span>No</span>
-                        </div>
-                      </div>
-                      <div className="col-6">
-                        <p>Voyage en voiture vers France ?</p>
-                        <div>
-                          <input type="radio" name="candidatConduireEnFrance" value="true" className="form-check-input" defaultChecked={profile.candidatConduireEnFrance === true} onChange={onFormDataChange} />
-                          <span>Yes</span>
-                        </div>
-                        <div>
-                          <input type="radio" name="candidatConduireEnFrance" value="false" className="form-check-input" defaultChecked={profile.candidatConduireEnFrance === false} onChange={onFormDataChange} />
-                          <span>No</span>
-                        </div>
-                      </div>
                     </div>
-                    <div className="col-6 ">
-                      <p className="Arial">
-                        Skills / Notes Compétances (will be displayed on CV)
-                      </p>
-                      <textarea
-                        id="skills"
-                        name="candidatSkills"
-                        className="form-control"
-                        defaultValue={profile.candidatSkills}
-                        onChange={onFormDataChange}
-                        rows={4}
-                        style={{ overflow: 'hidden' }}
-                      >
-                      </textarea>
-                    </div>
-                  </div>
-                </div>
+                  
+                   
               </div>
-              <div className="col-12 pt-4">
-                <h3 className="exp">
-                  Expérience du candidat
+              <div className="col-12 mt-1 ">
+                 <h3 className="Expérience">
+                  Expérience du candidat (fill only lines, higher = more recent)
                 </h3>
-                <table className="table table-bordered border-dark">
+                    
+                    <table className="table table-bordered border-dark">
                   <thead>
                     <tr>
                       <th scope="col">
@@ -702,54 +931,50 @@ function EditDo() {
                     }
                   </tbody>
                 </table>
-
-                <div className="col-12">
-                  <div className="row">
-                    <div className="col-6 pt-1 flex-grid">
-                      <label>Candidat Email</label>
-                      <input placeholder="Candidat Email" className="form-control" name="candidatEmail" defaultValue={profile.candidatEmail} onChange={onFormDataChange} />
-                    </div>
-                    <div className="col-6 pt-3 flex-grid">
-                      <label>Candidat phone number</label>
-                      <input placeholder="Candidat Phone" className="form-control" name="candidatPhone" defaultValue={profile.candidatPhone} onChange={onFormDataChange} />
-                      <p className="child-label">Use international format</p>
-                    </div>
-                    <div className="col-6 pt-3 flex-grid">
-                      <label>Candidat Adress</label>
+                <div className="col-12 mt-1 px-0">
+                      <label className="LabelStylingEdits mb-0"> Candidat Adress</label>
                       <input placeholder="Candidat Address" className="form-control" name="candidatAddress" defaultValue={profile.candidatAddress} onChange={onFormDataChange} />
                     </div>
-                    <div className="col-6 pt-1 flex-grid">
-                      <label>Candidat Facebook</label>
-                      <input placeholder="Candidat Facebook Profile" className="form-control" name="candidatFBURL" defaultValue={profile.candidatFBURL} onChange={onFormDataChange} />
-                    </div>
-                    <div className="col-6 pt-3 flex-grid">
-                      <label>Candidat Experience in Years</label>
-                      <input placeholder="Candidat Experience" className="form-control" name="candidatYearsExperience" defaultValue={profile.candidatYearsExperience} onChange={onFormDataChange} />
-                      <p className="child-label">Number only</p>
-                    </div>
-                  </div>
+                    <div className="col-12 px-0 mt-2">
+                    <p className="LabelStylingEdits mb-0">
+                        Skills / Notes Compétances (will be displayed on CV)
+                      </p>
+                      <textarea
+                        id="skills"
+                        name="candidatSkills"
+                        className="form-control"
+                        defaultValue={profile.candidatSkills}
+                        onChange={onFormDataChange}
+                        rows={4}
+                        style={{ overflow: 'hidden' }}
+                      >
+                      </textarea>
                 </div>
-                <div className="col-12">
-                  <div className="row">
-                    <div className="col-6 d-flex">
+                <div className="col-12 px-0 mt-3">
+                  <div className="row justify-content-end">
+                    <div className="col-6 d-flex justify-content-end">
                       <Link to="/todolist" style={{ textDecoration: "none" }}>
 
-                        <button type="button" className="btn bg-red">
+                        <button type="button" className="btn edit-btnCancel mr-1">
                           <img
                             style={{ width: "25%" }}
                             src={require("../../images/multiply.svg").default}
                           />
-                          <p>Cancel</p>
+                          <p className="mb-0" style={{marginLeft:"5px"}}>Cancel</p>
                         </button>
                       </Link>
-                      <button className="btn btn-save" type="submit">
-                        <img src={require("../../images/check.svg").default} />
-                        Save
+                      <button className="btn editBtnSave mb-0" type="submit">
+                        <img style={{marginRight:"5px"}} src={require("../../images/savebtn.svg").default} />
+                        Save Profile
                       </button>
                     </div>
                   </div>
                 </div>
-              </div>
+                </div>
+
+                  </div>
+                </div>
+
             </div>
           </form>
         </div>

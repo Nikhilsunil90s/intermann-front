@@ -100,7 +100,9 @@ function InProgressModal({ props, closeModal }) {
         CName=    result.data.map((el)=>{
          return { value:el.clientCompanyName,label:el.clientCompanyName,color:  '#FF8B00',name:"clientName"}            })
     }
+    setClients([...CName])
         })
+     
         .catch(err => {
           console.log(err)
         })
@@ -216,7 +218,7 @@ function InProgressModal({ props, closeModal }) {
                   <option value="3">Client Three</option>
                 </select> */}
                 <Select 
-                options={CName}
+                options={clients}
                 onChange={onFormDataChange}
                 styles={colourStyles}
                 className="inProgress"

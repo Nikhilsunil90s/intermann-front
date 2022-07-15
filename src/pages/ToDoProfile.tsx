@@ -43,6 +43,8 @@ function ToDoProfile() {
 
   const navigate = useNavigate();
   const { state } = useLocation();
+
+
   const [profile, setProfile] = useState<any>(state? state : profileData);
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
@@ -64,10 +66,9 @@ function ToDoProfile() {
   const [UploadBtn,setSelectUpload]= useState(false)
   const [RenameDocStatus,setRenameDocStatus]=useState(false)
 
- const uploadOption=[
- {value:"upload",label:<Upload />,},
- {value:"Download Image",label:<Download />} 
- ]
+  let data={data:profile ,path:"/todoprofile"}
+
+
  const deleteCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
   let headers = {
     "Accept": 'application/json',
@@ -119,7 +120,7 @@ const fetchRecommendations = async (candidatSector: string) => {
     .catch(err => err)
 }
   const editCandidatProfile = () => {
-    navigate("/editToDo", { state: profile });
+    navigate("/editToDo", { state: data });
   };
   const handleImageUpload = () => {
     hiddenImageInput.current.click();

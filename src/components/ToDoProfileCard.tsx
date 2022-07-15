@@ -22,10 +22,10 @@ const ToDoProfileCard = (props: any,{path}) => {
    {value:"Archive",label:"Archive"
    }
 ]
-  
+   let state ={data:props.data,path:"/todolist"}
     const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
     const editCandidatProfile = () => {
-        navigate("/editToDo", { state: props.data });
+        navigate("/editToDo", { state: state});
     }
 
     const viewFullProfile = () => {

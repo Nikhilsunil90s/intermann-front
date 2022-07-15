@@ -16,7 +16,7 @@ const PreSelectedCard = (props: any,{path}) => {
     const [showArchiveModal, setShowArchiveModal] = useState(false)
     const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
     const CardOptions=[{
-        value:"Edit Profile",label:"Edit Profile"
+        value:"editProfile",label:"Edit Profile"
         },
         {value:"Move to In Progress",label:"Move to In Progress"
         },
@@ -25,7 +25,7 @@ const PreSelectedCard = (props: any,{path}) => {
      ]
 
     const editCandidatProfile = () => {
-        navigate("/editToDo", { state: props.data });
+        navigate("/editPreSelected", { state: props.data });
     }
 
     const viewFullProfile = () => {

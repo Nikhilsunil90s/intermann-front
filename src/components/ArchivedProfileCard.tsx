@@ -12,7 +12,11 @@ const ArchivedProfileCard = (props: any) => {
     const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
     const navigate = useNavigate();
     const [showArchiveModal, setShowArchiveModal] = useState(false)
-    
+    //  let data={state:props.props,path:"/archivedlist"}
+
+    const editCandidatProfile = () => {
+        navigate("/editArchived", { state: props.props });
+      };
     const viewFullProfile = () => {
         // navigate("/archivedprofile", { state: props.props })
         localStorage.setItem("archive", JSON.stringify(props.props))
@@ -27,7 +31,7 @@ const ArchivedProfileCard = (props: any) => {
 
      const MoreOption=(e:any)=>{
         if(e.value=="Edit Profile"){
-            viewFullProfile()
+     editCandidatProfile()
         }
         if(e.value=="Archive"){
           setShowArchiveModal(true) 

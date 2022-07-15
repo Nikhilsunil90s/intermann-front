@@ -28,13 +28,11 @@ const ArchivedProfile = () => {
   const [hideProfile,setHideProfile]=useState(false)
   const [RestModalProfile,setRestModalProfile]=useState(false)
   const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
-  const uploadOption=[
-    {value:"upload",label:<Upload />,},
-    {value:"Download Image",label:<Download />} 
-    ]
   const hiddenImageInput = React.useRef(null);
   const [UploadBtn,setSelectUpload]= useState(false)
     const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
+  
+    // let data={state:profile,path:"/archivedprofile"}
     const editCandidatProfile = () => {
       navigate("/editArchived", { state: profile });
     };
@@ -142,14 +140,14 @@ const ArchivedProfile = () => {
                 </div>
               </div>
               <div className="col-6  d-flex align-items-center justify-content-end">
-                <Link to="/editArchived">
+                {/* <Link to="/editArchived"> */}
                 <button className="btn EditArchive" 
                 onClick={editCandidatProfile}
                 >
                   <img src={require("../images/Edit.svg").default} />
                   Edit Profile
                 </button>
-                </Link>
+                {/* </Link> */}
               </div>
             </div>
           </div>

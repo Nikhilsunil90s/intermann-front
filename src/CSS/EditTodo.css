@@ -12,7 +12,12 @@
 .stable img {
     padding-right: 10px;
 }
-
+.EditTopHeaderColor{
+    background: #FFFFFF;
+    box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
+    height:77px
+}
 .bg-red {
     background-color: #FF0000;
     border-radius: 8px;
@@ -323,4 +328,159 @@ thead {
 
 .btn-bgb:hover {
     color: #FE8700;
+}
+
+@media (min-width:768px){
+
+}
+@media (min-width:1200px){
+    .edit-btnCancel{
+        border: 1px solid #E21B1B;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 16px;
+display: flex;
+align-items: center;
+color: #E21B1B;
+padding: 7px;
+    }
+    .editBtnSave{  
+            background: #489767;
+            border-radius: 100px;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            width: 160px;
+    }
+    .bg-colorForEdit{
+        background-color: #ffff;
+        border-radius: 10px;
+    }
+    .LabelStylingEdits{
+        font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+display: flex;
+align-items: flex-end;
+text-transform: capitalize;
+color: #373A3C;
+    }
+    .LabelStylingSpanEdits{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 24px;
+        display: flex;
+        align-items: flex-end;
+        text-transform: capitalize;
+        
+    }
+.Permis{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 24px;
+display: flex;
+align-items: flex-end;
+text-transform: capitalize;
+color: #373A3C;
+margin-right: 5px;
+
+}
+.FromDateEdit{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 18px;
+text-transform: uppercase;
+color: #1F2041;
+
+}
+.Expérience{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 16px;
+line-height: 24px;
+display: flex;
+align-items: flex-end;
+color: #373A3C;
+}
+.table-bordered thead{
+   background-color: #F4F4F4;
+}
+.table-bordered{
+    border: 1px solid #CCCCCC;
+}
+.editInprogressGround{
+    background: rgba(164, 97, 216, 0.5);
+border-radius: 14px;
+}
+.AmountFieldSpan{
+    background: #F5F5F5;
+    border-radius: 28.5px 0px 0px 28.5px;
+    background: #ECEEEF;
+    display: grid;
+    place-items: center;
+    color: #999999;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 1px solid #CCCCCC;
+}
+.AmountFieldSpan00{
+    background: #F5F5F5;
+border-radius: 28.5px 0px 0px 28.5px;
+transform: matrix(-1, 0, 0, 1, 0, 0);
+background: #ECEEEF;
+display: grid;
+place-items: center;
+color: #999999;
+padding-left: 15px;
+padding-right: 15px;
+border: 1px solid #CCCCCC;
+}
+.currentEMP{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+display: flex;
+align-items: flex-end;
+text-transform: capitalize;
+
+color: #FFFFFF;
+
+}
+.shortNote{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 15px;
+display: flex;
+align-items: flex-end;
+color: #489767;
+
+}
+}
+
+@media (min-width:1400px){
+    
 }
