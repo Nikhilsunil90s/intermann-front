@@ -575,10 +575,10 @@ font-size: 12px !important;
 line-height: 18px !important;
 color: #000000 !important;
 }
-.imgArchived-upload-download{
-width: 112px !important;
+.imgArchived-upload-download {
+    width: 121px !important;
     object-fit: cover;
-    height: 112px;
+    height: 121px;
     border-radius: 100px;
     border: 4px solid #FF0000;
 }
@@ -715,13 +715,13 @@ width: 112px !important;
             line-height: 24px;
             color: #373A3C;
         }
-        .imgArchived-upload-download{
-            width: 130px !important;
+        .imgArchived-upload-download {
+            width: 135px !important;
             object-fit: cover;
-            height: 130px;
+            height: 135px;
             border-radius: 100px;
             border: 4px solid #FF0000;
-          }
+        }
           .Archived-CardMore p {
             font-family: 'Poppins';
             font-style: normal;

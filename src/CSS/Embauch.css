@@ -743,12 +743,12 @@ margin-right: 5px;
     color: #ffffff !important;
     }
     .imgEmbauch-upload-Download {
-        width: 112px !important;
-        object-fit: cover;
-        height: 112px;
-        border-radius: 100px;
-        border: 4px solid #A461D8;
-    }
+      width: 117px !important;
+      object-fit: cover;
+      height: 120px;
+      border-radius: 100px;
+      border: 4px solid #A461D8;
+  }
     .EmbauchFull-CardMore p{
         font-family: 'Poppins';
         font-style: normal;
@@ -876,6 +876,13 @@ margin-right: 5px;
 }
 }
 @media (min-width:1400px){
+  .imgEmbauch-upload-Download {
+    width: 140px !important;
+    object-fit: cover;
+    height: 140px;
+    border-radius: 100px;
+    border: 4px solid #A461D8;
+}
   .preSelectedCommentBox div:last-child {
     font-family: 'Inter';
     font-style: normal;

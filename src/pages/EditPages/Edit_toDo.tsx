@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import "../../CSS/EditTodo.css";
 import { useLocation } from "react-router-dom";
 import { API_BASE_URL } from '../../config/serverApiConfig';
+import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
+
 
 const EmployeeDataFormat = {
   candidatName: "",
@@ -28,7 +30,7 @@ const EmployeeDataFormat = {
   candidatEndDate: "",
   candidatYearsExperience: "",
   candidatFetes: [],
-  candidatPhoto: "",
+  candidatPhoto: {},
   candidatExperienceDetails: [{
     period: "",
     location: "",
@@ -50,7 +52,10 @@ const EmployeeDataFormat = {
 
 function EditDo() {
 
+  const navigate = useNavigate();
+
   const { state } = useLocation();
+
   const [data, setData] = useState(EmployeeDataFormat);
   const [formTouched, setFormTouched] = useState(false);
   const [profile, setProfile] = useState<any>(state);
@@ -63,15 +68,30 @@ function EditDo() {
   const [experienceChanged, setExperienceChanged] = useState(false);
   const [candidatMotivation, setCandidatMotivation] = useState(profile.candidatMotivation);
   const [selectedLanguages, setSelectedLanguages] = useState(profile.candidatLanguages);
+  const [candidatImage, setCandidatImage] = useState("");
+  const hiddenFileInput = React.useRef(null);
+  const [displayRow, setDisplayRow] = useState(false);
+  const [workExperience, setWorkExperience] = useState(profile.candidatExperienceDetails.length > 0 ? [...profile.candidatExperienceDetails] : []);
+  const [allowEditExperience, setAllowEditExperience] = useState(false);
+  const [inputDisabled, setInputDisabled] = useState(false);
+  const [periodModified, setPeriodModified] = useState(false);
+  const [locationModified, setLocationModified] = useState(false);
+  const [workDoneModified, setWorkDoneModified] = useState(false);
 
-  const  notifyCandidatEditSuccess=() =>toast.success('Successfully toasted!')
-const    notifyCandidatEditError=()=> toast.error("This didn't work.")
-  // const notifyCandidatEditError = () => toast("Candidat Cannot Be Added! Please Try Again.", {
-  //   position: toast.POSITION.TOP_RIGHT,
-  //   className: 'toast-error',
-  //   progressClassName: 'error-progress-bar',
-  //   autoClose: 4000
-  // });
+  const editExperience = (e: any) => {
+    e.preventDefault()
+    setAllowEditExperience(true);
+    console.log(workExperience)
+    setWorkExperience([{ period: "", location: "", workDoneSample: "" }])
+  }
+
+  const handleFileUpload = () => {
+    hiddenFileInput.current.click();
+  }
+
+  const notifyCandidatEditSuccess = () => toast.success("Candidat Updated Successfully! View Candidat in To-Do List.");
+
+  const notifyCandidatEditError = () => toast.error("Cannot Edit Candidat! Please Try Again.");
 
   const fetchActivitySectors = async () => {
     return await fetch(API_BASE_URL + "fetchAllSectors", {
@@ -107,12 +127,20 @@ const    notifyCandidatEditError=()=> toast.error("This didn't work.")
   ) => {
     console.log(e.target.name, e.target.value)
     setFormTouched(true);
+    if (e.target.name === 'candidatPhoto') {
+      console.log("Check photo")
+      const fileUploaded = e.target.files[0];
+      setCandidatImage(fileUploaded);
+      // setData((prev) => ({ ...prev, [e.target.name]: e.target.files[0] }));
+      return;
+    }
     if (e.target.name === "candidatActivitySector") {
       changeSectorSelection(e.target.value);
       return;
     }
     if (e.target.name === "candidatJob") {
       changeJobSelection(e.target.value);
+      return;
     }
     if (e.target.name === 'candidatMotivation ') {
       console.log(e.target.value);
@@ -132,17 +160,29 @@ const    notifyCandidatEditError=()=> toast.error("This didn't work.")
     }
     if (e.target.name === 'period') {
       setPeriod(e.target.value);
+      if (e.target.value) {
+        setPeriodModified(true);
+        setDisplayRow(true);
+      }
       setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [{ period: e.target.value, location: location, workDoneSample: workDoneSample }] }))
       return
     }
     if (e.target.name === 'location') {
       console.log(e.target.defaultValue);
       setLocation(e.target.value);
+      if (e.target.value) {
+        setLocationModified(true);
+        setDisplayRow(true);
+      }
       setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [{ period: period, location: e.target.value, workDoneSample: workDoneSample }] }))
       return
     }
     if (e.target.name === 'workDoneSample') {
       setWorkDoneSample(e.target.value);
+      if (e.target.value) {
+        setWorkDoneModified(true);
+        setDisplayRow(true);
+      }
       setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [{ period: period, location: location, workDoneSample: e.target.value }] }))
       return
     }
@@ -200,8 +240,8 @@ const    notifyCandidatEditError=()=> toast.error("This didn't work.")
           console.log(err)
         })
     }
-
-    if (jobs.length === 0) {
+    console.log(profile.candidatActivitySector)
+    if (jobs.length === 0 && profile.candidatActivitySector !== "") {
       fetchAllJobs(profile.candidatActivitySector)
         .then((data) => {
           console.log(data);
@@ -226,17 +266,54 @@ const    notifyCandidatEditError=()=> toast.error("This didn't work.")
       })
     }
     console.log(data);
-  });
+  }, []);
+
+
+  const addWorkExperience = (e: any) => {
+    e.preventDefault();
+    console.log(period, location, workDoneSample);
+    if (period == "") {
+      return
+    }
+
+    if (periodModified || locationModified || workDoneModified) {
+      setWorkExperience([{  }])
+    }
+
+    setWorkExperience([...workExperience, { period: period, location: location, workDoneSample: workDoneSample }]);
+    setDisplayRow(true);
+    console.log(data)
+  }
+
+  const cancelWorkExperience = () => {
+    const wex = workExperience.filter((workex, index) => {
+      return workex.period != "" && index != workExperience.length
+    })
+    console.log(wex);
+    setWorkExperience([...wex])
+    setDisplayRow(false);
+    setInputDisabled(true);
+  }
+
+  useEffect(() => {
+    console.log("workex-", workExperience)
+    const wex = workExperience.filter((workex) => {
+      return workex.period != "" && workex.location != "" && workex.workDoneSample != "";
+    })
+    console.log(wex);
+    setData((prev) => ({ ...prev, ["candidatExperienceDetails"]: wex }));
+  }, [workExperience])
 
   const updateCandidat = async (updatedData: any) => {
+    console.log(updatedData)
+    let headers = {
+      "Accept": 'application/json',
+      "Authorization": "Bearer " + localStorage.getItem('token')
+    }
     return await fetch(API_BASE_URL + "editToDoCandidat", {
       method: "POST",
-      headers: {
-        "Accept": 'application/json',
-        'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
-      },
-      body: JSON.stringify(updatedData)
+      headers: headers,
+      body: updatedData
     })
       .then(reD => reD.json())
       .then(resD => resD)
@@ -266,66 +343,79 @@ const    notifyCandidatEditError=()=> toast.error("This didn't work.")
         candidatAddress: data.candidatAddress != "" ? data.candidatAddress : profile.candidatAddress,
         candidatFBURL: data.candidatFBURL != "" ? data.candidatFBURL : profile.candidatFBURL,
         candidatYearsExperience: data.candidatYearsExperience != "" ? data.candidatYearsExperience : profile.candidatYearsExperience,
-        candidatPhoto: data.candidatPhoto != "" ? data.candidatPhoto : ""
       }
       console.log(updatedData)
-      updateCandidat(updatedData)
+      // fileData.append('data', JSON.stringify(updatedData))
+      let formdata = new FormData();
+      formdata.append('image', candidatImage)
+      formdata.append("data", JSON.stringify(updatedData))
+      updateCandidat(formdata)
         .then(response => {
-          console.log(response);
+          if (response.status) {
+            notifyCandidatEditSuccess()
+            setTimeout(() => {
+              navigate("/todolist");
+            }, 2000)
+          }
         })
         .catch(err => {
           console.log(err);
+          notifyCandidatEditError()
         });
-
-      notifyCandidatEditSuccess()
-       } else {
+    } else {
       notifyCandidatEditError()
     }
-
   }
 
   return (
     <>
-    <Toaster
-  position="top-right"
-  reverseOrder={false}
-/>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 top-pd text-center">
             <h1 style={{ textDecoration: "underline" }}>EDIT: {profile.candidatName}</h1>
           </div>
 
-          <div className="col-12 d-flex justify-content-end text-end ">
-            <Link to="/todolist" style={{ textDecoration: "none" }}>
-              <button className="btn bg-red">
-                <img
-                  style={{ width: "25%" }}
-                  src={require("../../images/multiply.svg").default}
-                />
-                <p>Cancel</p>
-              </button>
-
-            </Link>
-
-            <button className="btn btn-save">
-              <img src={require("../../images/check.svg").default} />
-              Save
-            </button>
-          </div>
           <form className="form" onSubmit={onFormSubmit}>
+            <div className="col-12 d-flex justify-content-end text-end ">
+              <Link to="/todolist" style={{ textDecoration: "none" }}>
+                <button className="btn bg-red">
+                  <img
+                    style={{ width: "25%" }}
+                    src={require("../../images/multiply.svg").default}
+                  />
+                  <p>Cancel</p>
+                </button>
+
+              </Link>
+
+              <button className="btn btn-save" type="submit">
+                <img src={require("../../images/check.svg").default} />
+                Save
+              </button>
+            </div>
             <div className="bg-class">
               <div className="col-12 p-3 bg-color-card">
                 <div className="row">
                   <div className="col-2 text-center ">
                     <img
-                      src={require("../../images/menlogos.svg").default}
+                      src={profile.candidatPhoto ? API_BASE_URL + profile.candidatPhoto.data : require("../../images/menlogos.svg").default}
                       style={{ width: "90%" }}
                     />
 
-                    <button type="button" className="btn btn-upload">
+                    <button type="button" onClick={handleFileUpload} className="btn btn-upload">
                       UPLOAD PHOTO
                     </button>
+                    <input
+                      type="file"
+                      ref={hiddenFileInput}
+                      name="candidatPhoto"
+                      onChange={onFormDataChange}
+                      style={{ display: 'none' }}
+                    />
                   </div>
                   <div className="col-5 card-xl">
                     <div className="row">
@@ -419,6 +509,8 @@ const    notifyCandidatEditError=()=> toast.error("This didn't work.")
                     <p className="Arial">Secteur d’Activité</p>
                     <div className="dropdown">
                       <select className="form-select" name="candidatActivitySector" onChange={onFormDataChange}>
+                        <option>Select Un Secteur</option>
+
                         {activitySectors.map((sector) =>
                           <option defaultValue={sector.sectorName} selected={profile.candidatActivitySector == sector.sectorName}>{sector.sectorName}</option> // fetch from api
                         )}
@@ -465,9 +557,10 @@ const    notifyCandidatEditError=()=> toast.error("This didn't work.")
                           className="form-select"
                           onChange={onFormDataChange}
                         >
+                          <option>Select Un Job</option>
                           {
                             jobs.map((job) =>
-                              <option defaultValue={profile.candidatJob} selected={profile.candidatJob === job.jobName}>
+                              <option defaultValue={profile.candidatJob} selected={profile.candidatJob == job.jobName}>
                                 {job.jobName}
                               </option>
                             )
@@ -477,12 +570,12 @@ const    notifyCandidatEditError=()=> toast.error("This didn't work.")
                     </div>
                     <div className="pt-2">
                       <div className="card card-body">
-                        <label className="fw-bold">
+                        <label className="fw-bold px-2">
                           Quand ce candidat a besoin de travailler When this
                           candidate is ready to work with us
                         </label>
                         <br />
-                        <label className="fw-bold">
+                        <label className="fw-bold px-2">
                           From date / A PARTIR DE
                         </label>
                         <input
@@ -493,7 +586,7 @@ const    notifyCandidatEditError=()=> toast.error("This didn't work.")
                           onChange={onFormDataChange}
                         />
                         <br />
-                        <label className="fw-bold">UNTIL DATE / Jusqu’à </label>
+                        <label className="fw-bold px-2">UNTIL DATE / Jusqu’à </label>
                         <input
                           type="date"
                           className="form-control"
@@ -524,7 +617,7 @@ const    notifyCandidatEditError=()=> toast.error("This didn't work.")
                           <span>Yes</span>
                         </div>
                         <div>
-                          <input type="radio" name="candidatConduireEnFrance" value="true" className="form-check-input" defaultChecked={profile.candidatConduireEnFrance === false} onChange={onFormDataChange} />
+                          <input type="radio" name="candidatConduireEnFrance" value="false" className="form-check-input" defaultChecked={profile.candidatConduireEnFrance === false} onChange={onFormDataChange} />
                           <span>No</span>
                         </div>
                       </div>
@@ -537,9 +630,10 @@ const    notifyCandidatEditError=()=> toast.error("This didn't work.")
                         id="skills"
                         name="candidatSkills"
                         className="form-control"
-                        style={{ height: "126px", width: "420px" }}
                         defaultValue={profile.candidatSkills}
                         onChange={onFormDataChange}
+                        rows={4}
+                        style={{ overflow: 'hidden' }}
                       >
                       </textarea>
                     </div>
@@ -564,21 +658,47 @@ const    notifyCandidatEditError=()=> toast.error("This didn't work.")
                   </thead>
                   <tbody>
                     {
-                      profile.candidatExperienceDetails.length > 0 &&
-                      profile.candidatExperienceDetails.map((detail) =>
+                      workExperience.length > 0 ? (
+                        workExperience.map((detail, index) =>
+                          <tr>
+                            <td>
+                              <input type="text" disabled={index < workExperience.length - 1 || inputDisabled} name="period" placeholder="Years" className="form-control" defaultValue={index == workExperience.length - 1 && index != 0 ? null : detail.period} onChange={onFormDataChange} />
+                            </td>
+                            <td>
+                              <input type="text" disabled={index < workExperience.length - 1 || inputDisabled} name="location" placeholder="Location" className="form-control" defaultValue={index == workExperience.length - 1 && index != 0 ? null : detail.location} onChange={onFormDataChange} />
+                            </td>
+                            <td>
+                              <input type="text" disabled={index < workExperience.length - 1 || inputDisabled} name="workDoneSample" placeholder="Work Done Sample" className="form-control" defaultValue={index == workExperience.length - 1 && index != 0 ? null : detail.workDoneSample} onChange={onFormDataChange} />
+                            </td>
+                          </tr>
+                        )
+                      ) : (
                         <tr>
-                          <td>
-                            <input type="text" name="period" className="form-control" defaultValue={detail.period} onChange={onFormDataChange} />
-                          </td>
-                          <td>
-                            <input type="text" name="location" className="form-control" defaultValue={detail.location} onChange={onFormDataChange} />
-                          </td>
-                          <td>
-                            <input type="text" name="workDoneSample" className="form-control" defaultValue={detail.workDoneSample} onChange={onFormDataChange} />
+                          <td colSpan={3} className="text-center">
+                            <p>No Experience Details Available!</p>
+                            <button className="btn btn-primary" onClick={editExperience}>Click to Add Candidat Experience Details!</button>
                           </td>
                         </tr>
                       )
+                    }
+                    {
+                      displayRow ?
+                        (
+                          <tr>
+                            <td colSpan={3}>
+                              <div className="row w-100">
+                                <div className="col-6 text-center">
+                                  <button className="btn btn-warning" onClick={addWorkExperience}>Save & Add More</button>
+                                </div>
+                                <div className="col-6 text-center">
+                                  <button className="btn btn-danger" onClick={cancelWorkExperience}>Cancel</button>
+                                </div>
+                              </div>
+                            </td>
 
+                          </tr>
+
+                        ) : null
                     }
                   </tbody>
                 </table>
@@ -586,7 +706,7 @@ const    notifyCandidatEditError=()=> toast.error("This didn't work.")
                 <div className="col-12">
                   <div className="row">
                     <div className="col-6 pt-1 flex-grid">
-                      <label>Candidat email</label>
+                      <label>Candidat Email</label>
                       <input placeholder="Candidat Email" className="form-control" name="candidatEmail" defaultValue={profile.candidatEmail} onChange={onFormDataChange} />
                     </div>
                     <div className="col-6 pt-3 flex-grid">

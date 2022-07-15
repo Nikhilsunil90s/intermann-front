@@ -553,7 +553,17 @@ color: #000000 ;
 }
 
 
-@media (min-width: 1200px) { 
+@media screen and (min-width: 1200px){
+    .SelectBtn {
+        background: white;
+        border-radius: 40px;
+        border: 2px solid #979797;
+        width: 25px;
+        height: 25px;
+        top: 99px;
+        position: absolute;
+        right: 26px;
+    } 
     .h-child-text {
         font-family: 'Poppins';
         font-style: normal;
@@ -619,8 +629,18 @@ font-size: 12px ;
 line-height: 16px ;
 color: #3F76E2 !important;
     }
-}
+}  
 @media (min-width: 1400px) { 
+    .SelectBtn {
+        background: white;
+        border-radius: 40px;
+        border: 3px solid #979797;
+        width: 25px;
+        height: 25px;
+        top: 110px;
+        position: absolute;
+        right: 31px;
+    }
     .h-child-text {
         font-family: 'Poppins';
         font-style: normal;
@@ -706,4 +726,16 @@ color: #3F76E2 !important;
     color: #3F76E2 !important;
 }
 }
+/* @media (min-width: 1350px) { 
+    .SelectBtn {
+        background: white;
+        border-radius: 40px;
+        border: 2px solid #979797;
+        width: 25px;
+        height: 25px;
+        top: -24px;
+        position: relative;
+        right: -32px;
+    }
 
+} */
