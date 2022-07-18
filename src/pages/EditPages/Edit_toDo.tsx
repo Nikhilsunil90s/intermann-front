@@ -60,19 +60,26 @@ const EmployeeDataFormat = {
   }
 }
 
+interface State {
+  profileData: any,
+  path: any
+}
+
 function EditDo() {
 
   const navigate = useNavigate();
 
-  const { state } = useLocation();
-  console.log(state,"dls")
+  const locationObject = useLocation();
+  console.log(locationObject.state);
+  const { profileData, path } = locationObject.state as State;
+  console.log(profileData);
   const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
   const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
 
 
   const [data, setData] = useState(EmployeeDataFormat);
   const [formTouched, setFormTouched] = useState(false);
-  const [profile, setProfile] = useState<any>(state.data);
+  const [profile, setProfile] = useState<any>(profileData);
   const [activitySectors, setActivitySectors] = useState([])
   const [selectedSector, setSelectedSector] = useState("");
   const [jobs, setJobs] = useState([]);
@@ -92,8 +99,8 @@ function EditDo() {
   const [locationModified, setLocationModified] = useState(false);
   const [workDoneModified, setWorkDoneModified] = useState(false);
   const [UploadDownBtn,setUPDownState]= useState(false)
-  const [Permis,setPermis]=useState(Boolean)
-  const [DefPermis,setDefPermis]=useState(Permis ? Permis : profile.candidatLicensePermis  )
+  const [Permis,setPermis]=useState(profile.candidatLicensePermis )
+  const [Voyage,setVoyage]=useState(profile.candidatConduireEnFrance)
   const hiddenImageInput = React.useRef(null);
   const [Language, setLanguage] = useState([])
  
@@ -166,10 +173,15 @@ function EditDo() {
 
   const switchHandle=(checked,id,e)=>{
     if(e=="Permis"){
-   console.log(checked)
+   console.log("Permis",!Permis)
+   setPermis(checked)
+   console.log("Permis1",Permis)
+   setData({ ...data, candidatLicensePermis: Permis })
+   console.log(data,"data")
     }
     if(e=="Voyage"){
-
+   setVoyage(checked)
+   setData({ ...data, ['candidatConduireEnFrance']: Voyage })
     }
   }
 
@@ -445,7 +457,7 @@ function EditDo() {
           if (response.status) {
             notifyCandidatEditSuccess()
             setTimeout(() => {
-              navigate(state.path);
+              // navigate(state.path);
             }, 2000)
           }
         })
@@ -536,9 +548,8 @@ function EditDo() {
       setCandidatImage("")
       if (resData.status) {
         setProfile(resData.data)
-      
+        console.log(resData.data.candidatPhoto)
         setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
-      
       }
     })
       .catch(err => {
@@ -574,7 +585,7 @@ function EditDo() {
                   </Link>
                 </div>
                 <div className="col-6 d-flex justify-content-end align-items-center">
-              <Link to="/todolist" style={{ textDecoration: "none" }}>
+              <Link to={path} style={{ textDecoration: "none" }}>
                 <button className="btn edit-btnCancel mr-1" type="button">
                   <img
                     style={{ width: "25%",marginRight:"5px" }}
@@ -628,20 +639,20 @@ className="SelectBtn"
                     style={{ display: 'none' }}
                   />
                   </div>
-                  <div className="col-7 card-xl">
+                  <div className="col-xxl-7 col-xl-7 col-lg-7 col-md-6 card-xl">
                     <div className="row">
                       <div className="col-12">
                         <label className="LabelStylingEdits mb-0">Candidat Name</label>
                         <input style={{width:"71%"}} defaultValue={profile.candidatName} className="form-control" name="candidatName" onChange={onFormDataChange} />
                       </div>
-                      <div className="col-12 pt-2">
+                      <div className="col-12 topPdInput pt-2">
                         <label className="LabelStylingEdits mb-0" >Candidat Age<span className="LabelStylingSpanEdits">(IN YEARS)</span></label>
                         <input style={{width:"71%"}} defaultValue={profile.candidatAge} name="candidatAge" className="form-control" onChange={onFormDataChange} />
                       </div>
                      
                     </div>
                   </div>
-                  <div className="col-3 d-flex align-items-center  text-end end-class" style={{paddingRight:"20px"}}>
+                  <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-4 d-flex align-items-center  text-end end-class" style={{paddingRight:"20px"}}>
                   <div className="text-center d-grid justify-content-end">
                     <div className="text-center">
                     <button className="todoBtnStyle">
@@ -659,7 +670,7 @@ className="SelectBtn"
 
               <div className="col-12 mt-1 px-1 p mb-2">
                 <div className="row bg-colorForEdit pt-1 px-1 pb-1">
-                  <div className="col-4">
+                  <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
                     <label className="LabelStylingEdits mb-0" >Secteur d’Activité</label>
                     <div className="dropdown">
                       <select className="form-select" name="candidatActivitySector" onChange={onFormDataChange}>
@@ -672,7 +683,7 @@ className="SelectBtn"
                     </div>
                    
                   </div>
-                  <div className="col-4">
+                  <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
                     <label className="LabelStylingEdits mb-0" >Metier/Job</label>
                     <div className="dropdown">
                       <div aria-labelledby="dropdownMenuButton1">
@@ -693,11 +704,11 @@ className="SelectBtn"
                       </div>
                     </div>
                   </div>
-                  <div className="col-4 ">
+                  <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 topPdInput">
                       <label className="LabelStylingEdits mb-0"> Candidat Email</label>
                       <input placeholder="Candidat Email" className="form-control" name="candidatEmail" defaultValue={profile.candidatEmail} onChange={onFormDataChange} />
                     </div>
-                    <div className="col-5 mt-3 pr-0">
+                    <div className="col-xxl-5 col-xl-5 col-lg-5 col-md-12 mt-3 pr-0">
               
                     <label className="LabelStylingEdits mb-0">Candidat Motivation</label>
                     <span className="LabelStylingSpanEdits">(bigger number is more important)</span>
@@ -784,20 +795,20 @@ className="SelectBtn"
                                                    </ul>
                     </div>
                     </div>
-                    <div className="col-3 px-0 mt-3"><div className="d-flex"><label className="Permis ">Permis / Licence drive</label><span>    <Switch
+                    <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-5 px-0 mt-3"><div className="d-flex"><label className="Permis ">Permis / Licence drive</label><span>   
+                       <Switch
                           className=""
                           onChange={switchHandle}
                          checked={Permis}
-                          defaultValue={DefPermis}
-                          id="Contrat"
-                        /></span></div></div>
-                    <div className="col-4  pr-0  mt-3">
+                          id="Permis"
+                        />
+                        </span></div></div>
+                    <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-7  pr-0  mt-3">
                     <div className="d-flex"><label className="Permis" style={{width:"64%"}}>Voyage en voiture vers France ?</label><span>    <Switch
                           className=""
                           onChange={switchHandle}
-                         checked={profile.candidatConduireEnFrance}
-                          defaultValue={profile.candidatConduireEnFrance}
-                          id="Contrat"
+                         checked={Voyage}
+                          id="Voyage"
                         /></span></div>
                     </div>
                   <div className="col-12 pt-4 d-flex">
@@ -807,7 +818,7 @@ className="SelectBtn"
                           candidate is ready to work with us
                         </label>
                         <br />
-                        <div className="col-5 mt-1">
+                        <div className="col-xxl-5 col-xl-5 col-lg-5 col-md-6 mt-1">
                         <label className="FromDateEdit mb-0" >
                           From date / A PARTIR DE
                         </label>
@@ -819,7 +830,7 @@ className="SelectBtn"
                           onChange={onFormDataChange}
                         />
                         </div>
-                  <div className="col-5 mt-1">
+                  <div className="col-xxl-5 col-xl-5 col-lg-5 col-md-6 mt-1">
                         <label className="FromDateEdit mb-0" >UNTIL DATE / Jusqu’à </label>
                         <input
                           type="date"
@@ -829,12 +840,12 @@ className="SelectBtn"
                           onChange={onFormDataChange}
                         />
                         </div>
-                        <div className="col-5 mt-2">
+                        <div className="col-xxl-5 col-xl-5 col-lg-5 col-md-5 mt-2">
                         <label className="LabelStylingEdits"> Candidat phone number</label>
                       <input placeholder="Candidat Phone" className="form-control" name="candidatPhone" defaultValue={profile.candidatPhone} onChange={onFormDataChange} />
                       <p className="child-label">Use international format</p>
                         </div>
-                        <div className="col-7 mt-2">
+                        <div className="col-xxl-7 col-xl-7 col-lg-7 col-md-7 mt-2">
                       <label className="LabelStylingEdits " >Langues du candidat</label>
                         <div className="">
                         <Select
@@ -851,16 +862,16 @@ className="SelectBtn"
                         />
                         </div>
                         </div>
-                        <div className="col-4 mt-1">
+                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 mt-1">
                         <label className="LabelStylingEdits">Candidat phone number 2</label>
                       <input placeholder="Candidat Phone Number" className="form-control" name="candidatPhone2"  onChange={onFormDataChange} />
                       <p className="child-label">Use international format</p>
                         </div>
-                        <div className="col-4 mt-1">
+                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 mt-1">
                         <label className="LabelStylingEdits">Candidat Facebook</label>
                         <input placeholder="Candidat Facebook Profile" className="form-control" name="candidatFBURL" defaultValue={profile.candidatFBURL} onChange={onFormDataChange} />
                         </div>
-                        <div className="col-4 mt-1 ">
+                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 mt-1 ">
                       <label className="LabelStylingEdits"> Candidat Experience in Years</label>
                       <input placeholder="Number only" className="form-control" name="candidatYearsExperience" defaultValue={profile.candidatYearsExperience} onChange={onFormDataChange} />
                     </div>
@@ -953,7 +964,7 @@ className="SelectBtn"
                 <div className="col-12 px-0 mt-3">
                   <div className="row justify-content-end">
                     <div className="col-6 d-flex justify-content-end">
-                      <Link to="/todolist" style={{ textDecoration: "none" }}>
+                      <Link to={path} style={{ textDecoration: "none" }}>
 
                         <button type="button" className="btn edit-btnCancel mr-1">
                           <img

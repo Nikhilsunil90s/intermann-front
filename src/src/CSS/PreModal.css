@@ -1,0 +1,134 @@
+.modalStylingfont{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 24px;
+display: flex;
+align-items: flex-end;
+color: #000000;
+}
+.modalStylingfont span{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 24px;
+display: flex;
+align-items: flex-end;
+color: #FE8700;
+margin-left: 5px;
+}
+.ChildStylePreModal{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 600 !important;
+font-size: 16px !important;
+line-height: 24px !important;
+display: flex;
+align-items: flex-end;
+text-transform: capitalize;
+color: #373A3C !important;
+}
+.preSelectModal .css-1s2u09g-control{
+width: 60% !important;
+}
+
+.preSelectModal .css-14el2xx-placeholder{
+    display: flex;
+    margin-left: 15px;
+}
+
+.preSelectModal .css-1t8y0t9-control{
+    width: 60%;
+}
+.preSelectModal .css-1vp9nu5-control{
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: white;
+    border-color: #000000;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: none;
+    cursor: default;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    min-height: 45px;
+    outline: 0!important;
+    position: relative;
+    -webkit-transition: all 100ms;
+    transition: all 100ms;
+    box-sizing: border-box;
+    width: 60%;
+    border-radius: 25px;
+}
+
+.preSelectModal .css-1pahdxg-control{
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: hsl(0, 0%, 100%);
+    border-color: #000000;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: unset;
+    cursor: default;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    min-height: 38px;
+    outline: 0!important;
+    position: relative;
+    -webkit-transition: all 100ms;
+    transition: all 100ms;
+    box-sizing: border-box;
+    width: 387px;
+    border-radius: 25px;
+    height: 44px;
+}
+.preSelectModal .css-26l3qy-menu{
+    width: 387px !important;
+}
+.preSelectModal .css-qc6sy-singleValue{
+    display: flex;
+    margin-left: 15px;
+}
+.preSelectedStageBtn{
+    background: #FE8700;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+color: #FFFFFF;
+
+}
+.modal-footer .btn:hover{
+color:#FFFFFF
+}
+.modal-footer{
+    border-top: none;
+}

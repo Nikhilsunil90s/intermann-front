@@ -41,6 +41,7 @@ function ArchivedList() {
   const [sectorOptions, setSectorOptions] = useState([]);
   const [jobOptions, setJobOptions] = useState([]);
   const [showMore, setShowMore] = useState(true)
+  const [Clients,setClients]=useState([])
 
 
   const colourStyles: StylesConfig<ColourOption, true> = {
@@ -153,7 +154,27 @@ function ArchivedList() {
       .then((respData) => respData)
       .catch((err) => err);
   };
+  const fetchClients = async () => {
+    return await fetch(API_BASE_URL + `getClientsByStatus/?leadStatus=Archived`, {
+      method: "GET",
+      headers: {
+        "Accept": 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+    })
+      .then(resp => resp.json())
+      .then(respData => respData)
+      .catch(err => err)
+  }
   useEffect(() => {
+    if(Clients.length ==0){
+      fetchClients().then((data)=>{
+   let ClientOP:any= data.data.map((el)=>{
+      return  { value: el.clientCompanyName, label:el.clientCompanyName, color: '#FF8B00' }
+   })
+   setClients([{value:"Select Client",label:"Select Client",color:"#ff8b00"},...ClientOP])
+      })
+    }
     if (nameOptions.length == 0) {
       fetchProfiles().then((profilesResult) => {
         let nameops = profilesResult.map((pro) => {
@@ -196,6 +217,13 @@ function ArchivedList() {
       .then((reD) => reD)
       .catch((err) => err);
   };
+
+  const RestFilters=()=>{
+
+    setNameOptions([])
+    SelectedName=[]
+    filterFunction()
+  }
 
   const handleSectorChange = (e: any) => {
     // console.log(e.target.value)
@@ -561,19 +589,29 @@ function ArchivedList() {
                           <p className="filtersLabel">Filtre by Client</p>
                           <div className="dropdown">
                             <div aria-labelledby="dropdownMenuButton1">
-                              <Select
+                              {
+                                Clients.length > 0?
+                                 
+                                <Select
                                 name="ClientFilter"
                                 closeMenuOnSelect={true}
                                 placeholder="‎ ‎ ‎ Select Filtre by Client"
                                 className="basic-multi-select"
                                 classNamePrefix="select"
                                 styles={colourStyles}
+                                options={Clients}
                               />
+                                :
+       <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+                              
+                              }
+                        
                             </div>
                           </div>
                         </div>
                         <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 pt-1">
                           <p className="filtersLabel ">Filtre Langues du candidat</p>
+                      
                         <Select
                           name="candidatLanguages"
                           closeMenuOnSelect={false}
@@ -591,7 +629,10 @@ function ArchivedList() {
                     <div className="extraPadding">
                       <div className="col-12">
                         <div className="row justify-content-end">
-                          <div className="col-4 d-flex justify-content-end">
+                        <div className="col-2 d-flex align-items-center justify-content-end">
+                          <button className="btnRest  cursor-pointer" onClick={() => RestFilters()}>Rest Filters..</button>
+                        </div>
+                          <div className="col-2 d-flex justify-content-end">
                             <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(false)}>Less Filters <img src={require("../images/downup.svg").default} /></p>
                           </div>
                         </div>
@@ -603,7 +644,10 @@ function ArchivedList() {
                   <div className="extraPadding">
                     <div className="col-12">
                       <div className="row justify-content-end">
-                        <div className="col-4 d-flex justify-content-end">
+                      <div className="col-2 d-flex align-items-center justify-content-end">
+                          <button className="btnRest  cursor-pointer" onClick={() => RestFilters()}>Rest Filters..</button>
+                        </div>
+                        <div className="col-2 d-flex justify-content-end">
                           <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(true)}>More Filters <img src={require("../images/down.svg").default} /></p>
                         </div>
                       </div>

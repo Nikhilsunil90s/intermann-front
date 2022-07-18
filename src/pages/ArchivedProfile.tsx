@@ -10,7 +10,7 @@ import ProfileLoader from "../components/Loader/ProfilesLoader";
 import { API_BASE_URL } from '../config/serverApiConfig';
 import axios from "axios";
 import HideProfile from "../components/Modal/HideProfileModalForArchived";
-import RestProfile from "../components/Modal/RestProfileForArchived";
+import ResetProfile from "../components/Modal/RestProfileForArchived";
 import { Toaster, toast } from 'react-hot-toast';
 import UploadDow from '../components/Modal/SelectUploadDownload'
 
@@ -26,15 +26,15 @@ const ArchivedProfile = () => {
 
   const [profile, setProfile] = useState<any>(state ? state : profileData);
   const [hideProfile,setHideProfile]=useState(false)
-  const [RestModalProfile,setRestModalProfile]=useState(false)
+  const [ResetModalProfile,setResetModalProfile]=useState(false)
   const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
   const hiddenImageInput = React.useRef(null);
   const [UploadBtn,setSelectUpload]= useState(false)
     const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
   
-    // let data={state:profile,path:"/archivedprofile"}
+    let data={profileData:profile,path:"/archivedprofile"}
     const editCandidatProfile = () => {
-      navigate("/editArchived", { state: profile });
+      navigate("/editArchived", { state: data });
     };
     const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
     const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
@@ -63,7 +63,7 @@ const ArchivedProfile = () => {
         .then(respData => respData)
         .catch(err => err)
     }
-  
+
     const fileChange = (
       e: React.ChangeEvent<
         HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
@@ -606,7 +606,7 @@ No FB URL!
                       <p className="italic-fontStyle text-center">Profile will be not deleted but hidded</p>
                 </div>
                 <div className="col-3">
-                     <button className="restProfile" onClick={()=>setRestModalProfile(true)}>
+                     <button className="restProfile" onClick={()=>setResetModalProfile(true)}>
                     <img src={require("../images/rest.svg").default} />
                     Reset this profile</button>
                     <p className="italic-fontStyle text-center">Profile will be reset to todo stage</p>
@@ -620,8 +620,8 @@ No FB URL!
         null
        }
         {
-        RestModalProfile?
-        <RestProfile props={profile} closeModal={setRestModalProfile}  path={"/todolist"}/>
+        ResetModalProfile?
+        <ResetProfile props={profile} closeModal={setResetModalProfile}  path={"/todolist"}/>
         :
         null
        }

@@ -47,7 +47,7 @@ function Embauch() {
   const [sectorOptions, setSectorOptions] = useState([]);
   const [jobOptions, setJobOptions] = useState([]);
   const [showMore, setShowMore] = useState(true)
-
+  const [Clients,setClients]=useState([])
 
 
   const colourStyles: StylesConfig<ColourOption, true> = {
@@ -102,7 +102,27 @@ function Embauch() {
       },
     }),
   };
+  const fetchClients = async () => {
+    return await fetch(API_BASE_URL + `getClientsByStatus/?leadStatus=In-Progress`, {
+      method: "GET",
+      headers: {
+        "Accept": 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+    })
+      .then(resp => resp.json())
+      .then(respData => respData)
+      .catch(err => err)
+  }
   useEffect(() => {
+    if(Clients.length ==0){
+      fetchClients().then((data)=>{
+   let ClientOP:any= data.data.map((el)=>{
+      return  { value: el.clientCompanyName, label:el.clientCompanyName, color: '#FF8B00' }
+   })
+   setClients([{value:"Select Client",label:"Select Client",color:"#ff8b00"},...ClientOP])
+      })
+    }
     if (sectors.length == 0) {
       fetchAllSectors()
         .then((data) => {
@@ -647,14 +667,21 @@ function Embauch() {
                           <p className="filtersLabel">Filtre by Client</p>
                           <div className="dropdown">
                             <div aria-labelledby="dropdownMenuButton1">
+                            {Clients.length > 0 ?
                               <Select
                                 name="ClientFilter"
                                 closeMenuOnSelect={true}
-                                placeholder="‎ ‎ ‎ Select Motivation du Candidat"
+                                placeholder="‎ ‎ ‎Filter by Client"
                                 className="basic-multi-select"
                                 classNamePrefix="select"
                                 styles={colourStyles}
+                                options={Clients}
+                                // onChange={}
                               />
+:                 
+       <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+
+                            }
                             </div>
                           </div>
                         </div>

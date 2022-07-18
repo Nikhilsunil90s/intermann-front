@@ -30,6 +30,8 @@ let FilterJob = [];
 let MotivationArr = []
 let LicencePermisArr = []
 let DateArr=[]
+let emailArr=[]
+let contactArr=[]
 function ToDoList() {
 
   const [sectors, setSectors] = useState([]);
@@ -212,6 +214,34 @@ function ToDoList() {
      }   })
       .catch((err) => err);
   }
+  const EmailFilter=()=>{
+   return fetch(`${API_BASE_URL}getCandidats/?candidatEmail=${emailArr}`, {
+
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then(reD => reD.json())
+      .then(result => result)
+      .catch((err) => err);
+  }
+  const ContactFilter=()=>{
+    return fetch(`${API_BASE_URL}getCandidats/?candidatPhone=${contactArr}`, {
+ 
+       method: "GET",
+       headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+         Authorization: "Bearer " + localStorage.getItem("token"),
+       },
+     })
+       .then(reD => reD.json())
+       .then(result => result)
+       .catch((err) => err);
+   }
   const fetchProfiles = async () => {
     return await fetch(API_BASE_URL + "allToDoCandidats", {
       method: "GET",
@@ -246,7 +276,7 @@ function ToDoList() {
           }
       })
          setEmail([  {
-          value: "Select Email", label: "Select Email", color: '#FF8B00'
+          value: "Select email", label: "Select Email", color: '#FF8B00'
         },...emailops])
         console.log(emailops,"emailops")
       })
@@ -288,6 +318,9 @@ function ToDoList() {
   const handleNameChange = (e: any) => {
     // console.log(e.target.value)
     SelectedName = []
+    DateArr=[]
+    emailArr=[]
+    contactArr=[]
     MotivationArr = []
     LicencePermisArr = []
     setSelectedSector("")
@@ -371,6 +404,43 @@ function ToDoList() {
       });
   };
 
+  const handleEmailChange=(e:any)=>{
+    SelectedName = []
+    MotivationArr = []
+    LicencePermisArr = []
+    FilterJob = [];
+    setSelectedJob([])
+    setSelectedSector("")
+    emailArr=[]
+    if (e.value === "Select email") {
+    emailArr=[]
+    filterFunction()
+
+    } else if (e.value !== '' && e.value !== "Select email") {
+          emailArr = e.value;
+    }
+  }
+
+  const handleContactChange=(e:any)=>{
+    SelectedName = []
+    MotivationArr = []
+    LicencePermisArr = []
+    FilterJob = [];
+    setSelectedJob([])
+    setSelectedSector("")
+    emailArr=[]
+    contactArr=[]
+    if (e.value === "Select Contact") {
+      contactArr=[]
+    filterFunction()
+
+    } else if (e.value !== '' && e.value !== "Select Contact") {
+      console.log(e.value,"contact")
+          contactArr = e.value;
+    }
+  }
+
+
   useEffect(() => {
     setSelectedJob(FilterJob)
 
@@ -398,8 +468,8 @@ function ToDoList() {
   const filterFunction = async () => {
     setLoader(false);
 
-    if (SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length>0) {
-      if (SelectedName.length > 0 && MotivationArr.length == 0 && LicencePermisArr.length == 0 && DateArr.length==0) {
+    if (SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length>0 || emailArr.length > 0 || contactArr.length > 0) {
+      if (SelectedName.length > 0 && MotivationArr.length == 0 && LicencePermisArr.length == 0 && DateArr.length==0 && emailArr.length ==0 && contactArr.length ==0) {
         LicencePermisArr = []
         fetch(`${API_BASE_URL}getCandidats/?candidatName=${SelectedName}`, {
 
@@ -422,7 +492,7 @@ function ToDoList() {
           .catch((err) => err);
         setLoader(true);
       }
-      if (SelectedName.length == 0 && MotivationArr.length > 0 && LicencePermisArr.length == 0 && DateArr.length == 0) {
+      if (SelectedName.length == 0 && MotivationArr.length > 0 && LicencePermisArr.length == 0 && DateArr.length == 0 && emailArr.length ==0  && contactArr.length ==0) {
         setFilterData([])
         SelectedName = []
         fetch(`${API_BASE_URL}getCandidats/?candidatMotivation=${MotivationArr}`, {
@@ -446,7 +516,7 @@ function ToDoList() {
           .catch((err) => err);
         setLoader(true);
       }
-      if (LicencePermisArr.length > 0 && MotivationArr.length == 0 && SelectedName.length  == 0 && DateArr.length == 0) {
+      if (LicencePermisArr.length > 0 && MotivationArr.length == 0 && SelectedName.length  == 0 && DateArr.length == 0 && emailArr.length ==0  && contactArr.length ==0) {
         setFilterData([])
         SelectedName = []
         MotivationArr = []
@@ -471,7 +541,7 @@ function ToDoList() {
           .catch((err) => err);
         setLoader(true);
       }
-      if (DateArr.length > 0 && SelectedName.length == 0 && MotivationArr.length == 0 && LicencePermisArr.length == 0 ) {
+      if (DateArr.length > 0 && SelectedName.length == 0 && MotivationArr.length == 0 && LicencePermisArr.length == 0 && emailArr.length ==0  && contactArr.length ==0) {
         setFilterData([])
         SelectedName = []
         MotivationArr = []
@@ -479,6 +549,42 @@ function ToDoList() {
         setSelectedSector("")
         
         DateFilter()
+      }
+      if (emailArr.length > 0 && DateArr.length == 0 && SelectedName.length == 0 && MotivationArr.length == 0 && LicencePermisArr.length == 0  && contactArr.length ==0) {
+        setFilterData([])
+        SelectedName = []
+        MotivationArr = []
+        LicencePermisArr=[]
+        setSelectedSector("")
+        DateArr=[]
+
+        EmailFilter().then((data)=>{
+          if(data.total === 0){
+            setLoader(true) 
+            setStatus(false)
+               }else{
+             setFilterData([...data.data]) ; setLoader(true); setStatus(true)
+             }  
+        })
+        .catch((err)=>err)
+      }
+      if (contactArr.length > 0 && emailArr.length == 0 && DateArr.length == 0 && SelectedName.length == 0 && MotivationArr.length == 0 && LicencePermisArr.length == 0  ) {
+        setFilterData([])
+        SelectedName = []
+        MotivationArr = []
+        LicencePermisArr=[]
+        setSelectedSector("")
+        DateArr=[]
+        emailArr=[]
+        ContactFilter().then((data)=>{
+          if(data.total === 0){
+            setLoader(true) 
+            setStatus(false)
+               }else{
+             setFilterData([...data.data]) ; setLoader(true); setStatus(true)
+             }  
+        })
+        .catch((err)=>err)
       }
       // if (DateArr.length > 0 && SelectedName.length > 0 && MotivationArr.length > 0 && LicencePermisArr.length > 0 ) {
       //   fetch(`${API_BASE_URL}getCandidats/?candidatLicensePermis=${LicencePermisArr}?candidatMotivation=${MotivationArr}?candidatName=${SelectedName}?candidatStartDate=${DateArr}`, {
@@ -641,7 +747,7 @@ function ToDoList() {
         .catch((err) => err);
       setLoader(true);
     }
-    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0) {
+    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0 && emailArr.length == 0 && contactArr.length == 0) {
       {
         setLoader(true)
         setStatus(true)
@@ -668,6 +774,12 @@ function ToDoList() {
   }
   const onDateChange=(e:any)=>{
     DateArr=[]
+    SelectedName=[]
+    emailArr=[]
+    contactArr=[]
+    setSelectedSector("")
+    LicencePermisArr=[]
+    MotivationArr=[]
     if(e.target.name==="candidatStartDate"){
     let SelectedDate=[]
     SelectedDate=e.target.value
@@ -676,6 +788,16 @@ function ToDoList() {
     filterFunction()
     }
  }
+ 
+
+ const RestFilters=()=>{
+
+  setNameOptions([])
+  SelectedName=[]
+  filterFunction()
+}
+
+
 
   return (
     <>
@@ -891,7 +1013,7 @@ function ToDoList() {
                                 placeholder="‎ ‎ ‎ ‎ ‎  ‎ yourmail@mail.com"
                                 className="basic-multi-select"
                                 classNamePrefix="select"
-                                onChange={HandelLicence}
+                                onChange={handleEmailChange}
                                 options={email}
                                 styles={colourStyles}
                               />
@@ -923,7 +1045,7 @@ closeMenuOnSelect={true}
 placeholder="‎ ‎ ‎ ‎ ‎  ‎ Candidat's Phone Number"
 className="basic-multi-select"
 classNamePrefix="select"
-// onChange={HandelLicence}
+onChange={handleContactChange}
 options={ContactOptions}
 styles={colourStyles}
 />
@@ -940,7 +1062,10 @@ styles={colourStyles}
                     <div className="extraPadding">
                       <div className="col-12">
                         <div className="row justify-content-end">
-                          <div className="col-4 d-flex justify-content-end">
+                        <div className="col-2 d-flex align-items-center justify-content-end">
+                          <button className="btnRest  cursor-pointer" onClick={() => RestFilters()}>Rest Filters..</button>
+                        </div>
+                          <div className="col-2 d-flex justify-content-end">
                             <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(false)}>Less Filters <img src={require("../images/downup.svg").default} /></p>
                           </div>
                         </div>
@@ -952,7 +1077,10 @@ styles={colourStyles}
                   <div className="extraPadding">
                     <div className="col-12">
                       <div className="row justify-content-end">
-                        <div className="col-4 d-flex justify-content-end">
+                      <div className="col-2 d-flex align-items-center justify-content-end">
+                          <button className="btnRest  cursor-pointer" onClick={() => RestFilters()}>Rest Filters..</button>
+                        </div>
+                        <div className="col-2 d-flex justify-content-end">
                           <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(true)}>More Filters <img src={require("../images/down.svg").default} /></p>
                         </div>
                       </div>

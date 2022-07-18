@@ -59,12 +59,18 @@ const EmployeeDataFormat = {
   }
 }
 
+interface State {
+  profileData: any,
+  path: any
+}
+
 function EditArchive() {
 
-  const { state } = useLocation();
+  const locationObject = useLocation();
+  const {profileData, path} = locationObject.state as State;
   const navigate = useNavigate();
   const [data, setData] = useState(EmployeeDataFormat);
-  const [profile, setProfile] = useState<any>(state);
+  const [profile, setProfile] = useState<any>(profileData);
   const [activitySectors, setActivitySectors] = useState([])
   const [selectedSector, setSelectedSector] = useState("");
   const [formTouched, setFormTouched] = useState(false);
@@ -79,8 +85,8 @@ function EditArchive() {
   const [clients, setClients] = useState([]);
   const [UploadDownBtn,setUPDownState]= useState(false)
   const hiddenImageInput = React.useRef(null);
-  const [Permis,setPermis]=useState(Boolean)
-  const [DefPermis,setDefPermis]=useState(Permis ? Permis : profile.candidatLicensePermis  )
+  const [Permis,setPermis]=useState(profile.candidatLicensePermis )
+  const [Voyage,setVoyage]=useState(profile.candidatConduireEnFrance)
   const [Language, setLanguage] = useState([])
   const [workExperience, setWorkExperience] = useState(profile.candidatExperienceDetails.length > 0 ? [...profile.candidatExperienceDetails] : []);
   const [displayRow, setDisplayRow] = useState(false);
@@ -378,7 +384,7 @@ function EditArchive() {
           if (data.status) {
             notifyCandidatEditSuccess()
             setTimeout(() => {
-              navigate(state.path);
+              // navigate(state.path);
             }, 2000)
           }
         })
@@ -393,10 +399,10 @@ function EditArchive() {
   }
   const switchHandle=(checked,id,e)=>{
     if(e=="Permis"){
-   console.log(checked)
+   setPermis(checked)
     }
     if(e=="Voyage"){
-
+   setVoyage(checked)
     }
   }
   const handleChange = (selectedOption) => {
@@ -461,6 +467,7 @@ function EditArchive() {
       .catch(err => err)
   }
 
+
   useEffect(() => {
     console.log(profile._id,"id")
     fetchCandidat(profile._id).then(resData => {
@@ -517,7 +524,7 @@ function EditArchive() {
     }
 
     console.log(data);
-  });
+  },[]);
 
   return (
     <>
@@ -548,7 +555,7 @@ function EditArchive() {
                   </Link>
                 </div>
                 <div className="col-6 d-flex justify-content-end align-items-center">
-              <Link to="/archivedlist" style={{ textDecoration: "none" }}>
+              <Link to={path} style={{ textDecoration: "none" }}>
                 <button className="btn edit-btnCancel mr-1" type="button">
                   <img
                     style={{ width: "25%",marginRight:"5px" }}
@@ -604,20 +611,20 @@ className="SelectBtn"
                     style={{ display: 'none' }}
                   />
                   </div>
-                  <div className="col-6 card-xl">
+                  <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-5 card-xl">
                     <div className="row">
                       <div className="col-12">
                         <label className="LabelStylingEdits mb-0">Candidat Name</label>
-                        <input style={{width:"71%"}} defaultValue={profile.candidatName} className="form-control" name="candidatName" onChange={onFormDataChange} />
+                        <input style={{width:"71%"}} defaultValue={profile.candidatName} className="form-control widthInputField" name="candidatName" onChange={onFormDataChange} />
                       </div>
-                      <div className="col-12 pt-2">
+                      <div className="col-12 topPdInput pt-2">
                         <label className="LabelStylingEdits mb-0" >Candidat Age<span className="LabelStylingSpanEdits">(IN YEARS)</span></label>
-                        <input style={{width:"71%"}} defaultValue={profile.candidatAge} name="candidatAge" className="form-control" onChange={onFormDataChange} />
+                        <input style={{width:"71%"}} defaultValue={profile.candidatAge} name="candidatAge" className="form-control widthInputField" onChange={onFormDataChange} />
                       </div>
                      
                     </div>
                   </div>
-                  <div className="col-4 px-0 text-end end-class align-items-center justify-content-end pt-1 pr-2">
+                  <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-5 px-0 text-end end-class align-items-center justify-content-end pt-1 pr-2">
                   <div className="d-grid justify-content-end align-items-center pb-1">
                   <button className="ArchiveLargebtn pb-1 p-0"><img src={require("../../images/ArchivedBtn.svg").default} /></button>
                   </div>
@@ -756,20 +763,20 @@ className="SelectBtn"
                                                    </ul>
                     </div>
                     </div>
-                    <div className="col-3 px-0 mt-3"><div className="d-flex"><label className="Permis ">Permis / Licence drive</label><span>    <Switch
+                    <div className="col-3 px-0 mt-3"><div className="d-flex"><label className="Permis ">Permis / Licence drive</label><span>  
+                      
+                        <Switch
                           className=""
                           onChange={switchHandle}
                          checked={Permis}
-                          defaultValue={DefPermis}
-                          id="Contrat"
+                          id="Permis"
                         /></span></div></div>
                     <div className="col-4  pr-0  mt-3">
                     <div className="d-flex"><label className="Permis" style={{width:"64%"}}>Voyage en voiture vers France ?</label><span>    <Switch
                           className=""
                           onChange={switchHandle}
-                         checked={profile.candidatConduireEnFrance}
-                          defaultValue={profile.candidatConduireEnFrance}
-                          id="Contrat"
+                         checked={Voyage}
+                          id="Voyage"
                         /></span></div>
                     </div>
                   <div className="col-12 pt-4 d-flex">
@@ -942,7 +949,7 @@ className="SelectBtn"
                 <div className="col-12 px-0 mt-3">
                   <div className="row justify-content-end">
                     <div className="col-6 d-flex justify-content-end">
-                      <Link to="/archivedlist" style={{ textDecoration: "none" }}>
+                      <Link to={path} style={{ textDecoration: "none" }}>
 
                         <button type="button" className="btn edit-btnCancel mr-1">
                           <img

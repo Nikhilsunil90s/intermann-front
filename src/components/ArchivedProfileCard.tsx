@@ -14,9 +14,10 @@ const ArchivedProfileCard = (props: any) => {
     const [showArchiveModal, setShowArchiveModal] = useState(false)
     //  let data={state:props.props,path:"/archivedlist"}
 
+    let data={profileData:props.props,path:"/archivedprofile"}
     const editCandidatProfile = () => {
-        navigate("/editArchived", { state: props.props });
-      };
+      navigate("/editArchived", { state: data });
+    };
     const viewFullProfile = () => {
         // navigate("/archivedprofile", { state: props.props })
         localStorage.setItem("archive", JSON.stringify(props.props))

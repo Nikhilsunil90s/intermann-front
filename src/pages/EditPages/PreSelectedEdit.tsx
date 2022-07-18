@@ -60,11 +60,19 @@ const EmployeeDataFormat = {
   }
 }
 
+interface State {
+  profileData: any,
+  path: any
+}
+
 function PreSelectedEdit() {
 
   const navigate = useNavigate();
 
-  const { state } = useLocation();
+  const locationObject = useLocation();
+  console.log(locationObject.state);
+  const { profileData, path } = locationObject.state as State;
+  console.log(profileData);
 
   const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
   const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
@@ -72,7 +80,7 @@ function PreSelectedEdit() {
 
   const [data, setData] = useState(EmployeeDataFormat);
   const [formTouched, setFormTouched] = useState(false);
-  const [profile, setProfile] = useState<any>(state.data);
+  const [profile, setProfile] = useState<any>(profileData);
   const [activitySectors, setActivitySectors] = useState([])
   const [selectedSector, setSelectedSector] = useState("");
   const [jobs, setJobs] = useState([]);
@@ -92,10 +100,10 @@ function PreSelectedEdit() {
   const [locationModified, setLocationModified] = useState(false);
   const [workDoneModified, setWorkDoneModified] = useState(false);
   const [UploadDownBtn,setUPDownState]= useState(false)
-  const [Permis,setPermis]=useState(Boolean)
-  const [DefPermis,setDefPermis]=useState(Permis ? Permis : profile.candidatLicensePermis  )
   const hiddenImageInput = React.useRef(null);
   const [Language, setLanguage] = useState([])
+  const [Permis,setPermis]=useState(profile.candidatLicensePermis )
+  const [Voyage,setVoyage]=useState(profile.candidatConduireEnFrance)
  
   console.log(profile,"dls")
 
@@ -166,10 +174,10 @@ function PreSelectedEdit() {
 
   const switchHandle=(checked,id,e)=>{
     if(e=="Permis"){
-   console.log(checked)
+   setPermis(checked)
     }
     if(e=="Voyage"){
-
+   setVoyage(checked)
     }
   }
 
@@ -445,7 +453,7 @@ function PreSelectedEdit() {
           if (response.status) {
             notifyCandidatEditSuccess()
             setTimeout(() => {
-              navigate(state.path);
+              navigate(path);
             }, 2000)
           }
         })
@@ -574,7 +582,7 @@ function PreSelectedEdit() {
                   </Link>
                 </div>
                 <div className="col-6 d-flex justify-content-end align-items-center">
-              <Link to="/todolist" style={{ textDecoration: "none" }}>
+              <Link to={path} style={{ textDecoration: "none" }}>
                 <button className="btn edit-btnCancel mr-1">
                   <img
                     style={{ width: "25%",marginRight:"5px" }}
@@ -790,16 +798,14 @@ className="SelectBtn"
                           className=""
                           onChange={switchHandle}
                          checked={Permis}
-                          defaultValue={DefPermis}
-                          id="Contrat"
+                          id="Permis"
                         /></span></div></div>
                     <div className="col-4  pr-0  mt-3">
                     <div className="d-flex"><label className="Permis" style={{width:"64%"}}>Voyage en voiture vers France ?</label><span>    <Switch
                           className=""
                           onChange={switchHandle}
-                         checked={profile.candidatConduireEnFrance}
-                          defaultValue={profile.candidatConduireEnFrance}
-                          id="Contrat"
+                         checked={Voyage}
+                          id="Voyage"
                         /></span></div>
                     </div>
                   <div className="col-12 pt-4 d-flex">
@@ -954,7 +960,7 @@ className="SelectBtn"
                 <div className="col-12 px-0 mt-3">
                   <div className="row justify-content-end">
                     <div className="col-6 d-flex justify-content-end">
-                      <Link to="/todolist" style={{ textDecoration: "none" }}>
+                      <Link to={path} style={{ textDecoration: "none" }}>
 
                         <button type="button" className="btn edit-btnCancel mr-1">
                           <img

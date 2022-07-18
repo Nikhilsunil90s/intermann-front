@@ -4,7 +4,17 @@
     border-radius: 15px;
     padding: 20px;
 }
-
+.btnRest {
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 3px;
+    color: #ffff !important;
+    background-color: #FE8700;
+    border-radius: 50px !important;
+    text-transform: uppercase;
+    width: 137px;
+    height: 35px;
+}
 .top-pd {
     padding: 15px 0px;
 }
@@ -331,7 +341,99 @@ thead {
 }
 
 @media (min-width:768px){
+    .card-Leads {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 13px;
+        line-height: 33px;
+        letter-spacing: 1px;
+        color: #252726;
+    }
+    .edit-btnCancel{
+        border: 1px solid #E21B1B;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 16px;
+display: flex;
+align-items: center;
+color: #E21B1B;
+padding: 7px;
+    }
+    .editBtnSave {
+        background: #489767;
+        border-radius: 100px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #FFFFFF;
+        width: 154px;
+    }
+    .bg-colorForEdit{
+        background-color: #ffff;
+        border-radius: 10px;
+    }
+    .LabelStylingEdits{
+        font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 13px;
+line-height: 24px;
+display: flex;
+align-items: flex-end;
+text-transform: capitalize;
+color: #373A3C;
+    }
+    .LabelStylingSpanEdits{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 24px;
+        display: flex;
+        align-items: flex-end;
+        text-transform: capitalize;
+        
+    }
+.topPdInput{
+    padding-top: 10px !important;
+}
+.fw-boldEn {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 0px;
+    color: #000000;
+}
+.Permis{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 11px;
+line-height: 24px;
+display: flex;
+align-items: flex-end;
+text-transform: capitalize;
+color: #373A3C;
+margin-right: 5px;
 
+}
+.editInprogressGround{
+    background: rgba(164, 97, 216, 0.5);
+border-radius: 14px;
+}
+.widthInputField{
+    width: 100% !important;
+}
 }
 @media (min-width:1200px){
     .edit-btnCancel{

@@ -1,0 +1,797 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins';
+font-style: normal;
+}
+.card-body{padding: 0.5rem 0rem !important;
+}
+.pd{
+    padding: 30px 0px;
+}
+.text-family{
+    padding-top: 10px !important;
+}
+.text-family span{
+text-decoration: underline;
+}
+.child-text{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+}
+.box{
+    border: 1px solid black;
+    height: 50%;
+    width: 80%;
+}
+.box p{
+    padding-left: 10px;
+    padding-bottom: 2px;
+    margin-bottom: 0px !important;
+}
+.last-child{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 24px;
+padding: 10px 0px ;
+margin-bottom: 0px !important
+}
+hr.new5{
+    margin-top: 20px;
+    border: 2px solid #000000;
+    height: 1px !important;
+    border-radius: 34px;
+}
+.card-upper{
+    display: flex;
+
+}
+.card-color{
+   
+border-radius: 16px;
+padding: 5px;
+}
+.card-color p{
+    color: #000000;
+}
+.card-body{
+    
+    padding: 0.5rem 0.5rem !important;
+}
+.Archived{
+    background: #FF0000;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 13px;
+    text-align: center;
+    width: 74px;
+    height: 20px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #ffff;
+}
+.card-body p{
+    margin-bottom: 0px !important;
+    font-weight: 400;
+font-size: 10px;
+line-height: 16px;
+color:#ffff
+}
+.blue{
+    color: #3F76E2 !important;
+}
+.card-body small{
+    padding-right: 60px ;
+    font-size: 11px !important;
+    color: rgb(0, 0, 0);
+}
+.pd-left{
+    padding-right:7px !important ;
+}
+.btn-card{
+    height: 20px;
+    background: #032339;
+    font-weight: 700;
+font-size: 12px;
+line-height: 16px;
+    width: 70px;
+    font-size: 8px !important;
+    padding:  0px !important;
+}
+.btn-cardLeft{
+   background-color:  #A461D8;
+   color: #ffff;
+   height: 20px;
+   font-weight: 700;
+font-size: 7px;
+line-height: 16px;
+   width: 70px;
+   font-size: 6px !important;
+   padding:  0px !important;
+}
+.btn-cardRight1{
+    height: 20px;
+    background: black;
+    color: #FE8700;
+    font-weight: 700;
+font-size: 12px;
+line-height: 16px;
+    width: 70px;
+    font-size: 8px !important;
+    padding: 0px !important;
+  
+}
+.btn-cardRight{
+    height: 20px;
+    background: #FF0000;
+    color: #ffff;
+    font-weight: 700;
+font-size: 12px;
+line-height: 16px;
+    width: 70px;
+    font-size: 8px !important;
+    padding: 0px !important;
+  
+}
+.box-red{
+    background-color: #FFE0E0 !important;
+padding: 25px 15px;
+}
+.box-red p{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 15px;
+    color: #000000;
+}
+.box-red span{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500 !important;
+    font-size: 10px !important;
+    line-height: 15px !important;
+    color: #000000 !important;
+}
+.btn-cardbottom{
+    height: 20px;
+    margin-inline: 55px;
+    margin-top: 10px;
+    background: #979797;
+    color:#ffff;
+    font-weight: 700;
+line-height: 16px;
+    width: 70px;
+    font-size: 8px !important;
+    padding: 0px 0px 0px 0px !important;
+}
+.fontStylingArchived{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 33px;
+    color: #252726;
+}
+.fontStylingArchived span{
+    color: #E21B1B;
+    margin-left: 10px;
+}
+
+.ArchivedChild{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+  font-size: 12px;
+  line-height: 8px;
+}
+.ArchivedChild span{
+    text-decoration: underline;
+}
+.ArchivedCard p{
+    font-family: 'Poppins' !important;
+font-style: normal !important;
+font-weight: 400 !important;
+font-size: 12px !important;
+line-height: 6px !important ;
+color: #000000 !important;
+
+}
+
+.ArchivedCardChildFonts .blue {
+    font-weight: 700 !important;
+    font-size: 10px !important;
+    color: #3F76E2 !important;
+    padding: 10px 0px;
+}
+
+.cardColorRowArchived{
+      background-color: #FFE0E0;
+    padding: 5px;
+}
+.ArchivedCardBtn{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: -0.105991px;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: 0px;
+}
+.ArchivedCardBtn img{
+margin-top: 4px;
+}
+
+/* Archived Profile */
+
+.EditArchive{
+    background-color: #032339;
+    font-weight: 700;
+    font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.105991px;
+  text-transform: uppercase;
+  border-radius: 25px;
+  color: #FFFFFF;
+  margin-top: 5px;
+  margin-bottom: 5PX;
+}
+.bg-ArchiveDetails{
+    background: #FFFFFF;
+    box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
+    margin-top: 10px;
+    padding-top: 30px;
+}
+.ArchiveLargebtn{
+    background: #FFE0E0;
+border-radius: 100px;
+border: 0px ;
+padding:10px 15px !important
+}
+.boxArchivedProfile{
+    background: #FFE0E0;
+    border: 1px solid #FF0000;
+    box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+    border-radius: 10px;
+    padding: 40px 0px;
+}
+.whyFont{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 28px;
+        color: #FF0000;
+      }
+      .whyFont span {
+        color: black !important;
+      }
+
+      .Archived-CardMore{
+        padding: 10px;
+    }
+    .Archived-CardMore p{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 45px;
+        text-decoration-line: underline;
+        color: #000000;
+        margin-bottom:0px ;
+    }
+    .Archived-CardMore span{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 45px;
+        color: #000000;
+        margin-bottom:0px ;
+        margin-left:5px;
+    }
+    .btn-ArchiveCVManual{
+        background: #032339;
+    border-radius: 100px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 27px;
+    color: #FFFFFF;
+    padding: 15px 10px;
+    margin-top: 5px;
+    }
+    .btn-ArchiveEditProfile{
+        background: #032339;
+    border-radius: 100px;
+    padding: 10px 26px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    color: #FFFFFF;
+    padding: 15px 25px;
+    margin-top: 5px;
+    }
+
+    .hideProfile{
+        background: #FF0000;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 27px;
+color: #FFFFFF;
+padding: 15px 10px;
+border: 0px;
+margin-top: 5px;
+     }
+     .restProfile{
+        background: #489767;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 27px;
+color: #FFFFFF;
+padding: 15px 10px;
+border: 0px;
+margin-top: 5px;
+     }
+     .hideProfile img{
+        margin:0px 5px
+     }
+     .restProfile img{
+   margin:0px 5px
+     }
+
+     .Archived-Card{
+        background: #FFFFFF;
+        box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+        border-radius: 10px;
+     }
+     .btnHide-ArchivedModal {
+        background: #E21B1B;
+        border-radius: 100px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        display: flex;
+        align-items: center;
+        color: #FFFFFF;
+        border: 0px;
+        padding: 12px 40px;
+    }
+@media (min-width:768px){
+    .boxArchivedProfile {
+        background: #FFE0E0;
+        border: 1px solid #FF0000;
+        box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+        border-radius: 10px;
+        padding: 10px 0px;
+    }
+    .boxArchivedProfile {
+        background: #FFE0E0;
+        border: 1px solid #FF0000;
+        box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+        border-radius: 10px;
+        padding: 40px 0px;
+    }
+    .boxArchivedProfile .whyFont p{
+margin-bottom: 0px !important;
+    }
+.ArchiveLargebtn {
+    background: #FFE0E0;
+    border-radius: 100px;
+    border: 0px;
+    padding: 5px 9px !important;
+}
+.whyFont {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 28px;
+    color: #FF0000;
+}
+.Archived-CardMore p {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 26px;
+    text-decoration-line: underline;
+    color: #000000;
+    margin-bottom: 0px;
+}
+.Archived-CardMore span {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 26px;
+    color: #000000;
+    margin-bottom: 0px;
+    margin-left: 5px;
+}
+    .imgArchived-upload-download {
+        width: 80px !important;
+        object-fit: cover;
+        height: 80px;
+        border-radius: 100px;
+        border: 4px solid #FF0000;
+    }
+    .EditArchive {
+        background-color: #032339;
+        font-weight: 700;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 10px;
+        line-height: 5px;
+        letter-spacing: -0.105991px;
+        text-transform: uppercase;
+        border-radius: 25px;
+        color: #FFFFFF;
+        margin-top: 0px; 
+        margin-bottom: 0PX;
+        padding: 5px 10px !important;
+    }
+    .JobPD{
+        padding-top: 16px;
+    }
+    .marginTopCard{
+        margin-top: -5px !important;
+    }
+    .pd-none{
+        padding: 0px;
+    }
+
+}
+@media (min-width:1200px){
+    .whyFont {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 28px;
+        color: #FF0000;
+    }
+    .Archived-CardMore p {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 45px;
+        text-decoration-line: underline;
+        color: #000000;
+        margin-bottom: 0px;
+    }
+    .btn-ArchiveEditProfile {
+        background: #032339;
+        border-radius: 100px;
+        padding: 10px 26px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 27px;
+        color: #FFFFFF;
+        padding: 10px 35px;
+        margin-top: 5px;
+    }
+    .btn-ArchiveCVManual {
+        background: #032339;
+        border-radius: 100px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 27px;
+        color: #FFFFFF;
+        padding: 11px 15px;
+        margin-top: 5px;
+    }
+    .hideProfile {
+        background: #FF0000;
+        border-radius: 100px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 27px;
+        color: #FFFFFF;
+        padding: 11px 17px;
+        border: 0px;
+        margin-top: 5px;
+    }
+    .restProfile {
+        background: #489767;
+        border-radius: 100px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 27px;
+        color: #FFFFFF;
+        padding: 11px 16px;
+        border: 0px;
+        margin-top: 5px;
+    }
+ 
+    .JobPD{
+        padding: 0px;
+    }
+    .box-red p {
+        margin-bottom: 0px !important;
+        font-weight: 400 !important;
+        font-size: 12px !important;
+        line-height: 16px !important;
+        color: #000000;
+    }
+    .box-red span {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500 !important;
+        font-size: 10px !important;
+        line-height: 15px !important;
+        color: #000000 !important;
+    }
+    .ArchivedCardChildFonts .blue {
+        font-weight: 700 !important;
+        font-size: 12px !important;
+        color: #3F76E2 !important;
+        padding: 10px 0px;
+    }
+   .card-body{
+    padding:0.5rem 0rem 0.5rem 0rem ; 
+   }
+   .ArchivedCardChildFonts p{
+    font-family: 'Poppins' !important;
+font-style: normal !important;
+font-weight: 400 !important;
+font-size: 12px !important;
+line-height: 18px !important;
+color: #000000 !important;
+}
+.imgArchived-upload-download {
+    width: 121px !important;
+    object-fit: cover;
+    height: 121px;
+    border-radius: 100px;
+    border: 4px solid #FF0000;
+}
+.Archived-CardMore span {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 45px;
+    color: #000000;
+    margin-bottom: 0px;
+    margin-left: 5px;
+}.marginTopCard {
+    margin-top: 11px !important;
+}.EditArchive {
+    background-color: #032339;
+    font-weight: 700;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: -0.105991px;
+    text-transform: uppercase;
+    border-radius: 25px;
+    color: #FFFFFF;
+    margin-top: 5px;
+    margin-bottom: 5PX;
+    padding: 10px 20px !important;
+
+}
+
+
+    }
+    @media (min-width:1400px){
+        .ArchiveLargebtn {
+            background: #FFE0E0;
+            border-radius: 100px;
+            border: 0px;
+            padding: 10px 20px !important;
+        }
+        .marginTopCard {
+            margin-top: 11px !important;
+        }
+        
+        .EditArchive {
+            background-color: #032339;
+            font-weight: 700;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 13px;
+            line-height: 20px;
+            letter-spacing: -0.105991px;
+            text-transform: uppercase;
+            border-radius: 25px;
+            color: #FFFFFF;
+            margin-top: 5px;
+            margin-bottom: 5PX;
+        }        
+        .Archived-CardMore span {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 45px;
+            color: #000000;
+            margin-bottom: 0px;
+            margin-left: 5px;
+        }
+        .Archived-CardMore p {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 45px;
+            text-decoration-line: underline;
+            color: #000000;
+            margin-bottom: 0px;
+        }
+        .whyFont {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 28px;
+            color: #FF0000;
+        }
+        .JobPD{
+            padding: 0px;
+        }
+        .ArchivedCard p {
+            font-family: 'Poppins' !important;
+            font-style: normal !important;
+            font-weight: 400 !important;
+            font-size: 16px !important;
+            line-height: 8px !important;
+            color: #000000 !important;
+        }
+        .ArchivedCardChildFonts p {
+            font-family: 'Poppins' !important;
+            font-style: normal !important;
+            font-weight: 400 !important;
+            font-size: 16px !important;
+            line-height: 26px !important;
+            color: #000000 !important;
+        }
+        .ArchivedCardChildFonts .blue {
+            font-weight: 700 !important;
+            font-size: 16px !important;
+            color: #3F76E2 !important;
+            padding: 10px 0px;
+        }
+        .box-red p {
+            margin-bottom: 0px !important;
+            font-weight: 400 !important;
+            font-size: 16px !important;
+            line-height: 16px !important;
+            color: #000000;
+        }
+        .box-red span {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 500 !important;
+            font-size: 16px !important;
+            line-height: 24px !important;
+            color: #000000 !important;
+        }
+        .filterStyling {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 17px;
+            line-height: 24px;
+            color: #373A3C;
+        }
+        .imgArchived-upload-download {
+            width: 135px !important;
+            object-fit: cover;
+            height: 135px;
+            border-radius: 100px;
+            border: 4px solid #FF0000;
+        }
+          .Archived-CardMore p {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 45px;
+            color: #000000;
+            margin-bottom: 0px;
+            margin-left: 5px;
+        }
+        .Archived-CardMore span{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 45px;
+        color: #000000;
+        margin-bottom: 0px;
+        margin-left: 5px;
+        }
+        .btn-ArchiveEditProfile {
+            background: #032339;
+            border-radius: 100px;
+            padding: 10px 26px;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 27px;
+            color: #FFFFFF;
+            width: 100%;
+            padding: 15px 10px;
+            margin-top: 5px;
+        }
+        .btn-ArchiveCVManual {
+            background: #032339;
+            border-radius: 100px;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 27px;
+            color: #FFFFFF;
+          width: 100%;
+            margin-top: 5px;
+        }
+        .hideProfile {
+            background: #FF0000;
+            border-radius: 100px;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 27px;
+            color: #FFFFFF;
+           width: 100%;
+            border: 0px;
+            margin-top: 5px;
+        }
+        .restProfile {
+            background: #489767;
+            border-radius: 100px;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 27px;
+            color: #FFFFFF;
+          width: 100%;
+            border: 0px;
+            margin-top: 5px;
+        }
+    }

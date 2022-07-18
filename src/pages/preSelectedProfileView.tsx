@@ -8,9 +8,6 @@ import ArchivedModal from "../components/Modal/ArchivedModal";
 import { useNavigate } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import Select from "react-select";
-import {ReactComponent as Upload} from "../images/upload.svg"
-import {ReactComponent as Download} from '../images/download.svg'
 import axios from "axios";
 import { API_BASE_URL } from '../config/serverApiConfig';
 import { ProgressBar } from "react-bootstrap";
@@ -53,7 +50,7 @@ function PreSelectedView() {
   // const [Like, setLike] = useState(false);
   // const [Great, setGreat] = useState(false);
   // const [Superlovely, setSuperlovely] = useState(false);
-  let data={data:profile ,path:"/todoprofile"}
+  let data={profileData:profile ,path:"/preSelectedView"}
 
 
   const fileChange = (

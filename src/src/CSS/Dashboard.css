@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Mulish';
+font-style: normal;
+}
+.card-top{
+    background: #FFFFFF;
+    box-shadow: 0px 2px 48px rgb(0 0 0 / 4%) !important;
+    border-radius: 22px !important;
+}
+.card{
+    padding-right: 20px;
+    border: unset;
+}
+.card-title{
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 23px;
+    letter-spacing: 1px;
+
+}
+.list-group-flush li{
+    font-weight: 500;
+font-size: 14px;
+line-height: 20px;
+/* identical to box height */
+
+letter-spacing: 1px;
+}
+.list-group-item span:last-child{
+    float: right;
+    padding-top: 6px;
+    font-weight: 500;
+font-size: 20px;
+line-height: 25px;
+color: #3F76E2;
+}
+.fontStyling{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 24px;
+    letter-spacing: px;   
+    color: #252726;
+}
+.NumberStyling{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 30px;
+line-height: 45px;
+text-align: right;
+color: #FE8700;
+
+}
+.card-Leads{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 22px;
+line-height: 33px;
+letter-spacing: 1px;
+color: #252726;
+}
+.Das-loader{
+    width: 40px;
+    height: 40px;
+    margin-bottom: 20px;
+    border: solid 7px #b51212;
+    border-radius: 80%;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    -webkit-transition: all 0.5s ease-in;
+    -webkit-animation-name: rotate;
+    -webkit-animation-duration: 1.0s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    transition: all 0.5s ease-in;
+    animation-name: rotate;
+    animation-duration: 1.0s;
+    animation-iteration-count: infinite;
+}
+.NumberStylingARchived{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 45px;
+    text-align: right;
+    color: #FF0000;  
+}
+.card-tops{
+    background: #FFFFFF;
+box-shadow: 0px 2px 48px rgba(0 0 0 / -8% ) !important;
+border-radius: 22px;
+}
+.list-group-flush a{
+    text-decoration-line: none !important ;
+}
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to { 
+        transform: rotate(360deg);
+    }
+}
+ 
+
+ @-webkit-keyframes rotate {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to { 
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.load{     width: 30px;
+height: 30px;
+margin: 0px auto 0;
+border: solid 4px #b51212;
+border-radius: 50%;
+border-right-color: transparent;
+border-bottom-color: transparent;
+-webkit-transition: all 0.5s ease-in;
+-webkit-animation-name: rotate;
+-webkit-animation-duration: 1.0s;
+-webkit-animation-iteration-count: infinite;
+-webkit-animation-timing-function: linear;
+transition: all 0.5s ease-in;
+animation-name: rotate;
+animation-duration: 1.0s;
+animation-iteration-count: infinite;
+animation-timing-function: linear;
+}
