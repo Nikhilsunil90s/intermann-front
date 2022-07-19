@@ -92,7 +92,6 @@ hr.new5 {
 
 .cardTODO{
   border-radius: 16px;
-  padding: 10px 16px !important;
 
 }
 .cardTODO-img {
@@ -225,7 +224,7 @@ color: #252726;
 font-style: normal;
 font-weight: 400;
 font-size: 12px;
-line-height: 21px;
+line-height: 24px;
 display: flex;
 align-items: center;
 color: #000000;
@@ -241,9 +240,6 @@ margin-bottom: 0px;
     }
     .color-rowClientCard{
         background: #E4F4FF;
-    position: relative;
-    width: 511px;
-    left: -16px;
 
     }
     .color-rowClientCard p{
@@ -301,17 +297,17 @@ color: #000000 !important;
         height: 19px !important;
         width: 19px !important;
     }
-    .btn-SEEFULLprofile{
+    .btn-SEEFULLprofile {
         font-family: 'Poppins';
         font-style: normal;
         font-weight: 600;
         font-size: 12px;
-        line-height: 0px;
+        line-height: 5px;
         display: flex;
         align-items: center;
         color: #FFFFFF;
         background: #032339;
-border-radius: 100px;
+        border-radius: 100px;
     }
     .missing{
         font-family: 'Poppins';
@@ -339,4 +335,19 @@ margin-inline: 5px;
         display: none !important;
     }
 
-    
+    @media (min-width:768px){
+        .child-text {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 400 !important;
+            font-size: 11px !important;
+            line-height: 24px !important;
+            display: flex;
+            align-items: flex-end;
+            text-align: center;
+            color: #000000;
+    }
+    .pxbody{
+        padding: 10px;
+    }
+}

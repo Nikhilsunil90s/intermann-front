@@ -48,32 +48,11 @@ function ToDoList() {
   const [showMore, setShowMore] = useState(true)
   const [email,setEmail]=useState([])
   const [licenceOptions, setLicenseOptions] = useState([
-    {
-      value: "Select Licence", label: "Select Licence", color: '#FF8B00'
-    },
-    {
-      value: "true", label: "Have Licence", color: '#FF8B00'
-    },
-    {
-      value: "false", label: "No Licence", color: '#FF8B00'
-    }
+
   ])
 
   const [motivationOptions, setMotivationOptions] = useState([
-    {
-      value: "Select Motivations", label: "Select Motivations", color: '#FF8B00'
-    },
-    {
-      value: "1", label: "😔", color: '#FF8B00'
-    }, {
-      value: "2", label: "🙁", color: '#FF8B00'
-    }, {
-      value: "3", label: "😊", color: '#FF8B00'
-    }, {
-      value: "4", label: "🥰", color: '#FF8B00'
-    }, {
-      value: "5", label: "😍", color: '#FF8B00'
-    }
+
   ])
   const [ContactOptions,setContactOptions]=useState([])
 
@@ -257,6 +236,33 @@ function ToDoList() {
   };
 
   useEffect(() => {
+    if(licenceOptions.length == 0){
+      setLicenseOptions([    {
+        value: "Select Licence", label: "Select Licence", color: '#FF8B00'
+      },
+      {
+        value: "true", label: "Have Licence", color: '#FF8B00'
+      },
+      {
+        value: "false", label: "No Licence", color: '#FF8B00'
+      }])
+    }
+    if(motivationOptions.length == 0){
+setMotivationOptions([    {
+  value: "Select Motivations", label: "Select Motivations", color: '#FF8B00'
+},
+{
+  value: "1", label: "😔", color: '#FF8B00'
+}, {
+  value: "2", label: "🙁", color: '#FF8B00'
+}, {
+  value: "3", label: "😊", color: '#FF8B00'
+}, {
+  value: "4", label: "🥰", color: '#FF8B00'
+}, {
+  value: "5", label: "😍", color: '#FF8B00'
+}])
+    }
     if (nameOptions.length == 0) {
       fetchProfiles().then((profilesResult) => {
         let nameops = profilesResult.map((pro) => {
@@ -412,6 +418,8 @@ function ToDoList() {
     setSelectedJob([])
     setSelectedSector("")
     emailArr=[]
+    DateArr=[]
+    contactArr=[]
     if (e.value === "Select email") {
     emailArr=[]
     filterFunction()
@@ -791,12 +799,27 @@ function ToDoList() {
  
 
  const RestFilters=()=>{
-
+  setSectors([])
   setNameOptions([])
   SelectedName=[]
+  setSelectedSector("")
+  setSectorOptions([])
+  setJobs([])
+  setSelectedJob([])
+  setJobOptions([])
+  setMotivationOptions([])
+  MotivationArr=[]
+   DateArr=[]
+   LicencePermisArr=[]
+   setLicenseOptions([])
+   emailArr=[]
+   setEmail([])
+   contactArr=[]
+   setContactOptions([])
+  fetchAllSectors()
   filterFunction()
-}
 
+}
 
 
   return (
@@ -949,7 +972,9 @@ function ToDoList() {
                                     </option>
                                   ))}
                               </select> */}
-                              <Select
+                              {
+                                motivationOptions.length > 0 ?
+                                <Select
                                 name="candidatMotivation"
                                 closeMenuOnSelect={true}
                                 placeholder="‎ ‎ ‎ ‎ ‎ ‎Select Motivation du Candidat"
@@ -959,6 +984,10 @@ function ToDoList() {
                                 options={motivationOptions}
                                 styles={colourStyles}
                               />
+                              :
+                        <div >   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+                              }
+                        
                             </div>
                           </div>
                         </div>
@@ -989,16 +1018,23 @@ function ToDoList() {
                                 <option value="true" onChange={HandelLicence}>Have Licence</option>
                                 <option value="false" onChange={HandelLicence}>Doesn't Have Licence</option>
                               </select> */}
+                             {
+                              licenceOptions.length > 0 ?
                               <Select
-                                name="candidatLicencePermis"
-                                closeMenuOnSelect={true}
-                                placeholder="‎ ‎ ‎ ‎ ‎  ‎ Select Licence Permis"
-                                className="basic-multi-select"
-                                classNamePrefix="select"
-                                onChange={HandelLicence}
-                                options={licenceOptions}
-                                styles={colourStyles}
-                              />
+                              name="candidatLicencePermis"
+                              closeMenuOnSelect={true}
+                              placeholder="‎ ‎ ‎ ‎ ‎  ‎ Select Licence Permis"
+                              className="basic-multi-select"
+                              classNamePrefix="select"
+                              onChange={HandelLicence}
+                              options={licenceOptions}
+                              styles={colourStyles}
+                            />
+                            : 
+                        <div >   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+
+                             }
+                       
                             </div>
                           </div>
                         </div>
@@ -1063,7 +1099,11 @@ styles={colourStyles}
                       <div className="col-12">
                         <div className="row justify-content-end">
                         <div className="col-2 d-flex align-items-center justify-content-end">
-                          <button className="btnRest  cursor-pointer" onClick={() => RestFilters()}>Rest Filters..</button>
+                        {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length > 0 || emailArr.length > 0 || contactArr.length > 0 ?
+
+                          <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
+                          : null
+                        }
                         </div>
                           <div className="col-2 d-flex justify-content-end">
                             <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(false)}>Less Filters <img src={require("../images/downup.svg").default} /></p>
@@ -1078,8 +1118,11 @@ styles={colourStyles}
                     <div className="col-12">
                       <div className="row justify-content-end">
                       <div className="col-2 d-flex align-items-center justify-content-end">
-                          <button className="btnRest  cursor-pointer" onClick={() => RestFilters()}>Rest Filters..</button>
-                        </div>
+                      {selectedSector.length === 0 || selectedJob.length === 0 || selectedLanguages.length === 0 || SelectedName.length === 0 || MotivationArr.length === 0 || LicencePermisArr.length === 0 || DateArr.length === 0 || emailArr.length == 0 || contactArr.length == 0 ?
+
+<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
+: null
+}   </div>
                         <div className="col-2 d-flex justify-content-end">
                           <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(true)}>More Filters <img src={require("../images/down.svg").default} /></p>
                         </div>

@@ -552,7 +552,7 @@ function ClientToDoList() {
           </div>
           <div className="col-12 bg-white p-2 rounded001 mt-1 mb-3">
             <div className="row ">
-              <div className="col-4">
+              <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
                 <p className="FiltreName">Filtre by name</p>
                 <div className="dropdown">
                   <div aria-labelledby="dropdownMenuButton1">
@@ -572,7 +572,7 @@ function ClientToDoList() {
                   </div>
                 </div>
               </div>
-              <div className="col-4">
+              <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
                 <p className="FiltreName">Filtre Secteur d’activité</p>
                 <div className="dropdown">
                   <div aria-labelledby="dropdownMenuButton1">
@@ -591,7 +591,7 @@ function ClientToDoList() {
                   </div>
                 </div>
               </div>
-              <div className="col-4">
+              <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 px-120">
                 <p className="FiltreName">Filtre selection métier / job</p>
                 <div>
                   {jobOptions.length > 0 ?
@@ -612,9 +612,9 @@ function ClientToDoList() {
               {
                 showMore ?
                   <>
-                    <div className="col-12 pt-1">
+                    <div className="col-12 ">
                       <div className="row">
-                        <div className="col-4 pt-1">
+                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 pt-1">
                           <p className="FiltreName">Filtre by Motivation</p>
                           <div className="dropdown">
                             <div aria-labelledby="dropdownMenuButton1">
@@ -631,7 +631,7 @@ function ClientToDoList() {
                             </div>
                           </div>
                         </div>
-                        <div className="col-4 pt-1">
+                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 pt-1">
         <p className="FiltreName">Filtre by Importance</p>
         <div className="dropdown">
                             <div aria-labelledby="dropdownMenuButton1">
@@ -648,7 +648,7 @@ function ClientToDoList() {
                             </div>
                           </div>
         </div>
-                        <div className="col-4 pt-1">
+                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 pt-1">
                           <p className="FiltreName">Filter by other options</p>
                           <div className="dropdown">
                             <div aria-labelledby="dropdownMenuButton1">
@@ -674,11 +674,11 @@ function ClientToDoList() {
                         <div className="row justify-content-end">
                         <div className="col-12 mt-1">
                           <div className="row">
-                            <div className="col-4 d-flex">
+                            <div className="col-4 d-flex  align-items-center">
                              <p className="missing">Phone number missing</p>
                              <Switch onChange={MissingHandler} id="PhoneNumberMissing"  checked={PhoneNumberMissing}/>
                               </div>
-                              <div className="col-4 d-flex">
+                              <div className="col-4 d-flex  align-items-center">
                              <p className="missing">Email missing</p>
                              <Switch onChange={MissingHandler} id="EmailMissing" checked={EmailCheck}/>
                               
@@ -717,7 +717,7 @@ function ClientToDoList() {
                       if(EmailCheck===true && !profile.clientEmail ){
                           return (
 
-                            <div className="col-6 pd-left">
+                            <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 pd-left">
                               
                               <ClientToDoCard data={profile} />
                             </div>
@@ -728,7 +728,7 @@ function ClientToDoList() {
                       else if(EmailCheck===false && profile.clientEmail){
                         return (
 
-                          <div className="col-6 pd-left">
+                          <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 pd-left">
                             
                             <ClientToDoCard data={profile} />
                           </div>

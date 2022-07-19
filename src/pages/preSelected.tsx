@@ -643,6 +643,27 @@ console.log(statusProfiles,"filteredresponse.status")
             DateArr.push(SelectedDate)
             filterFunction()
          }
+         
+ const RestFilters=()=>{
+  setSectors([])
+  setNameOptions([])
+  SelectedName=[]
+  setSelectedSector("")
+  setSectorOptions([])
+  setJobs([])
+  setSelectedJob([])
+  setJobOptions([])
+  setMotivationOptions([])
+  MotivationArr=[]
+   DateArr=[]
+   LicencePermisArr=[]
+   setLicenseOptions([])
+   setEmail([])
+   setContactOptions([])
+  fetchAllSectors()
+  filterFunction()
+
+}
  return(
     <>
       <div className="container-fluid">
@@ -831,7 +852,14 @@ console.log(statusProfiles,"filteredresponse.status")
                     <div className="extraPadding">
                       <div className="col-12">
                         <div className="row justify-content-end">
-                          <div className="col-4 d-flex justify-content-end">
+                        <div className="col-2 d-flex align-items-center justify-content-end">
+                        {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length > 0 ?
+
+                          <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
+                          : null
+                        }
+                        </div>
+                          <div className="col-2 d-flex justify-content-end">
                             <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(false)}>Less Filters <img src={require("../images/downup.svg").default} /></p>
                           </div>
                         </div>
@@ -843,7 +871,14 @@ console.log(statusProfiles,"filteredresponse.status")
                   <div className="extraPadding">
                     <div className="col-12">
                       <div className="row justify-content-end">
-                        <div className="col-4 d-flex justify-content-end">
+                      <div className="col-2 d-flex align-items-center justify-content-end">
+                        {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length > 0 ?
+
+                          <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
+                          : null
+                        }
+                        </div>
+                        <div className="col-2 d-flex justify-content-end">
                           <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(true)}>More Filters <img src={require("../images/down.svg").default} /></p>
                         </div>
                       </div>

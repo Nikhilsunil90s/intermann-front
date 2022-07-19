@@ -42,7 +42,7 @@ function ArchivedList() {
   const [jobOptions, setJobOptions] = useState([]);
   const [showMore, setShowMore] = useState(true)
   const [Clients,setClients]=useState([])
-
+  const [LanguageOp,setLangOp]=useState([])
 
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
@@ -167,6 +167,15 @@ function ArchivedList() {
       .catch(err => err)
   }
   useEffect(() => {
+    if(LanguageOp.length == 0){
+    setLangOp([{ value: 'Roumain', label: 'Roumain', color:  '#FF8B00' },
+    { value: 'Français', label: 'Français', color:  '#FF8B00', },
+    { value: 'Anglais', label: 'Anglais', color: '#FF8B00' },
+    { value: 'Italien', label: 'Italien', color: '#FF8B00'  },
+    { value: 'Russe', label: 'Russe', color: '#FF8B00' },
+    { value: 'Espagnol', label: 'Espagnol', color: '#FF8B00'},
+    { value: 'Autre', label: 'Autre', color: '#FF8B00' },])
+    }
     if(Clients.length ==0){
       fetchClients().then((data)=>{
    let ClientOP:any= data.data.map((el)=>{
@@ -222,6 +231,13 @@ function ArchivedList() {
 
     setNameOptions([])
     SelectedName=[]
+    setSectors([])
+    setSectorOptions([])
+    setSelectedJob([])
+    setJobOptions([])
+    setJobs([])
+    LanguageFilter=[]
+    setLangOp([])
     filterFunction()
   }
 
@@ -611,27 +627,37 @@ function ArchivedList() {
                         </div>
                         <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 pt-1">
                           <p className="filtersLabel ">Filtre Langues du candidat</p>
-                      
+                      {
+                        LanguageOp.length > 0 ?
                         <Select
-                          name="candidatLanguages"
-                          closeMenuOnSelect={false}
-                          isMulti
-                          placeholder="‎ ‎ ‎Select Langues"
-                          className="basic-multi-select"
-                          classNamePrefix="select"
-                          onChange={LanguageChange}
-                          options={colourOptions}
-                          styles={colourStyles}
-                        />
+                        name="candidatLanguages"
+                        closeMenuOnSelect={false}
+                        isMulti
+                        placeholder="‎ ‎ ‎Select Langues"
+                        className="basic-multi-select"
+                        classNamePrefix="select"
+                        onChange={LanguageChange}
+                        options={LanguageOp}
+                        styles={colourStyles}
+                      /> 
+                      : 
+       <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+
+                      }
+                
                         </div>
                       </div>
                     </div>
                     <div className="extraPadding">
                       <div className="col-12">
                         <div className="row justify-content-end">
-                        <div className="col-2 d-flex align-items-center justify-content-end">
-                          <button className="btnRest  cursor-pointer" onClick={() => RestFilters()}>Rest Filters..</button>
-                        </div>
+                        <div className="col-2 d-flex justify-content-end">
+                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || LanguageFilter.length>0 ?
+
+<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
+: null
+}
+</div>
                           <div className="col-2 d-flex justify-content-end">
                             <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(false)}>Less Filters <img src={require("../images/downup.svg").default} /></p>
                           </div>
@@ -644,9 +670,13 @@ function ArchivedList() {
                   <div className="extraPadding">
                     <div className="col-12">
                       <div className="row justify-content-end">
-                      <div className="col-2 d-flex align-items-center justify-content-end">
-                          <button className="btnRest  cursor-pointer" onClick={() => RestFilters()}>Rest Filters..</button>
-                        </div>
+                      <div className="col-2 d-flex justify-content-end">
+                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || LanguageFilter.length>0 ?
+
+<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
+: null
+}
+</div>
                         <div className="col-2 d-flex justify-content-end">
                           <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(true)}>More Filters <img src={require("../images/down.svg").default} /></p>
                         </div>

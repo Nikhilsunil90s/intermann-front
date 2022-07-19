@@ -32,7 +32,8 @@ const ClientToDoCard = (props: any) => {
     {value:"Archive",label:"Archive"
     }
  ]as any
- const candidatImportanceIcons = [{ icon:<><StarRating style={{marginRight:"5px"}} /> <Empty style={{marginLeft:"5px"}} /> <Empty /> <Empty /> <Empty /></>}, {icon:<><StarRating /><StarRating /> <Empty /> <Empty /> <Empty /></>}, {icon:<><StarRating /> <StarRating /> <StarRating /> <Empty /> <Empty /></>}, {icon:<><StarRating /> <StarRating /> <StarRating /> <StarRating /> <Empty /></>}, {icon:<><StarRating /><StarRating /> <StarRating /> <StarRating /> <StarRating /></>}]; 
+ const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /><StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating   style={{marginRight:"3px",width:"70%"}} /> <StarRating style={{marginRight:"3px",width:"70%"}}/> <StarRating style={{marginRight:"3px",width:"70%"}} /> <StarRating style={{marginRight:"3px",width:"70%"}} /> <Empty style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /><StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /></>}]; 
+
  const candidatMotivationIcons = [{ icon:"😟", motivation: 'Disappointed' }, { icon:"🙁", motivation: 'Not Really' }, { icon:"😊", motivation: 'Like' }, { icon:"🥰", motivation: 'Great' }, { icon:"😍", motivation: 'Super Lovely' }];
    console.log(props.data,"props.data")
     const editClientProfile = () => {
@@ -91,7 +92,7 @@ const ClientToDoCard = (props: any) => {
     // })
    return (
         <>
-            <div className="card cardTODO ">
+            <div className="card cardTODO pr-0">
                 <div className="d-flex">
                     <div className="col-3 px-0 d-flex justify-content-center">
                         <img
@@ -124,7 +125,7 @@ const ClientToDoCard = (props: any) => {
                     </div>
                 </div>
 <div className="col-12">
-    <div className="row">
+    <div className="row pxbody">
                 <div className="col-5 fontStylingCardDetails px-0 py-1">
                     <p className="fontStylingCardP">Secteur : {props.data.clientActivitySector ? props.data.clientActivitySector : "No Sector!"} </p>
                     <p className="fontStylingCardP">Job :  {props.data.clientJob ? props.data.clientJob : "No Job!"}</p>
@@ -251,9 +252,9 @@ const ClientToDoCard = (props: any) => {
                     </div>
                     </div>
                 </div>
-                <div className=" col-12 pt-1">
-                   <div className="row justify-content-end">
-                   <div className="col-4">
+                <div className=" col-12 d-flex justify-content-end my-1">
+                   <div className="row">
+                   <div className="col-6 text-center">
                    <Select
                           options={CardOption}
                           className="CardOptions"
@@ -263,7 +264,7 @@ const ClientToDoCard = (props: any) => {
             
                         </div> 
                       
-                        <div className="col-4 text-center">
+                        <div className="col-6 px-0 text-center">
                             <button className="btn btn-SEEFULLprofile" onClick={viewFullProfile}>
                                 See Full Profile
                             </button>

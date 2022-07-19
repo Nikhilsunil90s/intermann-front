@@ -316,3 +316,238 @@ thead {
 .padding-full {
   padding: 15px;
 }
+
+@media (min-width:768px){
+  .cardInPro{
+    background: #FFFFFF;
+border-radius: 16px;
+  }
+  .topHeaderClient{
+    background: #FFFFFF;
+box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
+border-radius: 10px;
+  }
+  .topinPHeading h2{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 22px;
+line-height: 33px;
+letter-spacing: 1px;
+text-transform: capitalize;
+color: #252726; 
+margin-right: 10px;
+  }
+  .Inchild-text {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;
+    display: flex;
+    align-items: flex-end;
+    text-align: center;
+    color: #000000;
+}
+.InPopinsText {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 8px;
+  line-height: 24px;
+  display: flex;
+  align-items: flex-end;
+  color: #000000;
+}
+
+  .topinProgresstext{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 33px;
+    /* identical to box height */
+    
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    
+    color: #A461D8 !important;
+    
+  }
+  .px-120{
+    padding-top:10px;
+  }
+  .missing {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 24px;
+    display: flex;
+    align-items: flex-end;
+    text-transform: capitalize;
+    color: #373A3C;
+    margin-right: 10px;
+}
+.widthIMG{
+  width: 70%;
+}
+.progressCardBtnClient {
+  background: #F4E7FF;
+  border-radius: 25px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 21px;
+  text-transform: uppercase;
+  color: #A461D8;
+  border: 0px;
+  padding: 5px 5px;
+}
+.colorRecruting{
+  background: #F4E7FF;
+}
+.in-Recruting{
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 12px;
+line-height: 18px;
+display: flex;
+align-items: center;
+color: #A461D8;
+padding: 10px 0px;
+}
+.Ads-box {
+  display: grid;
+  background-color: #F4E7FF;
+}
+.AdsFont{
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 16px;
+display: flex;
+align-items: center;
+text-align: center;
+text-transform: capitalize;
+color: #333333;
+margin-bottom: 8px !important;
+
+}
+
+}
+@media (min-width:1200px){
+  .cardInPro{
+    background: #FFFFFF;
+border-radius: 16px;
+  }
+  .topinPHeading h2{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 22px;
+line-height: 33px;
+letter-spacing: 1px;
+text-transform: capitalize;
+color: #252726; 
+margin-right: 10px;
+  }
+  .topinProgresstext{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 33px;
+    /* identical to box height */
+    
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    
+    color: #A461D8 !important;
+    
+  }
+  .Inchild-text{
+    font-family: 'Arial';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 24px;
+/* identical to box height, or 171% */
+
+display: flex;
+align-items: flex-end;
+text-align: center;
+
+color: #000000;
+
+  }
+  .InPopinsText{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 24px;
+display: flex;
+align-items: flex-end;
+color: #000000;
+  }
+  .topHeaderClient{
+    background: #FFFFFF;
+box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
+border-radius: 10px;
+  }
+  .progressCardBtnClient {
+    background: #F4E7FF;
+    border-radius: 25px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 21px;
+    text-transform: uppercase;
+    color: #A461D8;
+    border: 0px;
+    padding: 5px 5px;
+}
+  .progressCardBtnClient img{
+width:15px !important;
+  }
+  .widthIMG{
+    width: 70%;
+  }
+  .colorRecruting{
+    background: #F4E7FF;
+  }
+  .in-Recruting{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 12px;
+line-height: 18px;
+display: flex;
+align-items: center;
+color: #A461D8;
+padding: 10px 0px;
+  }
+  .Ads-box {
+    display: grid;
+    background-color: #F4E7FF;
+}
+.AdsFont{
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 16px;
+display: flex;
+align-items: center;
+text-align: center;
+text-transform: capitalize;
+color: #333333;
+margin-bottom: 8px !important;
+
+}
+}

@@ -7,6 +7,13 @@ import ClientProgressCard from "../ClientPages/ClientProgressCard";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast, { Toaster } from 'react-hot-toast';
 import Loader from "../../components/Loader/loader";
+import { ColourOption } from "../../Selecteddata/data";
+import Select, {StylesConfig } from "react-select";
+import SelectLoader from "../../components/Loader/selectLoader"
+import chroma from 'chroma-js';
+import {ReactComponent as RatingStar} from "../../images/RatingStar.svg"
+import {ReactComponent as Empty} from "../../images/emptyStar.svg"
+import Switch from "react-switch";
 
 declare namespace JSX {
   interface IntrinsicElements {
@@ -23,10 +30,16 @@ declare global {
     }
   }
 }
+let SelectedName = []
+let Importance=[]
+let MotivationArr = []
+let OthersFilterArr = []
  let FilterJob=[]
 export default function ClientProgress() {
  
   const [sectors, setSectors] = useState([]);
+  const [nameOptions, setNameOptions] = useState([])   
+  const [sectorOptions, setSectorOptions] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState([]);
   const [selectedSector, setSelectedSector] = useState("");
@@ -34,7 +47,144 @@ export default function ClientProgress() {
   const [loader, setLoader] = useState(true);
   const [filterData, setFilterData] = useState([]);
   const [status,setStatus]=useState(Boolean)
+  const [jobOptions, setJobOptions] = useState([]);
+  const [EmailCheck,setEmailCheck] = useState(false)
+  const [PhoneNumberMissing,setMissing]=useState(false)
+  const [showMore, setShowMore] = useState(false)
+  const [motivationOptions, setMotivationOptions] = useState([
+    {
+      value: "1", label: "Dissapointed", color: '#FF8B00'
+    }, {
+      value: "2", label: "Not really", color: '#FF8B00'
+    }, {
+      value: "3", label: "Like", color: '#FF8B00'
+    }, {
+      value: "4", label: "Great", color: '#FF8B00'
+    }, {
+      value: "5", label: "Superlovely", color: '#FF8B00'
+    }
+  ])
+  const [optionsOthersFilter, setLicenseOptions] = useState([
+    {
+      value: "Offre envoyé", label: "Offre envoyé ?", color: '#FF8B00'
+    },
+    {
+      value: "Signature digitale envoyé ?", label: "Signature digitale envoyé ?", color: '#FF8B00'
+    },
+    {
+      value: "Contrat singé ?", label: "Contrat singé ?", color: '#FF8B00'
+    },
+    {
+      value: "Publicité commencé ?", label: "Publicité commencé ?", color: '#FF8B00'
+    },
+    {
+      value: "A1 ?", label: "A1 ?", color: '#FF8B00'
+    },
+    {
+      value: "Assurance faite ?", label: "Assurance faite ?", color: '#FF8B00'
+    },
+    {
+      value: "Agence de voyage ok ?", label: "Agence de voyage ok ?", color: '#FF8B00'
+    },
+    {
+      value: "SISPI déclaré ?", label: "SISPI déclaré ?", color: '#FF8B00'
+    }
+  ])
+  const [importanceOptions, setImportanceOptions] = useState([
+    {
+      value: "1", label: <><RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /></>, color: '#FF8B00'
+    }, {
+      value: "2", label:  <><RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /></>, color: '#FF8B00'
+    }, {
+      value: "3", label: <><RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /></>, color: '#FF8B00'
+    }, {
+      value: "4", label:  <><RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /></>, color: '#FF8B00'
+    }, {
+      value: "5", label:  <><RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /></>, color: '#FF8B00'
+    }
+  ])as any
   console.log(status,"status")
+
+  
+  const colourStyles: StylesConfig<ColourOption, true> = {
+    control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      const color = chroma(data.color);
+      return {
+        ...styles,
+        backgroundColor: isDisabled
+          ? undefined
+          : isSelected
+            ? data.color
+            : isFocused
+              ? color.alpha(0.1).css()
+              : undefined,
+        color: isDisabled
+          ? '#ccc'
+          : isSelected
+            ? chroma.contrast(color, 'white') > 2
+              ? 'white'
+              : 'black'
+            : data.color,
+        cursor: isDisabled ? 'not-allowed' : 'default',
+
+        ':active': {
+          ...styles[':active'],
+          backgroundColor: !isDisabled
+            ? isSelected
+              ? data.color
+              : color.alpha(0.3).css()
+            : undefined,
+        },
+      };
+    },
+    multiValue: (styles, { data }) => {
+      const color = chroma(data.color);
+      return {
+        ...styles,
+        backgroundColor: color.alpha(0.1).css(),
+      };
+    },
+    multiValueLabel: (styles, { data }) => ({
+      ...styles,
+      color: data.color,
+    }),
+    multiValueRemove: (styles, { data }) => ({
+      ...styles,
+      color: data.color,
+      ':hover': {
+        backgroundColor: data.color,
+        color: 'white',
+      },
+    }),
+  };
+
+  useEffect(() => {
+    if (sectors.length == 0) {
+      fetchAllSectors().then(data => {
+        console.log(data.data);
+        setSectors([...data.data]);
+      })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+    let jobResults = jobs.map(ajob => {
+      return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
+    })
+    setJobOptions([...jobResults]);
+    console.log(jobs);
+  }, [jobs])
+  useEffect(() => {
+    console.log(sectors);
+    let sectorops = sectors.map((asector) => {
+      return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
+    })
+
+    setSectorOptions([...sectorops]);
+  }, [sectors])
+ 
+
   useEffect(() => {
     if (sectors.length == 0) {
       fetchAllSectors()
@@ -47,6 +197,21 @@ export default function ClientProgress() {
         });
     }
   }, [jobs]);
+  useEffect(() => {
+    if (nameOptions.length == 0) {
+      fetchProfiles().then((profilesResult) => {
+        let nameops = profilesResult?.map((pro) => {
+          return { value: pro.clientCompanyName, label: pro.clientCompanyName, color: '#FF8B00' }
+        })
+        console.log([...nameops],"console")
+        setNameOptions([{value:"Select",label:"Select Name",color:"#FF8B00"},...nameops])
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+    console.log(nameOptions," console.log()")
+  }, []);
+ 
   console.log(status,"status")
   useEffect(() => {
     filterFunction();
@@ -61,8 +226,8 @@ export default function ClientProgress() {
         "Authorization": "Bearer " + localStorage.getItem('token')
       }
     })
-      .then(resD => resD.json())
-      .then(reD => {setFilterData([...reD]);setStatus(true)})
+      .then((resD) => resD.json())
+      .then((reD) => reD)
       .catch(err => err)
   }
 
@@ -99,7 +264,25 @@ export default function ClientProgress() {
       .then(reD => reD)
       .catch(err => err)
   }
+  const handleNameChange = (e: any) => {
+    // console.log(e.target.value)
+    SelectedName = []
+    Importance=[]
+    MotivationArr = []
+    OthersFilterArr = []
+    setSelectedSector("")
+    setSelectedJob([])
+    if (e.value === "Select Un Name") {
+      SelectedName = []
 
+    }
+    else if (e.value !== "") {
+      SelectedName = []
+      MotivationArr = []
+      let NameField = e.value;
+      SelectedName.push(NameField)
+    }
+  };
   const handleSectorChange = (e: any) => {
     // console.log(e.target.value)
 
@@ -164,13 +347,65 @@ export default function ClientProgress() {
     setSelectedLanguages(selectedLanguages.filter((l) => l !== lang));
     setSelectedLanguages([])
   }
+  const handleMotivationChange = (e: any) => {
+    // console.log(e.target.value)
+    MotivationArr = []
+    Importance=[]
+    OthersFilterArr = []
+    setSelectedSector("")
+    SelectedName = []
+    if (e.value === "Select Motivation") {
+      MotivationArr = []
+      filterFunction()
+      setLoader(true);
+
+    } else if (e.value !== "") {
+      MotivationArr = []
+      let sectorField = e.value;
+
+      console.log(sectorField, "motivation")
+      MotivationArr.push(sectorField)
+      filterFunction()
+      // setSelectedSector(sectorField);
+    }
+  };
+  const importanceHandel=(e)=>{
+    SelectedName = []
+    setSelectedSector("")
+    MotivationArr = []
+    FilterJob=[]
+    Importance=[]
+     Importance.push(e.value)
+   }
+  
+   const HandelOthers = (e) => {
+    SelectedName = []
+    setSelectedSector("")
+    Importance=[]
+    MotivationArr = []
+    FilterJob=[]
+    console.log(e.value)
+    OthersFilterArr.push(e.value)
+    filterFunction()
+  }
+  const MissingHandler=(checked,e,id)=>{
+    console.log(id,"id")
+    if(id=="EmailMissing"){
+    setEmailCheck(checked)
+    }
+    if(id=="PhoneNumberMissing"){
+      setMissing(checked)
+    }
+  }
+
   const filterFunction = async () => {
     setLoader(false);
     setStatus(false)
     if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0){
       setLoader(true)
       setStatus(true)
-      fetchProfiles()
+      fetchProfiles().then(reD => {setFilterData([...reD]);setStatus(true)})
+
     }
     if (
       selectedSector.length > 0 &&
@@ -308,27 +543,34 @@ export default function ClientProgress() {
      
     }
   };
-  useEffect(() => {
-    fetchProfiles();
-  }, []);
-console.log(filterData,"data")
+  const jobChange = async (jobval) => {
+    // console.log(jobval)
+    let JobArr=[]
+    jobval.map((el)=>{
+     
+     JobArr.push(el.value)
+  
+    })
+    FilterJob=JobArr
+    filterFunction()
+  }
   return (
     <>
       <Toaster position="top-right" />
 
       <div className="container-fluid">
         <div className="row ">
-          <div className="col-12 text-center">
-            <img src={require("../../images/progress.svg").default} style={{ width: "70%", paddingTop: "30px" }} />
-            <p className="text-family">
+          <div className="col-12 text-center p-1 topHeaderClient mt-2">
+          <div className="d-flex topinPHeading"> <h2 className="">clients / lead  </h2> <span className="topinProgresstext">in progress</span></div>
+            <p className="Inchild-text mb-0">
               Ici vous avez la liste des sociétés sur lesquelles nous avons
               <span className="fw-bolder"> une recherche active en cours.</span>
             </p>
-            <p className="child-text">
+            <p className="InPopinsText mb-0">
               Nous dépensons de l’argent et du temps pour toutes les sociétés dans cette liste. Si la recherche n’est plus d’actu alors l’archiver        </p>
-            <p>
-              Here you have the list of companies on which we have an active search in progress.        </p>
           </div>
+          {/* <div className="col-12 topHeaderClient mt-1 p-1">
+            <div className="row">
           <div className="col-6">
             <p>Filtre Secteur d’activité</p>
             <div className="dropdown">
@@ -399,13 +641,169 @@ console.log(filterData,"data")
               </ul>
             </div>
           </div>
-          <hr className="new5" />
+          </div>
+          </div> */}
+           <div className="col-12 bg-white p-2 rounded001 mt-1 mb-3">
+            <div className="row ">
+              <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
+                <p className="FiltreName">Filtre by name</p>
+                <div className="dropdown">
+                  <div aria-labelledby="dropdownMenuButton1">
+                    {
+                      nameOptions.length > 0 ?
+                        <Select
+                          name="candidatName"
+                          closeMenuOnSelect={true}
+                          placeholder="‎ ‎ ‎ Select Un Candidat"
+                          className="basic-multi-select"
+                          classNamePrefix="select"
+                          onChange={handleNameChange}
+                          options={nameOptions}
+                          styles={colourStyles}
+                        /> :<SelectLoader />
+                                            }
+                  </div>
+                </div>
+              </div>
+              <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
+                <p className="FiltreName">Filtre Secteur d’activité</p>
+                <div className="dropdown">
+                  <div aria-labelledby="dropdownMenuButton1">
+                    {sectorOptions.length > 0 ?
+                      <Select
+                        name="candidatActivitySector"
+                        closeMenuOnSelect={true}
+                        placeholder="‎ ‎ ‎ Select Un Secteur"
+                        className="basic-multi-select"
+                        classNamePrefix="select"
+                        onChange={handleSectorChange}
+                        options={sectorOptions}
+                        styles={colourStyles}
+                      /> : <p>Select Un Secteur!</p>
+                    }
+                  </div>
+                </div>
+              </div>
+              <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 px-120">
+                <p className="FiltreName">Filtre selection métier / job</p>
+                <div>
+                  {jobOptions.length > 0 ?
+                    <Select
+                      name="jobName"
+                      closeMenuOnSelect={true}
+                      isMulti
+                      placeholder="‎ ‎ ‎ Select"
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                      onChange={jobChange}
+                      options={jobOptions}
+                      styles={colourStyles}
+                    /> : <p>Select A Sector!</p>
+                  }
+                </div>
+              </div>
+              {
+                showMore ?
+                  <>
+                    <div className="col-12 pt-1">
+                      <div className="row">
+                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 pt-1">
+                          <p className="FiltreName">Filtre by Motivation</p>
+                          <div className="dropdown">
+                            <div aria-labelledby="dropdownMenuButton1">
+                              <Select
+                                name="candidatMotivation"
+                                closeMenuOnSelect={true}
+                                placeholder="‎ ‎ ‎ Select Motivation du Candidat"
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                                onChange={handleMotivationChange}
+                                options={motivationOptions}
+                                styles={colourStyles}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 pt-1">
+        <p className="FiltreName">Filtre by Importance</p>
+        <div className="dropdown">
+                            <div aria-labelledby="dropdownMenuButton1">
+                              <Select
+                                name="candidatLicencePermis"
+                                closeMenuOnSelect={true}
+                                placeholder="‎ ‎ ‎ Select Licence Permis"
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                                onChange={importanceHandel}
+                                options={importanceOptions}
+                                styles={colourStyles}
+                              />
+                            </div>
+                          </div>
+        </div>
+                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 pt-1">
+                          <p className="FiltreName">Filter by other options</p>
+                          <div className="dropdown">
+                            <div aria-labelledby="dropdownMenuButton1">
+                              <Select
+                                name="candidatLicencePermis"
+                                closeMenuOnSelect={true}
+                                isMulti={true}
+                                placeholder="‎ ‎ ‎ Select Licence Permis"
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                                onChange={HandelOthers}
+                                options={optionsOthersFilter}
+                                styles={colourStyles}
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div className="extraPadding">
+                      <div className="col-12">
+                        <div className="row justify-content-end">
+                        <div className="col-12 mt-1">
+                          <div className="row">
+                            <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 d-flex">
+                             <p className="missing">Phone number missing</p>
+                             <Switch onChange={MissingHandler} id="PhoneNumberMissing"  checked={PhoneNumberMissing}/>
+                              </div>
+                              <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 d-flex">
+                             <p className="missing">Email missing</p>
+                             <Switch onChange={MissingHandler} id="EmailMissing" checked={EmailCheck}/>
+                              
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-4 d-flex justify-content-end">
+                            <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(false)}>Less Filters <img src={require("../../images/downup.svg").default} /></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+
+                  :
+                  <div className="extraPadding">
+                    <div className="col-12">
+                      <div className="row justify-content-end">
+                        <div className="col-4 d-flex justify-content-end">
+                          <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(true)}>More Filters <img src={require("../../images/down.svg").default} /></p>
+                        </div>
+                      </div>
+                    </div></div>
+              }
+            </div>
+          </div>
           {loader ? 
                 <>
                   {  filterData.length > 0 ? 
                      status?
                       filterData.map((profile, index) => (
-                        <div className="col-4 mt-2 pd-left">
+                        <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left">
                           <ClientProgressCard data={profile} />
                         </div>
                       ))

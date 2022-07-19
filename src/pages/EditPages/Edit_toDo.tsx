@@ -172,16 +172,23 @@ function EditDo() {
   const notifyCandidatEditError = () => toast.error("Cannot Edit Candidat! Please Try Again.");
 
   const switchHandle=(checked,id,e)=>{
-    if(e=="Permis"){
-   console.log("Permis",!Permis)
-   setPermis(checked)
-   console.log("Permis1",Permis)
-   setData({ ...data, candidatLicensePermis: Permis })
-   console.log(data,"data")
+
+    if(Permis === true){
+      setFormTouched(true)
+      setPermis(false)
+   setData({ ...data, candidatLicensePermis:true })
+      console.log(data,"daasd")
+    }
+    if(Permis === false){
+      setFormTouched(true)
+      setPermis(true)
+   setData({ ...data, candidatLicensePermis: false })
+      console.log(data,"daasd")
     }
     if(e=="Voyage"){
+      setFormTouched(true)
    setVoyage(checked)
-   setData({ ...data, ['candidatConduireEnFrance']: Voyage })
+   setData({ ...data, ['candidatConduireEnFrance']: checked })
     }
   }
 
@@ -425,7 +432,7 @@ function EditDo() {
 
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formTouched, data);
+    console.log(formTouched, data,"data1");
     if (formTouched) {
       const updatedData = {
         candidatId: profile._id,
