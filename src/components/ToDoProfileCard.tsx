@@ -157,7 +157,7 @@ const ToDoProfileCard = (props: any,{path}) => {
                  <Select
                     placeholder="More options"
                     options={CardOptions}
-                    className="CardOptions"
+                    className="CardOptions AllMoreOp"
                     onChange={MoreOption}
                     isSearchable={false}
                  />

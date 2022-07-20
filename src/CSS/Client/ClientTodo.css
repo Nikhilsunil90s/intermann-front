@@ -335,19 +335,4 @@ margin-inline: 5px;
         display: none !important;
     }
 
-    @media (min-width:768px){
-        .child-text {
-            font-family: 'Poppins';
-            font-style: normal;
-            font-weight: 400 !important;
-            font-size: 11px !important;
-            line-height: 24px !important;
-            display: flex;
-            align-items: flex-end;
-            text-align: center;
-            color: #000000;
-    }
-    .pxbody{
-        padding: 10px;
-    }
-}
+ 

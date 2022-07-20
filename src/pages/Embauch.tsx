@@ -48,7 +48,7 @@ function Embauch() {
   const [jobOptions, setJobOptions] = useState([]);
   const [showMore, setShowMore] = useState(true)
   const [Clients,setClients]=useState([])
-
+  const [FClient,setFClient]= useState([])
 
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
@@ -120,6 +120,8 @@ function Embauch() {
    let ClientOP:any= data.data.map((el)=>{
       return  { value: el.clientCompanyName, label:el.clientCompanyName, color: '#FF8B00' }
    })
+ 
+   console.log(FClient,"dd")
    setClients([{value:"Select Client",label:"Select Client",color:"#ff8b00"},...ClientOP])
       })
     }
@@ -165,6 +167,9 @@ function Embauch() {
       .catch((err) => err);
   };
   useEffect(() => {
+
+
+    
     if (nameOptions.length == 0) {
       fetchProfiles().then((profilesResult) => {
         let nameops = profilesResult.map((pro) => {
@@ -446,6 +451,18 @@ function Embauch() {
   //     behavior: 'smooth'
   //   });
   // })
+  const ClientChange=(e)=>{
+
+  //   let SelectedCL = []
+  //   SelectedCL=e.value
+  //   console.log(filterData,"fd")
+  // const  FClient =  
+  //   filterData.filter((res)=>{
+  //     return res.candidatCurrentWork == SelectedCL
+  //   })
+  //   console.log([...FClient],"Filre")
+  //   // setFilterData([...Client])
+  }
   
  const RestFilters=()=>{
   setSectors([])
@@ -690,7 +707,7 @@ function Embauch() {
                                 classNamePrefix="select"
                                 styles={colourStyles}
                                 options={Clients}
-                                // onChange={}
+                                onChange={ClientChange}
                               />
 :                 
        <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>

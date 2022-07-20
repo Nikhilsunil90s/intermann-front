@@ -107,7 +107,7 @@ const ArchivedProfileCard = (props: any) => {
                         <Select
                     placeholder="More options"
                     options={CardOptions}
-                    className="CardOptions"
+                    className="CardOptions AllMoreOp"
                     onChange={MoreOption} 
                  />
                         </div>

@@ -102,7 +102,7 @@ const ClientToDoCard = (props: any) => {
                         />
                     </div>
                     <div className="col-4 px-0 mt-1">
-                        <p className="textClientCard"><b>{props.data.clientCompanyName ? props.data.clientCompanyName : "No CompanyName!"}</b></p>
+                        <p className="textClientCard" style={{width:"130%"}}><b>{props.data.clientCompanyName ? props.data.clientCompanyName : "No CompanyName!"}</b></p>
                 <p  className="textClientCard" style={{width:"130%"}}>Motivation :
                              <b style={{background:"transparent" , zIndex:"9"}}>{candidatMotivationIcons[props.data.clientMotivation - 1]?.icon + " " + candidatMotivationIcons[props.data.clientMotivation - 1]?.motivation ? candidatMotivationIcons[props.data.clientMotivation - 1]?.icon + " " + candidatMotivationIcons[props.data.clientMotivation - 1]?.motivation : "No Motivation!"}</b>
                         </p>
@@ -257,7 +257,7 @@ const ClientToDoCard = (props: any) => {
                    <div className="col-6 text-center">
                    <Select
                           options={CardOption}
-                          className="CardOptions"
+                          className="CardOptions AllMoreOp"
                           onChange={MoreOption}
                           placeholder="More options"
                         />

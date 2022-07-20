@@ -13,6 +13,7 @@ import {ReactComponent as Upload} from "../../images/upload.svg"
 import {ReactComponent as Download} from '../../images/download.svg'
 import Switch from "react-switch";
 import Select from "react-select"
+import UploadDow from '../../components/Modal/SelectUploadDownload'
 
 function ClientSee() {
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ function ClientSee() {
   const [Contrat,setContrat]=useState(false)
   const [Signature,setSignature]=useState(false)
   const [Offre,setOffre]=useState(false)
+  const [UploadBtn,setSelectUpload]= useState(false)
+  const hiddenImageInput = React.useRef(null);
   const [documentsList, setDocumentsList] = useState([]);
   const uploadOption=[
     {value:"upload",label:<Upload />,},
@@ -37,7 +40,8 @@ function ClientSee() {
   const editClientProfile = () => {
     navigate("/clientToDoEdit", { state: profile });
   }
- const candidatImportanceIcons = [{ icon:<><StarRating style={{marginRight:"5px"}} /> <Empty style={{marginLeft:"5px"}} /> <Empty /> <Empty /> <Empty /></>}, {icon:<><StarRating /><StarRating /> <Empty /> <Empty /> <Empty /></>}, {icon:<><StarRating /> <StarRating /> <StarRating /> <Empty /> <Empty /></>}, {icon:<><StarRating /> <StarRating /> <StarRating /> <StarRating /> <Empty /></>}, {icon:<><StarRating /><StarRating /> <StarRating /> <StarRating /> <StarRating /></>}]; 
+  const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating   style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}}/> <StarRating style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}} /> <Empty style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /></>}]; 
+
   const candidatMotivationIcons = [{ icon:"😟", motivation: 'Disappointed' }, { icon:"🙁", motivation: 'Not Really' }, { icon:"😊", motivation: 'Like' }, { icon:"🥰", motivation: 'Great' }, { icon:"😍", motivation: 'Super Lovely' }];
   const responsive = {
     superLargeDesktop: {
@@ -84,9 +88,22 @@ function ClientSee() {
     setChecked(event)
   }     
    };
+   const handleImageChange = (val) => {
+    if (val === 'upload') {
+      console.log("upload")
+      handleImageUpload()
+    } else if (val === 'Download') {
+      console.log("download")
+      // window.open(API_BASE_URL + candidatImage);
+    }
+  }
+  const handleImageUpload = () => {
+    hiddenImageInput.current.click();
+  }
+
   return (
     <>
-      <div className="containet-fluid">
+      <div className="containet-fluid p-1">
         <div className="row">
           <div className="col-12 top-pd mt-1">
             {/* <h1 style={{ textDecoration: 'underline' }}>CLIENT FILE: {profile.clientCompanyName}</h1> */}
@@ -101,8 +118,8 @@ function ClientSee() {
               </Link>
             </div>
           </div>
-          <div className="col-6  text-end pr-2">
-            <button className="btn btn-bgb" onClick={editClientProfile}>
+          <div className="col-6 d-flex align-items-center justify-content-end text-end pr-2">
+            <button className="btn btn-bgbClient" onClick={editClientProfile}>
               <img src={require("../../images/Edit.svg").default} />
               Edit Profile
             </button>
@@ -119,14 +136,32 @@ function ClientSee() {
                       style={{ backgroundColor: "transparent" }}
                     />
                   </div>
-                  <Select
+                  {/* <Select
                           closeMenuOnSelect={true}
   // onChange={handleChange}
   // components={ {SingleValue: customSingleValue } }
   options={uploadOption}
   className="upload-Client"
   // defaultValue={uploadOption[0]}
-/>
+/> */}
+<button
+ onClick={()=>{setSelectUpload(!UploadBtn);}}
+className="SelectBtn"
+ ><img className="" src={require("../../images/select.svg").default} />
+ {
+  UploadBtn? 
+  <UploadDow closeModal={setSelectUpload}  FunModal={handleImageChange} />
+  :
+  null
+ }
+  </button>
+<input
+                    type="file"
+                    ref={hiddenImageInput}
+                    // onChange={fileChange}
+                    name="candidatPhoto"
+                    style={{ display: 'none' }}
+                  />
                   </div>
 
                 {/* <button type="button" className="btn btn-upload">
@@ -149,7 +184,7 @@ function ClientSee() {
                 </div>
                 {/* <div className="col-4 text-end end-class d-grid justify-content-center align-items-center"> */}
                 <div className="col-4 d-grid align-items-center">
-                  <div className="text-end ml-5">
+                  <div className="text-end ">
                     <button className="ClientSEEBtnStyle">
                       <img src={require("../../images/briefcase2.svg").default} />
                     </button>
@@ -157,7 +192,7 @@ function ClientSee() {
                   <p className="mb-0  pt-1">
                   Lead pas encore traité
                   </p>
-                  <p className="">Ce lead est en sommeil, pas traité</p>
+                  <p className="TODOclientChild">Ce lead est en sommeil, pas traité</p>
                   </div>
                   </div>
                 {/* </div> */}
@@ -166,7 +201,7 @@ function ClientSee() {
             </div>
             <div className="col-12 mt-2 Social-CardClient p-1">
                   <div className="row px-1">
-                    <div className="col-2 d-flex px-0 justify-content-start">
+                    <div className="col-xxl-2 col-xl-2 col-lg-2  col-md-6 d-flex px-0 justify-content-start">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Offre envoyé ?
@@ -180,7 +215,7 @@ function ClientSee() {
                         />
                       </div>
                     </div>
-                    <div className="col-3 d-flex px-0 justify-content-center">
+                    <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-6 d-flex px-0 justify-content-center">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Signature digitale envoyé ?
@@ -193,7 +228,7 @@ function ClientSee() {
                         />
                       </div>
                     </div>
-                    <div className="col-2 d-flex px-0 justify-content-end ml-1">
+                    <div className="col-xxl-2 col-xl-2 col-lg-2  col-md-5 d-flex px-0 pt-1 justify-content-end ml-1">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Contrat singé ?
@@ -206,7 +241,7 @@ function ClientSee() {
                         />
                       </div>
                     </div>
-                    <div className="col-3 d-flex px-0 justify-content-end">
+                    <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-6 d-flex px-0 pt-1 justify-content-end">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Publicité commencé ?
@@ -219,7 +254,7 @@ function ClientSee() {
                         />
                       </div>
                     </div>
-                    <div className="col-1 d-flex px-0 justify-content-center ml-1">
+                    <div className="col-xxl-1 col-xl-1 col-lg-1  col-md-4 d-flex px-0 pt-1 justify-content-center ml-1">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">A1 ?</p>
                         <Switch
@@ -230,7 +265,7 @@ function ClientSee() {
                         />
                       </div>
                     </div>
-                    <div className="col-3 d-flex pt-1 px-0 justify-content-start">
+                    <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-6 d-flex pt-1 px-0 justify-content-start">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Assurance faite ?
@@ -243,7 +278,7 @@ function ClientSee() {
                         />
                       </div>
                     </div>
-                    <div className="col-3 d-flex pt-1 px-0 justify-content-start">
+                    <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-6 d-flex pt-1 px-0 justify-content-start">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Agence de voyage ok ?
@@ -256,7 +291,7 @@ function ClientSee() {
                         />
                       </div>
                     </div>
-                    <div className="col-3 d-flex pt-1 px-0 ">
+                    <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-6 d-flex pt-1 px-0 ">
                       <div className="d-flex align-items-start ">
                         <p className="fontSizeReactSwitch mb-0">
                           SISPI déclaré ?
@@ -274,30 +309,30 @@ function ClientSee() {
             <div className="col-12 pt-1 py-0 mb-1">
               <div className="row justify-content-between">
                 <div
-                  className="col-6 Social-CardClient text-center py-0"
+                  className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-1 Social-btns"
                   style={{ maxWidth: "49%" }}
                 >
-                  <p className="ClientSpan-Styling pt-2 px-3">
+                  <p className="Span-Styling pt-2 pb-1 px-3 my-1">
                  Company Mail : {profile.clientEmail ? profile.clientEmail : "No Email Provided!"}
                   </p>
                   
-                  <button className="btn btn-Clientgmail">
+                  <button className="btn-TODOgmail">
                     <a
                       href="https://accounts.google.com/"
                       className="text-dark fw-bold"
                       target="_blank"
                     >
                       <span className="padding-email">
-                        <img src={require("../../images/gmail.svg").default} />
+                        <img style={{width:"8%"}}  src={require("../../images/gmail.svg").default} />
                       </span>
                       Send Email
                     </a>
                   </button>
-                  <p className="ClientSpan-Styling mt-2 px-3">Contact : {profile.clientEmail ? profile.clientEmail : "No Email!"}</p>
+                  <p className="Span-Styling pt-2 pb-1 px-3 my-1">Contact : {profile.clientEmail ? profile.clientEmail : "No Email!"}</p>
                   <a
                     href={profile.clientEmail}
                     target="_blank"
-                    className="btn  fw-bold btn-Clientgmail"
+                    className="btn  fw-bold btn-TODOgmail"
                   >
                     <span className="padding-email">
                       <img
@@ -307,14 +342,15 @@ function ClientSee() {
                     Send Email
                   </a>
 
-                  <p className="ClientSpan-Styling mt-2 px-3">
+                  <p className="Span-Styling my-2 px-3 pt-1  my-1">
                   Company Phone : {profile.clientPhone ? profile.clientPhone : "No Phone Number!"}
                   </p>
-                  <button className="btn Client-Whatsapp btn-see">
-                    <a
+                  <a
                       href={`https://wa.me/${profile.clientPhone}`}
                       target="_blank"
                     >
+                  <button className="btn-whatsapp my-1">
+                
                       <span className="padding-email">
                         <img
                           style={{ width: "8%" }}
@@ -322,16 +358,18 @@ function ClientSee() {
                         />
                       </span>
                       Send What’s App
-                    </a>
                   </button>
-                  <p className="ClientSpan-Styling mt-2 px-3">
+                  </a>
+
+                  <p className="Span-Styling my-2 px-3 pt-1  my-1">
                   Contact Phone : {profile.clientReferenceNumber ? profile.clientReferenceNumber : "No Number!"}
                   </p>
-                  <button className="btn Client-Whatsapp btn-see">
-                    <a
+                  <a
                       href={`https://wa.me/${profile.clientReferenceNumber}`}
                       target="_blank"
                     >
+                  <button className="btn-whatsapp my-1">
+   
                       <span className="padding-email">
                         <img
                           style={{ width: "8%" }}
@@ -339,61 +377,63 @@ function ClientSee() {
                         />
                       </span>
                       Send What’s App
-                    </a>
                   </button>
+                  </a>
+
                 </div>
                 <div
-                  className="col-6 Social-CardClient px-1  scrollbar"
+                  className="col-xxl-8 col-xl-8 col-lg-8 col-md-7 Social-Card px-1 detailsCardClientSee scrollbar Social-btnsTwo"
                   id="style-3"
-                  style={{ maxWidth: "49%", marginRight: "10px" }}
+                  style={{ maxWidth: "49%", }}
                 >
                   <div className="Todo-CardMore force-overflow">
-                  <div className="d-flex">
-                  <p>Company Adress </p>
-                  <span>:{profile.clientAddress}</span>
+                  <div className="">
+                  <p>Company Adress 
+                  <span className="Todo-CardMore-span">:{profile.clientAddress}</span>
+                  </p>
                 </div>
-                <div className="d-flex ">
+                <div className="d-flex align-items-center ">
                       <p className="blue-text">Ready for work :</p>
-                      <span className="blue-text">
+                      <span className="bluetextCardSee">
                       {profile.jobStartDate != "" ? profile.jobStartDate : "___"} To{profile.jobEndDate != "" ? profile.jobEndDate : "___"}
                       </span>
                     </div>
-                    <div className="d-flex">
+                    <div className="d-flex align-items-center">
                       <p>Langues : </p>
-                      <span> {profile.clientLanguages ? profile.clientLanguages.join(", ") : "No Langues!"}</span>
+                      <span className="Todo-CardMore-span"> {profile.clientLanguages ? profile.clientLanguages.join(", ") : "No Langues!"}</span>
                     </div>
-                    <div className="d-flex">
+                    <div className="d-flex align-items-center">
                       <p>Voyage en voiture :</p>
-                      <span>
+                      <span className="Todo-CardMore-span">
                         {profile.candidatConduireEnFrance ? "Yes" : "No"}
                       </span>
                     </div>
                    
-                    <div className="d-flex">
+                    <div className="d-flex align-items-center">
                       <p>Client Note: </p>
-                      <span>{profile.clientRequiredSkills != "" ? profile.clientRequiredSkills : "Not Available!"}</span>
+                      <span className="Todo-CardMore-span">{profile.clientRequiredSkills != "" ? profile.clientRequiredSkills : "Not Available!"}</span>
                     </div>
-                    <div className="d-flex">
+                    <div className="d-flex align-items-center">
                   <p className="text-dark">Potential Turnover CA</p>
-                  <span className="text-dark">
+                 <span className="Todo-CardMore-span">
                     : {profile.jobTotalBudget} €
                   </span>
                 </div>
-                <div className="d-flex">
+                <div className="d-flex align-items-center">
                   <p className="text-dark">Salary by person </p>
-                  <span className="text-dark">
+                 <span className="Todo-CardMore-span">
                     : {profile.netSalary} €
                   </span>
                 </div>
-                <div className="d-flex">
+                <div className="d-flex align-items-center">
                   <p className="text-dark">Salaire net du salarié </p>
-                  <span className="text-dark">
+                 <span className="Todo-CardMore-span">
                     : {profile.SalaryH ? profile.SalaryH: "No Hours!"} 
                   </span>
                 </div>
-                <div className="d-flex">
+                <div className="d-flex align-items-center">
                   <p className="text-dark">Taux horraire</p>
-                  <span className="text-dark">
+                 <span className="Todo-CardMore-span">
                     :  {profile.SalaryH ? profile.SalaryH: "No Hours!"} 
                   </span>
                 </div>
@@ -481,7 +521,7 @@ function ClientSee() {
                     />
                   </p> */}
 <p  className="d-flex align-items-center mb-0" style={{height:"30px", background:"transparent"}}>Importance :
-                             <b className="d-flex align-items-center" style={{width:"20%",marginLeft:"5px"}}>{candidatImportanceIcons[profile.clientImportance - 1]?.icon ? candidatImportanceIcons[profile.clientImportance - 1]?.icon : "No Importance" }</b>
+                             <b className="d-flex align-items-center" style={{width:"25%",marginLeft:"5px"}}>{candidatImportanceIcons[profile.clientImportance - 1]?.icon ? candidatImportanceIcons[profile.clientImportance - 1]?.icon : "No Importance" }</b>
 
                         </p>
                
@@ -511,7 +551,7 @@ function ClientSee() {
                       <img  style={{ paddingRight: "10px" }} src={require("../../images/Edit.svg").default} />
                       Edit Profile
                     </button>
-                    <p className="text-start btn-Down">Editer le Profil</p>
+                    <p className="text-center btn-Down">Editer le Profil</p>
                   </div>
                   <div className="col-3 text-center">
                     <a href="https://www.canva.com/design/DAFA2NwkHSw/p4I45NInV69YG9HKrS3TGw/edit" target="_blank" type="button" className="btn btn-contractClient">
@@ -521,7 +561,7 @@ function ClientSee() {
                       />
                       Créer Offre
                     </a>
-                    <p style={{ width: "106%" }} className="btn-Down text-start">Créer une Offre avec Canva</p>
+                    <p style={{ width: "106%" }} className="btn-Down text-center">Créer une Offre avec Canva</p>
                   </div>
                   <div className="col-3 text-center">
                     <button type="button" className="btn btn-ArchivedClient">
@@ -530,9 +570,9 @@ function ClientSee() {
                     {showArchiveModal ?
                       <ArchivedClientModal props={profile} closeModal={setShowArchiveModal} path={"/clientToDoProfile"} /> : null
                     }
-                    <p className="btn-Down text-start">Si plus d’actualité</p>
+                    <p className="btn-Down text-center">Si plus d’actualité</p>
                   </div>
-                  <div className="col-3">
+                  <div className="col-3 text-center">
                     <a href="https://docs.google.com/spreadsheets/d/14xzXy9FD5V7ASYfYZg1kPmHSGvPqr4APfIWP_S9r_tI/edit#gid=0" target="_blank" type="button" className="btn btn-grilleClient">
                       <img
                         src={require("../../images/salary.svg").default}
@@ -540,7 +580,7 @@ function ClientSee() {
                       />
                       Grille de prix
                     </a>
-                    <p className="btn-Down text-start">
+                    <p className="btn-Down text-center">
                       Accès réstreint à Jeremy & Pat
                     </p>
                   </div>
@@ -551,12 +591,12 @@ function ClientSee() {
                     {showInProgressModal ?
                       <InProgressClientModal props={profile} closeModal={setShowInProgressModal} /> : null
                     }
-                    <p className="btn-Down text-start">Si on lance les recherches</p>
+                    <p className="btn-Down text-center">Si on lance les recherches</p>
                   </div>
 
               
    
-                  <div className="col-3">
+                  <div className="col-3 text-center">
                     <a href="https://drive.google.com/drive/folders/1MqR9nDBLtpl_xMCmVGmcy5g0T3noPhgZ" target="_blank" type="button" className="btn btn-careerClient">
                       <span>
                         <img  style={{ paddingRight: "10px" }}
@@ -566,7 +606,7 @@ function ClientSee() {
 
                       Créer Contrat
                     </a>
-                    <p style={{ width: "106%" }} className="btn-Down text-start">Créer un contrat avec Drive</p>
+                    <p style={{ width: "106%" }} className="btn-Down text-center">Créer un contrat avec Drive</p>
                   </div>
                   </div>
 </div>

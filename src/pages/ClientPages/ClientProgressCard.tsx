@@ -94,7 +94,7 @@ function ClientProgressCard(props: any) {
                         />
                     </div>
                     <div className="col-6 px-0 mt-1">
-                    <p className="textClientCard" style={{width:"150%"}}><b>{props.data.clientCompanyName ? props.data.clientCompanyName : "No CompanyName!"}</b></p>
+                    <p className="textClientCard" style={{width:"150%"}}><b>{props.data.clientCompanyName ? props.data.clientCompanyName.toLocaleUpperCase() : "No CompanyName!"}</b></p>
                     <div >  <p  className="textClientCard" style={{height:"30px", background:"transparent"}}>Importance:
                              <b className="d-flex" style={{width:"37%",marginLeft:"3px",height:"43px"}}>{candidatImportanceIcons[props.data.clientImportance - 1]?.icon ? candidatImportanceIcons[props.data.clientImportance - 1]?.icon : "No Importance" }</b>
 
@@ -118,8 +118,8 @@ function ClientProgressCard(props: any) {
 <div className="col-12 ">
     <div className="row pl-1">
                 <div className="col-5 fontStylingCardDetails px-0 py-1">
-                <p className="fontStylingCardP">Secteur : {props.data.clientActivitySector ? props.data.clientActivitySector : "No Sector!"} </p>
-                    <p className="fontStylingCardP">Job :  {props.data.clientJob ? props.data.clientJob : "No Job!"}</p>
+                <p className="fontStylingCardP">Secteur : {props.data.clientActivitySector ? props.data.clientActivitySector.toLocaleUpperCase() : "No Sector!"} </p>
+                    <p className="fontStylingCardP">Job :  {props.data.clientJob ? props.data.clientJob.toLocaleUpperCase() : "No Job!"}</p>
                     <p>Langues : <b> {props.data.clientLanguages.length ? props.data.clientLanguages : "No Langues!"}</b> </p>
                     <p>Phone Number :<b>{props.data.clientPhone.length ? props.data.clientPhone : "No Phone Number!"}</b> </p>
                     <p>Estimated CA :   <b>{props.data.jobTotalBudget ? props.data.jobTotalBudget + " €" : "N/A"}</b> </p>                
@@ -256,7 +256,7 @@ function ClientProgressCard(props: any) {
                     <div className="col-6 text-center">
                     <Select
                           options={CardOption}
-                          className="CardOptions"
+                          className="CardOptions AllMoreOp"
                           onChange={MoreOption}
                           placeholder="More options"
                         />

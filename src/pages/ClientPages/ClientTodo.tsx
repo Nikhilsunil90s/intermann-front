@@ -4,16 +4,15 @@ import StarRatings from 'react-star-ratings';
 import "../../CSS/Client/ClientTodo.css";
 import ClientToDoCard from "../../pages/ClientPages/ClientTodoCard";
 import { Toaster } from 'react-hot-toast';
-import Loader from "../../components/Loader/loader";
 import { API_BASE_URL } from '../../config/serverApiConfig';
-import { colourOptions, ColourOption } from "../../Selecteddata/data";
-import SelectLoader from "../../components/Loader/selectLoader"
+import {  ColourOption } from "../../Selecteddata/data";
+import  ProfileLoader from "../../components/Loader/ProfilesLoader"
 import chroma from 'chroma-js';
-import Select, { GroupBase, StylesConfig } from "react-select";
+import Select, { StylesConfig } from "react-select";
 import {ReactComponent as RatingStar} from "../../images/RatingStar.svg"
 import {ReactComponent as Empty} from "../../images/emptyStar.svg"
 import Switch from "react-switch";
-
+import Loader from "../../components/Loader/loader"
 declare namespace JSX {
   interface IntrinsicElements {
     "lottie-player": any;
@@ -23,7 +22,6 @@ let SelectedName = []
 let FilterJob = [];
 let MotivationArr = []
 let OthersFilterArr = []
-let DateArr=[]
 let Importance=[]
 function ClientToDoList() {
 
@@ -40,58 +38,12 @@ function ClientToDoList() {
   const [selectedLanguages,setSelectedLanguages] = useState([]);
   const [filterData,setFilterData] = useState([]);
   const [status,setStatus] = useState(Boolean);
-  const [showMore, setShowMore] = useState(false)
-  const [optionsOthersFilter, setLicenseOptions] = useState([
-    {
-      value: "Offre envoyé", label: "Offre envoyé ?", color: '#FF8B00'
-    },
-    {
-      value: "Signature digitale envoyé ?", label: "Signature digitale envoyé ?", color: '#FF8B00'
-    },
-    {
-      value: "Contrat singé ?", label: "Contrat singé ?", color: '#FF8B00'
-    },
-    {
-      value: "Publicité commencé ?", label: "Publicité commencé ?", color: '#FF8B00'
-    },
-    {
-      value: "A1 ?", label: "A1 ?", color: '#FF8B00'
-    },
-    {
-      value: "Assurance faite ?", label: "Assurance faite ?", color: '#FF8B00'
-    },
-    {
-      value: "Agence de voyage ok ?", label: "Agence de voyage ok ?", color: '#FF8B00'
-    },
-    {
-      value: "SISPI déclaré ?", label: "SISPI déclaré ?", color: '#FF8B00'
-    }
+  const [showMore, setShowMore] = useState(true)
+  const [optionsOthersFilter, setOtherOptions] = useState([
   ])
   const [motivationOptions, setMotivationOptions] = useState([
-    {
-      value: "1", label: "Dissapointed", color: '#FF8B00'
-    }, {
-      value: "2", label: "Not really", color: '#FF8B00'
-    }, {
-      value: "3", label: "Like", color: '#FF8B00'
-    }, {
-      value: "4", label: "Great", color: '#FF8B00'
-    }, {
-      value: "5", label: "Superlovely", color: '#FF8B00'
-    }
   ])
   const [importanceOptions, setImportanceOptions] = useState([
-    {
-      value: "1", label: <><RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /></>, color: '#FF8B00'
-    }, {
-      value: "2", label:  <><RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /></>, color: '#FF8B00'
-    }, {
-      value: "3", label: <><RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /></>, color: '#FF8B00'
-    }, {
-      value: "4", label:  <><RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /></>, color: '#FF8B00'
-    }, {
-      value: "5", label:  <><RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /></>, color: '#FF8B00'
-    }
   ])as any
   console.log(status)
   console.log(selectedSector,selectedJob,"allfield")
@@ -515,13 +467,76 @@ function ClientToDoList() {
           return { value: pro.clientCompanyName, label: pro.clientCompanyName, color: '#FF8B00' }
         })
         console.log(nameops,"console")
-        setNameOptions([...nameops])
+        setNameOptions([{value:"Select Name",label :"Select Name" ,color:"#FF8B00"},...nameops])
       }).catch(err => {
         console.log(err)
       })
     }
+    if(optionsOthersFilter.length == 0){
+      setOtherOptions([{
+        value: "Select Others", label: "Select Others", color: '#FF8B00'
+      },
+      {
+        value: "Offre", label: "Offre envoyé ?", color: '#FF8B00'
+      },
+      {
+        value: "Signature ", label: "Signature digitale envoyé ?", color: '#FF8B00'
+      },
+      {
+        value: "Contrat singé ?", label: "Contrat singé ?", color: '#FF8B00'
+      },
+      {
+        value: "Publicité commencé ?", label: "Publicité commencé ?", color: '#FF8B00'
+      },
+      {
+        value: "A1 ?", label: "A1 ?", color: '#FF8B00'
+      },
+      {
+        value: "Assurance faite ?", label: "Assurance faite ?", color: '#FF8B00'
+      },
+      {
+        value: "Agence de voyage ok ?", label: "Agence de voyage ok ?", color: '#FF8B00'
+      },
+      {
+        value: "SISPI déclaré ?", label: "SISPI déclaré ?", color: '#FF8B00'
+      }])
+    }
+    if(importanceOptions.length == 0){
+  setImportanceOptions([
+    {
+      value: "Select Importance", label:"Select Importance", color: '#FF8B00'
+    },
+    {
+    value: "1", label: <><RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /></>, color: '#FF8B00'
+  }, {
+        value: "2", label:  <><RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /></>, color: '#FF8B00'
+      }, {
+        value: "3", label: <><RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /></>, color: '#FF8B00'
+      }, {
+        value: "4", label:  <><RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /></>, color: '#FF8B00'
+      }, {
+        value: "5", label:  <><RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /></>, color: '#FF8B00'
+      }])
+    }
+    if(motivationOptions.length == 0){
+      setMotivationOptions([    {
+        value: "Select Motivations", label: "Select Motivations", color: '#FF8B00'
+      },
+      {
+        value: "1", label: "😔", color: '#FF8B00'
+      }, {
+        value: "2", label: "🙁", color: '#FF8B00'
+      }, {
+        value: "3", label: "😊", color: '#FF8B00'
+      }, {
+        value: "4", label: "🥰", color: '#FF8B00'
+      }, {
+        value: "5", label: "😍", color: '#FF8B00'
+      }])
+          }
+
     console.log(nameOptions," console.log()")
-  }, []);
+  });
  
   const jobChange = async (jobval) => {
     // console.log(jobval)
@@ -533,6 +548,25 @@ function ClientToDoList() {
     })
     FilterJob=JobArr
     filterFunction()
+  }
+
+  const RestFilters=()=>{
+   setNameOptions([])
+   SelectedName = []
+   setMotivationOptions([])
+   setOtherOptions([])
+   setJobs([])
+FilterJob = [];
+MotivationArr = []
+OthersFilterArr = []
+Importance=[]
+OthersFilterArr=[]
+setImportanceOptions([])
+   setSectorOptions([])
+   setSectors([])
+   setSelectedJob([])
+   fetchAllSectors()
+ filterFunction()
   }
   return (
     <>
@@ -567,7 +601,8 @@ function ClientToDoList() {
                           onChange={handleNameChange}
                           options={nameOptions}
                           styles={colourStyles}
-                        /> :<SelectLoader />
+                        /> :
+                        <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
                                             }
                   </div>
                 </div>
@@ -618,16 +653,23 @@ function ClientToDoList() {
                           <p className="FiltreName">Filtre by Motivation</p>
                           <div className="dropdown">
                             <div aria-labelledby="dropdownMenuButton1">
+                            {
+                              motivationOptions.length > 0 ?
                               <Select
-                                name="candidatMotivation"
-                                closeMenuOnSelect={true}
-                                placeholder="‎ ‎ ‎ Select Motivation du Candidat"
-                                className="basic-multi-select"
-                                classNamePrefix="select"
-                                onChange={handleMotivationChange}
-                                options={motivationOptions}
-                                styles={colourStyles}
-                              />
+                              name="candidatMotivation"
+                              closeMenuOnSelect={true}
+                              placeholder="‎ ‎ ‎ Select Motivation du Candidat"
+                              className="basic-multi-select"
+                              classNamePrefix="select"
+                              onChange={handleMotivationChange}
+                              options={motivationOptions}
+                              styles={colourStyles}
+                            />
+                            :
+                        <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+
+                            }
+                         
                             </div>
                           </div>
                         </div>
@@ -635,16 +677,23 @@ function ClientToDoList() {
         <p className="FiltreName">Filtre by Importance</p>
         <div className="dropdown">
                             <div aria-labelledby="dropdownMenuButton1">
-                              <Select
-                                name="candidatLicencePermis"
-                                closeMenuOnSelect={true}
-                                placeholder="‎ ‎ ‎ Select Licence Permis"
-                                className="basic-multi-select"
-                                classNamePrefix="select"
-                                onChange={importanceHandel}
-                                options={importanceOptions}
-                                styles={colourStyles}
-                              />
+                           {
+                            importanceOptions.length > 0 ?
+                            <Select
+                            name="candidatLicencePermis"
+                            closeMenuOnSelect={true}
+                            placeholder="‎ ‎ ‎ Select Licence Permis"
+                            className="basic-multi-select"
+                            classNamePrefix="select"
+                            onChange={importanceHandel}
+                            options={importanceOptions}
+                            styles={colourStyles}
+                          />
+                          :
+                        <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+
+                           }
+                           
                             </div>
                           </div>
         </div>
@@ -652,17 +701,23 @@ function ClientToDoList() {
                           <p className="FiltreName">Filter by other options</p>
                           <div className="dropdown">
                             <div aria-labelledby="dropdownMenuButton1">
+                            {
+                              optionsOthersFilter.length > 0 ?
                               <Select
-                                name="candidatLicencePermis"
-                                closeMenuOnSelect={true}
-                                isMulti={true}
-                                placeholder="‎ ‎ ‎ Select Licence Permis"
-                                className="basic-multi-select"
-                                classNamePrefix="select"
-                                onChange={HandelOthers}
-                                options={optionsOthersFilter}
-                                styles={colourStyles}
-                              />
+                              name="candidatLicencePermis"
+                              closeMenuOnSelect={true}
+                              isMulti={true}
+                              placeholder="‎ ‎ ‎ Select Licence Permis"
+                              className="basic-multi-select"
+                              classNamePrefix="select"
+                              onChange={HandelOthers}
+                              options={optionsOthersFilter}
+                              styles={colourStyles}
+                            />
+                            :
+                        <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+                            }
+                      
                             </div>
                           </div>
                         </div>
@@ -674,18 +729,23 @@ function ClientToDoList() {
                         <div className="row justify-content-end">
                         <div className="col-12 mt-1">
                           <div className="row">
-                            <div className="col-4 d-flex  align-items-center">
+                            <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-4 d-flex  align-items-center">
                              <p className="missing">Phone number missing</p>
                              <Switch onChange={MissingHandler} id="PhoneNumberMissing"  checked={PhoneNumberMissing}/>
                               </div>
-                              <div className="col-4 d-flex  align-items-center">
+                              <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-4 d-flex  align-items-center">
                              <p className="missing">Email missing</p>
                              <Switch onChange={MissingHandler} id="EmailMissing" checked={EmailCheck}/>
                               
                               </div>
                             </div>
                           </div>
-                          <div className="col-4 d-flex justify-content-end">
+                          <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 d-flex align-items-center justify-content-end">
+                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
+<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
+: null
+}   </div>
+                          <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 d-flex justify-content-end">
                             <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(false)}>Less Filters <img src={require("../../images/downup.svg").default} /></p>
                           </div>
                         </div>
@@ -697,7 +757,12 @@ function ClientToDoList() {
                   <div className="extraPadding">
                     <div className="col-12">
                       <div className="row justify-content-end">
-                        <div className="col-4 d-flex justify-content-end">
+                      <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 d-flex align-items-center justify-content-end">
+                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
+<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
+: null
+}   </div>
+                        <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 d-flex justify-content-end">
                           <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(true)}>More Filters <img src={require("../../images/down.svg").default} /></p>
                         </div>
                       </div>

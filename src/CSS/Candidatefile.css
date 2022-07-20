@@ -739,12 +739,64 @@ color: #000000;
 margin-left: 6px;
 margin-right: 0px !important;
 }
-
+.css-9gakcf-option:active {
+    background-color: #fe8700 !important;
+    text-align: start;
+    font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  color: #373A3C;
+  padding: 5px 10px !important
+}
 .CardOptions .css-1n7v3ny-option{
     padding: 5px 5px !important;
+    text-align: start;
+    font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  color: #373A3C;
+  background-color: unset !important;
+  padding: 5px 10px !important
+}
+.CardOptions .css-1n7v3ny-option:hover{
+    background-color:#fe8700 !important ;
 }
 .CardOptions .css-yt9ioa-option{
     padding: 5px 5px !important;
+    text-align: start;
+    font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  color: #373A3C;
+  padding: 5px 10px !important
+}
+.css-yt9ioa-option:active {
+    background-color: #fe8700 !important;
+    padding: 5px 5px !important;
+    text-align: start;
+    font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  color: #373A3C;
+  padding: 5px 10px !important
+}
+.css-9gakcf-option {
+    text-align: start;
+    font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px !important;
+  line-height: 24px;
+  color: #373A3C !important;
+  padding: 5px 10px !important
 }
 .CardOptions
     .css-qc6sy-singleValue {
@@ -875,6 +927,37 @@ color: #000000;
 }
 
 @media (min-width:768px){
+
+    .pdf-btn {
+        background: #3F76E2;
+        border-radius: 100px;
+        border: 0px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        font-family: 'Arial';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 11px;
+        line-height: 24px;
+        display: flex;
+        align-items: flex-end;
+        padding: 18px 25px;
+        color: #FFFFFF;
+    }
+    .btnNotMatched {
+        background: #FFFFFF;
+        box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 21px;
+        color: #032339;
+        width: 90% !important;
+        padding: 5px 3px;
+        border-radius: 20px;
+    }
     .btn-bgblack img{
         width:15px
     }

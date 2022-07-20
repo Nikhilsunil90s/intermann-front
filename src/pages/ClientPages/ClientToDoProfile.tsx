@@ -46,7 +46,7 @@ function ClientSee() {
               </Link>
             </div>
           </div>
-          <div className="col-6  text-end ">
+          <div className="col-6 d-flex align-items-center justify-content-center  text-end ">
             <button className="btn btn-bgb" onClick={editClientProfile}>
               <img src={require("../../images/Edit.svg").default} />
               Edit Profile
