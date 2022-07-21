@@ -34,6 +34,7 @@ declare global {
 }
 let SelectedName = []
 let FilterJob = [];
+let ClientFL=[]
 function Embauch() {
   const [sectors, setSectors] = useState([]);
   const [jobs, setJobs] = useState([]);
@@ -114,14 +115,16 @@ function Embauch() {
       .then(respData => respData)
       .catch(err => err)
   }
+
   useEffect(() => {
     if(Clients.length ==0){
+      let ClientOP =[]
       fetchClients().then((data)=>{
-   let ClientOP:any= data.data.map((el)=>{
+        setFClient([...data.data])
+        ClientOP = data.data.map((el)=>{
       return  { value: el.clientCompanyName, label:el.clientCompanyName, color: '#FF8B00' }
    })
- 
-   console.log(FClient,"dd")
+
    setClients([{value:"Select Client",label:"Select Client",color:"#ff8b00"},...ClientOP])
       })
     }
@@ -167,9 +170,6 @@ function Embauch() {
       .catch((err) => err);
   };
   useEffect(() => {
-
-
-    
     if (nameOptions.length == 0) {
       fetchProfiles().then((profilesResult) => {
         let nameops = profilesResult.map((pro) => {
@@ -398,7 +398,7 @@ function Embauch() {
       setLoader(true);
      
     }
-    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 ) {
+    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && ClientFL.length == 0 ) {
       {
         setLoader(true)
         setStatus(true)
@@ -453,16 +453,17 @@ function Embauch() {
   // })
   const ClientChange=(e)=>{
 
-  //   let SelectedCL = []
-  //   SelectedCL=e.value
-  //   console.log(filterData,"fd")
-  // const  FClient =  
-  //   filterData.filter((res)=>{
-  //     return res.candidatCurrentWork == SelectedCL
-  //   })
-  //   console.log([...FClient],"Filre")
-  //   // setFilterData([...Client])
+    let SelectedCL = []
+    SelectedCL=e.value
+    console.log(FClient,"fd")
+    ClientFL =  FClient.filter((res)=>{
+      return res.clientCompanyName == SelectedCL
+    })
+    setFilterData([...ClientFL])
+    // setFilterData([...Client])
   }
+  console.log(filterData,"fld")
+
   
  const RestFilters=()=>{
   setSectors([])
@@ -475,6 +476,8 @@ function Embauch() {
   setJobOptions([])
   fetchAllSectors()
   filterFunction()
+  // ClientFL=[]
+  // setClients([])
 
 }
 
@@ -723,7 +726,7 @@ function Embauch() {
                       <div className="col-12">
                         <div className="row justify-content-end">
                         <div className="col-2 d-flex justify-content-end">
-                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 ?
+                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || ClientFL.length > 0 ?
 
 <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
 : null
@@ -743,7 +746,7 @@ function Embauch() {
                     <div className="col-12">
                       <div className="row justify-content-end">
                       <div className="col-2 d-flex justify-content-end">
-                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 ?
+                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || ClientFL.length > 0 ?
 
 <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
 : null

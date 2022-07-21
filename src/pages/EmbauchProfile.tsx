@@ -382,7 +382,7 @@ className="SelectBtn"
             </div>
             <div className="col-12 boxProgress mt-1">
               <div className="row">
-               <div className="col-6">
+               <div className="col-8">
                 <div className="row">
                   <div className="col-12 d-flex justify-content-start">
                   <div className="workFont d-flex"><b className="d-flex"><p>WORK FOR </p>: <span>{profile.candidatCurrentWork[0].workingFor}</span></b></div>
@@ -396,7 +396,7 @@ className="SelectBtn"
                 </div>
                 
               </div>
-              <div className="col-6 d-flex justify-content-end align-items-center">
+              <div className="col-4 d-flex justify-content-end align-items-center">
                 <div className="d-flex justify-content-center"><button className="btn customerBtnEmbauch"><span><img src={require("../images/eyeProfil.svg").default} /></span>CUSTOMER PROFIL</button></div>
                 </div>
 

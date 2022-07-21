@@ -34,7 +34,7 @@
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 11px;
     line-height: 25px;
     display: flex;
     align-items: flex-end;
@@ -308,6 +308,9 @@ color: #000000 !important;
         color: #FFFFFF;
         background: #032339;
         border-radius: 100px;
+    }
+    .btn-SEEFULLprofile:hover {
+color: #FFFFFF !important;
     }
     .missing{
         font-family: 'Poppins';

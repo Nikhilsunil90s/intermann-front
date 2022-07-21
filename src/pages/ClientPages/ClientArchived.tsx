@@ -362,12 +362,12 @@ export default function ClientArchived() {
   };
   const filterFunction = async () => {
     setLoader(false);
-    setStatus(false)
     if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0){
-      setLoader(true)
-      setStatus(true)
+      
       fetchProfiles().then((res)=>{
         setFilterData([...res])
+        setLoader(true)
+      setStatus(true)
       })
     }
     if (

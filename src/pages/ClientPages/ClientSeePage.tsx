@@ -32,10 +32,6 @@ function ClientSee() {
   const [UploadBtn,setSelectUpload]= useState(false)
   const hiddenImageInput = React.useRef(null);
   const [documentsList, setDocumentsList] = useState([]);
-  const uploadOption=[
-    {value:"upload",label:<Upload />,},
-    {value:"Download Image",label:<Download />} 
-    ]
 
   const editClientProfile = () => {
     navigate("/clientToDoEdit", { state: profile });
@@ -108,7 +104,7 @@ function ClientSee() {
           <div className="col-12 top-pd mt-1">
             {/* <h1 style={{ textDecoration: 'underline' }}>CLIENT FILE: {profile.clientCompanyName}</h1> */}
          <div className="row">
-          <div className="col-6">
+          <div className="col-8">
             <div className="stable">
               <Link to="/clientTodo">
                 <button type="button" className="btn FontStyle-TODOSEE">
@@ -118,7 +114,7 @@ function ClientSee() {
               </Link>
             </div>
           </div>
-          <div className="col-6 d-flex align-items-center justify-content-end text-end pr-2">
+          <div className="col-4 d-flex align-items-center justify-content-end text-end pr-2">
             <button className="btn btn-bgbClient" onClick={editClientProfile}>
               <img src={require("../../images/Edit.svg").default} />
               Edit Profile
@@ -130,10 +126,10 @@ function ClientSee() {
             <div className="col-12 my-1 py-1 ClientSEE-TopDetails">
               <div className="row">
                 <div className="col-2 pr-0 text-center">
-              <div className="logo-bg">
-                  <img
-                      src={require("../../images/enterprise.svg").default}
-                      style={{ backgroundColor: "transparent" }}
+              <div className="">
+              <img
+                      src={require("../../images/fullClientSee.svg").default}
+                     className="img-uploadTodo-Download"
                     />
                   </div>
                   {/* <Select
@@ -170,7 +166,7 @@ className="SelectBtn"
                 <div className="col-6 ClientSEEPtags">
                 <div className="d-flex">
                     <p>
-                    Company : {profile.clientCompanyName.toLocaleUpperCase()}|{profile.candidatAge}
+                    Company : {profile.clientCompanyName.toLocaleUpperCase()}|{profile.candidatAge ? profile.candidatAge : "No "}
                     </p>
                     <span className="card-xlSpan">(Age)</span>
                   </div>
@@ -201,7 +197,7 @@ className="SelectBtn"
             </div>
             <div className="col-12 mt-2 Social-CardClient p-1">
                   <div className="row px-1">
-                    <div className="col-xxl-2 col-xl-2 col-lg-2  col-md-6 d-flex px-0 justify-content-start">
+                    <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-6 d-flex px-0 justify-content-start">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Offre envoyé ?
@@ -215,7 +211,7 @@ className="SelectBtn"
                         />
                       </div>
                     </div>
-                    <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-6 d-flex px-0 justify-content-center">
+                    <div className="col-xxl-5 col-xl-5 col-lg-5  col-md-6 d-flex px-0 justify-content-center">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Signature digitale envoyé ?
@@ -228,7 +224,7 @@ className="SelectBtn"
                         />
                       </div>
                     </div>
-                    <div className="col-xxl-2 col-xl-2 col-lg-2  col-md-5 d-flex px-0 pt-1 justify-content-end ml-1">
+                    <div className="col-xxl-4 col-xl-4 col-lg-4  col-md-5 d-flex px-0 pt-1 justify-content-end ">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Contrat singé ?
@@ -241,7 +237,7 @@ className="SelectBtn"
                         />
                       </div>
                     </div>
-                    <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-6 d-flex px-0 pt-1 justify-content-end">
+                    <div className="col-xxl-5 col-xl-5 col-lg-5  col-md-6 d-flex px-0 pt-1 justify-content-end">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Publicité commencé ?
@@ -254,7 +250,7 @@ className="SelectBtn"
                         />
                       </div>
                     </div>
-                    <div className="col-xxl-1 col-xl-1 col-lg-1  col-md-4 d-flex px-0 pt-1 justify-content-center ml-1">
+                    <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-4 d-flex px-0 pt-1 justify-content-center ml-1">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">A1 ?</p>
                         <Switch
@@ -265,7 +261,7 @@ className="SelectBtn"
                         />
                       </div>
                     </div>
-                    <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-6 d-flex pt-1 px-0 justify-content-start">
+                    <div className="col-xxl-4 col-xl-4 col-lg-4  col-md-6 d-flex pt-1 px-0 justify-content-start">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Assurance faite ?
@@ -278,7 +274,7 @@ className="SelectBtn"
                         />
                       </div>
                     </div>
-                    <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-6 d-flex pt-1 px-0 justify-content-start">
+                    <div className="col-xxl-4 col-xl-4 col-lg-4  col-md-6 d-flex pt-1 px-0 justify-content-start">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Agence de voyage ok ?
@@ -291,7 +287,7 @@ className="SelectBtn"
                         />
                       </div>
                     </div>
-                    <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-6 d-flex pt-1 px-0 ">
+                    <div className="col-xxl-4 col-xl-4 col-lg-4  col-md-6 d-flex pt-1 px-0 ">
                       <div className="d-flex align-items-start ">
                         <p className="fontSizeReactSwitch mb-0">
                           SISPI déclaré ?
@@ -308,15 +304,18 @@ className="SelectBtn"
             </div>
             <div className="col-12 pt-1 py-0 mb-1">
               <div className="row justify-content-between">
-                <div
-                  className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-1 Social-btns"
+              <div
+                  className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-1 Social-cardDiv"
                   style={{ maxWidth: "49%" }}
                 >
-                  <p className="Span-Styling pt-2 pb-1 px-3 my-1">
+                  <div className="d-flex">
+                  <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
                  Company Mail : {profile.clientEmail ? profile.clientEmail : "No Email Provided!"}
                   </p>
-                  
-                  <button className="btn-TODOgmail">
+                  </div>
+                  {
+                    profile.clientEmail ?
+                    <button className="btn-TODOgmail">
                     <a
                       href="https://accounts.google.com/"
                       className="text-dark fw-bold"
@@ -328,69 +327,139 @@ className="SelectBtn"
                       Send Email
                     </a>
                   </button>
-                  <p className="Span-Styling pt-2 pb-1 px-3 my-1">Contact : {profile.clientEmail ? profile.clientEmail : "No Email!"}</p>
-                  <a
-                    href={profile.clientEmail}
-                    target="_blank"
-                    className="btn  fw-bold btn-TODOgmail"
-                  >
+                  :
+                  <button className="btn-TODOgmail">
+               
                     <span className="padding-email">
-                      <img
-                        src={require("../../images/gmail.svg").default}
-                      />
+                      <img style={{width:"8%"}}  src={require("../../images/gmail.svg").default} />
                     </span>
-                    Send Email
-                  </a>
+                    No Email !
+                </button>
+                  }
+                 
+                  <div className="d-flex">
+                  <p className="Span-StylingClient text-start pt-2 pb-1 my-1">Contact : {profile.clientEmail ? profile.clientEmail : "No Email!"}</p></div>
+               
+               {
+                profile.clientEmail ?
+                <a
+                href={profile.clientEmail}
+                target="_blank"
+                className="btn  fw-bold btn-TODOgmail"
+              >
+                <span className="padding-email">
+                  <img
+                    src={require("../../images/gmail.svg").default}
+                  />
+                </span>
+                Send Email
+              </a>
 
-                  <p className="Span-Styling my-2 px-3 pt-1  my-1">
+              :
+              <button
+              className="btn  fw-bold btn-TODOgmail"
+            >
+              <span className="padding-email">
+                <img
+                  src={require("../../images/gmail.svg").default}
+                />
+              </span>
+              No Email !
+            </button>
+               }
+                
+
+                  <div className="d-flex">
+                  <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
                   Company Phone : {profile.clientPhone ? profile.clientPhone : "No Phone Number!"}
                   </p>
-                  <a
-                      href={`https://wa.me/${profile.clientPhone}`}
-                      target="_blank"
-                    >
-                  <button className="btn-whatsapp my-1">
-                
-                      <span className="padding-email">
-                        <img
-                          style={{ width: "8%" }}
-                          src={require("../../images/whatsapp.svg").default}
-                        />
-                      </span>
-                      Send What’s App
-                  </button>
-                  </a>
+                  </div>
+                  {
+                    profile.clientPhone ?
+                    <a
+                    href={`https://wa.me/${profile.clientPhone}`}
+                    target="_blank"
+                  >
+                <button className="btn-whatsapp my-1">
+              
+                    <span className="padding-email">
+                      <img
+                        style={{ width: "8%" }}
+                        src={require("../../images/whatsapp.svg").default}
+                      />
+                    </span>
+                    Send What’s App
+                </button>
+                </a>
+:
+<button className="btn-whatsapp my-1">
+              
+<span className="padding-email">
+  <img
+    style={{ width: "8%" }}
+    src={require("../../images/whatsapp.svg").default}
+  />
+</span>
+No What’s App !
+</button>
+                  }
 
-                  <p className="Span-Styling my-2 px-3 pt-1  my-1">
+
+                  <div className="d-flex">
+                  <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
                   Contact Phone : {profile.clientReferenceNumber ? profile.clientReferenceNumber : "No Number!"}
                   </p>
-                  <a
-                      href={`https://wa.me/${profile.clientReferenceNumber}`}
-                      target="_blank"
-                    >
-                  <button className="btn-whatsapp my-1">
-   
-                      <span className="padding-email">
-                        <img
-                          style={{ width: "8%" }}
-                          src={require("../../images/whatsapp.svg").default}
-                        />
-                      </span>
-                      Send What’s App
-                  </button>
-                  </a>
+                  </div>
+                  {
+                    profile.clientReferenceNumber ? 
+                    <a
+                    href={`https://wa.me/${profile.clientReferenceNumber}`}
+                    target="_blank"
+                  >
+                <button className="btn-whatsapp my-1">
+ 
+                    <span className="padding-email">
+                      <img
+                        style={{ width: "8%" }}
+                        src={require("../../images/whatsapp.svg").default}
+                      />
+                    </span>
+                    Send What’s App
+                </button>
+                </a>
+
+                :
+                <button className="btn-whatsapp my-1">
+ 
+                <span className="padding-email">
+                  <img
+                    style={{ width: "8%" }}
+                    src={require("../../images/whatsapp.svg").default}
+                  />
+                </span>
+                No What’s App !
+            </button>
+
+                  }
+          
 
                 </div>
                 <div
-                  className="col-xxl-8 col-xl-8 col-lg-8 col-md-7 Social-Card px-1 detailsCardClientSee scrollbar Social-btnsTwo"
+                  className="col-xxl-8 col-xl-8 col-lg-8 col-md-7 Social-Card p-1 detailsCardClientSee scrollbar Social-btnS"
                   id="style-3"
                   style={{ maxWidth: "49%", }}
                 >
-                  <div className="Todo-CardMore force-overflow">
-                  <div className="">
-                  <p>Company Adress 
-                  <span className="Todo-CardMore-span">:{profile.clientAddress}</span>
-                  </p>
+                  <div className="Todo-ClinetCardMore force-overflow">
+                  <div className="d-flex">
+                    <div className="d-flex">
+                  
+                  <p className="CompanyAddres">Company Adress 
+                  </p> 
+                  
+                  <span className="Todo-ClinetCardMore-span">:{profile.clientAddress}</span>
+                 
+                   </div>
+               
                 </div>
                 <div className="d-flex align-items-center ">
                       <p className="blue-text">Ready for work :</p>
@@ -400,40 +469,41 @@ className="SelectBtn"
                     </div>
                     <div className="d-flex align-items-center">
                       <p>Langues : </p>
-                      <span className="Todo-CardMore-span"> {profile.clientLanguages ? profile.clientLanguages.join(", ") : "No Langues!"}</span>
+                      <span className="Todo-ClinetCardMore-span"> {profile.clientLanguages[0] ? profile.clientLanguages[0].join(", ") : "No Langues!"}</span>
                     </div>
                     <div className="d-flex align-items-center">
                       <p>Voyage en voiture :</p>
-                      <span className="Todo-CardMore-span">
+                      <span className="Todo-ClinetCardMore-span">
                         {profile.candidatConduireEnFrance ? "Yes" : "No"}
                       </span>
                     </div>
                    
-                    <div className="d-flex align-items-center">
-                      <p>Client Note: </p>
-                      <span className="Todo-CardMore-span">{profile.clientRequiredSkills != "" ? profile.clientRequiredSkills : "Not Available!"}</span>
+                    <div className="d-flex" >
+                      <p style={{width:"121px"}}>Client Note:</p>
+                      <span  className="Todo-ClinetCardMore-span" style={{textDecoration:"none",width:"390px"}}>{profile.clientRequiredSkills != "" ? profile.clientRequiredSkills : "Not Available!"}</span> 
+                      
                     </div>
                     <div className="d-flex align-items-center">
                   <p className="text-dark">Potential Turnover CA</p>
-                 <span className="Todo-CardMore-span">
+                 <span className="Todo-ClinetCardMore-span">
                     : {profile.jobTotalBudget} €
                   </span>
                 </div>
                 <div className="d-flex align-items-center">
                   <p className="text-dark">Salary by person </p>
-                 <span className="Todo-CardMore-span">
+                 <span className="Todo-ClinetCardMore-span">
                     : {profile.netSalary} €
                   </span>
                 </div>
                 <div className="d-flex align-items-center">
                   <p className="text-dark">Salaire net du salarié </p>
-                 <span className="Todo-CardMore-span">
+                 <span className="Todo-ClinetCardMore-span">
                     : {profile.SalaryH ? profile.SalaryH: "No Hours!"} 
                   </span>
                 </div>
                 <div className="d-flex align-items-center">
                   <p className="text-dark">Taux horraire</p>
-                 <span className="Todo-CardMore-span">
+                 <span className="Todo-ClinetCardMore-span">
                     :  {profile.SalaryH ? profile.SalaryH: "No Hours!"} 
                   </span>
                 </div>
@@ -527,7 +597,7 @@ className="SelectBtn"
                
                 <div className="d-flex align-items-center">
                   <p style={{ marginBottom: "0px" }}>Ajouté par/Added by :</p>
-                  <span style={{ marginBottom: "0px" }}>
+                  <span className="ClientFontMotivationsStylingS" style={{ marginBottom: "0px" }}>
                     {profile.enteredBy}
                   </span>
                 </div>
@@ -586,7 +656,7 @@ className="SelectBtn"
                   </div>
                   <div className="col-3 text-center">
                     <button type="button" className="btn btn-moveClient">
-                      Move to in Progress
+                   Move to in Progress
                     </button>
                     {showInProgressModal ?
                       <InProgressClientModal props={profile} closeModal={setShowInProgressModal} /> : null

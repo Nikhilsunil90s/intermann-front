@@ -668,42 +668,87 @@ right: 11px !important;
 
 .upload-Client .css-yt9ioa-option{
   padding: 8px 2px !important
-}
 
-@media (min-width:768){
-  .FontStyle-TODOSEE {
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 33px;
-    letter-spacing: 1px;
-    text-transform: capitalize;
-    color: #252726;
-}
-}
-@media (min-width:1200px){
-  .FontStyle-TODOSEE {
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 33px;
-    letter-spacing: 1px;
-    text-transform: capitalize;
-    color: #252726;
-}
 }
 @media (min-width:768px){
+  .btn-BlackEdit:hover{
+    color:"#ffff" !important;
+  }
+  .ArchivedBoxAds{
+    background: #FFE0E0;
+border: 2px solid #E21B1B;
+box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
+border-radius: 10px;
+  }
+  .StylingArchivedAds{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 27px;
+color: #000000;
+
+  }
+  .StylingArchivedAdss{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 26px;
+display: flex;
+align-items: center;
+color: #000000;
+
+  }
+  .Span-StylingClient {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 0px;
+    color: #000000;
+    padding: 0px !important;
+}
   .FontStyle-TODOSEE {
     font-family: "Poppins";
     font-style: normal;
     font-weight: 700;
-    font-size: 17px;
+    font-size: 15px;
     line-height: 33px;
     letter-spacing: 1px;
     text-transform: capitalize;
     color: #252726;
+}.ClientFontMotivationsStyling p {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  padding: 10px 0px;
+}
+.ClientFontMotivationsStylingS {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  padding: 10px 0px;
+}
+.clientNote {
+  font-family: 'Poppins' !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  font-size: 10px !important;
+  line-height: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding-top: 0px !important;
 }
 
 
@@ -733,10 +778,11 @@ right: 11px !important;
 .ClientSEEPtags {
   font-family: "Poppins";
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 15px;
   line-height: 27px;
   color: #000000;
+  padding-left: 29px;
  
 }
 .ClientSEEPtags p{
@@ -746,17 +792,30 @@ right: 11px !important;
   font-family: "Poppins";
   font-style: normal;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 20px;
   color: #000000;
 }
+.fontSizeReactSwitch {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 24px;
+  display: flex;
+  align-items: flex-end;
+  text-transform: capitalize;
+  color: #373A3C;
+  padding: 0px;
+}
+
 
 
 .Lead-encore p:last-child {
   font-family: "Poppins";
   font-style: normal;
   font-weight: 600;
-  font-size: 10px;
+  font-size: 9px;
   line-height: 16px;
   color: #000000;
 }
@@ -827,7 +886,7 @@ right: 11px !important;
   line-height: 24px;
   display: flex;
   align-items: flex-end;
-  padding: 18px 25px;
+  padding: 11px 15px;
   color: #FFFFFF;
 }
 .btn-bgbClient {
@@ -855,9 +914,147 @@ line-height: 21px;
 
 color: #000000;
 }
+.Todo-ClinetCardMore p {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 11px;
+  line-height:24px;
+  text-decoration-line: underline;
+  color: #000000;
+  margin-bottom: 0px;
+}
+.Todo-ClinetCardMore-span {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 24px;
+  text-decoration-line: unset !important;
+  color: #000000;
+  margin-bottom: 0px;
+}
+.inPAdsBOX {
+  background: #E4FFEF;
+  border: 2px solid #489767;
+  box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+  border-radius: 10px;
+}
+.Social-btnS{
+  margin-right: 0px;
+  height: 506px;
+  padding: 10px 0px;
+  max-width: 57% !important;
+}
+.CompanyAddres{
+  width:100px
+}
+.Social-cardDiv{
+  height: 322px;
+}
+.Social-btnS{
+  margin-right: 0px;
+  height: 322px;
+  padding: 10px 0px;
+  max-width: 57% !important;
+}
+.ClientN{
+  width:121px
+}
 }
 
 @media (min-width:1200px){
+  .btn-BlackEdit:hover{
+    color:"#ffff" !important;
+  }
+  .imgArchived-upload-download {
+    width: 129px !important;
+    object-fit: cover;
+    height: 129px;
+    border-radius: 145px;
+    border: 4px solid #FF0000;
+}
+.Social-cardDiv{
+  height: 506px;
+}
+.Social-btnS{
+    margin-right: 0px;
+    height: 506px;
+    padding: 10px 0px;
+    max-width: 57% !important;
+}
+  .btn-MoveClient {
+    background: #032339;
+    border-radius: 100px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 27px;
+    width: 120%;
+    padding: 10px 0px;
+    color: #FFFFFF;
+}
+  .ClientFontMotivationsStylingS {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    color: #000000;
+    padding: 10px 0px;
+}
+  .Span-StylingClient {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 0px;
+    color: #000000;
+    padding: 0px !important;
+}
+.inPAdsBOX {
+  background: #E4FFEF;
+  border: 2px solid #489767;
+  box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+  border-radius: 10px;
+}
+  .Todo-ClinetCardMore-span {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 39px;
+    text-decoration-line: unset !important;
+    color: #000000;
+    margin-bottom: 0px;
+  }
+  .Todo-ClinetCardMore p {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 38px;
+    text-decoration-line: underline;
+    color: #000000;
+    margin-bottom: 0px;
+   
+}
+.CompanyAddres{
+  width:167px 
+}
+  .FontStyle-TODOSEE {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 33px;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    color: #252726;
+}
   .TODOclientChild{
     font-family: 'Poppins';
   font-style: normal;
@@ -889,7 +1086,7 @@ color: #000000;
     align-items: center;
   }
   .logo-bg img {
-    height: 70%;
+    height: 62%;
   }
   .bg-btn {
     background-color: #c4c4c4;
@@ -1099,9 +1296,6 @@ color: #000000;
     line-height: 31px;
     color: #ffffff !important;
     padding-top: 5px;
-  }
-  .btn:hover {
-    color: #212529;
   }
   .btn-bgbClient:hover {
     color: #fe8700;

@@ -421,11 +421,9 @@ export default function ClientProgress() {
 
   const filterFunction = async () => {
     setLoader(false);
-    setStatus(false)
+    // setStatus(false)
     if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0){
-      setLoader(true)
-      setStatus(true)
-      fetchProfiles().then(reD => {setFilterData([...reD]);setStatus(true)})
+      fetchProfiles().then(reD => {setFilterData([...reD]);setStatus(true);setLoader(true)})
 
     }
     if (

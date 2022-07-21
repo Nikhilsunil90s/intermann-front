@@ -388,7 +388,7 @@ function Preselected(){
             if (SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0) {
               if (SelectedName.length > 0) {
                 LicencePermisArr = []
-                fetch(`${API_BASE_URL}getCandidats/?candidatName=${SelectedName}`, {
+                fetch(`${API_BASE_URL}getCandidats/?candidatName=${SelectedName}&candidatStatus=Pre-Selected`, {
         
                   method: "GET",
                   headers: {
@@ -399,11 +399,14 @@ function Preselected(){
                 })
                   .then((reD) => reD.json())
                   .then((result) => {
-                    {
-                      // setFilterData([...result.data]);
-                      // console.log(result,"result")
-                      setFilterData([...result.data]);
-                    }
+                    if(  result.total == 0){
+                      setLoader(true) 
+                      setStatus(false)
+                     } if(result.total != 0){
+                       setLoader(true)
+                       setStatus(true)
+                       setFilterData([...result.data]);
+                     }
                     // setStatus(result.status);
                   })
                   .catch((err) => err);
@@ -412,7 +415,7 @@ function Preselected(){
               if (MotivationArr.length > 0) {
                 setFilterData([])
                 SelectedName = []
-                fetch(`${API_BASE_URL}getCandidats/?candidatMotivation=${MotivationArr}`, {
+                fetch(`${API_BASE_URL}getCandidats/?candidatMotivation=${MotivationArr}&candidatStatus=Pre-Selected`, {
         
                   method: "GET",
                   headers: {
@@ -423,10 +426,14 @@ function Preselected(){
                 })
                   .then((reD) => reD.json())
                   .then((result) => {
-                    {
-                      // setFilterData([...result.data]);
-                      // console.log(result,"result")
+                      if(  result.total == 0){
+                     setLoader(true) 
+                     setStatus(false)
+                    } if(result.total != 0){
+                      setLoader(true)
+                      setStatus(true)
                       setFilterData([...result.data]);
+
                     }
                     // setStatus(result.status);
                   })
@@ -437,7 +444,7 @@ function Preselected(){
                 setFilterData([])
                 SelectedName = []
                 MotivationArr = []
-                fetch(`${API_BASE_URL}getCandidats/?candidatLicensePermis=${LicencePermisArr}`, {
+                fetch(`${API_BASE_URL}getCandidats/?candidatLicensePermis=${LicencePermisArr}&candidatStatus=Pre-Selected`, {
         
                   method: "GET",
                   headers: {
@@ -448,11 +455,14 @@ function Preselected(){
                 })
                   .then((reD) => reD.json())
                   .then((result) => {
-                    {
-                      // setFilterData([...result.data]);
-                      // console.log(result,"result")
-                      setFilterData([...result.data]);
-                    }
+                    if(  result.total == 0){
+                      setLoader(true) 
+                      setStatus(false)
+                     } if(result.total != 0){
+                       setLoader(true)
+                       setStatus(true)
+                       setFilterData([...result.data]);
+                     }
                     // setStatus(result.status);
                   })
                   .catch((err) => err);
@@ -465,7 +475,7 @@ function Preselected(){
               selectedLanguages.length == 0
             ) {
               fetch(
-                `${API_BASE_URL}filterToDoCandidatBySector/?sector=${selectedSector}`,
+                `${API_BASE_URL}getCandidats/?sector=${selectedSector}&candidatStatus=Pre-Selected`,
                 {
                   method: "GET",
                   headers: {
@@ -477,10 +487,14 @@ function Preselected(){
               )
                 .then((reD) => reD.json())
                 .then((result) => {
-                  {
-                    setFilterData([...result.data]);
-                  }
-                  setStatus(result.status);
+                  if(  result.total == 0){
+                    setLoader(true) 
+                    setStatus(false)
+                   } if(result.total != 0){
+                     setLoader(true)
+                     setStatus(true)
+                     setFilterData([...result.data]);
+                   }
                 })
                 .catch((err) => err);
               setLoader(true);
@@ -492,7 +506,7 @@ function Preselected(){
               selectedLanguages.length == 0
             ) {
               await fetch(
-                `${API_BASE_URL}filterToDoSJ/?sector=${selectedSector}&jobs=${FilterJob}`,
+                `${API_BASE_URL}getCandidats/?sector=${selectedSector}&jobs=${FilterJob}&candidatStatus=Pre-Selected`,
                 {
                   method: "GET",
                   headers: {
@@ -504,10 +518,14 @@ function Preselected(){
               )
                 .then((reD) => reD.json())
                 .then((result) => {
-                  {
-                    setFilterData([...result.data]);
-                  }
-                  setStatus(result.status);
+                  if(  result.total == 0){
+                    setLoader(true) 
+                    setStatus(false)
+                   } if(result.total != 0){
+                     setLoader(true)
+                     setStatus(true)
+                     setFilterData([...result.data]);
+                   }
                 })
                 .catch((err) => err);
               setLoader(true);
@@ -523,7 +541,7 @@ function Preselected(){
               selectedJob.length == 0
             ) {
               await fetch(
-                `${API_BASE_URL}filterToDoSL/?sector=${selectedSector}&languages=${selectedLanguages}`,
+                `${API_BASE_URL}getCandidats/?sector=${selectedSector}&languages=${selectedLanguages}&candidatStatus=Pre-Selected`,
                 {
                   method: "GET",
                   headers: {
@@ -535,10 +553,14 @@ function Preselected(){
               )
                 .then((reD) => reD.json())
                 .then((result) => {
-                  {
-                    setFilterData([...result.data]);
-                  }
-                  setStatus(result.status);
+                  if(  result.total == 0){
+                    setLoader(true) 
+                    setStatus(false)
+                   } if(result.total != 0){
+                     setLoader(true)
+                     setStatus(true)
+                     setFilterData([...result.data]);
+                   }
                 })
                 .catch((err) => err);
               setLoader(true);
@@ -549,34 +571,7 @@ function Preselected(){
               selectedLanguages.length > 0
             ) {
               await fetch(
-                `${API_BASE_URL}filterToDoSJL/?sector=${selectedSector}&jobs=${selectedJob}&languages=${selectedLanguages}`,
-                {
-                  method: "GET",
-                  headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token"),
-                  },
-                }
-              )
-                .then((reD) => reD.json())
-                .then((result) => {
-                  {
-                    setFilterData([...result.data]);
-                  }
-                  setStatus(result.status);
-                })
-                .catch((err) => err);
-              setLoader(true);
-            }
-        
-            if (
-              selectedLanguages.length > 0 &&
-              selectedJob.length == 0 &&
-              selectedSector.length == 0
-            ) {
-              await fetch(
-                `${API_BASE_URL}filterToDoCandidatByLanguages/?languages=${selectedLanguages}`,
+                `${API_BASE_URL}getCandidats/?sector=${selectedSector}&jobs=${selectedJob}&languages=${selectedLanguages}&candidatStatus=Pre-Selected`,
                 {
                   method: "GET",
                   headers: {

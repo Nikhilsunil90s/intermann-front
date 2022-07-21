@@ -143,9 +143,11 @@ line-height: 16px;
   
 }
 .box-red{
-    background-color: #FFE0E0 !important;
-padding: 25px 15px;
+background-color: #FFE0E0 !important;
+height: 106px;
+padding-top: 28px;
 }
+
 .box-red p{
     font-family: 'Poppins';
     font-style: normal;

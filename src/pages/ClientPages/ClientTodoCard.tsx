@@ -104,10 +104,10 @@ const ClientToDoCard = (props: any) => {
                     <div className="col-4 px-0 mt-1">
                         <p className="textClientCard" style={{width:"130%"}}><b>{props.data.clientCompanyName ? props.data.clientCompanyName : "No CompanyName!"}</b></p>
                 <p  className="textClientCard" style={{width:"130%"}}>Motivation :
-                             <b style={{background:"transparent" , zIndex:"9"}}>{candidatMotivationIcons[props.data.clientMotivation - 1]?.icon + " " + candidatMotivationIcons[props.data.clientMotivation - 1]?.motivation ? candidatMotivationIcons[props.data.clientMotivation - 1]?.icon + " " + candidatMotivationIcons[props.data.clientMotivation - 1]?.motivation : "No Motivation!"}</b>
+                             <b style={{background:"transparent" , zIndex:"9"}}>{candidatMotivationIcons[props.data.clientMotivation + 1 ]?.icon + " " + candidatMotivationIcons[props.data.clientMotivation + 1]?.motivation ? candidatMotivationIcons[props.data.clientMotivation + 1]?.icon + " " + candidatMotivationIcons[props.data.clientMotivation + 1]?.motivation : "No Motivation!"}</b>
                         </p>
-                         <div >  <p  className="textClientCard" style={{height:"30px", background:"transparent"}}>Importance :
-                             <b className="d-flex" style={{width:"40%",marginLeft:"5px"}}>{candidatImportanceIcons[props.data.clientImportance - 1]?.icon ? candidatImportanceIcons[props.data.clientImportance - 1]?.icon : "No Importance" }</b>
+                         <div >  <p  className="textClientCard" style={{height:"30px", background:"transparent",width:"120%"}}>Importance :
+                             <b className="d-flex" style={{width:"44%",marginLeft:"5px"}}>{candidatImportanceIcons[props.data.clientImportance - 1]?.icon ? candidatImportanceIcons[props.data.clientImportance - 1]?.icon : "No Importance" }</b>
 
                         </p>
                         </div>

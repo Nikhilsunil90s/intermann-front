@@ -56,9 +56,9 @@ function ClientSee() {
             <div className="col-12 p-3 bg-color-card">
               <div className="row">
               <div className="logo-bg">
-                  <img
-                      src={require("../../images/enterprise.svg").default}
-                      style={{ backgroundColor: "transparent" }}
+              <img
+                      src={require("../images/menlogos.svg").default}
+                     className="img-uploadTodo-Download"
                     />
                  
                   </div>
