@@ -81,7 +81,7 @@ font-size: 13px;
 line-height: 20px;
 text-transform: uppercase;
 color: #FFFFFF;
-padding: 11px 50px;
+padding: 11px 35px;
 }
 .RemoveSalary{
     border: 1px solid #000000;
@@ -204,4 +204,15 @@ color: #FE8700;
 }
   
   /* explanation */
+
+  .UnderChild{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 15px;
+display: flex;
+align-items: flex-end;
+color: #489767;
+  }
   

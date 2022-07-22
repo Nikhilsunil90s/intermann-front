@@ -469,7 +469,7 @@ No What’s App !
                     </div>
                     <div className="d-flex align-items-center">
                       <p>Langues : </p>
-                      <span className="Todo-ClinetCardMore-span"> {profile.clientLanguages[0] ? profile.clientLanguages[0].join(", ") : "No Langues!"}</span>
+                      <span className="Todo-ClinetCardMore-span"> {profile.clientLanguages ? profile.clientLanguages.join(", ") : "No Langues!"}</span>
                     </div>
                     <div className="d-flex align-items-center">
                       <p>Voyage en voiture :</p>
@@ -575,7 +575,7 @@ No What’s App !
                     />
                   </p> */}
                      <p  className="mb-0 pt-1" style={{width:"130%"}}>Motivation :
-                             <b style={{background:"transparent" , zIndex:"9999"}}>{candidatMotivationIcons[profile.clientMotivation - 1]?.icon + " " + candidatMotivationIcons[profile.clientMotivation - 1]?.motivation ? candidatMotivationIcons[profile.clientMotivation - 1]?.icon + " " + candidatMotivationIcons[profile.clientMotivation - 1]?.motivation : "No Motivation!"}</b>
+                             <b style={{background:"transparent" , zIndex:"9999"}}>{candidatMotivationIcons[profile.clientMotivation]?.icon + " " + candidatMotivationIcons[profile.clientMotivation ]?.motivation ? candidatMotivationIcons[profile.clientMotivation ]?.icon + " " + candidatMotivationIcons[profile.clientMotivation]?.motivation : "No Motivation!"}</b>
                         </p>
                 
                   {/* <p>
@@ -634,7 +634,7 @@ No What’s App !
                     <p style={{ width: "106%" }} className="btn-Down text-center">Créer une Offre avec Canva</p>
                   </div>
                   <div className="col-3 text-center">
-                    <button type="button" className="btn btn-ArchivedClient">
+                    <button type="button" className="btn btn-ArchivedClient" onClick={()=>setShowArchiveModal(true)}>
                       Archive / Canceleld
                     </button>
                     {showArchiveModal ?
@@ -655,7 +655,7 @@ No What’s App !
                     </p>
                   </div>
                   <div className="col-3 text-center">
-                    <button type="button" className="btn btn-moveClient">
+                    <button type="button" className="btn btn-moveClient" onClick={()=>setShowInProgressModal(true)}>
                    Move to in Progress
                     </button>
                     {showInProgressModal ?

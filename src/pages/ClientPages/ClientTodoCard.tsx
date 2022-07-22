@@ -130,13 +130,13 @@ const ClientToDoCard = (props: any) => {
                     <p className="fontStylingCardP">Secteur : {props.data.clientActivitySector ? props.data.clientActivitySector : "No Sector!"} </p>
                     <p className="fontStylingCardP">Job :  {props.data.clientJob ? props.data.clientJob : "No Job!"}</p>
                     <p>Langues : <b> {props.data.clientLanguages.length ? props.data.clientLanguages : "No Langues!"}</b> </p>
-                    <p>Phone Number :<b>{props.data.clientPhone.length ? props.data.clientPhone : "No Phone Number!"}</b> </p>
+                    <p>Phone :<b>{props.data.clientPhone.length ? props.data.clientPhone : "No Phone Number!"}</b> </p>
                     <p>Estimated CA :   <b>{props.data.jobTotalBudget ? props.data.jobTotalBudget + " €" : "N/A"}</b> </p>                
 
                 </div>
                 <div className="col-7 fontStylingCardDetails px-0 pt-1">
                 <p>Salary by person : <b>{props.data.netSalary ? props.data.netSalary + " €" : "N/A"}</b> </p>
-                <p>Client Mail : <b>{props.data.clientEmail.length? props.data.clientEmail : "No Email!"}</b> </p>
+                <p>E-Mail : <b>{props.data.clientEmail.length? props.data.clientEmail : "No Email!"}</b> </p>
                     <p>Client Phone : <b>{props.data.clientPhone.length? props.data.clientPhone : "No Client Number!"}</b> </p>
                     <p>Contact Name :  <b>{props.data.clientReferenceName ? props.data.clientReferenceName : "No Name!"}</b> </p>
                     <p>Contact phone :   <b>{props.data.clientReferenceNumber.length? props.data.clientReferenceNumber: "No Contact Number!"}</b> </p>

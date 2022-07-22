@@ -8,6 +8,9 @@ import UploadDow from '../../components/Modal/SelectUploadDownload'
 import Switch from "react-switch";
 import {ReactComponent as Empty} from "../../images/emptyStar.svg";
 import {ReactComponent as StarRating} from "../../images/RatingStar.svg";
+import ArchivedClientModal from "../../components/Modal/ArchivedClientModal";
+import SignedClientModal from "../../components/Modal/SignContractModal";
+
 
 function ClientProgressView() {
 
@@ -15,6 +18,10 @@ function ClientProgressView() {
   const navigate = useNavigate();
 
   const [profile, setProfile] = useState<any>(state)
+  const [showArchiveModal, setShowArchiveModal] = useState(false)
+  const [showSignedModal, setShowSignedModal] = useState(false);
+  const [clientContactOne, setClientContactOne] = useState(profile.clientPhone != "" ? profile.clientPhone.split(" ").join("") : "");
+  const [clientContactTwo, setClientContactTwo] = useState(profile.clientReferenceNumber != "" ? profile.clientReferenceNumber.split(" ").join("") : "");
   const [UploadBtn,setSelectUpload]= useState(false)
   const hiddenImageInput = React.useRef(null);
   const [SISPI, setChecked] = useState(false);
@@ -37,6 +44,11 @@ function ClientProgressView() {
       // window.open(API_BASE_URL + candidatImage);
     }
   }
+
+  const editClientProfile = () => {
+    navigate("/clientInProgressEdit", { state: profile });
+  }
+
   const handleImageUpload = () => {
     hiddenImageInput.current.click();
   }
@@ -94,12 +106,12 @@ function ClientProgressView() {
             </div>
           </div>
           <div className="col-4  d-flex align-items-center justify-content-end text-end pr-2">
-            <Link to="/clientInProgressEdit">
-              <button className="btn btn-bgbClient">
+            
+              <button className="btn btn-bgbClient" onClick={()=>editClientProfile()}>
                 <img src={require("../../images/Edit.svg").default} />
                 Edit Profile
               </button>
-            </Link>
+            
           </div>
           </div>
           </div>
@@ -573,7 +585,7 @@ No What’s App !
               <div className="col-12 Social-CardClient p-1">
                 <div className="row">
                 <div className="col-3 text-center">
-                    <button type="button" className="btn btn-BlackEdit">
+                    <button type="button" className="btn btn-BlackEdit" onClick={editClientProfile}>
                       <img src={require("../../images/Edit.svg").default} />
                       Edit Profile
                     </button>
@@ -591,9 +603,12 @@ No What’s App !
                     <p className="btn-Down text-center">Créer une offre avec Canva</p>
                   </div>
                   <div className="col-3 text-center">
-                    <button type="button" className="btn btn-ArchivedClient">
+                    <button type="button" className="btn btn-ArchivedClient" onClick={() => { setShowArchiveModal(true) }}>
                       Archive / Canceleld
                     </button>
+                    {showArchiveModal ?
+                      <ArchivedClientModal props={profile} closeModal={setShowArchiveModal} path={"/clientToDoProfile"} /> : null
+                    }
                     <p className="btn-Down text-center">Si plus d’actualité</p>
                   </div>
                   <div className="col-3">
@@ -619,7 +634,7 @@ No What’s App !
                     <p className="btn-Down text-center">Créer un contrat avec Drive</p>
                   </div>
                   <div className="col-3 text-center">
-                    <button type="button" className="btn btn-MoveClient">
+                    <button type="button" className="btn btn-MoveClient"  onClick={() => { setShowSignedModal(true) }}>
                     <img
                         src={require("../../images/doc.svg").default}
                         style={{ paddingRight: "5px" }}
@@ -627,7 +642,9 @@ No What’s App !
                       </button>
                     <p className="btn-Down text-center">Si on lance les recherches</p>
                   </div>
-                      
+                  {showSignedModal ?
+                      <SignedClientModal props={profile} closeModal={setShowSignedModal} /> : null
+                    }
                   
                   </div>
                   

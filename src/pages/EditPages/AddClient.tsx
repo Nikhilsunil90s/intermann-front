@@ -605,7 +605,7 @@ console.log(StarRatings,"hello")
   placeholderRating={0}
   
 /> */}
-<RatingCmp  StarRatings={setRatings} StarR={StarRatings}/>
+<RatingCmp  StarRatings={setRatings} StarR={StarRatings} FunC={null}/>
                     </div>
                   </div>
                 </div>
@@ -684,6 +684,7 @@ console.log(StarRatings,"hello")
                       Select salaries Hours
                     </p>
                     <div className="d-flex " id="dam_return">
+                
                       <div className="pr-1">
                         <button
                           type="button"

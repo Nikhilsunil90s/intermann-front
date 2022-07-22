@@ -15,6 +15,8 @@ function ArchivedViewPage(){
 
   const [profile, setProfile] = useState<any>(state)
   const [UploadBtn,setSelectUpload]= useState(false)
+  const [hideProfile,setHideProfile]=useState(false)
+  const [ResetModalProfile,setResetModalProfile]=useState(false)
   const hiddenImageInput = React.useRef(null);
   const [SISPI, setChecked] = useState(false);
   const [Agence,setAgence]=useState(false)
@@ -39,6 +41,11 @@ function ArchivedViewPage(){
   const handleImageUpload = () => {
     hiddenImageInput.current.click();
   }
+
+  const editClientProfile = () => {
+    navigate("/archivedClientEditprofile", { state: profile });
+  }
+
   const switchHandle = (event,id,e) => {
     if(e==="Offre"){
       setOffre(event)
@@ -85,12 +92,12 @@ function ArchivedViewPage(){
             </div>
           </div>
           <div className="col-4  d-flex align-items-center justify-content-end text-end pr-2">
-            <Link to="/clientInProgressEdit">
-              <button className="btn btn-bgbClient">
+            {/* <Link to="/clientInProgressEdit"> */}
+              <button className="btn btn-bgbClient" onClick={()=>editClientProfile()}>
                 <img src={require("../../images/Edit.svg").default} />
                 Edit Profile
               </button>
-            </Link>
+            {/* </Link> */}
           </div>
           </div>
           </div>
@@ -566,62 +573,19 @@ No What’s App !
               </div>
               <div className="col-12 Social-CardClient p-1">
                 <div className="row">
+              
+                <div className="col-3  text-center">
+                     <button className="hideProfile" onClick={()=>setHideProfile(true)}>
+                    <img src={require("../../images/visibility.svg").default} />
+                      Hide this profile</button>
+                      <p className="italic-fontStyle text-center">Profile will be not deleted but hidded</p>
+                </div>
                 <div className="col-3 text-center">
-                    <button type="button" className="btn btn-BlackEdit">
-                      <img src={require("../../images/Edit.svg").default} />
-                      Edit Profile
-                    </button>
-                    <p className="btn-Down text-center text-start">Editer le profil</p>
-                  </div>
-                  
-                  <div className="col-3 text-center">
-                    <button type="button" className="btn btn-contractClient">
-                      <img
-                        src={require("../../images/doc.svg").default}
-                        style={{ paddingRight: "5px" }}
-                      />
-                      Créer offre
-                    </button>
-                    <p className="btn-Down text-center">Créer une offre avec Canva</p>
-                  </div>
-                  <div className="col-3 text-center">
-                    <button type="button" className="btn btn-ArchivedClient">
-                      Archive / Canceleld
-                    </button>
-                    <p className="btn-Down text-center">Si plus d’actualité</p>
-                  </div>
-                  <div className="col-3">
-                    <button type="button" className="btn btn-grilleClient">
-                      <img
-                        src={require("../../images/salary.svg").default}
-                        style={{ paddingRight: "5px" }}
-                      />
-                      Grille de prix
-                    </button>
-                    <p className="btn-Down text-center">
-                      Accès réstreint à Jeremy & Pat
-                    </p>
-                  </div>
-                  <div className="col-3">
-                    <button type="button" className="btn  btn-careerClient">
-                      <img
-                        src={require("../../images/doc.svg").default}
-                        style={{ paddingRight: "5px" }}
-                      />
-                      Créer contrat
-                    </button>
-                    <p className="btn-Down text-center">Créer un contrat avec Drive</p>
-                  </div>
-                  <div className="col-3 text-center">
-                    <button type="button" className="btn btn-MoveClient">
-                    <img
-                        src={require("../../images/doc.svg").default}
-                        style={{ paddingRight: "5px" }}
-                      />      Move to signed contract
-                      </button>
-                    <p className="btn-Down text-center">Si on lance les recherches</p>
-                  </div>
-                      
+                     <button className="restProfile" onClick={()=>setResetModalProfile(true)}>
+                    <img src={require("../../images/rest.svg").default} />
+                    Reset this profile</button>
+                    <p className="italic-fontStyle text-center">Profile will be reset to todo stage</p>
+                </div>
                   
                   </div>
                   

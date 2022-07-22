@@ -163,10 +163,6 @@ color: #A461D8;
   color: #3f76e2 !important;
 }
 
-.btn:hover {
-  color: #ffffff;
-}
-
 .btn-black:hover {
   color: #fe8700;
 }
@@ -304,10 +300,6 @@ thead {
   line-height: 16px;
   color: #ffffff;
   padding-top: 5px;
-}
-
-.btn:hover {
-  color: #212529;
 }
 
 .btn-bgb:hover {

@@ -104,9 +104,6 @@
 .blue-text {
   color: #3f76e2 !important;
 }
-.btn:hover {
-  color: #ffffff;
-}
 .btn-black:hover {
   color: #fe8700;
 }
@@ -229,9 +226,7 @@ thead {
   color: #ffffff !important;
   padding-top: 5px;
 }
-.btn:hover {
-  color: #212529;
-}
+
 .btn-bgbClient:hover {
   color: #fe8700;
 }
@@ -1172,9 +1167,7 @@ color: #000000;
   .blue-text {
     color: #3f76e2 !important;
   }
-  .btn:hover {
-    color: #ffffff;
-  }
+
   .btn-black:hover {
     color: #fe8700;
   }

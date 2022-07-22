@@ -80,3 +80,15 @@ font-size: 14px;
 line-height: 21px;
 color: #000000;
 }
+.PermisDrive{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 24px;
+display: flex;
+align-items: flex-end;
+text-transform: capitalize;
+color: #373A3C;
+
+}
