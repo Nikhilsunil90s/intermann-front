@@ -69,7 +69,7 @@ function ClientInProgressEdit() {
   const [id, setID] = useState("");
   const hiddenImageInput = React.useRef(null);
   const [UploadBtn,setSelectUpload]= useState(false)
-  const[clientImg,setClientImg]=useState(profile.clientPhoto.imageName)
+  // const[clientImg,setClientImg]=useState(profile.clientPhoto.imageName ? profile.clientPhoto.imageName : "")
     const [SalaryH,setSalaryH]=useState([
       {
           value:"10000rs",id:"1",text:"35H"
@@ -97,6 +97,7 @@ function ClientInProgressEdit() {
       },
     ])as any
   
+
     const colourStyles: StylesConfig<ColourOption, true> = {
       control: (styles) => ({ ...styles, backgroundColor: 'white' }),
       option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -465,6 +466,15 @@ setJobOptions([])
       setData({ ...data, clientLanguages: arr })
     }
 
+    useEffect(() => {
+      console.log(activitySectors);
+      let sectorops = activitySectors.map((asector) => {
+        return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
+      })
+  
+      setSectorOptions([...sectorops]);
+    }, [activitySectors])
+    
     return (
         <>
             <Toaster
@@ -512,19 +522,19 @@ setJobOptions([])
                                 <div className="row">
                                     <div className="col-2  text-center">
                             
-                            {
+                            {/* {
                               clientImg ?
                               <img
                               src={API_BASE_URL + clientImg}
                              className="imgEmbauch-upload-Download"
           
                             />  
-                              :
+                              : */}
                               <img
                               src={require("../../images/fullClientSee.svg").default}
                              className="imgEmbauch-upload-Download"
                             />      
-                            }                 
+                            {/* }                  */}
 
 <button
  onClick={()=>{setSelectUpload(!UploadBtn);}}

@@ -396,7 +396,7 @@ color: #373A3C;
         
     }
 .topPdInput{
-    padding-top: 10px !important;
+    padding-top: 10px ;
 }
 .fw-boldEn {
     font-family: 'Poppins';
@@ -428,6 +428,9 @@ border-radius: 14px;
 }
 }
 @media (min-width:1200px){
+    .topPdInput{
+        padding-top: 0px;
+    }
     .edit-btnCancel{
         border: 1px solid #E21B1B;
 border-radius: 100px;

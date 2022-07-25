@@ -399,9 +399,11 @@ className="SelectBtn"
                   style={{ maxWidth: "57%" }}
                 >
                   <div className="pre-CardMore force-overflow">
-                    <div className="d-flex">
-                      <p>Langues : </p>
-                      <span> {profile.candidatLanguages.join(", ")}</span>
+                    <div className="d-flex align-items-center">
+                      <p>Langues :</p>
+                      <span className="Todo-CardMore-span"> {profile.candidatLanguages ? profile.candidatLanguages.join(", ") : "No Langues!"}</span>
+                      </div>
+                      <div className="d-flex">  <p>Skills/note: </p> <span className="Todo-CardMore-span">{profile.candidatSkills ? profile.candidatSkills : "No Skills!"}</span></div>
                     </div>
                     <div className="d-flex ">
                       <p className="blue-text">Ready for work :</p>
@@ -424,16 +426,15 @@ className="SelectBtn"
                    
                     <div className="d-flex">
                       <p>Skills/note: </p>
-                      <span>{profile.candidatSkills}</span>
+                      <span>{profile.candidatSkills ? profile.candidatSkills : "No Skills!"}</span>
                     </div>
                     <div className="d-flex">
                       <p className="text-dark">Trouvé sur  : </p>
                       <span className="text-dark">
-                        {profile.candidatJob}
+                      {profile.candidatJob ? profile.candidatJob : "No Trouvé!"}
                       </span>
                     </div>
                    
-                  </div>
                 </div>
                 <div
                   className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-1 heightWidth"

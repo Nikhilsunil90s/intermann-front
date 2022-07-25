@@ -28,6 +28,8 @@ declare global {
 let SelectedName = []
 let FilterJob = [];
 let LanguageFilter=[]
+let ClientFL=[]
+let SelectedClient=[]
 function ArchivedList() {
   const [sectors, setSectors] = useState([]);
   const [jobs, setJobs] = useState([]);
@@ -155,7 +157,7 @@ function ArchivedList() {
       .catch((err) => err);
   };
   const fetchClients = async () => {
-    return await fetch(API_BASE_URL + `getClientsByStatus/?leadStatus=Archived`, {
+    return await fetch(API_BASE_URL + `getClientsForFilter`, {
       method: "GET",
       headers: {
         "Accept": 'application/json',
@@ -179,7 +181,7 @@ function ArchivedList() {
     if(Clients.length ==0){
       fetchClients().then((data)=>{
    let ClientOP:any= data.data.map((el)=>{
-      return  { value: el.clientCompanyName, label:el.clientCompanyName, color: '#FF8B00' }
+      return  { value: el, label:el, color: '#FF8B00' }
    })
    setClients([{value:"Select Client",label:"Select Client",color:"#ff8b00"},...ClientOP])
       })
@@ -227,20 +229,6 @@ function ArchivedList() {
       .catch((err) => err);
   };
 
-  const RestFilters=()=>{
-
-    setNameOptions([])
-    SelectedName=[]
-    setSectors([])
-    setSectorOptions([])
-    setSelectedJob([])
-    setJobOptions([])
-    setJobs([])
-    LanguageFilter=[]
-    setLangOp([])
-    filterFunction()
-  }
-
   const handleSectorChange = (e: any) => {
     // console.log(e.target.value)
     SelectedName = []
@@ -268,6 +256,8 @@ function ArchivedList() {
         // console.log(err);
       });
   };
+
+ 
 
   const jobChange = async (jobval) => {
     // console.log(jobval)
@@ -344,6 +334,38 @@ function ArchivedList() {
           .catch((err) => err);
         setLoader(true);
       }
+    }
+    if(SelectedClient.length >0){
+      fetch(API_BASE_URL + `getCandidatsByClient/?clientCompanyName=${SelectedClient}`, {
+        method: "GET",
+        headers: {
+          "Accept": 'application/json',
+          "Authorization": "Bearer " + localStorage.getItem('token')
+        },
+      })
+        .then(resp => resp.json())
+        .then(respData => {
+          respData.data.map((el)=>{
+            ClientFL = el.employeesWorkingUnder.filter((el)=>{
+              return el.candidatStatus == "Archived"
+            })
+          })
+          {
+           if( respData.status == false || ClientFL.length == 0 ){
+           
+            setLoader(true)
+             setStatus(false)
+           }else {
+            
+             setLoader(true)
+             setStatus(true)
+            setFilterData([...ClientFL])
+            console.log([...ClientFL],"sab")
+          }
+        }
+         
+        })
+                .catch(err => err)
     }
     if (
       selectedSector.length > 0 &&
@@ -481,7 +503,7 @@ function ArchivedList() {
         .catch((err) => err);
       setLoader(true);
     }
-    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0  && LanguageFilter.length ===0) {
+    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0  && LanguageFilter.length ===0 && SelectedClient.length === 0 ) {
       {
         setLoader(true)
         setStatus(true)
@@ -494,11 +516,34 @@ function ArchivedList() {
       }
     }
   };
-// useEffect(() => {
-//   fetchProfiles();
-// }, []);
 
 
+
+  const ClientChange=(e)=>{
+    setSelectedSector("")
+    if(e.value){
+     SelectedClient=[]
+     SelectedClient.push(e.value)
+     filterFunction();
+  }
+
+}
+  const ResetFilters=()=>{
+
+    setSectors([])
+    setNameOptions([])
+    SelectedName=[]
+    setSelectedSector("")
+    setSectorOptions([])
+    setJobs([])
+    setSelectedJob([])
+    setJobOptions([])
+    fetchAllSectors()
+    filterFunction()
+    ClientFL=[]
+    setClients([])
+    SelectedClient=[]
+  }
 
   return (
     <>
@@ -616,6 +661,7 @@ function ArchivedList() {
                                 classNamePrefix="select"
                                 styles={colourStyles}
                                 options={Clients}
+                                onChange={ClientChange}
                               />
                                 :
        <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
@@ -652,9 +698,9 @@ function ArchivedList() {
                       <div className="col-12">
                         <div className="row justify-content-end">
                         <div className="col-2 d-flex justify-content-end">
-                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || LanguageFilter.length>0 ?
+                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || LanguageFilter.length>0 || SelectedClient.length > 0 ?
 
-<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
+<p className="filterStyling  cursor-pointer mt-2" onClick={() => ResetFilters()}>Reset Filters</p>
 : null
 }
 </div>
@@ -671,9 +717,9 @@ function ArchivedList() {
                     <div className="col-12">
                       <div className="row justify-content-end">
                       <div className="col-2 d-flex justify-content-end">
-                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || LanguageFilter.length>0 ?
+                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || LanguageFilter.length>0  || SelectedClient.length > 0 ?
 
-<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
+<p className="filterStyling  cursor-pointer mt-2" onClick={() => ResetFilters()}>Reset Filters</p>
 : null
 }
 </div>

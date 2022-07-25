@@ -51,8 +51,8 @@ const ArchivedProfileCard = (props: any) => {
                         />
                     </div>
                     <div className="col-7 ArchivedCard pt-1 px-0" >
-                        <p style={{width:"112%"}}><b>{props.props.candidatName}</b></p>
-                        <p><b> {props.props.candidatAge}</b></p>
+                    <p className="text-dark mb-0"><b>{props.props.candidatName.length > 20 ? props.props.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.props.candidatName.toLocaleUpperCase()}</b></p>
+                        <p className="text-dark mb-0">{props.props.candidatAge ?  <p className="age00 mb-0">Age : <b> {props.props.candidatAge}</b></p> : <b>Age Not Available!</b>}</p>
                         <div >  <p className="text-dark d-flex"> <b>{candidatMotivationIcons[props.props.candidatMotivation - 1].icon + " " + candidatMotivationIcons[props.props.candidatMotivation - 1].motivation}</b>
                         </p>
                         </div>
@@ -90,7 +90,7 @@ const ArchivedProfileCard = (props: any) => {
                     <p>Secteur: <b> {props.props.candidatActivitySector.toLocaleUpperCase()}</b></p>
                     <p>Job: <b> {props.props.candidatJob.toLocaleUpperCase()}</b></p>
                     <p>Candidats age: <b>{props.props.candidatAge ? props.props.candidatAge +"years old" : "Age Not Available!"}</b></p>
-                    <p>Langues:  <b> {props.props.candidatLanguages.join(", ")} </b></p>
+                    <p>Langues:  <b> {props.data.candidatLanguages.length > 0 ? props.data.candidatLanguages.join(", ") : "No Langues Selected!"} </b></p>
                     <p>Phone Number:  <b>{props.props.candidatPhone}</b></p>
                     <p>Facebook URL:  <b>{props.props.candidatFBURL ? <a href={props.props.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
                     <p>Email: <b>{props.props.candidatEmail ? props.props.candidatEmail : "No Email Provided!"}</b> </p>

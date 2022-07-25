@@ -98,7 +98,7 @@ const PreSelectedCard = (props: any,{path}) => {
                 <p className="preCard-Body-p">Candidats Age : <b>{props.data.candidatAge}</b></p> 
                     <p className="preCard-Body-p">Langues :  <b>{props.data.candidatLanguages.length > 0 ? props.data.candidatLanguages.join(", ") : "No Langues Selected!"}</b>
                      </p>
-                    <p className="preCard-Body-p">Phone Number : <b>{props.data.candidatPhone} </b></p>
+                    <p className="preCard-Body-p">Phone Number : <b>{props.data.candidatPhone ? props.data.candidatPhone : "No Phone!"} </b></p>
                     <p className="preCard-Body-p">Facebook URL : <b>{props.data.candidatFBURL ? <a href={props.data.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
                     <p className="preCard-Body-p">Email :  <b> {props.data.candidatEmail ? props.data.candidatEmail : "No Email Provided!"}</b></p>
                     <p className="preCard-Body-blue ">
@@ -107,7 +107,7 @@ const PreSelectedCard = (props: any,{path}) => {
                 </div>
                 <div className="col-12">
                  <div className="row preSelectedCommentBox">
-                    <div className="col-12 preCard-Body ">Preselected for client : {props.data.candidatName}</div>
+                    <div className="col-12 preCard-Body ">Preselected for client : {props.data.candidatName ? props.data.candidatName : "No Name!"}</div>
                     <div className="col-12"><ReadMoreReact text={props.data.candidatPreSelectedFor[0].reasonForPreSelection ? props.data.candidatPreSelectedFor[0].reasonForPreSelection : "No Reason Available!"}
             min={100}
             ideal={150}

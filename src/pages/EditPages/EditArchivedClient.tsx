@@ -67,7 +67,7 @@ function ClientArchivedEdit() {
   const [showHour, setShowHour] = useState("");
   const [id, setID] = useState("");
   const hiddenImageInput = React.useRef(null);
-  const[clientImg,setClientImg]=useState(profile.clientPhoto.imageName)
+  // const[clientImg,setClientImg]=useState(profile.clientPhoto.imageName)
   const [UploadBtn,setSelectUpload]= useState(false)
     const [SalaryH,setSalaryH]=useState([
       {
@@ -576,20 +576,20 @@ function ClientArchivedEdit() {
                                 <div className="row">
                                     <div className="col-2  text-center">
                               
-                              {
+                              {/* {
                                 clientImg ?
                                 <img
                                 src={API_BASE_URL + clientImg}
                                className="imgArchived-upload-download"
             
                               />  
-                                :
+                                : */}
                                 <img
                                 src={require("../../images/fullClientSee.svg").default}
                                className="imgArchived-upload-download"
             
                               />   
-                              }
+                              {/* } */}
                       
 
 <button

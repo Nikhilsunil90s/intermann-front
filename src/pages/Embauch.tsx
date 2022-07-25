@@ -10,6 +10,7 @@ import chroma from 'chroma-js'
 import SelectLoader from "../components/Loader/selectLoader"
 import { colourOptions, ColourOption } from "../Selecteddata/data";
 import ProfileLoader from "../components/Loader/ProfilesLoader"
+import set from "date-fns/set";
 
 
 declare global {
@@ -35,6 +36,7 @@ declare global {
 let SelectedName = []
 let FilterJob = [];
 let ClientFL=[]
+let SelectedClient=[]
 function Embauch() {
   const [sectors, setSectors] = useState([]);
   const [jobs, setJobs] = useState([]);
@@ -49,8 +51,7 @@ function Embauch() {
   const [jobOptions, setJobOptions] = useState([]);
   const [showMore, setShowMore] = useState(true)
   const [Clients,setClients]=useState([])
-  const [FClient,setFClient]= useState([])
-
+  
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -104,7 +105,7 @@ function Embauch() {
     }),
   };
   const fetchClients = async () => {
-    return await fetch(API_BASE_URL + `getClientsByStatus/?leadStatus=In-Progress`, {
+    return await fetch(API_BASE_URL + `getClientsForFilter`, {
       method: "GET",
       headers: {
         "Accept": 'application/json',
@@ -120,14 +121,14 @@ function Embauch() {
     if(Clients.length ==0){
       let ClientOP =[]
       fetchClients().then((data)=>{
-        setFClient([...data.data])
         ClientOP = data.data.map((el)=>{
-      return  { value: el.clientCompanyName, label:el.clientCompanyName, color: '#FF8B00' }
+      return  { value: el, label:el, color: '#FF8B00' }
    })
 
    setClients([{value:"Select Client",label:"Select Client",color:"#ff8b00"},...ClientOP])
       })
     }
+ 
     if (sectors.length == 0) {
       fetchAllSectors()
         .then((data) => {
@@ -181,11 +182,15 @@ function Embauch() {
       })
     }
   })
+
   const handleNameChange = (e: any) => {
     // console.log(e.target.value)
     SelectedName = []
     setSelectedSector("")
     setSelectedJob([])
+    ClientFL=[]
+    SelectedClient=[]
+    setFilterData([])
     if (e.value === "Select Name") {
       SelectedName = []
     filterFunction();
@@ -193,6 +198,7 @@ function Embauch() {
       SelectedName = []
       let NameField = e.value;
       SelectedName.push(NameField)
+      filterFunction();
     }
   };
 
@@ -233,6 +239,8 @@ function Embauch() {
     // console.log(e.target.value)
     SelectedName = []
     FilterJob = [];
+    ClientFL=[]
+    SelectedClient=[]
     setSelectedJob([])
     console.log(e)
     if (e.value === "Select Sector") {
@@ -289,6 +297,39 @@ function Embauch() {
         setLoader(true);
       }
     }
+    if(SelectedClient.length > 0){
+      fetch(API_BASE_URL + `getCandidatsByClient/?clientCompanyName=${SelectedClient}`, {
+           method: "GET",
+           headers: {
+             "Accept": 'application/json',
+             "Authorization": "Bearer " + localStorage.getItem('token')
+           },
+         })
+           .then(resp => resp.json())
+           .then(respData => {
+             respData.data.map((el)=>{
+               ClientFL = el.employeesWorkingUnder.filter((el)=>{
+                 return el.candidatStatus == "In-Progress"
+               })
+             })
+             {
+              if( respData.status == false || ClientFL.length == 0 ){
+              
+               setLoader(true)
+                setStatus(false)
+              }else {
+               
+                setLoader(true)
+                setStatus(true)
+               setFilterData([...ClientFL])
+               console.log([...ClientFL],"sab")
+             }
+           }
+            
+           })
+                   .catch(err => err)
+       }
+    
     if (
       selectedSector.length > 0 &&
       selectedJob.length == 0 &&
@@ -398,7 +439,7 @@ function Embauch() {
       setLoader(true);
      
     }
-    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && ClientFL.length == 0 ) {
+    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && SelectedClient.length === 0 ) {
       {
         setLoader(true)
         setStatus(true)
@@ -452,17 +493,17 @@ function Embauch() {
   //   });
   // })
   const ClientChange=(e)=>{
+    setSelectedSector("")
+     if(e.value){
+      SelectedClient=[]
+      SelectedClient.push(e.value)
+      filterFunction();
+     }
 
-    let SelectedCL = []
-    SelectedCL=e.value
-    console.log(FClient,"fd")
-    ClientFL =  FClient.filter((res)=>{
-      return res.clientCompanyName == SelectedCL
-    })
-    setFilterData([...ClientFL])
-    // setFilterData([...Client])
+    // setFilterData([...ClientFL])
+
   }
-  console.log(filterData,"fld")
+
 
   
  const RestFilters=()=>{
@@ -476,9 +517,9 @@ function Embauch() {
   setJobOptions([])
   fetchAllSectors()
   filterFunction()
-  // ClientFL=[]
-  // setClients([])
-
+  ClientFL=[]
+  setClients([])
+SelectedClient=[]
 }
 
   return (
@@ -726,9 +767,9 @@ function Embauch() {
                       <div className="col-12">
                         <div className="row justify-content-end">
                         <div className="col-2 d-flex justify-content-end">
-                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || ClientFL.length > 0 ?
+                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || SelectedClient.length > 0 ?
 
-<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
+<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 : null
 }
 </div>
@@ -746,9 +787,9 @@ function Embauch() {
                     <div className="col-12">
                       <div className="row justify-content-end">
                       <div className="col-2 d-flex justify-content-end">
-                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || ClientFL.length > 0 ?
+                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || SelectedClient.length > 0 ?
 
-<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
+<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 : null
 }
 </div>
@@ -803,7 +844,7 @@ function Embauch() {
                     
                   : 
                     <p className="text-center">
-                      No Profiles in Candidat To-Do! Please Add New Candidats.
+                      No Profiles in Candidat Embauch! Please Add New Candidats.
                     </p>
                   }
             </>

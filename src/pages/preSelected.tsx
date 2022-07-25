@@ -850,7 +850,7 @@ console.log(statusProfiles,"filteredresponse.status")
                         <div className="col-2 d-flex align-items-center justify-content-end">
                         {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length > 0 ?
 
-                          <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
+                          <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
                           : null
                         }
                         </div>
@@ -869,7 +869,7 @@ console.log(statusProfiles,"filteredresponse.status")
                       <div className="col-2 d-flex align-items-center justify-content-end">
                         {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length > 0 ?
 
-                          <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
+                          <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
                           : null
                         }
                         </div>

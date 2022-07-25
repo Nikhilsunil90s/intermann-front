@@ -327,8 +327,8 @@ className="SelectBtn"
                 >
                   <div className="Archived-CardMore force-overflow">
                     <div className="d-flex">
-                      <p>Langues : </p>
-                      <span> {profile.candidatLanguages.join(", ")}</span>
+                    <p>Langues :</p>
+                      <span className="Todo-CardMore-span"> {profile.candidatLanguages ? profile.candidatLanguages.join(", ") : "No Langues!"}</span>
                     </div>
                     <div className="d-flex ">
                       <p className="blue-text">Ready for work :</p>
@@ -351,12 +351,12 @@ className="SelectBtn"
                    
                     <div className="d-flex">
                       <p>Skills/note: </p>
-                      <span>{profile.candidatSkills}</span>
+                      <span>{profile.candidatSkills ? profile.candidatSkills : "No Skills!"}</span>
                     </div>
                     <div className="d-flex">
                       <p className="text-dark">Trouvé sur  : </p>
                       <span className="text-dark">
-                        {profile.candidatJob}
+                      {profile.candidatJob ? profile.candidatJob : "No Trouvé!"}
                       </span>
                     </div>
                    

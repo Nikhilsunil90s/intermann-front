@@ -55,11 +55,11 @@ data.              </button>
                 
                 </div>
                 <div className="col-5 card-xl">
-                <p>Company : {profile.data.clientCompanyName}</p>
-                  <p>Number of position : {profile.data.numberOfPosts}</p>
-                  <p>Secteur : {profile.data.clientActivitySector}</p>
-                  <p>Métier/Job : {profile.data.clientJob}</p>
-                  <p style={{width:"145%"}}>Contact name : {profile.data.clientReferenceName}</p>
+                <p>Company : {profile.clientCompanyName}</p>
+                  <p>Number of position : {profile.numberOfPosts}</p>
+                  <p>Secteur : {profile.clientActivitySector}</p>
+                  <p>Métier/Job : {profile.clientJob}</p>
+                  <p style={{width:"145%"}}>Contact name : {profile.clientReferenceName}</p>
                 </div>
                 <div className="col-4 text-end ">
                   <div className="d-flex justify-content-end">
@@ -76,14 +76,14 @@ data.              </button>
             <div className="col-12 box-size">
               <div className="row">
                 <div className="col-6 text-center">
-                  <p>Company Mail : {profile.data.clientEmail}</p>
+                  <p>Company Mail : {profile.clientEmail}</p>
                   <button className="btn btn-email">
                     <span className="padding-email">
                       <img src={require("../../images/gmail.svg").default} />
                     </span>
                     Send Mail
                   </button>
-                  <p>Contact Mail : {profile.data.clientEmail} </p>
+                  <p>Contact Mail : {profile.clientEmail} </p>
                   <button className="btn btn-primary btn-email">
                     <span className="padding-email">
                       <img src={require("../../images/gmail.svg").default} />
@@ -93,14 +93,14 @@ data.              </button>
                 </div>
 
                 <div className="col-6">
-                  <p>Company Phone :{profile.data.clientPhone}</p>
+                  <p>Company Phone :{profile.clientPhone}</p>
                   <button className="btn btn-whatsapp btn-see">
                     <span className="padding-email">
                       <img src={require("../../images/whatsapp.svg").default} />
                     </span>
                     Send What’s App
                   </button>
-                  <p>Contact Phone : {profile.data.clientPhone} </p>
+                  <p>Contact Phone : {profile.clientPhone} </p>
                   <button className="btn btn-whatsapp btn-see">
                     <span className="padding-email">
                       <img src={require("../../images/whatsapp.svg").default} />
@@ -130,7 +130,7 @@ data.              </button>
                 ))
                 } */}
                 <div className="text-start">
-                <p>Ads Spent on this client :{profile.data.jobTotalBudget}</p>
+                <p>Ads Spent on this client :{profile.jobTotalBudget}</p>
                 </div>
               </p>
             </div>
@@ -141,41 +141,41 @@ data.              </button>
               <div className="parent-p">
                 <div className="d-flex">
                   <p>Company Adress </p>
-                  <span>{profile.data.clientAddress}</span>
+                  <span>{profile.clientAddress}</span>
                 </div>
                 <div className="d-flex ">
                   <p className="">Langues </p>
-                  <span className="">: {profile.data.clientLanguages}</span>
+                  <span className="">: {profile.clientLanguages}</span>
                 </div>
                 <div className="d-flex">
                   <p className="blue-text">Research for work : From </p>
                   <span className="blue-text">
-                   {profile.data.jobStartDate} - To {profile.data.jobEndDate}
+                   {profile.jobStartDate} - To {profile.jobEndDate}
                   </span>
                 </div>
                 <div className="d-flex">
                   <p>Note </p>
                   <span>
-                    : {profile.data.clientRequiredSkills}
+                    : {profile.clientRequiredSkills}
                   </span>
                 </div>
                 <div className="d-flex pt-4">
                   <p className="text-dark">Potential Turnover CA</p>
                   <span className="text-dark">
-                    :{profile.data.jobTotalBudget} €
+                    :{profile.jobTotalBudget} €
                   </span>
                 </div>
                 <div className="d-flex">
                   <p className="text-dark">Salary by person </p>
                   <span className="text-dark">
-                    :{profile.data.netSalary} €
+                    :{profile.netSalary} €
                   </span>
                 </div>
                 <div>
                   <p>
                     Motivation:
                     <StarRatings
-                      rating={profile.data.clientMotivation}
+                      rating={profile.clientMotivation}
                       starRatedColor="#ffc107"
                       // changeRating={}
                       numberOfStars={5}
@@ -189,7 +189,7 @@ data.              </button>
                   <p>
                     Importance:
                     <StarRatings
-                      rating={profile.data.clientImportance}
+                      rating={profile.clientImportance}
                       starRatedColor="#ffc107"
                       // changeRating={}
                       numberOfStars={5}
@@ -203,7 +203,7 @@ data.              </button>
                 <div className="d-flex">
                   <p style={{ marginBottom: "0px" }}>Ajouté par/Added by :</p>
                   <span style={{ marginBottom: "0px" }}>
-                   {profile.data.enteredBy}
+                   {profile.enteredBy}
                   </span>
                 </div>
               </div>

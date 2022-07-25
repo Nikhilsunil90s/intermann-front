@@ -52,8 +52,8 @@ const ArchivedProfileCard = (props: any) => {
                         />
                     </div>
                     <div className="col-7 ArchivedCard pt-1 px-0" >
-                        <p style={{width:"112%"}}><b>{props.props.candidatName}</b></p>
-                        <p><b> {props.props.candidatAge}</b></p>
+                    <p style={{width:"100%"}} className="text-dark mb-0"><b>{props.props.candidatName.length > 20 ? props.props.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.props.candidatName.toLocaleUpperCase()}</b></p>
+                    <p className="text-dark mb-0">{props.props.candidatAge ?  <p className="age00 ml-0 mb-0">Age : <b> {props.props.candidatAge}</b></p> : <b>Age Not Available!</b>}</p>
                         <div >  <p className="text-dark d-flex"> <b>{candidatMotivationIcons[props.props.candidatMotivation - 1].icon + " " + candidatMotivationIcons[props.props.candidatMotivation - 1].motivation}</b>
                         </p>
                         </div>
@@ -94,10 +94,10 @@ const ArchivedProfileCard = (props: any) => {
                     <p>Langues:  <b> {props.props.candidatLanguages.join(", ")} </b></p>
                     <p>Phone Number:  <b>{props.props.candidatPhone}</b></p>
                     <p>Facebook URL:  <b>{props.props.candidatFBURL ? <a href={props.props.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
-                    <p>Email: <b>{props.props.candidatEmail ? props.props.candidatEmail : "No Email Provided!"}</b> </p>
+                    <p>Email: <b>{props.props.candidatEmail ? props.props.candidatEmail.length > 20 ? props.props.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.props.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b> </p>
                     <p className="blue my-1">Ready for work:  {props.props.candidatStartDate} To {props.props.candidatEndDate} </p>
                     </div>
-                    <div className="box-red">
+                    <div className="box-red pl-1">
                         <p> <b>REASON WHY CANCELED</b> : </p><span> {props.props.candidatArchived?.reason ? props.props.candidatArchived?.reason : "No Reason Specified!"}</span>
 
                     </div>

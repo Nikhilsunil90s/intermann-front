@@ -48,8 +48,8 @@ console.log(props,"ppr")
                         />
                     </div>
                     <div className="col-7 EmbauchCard pt-1 px-0" >
-                        <p><b>{profile.candidatName}</b></p>
-                        <p><b> {profile.candidatAge}</b></p>
+                    <p style={{width:"100%"}}  className="text-dark mb-0"><b>{profile.candidatName.length > 20 ? profile.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : profile.candidatName.toLocaleUpperCase()}</b></p>
+                    <p className="text-dark mb-0">{profile.candidatAge ?  <p className="age00 ml-0 mb-0">Age : <b> {profile.candidatAge}</b></p> : <b>Age Not Available!</b>}</p>
                         <div >  <p className="text-dark d-flex"> <b>{candidatMotivationIcons[profile.candidatMotivation - 1].icon + " " + candidatMotivationIcons[profile.candidatMotivation - 1].motivation}</b> 
                         </p>
                         </div> 
@@ -76,8 +76,8 @@ console.log(props,"ppr")
                     <p className="mb-0">Langues:  <b> {profile.candidatLanguages ? profile.candidatLanguages.join(", ") : "No Languages!"} </b></p>
                     <p className="mb-0">Phone Number:  <b>{profile.candidatPhone}</b></p>
                     <p className="mb-0">Facebook URL:  <b>{profile.candidatFBURL ? <a href={profile.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
-                    <p className="mb-0">Email: <b>{profile.candidatEmail ? profile.candidatEmail : "No Email Provided!"}</b> </p>
-                    <p className="todoCardbodyBlue mb-0 my-1">Ready for work:  {profile.candidatStartDate} To {profile.candidatEndDate} </p>
+                    <p className="preCard-Body-p">Email :  <b> {profile.candidatEmail ? profile.candidatEmail.length > 20 ? profile.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : profile.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b></p>
+                    <h6 className="todoCardbodyBlue mb-0 my-1">Ready for work:  {profile.candidatStartDate} To {profile.candidatEndDate} </h6>
                     </div>
                  
 
@@ -87,7 +87,7 @@ console.log(props,"ppr")
 
                 </div>
                 <div className="box-purple">
-                        <p className="mb-0"><b>Works At : {profile.candidatCurrentWork[0].workingFor}</b></p>
+                        <p className="mb-0"><b>Works At : {profile.candidatCurrentWork[0].workingFor ? profile.candidatCurrentWork[0].workingFor.length > 20 ? profile.candidatCurrentWork[0].workingFor.slice(0, 31).toLocaleUpperCase() + "...." : profile.candidatCurrentWork[0].workingFor : "No Working"}</b></p>
                         <p className="mb-0"><b>Since : {profile.candidatCurrentWork[0].workingSince}</b></p>
                         <p className="mb-0"><b>Salary :  {profile.candidatCurrentWork[0].salary} €</b></p>
                     </div>
@@ -100,6 +100,7 @@ console.log(props,"ppr")
                     className="CardOptions AllMoreOp"
                     onChange={MoreOption} 
                     isSearchable={false}
+                 
                  />
                      </div>
                         <div className="col-6 text-end">

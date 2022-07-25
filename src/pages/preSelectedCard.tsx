@@ -58,7 +58,7 @@ const PreSelectedCard = (props: any,{path}) => {
                         />
                     </div>
                     <div className="col-xxl-9 col-xl-8 col-md-8 col-lg-8 fontStylinForPrecards">
-                        <p className="text-dark"><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
+                        <p style={{width:"100%"}}  className="text-dark"><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
                         <p className="text-dark"><b>{props.data.candidatAge ? props.data.candidatAge : "Age Not Available!"}</b></p>
                         <div >  <p className="text-dark d-flex"><b>{candidatMotivationIcons[props.data.candidatMotivation - 1].icon + " " + candidatMotivationIcons[props.data.candidatMotivation - 1].motivation}</b>
                         </p>
@@ -100,7 +100,7 @@ const PreSelectedCard = (props: any,{path}) => {
                      </p>
                     <p className="preCard-Body-p">Phone Number : <b>{props.data.candidatPhone} </b></p>
                     <p className="preCard-Body-p">Facebook URL : <b>{props.data.candidatFBURL ? <a href={props.data.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
-                    <p className="preCard-Body-p">Email :  <b> {props.data.candidatEmail ? props.data.candidatEmail : "No Email Provided!"}</b></p>
+                    <p className="preCard-Body-p">Email :  <b> {props.data.candidatEmail ? props.data.candidatEmail.length > 20 ? props.data.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.data.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b></p>
                     <p className="preCard-Body-blue ">
                         Ready for work :<b>{props.data.candidatStartDate} To {props.data.candidatEndDate}</b>
                     </p>

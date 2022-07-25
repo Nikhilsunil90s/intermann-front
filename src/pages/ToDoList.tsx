@@ -208,7 +208,7 @@ function ToDoList() {
       .catch((err) => err);
   }
   const ContactFilter=()=>{
-    return fetch(`${API_BASE_URL}getCandidats/?candidatPhone=${contactArr}`, {
+    return fetch(`${API_BASE_URL}getCandidatsByPhoneNumber/?phoneNumber=${contactArr}`, {
  
        method: "GET",
        headers: {
@@ -346,6 +346,8 @@ setMotivationOptions([    {
   const HandelLicence = (e) => {
     LicencePermisArr = []
     SelectedName = []
+    emailArr=[]
+    contactArr=[]
     setSelectedSector("")
     MotivationArr = []
     console.log(e.value)
@@ -364,6 +366,8 @@ setMotivationOptions([    {
     MotivationArr = []
     LicencePermisArr = []
     setSelectedSector("")
+    emailArr=[]
+    contactArr=[]
     SelectedName = []
     if (e.value === "Select Motivations") {
       MotivationArr = []
@@ -387,6 +391,8 @@ setMotivationOptions([    {
     LicencePermisArr = []
     FilterJob = [];
     setSelectedJob([])
+    emailArr=[]
+    contactArr=[]
     console.log(e)
     if (e.value === "Select Sector") {
       setJobs([]);
@@ -1101,7 +1107,7 @@ styles={colourStyles}
                         <div className="col-2 d-flex align-items-center justify-content-end">
                         {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length > 0 || emailArr.length > 0 || contactArr.length > 0 ?
 
-                          <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
+                          <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
                           : null
                         }
                         </div>
@@ -1120,7 +1126,7 @@ styles={colourStyles}
                       <div className="col-2 d-flex align-items-center justify-content-end">
                       {selectedSector.length === 0 || selectedJob.length === 0 || selectedLanguages.length === 0 || SelectedName.length === 0 || MotivationArr.length === 0 || LicencePermisArr.length === 0 || DateArr.length === 0 || emailArr.length == 0 || contactArr.length == 0 ?
 
-<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
+<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 : null
 }   </div>
                         <div className="col-2 d-flex justify-content-end">

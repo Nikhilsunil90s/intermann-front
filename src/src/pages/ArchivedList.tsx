@@ -632,7 +632,7 @@ function ArchivedList() {
                     
                   : 
                     <p className="text-center">
-                      No Profiles in Candidat To-Do! Please Add New Candidats.
+                      No Profiles in Candidat Archived! Please Add New Candidats.
                     </p>
                   }
             </>

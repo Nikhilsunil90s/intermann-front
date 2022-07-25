@@ -80,7 +80,7 @@ function Sidebar(props: any) {
                             </Link>
                           </li>
                           <li className="">
-                            <Link to="/clientContract" className="nav-link link-dark  fontStylingBar">
+                            <Link to="#" className="nav-link link-dark  fontStylingBar">
                             <span className="pe-2">
                         <img src={require("../images/contractList.svg").default} />
                       </span>

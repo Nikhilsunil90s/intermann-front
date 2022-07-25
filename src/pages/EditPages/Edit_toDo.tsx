@@ -12,6 +12,7 @@ import Switch from "react-switch";
 import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../../Selecteddata/data';
 import chroma from 'chroma-js';
 import Select, {StylesConfig } from "react-select";
+import { setDate } from "date-fns";
 
 
 const axiosInstance = axios.create({
@@ -103,6 +104,8 @@ function EditDo() {
   const [Voyage,setVoyage]=useState(profile.candidatConduireEnFrance)
   const hiddenImageInput = React.useRef(null);
   const [Language, setLanguage] = useState([])
+  const [sectorOptions, setSectorOptions] = useState([])as any;
+  const [jobOptions, setJobOptions] = useState([]);
  
 
 
@@ -325,12 +328,17 @@ function EditDo() {
         .then(data => {
           console.log(data.data)
           setJobs([...data.data]);
+          console.log(jobs,"jobs")
         })
         .catch(err => {
           console.log(err);
         })
-      console.log(jobs);
+      console.log(jobs,"jobs");
     }
+    let jobN= jobs.map((el)=>{
+      return {value:el.jobName,label:el.jobName,color:"#FF8B00"}
+    })
+    setJobOptions([...jobN])
 
   }
 
@@ -360,6 +368,11 @@ function EditDo() {
         .catch(err => {
           console.log(err)
         })
+        console.log(data);
+        let jobResults = jobs.map(ajob => {
+            return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
+          })
+          setJobOptions([...jobResults]);
     }
 
     if (data.candidatLanguages.length == 0) {
@@ -548,6 +561,15 @@ function EditDo() {
   }
 
   useEffect(() => {
+    console.log(activitySectors);
+    let sectorops = activitySectors.map((asector) => {
+      return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
+    })
+
+    setSectorOptions([...sectorops]);
+  }, [activitySectors])
+
+  useEffect(() => {
     console.log(profile._id,"id")
     fetchCandidat(profile._id).then(resData => {
       console.log(resData)
@@ -563,6 +585,33 @@ function EditDo() {
         console.log(err)
       })
   }, [])
+  const handleSectorChange = (e: any) => {
+    // console.log(e.target.value)
+
+    console.log(e)
+    if (e.value === "Select Un Secteur") {
+      setJobs([]);
+      setSelectedSector("");
+
+
+    } else if (e.value !== '') {
+      let sectorField = e.value;
+      changeSectorSelection(sectorField)
+      setData({...data,candidatActivitySector:sectorField})
+    //   setJobOptions([]);
+    }
+}
+const jobChange = async (jobval) => {
+  // console.log(jobval)
+  let JobArr=[]as any
+  jobval.map((el)=>{
+   
+   JobArr.push(el.value)
+
+  })
+  setData({...data,candidatJob:JobArr})
+  changeJobSelection(JobArr)
+}
 
   return (
     <>
@@ -680,13 +729,25 @@ className="SelectBtn"
                   <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
                     <label className="LabelStylingEdits mb-0" >Secteur d’Activité</label>
                     <div className="dropdown">
-                      <select className="form-select" name="candidatActivitySector" onChange={onFormDataChange}>
+                      {/* <select className="form-select" name="candidatActivitySector" onChange={onFormDataChange}>
                         <option>Select Un Secteur</option>
 
                         {activitySectors.map((sector) =>
                           <option defaultValue={sector.sectorName} selected={profile.candidatActivitySector == sector.sectorName}>{sector.sectorName}</option> // fetch from api
                         )}
-                      </select>
+                      </select> */}
+                          <Select
+                                            className="basic-multi-select"
+                                            classNamePrefix="select"
+                                            closeMenuOnSelect={true}
+                                            placeholder="‎ ‎ ‎ Select Un Secteur"
+                                            styles={colourStyles}
+                                            options={sectorOptions}
+                                            onChange={handleSectorChange}
+                                            defaultValue={profile.candidatLanguages.map((el)=>{
+                                              return {value:el,label:el,color:"#FE8700"}
+                    })}
+                                            />
                     </div>
                    
                   </div>
@@ -694,7 +755,7 @@ className="SelectBtn"
                     <label className="LabelStylingEdits mb-0" >Metier/Job</label>
                     <div className="dropdown">
                       <div aria-labelledby="dropdownMenuButton1">
-                        <select
+                        {/* <select
                           name="candidatJob"
                           className="form-select"
                           onChange={onFormDataChange}
@@ -707,7 +768,22 @@ className="SelectBtn"
                               </option>
                             )
                           }
-                        </select>
+                        </select> */}
+                         
+                          <Select
+                      name="jobName"
+                      closeMenuOnSelect={true}
+                      isMulti
+                      placeholder="‎ ‎ ‎ Select"
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                      defaultValue={{label:profile.candidatJob,value:profile.candidatJob,color:"#FE8700"}}
+                      // defaultInputValue={{label:profile.clientJob,value:profile.clientJob,color:"#FE8700"}}
+                      onChange={jobChange}
+                      options={jobOptions}
+                      styles={colourStyles}
+                    />
+                    
                       </div>
                     </div>
                   </div>
@@ -865,7 +941,9 @@ className="SelectBtn"
                           onChange={handleChange}
                           options={colourOptions}
                           styles={colourStyles}
-                          defaultInputValue={profile.candidatLanguages}
+                          defaultValue={profile.candidatLanguages.map((el)=>{
+                            return {value:el,label:el,color:"#FE8700"}
+  })}
                         />
                         </div>
                         </div>

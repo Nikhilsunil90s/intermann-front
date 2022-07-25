@@ -551,10 +551,10 @@ className="SelectBtn"
 }
                 </div>
                 <div
-                  className="col-xxl-8 col-xl-8 col-lg-8 col-md-7 Social-Card px-1 detailsCardClientSee scrollbar Social-btnsTwo"
+                  className="col-xxl-8 col-xl-8 col-lg-8 col-md-7 Social-Card px-1 detailsCardClientSee scrollbar heightWidth Social-btnsTwo"
                   id="style-3"
                 >
-                  <div className="Todo-CardMore force-overflow">
+                  <div className="Todo-CardMore force-overflow ">
                     <div className="d-flex align-items-center">
                       <p>Langues : </p>
                       <span className="Todo-CardMore-span"> {profile.candidatLanguages ? profile.candidatLanguages.join(", ") : "No Langues!"}</span>
@@ -657,7 +657,7 @@ className="SelectBtn"
                 {
                   recommendations && recommendations.length > 0 ?
                     recommendations.map(recommendation => (
-                      <div className="row  m-1 Social-Card client-Card" style={{height:"308px"}}>
+                      <div className="row p-1  m-1 Social-Card client-Card" style={{height:"330px"}}>
                         <div className="col-3">
                           <img 
                             src={
@@ -692,14 +692,7 @@ className="SelectBtn"
                         </div>
                         <div className="col-6 text-center d-flex align-items-center justify-content-center px-0">
                           <button className="btnMatched" onClick={() => setShowInPreSelectedModal(true)}>Matched</button>
-                          {showPreSelectedModal ?
-                            <PreModal
-                              props={profile}
-                              closepreModal={setShowInPreSelectedModal}
-                            />
-                            :
-                            null
-                          }
+                        
                         </div>
                         <div className="col-6 text-center d-flex align-items-center px-0">
                           <button className="btnNotMatched" onClick={() => removeRecommendation(recommendation._id)}>Not Matched</button>
@@ -778,6 +771,14 @@ className="SelectBtn"
                     <img src={require("../images/Edit.svg").default} />
                     Edit Profile
                   </button>
+                  {showPreSelectedModal ?
+                            <PreModal
+                              props={profile}
+                              closepreModal={setShowInPreSelectedModal}
+                            />
+                            :
+                            null
+                          }
                 </div>
                 <div className="col-3 px-0 text-center">
                 <a

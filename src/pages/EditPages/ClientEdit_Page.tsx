@@ -69,7 +69,7 @@ function ClientTodoEdit() {
   const [id, setID] = useState("");
   const hiddenImageInput = React.useRef(null);
   const [UploadBtn,setSelectUpload]= useState(false)
-  const[clientImg,setClientImg]=useState(profile.clientPhoto.imageName)
+  // const[clientImg,setClientImg]=useState(profile.clientPhoto.imageName)
   const [SalaryH,setSalaryH]=useState([
     {
         value:"10000rs",id:"1",text:"35H"
@@ -580,19 +580,19 @@ setJobOptions([])
                                 <div className="row">
                                     <div className="col-2  text-center">
                        
-                               {
-                                clientImg ?
+                               {/* { */}
+                                {/* // clientImg ?
                                 <img
                                 src={API_BASE_URL + clientImg}
                                className="img-uploadTodo-Download"
             
-                              />  
+                              />   */}
                                 :
                                 <img
                                 src={require("../../images/fullClientSee.svg").default}
                                className="img-uploadTodo-Download"
                               />           
-                              }
+                              {/* } */}
                             
 
 <button

@@ -55,7 +55,6 @@ hr.new5{
 .card-color{
    
 border-radius: 16px;
-padding: 5px;
 }
 .card-color p{
     color: #000000;
@@ -204,7 +203,7 @@ line-height: 16px;
 font-style: normal !important;
 font-weight: 400 !important;
 font-size: 12px !important;
-line-height: 6px !important ;
+line-height: 20px !important ;
 color: #000000 !important;
 
 }
@@ -677,7 +676,7 @@ color: #000000 !important;
             font-style: normal !important;
             font-weight: 400 !important;
             font-size: 16px !important;
-            line-height: 8px !important;
+            line-height: 28px !important;
             color: #000000 !important;
         }
         .ArchivedCardChildFonts p {

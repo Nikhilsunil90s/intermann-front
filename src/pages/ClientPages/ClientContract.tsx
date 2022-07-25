@@ -738,7 +738,7 @@ let OthersFilterArr = []
                           <div className="col-2 d-flex align-items-center justify-content-end">
                       {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
 
-<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
+<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 : null
 }   </div>
                           <div className="col-2 d-flex justify-content-end">
@@ -756,7 +756,7 @@ let OthersFilterArr = []
                       <div className="col-2 d-flex align-items-center justify-content-end">
                       {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
 
-<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Rest Filters</p>
+<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 : null
 }   </div>
                         <div className="col-2 d-flex justify-content-end">

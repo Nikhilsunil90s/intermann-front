@@ -350,9 +350,9 @@ className="SelectBtn"
                     <p>Motivation : <b>{candidatMotivationIcons[profile.candidatMotivation - 1].icon + " " + candidatMotivationIcons[profile.candidatMotivation - 1].motivation}</b> </p>
                     </p>
                   </div>
-                  <p>Secteur : {profile.candidatActivitySector.toLocaleUpperCase()}</p>
+                  <p>Secteur : {profile.candidatActivitySector ? profile.candidatActivitySector.toLocaleUpperCase() : "No Sector!"}</p>
                   <p className="" style={{ width: "150%" }}>
-                    Métier/Job :{profile.candidatJob.toLocaleUpperCase()}
+                    Métier/Job :{profile.candidatJob ? profile.candidatJob.toLocaleUpperCase() : "No Jobs!"}
                   </p>
                 </div>
                 <div className="col-4 px-0 text-end end-class">
@@ -398,12 +398,12 @@ className="SelectBtn"
                   <div className="pre-CardMore force-overflow">
                     <div className="d-flex">
                       <p>Langues : </p>
-                      <span> {profile.candidatLanguages.join(", ")}</span>
+                      <span className="Todo-CardMore-span"> {profile.candidatLanguages.length != 0 ? profile.candidatLanguages.join(", ") : "No Langues!"}</span>
                     </div>
                     <div className="d-flex ">
                       <p className="blue-text">Ready for work :</p>
                       <span className="blue-text">
-                        {profile.candidatStartDate} -{profile.candidatEndDate}
+                        {profile.candidatStartDate ? profile.candidatStartDate :"No StartDate!"} -{profile.candidatEndDate ? profile.candidatEndDate : "No EndDate!"}
                       </span>
                     </div>
                     <div className="d-flex">
@@ -421,7 +421,7 @@ className="SelectBtn"
                    
                     <div className="d-flex">
                       <p>Skills/note: </p>
-                      <span>{profile.candidatSkills}</span>
+                      <span>{profile.candidatSkills ? profile.candidatSkills : "No Skills!"}</span>
                     </div>
                     <div className="d-flex">
                       <p className="text-dark">Trouvé sur  : </p>

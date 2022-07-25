@@ -54,6 +54,8 @@ function ProgressCard() {
   const [RenameDocStatus,setRenameDocStatus]=useState(false)
   const hiddenImageInput = React.useRef(null);
   const [UploadBtn,setSelectUpload]= useState(false)
+  const [clientProfile, setClientProfile] = useState();
+
 
   let data = {profileData:profile,path:"/embauchprofile"}
     const editCandidatProfile = () => {
@@ -73,6 +75,18 @@ function ProgressCard() {
   const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
   const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
 
+  useEffect(() => {
+    fetchClientProfile(profile.candidatCurrentWork[0].workingFor)
+      .then(result => {
+        if (result.status) {
+          setClientProfile(result.data)
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    console.log(profile);
+  }, [profile]);
   useEffect(() => {    
     setLoader(true);
     fetchRecommendations(profile.candidatActivitySector)
@@ -134,6 +148,19 @@ function ProgressCard() {
       .then(respData => respData)
       .catch(err => err)
   }
+  const fetchClientProfile = async (name: string) => {
+    return await fetch(API_BASE_URL + `getClientByName/?clientCompanyName=${name}`, {
+      method: "GET",
+      headers: {
+        "Accept": 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      }
+    })
+      .then(resD => resD.json())
+      .then(reD => reD)
+      .catch(err => err)
+  }
+
 
   const fileChange = (
     e: React.ChangeEvent<
@@ -266,6 +293,20 @@ function ProgressCard() {
   const  ViewDownloadFiles =( documentName:any)=>{
     window.open(API_BASE_URL + documentName)
    }
+
+   const showCustomerProfile = async () => {
+    console.log(clientProfile)
+    if (Object.values(clientProfile).includes("To-Do")) {
+      navigate("/clientToDoProfile", { state: clientProfile })
+    } else if (Object.values(clientProfile).includes("In-Progress")) {
+      navigate("/clientInProgressProfile", { state: clientProfile })
+    } else if (Object.values(clientProfile).includes("Signed Contract")) {
+      navigate("/clientSigned", { state: clientProfile })
+    } else if (Object.values(clientProfile).includes("Archived")) {
+      navigate("/clientSigned", { state: clientProfile })
+    }
+  }
+
   
   return (
     <>
@@ -397,7 +438,7 @@ className="SelectBtn"
                 
               </div>
               <div className="col-4 d-flex justify-content-end align-items-center">
-                <div className="d-flex justify-content-center"><button className="btn customerBtnEmbauch"><span><img src={require("../images/eyeProfil.svg").default} /></span>CUSTOMER PROFIL</button></div>
+                <div className="d-flex justify-content-center"><button className="btn customerBtnEmbauch" onClick={showCustomerProfile}> <span><img src={require("../images/eyeProfil.svg").default} /></span>CUSTOMER PROFIL</button></div>
                 </div>
 
                 </div>
