@@ -200,6 +200,9 @@ function ArchivedList() {
   const handleNameChange = (e: any) => {
     // console.log(e.target.value)
     SelectedName = []
+    ClientFL=[]
+    SelectedClient=[]
+    LanguageFilter=[]
     setSelectedSector("")
     setSelectedJob([])
     if (e.value === "Select Name") {
@@ -234,7 +237,9 @@ function ArchivedList() {
     SelectedName = []
     FilterJob = [];
     setSelectedJob([])
-    console.log(e)
+    LanguageFilter=[]
+    ClientFL=[]
+    SelectedClient=[]
     if  (e.value === "Select Sector") {
       setJobs([]);
       setSelectedSector("");
@@ -274,6 +279,9 @@ function ArchivedList() {
 
   const LanguageChange = async (lang) => {
  
+setSelectedSector("")
+SelectedName=[]
+SelectedClient=[]
 
     // console.log(jobval)
     let LangArr=[]
@@ -521,6 +529,15 @@ function ArchivedList() {
 
   const ClientChange=(e)=>{
     setSelectedSector("")
+    LanguageFilter=[]
+    if(e.value=="Select Client"){
+      setSelectedSector("")
+      LanguageFilter=[]
+      SelectedName=[]
+      ClientFL=[]
+      SelectedClient=[]
+      setClients([])
+    }
     if(e.value){
      SelectedClient=[]
      SelectedClient.push(e.value)
@@ -533,16 +550,17 @@ function ArchivedList() {
     setSectors([])
     setNameOptions([])
     SelectedName=[]
+    LanguageFilter=[]
     setSelectedSector("")
     setSectorOptions([])
     setJobs([])
     setSelectedJob([])
     setJobOptions([])
-    fetchAllSectors()
-    filterFunction()
     ClientFL=[]
     setClients([])
     SelectedClient=[]
+    filterFunction()
+    fetchAllSectors()
   }
 
   return (
