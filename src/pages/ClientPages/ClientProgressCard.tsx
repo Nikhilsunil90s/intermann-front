@@ -9,6 +9,9 @@ import {ReactComponent as StarRating} from "../../images/RatingStar.svg";
 import Switch from "react-switch";
 import Select from "react-select";
 import InProgressClientModal from "../../components/Modal/InProgressClientModal";
+import   {ReactComponent as Cross} from "../../images/FatX.svg";
+import   {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
+// import ToggleSwitch from 'toggle-switch-rn'
 
 function ClientProgressCard(props: any) {
 
@@ -121,16 +124,16 @@ function ClientProgressCard(props: any) {
                 <p className="fontStylingCardP">Secteur : {props.data.clientActivitySector ? props.data.clientActivitySector.toLocaleUpperCase() : "No Sector!"} </p>
                     <p className="fontStylingCardP">Job :  {props.data.clientJob ? props.data.clientJob.toLocaleUpperCase() : "No Job!"}</p>
                     <p>Langues : <b> {props.data.clientLanguages.length ? props.data.clientLanguages : "No Langues!"}</b> </p>
-                    <p>Phone Number :<b>{props.data.clientPhone.length ? props.data.clientPhone : "No Phone Number!"}</b> </p>
+                    <p>Phone :<b>{props.data.clientPhone.length ? props.data.clientPhone : "No Phone Number!"}</b> </p>
                     <p>Estimated CA :   <b>{props.data.jobTotalBudget ? props.data.jobTotalBudget + " €" : "N/A"}</b> </p>                
 
                 </div>
                 <div className="col-7 pl-1 fontStylingCardDetails px-0 pt-1">
                 <p>Salary by person : <b>{props.data.netSalary ? props.data.netSalary + " €" : "N/A"}</b> </p>
-                <p>Client Mail : <b>{props.data.clientEmail.length? props.data.clientEmail : "No Email!"}</b> </p>
-                    <p>Client Phone : <b>{props.data.clientPhone.length? props.data.clientPhone : "No Client Number!"}</b> </p>
-                    <p>Contact Name :  <b>{props.data.clientReferenceName ? props.data.clientReferenceName : "No Name!"}</b> </p>
-                    <p>Contact phone :   <b>{props.data.clientReferenceNumber.length? props.data.clientReferenceNumber: "No Contact Number!"}</b> </p>
+                <p>E-Mail : <b>{props.data.clientEmail.length? props.data.clientEmail : "No Email!"}</b> </p>
+                    <p>Cl-Phone : <b>{props.data.clientPhone.length? props.data.clientPhone : "No Client Number!"}</b> </p>
+                    <p>C-Name :  <b>{props.data.clientReferenceName ? props.data.clientReferenceName : "No Name!"}</b> </p>
+                    <p>Contact :   <b>{props.data.clientReferenceNumber.length? props.data.clientReferenceNumber: "No Contact Number!"}</b> </p>
                 </div>
                 </div>
                 </div>
@@ -239,12 +242,36 @@ function ClientProgressCard(props: any) {
                         <p className="switch-fontCard mb-0">
                           SISPI déclaré ?
                         </p>
-                        <Switch
+                        {/* <Switch
                           className="ml-left miniSwitch"
                           onChange={switchHandle}
                           checked={SISPI}
                           id="SISPI"
-                        />
+                        /> */}
+                      {/* <ToggleSwitch
+  isOn={false}
+  onColor="green"
+  offColor="red"
+  label="Example label"
+  labelStyle={{ color: "black", fontWeight: "900" }}
+  size="large"
+  onToggle={isOn => console.log("changed to : ", isOn)}
+/> */}
+                        <div id="app-cover">
+  <div className="row">
+    <div className="toggle-button-cover">
+      <div className="button-cover">
+        <div className="button r" id="button-4">
+          <input type="checkbox" className="checkboxInput" />
+          <div className="knobs"></div>
+          <div className="layer"></div>
+        </div>
+      </div>
+    </div>
+   
+    </div>
+    
+</div>
                       </div>
                     </div>
                     </div>

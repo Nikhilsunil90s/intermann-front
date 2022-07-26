@@ -35,6 +35,7 @@ import ClientArchivedView from './pages/ClientPages/ClientArchivedView'
 import PreSelectedView from "./pages/preSelectedProfileView";
 import PreSelectedEdit from "./pages/EditPages/PreSelectedEdit";
 import ClientArchivedEdit from "./pages/EditPages/EditArchivedClient";
+import ClientSignedEdit from "./pages/EditPages/SignedContractEdit";
 
 
 function App() {
@@ -88,7 +89,9 @@ function App() {
                     
          
           <Route path={"/archivedClientSeeprofile"} element={ <Sidebar><PrivateRoute Component={ClientArchivedView} /></Sidebar>} /> 
-          <Route path={"/archivedClientEditprofile"} element={ <Sidebar><PrivateRoute Component={ClientArchivedEdit} /></Sidebar>} /> 
+          <Route path={"/archivedClientEditprofile"} element={ <Sidebar><PrivateRoute Component={ClientArchivedEdit} /></Sidebar>} />
+           
+          <Route path={"/ClientContractEditprofile"} element={ <Sidebar><PrivateRoute Component={ClientSignedEdit} /></Sidebar>} /> 
 
 
           

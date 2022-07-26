@@ -570,6 +570,7 @@ margin-right: 5px;
         border-radius: 100px;
         border: 4px solid #A461D8;
     }
+
     .textinPro{
         font-family: 'Poppins';
         font-style: normal;
@@ -712,6 +713,34 @@ margin-right: 5px;
 }
 }
 @media (min-width: 1200px) {
+  /* Signed Edit  */
+.SignedLargebtn{
+  background: #E4FFEF;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 20px;
+letter-spacing: -0.105991px;
+text-transform: uppercase;
+color: #489767;
+border: 0px;
+padding: 13px;
+}
+.SignedLargebtn img{
+margin-right: 5px;
+
+}
+  .imgSigned-upload-Download {
+    width: 120px !important;
+    object-fit: cover;
+    height: 120px;
+    border-radius: 100px;
+    border: 4px solid #489767;
+}
+
+  /* end */
   .box-purple {
     font-family: "Inter";
     font-style: normal;

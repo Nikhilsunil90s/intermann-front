@@ -39,25 +39,6 @@ let MotivationArr = []
 let OthersFilterArr = []
  let FilterJob=[]
  function ClientContract() {
-  // const [loader, setLoader] = useState(true);
-  // const [nameOptions, setNameOptions] = useState([])   
-  // const [sectorOptions, setSectorOptions] = useState([]);
-  // const [sectors, setSectors] = useState([]);
-  // const [jobs, setJobs] = useState([]);
-  // const [selectedJob, setSelectedJob] = useState([]);
-  // const [defaultCard, setDefault] = useState(false)
-  // const [selectedSector, setSelectedSector] = useState("");
-  // const [selectedLanguages, setSelectedLanguages] = useState([]);
-  // const [filterData, setFilterData] = useState([]);
-  // const [status, setStatus] = useState(Boolean);
-  // const [jobOptions, setJobOptions] = useState([]);
-  // const [EmailCheck,setEmailCheck] = useState(false)
-  // const [PhoneNumberMissing,setMissing]=useState(false)
-  // const [showMore, setShowMore] = useState(false)
-  // const [motivationOptions, setMotivationOptions] = useState([])
-  // const [optionsOthersFilter, setOtherOptions] = useState([])
-  // const [importanceOptions, setImportanceOptions] = useState([])as any
-
  
   const [sectors, setSectors] = useState([]);
   const [nameOptions, setNameOptions] = useState([])   
@@ -247,7 +228,7 @@ let OthersFilterArr = []
       },
     })
       .then((resD) => resD.json())
-      .then((reD) => setFilterData([...reD]))
+      .then((reD) => reD)
       .catch((err) => err);
   };
   const fetchAllSectors = async () => {
@@ -266,11 +247,19 @@ let OthersFilterArr = []
 
   const filterFunction = async () => {
     setLoader(false);
-    setStatus(false)
     if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0) {
-      setLoader(true)
-      setStatus(true)
-      fetchProfiles()
+      setLoader(false)
+      fetchProfiles().then((res)=>{
+        if(res!=[]){
+          setLoader(true)
+          setStatus(true)
+          setFilterData([...res])
+        }else{
+         setLoader(true)
+         setStatus(false)
+        }
+    
+      })
     }
     if (
       selectedSector.length > 0 &&
@@ -570,7 +559,7 @@ let OthersFilterArr = []
       <div className="container-fluid">
         <div className="row ">
           <div className="col-12 p-1 text-center topHeaderClient mt-2">
-          <div className="d-flex topinPHeading"> <h2 className="">clients / lead  </h2> <span className="topSignedtext">in progress</span></div>
+          <div className="d-flex topinPHeading"> <h2 className="">clients / lead </h2> <span className="topSignedtext">signed contract </span></div>
           <p className="Inchild-text mb-0">
           Ici vous avez la liste des sociétés qui font une  
                <span className="fw-bolder" style={{textDecoration:"underline",marginLeft:"5px"}}> demande pas encore traité</span>
@@ -735,13 +724,13 @@ let OthersFilterArr = []
                               </div>
                             </div>
                           </div>
-                          <div className="col-2 d-flex align-items-center justify-content-end">
+                          <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex align-items-center justify-content-end">
                       {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
 
 <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 : null
 }   </div>
-                          <div className="col-2 d-flex justify-content-end">
+                          <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex justify-content-end">
                             <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(false)}>Less Filters <img src={require("../../images/downup.svg").default} /></p>
                           </div>
                         </div>
@@ -753,13 +742,13 @@ let OthersFilterArr = []
                   <div className="extraPadding">
                     <div className="col-12">
                       <div className="row justify-content-end">
-                      <div className="col-2 d-flex align-items-center justify-content-end">
+                      <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3d-flex align-items-center justify-content-end">
                       {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
 
 <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 : null
 }   </div>
-                        <div className="col-2 d-flex justify-content-end">
+                        <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex justify-content-end">
                           <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(true)}>More Filters <img src={require("../../images/down.svg").default} /></p>
                         </div>
                       </div>
@@ -773,7 +762,7 @@ let OthersFilterArr = []
                 {filterData.length > 0 ?
                   status ?
                     filterData.map((profile, index) => (
-                      <div className="col-4 mt-2 pd-left">
+                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left">
                         <ClientContractCard data={profile} />
                       </div>
                     ))
