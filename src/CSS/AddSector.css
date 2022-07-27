@@ -26,6 +26,9 @@
     background-color: #ffff !important;
     text-align: center;
     padding: 0px 35px;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+    border-radius: 10px 10px 0px 0px;
 }
 
 .list-0012 {
@@ -39,11 +42,56 @@
     color: #252726;
 }
 .list-001 {
-    font-family: 'Inter';
+    font-family: 'Poppins';
     font-style: normal;
-    font-weight: 400;
-    font-size: 41px;
-    line-height: 50px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #252726;
+    
+}
+.labelJobTitle{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+display: flex;
+align-items: flex-end;
+text-transform: capitalize;
+
+color: #373A3C;
+
+}
+.AddNewFont{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 24px;
+display: flex;
+align-items: flex-end;
+color: #000000;
+}
+.AddNEwSector{
+    background: #032339;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 20px;
+/* identical to box height */
+
+letter-spacing: -0.105991px;
+text-transform: uppercase;
+
+color: #FFFFFF;
+
 }
 .A0012 {
     font-family: 'Inter';
@@ -71,14 +119,13 @@
     color: #FFFFFF;
     background-color: #3F76E2;
     border-radius: 100px;
-    padding: 10px 18px;
+    width: 100%;
 }
 .btn-job:hover {
     color: #ffff !important;
 }
 
 .btn-resume {
-    padding: 10px 12px;
 font-family: 'Poppins';
 font-style: normal;
 font-weight: 500;
@@ -88,13 +135,15 @@ color: #FE8700;
 border: 1px solid #FE8700;
 border-radius: 100px;
 background-color: #ffff;
+width: 100%;
 }
 .btn-resume:hover {
 color: #FE8700 !important;
 }
 .pd-lr {
-    padding: 5px 25px;
-    background-color: #C4C4C4;
+    padding: 10px 25px;
+    border-radius: 10px;
+    background-color: #f7f7f7bf;
 }
 
 .btn-green {
@@ -186,7 +235,7 @@ color: #373A3C;
     color: #3F76E2;
     border: 1px solid #3F76E2;
     border-radius: 20px;
-    width: 122px;
+    width: 100%;
     height: 39px;
     padding: 0px 0px;
 }

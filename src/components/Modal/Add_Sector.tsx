@@ -114,7 +114,7 @@ function SectorModal() {
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalLabel">Add New Sector</h5>
+            <h5 className="modal-title AddNewFont" id="exampleModalLabel">Add New Sector</h5>
             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div className="modal-body text-center">
@@ -140,7 +140,7 @@ function SectorModal() {
             )}
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" className="btn btn-secondary " data-bs-dismiss="modal">Cancel</button>
             <button type="button" className="btn btn-primary" onClick={addSector}>Add The Sector</button>
           </div>
         </div>

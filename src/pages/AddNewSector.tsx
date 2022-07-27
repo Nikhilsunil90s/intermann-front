@@ -56,17 +56,28 @@ function AddSector() {
   }, []);
   return (
     <>
-      <div className="container">
+      <div className="container ">
         <div className="row">
-          <div className="col-12 flex-wrap">
-            <h1 className="titleAdd">ADD SECTOR/JOB</h1>
-          </div>
-          <div className="col-12 vw-Box">
+          <div className="col-12 mt-3">
             <div className="row">
               <div className="col-12 bg-light">
-                <div className="row">
-                  <h1 className="list-001">List of Sectors</h1>
-                  <div className="col-12 pt-3">
+                <div className="row  py-1" >
+                  <div className="col-6 text-start"> <h1 className="list-001 mb-0">List of Sectors</h1></div>
+                  <div className="col-6"> <div className="row ">
+                        <div className="col-12 text-end">
+                          <Add_Sector />
+                          <button
+                            className="btn AddNEwSector"
+                            data-bs-toggle="modal"
+                            data-bs-target="#sectorModal"
+                          >
+                           + Add A New Sector
+                          </button>
+                        </div>
+                      </div></div>
+                  </div>
+                  </div>
+                  <div className="col-12" style={{backgroundColor:"#ffffffb0"}}>
                     {sectorsList.length > 0 ? (
                       sectorsList.map((sector) => (
                         <div className="row">
@@ -82,7 +93,7 @@ function AddSector() {
                                   </div>
                                   <div className="col-6">
                                     <div className="row">
-                                      <div className="col-4 text-end">
+                                      <div className="col-4 pr-0 text-end">
                                         {/* <Link to="/joblist"> */}
                                           <button
                                             className="btn btn-job-list"
@@ -94,7 +105,7 @@ function AddSector() {
                                           </button>
                                         {/* </Link> */}
                                       </div>
-                                      <div className="col-4 text-end">
+                                      <div className="col-4  text-end">
                                         <button
                                           className="btn btn-job"
                                           onClick={() => {
@@ -105,7 +116,7 @@ function AddSector() {
                                        +   Add job
                                         </button>
                                       </div>
-                                      <div className="col-4 text-end">
+                                      <div className="col-4  text-end">
                                         <button
                                           className="btn btn-resume"
                                           onClick={() => {
@@ -145,22 +156,7 @@ function AddSector() {
                         closeModal={setRenameModal}
                       />
                     ) : null}
-                    <div className="col-12  pb-3">
-                      <div className="row ">
-                        <div className="col-12 text-center">
-                          <Add_Sector />
-                          <button
-                            className="btn btn-green"
-                            data-bs-toggle="modal"
-                            data-bs-target="#sectorModal"
-                          >
-                            Add A New Sector
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                 
               </div>
             </div>
           </div>

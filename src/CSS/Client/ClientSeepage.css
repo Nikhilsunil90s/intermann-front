@@ -227,10 +227,6 @@ thead {
   padding-top: 5px;
 }
 
-.btn-bgbClient:hover {
-  color: #fe8700;
-}
-
 /* Client Progress Page */
 
 .litle-box {
@@ -1290,9 +1286,7 @@ color: #000000;
     color: #ffffff !important;
     padding-top: 5px;
   }
-  .btn-bgbClient:hover {
-    color: #fe8700;
-  }
+
   
   /* Client Progress Page */
   
@@ -1764,4 +1758,22 @@ color: #000000;
 }
 
 
+}
+@media (min-width:1400px){
+  .Social-cardDiv {
+    height: 540px;
+}
+.Social-btnS {
+  margin-right: 0px;
+  height: 540px;
+  padding: 10px 0px;
+  max-width: 57% !important;
+}
+.imgArchived-upload-download {
+  width: 140px !important;
+  object-fit: cover;
+  height: 140px;
+  border-radius: 145px;
+  border: 4px solid #FF0000;
+}
 }

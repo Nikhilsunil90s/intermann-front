@@ -9,6 +9,9 @@ import {ReactComponent as Empty} from "../../images/emptyStar.svg";
 import {ReactComponent as StarRating} from "../../images/RatingStar.svg";
 import Switch from "react-switch";
 import Select from "react-select";
+import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
+import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
+
 
 const ClientToDoCard = (props: any) => {
 
@@ -86,7 +89,11 @@ const ClientToDoCard = (props: any) => {
         setChecked(event)
       }
     }
-
+    const [isSwitchOn, setIsSwitchOn] = useState(true)as any;
+    const switch_onChange_handle = () => {
+      setIsSwitchOn(!isSwitchOn);
+      //...
+    };
     // useEffect(() => {
     //     console.log(props.data)
     // })
@@ -101,8 +108,8 @@ const ClientToDoCard = (props: any) => {
                             alt="..."
                         />
                     </div>
-                    <div className="col-4 px-0 mt-1">
-                        <p className="textClientCard" style={{width:"130%"}}><b>{props.data.clientCompanyName ? props.data.clientCompanyName : "No CompanyName!"}</b></p>
+                    <div className="col-5 px-0 mt-1">
+                        <p className="textClientCard" style={{width:"130%"}}><b>{props.data.clientCompanyName ? props.data.clientCompanyName.length > 20 ? props.data.clientCompanyName.toLocaleUpperCase().slice(0,29)+ "..." : props.data.clientCompanyName.toLocaleUpperCase(): "No CompanyName!"}</b></p>
                 <p  className="textClientCard" style={{width:"130%"}}>Motivation :
                              <b style={{background:"transparent" , zIndex:"9"}}>{candidatMotivationIcons[props.data.clientMotivation]?.icon + " " + candidatMotivationIcons[props.data.clientMotivation]?.motivation ? candidatMotivationIcons[props.data.clientMotivation]?.icon + " " + candidatMotivationIcons[props.data.clientMotivation]?.motivation : "No Motivation!"}</b>
                         </p>
@@ -113,7 +120,7 @@ const ClientToDoCard = (props: any) => {
                         </div>
                         <div ><p  className="textClientCard">Num of position : <b>  {props.data.numberOfPosts ? props.data.numberOfPosts : "No Posts!"}</b> </p></div>
                     </div>
-                    <div className="col-5 text-end d-flex align-items-start justify-content-end">
+                    <div className="col-4 text-end d-flex align-items-start justify-content-end">
                     <Link to='#'>
                             <button className="todoClient mt-2"><img src={require("../../images/briefcase.svg").default} /></button>
                         </Link>
@@ -127,8 +134,8 @@ const ClientToDoCard = (props: any) => {
 <div className="col-12">
     <div className="row pxbody">
                 <div className="col-5 fontStylingCardDetails px-0 py-1">
-                    <p className="fontStylingCardP">Secteur : {props.data.clientActivitySector ? props.data.clientActivitySector : "No Sector!"} </p>
-                    <p className="fontStylingCardP">Job :  {props.data.clientJob ? props.data.clientJob : "No Job!"}</p>
+                    <p className="fontStylingCardP">Secteur : {props.data.clientActivitySector ? props.data.clientActivitySector.length > 15 ?  props.data.clientActivitySector.toLocaleUpperCase().slice(0,14)  + "..." : props.data.clientActivitySector.toLocaleUpperCase() : "No Sector!"} </p>
+                    <p className="fontStylingCardP">Job :  {props.data.clientJob ? props.data.clientJob.length > 15 ? props.data.clientJob.toLocaleUpperCase().slice(0,14) + "...": props.data.clientJob.toLocaleUpperCase() : "No Job!"}</p>
                     <p>Langues : <b> {props.data.clientLanguages.length ? props.data.clientLanguages : "No Langues!"}</b> </p>
                     <p>Phone :<b>{props.data.clientPhone.length ? props.data.clientPhone : "No Phone Number!"}</b> </p>
                     <p>Estimated CA :   <b>{props.data.jobTotalBudget ? props.data.jobTotalBudget + " €" : "N/A"}</b> </p>                
@@ -136,7 +143,7 @@ const ClientToDoCard = (props: any) => {
                 </div>
                 <div className="col-7 fontStylingCardDetails px-0 pt-1">
                 <p>Salary by person : <b>{props.data.netSalary ? props.data.netSalary + " €" : "N/A"}</b> </p>
-                <p>E-Mail : <b>{props.data.clientEmail.length? props.data.clientEmail : "No Email!"}</b> </p>
+                <p>E-Mail : <b>{props.data.clientEmail ? props.data.clientEmail.length > 20 ? props.data.clientEmail.slice(0,21) + "...": props.data.clientEmail : "No Email!"}</b> </p>
                     <p>Client Phone : <b>{props.data.clientPhone.length? props.data.clientPhone : "No Client Number!"}</b> </p>
                     <p>Contact Name :  <b>{props.data.clientReferenceName ? props.data.clientReferenceName : "No Name!"}</b> </p>
                     <p>Contact phone :   <b>{props.data.clientReferenceNumber.length? props.data.clientReferenceNumber: "No Contact Number!"}</b> </p>
@@ -150,13 +157,16 @@ const ClientToDoCard = (props: any) => {
                         <p className="switch-fontCard mb-0">
                           Offre envoyé ?
                         </p>
-                        <Switch
+                        {/* <Switch
                           className="ml-left miniSwitch"
                           onChange={switchHandle}
                           // onClick={(e)=>switchHandle(e)}
                           checked={Offre}
                           id="Offre"
-                        />
+                        /> */}
+                         <Switch checked={isSwitchOn} value={isSwitchOn} onChange={switch_onChange_handle} checkedHandleIcon={<TurnOn style={{position:"absolute"}} />} height={24} width={50} uncheckedHandleIcon={<TurnoFF style={{position:"absolute"}}/>} />
+                                 
+             
                       </div>
                     </div>
                     <div className="col-5 px-0 d-flex  justify-content-center">

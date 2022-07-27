@@ -58,7 +58,7 @@ export default function ClientArchived() {
   const [jobOptions, setJobOptions] = useState([]);
   const [EmailCheck,setEmailCheck] = useState(false)
   const [PhoneNumberMissing,setMissing]=useState(false)
-  const [showMore, setShowMore] = useState(false)
+  const [showMore, setShowMore] = useState(true)
   const [motivationOptions, setMotivationOptions] = useState([])
   const [optionsOthersFilter, setOtherOptions] = useState([])
   const [importanceOptions, setImportanceOptions] = useState([])as any
@@ -138,7 +138,7 @@ export default function ClientArchived() {
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
 
-    setSectorOptions([...sectorops]);
+    setSectorOptions([{value:"Select Un Secteur",label:"Select Un Secteur",color:'#FF8B00'},...sectorops]);
   }, [sectors])
  
 
@@ -302,11 +302,11 @@ export default function ClientArchived() {
     OthersFilterArr = []
     setSelectedSector("")
     setSelectedJob([])
-    if (e.value === "Select Un Name") {
+    if (e.value === "Select Name") {
       SelectedName = []
-
+      filterFunction()
     }
-    else if (e.value !== "") {
+    else if (e.value !== "Select Name") {
       SelectedName = []
       MotivationArr = []
       let NameField = e.value;
@@ -329,7 +329,7 @@ export default function ClientArchived() {
       setJobOptions([]);
       setLoader(true);
 
-    } else if (e.value !== '') {
+    } else if (e.value !== 'Select Un Secteur') {
       let sectorField = e.value;
       setSelectedSector(sectorField);
       setJobOptions([]);
@@ -344,7 +344,6 @@ export default function ClientArchived() {
         // console.log(err);
       });
   };
-
   
   const getSelectedLanguage = (e: any) => {
     if (e.target.checked) {
@@ -362,21 +361,20 @@ export default function ClientArchived() {
   };
   const filterFunction = async () => {
     setLoader(false);
-    if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0){
-      
-      fetchProfiles().then((res)=>{
-        setFilterData([...res])
-        setLoader(true)
+
+    if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length == 0 && MotivationArr.length == 0 && Importance.length == 0 ){
+      setLoader(true)
       setStatus(true)
+      fetchProfiles().then((res)=>setFilterData([...res]))
+      .catch(err => {
+        console.log(err);
       })
     }
     if (
-      selectedSector.length > 0 &&
-      selectedJob.length == 0 &&
-      selectedLanguages.length == 0
+      MotivationArr.length > 0
     ) {
       fetch(
-        `${API_BASE_URL}filterArchivedClientBySector/?sector=${selectedSector}`,
+        `${API_BASE_URL}filterClients/?clientMotivation=${MotivationArr}&jobStatus=Archived`,
         {
           method: "GET",
           headers: {
@@ -387,103 +385,95 @@ export default function ClientArchived() {
         }
       )
         .then((reD) => reD.json())
-        .then((result) => {
-          {
-            setFilterData([...result.data]);
+        .then(result => {
+          if(result.total == 0){
+            setLoader(true)
+setStatus(false)
           }
-          setStatus(result.status);
-        })
+          else if(result.total > 0){
+            setFilterData([...result.data]);      
+            setLoader(true)
+            setStatus(true)
+          }
+      })
         .catch((err) => err);
       setLoader(true);
     }
+   
     if (
       selectedSector.length > 0 &&
-      selectedJob.length > 0 &&
+       FilterJob.length == 0 &&
       selectedLanguages.length == 0
     ) {
-      console.log(FilterJob, "seletedjobss");
-      await fetch(
-        `${API_BASE_URL}filterArchivedClientSJ/?sector=${selectedSector}&jobs=${selectedJob}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-        .then((reD) => reD.json())
-        .then((result) => {
+    
+        await fetch(
+          `${API_BASE_URL}filterClients/?clientActivitySector=${selectedSector}&jobStatus=Archived`,
           {
-            setFilterData([...result.data]);
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
           }
-          setStatus(result.status);
-        })
-        .catch((err) => err);
-      setLoader(true);
-    }
+        )
+          .then((reD) => reD.json())
+          .then((result) => {
+            if(result.total == 0){
+              setLoader(true)
+  setStatus(false)
+            }
+            else if(result.total > 0){
+              setFilterData([...result.data]);      
+              setLoader(true)
+              setStatus(true)
+            }
+          
+          })
+          .catch((err) => err);
+        setLoader(true);  
 
-    if (
-      selectedSector.length > 0 &&
-      selectedLanguages.length > 0 &&
-      selectedJob.length == 0
-    ) {
-      await fetch(
-        `${API_BASE_URL}filterArchivedClientSL/?sector=${selectedSector}&languages=${selectedLanguages}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-        .then((reD) => reD.json())
-        .then((result) => {
-          {
-            setFilterData([...result.data]);
-          }
-          setStatus(result.status);
-        })
-        .catch((err) => err);
-      setLoader(true);
     }
     if (
       selectedSector.length > 0 &&
-      selectedJob.length > 0 &&
-      selectedLanguages.length > 0
+       FilterJob.length > 0 &&
+      selectedLanguages.length == 0
     ) {
-      await fetch(
-        `${API_BASE_URL}filterArchivedClientSJL/?sector=${selectedSector}&jobs=${selectedJob}&languages=${selectedLanguages}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-        .then((reD) => reD.json())
-        .then((result) => {
+    
+        await fetch(
+          `${API_BASE_URL}filterClients/?clientJob=${FilterJob}&jobStatus=Archived`,
           {
-            setFilterData([...result.data]);
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
           }
-          setStatus(result.status);
-        })
-        .catch((err) => err);
-      setLoader(true);
+        )
+          .then((reD) => reD.json())
+          .then((result) => {
+          if(result.total == 0){
+            setLoader(true)
+setStatus(false)
+          }
+          else if(result.total > 0){
+            setFilterData([...result.data]);      
+            setLoader(true)
+            setStatus(true)
+          }
+          
+          })
+          .catch((err) => err);
+        setLoader(true);  
+
     }
 
     if (
-      selectedLanguages.length > 0 &&
-      selectedJob.length == 0 &&
-      selectedSector.length == 0
+     SelectedName.length > 0
     ) {
       await fetch(
-        `${API_BASE_URL}filterArchivedClientByLanguages/?languages=${selectedLanguages}`,
+        `${API_BASE_URL}filterClients/?clientCompanyName=${SelectedName}&jobStatus=Archived`,
         {
           method: "GET",
           headers: {
@@ -495,14 +485,50 @@ export default function ClientArchived() {
       )
         .then((reD) => reD.json())
         .then((result) => {
-          {
-            setFilterData([...result.data]);
+          if(result.total == 0){
+            setLoader(true)
+setStatus(false)
           }
-          setStatus(result.status);
+          else if(result.total > 0){
+            setFilterData([...result.data]);      
+            setLoader(true)
+            setStatus(true)
+          }
+        
         })
         .catch((err) => err);
-      setLoader(true);
+      
     }
+    if (
+        Importance.length > 0
+     ) {
+       await fetch(
+         `${API_BASE_URL}filterClients/?clientImportance=${Importance}&jobStatus=Archived`,
+         {
+           method: "GET",
+           headers: {
+             Accept: "application/json",
+             "Content-Type": "application/json",
+             Authorization: "Bearer " + localStorage.getItem("token"),
+           },
+         }
+       )
+         .then((reD) => reD.json())
+         .then((result) => {
+           if(result.total == 0){
+             setLoader(true)
+ setStatus(false)
+           }
+           else if(result.total > 0){
+             setFilterData([...result.data]);      
+             setLoader(true)
+             setStatus(true)
+           }
+         
+         })
+         .catch((err) => err);
+       
+     }
   };
   const handleMotivationChange = (e: any) => {
     // console.log(e.target.value)
@@ -516,12 +542,12 @@ export default function ClientArchived() {
       filterFunction()
       setLoader(true);
 
-    } else if (e.value !== "") {
+    } else if (e.value !== "Select Motivation") {
       MotivationArr = []
-      let sectorField = e.value;
+      let MField = e.value;
 
-      console.log(sectorField, "motivation")
-      MotivationArr.push(sectorField)
+      console.log(MField, "motivation")
+      MotivationArr.push(MField)
       filterFunction()
       // setSelectedSector(sectorField);
     }
@@ -532,7 +558,14 @@ export default function ClientArchived() {
     MotivationArr = []
     FilterJob=[]
     Importance=[]
-     Importance.push(e.value)
+    if(e.value=="Select Importance"){
+      Importance=[]
+    }
+    else if(e.value!= "Select Importance"){
+      Importance.push(e.value)
+      filterFunction();
+    }
+     
    }
   
    const HandelOthers = (e) => {
@@ -756,12 +789,14 @@ export default function ClientArchived() {
                               </div>
                             </div>
                           </div>
-                          <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4  d-flex align-items-center justify-content-end">
+                         
                       {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
-
+ <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4  d-flex align-items-center justify-content-end">
 <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
+</div>
 : null
-}   </div>
+
+}   
                           <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4  d-flex justify-content-end">
                             <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(false)}>Less Filters <img src={require("../../images/downup.svg").default} /></p>
                           </div>
@@ -774,12 +809,12 @@ export default function ClientArchived() {
                   <div className="extraPadding">
                     <div className="col-12">
                       <div className="row justify-content-end">
-                      <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 d-flex align-items-center justify-content-end">
                       {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
-
+                      <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 d-flex align-items-center justify-content-end">
 <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
+</div>
 : null
-}   </div>
+}  
                         <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 d-flex justify-content-end">
                           <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(true)}>More Filters <img src={require("../../images/down.svg").default} /></p>
                         </div>
@@ -791,8 +826,9 @@ export default function ClientArchived() {
           <>
           {loader ? 
                 <>
-                  {filterData.length > 0 ? 
-                  status ? 
+                  {status ? 
+                  filterData.length > 0 ? 
+   
                       filterData.map((profile, index) => (
                         <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left">
                           <ClientCardArchived  data={profile}  />
@@ -807,7 +843,7 @@ export default function ClientArchived() {
                    </div>
                   : 
                   <p className="text-center">
-                  No Profiles in Candidat To-Do! Please Add New Candidats.
+                  No Profiles in Clients Archived! Please Add New Clients.
                 </p>
                    
                   }

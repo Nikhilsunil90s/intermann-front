@@ -53,7 +53,7 @@ let OthersFilterArr = []
   const [jobOptions, setJobOptions] = useState([]);
   const [EmailCheck,setEmailCheck] = useState(false)
   const [PhoneNumberMissing,setMissing]=useState(false)
-  const [showMore, setShowMore] = useState(false)
+  const [showMore, setShowMore] = useState(true)
   const [motivationOptions, setMotivationOptions] = useState([])
   const [optionsOthersFilter, setOtherOptions] = useState([])
   const [importanceOptions, setImportanceOptions] = useState([])as any
@@ -213,7 +213,7 @@ let OthersFilterArr = []
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
 
-    setSectorOptions([...sectorops]);
+    setSectorOptions([{value:"Select Un Secteur",label:"Select Un Secteur",color:'#FF8B00'},...sectorops]);
   }, [sectors])
   useEffect(() => {
     filterFunction();
@@ -247,27 +247,20 @@ let OthersFilterArr = []
 
   const filterFunction = async () => {
     setLoader(false);
-    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0) {
-      setLoader(false)
-      fetchProfiles().then((res)=>{
-        if(res!=[]){
-          setLoader(true)
-          setStatus(true)
-          setFilterData([...res])
-        }else{
-         setLoader(true)
-         setStatus(false)
-        }
-    
+
+    if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length == 0 && MotivationArr.length == 0 && Importance.length == 0 ){
+      setLoader(true)
+      setStatus(true)
+      fetchProfiles().then((res)=>setFilterData([...res]))
+      .catch(err => {
+        console.log(err);
       })
     }
     if (
-      selectedSector.length > 0 &&
-      selectedJob.length == 0 &&
-      selectedLanguages.length == 0
+      MotivationArr.length > 0
     ) {
       fetch(
-        `${API_BASE_URL}filterSignedClientBySector/?sector=${selectedSector}`,
+        `${API_BASE_URL}filterClients/?clientMotivation=${MotivationArr}&jobStatus=Signed Contract`,
         {
           method: "GET",
           headers: {
@@ -278,103 +271,95 @@ let OthersFilterArr = []
         }
       )
         .then((reD) => reD.json())
-        .then((result) => {
-          {
-            setFilterData([...result.data]);
+        .then(result => {
+          if(result.total == 0){
+            setLoader(true)
+setStatus(false)
           }
-          setStatus(result.status);
-        })
+          else if(result.total > 0){
+            setFilterData([...result.data]);      
+            setLoader(true)
+            setStatus(true)
+          }
+      })
         .catch((err) => err);
       setLoader(true);
     }
+   
     if (
       selectedSector.length > 0 &&
-      selectedJob.length > 0 &&
+       FilterJob.length == 0 &&
       selectedLanguages.length == 0
     ) {
-      console.log(FilterJob, "seletedjobss");
-      await fetch(
-        `${API_BASE_URL}filterSignedClientSJ/?sector=${selectedSector}&jobs=${selectedJob}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-        .then((reD) => reD.json())
-        .then((result) => {
+    
+        await fetch(
+          `${API_BASE_URL}filterClients/?clientActivitySector=${selectedSector}&jobStatus=Signed Contract`,
           {
-            setFilterData([...result.data]);
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
           }
-          setStatus(result.status);
-        })
-        .catch((err) => err);
-      setLoader(true);
-    }
+        )
+          .then((reD) => reD.json())
+          .then((result) => {
+            if(result.total == 0){
+              setLoader(true)
+  setStatus(false)
+            }
+            else if(result.total > 0){
+              setFilterData([...result.data]);      
+              setLoader(true)
+              setStatus(true)
+            }
+          
+          })
+          .catch((err) => err);
+        setLoader(true);  
 
-    if (
-      selectedSector.length > 0 &&
-      selectedLanguages.length > 0 &&
-      selectedJob.length == 0
-    ) {
-      await fetch(
-        `${API_BASE_URL}filterSignedClientSL/?sector=${selectedSector}&languages=${selectedLanguages}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-        .then((reD) => reD.json())
-        .then((result) => {
-          {
-            setFilterData([...result.data]);
-          }
-          setStatus(result.status);
-        })
-        .catch((err) => err);
-      setLoader(true);
     }
     if (
       selectedSector.length > 0 &&
-      selectedJob.length > 0 &&
-      selectedLanguages.length > 0
+       FilterJob.length > 0 &&
+      selectedLanguages.length == 0
     ) {
-      await fetch(
-        `${API_BASE_URL}filterSignedClientSJL/?sector=${selectedSector}&jobs=${selectedJob}&languages=${selectedLanguages}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-        .then((reD) => reD.json())
-        .then((result) => {
+    
+        await fetch(
+          `${API_BASE_URL}filterClients/?clientJob=${FilterJob}&jobStatus=Signed Contract`,
           {
-            setFilterData([...result.data]);
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
           }
-          setStatus(result.status);
-        })
-        .catch((err) => err);
-      setLoader(true);
+        )
+          .then((reD) => reD.json())
+          .then((result) => {
+          if(result.total == 0){
+            setLoader(true)
+setStatus(false)
+          }
+          else if(result.total > 0){
+            setFilterData([...result.data]);      
+            setLoader(true)
+            setStatus(true)
+          }
+          
+          })
+          .catch((err) => err);
+        setLoader(true);  
+
     }
 
     if (
-      selectedLanguages.length > 0 &&
-      selectedJob.length == 0 &&
-      selectedSector.length == 0
+     SelectedName.length > 0
     ) {
       await fetch(
-        `${API_BASE_URL}filterSignedClientByLanguages/?languages=${selectedLanguages}`,
+        `${API_BASE_URL}filterClients/?clientCompanyName=${SelectedName}&jobStatus=Signed Contract`,
         {
           method: "GET",
           headers: {
@@ -386,16 +371,51 @@ let OthersFilterArr = []
       )
         .then((reD) => reD.json())
         .then((result) => {
-          {
-            setFilterData([...result.data]);
+          if(result.total == 0){
+            setLoader(true)
+setStatus(false)
           }
-          setStatus(result.status);
+          else if(result.total > 0){
+            setFilterData([...result.data]);      
+            setLoader(true)
+            setStatus(true)
+          }
+        
         })
         .catch((err) => err);
-      setLoader(true);
+      
     }
-  }
-
+    if (
+        Importance.length > 0
+     ) {
+       await fetch(
+         `${API_BASE_URL}filterClients/?clientImportance=${Importance}&jobStatus=Signed Contract`,
+         {
+           method: "GET",
+           headers: {
+             Accept: "application/json",
+             "Content-Type": "application/json",
+             Authorization: "Bearer " + localStorage.getItem("token"),
+           },
+         }
+       )
+         .then((reD) => reD.json())
+         .then((result) => {
+           if(result.total == 0){
+             setLoader(true)
+ setStatus(false)
+           }
+           else if(result.total > 0){
+             setFilterData([...result.data]);      
+             setLoader(true)
+             setStatus(true)
+           }
+         
+         })
+         .catch((err) => err);
+       
+     }
+  };
 
   const handleNameChange = (e: any) => {
     // console.log(e.target.value)
@@ -405,11 +425,11 @@ let OthersFilterArr = []
     OthersFilterArr = []
     setSelectedSector("")
     setSelectedJob([])
-    if (e.value === "Select Un Name") {
+    if (e.value === "Select Name") {
       SelectedName = []
-
+      filterFunction()
     }
-    else if (e.value !== "") {
+    else if (e.value !== "Select Name") {
       SelectedName = []
       MotivationArr = []
       let NameField = e.value;
@@ -432,7 +452,7 @@ let OthersFilterArr = []
       setJobOptions([]);
       setLoader(true);
 
-    } else if (e.value !== '') {
+    } else if (e.value !== 'Select Un Secteur') {
       let sectorField = e.value;
       setSelectedSector(sectorField);
       setJobOptions([]);
@@ -447,36 +467,46 @@ let OthersFilterArr = []
         // console.log(err);
       });
   };
-    const handleMotivationChange = (e: any) => {
-      // console.log(e.target.value)
+
+  const handleMotivationChange = (e: any) => {
+    // console.log(e.target.value)
+    MotivationArr = []
+    Importance=[]
+    OthersFilterArr = []
+    setSelectedSector("")
+    SelectedName = []
+    if (e.value === "Select Motivation") {
       MotivationArr = []
-      Importance=[]
-      OthersFilterArr = []
-      setSelectedSector("")
-      SelectedName = []
-      if (e.value === "Select Motivation") {
-        MotivationArr = []
-        filterFunction()
-        setLoader(true);
-  
-      } else if (e.value !== "") {
-        MotivationArr = []
-        let sectorField = e.value;
-  
-        console.log(sectorField, "motivation")
-        MotivationArr.push(sectorField)
-        filterFunction()
-        // setSelectedSector(sectorField);
-      }
-    };
-    const importanceHandel=(e)=>{
-      SelectedName = []
-      setSelectedSector("")
+      filterFunction()
+      setLoader(true);
+
+    } else if (e.value !== "Select Motivation") {
       MotivationArr = []
-      FilterJob=[]
-      Importance=[]
-       Importance.push(e.value)
-     }
+      let MField = e.value;
+
+      console.log(MField, "motivation")
+      MotivationArr.push(MField)
+      filterFunction()
+      // setSelectedSector(sectorField);
+    }
+  };
+   const importanceHandel=(e)=>{
+  SelectedName = []
+  setSelectedSector("")
+  MotivationArr = []
+  FilterJob=[]
+  Importance=[]
+  if(e.value=="Select Importance"){
+    Importance=[]
+  }
+  else if(e.value!= "Select Importance"){
+    Importance.push(e.value)
+    filterFunction();
+  }
+   
+ }
+
+  
     
      const HandelOthers = (e) => {
       SelectedName = []
@@ -577,9 +607,9 @@ let OthersFilterArr = []
                     {
                       nameOptions.length > 0 ?
                         <Select
-                          name="candidatName"
+                          name="ClientName"
                           closeMenuOnSelect={true}
-                          placeholder="‎ ‎ ‎ Select Un Candidat"
+                          placeholder="‎ ‎ ‎ Select Un Client"
                           className="basic-multi-select"
                           classNamePrefix="select"
                           onChange={handleNameChange}
@@ -597,7 +627,7 @@ let OthersFilterArr = []
                   <div aria-labelledby="dropdownMenuButton1">
                     {sectorOptions.length > 0 ?
                       <Select
-                        name="candidatActivitySector"
+                        name="ClientActivitySector"
                         closeMenuOnSelect={true}
                         placeholder="‎ ‎ ‎ Select Un Secteur"
                         className="basic-multi-select"
@@ -640,9 +670,9 @@ let OthersFilterArr = []
                             {
                               motivationOptions.length > 0 ?
                               <Select
-                              name="candidatMotivation"
+                              name="ClientMotivation"
                               closeMenuOnSelect={true}
-                              placeholder="‎ ‎ ‎ Select Motivation du Candidat"
+                              placeholder="‎ ‎ ‎ Select Motivation du Client"
                               className="basic-multi-select"
                               classNamePrefix="select"
                               onChange={handleMotivationChange}
@@ -664,7 +694,7 @@ let OthersFilterArr = []
                            {
                             importanceOptions.length > 0 ?
                             <Select
-                            name="candidatLicencePermis"
+                            name="ClientLicencePermis"
                             closeMenuOnSelect={true}
                             placeholder="‎ ‎ ‎ Select Licence Permis"
                             className="basic-multi-select"
@@ -688,7 +718,7 @@ let OthersFilterArr = []
                             {
                               optionsOthersFilter.length > 0 ?
                               <Select
-                              name="candidatLicencePermis"
+                              name="ClientLicencePermis"
                               closeMenuOnSelect={true}
                               isMulti={true}
                               placeholder="‎ ‎ ‎ Select Licence Permis"
@@ -724,12 +754,12 @@ let OthersFilterArr = []
                               </div>
                             </div>
                           </div>
-                          <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex align-items-center justify-content-end">
                       {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
+                          <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex align-items-center justify-content-end">
 
 <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
-: null
-}   </div>
+</div>: null
+} 
                           <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex justify-content-end">
                             <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(false)}>Less Filters <img src={require("../../images/downup.svg").default} /></p>
                           </div>
@@ -742,12 +772,11 @@ let OthersFilterArr = []
                   <div className="extraPadding">
                     <div className="col-12">
                       <div className="row justify-content-end">
-                      <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3d-flex align-items-center justify-content-end">
                       {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
-
+                      <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3d-flex align-items-center justify-content-end">
 <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
-: null
-}   </div>
+</div>: null
+}  
                         <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex justify-content-end">
                           <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(true)}>More Filters <img src={require("../../images/down.svg").default} /></p>
                         </div>
@@ -759,8 +788,9 @@ let OthersFilterArr = []
           <>
             {loader ?
               <>
-                {filterData.length > 0 ?
-                  status ?
+                { status ?
+                filterData.length > 0 ?
+                 
                     filterData.map((profile, index) => (
                       <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left">
                         <ClientContractCard data={profile} />
@@ -775,7 +805,7 @@ let OthersFilterArr = []
                     </div>
                   :
                   <p className="text-center">
-                    No Profiles in Candidat To-Do! Please Add New Candidats.
+                    No Profiles in Client Signed Contract! Please Add New Clients.
                   </p>
 
                 }

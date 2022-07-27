@@ -13,6 +13,7 @@ import {ReactComponent as RatingStar} from "../../images/RatingStar.svg"
 import {ReactComponent as Empty} from "../../images/emptyStar.svg"
 import Switch from "react-switch";
 import Loader from "../../components/Loader/loader"
+import { colors } from "react-select/dist/declarations/src/theme";
 declare namespace JSX {
   interface IntrinsicElements {
     "lottie-player": any;
@@ -135,7 +136,7 @@ function ClientToDoList() {
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
 
-    setSectorOptions([...sectorops]);
+    setSectorOptions([{value:"Select Un Secteur",label:"Select Un Secteur",color:'#FF8B00'},...sectorops]);
   }, [sectors])
  
   useEffect(() => {
@@ -182,11 +183,11 @@ function ClientToDoList() {
     OthersFilterArr = []
     setSelectedSector("")
     setSelectedJob([])
-    if (e.value === "Select Un Name") {
+    if (e.value === "Select Name") {
       SelectedName = []
-
+      filterFunction()
     }
-    else if (e.value !== "") {
+    else if (e.value !== "Select Name") {
       SelectedName = []
       MotivationArr = []
       let NameField = e.value;
@@ -216,12 +217,12 @@ function ClientToDoList() {
       filterFunction()
       setLoader(true);
 
-    } else if (e.value !== "") {
+    } else if (e.value !== "Select Motivation") {
       MotivationArr = []
-      let sectorField = e.value;
+      let MField = e.value;
 
-      console.log(sectorField, "motivation")
-      MotivationArr.push(sectorField)
+      console.log(MField, "motivation")
+      MotivationArr.push(MField - 1)
       filterFunction()
       // setSelectedSector(sectorField);
     }
@@ -245,7 +246,14 @@ function ClientToDoList() {
   MotivationArr = []
   FilterJob=[]
   Importance=[]
-   Importance.push(e.value)
+  if(e.value=="Select Importance"){
+    Importance=[]
+  }
+  else if(e.value!= "Select Importance"){
+    Importance.push(e.value)
+    filterFunction();
+  }
+   
  }
 
   
@@ -265,7 +273,7 @@ function ClientToDoList() {
       setJobOptions([]);
       setLoader(true);
 
-    } else if (e.value !== '') {
+    } else if (e.value !== 'Select Un Secteur') {
       let sectorField = e.value;
       setSelectedSector(sectorField);
       setJobOptions([]);
@@ -319,8 +327,8 @@ function ClientToDoList() {
 
   const filterFunction = async () => {
     setLoader(false);
-    setStatus(false)
-    if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0){
+ 
+    if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length == 0 && MotivationArr.length == 0 && Importance.length == 0 ){
       setLoader(true)
       setStatus(true)
       fetchProfiles().then((res)=>setFilterData([...res]))
@@ -329,12 +337,10 @@ function ClientToDoList() {
       })
     }
     if (
-      selectedSector.length > 0 &&
-      selectedJob.length == 0 &&
-      selectedLanguages.length == 0
+      MotivationArr.length > 0
     ) {
       fetch(
-        `${API_BASE_URL}filterToDoClientBySector/?sector=${selectedSector}`,
+        `${API_BASE_URL}filterClients/?clientMotivation=${MotivationArr}&jobStatus=To-Do`,
         {
           method: "GET",
           headers: {
@@ -346,8 +352,15 @@ function ClientToDoList() {
       )
         .then((reD) => reD.json())
         .then(result => {
-          setFilterData([...result.data])      
-        setStatus(result.status)
+          if(result.total == 0){
+            setLoader(true)
+setStatus(false)
+          }
+          else if(result.total > 0){
+            setFilterData([...result.data]);      
+            setLoader(true)
+            setStatus(true)
+          }
       })
         .catch((err) => err);
       setLoader(true);
@@ -355,12 +368,12 @@ function ClientToDoList() {
    
     if (
       selectedSector.length > 0 &&
-       FilterJob.length > 0 &&
+       FilterJob.length == 0 &&
       selectedLanguages.length == 0
     ) {
     
         await fetch(
-          `${API_BASE_URL}filterToDoClientSJ/?sector=${selectedSector}&jobs=${selectedJob}`,
+          `${API_BASE_URL}filterClients/?clientActivitySector=${selectedSector}&jobStatus=To-Do`,
           {
             method: "GET",
             headers: {
@@ -372,74 +385,61 @@ function ClientToDoList() {
         )
           .then((reD) => reD.json())
           .then((result) => {
-            setFilterData([...result.data]);      
-          setStatus(result.status)
+            if(result.total == 0){
+              setLoader(true)
+  setStatus(false)
+            }
+            else if(result.total > 0){
+              setFilterData([...result.data]);      
+              setLoader(true)
+              setStatus(true)
+            }
           
           })
           .catch((err) => err);
         setLoader(true);  
 
     }
-  
+    if (
+      selectedSector.length > 0 &&
+       FilterJob.length > 0 &&
+      selectedLanguages.length == 0
+    ) {
+    
+        await fetch(
+          `${API_BASE_URL}filterClients/?clientJob=${FilterJob}&jobStatus=To-Do`,
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
+          .then((reD) => reD.json())
+          .then((result) => {
+          if(result.total == 0){
+            setLoader(true)
+setStatus(false)
+          }
+          else if(result.total > 0){
+            setFilterData([...result.data]);      
+            setLoader(true)
+            setStatus(true)
+          }
+          
+          })
+          .catch((err) => err);
+        setLoader(true);  
 
-    if (
-      selectedSector.length > 0 &&
-      selectedLanguages.length > 0 &&
-      selectedJob.length == 0
-    ) {
-      await fetch(
-        `${API_BASE_URL}filterToDoClientSL/?sector=${selectedSector}&languages=${selectedLanguages}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-        .then((reD) => reD.json())
-        .then((result) => {
-          setFilterData([...result.data]);      
-          setStatus(result.status)
-        
-        })
-        .catch((err) => err);
-      setLoader(true);
-    }
-    if (
-      selectedSector.length > 0 &&
-      selectedJob.length > 0 &&
-      selectedLanguages.length > 0
-    ) {
-      await fetch(
-        `${API_BASE_URL}filterToDoClientSJL/?sector=${selectedSector}&jobs=${selectedJob}&languages=${selectedLanguages}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-        .then((reD) => reD.json())
-        .then((result) => {
-          setFilterData([...result.data]);      
-          setStatus(result.status)
-        
-        })
-        .catch((err) => err);
-      setLoader(true);
     }
 
     if (
-      selectedLanguages.length > 0 &&
-      selectedJob.length == 0 &&
-      selectedSector.length == 0
+     SelectedName.length > 0
     ) {
       await fetch(
-        `${API_BASE_URL}filterToDoClientByLanguages/?languages=${selectedLanguages}`,
+        `${API_BASE_URL}filterClients/?clientCompanyName=${SelectedName}&jobStatus=To-Do`,
         {
           method: "GET",
           headers: {
@@ -451,13 +451,50 @@ function ClientToDoList() {
       )
         .then((reD) => reD.json())
         .then((result) => {
-          setFilterData([...result.data]);      
-          setStatus(result.status)
+          if(result.total == 0){
+            setLoader(true)
+setStatus(false)
+          }
+          else if(result.total > 0){
+            setFilterData([...result.data]);      
+            setLoader(true)
+            setStatus(true)
+          }
         
         })
         .catch((err) => err);
-      setLoader(true);
+      
     }
+    if (
+        Importance.length > 0
+     ) {
+       await fetch(
+         `${API_BASE_URL}filterClients/?clientImportance=${Importance}&jobStatus=To-Do`,
+         {
+           method: "GET",
+           headers: {
+             Accept: "application/json",
+             "Content-Type": "application/json",
+             Authorization: "Bearer " + localStorage.getItem("token"),
+           },
+         }
+       )
+         .then((reD) => reD.json())
+         .then((result) => {
+           if(result.total == 0){
+             setLoader(true)
+ setStatus(false)
+           }
+           else if(result.total > 0){
+             setFilterData([...result.data]);      
+             setLoader(true)
+             setStatus(true)
+           }
+         
+         })
+         .catch((err) => err);
+       
+     }
   };
 
   useEffect(() => {
@@ -547,6 +584,7 @@ function ClientToDoList() {
   
     })
     FilterJob=JobArr
+    console.log(FilterJob,"flJob")
     filterFunction()
   }
 
@@ -565,6 +603,7 @@ setImportanceOptions([])
    setSectorOptions([])
    setSectors([])
    setSelectedJob([])
+   setSelectedSector("")
    fetchAllSectors()
  filterFunction()
   }
@@ -595,7 +634,7 @@ setImportanceOptions([])
                         <Select
                           name="candidatName"
                           closeMenuOnSelect={true}
-                          placeholder="‎ ‎ ‎ Select Un Candidat"
+                          placeholder="‎ ‎ ‎ Select Un Client"
                           className="basic-multi-select"
                           classNamePrefix="select"
                           onChange={handleNameChange}
@@ -613,7 +652,7 @@ setImportanceOptions([])
                   <div aria-labelledby="dropdownMenuButton1">
                     {sectorOptions.length > 0 ?
                       <Select
-                        name="candidatActivitySector"
+                        name="ClientActivitySector"
                         closeMenuOnSelect={true}
                         placeholder="‎ ‎ ‎ Select Un Secteur"
                         className="basic-multi-select"
@@ -656,9 +695,9 @@ setImportanceOptions([])
                             {
                               motivationOptions.length > 0 ?
                               <Select
-                              name="candidatMotivation"
+                              name="ClientMotivation"
                               closeMenuOnSelect={true}
-                              placeholder="‎ ‎ ‎ Select Motivation du Candidat"
+                              placeholder="‎ ‎ ‎ Select Motivation du Client"
                               className="basic-multi-select"
                               classNamePrefix="select"
                               onChange={handleMotivationChange}
@@ -680,7 +719,7 @@ setImportanceOptions([])
                            {
                             importanceOptions.length > 0 ?
                             <Select
-                            name="candidatLicencePermis"
+                            name="ClientLicencePermis"
                             closeMenuOnSelect={true}
                             placeholder="‎ ‎ ‎ Select Licence Permis"
                             className="basic-multi-select"
@@ -704,7 +743,7 @@ setImportanceOptions([])
                             {
                               optionsOthersFilter.length > 0 ?
                               <Select
-                              name="candidatLicencePermis"
+                              name="ClientLicencePermis"
                               closeMenuOnSelect={true}
                               isMulti={true}
                               placeholder="‎ ‎ ‎ Select Licence Permis"
@@ -740,11 +779,12 @@ setImportanceOptions([])
                               </div>
                             </div>
                           </div>
-                          <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 d-flex align-items-center justify-content-end">
-                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
+                          {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
+                          <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex align-items-center justify-content-end">
+
 <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
-: null
-}   </div>
+</div>: null
+} 
                           <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 d-flex justify-content-end">
                             <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(false)}>Less Filters <img src={require("../../images/downup.svg").default} /></p>
                           </div>
@@ -757,11 +797,12 @@ setImportanceOptions([])
                   <div className="extraPadding">
                     <div className="col-12">
                       <div className="row justify-content-end">
-                      <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 d-flex align-items-center justify-content-end">
                       {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
+                          <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex align-items-center justify-content-end">
+
 <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
-: null
-}   </div>
+</div>: null
+} 
                         <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 d-flex justify-content-end">
                           <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(true)}>More Filters <img src={require("../../images/down.svg").default} /></p>
                         </div>
@@ -809,7 +850,7 @@ setImportanceOptions([])
 
                 :
                 <p className="text-center">
-                  No Profiles in Candidat To-Do! Please Add New Candidats.
+                  No Profiles in Client To-Do! Please Add New Clients.
                 </p>
               }
             </>

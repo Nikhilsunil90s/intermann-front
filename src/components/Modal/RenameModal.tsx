@@ -59,15 +59,23 @@ function RenameModal({ props, closeModal }) {
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">Rename Sector - {props}</h5>
+                        <h5 className="modal-title AddNewFont" id="exampleModalLabel">Rename Sector - {props}</h5>
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => closeModal(false)}></button>
                     </div>
                     <div className="modal-body text-center">
                         <input type="text" name="sectorName" onChange={handleSectorNameChange} className='form-control' placeholder={'Enter New Name for Sector - ' + props} />
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => closeModal(false)}>Cancel</button>
-                        <button type="button" className="btn btn-primary" onClick={saveNewSectorName}>Save Changes To Sector Name</button>
+                        <div className='col-12'>
+                            <div className='row justify-content-end'>
+                                <div className='col-3'>
+                        <button type="button" className="btn btn-job-list" data-bs-dismiss="modal" onClick={() => closeModal(false)}>Cancel</button>
+                                </div>
+                                <div className='col-9'>
+                        <button type="button" className="btn  btn-resume" onClick={saveNewSectorName}>Save Changes To Sector Name</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

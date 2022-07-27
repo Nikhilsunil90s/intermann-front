@@ -322,7 +322,6 @@ function Embauch() {
                 setLoader(true)
                 setStatus(true)
                setFilterData([...ClientFL])
-               console.log([...ClientFL],"sab")
              }
            }
             

@@ -11,7 +11,6 @@ import Select from "react-select";
 import InProgressClientModal from "../../components/Modal/InProgressClientModal";
 import   {ReactComponent as Cross} from "../../images/FatX.svg";
 import   {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
-// import ToggleSwitch from 'toggle-switch-rn'
 
 function ClientProgressCard(props: any) {
 
@@ -85,6 +84,7 @@ function ClientProgressCard(props: any) {
         setChecked(event)
       }
     }
+   
     return (
         <>
             <div className="card cardInPro p-0">
@@ -97,7 +97,7 @@ function ClientProgressCard(props: any) {
                         />
                     </div>
                     <div className="col-6 px-0 mt-1">
-                    <p className="textClientCard" style={{width:"150%"}}><b>{props.data.clientCompanyName ? props.data.clientCompanyName.toLocaleUpperCase() : "No CompanyName!"}</b></p>
+                    <p className="textClientCard" style={{width:"150%"}}><b>{props.data.clientCompanyName ? props.data.clientCompanyName.length > 20 ? props.data.clientCompanyName.toLocaleUpperCase().slice(0,29)+ "..." : props.data.clientCompanyName.toLocaleUpperCase(): "No CompanyName!"}</b></p>
                     <div >  <p  className="textClientCard" style={{height:"30px", background:"transparent"}}>Importance:
                              <b className="d-flex" style={{width:"37%",marginLeft:"3px",height:"43px"}}>{candidatImportanceIcons[props.data.clientImportance - 1]?.icon ? candidatImportanceIcons[props.data.clientImportance - 1]?.icon : "No Importance" }</b>
 
@@ -121,8 +121,8 @@ function ClientProgressCard(props: any) {
 <div className="col-12 ">
     <div className="row pl-1">
                 <div className="col-5 fontStylingCardDetails px-0 py-1">
-                <p className="fontStylingCardP">Secteur : {props.data.clientActivitySector ? props.data.clientActivitySector.toLocaleUpperCase() : "No Sector!"} </p>
-                    <p className="fontStylingCardP">Job :  {props.data.clientJob ? props.data.clientJob.toLocaleUpperCase() : "No Job!"}</p>
+                <p className="fontStylingCardP">Secteur : {props.data.clientActivitySector ? props.data.clientActivitySector.length > 15 ?  props.data.clientActivitySector.toLocaleUpperCase().slice(0,14)  + "..." : props.data.clientActivitySector.toLocaleUpperCase() : "No Sector!"} </p>
+                    <p className="fontStylingCardP">Job : {props.data.clientJob ? props.data.clientJob.length > 15 ? props.data.clientJob.toLocaleUpperCase().slice(0,14) + "...": props.data.clientJob.toLocaleUpperCase() : "No Job!"}</p>
                     <p>Langues : <b> {props.data.clientLanguages.length ? props.data.clientLanguages : "No Langues!"}</b> </p>
                     <p>Phone :<b>{props.data.clientPhone.length ? props.data.clientPhone : "No Phone Number!"}</b> </p>
                     <p>Estimated CA :   <b>{props.data.jobTotalBudget ? props.data.jobTotalBudget + " €" : "N/A"}</b> </p>                
@@ -130,7 +130,7 @@ function ClientProgressCard(props: any) {
                 </div>
                 <div className="col-7 pl-1 fontStylingCardDetails px-0 pt-1">
                 <p>Salary by person : <b>{props.data.netSalary ? props.data.netSalary + " €" : "N/A"}</b> </p>
-                <p>E-Mail : <b>{props.data.clientEmail.length? props.data.clientEmail : "No Email!"}</b> </p>
+                <p>E-Mail : <b>{props.data.clientEmail ? props.data.clientEmail.length > 20 ? props.data.clientEmail.slice(0,21) + "...": props.data.clientEmail : "No Email!"}</b> </p>
                     <p>Cl-Phone : <b>{props.data.clientPhone.length? props.data.clientPhone : "No Client Number!"}</b> </p>
                     <p>C-Name :  <b>{props.data.clientReferenceName ? props.data.clientReferenceName : "No Name!"}</b> </p>
                     <p>Contact :   <b>{props.data.clientReferenceNumber.length? props.data.clientReferenceNumber: "No Contact Number!"}</b> </p>
@@ -248,30 +248,15 @@ function ClientProgressCard(props: any) {
                           checked={SISPI}
                           id="SISPI"
                         /> */}
-                      {/* <ToggleSwitch
-  isOn={false}
-  onColor="green"
-  offColor="red"
-  label="Example label"
-  labelStyle={{ color: "black", fontWeight: "900" }}
-  size="large"
-  onToggle={isOn => console.log("changed to : ", isOn)}
-/> */}
-                        <div id="app-cover">
-  <div className="row">
-    <div className="toggle-button-cover">
-      <div className="button-cover">
-        <div className="button r" id="button-4">
-          <input type="checkbox" className="checkboxInput" />
-          <div className="knobs"></div>
-          <div className="layer"></div>
-        </div>
-      </div>
-    </div>
-   
-    </div>
-    
-</div>
+       {/* <div className="your-required-wrapper" style={{width: 100, height: 30}}>
+        <SwitchSelector
+            onChange={onChange}
+            options={options}
+            initialSelectedIndex={initialSelectedIndex}
+            backgroundColor={"#353b48"}
+            fontColor={"#f5f6fa"}
+        />
+    </div> */}
                       </div>
                     </div>
                     </div>

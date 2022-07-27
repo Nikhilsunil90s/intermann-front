@@ -51,7 +51,7 @@ export default function ClientProgress() {
   const [jobOptions, setJobOptions] = useState([]);
   const [EmailCheck,setEmailCheck] = useState(false)
   const [PhoneNumberMissing,setMissing]=useState(false)
-  const [showMore, setShowMore] = useState(false)
+  const [showMore, setShowMore] = useState(true)
   const [motivationOptions, setMotivationOptions] = useState([])
   const [optionsOthersFilter, setOtherOptions] = useState([])
   const [importanceOptions, setImportanceOptions] = useState([])as any
@@ -133,7 +133,7 @@ export default function ClientProgress() {
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
 
-    setSectorOptions([...sectorops]);
+    setSectorOptions([{value:"Select Un Secteur",label:"Select Un Secteur",color:'#FF8B00'},...sectorops]);
   }, [sectors])
  
 
@@ -286,11 +286,11 @@ export default function ClientProgress() {
     OthersFilterArr = []
     setSelectedSector("")
     setSelectedJob([])
-    if (e.value === "Select Un Name") {
+    if (e.value === "Select Name") {
       SelectedName = []
-
+      filterFunction()
     }
-    else if (e.value !== "") {
+    else if (e.value !== "Select Name") {
       SelectedName = []
       MotivationArr = []
       let NameField = e.value;
@@ -313,7 +313,7 @@ export default function ClientProgress() {
       setJobOptions([]);
       setLoader(true);
 
-    } else if (e.value !== '') {
+    } else if (e.value !== 'Select Un Secteur') {
       let sectorField = e.value;
       setSelectedSector(sectorField);
       setJobOptions([]);
@@ -378,23 +378,32 @@ export default function ClientProgress() {
       filterFunction()
       setLoader(true);
 
-    } else if (e.value !== "") {
+    } else if (e.value !== "Select Motivation") {
       MotivationArr = []
-      let sectorField = e.value;
+      let MField = e.value;
 
-      console.log(sectorField, "motivation")
-      MotivationArr.push(sectorField)
+      console.log(MField, "motivation")
+      MotivationArr.push(MField)
       filterFunction()
       // setSelectedSector(sectorField);
     }
   };
+
   const importanceHandel=(e)=>{
     SelectedName = []
     setSelectedSector("")
     MotivationArr = []
     FilterJob=[]
     Importance=[]
-     Importance.push(e.value)
+    if(e.value=="Select Importance"){
+      Importance=[]
+      setImportanceOptions([])
+    }
+    else if(e.value!= "Select Importance"){
+      Importance.push(e.value)
+      filterFunction();
+    }
+     
    }
   
    const HandelOthers = (e) => {
@@ -421,18 +430,20 @@ export default function ClientProgress() {
 
   const filterFunction = async () => {
     setLoader(false);
-    // setStatus(false)
-    if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0){
-      fetchProfiles().then(reD => {setFilterData([...reD]);setStatus(true);setLoader(true)})
-
+ 
+    if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length == 0 && MotivationArr.length == 0 && Importance.length == 0 ){
+      setLoader(true)
+      setStatus(true)
+      fetchProfiles().then((res)=>setFilterData([...res]))
+      .catch(err => {
+        console.log(err);
+      })
     }
     if (
-      selectedSector.length > 0 &&
-      selectedJob.length == 0 &&
-      selectedLanguages.length == 0
+      MotivationArr.length > 0
     ) {
       fetch(
-        `${API_BASE_URL}filterInProgressClientBySector/?sector=${selectedSector}`,
+        `${API_BASE_URL}filterClients/?clientMotivation=${MotivationArr}&jobStatus=In-Progress`,
         {
           method: "GET",
           headers: {
@@ -443,104 +454,95 @@ export default function ClientProgress() {
         }
       )
         .then((reD) => reD.json())
-        .then((result) => {
-       
-          setFilterData([...result.data]);
-          setStatus(result.status)
-        })
+        .then(result => {
+          if(result.total == 0){
+            setLoader(true)
+setStatus(false)
+          }
+          else if(result.total > 0){
+            setFilterData([...result.data]);      
+            setLoader(true)
+            setStatus(true)
+          }
+      })
         .catch((err) => err);
       setLoader(true);
-     
     }
+   
     if (
       selectedSector.length > 0 &&
-      FilterJob.length > 0 &&
+       FilterJob.length == 0 &&
       selectedLanguages.length == 0
     ) {
-      await fetch(
-        `${API_BASE_URL}filterInProgressClientSJ/?sector=${selectedSector}&jobs=${FilterJob}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-        .then((reD) => reD.json())
-        .then((result) => {
-         
-          setFilterData([...result.data]);
-          setStatus(result.status)
-        })
-        .catch((err) => err);
-      setLoader(true);
-     
-    }
-
-    if (
-      selectedSector.length > 0 &&
-      selectedLanguages.length > 0 &&
-      selectedJob.length == 0
-    ) {
-      await fetch(
-        `${API_BASE_URL}filterInProgressClientSL/?sector=${selectedSector}&languages=${selectedLanguages}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-        .then((reD) => reD.json())
-        .then((result) => {
+    
+        await fetch(
+          `${API_BASE_URL}filterClients/?clientActivitySector=${selectedSector}&jobStatus=In-Progress`,
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
+          .then((reD) => reD.json())
+          .then((result) => {
+            if(result.total == 0){
+              setLoader(true)
+  setStatus(false)
+            }
+            else if(result.total > 0){
+              setFilterData([...result.data]);      
+              setLoader(true)
+              setStatus(true)
+            }
           
-            setFilterData([...result.data]);
-            setStatus(result.status)
-         
-        })
-        .catch((err) => err);
-      setLoader(true);
-     
+          })
+          .catch((err) => err);
+        setLoader(true);  
+
     }
     if (
       selectedSector.length > 0 &&
-      FilterJob.length > 0 &&
-      selectedLanguages.length > 0
+       FilterJob.length > 0 &&
+      selectedLanguages.length == 0
     ) {
-      await fetch(
-        `${API_BASE_URL}filterInProgressClientSJL/?sector=${selectedSector}&jobs=${FilterJob}&languages=${selectedLanguages}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-        .then((reD) => reD.json())
-        .then((result) => {
-        
-          setFilterData([...result.data]);
-          setStatus(result.status)
-         
-        })
-        .catch((err) => err);
-      setLoader(true);
-     
+    
+        await fetch(
+          `${API_BASE_URL}filterClients/?clientJob=${FilterJob}&jobStatus=In-Progress`,
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
+          .then((reD) => reD.json())
+          .then((result) => {
+          if(result.total == 0){
+            setLoader(true)
+setStatus(false)
+          }
+          else if(result.total > 0){
+            setFilterData([...result.data]);      
+            setLoader(true)
+            setStatus(true)
+          }
+          
+          })
+          .catch((err) => err);
+        setLoader(true);  
+
     }
 
     if (
-      selectedLanguages.length > 0 &&
-      selectedJob.length == 0 &&
-      selectedSector.length == 0
+     SelectedName.length > 0
     ) {
       await fetch(
-        `${API_BASE_URL}filterInProgressClientByLanguages/?languages=${selectedLanguages}`,
+        `${API_BASE_URL}filterClients/?clientCompanyName=${SelectedName}&jobStatus=In-Progress`,
         {
           method: "GET",
           headers: {
@@ -552,15 +554,50 @@ export default function ClientProgress() {
       )
         .then((reD) => reD.json())
         .then((result) => {
+          if(result.total == 0){
+            setLoader(true)
+setStatus(false)
+          }
+          else if(result.total > 0){
+            setFilterData([...result.data]);      
+            setLoader(true)
+            setStatus(true)
+          }
         
-          setFilterData([...result.data]);
-          setStatus(result.status)
-         
         })
         .catch((err) => err);
-      setLoader(true);
-     
+      
     }
+    if (
+        Importance.length > 0
+     ) {
+       await fetch(
+         `${API_BASE_URL}filterClients/?clientImportance=${Importance}&jobStatus=In-Progress`,
+         {
+           method: "GET",
+           headers: {
+             Accept: "application/json",
+             "Content-Type": "application/json",
+             Authorization: "Bearer " + localStorage.getItem("token"),
+           },
+         }
+       )
+         .then((reD) => reD.json())
+         .then((result) => {
+           if(result.total == 0){
+             setLoader(true)
+             setStatus(false)
+           }
+           else if(result.total > 0){
+             setFilterData([...result.data]);      
+             setLoader(true)
+             setStatus(true)
+           }
+         
+         })
+         .catch((err) => err);
+       
+     }
   };
   const jobChange = async (jobval) => {
     // console.log(jobval)
@@ -838,12 +875,12 @@ export default function ClientProgress() {
                               </div>
                             </div>
                           </div>
-                          <div className="col-2 d-flex align-items-center justify-content-end">
-                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
+                          {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
+                          <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex align-items-center justify-content-end">
 
 <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
-: null
-}   </div>
+</div>: null
+} 
                           <div className="col-2 d-flex justify-content-end">
                             <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(false)}>Less Filters <img src={require("../../images/downup.svg").default} /></p>
                           </div>
@@ -856,12 +893,12 @@ export default function ClientProgress() {
                   <div className="extraPadding">
                     <div className="col-12">
                       <div className="row justify-content-end">
-                      <div className="col-2 d-flex align-items-center justify-content-end">
                       {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
+                          <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex align-items-center justify-content-end">
 
 <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
-: null
-}   </div>
+</div>: null
+} 
                         <div className="col-2 d-flex justify-content-end">
                           <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(true)}>More Filters <img src={require("../../images/down.svg").default} /></p>
                         </div>
@@ -872,8 +909,8 @@ export default function ClientProgress() {
           </div>
           {loader ? 
                 <>
-                  {  filterData.length > 0 ? 
-                     status?
+                  {  status? 
+                   filterData.length > 0 ? 
                       filterData.map((profile, index) => (
                         <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left">
                           <ClientProgressCard data={profile} />
