@@ -43,7 +43,7 @@ function ArchivedViewPage(){
   }
 
   const editClientProfile = () => {
-    navigate("/archivedClientEditprofile", { state: profile });
+    navigate("/clientInProgressEdit", { state: profile });
   }
 
   const switchHandle = (event,id,e) => {
@@ -175,113 +175,7 @@ className="SelectBtn"
                 </div>
               </div>
             </div>
-            <div className="col-12 mt-2 Social-CardClient p-1">
-                  <div className="row px-1">
-                    <div className="col-xxl-2 col-xl-2 col-lg-2  col-md-6 d-flex px-0 justify-content-start">
-                      <div className="d-flex align-items-center ">
-                        <p className="fontSizeReactSwitch mb-0">
-                          Offre envoyé ?
-                        </p>
-                        <Switch
-                          className="ml-left"
-                          onChange={switchHandle}
-                          // onClick={(e)=>switchHandle(e)}
-                          checked={Offre}
-                          id="Offre"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-6 d-flex px-0 justify-content-center">
-                      <div className="d-flex align-items-center ">
-                        <p className="fontSizeReactSwitch mb-0">
-                          Signature digitale envoyé ?
-                        </p>
-                        <Switch
-                          className="ml-left"
-                          onChange={switchHandle}
-                          checked={Signature}
-                          id="Signature"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-xxl-2 col-xl-2 col-lg-2  col-md-5 d-flex px-0 pt-1 justify-content-end ml-1">
-                      <div className="d-flex align-items-center ">
-                        <p className="fontSizeReactSwitch mb-0">
-                          Contrat singé ?
-                        </p>
-                        <Switch
-                          className="ml-left"
-                          onChange={switchHandle}
-                          checked={Contrat}
-                          id="Contrat"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-6 d-flex px-0 pt-1 justify-content-end">
-                      <div className="d-flex align-items-center ">
-                        <p className="fontSizeReactSwitch mb-0">
-                          Publicité commencé ?
-                        </p>
-                        <Switch
-                          className="ml-left"
-                          onChange={switchHandle}
-                          checked={Public}
-                          id="Public"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-xxl-1 col-xl-1 col-lg-1  col-md-4 d-flex px-0 pt-1 justify-content-center ml-1">
-                      <div className="d-flex align-items-center ">
-                        <p className="fontSizeReactSwitch mb-0">A1 ?</p>
-                        <Switch
-                          className="ml-left"
-                          onChange={switchHandle}
-                          checked={A1}
-                          id="A1"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-6 d-flex pt-1 px-0 justify-content-start">
-                      <div className="d-flex align-items-center ">
-                        <p className="fontSizeReactSwitch mb-0">
-                          Assurance faite ?
-                        </p>
-                        <Switch
-                          className="ml-left"
-                          onChange={switchHandle}
-                          checked={Assurance}
-                          id="Assurance"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-6 d-flex pt-1 px-0 justify-content-start">
-                      <div className="d-flex align-items-center ">
-                        <p className="fontSizeReactSwitch mb-0">
-                          Agence de voyage ok ?
-                        </p>
-                        <Switch
-                          className="ml-left"
-                          onChange={switchHandle}
-                          checked={Agence}
-                          id="Agence"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-6 d-flex pt-1 px-0 ">
-                      <div className="d-flex align-items-start ">
-                        <p className="fontSizeReactSwitch mb-0">
-                          SISPI déclaré ?
-                        </p>
-                        <Switch
-                          className="ml-left"
-                          onChange={switchHandle}
-                          checked={SISPI}
-                          id="SISPI"
-                        />
-                      </div>
-                    </div>
-            </div>
-            </div>
+        
             <div className="col-12 pt-1 py-0 mb-1">
               <div className="row justify-content-between">
                 <div

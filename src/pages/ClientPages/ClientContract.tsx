@@ -11,6 +11,8 @@ import {ReactComponent as RatingStar} from "../../images/RatingStar.svg"
 import {ReactComponent as Empty} from "../../images/emptyStar.svg"
 import Switch from "react-switch";
 import  ProfileLoader from "../../components/Loader/ProfilesLoader"
+import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
+import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 
 declare global {
   namespace JSX {
@@ -745,11 +747,15 @@ setStatus(false)
                           <div className="row">
                             <div className="col-4 d-flex  align-items-center">
                              <p className="missing">Phone number missing</p>
-                             <Switch onChange={MissingHandler} id="PhoneNumberMissing"  checked={PhoneNumberMissing}/>
+                             <Switch onChange={MissingHandler} id="PhoneNumberMissing"  checked={PhoneNumberMissing}
+                         checkedHandleIcon={<TurnOn style={{position:"absolute",width:"35px",height:"28px",top:"-3px",left:"-7px"}} />} height={24} width={52} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"35px",height:"28px",top:"-3px",left:"-6px"}} />} 
+                             />
                               </div>
                               <div className="col-4 d-flex  align-items-center">
                              <p className="missing">Email missing</p>
-                             <Switch onChange={MissingHandler} id="EmailMissing" checked={EmailCheck}/>
+                             <Switch onChange={MissingHandler} id="EmailMissing" checked={EmailCheck}
+                         checkedHandleIcon={<TurnOn style={{position:"absolute",width:"35px",height:"28px",top:"-3px",left:"-7px"}} />} height={24} width={52} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"35px",height:"28px",top:"-3px",left:"-6px"}} />} 
+                         />
                               
                               </div>
                             </div>

@@ -9,8 +9,8 @@ import {ReactComponent as StarRating} from "../../images/RatingStar.svg";
 import Switch from "react-switch";
 import Select from "react-select";
 import InProgressClientModal from "../../components/Modal/InProgressClientModal";
-import   {ReactComponent as Cross} from "../../images/FatX.svg";
-import   {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
+import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
+import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 
 function ClientProgressCard(props: any) {
 
@@ -27,6 +27,7 @@ function ClientProgressCard(props: any) {
   const [Contrat,setContrat]=useState(false)
   const [Signature,setSignature]=useState(false)
   const [Offre,setOffre]=useState(false)
+  const [isSwitchOn, setIsSwitchOn] = useState(true)as any;
   const CardOption=[{
     value:"Edit Profile",label:"Edit Profile"
     },
@@ -88,7 +89,7 @@ function ClientProgressCard(props: any) {
     return (
         <>
             <div className="card cardInPro p-0">
-                <div className="d-flex">
+                <div className="d-flex cursor-pointer" onClick={viewFullProfile}>
                     <div className="col-3 px-0 d-flex justify-content-center">
                         <img
                             src={require("../../images/ClientCardPhoto.svg").default}
@@ -144,19 +145,22 @@ function ClientProgressCard(props: any) {
 
                             </p>
                             <div className="col-12">
-                    <div className="row">
+                    <div className="row p-1">
                     <div className="col-4 px-0 d-flex  justify-content-start">
                       <div className="d-flex align-items-center ">
                         <p className="switch-fontCard mb-0">
                           Offre envoyé ?
                         </p>
-                        <Switch
-                          className="ml-left miniSwitch"
+                        {/* <Switch
+                          className="ml-left "
                           onChange={switchHandle}
                           // onClick={(e)=>switchHandle(e)}
                           checked={Offre}
                           id="Offre"
-                        />
+                        /> */}
+                         <Switch className="ml-1" checked={isSwitchOn} value={isSwitchOn} onChange={switchHandle} checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>} />
+                                 
+             
                       </div>
                     </div>
                     <div className="col-5 px-0 d-flex  justify-content-center">
@@ -164,23 +168,20 @@ function ClientProgressCard(props: any) {
                         <p className="switch-fontCard mb-0">
                           Signature digitale envoyé ?
                         </p>
-                        <Switch
-                          className="ml-left miniSwitch"
-                          onChange={switchHandle}
-                          checked={Signature}
-                          id="Signature"
-                        />
+   
+                         <Switch checked={Signature} id="Signature" className="ml-left" onChange={switchHandle} checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>} />
+
                       </div>
                     </div>
                     <div className="col-2 d-flex px-0 justify-content-center ml-1">
                       <div className="d-flex align-items-center ">
                         <p className="switch-fontCard mb-0">A1 ?</p>
-                        <Switch
-                          className="ml-left miniSwitch"
+                    
+                         <Switch  className="ml-left "
                           onChange={switchHandle}
                           checked={A1}
-                          id="A1"
-                        />
+                          id="A1" checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>} />
+
                       </div>
                     </div>
                    
@@ -190,10 +191,11 @@ function ClientProgressCard(props: any) {
                           Assurance faite ?
                         </p>
                         <Switch
-                          className="ml-left miniSwitch"
+                          className="ml-left "
                           onChange={switchHandle}
                           checked={Assurance}
                           id="Assurance"
+                    checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>}
                         />
                       </div>
                     </div>
@@ -203,10 +205,11 @@ function ClientProgressCard(props: any) {
                           Contrat singé ?
                         </p>
                         <Switch
-                          className="ml-left miniSwitch"
+                          className="ml-left "
                           onChange={switchHandle}
                           checked={Contrat}
                           id="Contrat"
+                       checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>}
                         />
                       </div>
                     </div>
@@ -216,10 +219,11 @@ function ClientProgressCard(props: any) {
                           Agence de voyage ok ?
                         </p>
                         <Switch
-                          className="ml-left miniSwitch"
+                          className="ml-left "
                           onChange={switchHandle}
                           checked={Agence}
                           id="Agence"
+                         checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>}
                         />
                       </div>
                     </div>
@@ -229,10 +233,11 @@ function ClientProgressCard(props: any) {
                           Publicité commencé ?
                         </p>
                         <Switch
-                          className="ml-left miniSwitch"
+                          className="ml-left "
                           onChange={switchHandle}
                           checked={Public}
                           id="Public"
+                         checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>}
                         />
                       </div>
                     </div>
@@ -242,21 +247,13 @@ function ClientProgressCard(props: any) {
                         <p className="switch-fontCard mb-0">
                           SISPI déclaré ?
                         </p>
-                        {/* <Switch
-                          className="ml-left miniSwitch"
+                        <Switch
+                          className="ml-left "
                           onChange={switchHandle}
                           checked={SISPI}
                           id="SISPI"
-                        /> */}
-       {/* <div className="your-required-wrapper" style={{width: 100, height: 30}}>
-        <SwitchSelector
-            onChange={onChange}
-            options={options}
-            initialSelectedIndex={initialSelectedIndex}
-            backgroundColor={"#353b48"}
-            fontColor={"#f5f6fa"}
-        />
-    </div> */}
+                         checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>}
+                        />
                       </div>
                     </div>
                     </div>

@@ -20,13 +20,13 @@ const ClientToDoCard = (props: any) => {
     const [showInProgressModal, setShowInProgressModal] = useState(false);
     const [showArchiveModal, setShowArchiveModal] = useState(false)
     const [SISPI, setChecked] = useState(false);
-  const [Agence,setAgence]=useState(false)
-  const [Assurance,setAssurance]=useState(false)
-  const [A1,setA1]=useState(false)
-  const [Public,setPublic]=useState(false)
-  const [Contrat,setContrat]=useState(false)
-  const [Signature,setSignature]=useState(false)
-  const [Offre,setOffre]=useState(false)
+  const [Agence,setAgence]=useState(false)as any;
+  const [Assurance,setAssurance]=useState(false)as any;
+  const [A1,setA1]=useState(false)as any;
+  const [Public,setPublic]=useState(false)as any;
+  const [Contrat,setContrat]=useState(false)as any;
+  const [Signature,setSignature]=useState(false)as any;
+  const [Offre,setOffre]=useState(false)as any;
   const CardOption=[{
     value:"Edit Profile",label:"Edit Profile"
     },
@@ -38,13 +38,12 @@ const ClientToDoCard = (props: any) => {
  const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /><StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating   style={{marginRight:"3px",width:"70%"}} /> <StarRating style={{marginRight:"3px",width:"70%"}}/> <StarRating style={{marginRight:"3px",width:"70%"}} /> <StarRating style={{marginRight:"3px",width:"70%"}} /> <Empty style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /><StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /></>}]; 
 
  const candidatMotivationIcons = [{ icon:"😟", motivation: 'Disappointed' }, { icon:"🙁", motivation: 'Not Really' }, { icon:"😊", motivation: 'Like' }, { icon:"🥰", motivation: 'Great' }, { icon:"😍", motivation: 'Super Lovely' }];
-   console.log(props.data,"props.data")
     const editClientProfile = () => {
         navigate("/clientToDoEdit", { state: props.data });
     }
+    console.log(props.data)
 
     const viewFullProfile = () => {
-        console.log(props.data)
         navigate("/clientToDoProfile", { state: props.data });
     }
 
@@ -61,7 +60,7 @@ const ClientToDoCard = (props: any) => {
       }
     console.log(e.value)
     }
-   
+  
 
     const switchHandle = (event,id,e) => {
         if(e==="Offre"){
@@ -90,17 +89,14 @@ const ClientToDoCard = (props: any) => {
       }
     }
     const [isSwitchOn, setIsSwitchOn] = useState(true)as any;
-    const switch_onChange_handle = () => {
-      setIsSwitchOn(!isSwitchOn);
-      //...
-    };
+ 
     // useEffect(() => {
     //     console.log(props.data)
     // })
    return (
         <>
             <div className="card cardTODO pr-0">
-                <div className="d-flex">
+                <div className="d-flex cursor-pointer" onClick={viewFullProfile}>
                     <div className="col-3 px-0 d-flex justify-content-center">
                         <img
                             src={require("../../images/ClientCardPhoto.svg").default}
@@ -143,7 +139,7 @@ const ClientToDoCard = (props: any) => {
                 </div>
                 <div className="col-7 fontStylingCardDetails px-0 pt-1">
                 <p>Salary by person : <b>{props.data.netSalary ? props.data.netSalary + " €" : "N/A"}</b> </p>
-                <p>E-Mail : <b>{props.data.clientEmail ? props.data.clientEmail.length > 20 ? props.data.clientEmail.slice(0,21) + "...": props.data.clientEmail : "No Email!"}</b> </p>
+                <p>E-Mail : <b>{props.data.clientEmail ? props.data.clientEmail.length > 20 ? props.data.clientEmail.slice(0,19) + "...": props.data.clientEmail : "No Email!"}</b> </p>
                     <p>Client Phone : <b>{props.data.clientPhone.length? props.data.clientPhone : "No Client Number!"}</b> </p>
                     <p>Contact Name :  <b>{props.data.clientReferenceName ? props.data.clientReferenceName : "No Name!"}</b> </p>
                     <p>Contact phone :   <b>{props.data.clientReferenceNumber.length? props.data.clientReferenceNumber: "No Contact Number!"}</b> </p>
@@ -152,19 +148,19 @@ const ClientToDoCard = (props: any) => {
 </div>
 <div className="col-12">
                     <div className="row color-rowClientCard p-1">
-                    <div className="col-4 pr-0 d-flex  justify-content-start">
+                    <div className="col-4 px-0 d-flex  justify-content-start">
                       <div className="d-flex align-items-center ">
                         <p className="switch-fontCard mb-0">
                           Offre envoyé ?
                         </p>
                         {/* <Switch
-                          className="ml-left miniSwitch"
+                          className="ml-left "
                           onChange={switchHandle}
                           // onClick={(e)=>switchHandle(e)}
                           checked={Offre}
                           id="Offre"
                         /> */}
-                         <Switch checked={isSwitchOn} value={isSwitchOn} onChange={switch_onChange_handle} checkedHandleIcon={<TurnOn style={{position:"absolute"}} />} height={24} width={50} uncheckedHandleIcon={<TurnoFF style={{position:"absolute"}}/>} />
+                         <Switch className="ml-1" checked={isSwitchOn} value={isSwitchOn} onChange={switchHandle} checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>} />
                                  
              
                       </div>
@@ -174,23 +170,20 @@ const ClientToDoCard = (props: any) => {
                         <p className="switch-fontCard mb-0">
                           Signature digitale envoyé ?
                         </p>
-                        <Switch
-                          className="ml-left miniSwitch"
-                          onChange={switchHandle}
-                          checked={Signature}
-                          id="Signature"
-                        />
+   
+                         <Switch checked={Signature} id="Signature" className="ml-left" value={Signature} onChange={switchHandle} checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>} />
+
                       </div>
                     </div>
                     <div className="col-2 d-flex px-0 justify-content-center ml-1">
                       <div className="d-flex align-items-center ">
                         <p className="switch-fontCard mb-0">A1 ?</p>
-                        <Switch
-                          className="ml-left miniSwitch"
+                    
+                         <Switch  className="ml-left "
                           onChange={switchHandle}
                           checked={A1}
-                          id="A1"
-                        />
+                          id="A1" checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>} />
+
                       </div>
                     </div>
                    
@@ -200,10 +193,11 @@ const ClientToDoCard = (props: any) => {
                           Assurance faite ?
                         </p>
                         <Switch
-                          className="ml-left miniSwitch"
+                          className="ml-left "
                           onChange={switchHandle}
                           checked={Assurance}
                           id="Assurance"
+                    checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>}
                         />
                       </div>
                     </div>
@@ -213,10 +207,11 @@ const ClientToDoCard = (props: any) => {
                           Contrat singé ?
                         </p>
                         <Switch
-                          className="ml-left miniSwitch"
+                          className="ml-left "
                           onChange={switchHandle}
                           checked={Contrat}
                           id="Contrat"
+                       checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>}
                         />
                       </div>
                     </div>
@@ -226,10 +221,11 @@ const ClientToDoCard = (props: any) => {
                           Agence de voyage ok ?
                         </p>
                         <Switch
-                          className="ml-left miniSwitch"
+                          className="ml-left "
                           onChange={switchHandle}
                           checked={Agence}
                           id="Agence"
+                         checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>}
                         />
                       </div>
                     </div>
@@ -239,10 +235,11 @@ const ClientToDoCard = (props: any) => {
                           Publicité commencé ?
                         </p>
                         <Switch
-                          className="ml-left miniSwitch"
+                          className="ml-left "
                           onChange={switchHandle}
                           checked={Public}
                           id="Public"
+                         checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>}
                         />
                       </div>
                     </div>
@@ -253,10 +250,11 @@ const ClientToDoCard = (props: any) => {
                           SISPI déclaré ?
                         </p>
                         <Switch
-                          className="ml-left miniSwitch"
+                          className="ml-left "
                           onChange={switchHandle}
                           checked={SISPI}
                           id="SISPI"
+                         checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>}
                         />
                       </div>
                     </div>
@@ -270,6 +268,7 @@ const ClientToDoCard = (props: any) => {
                           className="CardOptions AllMoreOp"
                           onChange={MoreOption}
                           placeholder="More options"
+                          
                         />
             
                         </div> 

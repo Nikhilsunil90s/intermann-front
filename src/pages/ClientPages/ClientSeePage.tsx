@@ -14,6 +14,9 @@ import {ReactComponent as Download} from '../../images/download.svg'
 import Switch from "react-switch";
 import Select from "react-select"
 import UploadDow from '../../components/Modal/SelectUploadDownload'
+import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
+import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
+
 
 function ClientSee() {
   const navigate = useNavigate();
@@ -202,13 +205,13 @@ className="SelectBtn"
                         <p className="fontSizeReactSwitch mb-0">
                           Offre envoyé ?
                         </p>
-                        <Switch
-                          className="ml-left"
-                          onChange={switchHandle}
-                          // onClick={(e)=>switchHandle(e)}
-                          checked={Offre}
-                          id="Offre"
-                        />
+                      
+                         <Switch className="ml-1" 
+                         checked={Offre} 
+                 onChange={switchHandle}   id="Offre" 
+                 checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>}  />
+
+
                       </div>
                     </div>
                     <div className="col-xxl-5 col-xl-5 col-lg-5  col-md-6 d-flex px-0 justify-content-center">
@@ -221,6 +224,8 @@ className="SelectBtn"
                           onChange={switchHandle}
                           checked={Signature}
                           id="Signature"
+                          checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>} 
+
                         />
                       </div>
                     </div>
@@ -234,7 +239,11 @@ className="SelectBtn"
                           onChange={switchHandle}
                           checked={Contrat}
                           id="Contrat"
-                        />
+                          checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>} 
+
+                          />
+
+                     
                       </div>
                     </div>
                     <div className="col-xxl-5 col-xl-5 col-lg-5  col-md-6 d-flex px-0 pt-1 justify-content-end">
@@ -247,7 +256,11 @@ className="SelectBtn"
                           onChange={switchHandle}
                           checked={Public}
                           id="Public"
-                        />
+                          checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>} 
+
+                          />
+
+             
                       </div>
                     </div>
                     <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-4 d-flex px-0 pt-1 justify-content-center ml-1">
@@ -258,7 +271,10 @@ className="SelectBtn"
                           onChange={switchHandle}
                           checked={A1}
                           id="A1"
-                        />
+                          checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>} 
+
+                          />
+
                       </div>
                     </div>
                     <div className="col-xxl-4 col-xl-4 col-lg-4  col-md-6 d-flex pt-1 px-0 justify-content-start">
@@ -271,7 +287,10 @@ className="SelectBtn"
                           onChange={switchHandle}
                           checked={Assurance}
                           id="Assurance"
-                        />
+                          checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>} 
+
+                          />
+
                       </div>
                     </div>
                     <div className="col-xxl-4 col-xl-4 col-lg-4  col-md-6 d-flex pt-1 px-0 justify-content-start">
@@ -284,7 +303,9 @@ className="SelectBtn"
                           onChange={switchHandle}
                           checked={Agence}
                           id="Agence"
-                        />
+                          checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>} 
+                          />
+
                       </div>
                     </div>
                     <div className="col-xxl-4 col-xl-4 col-lg-4  col-md-6 d-flex pt-1 px-0 ">
@@ -297,7 +318,9 @@ className="SelectBtn"
                           onChange={switchHandle}
                           checked={SISPI}
                           id="SISPI"
-                        />
+                          checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>} 
+
+                          />
                       </div>
                     </div>
             </div>

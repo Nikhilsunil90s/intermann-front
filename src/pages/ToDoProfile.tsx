@@ -555,8 +555,8 @@ className="SelectBtn"
                   id="style-3"
                 >
                   <div className="Todo-CardMore force-overflow ">
-                    <div className="d-flex align-items-center">
-                      <p>Langues : </p>
+                    <div className="d-flex ">
+                      <p>Langues: </p>
                       <span className="Todo-CardMore-span"> {profile.candidatLanguages ? profile.candidatLanguages.join(", ") : "No Langues!"}</span>
                     </div>
                     <div className="d-flex align-items-center">

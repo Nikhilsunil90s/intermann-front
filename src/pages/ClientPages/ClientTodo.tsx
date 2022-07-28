@@ -13,7 +13,11 @@ import {ReactComponent as RatingStar} from "../../images/RatingStar.svg"
 import {ReactComponent as Empty} from "../../images/emptyStar.svg"
 import Switch from "react-switch";
 import Loader from "../../components/Loader/loader"
-import { colors } from "react-select/dist/declarations/src/theme";
+import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
+import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
+
+
+
 declare namespace JSX {
   interface IntrinsicElements {
     "lottie-player": any;
@@ -769,12 +773,16 @@ setImportanceOptions([])
                         <div className="col-12 mt-1">
                           <div className="row">
                             <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-4 d-flex  align-items-center">
-                             <p className="missing">Phone number missing</p>
-                             <Switch onChange={MissingHandler} id="PhoneNumberMissing"  checked={PhoneNumberMissing}/>
+                             <p className="missing mb-0">Phone number missing</p>
+                             <Switch onChange={MissingHandler} id="PhoneNumberMissing"  checked={!PhoneNumberMissing}  
+                         checkedHandleIcon={<TurnOn style={{position:"absolute",width:"35px",height:"28px",top:"-3px",left:"-7px"}} />} height={24} width={52} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"35px",height:"28px",top:"-3px",left:"-6px"}}/>}
+                             />
                               </div>
                               <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-4 d-flex  align-items-center">
-                             <p className="missing">Email missing</p>
-                             <Switch onChange={MissingHandler} id="EmailMissing" checked={EmailCheck}/>
+                             <p className="missing mb-0">Email missing</p>
+                             <Switch onChange={MissingHandler} id="EmailMissing" checked={!EmailCheck}
+                         checkedHandleIcon={<TurnOn style={{position:"absolute",width:"35px",height:"28px",top:"-3px",left:"-7px"}} />} height={24} width={52} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"35px",height:"28px",top:"-3px",left:"-6px"}} />} 
+                             />
                               
                               </div>
                             </div>

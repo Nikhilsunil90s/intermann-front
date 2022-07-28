@@ -75,7 +75,7 @@ const CardOption=[{
   return (
     <>
 <div className="card cardInPro p-0">
-                <div className="d-flex">
+                <div className="d-flex cursor-pointer" onClick={SeeFullProfile}>
                     <div className="col-3 px-0 d-flex justify-content-center">
                         <img
                             src={require("../../images/ClientCardPhoto.svg").default}

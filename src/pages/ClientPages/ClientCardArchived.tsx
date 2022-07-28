@@ -7,6 +7,7 @@ import {ReactComponent as StarRating} from "../../images/RatingStar.svg";
 import Select from "react-select";
 import ArchivedClientModal from "../../components/Modal/ArchivedClientModal";
 import { useNavigate } from "react-router-dom";
+import ReadMoreReact from 'read-more-react';
 
 function ClientCardArchived(props:any){
     const navigate = useNavigate();
@@ -48,7 +49,7 @@ const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px"
 const candidatMotivationIcons = [{ icon:"😟", motivation: 'Disappointed' }, { icon:"🙁", motivation: 'Not Really' }, { icon:"😊", motivation: 'Like' }, { icon:"🥰", motivation: 'Great' }, { icon:"😍", motivation: 'Super Lovely' }];
     return(<>
        <div className="card cardInPro p-0">
-                <div className="d-flex">
+                <div className="d-flex cursor-pointer" onClick={viewFullProfile}>
                     <div className="col-3 px-0 d-flex justify-content-center">
                         <img
                             src={require("../../images/ClientCardPhoto.svg").default}
@@ -101,7 +102,11 @@ const candidatMotivationIcons = [{ icon:"😟", motivation: 'Disappointed' }, { 
                 <div className="">
             <div className="colorARecruting p-1">
                     <p className="AdsFont">Ads Spent on this client: {props.data.jobTotalBudget}€  </p>
-                    <p className="AdsFont">Reason archived : {props.data.clientArchived.reason} 
+                    <p className="AdsFont">Reason archived :<ReadMoreReact text={props.data.clientArchived.reason}
+            min={0}
+            ideal={50}
+            max={120}
+            readMoreText={"....."}/> 
                          </p>
                     </div>
                     <div className="col-12 d-flex justify-content-end my-1">

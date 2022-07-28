@@ -615,7 +615,8 @@ color:  #E21B1B;;
   background: #F4E7FF;
 }
 .colorARecruting{
-  background: #FFE0E0;;
+  background: #FFE0E0;
+  height: 115px;
 }
 .A-Recruting{
   font-family: 'Poppins';
@@ -864,7 +865,8 @@ width:15px !important;
     background: #F4E7FF;
   }
   .colorARecruting{
-    background: #FFE0E0;;
+    background: #FFE0E0;
+    height: 115px;
   }
   .A-Recruting{
     font-family: 'Poppins';

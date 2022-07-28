@@ -9,9 +9,9 @@ import chroma from 'chroma-js';
 
 
 const ToDoProfileCard = (props: any,{path}) => {
-
+ console.log(props.data ,"propsdata")
     const navigate = useNavigate();
-
+    const [profile,setProfile]=useState(props.data)
     const [showInProgressModal, setShowInProgressModal] = useState(false);
     const [showArchiveModal, setShowArchiveModal] = useState(false)
     const CardOptions=[{
@@ -24,7 +24,8 @@ const ToDoProfileCard = (props: any,{path}) => {
 ]
    let state ={profileData:props.data,path:"/todolist"}
 
-    const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
+   const [candidatMotivationIcons,setMotivation] = useState([{ icon: "no", motivation: 'no' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }]);
+
    
     const editCandidatProfile = () => {
         navigate("/editToDo", { state: state});
@@ -47,24 +48,6 @@ const ToDoProfileCard = (props: any,{path}) => {
       }
     console.log(e.value)
     }
-   
-    // const EmojiHandler=()=>{
-    //     if(props.data.candidatMotivation===1){
-    //        return setDissapointed(true)
-    //     }
-    //      if(props.data.candidatMotivation===2){
-    //       return  setNotreally(true)
-    //     }
-    //   if (props.data.candidatMotivation===3){
-    //       return  setLike(true)
-    //     }
-    //       if (props.data.candidatMotivation===4){
-    //    return     setGreat(true)
-    //     }
-    //    if(props.data.candidatMotivation===5){
-    //        return setSuperlovely(true)
-    //     }
-    // }
     return (
         <>
             <div className="card card-color mb-1 px-0">
@@ -79,7 +62,7 @@ const ToDoProfileCard = (props: any,{path}) => {
                     <div className="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 fontStylinForcards">
                     <p style={{width:"100%"}}  className="text-dark mb-0"><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
                         <p className="text-dark mb-0">{props.data.candidatAge ?  <p className="age00 mb-0">Age : <b> {props.data.candidatAge}</b></p> : <b>Age Not Available!</b>}</p>
-                        <div >  <p className="text-dark d-flex mb-0"> <b>{candidatMotivationIcons[props.data.candidatMotivation - 1].icon + " " + candidatMotivationIcons[props.data.candidatMotivation - 1].motivation}</b>
+                        <div >  <p className="text-dark d-flex mb-0"> <b>{candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation}</b>
                         </p>
                         </div>
                        
@@ -119,11 +102,11 @@ const ToDoProfileCard = (props: any,{path}) => {
                     <p className="todoCardbody mb-0"><b>Secteur : {props.data.candidatActivitySector.toLocaleUpperCase()}</b></p>
 
                     <p className="todoCardbody mb-0"><b>Job : {props.data.candidatJob.toLocaleUpperCase()}</b> </p>
-                    <p className="todoCardbody-p mb-0">Langues : <b>{props.data.candidatLanguages.length > 0 ? props.data.candidatLanguages.join(", ") : "No Langues Selected!"}</b>
+                    <p className="todoCardbody-p mb-0">Langues : <b>{props.data.candidatLanguages ? props.data.candidatLanguages.length > 2 ? props.data.candidatLanguages.slice(0,4).join(", "):  props.data.candidatLanguages.join(", ") : "No Langues Selected!"}</b>
                     </p>
                     <p className="todoCardbody-p mb-0">Phone Number : <b>{props.data.candidatPhone}</b> </p>
-                    <p className="todoCardbody-p mb-0">Facebook URL : <b>{props.data.candidatFBURL ? <a href={props.data.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
-                    <p className="preCard-Body-p">Email :  <b> {props.data.candidatEmail ? props.data.candidatEmail.length > 20 ? props.data.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.data.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b></p>
+                    <p className="todoCardbody-p mb-0">Facebook URL : <b>{props.data.candidatFBURL ? <a href={props.data.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile</a> : "No Facebook Profile!"}</b></p>
+                    <p className="preCard-Body-p">Email :  <b> {profile.candidatEmail ? props.data.candidatEmail.length > 20 ? props.data.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.data.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b></p>
                     <p className="todoCardbodyBlue py-1">
                         Ready for work : {props.data.candidatStartDate} To {props.data.candidatEndDate}
                     </p>

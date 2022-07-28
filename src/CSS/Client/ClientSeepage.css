@@ -1756,8 +1756,22 @@ color: #000000;
   justify-content: center;
   align-items: center;
 }
+.seeFullCandidat
+{
+background: #FFFFFF;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 20px;
+letter-spacing: -0.105991px;
+text-transform: uppercase;
+color: #489767;
+border: 0px;
+padding: 10px 25px;
 
-
+}
 }
 @media (min-width:1400px){
   .Social-cardDiv {

@@ -6,8 +6,27 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import InProgressClientModal from "../../components/Modal/InProgressClientModal";
 import ArchivedClientModal from "../../components/Modal/ArchivedClientModal";
+import ProfileLoader from "../../components/Loader/ProfilesLoader";
+import axios from "axios";
+import { ProgressBar } from "react-bootstrap";
+import RenameDoc from '../../components/Modal/RenameDoc_Modal'
+import UploadDow from '../../components/Modal/SelectUploadDownload'
+import { Toaster, toast } from 'react-hot-toast';
+import { API_BASE_URL } from '../../config/serverApiConfig';
 
+
+const axiosInstance = axios.create({
+  baseURL: API_BASE_URL,
+})
+let RenameData=[]
 function ClientSee() {
+ 
+  const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
+  const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
+ 
+  const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
+  const notifyDocumentDeleteError = () => toast.error("Document Not Removed! Please Try Again in few minutes.")
+
 
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -15,12 +34,217 @@ function ClientSee() {
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false)
   const [documentsList, setDocumentsList] = useState([]);
+  const [RenameDocStatus,setRenameDocStatus]=useState(false)
+  const [documentList, setDocumentList] = useState([]);
+  const hiddenFileInput = React.useRef(null);
+  const [candidatDocument, setCandidatDocument] = useState("");
+  const [progress, setProgress] = useState<any>(0);
+  const [docUploaded, setDocUploaded] = useState(false);
+  const [renameDoc, setRenameDoc] = useState(false);
+  const [candidatImage, setCandidatImage] = useState(profile.clientPhoto && profile.clientPhoto?.imageName !== undefined ? profile.clientPhoto?.imageName : "");
+  const [loader, setLoader] = useState(false);
+  const [recommendations, setRecommendations] = useState([]);
+  const [clientList, setClientList] = useState([]);
 
   const editClientProfile = () => {
     navigate("/clientToDoEdit", { state: profile });
   }
 
 
+
+
+  const  ViewDownloadFiles =( documentName:any)=>{
+    window.open(API_BASE_URL + documentName)
+   }
+
+
+  const fileChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
+    >
+  ) => {
+    if (e.target.name === 'candidatPhoto') {
+      console.log(e.target.files,"e.target.files")
+      console.log(e.target.files[0],"e.target.files[]")
+      const fileUploaded = e.target.files[0]
+      let formdata = new FormData();
+      formdata.append('candidatId', profile._id)
+      formdata.append('image', fileUploaded)
+      axiosInstance.post("uploadCandidatImage", formdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": "Bearer " + localStorage.getItem('token')
+        }
+      })
+        .then(datares => {
+          console.log(datares)
+          if (datares.data.status) {
+            
+            console.log(datares.data.status,"datares.data.status")
+     // setCandidatImage(datares.data.filename)
+     notifyDocumentUploadSuccess()
+
+     
+            setTimeout(()=>{
+              window.location.href = "/todoprofile"
+            },2000)
+          } else {
+            notifyDocumentUploadError()
+          }
+        })
+        .catch(err => { console.log(err) })
+      return;
+    }
+    if (e.target.name === 'candidatDocuments') {
+      const fileUploaded = e.target.files[0];
+      setCandidatDocument(fileUploaded)
+      let formdata = new FormData();
+      formdata.append('candidatId', profile._id)
+      formdata.append('document', fileUploaded)
+      axiosInstance.post("uploadCandidatDocuments", formdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": "Bearer " + localStorage.getItem('token')
+        },
+        onUploadProgress: data => {
+          //Set the progress value to show the progress bar
+          setProgress(Math.round((100 * data.loaded) / data.total))
+        },
+      })
+        .then(resData => {
+          if (resData.data.status) {
+            console.log(resData.data,"resData")
+            setDocUploaded(true);
+            setProgress(0); 
+            notifyDocumentUploadSuccess();
+          } else {
+            console.log(resData)
+            setDocUploaded(false);
+          }
+        })
+        .catch(err => {
+          console.log(err)
+          setDocUploaded(false);
+
+        })
+      return;
+    }
+  }
+  const handleFileUpload = () => {
+    hiddenFileInput.current.click();
+  }
+
+  const deleteCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
+    let headers = {
+      "Accept": 'application/json',
+      "Authorization": "Bearer " + localStorage.getItem('token')
+    }
+    return await fetch(API_BASE_URL + `deleteDocument/?documentId=${docId}&documentName=${docName}&candidatId=${candidatId}`, {
+      method: "GET",
+      headers: headers
+    })
+      .then(reD => reD.json())
+      .then(resD => resD)
+      .catch(err => err)
+  }
+  const deleteDocument = async (docId: any, docName: any) => {
+    await deleteCandidatDocument(docId, docName, profile._id).then(resData => {
+      console.log(resData);
+      if (resData.status) {
+        notifyDocumentDeleteSuccess()
+        setDocumentList([...documentList.filter((doc) => {
+          return doc.documentName !== docName
+        })])
+      } else {
+        notifyDocumentDeleteError()
+      }
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
+  const renameDocument = (docId: any, docName: any ,originalName:any) => {
+    setRenameDoc(true);
+
+    RenameData=[
+      docId,
+      docName,
+      profile._id,
+      originalName
+    ]
+    // renameCandidatDocument(docId, docName, profile._id).then(resData => {
+    //   console.log(resData)
+    //   setRenameDoc(false);
+    // }).catch(err => {
+    //   console.log(err)
+    // })
+  }
+  const fetchRecommendations = async (candidatSector: string) => {
+    return await fetch(API_BASE_URL + `clientRecommendations/?candidatSector=${candidatSector}`, {
+      method: "GET",
+      headers: {
+        "Accept": 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+    })
+      .then(resp => resp.json())
+      .then(respData => respData)
+      .catch(err => err)
+  }
+  useEffect(() => {
+    setLoader(true);
+    fetchRecommendations(profile.candidatActivitySector)
+      .then(respData => {
+        if (respData.status) {
+          setRecommendations([...respData.data]);
+          setClientList([...respData.data]);
+          setLoader(true);
+        } else {
+          setRecommendations([])
+          setLoader(false);
+
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [state])
+  
+
+  const fetchCandidat = async (candidatId: any) => {
+    return await fetch(API_BASE_URL + `getCandidatById/?candidatId=${candidatId}`, {
+      method: "GET",
+      headers: {
+        "Accept": 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+    })
+      .then(resp => resp.json())
+      .then(respData => respData)
+      .catch(err => err)
+  }
+
+  useEffect(() => {
+    console.log(profile._id,"id")
+    console.log(documentList,"doc")
+    fetchCandidat(profile._id).then(resData => {
+      console.log(resData)
+
+      setCandidatImage("")
+      if (resData.status) {
+        setProfile(resData.data)
+        setDocumentList([...resData.data.candidatDocuments])
+        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
+        setDocUploaded(false);
+      } else {
+        setDocumentList([...documentList])
+        setDocUploaded(false);
+      }
+    })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [docUploaded])
   // useEffect(() => {
   //   window.scroll({
   //     top: 0,
@@ -279,112 +503,135 @@ function ClientSee() {
                       Accès réstreint à Jeremy & Pat
                     </p>
                   </div>
-                  <div className="col-12">
-                    <div className="row">
-                      <div className="col-5 pdf-store">
-                        <div className="col-12">
-                          <div className="row">
-                            <div className="col-7">
-                              <p>Documentname.pdf</p>
-                            </div>
-                            <div className="col-3">
-                              <img
-                                src={
-                                  require("../../images/download-file.svg")
-                                    .default
-                                }
-                              />
-                            </div>
-                            <div className="col-2">
-                              <img
-                                src={require("../../images/delete.svg").default}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-12">
-                          <div className="row">
-                            <div className="col-7">
-                              <p>Documentname.pdf</p>
-                            </div>
-                            <div className="col-3">
-                              <img
-                                src={
-                                  require("../../images/download-file.svg")
-                                    .default
-                                }
-                              />
-                            </div>
-                            <div className="col-2">
-                              <img
-                                src={require("../../images/delete.svg").default}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-12">
-                          <div className="row">
-                            <div className="col-7">
-                              <p>Documentname.pdf</p>
-                            </div>
-                            <div className="col-3">
-                              <img
-                                src={
-                                  require("../../images/download-file.svg")
-                                    .default
-                                }
-                              />
-                            </div>
-                            <div className="col-2">
-                              <img
-                                src={require("../../images/delete.svg").default}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-12">
-                          <div className="row">
-                            <div className="col-7">
-                              <p>Documentname.pdf</p>
-                            </div>
-                            <div className="col-3">
-                              <img
-                                src={
-                                  require("../../images/download-file.svg")
-                                    .default
-                                }
-                              />
-                            </div>
-                            <div className="col-2">
-                              <img
-                                src={require("../../images/delete.svg").default}
-                              />
+                  <div className="col-12 Social-Card mt-1">
+              <div className="row justify-content-center">
+                <div className="col-12 d-flex justify-content-center">
+                  <button className="CandidateCV" onClick={handleFileUpload}>
+                    <div className="col-8" >
+                      <img src={require("../images/Upload+text.svg").default} />
+                    </div>
+                  </button>
+                  <input
+                    type="file"
+                    ref={hiddenFileInput}
+                    onChange={fileChange}
+                    name="candidatDocuments"
+                    style={{ display: 'none' }}
+                  />
+                </div>
+                <div className="col-12 mb-1">
+                  <div className="row">
+
+                    <div className="col-6  pr-0 mb-1">
+                      <p className="candidatecVs pt-2">Candidate CV & Other Document</p>
+                    </div>
+                  </div>
+                  <div className="row" style={{ marginRight: '1px' }}>
+                    {
+                      documentList.length > 0  ?
+                        documentList.map((doc, index) =>
+                          <div className="col-6 mx-0">
+                            <div className="row CardClassDownload mt-1 mx-0">
+                              <div className="col-4 d-flex align-items-center ">
+                                <p className="download-font mb-0">{doc.originalName}</p>
+                              </div>
+                              <div className="col-6 text-center">
+                                {/* {progress > 0 && progress < 100  ?
+                                  <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
+                                  :
+                                  <button className="btnDownload">
+                                    <img src={require("../images/dowBtn.svg").default} />
+                                    {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
+                                  </button>
+                                } */}
+                                     <button className="btnDownload" onClick={()=>ViewDownloadFiles( doc.documentName)}>
+                                    <img src={require("../images/dowBtn.svg").default} />
+                                    {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
+                                  </button>
+                              </div>
+                              <div className="col-2  d-flex align-item-end justify-content-end">
+                                <img
+                                  src={require("../images/editSvg.svg").default}
+                                  style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                                  // onClick={() => renameDocument(doc._id, doc.documentName)}
+                                  onClick={()=>{setRenameDocStatus(true);renameDocument(doc._id, doc.documentName,doc.originalName)}}
+                                />
+                                <img
+                                  src={require("../images/Primaryfill.svg").default}
+                                  style={{ width: "20px", cursor: 'pointer' }}
+                                  onClick={() => deleteDocument(doc._id, doc.documentName)}
+                                />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div className="col-12">
-                          <div className="row">
-                            <div className="col-7">
-                              <p>Documentname.pdf</p>
-                            </div>
-                            <div className="col-3">
-                              <img
-                                src={
-                                  require("../../images/download-file.svg")
-                                    .default
-                                }
-                              />
-                            </div>
-                            <div className="col-2">
-                              <img
-                                src={require("../../images/delete.svg").default}
-                              />
-                            </div>
+                        ) :
+                        progress > 0 && progress < 100 && documentList.length == 0?
+                        <div className="col-6 mx-0">
+                        <div className="row CardClassDownload p-0 mt-1 mx-0">
+                          <div className="col-4 pr-0 d-flex align-items-center ">
+                        <ProfileLoader width={"90"} height={"56px"} fontSize={"12px"} fontWeight={600} Title={"Uploading!"}/>
+                          </div>
+                          <div className="col-6 text-center  mb-0" style={{marginTop:"21px"}}>
+                              <ProgressBar className="mb-0" now={progress} label={`${progress}%`} />
+                          </div>
+                          <div className="col-2  d-flex align-item-end justify-content-end">
+                            <img
+                              src={require("../images/editSvg.svg").default}
+                              style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                              // onClick={() => renameDocument(doc._id, doc.documentName)}
+                            />
+                            <img
+                              src={require("../images/Primaryfill.svg").default}
+                              style={{ width: "20px", cursor: 'pointer' }}
+                              // onClick={() => deleteDocument(doc._id, doc.documentName)}
+                            />
                           </div>
                         </div>
                       </div>
-                    </div>
+                      :  
+<p className="text-center">No Documents Uploaded!</p>
+   
+                    }
+    {progress > 0 && progress < 100 && documentList.length > 0 ?
+                        <div className="col-6 mx-0">
+                        <div className="row CardClassDownload p-0 mt-1 mx-0">
+                          <div className="col-4 pr-0 d-flex align-items-center ">
+                        <ProfileLoader width={"90"} height={"56px"} fontSize={"12px"} fontWeight={600} Title={"Uploading!"}/>
+                          </div>
+                          <div className="col-6 text-center  mb-0" style={{marginTop:"21px"}}>
+                              <ProgressBar className="mb-0" now={progress} label={`${progress}%`} />
+                          </div>
+                          <div className="col-2  d-flex align-item-end justify-content-end">
+                            <img
+                              src={require("../images/editSvg.svg").default}
+                              style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                            />
+                            <img
+                              src={require("../images/Primaryfill.svg").default}
+                              style={{ width: "20px", cursor: 'pointer' }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                        :
+                      
+                 null 
+                  
+
+                          }
+                          {
+                            RenameDocStatus? 
+                            <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus}  path={"/todoprofile"}/>
+                            :
+                            null
+                          }
+              
                   </div>
+                </div>
+
+
+              </div>
+            </div>
                 </div>
               </div>
             </div>
