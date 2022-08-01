@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {  toast } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 import Select,{StylesConfig} from "react-select";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../../Selecteddata/data';
@@ -165,6 +165,7 @@ function InProgressModal({ props, closeModal }) {
   }
   return (
     <>
+    <Toaster  containerStyle={{zIndex:"9999999999999999999999"}} position="top-right" />
       <div
         className="modal d-block"
         style={{ backgroundColor: "#00000052" }}

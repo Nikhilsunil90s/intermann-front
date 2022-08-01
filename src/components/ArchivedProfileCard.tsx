@@ -91,7 +91,7 @@ const ArchivedProfileCard = (props: any) => {
                     <p>Secteur: <b> {props.props.candidatActivitySector.toLocaleUpperCase()}</b></p>
                     <p>Job: <b> {props.props.candidatJob.toLocaleUpperCase()}</b></p>
                     <p>Candidats age: <b>{props.props.candidatAge ? props.props.candidatAge +"years old" : "Age Not Available!"}</b></p>
-                    <p>Langues:  <b> {props.props.candidatLanguages.join(", ")} </b></p>
+                    <p>Langues:  <b>  {props.props.candidatLanguages ? props.props.candidatLanguages.length > 3 ? props.props.candidatLanguages.slice(0,3).join(", ") + "..." : props.props.candidatLanguages.join(", "): "No Langues Selected!"} </b></p>
                     <p>Phone Number:  <b>{props.props.candidatPhone}</b></p>
                     <p>Facebook URL:  <b>{props.props.candidatFBURL ? <a href={props.props.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
                     <p>Email: <b>{props.props.candidatEmail ? props.props.candidatEmail.length > 20 ? props.props.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.props.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b> </p>

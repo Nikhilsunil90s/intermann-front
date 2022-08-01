@@ -96,7 +96,7 @@ const PreSelectedCard = (props: any,{path}) => {
                     <p className="preCard-Body ">Secteur : {props.data.candidatActivitySector.toLocaleUpperCase()}</p>
                     <p className="preCard-Body">Job : {props.data.candidatJob.toLocaleUpperCase()}</p> 
                 <p className="preCard-Body-p">Candidats Age : <b>{props.data.candidatAge}</b></p> 
-                    <p className="preCard-Body-p">Langues :  <b>{props.data.candidatLanguages.length > 0 ? props.data.candidatLanguages.join(", ") : "No Langues Selected!"}</b>
+                    <p className="preCard-Body-p">Langues :  <b>{props.data.candidatLanguages ? props.data.candidatLanguages.length > 3 ? props.data.candidatLanguages.slice(0,3).join(", ") + "..." : props.data.candidatLanguages.join(", "): "No Langues Selected!"}</b>
                      </p>
                     <p className="preCard-Body-p">Phone Number : <b>{props.data.candidatPhone} </b></p>
                     <p className="preCard-Body-p">Facebook URL : <b>{props.data.candidatFBURL ? <a href={props.data.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>

@@ -72,6 +72,8 @@ const CardOption=[{
   const SeeFullProfile=()=>{
     navigate("/clientSigned", { state: props.data});
   }
+  console.log(props.data,"profile")
+
   return (
     <>
 <div className="card cardInPro p-0">
@@ -91,7 +93,7 @@ const CardOption=[{
                         </p>
                         </div>
                         <div >  <p  className="textClientCard" style={{width:"130%"}}>Motivation :
-                             <b style={{background:"transparent" , zIndex:"9"}}>{candidatMotivationIcons[props.data.clientMotivation - 1]?.icon + " " + candidatMotivationIcons[props.data.clientMotivation - 1]?.motivation ? candidatMotivationIcons[props.data.clientMotivation - 1]?.icon + " " + candidatMotivationIcons[props.data.clientMotivation - 1]?.motivation : "No Motivation!"}</b>
+                             <b style={{background:"transparent" , zIndex:"9"}}>{candidatMotivationIcons[props.data.clientMotivation]?.icon ? candidatMotivationIcons[props.data.clientMotivation]?.icon + " " + candidatMotivationIcons[props.data.clientMotivation]?.motivation : "No Motivation!"}</b>
                         </p>
                         </div>
                         <div ><p  className="textClientCard">Num of position : <b>  {props.data.numberOfPosts ? props.data.numberOfPosts : "No Posts!"}</b> </p></div>

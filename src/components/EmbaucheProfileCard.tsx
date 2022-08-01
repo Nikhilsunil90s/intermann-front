@@ -6,8 +6,9 @@ import ArchivedModal from "./Modal/ArchivedModal";
 import { useNavigate } from "react-router-dom";
 import Select from 'react-select'
 
-const EmbaucheProfileCard = (props: any,{path}) => {
+const EmbaucheProfileCard = (props: any,{path} ,NottifyErr,NottifySuccess) => {
 console.log(props,"ppr")
+
     const navigate = useNavigate();
 
     const [showArchiveModal, setShowArchiveModal] = useState(false)
@@ -73,7 +74,7 @@ console.log(props,"ppr")
                     <p className="mb-0"> <b>{profile.candidatAge ? profile.candidatAge +"years old" : "Age Not Available!"}</b></p>
                     <p className="mb-0">Secteur: <b> {profile.candidatActivitySector.toLocaleUpperCase()}</b></p>
                     <p className="mb-0">Job: <b> {profile.candidatJob.toLocaleUpperCase()}</b></p>
-                    <p className="mb-0">Langues:  <b> {profile.candidatLanguages ? profile.candidatLanguages.join(", ") : "No Languages!"} </b></p>
+                    <p className="mb-0">Langues:  <b> {profile.candidatLanguages ? profile.candidatLanguages.length > 3 ? profile.candidatLanguages.slice(0,3).join(", ") + "..." : profile.candidatLanguages.join(", "): "No Langues Selected!"} </b></p>
                     <p className="mb-0">Phone Number:  <b>{profile.candidatPhone}</b></p>
                     <p className="mb-0">Facebook URL:  <b>{profile.candidatFBURL ? <a href={profile.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
                     <p className="preCard-Body-p">Email :  <b> {profile.candidatEmail ? profile.candidatEmail.length > 20 ? profile.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : profile.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b></p>

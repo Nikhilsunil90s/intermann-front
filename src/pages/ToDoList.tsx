@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../CSS/CanEmpl.css";
 import ToDoProfileCard from "../components/ToDoProfileCard";
 import { API_BASE_URL } from "../config/serverApiConfig";
-import { Toaster } from "react-hot-toast";
+import { Toaster ,toast} from "react-hot-toast";
 import Loader from "../components/Loader/loader";
 import Select, { StylesConfig } from "react-select";
 import chroma from 'chroma-js';
@@ -33,6 +33,13 @@ let DateArr=[]
 let emailArr=[]
 let contactArr=[]
 function ToDoList() {
+
+
+  // Notification // 
+const notifyMoveSuccess = () => toast.success("Moved Archived Successfully!");
+const notifyMoveError = () => toast.error("Not Moved..");
+  //    End   // 
+
 
   const [sectors, setSectors] = useState([]);
   const [jobs, setJobs] = useState([]);
@@ -830,7 +837,8 @@ setMotivationOptions([    {
 
   return (
     <>
-      <Toaster position="top-right" />
+           <Toaster position="top-right" containerStyle={{ zIndex: '99999999999' }} />
+
       <div className="container-fluid">
         <div className="row pd ">
 
@@ -1143,7 +1151,11 @@ styles={colourStyles}
                 filterData.length > 0 ?
                   filterData.map((profile, index) => (
                     <div className="col-md-6 col-xxl-4  col-xl-4 col-lg-4 col-sm-6 pl-0">
-                      <ToDoProfileCard data={profile} />
+                      <ToDoProfileCard data={profile} // Notification // 
+NottifySuccess={notifyMoveSuccess}
+NottifyErr={notifyMoveError}
+  //    End   // 
+ />
                     </div>
                   ))
                   :

@@ -35,6 +35,7 @@ function ProgressCard() {
    
   //   console.log(await JSON.parse(await localStorage.getItem("embauch")))
   // }
+  
 
   const [loader, setLoader] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -310,7 +311,7 @@ function ProgressCard() {
   
   return (
     <>
-      <Toaster position="top-right" containerStyle={{ zIndex: '99999999999' }} />
+           <Toaster position="top-right" containerStyle={{ zIndex: '99999999999' }} />
       <div className="containet-fluid px-1">
         <div className="row pt-1  px-1">
           <div

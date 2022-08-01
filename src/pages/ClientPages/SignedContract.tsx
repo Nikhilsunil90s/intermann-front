@@ -29,7 +29,7 @@ function Signed(){
  const [Offre,setOffre]=useState(false)
  const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating   style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}}/> <StarRating style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}} /> <Empty style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /></>}]; 
 
- const candidatMotivationIcons = [{ icon:"😟", motivation: 'Disappointed' }, { icon:"🙁", motivation: 'Not Really' }, { icon:"😊", motivation: 'Like' }, { icon:"🥰", motivation: 'Great' }, { icon:"😍", motivation: 'Super Lovely' }];
+ const candidatMotivationIcons = [{icon:"No icon",motivation:"No Motivation"},{ icon:"😟", motivation: 'Disappointed' }, { icon:"🙁", motivation: 'Not Really' }, { icon:"😊", motivation: 'Like' }, { icon:"🥰", motivation: 'Great' }, { icon:"😍", motivation: 'Super Lovely' }];
  const handleImageChange = (val) => {
    if (val === 'upload') {
      console.log("upload")
@@ -79,7 +79,6 @@ if(e==="SISPI"){
  };
 
 
- console.log(profile,"p")
     return(
         <>
           <div className="containet-fluid">
@@ -184,23 +183,24 @@ className="SelectBtn"
                 </div>
               </div>
             </div>
-            <div className="col-12 mt-2 Social-CardClient p-1">
-                  <div className="row px-1">
-                    <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-6 d-flex px-0 justify-content-start">
+            <div className="col-12 Social-CardClient mt-2 ">
+                  <div className="row p-1">
+                    <div className="col-2 d-flex px-0 justify-content-start">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Offre envoyé ?
                         </p>
-                      
-                         <Switch className="ml-1" 
-                         checked={Offre} 
-                 onChange={switchHandle}   id="Offre" 
-                 checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>}  />
-
-
+                        <Switch
+                          className="ml-left"
+                          onChange={switchHandle}
+                          // onClick={(e)=>switchHandle(e)}
+                          checked={Offre}
+                          id="Offre"
+                 checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>}  
+                        />
                       </div>
                     </div>
-                    <div className="col-xxl-5 col-xl-5 col-lg-5  col-md-6 d-flex px-0 justify-content-center">
+                    <div className="col-3 d-flex px-0 justify-content-center">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Signature digitale envoyé ?
@@ -210,12 +210,11 @@ className="SelectBtn"
                           onChange={switchHandle}
                           checked={Signature}
                           id="Signature"
-                          checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>} 
+                                       checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>}  />
 
-                        />
                       </div>
                     </div>
-                    <div className="col-xxl-4 col-xl-4 col-lg-4  col-md-5 d-flex px-0 pt-1 justify-content-end ">
+                    <div className="col-2 d-flex px-0 justify-content-end ml-1">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Contrat singé ?
@@ -225,14 +224,11 @@ className="SelectBtn"
                           onChange={switchHandle}
                           checked={Contrat}
                           id="Contrat"
-                          checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>} 
+                                       checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>}  />
 
-                          />
-
-                     
                       </div>
                     </div>
-                    <div className="col-xxl-5 col-xl-5 col-lg-5  col-md-6 d-flex px-0 pt-1 justify-content-end">
+                    <div className="col-3 d-flex px-0 justify-content-end">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Publicité commencé ?
@@ -242,28 +238,23 @@ className="SelectBtn"
                           onChange={switchHandle}
                           checked={Public}
                           id="Public"
-                          checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>} 
+                                       checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>}  />
 
-                          />
-
-             
                       </div>
                     </div>
-                    <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-4 d-flex px-0 pt-1 justify-content-center ml-1">
+                    <div className="col-1 d-flex px-0 justify-content-center ml-1">
                       <div className="d-flex align-items-center ">
-                        <p className="fontSizeReactSwitch mb-0">A1 ?</p>
+                        <p className="fontSizeReactSwitch mb-0" style={{width:"22px"}}>A1 ?</p>
                         <Switch
                           className="ml-left"
                           onChange={switchHandle}
                           checked={A1}
                           id="A1"
-                          checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>} 
-
-                          />
+                                       checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>}  />
 
                       </div>
                     </div>
-                    <div className="col-xxl-4 col-xl-4 col-lg-4  col-md-6 d-flex pt-1 px-0 justify-content-start">
+                    <div className="col-3 d-flex pt-1 px-0 justify-content-start">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Assurance faite ?
@@ -273,13 +264,11 @@ className="SelectBtn"
                           onChange={switchHandle}
                           checked={Assurance}
                           id="Assurance"
-                          checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>} 
-
-                          />
+                                       checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>}  />
 
                       </div>
                     </div>
-                    <div className="col-xxl-4 col-xl-4 col-lg-4  col-md-6 d-flex pt-1 px-0 justify-content-start">
+                    <div className="col-3 d-flex pt-1 px-0 justify-content-start">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
                           Agence de voyage ok ?
@@ -289,12 +278,11 @@ className="SelectBtn"
                           onChange={switchHandle}
                           checked={Agence}
                           id="Agence"
-                          checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>} 
-                          />
+                                       checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>}  />
 
                       </div>
                     </div>
-                    <div className="col-xxl-4 col-xl-4 col-lg-4  col-md-6 d-flex pt-1 px-0 ">
+                    <div className="col-3 d-flex pt-1 px-0 ">
                       <div className="d-flex align-items-start ">
                         <p className="fontSizeReactSwitch mb-0">
                           SISPI déclaré ?
@@ -304,13 +292,12 @@ className="SelectBtn"
                           onChange={switchHandle}
                           checked={SISPI}
                           id="SISPI"
-                          checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>} 
+                                       checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>}  />
 
-                          />
                       </div>
                     </div>
-            </div>
-            </div>
+                  </div>
+                </div>
             <div className="col-12 pt-1 py-0 mb-1">
               <div className="row justify-content-between">
               <div
@@ -596,7 +583,7 @@ No What’s App !
 
                         </p>
                         <p  className="mb-0 pt-1" style={{width:"130%"}}>Motivation :
-                             <b style={{background:"transparent" , zIndex:"9999"}}>{candidatMotivationIcons[profile.clientMotivation - 1]?.icon + " " + candidatMotivationIcons[profile.clientMotivation - 1]?.motivation ? candidatMotivationIcons[profile.clientMotivation != 0 ? profile.clientMotivation  - 1 :  profile.clientMotivation ]?.icon + " " + candidatMotivationIcons[profile.clientMotivation !=0 ? profile.clientMotivation - 1 : profile.clientMotivation ]?.motivation : "No Motivation!"}</b>
+                             <b style={{background:"transparent" , zIndex:"9999"}}>{candidatMotivationIcons[profile.clientMotivation]?.icon + " " + candidatMotivationIcons[profile.clientMotivation]?.motivation ? candidatMotivationIcons[profile.clientMotivation ]?.icon + " " + candidatMotivationIcons[profile.clientMotivation ]?.motivation : "No Motivation!"}</b>
                         </p>
                
                 <div className="d-flex align-items-center">

@@ -38,6 +38,8 @@ let Importance=[]
 let MotivationArr = []
 let OthersFilterArr = []
  let FilterJob=[]
+ let email=false;
+let phone=false;
 export default function ClientProgress() {
  
   const [sectors, setSectors] = useState([]);
@@ -51,13 +53,11 @@ export default function ClientProgress() {
   const [filterData, setFilterData] = useState([]);
   const [status,setStatus]=useState(Boolean)
   const [jobOptions, setJobOptions] = useState([]);
-  const [EmailCheck,setEmailCheck] = useState(false)
-  const [PhoneNumberMissing,setMissing]=useState(false)
   const [showMore, setShowMore] = useState(true)
   const [motivationOptions, setMotivationOptions] = useState([])
   const [optionsOthersFilter, setOtherOptions] = useState([])
   const [importanceOptions, setImportanceOptions] = useState([])as any
-  console.log(status,"status")
+
 
   
   const colourStyles: StylesConfig<ColourOption, true> = {
@@ -282,6 +282,8 @@ export default function ClientProgress() {
   }
   const handleNameChange = (e: any) => {
     // console.log(e.target.value)
+    email=false;
+    phone=false
     SelectedName = []
     Importance=[]
     MotivationArr = []
@@ -302,7 +304,8 @@ export default function ClientProgress() {
 
   const handleSectorChange = (e: any) => {
     // console.log(e.target.value)
-
+    email=false;
+    phone=false
     SelectedName = []
     MotivationArr = []
     OthersFilterArr = []
@@ -370,6 +373,8 @@ export default function ClientProgress() {
   }
   const handleMotivationChange = (e: any) => {
     // console.log(e.target.value)
+    email=false;
+    phone=false
     MotivationArr = []
     Importance=[]
     OthersFilterArr = []
@@ -394,6 +399,8 @@ export default function ClientProgress() {
   const importanceHandel=(e)=>{
     SelectedName = []
     setSelectedSector("")
+    email=false;
+    phone=false
     MotivationArr = []
     FilterJob=[]
     Importance=[]
@@ -411,6 +418,8 @@ export default function ClientProgress() {
    const HandelOthers = (e) => {
     SelectedName = []
     setSelectedSector("")
+    email=false;
+    phone=false
     Importance=[]
     MotivationArr = []
     FilterJob=[]
@@ -420,15 +429,31 @@ export default function ClientProgress() {
     console.log(OtherF,"other")
     filterFunction()
   }
-  const MissingHandler=(checked,e,id)=>{
-    console.log(id,"id")
-    if(id=="EmailMissing"){
-    setEmailCheck(checked)
+  const MissingHandler = (checked, e, id) => {
+    console.log(id, "id");
+    if (id == "EmailMissing") {
+      if (checked == true) {
+       email=true
+        filterFunction()
+      }
+      if (checked == false) {
+       email=false
+        filterFunction()
+      }
     }
-    if(id=="PhoneNumberMissing"){
-      setMissing(checked)
+    if (id == "PhoneNumberMissing") {
+      if (checked == true) {
+       phone=true
+        filterFunction()
+        console.log(phone, "Phone");
+      }
+      if (checked == false) {
+       phone=false
+        filterFunction()
+        console.log(phone, "hone");
+      }
     }
-  }
+  };
 
   const filterFunction = async () => {
     setLoader(false);
@@ -600,6 +625,56 @@ setStatus(false)
          .catch((err) => err);
        
      }
+     if(email === true){
+      await fetch(
+        `${API_BASE_URL}filterClientsByMissingEmailOrPhone/?field=email&status=In-Progress`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          if (result.status == false) {
+            setLoader(true);
+            setStatus(false);
+          } else if (result.status == true) {
+            setFilterData([...result.data]);
+            setLoader(true);
+            setStatus(true);
+          }
+        })
+        .catch((err) => err);
+    }
+    if(phone === true){
+      await fetch(
+        `${API_BASE_URL}filterClientsByMissingEmailOrPhone/?field=phone&status=In-Progress`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          if (result.status == false) {
+            setLoader(true);
+            setStatus(false);
+          } else if (result.status == true) {
+            setFilterData([...result.data]);
+            setLoader(true);
+            setStatus(true);
+          }
+        })
+        .catch((err) => err);
+    }
   };
   const jobChange = async (jobval) => {
     // console.log(jobval)
@@ -629,12 +704,14 @@ setStatus(false)
     setSectorOptions([])
     setSectors([])
     setSelectedJob([])
+    email=false;
+    phone=false
     fetchAllSectors()
     filterFunction()
    }
   return (
     <>
-      <Toaster position="top-right" />
+      <Toaster position="top-right"  containerStyle={{zIndex:"999999999999999999999"}}/>
 
       <div className="container-fluid">
         <div className="row ">
@@ -868,20 +945,21 @@ setStatus(false)
                           <div className="row">
                             <div className="col-4 d-flex  align-items-center">
                              <p className="missing mb-0">Phone number missing</p>
-                             <Switch onChange={MissingHandler} id="PhoneNumberMissing"  checked={PhoneNumberMissing}
+                             <Switch onChange={MissingHandler} id="PhoneNumberMissing"  checked={phone}
                          checkedHandleIcon={<TurnOn style={{position:"absolute",width:"35px",height:"28px",top:"-3px",left:"-7px"}} />} height={24} width={52} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"35px",height:"28px",top:"-3px",left:"-6px"}} />} 
                              />
                               </div>
                               <div className="col-4 d-flex  align-items-center">
                              <p className="missing mb-0">Email missing</p>
-                             <Switch onChange={MissingHandler} id="EmailMissing" checked={EmailCheck}
+                             <Switch onChange={MissingHandler} id="EmailMissing" checked={email}
                          checkedHandleIcon={<TurnOn style={{position:"absolute",width:"35px",height:"28px",top:"-3px",left:"-7px"}} />} height={24} width={52} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"35px",height:"28px",top:"-3px",left:"-6px"}} />} 
                              />
                               
                               </div>
                             </div>
                           </div>
-                          {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
+                          {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ||   phone ===true ||
+                        email ===true ?
                           <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex align-items-center justify-content-end">
 
 <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
@@ -899,7 +977,8 @@ setStatus(false)
                   <div className="extraPadding">
                     <div className="col-12">
                       <div className="row justify-content-end">
-                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
+                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ||   phone === true ||
+                        email == true ?
                           <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex align-items-center justify-content-end">
 
 <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>

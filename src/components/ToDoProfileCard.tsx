@@ -102,11 +102,11 @@ const ToDoProfileCard = (props: any,{path}) => {
                     <p className="todoCardbody mb-0"><b>Secteur : {props.data.candidatActivitySector.toLocaleUpperCase()}</b></p>
 
                     <p className="todoCardbody mb-0"><b>Job : {props.data.candidatJob.toLocaleUpperCase()}</b> </p>
-                    <p className="todoCardbody-p mb-0">Langues : <b>{props.data.candidatLanguages ? props.data.candidatLanguages.length > 2 ? props.data.candidatLanguages.slice(0,4).join(", "):  props.data.candidatLanguages.join(", ") : "No Langues Selected!"}</b>
+                    <p className="todoCardbody-p mb-0">Langues : <b>{props.data.candidatLanguages ? props.data.candidatLanguages.length > 3 ? props.data.candidatLanguages.slice(0,3).join(", ") + "...":  props.data.candidatLanguages.join(", ") : "No Langues Selected!"}</b>
                     </p>
                     <p className="todoCardbody-p mb-0">Phone Number : <b>{props.data.candidatPhone}</b> </p>
                     <p className="todoCardbody-p mb-0">Facebook URL : <b>{props.data.candidatFBURL ? <a href={props.data.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile</a> : "No Facebook Profile!"}</b></p>
-                    <p className="preCard-Body-p">Email :  <b> {profile.candidatEmail ? props.data.candidatEmail.length > 20 ? props.data.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.data.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b></p>
+                    <p className="preCard-Body-p">Email :  <b> {props.data.candidatEmail ? props.data.candidatEmail.length > 20 ? props.data.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.data.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b></p>
                     <p className="todoCardbodyBlue py-1">
                         Ready for work : {props.data.candidatStartDate} To {props.data.candidatEndDate}
                     </p>
@@ -154,7 +154,7 @@ const ToDoProfileCard = (props: any,{path}) => {
                                 <InProgressModal props={props.data} closeModal={setShowInProgressModal} /> : null
                             }
                             {showArchiveModal ?
-                                <ArchivedModal props={props.data} closeModal={setShowArchiveModal} path={"/todolist"} /> : null
+                                <ArchivedModal props={props.data} closeModal={setShowArchiveModal} path={"/todolist"}  /> : null
                             }
                         </div>
                     </div>

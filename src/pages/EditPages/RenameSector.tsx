@@ -16,47 +16,46 @@ function RenameSector() {
     <>
       <div className="container">
         <div className="row">
-          <div className="col-12 flex-wrap">
+          {/* <div className="col-12 flex-wrap">
             <h1 className="titleAdd">ADD SECTOR/JOB</h1>
-          </div>
+          </div> */}
         
-          <div className="col-12 vw-Box">
+          <div className="col-12 mt-2">
             <div className="row">
               <div className="col-12 bg-light">
                 <div className="row">
-                  <div className="col-12">
-                    <div className="row">
-                      <div className="col-4 d-flex align-item-center mt-2">
+                
+                      <div className="col-8  px-0 d-flex align-item-center py-1">
                         <Link to="/addNewSector">
                           <button
                             type="button"
-                            className="btn"
-                            style={{
-                              backgroundColor: "#FE8700D9",
-                              color: "#ffff",
-                              fontWeight: "400",
-                            }}
+                            className="btn list-001"
+                            
                           >
                             <img
                               src={require("../../images/return.svg").default}
                               style={{ marginRight: "5px" }}
                             />
-                            Return to list of sectors
+                             List of jobs for {data[0].associatedSector}
                           </button>
                         </Link>
                       </div>
                      
-  <div className="col-8">
-  <h1 className="list-001">
-    List of jobs for {data[0].associatedSector}
-  </h1>
+  <div className="col-4 py-1">
+ 
+              
+                          <button
+                            className="btn AddNEwSector"
+                            //   onClick={()=>setAddModal(true)}
+                          >
+                            Add a job on {data[0].associatedSector}
+                          </button>
+                     
 </div>
  
-                    
-                    </div>
-                  </div>
-
-                  <div className="col-12 pt-3">
+                
+</div></div>
+                  <div className="col-12 pt-1" style={{backgroundColor:"#ffffffb0",borderRadius:"0px 0px 10px 10px"}}>
                     {/* {sectorsList.length > 0 ? sectorsList.map((sector) => */}
 
                     <div className="row">
@@ -66,24 +65,24 @@ function RenameSector() {
                             <li className="pt-2">
                             <div className="col-12 pd-lr">
                               <div className="row">
-                                <div className="col-6 text-start d-flex align-item-center">
+                                <div className="col-9 text-start d-flex align-item-center">
                              <p className="A0012"> {e.jobName}</p>
                                 </div>
-                                <div className="col-6 text-end">
+                                <div className="col-3 text-end">
                                   <button className="btn btn-resume"
                                        onClick={()=>{ setRenameModal(true);
                                             setRenameModalData(
                                               e.associatedSector
                                             );
                                         } }>
-                                    Rename
+                                   <img src={require("../../images/editResume.svg").default} />   Rename
                                   </button>
-                                  {renameModal ? (
+                                  {renameModal ? 
                       <RenameModal
                         props={renameModalData}
                         closeModal={setRenameModal}
                       />
-                    ) : null}     
+                     : null}     
                                 </div>
                               </div>
                             </div>
@@ -93,21 +92,11 @@ function RenameSector() {
                     </div>
 
                     <div className="col-12  pb-3">
-                      <div className="row ">
-                        <div className="col-12 text-center">
-                          <button
-                            className="btn btn-green"
-                            //   onClick={()=>setAddModal(true)}
-                          >
-                            Add a job on {data[0].associatedSector}
-                          </button>
-                        </div>
-                      </div>
+                     
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>

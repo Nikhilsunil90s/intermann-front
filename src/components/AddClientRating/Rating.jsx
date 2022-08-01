@@ -7,6 +7,7 @@ function RatingCmp({StarRatings ,StarR ,FunC}){
   const [RatingStar ,setRating]=useState(StarR ? StarR : "")
  const handelchange=(e)=>{
 StarRatings(e)
+console.log(e,"Rating")
 setRating(e)
 FunC(e)
  }

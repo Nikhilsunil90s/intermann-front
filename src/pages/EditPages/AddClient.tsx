@@ -3,6 +3,8 @@ import "../../CSS/AddClient.css";
 import Select, { StylesConfig } from "react-select";
 import Switch from "react-switch";
 import RatingCmp from "../../components/AddClientRating/Rating";
+import { Toaster, toast } from 'react-hot-toast';
+import { API_BASE_URL } from '../../config/serverApiConfig';
 import {
   NumberOfPost,
   ColourOption,
@@ -11,6 +13,9 @@ import {
 } from "../../Selecteddata/data";
 import chroma from "chroma-js";
 import $ from "jquery";
+import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
+import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
+
 let Amountarr = "";
 let Hours = "";
 declare global {
@@ -23,52 +28,193 @@ declare global {
     }
   }
 }
+
+
+
+const ClientDataFormat = {
+  clientCompanyName: "",
+  clientEmail: "",
+  clientPhone: "",
+  clientAddress: "",
+  clientActivitySector: "",
+  clientJob: "",
+  clientReferenceName: "",
+  clientReferenceNumber: "",
+  clientRequiredSkills: "",
+  salary_hours:{
+    hours:"",
+    salaryPerHour: ""
+  },
+  rate_hours :{ hours: "", ratePerHour: "" },
+  numberOfPosts: "",
+  clientMotivation: 0,
+  jobStartDate: "",
+  jobEndDate: "",
+  jobTotalBudget: "",
+  netSalary: "",
+  clientImportance: 0,
+  enteredBy: "",
+  jobStatus: "To-Do",
+  note_cofac:"",
+  leadOrigin:"",
+  offerSent :false,
+        signatureSent :false,
+        contractSigned:false,
+        publicityStarted:false,
+        A1Selected:false,
+        assuranceFaite:false,
+        agenceDeVoyage:false,
+        sispiDeclared:false,
+}
+
+
 export default function AddClient(props) {
-  const switchHandle = (event,id,e) => {
-  if(e==="Offre"){
-    setOffre(event)
-  }
-  if(e==="Signature"){
-        setSignature(event)
-  }
-  if(e==="Contrat"){
-    setContrat(event)
-}  
-if(e==="Public"){
-  setPublic(event)
-} 
- if(e==="A1"){
-  setA1(event)
-}
-if(e==="Assurance"){
-  setAssurance(event)
-}
-if(e==="Agence"){
-  setAgence(event)
-}
-if(e==="SISPI"){
-  setChecked(event)
-}
-  //       setChecked(e);
-  //       setAgence(nextChecked);
-  //       setAssurance(nextChecked)
-  //       setA1(nextChecked)
-  //       setPublic(nextChecked)
-  //       setContrat(nextChecked)
-        
-    console.log(event,e);
+  const SwitchChange = (checked: any, e: any, Name: any) => {
+console.log(Name,"checkd")
+    if (Name === "offerSent") {
+      if (checked === true) {
+        setOffre(true);
+    setData({...data,offerSent:checked})
+       
+      }
+      if (checked === false) {
+        setOffre(false);
+    setData({...data,offerSent:checked})
+       
+      }
+    }
+    if (Name === "signatureSent") {
+      if (checked === true) {
+        setSignature(true);
+        setData({...data,signatureSent:checked})
+      }
+      if (checked === false) {
+        setSignature(false);
+        setData({...data,signatureSent:checked})
+       
+      }
+    }
+    if (Name === "contractSigned") {
+      if (checked === true) {
+        setContrat(true);
+        setData({...data,contractSigned:checked})
+    
+
+       
+      }
+      if (checked === false) {
+        setContrat(false);
+        setData({...data,contractSigned:checked})
+       
+      }
+    }
+    if (Name === "publicityStarted") {
+      if (checked === true) {
+        setPublic(true);
+        setData({...data,publicityStarted:checked})
+    
+
+       
+      }
+      if (checked === false) {
+        setPublic(false);
+        setData({...data,publicityStarted:checked})
+       
+      }
+    }
+    if (Name === "A1Selected") {
+      if (checked === true) {
+        setA1(true);
+        setData({...data,A1Selected:checked})
+    
+
+       
+      }
+      if (checked === false) {
+        setA1(false);
+        setData({...data,A1Selected:checked})
+       
+      }
+    }
+    if (Name === "assuranceFaite") {
+      if (checked === true) {
+        setAssurance(true);
+    
+        setData({...data,assuranceFaite:checked})
+
+       
+      }
+      if (checked === false) {
+        setAssurance(false);
+        setData({...data,assuranceFaite:checked})
+       
+      }
+    }
+    if (Name === "agenceDeVoyage") {
+      if (checked === true) {
+        setAgence(true);
+    
+        setData({...data,agenceDeVoyage:checked})
+
+       
+      }
+      if (checked === false) {
+        setAgence(false);
+        setData({...data,agenceDeVoyage:checked})
+       
+      }
+    }
+    if (Name === "sispiDeclared") {
+      if (checked === true) {
+        setChecked(true);
+        setData({...data,sispiDeclared:checked})
+      }
+      if (checked === false) {
+        setChecked(false);
+        setData({...data,sispiDeclared:checked})
+      }
+    }
   };
-  const [SISPI, setChecked] = useState(false);
-  const [Agence,setAgence]=useState(false)
-  const [Assurance,setAssurance]=useState(false)
+
+// Notify //
+
+const notifyClientAddSuccess = () => toast.success("Client Added Successfully! View Client in To-Do / Non - Traite / Attente List.");
+
+const notifyClientAddError = () => toast.error("Client Cannot Be Added! Please Try Again.");
+
+const notifyNameError = () => toast.error("Please Provide Candidat Name !");
+
+const notifyDateError = () => toast.error("Ajouter les dates pour valider cette fiche !");
+
+const notifyAddressError = () => toast.error("Please Provide Client Address !");
+
+const notifyPhoneError = () => toast.error("Please Provide Client Phone Number !");
+
+const notifyEmailError = () => toast.error("Please Provide Client Email !");
+
+//  END  //
+
+
+const [disableButton, setDisableButton] = useState(false);
+const [data, setData] = useState(ClientDataFormat);
+const [activitySectors, setActivitySectors] = useState([]);
+const [sectorOption,setSectorOptions]=useState([])
+const [jobs, setJobs] = useState([{ jobName: "", associatedSector: "", _id: "" }]);
+const [matched, setMatched] = useState(false);
   const [showHour, setShowHour] = useState("");
   const [id, setID] = useState("");
-  const [A1,setA1]=useState(false)
-  const [Public,setPublic]=useState(false)
-  const [Contrat,setContrat]=useState(false)
-  const [Signature,setSignature]=useState(false)
-  const [Offre,setOffre]=useState(false)
   const [StarRatings,setRatings]=useState([])
+  const [jobOptions, setJobOptions] = useState([])
+  const [selectedSector, setSelectedSector] = useState("");
+  const [Language, setLanguage] = useState([])
+  const [SISPI, setChecked] = useState(false);
+  const [Agence, setAgence] = useState(false);
+  const [Assurance, setAssurance] = useState(false);
+  const [A1, setA1] = useState(false);
+  const [Public, setPublic] = useState(false);
+  const [Contrat, setContrat] = useState(false);
+  const [Signature, setSignature] = useState(false);
+  const [Offre, setOffre] = useState(false);
 console.log(StarRatings,"hello")
   const [state, setState] = useState({
     name: "bob",
@@ -159,30 +305,274 @@ console.log(StarRatings,"hello")
     });
     console.log(Hours, "hr");
   });
-  const [data, setData] = useState(fakeDataFormat);
-  const onFormDataChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+ 
+  
 
-  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
+  const changeSectorSelection = async (sec: string) => {
+    if (sec) {
+      setSelectedSector(sec)
+        await fetchAllJobs(sec)
+            .then(data => {
+                console.log(data.data)
+                setJobs([...data.data]);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        console.log(jobs);
+    }
+
+}
+
+useEffect(() => {
+    if (activitySectors.length == 0) {
+
+        fetchActivitySectors()
+            .then(reData => {
+                setActivitySectors([...reData.data])
+            })
+            .catch(err => console.log(err))
+    }
+    if(sectorOption.length == 0){
+      let sectorops = activitySectors.map((asector) => {
+        return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
+      })
+  
+      setSectorOptions([...sectorops]);
+    }
+})
+
+const fetchAllJobs = async (sector: string) => {
+    return await fetch(API_BASE_URL + `fetchAllJobs/?sector=${sector}`, {
+        method: "GET",
+        headers: {
+            "Accept": 'application/json',
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem('token')
+        }
+    }).then(resD => resD.json())
+        .then(reD => reD)
+        .catch(err => err)
+}
+
+const fetchActivitySectors = async () => {
+    return await fetch(API_BASE_URL + "fetchAllSectors", {
+        method: "GET",
+        headers: {
+            "Accept": 'application/json',
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem('token')
+        }
+    })
+        .then(resp => resp.json())
+        .then(respData => respData)
+        .catch(err => err)
+}
+
+// const checkClient = async (clientName: string, jobName: string) => {
+//     return await fetch(API_BASE_URL + `getClientByNameAndJob/?clientName=${clientName}&jobName=${jobName}`, {
+//         method: "GET",
+//         headers: {
+//             "Accept": 'application/json',
+//             'Content-Type': 'application/json',
+//             "Authorization": "Bearer " + localStorage.getItem('token')
+//         }
+//     }).then(resD => resD.json())
+//         .then(reD => reD)
+//         .catch(err => err)
+// }
+
+
+
+const RatingFun=(val)=>{
+  setData({...data,clientImportance:val})
+}
+const onFormDataChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+
+    if (e.target.name === 'clientActivitySector') {
+        console.log(e.target.name, e.target.value);
+        changeSectorSelection(e.target.value);
+    }
+    // if (e.target.name === "clientCompanyName") {
+    //     let clientName = e.target.value;
+  
+    //     let val = e.target.value.toLocaleUpperCase()
+    //     console.log(val);
+    //     checkClient(clientName).then(da => {
+    //         console.log(da);
+    //         if (da.status) {
+    //             setMatched(true);
+    //         } else {
+    //             setMatched(false);
+    //         }
+    //     }).catch(err => {
+    //         console.log(err)
+    //     })
+    //     setData((prev) => ({ ...prev, ["clientCompanyName"]: val }));
+    //     return;
+    // }
+    // if (e.target.name === "clientJob") {
+    //     let clientName = data.clientCompanyName;
+    //     let jobName = e.target.value;
+    //     checkClient(clientName, jobName).then(da => {
+    //         console.log(da);
+    //         if (da.status) {
+    //             setMatched(true);
+    //         } else {
+    //             setMatched(false);
+    //         }
+    //     }).catch(err => {
+    //         console.log(err)
+    //     })
+    // }
+    setData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+}
+
+const saveClientData = async () => {
+    return await fetch(API_BASE_URL + "addClient", {
+        method: "POST",
+        headers: {
+            "Accept": 'application/json',
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem('token')
+        },
+        body: JSON.stringify(data),
+    })
+        .then(resp => resp.json())
+        .then(reD => reD)
+        .catch(err => err)
+}
+
+
+const NoteCofac=(e)=>{
+console.log(e.value,"value")
+let NoteCofac=""
+NoteCofac=e.value
+setData({...data,note_cofac:NoteCofac})
+}
+
+
+const NumberOfPOST=(Num)=>{
+  let Posts=""
+  Posts=Num.value
+  setData({...data,numberOfPosts:Posts})
+}
+
+const SEOlead=(SEO)=>{
+setData({...data,leadOrigin:SEO.value})
+}
+
+const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    setDisableButton(true);
     e.preventDefault();
+    // setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [] }));
     console.log(data);
-  };
-  const ratingChanged = (newRating) => {
-    console.log(newRating);
-  };
-  // useEffect(()=>{
+    if (data.clientCompanyName == "") {
+        notifyNameError()
+        return false
+    }
+    if (data.jobStartDate == "") {
+        notifyDateError()
+        setDisableButton(false)
 
-  //     window.scroll({
-  //       top: 0,
-  //       left: 0,
-  //       behavior: 'smooth'
-  //     });
-  // })
+        return false;
+    }
+    if (data.clientAddress == "") {
+        notifyAddressError()
+        setDisableButton(false)
+        return false;
+    }
+    if (data.jobEndDate == "") {
+        setDisableButton(false)
+        setData((prev) => ({ ...prev, ["jobEndDate"]: "2027-12-12" }));
+        return false;
+    }
+    saveClientData().then(data => {
+        console.log(data)
+        if (data.status) {
+            notifyClientAddSuccess()
+            setTimeout(() => {
+                window.location.href = "/addCustomer";
+            }, 2000)
+
+        } else {
+            notifyClientAddError()
+            setDisableButton(false)
+            setTimeout(() => {
+                // window.location.href = "/addCustomer"
+            }, 2000)
+        }
+    })
+        .catch(err => {
+            console.log(err)
+        })
+};
+
+useEffect(() => {
+    console.log(data)
+}, [data])
+   
+
+useEffect(() => {
+  if (activitySectors.length === 0) {
+      fetchActivitySectors()
+          .then(redata => {
+              console.log(redata);
+              setActivitySectors([...redata.data]);
+          })
+          .catch(err => {
+              console.log(err)
+          })
+  }
+  if (jobs.length === 0 ) {
+      fetchAllJobs(selectedSector)
+          .then((data) => {
+              console.log(data);
+              setJobs([...data.data])
+          })
+          .catch(err => {
+              console.log(err)
+          })
+  }
+  console.log(data);
+  let jobResults = jobs.map(ajob => {
+      return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
+    })
+    setJobOptions([...jobResults]);
+    console.log(jobs,"jobs");
+}, [jobs])
+
+const jobChange = async (jobval) => {
+// console.log(jobval)
+let JobArr=""as any
+
+ JobArr=jobval.value
+
+setData({...data,clientJob:JobArr})
+
+// changeJobSelection(JobArr)
+}
+const handleChange = (selectedOption) => {
+console.log(`Option selected:`, selectedOption)
+let arr = []
+
+selectedOption.map((el) => {
+  arr.push(el.value)
+})
+setLanguage(arr)
+console.log(Language, "language")
+// setData({ ...data,clientLanguages: arr })
+}
+
+useEffect(() => {
+console.log(activitySectors);
+let sectorops = activitySectors.map((asector) => {
+  return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
+})
+
+setSectorOptions([...sectorops]);
+}, [activitySectors])
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: "white" }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -235,7 +625,24 @@ console.log(StarRatings,"hello")
       },
     }),
   };
+
+  const handleSectorChange = (e: any) => {
+    setJobOptions([])
+    console.log(e)
+    if (e.value === "Select Un Secteur") {
+      setJobs([]);
+      setSelectedSector("");
+      setJobOptions([]);
+    } else if (e.value !== '') {
+      let sectorField = e.value;
+      changeSectorSelection(sectorField)
+      setData({...data,clientActivitySector:sectorField})
+      console.log(selectedSector,"selected")
+    }
+}
   return (
+    <>
+    <Toaster position="top-right" containerStyle={{zIndex:"999999999999999999999999999"}} />
     <div className="container-fluid px-2">
       <div className="row">
         <div
@@ -274,12 +681,11 @@ console.log(StarRatings,"hello")
                     <label className="Form-styling">Company name</label>
                     <input
                       type="text"
-                      className="form-control"
-                      placeholder="Enter candidats name"
+                      className="form-control placeHolder"
+                      placeholder="Enter Company Name"
                       id="validationCustom01"
-                      name="ClientName"
-                      required
-                      onChange={onFormDataChange}
+                      name="clientCompanyName"
+                      value={data.clientCompanyName.toLocaleUpperCase()} onChange={onFormDataChange}
                     />
                     <span className="text-small">
                       Mendatory, please add company client
@@ -292,9 +698,9 @@ console.log(StarRatings,"hello")
                     <input
                       type="text"
                       className="form-control placeHolder"
-                      placeholder="Enter email"
-                      name="ClientEmail"
-                      onChange={onFormDataChange}
+                      placeholder="Enter Client Email"
+                      name="clientEmail"
+                      value={data.clientEmail} onChange={onFormDataChange}
                     />
                     <span className="text-small">
                       Mendatory, please add client email address
@@ -309,8 +715,7 @@ console.log(StarRatings,"hello")
                       className="form-control placeHolder"
                       placeholder="Enter Phone Number (+format)"
                       name="clientPhone"
-                      required
-                      onChange={onFormDataChange}
+                      value={data.clientPhone} onChange={onFormDataChange}
                     />
                     <span className="text-smallOG">
                       Important Value, please add phone number
@@ -320,29 +725,22 @@ console.log(StarRatings,"hello")
                 <div className="col-4">
                   <div className="p-1">
                     <label className="Form-styling">Company adress</label>
-                    <input
-                      type="text"
-                      className="form-control placeHolder"
-                      placeholder="Enter CLIENT adress (address, zip, city, country)"
-                      name="ClientAddress"
-                      onChange={onFormDataChange}
-                    />
+                    <input type="text" className="form-control placeHolder" placeholder='Enter Client Adress (address, zip, city, country)' name='clientAddress' value={data.clientAddress} onChange={onFormDataChange} />
                     <span className="text-smallOG">Important value</span>
                   </div>
                 </div>
                 <div className="col-4">
                   <div className="p-1">
                     <label className="Form-styling">Secteur d’Activité</label>
-                    <select
-                      name="candidatActivitySector"
-                      className="form-select placeHolder"
-                      onChange={onFormDataChange}
-                    >
-                      <option>Select Un Secteur</option>
-                      {/* {activitySectors.map((sector) =>
-                    <option value={sector.name} >{sector.sectorName}</option> // fetch from api
-                  )} */}
-                    </select>
+                    <Select
+                                            options={sectorOption}
+                                            onChange={handleSectorChange}
+                                            styles={colourStyles}
+                                            className="basic-multi-select"
+                                            classNamePrefix="select"
+                                            closeMenuOnSelect={true}
+                                            placeholder="‎ ‎ ‎ Select Un Secteur"
+                                            />
                     <span className="text-small">
                       Please select the sector of this client, you can add
                       sector on the BO
@@ -352,19 +750,19 @@ console.log(StarRatings,"hello")
                 <div className="col-4">
                   <div className="p-1">
                     <label className="Form-styling">Métier / Job</label>
-                    <select
-                      name="ClientJob"
-                      className="form-select placeHolder"
-                      onChange={onFormDataChange}
-                    >
-                      {/* {
-                    jobs.map((job) =>
-                      <option value={job.jobName}>
-                        {job.jobName}
-                      </option>
-                    )
-                  } */}
-                    </select>
+                    {jobOptions.length > 0 ?   <Select
+                      name="jobName"
+                      closeMenuOnSelect={true}
+                      placeholder="‎ ‎ ‎ Select"
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                      // defaultValue={{label:profile.clientJob,value:profile.clientJob,color:"#FE8700"}}
+                      // defaultInputValue={{label:profile.clientJob,value:profile.clientJob,color:"#FE8700"}}
+                      onChange={jobChange}
+                      options={jobOptions}
+                      styles={colourStyles}
+                    />: <p>Select A Sector!</p>
+}
                     <span className="text-small">
                       Please select the job of this client, you can add job on
                       the BO
@@ -376,13 +774,7 @@ console.log(StarRatings,"hello")
                     <label className="Form-styling">
                       Nom du contact dans l’entreprise
                     </label>
-                    <input
-                      type="text"
-                      className="form-control placeHolder"
-                      placeholder="Contact name"
-                      name="ClientFBURL"
-                      onChange={onFormDataChange}
-                    />
+                    <input type="text" className="form-control placeHolder" placeholder='Contact Name' name='clientReferenceName' value={data.clientReferenceName} onChange={onFormDataChange} />
                     <span className="text-smallOG">
                       NOT Mendatory, please add contact person on this company.
                     </span>
@@ -393,13 +785,7 @@ console.log(StarRatings,"hello")
                     <label className="Form-styling" style={{ width: "105%" }}>
                       Téléphone du contact dans l’entreprise
                     </label>
-                    <input
-                      type="text"
-                      className="form-control placeHolder"
-                      placeholder="Phone number (+format)  "
-                      name="ClientAlternatePhone"
-                      onChange={onFormDataChange}
-                    />
+                    <input type="text" className="form-control placeHolder" placeholder='Phone number (+format)' name='clientReferenceNumber' value={data.clientReferenceNumber} onChange={onFormDataChange} />
                     <span className="text-smallOG">
                       Important Value, please add phone number of our contact in
                       this company if there is one, if not we will use company
@@ -424,11 +810,10 @@ console.log(StarRatings,"hello")
                     <Select
                       name="NumberOfPosts"
                       closeMenuOnSelect={false}
-                      isMulti={false}
                       placeholder="Select value from 1  to 35"
                       className="basic-select"
                       classNamePrefix="select"
-                      // onChange={wherePerson}
+                      onChange={NumberOfPOST}
                       options={NumberOfPost}
                       styles={colourStyles}
                     />
@@ -442,13 +827,7 @@ console.log(StarRatings,"hello")
                     <label className="Form-styling">
                       Skills / Notes Compétances (will be displayed on CV)
                     </label>
-                    <textarea
-                      className="form-control"
-                      placeholder="Note"
-                      name="ClientSkills"
-                      rows={4}
-                      onChange={onFormDataChange}
-                    ></textarea>
+                    <textarea className="form-control placeHolder" placeholder='Enter Skillset Required ... ' name='clientRequiredSkills' rows={4} value={data.clientRequiredSkills} onChange={onFormDataChange} style={{ overflow: 'hidden' }} ></textarea>
                     <span className="text-smallOG">
                       NOT mandatory, please add some special skills that the
                       customer asks for this reasearch.
@@ -470,7 +849,7 @@ console.log(StarRatings,"hello")
                             
                             <input
                               type="radio"
-                              name="candidatMotivation"
+                              name="clientMotivation"
                               value={1}
                               onChange={onFormDataChange}
                               id="r1"
@@ -489,7 +868,7 @@ console.log(StarRatings,"hello")
                             
                             <input
                               type="radio"
-                              name="candidatMotivation"
+                              name="clientMotivation"
                               value={2}
                               onChange={onFormDataChange}
                               id="r2"
@@ -508,7 +887,7 @@ console.log(StarRatings,"hello")
                             
                             <input
                               type="radio"
-                              name="candidatMotivation"
+                              name="clientMotivation"
                               value={3}
                               onChange={onFormDataChange}
                               id="r3"
@@ -527,7 +906,7 @@ console.log(StarRatings,"hello")
                             
                             <input
                               type="radio"
-                              name="candidatMotivation"
+                              name="clientMotivation"
                               value={4}
                               onChange={onFormDataChange}
                               id="r4"
@@ -546,7 +925,7 @@ console.log(StarRatings,"hello")
                             
                             <input
                               type="radio"
-                              name="candidatMotivation"
+                              name="clientMotivation"
                               value={5}
                               onChange={onFormDataChange}
                               id="r5"
@@ -605,7 +984,7 @@ console.log(StarRatings,"hello")
   placeholderRating={0}
   
 /> */}
-<RatingCmp  StarRatings={setRatings} StarR={StarRatings} FunC={null}/>
+<RatingCmp  StarRatings={setRatings} StarR={StarRatings} FunC={RatingFun}/>
                     </div>
                   </div>
                 </div>
@@ -615,11 +994,10 @@ console.log(StarRatings,"hello")
                   <Select
                     name="candidatComingFrom"
                     closeMenuOnSelect={false}
-                    isMulti
                     placeholder="0"
                     className="basic-multi-select"
                     classNamePrefix="select"
-                    // onChange={wherePerson}
+                    onChange={NoteCofac}
                     options={COFAC}
                     styles={colourStyles}
                   />
@@ -634,11 +1012,10 @@ console.log(StarRatings,"hello")
                   <Select
                     name="candidatComingFrom"
                     closeMenuOnSelect={false}
-                    isMulti
                     placeholder="SEO"
                     className="basic-multi-select"
                     classNamePrefix="select"
-                    // onChange={wherePerson}
+                    onChange={SEOlead}
                     options={optionsOfSEO}
                     styles={colourStyles}
                   />
@@ -655,12 +1032,7 @@ console.log(StarRatings,"hello")
                         <label className="fromDate">
                           From date / A PARTIR DE
                         </label>
-                        <input
-                          type="date"
-                          className="form-control placeHolder"
-                          name="CLIENTStartDate"
-                          onChange={onFormDataChange}
-                        />
+                        <input type="date" className="form-control" name='jobStartDate' value={data.jobStartDate} onChange={onFormDataChange} />
                       </div>
                     </div>
                     <div className="col-6">
@@ -668,12 +1040,7 @@ console.log(StarRatings,"hello")
                         <label className="fromDate">
                           UNTIL DATE / Jusqu’à
                         </label>
-                        <input
-                          type="date"
-                          className="form-control placeHolder"
-                          name="CLIENTEndDate"
-                          onChange={onFormDataChange}
-                        />
+                        <input type="date" className="form-control" name='jobEndDate' value={data.jobEndDate} onChange={onFormDataChange} />
                       </div>
                     </div>
                   </div>
@@ -836,19 +1203,12 @@ console.log(StarRatings,"hello")
                         style={{ width: "100%" }}
                       >
                         <span>€</span>
-                        <input
-                          style={{ marginBottom: "0px" }}
-                          type="text"
-                          id="dam"
-                          className="form-control "
-                          name="turnover"
-                          placeholder="Amount"
-                        />
+                        <input type="text" className='form-control placeHolder' name='salary_hours' placeholder='Amount' value={data.salary_hours.salaryPerHour} onChange={onFormDataChange} />
                         <span>.00</span>
                       </div>
                     </div>
                     <div className="col-3 mt-1 px-1 ">
-                      <button type="button" className="btn saveSalary" id="Hour">
+                      <button type="button" className="btn saveSalary"  id="Hour">
                         Save Salary {showHour}H
                       </button>
                     </div>
@@ -864,11 +1224,11 @@ console.log(StarRatings,"hello")
                   </div>
                 </div>
                 <div className="col-12">
-                  <div className="row">
-                    <p className="padding-bottom Form-styling pb-1 mt-2">
+                <p className="padding-bottom Form-styling pb-1 mt-2">
                       taux horraire Hours
                     </p>
-                    <div className="d-flex">
+                  <div className="row">
+                    <div className=" d-flex">
                       <div className="pr-1">
                         <button type="button" className="btn btnHPaid ">
                           35H
@@ -920,7 +1280,7 @@ console.log(StarRatings,"hello")
                         <input
                           style={{ marginBottom: "0px" }}
                           type="text"
-                          className="form-control "
+                          className="form-control placeHolder"
                           name="turnover"
                           placeholder="Amount"
                           onChange={null}
@@ -953,14 +1313,7 @@ console.log(StarRatings,"hello")
                     style={{ width: "40%" }}
                   >
                     <span>€</span>
-                    <input
-                      style={{ marginBottom: "0px" }}
-                      type="number"
-                      className="form-control "
-                      name="turnover"
-                      placeholder="Amount"
-                      onChange={onFormDataChange}
-                    />
+                    <input type="text" className='form-control' name='jobTotalBudget' placeholder='Amount' value={data.jobTotalBudget} onChange={onFormDataChange} />
                     <span>.00</span>
                   </div>
                   <p className="paidHFontChild">
@@ -975,14 +1328,7 @@ console.log(StarRatings,"hello")
                         Ce client a été rentré par : / This customer was entered
                         by
                       </label>
-                      <input
-                        type="text"
-                        name="enteredBy"
-                        placeholder="Contact name "
-                        className="form-control placeHolder"
-                        value={data.enteredBy}
-                        onChange={onFormDataChange}
-                      />
+                      <input type="text" name="enteredBy" placeholder='Entered By...' className='form-control' value={data.enteredBy} onChange={onFormDataChange} />
                       <span className="text-small">
                         Exemple : Jeremy Roggy; Patrick Bueno; TDR .... Who
                         entred this customer on the database
@@ -999,10 +1345,11 @@ console.log(StarRatings,"hello")
                         </p>
                         <Switch
                           className="ml-left"
-                          onChange={switchHandle}
-                          // onClick={(e)=>switchHandle(e)}
+                          onChange={(checked,e,id)=>SwitchChange(checked,e,id)}
+                          // onClick={(e)=>(checked,e)=>SwitchChange()(e)}
                           checked={Offre}
-                          id="Offre"
+                          id="offerSent"
+                 checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>}  
                         />
                       </div>
                     </div>
@@ -1013,10 +1360,11 @@ console.log(StarRatings,"hello")
                         </p>
                         <Switch
                           className="ml-left"
-                          onChange={switchHandle}
+                          onChange={(checked,e,id)=>SwitchChange(checked,e,id)}
                           checked={Signature}
-                          id="Signature"
-                        />
+                          id="signatureSent"
+                                       checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>}  />
+
                       </div>
                     </div>
                     <div className="col-2 d-flex px-0 justify-content-end ml-1">
@@ -1026,10 +1374,11 @@ console.log(StarRatings,"hello")
                         </p>
                         <Switch
                           className="ml-left"
-                          onChange={switchHandle}
+                          onChange={(checked,e,id)=>SwitchChange(checked,e,id)}
                           checked={Contrat}
-                          id="Contrat"
-                        />
+                          id="contractSigned"
+                                       checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>}  />
+
                       </div>
                     </div>
                     <div className="col-3 d-flex px-0 justify-content-end">
@@ -1039,21 +1388,23 @@ console.log(StarRatings,"hello")
                         </p>
                         <Switch
                           className="ml-left"
-                          onChange={switchHandle}
+                          onChange={(checked,e,id)=>SwitchChange(checked,e,id)}
                           checked={Public}
-                          id="Public"
-                        />
+                          id="publicityStarted"
+                                       checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>}  />
+
                       </div>
                     </div>
                     <div className="col-1 d-flex px-0 justify-content-center ml-1">
                       <div className="d-flex align-items-center ">
-                        <p className="fontSizeReactSwitch mb-0">A1 ?</p>
+                        <p className="fontSizeReactSwitch mb-0" style={{width:"22px"}}>A1 ?</p>
                         <Switch
                           className="ml-left"
-                          onChange={switchHandle}
+                          onChange={(checked,e,id)=>SwitchChange(checked,e,id)}
                           checked={A1}
-                          id="A1"
-                        />
+                          id="A1Selected"
+                                       checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>}  />
+
                       </div>
                     </div>
                     <div className="col-3 d-flex pt-1 px-0 justify-content-start">
@@ -1063,10 +1414,11 @@ console.log(StarRatings,"hello")
                         </p>
                         <Switch
                           className="ml-left"
-                          onChange={switchHandle}
+                          onChange={(checked,e,id)=>SwitchChange(checked,e,id)}
                           checked={Assurance}
-                          id="Assurance"
-                        />
+                          id="assuranceFaite"
+                                       checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>}  />
+
                       </div>
                     </div>
                     <div className="col-3 d-flex pt-1 px-0 justify-content-start">
@@ -1076,10 +1428,11 @@ console.log(StarRatings,"hello")
                         </p>
                         <Switch
                           className="ml-left"
-                          onChange={switchHandle}
+                          onChange={(checked,e,id)=>SwitchChange(checked,e,id)}
                           checked={Agence}
-                          id="Agence"
-                        />
+                          id="agenceDeVoyage"
+                                       checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>}  />
+
                       </div>
                     </div>
                     <div className="col-3 d-flex pt-1 px-0 ">
@@ -1089,10 +1442,11 @@ console.log(StarRatings,"hello")
                         </p>
                         <Switch
                           className="ml-left"
-                          onChange={switchHandle}
+                          onChange={(checked,e,id)=>SwitchChange(checked,e,id)}
                           checked={SISPI}
-                          id="SISPI"
-                        />
+                          id="sispiDeclared"
+                                       checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>}  />
+
                       </div>
                     </div>
                   </div>
@@ -1112,25 +1466,7 @@ console.log(StarRatings,"hello")
         </div>
       </div>
     </div>
+    </>
   );
 }
 
-const fakeDataFormat = {
-  companyName: "",
-  companyNumber: "",
-  clientEmail: "",
-  companyAddress: "",
-  sector: "",
-  companyContactName: "",
-  companyContactNumber: "",
-  skills: "",
-  immediateClient: "",
-  turnover: 0,
-  salary: 0,
-  job: "",
-  postCount: 1,
-  fromDate: "",
-  toDate: "",
-  importanceClient: "",
-  enteredBy: "",
-};

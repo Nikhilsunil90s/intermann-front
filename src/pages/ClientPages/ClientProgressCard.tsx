@@ -11,7 +11,9 @@ import Select from "react-select";
 import InProgressClientModal from "../../components/Modal/InProgressClientModal";
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
+import { API_BASE_URL } from "../../config/serverApiConfig";
 
+let id=""
 function ClientProgressCard(props: any) {
 
     const navigate = useNavigate();
@@ -19,15 +21,14 @@ function ClientProgressCard(props: any) {
     const candidatMotivationIcons = [{ icon:"😟", motivation: 'Disappointed' }, { icon:"🙁", motivation: 'Not Really' }, { icon:"😊", motivation: 'Like' }, { icon:"🥰", motivation: 'Great' }, { icon:"😍", motivation: 'Super Lovely' }];
     const [showInProgressModal, setShowInProgressModal] = useState(false);
     const [showArchiveModal, setShowArchiveModal] = useState(false)
-    const [SISPI, setChecked] = useState(false);
-  const [Agence,setAgence]=useState(false)
-  const [Assurance,setAssurance]=useState(false)
-  const [A1,setA1]=useState(false)
-  const [Public,setPublic]=useState(false)
-  const [Contrat,setContrat]=useState(false)
-  const [Signature,setSignature]=useState(false)
-  const [Offre,setOffre]=useState(false)
-  const [isSwitchOn, setIsSwitchOn] = useState(true)as any;
+    const [SISPI, setChecked] = useState(props.data.sispiDeclared);
+    const [Agence, setAgence] = useState(props.data.agenceDeVoyage) as any;
+    const [Assurance, setAssurance] = useState(props.data.assuranceFaite) as any;
+    const [A1, setA1] = useState(props.data.A1Selected) as any;
+    const [Public, setPublic] = useState(props.data.publicityStarted) as any;
+    const [Contrat, setContrat] = useState(props.data.contractSigned) as any;
+    const [Signature, setSignature] = useState(props.data.signatureSent) as any;
+    const [Offre, setOffre] = useState(props.data.offerSent) as any;
   const CardOption=[{
     value:"Edit Profile",label:"Edit Profile"
     },
@@ -59,33 +60,131 @@ function ClientProgressCard(props: any) {
       console.log(e.value)
       }
 
-    const switchHandle = (event,id,e) => {
-        if(e==="Offre"){
-          setOffre(event)
+      const SwitchChange = (checked: any, e: any, Name: any) => {
+        id = e.data._id;
+        if (Name === "offerSent") {
+          if (checked === true) {
+            setOffre(true);
+            id = e.data._id;
+            onChangeSwitches(id, Name, checked);
+          }
+          if (checked === false) {
+           
+            setOffre(false);
+            onChangeSwitches(id, Name, checked);
+          }
         }
-        if(e==="Signature"){
-              setSignature(event)
+        if (Name === "signatureSent") {
+          if (checked === true) {
+            setSignature(true);
+            id = e.data._id;
+    
+            onChangeSwitches(id, Name, checked);
+          }
+          if (checked === false) {
+           
+            setSignature(false);
+            onChangeSwitches(id, Name, checked);
+          }
         }
-        if(e==="Contrat"){
-          setContrat(event)
-      }  
-      if(e==="Public"){
-        setPublic(event)
-      } 
-       if(e==="A1"){
-        setA1(event)
-      }
-      if(e==="Assurance"){
-        setAssurance(event)
-      }
-      if(e==="Agence"){
-        setAgence(event)
-      }
-      if(e==="SISPI"){
-        setChecked(event)
-      }
-    }
-   
+        if (Name === "contractSigned") {
+          if (checked === true) {
+            setContrat(true);
+            id = e.data._id;
+    
+            onChangeSwitches(id, Name, checked);
+          }
+          if (checked === false) {
+           
+            setContrat(false);
+            onChangeSwitches(id, Name, checked);
+          }
+        }
+        if (Name === "publicityStarted") {
+          if (checked === true) {
+            setPublic(true);
+            id = e.data._id;
+    
+            onChangeSwitches(id, Name, checked);
+          }
+          if (checked === false) {
+           
+            setPublic(false);
+            onChangeSwitches(id, Name, checked);
+          }
+        }
+        if (Name === "A1Selected") {
+          if (checked === true) {
+            setA1(true);
+            id = e.data._id;
+    
+            onChangeSwitches(id, Name, checked);
+          }
+          if (checked === false) {
+           
+            setA1(false);
+            onChangeSwitches(id, Name, checked);
+          }
+        }
+        if (Name === "assuranceFaite") {
+          if (checked === true) {
+            setAssurance(true);
+            id = e.data._id;
+    
+            onChangeSwitches(id, Name, checked);
+          }
+          if (checked === false) {
+           
+            setAssurance(false);
+            onChangeSwitches(id, Name, checked);
+          }
+        }
+        if (Name === "agenceDeVoyage") {
+          if (checked === true) {
+            setAgence(true);
+            id = e.data._id;
+    
+            onChangeSwitches(id, Name, checked);
+          }
+          if (checked === false) {
+           
+            setAgence(false);
+            onChangeSwitches(id, Name, checked);
+          }
+        }
+        if (Name === "sispiDeclared") {
+          if (checked === true) {
+            setChecked(true);
+            id = e.data._id;
+    
+            onChangeSwitches(id, Name, checked);
+          }
+          if (checked === false) {
+           
+            setChecked(false);
+            onChangeSwitches(id, Name, checked);
+          }
+        }
+      };
+    
+      const onChangeSwitches = async (id, AName, val) => {
+        await fetch(
+          `${API_BASE_URL}switchClientAttributes/?clientId=${id}&attribute=${AName}&value=${val}`,
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
+          .then((reD) => reD.json())
+          .then((result) => result)
+          .catch((err) => err);
+      };
+    
+ 
     return (
         <>
             <div className="card cardInPro p-0">
@@ -105,7 +204,7 @@ function ClientProgressCard(props: any) {
                         </p>
                         </div>
                         <div >  <p  className="textClientCard" style={{width:"130%"}}>Motivation :
-                             <b style={{background:"transparent" , zIndex:"9"}}>{candidatMotivationIcons[props.data.clientMotivation - 1]?.icon + " " + candidatMotivationIcons[props.data.clientMotivation - 1]?.motivation ? candidatMotivationIcons[props.data.clientMotivation - 1]?.icon + " " + candidatMotivationIcons[props.data.clientMotivation - 1]?.motivation : "No Motivation!"}</b>
+                             <b style={{background:"transparent" , zIndex:"9"}}>{candidatMotivationIcons[props.data.clientMotivation]?.icon ?candidatMotivationIcons[props.data.clientMotivation]?.icon + candidatMotivationIcons[props.data.clientMotivation]?.motivation : "No Motivation!"}</b>
                         </p>
                         </div>
                         <div ><p  className="textClientCard">Num of position : <b>  {props.data.numberOfPosts ? props.data.numberOfPosts : "No Posts!"}</b> </p></div>
@@ -147,115 +246,313 @@ function ClientProgressCard(props: any) {
                             <div className="col-12">
                     <div className="row p-1">
                     <div className="col-4 px-0 d-flex  justify-content-start">
-                      <div className="d-flex align-items-center ">
-                        <p className="switch-fontCard mb-0">
-                          Offre envoyé ?
-                        </p>
-                        {/* <Switch
-                          className="ml-left "
-                          onChange={switchHandle}
-                          // onClick={(e)=>switchHandle(e)}
-                          checked={Offre}
-                          id="Offre"
-                        /> */}
-                         <Switch className="ml-1" checked={isSwitchOn} value={isSwitchOn} onChange={switchHandle} checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>} />
-                                 
-             
-                      </div>
-                    </div>
-                    <div className="col-5 px-0 d-flex  justify-content-center">
-                      <div className="d-flex align-items-center ">
-                        <p className="switch-fontCard mb-0">
-                          Signature digitale envoyé ?
-                        </p>
-   
-                         <Switch checked={Signature} id="Signature" className="ml-left" onChange={switchHandle} checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>} />
+              <div className="d-flex align-items-center ">
+                <p className="switch-fontCard mb-0">Offre envoyé ?</p>
 
-                      </div>
-                    </div>
-                    <div className="col-2 d-flex px-0 justify-content-center ml-1">
-                      <div className="d-flex align-items-center ">
-                        <p className="switch-fontCard mb-0">A1 ?</p>
-                    
-                         <Switch  className="ml-left "
-                          onChange={switchHandle}
-                          checked={A1}
-                          id="A1" checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>} />
+                <Switch
+                  className="ml-1"
+                  checked={Offre}
+                  id="offerSent"
+                  onChange={(checked, e, id) =>
+                    SwitchChange(checked, props, id)
+                  }
+                  checkedHandleIcon={
+                    <TurnOn
+                      style={{
+                        position: "absolute",
+                        width: "28px",
+                        height: "22px",
+                        top: "-3px",
+                        left: "-6px",
+                      }}
+                    />
+                  }
+                  height={19}
+                  width={41}
+                  uncheckedHandleIcon={
+                    <TurnoFF
+                      style={{
+                        position: "absolute",
+                        width: "28px",
+                        height: "22px",
+                        top: "-3px",
+                        left: "-5px",
+                      }}
+                    />
+                  }
+                />
+              </div>
+            </div>
+            <div className="col-5 px-0 d-flex  justify-content-center">
+              <div className="d-flex align-items-center ">
+                <p className="switch-fontCard mb-0">
+                  Signature digitale envoyé ?
+                </p>
 
-                      </div>
-                    </div>
-                   
-                    <div className="col-5 d-flex pt-0 px-0 justify-content-center">
-                      <div className="d-flex align-items-center ">
-                        <p className="switch-fontCard mb-0">
-                          Assurance faite ?
-                        </p>
-                        <Switch
-                          className="ml-left "
-                          onChange={switchHandle}
-                          checked={Assurance}
-                          id="Assurance"
-                    checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-7 d-flex px-0 justify-content-start">
-                      <div className="d-flex align-items-center ">
-                        <p className="switch-fontCard mb-0">
-                          Contrat singé ?
-                        </p>
-                        <Switch
-                          className="ml-left "
-                          onChange={switchHandle}
-                          checked={Contrat}
-                          id="Contrat"
-                       checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-6 d-flex justify-content-start">
-                      <div className="d-flex align-items-center ">
-                        <p className="switch-fontCard mb-0">
-                          Agence de voyage ok ?
-                        </p>
-                        <Switch
-                          className="ml-left "
-                          onChange={switchHandle}
-                          checked={Agence}
-                          id="Agence"
-                         checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-6 d-flex px-0  justify-content-start">
-                      <div className="d-flex align-items-center ">
-                        <p className="switch-fontCard mb-0">
-                          Publicité commencé ?
-                        </p>
-                        <Switch
-                          className="ml-left "
-                          onChange={switchHandle}
-                          checked={Public}
-                          id="Public"
-                         checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>}
-                        />
-                      </div>
-                    </div>
-        
-                    <div className="col-5 d-flex  ">
-                      <div className="d-flex align-items-center ">
-                        <p className="switch-fontCard mb-0">
-                          SISPI déclaré ?
-                        </p>
-                        <Switch
-                          className="ml-left "
-                          onChange={switchHandle}
-                          checked={SISPI}
-                          id="SISPI"
-                         checkedHandleIcon={<TurnOn style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-6px"}} />} height={19} width={41} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"28px",height:"22px",top:"-3px",left:"-5px"}}/>}
-                        />
-                      </div>
-                    </div>
+                <Switch
+                  checked={Signature}
+                  id="signatureSent"
+                  className="ml-left"
+                  onChange={(checked, e, id) =>
+                    SwitchChange(checked, props, id)
+                  }
+                  checkedHandleIcon={
+                    <TurnOn
+                      style={{
+                        position: "absolute",
+                        width: "28px",
+                        height: "22px",
+                        top: "-3px",
+                        left: "-6px",
+                      }}
+                    />
+                  }
+                  height={19}
+                  width={41}
+                  uncheckedHandleIcon={
+                    <TurnoFF
+                      style={{
+                        position: "absolute",
+                        width: "28px",
+                        height: "22px",
+                        top: "-3px",
+                        left: "-5px",
+                      }}
+                    />
+                  }
+                />
+              </div>
+            </div>
+            <div className="col-2 d-flex px-0 justify-content-center ml-1">
+              <div className="d-flex align-items-center ">
+                <p className="switch-fontCard mb-0">A1 ?</p>
+
+                <Switch
+                  className="ml-left "
+                  onChange={(checked, e, id) =>
+                    SwitchChange(checked, props, id)
+                  }
+                  checked={A1}
+                  id="A1Selected"
+                  checkedHandleIcon={
+                    <TurnOn
+                      style={{
+                        position: "absolute",
+                        width: "28px",
+                        height: "22px",
+                        top: "-3px",
+                        left: "-6px",
+                      }}
+                    />
+                  }
+                  height={19}
+                  width={41}
+                  uncheckedHandleIcon={
+                    <TurnoFF
+                      style={{
+                        position: "absolute",
+                        width: "28px",
+                        height: "22px",
+                        top: "-3px",
+                        left: "-5px",
+                      }}
+                    />
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="col-5 d-flex pt-0 px-0 justify-content-center">
+              <div className="d-flex align-items-center ">
+                <p className="switch-fontCard mb-0">Assurance faite ?</p>
+                <Switch
+                  className="ml-left "
+                  onChange={(checked, e, id) =>
+                    SwitchChange(checked, props, id)
+                  }
+                  checked={Assurance}
+                  id="assuranceFaite"
+                  checkedHandleIcon={
+                    <TurnOn
+                      style={{
+                        position: "absolute",
+                        width: "28px",
+                        height: "22px",
+                        top: "-3px",
+                        left: "-6px",
+                      }}
+                    />
+                  }
+                  height={19}
+                  width={41}
+                  uncheckedHandleIcon={
+                    <TurnoFF
+                      style={{
+                        position: "absolute",
+                        width: "28px",
+                        height: "22px",
+                        top: "-3px",
+                        left: "-5px",
+                      }}
+                    />
+                  }
+                />
+              </div>
+            </div>
+            <div className="col-7 d-flex px-0 justify-content-start">
+              <div className="d-flex align-items-center ">
+                <p className="switch-fontCard mb-0">Contrat singé ?</p>
+                <Switch
+                  className="ml-left "
+                  // onChange={switchHandle}
+                  checked={Contrat}
+                  onChange={(checked, e, id) =>
+                    SwitchChange(checked, props, id)
+                  }
+                  id="contractSigned"
+                  checkedHandleIcon={
+                    <TurnOn
+                      style={{
+                        position: "absolute",
+                        width: "28px",
+                        height: "22px",
+                        top: "-3px",
+                        left: "-6px",
+                      }}
+                    />
+                  }
+                  height={19}
+                  width={41}
+                  uncheckedHandleIcon={
+                    <TurnoFF
+                      style={{
+                        position: "absolute",
+                        width: "28px",
+                        height: "22px",
+                        top: "-3px",
+                        left: "-5px",
+                      }}
+                    />
+                  }
+                />
+              </div>
+            </div>
+            <div className="col-6 d-flex justify-content-start">
+              <div className="d-flex align-items-center ">
+                <p className="switch-fontCard mb-0">Agence de voyage ok ?</p>
+                <Switch
+                  className="ml-left "
+                  // onChange={switchHandle}
+                  checked={Agence}
+                  onChange={(checked, e, id) =>
+                    SwitchChange(checked, props, id)
+                  }
+                  id="agenceDeVoyage"
+                  checkedHandleIcon={
+                    <TurnOn
+                      style={{
+                        position: "absolute",
+                        width: "28px",
+                        height: "22px",
+                        top: "-3px",
+                        left: "-6px",
+                      }}
+                    />
+                  }
+                  height={19}
+                  width={41}
+                  uncheckedHandleIcon={
+                    <TurnoFF
+                      style={{
+                        position: "absolute",
+                        width: "28px",
+                        height: "22px",
+                        top: "-3px",
+                        left: "-5px",
+                      }}
+                    />
+                  }
+                />
+              </div>
+            </div>
+            <div className="col-6 d-flex px-0  justify-content-start">
+              <div className="d-flex align-items-center ">
+                <p className="switch-fontCard mb-0">Publicité commencé ?</p>
+                <Switch
+                  className="ml-left "
+                  // onChange={switchHandle}
+                  checked={Public}
+                  onChange={(checked, e, id) =>
+                    SwitchChange(checked, props, id)
+                  }
+                  id="publicityStarted"
+                  checkedHandleIcon={
+                    <TurnOn
+                      style={{
+                        position: "absolute",
+                        width: "28px",
+                        height: "22px",
+                        top: "-3px",
+                        left: "-6px",
+                      }}
+                    />
+                  }
+                  height={19}
+                  width={41}
+                  uncheckedHandleIcon={
+                    <TurnoFF
+                      style={{
+                        position: "absolute",
+                        width: "28px",
+                        height: "22px",
+                        top: "-3px",
+                        left: "-5px",
+                      }}
+                    />
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="col-5 d-flex  ">
+              <div className="d-flex align-items-center ">
+                <p className="switch-fontCard mb-0">SISPI déclaré ?</p>
+                <Switch
+                  className="ml-left "
+                  // onChange={switchHandle}
+                  checked={SISPI}
+                  onChange={(checked, e, id) =>
+                    SwitchChange(checked, props, id)
+                  }
+                  // defaultChecked={props.}
+                  id="sispiDeclared"
+                  checkedHandleIcon={
+                    <TurnOn
+                      style={{
+                        position: "absolute",
+                        width: "28px",
+                        height: "22px",
+                        top: "-3px",
+                        left: "-6px",
+                      }}
+                    />
+                  }
+                  height={19}
+                  width={41}
+                  uncheckedHandleIcon={
+                    <TurnoFF
+                      style={{
+                        position: "absolute",
+                        width: "28px",
+                        height: "22px",
+                        top: "-3px",
+                        left: "-5px",
+                      }}
+                    />
+                  }
+                />
+              </div>
+            </div>
                     </div>
                 </div>
                         </div>

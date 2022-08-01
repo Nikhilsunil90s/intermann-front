@@ -52,6 +52,10 @@ function PreSelectedView() {
   // const [Superlovely, setSuperlovely] = useState(false);
   let data={profileData:profile ,path:"/preSelectedView"}
 
+     // Notification // 
+const notifyMoveSuccess = () => toast.success("Moved Archived Successfully!");
+const notifyMoveError = () => toast.error("Not Moved..");
+  //    End   // 
 
   const fileChange = (
     e: React.ChangeEvent<

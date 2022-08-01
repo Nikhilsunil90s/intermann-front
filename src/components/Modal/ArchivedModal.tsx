@@ -70,6 +70,7 @@ function ArchivedModal({ props, closeModal,path }) {
 
   return (
     <>
+    <Toaster containerStyle={{zIndex:"99999999999999999"}} position="top-right" />
       <div
         className="modal d-block"
         style={{ backgroundColor: "#00000052" }}

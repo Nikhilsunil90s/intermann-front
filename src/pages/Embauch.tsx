@@ -38,6 +38,12 @@ let FilterJob = [];
 let ClientFL=[]
 let SelectedClient=[]
 function Embauch() {
+
+// Notification // 
+const notifyMoveSuccess = () => toast.success("Moved Archived Successfully!");
+const notifyMoveError = () => toast.error("Not Moved..");
+  //    End   // 
+
   const [sectors, setSectors] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState([]);
@@ -523,7 +529,7 @@ SelectedClient=[]
 
   return (
     <>
-      <Toaster position="top-right" />
+      <Toaster position="top-right" containerStyle={{zIndex:"99999999999999999999999999"}} />
       <div className="container-fluid mt-1">
         <div className="row pd">
           <div className="col-12 card-tops px-1 mt-1" style={{ padding: "0px", marginBottom: "20px" }}>
@@ -831,7 +837,7 @@ SelectedClient=[]
                     filterData.length > 0 ? 
                       filterData.map((profile, index) => (
                         <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 mt-1  pr-0">
-                          <EmbaucheProfileCard path={false} props={profile}  />
+                          <EmbaucheProfileCard path={false} props={profile}  NottifySuccess={notifyMoveSuccess} NottifyErr={notifyMoveError}  />
                         </div>
                       ))
                      : 

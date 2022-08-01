@@ -13,6 +13,7 @@ import Switch from "react-switch";
 import  ProfileLoader from "../../components/Loader/ProfilesLoader"
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
+import toast, { Toaster } from 'react-hot-toast';
 
 declare global {
   namespace JSX {
@@ -40,6 +41,8 @@ let Importance=[]
 let MotivationArr = []
 let OthersFilterArr = []
  let FilterJob=[]
+ let email=false;
+ let phone=false;
  function ClientContract() {
  
   const [sectors, setSectors] = useState([]);
@@ -53,8 +56,6 @@ let OthersFilterArr = []
   const [filterData, setFilterData] = useState([]);
   const [status,setStatus]=useState(Boolean)
   const [jobOptions, setJobOptions] = useState([]);
-  const [EmailCheck,setEmailCheck] = useState(false)
-  const [PhoneNumberMissing,setMissing]=useState(false)
   const [showMore, setShowMore] = useState(true)
   const [motivationOptions, setMotivationOptions] = useState([])
   const [optionsOthersFilter, setOtherOptions] = useState([])
@@ -195,15 +196,15 @@ let OthersFilterArr = []
         value: "Select Motivations", label: "Select Motivations", color: '#FF8B00'
       },
       {
-        value: "1", label: "😔", color: '#FF8B00'
+        value: "0", label: "😔", color: '#FF8B00'
       }, {
-        value: "2", label: "🙁", color: '#FF8B00'
+        value: "1", label: "🙁", color: '#FF8B00'
       }, {
-        value: "3", label: "😊", color: '#FF8B00'
+        value: "2", label: "😊", color: '#FF8B00'
       }, {
-        value: "4", label: "🥰", color: '#FF8B00'
+        value: "3", label: "🥰", color: '#FF8B00'
       }, {
-        value: "5", label: "😍", color: '#FF8B00'
+        value: "4", label: "😍", color: '#FF8B00'
       }])
           }
  
@@ -417,11 +418,63 @@ setStatus(false)
          .catch((err) => err);
        
      }
+     if(email === true){
+      await fetch(
+        `${API_BASE_URL}filterClientsByMissingEmailOrPhone/?field=email&status=Signed Contract`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          if (result.status == false) {
+            setLoader(true);
+            setStatus(false);
+          } else if (result.status == true) {
+            setFilterData([...result.data]);
+            setLoader(true);
+            setStatus(true);
+          }
+        })
+        .catch((err) => err);
+    }
+    if(phone === true){
+      await fetch(
+        `${API_BASE_URL}filterClientsByMissingEmailOrPhone/?field=phone&status=Signed Contract`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          if (result.status == false) {
+            setLoader(true);
+            setStatus(false);
+          } else if (result.status == true) {
+            setFilterData([...result.data]);
+            setLoader(true);
+            setStatus(true);
+          }
+        })
+        .catch((err) => err);
+    }
   };
 
   const handleNameChange = (e: any) => {
     // console.log(e.target.value)
     SelectedName = []
+    email=false;
+    phone=false
     Importance=[]
     MotivationArr = []
     OthersFilterArr = []
@@ -441,7 +494,8 @@ setStatus(false)
 
   const handleSectorChange = (e: any) => {
     // console.log(e.target.value)
-
+    email=false;
+    phone=false
     SelectedName = []
     MotivationArr = []
     OthersFilterArr = []
@@ -473,6 +527,8 @@ setStatus(false)
   const handleMotivationChange = (e: any) => {
     // console.log(e.target.value)
     MotivationArr = []
+    email=false;
+    phone=false
     Importance=[]
     OthersFilterArr = []
     setSelectedSector("")
@@ -494,6 +550,8 @@ setStatus(false)
   };
    const importanceHandel=(e)=>{
   SelectedName = []
+  email=false;
+  phone=false
   setSelectedSector("")
   MotivationArr = []
   FilterJob=[]
@@ -508,10 +566,11 @@ setStatus(false)
    
  }
 
-  
     
      const HandelOthers = (e) => {
       SelectedName = []
+      email=false;
+      phone=false
       setSelectedSector("")
       Importance=[]
       MotivationArr = []
@@ -548,20 +607,39 @@ setStatus(false)
       setImportanceOptions([])
       setImportanceOptions([])
       setSectorOptions([])
+      email=false;
+      phone=false
       setSectors([])
       setSelectedJob([])
       fetchAllSectors()
       filterFunction()
      }
-    const MissingHandler=(checked,e,id)=>{
-      console.log(id,"id")
-      if(id=="EmailMissing"){
-      setEmailCheck(checked)
+     const MissingHandler = (checked, e, id) => {
+      console.log(id, "id");
+      if (id == "EmailMissing") {
+        if (checked == true) {
+         email=true
+          filterFunction()
+        }
+        if (checked == false) {
+         email=false
+          filterFunction()
+        }
       }
-      if(id=="PhoneNumberMissing"){
-        setMissing(checked)
+      if (id == "PhoneNumberMissing") {
+        if (checked == true) {
+         phone=true
+          filterFunction()
+          console.log(phone, "Phone");
+        }
+        if (checked == false) {
+         phone=false
+          filterFunction()
+          console.log(phone, "hone");
+        }
       }
-    }
+    };
+  
 
     const fetchAllJobs = async (sector: string) => {
       if (sector === "Select Un Secteur") {
@@ -588,6 +666,7 @@ setStatus(false)
 
   return (
     <>
+      <Toaster position="top-right"  containerStyle={{zIndex:"999999999999999999999"}}/>
       <div className="container-fluid">
         <div className="row ">
           <div className="col-12 p-1 text-center topHeaderClient mt-2">
@@ -746,21 +825,21 @@ setStatus(false)
                         <div className="col-12 mt-1">
                           <div className="row">
                             <div className="col-4 d-flex  align-items-center">
-                             <p className="missing">Phone number missing</p>
-                             <Switch onChange={MissingHandler} id="PhoneNumberMissing"  checked={PhoneNumberMissing}
+                             <p className="missing mb-0">Phone number missing</p>
+                             <Switch onChange={MissingHandler} id="PhoneNumberMissing"  checked={phone}
                          checkedHandleIcon={<TurnOn style={{position:"absolute",width:"35px",height:"28px",top:"-3px",left:"-7px"}} />} height={24} width={52} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"35px",height:"28px",top:"-3px",left:"-6px"}} />} 
                              />
                               </div>
                               <div className="col-4 d-flex  align-items-center">
-                             <p className="missing">Email missing</p>
-                             <Switch onChange={MissingHandler} id="EmailMissing" checked={EmailCheck}
+                             <p className="missing mb-0">Email missing</p>
+                             <Switch onChange={MissingHandler} id="EmailMissing" checked={email}
                          checkedHandleIcon={<TurnOn style={{position:"absolute",width:"35px",height:"28px",top:"-3px",left:"-7px"}} />} height={24} width={52} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"35px",height:"28px",top:"-3px",left:"-6px"}} />} 
                          />
                               
                               </div>
                             </div>
                           </div>
-                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
+                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 || email == true || phone == true  ?
                           <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex align-items-center justify-content-end">
 
 <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
@@ -778,7 +857,7 @@ setStatus(false)
                   <div className="extraPadding">
                     <div className="col-12">
                       <div className="row justify-content-end">
-                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 ?
+                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 || email == true || phone == true ?
                       <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3d-flex align-items-center justify-content-end">
 <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 </div>: null
