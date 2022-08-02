@@ -45,7 +45,7 @@ const ClientDataFormat = {
     hours:"",
     salaryPerHour: ""
   },
-  rate_hours :{ hours: "", ratePerHour: "" },
+  rate_hours :{ hours:"",ratePerHour: "" },
   numberOfPosts: "",
   clientMotivation: 0,
   jobStartDate: "",
@@ -61,7 +61,7 @@ const ClientDataFormat = {
         signatureSent :false,
         contractSigned:false,
         publicityStarted:false,
-        A1Selected:false,
+        A1selected:false,
         assuranceFaite:false,
         agenceDeVoyage:false,
         sispiDeclared:false,
@@ -122,17 +122,14 @@ console.log(Name,"checkd")
        
       }
     }
-    if (Name === "A1Selected") {
+    if (Name === "A1selected") {
       if (checked === true) {
         setA1(true);
-        setData({...data,A1Selected:checked})
-    
-
-       
+        setData({...data,A1selected:checked})
       }
       if (checked === false) {
         setA1(false);
-        setData({...data,A1Selected:checked})
+        setData({...data,A1selected:checked})
        
       }
     }
@@ -215,83 +212,130 @@ const [matched, setMatched] = useState(false);
   const [Contrat, setContrat] = useState(false);
   const [Signature, setSignature] = useState(false);
   const [Offre, setOffre] = useState(false);
-console.log(StarRatings,"hello")
-  const [state, setState] = useState({
-    name: "bob",
-    color: "blue",
-  });
-  const handleColor = (e: any) => {
-    console.log(e.target.id, "hey");
-  };
-  // let n=35
-  //    const  NumberOfPost=()=>{
-  //    {  [...Array(n)].map((el)=>{
-  //       console.log(el)
-  //      })
-  //     }
-  //    }
+  const [taxHours,setHours]=useState("")
+  const [taxHoursID,setHoursId]=useState("")
+  const [salary,setSalary_hours] =useState({
+    hours:"",
+    salaryPerHour:""
+  })
+  const [rateHours,setrate_hours] =useState({
+    hours:"",
+    ratePerHour:""
+  })as any
 
-  //    useEffect(()=>{
-  //     // NumberOfPost()
-  //     loopFun()
-  //    })
-
-  // const loopFun = () => {
-  // Amountarr=[]
-  // for (let i = 0; i <= 35; i++) {
-  //     Amountarr.push(i)
-  // }
-  // NumberOfPosts= Amountarr.map((el)=>{
-  //   return {value:el,label:el}
-  // })
-  // console.log[(NumberOfPosts,"k")
-  // };
-  // useEffect(()={
-  //   $(document).ready(function(){
-  //     $("#dam_return a").click(function(){
-  //         var value = $(this).html();
-  //         var input = $('#dam');
-  //         input.val(value);
-  //     });
-  // })
-  // })
-  const RemoveHandling=()=>{
-    setShowHour("")
+  const RemoveHandling=(e)=>{
+ if(e.target.name=="Salary"){
+  setShowHour("")
     setID("")
+    setSalary_hours( { hours:"",
+    salaryPerHour:""})
+ }
+  if(e.target.name=="TauxHours"){
+    setHours("")
+    setHoursId("")
+    setrate_hours({
+      hours:"",
+      ratePerHour:""
+    })
+  }
+  
   }
   const HandleChange = (e: any) => {
     console.log(e.target.value);
     if (e.target.id === "1") {
       setShowHour("35");
       setID(e.target.id);
+      setSalary_hours({...salary,hours:"35"})
     }
     if (e.target.id === "2") {
       setShowHour("39");
       setID(e.target.id);
+      setSalary_hours({...salary,hours:"39"})
+
     }
     if (e.target.id === "3") {
       setShowHour("40");
+      setSalary_hours({...salary,hours:"40"})
       setID(e.target.id);
     }
     if (e.target.id === "4") {
       setShowHour("41");
       setID(e.target.id);
+      setSalary_hours({...salary,hours:"41"})
+
     }
     if (e.target.id === "5") {
       setShowHour("42");
+      setSalary_hours({...salary,hours:"42"})
       setID(e.target.id);
     }
     if (e.target.id === "6") {
       setShowHour("43");
+      setSalary_hours({...salary,hours:"43"})
       setID(e.target.id);
     }
     if (e.target.id === "7") {
       setShowHour("44");
       setID(e.target.id);
+      setSalary_hours({...salary,hours:"44"})
+
     }
     if (e.target.id === "8") {
       setShowHour("45");
       setID(e.target.id);
+      setSalary_hours({...salary,hours:"45"})
+    }
+  };
+
+  const TauxHandleChange = (e: any) => {
+    console.log(e.target.value);
+    if (e.target.id === "1") {
+      setShowHour("35");
+      setHoursId(e.target.id);
+      setrate_hours({...rateHours,hours:"35"})
+      // setData({...data.salary_hours.hours:...salary.hours})
+    }
+    if (e.target.id === "2") {
+      setHours("39");
+      setHoursId(e.target.id);
+      setrate_hours({...rateHours,hours:"39"})
+
+    }
+    if (e.target.id === "3") {
+      setHours("40");
+      setHoursId(e.target.id);
+      setrate_hours({...rateHours,hours:"40"})
+
+    }
+    if (e.target.id === "4") {
+      setHours("41");
+      setHoursId(e.target.id);
+      setrate_hours({...rateHours,hours:"41"})
+
+    }
+    if (e.target.id === "5") {
+      setHours("42");
+      setHoursId(e.target.id);
+      setrate_hours({...rateHours,hours:"42"})
+
+    }
+    if (e.target.id === "6") {
+      setHours("43");
+      setHoursId(e.target.id);
+      setrate_hours({...rateHours,hours:"43"})
+
+    }
+    if (e.target.id === "7") {
+      setHours("44");
+      setHoursId(e.target.id);
+      setrate_hours({...rateHours,hours:"44"})
+
+    }
+    if (e.target.id === "8") {
+      setHours("45");
+      setHoursId(e.target.id);
+      setrate_hours({...rateHours,hours:"45"})
+
     }
   };
 
@@ -426,6 +470,7 @@ const onFormDataChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaEl
     //         console.log(err)
     //     })
     // }
+
     setData(prev => ({ ...prev, [e.target.name]: e.target.value }));
 }
 
@@ -452,6 +497,17 @@ NoteCofac=e.value
 setData({...data,note_cofac:NoteCofac})
 }
 
+
+const onInputChange=(val)=>{
+  if(val.target.name==="salary_hours"){
+    setSalary_hours({...salary,salaryPerHour:val.target.value})
+  setData({...data,salary_hours:salary})
+  }
+  if(val.target.name==="turnover"){
+    setrate_hours({...setrate_hours,ratePerHour:val.target.value})
+  setData({...data,rate_hours:rateHours})
+  }
+}
 
 const NumberOfPOST=(Num)=>{
   let Posts=""
@@ -809,7 +865,7 @@ setSectorOptions([...sectorops]);
                 /> */}
                     <Select
                       name="NumberOfPosts"
-                      closeMenuOnSelect={false}
+                      closeMenuOnSelect={true}
                       placeholder="Select value from 1  to 35"
                       className="basic-select"
                       classNamePrefix="select"
@@ -993,7 +1049,7 @@ setSectorOptions([...sectorops]);
 
                   <Select
                     name="candidatComingFrom"
-                    closeMenuOnSelect={false}
+                    closeMenuOnSelect={true}
                     placeholder="0"
                     className="basic-multi-select"
                     classNamePrefix="select"
@@ -1011,7 +1067,7 @@ setSectorOptions([...sectorops]);
                   </p>
                   <Select
                     name="candidatComingFrom"
-                    closeMenuOnSelect={false}
+                    closeMenuOnSelect={true}
                     placeholder="SEO"
                     className="basic-multi-select"
                     classNamePrefix="select"
@@ -1055,7 +1111,7 @@ setSectorOptions([...sectorops]);
                       <div className="pr-1">
                         <button
                           type="button"
-                          value="10000rs"
+                       
                           id="1"
                           onClick={(e) => {
                             HandleChange(e);
@@ -1073,7 +1129,7 @@ setSectorOptions([...sectorops]);
                       <div className="pr-1">
                         <button
                           type="button"
-                          value="20000rs"
+                        
                           id="2"
                           onClick={(e) => {
                             HandleChange(e);
@@ -1091,7 +1147,7 @@ setSectorOptions([...sectorops]);
                       <div className="pr-1">
                         <button
                           type="button"
-                          value="30000rs"
+                         
                           id="3"
                           onClick={(e) => {
                             HandleChange(e);
@@ -1109,7 +1165,7 @@ setSectorOptions([...sectorops]);
                       <div className="pr-1">
                         <button
                           type="button"
-                          value="40000rs"
+                        
                           id="4"
                           onClick={(e) => {
                             HandleChange(e);
@@ -1127,7 +1183,7 @@ setSectorOptions([...sectorops]);
                       <div className="pr-1">
                         <button
                           type="button"
-                          value="50000rs"
+                         
                           id="5"
                           onClick={(e) => {
                             HandleChange(e);
@@ -1145,7 +1201,7 @@ setSectorOptions([...sectorops]);
                       <div className="pr-1">
                         <button
                           type="button"
-                          value="60000rs"
+                          
                           id="6"
                           onClick={(e) => {
                             HandleChange(e);
@@ -1163,7 +1219,6 @@ setSectorOptions([...sectorops]);
                       <div className="pr-1">
                         <button
                           type="button"
-                          value="70000rs"
                           id="7"
                           onClick={(e) => {
                             HandleChange(e);
@@ -1181,7 +1236,7 @@ setSectorOptions([...sectorops]);
                       <div className="pr-1">
                         <button
                           type="button"
-                          value="80000rs"
+                        
                           id="8"
                           onClick={(e) => {
                             HandleChange(e);
@@ -1203,17 +1258,17 @@ setSectorOptions([...sectorops]);
                         style={{ width: "100%" }}
                       >
                         <span>€</span>
-                        <input type="text" className='form-control placeHolder' name='salary_hours' placeholder='Amount' value={data.salary_hours.salaryPerHour} onChange={onFormDataChange} />
+                        <input type="text" className='form-control placeHolder' name='salary_hours' placeholder='Amount'   onChange={onInputChange} />
                         <span>.00</span>
                       </div>
                     </div>
                     <div className="col-3 mt-1 px-1 ">
-                      <button type="button" className="btn saveSalary"  id="Hour">
+                      <button type="button" className="btn saveSalary" id="Hour">
                         Save Salary {showHour}H
                       </button>
                     </div>
                     <div className="col-4 mt-1 px-1">
-                      <button type="button" onClick={()=>RemoveHandling()} className="btn RemoveSalary">
+                      <button type="button" onClick={(e)=>RemoveHandling(e)} name="Salary" className="btn RemoveSalary">
                         REMOVE Salary {showHour}H
                       </button>
                     </div>
@@ -1230,42 +1285,115 @@ setSectorOptions([...sectorops]);
                   <div className="row">
                     <div className=" d-flex">
                       <div className="pr-1">
-                        <button type="button" className="btn btnHPaid ">
+                        <button type="button"
+                          id="1"
+                          onClick={(e) => {
+                            TauxHandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: taxHoursID == "1" ? " #F4E7FF" : "",
+                            color: taxHoursID == "1" ? "#A461D8" : "#979797",
+                          }} className="btn btnHPaid ">
                           35H
                         </button>
                       </div>
                       <div className="pr-1">
-                        <button type="button" className="btn btnHPaid ">
+                        <button type="button" 
+                          id="2"
+                          onClick={(e) => {
+                            TauxHandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: taxHoursID == "2" ? " #F4E7FF" : "",
+                            color: taxHoursID == "2" ? "#A461D8" : "#979797",
+                          }}
+                          className="btn btnHPaid ">
                           39H
                         </button>
                       </div>
                       <div className="pr-1">
-                        <button type="button" className="btn btnHPaid ">
+                        <button type="button"
+                          id="3"
+                          onClick={(e) => {
+                            TauxHandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: taxHoursID == "3" ? " #F4E7FF" : "",
+                            color: taxHoursID == "3" ? "#A461D8" : "#979797",
+                          }} className="btn btnHPaid ">
                           40H
                         </button>
                       </div>
                       <div className="pr-1">
-                        <button type="button" className="btn btnHPaid ">
+                        <button type="button"
+                          id="4"
+                          onClick={(e) => {
+                            TauxHandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: taxHoursID == "4" ? " #F4E7FF" : "",
+                            color: taxHoursID == "4" ? "#A461D8" : "#979797",
+                          }} className="btn btnHPaid ">
                           41H
                         </button>
                       </div>
                       <div className="pr-1">
-                        <button type="button" className="btn btnHPaid ">
+                        <button type="button" 
+                          id="5"
+                          onClick={(e) => {
+                            TauxHandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: taxHoursID == "5" ? " #F4E7FF" : "",
+                            color: taxHoursID == "5" ? "#A461D8" : "#979797",
+                          }} className="btn btnHPaid ">
                           42H
                         </button>
                       </div>
                       <div className="pr-1">
-                        <button type="button" className="btn btnHPaid ">
+                        <button type="button" 
+                          id="6"
+                          onClick={(e) => {
+                            TauxHandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: taxHoursID == "6" ? " #F4E7FF" : "",
+                            color: taxHoursID == "6" ? "#A461D8" : "#979797",
+                          }} className="btn btnHPaid ">
                           43H
                         </button>
                       </div>
                       <div className="pr-1">
-                        <button type="button" className="btn btnHPaid ">
+                        <button type="button" 
+                          id="7"
+                          onClick={(e) => {
+                            TauxHandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: taxHoursID == "7" ? " #F4E7FF" : "",
+                            color: taxHoursID == "7" ? "#A461D8" : "#979797",
+                          }} className="btn btnHPaid ">
                           44H
                         </button>
                       </div>
                       <div className="pr-1">
-                        <button type="button" className="btn btnHPaid ">
+                        <button type="button"
+                          id="8"
+                          onClick={(e) => {
+                            TauxHandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: taxHoursID == "8" ? " #F4E7FF" : "",
+                            color: taxHoursID == "8" ? "#A461D8" : "#979797",
+                          }} className="btn btnHPaid ">
                           45H
                         </button>
                       </div>
@@ -1283,19 +1411,19 @@ setSectorOptions([...sectorops]);
                           className="form-control placeHolder"
                           name="turnover"
                           placeholder="Amount"
-                          onChange={null}
+                          onChange={onInputChange}
                         />
                         <span>.00</span>
                       </div>
                     </div>
-                    <div className="col-3 mt-1 px-1">
-                      <button className="btn SaveTAUX ">
-                        Save TAUX HORRAIRE 35 H
+                    <div className="col-3 mt-1 px-0">
+                      <button type="button" className="btn SaveTAUX ">
+                        Save TAUX HORRAIRE {taxHours} H
                       </button>
                     </div>
                     <div className="col-4 mt-1 px-1">
-                      <button className="btn RemoveSalary">
-                        REMOVE Salary 35 H
+                      <button type="button" className="btn RemoveSalary" name="TauxHours" onClick={(e)=>RemoveHandling(e)}>
+                        REMOVE Salary {taxHours}H
                       </button>
                     </div>
                     <p className="paidHFontChild">
@@ -1402,7 +1530,7 @@ setSectorOptions([...sectorops]);
                           className="ml-left"
                           onChange={(checked,e,id)=>SwitchChange(checked,e,id)}
                           checked={A1}
-                          id="A1Selected"
+                          id="A1selected"
                                        checkedHandleIcon={<TurnOn style={{position:"absolute",width:"31px",height:"25px",top:"-3px",left:"-6px"}} />} height={22} width={48} uncheckedHandleIcon={<TurnoFF style={{position:"absolute",width:"27px",height:"26px",top:"-3px",left:"-3px"}}/>}  />
 
                       </div>

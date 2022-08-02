@@ -330,7 +330,7 @@ No What’s App !
                   <p className="CompanyAddres">Company Adress 
                   </p> 
                   
-                  <span className="Todo-ClinetCardMore-span">:{profile.clientAddress}</span>
+                  <span className="Todo-ClinetCardMore-span">:{profile.clientAddress ? profile.clientAddress :"No Address!"}</span>
                  
                    </div>
                
@@ -360,25 +360,25 @@ No What’s App !
                     <div className="d-flex align-items-center">
                   <p className="text-dark">Potential Turnover CA</p>
                  <span className="Todo-ClinetCardMore-span">
-                    : {profile.jobTotalBudget} €
+                    :  {profile.jobTotalBudget!=null ? profile.jobTotalBudget +"€" : "No Budget"} €
                   </span>
                 </div>
                 <div className="d-flex align-items-center">
                   <p className="text-dark">Salary by person </p>
                  <span className="Todo-ClinetCardMore-span">
-                    : {profile.netSalary} €
+                    :  {profile.salary_hours ? profile.salary_hours.salaryPerHour + "€" :"No Salary"}
                   </span>
                 </div>
                 <div className="d-flex align-items-center">
                   <p className="text-dark">Salaire net du salarié </p>
                  <span className="Todo-ClinetCardMore-span">
-                    : {profile.SalaryH ? profile.SalaryH: "No Hours!"} 
+                    :  {profile.salary_hours ? profile.salary_hours.hours * profile.salary_hours.salaryPerHour +"€" : "No Hours!"}
                   </span>
                 </div>
                 <div className="d-flex align-items-center">
                   <p className="text-dark">Taux horraire</p>
                  <span className="Todo-ClinetCardMore-span">
-                    :  {profile.SalaryH ? profile.SalaryH: "No Hours!"} 
+                    : {profile.rate_hours ? profile.rate_hours.hours * profile.rate_hours.ratePerHour + "€" : "No Hours!"}
                   </span>
                 </div>
                    

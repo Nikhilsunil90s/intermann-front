@@ -424,10 +424,12 @@ export default function ClientProgress() {
     MotivationArr = []
     FilterJob=[]
     console.log(e.value)
-    let OtherF=[]
-   OtherF.push(e.value)
-    console.log(OtherF,"other")
-    filterFunction()
+    let OthersF=[]
+    e.map((el)=>{
+      OthersF.push(el.value)
+    })
+    OthersFilterArr=OthersF
+      filterFunction()
   }
   const MissingHandler = (checked, e, id) => {
     console.log(id, "id");

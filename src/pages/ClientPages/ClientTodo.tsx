@@ -245,6 +245,8 @@ function ClientToDoList() {
   const HandelOthers = (e) => {
     // setEmail("")
     // setPhone("")
+    let OthersF=[]
+    console.log(e)
     email=false;
     phone=false;
     SelectedName = [];
@@ -253,8 +255,11 @@ function ClientToDoList() {
     MotivationArr = [];
     FilterJob = [];
     console.log(e.value);
-    OthersFilterArr.push(e.value);
-    filterFunction();
+    e.map((el)=>{
+      OthersF.push(el.value)
+    })
+    OthersFilterArr=OthersF
+    // filterFunction();
   };
   const handleMotivationChange = (e: any) => {
     // setEmail("")
@@ -601,37 +606,37 @@ function ClientToDoList() {
           color: "#FF8B00",
         },
         {
-          value: "Signature ",
+          value: "Signature",
           label: "Signature digitale envoyé ?",
           color: "#FF8B00",
         },
         {
-          value: "Contrat singé ?",
+          value: "Contrat",
           label: "Contrat singé ?",
           color: "#FF8B00",
         },
         {
-          value: "Publicité commencé ?",
+          value: "Publicité",
           label: "Publicité commencé ?",
           color: "#FF8B00",
         },
         {
-          value: "A1 ?",
+          value: "A1",
           label: "A1 ?",
           color: "#FF8B00",
         },
         {
-          value: "Assurance faite ?",
+          value: "Assurance",
           label: "Assurance faite ?",
           color: "#FF8B00",
         },
         {
-          value: "Agence de voyage ok ?",
+          value: "Agence",
           label: "Agence de voyage ok ?",
           color: "#FF8B00",
         },
         {
-          value: "SISPI déclaré ?",
+          value: "SISPI",
           label: "SISPI déclaré ?",
           color: "#FF8B00",
         },
@@ -845,8 +850,8 @@ function ClientToDoList() {
     FilterJob = [];
     MotivationArr = [];
     OthersFilterArr = [];
-    Importance = [];
-    OthersFilterArr = [];
+    Importance =[];
+    OthersFilterArr =[];
     setImportanceOptions([]);
     setSectorOptions([]);
     setSectors([]);
@@ -913,7 +918,7 @@ function ClientToDoList() {
                       />
                     ) : (
                       <div className="">
-                        {" "}
+                     
                         <ProfileLoader
                           width={"64px"}
                           height={"45px"}
@@ -1049,7 +1054,7 @@ function ClientToDoList() {
                               />
                             ) : (
                               <div className="">
-                                {" "}
+                             
                                 <ProfileLoader
                                   width={"64px"}
                                   height={"45px"}
@@ -1146,7 +1151,7 @@ function ClientToDoList() {
                         Importance.length > 0 ||
                         OthersFilterArr.length > 0 ||
                         phone == true ||
-                        email ==true ? (
+                        email ==true ? 
                       
                           <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex align-items-center justify-content-end">
                             <p
@@ -1156,7 +1161,7 @@ function ClientToDoList() {
                               Reset Filters
                             </p>
                           </div>
-                        ) : null}
+                         : null}
                         <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 d-flex justify-content-end">
                           <p
                             className="filterStyling pt-2 cursor-pointer"

@@ -27,14 +27,14 @@ function ClientProgressView() {
   const [clientContactTwo, setClientContactTwo] = useState(profile.clientReferenceNumber != "" ? profile.clientReferenceNumber.split(" ").join("") : "");
   const [UploadBtn,setSelectUpload]= useState(false)
   const hiddenImageInput = React.useRef(null);
-  const [SISPI, setChecked] = useState(false);
-  const [Agence,setAgence]=useState(false)
-  const [Assurance,setAssurance]=useState(false)
-  const [A1,setA1]=useState(false)
-  const [Public,setPublic]=useState(false)
-  const [Contrat,setContrat]=useState(false)
-  const [Signature,setSignature]=useState(false)
-  const [Offre,setOffre]=useState(false)
+  const [SISPI, setChecked] = useState(profile.sispiDeclared);
+  const [Agence, setAgence] = useState(profile.agenceDeVoyage);
+  const [Assurance, setAssurance] = useState(profile.assuranceFaite);
+  const [A1, setA1] = useState(profile.A1selected);
+  const [Public, setPublic] = useState(profile.publicityStarted);
+  const [Contrat, setContrat] = useState(profile.contractSigned);
+  const [Signature, setSignature] = useState(profile.signatureSent);
+  const [Offre, setOffre] = useState(profile.offerSent);
   const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating   style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}}/> <StarRating style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}} /> <Empty style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /></>}]; 
 
   const candidatMotivationIcons = [{ icon:"😟", motivation: 'Disappointed' }, { icon:"🙁", motivation: 'Not Really' }, { icon:"😊", motivation: 'Like' }, { icon:"🥰", motivation: 'Great' }, { icon:"😍", motivation: 'Super Lovely' }];
@@ -106,7 +106,7 @@ function ClientProgressView() {
         onChangeSwitches(id, Name, checked);
       }
     }
-    if (Name === "A1Selected") {
+    if (Name === "A1selected") {
       if (checked === true) {
         setA1(true);
         id = e.data._id;
@@ -287,7 +287,7 @@ className="SelectBtn"
                         SwitchChange(checked, profile, id)
                       }
                       // onClick={(e)=>switchHandle(e)}
-                      checked={profile.offerSent}
+                      checked={Offre}
                       id="offerSent"
                       checkedHandleIcon={
                         <TurnOn
@@ -326,7 +326,7 @@ className="SelectBtn"
                       onChange={(checked, e, id) =>
                         SwitchChange(checked, profile, id)
                       }
-                      checked={profile.signatureSent}
+                      checked={Signature}
                       id="signatureSent"
                       checkedHandleIcon={
                         <TurnOn
@@ -363,7 +363,7 @@ className="SelectBtn"
                       onChange={(checked, e, id) =>
                         SwitchChange(checked, profile, id)
                       }
-                      checked={profile.contractSigned}
+                      checked={Contrat}
                       id="contractSigned"
                       checkedHandleIcon={
                         <TurnOn
@@ -402,7 +402,7 @@ className="SelectBtn"
                       onChange={(checked, e, id) =>
                         SwitchChange(checked, profile, id)
                       }
-                      checked={profile.publicityStarted}
+                      checked={Public}
                       id="publicityStarted"
                       checkedHandleIcon={
                         <TurnOn
@@ -444,8 +444,8 @@ className="SelectBtn"
                       onChange={(checked, e, id) =>
                         SwitchChange(checked, profile, id)
                       }
-                      checked={profile.A1Selected}
-                      id="A1Selected"
+                      checked={A1}
+                      id="A1selected"
                       checkedHandleIcon={
                         <TurnOn
                           style={{
@@ -483,7 +483,7 @@ className="SelectBtn"
                       onChange={(checked, e, id) =>
                         SwitchChange(checked, profile, id)
                       }
-                      checked={profile.assuranceFaite}
+                      checked={Assurance}
                       id="assuranceFaite"
                       checkedHandleIcon={
                         <TurnOn
@@ -522,7 +522,7 @@ className="SelectBtn"
                       onChange={(checked, e, id) =>
                         SwitchChange(checked, profile, id)
                       }
-                      checked={profile.agenceDeVoyage}
+                      checked={Agence}
                       id="agenceDeVoyage"
                       checkedHandleIcon={
                         <TurnOn
@@ -559,7 +559,7 @@ className="SelectBtn"
                       onChange={(checked, e, id) =>
                         SwitchChange(checked, profile, id)
                       }
-                      checked={profile.sispiDeclared}
+                      checked={SISPI}
                       id="sispiDeclared"
                       checkedHandleIcon={
                         <TurnOn
@@ -744,7 +744,7 @@ No What’s App !
                   <p className="CompanyAddres">Company Adress 
                   </p> 
                   
-                  <span className="Todo-ClinetCardMore-span">:{profile.clientAddress}</span>
+                  <span className="Todo-ClinetCardMore-span">:{profile.clientAddress ? profile.clientAddress : "No Address!"}</span>
                  
                    </div>
                
@@ -774,25 +774,25 @@ No What’s App !
                     <div className="d-flex align-items-center">
                   <p className="text-dark">Potential Turnover CA</p>
                  <span className="Todo-ClinetCardMore-span">
-                    : {profile.jobTotalBudget} €
+                    : {profile.jobTotalBudget!=null ? profile.jobTotalBudget : "No Budget"} €
                   </span>
                 </div>
                 <div className="d-flex align-items-center">
                   <p className="text-dark">Salary by person </p>
                  <span className="Todo-ClinetCardMore-span">
-                    : {profile.netSalary} €
+                    :{profile.salary_hours ? profile.salary_hours.salaryPerHour :"No Salary"} €
                   </span>
                 </div>
                 <div className="d-flex align-items-center">
                   <p className="text-dark">Salaire net du salarié </p>
                  <span className="Todo-ClinetCardMore-span">
-                    : {profile.SalaryH ? profile.SalaryH: "No Hours!"} 
+                    :{profile.salary_hours ? profile.salary_hours.hours * profile.salary_hours.salaryPerHour +"€" : "No Hours!"}
                   </span>
                 </div>
                 <div className="d-flex align-items-center">
                   <p className="text-dark">Taux horraire</p>
                  <span className="Todo-ClinetCardMore-span">
-                    :  {profile.SalaryH ? profile.SalaryH: "No Hours!"} 
+                    :  {profile.rate_hours ? profile.rate_hours.hours * profile.rate_hours.ratePerHour + "€" : "No Hours!"}
                   </span>
                 </div>
                    

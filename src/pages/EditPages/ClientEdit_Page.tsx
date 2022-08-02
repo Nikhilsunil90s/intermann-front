@@ -12,7 +12,8 @@ import RatingCmp from "../../components/AddClientRating/Rating";
 import Switch  from "react-switch";
 import $ from "jquery";
 import UploadDow from '../../components/Modal/SelectUploadDownload'
-
+import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
+import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 
 let Amountarr = "";
 let Hours = "";
@@ -587,7 +588,7 @@ setJobOptions([])
                                className="img-uploadTodo-Download"
             
                               />   */}
-                                :
+                                
                                 <img
                                 src={require("../../images/fullClientSee.svg").default}
                                className="img-uploadTodo-Download"
@@ -834,6 +835,30 @@ className="SelectBtn"
                                                         <Switch 
                                                         checked
                                                         onChange={null}
+                                                        checkedHandleIcon={
+                                                          <TurnOn
+                                                            style={{
+                                                              position: "absolute",
+                                                              width: "31px",
+                                                              height: "25px",
+                                                              top: "-3px",
+                                                              left: "-6px",
+                                                            }}
+                                                          />
+                                                        }
+                                                        height={22}
+                                                        width={48}
+                                                        uncheckedHandleIcon={
+                                                          <TurnoFF
+                                                            style={{
+                                                              position: "absolute",
+                                                              width: "27px",
+                                                              height: "26px",
+                                                              top: "-3px",
+                                                              left: "-3px",
+                                                            }}
+                                                          />
+                                                        }
                                                         />
                                                     </div>
                                                             </div>

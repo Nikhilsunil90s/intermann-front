@@ -24,7 +24,7 @@ function ClientProgressCard(props: any) {
     const [SISPI, setChecked] = useState(props.data.sispiDeclared);
     const [Agence, setAgence] = useState(props.data.agenceDeVoyage) as any;
     const [Assurance, setAssurance] = useState(props.data.assuranceFaite) as any;
-    const [A1, setA1] = useState(props.data.A1Selected) as any;
+    const [A1, setA1] = useState(props.data.A1selected) as any;
     const [Public, setPublic] = useState(props.data.publicityStarted) as any;
     const [Contrat, setContrat] = useState(props.data.contractSigned) as any;
     const [Signature, setSignature] = useState(props.data.signatureSent) as any;
@@ -113,7 +113,7 @@ function ClientProgressCard(props: any) {
             onChangeSwitches(id, Name, checked);
           }
         }
-        if (Name === "A1Selected") {
+        if (Name === "A1selected") {
           if (checked === true) {
             setA1(true);
             id = e.data._id;
@@ -333,7 +333,7 @@ function ClientProgressCard(props: any) {
                     SwitchChange(checked, props, id)
                   }
                   checked={A1}
-                  id="A1Selected"
+                  id="A1selected"
                   checkedHandleIcon={
                     <TurnOn
                       style={{

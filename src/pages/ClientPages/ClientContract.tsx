@@ -576,9 +576,11 @@ setStatus(false)
       MotivationArr = []
       FilterJob=[]
       console.log(e.value)
-      let OtherF=[]
-     OtherF.push(e.value)
-      console.log(OtherF,"other")
+      let OthersF=[]
+      e.map((el)=>{
+        OthersF.push(el.value)
+      })
+      OthersFilterArr=OthersF
       filterFunction()
     }
     const jobChange = async (jobval) => {

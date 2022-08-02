@@ -12,8 +12,8 @@ import Switch from "react-switch";
 import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../../Selecteddata/data';
 import chroma from 'chroma-js';
 import Select, {StylesConfig } from "react-select";
-import { setDate } from "date-fns";
-
+import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
+import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -884,6 +884,30 @@ className="SelectBtn"
                           onChange={switchHandle}
                          checked={Permis}
                           id="Permis"
+                          checkedHandleIcon={
+                            <TurnOn
+                              style={{
+                                position: "absolute",
+                                width: "31px",
+                                height: "25px",
+                                top: "-3px",
+                                left: "-6px",
+                              }}
+                            />
+                          }
+                          height={22}
+                          width={48}
+                          uncheckedHandleIcon={
+                            <TurnoFF
+                              style={{
+                                position: "absolute",
+                                width: "27px",
+                                height: "26px",
+                                top: "-3px",
+                                left: "-3px",
+                              }}
+                            />
+                          }
                         />
                         </span></div></div>
                     <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-7  pr-0  mt-3">
@@ -892,6 +916,30 @@ className="SelectBtn"
                           onChange={switchHandle}
                          checked={Voyage}
                           id="Voyage"
+                          checkedHandleIcon={
+                            <TurnOn
+                              style={{
+                                position: "absolute",
+                                width: "31px",
+                                height: "25px",
+                                top: "-3px",
+                                left: "-6px",
+                              }}
+                            />
+                          }
+                          height={22}
+                          width={48}
+                          uncheckedHandleIcon={
+                            <TurnoFF
+                              style={{
+                                position: "absolute",
+                                width: "27px",
+                                height: "26px",
+                                top: "-3px",
+                                left: "-3px",
+                              }}
+                            />
+                          }
                         /></span></div>
                     </div>
                   <div className="col-12 pt-4 d-flex">

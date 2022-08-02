@@ -12,7 +12,8 @@ import { ColourOption ,colourOptions} from "../../Selecteddata/data";
 import chroma from "chroma-js"
 import UploadDow from '../../components/Modal/SelectUploadDownload'
 import RatingCmp from '../../components/AddClientRating/Rating'
-
+import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
+import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 
 const ClientDataFormat = {
     clientCompanyName: "",
@@ -833,6 +834,30 @@ type="button"
                                                         <Switch 
                                                         checked
                                                         onChange={null}
+                                                        checkedHandleIcon={
+                                                          <TurnOn
+                                                            style={{
+                                                              position: "absolute",
+                                                              width: "31px",
+                                                              height: "25px",
+                                                              top: "-3px",
+                                                              left: "-6px",
+                                                            }}
+                                                          />
+                                                        }
+                                                        height={22}
+                                                        width={48}
+                                                        uncheckedHandleIcon={
+                                                          <TurnoFF
+                                                            style={{
+                                                              position: "absolute",
+                                                              width: "27px",
+                                                              height: "26px",
+                                                              top: "-3px",
+                                                              left: "-3px",
+                                                            }}
+                                                          />
+                                                        }
                                                         />
                                                     </div>
                                                             </div>

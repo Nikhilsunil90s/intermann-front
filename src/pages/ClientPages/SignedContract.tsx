@@ -19,14 +19,14 @@ function Signed(){
  const [clientContactTwo, setClientContactTwo] = useState(profile.clientReferenceNumber != "" ? profile.clientReferenceNumber.split(" ").join("") : "");
  const [UploadBtn,setSelectUpload]= useState(false)
  const hiddenImageInput = React.useRef(null);
- const [SISPI, setChecked] = useState(false);
- const [Agence,setAgence]=useState(false)
- const [Assurance,setAssurance]=useState(false)
- const [A1,setA1]=useState(false)
- const [Public,setPublic]=useState(false)
- const [Contrat,setContrat]=useState(false)
- const [Signature,setSignature]=useState(false)
- const [Offre,setOffre]=useState(false)
+ const [SISPI, setChecked] = useState(profile.sispiDeclared);
+ const [Agence, setAgence] = useState(profile.agenceDeVoyage);
+ const [Assurance, setAssurance] = useState(profile.assuranceFaite);
+ const [A1, setA1] = useState(profile.A1selected);
+ const [Public, setPublic] = useState(profile.publicityStarted);
+ const [Contrat, setContrat] = useState(profile.contractSigned);
+ const [Signature, setSignature] = useState(profile.signatureSent);
+ const [Offre, setOffre] = useState(profile.offerSent);
  const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating   style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}}/> <StarRating style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}} /> <Empty style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /></>}]; 
 
  const candidatMotivationIcons = [{icon:"No icon",motivation:"No Motivation"},{ icon:"😟", motivation: 'Disappointed' }, { icon:"🙁", motivation: 'Not Really' }, { icon:"😊", motivation: 'Like' }, { icon:"🥰", motivation: 'Great' }, { icon:"😍", motivation: 'Super Lovely' }];
@@ -452,7 +452,7 @@ No What’s App !
                   <p className="CompanyAddres">Company Adress 
                   </p> 
                   
-                  <span className="Todo-ClinetCardMore-span">:{profile.clientAddress}</span>
+                  <span className="Todo-ClinetCardMore-span">:{profile.clientAddress ? profile.clientAddress :"No Address!"}</span>
                  
                    </div>
                
@@ -465,7 +465,9 @@ No What’s App !
                     </div>
                     <div className="d-flex align-items-center">
                       <p>Langues : </p>
-                      <span className="Todo-ClinetCardMore-span"> {profile.clientLanguages[0] ? profile.clientLanguages[0].join(", ") : "No Langues!"}</span>
+                      <span className="Todo-ClinetCardMore-span">   {profile.clientLanguages.length
+                          ? profile.clientLanguages.join(", ")
+                          : "No Langues!"}</span>
                     </div>
                     <div className="d-flex align-items-center">
                       <p>Voyage en voiture :</p>
@@ -482,25 +484,25 @@ No What’s App !
                     <div className="d-flex align-items-center">
                   <p className="text-dark">Potential Turnover CA</p>
                  <span className="Todo-ClinetCardMore-span">
-                    : {profile.jobTotalBudget} €
+                    : {profile.jobTotalBudget!=null ? profile.jobTotalBudget + "€" : "No Budget"}
                   </span>
                 </div>
                 <div className="d-flex align-items-center">
                   <p className="text-dark">Salary by person </p>
                  <span className="Todo-ClinetCardMore-span">
-                    : {profile.netSalary} €
+                    :  {profile.salary_hours ? profile.salary_hours.salaryPerHour + "€" :"No Salary"}
                   </span>
                 </div>
                 <div className="d-flex align-items-center">
                   <p className="text-dark">Salaire net du salarié </p>
                  <span className="Todo-ClinetCardMore-span">
-                    : {profile.SalaryH ? profile.SalaryH: "No Hours!"} 
+                    : {profile.salary_hours ? profile.salary_hours.hours * profile.salary_hours.salaryPerHour +"€" : "No Hours!"}
                   </span>
                 </div>
                 <div className="d-flex align-items-center">
                   <p className="text-dark">Taux horraire</p>
                  <span className="Todo-ClinetCardMore-span">
-                    :  {profile.SalaryH ? profile.SalaryH: "No Hours!"} 
+                    :  {profile.rate_hours ? profile.rate_hours.hours * profile.rate_hours.ratePerHour + "€" : "No Hours!"}
                   </span>
                 </div>
                    
