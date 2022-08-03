@@ -8,11 +8,25 @@ import {ReactComponent as StarRating} from "../../images/RatingStar.svg";
 import ArchivedClientModal from "../../components/Modal/ArchivedClientModal";
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
+import { API_BASE_URL } from "../../config/serverApiConfig";
+
 
 function Signed(){
  const {state}=useLocation()
+
+  const search = window.location.search; // returns the URL query String
+const params = new URLSearchParams(search); 
+const IdFromURL = params.get('id'); 
+
+const [ClientP,setCLprofile]=useState([])as any
+const [profile,setProfile]=useState<any>(state ? state :ClientP )
+
+useEffect(()=>{
+  if(profile.length ==0){
+  GetClient(IdFromURL).then(res=>{setCLprofile(res);console.log(res)})
+}
+},[window.location.search])
  const navigate = useNavigate()
- const [profile,setProfile]=useState<any>(state)
  const [showArchiveModal, setShowArchiveModal] = useState(false)
  const [showSignedModal, setShowSignedModal] = useState(false);
  const [clientContactOne, setClientContactOne] = useState(profile.clientPhone != "" ? profile.clientPhone.split(" ").join("") : "");
@@ -27,6 +41,7 @@ function Signed(){
  const [Contrat, setContrat] = useState(profile.contractSigned);
  const [Signature, setSignature] = useState(profile.signatureSent);
  const [Offre, setOffre] = useState(profile.offerSent);
+
  const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating   style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}}/> <StarRating style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}} /> <Empty style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /></>}]; 
 
  const candidatMotivationIcons = [{icon:"No icon",motivation:"No Motivation"},{ icon:"😟", motivation: 'Disappointed' }, { icon:"🙁", motivation: 'Not Really' }, { icon:"😊", motivation: 'Like' }, { icon:"🥰", motivation: 'Great' }, { icon:"😍", motivation: 'Super Lovely' }];
@@ -42,6 +57,27 @@ function Signed(){
  const editClientProfile = () => {
   navigate("/ClientContractEditprofile", { state: profile });
 }
+
+
+
+
+// useEffect(()=>{
+//     GetClient(IdFromURL)
+// })
+
+    const GetClient= async(IdFromURL)=>{
+        return await fetch(API_BASE_URL+`getClientById/?clientId=${IdFromURL}`,{
+            headers:{
+                "Accept": 'application/json',
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem('token')
+            },
+    
+        }).then(resp => resp.json())
+        .then(respData => respData)
+        .catch(err => err)
+      }
+
 
 const viewFullProfile=(data)=>{
   localStorage.setItem('embauch', JSON.stringify(data));

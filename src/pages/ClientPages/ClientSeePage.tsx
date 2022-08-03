@@ -22,6 +22,8 @@ import { Toaster, toast } from 'react-hot-toast';
 import { ProgressBar } from "react-bootstrap";
 import ProfileLoader from "../../components/Loader/ProfilesLoader";
 import RenameDoc from '../../components/Modal/RenameDoc_Modal'
+import ReadMoreReact from 'read-more-react';
+import PreModalClient from "../../components/Modal/preSelectedModalForClient"
 
 let RenameData=[]
 let id = "";
@@ -49,6 +51,10 @@ function ClientSee() {
   const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
   const hiddenFileInput = React.useRef(null);
   const [RenameDocStatus,setRenameDocStatus]=useState(false)
+  const [recommendations, setRecommendations] = useState([]);
+  const [loader, setLoader] = useState(false);
+  const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
+  const [PreSelectedData,setPreSelected]=useState([])
 
 
   const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
@@ -61,7 +67,57 @@ function ClientSee() {
   const axiosInstance = axios.create({
     baseURL: API_BASE_URL,
   })
-   
+  //  start recommendation
+
+  useEffect(() => {
+    setLoader(true);
+    fetchRecommendations(profile.clientActivitySector)
+      .then(respData => {
+        if (respData.data.length !== 0) {
+      
+          setRecommendations([...respData.data]);
+          setLoader(true);
+        } else {
+          setRecommendations([])
+          setLoader(false);
+         
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [state])
+
+  const removeRecommendation = (rId: any) => {
+
+    console.log(recommendations);
+    let filteredRecommendations = recommendations.filter((recomm) => {
+      return recomm._id !== rId;
+    })
+    console.log(filteredRecommendations)
+    setRecommendations([...filteredRecommendations])
+   if(filteredRecommendations.length == 0){
+    setLoader(false);
+
+   }
+   else{
+    setLoader(true)
+   }
+  }
+  const fetchRecommendations = async (clientSector: string) => {
+    return await fetch(API_BASE_URL + `candidatRecommendations/?clientSector=${clientSector}`, {
+      method: "GET",
+      headers: {
+        "Accept": 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+    })
+      .then(resp => resp.json())
+      .then(respData => respData)
+      .catch(err => err)
+  } 
+
+  // end
 
   const fileChange = (
     e: React.ChangeEvent<
@@ -1064,13 +1120,13 @@ function ClientSee() {
                     <div className="d-flex align-items-center">
                       <p className="text-dark">Salaire net du salarié </p>
                       <span className="Todo-ClinetCardMore-span">
-                        : {profile.salary_hours ? profile.salary_hours.hours * profile.salary_hours.salaryPerHour +"H" : "No Hours!"}
+                        : {profile.salary_hours ? profile.salary_hours.hours * profile.salary_hours.salaryPerHour : "No Hours!"}€
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
                       <p className="text-dark">Taux horraire</p>
                       <span className="Todo-ClinetCardMore-span">
-                        : {profile.rate_hours ? profile.rate_hours.hours * profile.rate_hours.ratePerHour + "H" : "No Hours!"}
+                        : {profile.rate_hours ? profile.rate_hours.hours * profile.rate_hours.ratePerHour + "H" : "No Hours!"}€
                       </span>
                     </div>
                   </div>
@@ -1079,7 +1135,7 @@ function ClientSee() {
             </div>
             <div className="col-12 mt-1">
               <div className="row">
-                <Carousel responsive={responsive}>
+                {/* <Carousel responsive={responsive}>
                   <div className="Social-CardClient">
                     <div className="col-12">
                       <div className="row p-1 justify-content-around">
@@ -1122,7 +1178,64 @@ function ClientSee() {
                       </div>
                     </div>
                   </div>
-                </Carousel>
+                </Carousel> */}
+                 <Carousel responsive={responsive}>
+                {
+                  recommendations && recommendations.length > 0 ?
+                    recommendations.map(recommendation => (
+                      <div className="row p-1  m-1 Social-Card client-Card" style={{height:"330px"}}>
+                        <div className="col-3">
+                          <img 
+                            src={
+                              require("../../images/Card-ImageStar.svg").default
+                            }
+                          />
+                        </div>
+                        <div className="col-9 d-flex align-items-center">
+                          <p className="mb-0 FontMatchedStyle" style={{ marginTop: '-15px' }}>
+                            <b>{recommendation.candidatName.length > 20 ? recommendation.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : recommendation.candidatName.toLocaleUpperCase()}</b>
+                          </p>
+                        </div>
+
+                          <p className="mb-0 FontStylingCardtext">
+                            Secteur : <b>{recommendation.candidatActivitySector !== "" ? recommendation.candidatActivitySector.toLocaleUpperCase() : "Sector Not Selected!"}</b>
+                          </p>
+                      
+
+                          <p className="mb-0 FontStylingCardtext">
+                            Job : <b>{recommendation.candidatJob !== "" ? recommendation.candidatJob.toLocaleUpperCase() : "Job Not Selected!"}</b>
+                          </p>
+                      
+                        <div className="col-12 mb-1">
+                          <p className="mb-0 FontStylingCardtext">Notes:</p>
+                          <p className="mb-0 FontStylingCardtext styledNotes">
+                          {recommendation.candidatSkills !== "" ? <div style={{height:"100px"}}>  <ReadMoreReact text={recommendation.candidatSkills}
+            min={0}
+            ideal={50}
+            max={150}
+            readMoreText={"....."}/></div>  : <p style={{height:"100px"}} className="mb-0 FontStylingCardtext">No Notes/Skills Available!</p>}
+                          </p>
+                        </div>
+                        <div className="col-6 text-center d-flex align-items-center justify-content-center px-0">
+                          <button className="btnMatched" onClick={() => {setShowInPreSelectedModal(true);setPreSelected(recommendation)}}>Matched</button>
+                        
+                        </div>
+                        <div className="col-6 text-center d-flex align-items-center px-0">
+                          <button className="btnNotMatched" onClick={() => removeRecommendation(recommendation._id)}>Not Matched</button>
+                        </div>
+                      </div>
+
+
+                    ))
+                    :
+                    loader ?
+                      <div className="col-12 mx-auto">
+                        <ProfileLoader width={"300px"} height={"300px"} fontSize={"22px"} fontWeight={700} Title={"Loading.."}/>
+                      </div> : 
+                      <div className="Social-Card m-1 text-center">No More Client Recommendations!</div>
+            
+}
+              </Carousel>
               </div>
             </div>
             <div className="col-12 Social-CardClient my-1">
@@ -1432,7 +1545,16 @@ function ClientSee() {
                             :
                             null
                           }
-              
+                {showPreSelectedModal?
+                  <PreModalClient 
+                   props={PreSelectedData}
+                   closepreModal={setShowInPreSelectedModal}
+                   clientProps={profile}
+                  />
+                  :
+                  null
+
+                  }
                   </div>
                 
               </div>

@@ -117,6 +117,7 @@ function ClientSignedEdit() {
     ])as any
   
 
+
     const colourStyles: StylesConfig<ColourOption, true> = {
         control: (styles) => ({ ...styles, backgroundColor: 'white' }),
         option: (styles, { data, isDisabled, isFocused, isSelected }) => {

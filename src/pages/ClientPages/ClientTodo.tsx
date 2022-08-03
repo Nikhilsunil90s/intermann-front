@@ -28,6 +28,7 @@ let OthersFilterArr = [];
 let Importance = [];
 let email=false;
 let phone=false;
+let MultiBvalues=[]
 function ClientToDoList() {
   const [loader, setLoader] = useState(true);
   const [sectors, setSectors] = useState([]);
@@ -245,7 +246,6 @@ function ClientToDoList() {
   const HandelOthers = (e) => {
     // setEmail("")
     // setPhone("")
-    let OthersF=[]
     console.log(e)
     email=false;
     phone=false;
@@ -255,11 +255,12 @@ function ClientToDoList() {
     MotivationArr = [];
     FilterJob = [];
     console.log(e.value);
+    let OthersF=[]
     e.map((el)=>{
       OthersF.push(el.value)
     })
     OthersFilterArr=OthersF
-    // filterFunction();
+    filterFunction();
   };
   const handleMotivationChange = (e: any) => {
     // setEmail("")
@@ -393,8 +394,10 @@ function ClientToDoList() {
       SelectedName.length == 0 &&
       MotivationArr.length == 0 &&
       Importance.length == 0  &&
+      OthersFilterArr.length ==0 &&
       email == false && 
-      phone == false
+      phone == false 
+   
     ) {
       setLoader(true);
       setStatus(true);
@@ -570,6 +573,31 @@ function ClientToDoList() {
         })
         .catch((err) => err);
     }
+    if(OthersFilterArr.length > 0){
+      await fetch(
+        `${API_BASE_URL}filterClientsByAttributes/?filters=${OthersFilterArr.toString()}&status=To-Do`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          if (result.status == false) {
+            setLoader(true);
+            setStatus(false);
+          } else if (result.status == true) {
+            setFilterData([...result.data]);
+            setLoader(true);
+            setStatus(true);
+          }
+        })
+        .catch((err) => err);
+    }
   };
 
   useEffect(() => {
@@ -601,42 +629,42 @@ function ClientToDoList() {
           color: "#FF8B00",
         },
         {
-          value: "Offre",
+          value: "offerSent",
           label: "Offre envoyé ?",
           color: "#FF8B00",
         },
         {
-          value: "Signature",
+          value: "signatureSent",
           label: "Signature digitale envoyé ?",
           color: "#FF8B00",
         },
         {
-          value: "Contrat",
+          value: "contractSigned",
           label: "Contrat singé ?",
           color: "#FF8B00",
         },
         {
-          value: "Publicité",
+          value: "publicityStarted",
           label: "Publicité commencé ?",
           color: "#FF8B00",
         },
         {
-          value: "A1",
+          value: "A1selected",
           label: "A1 ?",
           color: "#FF8B00",
         },
         {
-          value: "Assurance",
+          value: "assuranceFaite",
           label: "Assurance faite ?",
-          color: "#FF8B00",
+          color: "#FF8B00"
         },
         {
-          value: "Agence",
+          value: "agenceDeVoyage",
           label: "Agence de voyage ok ?",
           color: "#FF8B00",
         },
         {
-          value: "SISPI",
+          value: "sispiDeclared",
           label: "SISPI déclaré ?",
           color: "#FF8B00",
         },

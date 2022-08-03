@@ -146,33 +146,53 @@ let OthersFilterArr = []
       })
     }
     if(optionsOthersFilter.length == 0){
-      setOtherOptions([{
-        value: "Select Others", label: "Select Others", color: '#FF8B00'
-      },
-      {
-        value: "Offre envoyé", label: "Offre envoyé ?", color: '#FF8B00'
-      },
-      {
-        value: "Signature digitale envoyé ?", label: "Signature digitale envoyé ?", color: '#FF8B00'
-      },
-      {
-        value: "Contrat singé ?", label: "Contrat singé ?", color: '#FF8B00'
-      },
-      {
-        value: "Publicité commencé ?", label: "Publicité commencé ?", color: '#FF8B00'
-      },
-      {
-        value: "A1 ?", label: "A1 ?", color: '#FF8B00'
-      },
-      {
-        value: "Assurance faite ?", label: "Assurance faite ?", color: '#FF8B00'
-      },
-      {
-        value: "Agence de voyage ok ?", label: "Agence de voyage ok ?", color: '#FF8B00'
-      },
-      {
-        value: "SISPI déclaré ?", label: "SISPI déclaré ?", color: '#FF8B00'
-      }])
+      setOtherOptions([
+        {
+          value: "Select Others",
+          label: "Select Others",
+          color: "#FF8B00",
+        },
+        {
+          value: "offerSent",
+          label: "Offre envoyé ?",
+          color: "#FF8B00",
+        },
+        {
+          value: "signatureSent",
+          label: "Signature digitale envoyé ?",
+          color: "#FF8B00",
+        },
+        {
+          value: "contractSigned",
+          label: "Contrat singé ?",
+          color: "#FF8B00",
+        },
+        {
+          value: "publicityStarted",
+          label: "Publicité commencé ?",
+          color: "#FF8B00",
+        },
+        {
+          value: "A1selected",
+          label: "A1 ?",
+          color: "#FF8B00",
+        },
+        {
+          value: "assuranceFaite",
+          label: "Assurance faite ?",
+          color: "#FF8B00"
+        },
+        {
+          value: "agenceDeVoyage",
+          label: "Agence de voyage ok ?",
+          color: "#FF8B00",
+        },
+        {
+          value: "sispiDeclared",
+          label: "SISPI déclaré ?",
+          color: "#FF8B00",
+        },
+      ]);
     }
     if(importanceOptions.length == 0){
   setImportanceOptions([
@@ -251,7 +271,7 @@ let OthersFilterArr = []
   const filterFunction = async () => {
     setLoader(false);
 
-    if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length == 0 && MotivationArr.length == 0 && Importance.length == 0 ){
+    if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length == 0 && MotivationArr.length == 0 && Importance.length == 0 &&       OthersFilterArr.length ==0 &&   email == false && phone == false  ){
       setLoader(true)
       setStatus(true)
       fetchProfiles().then((res)=>setFilterData([...res]))
@@ -446,6 +466,31 @@ setStatus(false)
     if(phone === true){
       await fetch(
         `${API_BASE_URL}filterClientsByMissingEmailOrPhone/?field=phone&status=Signed Contract`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          if (result.status == false) {
+            setLoader(true);
+            setStatus(false);
+          } else if (result.status == true) {
+            setFilterData([...result.data]);
+            setLoader(true);
+            setStatus(true);
+          }
+        })
+        .catch((err) => err);
+    }
+    if(OthersFilterArr.length > 0){
+      await fetch(
+        `${API_BASE_URL}filterClientsByAttributes/?filters=${OthersFilterArr.toString()}&status=Signed Contract`,
         {
           method: "GET",
           headers: {

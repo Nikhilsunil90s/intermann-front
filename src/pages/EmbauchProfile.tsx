@@ -55,7 +55,7 @@ function ProgressCard() {
   const [RenameDocStatus,setRenameDocStatus]=useState(false)
   const hiddenImageInput = React.useRef(null);
   const [UploadBtn,setSelectUpload]= useState(false)
-  const [clientProfile, setClientProfile] = useState();
+  const [clientProfile, setClientProfile] = useState()as any;
 
 
   let data = {profileData:profile,path:"/embauchprofile"}
@@ -304,7 +304,8 @@ function ProgressCard() {
     } else if (Object.values(clientProfile).includes("Signed Contract")) {
       navigate("/clientSigned", { state: clientProfile })
     } else if (Object.values(clientProfile).includes("Archived")) {
-      navigate("/clientSigned", { state: clientProfile })
+      // navigate("/clientSigned", { state: clientProfile })
+      window.location.href=`/clientSigned?id=${clientProfile._id}`
     }
   }
 

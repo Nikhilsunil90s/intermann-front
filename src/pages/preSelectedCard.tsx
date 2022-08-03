@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select,{StylesConfig} from 'react-select'
 import ReadMoreReact from 'read-more-react';
+import { API_BASE_URL } from "../config/serverApiConfig";
 
 const PreSelectedCard = (props: any,{path}) => {
 
@@ -14,6 +15,7 @@ const PreSelectedCard = (props: any,{path}) => {
     let state = {profileData: props.data, path: '/preSelected'}
     const [showInProgressModal, setShowInProgressModal] = useState(false);
     const [showArchiveModal, setShowArchiveModal] = useState(false)
+    const [ClientID,setClientID]=useState([])
     const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
     const CardOptions=[{
         value:"editProfile",label:"Edit Profile"
@@ -23,6 +25,7 @@ const PreSelectedCard = (props: any,{path}) => {
         {value:"Archive",label:"Archive"
         }
      ]
+    
 
     const editCandidatProfile = () => {
         navigate("/editPreSelected", { state: state });

@@ -497,15 +497,21 @@ NoteCofac=e.value
 setData({...data,note_cofac:NoteCofac})
 }
 
+const onSubmitRates=(e)=>{
+  if(e.target.name==="salaryH"){
+  setData({...data,salary_hours:salary})
+  }
+  if(e.target.name==="tauxH"){
+    setData({...data,rate_hours:rateHours})
+  }
+}
 
 const onInputChange=(val)=>{
   if(val.target.name==="salary_hours"){
     setSalary_hours({...salary,salaryPerHour:val.target.value})
-  setData({...data,salary_hours:salary})
   }
   if(val.target.name==="turnover"){
     setrate_hours({...setrate_hours,ratePerHour:val.target.value})
-  setData({...data,rate_hours:rateHours})
   }
 }
 
@@ -1263,7 +1269,7 @@ setSectorOptions([...sectorops]);
                       </div>
                     </div>
                     <div className="col-3 mt-1 px-1 ">
-                      <button type="button" className="btn saveSalary" id="Hour">
+                      <button type="button" className="btn saveSalary" name="salaryH" id="Hour" onClick={(e)=>onSubmitRates(e)}>
                         Save Salary {showHour}H
                       </button>
                     </div>
@@ -1417,7 +1423,7 @@ setSectorOptions([...sectorops]);
                       </div>
                     </div>
                     <div className="col-3 mt-1 px-0">
-                      <button type="button" className="btn SaveTAUX ">
+                      <button type="button" className="btn SaveTAUX" name="tauxH" onClick={(e)=>onSubmitRates(e)}>
                         Save TAUX HORRAIRE {taxHours} H
                       </button>
                     </div>

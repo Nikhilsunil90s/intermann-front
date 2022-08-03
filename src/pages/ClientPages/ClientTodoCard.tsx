@@ -389,7 +389,7 @@ const ClientToDoCard = (props: any) => {
               <p>
                 Salary by person :{" "}
                 <b>
-                  {props.data.netSalary ? props.data.netSalary + " €" : "N/A"}
+                  {props.data.netSalary || props.data.salary_hours ? props.data.netSalary + "€" || props.data.salary_hours.salaryPerHour * props.data.salary_hours.hours  + " €" : "N/A"}
                 </b>{" "}
               </p>
               <p>
