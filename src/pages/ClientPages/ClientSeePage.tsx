@@ -21,7 +21,7 @@ import axios from "axios";
 import { Toaster, toast } from 'react-hot-toast';
 import { ProgressBar } from "react-bootstrap";
 import ProfileLoader from "../../components/Loader/ProfilesLoader";
-import RenameDoc from '../../components/Modal/RenameDoc_Modal'
+import RenameDoc from '../../components/Modal/RenameDoc_ModalClient'
 import ReadMoreReact from 'read-more-react';
 import PreModalClient from "../../components/Modal/preSelectedModalForClient"
 
@@ -43,7 +43,6 @@ function ClientSee() {
   const [Offre, setOffre] = useState(profile.offerSent);
   const [UploadBtn, setSelectUpload] = useState(false);
   const hiddenImageInput = React.useRef(null);
-  const [documentsList, setDocumentsList] = useState([]);
   const [candidatDocument, setCandidatDocument] = useState("");
   const [progress, setProgress] = useState<any>(0);
   const [docUploaded, setDocUploaded] = useState(false);
@@ -57,13 +56,15 @@ function ClientSee() {
   const [PreSelectedData,setPreSelected]=useState([])
 
 
+  const notificationSwitch=()=>toast.success("Modification sauvegardée")
+
   const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
   const notifyDocumentDeleteError = () => toast.error("Document Not Removed! Please Try Again in few minutes.")
 
   const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
   const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
  
-
+console.log(profile,"profile")
   const axiosInstance = axios.create({
     baseURL: API_BASE_URL,
   })
@@ -142,6 +143,7 @@ function ClientSee() {
         },
       })
         .then(resData => {
+          console.log(resData.data.status,"resData.data.status")
           if (resData.data.status) {
             console.log(resData.data,"resData")
             setDocUploaded(true);
@@ -168,9 +170,12 @@ function ClientSee() {
       console.log(resData)
 
       setCandidatImage("")
-      if (resData.status) {
-        setProfile(resData.data)
-        setDocumentList([...resData.data.candidatDocuments])
+      if (resData.status == true) {
+        // setProfile(resData.data)
+        resData.data.map((el)=>{
+          setDocumentList(el.clientDocuments)
+        })
+       
         setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
         setDocUploaded(false);
       } else {
@@ -182,7 +187,8 @@ function ClientSee() {
         console.log(err)
       })
   }, [docUploaded])
-
+ 
+  console.log("doc",documentList)
 
   const  ViewDownloadFiles =( documentName:any)=>{
     window.open(API_BASE_URL + documentName)
@@ -190,7 +196,7 @@ function ClientSee() {
 
 
    const fetchCandidat = async (clientId: any) => {
-    return await fetch(API_BASE_URL + `getCandidatById/?clientId=${clientId}`, {
+    return await fetch(API_BASE_URL + `getClientById/?clientId=${clientId}`, {
       method: "GET",
       headers: {
         "Accept": 'application/json',
@@ -242,7 +248,7 @@ function ClientSee() {
     "Accept": 'application/json',
     "Authorization": "Bearer " + localStorage.getItem('token')
   }
-  return await fetch(API_BASE_URL + `deleteDocument/?documentId=${docId}&documentName=${docName}&clientId=${clientId}`, {
+  return await fetch(API_BASE_URL + `deleteClientDocument/?documentId=${docId}&documentName=${docName}&clientId=${clientId}`, {
     method: "GET",
     headers: headers
   })
@@ -344,16 +350,19 @@ function ClientSee() {
   };
   const SwitchChange = (checked: any, e: any, Name: any) => {
     id = e._id;
-    console.log(e._id,"e.data._id")
     if (Name === "offerSent") {
       if (checked === true) {
         setOffre(true);
         id = e._id;
         onChangeSwitches(id, Name, checked);
+         notificationSwitch()
+      
       }
       if (checked === false) {
         setOffre(false);
         onChangeSwitches(id, Name, checked);
+         notificationSwitch()
+      
       }
     }
     if (Name === "signatureSent") {
@@ -362,10 +371,14 @@ function ClientSee() {
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
+         notificationSwitch()
+      
       }
       if (checked === false) {
         setSignature(false);
         onChangeSwitches(id, Name, checked);
+         notificationSwitch()
+      
       }
     }
     if (Name === "contractSigned") {
@@ -374,10 +387,14 @@ function ClientSee() {
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
+         notificationSwitch()
+      
       }
       if (checked === false) {
         setContrat(false);
         onChangeSwitches(id, Name, checked);
+         notificationSwitch()
+      
       }
     }
     if (Name === "publicityStarted") {
@@ -386,10 +403,14 @@ function ClientSee() {
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
+         notificationSwitch()
+      
       }
       if (checked === false) {
         setPublic(false);
         onChangeSwitches(id, Name, checked);
+         notificationSwitch()
+      
       }
     }
     if (Name === "A1selected") {
@@ -398,10 +419,14 @@ function ClientSee() {
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
+         notificationSwitch()
+      
       }
       if (checked === false) {
         setA1(false);
         onChangeSwitches(id, Name, checked);
+         notificationSwitch()
+      
       }
     }
     if (Name === "assuranceFaite") {
@@ -410,10 +435,14 @@ function ClientSee() {
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
+         notificationSwitch()
+      
       }
       if (checked === false) {
         setAssurance(false);
         onChangeSwitches(id, Name, checked);
+         notificationSwitch()
+      
       }
     }
     if (Name === "agenceDeVoyage") {
@@ -422,10 +451,14 @@ function ClientSee() {
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
+         notificationSwitch()
+      
       }
       if (checked === false) {
         setAgence(false);
         onChangeSwitches(id, Name, checked);
+         notificationSwitch()
+      
       }
     }
     if (Name === "sispiDeclared") {
@@ -434,10 +467,14 @@ function ClientSee() {
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
+         notificationSwitch()
+      
       }
       if (checked === false) {
         setChecked(false);
         onChangeSwitches(id, Name, checked);
+         notificationSwitch()
+      
       }
     }
   };
@@ -492,6 +529,7 @@ function ClientSee() {
 
   return (
     <>
+    <Toaster position="top-right" containerStyle={{zIndex:"9999999999999999999999"}}  />
       <div className="containet-fluid p-1">
         <div className="row">
           <div className="col-12 top-pd mt-1">
@@ -568,7 +606,7 @@ function ClientSee() {
                 <div className="col-6 ClientSEEPtags">
                   <div className="d-flex">
                     <p>
-                      Company : {profile.clientCompanyName.toLocaleUpperCase()}|
+                      Company : {profile.clientCompanyName}|
                       {profile.candidatAge ? profile.candidatAge : "No "}
                     </p>
                     <span className="card-xlSpan">(Age)</span>
@@ -1081,8 +1119,7 @@ function ClientSee() {
                     <div className="d-flex align-items-center">
                       <p>Langues : </p>
                       <span className="Todo-ClinetCardMore-span">
-                        {" "}
-                        {profile.clientLanguages.length
+                        {profile.clientLanguages
                           ? profile.clientLanguages.join(", ")
                           : "No Langues!"}
                       </span>
@@ -1444,7 +1481,7 @@ function ClientSee() {
                 </div>
               </div>
             </div>
-            <div className="col-12 Social-CardClient mt-1">
+            <div className="col-12 Social-CardClient my-1">
               <div className="row p-1">
               <div className="row" style={{ marginRight: '1px' }}>
                     {

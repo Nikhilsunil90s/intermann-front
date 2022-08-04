@@ -18,6 +18,7 @@ import  ProfileLoader from "../../components/Loader/ProfilesLoader"
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 
+
 declare namespace JSX {
   interface IntrinsicElements {
     "lottie-player": any;

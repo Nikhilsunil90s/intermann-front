@@ -6,10 +6,12 @@ import Switch from "react-switch";
 import Select from "react-select";
 import {ReactComponent as Empty} from "../../images/emptyStar.svg";
 import {ReactComponent as StarRating} from "../../images/RatingStar.svg";
+import toast, { Toaster } from "react-hot-toast";
 
 function ClientContractCard(props:any) {
   console.log(props)
   const navigate = useNavigate();
+
   const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /><StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating   style={{marginRight:"3px",width:"70%"}} /> <StarRating style={{marginRight:"3px",width:"70%"}}/> <StarRating style={{marginRight:"3px",width:"70%"}} /> <StarRating style={{marginRight:"3px",width:"70%"}} /> <Empty style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /><StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /></>}]; 
   const candidatMotivationIcons = [{ icon:"😟", motivation: 'Disappointed' }, { icon:"🙁", motivation: 'Not Really' }, { icon:"😊", motivation: 'Like' }, { icon:"🥰", motivation: 'Great' }, { icon:"😍", motivation: 'Super Lovely' }];
   const [showInProgressModal, setShowInProgressModal] = useState(false);
@@ -42,32 +44,7 @@ const CardOption=[{
     console.log(e.value)
     }
 
-  const switchHandle = (event,id,e) => {
-      if(e==="Offre"){
-        setOffre(event)
-      }
-      if(e==="Signature"){
-            setSignature(event)
-      }
-      if(e==="Contrat"){
-        setContrat(event)
-    }  
-    if(e==="Public"){
-      setPublic(event)
-    } 
-     if(e==="A1"){
-      setA1(event)
-    }
-    if(e==="Assurance"){
-      setAssurance(event)
-    }
-    if(e==="Agence"){
-      setAgence(event)
-    }
-    if(e==="SISPI"){
-      setChecked(event)
-    }
-  }
+
 
   const SeeFullProfile=()=>{
     navigate("/clientSigned", { state: props.data});

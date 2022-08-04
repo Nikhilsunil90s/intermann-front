@@ -9,13 +9,15 @@ import Select,{StylesConfig} from 'react-select'
 import ReadMoreReact from 'read-more-react';
 import { API_BASE_URL } from "../config/serverApiConfig";
 
-const PreSelectedCard = (props: any,{path}) => {
+const PreSelectedCard = (props: any,) => {
 
     const navigate = useNavigate();
     let state = {profileData: props.data, path: '/preSelected'}
     const [showInProgressModal, setShowInProgressModal] = useState(false);
     const [showArchiveModal, setShowArchiveModal] = useState(false)
     const [ClientID,setClientID]=useState([])
+ 
+
     const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
     const CardOptions=[{
         value:"editProfile",label:"Edit Profile"
@@ -25,8 +27,7 @@ const PreSelectedCard = (props: any,{path}) => {
         {value:"Archive",label:"Archive"
         }
      ]
-    
-
+   
     const editCandidatProfile = () => {
         navigate("/editPreSelected", { state: state });
     }
@@ -36,6 +37,8 @@ const PreSelectedCard = (props: any,{path}) => {
                localStorage.setItem('profile', JSON.stringify(props.data));
                window.open("/preSelectedView", "_blank")
     }
+
+
     const MoreOption=(e)=>{
       if(e.value==="editProfile"){
           editCandidatProfile()
@@ -110,7 +113,7 @@ const PreSelectedCard = (props: any,{path}) => {
                 </div>
                 <div className="col-12">
                  <div className="row preSelectedCommentBox">
-                    <div className="col-12 preCard-Body ">Preselected for client : {props.data.candidatName}</div>
+                    <div className="col-12 preCard-Body ">Preselected for client : {props.data.candidatPreSelectedFor ? props.data.candidatPreSelectedFor.length > 2 ?props.data.candidatPreSelectedFor.map((el)=>{return el.clientId.clientCompanyName}).join(", "): props.data.candidatPreSelectedFor.map((el)=>(el.clientId.clientCompanyName)) : "No Client!"}</div>
                     <div className="col-12"><ReadMoreReact text={props.data.candidatPreSelectedFor[0] ? props.data.candidatPreSelectedFor[0].reasonForPreSelection : "No Reason Available!"}
             min={100}
             ideal={150}

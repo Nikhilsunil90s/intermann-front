@@ -12,11 +12,15 @@ import Select from "react-select";
 import { ReactComponent as TurnoFF } from "../../images/FatX.svg";
 import { ReactComponent as TurnOn } from "../../images/base-switch_icon.svg";
 import { API_BASE_URL } from "../../config/serverApiConfig";
+import toast from "react-hot-toast";
 
 let id = "";
 
 const ClientToDoCard = (props: any) => {
   const navigate = useNavigate();
+
+  const notificationSwitch=()=>toast.success("Modification sauvegardée")
+
 
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
@@ -45,41 +49,45 @@ const ClientToDoCard = (props: any) => {
         setOffre(true);
         id = e.data._id;
         onChangeSwitches(id, Name, checked);
+        notificationSwitch()
       }
       if (checked === false) {
         setOffre(false);
         onChangeSwitches(id, Name, checked);
+        notificationSwitch()
       }
     }
     if (Name === "signatureSent") {
       if (checked === true) {
         setSignature(true);
         id = e.data._id;
-
+        notificationSwitch()
         onChangeSwitches(id, Name, checked);
       }
       if (checked === false) {
         setSignature(false);
         onChangeSwitches(id, Name, checked);
+        notificationSwitch()
       }
     }
     if (Name === "contractSigned") {
       if (checked === true) {
         setContrat(true);
         id = e.data._id;
-
+        notificationSwitch()
         onChangeSwitches(id, Name, checked);
       }
       if (checked === false) {
         setContrat(false);
         onChangeSwitches(id, Name, checked);
+        notificationSwitch()
       }
     }
     if (Name === "publicityStarted") {
       if (checked === true) {
         setPublic(true);
         id = e.data._id;
-
+        notificationSwitch()
         onChangeSwitches(id, Name, checked);
       }
       if (checked === false) {
@@ -91,31 +99,34 @@ const ClientToDoCard = (props: any) => {
       if (checked === true) {
         setA1(true);
         id = e.data._id;
+        notificationSwitch()
 
         onChangeSwitches(id, Name, checked);
       }
       if (checked === false) {
         setA1(false);
         onChangeSwitches(id, Name, checked);
+        notificationSwitch()
       }
     }
     if (Name === "assuranceFaite") {
       if (checked === true) {
         setAssurance(true);
         id = e.data._id;
-
+        notificationSwitch()
         onChangeSwitches(id, Name, checked);
       }
       if (checked === false) {
         setAssurance(false);
         onChangeSwitches(id, Name, checked);
+        notificationSwitch()
       }
     }
     if (Name === "agenceDeVoyage") {
       if (checked === true) {
         setAgence(true);
         id = e.data._id;
-
+        notificationSwitch()
         onChangeSwitches(id, Name, checked);
       }
       if (checked === false) {
@@ -127,12 +138,13 @@ const ClientToDoCard = (props: any) => {
       if (checked === true) {
         setChecked(true);
         id = e.data._id;
-
+        notificationSwitch()
         onChangeSwitches(id, Name, checked);
       }
       if (checked === false) {
         setChecked(false);
         onChangeSwitches(id, Name, checked);
+        notificationSwitch()
       }
     }
   };
@@ -433,10 +445,12 @@ const ClientToDoCard = (props: any) => {
           <div className="row color-rowClientCard p-1">
             <div className="col-4 px-0 d-flex  justify-content-start">
               <div className="d-flex align-items-center ">
-                <p className="switch-fontCard mb-0">Offre envoyé ?</p>
-
+              
+                <p className="switch-fontCard mb-0">Offre envoyé ?</p>      
+              
+                
                 <Switch
-                  className="ml-1"
+                  className="ml-left"
                   checked={Offre}
                   id="offerSent"
                   onChange={(checked, e, id) =>
@@ -467,8 +481,9 @@ const ClientToDoCard = (props: any) => {
                     />
                   }
                 />
+                </div>
               </div>
-            </div>
+   
             <div className="col-5 px-0 d-flex  justify-content-center">
               <div className="d-flex align-items-center ">
                 <p className="switch-fontCard mb-0">
@@ -738,7 +753,7 @@ const ClientToDoCard = (props: any) => {
                     />
                   }
                 />
-              </div>
+           </div>
             </div>
           </div>
         </div>

@@ -166,7 +166,7 @@ padding: 0px;
         transition: background-color 0.25s ease 0s, transform 0.25s ease 0s, box-shadow 0.15s ease 0s;
 } */
 .ml-left{
-    margin-left: 8px;
+    margin-left: 5px;
 }
 .bg-Switch{
     background: #FBFBFB;

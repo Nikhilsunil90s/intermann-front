@@ -736,6 +736,7 @@ className="SelectBtn"
                   <PreModal 
                    props={profile}
                    closepreModal={setShowInPreSelectedModal}
+                   client={null}
                   />
                   :
                   null
@@ -772,14 +773,7 @@ className="SelectBtn"
                     <img src={require("../images/Edit.svg").default} />
                     Edit Profile
                   </button>
-                  {showPreSelectedModal ?
-                            <PreModal
-                              props={profile}
-                              closepreModal={setShowInPreSelectedModal}
-                            />
-                            :
-                            null
-                          }
+              
                 </div>
                 <div className="col-3 px-0 text-center">
                 <a

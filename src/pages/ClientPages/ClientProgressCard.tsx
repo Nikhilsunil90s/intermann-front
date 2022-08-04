@@ -12,11 +12,16 @@ import InProgressClientModal from "../../components/Modal/InProgressClientModal"
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 import { API_BASE_URL } from "../../config/serverApiConfig";
+import toast, { Toaster } from "react-hot-toast";
 
 let id=""
 function ClientProgressCard(props: any) {
 
     const navigate = useNavigate();
+
+  const notificationSwitch=()=>toast.success("Modification sauvegardée")
+
+
     const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /><StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating   style={{marginRight:"3px",width:"70%"}} /> <StarRating style={{marginRight:"3px",width:"70%"}}/> <StarRating style={{marginRight:"3px",width:"70%"}} /> <StarRating style={{marginRight:"3px",width:"70%"}} /> <Empty style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /><StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /></>}]; 
     const candidatMotivationIcons = [{ icon:"😟", motivation: 'Disappointed' }, { icon:"🙁", motivation: 'Not Really' }, { icon:"😊", motivation: 'Like' }, { icon:"🥰", motivation: 'Great' }, { icon:"😍", motivation: 'Super Lovely' }];
     const [showInProgressModal, setShowInProgressModal] = useState(false);
@@ -67,11 +72,13 @@ function ClientProgressCard(props: any) {
             setOffre(true);
             id = e.data._id;
             onChangeSwitches(id, Name, checked);
+          notificationSwitch()
           }
           if (checked === false) {
            
             setOffre(false);
             onChangeSwitches(id, Name, checked);
+          notificationSwitch()
           }
         }
         if (Name === "signatureSent") {
@@ -80,11 +87,13 @@ function ClientProgressCard(props: any) {
             id = e.data._id;
     
             onChangeSwitches(id, Name, checked);
+          notificationSwitch()
           }
           if (checked === false) {
            
             setSignature(false);
             onChangeSwitches(id, Name, checked);
+          notificationSwitch()
           }
         }
         if (Name === "contractSigned") {
@@ -93,11 +102,13 @@ function ClientProgressCard(props: any) {
             id = e.data._id;
     
             onChangeSwitches(id, Name, checked);
+          notificationSwitch()
           }
           if (checked === false) {
            
             setContrat(false);
             onChangeSwitches(id, Name, checked);
+          notificationSwitch()
           }
         }
         if (Name === "publicityStarted") {
@@ -106,11 +117,13 @@ function ClientProgressCard(props: any) {
             id = e.data._id;
     
             onChangeSwitches(id, Name, checked);
+          notificationSwitch()
           }
           if (checked === false) {
            
             setPublic(false);
             onChangeSwitches(id, Name, checked);
+          notificationSwitch()
           }
         }
         if (Name === "A1selected") {
@@ -119,11 +132,13 @@ function ClientProgressCard(props: any) {
             id = e.data._id;
     
             onChangeSwitches(id, Name, checked);
+          notificationSwitch()
           }
           if (checked === false) {
            
             setA1(false);
             onChangeSwitches(id, Name, checked);
+          notificationSwitch()
           }
         }
         if (Name === "assuranceFaite") {
@@ -132,11 +147,13 @@ function ClientProgressCard(props: any) {
             id = e.data._id;
     
             onChangeSwitches(id, Name, checked);
+          notificationSwitch()
           }
           if (checked === false) {
            
             setAssurance(false);
             onChangeSwitches(id, Name, checked);
+          notificationSwitch()
           }
         }
         if (Name === "agenceDeVoyage") {
@@ -145,11 +162,13 @@ function ClientProgressCard(props: any) {
             id = e.data._id;
     
             onChangeSwitches(id, Name, checked);
+          notificationSwitch()
           }
           if (checked === false) {
            
             setAgence(false);
             onChangeSwitches(id, Name, checked);
+          notificationSwitch()
           }
         }
         if (Name === "sispiDeclared") {
@@ -158,11 +177,13 @@ function ClientProgressCard(props: any) {
             id = e.data._id;
     
             onChangeSwitches(id, Name, checked);
+          notificationSwitch()
           }
           if (checked === false) {
            
             setChecked(false);
             onChangeSwitches(id, Name, checked);
+          notificationSwitch()
           }
         }
       };
@@ -249,7 +270,7 @@ function ClientProgressCard(props: any) {
                 <p className="switch-fontCard mb-0">Offre envoyé ?</p>
 
                 <Switch
-                  className="ml-1"
+                  className="ml-left"
                   checked={Offre}
                   id="offerSent"
                   onChange={(checked, e, id) =>

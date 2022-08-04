@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 import "../../CSS/Client/ClientTodo.css";
 import ClientToDoCard from "../../pages/ClientPages/ClientTodoCard";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import { ColourOption } from "../../Selecteddata/data";
 import ProfileLoader from "../../components/Loader/ProfilesLoader";
@@ -51,6 +51,7 @@ function ClientToDoList() {
   const [importanceOptions, setImportanceOptions] = useState([]) as any;
   console.log(status);
   console.log(selectedSector, selectedJob, "allfield");
+ 
 
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: "white" }),
@@ -1251,7 +1252,7 @@ function ClientToDoList() {
                    filterData.length > 0 ? 
                       filterData.map((profile, index) => (
                         <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left">
-                          <ClientToDoCard data={profile} />
+                          <ClientToDoCard data={profile}  />
                         </div>
                       ))
                      

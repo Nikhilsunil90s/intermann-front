@@ -150,6 +150,9 @@ function Preselected(){
             console.log(jobs);
           }, [jobs]);
         
+
+
+
           useEffect(() => {
             console.log(sectors);
             let sectorops = sectors.map((asector) => {
@@ -661,6 +664,7 @@ console.log(statusProfiles,"filteredresponse.status")
 }
  return(
     <>
+    <Toaster containerStyle={{zIndex:"999999999999999999999999"}} position="top-right" />
       <div className="container-fluid">
         <div className="row pd ">
            
@@ -888,7 +892,7 @@ console.log(statusProfiles,"filteredresponse.status")
                     filterData.length > 0 ? 
                       filterData.map((profile, index) => (
                         <div className="col-md-6 col-xxl-4  col-xl-4 col-lg-4 pd-left">
-                          <PreSelectedCard data={profile} />
+                          <PreSelectedCard data={profile}  />
                         </div>
                       ))
                      : 

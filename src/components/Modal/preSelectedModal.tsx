@@ -6,18 +6,18 @@ import chroma from 'chroma-js';
 import { Toaster, toast } from "react-hot-toast";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 
-function PreModal({props,closepreModal}) {
+function PreModal({props,closepreModal,client}) {
   const notifyCandidatMovedSuccess = () => toast.success("Candidat Pre-Selected Successfully!");
   const notifyCandidatMovedError = () => toast.error("Candidat Not Pre-Selected! Please Try Again.");
 
   const [selectedClient, setSelectedClient] = useState("");
   const [reason, setReason] = useState("");
-
-  const clientData = props.clients ? props.clients.map((client) => {
+console.log(props,"props")
+  const clientData = client ? client.map((client) => {
     return { label: client.clientCompanyName, value: client._id, color: '#FF8B00' }
   }) : [{ label: 'No Clients In this Sector', value: "", color: '#FF8B00' }]
 
-
+console.log(client,"clients")
   const onClientChange = (sc: any) => {
     console.log(sc)
     setSelectedClient(sc.value);

@@ -2,22 +2,25 @@ import { Link } from "react-router-dom";
 import "../CSS/CanEmpl.css";
 import ArchivedModal from "./Modal/ArchivedModal";
 import InProgressModal from "./Modal/InProgressModal";
-import {  useState } from "react";
+import {  useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select,{StylesConfig} from 'react-select'
 import chroma from 'chroma-js';
+import PreSelectedModal from "../components/Modal/preSelectedModal"
+import { API_BASE_URL } from '../config/serverApiConfig';
 
 
-const ToDoProfileCard = (props: any,{path}) => {
- console.log(props.data ,"propsdata")
+const ToDoProfileCard = (props: any) => {
     const navigate = useNavigate();
+
     const [profile,setProfile]=useState(props.data)
     const [showInProgressModal, setShowInProgressModal] = useState(false);
     const [showArchiveModal, setShowArchiveModal] = useState(false)
+    const [Client,setClients]=useState([])as any
     const CardOptions=[{
    value:"Edit Profile",label:"Edit Profile"
    },
-   {value:"Move to In Progress",label:"Move to In Progress"
+   {value:"move to pre selected",label:"Move to PreSelected"
    },
    {value:"Archive",label:"Archive"
    }
@@ -30,18 +33,37 @@ const ToDoProfileCard = (props: any,{path}) => {
     const editCandidatProfile = () => {
         navigate("/editToDo", { state: state});
     }
+   
 
     const viewFullProfile = () => {
         // navigate("/todoprofile", { state: props.data });
         localStorage.setItem('profile', JSON.stringify(props.data));
         window.open("/todoprofile", "_blank")
     }
+    
+
+ 
+    const fetchProfilesClients = async () => {
+        return await fetch(API_BASE_URL + "allToDoClients", {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+          .then((resD) => resD.json())
+          .then(res => setClients([...res]))
+          .catch((err) => err);
+      };
+  
+
     const MoreOption=(e:any)=>{
       if(e.value=="Edit Profile"){
           editCandidatProfile()
       }
-      if(e.value=="Move to In Progress"){
-        setShowInProgressModal(true)
+      if(e.value=="move to pre selected"){
+        fetchProfilesClients() 
+       setShowInProgressModal(true)
       }
       if(e.value=="Archive"){
         setShowArchiveModal(true) 
@@ -151,7 +173,7 @@ const ToDoProfileCard = (props: any,{path}) => {
                                 </button>
                             </div>
                             {showInProgressModal ?
-                                <InProgressModal props={props.data} closeModal={setShowInProgressModal} /> : null
+                                <PreSelectedModal props={props.data} closepreModal={setShowInProgressModal}  client={Client} /> : null
                             }
                             {showArchiveModal ?
                                 <ArchivedModal props={props.data} closeModal={setShowArchiveModal} path={"/todolist"}  /> : null

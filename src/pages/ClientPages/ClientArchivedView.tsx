@@ -8,7 +8,16 @@ import UploadDow from '../../components/Modal/SelectUploadDownload'
 import Switch from "react-switch";
 import {ReactComponent as Empty} from "../../images/emptyStar.svg";
 import {ReactComponent as StarRating} from "../../images/RatingStar.svg";
+import axios from "axios";
+import { Toaster, toast } from 'react-hot-toast';
+import { ProgressBar } from "react-bootstrap";
+import ProfileLoader from "../../components/Loader/ProfilesLoader";
+import RenameDoc from '../../components/Modal/RenameDoc_Modal'
+import ReadMoreReact from 'read-more-react';
+import PreModalClient from "../../components/Modal/preSelectedModalForClient"
+import { API_BASE_URL } from "../../config/serverApiConfig";
 
+let RenameData=[]
 function ArchivedViewPage(){
   const { state } = useLocation();
   const navigate = useNavigate();
@@ -18,14 +27,17 @@ function ArchivedViewPage(){
   const [hideProfile,setHideProfile]=useState(false)
   const [ResetModalProfile,setResetModalProfile]=useState(false)
   const hiddenImageInput = React.useRef(null);
-  const [SISPI, setChecked] = useState(false);
-  const [Agence,setAgence]=useState(false)
-  const [Assurance,setAssurance]=useState(false)
-  const [A1,setA1]=useState(false)
-  const [Public,setPublic]=useState(false)
-  const [Contrat,setContrat]=useState(false)
-  const [Signature,setSignature]=useState(false)
-  const [Offre,setOffre]=useState(false)
+  const [candidatDocument, setCandidatDocument] = useState("");
+  const [progress, setProgress] = useState<any>(0);
+  const [docUploaded, setDocUploaded] = useState(false);
+  const [documentList, setDocumentList] = useState([]);
+  const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
+  const hiddenFileInput = React.useRef(null);
+  const [RenameDocStatus,setRenameDocStatus]=useState(false)
+  const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
+  const [PreSelectedData,setPreSelected]=useState([])
+
+
   const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating   style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}}/> <StarRating style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}} /> <Empty style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /></>}]; 
 
   const candidatMotivationIcons = [{ icon:"😟", motivation: 'Disappointed' }, { icon:"🙁", motivation: 'Not Really' }, { icon:"😊", motivation: 'Like' }, { icon:"🥰", motivation: 'Great' }, { icon:"😍", motivation: 'Super Lovely' }];
@@ -46,34 +58,187 @@ function ArchivedViewPage(){
     navigate("/clientInProgressEdit", { state: profile });
   }
 
-  const switchHandle = (event,id,e) => {
-    if(e==="Offre"){
-      setOffre(event)
+
+   // DOC Upload //\
+
+   const axiosInstance = axios.create({
+    baseURL: API_BASE_URL,
+  })
+  // NOTIFY // 
+
+  const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
+  const notifyDocumentDeleteError = () => toast.error("Document Not Removed! Please Try Again in few minutes.")
+
+  const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
+  const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
+ 
+  //END //
+
+
+  const renameDocument = (docId: any, docName: any ,originalName:any) => {
+    // setRenameDoc(true);
+
+    RenameData=[
+      docId,
+      docName,
+      profile._id,
+      originalName
+    ]
+    // renameCandidatDocument(docId, docName, profile._id).then(resData => {
+    //   console.log(resData)
+    //   setRenameDoc(false);
+    // }).catch(err => {
+    //   console.log(err)
+    // })
+  }
+
+
+  const fileChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
+    >
+  ) => {
+ 
+    if (e.target.name === 'clientDocuments') {
+      const fileUploaded = e.target.files[0];
+      setCandidatDocument(fileUploaded)
+      let formdata = new FormData();
+      formdata.append('clientId', profile._id)
+      formdata.append('document', fileUploaded)
+      axiosInstance.post("uploadClientDocuments", formdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": "Bearer " + localStorage.getItem('token')
+        },
+        onUploadProgress: data => {
+          //Set the progress value to show the progress bar
+          setProgress(Math.round((100 * data.loaded) / data.total))
+        },
+      })
+        .then(resData => {
+          console.log(resData.data.status,"resData.data.status")
+          if (resData.data.status) {
+            console.log(resData.data,"resData")
+            setDocUploaded(true);
+            setProgress(0); 
+            notifyDocumentUploadSuccess();
+          } else {
+            console.log(resData)
+            setDocUploaded(false);
+          }
+        })
+        .catch(err => {
+          console.log(err)
+          setDocUploaded(false);
+
+        })
+      return;
     }
-    if(e==="Signature"){
-          setSignature(event)
-    }
-    if(e==="Contrat"){
-      setContrat(event)
-  }  
-  if(e==="Public"){
-    setPublic(event)
-  } 
-   if(e==="A1"){
-    setA1(event)
   }
-  if(e==="Assurance"){
-    setAssurance(event)
+
+  useEffect(() => {
+    console.log(profile._id,"id")
+    console.log(documentList,"doc")
+    fetchCandidat(profile._id).then(resData => {
+      console.log(resData)
+
+      setCandidatImage("")
+      if (resData.status == true) {
+        // setProfile(resData.data)
+        resData.data.map((el)=>{
+          setDocumentList(el.clientDocuments)
+        })
+       
+        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
+        setDocUploaded(false);
+      } else {
+        setDocumentList([...documentList])
+        setDocUploaded(false);
+      }
+    })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [docUploaded])
+ 
+  console.log("doc",documentList)
+
+  const  ViewDownloadFiles =( documentName:any)=>{
+    window.open(API_BASE_URL + documentName)
+   }
+
+
+   const fetchCandidat = async (clientId: any) => {
+    return await fetch(API_BASE_URL + `getClientById/?clientId=${clientId}`, {
+      method: "GET",
+      headers: {
+        "Accept": 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+    })
+      .then(resp => resp.json())
+      .then(respData => respData)
+      .catch(err => err)
   }
-  if(e==="Agence"){
-    setAgence(event)
+
+
+   const handleFileUpload = () => {
+    hiddenFileInput.current.click();
   }
-  if(e==="SISPI"){
-    setChecked(event)
-  }     
-   };
+
+  // const removeRecommendation = (rId: any) => {
+
+  //   console.log(recommendations);
+  //   let filteredRecommendations = recommendations.filter((recomm) => {
+  //     return recomm._id !== rId;
+  //   })
+  //   console.log(filteredRecommendations)
+  //   setRecommendations([...filteredRecommendations])
+  //   setLoader(true);
+  // }
+
+  const deleteDocument = async (docId: any, docName: any) => {
+    await deleteCandidatDocument(docId, docName, profile._id).then(resData => {
+      console.log(resData);
+      if (resData.status) {
+        notifyDocumentDeleteSuccess()
+        setDocumentList([...documentList.filter((doc) => {
+          return doc.documentName !== docName
+        })])
+      } else {
+        notifyDocumentDeleteError()
+      }
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
+
+  
+
+ const deleteCandidatDocument = async (docId: any, docName: any, clientId: any) => {
+  let headers = {
+    "Accept": 'application/json',
+    "Authorization": "Bearer " + localStorage.getItem('token')
+  }
+  return await fetch(API_BASE_URL + `deleteClientDocument/?documentId=${docId}&documentName=${docName}&clientId=${clientId}`, {
+    method: "GET",
+    headers: headers
+  })
+    .then(reD => reD.json())
+    .then(resD => resD)
+    .catch(err => err)
+}
+
+
+
+
+  //END //
+
+
     return(
       <>
+    <Toaster position="top-right" containerStyle={{zIndex:"9999999999999999999999"}}  />
       <div className="container-fluid ">
         <div className="row  mt-1">
           <div className="col-12 top-pd mt-2">
@@ -456,13 +621,19 @@ No What’s App !
                 </div>
               </div>
               </div>
-              <div className="col-6 d-flex justify-content-end align-items-center">
-                <button className="pdf-btn">
+              <div className="col-6 d-flex  justify-content-end align-items-center">
+                <button className="pdf-btn" onClick={handleFileUpload}>
                     <img src={require("../../images/doc.svg").default} className="docImg" />
                     <span>Add document about this client </span>
                     </button>
                   </div>
-
+                  <input
+                    type="file"
+                    ref={hiddenFileInput}
+                    onChange={fileChange}
+                    name="clientDocuments"
+                    style={{ display: 'none' }}
+                  />
               </div>
               </div>
               <div className="col-12 Social-CardClient p-1">
@@ -483,154 +654,127 @@ No What’s App !
                   
                   </div>
                   
-              </div>
-              <div className="col-12 Social-CardClient mt-1">
-                    <div className="row p-1">
-                      <div className="col-6 ">
-                        <div className="col-12">
-                        <div className="row CardClassDownload mt-1 mx-0 ">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">
-                        <img src={require("../../images/dowBtn.svg").default} />
-                        Jhon-smith-cv.pdf
-                      </button>
-                    </div>
-                    <div className="col-2  d-flex align-item-end justify-content-end">
-                    <img
-                        src={require("../../images/editSvg.svg").default}
-                        style={{ width: "20px",marginRight:"5px" }}
-                      />
-                      <img
-                        src={require("../../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                  </div>
-                  <div className="col-12">
-                        <div className="row CardClassDownload mt-1 mx-0 ">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">
-                        <img src={require("../../images/dowBtn.svg").default} />
-                        Jhon-smith-cv.pdf
-                      </button>
-                    </div>
-                    <div className="col-2  d-flex align-item-end justify-content-end">
-                    <img
-                        src={require("../../images/editSvg.svg").default}
-                        style={{ width: "20px",marginRight:"5px" }}
-                      />
-                      <img
-                        src={require("../../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                  </div>
-                  <div className="col-12">
-                        <div className="row CardClassDownload mt-1 mx-0 ">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">
-                        <img src={require("../../images/dowBtn.svg").default} />
-                        Jhon-smith-cv.pdf
-                      </button>
-                    </div>
-                    <div className="col-2  d-flex align-item-end justify-content-end">
-                    <img
-                        src={require("../../images/editSvg.svg").default}
-                        style={{ width: "20px",marginRight:"5px" }}
-                      />
-                      <img
-                        src={require("../../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                  </div>
-                      </div>
-                      <div className="col-6 ">
-                        <div className="col-12">
-                        <div className="row CardClassDownload mt-1 mx-0 ">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">
-                        <img src={require("../../images/dowBtn.svg").default} />
-                        Jhon-smith-cv.pdf
-                      </button>
-                    </div>
-                    <div className="col-2  d-flex align-item-end justify-content-end">
-                    <img
-                        src={require("../../images/editSvg.svg").default}
-                        style={{ width: "20px",marginRight:"5px" }}
-                      />
-                      <img
-                        src={require("../../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                  </div>
-                  <div className="col-12">
-                        <div className="row CardClassDownload mt-1 mx-0 ">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">
-                        <img src={require("../../images/dowBtn.svg").default} />
-                        Jhon-smith-cv.pdf
-                      </button>
-                    </div>
-                    <div className="col-2  d-flex align-item-end justify-content-end">
-                    <img
-                        src={require("../../images/editSvg.svg").default}
-                        style={{ width: "20px",marginRight:"5px" }}
-                      />
-                      <img
-                        src={require("../../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                  </div>
-                  <div className="col-12">
-                        <div className="row CardClassDownload mt-1 mx-0 ">
-                    <div className="col-4 d-flex align-items-center ">
-                      <p className="download-font mb-0">Jhon-smith-cv.pdf</p>
-                    </div>
-                    <div className="col-6">
-                      <button className="btnDownload">
-                        <img src={require("../../images/dowBtn.svg").default} />
-                        Jhon-smith-cv.pdf
-                      </button>
-                    </div>
-                    <div className="col-2  d-flex align-item-end justify-content-end">
-                    <img
-                        src={require("../../images/editSvg.svg").default}
-                        style={{ width: "20px",marginRight:"5px" }}
-                      />
-                      <img
-                        src={require("../../images/Primaryfill.svg").default}
-                        style={{ width: "20px" }}
-                      />
-                    </div>
-                  </div>
-                  </div>
-                      </div>
+            
+                
+                  
                       
-                    </div>
+                  
                   </div>
+                  <div className="col-12 Social-CardClient my-1 ">
+              <div className="row p-1">
+              <div className="row" style={{ marginRight: '1px' }}>
+                    {
+                      documentList.length > 0  ?
+                        documentList.map((doc, index) =>
+                          <div className="col-6 mx-0">
+                            <div className="row CardClassDownload mt-1 mx-0">
+                              <div className="col-4 d-flex align-items-center ">
+                                <p className="download-font mb-0">{doc.originalName}</p>
+                              </div>
+                              <div className="col-6 text-center">
+                                {/* {progress > 0 && progress < 100  ?
+                                  <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
+                                  :
+                                  <button className="btnDownload">
+                                    <img src={require("../images/dowBtn.svg").default} />
+                                    {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
+                                  </button>
+                                } */}
+                                     <button className="btnDownload" onClick={()=>ViewDownloadFiles( doc.documentName)}>
+                                    <img src={require("../../images/dowBtn.svg").default} />
+                                    {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
+                                  </button>
+                              </div>
+                              <div className="col-2  d-flex align-item-end justify-content-end">
+                                <img
+                                  src={require("../../images/editSvg.svg").default}
+                                  style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                                  // onClick={() => renameDocument(doc._id, doc.documentName)}
+                                  onClick={()=>{setRenameDocStatus(true);renameDocument(doc._id, doc.documentName,doc.originalName)}}
+                                />
+                                <img
+                                  src={require("../../images/Primaryfill.svg").default}
+                                  style={{ width: "20px", cursor: 'pointer' }}
+                                  onClick={() => deleteDocument(doc._id, doc.documentName)}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        ) :
+                        progress > 0 && progress < 100 && documentList.length == 0?
+                        <div className="col-6 mx-0">
+                        <div className="row CardClassDownload p-0 mt-1 mx-0">
+                          <div className="col-4 pr-0 d-flex align-items-center ">
+                        <ProfileLoader width={"90"} height={"56px"} fontSize={"12px"} fontWeight={600} Title={"Uploading!"}/>
+                          </div>
+                          <div className="col-6 text-center  mb-0" style={{marginTop:"21px"}}>
+                              <ProgressBar className="mb-0" now={progress} label={`${progress}%`} />
+                          </div>
+                          <div className="col-2  d-flex align-item-end justify-content-end">
+                            <img
+                              src={require("../../images/editSvg.svg").default}
+                              style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                              // onClick={() => renameDocument(doc._id, doc.documentName)}
+                            />
+                            <img
+                              src={require("../../images/Primaryfill.svg").default}
+                              style={{ width: "20px", cursor: 'pointer' }}
+                              // onClick={() => deleteDocument(doc._id, doc.documentName)}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      :  
+<p className="text-center">No Documents Uploaded!</p>
+   
+                    }
+    {progress > 0 && progress < 100 && documentList.length > 0 ?
+                        <div className="col-6 mx-0">
+                        <div className="row CardClassDownload p-0 mt-1 mx-0">
+                          <div className="col-4 pr-0 d-flex align-items-center ">
+                        <ProfileLoader width={"90"} height={"56px"} fontSize={"12px"} fontWeight={600} Title={"Uploading!"}/>
+                          </div>
+                          <div className="col-6 text-center  mb-0" style={{marginTop:"21px"}}>
+                              <ProgressBar className="mb-0" now={progress} label={`${progress}%`} />
+                          </div>
+                          <div className="col-2  d-flex align-item-end justify-content-end">
+                            <img
+                              src={require("../../images/editSvg.svg").default}
+                              style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                            />
+                            <img
+                              src={require("../../images/Primaryfill.svg").default}
+                              style={{ width: "20px", cursor: 'pointer' }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                        :
+                      
+                 null 
+                  
+
+                          }
+                          {
+                            RenameDocStatus? 
+                            <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus}  path={"/todoprofile"}/>
+                            :
+                            null
+                          }
+                {showPreSelectedModal?
+                  <PreModalClient 
+                   props={PreSelectedData}
+                   closepreModal={setShowInPreSelectedModal}
+                   clientProps={profile}
+                  />
+                  :
+                  null
+
+                  }
+                  </div>
+                
+              </div>
+            </div>
             </div>
           </div>
       </div>
