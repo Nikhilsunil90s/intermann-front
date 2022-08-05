@@ -888,8 +888,6 @@ function ClientToDoList() {
     setSelectedSector("");
     email=false;
     phone=false;
-    setMissing(true)
-    setEmailCheck(true)
     fetchAllSectors();
     filterFunction();
   };

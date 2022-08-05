@@ -13,7 +13,7 @@ import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import { ProgressBar } from "react-bootstrap";
 import ProfileLoader from "../../components/Loader/ProfilesLoader";
-import RenameDoc from "../../components/Modal/RenameDoc_Modal";
+import RenameDoc from "../../components/Modal/RenameDoc_ModalClient";
 import ReadMoreReact from "read-more-react";
 import PreModalClient from "../../components/Modal/preSelectedModalForClient";
 
@@ -1337,13 +1337,18 @@ function Signed() {
                 </div>
 
                 <div className="col-3 text-center">
-                  <button type="button" className="btn btn-contractClient">
+                  <a
+                    href="https://www.canva.com/design/DAFA2NwkHSw/p4I45NInV69YG9HKrS3TGw/edit"
+                    target="_blank"
+                    type="button"
+                    className=" btn-contractClient"
+                  >
                     <img
                       src={require("../../images/doc.svg").default}
                       style={{ paddingRight: "5px" }}
                     />
                     Créer offre
-                  </button>
+                  </a>
                   <p className="btn-Down text-center">
                     Créer une offre avec Canva
                   </p>
@@ -1368,25 +1373,37 @@ function Signed() {
                   <p className="btn-Down text-center">Si plus d’actualité</p>
                 </div>
                 <div className="col-3">
-                  <button type="button" className="btn btn-grilleClient">
+               
+                  <a
+                    href="https://docs.google.com/spreadsheets/d/14xzXy9FD5V7ASYfYZg1kPmHSGvPqr4APfIWP_S9r_tI/edit#gid=0"
+                    target="_blank"
+                    type="button"
+                    className="btn btn-grilleClient"
+                  >
                     <img
                       src={require("../../images/salary.svg").default}
                       style={{ paddingRight: "5px" }}
                     />
                     Grille de prix
-                  </button>
+                  </a>
                   <p className="btn-Down text-center">
                     Accès réstreint à Jeremy & Pat
                   </p>
                 </div>
                 <div className="col-3">
-                  <button type="button" className="btn  btn-careerClient">
+                 
+                  <a
+                    href="https://drive.google.com/drive/folders/1MqR9nDBLtpl_xMCmVGmcy5g0T3noPhgZ"
+                    target="_blank"
+                    type="button"
+                    className="btn btn-careerClient"
+                  >
                     <img
                       src={require("../../images/doc.svg").default}
                       style={{ paddingRight: "5px" }}
                     />
                     Créer contrat
-                  </button>
+                  </a>
                   <p className="btn-Down text-center">
                     Créer un contrat avec Drive
                   </p>
@@ -1490,7 +1507,7 @@ function Signed() {
                           }
                           {
                             RenameDocStatus? 
-                            <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus}  path={"/todoprofile"}/>
+                            <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus}  path={"/clientSigned"}/>
                             :
                             null
                           }

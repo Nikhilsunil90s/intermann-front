@@ -78,7 +78,7 @@ function Dashboard() {
   });
   return (
     <>
-      <Toaster position="top-center" />
+      <Toaster position="top-right" containerStyle={{zIndex:"999999999999999999"}}/>
       <div className="container-fluid px-0">
         <div className="row mx-0">
           <div className="col-12  card-tops mt-2" style={{padding:"0px",marginBottom:"20px"}}>

@@ -701,14 +701,16 @@ No FB URL!
                   <p className="italic-fontStyle text-start">Editer le profil</p>
                 </div>
                 <div className="col-3 text-center">
-                  <button
+              
+                        <a
                     type="button"
-                    className="btn btn-pre-CVManual"
-                    onClick={editCandidatProfile}
+                    className="btn btn-pre-CVManual  d-flex align-items-center justify-content-center"
+                    href="https://www.canva.com/design/DAFA1_f9AmA/ZBNOgKbj-tCDJa9QRj9kNA/edit"
+                    target="_blank"
                   >
                     <img src={require("../images/resume.svg").default} />
                     Créer CV Manuel
-                  </button>
+                  </a>
                   <p className="italic-fontStyle text-start">
                     Edit CV with Canva
                   </p>

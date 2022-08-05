@@ -13,11 +13,13 @@ function PreModal({props,closepreModal,client}) {
   const [selectedClient, setSelectedClient] = useState("");
   const [reason, setReason] = useState("");
 console.log(props,"props")
-  const clientData = client ? client.map((client) => {
-    return { label: client.clientCompanyName, value: client._id, color: '#FF8B00' }
-  }) : [{ label: 'No Clients In this Sector', value: "", color: '#FF8B00' }]
 
-console.log(client,"clients")
+  const [clientDataOptions,setClientOption]=useState( client ? client.map((client) => {
+    return { label: client.clientCompanyName, value: client._id, color: '#FF8B00' }
+  }) :  props.clients ? props.clients.map((client) => {
+    return { label: client.clientCompanyName, value: client._id, color: '#FF8B00' }
+  }): [{ label: 'No Clients In this Sector', value: "", color: '#FF8B00' }])
+console.log(clientDataOptions,"clients")
   const onClientChange = (sc: any) => {
     console.log(sc)
     setSelectedClient(sc.value);
@@ -155,7 +157,7 @@ console.log(client,"clients")
                                 classNamePrefix="select"
                                 styles={colourStyles}
                                 onChange={onClientChange}
-                                options={clientData}
+                                options={clientDataOptions}
                                 // styles={colourStyles}
                               /></div>
                               <p className="ChildStylePreModal mt-2">pour quel raison {props.candidatName} est selectionné ?</p>

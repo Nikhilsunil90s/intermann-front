@@ -10,7 +10,7 @@ import $ from 'jquery'
 function Sidebar(props: any) {
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  const LogNotify = () => toast("Log-Out!");
+  const LogNotify = () => toast.success("Log-Out!");
   
   const LogOut = async () => {
     await dispatch(logout())

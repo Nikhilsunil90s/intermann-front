@@ -19,9 +19,9 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const notifyLogin = () => toast("Welcome To Intermann!");
+  const notifyLogin = () => toast.success("Welcome To Intermann!");
   const notifyLoginError = () =>
-    toast("Invalid Email or Password! Please Try Again.");
+    toast.dismiss("Invalid Email or Password! Please Try Again.");
   const notifyMessage = () => toast("Please Sign In!", {});
 
   useEffect(() => {
@@ -212,7 +212,7 @@ function Login() {
                       </div>
                     </div>
                   </form>
-                  <Toaster position="top-center" />
+                  <Toaster position="top-right" containerStyle={{zIndex:"9999999999999999"}}/>
                 </section>
               </div>
             </div>

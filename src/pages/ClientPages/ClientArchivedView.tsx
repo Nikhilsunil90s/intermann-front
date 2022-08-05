@@ -12,7 +12,7 @@ import axios from "axios";
 import { Toaster, toast } from 'react-hot-toast';
 import { ProgressBar } from "react-bootstrap";
 import ProfileLoader from "../../components/Loader/ProfilesLoader";
-import RenameDoc from '../../components/Modal/RenameDoc_Modal'
+import RenameDoc from '../../components/Modal/RenameDoc_ModalClient'
 import ReadMoreReact from 'read-more-react';
 import PreModalClient from "../../components/Modal/preSelectedModalForClient"
 import { API_BASE_URL } from "../../config/serverApiConfig";

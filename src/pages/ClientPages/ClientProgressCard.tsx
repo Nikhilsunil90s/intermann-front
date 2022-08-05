@@ -13,6 +13,7 @@ import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast, { Toaster } from "react-hot-toast";
+import SignedClientModal from "../../components/Modal/SignContractModal";
 
 let id=""
 function ClientProgressCard(props: any) {
@@ -24,7 +25,6 @@ function ClientProgressCard(props: any) {
 
     const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /><StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating   style={{marginRight:"3px",width:"70%"}} /> <StarRating style={{marginRight:"3px",width:"70%"}}/> <StarRating style={{marginRight:"3px",width:"70%"}} /> <StarRating style={{marginRight:"3px",width:"70%"}} /> <Empty style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /><StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /></>}]; 
     const candidatMotivationIcons = [{ icon:"😟", motivation: 'Disappointed' }, { icon:"🙁", motivation: 'Not Really' }, { icon:"😊", motivation: 'Like' }, { icon:"🥰", motivation: 'Great' }, { icon:"😍", motivation: 'Super Lovely' }];
-    const [showInProgressModal, setShowInProgressModal] = useState(false);
     const [showArchiveModal, setShowArchiveModal] = useState(false)
     const [SISPI, setChecked] = useState(props.data.sispiDeclared);
     const [Agence, setAgence] = useState(props.data.agenceDeVoyage) as any;
@@ -34,10 +34,12 @@ function ClientProgressCard(props: any) {
     const [Contrat, setContrat] = useState(props.data.contractSigned) as any;
     const [Signature, setSignature] = useState(props.data.signatureSent) as any;
     const [Offre, setOffre] = useState(props.data.offerSent) as any;
+  const [showSignedModal, setShowSignedModal] = useState(false);
+
   const CardOption=[{
     value:"Edit Profile",label:"Edit Profile"
     },
-    {value:"moveProgress",label:"moveProgress"
+    {value:"Move to signed",label:"Move to signed"
     },
     {value:"Archive",label:"Archive"
     }
@@ -56,8 +58,8 @@ function ClientProgressCard(props: any) {
         if(e.value=="Edit Profile"){
           editClientProfile()
         }
-        if(e.value=="moveProgress"){
-          setShowInProgressModal(true)
+        if(e.value=="Move to signed"){
+          setShowSignedModal(true)
         }
         if(e.value=="Archive"){
           setShowArchiveModal(true) 
@@ -597,9 +599,9 @@ function ClientProgressCard(props: any) {
                         {showArchiveModal ?
                             <ArchivedClientModal props={props.data} closeModal={setShowArchiveModal} path={"/clientToDo"} /> : null
                         }
-                            {showInProgressModal ?
-                            <InProgressClientModal props={props.data} closeModal={setShowInProgressModal} /> : null
-                        }
+                            {showSignedModal ?
+                      <SignedClientModal props={props.data} closeModal={setShowSignedModal} /> : null
+                    }
                     </div></>
     )
 }
