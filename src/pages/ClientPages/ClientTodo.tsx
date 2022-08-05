@@ -641,7 +641,7 @@ function ClientToDoList() {
         },
         {
           value: "contractSigned",
-          label: "Contrat singé ?",
+          label: "Client Signe ?",
           color: "#FF8B00",
         },
         {

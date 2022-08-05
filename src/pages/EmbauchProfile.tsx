@@ -295,20 +295,24 @@ function ProgressCard() {
     window.open(API_BASE_URL + documentName)
    }
 
-   const showCustomerProfile = async () => {
-    console.log(clientProfile)
-    if (Object.values(clientProfile).includes("To-Do")) {
-      navigate("/clientToDoProfile", { state: clientProfile })
-    } else if (Object.values(clientProfile).includes("In-Progress")) {
-      navigate("/clientInProgressProfile", { state: clientProfile })
-    } else if (Object.values(clientProfile).includes("Signed Contract")) {
-      navigate("/clientSigned", { state: clientProfile })
-    } else if (Object.values(clientProfile).includes("Archived")) {
-      // navigate("/clientSigned", { state: clientProfile })
-      window.location.href=`/clientSigned?id=${clientProfile._id}`
-    }
+  //  const showCustomerProfile = async () => {
+  //   console.log(clientProfile)
+  //   if (Object.values(clientProfile).includes("To-Do")) {
+  //     navigate("/clientToDoProfile", { state: clientProfile })
+  //   } else if (Object.values(clientProfile).includes("In-Progress")) {
+  //     navigate("/clientInProgressProfile", { state: clientProfile })
+  //   } else if (Object.values(clientProfile).includes("Signed Contract")) {
+  //     navigate("/clientSigned", { state: clientProfile })
+  //   } else if (Object.values(clientProfile).includes("Archived")) {
+  //     // navigate("/clientSigned", { state: clientProfile })
+  //     window.location.href=`/clientSigned?id=${clientProfile._id}`
+  //   }
+  // }
+  console.log(profile,"profile")
+  const showCustomerProfile =(data:any)=>{
+      localStorage.setItem("embauch", JSON.stringify(data));
+      window.open("/clientSignedView", "_blank");
   }
-
   
   return (
     <>
@@ -440,7 +444,7 @@ className="SelectBtn"
                 
               </div>
               <div className="col-4 d-flex justify-content-end align-items-center">
-                <div className="d-flex justify-content-center"><button className="btn customerBtnEmbauch" onClick={showCustomerProfile}> <span><img src={require("../images/eyeProfil.svg").default} /></span>CUSTOMER PROFIL</button></div>
+                <div className="d-flex justify-content-center"><button className="btn customerBtnEmbauch" onClick={(e)=>showCustomerProfile(clientProfile)}> <span><img src={require("../images/eyeProfil.svg").default} /></span>CUSTOMER PROFIL</button></div>
                 </div>
 
                 </div>
@@ -572,9 +576,12 @@ className="SelectBtn"
                   style={{ maxWidth: "57%" }}
                 >
                   <div className="EmbauchFull-CardMore force-overflow">
-                    <div className="d-flex">
+                    <div className="row ">
+                      <div className="col-3 pr-0"  style={{maxWidth:"22%"}}> 
                       <p>Langues : </p>
-                      <span> {profile.candidatLanguages.join(", ")}</span>
+                      </div><div className="col-9 px-0">
+                      <span> {profile.candidatLanguages ? profile.candidatLanguages.join(", ") : "No Language!"}</span>
+                      </div>
                     </div>
                     <div className="d-flex ">
                       <p className="EmbauchFull-CardMoreSpan">Ready for work :</p>

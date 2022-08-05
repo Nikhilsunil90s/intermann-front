@@ -326,9 +326,12 @@ className="SelectBtn"
                   style={{ maxWidth: "56%", marginRight: "10px" }}
                 >
                   <div className="Archived-CardMore force-overflow">
-                    <div className="d-flex">
+                  <div className="row ">
+                      <div className="col-3 pr-0"  style={{maxWidth:"22%"}}> 
                       <p>Langues : </p>
-                      <span> {profile.candidatLanguages.join(", ")}</span>
+                      </div><div className="col-9 px-0">
+                      <span> {profile.candidatLanguages ? profile.candidatLanguages.join(", ") : "No Language!"}</span>
+                      </div>
                     </div>
                     <div className="d-flex ">
                       <p className="blue-text">Ready for work :</p>

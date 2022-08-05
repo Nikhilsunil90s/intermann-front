@@ -8,10 +8,13 @@ import Select from "react-select";
 import ArchivedClientModal from "../../components/Modal/ArchivedClientModal";
 import { useNavigate } from "react-router-dom";
 import ReadMoreReact from 'read-more-react';
-
+import CLintHide from "../../components/Modal/HideClientProfile"
+import ClientREST from "../../components/Modal/ClientREStProfile"
 function ClientCardArchived(props:any){
     const navigate = useNavigate();
     const [showArchiveModal, setShowArchiveModal] = useState(false)
+    const [HideProfile,setHideProfile]=useState(false)
+    const [RESTprofile,setREStProfile]=useState(false)
     const CardOption=[{
         value:"Edit Profile",label:"Edit Profile"
         },
@@ -28,15 +31,14 @@ function ClientCardArchived(props:any){
     }
 
      const MoreOption=(e:any)=>{
-        debugger
         if(e.value=="Edit Profile"){
           editClientProfile()
         }
         if(e.value=="Reset Profile"){
-
+            setREStProfile(true)
         }
         if(e.value=="Hide This Profile"){
-
+            setHideProfile(true)
         }
         if(e.value=="Archive"){
           setShowArchiveModal(true) 
@@ -130,7 +132,18 @@ const candidatMotivationIcons = [{ icon:"😟", motivation: 'Disappointed' }, { 
                         </div>
                         </div> 
                         </div>
-      
+      {
+        HideProfile ?
+<CLintHide  props={props.data} closeModal={setHideProfile} path={"/clientToDo"} />
+        :
+        null
+      }
+      {
+        RESTprofile ?
+        <ClientREST props={props.data} closeModal={setREStProfile} path={"/clientToDo"}  />
+        :
+        null
+      }
                         {showArchiveModal ?
                             <ArchivedClientModal props={props.data} closeModal={setShowArchiveModal} path={"/clientToDo"} /> : null
                         }

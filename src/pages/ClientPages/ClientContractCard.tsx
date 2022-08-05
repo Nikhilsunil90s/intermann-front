@@ -31,6 +31,12 @@ const CardOption=[{
   {value:"Archive",label:"Archive"
   }
 ]as any
+
+const viewFullProfile = (data) => {
+  localStorage.setItem("embauch", JSON.stringify(data));
+  window.open("/embauchprofile", "_blank");
+};
+
   const editClientProfile = () => {
       navigate("/ClientContractEditprofile", { state: props.data });
   }
@@ -116,13 +122,13 @@ const CardOption=[{
             props.data.employeesWorkingUnder != null && props.data.employeesWorkingUnder != [] ?
             props.data.employeesWorkingUnder.map((el)=>(
               <div className="col-4 pr-0">
-                                       <div className="d-flex align-items-center">
+                                       <div className="d-flex align-items-center cursor-pointer" onClick={(e)=>viewFullProfile(el)}>
                    
                                     <img
                                       src={require("../../images/menSigned.svg").default}
                                       style={{ width: "15%" }}
                                     />
-                                    <p style={{ fontSize: "8px",marginLeft:"5px" }} className="mb-0 ">
+                                    <p style={{ fontSize: "8px",marginLeft:"5px" }} className="mb-0 " >
                                      {el.candidatName}
                                     </p>
                                   </div>

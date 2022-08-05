@@ -603,7 +603,7 @@ const ClientToDoCard = (props: any) => {
             </div>
             <div className="col-7 d-flex px-0 justify-content-start">
               <div className="d-flex align-items-center ">
-                <p className="switch-fontCard mb-0">Contrat singé ?</p>
+                <p className="switch-fontCard mb-0">Client singé ?</p>
                 <Switch
                   className="ml-left "
                   // onChange={switchHandle}

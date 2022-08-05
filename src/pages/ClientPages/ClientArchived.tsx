@@ -177,7 +177,7 @@ export default function ClientArchived() {
         },
         {
           value: "contractSigned",
-          label: "Contrat singé ?",
+          label: "Client Signe ?",
           color: "#FF8B00",
         },
         {
@@ -774,7 +774,7 @@ setStatus(false)
                         <Select
                           name="candidatName"
                           closeMenuOnSelect={true}
-                          placeholder="‎ ‎ ‎ Select Un Candidat"
+                          placeholder="‎ ‎ ‎ Select Un Client"
                           className="basic-multi-select"
                           classNamePrefix="select"
                           onChange={handleNameChange}
@@ -837,7 +837,7 @@ setStatus(false)
                               <Select
                               name="candidatMotivation"
                               closeMenuOnSelect={true}
-                              placeholder="‎ ‎ ‎ Select Motivation du Candidat"
+                              placeholder="‎ ‎ ‎ Select Motivation du Client"
                               className="basic-multi-select"
                               classNamePrefix="select"
                               onChange={handleMotivationChange}

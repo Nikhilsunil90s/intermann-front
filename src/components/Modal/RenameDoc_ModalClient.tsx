@@ -23,7 +23,7 @@ console.log(props,"props")
     }
   }
  console.log(props[3],"props")
-  const renameCandidatDocument = async () => {
+  const renameClientDocument = async () => {
     let headers = {
       "Accept": 'application/json',
       "Authorization": "Bearer " + localStorage.getItem('token')
@@ -84,7 +84,7 @@ console.log(props,"props")
 </div></div>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn preSelectedStageBtn"  onClick={renameCandidatDocument}>
+              <button type="button" className="btn preSelectedStageBtn"  onClick={renameClientDocument}>
              Save New Name.
               </button>
             </div>

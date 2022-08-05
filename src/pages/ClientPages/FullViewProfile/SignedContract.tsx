@@ -1,27 +1,49 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import "../../CSS/Client/ProgressCardClient.css";
-import UploadDow from "../../components/Modal/SelectUploadDownload";
+import "../../../CSS/Client/ProgressCardClient.css";
+import UploadDow from "../../../components/Modal/SelectUploadDownload";
 import Switch from "react-switch";
-import { ReactComponent as Empty } from "../../images/emptyStar.svg";
-import { ReactComponent as StarRating } from "../../images/RatingStar.svg";
-import ArchivedClientModal from "../../components/Modal/ArchivedClientModal";
-import { ReactComponent as TurnoFF } from "../../images/FatX.svg";
-import { ReactComponent as TurnOn } from "../../images/base-switch_icon.svg";
-import { API_BASE_URL } from "../../config/serverApiConfig";
+import { ReactComponent as Empty } from "../../../images/emptyStar.svg";
+import { ReactComponent as StarRating } from "../../../images/RatingStar.svg";
+import ArchivedClientModal from "../../../components/Modal/ArchivedClientModal";
+import { ReactComponent as TurnoFF } from "../../../images/FatX.svg";
+import { ReactComponent as TurnOn } from "../../../images/base-switch_icon.svg";
+import { API_BASE_URL } from "../../../config/serverApiConfig";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import { ProgressBar } from "react-bootstrap";
-import ProfileLoader from "../../components/Loader/ProfilesLoader";
-import RenameDoc from "../../components/Modal/RenameDoc_Modal";
-import ReadMoreReact from "read-more-react";
-import PreModalClient from "../../components/Modal/preSelectedModalForClient";
+import ProfileLoader from "../../../components/Loader/ProfilesLoader";
+import RenameDoc from "../../../components/Modal/RenameDoc_Modal";
+import PreModalClient from "../../../components/Modal/preSelectedModalForClient";
 
 let RenameData = [];
 let id = "";
 function Signed() {
-  const { state } = useLocation();
-  const [profile, setProfile] = useState<any>(state);
+  const profileData = JSON.parse(localStorage.getItem("profile"));
+  const profileD = JSON.parse(localStorage.getItem("embauch"));
+ const [GetClientbyID,setGetClient]=useState(profileData ? profileData._id : profileD._id)
+  const [Loader,setLoader]=useState(false)
+  console.log(GetClientbyID,"get")
+useEffect(()=>{
+  GetClient(GetClientbyID).then(res=>
+    {
+    if(res.data.length>0){
+      setLoader(true)
+      res.data.map((el)=>{
+        
+        setEMPunderWorking(el.employeesWorkingUnder)
+      })
+
+    }
+    else if(res.data==[]) {
+      setLoader(false)
+    }
+    }
+  )
+},[])
+
+
+  const [profile, setProfile] = useState<any>(profileData ? profileData : profileD);
   const navigate = useNavigate();
 
   const [showArchiveModal, setShowArchiveModal] = useState(false);
@@ -500,7 +522,7 @@ function Signed() {
                 <div className="stable">
                   <Link to="/clientProgress">
                     <button type="button" className="btn FontStyle-TODOSEE">
-                      <img src={require("../../images/return.svg").default} />
+                      <img src={require("../../../images/return.svg").default} />
                       Client File : {profile.clientCompanyName}
                     </button>
                   </Link>
@@ -511,7 +533,7 @@ function Signed() {
                   className="btn btn-bgbClient"
                   onClick={() => editClientProfile()}
                 >
-                  <img src={require("../../images/Edit.svg").default} />
+                  <img src={require("../../../images/Edit.svg").default} />
                   Edit Profile
                 </button>
               </div>
@@ -523,7 +545,7 @@ function Signed() {
                 <div className="col-2 pr-0 text-center">
                   <div className="">
                     <img
-                      src={require("../../images/fullClientSee.svg").default}
+                      src={require("../../../images/fullClientSee.svg").default}
                       className="imgSigned-upload-Download"
                     />
                   </div>
@@ -543,7 +565,7 @@ function Signed() {
                   >
                     <img
                       className=""
-                      src={require("../../images/select.svg").default}
+                      src={require("../../../images/select.svg").default}
                     />
                     {UploadBtn ? (
                       <UploadDow
@@ -585,7 +607,7 @@ function Signed() {
                   <div className="text-end ">
                     <button className="SignedLargebtn">
                       <img
-                        src={require("../../images/tickClientBtn.svg").default}
+                        src={require("../../../images/tickClientBtn.svg").default}
                       />
                       SIGNED CONTRACT
                     </button>
@@ -938,7 +960,7 @@ function Signed() {
                         <span className="padding-email">
                           <img
                             style={{ width: "8%" }}
-                            src={require("../../images/gmail.svg").default}
+                            src={require("../../../images/gmail.svg").default}
                           />
                         </span>
                         Send Email
@@ -949,7 +971,7 @@ function Signed() {
                       <span className="padding-email">
                         <img
                           style={{ width: "8%" }}
-                          src={require("../../images/gmail.svg").default}
+                          src={require("../../../images/gmail.svg").default}
                         />
                       </span>
                       No Email !
@@ -970,14 +992,14 @@ function Signed() {
                       className="btn  fw-bold btn-TODOgmail"
                     >
                       <span className="padding-email">
-                        <img src={require("../../images/gmail.svg").default} />
+                        <img src={require("../../../images/gmail.svg").default} />
                       </span>
                       Send Email
                     </a>
                   ) : (
                     <button className="btn  fw-bold btn-TODOgmail">
                       <span className="padding-email">
-                        <img src={require("../../images/gmail.svg").default} />
+                        <img src={require("../../../images/gmail.svg").default} />
                       </span>
                       No Email !
                     </button>
@@ -1000,7 +1022,7 @@ function Signed() {
                         <span className="padding-email">
                           <img
                             style={{ width: "8%" }}
-                            src={require("../../images/whatsapp.svg").default}
+                            src={require("../../../images/whatsapp.svg").default}
                           />
                         </span>
                         Send What’s App
@@ -1011,7 +1033,7 @@ function Signed() {
                       <span className="padding-email">
                         <img
                           style={{ width: "8%" }}
-                          src={require("../../images/whatsapp.svg").default}
+                          src={require("../../../images/whatsapp.svg").default}
                         />
                       </span>
                       No What’s App !
@@ -1035,7 +1057,7 @@ function Signed() {
                         <span className="padding-email">
                           <img
                             style={{ width: "8%" }}
-                            src={require("../../images/whatsapp.svg").default}
+                            src={require("../../../images/whatsapp.svg").default}
                           />
                         </span>
                         Send What’s App
@@ -1046,7 +1068,7 @@ function Signed() {
                       <span className="padding-email">
                         <img
                           style={{ width: "8%" }}
-                          src={require("../../images/whatsapp.svg").default}
+                          src={require("../../../images/whatsapp.svg").default}
                         />
                       </span>
                       No What’s App !
@@ -1153,6 +1175,7 @@ function Signed() {
               </div>
             </div>
           
+      
            <div className="col-12 inPAdsBOX py-1">
            <div className="row">
              <div className="col-6 pt-2">
@@ -1160,49 +1183,54 @@ function Signed() {
                  Employees working for this client :
                </p>
              </div>
-             {profile.employeesWorkingUnder != null &&
-                profile.employeesWorkingUnder != [] ? 
-                  profile.employeesWorkingUnder.map((el) => (
-                    <div className="col-12 pb-1">
-                      <div className="row">
-                        <div className="col-9 d-flex align-items-center">
-                          <img
-                            style={{ width: "7%" }}
-                            className="pr-1"
-                            src={require("../../images/menSigned.svg").default}
-                          />
-                          {el.candidatName}
-                          <span className="pl-1">Since :</span>
-                          {el.candidatCurrentWork.map(
-                            (el) => el.workingSince
-                          )}
-                          <span className="pl-1">Salary :</span>
-                          {el.candidatCurrentWork.map((el) => el.salary)}
-                        </div>
-                        <div className="col-3">
-                          <button
-                            className="seeFullCandidat"
-                            onClick={(e) => viewFullProfile(el)}
-                          >
-                            <img
-                              src={require("../../images/seeCan.svg").default}
-                            />
-                            See profile
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                : 
-                  <div className="col-12 pb-1 d-flex">
-                    <img
-                      className="pr-1"
-                      src={require("../../images/menSigned.svg").default}
-                    />
-                    No Candidat! <span className="pl-1">Since :</span> Since No!
-                    <span className="pl-1">Salary :</span> No Salary!
-                  </div>
-                }
+             {
+           Loader ?
+            
+             
+               EMPunderWorking?.map((el) =>
+         
+               (
+                 <div className="col-12 pb-1">
+                   <div className="row">
+                     <div className="col-9 d-flex align-items-center">
+                       <img
+                         style={{ width: "7%" }}
+                         className="pr-1"
+                         src={require("../../../images/menSigned.svg").default}
+                       />
+                       {el.candidatName}
+                       <span className="pl-1">Since :</span>
+                       {el.candidatCurrentWork ?
+                       el.candidatCurrentWork.map(
+                         (el) => el.workingSince
+                       )
+                     :
+                     "No workingSince!"
+                     }
+                       <span className="pl-1">Salary :</span>
+                       {el.candidatCurrentWork.length >0 ?
+                       
+                       el.candidatCurrentWork.map((el) => el.salary)
+                     :"No salary!"
+                     }
+                     </div>
+                     <div className="col-3">
+                       <button
+                         className="seeFullCandidat"
+                         onClick={(e) => viewFullProfile(el)}
+                       >
+                         <img
+                           src={require("../../../images/seeCan.svg").default}
+                         />
+                         See profile
+                       </button>
+                     </div>
+                   </div>
+                 </div>
+               ))
+               : 
+               null
+         }
              <p className="mb-0">
                Ads Spent on this client :
                {profile.jobTotalBudget
@@ -1211,13 +1239,14 @@ function Signed() {
              </p>
            </div>
          </div>
-          
+         
+        
         
 
             {/* <div className="col-12 pt-4">
                 <div className="row">
                   <div className="col-5 pdf-btn">
-                    <img src={require("../../images/doc.svg").default} />
+                    <img src={require("../../../images/doc.svg").default} />
                     <span>Add document about this client </span>
                   </div>
                 </div>
@@ -1305,7 +1334,7 @@ function Signed() {
                 <div className="col-6 d-flex justify-content-end align-items-center">
                   <button className="pdf-btn" onClick={handleFileUpload}>
                     <img
-                      src={require("../../images/doc.svg").default}
+                      src={require("../../../images/doc.svg").default}
                       className="docImg"
                     />
                     <span>Add document about this client </span>
@@ -1328,7 +1357,7 @@ function Signed() {
                     className="btn btn-BlackEdit"
                     onClick={editClientProfile}
                   >
-                    <img src={require("../../images/Edit.svg").default} />
+                    <img src={require("../../../images/Edit.svg").default} />
                     Edit Profile
                   </button>
                   <p className="btn-Down text-center text-start">
@@ -1339,7 +1368,7 @@ function Signed() {
                 <div className="col-3 text-center">
                   <button type="button" className="btn btn-contractClient">
                     <img
-                      src={require("../../images/doc.svg").default}
+                      src={require("../../../images/doc.svg").default}
                       style={{ paddingRight: "5px" }}
                     />
                     Créer offre
@@ -1370,7 +1399,7 @@ function Signed() {
                 <div className="col-3">
                   <button type="button" className="btn btn-grilleClient">
                     <img
-                      src={require("../../images/salary.svg").default}
+                      src={require("../../../images/salary.svg").default}
                       style={{ paddingRight: "5px" }}
                     />
                     Grille de prix
@@ -1382,7 +1411,7 @@ function Signed() {
                 <div className="col-3">
                   <button type="button" className="btn  btn-careerClient">
                     <img
-                      src={require("../../images/doc.svg").default}
+                      src={require("../../../images/doc.svg").default}
                       style={{ paddingRight: "5px" }}
                     />
                     Créer contrat
@@ -1414,19 +1443,19 @@ function Signed() {
                                   </button>
                                 } */}
                                      <button className="btnDownload" onClick={()=>ViewDownloadFiles( doc.documentName)}>
-                                    <img src={require("../../images/dowBtn.svg").default} />
+                                    <img src={require("../../../images/dowBtn.svg").default} />
                                     {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
                                   </button>
                               </div>
                               <div className="col-2  d-flex align-item-end justify-content-end">
                                 <img
-                                  src={require("../../images/editSvg.svg").default}
+                                  src={require("../../../images/editSvg.svg").default}
                                   style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
                                   // onClick={() => renameDocument(doc._id, doc.documentName)}
                                   onClick={()=>{setRenameDocStatus(true);renameDocument(doc._id, doc.documentName,doc.originalName)}}
                                 />
                                 <img
-                                  src={require("../../images/Primaryfill.svg").default}
+                                  src={require("../../../images/Primaryfill.svg").default}
                                   style={{ width: "20px", cursor: 'pointer' }}
                                   onClick={() => deleteDocument(doc._id, doc.documentName)}
                                 />
@@ -1445,12 +1474,12 @@ function Signed() {
                           </div>
                           <div className="col-2  d-flex align-item-end justify-content-end">
                             <img
-                              src={require("../../images/editSvg.svg").default}
+                              src={require("../../../images/editSvg.svg").default}
                               style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
                               // onClick={() => renameDocument(doc._id, doc.documentName)}
                             />
                             <img
-                              src={require("../../images/Primaryfill.svg").default}
+                              src={require("../../../images/Primaryfill.svg").default}
                               style={{ width: "20px", cursor: 'pointer' }}
                               // onClick={() => deleteDocument(doc._id, doc.documentName)}
                             />
@@ -1472,11 +1501,11 @@ function Signed() {
                           </div>
                           <div className="col-2  d-flex align-item-end justify-content-end">
                             <img
-                              src={require("../../images/editSvg.svg").default}
+                              src={require("../../../images/editSvg.svg").default}
                               style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
                             />
                             <img
-                              src={require("../../images/Primaryfill.svg").default}
+                              src={require("../../../images/Primaryfill.svg").default}
                               style={{ width: "20px", cursor: 'pointer' }}
                             />
                           </div>

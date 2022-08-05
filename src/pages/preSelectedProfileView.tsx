@@ -26,12 +26,11 @@ function PreSelectedView() {
   const profileData = JSON.parse(localStorage.getItem("profile"));
   const { state } = useLocation();
   const [profile, setProfile] = useState<any>(state ? state : profileData);
+  const [Data,setData]=useState(profileData)
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
   const hiddenFileInput = React.useRef(null);
-  const [candidatContactOne, setCandidatContactOne] = useState(profile.candidatPhone != "" ? profile.candidatPhone.split(" ").join("") : "");
-  const [candidatContactTwo, setCandidatContactTwo] = useState(profile.candidatAlternatePhone != "" ? profile.candidatAlternatePhone.split(" ").join("") : "");
   const [candidatDocument, setCandidatDocument] = useState("");
   const [progress, setProgress] = useState<any>(0);
   const [docUploaded, setDocUploaded] = useState(false);
@@ -51,6 +50,11 @@ function PreSelectedView() {
   // const [Great, setGreat] = useState(false);
   // const [Superlovely, setSuperlovely] = useState(false);
   let data={profileData:profile ,path:"/preSelectedView"}
+
+  const showCustomerProfile =(data)=>{
+    localStorage.setItem("profile", JSON.stringify(data));
+    window.open("/clientSignedView", "_blank");
+}
 
      // Notification // 
 const notifyMoveSuccess = () => toast.success("Moved Archived Successfully!");
@@ -233,6 +237,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
       .then(respData => respData)
       .catch(err => err)
   }
+  console.log(Data)
 
   const responsive = {
     superLargeDesktop: {
@@ -379,14 +384,24 @@ className="SelectBtn"
             </div>
            <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pb-0 px-1 pt-1">
             <div className="row preColorRowSelected p-2">
- 
-                <div className="col-8 p-0">
-                <p>Selected  For  client : </p>
-<p className="CommentSelection">{profile.candidatPreSelectedFor[0].reasonForPreSelection ?profile.candidatPreSelectedFor[0].reasonForPreSelection : "No Reason Available!"} </p>
-                </div>
-                <div className="col-4 d-flex justify-content-end align-items-center">
-<button  className="btn customerProfil"><img src={require("../images/eyeProfil.svg").default}/>CUSTOMER PROFIL</button>
-                </div>
+            <p>Selected  For  client : </p>
+ {Data?.candidatPreSelectedFor.map((el)=>(
+
+ el.reasonForPreSelection?
+<>
+  <div className="col-8 pt-1 px-1">
+<p className="CommentSelection">{el.reasonForPreSelection} </p>
+  </div>
+  <div className="col-4 d-flex justify-content-end align-items-center">
+<button  className="btn customerProfil" onClick={(e)=>showCustomerProfile(el.clientId)}><img src={require("../images/eyeProfil.svg").default}   />CUSTOMER PROFIL</button>
+  </div>
+  </>
+  :
+  null
+ )
+ )
+
+ }             
             </div>
            </div>
            
@@ -400,9 +415,13 @@ className="SelectBtn"
                   style={{ maxWidth: "57%" }}
                 >
                   <div className="pre-CardMore force-overflow">
-                    <div className="d-flex">
+                    <div className="row">
+                      <div className="col-3 pr-0" style={{maxWidth:"22%"}}>
                       <p>Langues : </p>
-                      <span className="Todo-CardMore-span"> {profile.candidatLanguages.length != 0 ? profile.candidatLanguages.join(", ") : "No Langues!"}</span>
+                      </div>
+                    <div className="col-9 px-0">
+                    <span className="Todo-CardMore-span"> {profile.candidatLanguages.length != 0 ? profile.candidatLanguages.join(", ") : "No Langues!"}</span>
+                    </div>
                     </div>
                     <div className="d-flex ">
                       <p className="blue-text">Ready for work :</p>

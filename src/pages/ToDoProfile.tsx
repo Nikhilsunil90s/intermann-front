@@ -50,6 +50,7 @@ function ToDoProfile() {
 
 
   const [profile, setProfile] = useState<any>(state? state : profileData);
+  console.log(profile,"pro")
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
@@ -394,7 +395,7 @@ className="SelectBtn"
                   </div>
                   <div>
                     <p className="d-flex mb-0">
-                    <p>Motivation : <b>{candidatMotivationIcons[profile.candidatMotivation - 1].icon + " " + candidatMotivationIcons[profile.candidatMotivation - 1].motivation}</b> </p>
+                    <p>Motivation : <b>{candidatMotivationIcons[profile.candidatMotivation ].icon + " " + candidatMotivationIcons[profile.candidatMotivation ].motivation}</b> </p>
                     </p>
                   </div>
                   <p>Secteur : {profile.candidatActivitySector.toLocaleUpperCase()}</p>
@@ -555,9 +556,12 @@ className="SelectBtn"
                   id="style-3"
                 >
                   <div className="Todo-CardMore force-overflow ">
-                    <div className="d-flex ">
-                      <p>Langues: </p>
-                      <span className="Todo-CardMore-span"> {profile.candidatLanguages ? profile.candidatLanguages.join(", ") : "No Langues!"}</span>
+                  <div className="row ">
+                      <div className="col-3 pr-0"  style={{maxWidth:"22%"}}> 
+                      <p>Langues : </p>
+                      </div><div className="col-9 px-0">
+                      <span> {profile.candidatLanguages ? profile.candidatLanguages.join(", ") : "No Language!"}</span>
+                      </div>
                     </div>
                     <div className="d-flex align-items-center">
                       <p className="blue-text">Ready for work :</p>

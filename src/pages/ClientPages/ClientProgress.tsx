@@ -175,7 +175,7 @@ export default function ClientProgress() {
         value: "signatureSent", label: "Signature digitale envoyé ?", color: '#FF8B00'
       },
       {
-        value: "contractSigned", label: "Contrat singé ?", color: '#FF8B00'
+        value: "contractSigned", label: "Client Signe ?", color: '#FF8B00'
       },
       {
         value: "publicityStarted", label: "Publicité commencé ?", color: '#FF8B00'
@@ -837,7 +837,7 @@ setStatus(false)
                         <Select
                           name="candidatName"
                           closeMenuOnSelect={true}
-                          placeholder="‎ ‎ ‎ Select Un Candidat"
+                          placeholder="‎ ‎ ‎ Select Un Client"
                           className="basic-multi-select"
                           classNamePrefix="select"
                           onChange={handleNameChange}
@@ -876,7 +876,7 @@ setStatus(false)
                       name="jobName"
                       closeMenuOnSelect={true}
                       isMulti
-                      placeholder="‎ ‎ ‎ Select"
+                      placeholder="‎ ‎ ‎ Select jobs"
                       className="basic-multi-select"
                       classNamePrefix="select"
                       onChange={jobChange}
@@ -900,7 +900,7 @@ setStatus(false)
                               <Select
                               name="candidatMotivation"
                               closeMenuOnSelect={true}
-                              placeholder="‎ ‎ ‎ Select Motivation du Candidat"
+                              placeholder="‎ ‎ ‎ Select Motivation du Client"
                               className="basic-multi-select"
                               classNamePrefix="select"
                               onChange={handleMotivationChange}

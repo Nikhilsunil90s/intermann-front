@@ -1504,7 +1504,7 @@ setSectorOptions([...sectorops]);
                     <div className="col-2 d-flex px-0 justify-content-end ml-1">
                       <div className="d-flex align-items-center ">
                         <p className="fontSizeReactSwitch mb-0">
-                          Contrat singé ?
+                        Client Signe ?
                         </p>
                         <Switch
                           className="ml-left"

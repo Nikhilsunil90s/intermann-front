@@ -1159,7 +1159,7 @@ type="button"
                     </button>
                <div className="Lead-encore">
                   <p className="mb-0  pt-1">
-                  Contrat signé  avec le client
+                  Client Signe  avec le client
                   </p>
                   <p className="TODOclientChild">Nous recehrchons activement </p>
                   </div>

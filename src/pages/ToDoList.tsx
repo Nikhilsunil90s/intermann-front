@@ -791,9 +791,7 @@ setMotivationOptions([    {
     // console.log(jobval)
     let JobArr=[]
     jobval.map((el)=>{
-     
      JobArr.push(el.value)
-  
     })
     FilterJob=JobArr
     filterFunction()
@@ -1156,10 +1154,7 @@ styles={colourStyles}
                 filterData.length > 0 ?
                   filterData.map((profile, index) => (
                     <div className="col-md-6 col-xxl-4  col-xl-4 col-lg-4 col-sm-6 pl-0">
-                      <ToDoProfileCard data={profile} // Notification // 
-NottifySuccess={notifyMoveSuccess}
-NottifyErr={notifyMoveError}
-  //    End   // 
+                      <ToDoProfileCard data={profile}
  />
                     </div>
                   ))

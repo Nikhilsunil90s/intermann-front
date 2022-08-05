@@ -16,6 +16,9 @@ import RenameDoc from '../../components/Modal/RenameDoc_Modal'
 import ReadMoreReact from 'read-more-react';
 import PreModalClient from "../../components/Modal/preSelectedModalForClient"
 import { API_BASE_URL } from "../../config/serverApiConfig";
+import CLintHide from "../../components/Modal/HideClientProfile"
+import ClientREST from "../../components/Modal/ClientREStProfile"
+
 
 let RenameData=[]
 function ArchivedViewPage(){
@@ -24,8 +27,6 @@ function ArchivedViewPage(){
 
   const [profile, setProfile] = useState<any>(state)
   const [UploadBtn,setSelectUpload]= useState(false)
-  const [hideProfile,setHideProfile]=useState(false)
-  const [ResetModalProfile,setResetModalProfile]=useState(false)
   const hiddenImageInput = React.useRef(null);
   const [candidatDocument, setCandidatDocument] = useState("");
   const [progress, setProgress] = useState<any>(0);
@@ -36,6 +37,8 @@ function ArchivedViewPage(){
   const [RenameDocStatus,setRenameDocStatus]=useState(false)
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
   const [PreSelectedData,setPreSelected]=useState([])
+  const [HideProfile,setHideProfile]=useState(false)
+  const [RESTprofile,setREStProfile]=useState(false)
 
 
   const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating   style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}}/> <StarRating style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}} /> <Empty style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /></>}]; 
@@ -646,7 +649,7 @@ No What’s App !
                       <p className="italic-fontStyle text-center">Profile will be not deleted but hidded</p>
                 </div>
                 <div className="col-3 text-center">
-                     <button className="restProfile" onClick={()=>setResetModalProfile(true)}>
+                     <button className="restProfile" onClick={()=>setREStProfile(true)}>
                     <img src={require("../../images/rest.svg").default} />
                     Reset this profile</button>
                     <p className="italic-fontStyle text-center">Profile will be reset to todo stage</p>
@@ -771,6 +774,18 @@ No What’s App !
                   null
 
                   }
+                      {
+        HideProfile ?
+<CLintHide  props={profile} closeModal={setHideProfile} path={"/clientToDo"} />
+        :
+        null
+      }
+      {
+        RESTprofile ?
+        <ClientREST props={profile} closeModal={setREStProfile} path={"/clientToDo"}  />
+        :
+        null
+      }
                   </div>
                 
               </div>

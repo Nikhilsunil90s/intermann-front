@@ -12,6 +12,7 @@ export interface ColourOption {
     { value: 'Russe', label: 'Russe', color: '#FF8B00' },
     { value: 'Espagnol', label: 'Espagnol', color: '#FF8B00'},
     { value: 'Autre', label: 'Autre', color: '#FF8B00' },
+    { value: 'Suisse', label: 'Suisse', color: '#FF8B00' },
   ];
 
   export const colourOptionsFetes: readonly ColourOption[] = [
@@ -22,14 +23,12 @@ export interface ColourOption {
   ];
 
   export const fromPerson: readonly ColourOption[] = [
-    {value: 'Ejob', label: 'Ejob', color:  '#FF8B00' },
-    {  value: 'BestJobs', label: 'BestJobs',  color:  '#FF8B00', },
-    {value: 'Public24', label: 'Public24', color: '#FF8B00' },
-    {value: 'OLX', label: 'OLX', color: '#FF8B00'  },
-    {  value: 'Hipo', label: 'Hipo',  color:  '#FF8B00', },
-    {value: ' Website SEO', label: 'Website', color: '#FF8B00' },
-    {value: 'Linkedin', label: 'Linkedin', color: '#FF8B00'  },
-    {value: 'Jobble', label: 'Jobble', color: '#FF8B00'  },
+    {value: 'TikTok', label: 'TikTok', color:  '#FF8B00' },
+    {  value: 'Facebook', label: 'Facebook',  color:  '#FF8B00', },
+    {value: 'Google Ads', label: 'Google Ads', color: '#FF8B00' },
+    {value: 'Bing Ads', label: 'Bing Ads', color: '#FF8B00'  },
+    {  value: 'Linkedin', label: 'Linkedin',  color:  '#FF8B00', },
+    {value: 'Sanpchat', label: 'Sanpchat', color: '#FF8B00' },
 
   ];
 
