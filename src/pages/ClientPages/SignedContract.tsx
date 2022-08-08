@@ -1085,9 +1085,10 @@ function Signed() {
                       <p>Langues : </p>
                       <span className="Todo-ClinetCardMore-span">
                         
-                        {profile.clientLanguages.length
-                          ? profile.clientLanguages.join(", ")
-                          : "No Langues!"}
+                      {profile.clientLanguages.length
+                            
+                            ? profile.clientLanguages.join(", ")
+                            : "No Langues!"} 
                       </span>
                     </div>
                     <div className="d-flex align-items-center">

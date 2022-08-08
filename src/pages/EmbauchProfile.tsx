@@ -431,13 +431,13 @@ className="SelectBtn"
               <div className="row">
                <div className="col-8">
                 <div className="row">
-                  <div className="col-12 d-flex justify-content-start">
-                  <div className="workFont d-flex"><b className="d-flex"><p>WORK FOR </p>: <span>{profile.candidatCurrentWork[0].workingFor}</span></b></div>
+                  <div className="col-12 ">
+                 <div className="row"><div className="col-2 px-0"><b className="workFont"><p className="">WORK FOR </p></b></div> <div className="col-9 px-0"> <b><span className="workFont">: {profile.candidatCurrentWork[0].workingFor}</span></b></div></div>
                 </div>
-                <div className="col-12 d-flex justify-content-start">
+                <div className="col-12 px-0 d-flex justify-content-start">
                   <div className="workFont"><b className="d-flex"><p>Since </p>: <span>{profile.candidatCurrentWork[0].workingSince}</span></b></div>
                 </div>
-                <div className="col-12 d-flex justify-content-start">
+                <div className="col-12 px-0 d-flex justify-content-start">
                   <div className="workFont"><b className="d-flex"><p>Salary  </p>: <span>{profile.candidatCurrentWork[0].salary + " "}</span>€</b></div>
                 </div>
                 </div>
@@ -450,123 +450,7 @@ className="SelectBtn"
                 </div>
               
             </div>
-            {/* <div className="col-12 mt-1 ">
-              <div className="row justify-content-between">
-              
-                <div
-                  className="col-6 Social-Card px-1  scrollbar"
-                  id="style-3"
-                  style={{ maxWidth: "49%", marginRight: "10px" }}
-                >
-                  <div className="Todo-CardMore force-overflow">
-                    <div className="d-flex">
-                      <p>Langues : </p>
-                      <span> {profile.candidatLanguages.join(", ")}</span>
-                    </div>
-                    <div className="d-flex ">
-                      <p className="blue-text">Ready for work :</p>
-                      <span className="blue-text">
-                        {profile.candidatStartDate} -{profile.candidatEndDate}
-                      </span>
-                    </div>
-                    <div className="d-flex">
-                      <p>Permis :</p>
-                      <span>
-                        {profile.candidatLicensePermis ? "Yes" : "No"}
-                      </span>
-                    </div>
-                    <div className="d-flex">
-                      <p>Voyage en voiture :</p>
-                      <span>
-                        {profile.candidatConduireEnFrance ? "Yes" : "No"}
-                      </span>
-                    </div>
-                   
-                    <div className="d-flex">
-                      <p>Skills/note: </p>
-                      <span>{profile.candidatSkills}</span>
-                    </div>
-                    <div className="d-flex">
-                      <p className="text-dark">Trouvé sur  : </p>
-                      <span className="text-dark">
-                        {profile.candidatJob}
-                      </span>
-                    </div>
-                   
-                  </div>
-                </div>
-                <div
-                  className="col-6 Social-Card text-center p-0"
-                  style={{ maxWidth: "49%" }}
-                >
-                  <p className="Span-Styling pt-2 px-3">
-                    Mail : {profile.candidatEmail ? profile.candidatEmail : "No Email Provided!"}
-                  </p>
-                  
-                  <button className="btn btn-gmail">
-                    <a
-                      href="https://accounts.google.com/"
-                      className="text-dark fw-bold"
-                      target="_blank"
-                    >
-                      <span className="padding-email">
-                        <img src={require("../images/gmail.svg").default} />
-                      </span>
-                      Send Email
-                    </a>
-                  </button>
-                  <p className="Span-Styling mt-2 px-3">Facebook : {profile.candidatFBURL ? profile.candidatFBURL : "No Facebook URL!"}</p>
-                  <a
-                    href={profile.candidatFBURL}
-                    target="_blank"
-                    className="btn  btn-see"
-                  >
-                    <span className="padding-email">
-                      <img
-                        style={{ width: "8%" }}
-                        src={require("../images/facebook.svg").default}
-                      />
-                    </span>
-                    See Profile
-                  </a>
-
-                  <p className="Span-Styling mt-2 px-3">
-                    Phone : {profile.candidatPhone ? profile.candidatPhone : "No Phone Number!"}
-                  </p>
-                  <button className="btn btn-whatsapp btn-see">
-                    <a
-                      href={`https://wa.me/${profile.candidatPhone}`}
-                      target="_blank"
-                    >
-                      <span className="padding-email">
-                        <img
-                          style={{ width: "8%" }}
-                          src={require("../images/whatsapp.svg").default}
-                        />
-                      </span>
-                      Send What’s App
-                    </a>
-                  </button>
-                  <p className="Span-Styling mt-2 px-3">
-                    Phone 2 : {profile.candidatAlternatePhone ? profile.candidatAlternatePhone : "No AlternatePhone Number!"}
-                  </p>
-                  <button className="btn btn-whatsapp btn-see">
-                    <a
-                      href={`https://wa.me/${profile.candidatAlternatePhone}`}
-                      target="_blank"
-                    >
-                      <span className="padding-email">
-                        <img
-                          style={{ width: "8%" }}
-                          src={require("../images/whatsapp.svg").default}
-                        />
-                      </span>
-                      Send What’s App
-                    </a>
-                  </button>
-                </div>
-              </div>
-            </div> */}
+           
              <div className="col-xxl-12 col-xl-12 col-lg-12 col-12-md pb-0 pt-1 px-1">
               <div className="row justify-content-between">
               
@@ -820,15 +704,7 @@ No FB URL!
             </div>
             <div className="col-12 Social-Card mt-1">
               <div className="row p-1 justify-content-between">
-                {/* <div className="col-3 text-center">
-                  <button type="button" className="btn btn-move" onClick={() => setShowInProgressModal(true)}>
-                    Move to In Progress
-                  </button>
-                  {showInProgressModal ?
-                    <InProgressModal props={profile} closeModal={setShowInProgressModal} /> : null
-                  }
-                  <p className="italic-font">Si embauché</p>
-                </div> */}
+              
                
                 <div className="col-xxl-3  col-lg-3 col-md-4 col-sm-4 text-center">
                   <button
@@ -913,14 +789,7 @@ No FB URL!
                                 <p className="download-font mb-0">{doc.originalName}</p>
                               </div>
                               <div className="col-6 text-center">
-                                {/* {progress > 0 && progress < 100  ?
-                                  <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
-                                  :
-                                  <button className="btnDownload">
-                                    <img src={require("../images/dowBtn.svg").default} />
-                                    {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
-                                  </button>
-                                } */}
+                            
                                      <button className="btnDownload" onClick={()=>ViewDownloadFiles( doc.documentName)}>
                                     <img src={require("../images/dowBtn.svg").default} />
                                     {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
@@ -955,12 +824,11 @@ No FB URL!
                             <img
                               src={require("../images/editSvg.svg").default}
                               style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
-                              // onClick={() => renameDocument(doc._id, doc.documentName)}
                             />
                             <img
                               src={require("../images/Primaryfill.svg").default}
                               style={{ width: "20px", cursor: 'pointer' }}
-                              // onClick={() => deleteDocument(doc._id, doc.documentName)}
+                              
                             />
                           </div>
                         </div>

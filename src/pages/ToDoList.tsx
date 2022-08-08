@@ -532,9 +532,9 @@ setMotivationOptions([    {
         })
           .then((reD) => reD.json())
           .then((result) => {
-            {
+         {
               // setFilterData([...result.data]);
-              // console.log(result,"result")
+
               setFilterData([...result.data]);
             }
             // setStatus(result.status);
@@ -558,11 +558,8 @@ setMotivationOptions([    {
           .then((reD) => reD.json())
           .then((result) => {
             {
-              // setFilterData([...result.data]);
-              // console.log(result,"result")
               setFilterData([...result.data]);
             }
-            // setStatus(result.status);
           })
           .catch((err) => err);
         setLoader(true);
@@ -612,30 +609,7 @@ setMotivationOptions([    {
         })
         .catch((err)=>err)
       }
-      // if (DateArr.length > 0 && SelectedName.length > 0 && MotivationArr.length > 0 && LicencePermisArr.length > 0 ) {
-      //   fetch(`${API_BASE_URL}getCandidats/?candidatLicensePermis=${LicencePermisArr}?candidatMotivation=${MotivationArr}?candidatName=${SelectedName}?candidatStartDate=${DateArr}`, {
-
-      //     method: "GET",
-      //     headers: {
-      //       Accept: "application/json",
-      //       "Content-Type": "application/json",
-      //       Authorization: "Bearer " + localStorage.getItem("token"),
-      //     },
-      //   })
-      //     .then((reD) => reD.json())
-      //     .then((result) => {
-      //       {
-      //         // setFilterData([...result.data]);
-      //         // console.log(result,"result")
-      //         setFilterData([...result.data]);
-      //       }
-      //       // setStatus(result.status);
-      //     })
-      //     .catch((err) => err);
-      //   setLoader(true);
-      // }
     }
-    
     if (
       selectedSector.length > 0 &&
       selectedJob.length == 0 &&
@@ -681,99 +655,22 @@ setMotivationOptions([    {
       )
         .then((reD) => reD.json())
         .then((result) => {
-          {
+        if(result.length > 0){
+          setLoader(true)
+          setStatus(true)
             setFilterData([...result.data]);
           }
-          setStatus(result.status);
+          if(result.length == 0){
+            setLoader(true)
+            setStatus(false);
+          }
         })
         .catch((err) => err);
-      setLoader(true);
 
 
 
     }
-
-
-    if (
-      selectedSector.length > 0 &&
-      selectedLanguages.length > 0 &&
-      selectedJob.length == 0
-    ) {
-      await fetch(
-        `${API_BASE_URL}filterToDoSL/?sector=${selectedSector}&languages=${selectedLanguages}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-        .then((reD) => reD.json())
-        .then((result) => {
-          {
-            setFilterData([...result.data]);
-          }
-          setStatus(result.status);
-        })
-        .catch((err) => err);
-      setLoader(true);
-    }
-    if (
-      selectedSector.length > 0 &&
-      selectedJob.length > 0 &&
-      selectedLanguages.length > 0
-    ) {
-      await fetch(
-        `${API_BASE_URL}filterToDoSJL/?sector=${selectedSector}&jobs=${selectedJob}&languages=${selectedLanguages}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-        .then((reD) => reD.json())
-        .then((result) => {
-          {
-            setFilterData([...result.data]);
-          }
-          setStatus(result.status);
-        })
-        .catch((err) => err);
-      setLoader(true);
-    }
-
-    if (
-      selectedLanguages.length > 0 &&
-      selectedJob.length == 0 &&
-      selectedSector.length == 0
-    ) {
-      await fetch(
-        `${API_BASE_URL}filterToDoCandidatByLanguages/?languages=${selectedLanguages}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-        .then((reD) => reD.json())
-        .then((result) => {
-          {
-            setFilterData([...result.data]);
-          }
-          setStatus(result.status);
-        })
-        .catch((err) => err);
-      setLoader(true);
-    }
-    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0 && emailArr.length == 0 && contactArr.length == 0) {
+    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0 && emailArr.length == 0 && contactArr.length == 0 && FilterJob.length == 0) {
       {
         setLoader(true)
         setStatus(true)
@@ -789,11 +686,9 @@ setMotivationOptions([    {
 
   const jobChange = async (jobval) => {
     // console.log(jobval)
-    let JobArr=[]
     jobval.map((el)=>{
-     JobArr.push(el.value)
+      FilterJob.push(el.value)
     })
-    FilterJob=JobArr
     filterFunction()
   }
   const onDateChange=(e:any)=>{

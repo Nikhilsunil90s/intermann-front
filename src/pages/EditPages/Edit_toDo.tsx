@@ -175,23 +175,30 @@ function EditDo() {
   const notifyCandidatEditError = () => toast.error("Cannot Edit Candidat! Please Try Again.");
 
   const switchHandle=(checked,id,e)=>{
-
-    if(Permis === true){
-      setFormTouched(true)
-      setPermis(false)
-   setData({ ...data, candidatLicensePermis:true })
-      console.log(data,"daasd")
-    }
-    if(Permis === false){
+console.log(checked,"checked")
+    if(checked === true){
       setFormTouched(true)
       setPermis(true)
-   setData({ ...data, candidatLicensePermis: false })
+   setData({ ...data, ['candidatLicensePermis']:true })
+      console.log(data,"daasd")
+    }
+    if(checked === false){
+      setFormTouched(true)
+      setPermis(false)
+   setData({ ...data, ['candidatLicensePermis']: false })
       console.log(data,"daasd")
     }
     if(e=="Voyage"){
-      setFormTouched(true)
-   setVoyage(checked)
-   setData({ ...data, ['candidatConduireEnFrance']: checked })
+      if(checked == true){
+        setFormTouched(true)
+        setVoyage(true)
+        setData({ ...data, ['candidatConduireEnFrance']: checked })
+      }
+if(checked == false){
+  setFormTouched(true)
+  setVoyage(false)
+  setData({ ...data, ['candidatConduireEnFrance']: checked })
+}
     }
   }
 

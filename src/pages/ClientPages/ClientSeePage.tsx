@@ -1119,9 +1119,10 @@ console.log(profile,"profile")
                     <div className="d-flex align-items-center">
                       <p>Langues : </p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.clientLanguages
+                        {profile.clientLanguages.length
+                            
                           ? profile.clientLanguages.join(", ")
-                          : "No Langues!"}
+                          : "No Langues!"} 
                       </span>
                     </div>
                     <div className="d-flex align-items-center">

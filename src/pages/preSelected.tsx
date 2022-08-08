@@ -624,12 +624,9 @@ console.log(statusProfiles,"filteredresponse.status")
           };
         
           const jobChange = async (jobval) => {
-          let JobArr=[]
-
           jobval.map((el)=>{
-            JobArr.push(el.value)
+            filterData.push(el.value)
           })
-          FilterJob=JobArr
           filterFunction()
 
           }

@@ -479,24 +479,15 @@ const notifyMoveError = () => toast.error("Not Moved..");
   }, []);
  
   const jobChange = async (jobval) => {
-    // console.log(jobval)
-    let JobArr=[]
     jobval.map((el)=>{
      
-     JobArr.push(el.value)
+     FilterJob.push(el.value)
   
     })
-    FilterJob=JobArr
     filterFunction()
-    console.log(FilterJob,"jee")
   }
-  // useEffect(() => {
-  //   window.scroll({
-  //     top: 0,
-  //     left: 0,
-  //     behavior: 'smooth'
-  //   });
-  // })
+ 
+
   const ClientChange=(e)=>{
     setSelectedSector("")
      if(e.value){
@@ -547,98 +538,7 @@ SelectedClient=[]
               </div>
             </div>
           </div>
-          {/* <div className="col-6">
-            <p>Filtre Secteur d’activité</p>
-            <div className="dropdown">
-              <div aria-labelledby="dropdownMenuButton1">
-                <select
-                  name="candidatActivitySector"
-                  className="form-select"
-                  onChange={handleSectorChange}
-                  onClick={() => {
-                    setSelectedJob([]);
-                    filterFunction();
-                  }}
-                >
-                  <option>Select Un Secteur</option>
-                  {sectors &&
-                    sectors.map((sector) => (
-                      <option value={sector.sectorName}>
-                        <a className="dropdown-item" href="#">
-                          {sector.sectorName}
-                        </a>
-                      </option>
-                    ))}
-                </select>
-              </div>
-            </div>
-            <p className="last-child">Filtre Langues du candidat</p>
-            <div>
-              <div>
-                <input
-                  type="checkbox"
-                  name="language"
-                  value="Roumain"
-                  onClick={getSelectedLanguage}
-                />
-                <span className="ps-2">Roumain</span>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  name="language"
-                  value="Francais"
-                  onClick={getSelectedLanguage}
-                />
-                <span className="ps-2">Français</span>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  name="language"
-                  value="Anglais"
-                  onClick={getSelectedLanguage}
-                />
-                <span className="ps-2">Anglais</span>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  name="language"
-                  value="Italien"
-                  onClick={getSelectedLanguage}
-                />
-                <span className="ps-2">Italien</span>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  name="language"
-                  value="Russe"
-                  onClick={getSelectedLanguage}
-                />
-                <span className="ps-2">Russe</span>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  name="language"
-                  value="Espagnol"
-                  onClick={getSelectedLanguage}
-                />
-                <span className="ps-2">Espagnol</span>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  name="language"
-                  value="Autre"
-                  onClick={getSelectedLanguage}
-                />
-                <span className="ps-2">Autre</span>
-              </div>
-            </div>
-          </div> */}
+        
              <div className="col-12 bg-white p-2 rounded001 mb-1">
             <div className="row ">
               <div className="col-lg-4 col-md-6 col-sm-6">
@@ -660,25 +560,7 @@ SelectedClient=[]
                         <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
 
                                             }
-                    {/* <select
-                      name="candidatActivityName"
-                      className="form-select"
-                      onChange={handleNameChange}
-                      onClick={() => {
-                        // setSelectedJob([]);
-                        filterFunction();
-                      }}
-                    >
-                      <option value="Select Un Name" className="fadeClass001">Select</option>
-                      {nameOptions &&
-                        SelectDropDown.map((Name) => (
-                          <option value={Name.candidatName}>
-                            <button className="dropdown-item">
-                              {Name.candidatName}
-                            </button>
-                          </option>
-                        ))}
-                    </select> */}
+                  
                   </div>
                 </div>
               </div>
@@ -698,25 +580,7 @@ SelectedClient=[]
                         styles={colourStyles}
                       /> : <p>Select Un Secteur!</p>
                     }
-                    {/* <select
-                      name="candidatActivitySector"
-                      className="form-select"
-                      onChange={handleSectorChange}
-                      onClick={() => {
-                        setSelectedJob([]);
-                        filterFunction();
-                      }}
-                    >
-                      <option value="Select Un Secteur" className="fadeClass001">Select Un Secteur</option> */}
-                    {/* {sectors &&
-                        sectors.map((sector) => (
-                          <option value={sector.sectorName}>
-                            <button className="dropdown-item">
-                              {sector.sectorName}
-                            </button>
-                          </option>
-                        ))} */}
-                    {/* </select> */}
+                   
                   </div>
                 </div>
               </div>
@@ -807,30 +671,7 @@ SelectedClient=[]
               }
             </div>
           </div>
-          {/* <div className="col-6">
-            <p>Filtre selection métier / job</p>
-            <div className="box">
-              <ul className="list-group">
-                {jobs.length > 0 ? (
-                  jobs.map((job) => (
-                   
-                    <li
-                    className="job-ul list-group-item list-group-item-action"
-                    onClick={(e)=>{HandleChecked(e,job);filterFunction()}} value={job.jobName}
-                  > <span style={{color:"black",textAlign:"center",width:"100%",display:"flex",justifyContent:"space-between"}}>
-                   {selectedJob.find((e) => e == job.jobName) ? (
-                          <div className="tick"></div>
-                      ) : null} 
-                  <p>{job.jobName}</p></span>
-                   
-                  </li>
-                  ))
-                ) : (
-                  <p>Please Select a Sector to view Jobs!</p>
-                )}
-              </ul>
-            </div>
-          </div> */}
+         
             {Loader ? 
                 <>
                   {status ? 

@@ -88,8 +88,8 @@ const ArchivedProfileCard = (props: any) => {
                 <div className="pr-0 pl-1 mb-1 ArchivedCardChildFonts">
                     {/* <p>Name:  <b>{props.props.candidatName}</b> </p> */}
                     {/* <p>Age: <b>{props.props.candidatAge}</b></p> */}
-                    <p>Secteur: <b> {props.props.candidatActivitySector.toLocaleUpperCase()}</b></p>
-                    <p>Job: <b> {props.props.candidatJob.toLocaleUpperCase()}</b></p>
+                    <p>Secteur: <b> {props.data.candidatActivitySector ?  props.data.candidatActivitySector.toLocaleUpperCase() : "No Sector!"}</b></p>
+                    <p>Job: <b> {props.data.candidatJob ? props.data.candidatJob.toLocaleUpperCase() : "No Job!"}</b></p>
                     <p>Candidats age: <b>{props.props.candidatAge ? props.props.candidatAge +"years old" : "Age Not Available!"}</b></p>
                     <p>Langues:  <b>  {props.props.candidatLanguages ? props.props.candidatLanguages.length > 3 ? props.props.candidatLanguages.slice(0,3).join(", ") + "..." : props.props.candidatLanguages.join(", "): "No Langues Selected!"} </b></p>
                     <p>Phone Number:  <b>{props.props.candidatPhone}</b></p>

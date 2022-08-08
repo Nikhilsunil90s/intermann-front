@@ -265,16 +265,13 @@ function ArchivedList() {
  
 
   const jobChange = async (jobval) => {
-    // console.log(jobval)
     let JobArr=[]
     jobval.map((el)=>{
      
-     JobArr.push(el.value)
+     FilterJob.push(el.value)
   
     })
-    FilterJob=JobArr
     filterFunction()
-    console.log(FilterJob,"jee")
   } 
 
   const LanguageChange = async (lang) => {
@@ -567,19 +564,6 @@ SelectedClient=[]
     <>
       <div className="container-fluid">
         <div className="row pd">
-          {/* <div className="col-12 text-center">
-            <img
-              src={require("../images/archive.svg").default}
-              style={{ width: "70%" }}
-            />
-            <p className="text-family">
-              Ici vous avez la liste des candidats qui ont été virés ou archivés
-            </p>
-            <p className="child-text">
-              Here you have the list of candidates who have been fired or
-              archived
-            </p>
-          </div> */}
                <div className="col-12 card-tops px-1" style={{ padding: "0px", marginBottom: "20px" }}>
             <div className="row text-start">
               <div className="card " style={{ padding: "15px 15px", borderRadius: "15px", marginBottom: "0px" }}>

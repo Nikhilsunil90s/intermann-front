@@ -121,9 +121,9 @@ const ToDoProfileCard = (props: any) => {
                     <p className="todoCardbody">Name : <b>{props.data.candidatName.toLocaleUpperCase()}</b></p>
                     <p className="todoCardbody">Age : <b>{props.data.candidatAge ? props.data.candidatAge : "Age Not Available!"}</b></p> */}
                     {/* <p className="todoCardbody">Motivation : <b>{candidatMotivationIcons[props.data.candidatMotivation - 1].icon + " " + candidatMotivationIcons[props.data.candidatMotivation - 1].motivation}</b> </p> */}
-                    <p className="todoCardbody mb-0"><b>Secteur : {props.data.candidatActivitySector.toLocaleUpperCase()}</b></p>
+                    <p className="todoCardbody mb-0"><b>Secteur : {props.data.candidatActivitySector ?  props.data.candidatActivitySector.toLocaleUpperCase() : "No Sector!"}</b></p>
 
-                    <p className="todoCardbody mb-0"><b>Job : {props.data.candidatJob.toLocaleUpperCase()}</b> </p>
+                    <p className="todoCardbody mb-0"><b>Job : {props.data.candidatJob ? props.data.candidatJob.toLocaleUpperCase() : "No Job!"}</b> </p>
                     <p className="todoCardbody-p mb-0">Langues : <b>{props.data.candidatLanguages !== [] ? props.data.candidatLanguages.length > 3 ? props.data.candidatLanguages.slice(0,3).join(", ") + "...":  props.data.candidatLanguages.join(", ") : "No Langues Selected!"}</b>
                     </p>
                     <p className="todoCardbody-p mb-0">Phone Number : <b>{props.data.candidatPhone}</b> </p>

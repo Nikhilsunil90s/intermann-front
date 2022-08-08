@@ -984,7 +984,10 @@ No What’s App !
                     </div>
                     <div className="d-flex align-items-center">
                       <p>Langues : </p>
-                      <span className="Todo-ClinetCardMore-span"> {profile.clientLanguages[0] ? profile.clientLanguages[0].join(", ") : "No Langues!"}</span>
+                      <span className="Todo-ClinetCardMore-span">   {profile.clientLanguages.length
+                            
+                            ? profile.clientLanguages.join(", ")
+                            : "No Langues!"} </span>
                     </div>
                     <div className="d-flex align-items-center">
                       <p>Voyage en voiture :</p>

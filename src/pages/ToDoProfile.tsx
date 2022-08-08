@@ -53,7 +53,7 @@ function ToDoProfile() {
   console.log(profile,"pro")
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
-  const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
+  const candidatMotivationIcons = [{ icon: "no", motivation: 'no' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
   const hiddenFileInput = React.useRef(null);
   const [recommendations, setRecommendations] = useState([]);
   const [candidatContactOne, setCandidatContactOne] = useState(profile.candidatPhone != "" ? profile.candidatPhone.split(" ").join("") : "");
@@ -560,7 +560,7 @@ className="SelectBtn"
                       <div className="col-3 pr-0"  style={{maxWidth:"22%"}}> 
                       <p>Langues : </p>
                       </div><div className="col-9 px-0">
-                      <span> {profile.candidatLanguages ? profile.candidatLanguages.join(", ") : "No Language!"}</span>
+                      <span className="Todo-CardMore-span">  {profile.candidatLanguages ? profile.candidatLanguages.join(", ") : "No Language!"}</span>
                       </div>
                     </div>
                     <div className="d-flex align-items-center">
