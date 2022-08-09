@@ -11,6 +11,7 @@ import { colourOptions, ColourOption } from "../Selecteddata/data";
 import PreSelectedCard from "./preSelectedCard";
 import chroma from 'chroma-js';
 import ProfileLoader from "../components/Loader/ProfilesLoader"
+import { Console } from "console";
 
 
 declare namespace JSX {
@@ -28,11 +29,14 @@ declare namespace JSX {
       }
     }
   }
+  let emailArr=[]
   let SelectedName = []
   let FilterJob = [];
   let MotivationArr = []
   let LicencePermisArr = []
   let DateArr=[]
+  let contactArr=[]
+  let LanguageFilter=[]
 function Preselected(){
  
           const [sectors, setSectors] = useState([]);
@@ -49,16 +53,8 @@ function Preselected(){
           const [showMore, setShowMore] = useState(true)
           const [statusProfiles,setStatusProfile]=useState(false)
           const [email,setEmail]=useState([])
-          const [licenceOptions, setLicenseOptions] = useState([
-            {
-              value: "Select Licence", label: "Select Licence", color: '#FF8B00'
-            }, {
-              value: "true", label: "Have Licence", color: '#FF8B00'
-            },
-            {
-              value: "false", label: "No Licence", color: '#FF8B00'
-            }
-          ])
+          const [LanguageOp,setLangOp]=useState([])
+          const [licenceOptions, setLicenseOptions] = useState([])
         
           const [motivationOptions, setMotivationOptions] = useState([
             {
@@ -76,7 +72,7 @@ function Preselected(){
             }
           ])
           const [ContactOptions,setContactOptions]=useState([])
-          const [LicensePermis, setLicensePermis] = useState(Boolean) as any
+          const [LicensePermis, setLicensePermis] = useState([]) as any
           const [selectByName, setSelectName] = useState([])
         
           const colourStyles: StylesConfig<ColourOption, true> = {
@@ -132,6 +128,21 @@ function Preselected(){
             }),
           };
         
+          const EmailFilter=()=>{
+            return fetch(`${API_BASE_URL}getCandidats/?candidatEmail=${emailArr}&candidatStatus=Pre-Selected`, {
+         
+               method: "GET",
+               headers: {
+                 Accept: "application/json",
+                 "Content-Type": "application/json",
+                 Authorization: "Bearer " + localStorage.getItem("token"),
+               },
+             })
+               .then(reD => reD.json())
+               .then(result => result)
+               .catch((err) => err);
+           }
+
           useEffect(() => {
             if (sectors.length == 0) {
               fetchAllSectors()
@@ -143,6 +154,7 @@ function Preselected(){
                   // console.log(err);
                 });
             }
+  
             let jobResults = jobs.map(ajob => {
               return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
             })
@@ -151,7 +163,20 @@ function Preselected(){
           }, [jobs]);
         
 
-
+          const ContactFilter=()=>{
+            return fetch(`${API_BASE_URL}getCandidatsByPhoneNumber/?phoneNumber=${contactArr}&candidatStatus=Pre-Selected`, {
+         
+               method: "GET",
+               headers: {
+                 Accept: "application/json",
+                 "Content-Type": "application/json",
+                 Authorization: "Bearer " + localStorage.getItem("token"),
+               },
+             })
+               .then(reD => reD.json())
+               .then(result => result)
+               .catch((err) => err);
+           }
 
           useEffect(() => {
             console.log(sectors);
@@ -214,6 +239,7 @@ function Preselected(){
           };
         
         useEffect(()=>  {
+         
             if (nameOptions.length == 0 && statusProfiles===true) {
               fetchProfiles().then((profilesResult) => {
                 console.log(profilesResult.data,"profilesResult")
@@ -242,7 +268,64 @@ function Preselected(){
            ) } 
                  
               }
+
         )
+        useEffect(()=>{
+          if(LicensePermis.length == 0){
+           setLicensePermis([
+              {
+                value: "Select Licence", label: "Select Licence", color: '#FF8B00'
+              }, {
+                value: "true", label: "Have Licence", color: '#FF8B00'
+              },
+              {
+                value: "false", label: "No Licence", color: '#FF8B00'
+              }
+            ])
+          }
+          if(LanguageOp.length == 0){
+            setLangOp([{ value: 'Roumain', label: 'Roumain', color:  '#FF8B00' },
+            { value: 'Français', label: 'Français', color:  '#FF8B00', },
+            { value: 'Anglais', label: 'Anglais', color: '#FF8B00' },
+            { value: 'Italien', label: 'Italien', color: '#FF8B00'  },
+            { value: 'Russe', label: 'Russe', color: '#FF8B00' },
+            { value: 'Espagnol', label: 'Espagnol', color: '#FF8B00'},
+            { value: 'Autre', label: 'Autre', color: '#FF8B00' },
+            { value: 'Suisse', label: 'Suisse', color: '#FF8B00' },
+          ])
+            }
+          if (email.length == 0) {
+            let emailops=[]as any
+            fetchProfiles().then((profileResult) => {
+              console.log(profileResult,"profileResult")
+              profileResult.data.filter((item) => {
+                if(item.candidatEmail){
+               emailops.push({ value: item.candidatEmail, label: item.candidatEmail, color: '#FF8B00' })
+                }
+            })
+               setEmail([  {
+                value: "Select email", label: "Select Email", color: '#FF8B00'
+              },...emailops])
+              console.log(emailops,"emailops")
+            })
+              console.log([...email],"email")
+            }
+            if (ContactOptions.length == 0) {
+              let ContactOp =[]as any
+              fetchProfiles().then((profileResult) => {
+                profileResult.data.filter((item) => {
+                  if(item.candidatPhone){
+                    ContactOp.push({ value: item.candidatPhone, label: item.candidatPhone, color: '#FF8B00' })
+                  }
+              })
+                 setContactOptions([  {
+                  value: "Select Contact", label: "Select Contact", color: '#FF8B00'
+                },...ContactOp])
+                console.log(ContactOp,"ContactOp")
+              })
+                console.log([...email],"email")
+              }
+        })
           const fetchProfilesForAJob = async (jobName: string) => {
             return await fetch(API_BASE_URL + "fetchProfilesForAJob", {
               method: "POST",
@@ -262,6 +345,9 @@ function Preselected(){
             // console.log(e.target.value)
             SelectedName = []
             MotivationArr = []
+            emailArr=[]
+            contactArr=[]
+            LanguageFilter=[]
             LicencePermisArr = []
             setSelectedSector("")
             setSelectedJob([])
@@ -278,6 +364,9 @@ function Preselected(){
           const HandelLicence = (e) => {
             LicencePermisArr = []
             SelectedName = []
+            emailArr=[]
+            contactArr=[]
+            LanguageFilter=[]
             setSelectedSector("")
             MotivationArr = []
             console.log(e.value)
@@ -294,6 +383,9 @@ function Preselected(){
               const handleMotivationChange = (e: any) => {
               // console.log(e.target.value)
               MotivationArr = []
+              emailArr=[]
+              contactArr=[]
+              LanguageFilter=[]
               LicencePermisArr = []
               setSelectedSector("")
               SelectedName = []
@@ -311,11 +403,37 @@ function Preselected(){
                 // setSelectedSector(sectorField);
               }
             };
+
+            const LanguageChange = async (lang) => {
+ 
+              setSelectedSector("")
+              SelectedName=[]
+              
+                  // console.log(jobval)
+                  let LangArr=[]
+                  if(lang.value == "Select Language"){
+                   LangArr=[]
+                  filterFunction()
+                  }
+                  if(lang.vlaue !== "" && lang.value !== "Select Language"){
+                  lang.map((el)=>{
+                   
+                     LangArr.push(el.value)
+                
+                  })
+                  LanguageFilter=LangArr
+                  filterFunction()
+                  console.log(LanguageFilter,"jee")
+                }
+                }
           
           const handleSectorChange = (e: any) => {
             // console.log(e.target.value)
             SelectedName = []
             MotivationArr = []
+            emailArr=[]
+            contactArr=[]
+            LanguageFilter=[]
             LicencePermisArr = []
             FilterJob = [];
             setSelectedJob([])
@@ -347,26 +465,7 @@ function Preselected(){
            
           }, [selectedJob])
         
-          const HandleChecked = (e: any, job: any) => {
-            // FilterJob=[]
-            if (!FilterJob.find((e) => e == job.jobName)) {
-              // console.log("hello")
-              FilterJob.push(job.jobName);
-              setSelectedJob(FilterJob);
-            }
-            else {
-              if (FilterJob.length === 1) {
-                FilterJob = []
-              }
-              // console.log(FilterJob.length,"index")
-              //  console.log("not checked")
-              FilterJob = FilterJob.filter((item) => { return item !== job.jobName })
-              console.log(FilterJob.length, "newarr")
-        
-              setSelectedJob(FilterJob)
-              // console.log(selectedJob,"else")
-            }
-          }
+  
         
           const getSelectedLanguage = (e: any) => {
             if (e.target.checked) {
@@ -388,7 +487,45 @@ function Preselected(){
           const filterFunction = async () => {
             setLoader(false);
         
-            if (SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0) {
+            if (SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || emailArr.length > 0 || contactArr.length > 0) {
+              if (emailArr.length > 0) {
+                setFilterData([])
+                SelectedName = []
+                MotivationArr = []
+                LicencePermisArr=[]
+                setSelectedSector("")
+                DateArr=[]
+        
+                EmailFilter().then((data)=>{
+                  if(data.total === 0){
+                    setLoader(true) 
+                    setStatus(false)
+                       }else{
+                     setFilterData([...data.data]) ; setLoader(true); setStatus(true)
+                     }  
+                })
+                .catch((err)=>err)
+              }
+              if (contactArr.length > 0) {
+                setFilterData([])
+        SelectedName = []
+        MotivationArr = []
+        LicencePermisArr=[]
+        setSelectedSector("")
+        DateArr=[]
+        emailArr=[]
+        ContactFilter().then((data)=>{
+          if(data.data.length == 0){
+            setLoader(true) 
+            setStatus(false)
+               }else{
+             setFilterData([...data.data]) ; setLoader(true); setStatus(true)
+             }  
+        })
+        .catch((err)=>err)
+      }
+    
+            
               if (SelectedName.length > 0) {
                 LicencePermisArr = []
                 fetch(`${API_BASE_URL}getCandidats/?candidatName=${SelectedName}&candidatStatus=Pre-Selected`, {
@@ -594,8 +731,8 @@ function Preselected(){
                 .catch((err) => err);
               setLoader(true);
             }
-            if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0) {
-              {
+            if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && emailArr.length === 0 && contactArr.length === 0) {
+              
 
                 fetchProfiles().then(filteredresponse => {
                   if(filteredresponse.data.length > 0){
@@ -619,7 +756,7 @@ console.log(statusProfiles,"filteredresponse.status")
                   .catch(err => {
                     console.log(err);
                   })
-              }
+              
             }
           };
         
@@ -632,6 +769,14 @@ console.log(statusProfiles,"filteredresponse.status")
           }
           const onDateChange=(e:any)=>{
             DateArr=[]
+            emailArr=[]
+            SelectedName=[]
+            setSelectedSector("")
+            MotivationArr=[]
+            LicencePermisArr=[]
+            emailArr=[]
+            contactArr=[]
+            LanguageFilter=[]
             let SelectedDate=[]
             console.log(e.target.value)
             SelectedDate=e.target.value
@@ -639,6 +784,47 @@ console.log(statusProfiles,"filteredresponse.status")
             filterFunction()
          }
          
+         const handleEmailChange=(e:any)=>{
+          SelectedName = []
+          MotivationArr = []
+          LanguageFilter=[]
+          LicencePermisArr = []
+          FilterJob = [];
+          setSelectedJob([])
+          setSelectedSector("")
+          emailArr=[]
+          DateArr=[]
+          contactArr=[]
+          if (e.value === "Select email") {
+          emailArr=[]
+          filterFunction()
+      
+          } else if (e.value !== '' && e.value !== "Select email") {
+                emailArr = e.value;
+          }
+        }
+
+        const handleContactChange=(e:any)=>{
+          SelectedName = []
+          LanguageFilter=[]
+          MotivationArr = []
+          LicencePermisArr = []
+          FilterJob = [];
+          setSelectedJob([])
+          setSelectedSector("")
+          emailArr=[]
+          contactArr=[]
+          if (e.value === "Select Contact") {
+            contactArr=[]
+       
+      
+          } else if (e.value !== '' && e.value !== "Select Contact") {
+            console.log(e.value,"contact")
+                contactArr = e.value;
+                filterFunction()
+          }
+        }
+
  const RestFilters=()=>{
   setSectors([])
   setNameOptions([])
@@ -650,7 +836,14 @@ console.log(statusProfiles,"filteredresponse.status")
   setJobOptions([])
   setMotivationOptions([])
   MotivationArr=[]
+  contactArr=[]
    DateArr=[]
+   setLicensePermis([])
+   setLangOp([])
+   LanguageFilter=[]
+   setContactOptions([])
+   emailArr=[]
+   setEmail([])
    LicencePermisArr=[]
    setLicenseOptions([])
    setEmail([])
@@ -829,27 +1022,123 @@ console.log(statusProfiles,"filteredresponse.status")
                                 <option value="true" onChange={HandelLicence}>Have Licence</option>
                                 <option value="false" onChange={HandelLicence}>Doesn't Have Licence</option>
                               </select> */}
-                              <Select
-                                name="candidatLicencePermis"
-                                closeMenuOnSelect={true}
-                                placeholder="‎ ‎ ‎ Select Licence Permis"
-                                className="basic-multi-select preSelect"
-                                classNamePrefix="select"
-                                onChange={HandelLicence}
-                                options={licenceOptions}
-                                styles={colourStyles}
-                              />
+                            {LicensePermis.length != 0 ?
+
+<Select
+name="candidatLicencePermis"
+closeMenuOnSelect={true}
+placeholder="‎ ‎ ‎ Select Licence Permis"
+className="basic-multi-select preSelect"
+classNamePrefix="select"
+onChange={HandelLicence}
+options={LicensePermis}
+styles={colourStyles}
+/>
+                           :
+                           <div >   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+
+                            }
+                        
                             </div>
                           </div>
                         </div>
+                        <div className="col-md-6 col-xxl-4 col-xl-4 col-lg-4 pt-2">
+                          <p className="FiltreName">Filtre by email</p>
+                          <div className="dropdown">
+                            <div aria-labelledby="dropdownMenuButton1">
+                            {email.length>0?
+                              <Select
+                                name="candiatEmail"
+                                closeMenuOnSelect={true}
+                                placeholder="‎ ‎ ‎ ‎ ‎  ‎ yourmail@mail.com"
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                                onChange={handleEmailChange}
+                                options={email}
+                                styles={colourStyles}
+                              />
+  :
+                        <div >   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+                            }
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-6 col-xxl-4 col-xl-4 col-lg-4 pt-2">
+                          <p className="FiltreName">Filtre by contact</p>
+                          <div className="dropdown">
+                            <div aria-labelledby="dropdownMenuButton1">
+                              {/* <select
+                                name=""
+                                className="form-select"
+                                // onChange={handleSectorChange}
+                                onChange={HandelLicence}
+                              >
+                                <option value="Select Un Secteur" className="fadeClass001" selected disabled hidden>Have licence</option>
+                                <option value="true" onChange={HandelLicence}>Have Licence</option>
+                                <option value="false" onChange={HandelLicence}>Doesn't Have Licence</option>
+                              </select> */}
+                             {
+ContactOptions.length>0 ?
+<Select
+name="candidatPhone"
+closeMenuOnSelect={true}
+placeholder="‎ ‎ ‎ ‎ ‎  ‎ Candidat's Phone Number"
+className="basic-multi-select"
+classNamePrefix="select"
+onChange={handleContactChange}
+options={ContactOptions}
+styles={colourStyles}
+/>
+:
+<div >   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+                             }
+                         
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-6 col-xxl-4 col-xl-4 col-lg-4 pt-2">
+                          <p className="FiltreName">Filtre By Language</p>
+                          <div className="dropdown">
+                            <div aria-labelledby="dropdownMenuButton1">
+                              {/* <select
+                                name=""
+                                className="form-select"
+                                // onChange={handleSectorChange}
+                                onChange={HandelLicence}
+                              >
+                                <option value="Select Un Secteur" className="fadeClass001" selected disabled hidden>Have licence</option>
+                                <option value="true" onChange={HandelLicence}>Have Licence</option>
+                                <option value="false" onChange={HandelLicence}>Doesn't Have Licence</option>
+                              </select> */}
+        {
+                        LanguageOp.length > 0 ?
+                        <Select
+                        name="candidatLanguages"
+                        closeMenuOnSelect={false}
+                        isMulti
+                        placeholder="‎ ‎ ‎Select Langues"
+                        className="basic-multi-select"
+                        classNamePrefix="select"
+                        onChange={LanguageChange}
+                        options={LanguageOp}
+                        styles={colourStyles}
+                      /> 
+                      : 
+       <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
 
+                      }
+                      
+                         
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div className="extraPadding">
                       <div className="col-12">
                         <div className="row justify-content-end">
                         <div className="col-2 d-flex align-items-center justify-content-end">
-                        {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length > 0 ?
+                        {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length > 0  || emailArr.length >0 || contactArr.length > 0 || LanguageFilter.length > 0?
 
                           <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
                           : null
@@ -868,7 +1157,7 @@ console.log(statusProfiles,"filteredresponse.status")
                     <div className="col-12">
                       <div className="row justify-content-end">
                       <div className="col-2 d-flex align-items-center justify-content-end">
-                        {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length > 0 ?
+                        {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length > 0 || emailArr.length > 0 || contactArr.length > 0  || LanguageFilter.length > 0 ?
 
                           <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
                           : null

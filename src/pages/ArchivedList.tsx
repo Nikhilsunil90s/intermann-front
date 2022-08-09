@@ -176,7 +176,8 @@ function ArchivedList() {
     { value: 'Italien', label: 'Italien', color: '#FF8B00'  },
     { value: 'Russe', label: 'Russe', color: '#FF8B00' },
     { value: 'Espagnol', label: 'Espagnol', color: '#FF8B00'},
-    { value: 'Autre', label: 'Autre', color: '#FF8B00' },])
+    { value: 'Autre', label: 'Autre', color: '#FF8B00' },
+    { value: 'Suisse', label: 'Suisse', color: '#FF8B00' },])
     }
     if(Clients.length ==0){
       fetchClients().then((data)=>{

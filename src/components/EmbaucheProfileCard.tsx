@@ -74,7 +74,7 @@ console.log(props,"ppr")
                     <p className="mb-0"> <b>{profile.candidatAge ? profile.candidatAge +"years old" : "Age Not Available!"}</b></p>
                     <p className="mb-0">Secteur: <b> {profile.candidatActivitySector ?  profile.candidatActivitySector.toLocaleUpperCase() : "No Sector!"}</b></p>
                     <p className="mb-0">Job: <b>{profile.candidatJob ? profile.candidatJob.toLocaleUpperCase() : "No Job!"}</b></p>
-                    <p className="mb-0">Langues:  <b> {profile.candidatLanguages ? profile.candidatLanguages.length > 3 ? profile.candidatLanguages.slice(0,3).join(", ") + "..." : profile.candidatLanguages.join(", "): "No Langues Selected!"} </b></p>
+                    <p className="mb-0">Langues:  <b> {profile.candidatLanguages.length ? profile.candidatLanguages.length > 3 ? profile.candidatLanguages.slice(0,3).join(", ") + "..." : profile.candidatLanguages : "No Langues Selected!"} </b></p>
                     <p className="mb-0">Phone Number:  <b>{profile.candidatPhone}</b></p>
                     <p className="mb-0">Facebook URL:  <b>{profile.candidatFBURL ? <a href={profile.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
                     <p className="preCard-Body-p">Email :  <b> {profile.candidatEmail ? profile.candidatEmail.length > 20 ? profile.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : profile.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b></p>

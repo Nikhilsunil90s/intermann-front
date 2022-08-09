@@ -32,6 +32,8 @@ let LicencePermisArr = []
 let DateArr=[]
 let emailArr=[]
 let contactArr=[]
+let OthersFilterArr = []
+let LanguageFilter=[]
 function ToDoList() {
 
 
@@ -63,6 +65,8 @@ const notifyMoveError = () => toast.error("Not Moved..");
 
   ])
   const [ContactOptions,setContactOptions]=useState([])
+  const [LanguageOp,setLangOp]=useState([])
+
 
 
   const colourStyles: StylesConfig<ColourOption, true> = {
@@ -259,6 +263,17 @@ const notifyMoveError = () => toast.error("Not Moved..");
         value: "false", label: "No Licence", color: '#FF8B00'
       }])
     }
+    if(LanguageOp.length == 0){
+      setLangOp([{ value: 'Roumain', label: 'Roumain', color:  '#FF8B00' },
+      { value: 'Français', label: 'Français', color:  '#FF8B00', },
+      { value: 'Anglais', label: 'Anglais', color: '#FF8B00' },
+      { value: 'Italien', label: 'Italien', color: '#FF8B00'  },
+      { value: 'Russe', label: 'Russe', color: '#FF8B00' },
+      { value: 'Espagnol', label: 'Espagnol', color: '#FF8B00'},
+      { value: 'Autre', label: 'Autre', color: '#FF8B00' },
+      { value: 'Suisse', label: 'Suisse', color: '#FF8B00' },
+    ])
+      }
     if(motivationOptions.length == 0){
 setMotivationOptions([    {
   value: "Select Motivations", label: "Select Motivations", color: '#FF8B00'
@@ -338,6 +353,7 @@ setMotivationOptions([    {
     SelectedName = []
     DateArr=[]
     emailArr=[]
+    LanguageFilter=[]
     contactArr=[]
     MotivationArr = []
     LicencePermisArr = []
@@ -359,6 +375,7 @@ setMotivationOptions([    {
     LicencePermisArr = []
     SelectedName = []
     emailArr=[]
+    LanguageFilter=[]
     contactArr=[]
     setSelectedSector("")
     MotivationArr = []
@@ -372,11 +389,12 @@ setMotivationOptions([    {
     filterFunction()
     }
   }
-
+ 
   const handleMotivationChange = (e: any) => {
     // console.log(e.target.value)
     MotivationArr = []
     LicencePermisArr = []
+    LanguageFilter=[]
     setSelectedSector("")
     emailArr=[]
     contactArr=[]
@@ -399,6 +417,7 @@ setMotivationOptions([    {
   const handleSectorChange = (e: any) => {
     // console.log(e.target.value)
     SelectedName = []
+    LanguageFilter=[]
     MotivationArr = []
     LicencePermisArr = []
     FilterJob = [];
@@ -431,6 +450,7 @@ setMotivationOptions([    {
   const handleEmailChange=(e:any)=>{
     SelectedName = []
     MotivationArr = []
+    LanguageFilter=[]
     LicencePermisArr = []
     FilterJob = [];
     setSelectedJob([])
@@ -449,6 +469,7 @@ setMotivationOptions([    {
 
   const handleContactChange=(e:any)=>{
     SelectedName = []
+    LanguageFilter=[]
     MotivationArr = []
     LicencePermisArr = []
     FilterJob = [];
@@ -613,7 +634,7 @@ setMotivationOptions([    {
     if (
       selectedSector.length > 0 &&
       selectedJob.length == 0 &&
-      selectedLanguages.length == 0
+      LanguageFilter.length == 0
     ) {
       fetch(
         `${API_BASE_URL}filterToDoCandidatBySector/?sector=${selectedSector}`,
@@ -640,7 +661,7 @@ setMotivationOptions([    {
     if (
       selectedSector.length > 0 &&
       FilterJob.length > 0 &&
-      selectedLanguages.length == 0
+      LanguageFilter.length == 0
     ) {
       await fetch(
         `${API_BASE_URL}filterToDoSJ/?sector=${selectedSector}&jobs=${FilterJob}`,
@@ -670,7 +691,37 @@ setMotivationOptions([    {
 
 
     }
-    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0 && emailArr.length == 0 && contactArr.length == 0 && FilterJob.length == 0) {
+    if (
+      LanguageFilter.length > 0 &&
+      selectedJob.length == 0 &&
+      selectedSector.length == 0
+    ) {
+      await fetch(
+        `${API_BASE_URL}filterToDoCandidatByLanguages/?languages=${LanguageFilter}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          if(result.length > 0){
+            setLoader(true)
+            setStatus(true)
+              setFilterData([...result.data]);
+            }
+            if(result.length == 0){
+              setLoader(true)
+              setStatus(false);
+      }  })
+        .catch((err) => err);
+    }
+
+    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0 && emailArr.length == 0 && contactArr.length == 0 && FilterJob.length == 0 && LanguageFilter.length == 0) {
       {
         setLoader(true)
         setStatus(true)
@@ -692,6 +743,7 @@ setMotivationOptions([    {
     filterFunction()
   }
   const onDateChange=(e:any)=>{
+    LanguageFilter=[]
     DateArr=[]
     SelectedName=[]
     emailArr=[]
@@ -707,7 +759,28 @@ setMotivationOptions([    {
     filterFunction()
     }
  }
+ const LanguageChange = async (lang) => {
  
+  setSelectedSector("")
+  SelectedName=[]
+  
+      // console.log(jobval)
+      let LangArr=[]
+      if(lang.value == "Select Language"){
+       LangArr=[]
+      filterFunction()
+      }
+      if(lang.vlaue !== "" && lang.value !== "Select Language"){
+      lang.map((el)=>{
+       
+         LangArr.push(el.value)
+    
+      })
+      LanguageFilter=LangArr
+      filterFunction()
+      console.log(LanguageFilter,"jee")
+    }
+    }
 
  const RestFilters=()=>{
   setSectors([])
@@ -720,9 +793,13 @@ setMotivationOptions([    {
   setJobOptions([])
   setMotivationOptions([])
   MotivationArr=[]
+  LanguageFilter=[]
+  setLangOp([])
    DateArr=[]
    LicencePermisArr=[]
+   OthersFilterArr = []
    setLicenseOptions([])
+   setLangOp([])
    emailArr=[]
    setEmail([])
    contactArr=[]
@@ -975,16 +1052,7 @@ setMotivationOptions([    {
                           <p className="FiltreName">Filtre by contact</p>
                           <div className="dropdown">
                             <div aria-labelledby="dropdownMenuButton1">
-                              {/* <select
-                                name=""
-                                className="form-select"
-                                // onChange={handleSectorChange}
-                                onChange={HandelLicence}
-                              >
-                                <option value="Select Un Secteur" className="fadeClass001" selected disabled hidden>Have licence</option>
-                                <option value="true" onChange={HandelLicence}>Have Licence</option>
-                                <option value="false" onChange={HandelLicence}>Doesn't Have Licence</option>
-                              </select> */}
+                        
                              {
 ContactOptions.length>0 ?
 <Select
@@ -1004,14 +1072,49 @@ styles={colourStyles}
                             </div>
                           </div>
                         </div>
+                        <div className="col-md-6 col-xxl-4 col-xl-4 col-lg-4 pt-2">
+                          <p className="FiltreName">Filtre By Language</p>
+                          <div className="dropdown">
+                            <div aria-labelledby="dropdownMenuButton1">
+                              {/* <select
+                                name=""
+                                className="form-select"
+                                // onChange={handleSectorChange}
+                                onChange={HandelLicence}
+                              >
+                                <option value="Select Un Secteur" className="fadeClass001" selected disabled hidden>Have licence</option>
+                                <option value="true" onChange={HandelLicence}>Have Licence</option>
+                                <option value="false" onChange={HandelLicence}>Doesn't Have Licence</option>
+                              </select> */}
+        {
+                        LanguageOp.length > 0 ?
+                        <Select
+                        name="candidatLanguages"
+                        closeMenuOnSelect={false}
+                        isMulti
+                        placeholder="‎ ‎ ‎Select Langues"
+                        className="basic-multi-select"
+                        classNamePrefix="select"
+                        onChange={LanguageChange}
+                        options={LanguageOp}
+                        styles={colourStyles}
+                      /> 
+                      : 
+       <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
 
+                      }
+                      
+                         
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div className="extraPadding">
                       <div className="col-12">
                         <div className="row justify-content-end">
                         <div className="col-2 d-flex align-items-center justify-content-end">
-                        {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length > 0 || emailArr.length > 0 || contactArr.length > 0 ?
+                        {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length > 0 || emailArr.length > 0 || contactArr.length > 0 || LanguageFilter.length > 0?
 
                           <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
                           : null
@@ -1030,7 +1133,7 @@ styles={colourStyles}
                     <div className="col-12">
                       <div className="row justify-content-end">
                       <div className="col-2 d-flex align-items-center justify-content-end">
-                      {selectedSector.length === 0 || selectedJob.length === 0 || selectedLanguages.length === 0 || SelectedName.length === 0 || MotivationArr.length === 0 || LicencePermisArr.length === 0 || DateArr.length === 0 || emailArr.length == 0 || contactArr.length == 0 ?
+                      {selectedSector.length === 0 || selectedJob.length === 0 || selectedLanguages.length === 0 || SelectedName.length === 0 || MotivationArr.length === 0 || LicencePermisArr.length === 0 || DateArr.length === 0 || emailArr.length == 0 || contactArr.length == 0 || LanguageFilter.length == 0?
 
 <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 : null

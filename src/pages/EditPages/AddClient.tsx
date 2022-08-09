@@ -1112,9 +1112,9 @@ setSectorOptions([...sectorops]);
                     <p className="padding-bottom Form-styling pb-1">
                       Select salaries Hours
                     </p>
-                    <div className="row mediaQuery" id="dam_return">
+                    <div className="mediaQuery d-flex " id="dam_return">
                 
-                      <div className=" pr-1">
+                      <div className="pr-1">
                         <button
                           type="button"
                        
@@ -1289,7 +1289,7 @@ setSectorOptions([...sectorops]);
                       taux horraire Hours
                     </p>
                   <div className="row">
-                    <div className=" d-flex">
+                    <div className="mediaQuery d-flex">
                       <div className="pr-1">
                         <button type="button"
                           id="1"

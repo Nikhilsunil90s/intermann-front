@@ -44,7 +44,7 @@ function ClientProgressView() {
   const [progress, setProgress] = useState<any>(0);
   const [docUploaded, setDocUploaded] = useState(false);
   const [documentList, setDocumentList] = useState([]);
-  const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
+  const [ClientImage, setClientImage] = useState(profile.clientPhoto && profile.clientPhoto?.documentName !== undefined ? profile.clientPhoto?.documentName : "");
   const hiddenFileInput = React.useRef(null);
   const [RenameDocStatus,setRenameDocStatus]=useState(false)
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
@@ -60,7 +60,7 @@ function ClientProgressView() {
       handleImageUpload()
     } else if (val === 'Download') {
       console.log("download")
-      // window.open(API_BASE_URL + candidatImage);
+      window.open(API_BASE_URL + ClientImage);
     }
   }
 
@@ -105,7 +105,36 @@ function ClientProgressView() {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
     >
   ) => {
- 
+    if (e.target.name === 'clientPhoto') {
+      console.log(e.target.files,"e.target.files")
+      console.log(e.target.files[0],"e.target.files[]")
+      const fileUploaded = e.target.files[0]
+      let formdata = new FormData();
+      formdata.append('clientId', profile._id)
+      formdata.append('image', fileUploaded)
+      axiosInstance.post("uploadClientImage", formdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": "Bearer " + localStorage.getItem('token')
+        }
+      })
+        .then(datares => {
+          console.log(datares)
+          if (datares.data.status) {
+    //  setClientImage(datares.data.filename)
+     notifyDocumentUploadSuccess()
+
+     
+            setTimeout(()=>{
+              window.location.href = "/clientInProgressProfile"
+            },2000)
+          } else {
+            notifyDocumentUploadError()
+          }
+        })
+        .catch(err => { console.log(err) })
+      return;
+    }
     if (e.target.name === 'clientDocuments') {
       const fileUploaded = e.target.files[0];
       setCandidatDocument(fileUploaded)
@@ -149,14 +178,13 @@ function ClientProgressView() {
     fetchCandidat(profile._id).then(resData => {
       console.log(resData)
 
-      setCandidatImage("")
       if (resData.status == true) {
         // setProfile(resData.data)
         resData.data.map((el)=>{
           setDocumentList(el.clientDocuments)
         })
        
-        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
+        // setClientImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
         setDocUploaded(false);
       } else {
         setDocumentList([...documentList])
@@ -433,11 +461,22 @@ function ClientProgressView() {
               <div className="row">
                 <div className="col-2 pr-0 text-center">
               <div className="">
+              {
+              ClientImage !=="" ?
               <img
-                    src={require("../../images/fullClientSee.svg").default}
-                   className="imgEmbauch-upload-Download"
+              src={API_BASE_URL + ClientImage}
+             className="imgEmbauch-upload-Download"
 
-                  />
+            />
+
+            :
+            <img
+            src={require("../../images/fullClientSee.svg").default}
+           className="imgEmbauch-upload-Download"
+
+          />
+
+            }
                   </div>
                   {/* <Select
                           closeMenuOnSelect={true}
@@ -461,8 +500,8 @@ className="SelectBtn"
 <input
                     type="file"
                     ref={hiddenImageInput}
-                    // onChange={fileChange}
-                    name="candidatPhoto"
+                    onChange={fileChange}
+                    name="clientPhoto"
                     style={{ display: 'none' }}
                   />
                   </div>

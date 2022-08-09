@@ -12,7 +12,7 @@ import { API_BASE_URL } from '../config/serverApiConfig';
 
 const ToDoProfileCard = (props: any) => {
     const navigate = useNavigate();
-
+ console.log(props,"props")
     const [profile,setProfile]=useState(props.data)
     const [showInProgressModal, setShowInProgressModal] = useState(false);
     const [showArchiveModal, setShowArchiveModal] = useState(false)

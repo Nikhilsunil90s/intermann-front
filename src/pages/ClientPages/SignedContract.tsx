@@ -40,11 +40,7 @@ function Signed() {
   const [progress, setProgress] = useState<any>(0);
   const [docUploaded, setDocUploaded] = useState(false);
   const [documentList, setDocumentList] = useState([]);
-  const [candidatImage, setCandidatImage] = useState(
-    profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined
-      ? profile.candidatPhoto?.documentName
-      : ""
-  );
+  const [ClientImage, setClientImage] = useState(profile.clientPhoto && profile.clientPhoto?.documentName !== undefined ? profile.clientPhoto?.documentName : "");
   const hiddenFileInput = React.useRef(null);
   const [RenameDocStatus, setRenameDocStatus] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
@@ -123,7 +119,7 @@ function Signed() {
       handleImageUpload();
     } else if (val === "Download") {
       console.log("download");
-      // window.open(API_BASE_URL + candidatImage);
+      window.open(API_BASE_URL + ClientImage);
     }
   };
   const editClientProfile = () => {
@@ -167,42 +163,75 @@ function Signed() {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
     >
   ) => {
-    if (e.target.name === "clientDocuments") {
-      const fileUploaded = e.target.files[0];
-      setCandidatDocument(fileUploaded);
+    if (e.target.name === 'clientPhoto') {
+      console.log(e.target.files,"e.target.files")
+      console.log(e.target.files[0],"e.target.files[]")
+      const fileUploaded = e.target.files[0]
       let formdata = new FormData();
-      formdata.append("clientId", profile._id);
-      formdata.append("document", fileUploaded);
-      axiosInstance
-        .post("uploadClientDocuments", formdata, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-          onUploadProgress: (data) => {
-            //Set the progress value to show the progress bar
-            setProgress(Math.round((100 * data.loaded) / data.total));
-          },
+      formdata.append('clientId', profile._id)
+      formdata.append('image', fileUploaded)
+      axiosInstance.post("uploadClientImage", formdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": "Bearer " + localStorage.getItem('token')
+        }
+      })
+        .then(datares => {
+          console.log(datares)
+          if (datares.data.status) {
+            
+            console.log(datares.data.status,"datares.data.status")
+    //  setClientImage(datares.data.filename)
+     notifyDocumentUploadSuccess()
+
+     
+            setTimeout(()=>{
+              window.location.href = "/clientSigned"
+            },2000)
+          } else {
+            notifyDocumentUploadError()
+          }
         })
-        .then((resData) => {
-          console.log(resData.data.status, "resData.data.status");
+        .catch(err => { console.log(err) })
+      return;
+    }
+    if (e.target.name === 'clientDocuments') {
+      const fileUploaded = e.target.files[0];
+      setCandidatDocument(fileUploaded)
+      let formdata = new FormData();
+      formdata.append('clientId', profile._id)
+      formdata.append('document', fileUploaded)
+      axiosInstance.post("uploadClientDocuments", formdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": "Bearer " + localStorage.getItem('token')
+        },
+        onUploadProgress: data => {
+          //Set the progress value to show the progress bar
+          setProgress(Math.round((100 * data.loaded) / data.total))
+        },
+      })
+        .then(resData => {
+          console.log(resData.data.status,"resData.data.status")
           if (resData.data.status) {
-            console.log(resData.data, "resData");
+            console.log(resData.data,"resData")
             setDocUploaded(true);
-            setProgress(0);
+            setProgress(0); 
             notifyDocumentUploadSuccess();
           } else {
-            console.log(resData);
+            console.log(resData)
             setDocUploaded(false);
           }
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(err => {
+          console.log(err)
           setDocUploaded(false);
-        });
+
+        })
       return;
     }
-  };
+  }
+
 
   useEffect(() => {
     console.log(profile._id, "id");
@@ -210,19 +239,17 @@ function Signed() {
     fetchCandidat(profile._id)
       .then((resData) => {
         console.log(resData);
-
-        setCandidatImage("");
         if (resData.status == true) {
           // setProfile(resData.data)
           resData.data.map((el) => {
             setDocumentList(el.clientDocuments);
           });
 
-          setCandidatImage(
-            resData.data.candidatPhoto !== undefined
-              ? resData.data.candidatPhoto?.documentName
-              : ""
-          );
+          // setClientImage(
+          //   resData.data.candidatPhoto !== undefined
+          //     ? resData.data.candidatPhoto?.documentName
+          //     : ""
+          // );
           setDocUploaded(false);
         } else {
           setDocumentList([...documentList]);
@@ -521,12 +548,26 @@ function Signed() {
             <div className="col-12 my-1 py-1 ClientSEE-TopDetails">
               <div className="row">
                 <div className="col-2 pr-0 text-center">
-                  <div className="">
-                    <img
-                      src={require("../../images/fullClientSee.svg").default}
-                      className="imgSigned-upload-Download"
-                    />
-                  </div>
+             
+                  {
+
+              ClientImage !=="" ?
+            
+              <img
+              src={API_BASE_URL + ClientImage}
+             className="imgSigned-upload-Download"
+
+            />
+:
+             
+
+            <img
+            src={require("../../images/fullClientSee.svg").default}
+           className="imgSigned-upload-Download"
+/>
+          
+            }
+                  
                   {/* <Select
                           closeMenuOnSelect={true}
   // onChange={handleChange}
@@ -555,8 +596,8 @@ function Signed() {
                   <input
                     type="file"
                     ref={hiddenImageInput}
-                    // onChange={fileChange}
-                    name="candidatPhoto"
+                    onChange={fileChange}
+                    name="clientPhoto"
                     style={{ display: "none" }}
                   />
                 </div>
@@ -1207,7 +1248,7 @@ function Signed() {
              <p className="mb-0">
                Ads Spent on this client :
                {profile.jobTotalBudget
-                 ? profile.jobTotalBudget
+                 ? profile.jobTotalBudget + "€"
                  : "No Budget!"}
              </p>
            </div>

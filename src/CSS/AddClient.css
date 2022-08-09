@@ -220,16 +220,16 @@ color: #489767;
 
   @media (min-width:768px){
 .mediaQuery{
-    display: grid;
+    display: grid !important;
 }
 }
 @media (min-width:1200px){
     .mediaQuery{
-        display: flex;
+        display: flex !important;
     }
 }
 @media (min-width:1400px){
     .mediaQuery{
-        display: flex;
+        display: flex !important;
     }
 }

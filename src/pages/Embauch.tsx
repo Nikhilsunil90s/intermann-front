@@ -36,7 +36,9 @@ declare global {
 let SelectedName = []
 let FilterJob = [];
 let ClientFL=[]
+let LanguageFilter=[]
 let SelectedClient=[]
+let LicencePermisArr = []as any
 function Embauch() {
 
 // Notification // 
@@ -57,6 +59,8 @@ const notifyMoveError = () => toast.error("Not Moved..");
   const [jobOptions, setJobOptions] = useState([]);
   const [showMore, setShowMore] = useState(true)
   const [Clients,setClients]=useState([])
+  const [LanguageOp,setLangOp]=useState([])
+  const [licenceOptions, setLicenseOptions] = useState([])
   
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
@@ -134,6 +138,28 @@ const notifyMoveError = () => toast.error("Not Moved..");
    setClients([{value:"Select Client",label:"Select Client",color:"#ff8b00"},...ClientOP])
       })
     }
+    if(LanguageOp.length == 0){
+      setLangOp([{ value: 'Roumain', label: 'Roumain', color:  '#FF8B00' },
+      { value: 'Français', label: 'Français', color:  '#FF8B00', },
+      { value: 'Anglais', label: 'Anglais', color: '#FF8B00' },
+      { value: 'Italien', label: 'Italien', color: '#FF8B00'  },
+      { value: 'Russe', label: 'Russe', color: '#FF8B00' },
+      { value: 'Espagnol', label: 'Espagnol', color: '#FF8B00'},
+      { value: 'Autre', label: 'Autre', color: '#FF8B00' },
+      { value: 'Suisse', label: 'Suisse', color: '#FF8B00' },
+    ])
+      }
+      if(licenceOptions.length == 0){
+        setLicenseOptions([    {
+          value: "Select Licence", label: "Select Licence", color: '#FF8B00'
+        },
+        {
+          value: "true", label: "Have Licence", color: '#FF8B00'
+        },
+        {
+          value: "false", label: "No Licence", color: '#FF8B00'
+        }])
+      }
  
     if (sectors.length == 0) {
       fetchAllSectors()
@@ -189,9 +215,28 @@ const notifyMoveError = () => toast.error("Not Moved..");
     }
   })
 
+  const HandelLicence = (e) => {
+    LicencePermisArr = []
+    SelectedName = []
+    SelectedClient = []
+    LanguageFilter=[]
+    setSelectedSector("")
+    console.log(e.value)
+    if(e.value=="Select Licence"){
+      LicencePermisArr=[]
+      filterFunction()
+    }
+    if(e.value !=="" && e.value !=="Select Licence"){
+    LicencePermisArr.push(e.value)
+    filterFunction()
+    }
+  }   
+
   const handleNameChange = (e: any) => {
     // console.log(e.target.value)
     SelectedName = []
+    LanguageFilter=[]
+    LicencePermisArr = []
     setSelectedSector("")
     setSelectedJob([])
     ClientFL=[]
@@ -245,6 +290,8 @@ const notifyMoveError = () => toast.error("Not Moved..");
     // console.log(e.target.value)
     SelectedName = []
     FilterJob = [];
+    LanguageFilter=[]
+    LicencePermisArr = []
     ClientFL=[]
     SelectedClient=[]
     setSelectedJob([])
@@ -333,6 +380,31 @@ const notifyMoveError = () => toast.error("Not Moved..");
             
            })
                    .catch(err => err)
+       }
+      
+       if(LicencePermisArr.length > 0 ){
+        setFilterData([])
+        SelectedName = []
+        fetch(`${API_BASE_URL}getCandidats/?candidatLicensePermis=${LicencePermisArr}&candidatStatus=In-Progress`, {
+
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+          .then((reD) => reD.json())
+          .then((result) => {
+            if(result.total === 0){
+              setLoader(true) 
+              setStatus(false)
+                 }else{
+               setFilterData([...result.data]) ; setLoader(true); setStatus(true)
+               } 
+          })
+          .catch((err) => err);
+        setLoader(true);
        }
     
     if (
@@ -444,7 +516,34 @@ const notifyMoveError = () => toast.error("Not Moved..");
       setLoader(true);
      
     }
-    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && SelectedClient.length === 0 ) {
+    if (
+      LanguageFilter.length > 0 &&
+      selectedJob.length == 0 &&
+      selectedSector.length == 0
+    ) {
+      await fetch(
+        `${API_BASE_URL}filterInProgressCandidatByLanguages/?languages=${LanguageFilter}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          {
+            setFilterData([...result.data]);
+          }
+          setStatus(result.status);
+        })
+        .catch((err) => err);
+      setLoader(true);
+
+    }
+    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && SelectedClient.length === 0 && LanguageFilter.length === 0 && LicencePermisArr.length ===0) {
       {
         setLoader(true)
         setStatus(true)
@@ -477,8 +576,31 @@ const notifyMoveError = () => toast.error("Not Moved..");
   useEffect(() => {
     fetchProfiles();
   }, []);
+  const LanguageChange = async (lang) => {
+ 
+    setSelectedSector("")
+    SelectedName=[]
+    LicencePermisArr = []
+        // console.log(jobval)
+        let LangArr=[]
+        if(lang.value == "Select Language"){
+         LangArr=[]
+        filterFunction()
+        }
+        if(lang.vlaue !== "" && lang.value !== "Select Language"){
+        lang.map((el)=>{
+         
+           LangArr.push(el.value)
+      
+        })
+        LanguageFilter=LangArr
+        filterFunction()
+        console.log(LanguageFilter,"jee")
+      }
+      }
  
   const jobChange = async (jobval) => {
+    
     jobval.map((el)=>{
      
      FilterJob.push(el.value)
@@ -490,6 +612,9 @@ const notifyMoveError = () => toast.error("Not Moved..");
 
   const ClientChange=(e)=>{
     setSelectedSector("")
+    LanguageFilter=[]
+    SelectedName=[]
+    LicencePermisArr = []
      if(e.value){
       SelectedClient=[]
       SelectedClient.push(e.value)
@@ -507,15 +632,17 @@ const notifyMoveError = () => toast.error("Not Moved..");
   setNameOptions([])
   SelectedName=[]
   setSelectedSector("")
+  LicencePermisArr = []
   setSectorOptions([])
   setJobs([])
+  setLicenseOptions([])
   setSelectedJob([])
   setJobOptions([])
-  fetchAllSectors()
-  filterFunction()
   ClientFL=[]
   setClients([])
 SelectedClient=[]
+fetchAllSectors()
+filterFunction()
 }
 
   return (
@@ -629,14 +756,83 @@ SelectedClient=[]
                             </div>
                           </div>
                         </div>
-                        
+                        <div className="col-md-6 col-xxl-4 col-xl-4 col-lg-4 pt-1">
+                          <p className="FiltreName">Filtre By Language</p>
+                          <div className="dropdown">
+                            <div aria-labelledby="dropdownMenuButton1">
+                              {/* <select
+                                name=""
+                                className="form-select"
+                                // onChange={handleSectorChange}
+                                onChange={HandelLicence}
+                              >
+                                <option value="Select Un Secteur" className="fadeClass001" selected disabled hidden>Have licence</option>
+                                <option value="true" onChange={HandelLicence}>Have Licence</option>
+                                <option value="false" onChange={HandelLicence}>Doesn't Have Licence</option>
+                              </select> */}
+        {
+                        LanguageOp.length > 0 ?
+                        <Select
+                        name="candidatLanguages"
+                        closeMenuOnSelect={false}
+                        isMulti
+                        placeholder="‎ ‎ ‎Select Langues"
+                        className="basic-multi-select"
+                        classNamePrefix="select"
+                        onChange={LanguageChange}
+                        options={LanguageOp}
+                        styles={colourStyles}
+                      /> 
+                      : 
+       <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+
+                      }
+                      
+                         
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-6 col-xxl-4 col-xl-4 col-lg-4 pt-1">
+                          <p className="FiltreName">Filter by driver licence</p>
+                          <div className="dropdown">
+                            <div aria-labelledby="dropdownMenuButton1">
+                              {/* <select
+                                name=""
+                                className="form-select"
+                                // onChange={handleSectorChange}
+                                onChange={HandelLicence}
+                              >
+                                <option value="Select Un Secteur" className="fadeClass001" selected disabled hidden>Have licence</option>
+                                <option value="true" onChange={HandelLicence}>Have Licence</option>
+                                <option value="false" onChange={HandelLicence}>Doesn't Have Licence</option>
+                              </select> */}
+                             {
+                              licenceOptions.length > 0 ?
+                              <Select
+                              name="candidatLicencePermis"
+                              closeMenuOnSelect={true}
+                              placeholder="‎ ‎ ‎ ‎ ‎  ‎ Select Licence Permis"
+                              className="basic-multi-select"
+                              classNamePrefix="select"
+                              onChange={HandelLicence}
+                              options={licenceOptions}
+                              styles={colourStyles}
+                            />
+                            : 
+                        <div >   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+
+                             }
+                       
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div className="extraPadding">
                       <div className="col-12">
                         <div className="row justify-content-end">
                         <div className="col-2 d-flex justify-content-end">
-                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || SelectedClient.length > 0 ?
+                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || SelectedClient.length > 0 || LanguageFilter.length > 0 || LicencePermisArr.length > 0 ?
 
 <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 : null
@@ -656,7 +852,7 @@ SelectedClient=[]
                     <div className="col-12">
                       <div className="row justify-content-end">
                       <div className="col-2 d-flex justify-content-end">
-                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || SelectedClient.length > 0 ?
+                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || SelectedClient.length > 0 || LanguageFilter.length > 0  || LicencePermisArr.length > 0 ?
 
 <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 : null

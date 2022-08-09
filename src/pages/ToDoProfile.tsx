@@ -50,7 +50,6 @@ function ToDoProfile() {
 
 
   const [profile, setProfile] = useState<any>(state? state : profileData);
-  console.log(profile,"pro")
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const candidatMotivationIcons = [{ icon: "no", motivation: 'no' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
