@@ -1107,14 +1107,14 @@ setSectorOptions([...sectorops]);
                     </div>
                   </div>
                 </div>
-                <div className="col-12 mt-1">
+                <div className="col-12 mt-1 ">
                   <div className="row">
                     <p className="padding-bottom Form-styling pb-1">
                       Select salaries Hours
                     </p>
-                    <div className="d-flex " id="dam_return">
+                    <div className="row mediaQuery" id="dam_return">
                 
-                      <div className="pr-1">
+                      <div className=" pr-1">
                         <button
                           type="button"
                        

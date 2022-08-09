@@ -9,13 +9,13 @@ function ResetClientProfile({ props, closeModal, path }) {
 
     const navigate = useNavigate();
     const [reasonToArchive, setReasonToArchive] = useState([]);
-    const [ClientId, setClientId] = useState(props._id);
+    const [clientId, setClientId] = useState(props._id);
 
-    const notifyMoveSuccess = () => toast.success("Candidat Reset To To-DO Successfully!");
-    const notifyMoveError = () => toast.error("Cannot Reset Candidat! Please Try Again.");
+    const notifyMoveSuccess = () => toast.success("Client Reset To To-DO Successfully!");
+    const notifyMoveError = () => toast.error("Cannot Reset Client! Please Try Again.");
 
     let data = {
-        ClientId
+        clientId
     }
 
     const ResetCandidat = async () => {
@@ -39,16 +39,16 @@ function ResetClientProfile({ props, closeModal, path }) {
         ResetCandidat().then((resdata) => {
             console.log(resdata)
             closeModal(false);
-            // setTimeout(function () {
-            //     if (path == "/embauchlist") {
-            //         window.location.href = path;
-            //     }
-            //     else if (path == "/clientToDo") {
-            //         window.location.href = "/clientToDo";
-            //     } else {
-            //         window.location.href = "/dashboard";
-            //     }
-            // }, 2000);
+            setTimeout(function () {
+                if (path == "/embauchlist") {
+                    window.location.href = path;
+                }
+                else if (path == "/clientToDo") {
+                    window.location.href = "/clientToDo";
+                } else {
+                    window.location.href = "/dashboard";
+                }
+            }, 2000);
             notifyMoveSuccess();
         })
             .catch(err => {

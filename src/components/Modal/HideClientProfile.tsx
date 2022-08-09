@@ -8,18 +8,18 @@ function HideClientProfile({ props, closeModal, path }) {
     console.log(props);
 
     const navigate = useNavigate();
-    const [ClientId, setClientId] = useState(props._id);
+    const [clientId, setClientId] = useState(props._id);
 
-    const notifyMoveSuccess = () => toast.success("Candidat Hidden Successfully!");
-    const notifyMoveError = () => toast.error("Cannot Hide Candidat! Please try Again.");
+    const notifyMoveSuccess = () => toast.success("Client Hidden Successfully!");
+    const notifyMoveError = () => toast.error("Cannot Hide Client! Please try Again.");
 
     let data = {
-        ClientId,
+        clientId,
     }
 
     const HideProfile = async () => {
         console.log(data);
-        return await fetch(API_BASE_URL + "moveClientToToDo", {
+        return await fetch(API_BASE_URL + "hideClient", {
             method: "POST",
             headers: {
                 "Accept": 'application/json',
@@ -37,17 +37,17 @@ function HideClientProfile({ props, closeModal, path }) {
         console.log(data);
         HideProfile().then((resdata) => {
             console.log(resdata)
-            setTimeout(function () {
-                if (path == "/embauchlist") {
-                    window.location.href = path;
-                }
-                else if (path == "/clientToDo") {
-                    window.location.href = "/clientToDo";
-                } else {
-                    window.location.href = "/dashboard";
-                }
+            // setTimeout(function () {
+            //     if (path == "/embauchlist") {
+            //         window.location.href = path;
+            //     }
+            //     else if (path == "/clientToDo") {
+            //         window.location.href = "/clientToDo";
+            //     } else {
+            //         window.location.href = "/dashboard";
+            //     }
 
-            }, 2000);
+            // }, 2000);
             notifyMoveSuccess();
         })
             .catch(err => {

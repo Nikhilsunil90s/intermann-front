@@ -18,7 +18,7 @@ function ResetProfile({ props, closeModal, path }) {
         candidatId
     }
 
-    const ResetCandidat = async () => {
+    const ResetClient = async () => {
         console.log(data);
         return await fetch(API_BASE_URL + "moveToToDo", {
             method: "POST",
@@ -36,7 +36,7 @@ function ResetProfile({ props, closeModal, path }) {
 
     const sendResetRequest = () => {
         console.log(data);
-        ResetCandidat().then((resdata) => {
+        ResetClient().then((resdata) => {
             console.log(resdata)
             closeModal(false);
             setTimeout(function () {

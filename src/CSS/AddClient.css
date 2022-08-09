@@ -216,3 +216,20 @@ align-items: flex-end;
 color: #489767;
   }
   
+
+
+  @media (min-width:768px){
+.mediaQuery{
+    display: grid;
+}
+}
+@media (min-width:1200px){
+    .mediaQuery{
+        display: flex;
+    }
+}
+@media (min-width:1400px){
+    .mediaQuery{
+        display: flex;
+    }
+}
