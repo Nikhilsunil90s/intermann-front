@@ -37,6 +37,8 @@ import PreSelectedEdit from "./pages/EditPages/PreSelectedEdit";
 import ClientArchivedEdit from "./pages/EditPages/EditArchivedClient";
 import ClientSignedEdit from "./pages/EditPages/SignedContractEdit";
 import SignedView from "../src/pages/ClientPages/FullViewProfile/SignedContract"
+import Error404 from "./pages/ErrorPages/Error404";
+import Error500 from "./pages/ErrorPages/Error500";
 
 function App() {
   return (
@@ -94,7 +96,8 @@ function App() {
           <Route path={"/ClientContractEditprofile"} element={ <Sidebar><PrivateRoute Component={ClientSignedEdit} /></Sidebar>} /> 
 
           <Route path={"/clientSignedView"} element={ <Sidebar><PrivateRoute Component={SignedView} /></Sidebar>} /> 
-
+          <Route path="/Error404" element={<Error404 />}   />
+          <Route path="/Error500" element={<Error500 />}   />
           
 
         </Routes>

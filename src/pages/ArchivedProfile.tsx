@@ -13,6 +13,7 @@ import HideProfile from "../components/Modal/HideProfileModalForArchived";
 import ResetProfile from "../components/Modal/RestProfileForArchived";
 import { Toaster, toast } from 'react-hot-toast';
 import UploadDow from '../components/Modal/SelectUploadDownload'
+import PDFGenerate from '../components/Modal/PDFGenerateModal'
 
 
 const axiosInstance = axios.create({
@@ -31,6 +32,7 @@ const ArchivedProfile = () => {
   const hiddenImageInput = React.useRef(null);
   const [UploadBtn,setSelectUpload]= useState(false)
     const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
+    const [PDFModal,setPDFModal]=useState(false)
   
     let data={profileData:profile,path:"/archivedprofile"}
     const editCandidatProfile = () => {
@@ -578,7 +580,7 @@ No FB URL!
                 </div> */}
                
             
-                <div className="col-3 text-center">
+                <div className="col-3 px-0 text-center">
                   <button
                     type="button"
                     className="btn btn-ArchiveEditProfile"
@@ -589,7 +591,7 @@ No FB URL!
                   </button>
                   <p className="italic-fontStyle text-center">Editer le profil</p>
                 </div>
-                <div className="col-3 text-center">
+                <div className="col-3 px-0 text-center">
                 <a
                     type="button"
                     className="btn btn-pre-CVManual  d-flex align-items-center justify-content-center"
@@ -603,7 +605,7 @@ No FB URL!
                     Edit CV with Canva
                   </p>
                 </div>
-                <div className="col-3 text-center">
+                <div className="col-3 px-0 text-center">
                      <button className="hideProfile" onClick={()=>setHideProfile(true)}>
                     <img src={require("../images/visibility.svg").default} />
                       Hide this profile</button>
@@ -615,8 +617,28 @@ No FB URL!
                     Reset this profile</button>
                     <p className="italic-fontStyle text-center">Profile will be reset to todo stage</p>
                 </div>
+                <div className="col-4 px-0 text-center">
+                <button
+                    type="button"
+                    onClick={()=>setPDFModal(true)}
+                    className="btn text-white btn-pre-moveProgress"
+                  >
+                    <img src={require("../images/resume.svg").default} />
+                    Générér un contrat
+                  </button>
+                  <p className="italic-fontStyle text-center">
+                  Pour Adrian, générer un contrat pour un candidat
+                  </p>
+                </div>
                 </div >
                 </div>
+                {
+                  PDFModal ?
+                  
+                  <PDFGenerate   closeModal={setPDFModal} />
+                  : 
+                  null
+                }
        {
         hideProfile?
         <HideProfile props={profile} closeModal={setHideProfile}  path={"/todolist"}/>

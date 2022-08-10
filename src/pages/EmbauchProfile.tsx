@@ -15,7 +15,7 @@ import { Toaster, toast } from 'react-hot-toast';
 import ProfileLoader from "../components/Loader/ProfilesLoader";
 import RenameDoc from '../components/Modal/RenameDoc_Modal'
 import UploadDow from '../components/Modal/SelectUploadDownload'
-
+import PDFGenerate from '../components/Modal/PDFGenerateModal'
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -56,6 +56,7 @@ function ProgressCard() {
   const hiddenImageInput = React.useRef(null);
   const [UploadBtn,setSelectUpload]= useState(false)
   const [clientProfile, setClientProfile] = useState()as any;
+  const [PDFModal,setPDFModal]=useState(false)
 
 
   let data = {profileData:profile,path:"/embauchprofile"}
@@ -706,7 +707,7 @@ No FB URL!
               <div className="row p-1 justify-content-between">
               
                
-                <div className="col-xxl-3  col-lg-3 col-md-4 col-sm-4 text-center">
+                <div className="col-xxl-3 px-0 col-lg-3 col-md-4 col-sm-4 text-center">
                   <button
                     type="button"
                     className="btn btn-ArchivedEmbauch"
@@ -722,8 +723,15 @@ No FB URL!
                       path={"/todolist"}
                     />
                   ) : null}
+                         {
+                  PDFModal ?
+                  
+                  <PDFGenerate   closeModal={setPDFModal} />
+                  : 
+                  null
+                }
                 </div>
-                <div className="col-xxl-3  col-lg-3 col-md-4 col-sm-4 text-center">
+                <div className="col-xxl-3 px-0 col-lg-3 col-md-4 col-sm-4 text-center">
                   <button
                     type="button"
                     className="btn btn-EditProfileEmbauch"
@@ -734,7 +742,7 @@ No FB URL!
                   </button>
                   <p className="italic-fontStyle text-center">Editer le profil</p>
                 </div>
-                <div className="col-xxl-3 col-lg-3 col-md-4 col-sm-4 text-center">
+                <div className="col-xxl-3 col-lg-3 col-md-4 col-sm-4 px-0 text-center">
                   <a
                     type="button"
                     className="btn btn-CVManualEmbauch"
@@ -748,9 +756,19 @@ No FB URL!
                     Edit CV with Canva
                   </p>
                 </div>
-          <div className="col-xxl-3 col-lg-3 col-md-4 col-sm-4">
-
-          </div>
+                <div className="col-3 px-0 text-center">
+                <button
+                    type="button"
+                    onClick={()=>setPDFModal(true)}
+                    className="btn text-white btn-pre-moveProgress"
+                  >
+                    <img src={require("../images/resume.svg").default} />
+                    Générér un contrat
+                  </button>
+                  <p className="italic-fontStyle text-center">
+                  Pour Adrian, générer un contrat pour un candidat
+                  </p>
+                </div>
          
                   </div>
               
@@ -864,6 +882,7 @@ No FB URL!
                   
 
                           }
+                          
                           {
                             RenameDocStatus? 
                             <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus} path={"/embauchprofile"} />

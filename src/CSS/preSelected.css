@@ -715,7 +715,7 @@ color: #FFFFFF;
     line-height: 11px;
     color: #FFFFFF;
     margin-top: 5px;
-    width: 100%;
+    width: 95%;
     height: 50px;
     padding: 0px;
 
@@ -734,7 +734,7 @@ color: #ffff;
     font-weight: 600;
     font-size: 16px;
     line-height: 27px;
-    width: 100%;
+    width: 95%;
     height: 50px;
     color: #FFFFFF;
     margin-top: 5px;
@@ -758,7 +758,7 @@ color: #ffff;
     color: #FFFFFF;
     margin-top: 5px;
     padding:0px;
-    width: 100%;
+    width: 95%;
     height: 50px;
 }
 .btn-pre-moveProgress:hover {
@@ -774,7 +774,7 @@ color: #ffff;
     line-height: 27px;
     color: #FFFFFF;
     padding: 0px;
-    width: 100%;
+    width: 95%;
     height: 50px;
 
  }

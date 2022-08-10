@@ -22,6 +22,7 @@ import { ProgressBar } from "react-bootstrap";
 import ReadMoreReact from 'read-more-react';
 import RenameDoc from '../components/Modal/RenameDoc_Modal'
 import UploadDow from '../components/Modal/SelectUploadDownload'
+import PDFGenerate from '../components/Modal/PDFGenerateModal'
 
 interface State {
   profileData: any,
@@ -69,6 +70,7 @@ function ToDoProfile() {
   const [clientList, setClientList] = useState([]);
   const [UploadBtn,setSelectUpload]= useState(false)
   const [RenameDocStatus,setRenameDocStatus]=useState(false)
+  const [PDFModal,setPDFModal]=useState(false)
 
   let data={profileData:profile ,path:"/todoprofile"}
 
@@ -554,7 +556,7 @@ className="SelectBtn"
                   className="col-xxl-8 col-xl-8 col-lg-8 col-md-7 Social-Card px-1 detailsCardClientSee scrollbar heightWidth Social-btnsTwo"
                   id="style-3"
                 >
-                  <div className="Todo-CardMore force-overflow ">
+                  <div className="Todo-CardMore force-overflow">
                   <div className="row ">
                       <div className="col-3 pr-0"  style={{maxWidth:"22%"}}> 
                       <p>Langues : </p>
@@ -792,8 +794,30 @@ className="SelectBtn"
                     Edit CV with Canva
                   </p>
                 </div>
+                <div className="col-4 px-0 text-center">
+                <button
+                    type="button"
+                    onClick={()=>setPDFModal(true)}
+                    className="btn text-white btn-pre-moveProgress"
+                  >
+                    <img src={require("../images/resume.svg").default} />
+                    Générér un contrat
+                  </button>
+                  <p className="italic-fontStyle text-center">
+                  Pour Adrian, générer un contrat pour un candidat
+                  </p>
+                </div>
+                {
+                  PDFModal ?
+                  
+                  <PDFGenerate   closeModal={setPDFModal} />
+                  : 
+                  null
+                }
                 </div>
                 </div>
+              
+             
                          <div className="col-12 Social-Card mt-1">
               <div className="row justify-content-center">
                 <div className="col-12 d-flex justify-content-center">
@@ -910,12 +934,14 @@ className="SelectBtn"
                   
 
                           }
+                       
                           {
                             RenameDocStatus? 
                             <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus}  path={"/todoprofile"}/>
                             :
                             null
                           }
+                
               
                   </div>
                 </div>
@@ -926,6 +952,7 @@ className="SelectBtn"
               </div>
             </div>
       </div>
+   
     </>
   );
 }

@@ -132,3 +132,135 @@ color:#FFFFFF
 .modal-footer{
     border-top: none;
 }
+.inputStyling{
+    border: 1px solid #E7E7E7;
+    border-radius: 20px;
+    height: 40px;
+    width: 170%;
+    margin-bottom: 15px;
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;  
+    text-transform: capitalize;
+    color: #92929D;
+}
+.inputStylings{
+    border: 1px solid #E7E7E7;
+    border-radius: 20px;
+    height: 40px;
+    width: 112%;
+    margin-bottom: 20px;
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;  
+    text-transform: capitalize;
+    color: #92929D;
+}
+.PDFFormlabel{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+display: flex;
+align-items: flex-end;
+text-transform: capitalize;
+color: #373A3C;
+}
+.scrollbarModal {
+    float: left;
+    height: 68%;
+    width: 100%;
+    background: #ffff;
+    overflow-y: scroll;
+    border-radius: 10px;
+}
+
+.scrollbarModal::-webkit-scrollbar {
+    width: 5px;               /* width of the entire scrollbar */
+  }
+  
+  .scrollbarModal::-webkit-scrollbar-track {
+    background: #E7E7E7;        /* color of the tracking area */
+  }
+  
+  .scrollbarModal::-webkit-scrollbar-thumb {
+    background-color: #FE8700;    /* color of the scroll thumb */
+    border-radius: 5px;       /* roundness of the scroll thumb */
+    border: 2px solid orange;  /* creates padding around scroll thumb */
+  }
+.TextArea{
+    border: 1px solid #E7E7E7;
+    border-radius: 20px;
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;
+    text-transform: capitalize;
+    color: #92929D; 
+}
+.btnGeneratePDF{
+    background: #3F76E2;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 27px;
+display: flex;
+align-items: center;
+justify-content: center;
+color: #FFFFFF;
+border:0px;
+width: 100%;
+height: 50px;
+}
+.btnGeneratePDF:hover{
+    color: #000000;
+}
+.contractCRM:hover{
+    color: #000000;
+}
+.voirModal:hover{
+    color: #000000;
+}
+.PDFNotes{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 10px;
+line-height: 27px;
+display: flex;
+align-items: center;
+color: #000000;
+}
+.contractCRM{
+    background: #032339;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 27px;
+color: #FFFFFF;
+}
+.voirModal{
+    background: #979797;
+border-radius: 100px;
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 27px;
+text-align: center;
+color: #FFFFFF;
+border:0px;
+width: 100%;
+height: 50px;
+margin-left: 30px;
+}

@@ -1,0 +1,50 @@
+.HeightWidth{
+    height: 88vh;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
+}
+.Oopss{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 40px;
+line-height: 60px;
+color: #000000;
+}
+.Notfound{
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 32px;
+line-height: 48px;
+color: #000000;
+}
+.suggestBack{
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 24px;
+letter-spacing: 0.04em;
+color: #4B4B4B;
+}
+.bgError{
+    background: url("../images/Oops.svg");
+    background-repeat: no-repeat;
+}
+.BtnBackToHome{
+    background: #032339;
+border-radius: 100px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 24px;
+color: #FFFFFF;
+width: 50%;
+}
+.bgError500{
+    background: url("../images/500.svg");
+    background-repeat: no-repeat;
+}

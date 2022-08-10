@@ -1101,15 +1101,19 @@ function Signed() {
                 >
                   <div className="Todo-ClinetCardMore force-overflow">
                     <div className="d-flex">
-                      <div className="d-flex" style={{ width: "500px" }}>
-                        <p className="CompanyAddres">Company Adress</p>
-
+                      <div className="col-12 px-0">
+                      <div className="row">
+                        <div className="col-4">
+                        <p className="CompanyAddres">Company Adress</p></div>
+                        <div className="col-8">
                         <span className="Todo-ClinetCardMore-span">
                           :
                           {profile.clientAddress
                             ? profile.clientAddress
                             : "No Address!"}
                         </span>
+                        </div>
+                      </div>
                       </div>
                     </div>
                     <div className="d-flex align-items-center ">
@@ -1125,7 +1129,6 @@ function Signed() {
                     <div className="d-flex align-items-center">
                       <p>Langues : </p>
                       <span className="Todo-ClinetCardMore-span">
-                        
                       {profile.clientLanguages.length
                             
                             ? profile.clientLanguages.join(", ")

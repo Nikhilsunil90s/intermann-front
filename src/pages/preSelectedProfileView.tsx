@@ -15,6 +15,7 @@ import { Toaster, toast } from 'react-hot-toast';
 import ProfileLoader from "../components/Loader/ProfilesLoader";
 import RenameDoc from '../components/Modal/RenameDoc_Modal'
 import UploadDow from '../components/Modal/SelectUploadDownload'
+import PDFGenerate from '../components/Modal/PDFGenerateModal'
 
 
 const axiosInstance = axios.create({
@@ -26,6 +27,7 @@ function PreSelectedView() {
   const profileData = JSON.parse(localStorage.getItem("profile"));
   const { state } = useLocation();
   const [profile, setProfile] = useState<any>(state ? state : profileData);
+  const [PDFModal,setPDFModal]=useState(false)
   const [Data,setData]=useState(profileData)
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
@@ -672,7 +674,7 @@ No FB URL!
                   <p className="italic-font">Si embauché</p>
                 </div> */}
                
-                <div className="col-3 text-center">
+                <div className="col-3 px-0 text-center">
                   <button
                     type="button"
                     className="btn btn-pre-Archived"
@@ -689,7 +691,7 @@ No FB URL!
                     />
                   ) : null}
                 </div>
-                <div className="col-3 text-center">
+                <div className="col-3 px-0 text-center">
                   <button
                     type="button"
                     className="btn btn-pre-EditProfile"
@@ -700,7 +702,7 @@ No FB URL!
                   </button>
                   <p className="italic-fontStyle text-start">Editer le profil</p>
                 </div>
-                <div className="col-3 text-center">
+                <div className="col-3 px-0 text-center">
               
                         <a
                     type="button"
@@ -715,14 +717,34 @@ No FB URL!
                     Edit CV with Canva
                   </p>
                 </div>
-          <div className="col-3 text-center">
+          <div className="col-3 px-0 text-center">
                   <button type="button" className="btn btn-pre-moveProgress" onClick={() => setShowInProgressModal(true)}>
                     Move to In Progress
                   </button>
                   {showInProgressModal ?
                     <InProgressModal props={profile} closeModal={setShowInProgressModal} /> : null
                   }
+                      {
+                  PDFModal ?
+                  
+                  <PDFGenerate   closeModal={setPDFModal} />
+                  : 
+                  null
+                }
                   <p className="italic-fontStyle">Si embaché pour un client en cours de recherche</p>
+                </div>
+                <div className="col-4 px-0 text-center">
+                <button
+                    type="button"
+                    onClick={()=>setPDFModal(true)}
+                    className="btn text-white btn-pre-moveProgress"
+                  >
+                    <img src={require("../images/resume.svg").default} />
+                    Générér un contrat
+                  </button>
+                  <p className="italic-fontStyle text-center">
+                  Pour Adrian, générer un contrat pour un candidat
+                  </p>
                 </div>
                 </div>
               </div>

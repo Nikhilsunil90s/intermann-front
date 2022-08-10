@@ -486,8 +486,10 @@ color: #ffffff !important;
     font-size: 12px;
     line-height: 20px;
     color: #FFFFFF;
-    padding: 16px 20px;
+   width: 95%;
+   height: 50px;
     border: 0px;
+
     }
     .btn-EditProfileEmbauch {
         background: #032339;
@@ -499,7 +501,8 @@ color: #ffffff !important;
         font-size: 12px;
         line-height: 20px;
         color: #FFFFFF;
-        padding: 14px 34px;
+       width: 95%;
+    height: 50px;
     }
     .btn-CVManualEmbauch {
         background: #032339;
@@ -510,7 +513,9 @@ color: #ffffff !important;
         font-size: 12px;
         line-height: 20px;
         color: #FFFFFF;
-        padding: 14px 14px;
+        width: 95%;
+        height: 50px;
+        text-align: center;
     }
     .btn-CVManualEmbauch img{
 width: 18px;
