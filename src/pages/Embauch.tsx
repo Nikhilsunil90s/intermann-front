@@ -34,7 +34,7 @@ declare global {
   }
 }
 let SelectedName = []
-let FilterJob = [];
+let FilterJob = []as any;
 let ClientFL=[]
 let LanguageFilter=[]
 let SelectedClient=[]
@@ -294,7 +294,8 @@ const notifyMoveError = () => toast.error("Not Moved..");
     LicencePermisArr = []
     ClientFL=[]
     SelectedClient=[]
-    setSelectedJob([])
+      setSelectedSector("");
+      setSelectedJob([])
     console.log(e)
     if (e.value === "Select Sector") {
       setJobs([]);
@@ -303,9 +304,10 @@ const notifyMoveError = () => toast.error("Not Moved..");
     filterFunction()
 
     } else if (e.value !== '' && e.value !== "Select Sector") {
-      let sectorField = e.value;
-      setSelectedSector(sectorField);
+       
+      setSelectedSector(e.value);
       setJobOptions([]);
+      filterFunction()
     }
 
     fetchAllJobs(e.value)
@@ -425,13 +427,19 @@ const notifyMoveError = () => toast.error("Not Moved..");
       )
         .then((reD) => reD.json())
         .then((result) => {
-          {
+          if(result.status == true){
+            setLoader(true)
+            setStatus(true)
             setFilterData([...result.data]);
           }
-          setStatus(result.status);
+          if(result.status == false){
+            setLoader(true)
+            setStatus(false)
+          }
+          
         })
         .catch((err) => err);
-      setLoader(true);
+
      
     }
     if (
@@ -452,13 +460,18 @@ const notifyMoveError = () => toast.error("Not Moved..");
       )
         .then((reD) => reD.json())
         .then((result) => {
-          {
+          if(result.status == true){
+            setLoader(true);
+            setStatus(true);
             setFilterData([...result.data]);
           }
-          setStatus(result.status);
+          if(result.status == false){
+            setLoader(true);
+            setStatus(false);
+          } 
         })
         .catch((err) => err);
-      setLoader(true);
+
      
     }
 
@@ -581,7 +594,6 @@ const notifyMoveError = () => toast.error("Not Moved..");
     setSelectedSector("")
     SelectedName=[]
     LicencePermisArr = []
-        // console.log(jobval)
         let LangArr=[]
         if(lang.value == "Select Language"){
          LangArr=[]
@@ -597,16 +609,18 @@ const notifyMoveError = () => toast.error("Not Moved..");
         filterFunction()
         console.log(LanguageFilter,"jee")
       }
+      if(LanguageFilter.length == 0){
+        filterFunction()
+      }
       }
  
-  const jobChange = async (jobval) => {
-    
+  const jobChange = (jobval) => {
+    let Arr=[]
     jobval.map((el)=>{
-     
-     FilterJob.push(el.value)
-  
-    })
-    filterFunction()
+          Arr.push(el.value)
+      })
+      FilterJob=Arr
+        filterFunction()
   }
  
 
@@ -634,15 +648,19 @@ const notifyMoveError = () => toast.error("Not Moved..");
   setSelectedSector("")
   LicencePermisArr = []
   setSectorOptions([])
-  setJobs([])
   setLicenseOptions([])
   setSelectedJob([])
   setJobOptions([])
+  setLangOp([])
   ClientFL=[]
   setClients([])
-SelectedClient=[]
-fetchAllSectors()
-filterFunction()
+  SelectedClient=[]
+  toast.success("Filters Reset Successfully!")
+  fetchAllSectors()
+ setTimeout(()=>{
+  filterFunction()
+},1000)
+
 }
 
   return (

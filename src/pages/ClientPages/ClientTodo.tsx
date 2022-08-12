@@ -876,6 +876,7 @@ function ClientToDoList() {
     setMotivationOptions([]);
     setOtherOptions([]);
     setJobs([]);
+    setSelectedSector("")
     FilterJob = [];
     MotivationArr = [];
     OthersFilterArr = [];
@@ -888,8 +889,12 @@ function ClientToDoList() {
     setSelectedSector("");
     email=false;
     phone=false;
+    toast.success("Filters Reset Successful!")
     fetchAllSectors();
-    filterFunction();
+    setTimeout(()=>{
+      filterFunction();
+    },1000)
+ 
   };
   return (
     <>

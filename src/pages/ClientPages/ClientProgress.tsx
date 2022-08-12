@@ -534,7 +534,7 @@ setStatus(false)
 
     }
     if (
-      selectedSector.length > 0 &&
+      selectedSector.length === 0 &&
        FilterJob.length > 0 &&
       selectedLanguages.length == 0
     ) {
@@ -722,6 +722,7 @@ setStatus(false)
     SelectedName = []
     setMotivationOptions([])
     setOtherOptions([])
+    setSelectedSector("")
     setJobs([])
     FilterJob = [];
     MotivationArr = []
@@ -735,7 +736,11 @@ setStatus(false)
     email=false;
     phone=false
     fetchAllSectors()
-    filterFunction()
+    toast.success("Filters Reset Successful!")
+    setTimeout(()=>{
+      filterFunction()
+    },1000)
+  
    }
   return (
     <>

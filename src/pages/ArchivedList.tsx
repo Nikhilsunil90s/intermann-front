@@ -9,7 +9,7 @@ import SelectLoader from "../components/Loader/selectLoader"
 import chroma from 'chroma-js'
 import Select ,{StylesConfig }from 'react-select'
 import ProfileLoader from "../components/Loader/ProfilesLoader"
-
+import toast,{Toaster} from 'react-hot-toast'
 declare namespace JSX {
   interface IntrinsicElements {
     "lottie-player": any;
@@ -509,7 +509,7 @@ SelectedClient=[]
         .catch((err) => err);
       setLoader(true);
     }
-    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0  && LanguageFilter.length ===0 && SelectedClient.length === 0 ) {
+    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0  && LanguageFilter.length ===0 && SelectedClient.length === 0 && FilterJob.length ===0 ) {
       {
         setLoader(true)
         setStatus(true)
@@ -553,16 +553,22 @@ SelectedClient=[]
     setSectorOptions([])
     setJobs([])
     setSelectedJob([])
+    setLangOp([])
     setJobOptions([])
     ClientFL=[]
     setClients([])
     SelectedClient=[]
-    filterFunction()
+  toast.success("Filters Reset Successfully!")
+    
+  setTimeout(()=>{filterFunction()
+
+  },1000)
     fetchAllSectors()
   }
 
   return (
     <>
+     <Toaster position="top-right" containerStyle={{zIndex:"99999999999999999999999999"}} />
       <div className="container-fluid">
         <div className="row pd">
                <div className="col-12 card-tops px-1" style={{ padding: "0px", marginBottom: "20px" }}>

@@ -214,6 +214,8 @@ const [matched, setMatched] = useState(false);
   const [Offre, setOffre] = useState(false);
   const [taxHours,setHours]=useState("")
   const [taxHoursID,setHoursId]=useState("")
+  const [disableSalary , setDisableSalary]=useState(false)
+  const [disableTaux , setDisableTauxHORRAIRE]=useState(false)
   const [salary,setSalary_hours] =useState({
     hours:"",
     salaryPerHour:""
@@ -499,10 +501,24 @@ setData({...data,note_cofac:NoteCofac})
 
 const onSubmitRates=(e)=>{
   if(e.target.name==="salaryH"){
+    if(disableSalary ==false){
+  toast.success("Salary Saved!")
   setData({...data,salary_hours:salary})
+    }if (disableSalary == true){
+      toast.error("Already Salary Saved!")
+      setData({...data,salary_hours:salary})
+    }
   }
   if(e.target.name==="tauxH"){
-    setData({...data,rate_hours:rateHours})
+    if(disableTaux == false){
+      toast.success("TAUX HORRAIRE Saved!")
+      setData({...data,rate_hours:rateHours})
+    }
+    if(disableTaux == true){
+      toast.error("Already TAUX HORRAIRE Saved!")
+      setData({...data,rate_hours:rateHours})
+    }
+
   }
 }
 
@@ -702,6 +718,7 @@ setSectorOptions([...sectorops]);
       console.log(selectedSector,"selected")
     }
 }
+
   return (
     <>
     <Toaster position="top-right" containerStyle={{zIndex:"999999999999999999999999999"}} />
@@ -1264,12 +1281,12 @@ setSectorOptions([...sectorops]);
                         style={{ width: "100%" }}
                       >
                         <span>€</span>
-                        <input type="text" className='form-control placeHolder' name='salary_hours' placeholder='Amount'   onChange={onInputChange} />
+                        <input type="text" className='form-control placeHolder' disabled={disableSalary} name='salary_hours' placeholder='Amount'   onChange={onInputChange} />
                         <span>.00</span>
                       </div>
                     </div>
                     <div className="col-3 mt-1 px-1 ">
-                      <button type="button" className="btn saveSalary" name="salaryH" id="Hour" onClick={(e)=>onSubmitRates(e)}>
+                      <button type="button" className="btn saveSalary" name="salaryH" id="Hour" onClick={(e)=>{onSubmitRates(e);setDisableSalary(true)}}>
                         Save Salary {showHour}H
                       </button>
                     </div>
@@ -1418,12 +1435,13 @@ setSectorOptions([...sectorops]);
                           name="turnover"
                           placeholder="Amount"
                           onChange={onInputChange}
+                          disabled={disableTaux}
                         />
                         <span>.00</span>
                       </div>
                     </div>
                     <div className="col-3 mt-1 px-0">
-                      <button type="button" className="btn SaveTAUX" name="tauxH" onClick={(e)=>onSubmitRates(e)}>
+                      <button type="button" className="btn SaveTAUX" name="tauxH" onClick={(e)=>{onSubmitRates(e);setDisableTauxHORRAIRE(true)}}>
                         Save TAUX HORRAIRE {taxHours} H
                       </button>
                     </div>

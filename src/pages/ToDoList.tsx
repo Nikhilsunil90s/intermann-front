@@ -377,6 +377,7 @@ setMotivationOptions([    {
     emailArr=[]
     LanguageFilter=[]
     contactArr=[]
+    DateArr=[]
     setSelectedSector("")
     MotivationArr = []
     console.log(e.value)
@@ -397,8 +398,8 @@ setMotivationOptions([    {
     LanguageFilter=[]
     setSelectedSector("")
     emailArr=[]
+    DateArr=[]
     contactArr=[]
-    SelectedName = []
     if (e.value === "Select Motivations") {
       MotivationArr = []
       filterFunction()
@@ -421,6 +422,7 @@ setMotivationOptions([    {
     MotivationArr = []
     LicencePermisArr = []
     FilterJob = [];
+    DateArr=[]
     setSelectedJob([])
     emailArr=[]
     contactArr=[]
@@ -476,6 +478,7 @@ setMotivationOptions([    {
     setSelectedJob([])
     setSelectedSector("")
     emailArr=[]
+    DateArr=[]
     contactArr=[]
     if (e.value === "Select Contact") {
       contactArr=[]
@@ -681,7 +684,7 @@ setMotivationOptions([    {
           setStatus(true)
             setFilterData([...result.data]);
           }
-          if(result.length == 0){
+          if(result.status == false){
             setLoader(true)
             setStatus(false);
           }
@@ -760,10 +763,14 @@ setMotivationOptions([    {
     }
  }
  const LanguageChange = async (lang) => {
- 
+  DateArr=[]
   setSelectedSector("")
   SelectedName=[]
-  
+  LicencePermisArr=[]
+  OthersFilterArr = []
+  emailArr=[]
+  contactArr=[]
+  MotivationArr=[]
       // console.log(jobval)
       let LangArr=[]
       if(lang.value == "Select Language"){
@@ -804,9 +811,11 @@ setMotivationOptions([    {
    setEmail([])
    contactArr=[]
    setContactOptions([])
+   toast.success("Filters Reset Successfully!")
   fetchAllSectors()
-  filterFunction()
-
+  setTimeout(()=>{
+    filterFunction()
+  },1000)
 }
 
 

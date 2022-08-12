@@ -647,6 +647,7 @@ setStatus(false)
       setMotivationOptions([])
       setOtherOptions([])
       setJobs([])
+      setSelectedSector("")
       FilterJob = [];
       MotivationArr = []
       OthersFilterArr = []
@@ -658,6 +659,7 @@ setStatus(false)
       phone=false
       setSectors([])
       setSelectedJob([])
+      toast.success("Filters Reset Successful!")
       fetchAllSectors()
       filterFunction()
      }

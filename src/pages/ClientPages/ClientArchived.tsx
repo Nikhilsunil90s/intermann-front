@@ -68,6 +68,8 @@ export default function ClientArchived() {
   const [optionsOthersFilter, setOtherOptions] = useState([])
   const [importanceOptions, setImportanceOptions] = useState([])as any
 
+
+  const NotifySuccess =()=>toast.success("Filters Reset Successful!")
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -662,6 +664,7 @@ setStatus(false)
     email=false
     phone=false
     setSelectedSector("")
+    OthersFilterArr=[]
     MotivationArr = []
     FilterJob=[]
     Importance=[]
@@ -731,6 +734,7 @@ setStatus(false)
     SelectedName = []
     setMotivationOptions([])
     setOtherOptions([])
+    setSelectedSector("")
     setJobs([])
     FilterJob = [];
     MotivationArr = []
@@ -744,7 +748,11 @@ setStatus(false)
     email=false
     phone=false
     fetchAllSectors()
-    filterFunction()
+    NotifySuccess()
+    setTimeout(()=>{
+      filterFunction()
+    },1000)
+  
    }
 
 

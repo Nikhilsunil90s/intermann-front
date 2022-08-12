@@ -4,7 +4,7 @@ import StarRatings from "react-star-ratings";
 import "../CSS/preSelected.css";
 import ToDoProfileCard from "../components/ToDoProfileCard";
 import { API_BASE_URL } from "../config/serverApiConfig";
-import { Toaster } from "react-hot-toast";
+import {toast, Toaster } from "react-hot-toast";
 import Loader from "../components/Loader/loader";
 import Select, { GroupBase, StylesConfig } from "react-select";
 import { colourOptions, ColourOption } from "../Selecteddata/data";
@@ -36,7 +36,7 @@ declare namespace JSX {
   let LicencePermisArr = []
   let DateArr=[]
   let contactArr=[]
-  let LanguageFilter=[]
+  let LanguageFilter=[]as any
 function Preselected(){
  
           const [sectors, setSectors] = useState([]);
@@ -56,21 +56,7 @@ function Preselected(){
           const [LanguageOp,setLangOp]=useState([])
           const [licenceOptions, setLicenseOptions] = useState([])
         
-          const [motivationOptions, setMotivationOptions] = useState([
-            {
-              value: "Select Motivations", label: "Select Motivations", color: '#FF8B00'
-            },   {
-              value: "1", label: "😔", color: '#FF8B00'
-            }, {
-              value: "2", label: "🙁", color: '#FF8B00'
-            }, {
-              value: "3", label: "😊", color: '#FF8B00'
-            }, {
-              value: "4", label: "🥰", color: '#FF8B00'
-            }, {
-              value: "5", label: "😍", color: '#FF8B00'
-            }
-          ])
+          const [motivationOptions, setMotivationOptions] = useState([])
           const [ContactOptions,setContactOptions]=useState([])
           const [LicensePermis, setLicensePermis] = useState([]) as any
           const [selectByName, setSelectName] = useState([])
@@ -161,7 +147,28 @@ function Preselected(){
             setJobOptions([...jobResults]);
             console.log(jobs);
           }, [jobs]);
+
+
+          const DateFilter=()=>{
+            fetch(`${API_BASE_URL}getCandidats/?candidatStartDate=${DateArr}&candidatStatus=Pre-Selected`, {
         
+              method: "GET",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            })
+              .then((reD) => reD.json())
+              .then((result) =>{
+               if(result.total === 0){
+            setLoader(true) 
+            setStatus(false)
+               }else{
+             setFilterData([...result.data]) ; setLoader(true); setStatus(true)
+             }   })
+              .catch((err) => err);
+          }
 
           const ContactFilter=()=>{
             return fetch(`${API_BASE_URL}getCandidatsByPhoneNumber/?phoneNumber=${contactArr}&candidatStatus=Pre-Selected`, {
@@ -271,6 +278,21 @@ function Preselected(){
 
         )
         useEffect(()=>{
+          if(motivationOptions.length == 0){
+           setMotivationOptions([{
+              value: "Select Motivations", label: "Select Motivations", color: '#FF8B00'
+            },   {
+              value: "1", label: "😔", color: '#FF8B00'
+            }, {
+              value: "2", label: "🙁", color: '#FF8B00'
+            }, {
+              value: "3", label: "😊", color: '#FF8B00'
+            }, {
+              value: "4", label: "🥰", color: '#FF8B00'
+            }, {
+              value: "5", label: "😍", color: '#FF8B00'
+            }])
+          }
           if(LicensePermis.length == 0){
            setLicensePermis([
               {
@@ -408,7 +430,7 @@ function Preselected(){
  
               setSelectedSector("")
               SelectedName=[]
-              
+              LicencePermisArr = []
                   // console.log(jobval)
                   let LangArr=[]
                   if(lang.value == "Select Language"){
@@ -423,7 +445,6 @@ function Preselected(){
                   })
                   LanguageFilter=LangArr
                   filterFunction()
-                  console.log(LanguageFilter,"jee")
                 }
                 }
           
@@ -487,7 +508,7 @@ function Preselected(){
           const filterFunction = async () => {
             setLoader(false);
         
-            if (SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || emailArr.length > 0 || contactArr.length > 0) {
+            if (SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || emailArr.length > 0 || contactArr.length > 0 || DateArr.length > 0) {
               if (emailArr.length > 0) {
                 setFilterData([])
                 SelectedName = []
@@ -505,6 +526,15 @@ function Preselected(){
                      }  
                 })
                 .catch((err)=>err)
+              }
+              if (DateArr.length > 0) {
+                setFilterData([])
+                SelectedName = []
+                MotivationArr = []
+                LicencePermisArr=[]
+                setSelectedSector("")
+                
+                DateFilter()
               }
               if (contactArr.length > 0) {
                 setFilterData([])
@@ -615,7 +645,7 @@ function Preselected(){
               selectedLanguages.length == 0
             ) {
               fetch(
-                `${API_BASE_URL}getCandidats/?sector=${selectedSector}&candidatStatus=Pre-Selected`,
+                `${API_BASE_URL}getCandidats/?candidatActivitySector=${selectedSector}&candidatStatus=Pre-Selected`,
                 {
                   method: "GET",
                   headers: {
@@ -646,7 +676,7 @@ function Preselected(){
               selectedLanguages.length == 0
             ) {
               await fetch(
-                `${API_BASE_URL}getCandidats/?sector=${selectedSector}&jobs=${FilterJob}&candidatStatus=Pre-Selected`,
+                `${API_BASE_URL}getCandidats/?candidatActivitySector=${selectedSector}&jobs=${FilterJob}&candidatStatus=Pre-Selected`,
                 {
                   method: "GET",
                   headers: {
@@ -706,12 +736,12 @@ function Preselected(){
               setLoader(true);
             }
             if (
-              selectedSector.length > 0 &&
-              selectedJob.length > 0 &&
-              selectedLanguages.length > 0
+              selectedSector.length == 0 &&
+              selectedJob.length == 0 &&
+              LanguageFilter.length > 0
             ) {
               await fetch(
-                `${API_BASE_URL}getCandidats/?sector=${selectedSector}&jobs=${selectedJob}&languages=${selectedLanguages}&candidatStatus=Pre-Selected`,
+                `${API_BASE_URL}filterPreSelectedCandidatByLanguages/?languages=${LanguageFilter}`,
                 {
                   method: "GET",
                   headers: {
@@ -723,15 +753,19 @@ function Preselected(){
               )
                 .then((reD) => reD.json())
                 .then((result) => {
-                  {
-                    setFilterData([...result.data]);
-                  }
-                  setStatus(result.status);
-                })
-                .catch((err) => err);
-              setLoader(true);
+                  if(result.length > 0){
+                    setLoader(true)
+                    setStatus(true)
+                setFilterData([...result.data]);
+             }
+            if(result.status == false){
+              setLoader(true)
+              setStatus(false)
             }
-            if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && emailArr.length === 0 && contactArr.length === 0) {
+            })
+                .catch((err) => err);
+            }
+            if (selectedSector.length === 0 && selectedJob.length === 0 && LanguageFilter.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && emailArr.length === 0 && contactArr.length === 0 && DateArr.length === 0) {
               
 
                 fetchProfiles().then(filteredresponse => {
@@ -848,8 +882,11 @@ console.log(statusProfiles,"filteredresponse.status")
    setLicenseOptions([])
    setEmail([])
    setContactOptions([])
+   toast.success("Filters Reset Successfully!")
   fetchAllSectors()
-  filterFunction()
+  setTimeout(()=>{
+    filterFunction()
+  },1000)
 
 }
  return(
@@ -1138,7 +1175,7 @@ styles={colourStyles}
                       <div className="col-12">
                         <div className="row justify-content-end">
                         <div className="col-2 d-flex align-items-center justify-content-end">
-                        {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length > 0  || emailArr.length >0 || contactArr.length > 0 || LanguageFilter.length > 0?
+                        {selectedSector.length > 0 || selectedJob.length > 0 || LanguageFilter.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length > 0  || emailArr.length >0 || contactArr.length > 0 || LanguageFilter.length > 0?
 
                           <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
                           : null
