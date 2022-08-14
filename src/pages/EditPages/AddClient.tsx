@@ -582,9 +582,6 @@ const onSubmitRates=(e)=>{
          ClientDataFormat.salary_hours=arr
           toast.success("Salary Saved!")
           return true
-        }else{
-          toast.error("Already Salary Saved!")
-
         }
      
        return false
@@ -606,9 +603,6 @@ const onSubmitRates=(e)=>{
               
               toast.success("Taux Horraire Saved!")
               return true
-            }else{
-              toast.error("Already Taux Horraire Saved!")
-
             }
             return false
           })
