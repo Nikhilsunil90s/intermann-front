@@ -194,7 +194,7 @@ const notifyEmailError = () => toast.error("Please Provide Client Email !");
 
 
 const [disableButton, setDisableButton] = useState(false);
-const [data, setData] = useState(ClientDataFormat);
+const [data, setData] = useState(ClientDataFormat)as any;
 const [activitySectors, setActivitySectors] = useState([]);
 const [sectorOption,setSectorOptions]=useState([])
 const [jobs, setJobs] = useState([{ jobName: "", associatedSector: "", _id: "" }]);
@@ -216,33 +216,80 @@ const [matched, setMatched] = useState(false);
   const [taxHours,setHours]=useState("")
   const [taxHoursID,setHoursId]=useState("")
   const [disableSalary , setDisableSalary]=useState(false)
-  const [SalaryTotals , setTotalSalary]=useState([])as any
+  const [checkBooleanValue , setcheckBooleanValue]=useState(Boolean)as any
   const [SalaryCheck , setSalarycheck]=useState(SalaryTotalcheck)as any
   const [salary,setSalary_hours] =useState({
     hours:"",
-    salaryPerHour:""
+    salary_hours:""
   })as any
   const [rateHours,setrate_hours] =useState({
     hours:"",
-    ratePerHour:""
+    rate_hours:""
   })as any
 
-  const RemoveHandling=(e)=>{
- if(e.target.name=="Salary"){
-  setShowHour("")
-    setID("")
-    setSalary_hours( { hours:"",
-    salaryPerHour:""})
- }
+  
+useEffect(()=>{
+  // setData({...data,rate_hours:Tauxarr})
+  // setData({...data,salary_hours:ClientDataFormat.salary_hours})
+  ClientDataFormat.salary_hours=arr
+  ClientDataFormat.rate_hours=Tauxarr
+
+},[Tauxarr,SalaryTotal]) 
+console.log(data,"data")
+
+
+  const RemoveHandling=(e,showHour)=>{
+ let SalaryFData =[]
+ let TauxHour=[]
+ if(e.target.id=="salary"){
+
+   SalaryFData= ClientDataFormat.salary_hours.filter(el=>{
+   return   el.hours !== showHour ;
+  })
+  if(SalaryFData.length !=0){
+    arr=[]
+    ClientDataFormat.salary_hours=[]
+    SalaryFData.filter(el=>{
+      setcheckBooleanValue(el.hours.includes(showHour))
+        console.log(checkBooleanValue)
+      
+      })
+        if(checkBooleanValue === false){
+        
+        arr.push(...SalaryFData)
+        ClientDataFormat.salary_hours.push(...SalaryFData)
+        toast.success(`Removed ${showHour}H Salary!`)
+        return true
+
+      }
+      return false
+  }
+ 
+  }
   if(e.target.name=="TauxHours"){
  
-    // setrate_hours({
-    //   hours:"",
-    //   ratePerHour:""
-    // })
-    if(TauxH.includes(taxHours)){
-      alert("yes")
-    }
+    TauxHour= ClientDataFormat.rate_hours.filter(el=>{
+      return   el.hours !== taxHours ;
+     })
+     if(TauxHour.length !=0){
+       
+       ClientDataFormat.rate_hours=[]
+       TauxHour.filter(el=>{
+         setcheckBooleanValue(el.hours.includes(taxHours))
+           console.log(checkBooleanValue)
+         })
+           if(checkBooleanValue === false){
+           
+          
+           ClientDataFormat.rate_hours.push(...TauxHour)
+           toast.success(`Removed ${taxHours}H Taux!`)
+           console.log(ClientDataFormat,"clientdata")
+           return true
+   
+         }
+         return false
+     }
+    
   }
   
   } 
@@ -406,7 +453,7 @@ useEffect(() => {
   
       setSectorOptions([...sectorops]);
     }
-})
+},[activitySectors])
 
 const fetchAllJobs = async (sector: string) => {
     return await fetch(API_BASE_URL + `fetchAllJobs/?sector=${sector}`, {
@@ -517,33 +564,34 @@ let NoteCofac=""
 NoteCofac=e.value
 setData({...data,note_cofac:NoteCofac})
 }
-// if(!JSON.stringify(SalaryTotals).includes(SalaryCheck) || SalaryTotal.length == 0){
+// if(!JSON.stringify(checkBooleanValue).includes(SalaryCheck) || SalaryTotal.length == 0){
 //   console.log(SalaryTotal,SalaryTotalcheck,"data")
 // }
 console.log(SalaryTotal,SalaryCheck,"salaryTotal")
 const onSubmitRates=(e)=>{
 
   if(e.target.name==="salaryH"){
-   
-      if(salary.hours !== "" && salary.salaryPerHour !== ""){
+
+      if(salary.hours !== "" && salary.salary_hours !== ""){
       SalaryTotal.push(salary)
       const FilterSalary=  SalaryTotal.filter(el=>{
         const duplicate = arr.includes(el) ;
         if(duplicate == false){
-        
+        console.log(duplicate,"duplic")
           arr.push(el)
-          ClientDataFormat.salary_hours=arr
+         ClientDataFormat.salary_hours=arr
           toast.success("Salary Saved!")
           return true
+        }else{
+          toast.error("Already Salary Saved!")
+
         }
-      
+     
        return false
       }
       )}
 
-      
-  
-console.log(ClientDataFormat,"data")
+
    
   }
     
@@ -555,16 +603,19 @@ console.log(ClientDataFormat,"data")
             const duplicate = Tauxarr.includes(el)
             if(!duplicate){
               Tauxarr.push(el)
-              ClientDataFormat.rate_hours=Tauxarr
+              
               toast.success("Taux Horraire Saved!")
               return true
+            }else{
+              toast.error("Already Taux Horraire Saved!")
+
             }
             return false
           })
         
           
       
-    console.log(ClientDataFormat,"data")
+
   }
 }
 
@@ -572,10 +623,10 @@ console.log(ClientDataFormat,"data")
 
 const onInputChange=(val)=>{
   if(val.target.name==="salary_hours"){
-    setSalary_hours({...salary,salaryPerHour:val.target.value})
+    setSalary_hours({...salary,salary_hours:val.target.value})
   }
   if(val.target.name==="turnover"){
-    setrate_hours({...rateHours,ratePerHour:val.target.value})
+    setrate_hours({...rateHours,rate_hours:val.target.value})
   }
 }
 
@@ -638,19 +689,8 @@ const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 };
 
 
-   
 
 useEffect(() => {
-  if (activitySectors.length === 0) {
-      fetchActivitySectors()
-          .then(redata => {
-              console.log(redata);
-              setActivitySectors([...redata.data]);
-          })
-          .catch(err => {
-              console.log(err)
-          })
-  }
   if (jobs.length === 0 ) {
       fetchAllJobs(selectedSector)
           .then((data) => {
@@ -1339,7 +1379,7 @@ console.log(Language, "language")
                       </button>
                     </div>
                     <div className="col-4 mt-1 px-1">
-                      <button type="button" onClick={(e)=>RemoveHandling(e)} name="Salary" className="btn RemoveSalary">
+                      <button type="button" onClick={(e)=>RemoveHandling(e,showHour)} id="salary" className="btn RemoveSalary">
                         REMOVE Salary {showHour}H
                       </button>
                     </div>
@@ -1494,7 +1534,7 @@ console.log(Language, "language")
                       </button>
                     </div>
                     <div className="col-4 mt-1 px-1">
-                      <button type="button" className="btn RemoveSalary" name="TauxHours" onClick={(e)=>RemoveHandling(e)}>
+                      <button type="button" className="btn RemoveSalary" name="TauxHours" onClick={(e)=>RemoveHandling(e,showHour)}>
                         REMOVE Salary {taxHours}H
                       </button>
                     </div>

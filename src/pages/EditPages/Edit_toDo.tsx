@@ -177,9 +177,10 @@ function EditDo() {
   const switchHandle=(checked,id,e)=>{
     console.log(checked,id,e,"all")
 console.log(checked,"checked")
-   
+setFormTouched(true)
 if(e=="Permis"){
 if(checked === true){
+
       setPermis(true)
       EmployeeDataFormat.candidatLicensePermis=true
       console.log(EmployeeDataFormat,"daasd")
@@ -197,7 +198,7 @@ if(checked === true){
         setData({ ...data, ['candidatConduireEnFrance']: checked })
       }
 if(checked == false){
-  setFormTouched(true)
+ 
   setVoyage(false)
   setData({ ...data, ['candidatConduireEnFrance']: checked })
 }
@@ -455,7 +456,7 @@ if(checked == false){
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formTouched, data,"data1");
-    if (formTouched) {
+    if (formTouched == true) {
       const updatedData = {
         candidatId: profile._id,
         candidatName: data.candidatName != "" ? data.candidatName : profile.candidatName,
@@ -466,7 +467,7 @@ if(checked == false){
         candidatLanguages: data.candidatLanguages != [] ? data.candidatLanguages : profile.candidatLanguages,
         candidatStartDate: data.candidatStartDate != "" ? data.candidatStartDate : profile.candidatStartDate,
         candidatEndDate: data.candidatEndDate != "" ? data.candidatEndDate : profile.candidatEndDate,
-        candidatLicensePermis: data.candidatLicensePermis !==  profile.candidatLicensePermis ? data.candidatLicensePermis : profile.candidatLicensePermis,
+        candidatLicensePermis: EmployeeDataFormat.candidatLicensePermis !== false ? true : profile.candidatLicensePermis,
         candidatConduireEnFrance: data.candidatConduireEnFrance ? data.candidatConduireEnFrance : profile.candidatConduireEnFrance,
         candidatSkills: data.candidatSkills != "" ? data.candidatSkills : profile.candidatSkills,
         candidatExperienceDetails: data.candidatExperienceDetails,
