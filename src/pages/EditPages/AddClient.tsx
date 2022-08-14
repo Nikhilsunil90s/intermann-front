@@ -41,11 +41,8 @@ const ClientDataFormat = {
   clientReferenceName: "",
   clientReferenceNumber: "",
   clientRequiredSkills: "",
-  salary_hours:{
-    hours:"",
-    salaryPerHour: ""
-  },
-  rate_hours :{ hours:"",ratePerHour: "" },
+  salary_hours:[],
+  rate_hours :[],
   numberOfPosts: "",
   clientMotivation: 0,
   jobStartDate: "",
@@ -67,7 +64,11 @@ const ClientDataFormat = {
         sispiDeclared:false,
 }
 
-
+const SalaryTotal = []as any
+const SalaryTotalcheck = []as any
+const TauxH=[]
+let arr = []as any
+let Tauxarr=[]as any
 export default function AddClient(props) {
   const SwitchChange = (checked: any, e: any, Name: any) => {
 console.log(Name,"checkd")
@@ -215,11 +216,12 @@ const [matched, setMatched] = useState(false);
   const [taxHours,setHours]=useState("")
   const [taxHoursID,setHoursId]=useState("")
   const [disableSalary , setDisableSalary]=useState(false)
-  const [disableTaux , setDisableTauxHORRAIRE]=useState(false)
+  const [SalaryTotals , setTotalSalary]=useState([])as any
+  const [SalaryCheck , setSalarycheck]=useState(SalaryTotalcheck)as any
   const [salary,setSalary_hours] =useState({
     hours:"",
     salaryPerHour:""
-  })
+  })as any
   const [rateHours,setrate_hours] =useState({
     hours:"",
     ratePerHour:""
@@ -233,66 +235,83 @@ const [matched, setMatched] = useState(false);
     salaryPerHour:""})
  }
   if(e.target.name=="TauxHours"){
-    setHours("")
-    setHoursId("")
-    setrate_hours({
-      hours:"",
-      ratePerHour:""
-    })
+ 
+    // setrate_hours({
+    //   hours:"",
+    //   ratePerHour:""
+    // })
+    if(TauxH.includes(taxHours)){
+      alert("yes")
+    }
   }
   
-  }
+  } 
+ 
   const HandleChange = (e: any) => {
+   
     console.log(e.target.value);
     if (e.target.id === "1") {
       setShowHour("35");
       setID(e.target.id);
       setSalary_hours({...salary,hours:"35"})
+      
     }
     if (e.target.id === "2") {
       setShowHour("39");
       setID(e.target.id);
       setSalary_hours({...salary,hours:"39"})
+      
 
     }
     if (e.target.id === "3") {
       setShowHour("40");
       setSalary_hours({...salary,hours:"40"})
       setID(e.target.id);
+      
+
     }
     if (e.target.id === "4") {
       setShowHour("41");
       setID(e.target.id);
       setSalary_hours({...salary,hours:"41"})
+      
 
     }
     if (e.target.id === "5") {
       setShowHour("42");
       setSalary_hours({...salary,hours:"42"})
       setID(e.target.id);
+      
+
     }
     if (e.target.id === "6") {
       setShowHour("43");
       setSalary_hours({...salary,hours:"43"})
       setID(e.target.id);
+      
+
     }
     if (e.target.id === "7") {
       setShowHour("44");
       setID(e.target.id);
       setSalary_hours({...salary,hours:"44"})
+     
+      
 
     }
     if (e.target.id === "8") {
       setShowHour("45");
       setID(e.target.id);
       setSalary_hours({...salary,hours:"45"})
+     
+      
     }
   };
 
   const TauxHandleChange = (e: any) => {
     console.log(e.target.value);
     if (e.target.id === "1") {
-      setShowHour("35");
+      setHours("35");
       setHoursId(e.target.id);
       setrate_hours({...rateHours,hours:"35"})
       // setData({...data.salary_hours.hours:...salary.hours})
@@ -498,28 +517,57 @@ let NoteCofac=""
 NoteCofac=e.value
 setData({...data,note_cofac:NoteCofac})
 }
-
+// if(!JSON.stringify(SalaryTotals).includes(SalaryCheck) || SalaryTotal.length == 0){
+//   console.log(SalaryTotal,SalaryTotalcheck,"data")
+// }
+console.log(SalaryTotal,SalaryCheck,"salaryTotal")
 const onSubmitRates=(e)=>{
-  if(e.target.name==="salaryH"){
-    if(disableSalary ==false){
-  toast.success("Salary Saved!")
-  setData({...data,salary_hours:salary})
-    }if (disableSalary == true){
-      toast.error("Already Salary Saved!")
-      setData({...data,salary_hours:salary})
-    }
-  }
-  if(e.target.name==="tauxH"){
-    if(disableTaux == false){
-      toast.success("TAUX HORRAIRE Saved!")
-      setData({...data,rate_hours:rateHours})
-    }
-    if(disableTaux == true){
-      toast.error("Already TAUX HORRAIRE Saved!")
-      setData({...data,rate_hours:rateHours})
-    }
 
+  if(e.target.name==="salaryH"){
+   
+      if(salary.hours !== "" && salary.salaryPerHour !== ""){
+      SalaryTotal.push(salary)
+      const FilterSalary=  SalaryTotal.filter(el=>{
+        const duplicate = arr.includes(el) ;
+        if(duplicate == false){
+        
+          arr.push(el)
+          ClientDataFormat.salary_hours=arr
+          toast.success("Salary Saved!")
+          return true
+        }
+      
+       return false
+      }
+      )}
+
+      
+  
+console.log(ClientDataFormat,"data")
+   
   }
+    
+  
+  if(e.target.name==="tauxH"){
+    if(rateHours.hours !== "" && rateHours.rate_hours !== ""){
+      TauxH.push(rateHours)
+          const FilterTaux = TauxH.filter(el=>{
+            const duplicate = Tauxarr.includes(el)
+            if(!duplicate){
+              Tauxarr.push(el)
+              ClientDataFormat.rate_hours=Tauxarr
+              toast.success("Taux Horraire Saved!")
+              return true
+            }
+            return false
+          })
+        
+          
+      
+    console.log(ClientDataFormat,"data")
+  }
+}
+
 }
 
 const onInputChange=(val)=>{
@@ -527,7 +575,7 @@ const onInputChange=(val)=>{
     setSalary_hours({...salary,salaryPerHour:val.target.value})
   }
   if(val.target.name==="turnover"){
-    setrate_hours({...setrate_hours,ratePerHour:val.target.value})
+    setrate_hours({...rateHours,ratePerHour:val.target.value})
   }
 }
 
@@ -542,10 +590,11 @@ setData({...data,leadOrigin:SEO.value})
 }
 
 const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  console.log(data,"onsubmit")
     setDisableButton(true);
     e.preventDefault();
     // setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [] }));
-    console.log(data);
+   
     if (data.clientCompanyName == "") {
         notifyNameError()
         return false
@@ -585,11 +634,10 @@ const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         .catch(err => {
             console.log(err)
         })
+        
 };
 
-useEffect(() => {
-    console.log(data)
-}, [data])
+
    
 
 useEffect(() => {
@@ -606,14 +654,14 @@ useEffect(() => {
   if (jobs.length === 0 ) {
       fetchAllJobs(selectedSector)
           .then((data) => {
-              console.log(data);
+             
               setJobs([...data.data])
           })
           .catch(err => {
               console.log(err)
           })
   }
-  console.log(data);
+ 
   let jobResults = jobs.map(ajob => {
       return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
     })
@@ -643,14 +691,14 @@ console.log(Language, "language")
 // setData({ ...data,clientLanguages: arr })
 }
 
-useEffect(() => {
-console.log(activitySectors);
-let sectorops = activitySectors.map((asector) => {
-  return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
-})
+// useEffect(() => {
+// console.log(activitySectors);
+// let sectorops = activitySectors.map((asector) => {
+//   return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
+// })
 
-setSectorOptions([...sectorops]);
-}, [activitySectors])
+// setSectorOptions([...sectorops]);
+// }, [activitySectors])
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: "white" }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -1286,7 +1334,7 @@ setSectorOptions([...sectorops]);
                       </div>
                     </div>
                     <div className="col-3 mt-1 px-1 ">
-                      <button type="button" className="btn saveSalary" name="salaryH" id="Hour" onClick={(e)=>{onSubmitRates(e);setDisableSalary(true)}}>
+                      <button type="button" className="btn saveSalary" name="salaryH" id="Hour" onClick={(e)=>{onSubmitRates(e);}}>
                         Save Salary {showHour}H
                       </button>
                     </div>
@@ -1435,13 +1483,13 @@ setSectorOptions([...sectorops]);
                           name="turnover"
                           placeholder="Amount"
                           onChange={onInputChange}
-                          disabled={disableTaux}
+                          // disabled={disableTaux}
                         />
                         <span>.00</span>
                       </div>
                     </div>
                     <div className="col-3 mt-1 px-0">
-                      <button type="button" className="btn SaveTAUX" name="tauxH" onClick={(e)=>{onSubmitRates(e);setDisableTauxHORRAIRE(true)}}>
+                      <button type="button" className="btn SaveTAUX" name="tauxH" onClick={(e)=>{onSubmitRates(e)}}>
                         Save TAUX HORRAIRE {taxHours} H
                       </button>
                     </div>

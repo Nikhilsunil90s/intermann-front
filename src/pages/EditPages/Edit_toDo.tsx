@@ -175,22 +175,24 @@ function EditDo() {
   const notifyCandidatEditError = () => toast.error("Cannot Edit Candidat! Please Try Again.");
 
   const switchHandle=(checked,id,e)=>{
+    console.log(checked,id,e,"all")
 console.log(checked,"checked")
-    if(checked === true){
-      setFormTouched(true)
+   
+if(e=="Permis"){
+if(checked === true){
       setPermis(true)
-   setData({ ...data, ['candidatLicensePermis']:true })
-      console.log(data,"daasd")
+      EmployeeDataFormat.candidatLicensePermis=true
+      console.log(EmployeeDataFormat,"daasd")
     }
     if(checked === false){
-      setFormTouched(true)
       setPermis(false)
-   setData({ ...data, ['candidatLicensePermis']: false })
+      EmployeeDataFormat.candidatLicensePermis=false
       console.log(data,"daasd")
     }
+  }
     if(e=="Voyage"){
       if(checked == true){
-        setFormTouched(true)
+
         setVoyage(true)
         setData({ ...data, ['candidatConduireEnFrance']: checked })
       }
@@ -464,7 +466,7 @@ if(checked == false){
         candidatLanguages: data.candidatLanguages != [] ? data.candidatLanguages : profile.candidatLanguages,
         candidatStartDate: data.candidatStartDate != "" ? data.candidatStartDate : profile.candidatStartDate,
         candidatEndDate: data.candidatEndDate != "" ? data.candidatEndDate : profile.candidatEndDate,
-        candidatLicensePermis: data.candidatLicensePermis ? data.candidatLicensePermis : profile.candidatLicensePermis,
+        candidatLicensePermis: data.candidatLicensePermis !==  profile.candidatLicensePermis ? data.candidatLicensePermis : profile.candidatLicensePermis,
         candidatConduireEnFrance: data.candidatConduireEnFrance ? data.candidatConduireEnFrance : profile.candidatConduireEnFrance,
         candidatSkills: data.candidatSkills != "" ? data.candidatSkills : profile.candidatSkills,
         candidatExperienceDetails: data.candidatExperienceDetails,
