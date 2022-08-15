@@ -257,7 +257,7 @@ console.log(data,"data")
         if(checkBooleanValue === false){
         
         arr.push(...SalaryFData)
-        ClientDataFormat.salary_hours.push(...SalaryFData)
+        ClientDataFormat.salary_hours.push(...arr)
         toast.success(`Removed ${showHour}H Salary!`)
         return true
 
