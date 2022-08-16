@@ -24,10 +24,7 @@ const EmployeeDataFormat = {
   candidatEmail: "",
   candidatPhone: "",
   candidatAddress: "",
-  candidatActivitySector: {
-    sectorName: "",
-    jobs: []
-  },
+  candidatActivitySector:"",
   candidatJob: "",
   candidatFBURL: "",
   candidatAlternatePhone: "",
@@ -65,7 +62,7 @@ interface State {
   profileData: any,
   path: any
 }
-
+let JobArr=""as any
 function EditArchive() {
 
   const locationObject = useLocation();
@@ -249,7 +246,13 @@ function EditArchive() {
         "Authorization": "Bearer " + localStorage.getItem('token')
       }
     }).then(resD => resD.json())
-      .then(reD => reD)
+      .then(reD => {
+        setJobs([...reD.data])
+        let jobN= reD.data.map((el)=>{
+          return {value:el.jobName,label:el.jobName,color:"#FF8B00"}
+        })
+        setJobOptions([...jobN])
+      })
       .catch(err => err)
   }
 
@@ -269,19 +272,11 @@ function EditArchive() {
   }
 
 
+
   const changeSectorSelection = async (sec: string) => {
     if (sec) {
       setSelectedSector(sec);
-      await fetchAllJobs(sec)
-        .then(data => {
-          console.log(data.data)
-          setJobs([...data.data]);
-          console.log(jobs,"jobs")
-        })
-        .catch(err => {
-          console.log(err);
-        })
-      console.log(jobs,"jobs");
+     fetchAllJobs(sec)
     }
     let jobN= jobs.map((el)=>{
       return {value:el.jobName,label:el.jobName,color:"#FF8B00"}
@@ -377,12 +372,12 @@ function EditArchive() {
         candidatAge: data.candidatAge != 0 ? data.candidatAge : profile.candidatAge,
         candidatMotivation: data.candidatMotivation != 0 ? data.candidatMotivation : profile.candidatMotivation,
         candidatActivitySector: selectedSector != "" ? selectedSector : profile.candidatActivitySector,
-        candidatJob: data.candidatJob != "" ? data.candidatJob : profile.candidatJob,
+        candidatJob: JobArr != "" ? data.candidatJob : profile.candidatJob,
         candidatLanguages: data.candidatLanguages != [] ? data.candidatLanguages : profile.candidatLanguages,
         candidatStartDate: data.candidatStartDate != "" ? data.candidatStartDate : profile.candidatStartDate,
         candidatEndDate: data.candidatEndDate != "" ? data.candidatEndDate : profile.candidatEndDate,
-        candidatLicensePermis: data.candidatLicensePermis ? data.candidatLicensePermis : profile.candidatLicensePermis,
-        candidatConduireEnFrance: data.candidatConduireEnFrance ? data.candidatConduireEnFrance : profile.candidatConduireEnFrance,
+        candidatLicensePermis: data.candidatLicensePermis==true ? true : false,
+        candidatConduireEnFrance: data.candidatConduireEnFrance == true ? true : false,
         candidatSkills: data.candidatSkills != "" ? data.candidatSkills : profile.candidatSkills,
         candidatExperienceDetails: data.candidatExperienceDetails,
         candidatEmail: data.candidatEmail != "" ? data.candidatEmail : profile.candidatEmail,
@@ -399,11 +394,14 @@ function EditArchive() {
       updateCandidat(formdata)
         .then(data => {
           console.log(data);
-          if (data.status) {
+          if (data.status==true) {
             notifyCandidatEditSuccess()
             setTimeout(() => {
-              // navigate(state.path);
+              navigate(path);
             }, 2000)
+          }
+          if(data.status==false){
+            toast.error("Candidat Change Failed!")
           }
         })
         .catch(err => {
@@ -415,15 +413,40 @@ function EditArchive() {
       notifyCandidatUntouched()
     }
   }
+  
   const switchHandle=(checked,id,e)=>{
-    if(e=="Permis"){
-   setPermis(checked)
+    console.log(checked,id,e,"all")
+console.log(checked,"checked")
+setFormTouched(true)
+if(e=="Permis"){
+if(checked === true){
+
+      setPermis(true)
+      setData({...data,candidatLicensePermis:true})
+      setFormTouched(true)
     }
-    if(e=="Voyage"){
-   setVoyage(checked)
+    if(checked === false){
+      setPermis(false)
+     setData({...data,candidatLicensePermis:false})
+     setFormTouched(true)
     }
   }
+    if(e=="Voyage"){
+      if(checked == true){
+
+        setVoyage(true)
+     setData({...data,candidatConduireEnFrance:true})
+      }
+if(checked == false){
+ 
+  setVoyage(false)
+  setData({...data,candidatConduireEnFrance:false})
+}
+    }
+  }
+
   const handleChange = (selectedOption) => {
+    setFormTouched(true)
     console.log(`Option selected:`, selectedOption)
     let arr = []
 
@@ -433,6 +456,7 @@ function EditArchive() {
     setLanguage(arr)
     console.log(Language, "language")
     setData({ ...data, candidatLanguages: arr })
+    
   }
   const fileChange = (
     e: React.ChangeEvent<
@@ -516,8 +540,8 @@ function EditArchive() {
         })
     }
 
-    if (jobs.length === 0) {
-      fetchAllJobs(profile.candidatActivitySector)
+    if (jobs.length === 0 && selectedSector != "" ? selectedSector : profile.candidatActivitySector !== "") {
+      fetchAllJobs(selectedSector !== "" ? selectedSector : profile.candidatActivitySector)
         .then((data) => {
           console.log(data);
           setJobs([...data.data])
@@ -525,12 +549,16 @@ function EditArchive() {
         .catch(err => {
           console.log(err)
         })
+        console.log(data);
         let jobResults = jobs.map(ajob => {
-          return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
-        })
-        setJobOptions([...jobResults]);
+            return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
+          })
+          setJobOptions([...jobResults]);
     }
-
+    if (data.candidatLanguages.length == 0) {
+      console.log(selectedLanguages);
+      setData((prev) => ({ ...prev, ["candidatLanguages"]: selectedLanguages }));
+    }
     if (data.candidatLanguages.length == 0) {
       console.log(selectedLanguages);
       setData((prev) => ({ ...prev, ["candidatLanguages"]: selectedLanguages }));
@@ -546,7 +574,7 @@ function EditArchive() {
     }
 
     console.log(data);
-  },[]);
+  },[selectedSector]);
 
 
   const handleSectorChange = (e: any) => {
@@ -561,19 +589,18 @@ function EditArchive() {
     } else if (e.value !== '') {
       let sectorField = e.value;
       changeSectorSelection(sectorField)
+      setSelectedSector(sectorField)
       setData({...data,candidatActivitySector:sectorField})
     //   setJobOptions([]);
+    setFormTouched(true)
     }
 }
 const jobChange = async (jobval) => {
   // console.log(jobval)
-  let JobArr=[]as any
-  jobval.map((el)=>{
-   
-   JobArr.push(el.value)
-
-  })
+ JobArr=""
+    JobArr =jobval.value
   setData({...data,candidatJob:JobArr})
+  setFormTouched(true)
   changeJobSelection(JobArr)
 }
   return (
@@ -734,7 +761,7 @@ className="SelectBtn"
                               <Select
                       name="jobName"
                       closeMenuOnSelect={true}
-                      isMulti
+                      isMulti={false}
                       placeholder="‎ ‎ ‎ Select"
                       className="basic-multi-select"
                       classNamePrefix="select"

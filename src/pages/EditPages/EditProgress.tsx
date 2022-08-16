@@ -24,10 +24,7 @@ const EmployeeDataFormat = {
   candidatEmail: "",
   candidatPhone: "",
   candidatAddress: "",
-  candidatActivitySector: {
-    sectorName: "",
-    jobs: []
-  },
+  candidatActivitySector: "",
   candidatJob: "",
   candidatFBURL: "",
   candidatAlternatePhone: "",
@@ -75,7 +72,7 @@ function EditProgress() {
   const [data, setData] = useState(EmployeeDataFormat);
   const [profile, setProfile] = useState<any>(profileData);
   const [activitySectors, setActivitySectors] = useState([])
-  const [selectedSector, setSelectedSector] = useState("");
+  const [selectedSector, setSelectedSector] = useState("")as any;
   const [formTouched, setFormTouched] = useState(false);
   const [candidatMotivation, setCandidatMotivation] = useState(profile.candidatMotivation);
   const [jobs, setJobs] = useState([]);
@@ -243,7 +240,13 @@ function EditProgress() {
         "Authorization": "Bearer " + localStorage.getItem('token')
       }
     }).then(resD => resD.json())
-      .then(reD => reD)
+      .then(reD =>{
+        setJobs([...reD.data])
+        let jobN= reD.data.map((el)=>{
+          return {value:el.jobName,label:el.jobName,color:"#FF8B00"}
+        })
+        setJobOptions([...jobN])
+      })
       .catch(err => err)
   }
 
@@ -280,16 +283,7 @@ function EditProgress() {
     if (sec) {
       setSelectedSector(sec);
       await fetchAllJobs(sec)
-        .then(data => {
-          console.log(data.data)
-          setJobs([...data.data]);
-          console.log(jobs,"jobs")
-        })
-        .catch(err => {
-          console.log(err);
-        })
-      console.log(jobs,"jobs");
-    }
+      }
     let jobN= jobs.map((el)=>{
       return {value:el.jobName,label:el.jobName,color:"#FF8B00"}
     })
@@ -426,8 +420,8 @@ function EditProgress() {
         candidatLanguages: data.candidatLanguages != [] ? data.candidatLanguages : profile.candidatLanguages,
         candidatStartDate: data.candidatStartDate != "" ? data.candidatStartDate : profile.candidatStartDate,
         candidatEndDate: data.candidatEndDate != "" ? data.candidatEndDate : profile.candidatEndDate,
-        candidatLicensePermis: data.candidatLicensePermis ? data.candidatLicensePermis : profile.candidatLicensePermis,
-        candidatConduireEnFrance: data.candidatConduireEnFrance ? data.candidatConduireEnFrance : profile.candidatConduireEnFrance,
+        candidatLicensePermis: data.candidatLicensePermis == true? true : false,        
+        candidatConduireEnFrance: data.candidatConduireEnFrance == true ? true : false,
         candidatSkills: data.candidatSkills != "" ? data.candidatSkills : profile.candidatSkills,
         candidatExperienceDetails: data.candidatExperienceDetails,
         candidatEmail: data.candidatEmail != "" ? data.candidatEmail : profile.candidatEmail,
@@ -453,7 +447,7 @@ function EditProgress() {
           if (response.status) {
             notifyCandidatEditSuccess();
             setTimeout(() => {
-              // navigate(state);
+              navigate(path);
             }, 2000)
           } else {
             notifyCandidatEditError();
@@ -470,13 +464,36 @@ function EditProgress() {
   }
   
   const switchHandle=(checked,id,e)=>{
-    if(e=="Permis"){
-   setPermis(checked)
+    console.log(checked,id,e,"all")
+console.log(checked,"checked")
+setFormTouched(true)
+if(e=="Permis"){
+if(checked === true){
+
+      setPermis(true)
+      setData({...data,candidatLicensePermis:true})
+      setFormTouched(true)
     }
-    if(e=="Voyage"){
-   setVoyage(checked)
+    if(checked === false){
+      setPermis(false)
+     setData({...data,candidatLicensePermis:false})
+     setFormTouched(true)
     }
   }
+    if(e=="Voyage"){
+      if(checked == true){
+
+        setVoyage(true)
+     setData({...data,candidatConduireEnFrance:true})
+      }
+if(checked == false){
+ 
+  setVoyage(false)
+  setData({...data,candidatConduireEnFrance:false})
+}
+    }
+  }
+
 
   const handleChange = (selectedOption) => {
     console.log(`Option selected:`, selectedOption)
@@ -554,8 +571,8 @@ function EditProgress() {
         })
     }
 
-    if (jobs.length === 0) {
-      fetchAllJobs(profile.candidatActivitySector)
+    if (jobs.length === 0 && selectedSector != "" ? selectedSector : profile.candidatActivitySector !== "") {
+      fetchAllJobs(selectedSector != "" ? selectedSector : profile.candidatActivitySector !== "")
         .then((data) => {
           setJobs([...data.data])
         })
@@ -580,7 +597,7 @@ function EditProgress() {
     }
     console.log(workingFor, workingSince, salary);
     console.log(data);
-  }, [activitySectors]);
+  }, [activitySectors,selectedSector]);
 
   const fetchCandidat = async (candidatId: any) => {
     return await fetch(API_BASE_URL + `getCandidatById/?candidatId=${candidatId}`, {
@@ -626,19 +643,18 @@ function EditProgress() {
       let sectorField = e.value;
       changeSectorSelection(sectorField)
       setData({...data,candidatActivitySector:sectorField})
+      setFormTouched(true)
+      setSelectedSector(sectorField)
     //   setJobOptions([]);
     }
 }
 const jobChange = async (jobval) => {
   // console.log(jobval)
-  let JobArr=[]as any
-  jobval.map((el)=>{
-   
-   JobArr.push(el.value)
-
-  })
+  let JobArr=""as any
+  JobArr=jobval.value
   setData({...data,candidatJob:JobArr})
   changeJobSelection(JobArr)
+  setFormTouched(true)
 }
 
   return (
@@ -796,7 +812,7 @@ className="SelectBtn"
                                  <Select
                       name="jobName"
                       closeMenuOnSelect={true}
-                      isMulti
+                      isMulti={false}
                       placeholder="‎ ‎ ‎ Select"
                       className="basic-multi-select"
                       classNamePrefix="select"

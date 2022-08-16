@@ -810,7 +810,7 @@ className="SelectBtn"
                 {
                   PDFModal ?
                   
-                  <PDFGenerate   closeModal={setPDFModal} />
+                  <PDFGenerate props={profile}  closeModal={setPDFModal} path="/todoprofile" />
                   : 
                   null
                 }
@@ -820,63 +820,64 @@ className="SelectBtn"
               <div className='row justify-content-between p-1'>
                             <div className='col-4  d-grid text-start'>
                                 <label className="PDFFormlabel">Lieu_Mission</label>
-                                <input className='form-control inputStylingForView'  placeholder="‎ ‎ ‎ Lieu_Mission" />
+                                <input className='form-control inputStylingForView' value={profile.candidatContract ?profile.candidatContract.lieu_mission ? profile.candidatContract.lieu_mission: "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Lieu_Mission" />
                             </div>
                             <div className='col-4  d-grid text-start' >
                             <label className="PDFFormlabel">Durée_Mission</label>
-                            <input className='form-control inputStylingForView'  placeholder="‎ ‎ ‎ Durée_Mission" />
+                            <input className='form-control inputStylingForView' value={profile.candidatContract ?profile.candidatContract.duree_mission ? profile.candidatContract.duree_mission  : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Durée_Mission" />
 
                             </div>
                             <div className='col-4  d-grid text-start'>
                             <label className="PDFFormlabel  d-flex align-items-start ">Durée_Hebdomadaire_Mission</label>
-                            <input className='form-control inputStylingForView' placeholder="‎ ‎ ‎ Durée_Hebdomadaire_Mission"/>
+                            <input className='form-control inputStylingForView'value={profile.candidatContract ?profile.candidatContract.duree_hebdomadaire_mission? profile.candidatContract.duree_hebdomadaire_mission  : "input Not Available!" : "input Not Available!"} placeholder="‎ ‎ ‎ Durée_Hebdomadaire_Mission"/>
 
                             </div>
                             <div className='col-4  d-grid text-start'>
                             <label className="PDFFormlabel">Candidate_Job</label>
-                            <input className='form-control inputStylingForView'  placeholder="‎ ‎ ‎ Candidate_Job" />
+                            <input className='form-control inputStylingForView' value={profile.candidatContract ?profile.candidatContract.candidatJob ? profile.candidatContract.candidatJob : "input Not Available!" : "input Not Available!"} placeholder="‎ ‎ ‎ Candidate_Job" />
 
                             </div>
                             <div className='col-4  d-grid text-start'>
                             <label className="PDFFormlabel">CMP_CANDIDATE</label>
-                            <input className='form-control inputStylingForView'  placeholder="‎ ‎ ‎ CMP_CANDIDATE" />
+                            <input className='form-control inputStylingForView'value={profile.candidatContract ?profile.candidatContract.cmp_candidat? profile.candidatContract.cmp_candidat : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ CMP_CANDIDATE" />
 
                             </div>
                             <div className='col-4  d-grid text-start'>
                             <label className="PDFFormlabel">Contract_date</label>
-                            <input className='form-control inputStylingForView'  placeholder="‎ ‎ ‎ Contract_date" />
+                            <input className='form-control inputStylingForView' value={profile.candidatContract ?profile.candidatContract.contract_date ? profile.candidatContract.contract_date : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Contract_date" />
 
                             </div>
                             <div className='col-4  d-grid text-start'>
                                                       <label className="PDFFormlabel d-flex align-items-start ">Company_Contact_Name</label>
                             
 
-                            <input className='form-control inputStylingForView' placeholder="‎ ‎ ‎ Company_Contact_Name" />
+                            <input className='form-control inputStylingForView'value={profile.candidatContract ?profile.candidatContract.company_contact_name ? profile.candidatContract.company_contact_name : "input Not Available!" : "input Not Available!"} placeholder="‎ ‎ ‎ Company_Contact_Name" />
                             
                             </div>
                             <div className='col-4  d-grid text-start'>
                             <label className="PDFFormlabel">NR_INREG</label>
-                            <input className='form-control inputStylingForView'  placeholder="‎ ‎ ‎ NR_INREG" />
+                            <input className='form-control inputStylingForView'value={profile.candidatContract ?profile.candidatContract.nr_inreg ? profile.candidatContract.nr_inreg : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ NR_INREG" />
 
                             </div>
                             <div className='col-4  d-grid text-start'>
                             <label className="PDFFormlabel">SERIE_ID</label>
-                            <input className='form-control inputStylingForView'  placeholder="‎ ‎ ‎ SERIE_ID" />
+                            <input className='form-control inputStylingForView'value={profile.candidatContract ?profile.candidatContract.serie_id ? profile.candidatContract.serie_id: "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ SERIE_ID" />
 
                             </div>
+                            
                             <div className='col-6  d-grid text-start'>
                             <label className="PDFFormlabel">Candidate_Adress</label>
-                            <input className='form-control inputStylingForView'  placeholder="‎ ‎ ‎ Candidate_Adress" />
+                            <input className='form-control inputStylingForView'value={profile.candidatContract ?profile.candidatContract.candidatAddress ? profile.candidatContract.candidatAddress : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Candidate_Adress" />
 
                             </div>
                             <div className='col-6  d-grid text-start'>
                             <label className="PDFFormlabel">Company_Siret</label>
-                            <input className='form-control inputStylingForView'  placeholder="‎ ‎ ‎ Company_Siret" />
+                            <input className='form-control inputStylingForView'value={profile.candidatContract ?profile.candidatContract.company_siret ? profile.candidatContract.company_siret : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ Company_Siret" />
 
                             </div>
                             <div className='col-12  d-grid text-start'>
                             <label className="PDFFormlabel">Company_Adress</label>
-                            <textarea className='TextArea form-control' placeholder='‎ ‎ ‎Company_Adress'></textarea>
+                            <textarea className='TextArea form-control'value={profile.candidatContract ?profile.candidatContract.companyAddress ? profile.candidatContract.companyAddress : "input Not Available!": "input Not Available!"} placeholder='‎ ‎ ‎Company_Adress'></textarea>
                             </div>
                   
 </div>

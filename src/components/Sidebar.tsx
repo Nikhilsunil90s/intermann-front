@@ -15,6 +15,9 @@ function Sidebar(props: any) {
   const LogOut = async () => {
     await dispatch(logout())
     await localStorage.removeItem("token")
+    await localStorage.removeItem("archive")
+    await localStorage.removeItem("embauch")
+    await localStorage.removeItem("profile")
     navigate('/')
     LogNotify()
   }

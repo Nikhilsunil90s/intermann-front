@@ -1,13 +1,151 @@
-import React from 'react'
-import "../../CSS/PreModal.css"
+import React, {useState, useEffect} from 'react';
+import "../../CSS/PreModal.css";
+import { API_BASE_URL } from "../../config/serverApiConfig";
+import toast, { Toaster } from "react-hot-toast";
+import Loader from "../../components/Loader/loader";
+import { useNavigate } from 'react-router';
+const PdfFormat = {
+        lieu_mission: "",
+        duree_mission: "",
+        duree_hebdomadaire_mission: "",
+        candidatJob: "",
+        cmp_candidat: "",
+        contract_date: "",
+        company_contact_name: "",
+        nr_inreg: "",
+        serie_id: "",
+        candidatAddress: "",
+        company_siret: "",
+        companyAddress: "",
+        candidatId: "",
+        candidatName: "",
+}
 
-function PdfModal({closeModal} ){
+
+function PdfModal({props,closeModal,path} ){
+
+  const [data, setData] = useState(PdfFormat);
+  const [loader, setLoader] = useState(false);
+
+  console.log(props,"data")
+  const navigate =useNavigate()
+  useEffect(() => {
+    if (data.candidatName == "") {
+        setData((prev) => ({ ...prev, ["candidatName"]: props.candidatName }));
+      }
+    if (data.candidatId == "") {
+        setData((prev) => ({ ...prev, ["candidatId"]: props._id }));
+      }
+    if(data.candidatAddress == "") {
+        setData((prev) => ({ ...prev, ["candidatAddress"]: props.candidatAddress }));
+      }
+      if (data.candidatJob == "") {
+        setData((prev) => ({ ...prev, ["candidatJob"]: props.candidatJob }));
+      }
+  })
+
+    const onFormDataChange = (
+        e: React.ChangeEvent<
+          HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
+        >
+      ) => {
+          setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+      };
+
+    
+    const addContract = async () => {
+      return await fetch(API_BASE_URL + "addContractToCRM", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify(data),
+      })
+        .then((resp) => resp.json())
+        .then((reD) => reD)
+        .catch((err) => err);
+    }
+
+    const generatePDF = async () => {
+        console.log(data);
+        setLoader(true);
+        return await fetch(API_BASE_URL + "makeContract", {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            body: JSON.stringify(data),
+          })
+            .then((resp) => resp.json())
+            .then((reD) => reD)
+            .catch((err) => err);
+    }
+
+    const addContractToCRM = () => {
+      addContract().then(result => {
+        console.log(result);
+        if(result.status==true){
+            toast.success("Contract Added To CRM Successfully!")
+            setTimeout(()=>{
+                window.location.reload();
+            },2000)
+        }
+        if(result.status == false){
+            toast.success("Contract Added Not Successfully!")
+        }
+      })
+    }
+
+    const invokeGeneratePDF = () => {
+
+        console.log(data);
+        
+        generatePDF().then(result => {
+            console.log(result);
+            setLoader(false);
+            if (result.status) {
+                window.open(API_BASE_URL + result.filePath);
+            }
+        }).catch(err => {
+            console.log(err);
+        })
+    }
 
     return(
         <>
-         <div className="modal d-block pb-3" style={{ backgroundColor: "#00000052" }} id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel">
+  
+        <div className="modal d-block" style={{ backgroundColor: "#00000052" }} id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel">
             <div className="modal-dialog modal-lg">
-                <div className="modal-content " style={{height:"87vh",width:"75vw"}}>
+           
+                <div className="modal-content " style={{height:"90vh",width:"75vw"}}>
+            {
+            loader ?
+            <>
+            <div className=" modal-header  pb-1">
+                    <div className="col-12">
+                        <div className="row">
+                <div className="col-8 px-0 TopHeaderModalInprogress">
+                <h2 className="modal-title " id="staticBackdropLabel">Attendre SVP!</h2>
+                   </div>
+                   <div className="col-4 text-end">
+                        <button type="button" className="btn-close" onClick={()=>closeModal(false)} data-bs-dismiss="modal" aria-label="Close" ></button>
+                    </div>
+                    </div>
+                    </div>
+            </div>
+            <div className="col-12">
+              <div className="row d-flex justify-content-center">
+                <Loader />
+              </div>
+            </div>
+                    
+            </> 
+             :
+                    <>
                     <div className=" modal-header  pb-1">
                     <div className="col-12">
                         <div className="row">
@@ -24,77 +162,79 @@ function PdfModal({closeModal} ){
                          
                           <div className='row ' style={{height:"150%"}}>
                             <div className='col-4  d-grid justify-content-start text-start'>
-                                <label className="PDFFormlabel">Lieu_Mission</label>
-                                <input className='form-control inputStyling'  placeholder="‎ ‎ ‎ Lieu_Mission" />
+                                <label className="PDFFormlabel">Lieu Mission</label>
+                                <input className='form-control inputStyling' defaultValue={props.candidatContract.lieu_mission != "" ? props.candidatContract.lieu_mission :"Lieu_Mission"} name='lieu_mission' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Lieu_Mission" />
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start' >
-                            <label className="PDFFormlabel">Durée_Mission</label>
-                            <input className='form-control inputStyling'  placeholder="‎ ‎ ‎ Durée_Mission" />
+                            <label className="PDFFormlabel">Durée Mission</label>
+                            <input className='form-control inputStyling' defaultValue={props.candidatContract.duree_mission != "" ? props.candidatContract.duree_mission :"Durée_Mission"} name='duree_mission' onChange={onFormDataChange}  placeholder="‎ ‎ ‎ Durée_Mission" />
 
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start'>
-                            <label className="PDFFormlabel">Durée_Hebdomadaire_Mission</label>
-                            <input className='inputStylings' placeholder="‎ ‎ ‎ Durée_Hebdomadaire_Mission"/>
+                            <label className="PDFFormlabel">Durée Hebdomadaire Mission</label>
+                            <input className='inputStylings' defaultValue={props.candidatContract.duree_hebdomadaire_mission != "" ? props.candidatContract.duree_hebdomadaire_mission : "Durée_Hebdomadaire_Mission"} name='duree_hebdomadaire_mission' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Durée_Hebdomadaire_Mission"/>
 
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start'>
-                            <label className="PDFFormlabel">Candidate_Job</label>
-                            <input className='form-control inputStyling'  placeholder="‎ ‎ ‎ Candidate_Job" />
+                            <label className="PDFFormlabel">Candidate Job</label>
+                            <input className='form-control inputStyling'  name='candidatJob' onChange={onFormDataChange} defaultValue={props.candidatContract.candidatJob != "" ? props.candidatContract.candidatJob : "Candidate_Job"} placeholder="‎ ‎ ‎ Candidate_Job" />
 
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start'>
-                            <label className="PDFFormlabel">CMP_CANDIDATE</label>
-                            <input className='form-control inputStyling'  placeholder="‎ ‎ ‎ CMP_CANDIDATE" />
+                            <label className="PDFFormlabel">CMP CANDIDATE</label>
+                            <input className='form-control inputStyling' defaultValue={props.candidatContract.cmp_candidat !="" ? props.candidatContract.cmp_candidat :"CMP_CANDIDATE"} name='cmp_candidat' onChange={onFormDataChange} placeholder="‎ ‎ ‎ CMP_CANDIDATE" />
 
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start'>
-                            <label className="PDFFormlabel">Contract_date</label>
-                            <input className='form-control inputStyling'  placeholder="‎ ‎ ‎ Contract_date" />
+                            <label className="PDFFormlabel">Contract Date</label>
+                            <input className='form-control inputStyling'  type="date" defaultValue={props.candidatContract.contract_date != "" ? props.candidatContract.contract_date : "Contract_Date"} name='contract_date' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Contract_date" />
 
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start'>
-                            <label className="PDFFormlabel">Company_Contact_Name</label>
-                            <input className='inputStylings' placeholder="‎ ‎ ‎ Company_Contact_Name" />
+                            <label className="PDFFormlabel">Company Contact Name</label>
+                            <input className='inputStylings form-control' defaultValue={props.candidatContract.company_contact_name != "" ? props.candidatContract.company_contact_name : "Company_Contact_Name"} name='company_contact_name' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Company_Contact_Name" />
 
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start'>
-                            <label className="PDFFormlabel">NR_INREG</label>
-                            <input className='form-control inputStyling'  placeholder="‎ ‎ ‎ NR_INREG" />
+                            <label className="PDFFormlabel">NR INREG</label>
+                            <input className='form-control inputStyling' defaultValue={props.candidatContract.nr_inreg !="" ? props.candidatContract.nr_inreg : "NR_INREG"} name='nr_inreg' onChange={onFormDataChange} placeholder="‎ ‎ ‎ NR_INREG" />
 
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start'>
-                            <label className="PDFFormlabel">SERIE_ID</label>
-                            <input className='form-control inputStyling'  placeholder="‎ ‎ ‎ SERIE_ID" />
+                            <label className="PDFFormlabel">SERIE ID</label>
+                            <input className='form-control inputStyling' defaultValue={props.candidatContract.serie_id !=="" ? props.candidatContract.serie_id :"SERIE_ID"} name='serie_id' onChange={onFormDataChange} placeholder="‎ ‎ ‎ SERIE_ID" />
 
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start'>
-                            <label className="PDFFormlabel">Candidate_Adress</label>
-                            <input className='form-control inputStyling'  placeholder="‎ ‎ ‎ Candidate_Adress" />
+                            <label className="PDFFormlabel">Candidate Adress</label>
+                            <input className='form-control inputStyling'  name='candidatAddress' onChange={onFormDataChange} defaultValue={props.candidatContract.candidatAddress !=="" ? props.candidatContract.candidatAddress : "Candidate_Adress"} placeholder="‎ ‎ ‎ Candidate_Adress" />
 
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start'>
-                            <label className="PDFFormlabel">Company_Siret</label>
-                            <input className='form-control inputStyling'  placeholder="‎ ‎ ‎ Company_Siret" />
+                            <label className="PDFFormlabel">Company Siret</label>
+                            <input className='form-control inputStyling' defaultValue={props.candidatContract.company_siret !="" ? props.candidatContract.company_siret : "Company_Siret"} name='company_siret' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Company_Siret" />
 
                             </div>
                             <div className='col-12  d-grid justify-content-start text-start'>
-                            <label className="PDFFormlabel">Company_Adress</label>
-                            <textarea className='TextArea form-control' placeholder='‎ ‎ ‎Company_Adress' style={{width:"530%"}}></textarea>
+                            <label className="PDFFormlabel">Company Adress</label>
+                            <textarea className='TextArea form-control' defaultValue={props.candidatContract.companyAddress !=""? props.candidatContract.companyAddress : "Company_Adress"} name='companyAddress' onChange={onFormDataChange} placeholder='‎ ‎ ‎Company_Adress' style={{width:"530%"}}></textarea>
                             </div>
                             <div className="col-12 text-center mt-2">
                                 <div className="row">
                                            <div className='col-3'>
-                                            <button type='button' className='btnGeneratePDF'>Generate the PDF</button>
+                                            <button type='button' className='btnGeneratePDF' onClick={invokeGeneratePDF}>Generate the PDF</button>
                                             <p className='PDFNotes'>Download local</p>
                                            </div>
                                            <div className='col-3 px-0'>
-                                           <button type='button' className='contractCRM text-center' style={{width:"115%",height:"50px"}}>Add the contract to CRM</button>
+                                           <button type='button' className='contractCRM text-center' onClick={addContractToCRM}>Add the contract to CRM</button>
                                            <p className='PDFNotes'>Download cloud</p>
                                            </div>
                                            <div className='col-3'>
                                            <button className='voirModal' type='button'>
                                            Voir le model
                                            </button>
+                                           </div>
+                                           <div className='col-3'>
 
                                            </div>
                                 </div>
@@ -103,9 +243,13 @@ function PdfModal({closeModal} ){
                          
                         </div>
                     </form>
+                    </>
+        }
                 </div>
+
             </div>
         </div>
+        
         </>
     )
 }

@@ -24,10 +24,7 @@ const EmployeeDataFormat = {
   candidatEmail: "",
   candidatPhone: "",
   candidatAddress: "",
-  candidatActivitySector: {
-    sectorName: "",
-    jobs: []
-  },
+  candidatActivitySector: "",
   candidatJob: "",
   candidatFBURL: "",
   candidatAlternatePhone: "",
@@ -182,25 +179,25 @@ if(e=="Permis"){
 if(checked === true){
 
       setPermis(true)
-      EmployeeDataFormat.candidatLicensePermis=true
-      console.log(EmployeeDataFormat,"daasd")
+      setData({...data,candidatLicensePermis:true})
+      setFormTouched(true)
     }
     if(checked === false){
       setPermis(false)
-      EmployeeDataFormat.candidatLicensePermis=false
-      console.log(data,"daasd")
+     setData({...data,candidatLicensePermis:false})
+     setFormTouched(true)
     }
   }
     if(e=="Voyage"){
       if(checked == true){
 
         setVoyage(true)
-        setData({ ...data, ['candidatConduireEnFrance']: checked })
+     setData({...data,candidatConduireEnFrance:true})
       }
 if(checked == false){
  
   setVoyage(false)
-  setData({ ...data, ['candidatConduireEnFrance']: checked })
+  setData({...data,candidatConduireEnFrance:false})
 }
     }
   }
@@ -228,7 +225,13 @@ if(checked == false){
         "Authorization": "Bearer " + localStorage.getItem('token')
       }
     }).then(resD => resD.json())
-      .then(reD => reD)
+      .then(reD => {
+        setJobs([...reD.data])
+        let jobN= reD.data.map((el)=>{
+          return {value:el.jobName,label:el.jobName,color:"#FF8B00"}
+        })
+        setJobOptions([...jobN])
+      })
       .catch(err => err)
   }
   const handleImageUpload = () => {
@@ -334,16 +337,7 @@ if(checked == false){
   const changeSectorSelection = async (sec: string) => {
     if (sec) {
       setSelectedSector(sec);
-      await fetchAllJobs(sec)
-        .then(data => {
-          console.log(data.data)
-          setJobs([...data.data]);
-          console.log(jobs,"jobs")
-        })
-        .catch(err => {
-          console.log(err);
-        })
-      console.log(jobs,"jobs");
+     fetchAllJobs(sec)
     }
     let jobN= jobs.map((el)=>{
       return {value:el.jobName,label:el.jobName,color:"#FF8B00"}
@@ -352,8 +346,9 @@ if(checked == false){
 
   }
 
-  const changeJobSelection = (value: string) => {
+  const changeJobSelection = (value) => {
     setData((prev) => ({ ...prev, ["candidatJob"]: value }));
+    setFormTouched(true)
   }
 
   useEffect(() => {
@@ -369,8 +364,8 @@ if(checked == false){
         })
     }
     console.log(profile.candidatActivitySector)
-    if (jobs.length === 0 && profile.candidatActivitySector !== "") {
-      fetchAllJobs(profile.candidatActivitySector)
+    if (jobs.length === 0 && selectedSector != "" ? selectedSector : profile.candidatActivitySector !== "") {
+      fetchAllJobs(selectedSector !== "" ? selectedSector : profile.candidatActivitySector)
         .then((data) => {
           console.log(data);
           setJobs([...data.data])
@@ -384,7 +379,6 @@ if(checked == false){
           })
           setJobOptions([...jobResults]);
     }
-
     if (data.candidatLanguages.length == 0) {
       console.log(selectedLanguages);
       setData((prev) => ({ ...prev, ["candidatLanguages"]: selectedLanguages }));
@@ -399,7 +393,7 @@ if(checked == false){
       })
     }
     console.log(data);
-  }, []);
+  },[selectedSector]);
 
 
   const addWorkExperience = (e: any) => {
@@ -467,8 +461,8 @@ if(checked == false){
         candidatLanguages: data.candidatLanguages != [] ? data.candidatLanguages : profile.candidatLanguages,
         candidatStartDate: data.candidatStartDate != "" ? data.candidatStartDate : profile.candidatStartDate,
         candidatEndDate: data.candidatEndDate != "" ? data.candidatEndDate : profile.candidatEndDate,
-        candidatLicensePermis: EmployeeDataFormat.candidatLicensePermis !== false ? true : profile.candidatLicensePermis,
-        candidatConduireEnFrance: data.candidatConduireEnFrance ? data.candidatConduireEnFrance : profile.candidatConduireEnFrance,
+        candidatLicensePermis: data.candidatLicensePermis==true ? true : false,
+        candidatConduireEnFrance: data.candidatConduireEnFrance==true ? true : false,
         candidatSkills: data.candidatSkills != "" ? data.candidatSkills : profile.candidatSkills,
         candidatExperienceDetails: data.candidatExperienceDetails,
         candidatEmail: data.candidatEmail != "" ? data.candidatEmail : profile.candidatEmail,
@@ -487,9 +481,11 @@ if(checked == false){
           if (response.status) {
             notifyCandidatEditSuccess()
             setTimeout(() => {
-              // navigate(state.path);
+              navigate(path);
             }, 2000)
-          }
+          }else{
+            toast.error("Candidat Change Failed!")
+        }
         })
         .catch(err => {
           console.log(err);
@@ -609,16 +605,18 @@ if(checked == false){
       changeSectorSelection(sectorField)
       setData({...data,candidatActivitySector:sectorField})
     //   setJobOptions([]);
+    setFormTouched(true)
     }
 }
 const jobChange = async (jobval) => {
   // console.log(jobval)
-  let JobArr=[]as any
-  jobval.map((el)=>{
+  let JobArr=""as any
+  // jobval.map((el)=>{
    
-   JobArr.push(el.value)
+  //  JobArr.push(el.value)
 
-  })
+  // })
+  JobArr=jobval.value
   setData({...data,candidatJob:JobArr})
   changeJobSelection(JobArr)
 }
@@ -749,14 +747,14 @@ className="SelectBtn"
                           <Select
                                             className="basic-multi-select"
                                             classNamePrefix="select"
+                                            isMulti={false}
                                             closeMenuOnSelect={true}
                                             placeholder="‎ ‎ ‎ Select Un Secteur"
-                                            styles={colourStyles}
+                                         
                                             options={sectorOptions}
                                             onChange={handleSectorChange}
-                                            defaultValue={profile.candidatLanguages.map((el)=>{
-                                              return {value:el,label:el,color:"#FE8700"}
-                    })}
+                                            defaultValue={{value:profile.candidatActivitySector,label:profile.candidatActivitySector,color:"#FE8700"}  }
+                                            styles={colourStyles}
                                             />
                     </div>
                    
@@ -783,7 +781,7 @@ className="SelectBtn"
                           <Select
                       name="jobName"
                       closeMenuOnSelect={true}
-                      isMulti
+                      isMulti={false}
                       placeholder="‎ ‎ ‎ Select"
                       className="basic-multi-select"
                       classNamePrefix="select"
@@ -893,6 +891,7 @@ className="SelectBtn"
                           className=""
                           onChange={switchHandle}
                          checked={Permis}
+                         value={Permis}
                           id="Permis"
                           checkedHandleIcon={
                             <TurnOn

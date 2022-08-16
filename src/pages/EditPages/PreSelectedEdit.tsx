@@ -24,10 +24,7 @@ const EmployeeDataFormat = {
   candidatEmail: "",
   candidatPhone: "",
   candidatAddress: "",
-  candidatActivitySector: {
-    sectorName: "",
-    jobs: []
-  },
+  candidatActivitySector: "",
   candidatJob: "",
   candidatFBURL: "",
   candidatAlternatePhone: "",
@@ -176,15 +173,37 @@ function PreSelectedEdit() {
 
   const notifyCandidatEditError = () => toast.error("Cannot Edit Candidat! Please Try Again.");
 
+ 
   const switchHandle=(checked,id,e)=>{
-    if(e=="Permis"){
-   setPermis(checked)
+    console.log(checked,id,e,"all")
+console.log(checked,"checked")
+setFormTouched(true)
+if(e=="Permis"){
+if(checked === true){
+
+      setPermis(true)
+      setData({...data,candidatLicensePermis:true})
+      setFormTouched(true)
     }
-    if(e=="Voyage"){
-   setVoyage(checked)
+    if(checked === false){
+      setPermis(false)
+     setData({...data,candidatLicensePermis:false})
+     setFormTouched(true)
     }
   }
+    if(e=="Voyage"){
+      if(checked == true){
 
+        setVoyage(true)
+     setData({...data,candidatConduireEnFrance:true})
+      }
+if(checked == false){
+ 
+  setVoyage(false)
+  setData({...data,candidatConduireEnFrance:false})
+}
+    }
+  }
   
   useEffect(() => {
     console.log(activitySectors);
@@ -218,7 +237,14 @@ function PreSelectedEdit() {
         "Authorization": "Bearer " + localStorage.getItem('token')
       }
     }).then(resD => resD.json())
-      .then(reD => reD)
+      .then(reD =>{ 
+        setJobs([...reD.data])
+        let jobN= reD.data.map((el)=>{
+          return {value:el.jobName,label:el.jobName,color:"#FF8B00"}
+        })
+        setJobOptions([...jobN])
+        }
+        )
       .catch(err => err)
   }
   const handleImageUpload = () => {
@@ -321,19 +347,11 @@ function PreSelectedEdit() {
     setCandidatMotivation(value);
   }
 
+
   const changeSectorSelection = async (sec: string) => {
     if (sec) {
       setSelectedSector(sec);
-      await fetchAllJobs(sec)
-        .then(data => {
-          console.log(data.data)
-          setJobs([...data.data]);
-          console.log(jobs,"jobs")
-        })
-        .catch(err => {
-          console.log(err);
-        })
-      console.log(jobs,"jobs");
+     fetchAllJobs(sec)
     }
     let jobN= jobs.map((el)=>{
       return {value:el.jobName,label:el.jobName,color:"#FF8B00"}
@@ -344,6 +362,7 @@ function PreSelectedEdit() {
 
   const changeJobSelection = (value: string) => {
     setData((prev) => ({ ...prev, ["candidatJob"]: value }));
+    setFormTouched(true)
   }
 
   useEffect(() => {
@@ -359,8 +378,8 @@ function PreSelectedEdit() {
         })
     }
     console.log(profile.candidatActivitySector)
-    if (jobs.length === 0 && profile.candidatActivitySector !== "") {
-      fetchAllJobs(profile.candidatActivitySector)
+    if (jobs.length === 0 &&selectedSector != "" ? selectedSector : profile.candidatActivitySector !== "") {
+      fetchAllJobs(selectedSector !== "" ? selectedSector : profile.candidatActivitySector)
         .then((data) => {
           console.log(data);
           setJobs([...data.data])
@@ -384,7 +403,7 @@ function PreSelectedEdit() {
       })
     }
     console.log(data);
-  }, []);
+  }, [selectedSector]);
 
 
   const addWorkExperience = (e: any) => {
@@ -428,7 +447,7 @@ function PreSelectedEdit() {
       "Accept": 'application/json',
       "Authorization": "Bearer " + localStorage.getItem('token')
     }
-    return await fetch(API_BASE_URL + "editToDoCandidat", {
+    return await fetch(API_BASE_URL + "editPreSelectedCandidat", {
       method: "POST",
       headers: headers,
       body: updatedData
@@ -452,8 +471,8 @@ function PreSelectedEdit() {
         candidatLanguages: data.candidatLanguages != [] ? data.candidatLanguages : profile.candidatLanguages,
         candidatStartDate: data.candidatStartDate != "" ? data.candidatStartDate : profile.candidatStartDate,
         candidatEndDate: data.candidatEndDate != "" ? data.candidatEndDate : profile.candidatEndDate,
-        candidatLicensePermis: data.candidatLicensePermis ? data.candidatLicensePermis : profile.candidatLicensePermis,
-        candidatConduireEnFrance: data.candidatConduireEnFrance ? data.candidatConduireEnFrance : profile.candidatConduireEnFrance,
+        candidatLicensePermis: data.candidatLicensePermis==true ? true : false,
+        candidatConduireEnFrance: data.candidatConduireEnFrance == true ? true : false,
         candidatSkills: data.candidatSkills != "" ? data.candidatSkills : profile.candidatSkills,
         candidatExperienceDetails: data.candidatExperienceDetails,
         candidatEmail: data.candidatEmail != "" ? data.candidatEmail : profile.candidatEmail,
@@ -474,6 +493,9 @@ function PreSelectedEdit() {
             setTimeout(() => {
               navigate(path);
             }, 2000)
+          }else{
+
+              toast.error("Candidat Change Failed!")
           }
         })
         .catch(err => {
@@ -588,16 +610,13 @@ function PreSelectedEdit() {
       changeSectorSelection(sectorField)
       setData({...data,candidatActivitySector:sectorField})
     //   setJobOptions([]);
+    setFormTouched(true)
     }
 }
 const jobChange = async (jobval) => {
   // console.log(jobval)
-  let JobArr=[]as any
-  jobval.map((el)=>{
-   
-   JobArr.push(el.value)
-
-  })
+  let JobArr=""as any
+   JobArr=jobval.value
   setData({...data,candidatJob:JobArr})
   changeJobSelection(JobArr)
 }
@@ -762,7 +781,7 @@ className="SelectBtn"
                              <Select
                       name="jobName"
                       closeMenuOnSelect={true}
-                      isMulti
+                      isMulti={false}
                       placeholder="‎ ‎ ‎ Select"
                       className="basic-multi-select"
                       classNamePrefix="select"
