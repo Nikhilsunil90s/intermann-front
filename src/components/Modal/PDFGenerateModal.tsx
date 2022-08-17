@@ -4,30 +4,30 @@ import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "../../components/Loader/loader";
 import { useNavigate } from 'react-router';
-const PdfFormat = {
-        lieu_mission: "",
-        duree_mission: "",
-        duree_hebdomadaire_mission: "",
-        candidatJob: "",
-        cmp_candidat: "",
-        contract_date: "",
-        company_contact_name: "",
-        nr_inreg: "",
-        serie_id: "",
-        candidatAddress: "",
-        company_siret: "",
-        companyAddress: "",
-        candidatId: "",
-        candidatName: "",
-}
+
 
 
 function PdfModal({props,closeModal,path} ){
-
+  const PdfFormat = {
+    lieu_mission: props.candidatContract ? props.candidatContract.lieu_mission != "" ? props.candidatContract.lieu_mission :"" : "",
+    duree_mission:props.candidatContract ? props.candidatContract.duree_mission != "" ? props.candidatContract.duree_mission :"" :"",
+    duree_hebdomadaire_mission:props.candidatContract ? props.candidatContract.duree_hebdomadaire_mission != "" ? props.candidatContract.duree_hebdomadaire_mission : "" : "",
+    candidatJob: props.candidatContract ? props.candidatContract.candidatJob != "" ? props.candidatContract.candidatJob : "" : "",
+    cmp_candidat: props.candidatContract ? props.candidatContract.cmp_candidat !="" ? props.candidatContract.cmp_candidat :""  :"",
+    contract_date:props.candidatContract ? props.candidatContract.contract_date != "" ? props.candidatContract.contract_date : "" : "",
+    company_contact_name: props.candidatContract ? props.candidatContract.company_contact_name != "" ? props.candidatContract.company_contact_name : "" : "",
+    nr_inreg: props.candidatContract ? props.candidatContract.nr_inreg !="" ? props.candidatContract.nr_inreg : "" : "",
+    serie_id: props.candidatContract ? props.candidatContract.serie_id !=="" ? props.candidatContract.serie_id :"" :"",
+    candidatAddress: props.candidatContract ? props.candidatContract.candidatAddress !=="" ? props.candidatContract.candidatAddress : "Candidate_Adress" : "Candidate_Adress",
+    company_siret: props.candidatContract ? props.candidatContract.company_siret !="" ? props.candidatContract.company_siret : ""  : "",
+    companyAddress: props.candidatContract ? props.candidatContract.companyAddress !=""? props.candidatContract.companyAddress : "" : "",
+    candidatId: props.candidatContract ? props.candidatContract._id ? props.candidatContract._id : "" : "",
+    candidatName: props.candidatContract ? props.candidatContract.candidatName ? props.candidatContract.candidatName : "" : "",
+}
   const [data, setData] = useState(PdfFormat);
   const [loader, setLoader] = useState(false);
 
-  console.log(props,"data")
+  console.log(data,"data")
   const navigate =useNavigate()
   useEffect(() => {
     if (data.candidatName == "") {
@@ -108,7 +108,7 @@ function PdfModal({props,closeModal,path} ){
             console.log(result);
             setLoader(false);
             if (result.status) {
-                window.open(API_BASE_URL + result.filePath);
+                window.open(API_BASE_URL + "uploads/" + result.filePath);
             }
         }).catch(err => {
             console.log(err);
@@ -163,61 +163,61 @@ function PdfModal({props,closeModal,path} ){
                           <div className='row ' style={{height:"150%"}}>
                             <div className='col-4  d-grid justify-content-start text-start'>
                                 <label className="PDFFormlabel">Lieu Mission</label>
-                                <input className='form-control inputStyling' defaultValue={props.candidatContract.lieu_mission != "" ? props.candidatContract.lieu_mission :"Lieu_Mission"} name='lieu_mission' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Lieu_Mission" />
+                                <input className='form-control inputStyling' defaultValue={props.candidatContract ? props.candidatContract.lieu_mission != "" ? props.candidatContract.lieu_mission :"" : ""} name='lieu_mission' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Lieu_Mission" />
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start' >
                             <label className="PDFFormlabel">Durée Mission</label>
-                            <input className='form-control inputStyling' defaultValue={props.candidatContract.duree_mission != "" ? props.candidatContract.duree_mission :"Durée_Mission"} name='duree_mission' onChange={onFormDataChange}  placeholder="‎ ‎ ‎ Durée_Mission" />
+                            <input className='form-control inputStyling' defaultValue={props.candidatContract ? props.candidatContract.duree_mission != "" ? props.candidatContract.duree_mission :"" :""} name='duree_mission' onChange={onFormDataChange}  placeholder="‎ ‎ ‎ Durée_Mission" />
 
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start'>
                             <label className="PDFFormlabel">Durée Hebdomadaire Mission</label>
-                            <input className='inputStylings' defaultValue={props.candidatContract.duree_hebdomadaire_mission != "" ? props.candidatContract.duree_hebdomadaire_mission : "Durée_Hebdomadaire_Mission"} name='duree_hebdomadaire_mission' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Durée_Hebdomadaire_Mission"/>
+                            <input className='inputStylings' defaultValue={props.candidatContract ? props.candidatContract.duree_hebdomadaire_mission != "" ? props.candidatContract.duree_hebdomadaire_mission : "" : ""} name='duree_hebdomadaire_mission' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Durée_Hebdomadaire_Mission"/>
 
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start'>
                             <label className="PDFFormlabel">Candidate Job</label>
-                            <input className='form-control inputStyling'  name='candidatJob' onChange={onFormDataChange} defaultValue={props.candidatContract.candidatJob != "" ? props.candidatContract.candidatJob : "Candidate_Job"} placeholder="‎ ‎ ‎ Candidate_Job" />
+                            <input className='form-control inputStyling'  name='candidatJob' onChange={onFormDataChange} defaultValue={props.candidatContract ? props.candidatContract.candidatJob != "" ? props.candidatContract.candidatJob : "" : ""} placeholder="‎ ‎ ‎ Candidate_Job" />
 
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start'>
                             <label className="PDFFormlabel">CMP CANDIDATE</label>
-                            <input className='form-control inputStyling' defaultValue={props.candidatContract.cmp_candidat !="" ? props.candidatContract.cmp_candidat :"CMP_CANDIDATE"} name='cmp_candidat' onChange={onFormDataChange} placeholder="‎ ‎ ‎ CMP_CANDIDATE" />
+                            <input className='form-control inputStyling' defaultValue={props.candidatContract ? props.candidatContract.cmp_candidat !="" ? props.candidatContract.cmp_candidat :""  :""}  name='cmp_candidat' onChange={onFormDataChange} placeholder="‎ ‎ ‎ CMP_CANDIDATE" />
 
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start'>
                             <label className="PDFFormlabel">Contract Date</label>
-                            <input className='form-control inputStyling'  type="date" defaultValue={props.candidatContract.contract_date != "" ? props.candidatContract.contract_date : "Contract_Date"} name='contract_date' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Contract_date" />
+                            <input className='form-control inputStyling'  type="date" defaultValue={props.candidatContract ? props.candidatContract.contract_date != "" ? props.candidatContract.contract_date : "" : ""} name='contract_date' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Contract_date" />
 
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start'>
                             <label className="PDFFormlabel">Company Contact Name</label>
-                            <input className='inputStylings form-control' defaultValue={props.candidatContract.company_contact_name != "" ? props.candidatContract.company_contact_name : "Company_Contact_Name"} name='company_contact_name' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Company_Contact_Name" />
+                            <input style={{width:"137%"}} className='inputStylings form-control' defaultValue={props.candidatContract ? props.candidatContract.company_contact_name != "" ? props.candidatContract.company_contact_name : "" : ""} name='company_contact_name' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Company_Contact_Name" />
 
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start'>
                             <label className="PDFFormlabel">NR INREG</label>
-                            <input className='form-control inputStyling' defaultValue={props.candidatContract.nr_inreg !="" ? props.candidatContract.nr_inreg : "NR_INREG"} name='nr_inreg' onChange={onFormDataChange} placeholder="‎ ‎ ‎ NR_INREG" />
+                            <input className='form-control inputStyling' defaultValue={props.candidatContract ? props.candidatContract.nr_inreg !="" ? props.candidatContract.nr_inreg : "" : ""}  name='nr_inreg' onChange={onFormDataChange} placeholder="‎ ‎ ‎ NR_INREG" />
 
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start'>
                             <label className="PDFFormlabel">SERIE ID</label>
-                            <input className='form-control inputStyling' defaultValue={props.candidatContract.serie_id !=="" ? props.candidatContract.serie_id :"SERIE_ID"} name='serie_id' onChange={onFormDataChange} placeholder="‎ ‎ ‎ SERIE_ID" />
+                            <input className='form-control inputStyling' defaultValue={props.candidatContract ? props.candidatContract.serie_id !=="" ? props.candidatContract.serie_id :"" :""} name='serie_id' onChange={onFormDataChange} placeholder="‎ ‎ ‎ SERIE_ID" />
 
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start'>
                             <label className="PDFFormlabel">Candidate Adress</label>
-                            <input className='form-control inputStyling'  name='candidatAddress' onChange={onFormDataChange} defaultValue={props.candidatContract.candidatAddress !=="" ? props.candidatContract.candidatAddress : "Candidate_Adress"} placeholder="‎ ‎ ‎ Candidate_Adress" />
+                            <input className='form-control inputStyling'  name='candidatAddress' onChange={onFormDataChange} defaultValue={props.candidatContract ? props.candidatContract.candidatAddress !=="" ? props.candidatContract.candidatAddress : "Candidate_Adress" : "Candidate_Adress"} placeholder="‎ ‎ ‎ Candidate_Adress" />
 
                             </div>
                             <div className='col-4  d-grid justify-content-start text-start'>
                             <label className="PDFFormlabel">Company Siret</label>
-                            <input className='form-control inputStyling' defaultValue={props.candidatContract.company_siret !="" ? props.candidatContract.company_siret : "Company_Siret"} name='company_siret' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Company_Siret" />
+                            <input className='form-control inputStyling' defaultValue={props.candidatContract ? props.candidatContract.company_siret !="" ? props.candidatContract.company_siret : ""  : ""}  name='company_siret' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Company_Siret" />
 
                             </div>
                             <div className='col-12  d-grid justify-content-start text-start'>
                             <label className="PDFFormlabel">Company Adress</label>
-                            <textarea className='TextArea form-control' defaultValue={props.candidatContract.companyAddress !=""? props.candidatContract.companyAddress : "Company_Adress"} name='companyAddress' onChange={onFormDataChange} placeholder='‎ ‎ ‎Company_Adress' style={{width:"530%"}}></textarea>
+                            <textarea className='TextArea form-control' defaultValue={props.candidatContract ? props.candidatContract.companyAddress !=""? props.candidatContract.companyAddress : "" : ""} name='companyAddress' onChange={onFormDataChange} placeholder='‎ ‎ ‎Company_Adress' style={{width:"530%"}}></textarea>
                             </div>
                             <div className="col-12 text-center mt-2">
                                 <div className="row">
