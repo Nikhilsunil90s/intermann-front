@@ -301,7 +301,7 @@ function EditProgress() {
       handleImageUpload()
     } else if (val === 'Download') {
       console.log("download")
-      window.open(API_BASE_URL + candidatImage);
+      window.open(API_BASE_URL + "uploads/" +candidatImage);
     }
   }
   const changeJobSelection = (value: string) => {
@@ -386,6 +386,13 @@ function EditProgress() {
       setData((prev) => ({ ...prev, ['candidatCurrentWork']: [{ workingFor: workingFor, workingSince: workingSince, salary: e.target.value }] }));
       return;
     }
+    if (e.target.name === 'candidatPhone2') {
+      if (e.target.value) {
+        setData((prev) => ({ ...prev, ['candidatAlternatePhone']: e.target.value }))
+        return
+      }
+   
+    }
     setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
@@ -420,14 +427,15 @@ function EditProgress() {
         candidatLanguages: data.candidatLanguages != [] ? data.candidatLanguages : profile.candidatLanguages,
         candidatStartDate: data.candidatStartDate != "" ? data.candidatStartDate : profile.candidatStartDate,
         candidatEndDate: data.candidatEndDate != "" ? data.candidatEndDate : profile.candidatEndDate,
-        candidatLicensePermis: data.candidatLicensePermis == true? true : false,        
-        candidatConduireEnFrance: data.candidatConduireEnFrance == true ? true : false,
+        candidatLicensePermis: Permis == true? true : false,        
+        candidatConduireEnFrance: Voyage == true ? true : false,
         candidatSkills: data.candidatSkills != "" ? data.candidatSkills : profile.candidatSkills,
         candidatExperienceDetails: data.candidatExperienceDetails,
         candidatEmail: data.candidatEmail != "" ? data.candidatEmail : profile.candidatEmail,
         candidatPhone: data.candidatPhone != "" ? data.candidatPhone : profile.candidatPhone,
         candidatAddress: data.candidatAddress != "" ? data.candidatAddress : profile.candidatAddress,
         candidatFBURL: data.candidatFBURL != "" ? data.candidatFBURL : profile.candidatFBURL,
+        candidatAlternatePhone :data.candidatAlternatePhone !="" ? data.candidatAlternatePhone : profile.candidatAlternatePhone,
         candidatYearsExperience: data.candidatYearsExperience != "" ? data.candidatYearsExperience : profile.candidatYearsExperience,
         candidatCurrentWork: [
           {
@@ -496,6 +504,7 @@ if(checked == false){
 
 
   const handleChange = (selectedOption) => {
+    setFormTouched(true)
     console.log(`Option selected:`, selectedOption)
     let arr = []
 
@@ -703,7 +712,7 @@ const jobChange = async (jobval) => {
                   {candidatImage !== "" ?
                       <img
                         // src={require("../images/menlogos.svg").default}
-                        src={API_BASE_URL + candidatImage}
+                        src={API_BASE_URL + "uploads/" + candidatImage}
                      className="imgEmbauch-upload-Download"
                       /> :
                     <img
@@ -1034,7 +1043,7 @@ className="SelectBtn"
                         </div>
                         <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 mt-1">
                         <label className="LabelStylingEdits">Candidat phone number 2</label>
-                      <input placeholder="Candidat Phone Number" className="form-control" name="candidatPhone2"  onChange={onFormDataChange} />
+                      <input placeholder="Candidat Phone Number" className="form-control" name="candidatPhone2" defaultValue={profile.candidatAlternatePhone}   onChange={onFormDataChange} />
                       <p className="child-label">Use international format</p>
                         </div>
                         <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 mt-1">

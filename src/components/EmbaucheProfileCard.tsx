@@ -6,7 +6,7 @@ import ArchivedModal from "./Modal/ArchivedModal";
 import { useNavigate } from "react-router-dom";
 import Select from 'react-select'
 
-const EmbaucheProfileCard = (props: any,{path} ,NottifyErr,NottifySuccess) => {
+const EmbaucheProfileCard = (props: any) => {
 console.log(props,"ppr")
 
     const navigate = useNavigate();

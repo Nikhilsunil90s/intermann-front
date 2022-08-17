@@ -9,10 +9,11 @@ import ArchivedModal from "./Modal/ArchivedModal";
 
 
 const ArchivedProfileCard = (props: any) => {
-    const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
+    console.log(props,"props")
     const navigate = useNavigate();
     const [showArchiveModal, setShowArchiveModal] = useState(false)
     //  let data={state:props.props,path:"/archivedlist"}
+    const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
 
     let data={profileData:props.props,path:"/archivedprofile"}
     const editCandidatProfile = () => {

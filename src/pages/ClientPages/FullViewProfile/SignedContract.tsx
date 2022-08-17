@@ -21,7 +21,7 @@ let id = "";
 function Signed() {
   const profileData = JSON.parse(localStorage.getItem("profile"));
   const profileD = JSON.parse(localStorage.getItem("embauch"));
- const [GetClientbyID,setGetClient]=useState(profileData ? profileData._id : profileD._id)
+ const [GetClientbyID,setGetClient]=useState(profileData._id ? profileData._id : profileD._id)
   const [Loader,setLoader]=useState(false)
   console.log(GetClientbyID,"get")
 useEffect(()=>{

@@ -283,7 +283,7 @@ function ClientToDoList() {
       let MField = e.value;
 
       console.log(MField, "motivation");
-      MotivationArr.push(MField - 1);
+      MotivationArr.push(MField);
       filterFunction();
       // setSelectedSector(sectorField);
     }
@@ -804,7 +804,7 @@ function ClientToDoList() {
         },
         {
           value: "1",
-          label: "😔",
+          label: "😟",
           color: "#FF8B00",
         },
         {

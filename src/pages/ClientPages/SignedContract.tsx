@@ -1315,17 +1315,7 @@ function Signed() {
                     <p className="mb-0 pt-1" style={{ width: "130%" }}>
                       Motivation :
                       <b style={{ background: "transparent", zIndex: "9999" }}>
-                        {candidatMotivationIcons[profile.clientMotivation]
-                          ?.icon +
-                        " " +
-                        candidatMotivationIcons[profile.clientMotivation]
-                          ?.motivation
-                          ? candidatMotivationIcons[profile.clientMotivation]
-                              ?.icon +
-                            " " +
-                            candidatMotivationIcons[profile.clientMotivation]
-                              ?.motivation
-                          : "No Motivation!"}
+                        {candidatMotivationIcons[profile.clientMotivation].icon +" " +candidatMotivationIcons[profile.clientMotivation].motivation}
                       </b>
                     </p>
 

@@ -142,7 +142,7 @@ const fetchRecommendations = async (candidatSector: string) => {
       handleImageUpload()
     } else if (val === 'Download') {
       console.log("download")
-      window.open(API_BASE_URL + candidatImage);
+      window.open(API_BASE_URL + "uploads/" +candidatImage);
     }
   }
   const renameDocument = (docId: any, docName: any ,originalName:any) => {
@@ -358,7 +358,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                 {candidatImage !== "" ?
                       <img
                         // src={require("../images/menlogos.svg").default}
-                        src={API_BASE_URL + candidatImage}
+                        src={API_BASE_URL + "uploads/" +candidatImage}
                      className="img-uploadTodo-Download"
                       /> :
                     <img

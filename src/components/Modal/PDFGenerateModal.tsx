@@ -108,7 +108,7 @@ function PdfModal({props,closeModal,path} ){
             console.log(result);
             setLoader(false);
             if (result.status) {
-                window.open(API_BASE_URL + "uploads" + result.filePath);
+                window.open(API_BASE_URL + result.filePath);
             }
         }).catch(err => {
             console.log(err);

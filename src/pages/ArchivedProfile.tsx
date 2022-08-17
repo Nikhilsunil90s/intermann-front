@@ -50,7 +50,7 @@ const ArchivedProfile = () => {
         handleImageUpload()
       } else if (val === 'Download') {
         console.log("download")
-        window.open(API_BASE_URL + candidatImage);
+        window.open(API_BASE_URL + "uploads/" + candidatImage);
       }
     }
     const fetchCandidat = async (candidatId: any) => {
@@ -205,7 +205,7 @@ const ArchivedProfile = () => {
                    
                       <img
                         // src={require("../images/menlogos.svg").default}
-                        src={API_BASE_URL + candidatImage}
+                        src={API_BASE_URL + "uploads/" + candidatImage}
                      className="imgArchived-upload-download"
                       /> :
                     <img

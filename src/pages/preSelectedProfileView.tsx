@@ -137,7 +137,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
       handleImageUpload()
     } else if (val == 'Download') {
       console.log("download")
-      window.open(API_BASE_URL + candidatImage);
+      window.open(API_BASE_URL + "uploads/" + candidatImage);
     }
   }
   const handleImageUpload = () => {
@@ -281,7 +281,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
             <div className="row text-start topCandidateHeaderPre">
               <div className="col-6 d-flex align-items-center">
                 <div className="stable">
-                  <Link to="/todolist">
+                  <Link to="/preSelected">
                     <button
                       type="button"
                       className="btn d-flex align-items-center p-0"
@@ -308,7 +308,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
                      {candidatImage !== "" ?
                       <img
                         // src={require("../images/menlogos.svg").default}
-                        src={API_BASE_URL + candidatImage}
+                        src={API_BASE_URL + "uploads/" +candidatImage}
                      className="img-upload-Download"
                       /> :
                     <img
@@ -341,13 +341,7 @@ className="SelectBtn"
                     name="candidatPhoto"
                     style={{ display: 'none' }}
                   />
-<input
-                    type="file"
-                    ref={hiddenImageInput}
-                    onChange={fileChange}
-                    name="candidatPhoto"
-                    style={{ display: 'none' }}
-                  />
+
                 </div>
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 card-preProfile">
                   <div className="d-flex">
@@ -386,20 +380,21 @@ className="SelectBtn"
             </div>
            <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pb-0 px-1 pt-1">
             <div className="row preColorRowSelected p-2">
-            <p>Selected  For  client : </p>
- {Data?.candidatPreSelectedFor.map((el)=>(
+            {Data?.candidatPreSelectedFor.map((el)=>(
+               el.clientId?
+               <>
+            <p>Selected  For  client : {el.clientId.clientCompanyName}</p>
+ 
 
- el.reasonForPreSelection?
-<>
   <div className="col-8 pt-1 px-1">
-<p className="CommentSelection">{el.reasonForPreSelection} </p>
+<p className="CommentSelection">{el.reasonForPreSelection ? el.reasonForPreSelection : "Reason Not Available!"} </p>
   </div>
   <div className="col-4 d-flex justify-content-end align-items-center">
 <button  className="btn customerProfil" onClick={(e)=>showCustomerProfile(el.clientId)}><img src={require("../images/eyeProfil.svg").default}   />CUSTOMER PROFIL</button>
   </div>
   </>
   :
-  null
+null
  )
  )
 
@@ -683,13 +678,13 @@ No FB URL!
                     Archive / Canceled
                   </button>
                   <p className="italic-fontStyle text-start ">Si plus d’actualité</p>
-                  {showArchiveModal ? (
+                  {showArchiveModal ?
                     <ArchivedModal
                       props={profile.candidatName}
                       closeModal={setShowArchiveModal}
                       path={"/todolist"}
                     />
-                  ) : null}
+                   : null}
                 </div>
                 <div className="col-3 px-0 text-center">
                   <button

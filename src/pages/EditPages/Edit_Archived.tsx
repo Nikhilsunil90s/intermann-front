@@ -169,7 +169,7 @@ function EditArchive() {
       handleImageUpload()
     } else if (val === 'Download') {
       console.log("download")
-      window.open(API_BASE_URL + candidatImage);
+      window.open(API_BASE_URL + "uploads/" + candidatImage);
     }
   }
   const addWorkExperience = (e: any) => {
@@ -360,6 +360,13 @@ function EditArchive() {
       setData((prev) => ({ ...prev, ['candidatArchived']: { reason: e.target.value } }))
       return;
     }
+    if (e.target.name === 'candidatPhone2') {
+      if (e.target.value) {
+        setData((prev) => ({ ...prev, ['candidatAlternatePhone']: e.target.value }))
+        return
+      }
+   
+    }
     setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
@@ -376,8 +383,8 @@ function EditArchive() {
         candidatLanguages: data.candidatLanguages != [] ? data.candidatLanguages : profile.candidatLanguages,
         candidatStartDate: data.candidatStartDate != "" ? data.candidatStartDate : profile.candidatStartDate,
         candidatEndDate: data.candidatEndDate != "" ? data.candidatEndDate : profile.candidatEndDate,
-        candidatLicensePermis: data.candidatLicensePermis==true ? true : false,
-        candidatConduireEnFrance: data.candidatConduireEnFrance == true ? true : false,
+        candidatLicensePermis: Permis==true ? true : false,
+        candidatConduireEnFrance: Voyage == true ? true : false,
         candidatSkills: data.candidatSkills != "" ? data.candidatSkills : profile.candidatSkills,
         candidatExperienceDetails: data.candidatExperienceDetails,
         candidatEmail: data.candidatEmail != "" ? data.candidatEmail : profile.candidatEmail,
@@ -385,7 +392,8 @@ function EditArchive() {
         candidatAddress: data.candidatAddress != "" ? data.candidatAddress : profile.candidatAddress,
         candidatFBURL: data.candidatFBURL != "" ? data.candidatFBURL : profile.candidatFBURL,
         candidatYearsExperience: data.candidatYearsExperience != "" ? data.candidatYearsExperience : profile.candidatYearsExperience,
-        candidatArchived: data.candidatArchived.reason != "" ? data.candidatArchived : profile.candidatArchived
+        candidatArchived: data.candidatArchived.reason != "" ? data.candidatArchived : profile.candidatArchived,
+        candidatAlternatePhone :data.candidatAlternatePhone !="" ? data.candidatAlternatePhone : profile.candidatAlternatePhone
       }
       console.log(updatedData);
       let formdata = new FormData();
@@ -438,7 +446,6 @@ if(checked === true){
      setData({...data,candidatConduireEnFrance:true})
       }
 if(checked == false){
- 
   setVoyage(false)
   setData({...data,candidatConduireEnFrance:false})
 }
@@ -657,7 +664,7 @@ const jobChange = async (jobval) => {
                    
                    <img
                      // src={require("../images/menlogos.svg").default}
-                     src={API_BASE_URL + candidatImage}
+                     src={API_BASE_URL+ "uploads/" + candidatImage}
                   className="imgArchived-upload-download"
                    /> :
                  <img
@@ -985,7 +992,7 @@ className="SelectBtn"
                         </div>
                         <div className="col-4 mt-1">
                         <label className="LabelStylingEdits">Candidat phone number 2</label>
-                      <input placeholder="Candidat Phone Number" className="form-control" name="candidatPhone2"  onChange={onFormDataChange} />
+                      <input placeholder="Candidat Phone Number" className="form-control" name="candidatPhone2"  defaultValue={profile.candidatAlternatePhone}  onChange={onFormDataChange} />
                       <p className="child-label">Use international format</p>
                         </div>
                         <div className="col-4 mt-1">

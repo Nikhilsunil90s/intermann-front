@@ -135,7 +135,7 @@ function ProgressCard() {
     if (val === 'upload') {
       handleImageUpload()
     } else if (val === 'Download') {
-      window.open(API_BASE_URL + candidatImage);
+      window.open(API_BASE_URL + "uploads/" + candidatImage);
     }
   }
   const fetchCandidat = async (candidatId: any) => {
@@ -357,7 +357,7 @@ function ProgressCard() {
                       {candidatImage !== "" ?
                       <img
                         // src={require("../images/menlogos.svg").default}
-                        src={API_BASE_URL + candidatImage}
+                        src={API_BASE_URL + "uploads/" + candidatImage}
                      className="imgEmbauch-upload-Download"
                       /> :
                     <img

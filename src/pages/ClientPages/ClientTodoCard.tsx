@@ -37,7 +37,7 @@ const ClientToDoCard = (props: any) => {
       value: "Edit Profile",
       label: "Edit Profile",
     },
-    { value: "moveProgress", label: "moveProgress" },
+    { value: "moveProgress", label: "Move to In Progress" },
     { value: "Archive", label: "Archive" },
   ] as any;
   console.log(Offre, "ofree");
@@ -225,7 +225,7 @@ const ClientToDoCard = (props: any) => {
   ];
 
   const candidatMotivationIcons = [
-    { icon: "No icon", motivation: "No Motivation" },
+    { icon: "No Icon", motivation: "No Motivation" },
     { icon: "😟", motivation: "Disappointed" },
     { icon: "🙁", motivation: "Not Really" },
     { icon: "😊", motivation: "Like" },
@@ -287,14 +287,7 @@ const ClientToDoCard = (props: any) => {
             <p className="textClientCard" style={{ width: "130%" }}>
               Motivation :
               <b style={{ background: "transparent", zIndex: "9" }}>
-                {candidatMotivationIcons[props.data.clientMotivation]?.icon +
-                " " +
-                candidatMotivationIcons[props.data.clientMotivation]?.motivation
-                  ? candidatMotivationIcons[props.data.clientMotivation]?.icon +
-                    " " +
-                    candidatMotivationIcons[props.data.clientMotivation]
-                      ?.motivation
-                  : "No Motivation!"}
+                {candidatMotivationIcons[props.data.clientMotivation].icon +" " +candidatMotivationIcons[props.data.clientMotivation].motivation}
               </b>
             </p>
             <div>

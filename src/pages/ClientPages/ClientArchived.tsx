@@ -231,15 +231,15 @@ export default function ClientArchived() {
         value: "Select Motivations", label: "Select Motivations", color: '#FF8B00'
       },
       {
-        value: "0", label: "😔", color: '#FF8B00'
+        value: "1", label: "😔", color: '#FF8B00'
       }, {
-        value: "1", label: "🙁", color: '#FF8B00'
+        value: "2", label: "🙁", color: '#FF8B00'
       }, {
-        value: "2", label: "😊", color: '#FF8B00'
+        value: "3", label: "😊", color: '#FF8B00'
       }, {
-        value: "3", label: "🥰", color: '#FF8B00'
+        value: "4", label: "🥰", color: '#FF8B00'
       }, {
-        value: "4", label: "😍", color: '#FF8B00'
+        value: "5", label: "😍", color: '#FF8B00'
       }])
           }
 
