@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import '../../CSS/PreModal.css'
 import Select,{StylesConfig} from 'react-select'
 import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../../Selecteddata/data';
@@ -12,13 +12,18 @@ function PreModal({props,closepreModal,client}) {
 
   const [selectedClient, setSelectedClient] = useState("");
   const [reason, setReason] = useState("");
-console.log(props,"props")
-
-  const [clientDataOptions,setClientOption]=useState( client ? client.map((client) => {
+  const [clientDataOptions,setClientOption]=useState([])
+console.log(client,"props")
+useEffect(()=>{
+  if(clientDataOptions.length == 0){
+  setClientOption( client ? client.map((client) => {
     return { label: client.clientCompanyName, value: client._id, color: '#FF8B00' }
   }) :  props.clients ? props.clients.map((client) => {
     return { label: client.clientCompanyName, value: client._id, color: '#FF8B00' }
   }): [{ label: 'No Clients In this Sector', value: "", color: '#FF8B00' }])
+}
+})
+
 console.log(clientDataOptions,"clients")
   const onClientChange = (sc: any) => {
     console.log(sc)

@@ -279,3 +279,64 @@ margin-left: 10px;
     text-transform: capitalize;
     color: #92929D;
 }
+@media (min-width:768px) {
+    .modalScreenSize{
+        height: 90vh;
+        width: 71vw;
+     }
+}
+@media (min-width:1200px) {
+    .modalScreenSize{
+        height: 85vh;
+        width: 75vw;
+     }
+     .wHCompany{
+        width: 139%;
+    }
+    
+}
+@media (min-width:1400px) {
+ .modalScreenSize{
+    height: 82vh;
+    width: 70vw;
+ }
+ .scrollbarModal {
+    float: left;
+    height: 89%;
+    width: 100%;
+    background: #ffff;
+    overflow-y: scroll;
+    border-radius: 10px;
+}
+.inputStyling {
+    border: 1px solid #E7E7E7;
+    border-radius: 20px;
+    height: 50px;
+    width: 206%;
+    margin-bottom: 15px;
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;
+    text-transform: capitalize;
+    color: #92929D;
+}
+.inputStylings {
+    border: 1px solid #E7E7E7;
+    border-radius: 20px;
+    height: 50px;
+    width: 131%;
+    margin-bottom: 20px;
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;
+    text-transform: capitalize;
+    color: #92929D;
+}
+.wHCompany{
+    width: 173%;
+}
+}
