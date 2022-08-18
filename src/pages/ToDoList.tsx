@@ -399,6 +399,7 @@ setMotivationOptions([    {
     setSelectedSector("")
     emailArr=[]
     DateArr=[]
+    FilterJob=[]
     contactArr=[]
     if (e.value === "Select Motivations") {
       MotivationArr = []
@@ -750,6 +751,7 @@ setMotivationOptions([    {
     DateArr=[]
     SelectedName=[]
     emailArr=[]
+    FilterJob=[]
     contactArr=[]
     setSelectedSector("")
     LicencePermisArr=[]
@@ -768,7 +770,8 @@ setMotivationOptions([    {
   SelectedName=[]
   LicencePermisArr=[]
   OthersFilterArr = []
-  emailArr=[]
+    FilterJob=[]
+    emailArr=[]
   contactArr=[]
   MotivationArr=[]
       // console.log(jobval)

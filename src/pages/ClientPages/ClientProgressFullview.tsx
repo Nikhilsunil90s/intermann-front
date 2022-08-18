@@ -60,7 +60,7 @@ function ClientProgressView() {
       handleImageUpload()
     } else if (val === 'Download') {
       console.log("download")
-      window.open(API_BASE_URL + ClientImage);
+      window.open(API_BASE_URL + "uploads/"+ ClientImage);
     }
   }
 
@@ -199,7 +199,7 @@ function ClientProgressView() {
   console.log("doc",documentList)
 
   const  ViewDownloadFiles =( documentName:any)=>{
-    window.open(API_BASE_URL + documentName)
+    window.open(API_BASE_URL +"uploads/" + documentName)
    }
 
 
@@ -464,7 +464,7 @@ function ClientProgressView() {
               {
               ClientImage !=="" ?
               <img
-              src={API_BASE_URL + ClientImage}
+              src={API_BASE_URL + "uploads/" + ClientImage}
              className="imgEmbauch-upload-Download"
 
             />
@@ -864,7 +864,7 @@ className="SelectBtn"
                 >
                   <div className="d-flex">
                   <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                 Company Mail : {profile.clientEmail ? profile.clientEmail : "No Email Provided!"}
+                  {profile.clientEmail ? "Company Mail :" + profile.clientEmail : null}
                   </p>
                   </div>
                   {
@@ -882,17 +882,11 @@ className="SelectBtn"
                     </a>
                   </button>
                   :
-                  <button className="btn-TODOgmail">
-               
-                    <span className="padding-email">
-                      <img style={{width:"8%"}}  src={require("../../images/gmail.svg").default} />
-                    </span>
-                    No Email !
-                </button>
+   null
                   }
                  
                   <div className="d-flex">
-                  <p className="Span-StylingClient text-start pt-2 pb-1 my-1">Contact : {profile.clientEmail ? profile.clientEmail : "No Email!"}</p></div>
+                  <p className="Span-StylingClient text-start pt-2 pb-1 my-1"> {profile.clientEmail ? "Contact :" + profile.clientEmail : null}</p></div>
                
                {
                 profile.clientEmail ?
@@ -910,22 +904,13 @@ className="SelectBtn"
               </a>
 
               :
-              <button
-              className="btn  fw-bold btn-TODOgmail"
-            >
-              <span className="padding-email">
-                <img
-                  src={require("../../images/gmail.svg").default}
-                />
-              </span>
-              No Email !
-            </button>
+           null
                }
                 
 
                   <div className="d-flex">
                   <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                  Company Phone : {profile.clientPhone ? profile.clientPhone : "No Phone Number!"}
+                   {profile.clientPhone ? "Company Phone :" + profile.clientPhone : null}
                   </p>
                   </div>
                   {
@@ -946,26 +931,17 @@ className="SelectBtn"
                 </button>
                 </a>
 :
-<button className="btn-whatsapp my-1">
-              
-<span className="padding-email">
-  <img
-    style={{ width: "8%" }}
-    src={require("../../images/whatsapp.svg").default}
-  />
-</span>
-No What’s App !
-</button>
+null
                   }
 
 
                   <div className="d-flex">
                   <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                  Contact Phone : {profile.clientReferenceNumber ? profile.clientReferenceNumber : "No Number!"}
+                   {profile.clientReferenceNumber ? "Contact Phone :" + profile.clientReferenceNumber : null}
                   </p>
                   </div>
                   {
-                    profile.clientReferenceNumber ? 
+                    profile.clientReferenceNumber != "" ? 
                     <a
                     href={`https://wa.me/${profile.clientReferenceNumber}`}
                     target="_blank"
@@ -983,16 +959,7 @@ No What’s App !
                 </a>
 
                 :
-                <button className="btn-whatsapp my-1">
- 
-                <span className="padding-email">
-                  <img
-                    style={{ width: "8%" }}
-                    src={require("../../images/whatsapp.svg").default}
-                  />
-                </span>
-                No What’s App !
-            </button>
+            null
 
                   }
           
@@ -1047,23 +1014,44 @@ No What’s App !
                   </span>
                 </div>
                 <div className="d-flex align-items-center">
-                  <p className="text-dark">Salary by person </p>
-                 <span className="Todo-ClinetCardMore-span">
-                    :{profile.salary_hours ? profile.salary_hours.salaryPerHour :"No Salary"} €
-                  </span>
-                </div>
-                <div className="d-flex align-items-center">
-                  <p className="text-dark">Salaire net du salarié </p>
-                 <span className="Todo-ClinetCardMore-span">
-                    :{profile.salary_hours ? profile.salary_hours.hours * profile.salary_hours.salaryPerHour +"€" : "No Hours!"}
-                  </span>
-                </div>
-                <div className="d-flex align-items-center">
-                  <p className="text-dark">Taux horraire</p>
-                 <span className="Todo-ClinetCardMore-span">
-                    :  {profile.rate_hours ? profile.rate_hours.hours * profile.rate_hours.ratePerHour + "€" : "No Hours!"}
-                  </span>
-                </div>
+                      <p className="text-dark">Salary by person </p>
+                      <span className="Todo-ClinetCardMore-span">
+                        : {profile.salary_hours.length !=0 ? profile.salary_hours.map((el)=>{return el.salaryPerHour}).slice(0,1) :"No Salary"} €
+                      </span>
+                    </div>
+                    <div className="d-flex ">
+                      <p className="text-dark">Salaire net du salarié  :  </p>
+                      <span className="Todo-ClinetCardMore-span">
+                       
+                       {
+                       profile.salary_hours.length !== 0? 
+                       profile.salary_hours.map((el)=>(
+                        <div className="d-flex">
+                            {el.hours}H =    <span>{el.hours * el.salaryPerHour + "€"}</span>
+                        </div>
+                   
+                      )
+                      )
+                      :
+                      "No Salaire!" }
+                      </span>
+                    </div>
+                    <div className="d-flex ">
+                      <p className="text-dark">Taux horraire :</p>
+                      <span className="Todo-ClinetCardMore-span">
+                      {
+                       profile.rate_hours.length !== 0? 
+                       profile.rate_hours.map((el)=>(
+                        <div className="d-flex">
+                             {el.hours}H  =   <span>{el.hours * el.ratePerHour + "€"}</span>
+                        </div>
+                   
+                      )
+                      )
+                      :
+                      "No horraire!" }
+                      </span>
+                    </div>
                    
                   </div>
                 </div>

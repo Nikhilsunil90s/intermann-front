@@ -707,12 +707,13 @@ setStatus(false)
   const jobChange = async (jobval) => {
     // console.log(jobval)
     let JobArr=[]
+    setSelectedSector("")
     jobval.map((el)=>{
      
-     JobArr.push(el.value)
+      FilterJob.push(el.value)
   
     })
-    FilterJob=JobArr
+    console.log(FilterJob,"fl")
     filterFunction()
   }
 
@@ -746,7 +747,7 @@ setStatus(false)
     <>
       <Toaster position="top-right"  containerStyle={{zIndex:"999999999999999999999"}}/>
 
-      <div className="container-fluid">
+      <div className="container-fluid" style={{marginTop:"70px"}}>
         <div className="row ">
           <div className="col-12 text-center p-1 topHeaderClient mt-2">
           <div className="d-flex topinPHeading"> <h2 className="">clients / lead  </h2> <span className="topinProgresstext">in progress</span></div>

@@ -51,6 +51,8 @@ function ToDoProfile() {
 
 
   const [profile, setProfile] = useState<any>(state? state : profileData);
+console.log(profile,"profile")
+
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const candidatMotivationIcons = [{ icon: "no", motivation: 'no' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
@@ -73,7 +75,6 @@ function ToDoProfile() {
   const [PDFModal,setPDFModal]=useState(false)
 
   let data={profileData:profile ,path:"/todoprofile"}
-
 
  const deleteCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
   let headers = {
@@ -311,7 +312,7 @@ const fetchRecommendations = async (candidatSector: string) => {
     },
   };
  const  ViewDownloadFiles =( documentName:any)=>{
-  window.open(API_BASE_URL + documentName)
+  window.open(API_BASE_URL + "uploads/" +documentName)
  }
   return (
     <>
@@ -427,7 +428,7 @@ className="SelectBtn"
                   style={{ maxWidth: "49%" }}
                 ><div className="text-start px-1">
                   <p className="Span-Styling pt-2 pb-1 px-3 my-1">
-                    Mail : {profile.candidatEmail ? profile.candidatEmail : "No Email Provided!"}
+                    {profile.candidatEmail ? "Mail :" + profile.candidatEmail : null}
                   </p>
                   </div>
                   {
@@ -447,18 +448,11 @@ className="SelectBtn"
                   </a>
 
                   :
-                  <a>
-                  <button className="btn-TODOgmail my-1" >
-                    <span className="">
-                      <img style={{width:"8%",marginRight:"5px"}} src={require("../images/gmail.svg").default} />
-                    </span>
-                    No Email !  
-                </button>
-                </a>
+                null
 
                   }
 <div className="text-start px-1">
-                  <p className="Span-Styling my-2 px-3 ">Facebook : {profile.candidatFBURL ? profile.candidatFBURL : "No Facebook URL!"}</p>
+                  <p className="Span-Styling my-2 px-3 "> {profile.candidatFBURL ? "Facebook :" + profile.candidatFBURL : null}</p>
                   </div>
                   {
                     profile.candidatFBURL != "" ?
@@ -477,18 +471,11 @@ className="SelectBtn"
                     </button>
                   </a>
                   :
-                  <button className="btn-facebook my-1">
-                  <a>
-                    <span className="">
-                      <img style={{width:"5%",marginRight:"5px"}}  src={require("../images/facebook.svg").default} />
-                    </span>
-                    No FB URL!
-                  </a>
-                </button>
+                null
 }
 <div className="text-start px-1">
                   <p className="Span-Styling my-2 px-3 pt-1  my-1">
-                    Phone : {profile.candidatPhone ? profile.candidatPhone : "No Phone Number!"}
+                     {profile.candidatPhone ? "Phone :" + profile.candidatPhone : null}
                   </p>
                   </div>
                   {
@@ -509,22 +496,15 @@ className="SelectBtn"
 
                     </a>
                     :
-                    <button className=" btn-whatsapp my-1" style={{fontSize:"12px",padding:"15px 20px"}}>
-                    <a>
-                      <span className="">
-                        <img style={{width:"8%",marginRight:"5px"}} src={require("../images/whatsapp.svg").default} />
-                      </span>
-                      No Phone Number!
-                    </a>
-                  </button>
+                  null
 }
 <div className="text-start px-1">
                   <p className="Span-Styling my-2 ">
-                    Phone 2 : {profile.candidatAlternatePhone ? profile.candidatAlternatePhone : "No AlternatePhone Number!"}
+                    {profile.candidatAlternatePhone ?" Phone 2 :" + profile.candidatAlternatePhone : null}
                   </p>
                   </div>
                   {
-                    candidatContactTwo != "" ?
+                    profile.candidatAlternatePhone != "" ?
                     <a
                       href={`https://wa.me/${profile.candidatAlternatePhone}`}
                       target="_blank"
@@ -542,14 +522,7 @@ className="SelectBtn"
 
                     </a>
                     :
-                    <button className="btn-whatsapp my-1">
-                    <a>
-                      <span className="">
-                        <img style={{width:"8%",marginRight:"5px"}}  src={require("../images/whatsapp.svg").default } />
-                      </span>
-                      No Phone Number!
-                    </a>
-                  </button>
+                null
 }
                 </div>
                 <div

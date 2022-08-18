@@ -216,7 +216,7 @@ console.log(profile,"profile")
   console.log("doc",documentList)
 
   const  ViewDownloadFiles =( documentName:any)=>{
-    window.open(API_BASE_URL + documentName)
+    window.open(API_BASE_URL +"uploads/"+ documentName)
    }
 
 
@@ -526,7 +526,7 @@ console.log(profile,"profile")
       console.log("upload");
       handleImageUpload();
     } else if (val === "Download") {
-      window.open(API_BASE_URL + ClientImage);
+      window.open(API_BASE_URL +"uploads/"+ ClientImage);
     }
   };
   const handleImageUpload = () => {
@@ -554,7 +554,7 @@ console.log(profile,"profile")
   return (
     <>
     <Toaster position="top-right" containerStyle={{zIndex:"9999999999999999999999"}}  />
-      <div className="containet-fluid p-1">
+      <div className="containet-fluid p-1" >
         <div className="row">
           <div className="col-12 top-pd mt-1">
             {/* <h1 style={{ textDecoration: 'underline' }}>CLIENT FILE: {profile.clientCompanyName}</h1> */}
@@ -588,7 +588,7 @@ console.log(profile,"profile")
                   {
               ClientImage !=="" ?
               <img
-              src={API_BASE_URL + ClientImage}
+              src={API_BASE_URL +"uploads/"+ ClientImage}
              className="img-uploadTodo-Download"
 
             />
@@ -996,10 +996,10 @@ console.log(profile,"profile")
                 >
                   <div className="d-flex">
                     <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                      Company Mail :{" "}
+                     
                       {profile.clientEmail
-                        ? profile.clientEmail
-                        : "No Email Provided!"}
+                        ? "Company Mail :" + profile.clientEmail
+                        : null}
                     </p>
                   </div>
                   {profile.clientEmail ? (
@@ -1018,26 +1018,18 @@ console.log(profile,"profile")
                         Send Email
                       </a>
                     </button>
-                  ) : (
-                    <button className="btn-TODOgmail">
-                      <span className="padding-email">
-                        <img
-                          style={{ width: "8%" }}
-                          src={require("../../images/gmail.svg").default}
-                        />
-                      </span>
-                      No Email !
-                    </button>
-                  )}
+                  ) : 
+                null
+                  }
 
                   <div className="d-flex">
                     <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                      Contact :{" "}
-                      {profile.clientEmail ? profile.clientEmail : "No Email!"}
+                  
+                      {profile.clientEmail ? "Contact :" + profile.clientEmail : null}
                     </p>
                   </div>
 
-                  {profile.clientEmail ? (
+                  {profile.clientEmail ? 
                     <a
                       href={profile.clientEmail}
                       target="_blank"
@@ -1048,24 +1040,19 @@ console.log(profile,"profile")
                       </span>
                       Send Email
                     </a>
-                  ) : (
-                    <button className="btn  fw-bold btn-TODOgmail">
-                      <span className="padding-email">
-                        <img src={require("../../images/gmail.svg").default} />
-                      </span>
-                      No Email !
-                    </button>
-                  )}
+                   : 
+                  null
+                  }
 
                   <div className="d-flex">
                     <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                      Company Phone :{" "}
+                  
                       {profile.clientPhone
-                        ? profile.clientPhone
-                        : "No Phone Number!"}
+                        ? "Company Phone :" + profile.clientPhone
+                        : null}
                     </p>
                   </div>
-                  {profile.clientPhone ? (
+                  {profile.clientPhone ? 
                     <a
                       href={`https://wa.me/${profile.clientPhone}`}
                       target="_blank"
@@ -1080,27 +1067,19 @@ console.log(profile,"profile")
                         Send What’s App
                       </button>
                     </a>
-                  ) : (
-                    <button className="btn-whatsapp my-1">
-                      <span className="padding-email">
-                        <img
-                          style={{ width: "8%" }}
-                          src={require("../../images/whatsapp.svg").default}
-                        />
-                      </span>
-                      No What’s App !
-                    </button>
-                  )}
+                  : 
+                  null
+                  }
 
                   <div className="d-flex">
                     <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                      Contact Phone :{" "}
+                      
                       {profile.clientReferenceNumber
-                        ? profile.clientReferenceNumber
-                        : "No Number!"}
+                        ? "Contact Phone :" + profile.clientReferenceNumber
+                        : null}
                     </p>
                   </div>
-                  {profile.clientReferenceNumber ? (
+                  {profile.clientReferenceNumber ? 
                     <a
                       href={`https://wa.me/${profile.clientReferenceNumber}`}
                       target="_blank"
@@ -1115,17 +1094,9 @@ console.log(profile,"profile")
                         Send What’s App
                       </button>
                     </a>
-                  ) : (
-                    <button className="btn-whatsapp my-1">
-                      <span className="padding-email">
-                        <img
-                          style={{ width: "8%" }}
-                          src={require("../../images/whatsapp.svg").default}
-                        />
-                      </span>
-                      No What’s App !
-                    </button>
-                  )}
+                  : 
+             null
+                  }
                 </div>
                 <div
                   className="col-xxl-8 col-xl-8 col-lg-8 col-md-7 Social-Card p-1 detailsCardClientSee scrollbar Social-btnS"
@@ -1187,19 +1158,40 @@ console.log(profile,"profile")
                     <div className="d-flex align-items-center">
                       <p className="text-dark">Salary by person </p>
                       <span className="Todo-ClinetCardMore-span">
-                        : {profile.salary_hours ? profile.salary_hours.salaryPerHour :"No Salary"} €
+                        : {profile.salary_hours.length !=0 ? profile.salary_hours.map((el)=>{return el.salaryPerHour}).slice(0,1) :"No Salary"} €
                       </span>
                     </div>
-                    <div className="d-flex align-items-center">
-                      <p className="text-dark">Salaire net du salarié </p>
+                    <div className="d-flex ">
+                      <p className="text-dark">Salaire net du salarié  :  </p>
                       <span className="Todo-ClinetCardMore-span">
-                        : {profile.salary_hours ? profile.salary_hours.hours * profile.salary_hours.salaryPerHour : "No Hours!"}€
+                       
+                       {
+                       profile.salary_hours.length !== 0? 
+                       profile.salary_hours.map((el)=>(
+                        <div className="d-flex">
+                            {el.hours}H =    <span>{el.hours * el.salaryPerHour + "€"}</span>
+                        </div>
+                   
+                      )
+                      )
+                      :
+                      "No Salaire!" }
                       </span>
                     </div>
-                    <div className="d-flex align-items-center">
-                      <p className="text-dark">Taux horraire</p>
+                    <div className="d-flex ">
+                      <p className="text-dark">Taux horraire :</p>
                       <span className="Todo-ClinetCardMore-span">
-                        : {profile.rate_hours ? profile.rate_hours.hours * profile.rate_hours.ratePerHour + "H" : "No Hours!"}€
+                      {
+                       profile.rate_hours.length !== 0? 
+                       profile.rate_hours.map((el)=>(
+                        <div className="d-flex">
+                             {el.hours}H  =   <span>{el.hours * el.ratePerHour + "€"}</span>
+                        </div>
+                   
+                      )
+                      )
+                      :
+                      "No horraire!" }
                       </span>
                     </div>
                   </div>

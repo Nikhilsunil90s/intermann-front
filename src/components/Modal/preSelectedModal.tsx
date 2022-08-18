@@ -13,7 +13,8 @@ function PreModal({props,closepreModal,client}) {
   const [selectedClient, setSelectedClient] = useState("");
   const [reason, setReason] = useState("");
   const [clientDataOptions,setClientOption]=useState([])
-console.log(client,"props")
+console.log(props,"props")
+
 useEffect(()=>{
   if(clientDataOptions.length == 0){
   setClientOption( client ? client.map((client) => {
@@ -23,6 +24,7 @@ useEffect(()=>{
   }): [{ label: 'No Clients In this Sector', value: "", color: '#FF8B00' }])
 }
 })
+
 
 console.log(clientDataOptions,"clients")
   const onClientChange = (sc: any) => {

@@ -23,7 +23,22 @@ const ToDoProfileCard = (props: any) => {
    },
    {value:"Archive",label:"Archive"
    }
+
+
 ]
+
+const fetchProfilesClients = async () => {
+    return await fetch(API_BASE_URL + "allToDoClients", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((resD) => resD.json())
+      .then(res => setClients([...res]))
+      .catch((err) => err);
+  };
    let state ={profileData:props.data,path:"/todolist"}
 
    const [candidatMotivationIcons,setMotivation] = useState([{ icon: "no", motivation: 'no' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }]);
@@ -33,27 +48,14 @@ const ToDoProfileCard = (props: any) => {
         navigate("/editToDo", { state: state});
     }
    
-
     const viewFullProfile = () => {
+
         // navigate("/todoprofile", { state: props.data });
         localStorage.setItem('profile', JSON.stringify(props.data));
         window.open("/todoprofile", "_blank")
     }
-    
-
  
-    const fetchProfilesClients = async () => {
-        return await fetch(API_BASE_URL + "allToDoClients", {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
-          .then((resD) => resD.json())
-          .then(res => setClients([...res]))
-          .catch((err) => err);
-      };
+
   
 
     const MoreOption=(e:any)=>{

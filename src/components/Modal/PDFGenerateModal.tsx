@@ -23,6 +23,7 @@ function PdfModal({props,closeModal,path} ){
     companyAddress: props.candidatContract ? props.candidatContract.companyAddress !=""? props.candidatContract.companyAddress : "" : "",
     candidatId: props.candidatContract ? props.candidatContract._id ? props.candidatContract._id : "" : "",
     candidatName: props.candidatContract ? props.candidatContract.candidatName ? props.candidatContract.candidatName : "" : "",
+    contractId: props.candidatContract ? props.candidatContract._id ? props.candidatContract._id : "" : "",
 }
   const [data, setData] = useState(PdfFormat);
   const [loader, setLoader] = useState(false);

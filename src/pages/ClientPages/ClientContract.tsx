@@ -554,9 +554,9 @@ setStatus(false)
       setLoader(true);
 
     } else if (e.value !== 'Select Un Secteur') {
-      let sectorField = e.value;
-      setSelectedSector(sectorField);
+      setSelectedSector(e.value);
       setJobOptions([]);
+      filterFunction()
     }
 
     fetchAllJobs(e.value)
@@ -716,7 +716,7 @@ setStatus(false)
   return (
     <>
       <Toaster position="top-right"  containerStyle={{zIndex:"999999999999999999999"}}/>
-      <div className="container-fluid">
+      <div className="container-fluid" style={{marginTop:"70px"}}>
         <div className="row ">
           <div className="col-12 p-1 text-center topHeaderClient mt-2">
           <div className="d-flex topinPHeading"> <h2 className="">clients / lead </h2> <span className="topSignedtext">signed contract </span></div>

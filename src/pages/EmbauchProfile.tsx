@@ -293,7 +293,7 @@ function ProgressCard() {
     hiddenFileInput.current.click();
   }
   const  ViewDownloadFiles =( documentName:any)=>{
-    window.open(API_BASE_URL + documentName)
+    window.open(API_BASE_URL + "uploads/" +documentName)
    }
 
   //  const showCustomerProfile = async () => {
@@ -506,7 +506,7 @@ className="SelectBtn"
                 >
                   <div className="text-start px-1">
                   <p className="Span-Styling pt-2 my-1">
-                    Mail : {profile.candidatEmail ? profile.candidatEmail : "No Email Provided!"}
+                  {profile.candidatEmail ? "Mail :" + profile.candidatEmail : null}
                   </p>
                   </div>
                   {
@@ -522,21 +522,10 @@ className="SelectBtn"
                       Send Email
                     </a>
                   </button> : 
-                      <button className="btn-gmail my-1">
-                      <a
-                        href="https://accounts.google.com/"
-                        className="text-dark fw-bold"
-                        target="_blank"
-                      >
-                        <span className="padding-email">
-                          <img src={require("../images/gmail.svg").default}  style={{ width: "8%" }} />
-                        </span>
-                        No Email !
-                      </a>
-                    </button>
+                null
                   }
                 <div className="text-start px-1">
-                  <p className="Span-Styling my-2 px-3">Facebook : {profile.candidatFBURL ? profile.candidatFBURL : "No Facebook URL!"}</p>
+                  <p className="Span-Styling my-2 px-3"> {profile.candidatFBURL ? "Facebook :" + profile.candidatFBURL : null}</p>
                   </div>
                   {
 profile.candidatFBURL ?
@@ -553,23 +542,13 @@ className="btn btn-Facebookpresee my-1"
 </span>
 See Profile
 </a>  :
-<button
-className="btn btn-Facebookpresee my-1"
->
-<span className="padding-email">
-  <img
-    style={{ width: "4%" }}
-    src={require("../images/facebook.svg").default}
-  />
-</span>
-No FB URL!
-</button> 
+null
 
                   }
             
             <div className="text-start px-1">
                   <p className="Span-Styling my-2 px-3">
-                    Phone : {profile.candidatPhone ? profile.candidatPhone : "No Phone Number!"}
+                  {profile.candidatPhone ? "Phone :" + profile.candidatPhone : null}
                   </p>
                   </div>
                   {
@@ -593,29 +572,20 @@ No FB URL!
 
                   :
             
-                  <button className="btn-whatsapp mt-1 mb-1">
-                
-                    <span className="padding-email">
-                      <img
-                        style={{ width: "8%" }}
-                        src={require("../images/whatsapp.svg").default}
-                      />
-                    </span>
-                    No Phone Number!
-                </button>
+               null
                   }
                <div className="text-start px-1">
                   <p className="Span-Styling mt-2 mb-1 px-3">
-                    Phone 2 : {profile.candidatAlternatePhone ? profile.candidatAlternatePhone : "No AlternatePhone Number!"}
+                  {profile.candidatAlternatePhone ?" Phone 2 :" + profile.candidatAlternatePhone : null}
                   </p>
                   </div>
                  {
-                    profile.cadidatAlternatePhone ?
+                    profile.cadidatAlternatePhone != "" ?
                     <a
                     href={`https://wa.me/${profile.candidatAlternatePhone}`}
                     target="_blank"
                   >
-                  <button className="btn-whatsapp btn-see">
+                  <button className="btn-whatsapp ">
                
                     <span className="padding-email">
                       <img
@@ -629,17 +599,7 @@ No FB URL!
 
                   :
                 
-                  <button className="btn-whatsapp mt-1 mb-1">
-             
-                    <span className="padding-email">
-                      <img
-                        style={{ width: "8%" }}
-                        src={require("../images/whatsapp.svg").default}
-                      />
-                    </span>
-                    No Phone Number!
-                
-                </button>
+          null
                  }
 
                 </div>

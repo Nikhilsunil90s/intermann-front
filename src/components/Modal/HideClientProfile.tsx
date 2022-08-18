@@ -37,17 +37,17 @@ function HideClientProfile({ props, closeModal, path }) {
         console.log(data);
         HideProfile().then((resdata) => {
             console.log(resdata)
-            // setTimeout(function () {
-            //     if (path == "/embauchlist") {
-            //         window.location.href = path;
-            //     }
-            //     else if (path == "/clientToDo") {
-            //         window.location.href = "/clientToDo";
-            //     } else {
-            //         window.location.href = "/dashboard";
-            //     }
+            setTimeout(function () {
+                if (path == "/embauchlist") {
+                    window.location.href = path;
+                }
+                else if (path == "/clientToDo") {
+                    window.location.href = "/clientToDo";
+                } else {
+                    window.location.href = "/dashboard";
+                }
 
-            // }, 2000);
+            }, 2000);
             notifyMoveSuccess();
         })
             .catch(err => {

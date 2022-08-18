@@ -778,7 +778,8 @@ color: #000000 !important;
             font-size: 18px;
             line-height: 27px;
             color: #FFFFFF;
-           width: 100%;
+           width: 99%;
+           height: 63px;
             border: 0px;
             margin-top: 5px;
         }
@@ -792,6 +793,8 @@ color: #000000 !important;
             line-height: 27px;
             color: #FFFFFF;
           width: 100%;
+          height: 63px;
+
             border: 0px;
             margin-top: 5px;
         }

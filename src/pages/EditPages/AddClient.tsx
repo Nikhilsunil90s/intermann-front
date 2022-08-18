@@ -220,11 +220,11 @@ const [matched, setMatched] = useState(false);
   const [SalaryCheck , setSalarycheck]=useState(SalaryTotalcheck)as any
   const [salary,setSalary_hours] =useState({
     hours:"",
-    salary_hours:""
+    salaryPerHour:""
   })as any
   const [rateHours,setrate_hours] =useState({
     hours:"",
-    rate_hours:""
+    ratePerHour:""
   })as any
 
   
@@ -617,10 +617,10 @@ const onSubmitRates=(e)=>{
 
 const onInputChange=(val)=>{
   if(val.target.name==="salary_hours"){
-    setSalary_hours({...salary,salary_hours:val.target.value})
+    setSalary_hours({...salary,salaryPerHour:val.target.value})
   }
   if(val.target.name==="turnover"){
-    setrate_hours({...rateHours,rate_hours:val.target.value})
+    setrate_hours({...rateHours,ratePerHour:val.target.value})
   }
 }
 

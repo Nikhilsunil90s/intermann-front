@@ -5,12 +5,15 @@ import "../CSS/Canceled.css";
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select'
 import ArchivedModal from "./Modal/ArchivedModal";
-
+import HideProfile from "../components/Modal/HideProfileModalForArchived";
+import ResetProfile from "../components/Modal/RestProfileForArchived";
 
 
 const ArchivedProfileCard = (props: any) => {
     console.log(props,"props")
     const navigate = useNavigate();
+    const [hideProfile,setHideProfile]=useState(false)
+    const [ResetModalProfile,setResetModalProfile]=useState(false)
     const [showArchiveModal, setShowArchiveModal] = useState(false)
     //  let data={state:props.props,path:"/archivedlist"}
     const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
@@ -27,7 +30,9 @@ const ArchivedProfileCard = (props: any) => {
     const CardOptions=[{
         value:"Edit Profile",label:"Edit Profile"
         },
-        {value:"Archive",label:"Archive"
+        {value:"Reset Profile",label:"Reset Profile"
+        },
+        {value:"Hide This Profile",label:"Hide This Profile"
         }
      ]
 
@@ -35,9 +40,12 @@ const ArchivedProfileCard = (props: any) => {
         if(e.value=="Edit Profile"){
      editCandidatProfile()
         }
-        if(e.value=="Archive"){
-          setShowArchiveModal(true) 
+        if(e.value=="Reset Profile"){
+            setResetModalProfile(true) 
         }
+        if(e.value=="Hide This Profile"){
+            setHideProfile(true) 
+          }
       console.log(e.value)
       }
 
@@ -120,7 +128,18 @@ const ArchivedProfileCard = (props: any) => {
                         
                                             </div>
                     </div>
-                 
+                    {
+        hideProfile?
+        <HideProfile props={props.props} closeModal={setHideProfile}  path={"/todolist"}/>
+        :
+        null
+       }
+        {
+        ResetModalProfile?
+        <ResetProfile props={props.props} closeModal={setResetModalProfile}  path={"/todolist"}/>
+        :
+        null
+       }
 
                 </div>
             </div>
