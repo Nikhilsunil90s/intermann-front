@@ -532,7 +532,7 @@ null
                   </p>
                   </div>
                  {
-                    profile.cadidatAlternatePhone != "" ?
+                    profile.cadidatAlternatePhone != "" || profile.cadidatAlternatePhone != undefined ?
                     <a
                     href={`https://wa.me/${profile.candidatAlternatePhone}`}
                     target="_blank"

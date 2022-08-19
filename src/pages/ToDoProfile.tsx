@@ -504,7 +504,7 @@ className="SelectBtn"
                   </p>
                   </div>
                   {
-                    profile.candidatAlternatePhone != "" ?
+                    profile.candidatAlternatePhone != "" || profile.cadidatAlternatePhone != undefined ?
                     <a
                       href={`https://wa.me/${profile.candidatAlternatePhone}`}
                       target="_blank"
@@ -534,7 +534,7 @@ className="SelectBtn"
                       <div className="col-3 pr-0"  style={{maxWidth:"22%"}}> 
                       <p>Langues : </p>
                       </div><div className="col-9 px-0">
-                      <span className="Todo-CardMore-span">  {profile.candidatLanguages ? profile.candidatLanguages.join(", ") : "No Language!"}</span>
+                      <span className="Todo-CardMore-span">  {profile.candidatLanguages.length  ? profile.candidatLanguages.join(", ") : "No Language!"}</span>
                       </div>
                     </div>
                     <div className="d-flex align-items-center">

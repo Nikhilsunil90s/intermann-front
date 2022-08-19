@@ -461,7 +461,7 @@ null
                   </p>
                   </div>
                   {
-                    profile.clientReferenceNumber != "" ? 
+                  profile.clientReferenceNumber !="" || profile.clientReferenceNumber != undefined ? 
                     <a
                     href={`https://wa.me/${profile.clientReferenceNumber}`}
                     target="_blank"

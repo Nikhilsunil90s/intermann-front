@@ -465,7 +465,7 @@ className="SelectBtn"
                       <div className="col-3 pr-0"  style={{maxWidth:"22%"}}> 
                       <p>Langues : </p>
                       </div><div className="col-9 px-0">
-                      <span> {profile.candidatLanguages ? profile.candidatLanguages.join(", ") : "No Language!"}</span>
+                      <span> {profile.candidatLanguages.length ? profile.candidatLanguages.join(", ") : "No Language!"}</span>
                       </div>
                     </div>
                     <div className="d-flex ">
@@ -576,11 +576,11 @@ null
                   }
                <div className="text-start px-1">
                   <p className="Span-Styling mt-2 mb-1 px-3">
-                  {profile.candidatAlternatePhone ?" Phone 2 :" + profile.candidatAlternatePhone : null}
+                  {profile.candidatAlternatePhone != "" ?" Phone 2 :" + profile.candidatAlternatePhone : null}
                   </p>
                   </div>
                  {
-                    profile.cadidatAlternatePhone != "" ?
+                    profile.cadidatAlternatePhone != "" || profile.cadidatAlternatePhone != undefined?
                     <a
                     href={`https://wa.me/${profile.candidatAlternatePhone}`}
                     target="_blank"
