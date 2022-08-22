@@ -13,10 +13,7 @@ const EmployeeDataFormat = {
   candidatEmail: "",
   candidatPhone: "",
   candidatAddress: "",
-  candidatActivitySector: {
-    sectorName: "",
-    jobs: []
-  },
+  candidatActivitySector:"",
   candidatJob: "",
   candidatFBURL: "",
   candidatAlternatePhone: "",
@@ -64,11 +61,13 @@ export default function Employes() {
   const [workDoneSample, setWorkDoneSample] = useState("");
   const [Language, setLanguage] = useState([])
   const [showMessage, setShowMessage] = useState(false);
-  const [FetesData, setFetesData] = useState([])
+  const [selectedSector, setSelectedSector] = useState("")
   const [person, setPerson] = useState([])
   const [showError, setShowError] = useState(false);
   const [inputDisabled, setInputDisabled] = useState(false);
+  const [jobOptions, setJobOptions] = useState([])
   const [displayRow, setDisplayRow] = useState(false);
+const [sectorOption,setSectorOptions]=useState([])
   const [workExperience, setWorkExperience] = useState([{
     period: "",
     location: "",
@@ -171,6 +170,41 @@ export default function Employes() {
     setData({ ...data, candidatFetes: FetesArr })
   }
 
+console.log(data)
+
+  const handleSectorChange = (e: any) => {
+    setJobOptions([])
+    console.log(e)
+    if (e.value === "Select Un Secteur") {
+      setJobs([]);
+      setJobOptions([]);
+    } else if (e.value !== '') {
+      let sectorField = e.value;
+      changeSectorSelection(sectorField)
+      setData({...data,candidatActivitySector:sectorField})
+    
+    }
+}
+
+useEffect(() => {
+  if (jobs.length === 0 ) {
+      fetchAllJobs(selectedSector)
+          .then((data) => {
+             
+              setJobs([...data.data])
+          })
+          .catch(err => {
+              console.log(err)
+          })
+  }
+ 
+  let jobResults = jobs.map(ajob => {
+      return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
+    })
+    setJobOptions([...jobResults]);
+    console.log(jobs,"jobs");
+}, [jobs])
+
   useEffect(() => {
     if (activitySectors.length == 0) {
       fetchActivitySectors()
@@ -179,7 +213,14 @@ export default function Employes() {
         })
         .catch(err => console.log(err))
     }
-  })
+    if(sectorOption.length == 0){
+      let sectorops = activitySectors.map((asector) => {
+        return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
+      })
+  
+      setSectorOptions([...sectorops]);
+    }
+  },[activitySectors])
   const fetchAllJobs = async (sector: string) => {
     return await fetch(API_BASE_URL + `fetchAllJobs/?sector=${sector}`, {
       method: "GET",
@@ -374,6 +415,7 @@ export default function Employes() {
 
   const changeSectorSelection = async (sec: string) => {
     if (sec) {
+      setSelectedSector(sec)
       await fetchAllJobs(sec)
         .then(data => {
           console.log(data.data)
@@ -384,8 +426,24 @@ export default function Employes() {
         })
       console.log(jobs);
     }
+    let jobResults = jobs.map(ajob => {
+      return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
+    })
+    setJobOptions([...jobResults]);
+    console.log(jobs,"jobs");
 
   }
+
+  const jobChange = async (jobval) => {
+    // console.log(jobval)
+    let JobArr=""as any
+    
+     JobArr=jobval.value
+    
+    setData({...data,candidatJob:JobArr})
+    
+    // changeJobSelection(JobArr)
+    }
 
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -545,7 +603,7 @@ export default function Employes() {
                   <div className="col-4">
                     <div className="p-1">
                       <label className="Form-styling">Secteur d’Activité</label>
-                      <select
+                      {/* <select
                         name="candidatActivitySector"
                         className="form-select "
                         required
@@ -555,7 +613,16 @@ export default function Employes() {
                         {activitySectors.map((sector) =>
                           <option value={sector.name} >{sector.sectorName}</option> // fetch from api
                         )}
-                      </select>
+                      </select> */}
+                          <Select
+                                            options={sectorOption}
+                                            onChange={handleSectorChange}
+                                            styles={colourStyles}
+                                            className="basic-multi-select"
+                                            classNamePrefix="select"
+                                            closeMenuOnSelect={true}
+                                            placeholder="‎ ‎ ‎ Select Un Secteur"
+                                            />
                       <span className="text-small">
                         Please select the sector of this candidat, you can add sector on
                         the BO.
@@ -565,7 +632,7 @@ export default function Employes() {
                   <div className="col-4">
                     <div className="p-1">
                       <label className="Form-styling">Métier / Job</label>
-                      <select
+                      {/* <select
                         name="candidatJob"
                         className="form-select"
                         onChange={onFormDataChange}
@@ -578,7 +645,20 @@ export default function Employes() {
                           )
                         }
 
-                      </select>
+                      </select> */}
+                       {jobOptions.length > 0 ?   <Select
+                      name="jobName"
+                      closeMenuOnSelect={true}
+                      placeholder="‎ ‎ ‎ Select"
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                      // defaultValue={{label:profile.clientJob,value:profile.clientJob,color:"#FE8700"}}
+                      // defaultInputValue={{label:profile.clientJob,value:profile.clientJob,color:"#FE8700"}}
+                      onChange={jobChange}
+                      options={jobOptions}
+                      styles={colourStyles}
+                    />: <p>Select A Sector!</p>
+}
                       <span className="text-small">
 
                         Please select the job of this candidat, you can add job on the

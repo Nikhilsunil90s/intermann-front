@@ -624,12 +624,12 @@ function Signed() {
                     </p>
                     <span className="card-xlSpan">(Age)</span>
                   </div>
-                  <p>Number of Positions : {profile.numberOfPosts}</p>
+                  <p>Number of Positions : {profile.numberOfPosts ? profile.numberOfPosts : "No Posts!"}</p>
 
-                  <p>Secteur : {profile.clientActivitySector}</p>
-                  <p>Métier/Job : {profile.clientJob}</p>
+                  <p>Secteur : {profile.clientActivitySector ? profile.clientActivitySector : "No Sector"}</p>
+                  <p>Métier/Job : {profile.clientJob ? profile.clientJob : "No Job!"}</p>
                   <p style={{ width: "120%" }}>
-                    Contact Name : {profile.clientReferenceName}
+                    Contact Name : {profile.clientReferenceName ? profile.clientReferenceName : "No Contact Name!" }
                   </p>
                 </div>
                 {/* <div className="col-4 text-end end-class d-grid justify-content-center align-items-center"> */}
@@ -1055,7 +1055,7 @@ function Signed() {
                         : null}
                     </p>
                   </div>
-                  {profile.clientReferenceNumber !="" || profile.clientReferenceNumber != undefined ? 
+                  {profile.clientReferenceNumber !="" ? 
                     <a
                       href={`https://wa.me/${profile.clientReferenceNumber}`}
                       target="_blank"

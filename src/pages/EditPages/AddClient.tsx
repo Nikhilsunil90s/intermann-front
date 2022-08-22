@@ -506,38 +506,7 @@ const onFormDataChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaEl
         console.log(e.target.name, e.target.value);
         changeSectorSelection(e.target.value);
     }
-    // if (e.target.name === "clientCompanyName") {
-    //     let clientName = e.target.value;
-  
-    //     let val = e.target.value.toLocaleUpperCase()
-    //     console.log(val);
-    //     checkClient(clientName).then(da => {
-    //         console.log(da);
-    //         if (da.status) {
-    //             setMatched(true);
-    //         } else {
-    //             setMatched(false);
-    //         }
-    //     }).catch(err => {
-    //         console.log(err)
-    //     })
-    //     setData((prev) => ({ ...prev, ["clientCompanyName"]: val }));
-    //     return;
-    // }
-    // if (e.target.name === "clientJob") {
-    //     let clientName = data.clientCompanyName;
-    //     let jobName = e.target.value;
-    //     checkClient(clientName, jobName).then(da => {
-    //         console.log(da);
-    //         if (da.status) {
-    //             setMatched(true);
-    //         } else {
-    //             setMatched(false);
-    //         }
-    //     }).catch(err => {
-    //         console.log(err)
-    //     })
-    // }
+   
 
     setData(prev => ({ ...prev, [e.target.name]: e.target.value }));
 }
@@ -564,10 +533,7 @@ let NoteCofac=""
 NoteCofac=e.value
 setData({...data,note_cofac:NoteCofac})
 }
-// if(!JSON.stringify(checkBooleanValue).includes(SalaryCheck) || SalaryTotal.length == 0){
-//   console.log(SalaryTotal,SalaryTotalcheck,"data")
-// }
-console.log(SalaryTotal,SalaryCheck,"salaryTotal")
+
 const onSubmitRates=(e)=>{
 
   if(e.target.name==="salaryH"){

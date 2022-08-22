@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Select,{StylesConfig} from 'react-select'
 import ReadMoreReact from 'read-more-react';
 import { API_BASE_URL } from "../config/serverApiConfig";
+import moment from "moment";
 
 const PreSelectedCard = (props: any,) => {
 
@@ -51,6 +52,13 @@ const PreSelectedCard = (props: any,) => {
       }
     }
 
+
+    const datenow=moment().format('YYYY-MM-DD')
+    
+    let date = new Date(datenow);
+
+   let start = new Date(props.data.candidatStartDate);
+   let end = new Date(props.data.candidatEndDate);
 
     return (
         <>
@@ -107,8 +115,8 @@ const PreSelectedCard = (props: any,) => {
                     <p className="preCard-Body-p">Phone Number : <b>{props.data.candidatPhone} </b></p>
                     <p className="preCard-Body-p">Facebook URL : <b>{props.data.candidatFBURL ? <a href={props.data.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
                     <p className="preCard-Body-p">Email :  <b> {props.data.candidatEmail ? props.data.candidatEmail.length > 20 ? props.data.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.data.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b></p>
-                    <p className="preCard-Body-blue ">
-                        Ready for work :<b>{props.data.candidatStartDate} To {props.data.candidatEndDate}</b>
+                    <p className="preCard-Body-blue " style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
+                        Ready for work :<b>{date >= start && date <= end  ? props.data.candidatStartDate  + "  To  " + props.data.candidatEndDate :   "⚠️" + props.data.candidatStartDate +"  To  " + props.data.candidatEndDate} </b>
                     </p>
                 </div>
                 <div className="col-12">

@@ -658,7 +658,7 @@ console.log(profile,"profile")
                   <p>Secteur : {profile.clientActivitySector ? profile.clientActivitySector : "No Sector"}</p>
                   <p>Métier/Job : {profile.clientJob ? profile.clientJob : "No Job!"}</p>
                   <p style={{ width: "120%" }}>
-                    Contact Name : {profile.clientReferenceName ? profile.clientReferenceName : "No ContactName!" }
+                    Contact Name : {profile.clientReferenceName ? profile.clientReferenceName : "No Contact Name!" }
                   </p>
                 </div>
                 {/* <div className="col-4 text-end end-class d-grid justify-content-center align-items-center"> */}
@@ -1085,7 +1085,7 @@ console.log(profile,"profile")
                         : null}
                     </p>
                   </div>
-                  {profile.clientReferenceNumber !="" || profile.clientReferenceNumber != undefined ? 
+                  {profile.clientReferenceNumber !== "" ? 
                     <a
                       href={`https://wa.me/${profile.clientReferenceNumber}`}
                       target="_blank"

@@ -410,9 +410,9 @@ className="SelectBtn"
                     <p>Motivation : <b>{candidatMotivationIcons[profile.candidatMotivation ].icon + " " + candidatMotivationIcons[profile.candidatMotivation ].motivation}</b> </p>
                     </p>
                   </div>
-                  <p>Secteur : {profile.candidatActivitySector.toLocaleUpperCase()}</p>
+                  <p>Secteur : {profile.candidatActivitySector ? profile.candidatActivitySector.toLocaleUpperCase() : "No Sector!"}</p>
                   <p className="" style={{ width: "150%" }}>
-                    Métier/Job :{profile.candidatJob.toLocaleUpperCase()}
+                    Métier/Job :{profile.candidatJob ? profile.candidatJob.toLocaleUpperCase() : "No Job!"}
                   </p>
                 </div>
                 <div className="col-3  text-end end-class" style={{paddingRight:"20px"}}>
