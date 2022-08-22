@@ -18,7 +18,7 @@ import PreModalClient from "../../components/Modal/preSelectedModalForClient"
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import CLintHide from "../../components/Modal/HideClientProfile"
 import ClientREST from "../../components/Modal/ClientREStProfile"
-
+import moment from 'moment'
 
 let RenameData=[]
 function ArchivedViewPage(){
@@ -39,6 +39,14 @@ function ArchivedViewPage(){
   const [PreSelectedData,setPreSelected]=useState([])
   const [HideProfile,setHideProfile]=useState(false)
   const [RESTprofile,setREStProfile]=useState(false)
+
+  const datenow=moment().format('YYYY-MM-DD')
+    
+  let date = new Date(datenow);
+
+ let start = new Date(profile.jobStartDate);
+ let end = new Date(profile.jobEndDate);
+ 
 
 
   const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating   style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}}/> <StarRating style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}} /> <Empty style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /></>}]; 
@@ -461,7 +469,7 @@ null
                   </p>
                   </div>
                   {
-                  profile.clientReferenceNumber !="" || profile.clientReferenceNumber != undefined ? 
+                  profile.clientReferenceNumber !="" ||  profile.clientReferenceNumber != undefined ? 
                     <a
                     href={`https://wa.me/${profile.clientReferenceNumber}`}
                     target="_blank"
@@ -504,8 +512,7 @@ null
                 </div>
                 <div className="d-flex align-items-center ">
                       <p className="blue-text">Ready for work :</p>
-                      <span className="bluetextCardSee">
-                      {profile.jobStartDate != "" ? profile.jobStartDate : "___"} To{profile.jobEndDate != "" ? profile.jobEndDate : "___"}
+                      <span className="bluetextCardSee"style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>{date >= start && date <= end  ? profile.jobStartDate  + "  To  " + profile.jobEndDate :   "⚠️" + profile.jobStartDate +  "  To  "  + profile.jobEndDate}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">

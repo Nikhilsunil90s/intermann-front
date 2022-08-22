@@ -23,6 +23,7 @@ import ReadMoreReact from 'read-more-react';
 import RenameDoc from '../components/Modal/RenameDoc_Modal'
 import UploadDow from '../components/Modal/SelectUploadDownload'
 import PDFGenerate from '../components/Modal/PDFGenerateModal'
+import moment from 'moment'
 
 interface State {
   profileData: any,
@@ -73,6 +74,15 @@ console.log(profile,"profile")
   const [UploadBtn,setSelectUpload]= useState(false)
   const [RenameDocStatus,setRenameDocStatus]=useState(false)
   const [PDFModal,setPDFModal]=useState(false)
+  const datenow=moment().format('YYYY-MM-DD')
+    
+  let date = new Date(datenow);
+
+ let start = new Date(profile.candidatStartDate);
+ let end = new Date(profile.candidatEndDate);
+
+
+
 
   let data={profileData:profile ,path:"/todoprofile"}
 
@@ -539,8 +549,9 @@ className="SelectBtn"
                     </div>
                     <div className="d-flex align-items-center">
                       <p className="blue-text">Ready for work :</p>
-                      <span className="bluetextCardSee">
-                        {profile.candidatStartDate} -{profile.candidatEndDate}
+                      <span className="bluetextCardSee" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
+                       
+                        {date >= start && date <= end  ? profile.candidatStartDate  + "  To  " + profile.candidatEndDate :   "⚠️" + profile.candidatStartDate +"  To  " + profile.candidatEndDate} 
                       </span>
                     </div>
                     <div className="d-flex align-items-center">

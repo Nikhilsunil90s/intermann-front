@@ -14,7 +14,7 @@ import ResetProfile from "../components/Modal/RestProfileForArchived";
 import { Toaster, toast } from 'react-hot-toast';
 import UploadDow from '../components/Modal/SelectUploadDownload'
 import PDFGenerate from '../components/Modal/PDFGenerateModal'
-
+import moment from "moment";
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -34,6 +34,14 @@ const ArchivedProfile = () => {
     const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
     const [PDFModal,setPDFModal]=useState(false)
   
+    const datenow=moment().format('YYYY-MM-DD')
+    
+    let date = new Date(datenow);
+  
+   let start = new Date(profile.candidatStartDate);
+   let end = new Date(profile.candidatEndDate);
+
+   
     let data={profileData:profile,path:"/archivedprofile"}
     const editCandidatProfile = () => {
       navigate("/editArchived", { state: data });
@@ -337,8 +345,8 @@ className="SelectBtn"
                     </div>
                     <div className="d-flex ">
                       <p className="blue-text">Ready for work :</p>
-                      <span className="blue-text">
-                        {profile.candidatStartDate} -{profile.candidatEndDate}
+                      <span className="" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
+                      {date >= start && date <= end  ? profile.candidatStartDate  + "  To  " + profile.candidatEndDate :   "⚠️" + profile.candidatStartDate +"  To  " + profile.candidatEndDate} 
                       </span>
                     </div>
                     <div className="d-flex">
@@ -443,11 +451,11 @@ null
                   }
                <div className="text-start px-1">
                   <p className="Span-Styling mt-2 mb-1 px-3">
-                   {profile.candidatAlternatePhone ? "Phone 2 :" + profile.candidatAlternatePhone : null}
+                   {profile.candidatAlternatePhone !== "" || profile.cadidatAlternatePhone !== undefined ? "Phone 2 :" + profile.candidatAlternatePhone : null}
                   </p>
                   </div>
                  {
-                    profile.cadidatAlternatePhone != "" || profile.cadidatAlternatePhone != undefined ?
+                    profile.cadidatAlternatePhone !== "" || profile.cadidatAlternatePhone !== undefined ?
                     <a
                     href={`https://wa.me/${profile.candidatAlternatePhone}`}
                     target="_blank"

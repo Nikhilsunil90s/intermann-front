@@ -16,7 +16,7 @@ import ProfileLoader from "../../components/Loader/ProfilesLoader";
 import RenameDoc from "../../components/Modal/RenameDoc_ModalClient";
 import ReadMoreReact from "read-more-react";
 import PreModalClient from "../../components/Modal/preSelectedModalForClient";
-
+import moment from "moment"
 let RenameData = [];
 let id = "";
 function Signed() {
@@ -513,6 +513,17 @@ function Signed() {
       .then((result) => result)
       .catch((err) => err);
   };
+
+
+  const datenow=moment().format('YYYY-MM-DD')
+    
+  let date = new Date(datenow);
+
+ let start = new Date(profile.jobStartDate);
+ let end = new Date(profile.jobEndDate);
+ 
+
+ 
   return (
     <>
     <Toaster position="top-right" containerStyle={{zIndex:"9999999999999999999999"}}  />
@@ -1087,12 +1098,7 @@ function Signed() {
                     </div>
                     <div className="d-flex align-items-center ">
                       <p className="blue-text">Research for work :</p>
-                      <span className="bluetextCardSee">
-                        {profile.jobStartDate != ""
-                          ? profile.jobStartDate
-                          : "___"}
-                        To
-                        {profile.jobEndDate != "" ? profile.jobEndDate : "___"}
+                      <span className="bluetextCardSee"style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>{date >= start && date <= end  ? profile.jobStartDate  + "  To  " + profile.jobEndDate :   "⚠️" + profile.jobStartDate +  "  To  "  + profile.jobEndDate}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">

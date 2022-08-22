@@ -19,6 +19,8 @@ import { ProgressBar } from "react-bootstrap";
 import ProfileLoader from "../../components/Loader/ProfilesLoader";
 import RenameDoc from '../../components/Modal/RenameDoc_ModalClient'
 import PreModalClient from "../../components/Modal/preSelectedModalForClient"
+import Moment from 'react-moment';
+import moment from 'moment';
 
 let RenameData=[]
 let id = "";
@@ -65,7 +67,15 @@ function ClientProgressView() {
   }
 
 
+  
 
+  const datenow=moment().format('YYYY-MM-DD')
+    
+  let date = new Date(datenow);
+
+ let start = new Date(profile.jobStartDate);
+ let end = new Date(profile.jobEndDate);
+ 
   // DOC Upload //\
 
   const axiosInstance = axios.create({
@@ -984,8 +994,7 @@ null
                 </div>
                 <div className="d-flex align-items-center ">
                       <p className="blue-text">Ready for work :</p>
-                      <span className="bluetextCardSee">
-                      {profile.jobStartDate != "" ? profile.jobStartDate : "___"} To{profile.jobEndDate != "" ? profile.jobEndDate : "___"}
+                      <span className="bluetextCardSee" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>{date >= start && date <= end  ? profile.jobStartDate  + "  To  " + profile.jobEndDate :   "⚠️" + profile.jobStartDate +  "  To  "  + profile.jobEndDate} 
                       </span>
                     </div>
                     <div className="d-flex align-items-center">

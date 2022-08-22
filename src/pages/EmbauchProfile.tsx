@@ -16,7 +16,7 @@ import ProfileLoader from "../components/Loader/ProfilesLoader";
 import RenameDoc from '../components/Modal/RenameDoc_Modal'
 import UploadDow from '../components/Modal/SelectUploadDownload'
 import PDFGenerate from '../components/Modal/PDFGenerateModal'
-
+import moment from "moment";
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
 })
@@ -57,6 +57,13 @@ function ProgressCard() {
   const [UploadBtn,setSelectUpload]= useState(false)
   const [clientProfile, setClientProfile] = useState()as any;
   const [PDFModal,setPDFModal]=useState(false)
+
+  const datenow=moment().format('YYYY-MM-DD')
+    
+  let date = new Date(datenow);
+
+ let start = new Date(profile.candidatStartDate);
+ let end = new Date(profile.candidatEndDate);
 
 
   let data = {profileData:profile,path:"/embauchprofile"}
@@ -469,9 +476,9 @@ className="SelectBtn"
                       </div>
                     </div>
                     <div className="d-flex ">
-                      <p className="EmbauchFull-CardMoreSpan">Ready for work :</p>
-                      <span className="EmbauchFull-CardMoreSpan">
-                        {profile.candidatStartDate} -{profile.candidatEndDate}
+                      <p className="EmbauchFull-CardMoreSpan"  style={{color: "#3F76E2"}} >Ready for work :</p>
+                      <span className="EmbauchFull-CardMoreSpan"  style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
+                      {date >= start && date <= end  ? profile.candidatStartDate  + "  To  " + profile.candidatEndDate :   "⚠️" + profile.candidatStartDate +"  To  " + profile.candidatEndDate} 
                       </span>
                     </div>
                     <div className="d-flex">

@@ -39,7 +39,6 @@ import ClientSignedEdit from "./pages/EditPages/SignedContractEdit";
 import SignedView from "../src/pages/ClientPages/FullViewProfile/SignedContract"
 import Error404 from "./pages/ErrorPages/Error404";
 import Error500 from "./pages/ErrorPages/Error500";
-
 function App() {
   return (
     <Provider store={configureStore}>

@@ -5,7 +5,7 @@ import StarRatings from 'react-star-ratings';
 import ArchivedModal from "./Modal/ArchivedModal";
 import { useNavigate } from "react-router-dom";
 import Select from 'react-select'
-
+import moment from "moment";
 const EmbaucheProfileCard = (props: any) => {
 console.log(props,"ppr")
 
@@ -37,6 +37,14 @@ console.log(props,"ppr")
       }
     console.log(e.value)
     }
+
+    const datenow=moment().format('YYYY-MM-DD')
+    
+    let date = new Date(datenow);
+
+   let start = new Date(profile.candidatStartDate);
+   let end = new Date(profile.candidatEndDate);
+
     return (
         <>
             <div className="card card-color mb-0">
@@ -78,7 +86,9 @@ console.log(props,"ppr")
                     <p className="mb-0">Phone Number:  <b>{profile.candidatPhone}</b></p>
                     <p className="mb-0">Facebook URL:  <b>{profile.candidatFBURL ? <a href={profile.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
                     <p className="preCard-Body-p">Email :  <b> {profile.candidatEmail ? profile.candidatEmail.length > 20 ? profile.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : profile.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b></p>
-                    <h6 className="todoCardbodyBlue mb-0 my-1">Ready for work:  {profile.candidatStartDate} To {profile.candidatEndDate} </h6>
+                    <h6 className="todoCardbodyBlue mb-0 my-1" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
+                        Ready for work : {date >= start && date <= end  ? profile.candidatStartDate  + "  To  " + profile.candidatEndDate :   "⚠️" + profile.candidatStartDate +"  To  " + profile.candidatEndDate } 
+                    </h6>
                     </div>
                  
 

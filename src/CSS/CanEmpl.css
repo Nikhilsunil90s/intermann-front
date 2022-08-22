@@ -219,9 +219,6 @@ hr.new5 {
    
 }
 
-.blue {
-    color: #3F76E2 !important;
-}
 
 .card-body small {
     padding-right: 80px;
@@ -548,7 +545,6 @@ color: #000000 ;
         font-weight: 600;
         font-size: 12px;
         line-height: 16px;
-        color: #3F76E2 !important;
     }
 }
 
@@ -627,7 +623,7 @@ font-style: normal;
 font-weight: 600 ;
 font-size: 12px ;
 line-height: 16px ;
-color: #3F76E2 !important;
+
     }
 }  
 @media (min-width: 1400px) { 
@@ -723,7 +719,6 @@ color: #3F76E2 !important;
     font-weight: 600 !important;
     font-size: 16px !important;
     line-height: 16px !important;
-    color: #3F76E2 !important;
 }
 }
 /* @media (min-width: 1350px) { 

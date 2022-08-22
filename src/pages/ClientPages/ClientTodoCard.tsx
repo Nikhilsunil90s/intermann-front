@@ -13,6 +13,7 @@ import { ReactComponent as TurnoFF } from "../../images/FatX.svg";
 import { ReactComponent as TurnOn } from "../../images/base-switch_icon.svg";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast from "react-hot-toast";
+import moment from 'moment';
 
 let id = "";
 
@@ -260,7 +261,13 @@ const ClientToDoCard = (props: any) => {
   // useEffect(() => {
   //     console.log(props.data)
   // })
-
+  const datenow=moment().format('YYYY-MM-DD')
+    
+       let date = new Date(datenow);
+  
+      let start = new Date(props.data.jobStartDate);
+      let end = new Date(props.data.jobEndDate);
+      
   return (
     <>
       <div className="card cardTODO pr-0">
@@ -335,10 +342,7 @@ const ClientToDoCard = (props: any) => {
         </div>
         <div className="col-12">
           <div className="row color-rowClientCard ">
-            <p>
-              Recruiting : From{" "}
-              {props.data.jobStartDate != "" ? props.data.jobStartDate : "___"}{" "}
-              To {props.data.jobEndDate != "" ? props.data.jobEndDate : "___"}{" "}
+            <p style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>Recruiting  :  {date >= start && date <= end  ? " From " + props.data.jobStartDate  + "  To  " + props.data.jobEndDate :   "⚠️ From  " + props.data.jobStartDate +"  To  " + props.data.jobEndDate} 
             </p>
           </div>
         </div>
@@ -557,7 +561,7 @@ const ClientToDoCard = (props: any) => {
               </div>
             </div>
 
-            <div className="col-5 d-flex pt-0 px-0 justify-content-center">
+            <div className="col-4 d-flex pt-0 px-0 justify-content-start">
               <div className="d-flex align-items-center ">
                 <p className="switch-fontCard mb-0">Assurance faite ?</p>
                 <Switch
@@ -632,7 +636,7 @@ const ClientToDoCard = (props: any) => {
                 />
               </div>
             </div>
-            <div className="col-6 d-flex justify-content-start">
+            <div className="col-5 px-0 d-flex justify-content-start">
               <div className="d-flex align-items-center ">
                 <p className="switch-fontCard mb-0">Agence de voyage ok ?</p>
                 <Switch
@@ -709,7 +713,7 @@ const ClientToDoCard = (props: any) => {
               </div>
             </div>
 
-            <div className="col-5 d-flex  ">
+            <div className="col-5 d-flex  px-0">
               <div className="d-flex align-items-center ">
                 <p className="switch-fontCard mb-0">SISPI déclaré ?</p>
                 <Switch

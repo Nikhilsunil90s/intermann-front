@@ -7,7 +7,7 @@ import Select from 'react-select'
 import ArchivedModal from "./Modal/ArchivedModal";
 import HideProfile from "../components/Modal/HideProfileModalForArchived";
 import ResetProfile from "../components/Modal/RestProfileForArchived";
-
+import moment from 'moment';
 
 const ArchivedProfileCard = (props: any) => {
     console.log(props,"props")
@@ -48,6 +48,14 @@ const ArchivedProfileCard = (props: any) => {
           }
       console.log(e.value)
       }
+
+
+      const datenow=moment().format('YYYY-MM-DD')
+      let date = new Date(datenow);
+
+      let start = new Date(props.props.candidatStartDate);
+      let end = new Date(props.props.candidatEndDate);
+   
 
     return (
         <>
@@ -94,7 +102,7 @@ const ArchivedProfileCard = (props: any) => {
                     </div>
                     </div>
                 <div className="card-body pl-0">
-                <div className="pr-0 pl-1 mb-1 ArchivedCardChildFonts">
+                <div className="px-0  mb-1 ArchivedCardChildFonts" style={{marginLeft:"6px"}}>
                     {/* <p>Name:  <b>{props.props.candidatName}</b> </p> */}
                     {/* <p>Age: <b>{props.props.candidatAge}</b></p> */}
                     <p>Secteur: <b> {props.props.candidatActivitySector ?  props.props.candidatActivitySector.toLocaleUpperCase() : "No Sector!"}</b></p>
@@ -104,7 +112,7 @@ const ArchivedProfileCard = (props: any) => {
                     <p>Phone Number:  <b>{props.props.candidatPhone}</b></p>
                     <p>Facebook URL:  <b>{props.props.candidatFBURL ? <a href={props.props.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
                     <p>Email: <b>{props.props.candidatEmail ? props.props.candidatEmail.length > 20 ? props.props.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.props.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b> </p>
-                    <p className="blue my-1">Ready for work:  {props.props.candidatStartDate} To {props.props.candidatEndDate} </p>
+                    <p className=" my-1"  style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}><b>Ready for work: {date >= start && date <= end  ? props.props.candidatStartDate  + "  To  " + props.props.candidatEndDate :   "⚠️" + props.props.candidatStartDate +"  To  " + props.props.candidatEndDate } </b></p>
                     </div>
                     <div className="box-red pl-1">
                         <p> <b>REASON WHY CANCELED</b> : </p><span> {props.props.candidatArchived?.reason ? props.props.candidatArchived?.reason : "No Reason Specified!"}</span>

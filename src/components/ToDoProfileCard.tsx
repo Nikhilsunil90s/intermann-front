@@ -8,7 +8,7 @@ import Select,{StylesConfig} from 'react-select'
 import chroma from 'chroma-js';
 import PreSelectedModal from "../components/Modal/preSelectedModal"
 import { API_BASE_URL } from '../config/serverApiConfig';
-
+import moment from "moment";
 
 const ToDoProfileCard = (props: any) => {
     const navigate = useNavigate();
@@ -56,7 +56,14 @@ const fetchProfilesClients = async () => {
     }
  
 
-  
+    const datenow=moment().format('YYYY-MM-DD')
+    
+    let date = new Date(datenow);
+
+   let start = new Date(props.data.candidatStartDate);
+   let end = new Date(props.data.candidatEndDate);
+
+
 
     const MoreOption=(e:any)=>{
       if(e.value=="Edit Profile"){
@@ -130,8 +137,8 @@ const fetchProfilesClients = async () => {
                     <p className="todoCardbody-p mb-0">Phone Number : <b>{props.data.candidatPhone}</b> </p>
                     <p className="todoCardbody-p mb-0">Facebook URL : <b>{props.data.candidatFBURL ? <a href={props.data.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile</a> : "No Facebook Profile!"}</b></p>
                     <p className="preCard-Body-p">Email :  <b> {props.data.candidatEmail ? props.data.candidatEmail.length > 20 ? props.data.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.data.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b></p>
-                    <p className="todoCardbodyBlue py-1">
-                        Ready for work : {props.data.candidatStartDate} To {props.data.candidatEndDate}
+                    <p className="todoCardbodyBlue py-1" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
+                        Ready for work : {date >= start && date <= end  ? props.data.candidatStartDate  + "  To  " + props.data.candidatEndDate :   "⚠️" + props.data.candidatStartDate +"  To  " + props.data.candidatEndDate} 
                     </p>
                     </div>
             

@@ -14,7 +14,8 @@ import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast, { Toaster } from "react-hot-toast";
 import SignedClientModal from "../../components/Modal/SignContractModal";
-
+import Moment from 'react-moment';
+import moment from 'moment';
 let id=""
 function ClientProgressCard(props: any) {
 
@@ -35,6 +36,7 @@ function ClientProgressCard(props: any) {
     const [Signature, setSignature] = useState(props.data.signatureSent) as any;
     const [Offre, setOffre] = useState(props.data.offerSent) as any;
   const [showSignedModal, setShowSignedModal] = useState(false);
+  const [DateInRange,setDateRange]=useState(false)as any
 
   const CardOption=[{
     value:"Edit Profile",label:"Edit Profile"
@@ -206,8 +208,17 @@ function ClientProgressCard(props: any) {
           .then((result) => result)
           .catch((err) => err);
       };
+     
+
+    const datenow=moment().format('YYYY-MM-DD')
     
- 
+       let date = new Date(datenow);
+  
+      let start = new Date(props.data.jobStartDate);
+      let end = new Date(props.data.jobEndDate);
+      
+  
+
     return (
         <>
             <div className="card cardInPro p-0">
@@ -239,7 +250,7 @@ function ClientProgressCard(props: any) {
                     </div>
                 </div>
                 <div className="col-12 d-flex align-items-center colorRecruting my-1 ">
-                <p className="in-Recruting mb-0 ">Recruiting  :From {props.data.jobStartDate != "" ? props.data.jobStartDate : "___"} To {props.data.jobEndDate != "" ? props.data.jobEndDate : "___"} </p>
+                <p className="in-Recruting mb-0 " style={{ color: date >= start && date < end  ? "#A461D8" : "#ca1313"}}>Recruiting  :    {date >= start && date < end  ? "From " + props.data.jobStartDate  + "  To  " + props.data.jobEndDate :   "⚠️ From  " + props.data.jobStartDate +"  To  " + props.data.jobEndDate} </p>
                 </div>
 <div className="col-12 ">
     <div className="row pl-1">
@@ -384,7 +395,7 @@ function ClientProgressCard(props: any) {
               </div>
             </div>
 
-            <div className="col-5 d-flex pt-0 px-0 justify-content-center">
+            <div className="col-4 d-flex pt-0 px-0 justify-content-start">
               <div className="d-flex align-items-center ">
                 <p className="switch-fontCard mb-0">Assurance faite ?</p>
                 <Switch
@@ -459,7 +470,7 @@ function ClientProgressCard(props: any) {
                 />
               </div>
             </div>
-            <div className="col-6 d-flex justify-content-start">
+            <div className="col-5 px-0 d-flex justify-content-start">
               <div className="d-flex align-items-center ">
                 <p className="switch-fontCard mb-0">Agence de voyage ok ?</p>
                 <Switch
@@ -536,7 +547,7 @@ function ClientProgressCard(props: any) {
               </div>
             </div>
 
-            <div className="col-5 d-flex  ">
+            <div className="col-5 d-flex  px-0">
               <div className="d-flex align-items-center ">
                 <p className="switch-fontCard mb-0">SISPI déclaré ?</p>
                 <Switch

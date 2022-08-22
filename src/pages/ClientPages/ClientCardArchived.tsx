@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import ReadMoreReact from 'read-more-react';
 import CLintHide from "../../components/Modal/HideClientProfile"
 import ClientREST from "../../components/Modal/ClientREStProfile"
+import moment from "moment"
+
 function ClientCardArchived(props:any){
     const navigate = useNavigate();
     const [showArchiveModal, setShowArchiveModal] = useState(false)
@@ -18,8 +20,7 @@ function ClientCardArchived(props:any){
     const CardOption=[{
         value:"Edit Profile",label:"Edit Profile"
         },
-        {value:"Archive",label:"Archive"
-        }, {value:"Reset Profile",label:"Reset Profile"}
+       {value:"Reset Profile",label:"Reset Profile"}
         ,{value:"Hide This Profile",label:"Hide This Profile"}
      ]as any
      const editClientProfile = () => {
@@ -51,6 +52,14 @@ const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px"
 const candidatMotivationIcons = [{ icon:"No Icon", motivation: 'No Motivation' },{ icon:"😟", motivation: 'Disappointed' }, { icon:"🙁", motivation: 'Not Really' }, { icon:"😊", motivation: 'Like' }, { icon:"🥰", motivation: 'Great' }, { icon:"😍", motivation: 'Super Lovely' }];
   
   
+const datenow=moment().format('YYYY-MM-DD')
+    
+let date = new Date(datenow);
+
+let start = new Date(props.data.jobStartDate);
+let end = new Date(props.data.jobEndDate);
+
+
   return(<>
        <div className="card cardInPro p-0">
                 <div className="d-flex cursor-pointer" onClick={viewFullProfile}>
@@ -82,7 +91,7 @@ const candidatMotivationIcons = [{ icon:"No Icon", motivation: 'No Motivation' }
                 
                 </div>
                 <div className="col-12 d-flex align-items-center colorARecruting my-1 ">
-                <p className="A-Recruting mb-0 ">Recruiting  :From {props.data.jobStartDate != "" ? props.data.jobStartDate : "___"} To {props.data.jobEndDate != "" ? props.data.jobEndDate : "___"} </p>
+                <p className="A-Recruting mb-0 " style={{ color: date >= start && date <= end  ? "#E21B1B" : "#ca1313"}}>Recruiting  :    {date >= start && date < end  ? "From  " + props.data.jobStartDate  + "  To  " + props.data.jobEndDate :   "⚠️ From  " + props.data.jobStartDate +"  To  " + props.data.jobEndDate}</p>
                 </div>
                 <div className="col-12 ">
     <div className="row pl-1">

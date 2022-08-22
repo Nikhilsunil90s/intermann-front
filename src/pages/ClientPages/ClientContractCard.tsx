@@ -7,6 +7,7 @@ import Select from "react-select";
 import {ReactComponent as Empty} from "../../images/emptyStar.svg";
 import {ReactComponent as StarRating} from "../../images/RatingStar.svg";
 import toast, { Toaster } from "react-hot-toast";
+import moment from 'moment';
 
 function ClientContractCard(props:any) {
   console.log(props)
@@ -57,6 +58,15 @@ const viewFullProfile = (data) => {
   }
   console.log(props.data,"profile")
 
+
+  const datenow=moment().format('YYYY-MM-DD')
+    
+  let date = new Date(datenow);
+
+ let start = new Date(props.data.jobStartDate);
+ let end = new Date(props.data.jobEndDate);
+
+
   return (
     <>
 <div className="card cardInPro p-0">
@@ -88,7 +98,7 @@ const viewFullProfile = (data) => {
                     </div>
                 </div>
                 <div className="col-12 d-flex align-items-center textSignedClient my-1 ">
-                <p className=" mb-0 ">Recruiting  :From {props.data.jobStartDate != "" ? props.data.jobStartDate : "___"} To {props.data.jobEndDate != "" ? props.data.jobEndDate : "___"} </p>
+                <p className=" mb-0 " style={{ color: date >= start && date <= end  ? "#489767" : "#ca1313"}}>Recruiting  :    {date >= start && date <= end  ? "From " + props.data.jobStartDate  + "  To  " + props.data.jobEndDate :   "⚠️ From  " + props.data.jobStartDate +"  To  " + props.data.jobEndDate} </p>
                 </div>
 <div className="col-12 ">
     <div className="row pl-1">
