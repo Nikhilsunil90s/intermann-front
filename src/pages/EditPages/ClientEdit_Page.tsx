@@ -644,7 +644,7 @@ className="SelectBtn"
                                 </div>
                             </div>
 
-                            <div className="col-12 Social-CardClient mt-1 p-1">
+                            <div className="col-12 Social-CardClient my-1 p-1">
                                 <div className="row">
                                     <div className="col-4">
                                         <p className="LabelStylingEdits mb-0">Secteur d’Activité</p>
@@ -964,6 +964,150 @@ className="SelectBtn"
                                                     placeholder={profile.clientRequiredSkills ? profile.clientRequiredSkills : "No Client Notes!"}
                                                 ></textarea>
                                             </div>
+                                            <div className="col-12  mt-1 ">
+                       
+                         
+                       <div className='row p-1' >
+                         <div className='col-4  d-grid '>
+                             <label className="ClientPDFFormlabel">$ numero contrat</label>
+                             <input className='form-control inputStyling'  name='lieu_mission'  placeholder="‎ ‎ ‎ $ numero contrat" />
+                         </div>
+                         <div className='col-4  d-grid ' >
+                         <label className="ClientPDFFormlabel">$ initial Société client</label>
+                         <input className='form-control inputStyling' name='duree_mission'   placeholder="‎ ‎ ‎ $ initial Société client" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ siret </label>
+                         <input className='form-control inputStyling' name='duree_hebdomadaire_mission'  placeholder="‎ ‎ ‎$ siret"/>
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ numero TVA</label>
+                         <input className='form-control inputStyling'  name='candidatJob' placeholder="‎ ‎ ‎ $ numero TVA" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ nom gérant</label>
+                         <input className='form-control inputStyling'   name='cmp_candidat'  placeholder="‎ ‎ ‎ $ nom gérant" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ telephone gerant</label>
+                         <input className='form-control inputStyling'   name='contract_date'  placeholder="‎ ‎ ‎ $ telephone gerant" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ metier en Roumain</label>
+                         <input  className='inputStyling wHCompany form-control' name='company_contact_name'  placeholder="‎ ‎ ‎ $ metier en Roumain" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ metier en Français</label>
+                         <input className='form-control inputStyling'  name='$ metier en Français'  placeholder="‎ ‎ ‎ $ metier en Français" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ date du debut de mission</label>
+                         <input className='form-control inputStyling'  name='serie_id'  placeholder="‎ ‎ ‎ $ date du debut de mission" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ date de fin de mission</label>
+                         <input className='form-control inputStyling'  name='candidatAddress'   placeholder="‎ ‎ ‎ $ date de fin de mission" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ prix en euro / heure selon contract</label>
+                         <input className='form-control inputStyling'  name='company_siret'  placeholder="‎ ‎ ‎ $ prix en euro / heure selon contract" />
+
+                         </div>
+
+
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ SALAIRE EN EURO</label>
+                         <input className='form-control inputStyling' name='SALAIRE EN EURO'  placeholder="‎ ‎ ‎ $ SALAIRE EN EURO" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ nombre d'heure négocie dans le contrat</label>
+                         <input className='form-control inputStyling'  name='candidatAddress'  placeholder="‎ ‎ ‎ $ nombre d'heure négocie dans le contrat" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 1</label>
+                         <input className='form-control inputStyling'   name='company_siret'  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1" />
+
+                         </div> <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ nom du travailleur 2 </label>
+                         <input className='form-control inputStyling' name='serie_id'  placeholder="‎ ‎ ‎ $ nom du travailleur 2 " />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 2</label>
+                         <input className='form-control inputStyling'  name='candidatAddress'   placeholder="‎ ‎ ‎ $ numero de tel du travailleur 2" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ nom du travailleur3</label>
+                         <input className='form-control inputStyling'   name='company_siret'  placeholder="‎ ‎ ‎ $ nom du travailleur3" />
+
+                         </div> <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 3</label>
+                         <input className='form-control inputStyling'  name='serie_id'  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 3" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ nom du travailleur 4</label>
+                         <input className='form-control inputStyling'  name='candidatAddress'  placeholder="‎ ‎ ‎ $ nom du travailleur 4" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 4</label>
+                         <input className='form-control inputStyling'  name='company_siret'  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 4" />
+
+                         </div> <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ nom du travailleur 5</label>
+                         <input className='form-control inputStyling'  name='serie_id'  placeholder="‎ ‎ ‎$ nom du travailleur 5" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 5</label>
+                         <input className='form-control inputStyling'  name='candidatAddress'  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 5" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ nom du travailleur 6</label>
+                         <input className='form-control inputStyling'  name='company_siret'  placeholder="‎ ‎ ‎$ nom du travailleur 6" />
+
+                         </div> <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 6</label>
+                         <input className='form-control inputStyling'  name='serie_id'  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 6" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ nom du travailleur 7</label>
+                         <input className='form-control inputStyling'  name='candidatAddress'  placeholder="‎ ‎ ‎$ nom du travailleur 7" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 7</label>
+                         <input className='form-control inputStyling'  name='company_siret'  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 7" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ nom du travailleur 8</label>
+                         <input className='inputStyling form-control'  name='companyAddress'  placeholder='‎ ‎ ‎$ nom du travailleur 8'  />
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 8</label>
+                         <input className='inputStyling form-control'  name='companyAddress'  placeholder='‎ ‎ ‎$ numero de tel du travailleur 8'  />
+                         </div>
+             
+                      </div>
+                      
+                 
+                 </div>
                                             <div className="col-12 mt-1">
                   <div className="row">
                     <p className="padding-bottom Form-styling pb-1">

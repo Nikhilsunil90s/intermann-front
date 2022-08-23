@@ -18,7 +18,9 @@ import PreModalClient from "../../components/Modal/preSelectedModalForClient"
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import CLintHide from "../../components/Modal/HideClientProfile"
 import ClientREST from "../../components/Modal/ClientREStProfile"
+import PDFModalClient from "../../components/Modal/PDFGenerateclientModal"
 import moment from 'moment'
+
 
 let RenameData=[]
 function ArchivedViewPage(){
@@ -39,6 +41,7 @@ function ArchivedViewPage(){
   const [PreSelectedData,setPreSelected]=useState([])
   const [HideProfile,setHideProfile]=useState(false)
   const [RESTprofile,setREStProfile]=useState(false)
+  const [PDFModal,setPDFModal]=useState(false)
 
   const datenow=moment().format('YYYY-MM-DD')
     
@@ -684,6 +687,24 @@ null
                     Reset this profile</button>
                     <p className="italic-fontStyle text-center">Profile will be reset to todo stage</p>
                 </div>
+                <div className="col-4 text-center">
+                  <button
+                    type="button"
+                    className="btn btn-careerClient"
+                    onClick={(e)=>setPDFModal(true)}
+                  >
+                    <span>
+                      <img
+                        style={{ paddingRight: "10px" }}
+                        src={require("../../images/doc.svg").default}
+                      />
+                    </span>
+                    Générér un contrat
+                  </button>
+                  <p style={{ width: "106%" }} className="btn-Down text-center">
+                  Créer un contrat avec le logiciel CRM
+                  </p>
+                </div>
                   
                   </div>
                   
@@ -693,6 +714,150 @@ null
                       
                   
                   </div>
+                  <div className="col-12 Social-CardClient mt-1 ">
+                       
+                         
+                       <div className='row p-1' >
+                         <div className='col-4  d-grid '>
+                             <label className="ClientPDFFormlabel">$ numero contrat</label>
+                             <input className='form-control inputStyling'  name='lieu_mission'  placeholder="‎ ‎ ‎ $ numero contrat" />
+                         </div>
+                         <div className='col-4  d-grid ' >
+                         <label className="ClientPDFFormlabel">$ initial Société client</label>
+                         <input className='form-control inputStyling' name='duree_mission'   placeholder="‎ ‎ ‎ $ initial Société client" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ siret </label>
+                         <input className='form-control inputStyling' name='duree_hebdomadaire_mission'  placeholder="‎ ‎ ‎$ siret"/>
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ numero TVA</label>
+                         <input className='form-control inputStyling'  name='candidatJob' placeholder="‎ ‎ ‎ $ numero TVA" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ nom gérant</label>
+                         <input className='form-control inputStyling'   name='cmp_candidat'  placeholder="‎ ‎ ‎ $ nom gérant" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ telephone gerant</label>
+                         <input className='form-control inputStyling'   name='contract_date'  placeholder="‎ ‎ ‎ $ telephone gerant" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ metier en Roumain</label>
+                         <input  className='inputStyling wHCompany form-control' name='company_contact_name'  placeholder="‎ ‎ ‎ $ metier en Roumain" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ metier en Français</label>
+                         <input className='form-control inputStyling'  name='$ metier en Français'  placeholder="‎ ‎ ‎ $ metier en Français" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ date du debut de mission</label>
+                         <input className='form-control inputStyling'  name='serie_id'  placeholder="‎ ‎ ‎ $ date du debut de mission" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ date de fin de mission</label>
+                         <input className='form-control inputStyling'  name='candidatAddress'   placeholder="‎ ‎ ‎ $ date de fin de mission" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ prix en euro / heure selon contract</label>
+                         <input className='form-control inputStyling'  name='company_siret'  placeholder="‎ ‎ ‎ $ prix en euro / heure selon contract" />
+
+                         </div>
+
+
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ SALAIRE EN EURO</label>
+                         <input className='form-control inputStyling' name='SALAIRE EN EURO'  placeholder="‎ ‎ ‎ $ SALAIRE EN EURO" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ nombre d'heure négocie dans le contrat</label>
+                         <input className='form-control inputStyling'  name='candidatAddress'  placeholder="‎ ‎ ‎ $ nombre d'heure négocie dans le contrat" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 1</label>
+                         <input className='form-control inputStyling'   name='company_siret'  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1" />
+
+                         </div> <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ nom du travailleur 2 </label>
+                         <input className='form-control inputStyling' name='serie_id'  placeholder="‎ ‎ ‎ $ nom du travailleur 2 " />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 2</label>
+                         <input className='form-control inputStyling'  name='candidatAddress'   placeholder="‎ ‎ ‎ $ numero de tel du travailleur 2" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ nom du travailleur3</label>
+                         <input className='form-control inputStyling'   name='company_siret'  placeholder="‎ ‎ ‎ $ nom du travailleur3" />
+
+                         </div> <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 3</label>
+                         <input className='form-control inputStyling'  name='serie_id'  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 3" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ nom du travailleur 4</label>
+                         <input className='form-control inputStyling'  name='candidatAddress'  placeholder="‎ ‎ ‎ $ nom du travailleur 4" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 4</label>
+                         <input className='form-control inputStyling'  name='company_siret'  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 4" />
+
+                         </div> <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ nom du travailleur 5</label>
+                         <input className='form-control inputStyling'  name='serie_id'  placeholder="‎ ‎ ‎$ nom du travailleur 5" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 5</label>
+                         <input className='form-control inputStyling'  name='candidatAddress'  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 5" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ nom du travailleur 6</label>
+                         <input className='form-control inputStyling'  name='company_siret'  placeholder="‎ ‎ ‎$ nom du travailleur 6" />
+
+                         </div> <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 6</label>
+                         <input className='form-control inputStyling'  name='serie_id'  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 6" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ nom du travailleur 7</label>
+                         <input className='form-control inputStyling'  name='candidatAddress'  placeholder="‎ ‎ ‎$ nom du travailleur 7" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 7</label>
+                         <input className='form-control inputStyling'  name='company_siret'  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 7" />
+
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ nom du travailleur 8</label>
+                         <input className='inputStyling form-control'  name='companyAddress'  placeholder='‎ ‎ ‎$ nom du travailleur 8'  />
+                         </div>
+                         <div className='col-4  d-grid '>
+                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 8</label>
+                         <input className='inputStyling form-control'  name='companyAddress'  placeholder='‎ ‎ ‎$ numero de tel du travailleur 8'  />
+                         </div>
+             
+                      </div>
+                      
+                 
+                 </div>
                   <div className="col-12 Social-CardClient my-1 ">
               <div className="row p-1">
               <div className="row" style={{ marginRight: '1px' }}>
@@ -803,6 +968,11 @@ null
                   :
                   null
 
+                  }
+                      {PDFModal ?
+<PDFModalClient props={profile} closeModal={setPDFModal}  />
+:
+null
                   }
                       {
         HideProfile ?

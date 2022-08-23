@@ -135,8 +135,7 @@ color:#FFFFFF
 .inputStyling{
     border: 1px solid #E7E7E7;
     border-radius: 20px;
-    height: 40px;
-    width: 170%;
+
     margin-bottom: 15px;
     font-family: 'Plus Jakarta Sans';
     font-style: normal;
@@ -149,8 +148,7 @@ color:#FFFFFF
 .inputStylings{
     border: 1px solid #E7E7E7;
     border-radius: 20px;
-    height: 40px;
-    width: 112%;
+
     margin-bottom: 20px;
     font-family: 'Plus Jakarta Sans';
     font-style: normal;
@@ -165,6 +163,17 @@ color:#FFFFFF
 font-style: normal;
 font-weight: 600;
 font-size: 16px;
+line-height: 24px;
+display: flex;
+align-items: flex-end;
+text-transform: capitalize;
+color: #373A3C;
+}
+.ClientPDFFormlabel{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 12px;
 line-height: 24px;
 display: flex;
 align-items: flex-end;
@@ -203,7 +212,6 @@ color: #373A3C;
     line-height: 24px;
     text-transform: capitalize;
     color: #92929D; 
-    width: 530%;
 }
 .TextAreaPage{
     border: 1px solid #E7E7E7;
@@ -292,6 +300,14 @@ margin-left: 10px;
     text-transform: capitalize;
     color: #92929D;
 }
+
+/* Client PDFModal*/
+
+
+
+
+
+
 @media (min-width:768px) {
     .modalScreenSize{
         height: 90vh;
@@ -308,11 +324,20 @@ margin-left: 10px;
         height: 85vh;
         width: 79vw;
      }
-     .wHCompany{
-        width: 139%;
-    }
+   
     .modal-lg, .modal-xl {
         max-width: 1016px;
+    }
+    .ClientPDFFormlabel{
+        font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 24px;
+    display: flex;
+    align-items: flex-end;
+    text-transform: capitalize;
+    color: #373A3C;
     }
     
 }
@@ -326,6 +351,17 @@ margin-left: 10px;
  .modal-lg, .modal-xl {
     max-width: 1016px;
 }
+.ClientPDFFormlabel{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 12px;
+line-height: 24px;
+display: flex;
+align-items: flex-end;
+text-transform: capitalize;
+color: #373A3C;
+}
  .scrollbarModal {
     float: left;
     height: 82%;
@@ -337,8 +373,6 @@ margin-left: 10px;
 .inputStyling {
     border: 1px solid #E7E7E7;
     border-radius: 20px;
-    height: 50px;
-    width: 206%;
     margin-bottom: 15px;
     font-family: 'Plus Jakarta Sans';
     font-style: normal;
@@ -351,8 +385,6 @@ margin-left: 10px;
 .inputStylings {
     border: 1px solid #E7E7E7;
     border-radius: 20px;
-    height: 50px;
-    width: 131%;
     margin-bottom: 20px;
     font-family: 'Plus Jakarta Sans';
     font-style: normal;
@@ -362,9 +394,7 @@ margin-left: 10px;
     text-transform: capitalize;
     color: #92929D;
 }
-.wHCompany{
-    width: 173%;
-}
+
 }
 @media  (min-width : 1624px) {
     .scrollbarModal {
@@ -375,8 +405,30 @@ margin-left: 10px;
         overflow-y: scroll;
         border-radius: 10px;
     }
+    .ClientPDFFormlabel{
+        font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 24px;
+    display: flex;
+    align-items: flex-end;
+    text-transform: capitalize;
+    color: #373A3C;
+    }
 }
 @media  (min-width : 1824px) {
+    .ClientPDFFormlabel{
+        font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: flex-end;
+    text-transform: capitalize;
+    color: #373A3C;
+    }
     .modal-lg, .modal-xl {
         max-width: 1210px;
     }
@@ -395,8 +447,6 @@ margin-left: 10px;
     .inputStyling {
         border: 1px solid #E7E7E7;
         border-radius: 20px;
-        height: 56px;
-        width: 131%;
         margin-bottom: 15px;
         font-family: 'Plus Jakarta Sans';
         font-style: normal;
@@ -409,8 +459,6 @@ margin-left: 10px;
     .inputStylings {
         border: 1px solid #E7E7E7;
         border-radius: 20px;
-        height: 60px;
-        width: 129%;
         margin-bottom: 20px;
         font-family: 'Plus Jakarta Sans';
         font-style: normal;
@@ -441,6 +489,5 @@ margin-left: 10px;
         line-height: 24px;
         text-transform: capitalize;
         color: #92929D;
-        width: 382%;
     }
 }

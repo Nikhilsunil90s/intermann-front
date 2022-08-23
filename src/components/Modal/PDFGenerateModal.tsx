@@ -163,61 +163,61 @@ function PdfModal({props,closeModal,path} ){
                         <div className="col-12 scrollbarModal">
                          
                           <div className='row ' style={{height:"100%"}}>
-                            <div className='col-4  d-grid justify-content-start text-start'>
+                            <div className='col-4  d-grid '>
                                 <label className="PDFFormlabel">Lieu Mission</label>
                                 <input className='form-control inputStyling' defaultValue={data ? data.lieu_mission != "" ? data.lieu_mission :"" : ""} name='lieu_mission' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Lieu_Mission" />
                             </div>
-                            <div className='col-4  d-grid justify-content-start text-start' >
+                            <div className='col-4  d-grid ' >
                             <label className="PDFFormlabel">Durée Mission</label>
                             <input className='form-control inputStyling' defaultValue={data ? data.duree_mission != "" ? data.duree_mission :"" :""} name='duree_mission' onChange={onFormDataChange}  placeholder="‎ ‎ ‎ Durée_Mission" />
 
                             </div>
-                            <div className='col-4  d-grid justify-content-start text-start'>
+                            <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Durée Hebdomadaire Mission</label>
-                            <input className='inputStylings' defaultValue={data ? data.duree_hebdomadaire_mission != "" ? data.duree_hebdomadaire_mission : "" : ""} name='duree_hebdomadaire_mission' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Durée_Hebdomadaire_Mission"/>
+                            <input className='form-control inputStyling' defaultValue={data ? data.duree_hebdomadaire_mission != "" ? data.duree_hebdomadaire_mission : "" : ""} name='duree_hebdomadaire_mission' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Durée_Hebdomadaire_Mission"/>
 
                             </div>
-                            <div className='col-4  d-grid justify-content-start text-start'>
+                            <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Candidate Job</label>
                             <input className='form-control inputStyling'  name='candidatJob' onChange={onFormDataChange} defaultValue={data ? data.candidatJob != "" ? data.candidatJob : "" : ""} placeholder="‎ ‎ ‎ Candidate_Job" />
 
                             </div>
-                            <div className='col-4  d-grid justify-content-start text-start'>
+                            <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">CMP CANDIDATE</label>
                             <input className='form-control inputStyling' defaultValue={data ? data.cmp_candidat !="" ? data.cmp_candidat :""  :""}  name='cmp_candidat' onChange={onFormDataChange} placeholder="‎ ‎ ‎ CMP_CANDIDATE" />
 
                             </div>
-                            <div className='col-4  d-grid justify-content-start text-start'>
+                            <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Contract Date</label>
                             <input className='form-control inputStyling'  type="date" defaultValue={data ? data.contract_date != "" ? data.contract_date : "" : ""} name='contract_date' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Contract_date" />
 
                             </div>
-                            <div className='col-4  d-grid justify-content-start text-start'>
+                            <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Company Contact Name</label>
                             <input  className='inputStylings wHCompany form-control' defaultValue={data ? data.company_contact_name != "" ? data.company_contact_name : "" : ""} name='company_contact_name' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Company_Contact_Name" />
 
                             </div>
-                            <div className='col-4  d-grid justify-content-start text-start'>
+                            <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">NR INREG</label>
                             <input className='form-control inputStyling' defaultValue={data ? data.nr_inreg !="" ? data.nr_inreg : "" : ""}  name='nr_inreg' onChange={onFormDataChange} placeholder="‎ ‎ ‎ NR_INREG" />
 
                             </div>
-                            <div className='col-4  d-grid justify-content-start text-start'>
+                            <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">SERIE ID</label>
                             <input className='form-control inputStyling' defaultValue={data ? data.serie_id !=="" ? data.serie_id :"" :""} name='serie_id' onChange={onFormDataChange} placeholder="‎ ‎ ‎ SERIE_ID" />
 
                             </div>
-                            <div className='col-4  d-grid justify-content-start text-start'>
+                            <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Candidate Adress</label>
                             <input className='form-control inputStyling'  name='candidatAddress' onChange={onFormDataChange} defaultValue={data ? data.candidatAddress !=="" ? data.candidatAddress : "Candidate_Adress" : "Candidate_Adress"} placeholder="‎ ‎ ‎ Candidate_Adress" />
 
                             </div>
-                            <div className='col-4  d-grid justify-content-start text-start'>
+                            <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Company Siret</label>
                             <input className='form-control inputStyling' defaultValue={data ? data.company_siret !="" ? data.company_siret : ""  : ""}  name='company_siret' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Company_Siret" />
 
                             </div>
-                            <div className='col-12  d-grid justify-content-start text-start'>
+                            <div className='col-12  d-grid '>
                             <label className="PDFFormlabel">Company Adress</label>
                             <textarea className='TextArea form-control' defaultValue={data ? data.companyAddress !=""? data.companyAddress : "" : ""} name='companyAddress' onChange={onFormDataChange} placeholder='‎ ‎ ‎Company_Adress' ></textarea>
                             </div>
