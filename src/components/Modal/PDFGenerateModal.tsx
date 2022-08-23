@@ -109,7 +109,8 @@ function PdfModal({props,closeModal,path} ){
             console.log(result);
             setLoader(false);
             if (result.status) {
-                window.open(API_BASE_URL + result.filePath);
+              let splittedFilePath = result.filePath.split("/app/");
+                  window.open(API_BASE_URL + splittedFilePath[1]); 
             }
         }).catch(err => {
             console.log(err);
@@ -158,10 +159,10 @@ function PdfModal({props,closeModal,path} ){
                     </div>
                     </div></div>
                     </div>
-                    <form>
-                        <div className="modal-body text-center scrollbarModal">
+                    <form className="modal-body text-center ">
+                        <div className="col-12 scrollbarModal">
                          
-                          <div className='row ' style={{height:"150%"}}>
+                          <div className='row ' style={{height:"100%"}}>
                             <div className='col-4  d-grid justify-content-start text-start'>
                                 <label className="PDFFormlabel">Lieu Mission</label>
                                 <input className='form-control inputStyling' defaultValue={data ? data.lieu_mission != "" ? data.lieu_mission :"" : ""} name='lieu_mission' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Lieu_Mission" />
@@ -218,7 +219,7 @@ function PdfModal({props,closeModal,path} ){
                             </div>
                             <div className='col-12  d-grid justify-content-start text-start'>
                             <label className="PDFFormlabel">Company Adress</label>
-                            <textarea className='TextArea form-control' defaultValue={data ? data.companyAddress !=""? data.companyAddress : "" : ""} name='companyAddress' onChange={onFormDataChange} placeholder='‎ ‎ ‎Company_Adress' style={{width:"530%"}}></textarea>
+                            <textarea className='TextArea form-control' defaultValue={data ? data.companyAddress !=""? data.companyAddress : "" : ""} name='companyAddress' onChange={onFormDataChange} placeholder='‎ ‎ ‎Company_Adress' ></textarea>
                             </div>
                             <div className="col-12 text-center mt-2">
                                 <div className="row">

@@ -861,7 +861,7 @@ className="SelectBtn"
                             </div>
                             <div className='col-12  d-grid text-start'>
                             <label className="PDFFormlabel">Company_Adress</label>
-                            <textarea className='TextArea form-control'value={profile.candidatContract ?profile.candidatContract.companyAddress ? profile.candidatContract.companyAddress : "input Not Available!": "input Not Available!"} placeholder='‎ ‎ ‎Company_Adress'></textarea>
+                            <textarea className='TextAreaPage form-control'value={profile.candidatContract ?profile.candidatContract.companyAddress ? profile.candidatContract.companyAddress : "input Not Available!": "input Not Available!"} placeholder='‎ ‎ ‎Company_Adress'></textarea>
                             </div>
                   
 </div>

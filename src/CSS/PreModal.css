@@ -203,6 +203,19 @@ color: #373A3C;
     line-height: 24px;
     text-transform: capitalize;
     color: #92929D; 
+    width: 530%;
+}
+.TextAreaPage{
+    border: 1px solid #E7E7E7;
+    border-radius: 20px;
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;
+    text-transform: capitalize;
+    color: #92929D; 
+    width: 100%;
 }
 .btnGeneratePDF{
     background: #3F76E2;
@@ -248,7 +261,7 @@ font-weight: 600;
 font-size: 18px;
 line-height: 27px;
 color: #FFFFFF;
-width: 100%;
+width: 105%;
 height: 50px;
 }
 .voirModal{
@@ -300,9 +313,13 @@ margin-left: 10px;
     height: 82vh;
     width: 70vw;
  }
+
+ .modal-lg, .modal-xl {
+    max-width: 1016px;
+}
  .scrollbarModal {
     float: left;
-    height: 89%;
+    height: 82%;
     width: 100%;
     background: #ffff;
     overflow-y: scroll;
@@ -339,4 +356,82 @@ margin-left: 10px;
 .wHCompany{
     width: 173%;
 }
+}
+@media  (min-width : 1624px) {
+    .scrollbarModal {
+        float: left;
+        height: 88%;
+        width: 100%;
+        background: #ffff;
+        overflow-y: scroll;
+        border-radius: 10px;
+    }
+}
+@media  (min-width : 1824px) {
+    .modal-lg, .modal-xl {
+        max-width: 1210px;
+    }
+    .scrollbarModal {
+        float: left;
+        height: 87%;
+        width: 100%;
+        background: #ffff;
+        overflow-y: scroll;
+        border-radius: 10px;
+    }
+    .modalScreenSize {
+        height: 76vh;
+    width: 63vw;
+    }
+    .inputStyling {
+        border: 1px solid #E7E7E7;
+        border-radius: 20px;
+        height: 56px;
+        width: 131%;
+        margin-bottom: 15px;
+        font-family: 'Plus Jakarta Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 24px;
+        text-transform: capitalize;
+        color: #92929D;
+    }
+    .inputStylings {
+        border: 1px solid #E7E7E7;
+        border-radius: 20px;
+        height: 60px;
+        width: 129%;
+        margin-bottom: 20px;
+        font-family: 'Plus Jakarta Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 24px;
+        text-transform: capitalize;
+        color: #92929D;
+    }
+    .PDFFormlabel {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 19px;
+        line-height: 24px;
+        display: flex;
+        align-items: flex-end;
+        text-transform: capitalize;
+        color: #373A3C;
+    }
+    .TextArea {
+        border: 1px solid #E7E7E7;
+        border-radius: 20px;
+        font-family: 'Plus Jakarta Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 23px;
+        line-height: 24px;
+        text-transform: capitalize;
+        color: #92929D;
+        width: 382%;
+    }
 }
