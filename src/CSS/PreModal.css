@@ -298,16 +298,25 @@ margin-left: 10px;
         width: 71vw;
      }
 }
+@media (min-width: 992px){
+.modal-lg, .modal-xl {
+    max-width: 941px;
+}
+}
 @media (min-width:1200px) {
     .modalScreenSize{
         height: 85vh;
-        width: 75vw;
+        width: 79vw;
      }
      .wHCompany{
         width: 139%;
     }
+    .modal-lg, .modal-xl {
+        max-width: 1016px;
+    }
     
 }
+
 @media (min-width:1400px) {
  .modalScreenSize{
     height: 82vh;
