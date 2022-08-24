@@ -619,7 +619,7 @@ null
         null
        }
           <div className="col-12 Social-Card mt-1 mb-1">
-          <div className='row justify-content-between p-1'>
+          <div className='row  p-1'>
                             <div className='col-4  d-grid text-start'>
                                 <label className="PDFFormlabel">Lieu_Mission</label>
                                 <input className='form-control inputStylingForView' value={profile.candidatContract ?profile.candidatContract.lieu_mission : "inputs Not Available!"}  placeholder="‎ ‎ ‎ Lieu_Mission" />
@@ -667,14 +667,65 @@ null
 
                             </div>
                             
-                            <div className='col-6  d-grid text-start'>
+                            <div className='col-4  d-grid text-start'>
                             <label className="PDFFormlabel">Candidate_Adress</label>
                             <input className='form-control inputStylingForView'value={profile.candidatContract ?profile.candidatContract.candidatAddress : "inputs Not Available!"}  placeholder="‎ ‎ ‎ Candidate_Adress" />
 
                             </div>
-                            <div className='col-6  d-grid text-start'>
+                            <div className='col-4  d-grid text-start'>
                             <label className="PDFFormlabel">Company_Siret</label>
                             <input className='form-control inputStylingForView'value={profile.candidatContract ?profile.candidatContract.company_siret : "inputs Not Available!"}  placeholder="‎ ‎ ‎ Company_Siret" />
+
+                            </div>
+                              
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Numero TF Candidat</label>
+                            <input className='form-control inputStyling'  name='Numero_TF_Candidat'placeholder="‎ ‎ ‎ Numero TF Candidat" />
+
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Company Vat</label>
+                            <input className='form-control inputStyling'  name='Company_Vat' placeholder="‎ ‎ ‎ Company Vat" />
+
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Salaire Brut</label>
+                            <input className='form-control inputStyling'   name='Salaire_Brut'placeholder="‎ ‎ ‎ Salaire Brut" />
+
+                            </div>
+
+
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Salaire Net</label>
+                            <input className='form-control inputStyling'  name='Salaire_Net'placeholder="‎ ‎ ‎ Salaire_Net" />
+
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Diurna Total Par Jour</label>
+                            <input className='form-control inputStyling'  name='Diurna_Total_Par_Jour' placeholder="‎ ‎ ‎ Diurna Total Par Jour" />
+
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Debut Mision (Date)</label>
+                            <input className='form-control inputStyling' type="date"  name='Debut Mision Date'placeholder="‎ ‎ ‎ Debut Mision Date" />
+
+                            </div>
+
+
+
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Heure Par Semaine</label>
+                            <input className='form-control inputStyling'  name='Heure_Par_Semaine'placeholder="‎ ‎ ‎ Heure Par Semaine" />
+
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Duree Hebdomadaire</label>
+                            <input className='form-control inputStyling'  name='Duree_Hebdomadaire' placeholder="‎ ‎ ‎ Duree Hebdomadaire" />
+
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">indemnisation jour</label>
+                            <input className='form-control inputStyling'  name='indemnisation_jour'placeholder="‎ ‎ ‎ indemnisation jour" />
 
                             </div>
                             <div className='col-12  d-grid text-start'>

@@ -18,7 +18,7 @@ function PdfModal({props,closeModal,path} ){
     company_contact_name: props.candidatContract ? props.candidatContract.company_contact_name != "" ? props.candidatContract.company_contact_name : "" : "",
     nr_inreg: props.candidatContract ? props.candidatContract.nr_inreg !="" ? props.candidatContract.nr_inreg : "" : "",
     serie_id: props.candidatContract ? props.candidatContract.serie_id !=="" ? props.candidatContract.serie_id :"" :"",
-    candidatAddress: props.candidatContract ? props.candidatContract.candidatAddress !=="" ? props.candidatContract.candidatAddress : "Candidate_Adress" : "Candidate_Adress",
+    candidatAddress: props.candidatContract ? props.candidatContract.candidatAddress !=="" ? props.candidatContract.candidatAddress : "" : "",
     company_siret: props.candidatContract ? props.candidatContract.company_siret !="" ? props.candidatContract.company_siret : ""  : "",
     companyAddress: props.candidatContract ? props.candidatContract.companyAddress !=""? props.candidatContract.companyAddress : "" : "",
     candidatId: props.candidatContract ? props.candidatContract._id ? props.candidatContract._id : "" : "",
@@ -159,9 +159,7 @@ function PdfModal({props,closeModal,path} ){
                     </div>
                     </div></div>
                     </div>
-                    <form className="modal-body text-center ">
-                        <div className="col-12 scrollbarModal">
-                         
+                    <form className="col-12 scrollbarModal modal-body text-center ">
                           <div className='row ' style={{height:"100%"}}>
                             <div className='col-4  d-grid '>
                                 <label className="PDFFormlabel">Lieu Mission</label>
@@ -209,7 +207,7 @@ function PdfModal({props,closeModal,path} ){
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Candidate Adress</label>
-                            <input className='form-control inputStyling'  name='candidatAddress' onChange={onFormDataChange} defaultValue={data ? data.candidatAddress !=="" ? data.candidatAddress : "Candidate_Adress" : "Candidate_Adress"} placeholder="‎ ‎ ‎ Candidate_Adress" />
+                            <input className='form-control inputStyling'  name='candidatAddress' onChange={onFormDataChange} defaultValue={data ? data.candidatAddress !=="" ? data.candidatAddress : "" : ""} placeholder="‎ ‎ ‎ Candidate_Adress" />
 
                             </div>
                             <div className='col-4  d-grid '>
@@ -217,6 +215,60 @@ function PdfModal({props,closeModal,path} ){
                             <input className='form-control inputStyling' defaultValue={data ? data.company_siret !="" ? data.company_siret : ""  : ""}  name='company_siret' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Company_Siret" />
 
                             </div>
+
+
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Numero TF Candidat</label>
+                            <input className='form-control inputStyling'  name='Numero_TF_Candidat' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Numero TF Candidat" />
+
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Company Vat</label>
+                            <input className='form-control inputStyling'  name='Company_Vat' onChange={onFormDataChange}  placeholder="‎ ‎ ‎ Company Vat" />
+
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Salaire Brut</label>
+                            <input className='form-control inputStyling'   name='Salaire_Brut' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Salaire Brut" />
+
+                            </div>
+
+
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Salaire Net</label>
+                            <input className='form-control inputStyling'  name='Salaire_Net' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Salaire_Net" />
+
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Diurna Total Par Jour</label>
+                            <input className='form-control inputStyling'  name='Diurna_Total_Par_Jour' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Diurna Total Par Jour" />
+
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Debut Mision (Date)</label>
+                            <input className='form-control inputStyling' type="date"  name='Debut Mision Date' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Debut Mision Date" />
+
+                            </div>
+
+
+
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Heure Par Semaine</label>
+                            <input className='form-control inputStyling'  name='Heure_Par_Semaine' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Heure Par Semaine" />
+
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Duree Hebdomadaire</label>
+                            <input className='form-control inputStyling'  name='Duree_Hebdomadaire' onChange={onFormDataChange}  placeholder="‎ ‎ ‎ Duree Hebdomadaire" />
+
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">indemnisation jour</label>
+                            <input className='form-control inputStyling'  name='indemnisation_jour' onChange={onFormDataChange} placeholder="‎ ‎ ‎ indemnisation jour" />
+
+                            </div>
+
+
                             <div className='col-12  d-grid '>
                             <label className="PDFFormlabel">Company Adress</label>
                             <textarea className='TextArea form-control' defaultValue={data ? data.companyAddress !=""? data.companyAddress : "" : ""} name='companyAddress' onChange={onFormDataChange} placeholder='‎ ‎ ‎Company_Adress' ></textarea>
@@ -242,8 +294,6 @@ function PdfModal({props,closeModal,path} ){
                                 </div>
                             </div>
                          </div>
-                         
-                        </div>
                     </form>
                     </>
         }
