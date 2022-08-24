@@ -21,14 +21,22 @@ function PdfModal({props,closeModal,path} ){
     candidatAddress: props.candidatContract ? props.candidatContract.candidatAddress !=="" ? props.candidatContract.candidatAddress : "" : "",
     company_siret: props.candidatContract ? props.candidatContract.company_siret !="" ? props.candidatContract.company_siret : ""  : "",
     companyAddress: props.candidatContract ? props.candidatContract.companyAddress !=""? props.candidatContract.companyAddress : "" : "",
-    candidatId: props.candidatContract ? props.candidatContract._id ? props.candidatContract._id : "" : "",
+    candidatId: props.candidatContract ? props.candidatContract.candidatId? props.candidatContract.candidatId : "" : "",
     candidatName: props.candidatContract ? props.candidatContract.candidatName ? props.candidatContract.candidatName : "" : "",
+    numeroTFCandidat:props.candidatContract ? props.candidatContract.numeroTFCandidat  !=="" ? props.candidatContract.numeroTFCandidat :"" : "",
+    companyVat:props.candidatContract ? props.candidatContract.companyVat !==""? props.candidatContract.companyVat :"" : "" ,
+    salaireBrut: props.candidatContract ? props.candidatContract.salaireBrut !=="" ? props.candidatContract.salaireBrut :"" : "",
+    salaireNet: props.candidatContract ? props.candidatContract.salaireNet !==""? props.candidatContract.salaireNet : "" : "",
+    diurnaTotalParJour:props.candidatContract ? props.candidatContract.diurnaTotalParJour !=="" ?   props.candidatContract.diurnaTotalParJour  :"":"",
+    debutMissionDate: props.candidatContract ? props.candidatContract.debutMissionDate !==""?   props.candidatContract.debutMissionDate  :"":"",
+    heurePerSemaine: props.candidatContract ? props.candidatContract.heurePerSemaine !=="" ?   props.candidatContract.heurePerSemaine  :"":"",
+    duree_hebdomadaire: props.candidatContract ? props.candidatContract.duree_hebdomadaire !==""?   props.candidatContract.duree_hebdomadaire  :"":"",
+    indemnisationJour: props.candidatContract ? props.candidatContract.indemnisationJour !==""?   props.candidatContract.indemnisationJour  :"":"",
     contractId: props.candidatContract ? props.candidatContract._id ? props.candidatContract._id : "" : "",
 }
   const [data, setData] = useState(PdfFormat);
   const [loader, setLoader] = useState(false);
 
-  console.log(data,"data")
   const navigate =useNavigate()
   useEffect(() => {
     if (data.candidatName == "") {
@@ -111,6 +119,9 @@ function PdfModal({props,closeModal,path} ){
             if (result.status) {
               let splittedFilePath = result.filePath.split("/app/");
                   window.open(API_BASE_URL + splittedFilePath[1]); 
+                  setTimeout(()=>{
+                    window.location.reload();
+                },2000)
             }
         }).catch(err => {
             console.log(err);
@@ -219,34 +230,34 @@ function PdfModal({props,closeModal,path} ){
 
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Numero TF Candidat</label>
-                            <input className='form-control inputStyling'  name='Numero_TF_Candidat' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Numero TF Candidat" />
+                            <input className='form-control inputStyling'   name='numeroTFCandidat'  defaultValue={data ? data.numeroTFCandidat !="" ? data.numeroTFCandidat : ""  : ""}  onChange={onFormDataChange} placeholder="‎ ‎ ‎ Numero TF Candidat" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Company Vat</label>
-                            <input className='form-control inputStyling'  name='Company_Vat' onChange={onFormDataChange}  placeholder="‎ ‎ ‎ Company Vat" />
+                            <input className='form-control inputStyling'  name='companyVat' onChange={onFormDataChange}  defaultValue={data ? data.companyVat !="" ? data.companyVat : ""  : ""}   placeholder="‎ ‎ ‎ Company Vat" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Salaire Brut</label>
-                            <input className='form-control inputStyling'   name='Salaire_Brut' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Salaire Brut" />
+                            <input className='form-control inputStyling'   name='salaireBrut' onChange={onFormDataChange}  defaultValue={data ? data.salaireBrut !="" ? data.salaireBrut : ""  : ""}  placeholder="‎ ‎ ‎ Salaire Brut" />
 
                             </div>
 
 
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Salaire Net</label>
-                            <input className='form-control inputStyling'  name='Salaire_Net' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Salaire_Net" />
+                            <input className='form-control inputStyling'  name='salaireNet' onChange={onFormDataChange}  defaultValue={data ? data.salaireNet !="" ? data.salaireNet : ""  : ""}  placeholder="‎ ‎ ‎ Salaire_Net" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Diurna Total Par Jour</label>
-                            <input className='form-control inputStyling'  name='Diurna_Total_Par_Jour' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Diurna Total Par Jour" />
+                            <input className='form-control inputStyling'  name='diurnaTotalParJour' onChange={onFormDataChange}  defaultValue={data ? data.diurnaTotalParJour !="" ? data.diurnaTotalParJour : ""  : ""}  placeholder="‎ ‎ ‎ Diurna Total Par Jour" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Debut Mision (Date)</label>
-                            <input className='form-control inputStyling' type="date"  name='Debut Mision Date' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Debut Mision Date" />
+                            <input className='form-control inputStyling' type="date"  name='debutMissionDate' onChange={onFormDataChange}  defaultValue={data ? data.debutMissionDate !="" ? data.debutMissionDate : ""  : ""}  placeholder="‎ ‎ ‎ Debut Mision Date" />
 
                             </div>
 
@@ -254,17 +265,17 @@ function PdfModal({props,closeModal,path} ){
 
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Heure Par Semaine</label>
-                            <input className='form-control inputStyling'  name='Heure_Par_Semaine' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Heure Par Semaine" />
+                            <input className='form-control inputStyling'  name='heurePerSemaine' onChange={onFormDataChange}  defaultValue={data ? data.heurePerSemaine !="" ? data.heurePerSemaine : ""  : ""}  placeholder="‎ ‎ ‎ Heure Par Semaine" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Duree Hebdomadaire</label>
-                            <input className='form-control inputStyling'  name='Duree_Hebdomadaire' onChange={onFormDataChange}  placeholder="‎ ‎ ‎ Duree Hebdomadaire" />
+                            <input className='form-control inputStyling'  name='duree_hebdomadaire' onChange={onFormDataChange}  defaultValue={data ? data.duree_hebdomadaire !="" ? data.duree_hebdomadaire : ""  : ""}   placeholder="‎ ‎ ‎ Duree Hebdomadaire" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">indemnisation jour</label>
-                            <input className='form-control inputStyling'  name='indemnisation_jour' onChange={onFormDataChange} placeholder="‎ ‎ ‎ indemnisation jour" />
+                            <input className='form-control inputStyling'  name='indemnisationJour' onChange={onFormDataChange}  defaultValue={data ? data.indemnisationJour !="" ? data.indemnisationJour : ""  : ""}  placeholder="‎ ‎ ‎ indemnisation jour" />
 
                             </div>
 

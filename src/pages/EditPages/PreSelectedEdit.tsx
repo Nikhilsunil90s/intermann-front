@@ -1224,15 +1224,7 @@ className="SelectBtn"
                             <label className="PDFFormlabel">Company_Adress</label>
                             <textarea className='TextAreaPage form-control'value={profile.candidatContract ?profile.candidatContract.companyAddress ? profile.candidatContract.companyAddress : "input Not Available!": "input Not Available!"} placeholder='‎ ‎ ‎Company_Adress'></textarea>
                             </div>
-                          
-                  
-</div>
-              </div> 
-
-
-
-
-                <div className="col-12 px-0 mt-3">
+                            <div className="col-12 px-0 mt-3">
                   <div className="row justify-content-end">
                     <div className="col-6 d-flex justify-content-end">
                       <Link to={path} style={{ textDecoration: "none" }}>
@@ -1251,7 +1243,15 @@ className="SelectBtn"
                       </button>
                     </div>
                   </div>
-                </div>
+                </div>        
+                  
+</div>
+              </div> 
+
+
+
+
+             
                 </div>
 
                   </div>
