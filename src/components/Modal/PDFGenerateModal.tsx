@@ -33,6 +33,7 @@ function PdfModal({props,closeModal,path} ){
     duree_hebdomadaire: props.candidatContract ? props.candidatContract.duree_hebdomadaire !==""?   props.candidatContract.duree_hebdomadaire  :"":"",
     indemnisationJour: props.candidatContract ? props.candidatContract.indemnisationJour !==""?   props.candidatContract.indemnisationJour  :"":"",
     contractId: props.candidatContract ? props.candidatContract._id ? props.candidatContract._id : "" : "",
+    fin_mision:props.candidatContract ? props.candidatContract.fin_mision ? props.candidatContract.fin_mision : "" : ""
 }
   const [data, setData] = useState(PdfFormat);
   const [loader, setLoader] = useState(false);
@@ -276,6 +277,11 @@ function PdfModal({props,closeModal,path} ){
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">indemnisation jour</label>
                             <input className='form-control inputStyling'  name='indemnisationJour' onChange={onFormDataChange}  defaultValue={data ? data.indemnisationJour !="" ? data.indemnisationJour : ""  : ""}  placeholder="‎ ‎ ‎ indemnisation jour" />
+
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Fin Mision</label>
+                            <input className='form-control inputStyling'  type="date" name='fin_mision' onChange={onFormDataChange}  defaultValue={data ? data.fin_mision !="" ? data.fin_mision : ""  : ""}  placeholder="‎ ‎ ‎ indemnisation jour" />
 
                             </div>
 

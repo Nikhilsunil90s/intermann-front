@@ -850,6 +850,11 @@ null
                             <input className='form-control inputStyling'  name='indemnisation_jour' value={profile.candidatContract ?profile.candidatContract.indemnisationJour ? profile.candidatContract.indemnisationJour : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ indemnisation jour" />
 
                             </div>
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Fin Mision</label>
+                            <input className='form-control inputStyling'  type="date" name='fin_mision' value={profile.candidatContract ? profile.fin_mision !="" ? profile.fin_mision : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ indemnisation jour" />
+
+                            </div>
 
                             <div className='col-12  d-grid text-start'>
                             <label className="PDFFormlabel">Company_Adress</label>
