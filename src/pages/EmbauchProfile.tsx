@@ -57,6 +57,12 @@ function ProgressCard() {
   const [UploadBtn,setSelectUpload]= useState(false)
   const [clientProfile, setClientProfile] = useState()as any;
   const [PDFModal,setPDFModal]=useState(false)
+  const [contract_date,setcontract_date]=useState()as any
+  const [debutMissionDate,setdebutMissionDate]=useState()as any
+  const [fin_mision,setfin_mision]=useState()as any
+  const [GetMonth,setMonth]=useState()as any
+  const [GetMonth2,setMonth2]=useState()as any
+  const [GetMonth3,setMonth3]=useState()as any
 
   const datenow=moment().format('YYYY-MM-DD')
     
@@ -71,6 +77,28 @@ function ProgressCard() {
       navigate("/editInProgress", { state: data });
     };
 
+    
+  useEffect(()=>{
+    if(profile.candidatContract){
+   
+          let tempdate =new Date(profile.candidatContract.contract_date)
+          setMonth(tempdate.getMonth()+ 1)
+          
+        setcontract_date([tempdate.getFullYear() ,"0" + GetMonth,tempdate.getDate()].join("-"))
+ 
+      let tempdate2 =new Date(profile.candidatContract.debutMissionDate)
+      setMonth2(tempdate2.getMonth()+1)
+      setdebutMissionDate([tempdate2.getFullYear() ,"0"+GetMonth2,tempdate2.getDate()].join("-"))
+    
+    
+
+     let tempdate3 =new Date(profile.candidatContract.fin_mision)
+      setMonth3(tempdate3.getMonth()+1)
+      setfin_mision([tempdate3.getFullYear() ,"0"+GetMonth3,tempdate3.getDate()].join("-"))
+    
+
+
+}},[profile.candidatContract])
   // useEffect(() => {
   //   window.scroll({
   //     top: 0,
@@ -768,7 +796,7 @@ null
                             </div>
                             <div className='col-4  d-grid text-start'>
                             <label className="PDFFormlabel">Contract_date</label>
-                            <input className='form-control inputStylingForView' type="date" value={profile.candidatContract ?profile.candidatContract.contract_date ? profile.candidatContract.contract_date : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Contract_date" />
+                            <input className='form-control inputStylingForView' type="date" value={profile.candidatContract ?profile.candidatContract.contract_date ? contract_date : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Contract_date" />
 
                             </div>
                             <div className='col-4  d-grid text-start'>
@@ -829,7 +857,7 @@ null
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Debut Mision (Date)</label>
-                            <input className='form-control inputStyling' type="date"  name='Debut Mision Date' value={profile.candidatContract ?profile.candidatContract.debutMissionDate ? profile.candidatContract.debutMissionDate : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ Debut Mision Date" />
+                            <input className='form-control inputStyling' type="date"  name='Debut Mision Date' value={profile.candidatContract ?profile.candidatContract.debutMissionDate ? debutMissionDate : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ Debut Mision Date" />
 
                             </div>
 
@@ -852,7 +880,7 @@ null
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Fin Mision</label>
-                            <input className='form-control inputStyling'  type="date" name='fin_mision' value={profile.candidatContract ? profile.fin_mision !="" ? profile.fin_mision : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ indemnisation jour" />
+                            <input className='form-control inputStyling'  type="date" name='fin_mision' value={profile.candidatContract ? profile.fin_mision !="" ? fin_mision : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ indemnisation jour" />
 
                             </div>
 

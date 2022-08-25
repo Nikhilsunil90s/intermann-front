@@ -9,34 +9,40 @@ import { useNavigate } from 'react-router';
 
 function PdfModal({props,closeModal,path} ){
   const PdfFormat = {
-    lieu_mission: props.candidatContract ? props.candidatContract.lieu_mission != "" ? props.candidatContract.lieu_mission :"" : "",
-    duree_mission:props.candidatContract ? props.candidatContract.duree_mission != "" ? props.candidatContract.duree_mission :"" :"",
-    duree_hebdomadaire_mission:props.candidatContract ? props.candidatContract.duree_hebdomadaire_mission != "" ? props.candidatContract.duree_hebdomadaire_mission : "" : "",
-    candidatJob: props.candidatContract ? props.candidatContract.candidatJob != "" ? props.candidatContract.candidatJob : "" : "",
-    cmp_candidat: props.candidatContract ? props.candidatContract.cmp_candidat !="" ? props.candidatContract.cmp_candidat :""  :"",
-    contract_date:props.candidatContract ? props.candidatContract.contract_date != "" ? props.candidatContract.contract_date : "" : "",
-    company_contact_name: props.candidatContract ? props.candidatContract.company_contact_name != "" ? props.candidatContract.company_contact_name : "" : "",
-    nr_inreg: props.candidatContract ? props.candidatContract.nr_inreg !="" ? props.candidatContract.nr_inreg : "" : "",
-    serie_id: props.candidatContract ? props.candidatContract.serie_id !=="" ? props.candidatContract.serie_id :"" :"",
-    candidatAddress: props.candidatContract ? props.candidatContract.candidatAddress !=="" ? props.candidatContract.candidatAddress : "" : "",
-    company_siret: props.candidatContract ? props.candidatContract.company_siret !="" ? props.candidatContract.company_siret : ""  : "",
-    companyAddress: props.candidatContract ? props.candidatContract.companyAddress !=""? props.candidatContract.companyAddress : "" : "",
+    lieu_mission: props.candidatContract ? props.candidatContract.lieu_mission  ? props.candidatContract.lieu_mission :"" : "",
+    duree_mission:props.candidatContract ? props.candidatContract.duree_mission  ? props.candidatContract.duree_mission :"" :"",
+    duree_hebdomadaire_mission:props.candidatContract ? props.candidatContract.duree_hebdomadaire_mission  ? props.candidatContract.duree_hebdomadaire_mission : "" : "",
+    candidatJob: props.candidatContract ? props.candidatContract.candidatJob  ? props.candidatContract.candidatJob : "" : "",
+    cmp_candidat: props.candidatContract ? props.candidatContract.cmp_candidat  ? props.candidatContract.cmp_candidat :""  :"",
+    contract_date:props.candidatContract ? props.candidatContract.contract_date  ? props.candidatContract.contract_date : "" : "",
+    company_contact_name: props.candidatContract ? props.candidatContract.company_contact_name  ? props.candidatContract.company_contact_name : "" : "",
+    nr_inreg: props.candidatContract ? props.candidatContract.nr_inreg ? props.candidatContract.nr_inreg : "" : "",
+    serie_id: props.candidatContract ? props.candidatContract.serie_id ? props.candidatContract.serie_id :"" :"",
+    candidatAddress: props.candidatContract ? props.candidatContract.candidatAddress ? props.candidatContract.candidatAddress : "" : "",
+    company_siret: props.candidatContract ? props.candidatContract.company_siret  ? props.candidatContract.company_siret : ""  : "",
+    companyAddress: props.candidatContract ? props.candidatContract.companyAddress ? props.candidatContract.companyAddress : "" : "",
     candidatId: props.candidatContract ? props.candidatContract.candidatId? props.candidatContract.candidatId : "" : "",
     candidatName: props.candidatContract ? props.candidatContract.candidatName ? props.candidatContract.candidatName : "" : "",
-    numeroTFCandidat:props.candidatContract ? props.candidatContract.numeroTFCandidat  !=="" ? props.candidatContract.numeroTFCandidat :"" : "",
-    companyVat:props.candidatContract ? props.candidatContract.companyVat !==""? props.candidatContract.companyVat :"" : "" ,
-    salaireBrut: props.candidatContract ? props.candidatContract.salaireBrut !=="" ? props.candidatContract.salaireBrut :"" : "",
-    salaireNet: props.candidatContract ? props.candidatContract.salaireNet !==""? props.candidatContract.salaireNet : "" : "",
-    diurnaTotalParJour:props.candidatContract ? props.candidatContract.diurnaTotalParJour !=="" ?   props.candidatContract.diurnaTotalParJour  :"":"",
-    debutMissionDate: props.candidatContract ? props.candidatContract.debutMissionDate !==""?   props.candidatContract.debutMissionDate  :"":"",
-    heurePerSemaine: props.candidatContract ? props.candidatContract.heurePerSemaine !=="" ?   props.candidatContract.heurePerSemaine  :"":"",
-    duree_hebdomadaire: props.candidatContract ? props.candidatContract.duree_hebdomadaire !==""?   props.candidatContract.duree_hebdomadaire  :"":"",
-    indemnisationJour: props.candidatContract ? props.candidatContract.indemnisationJour !==""?   props.candidatContract.indemnisationJour  :"":"",
+    numeroTFCandidat:props.candidatContract ? props.candidatContract.numeroTFCandidat  ? props.candidatContract.numeroTFCandidat :"" : "",
+    companyVat:props.candidatContract ? props.candidatContract.companyVat? props.candidatContract.companyVat :"" : "" ,
+    salaireBrut: props.candidatContract ? props.candidatContract.salaireBrut ? props.candidatContract.salaireBrut :"" : "",
+    salaireNet: props.candidatContract ? props.candidatContract.salaireNet? props.candidatContract.salaireNet : "" : "",
+    diurnaTotalParJour:props.candidatContract ? props.candidatContract.diurnaTotalParJour ?   props.candidatContract.diurnaTotalParJour  :"":"",
+    debutMissionDate: props.candidatContract ? props.candidatContract.debutMissionDate?   props.candidatContract.debutMissionDate  :"":"",
+    heurePerSemaine: props.candidatContract ? props.candidatContract.heurePerSemaine ?   props.candidatContract.heurePerSemaine  :"":"",
+    duree_hebdomadaire: props.candidatContract ? props.candidatContract.duree_hebdomadaire?   props.candidatContract.duree_hebdomadaire  :"":"",
+    indemnisationJour: props.candidatContract ? props.candidatContract.indemnisationJour ?   props.candidatContract.indemnisationJour  :"":"",
     contractId: props.candidatContract ? props.candidatContract._id ? props.candidatContract._id : "" : "",
     fin_mision:props.candidatContract ? props.candidatContract.fin_mision ? props.candidatContract.fin_mision : "" : ""
 }
   const [data, setData] = useState(PdfFormat);
   const [loader, setLoader] = useState(false);
+  const [contract_date,setcontract_date]=useState()as any
+  const [debutMissionDate,setdebutMissionDate]=useState()as any
+  const [fin_mision,setfin_mision]=useState()as any
+  const [GetMonth,setMonth]=useState()as any
+  const [GetMonth2,setMonth2]=useState()as any
+  const [GetMonth3,setMonth3]=useState()as any
 
   const navigate =useNavigate()
   useEffect(() => {
@@ -52,16 +58,58 @@ function PdfModal({props,closeModal,path} ){
       if (data.candidatJob == "") {
         setData((prev) => ({ ...prev, ["candidatJob"]: props.candidatJob }));
       }
-  })
+  },[])
+
+  useEffect(()=>{
+    if(data.contract_date){
+   
+          let tempdate =new Date(data.contract_date)
+          setMonth(tempdate.getMonth()+ 1)
+          
+        setcontract_date([tempdate.getFullYear() ,"0" + GetMonth,tempdate.getDate()].join("-"))
+    }
+    if(data.debutMissionDate){
+      let tempdate2 =new Date(data.debutMissionDate)
+      setMonth2(tempdate2.getMonth()+1)
+      setdebutMissionDate([tempdate2.getFullYear() ,"0"+GetMonth2,tempdate2.getDate()].join("-"))
+    }
+    
+    if(data.fin_mision){
+     let tempdate3 =new Date(data.fin_mision)
+      setMonth3(tempdate3.getMonth()+1)
+      setfin_mision([tempdate3.getFullYear() ,"0"+GetMonth3,tempdate3.getDate()].join("-"))
+    
+
+
+}},)
 
     const onFormDataChange = (
         e: React.ChangeEvent<
           HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
         >
       ) => {
-          setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-      };
 
+        if(e.target.name === "contract_date"){
+          var tempDate = new Date(e.target.value);
+            var formattedDate = [tempDate.getMonth() + 1, tempDate.getDate(), tempDate.getFullYear()].join('-');
+          setData((prev) => ({ ...prev, ['contract_date']:formattedDate}));
+        }
+     else   if(e.target.name === "debutMissionDate"){
+      var tempDate = new Date(e.target.value);
+      var formattedDate = [tempDate.getMonth() + 1, tempDate.getDate(), tempDate.getFullYear()].join('-');
+          setData((prev) => ({ ...prev, ['debutMissionDate']:formattedDate }));
+        }
+       else if(e.target.name === "fin_mision"){   
+        var tempDate = new Date(e.target.value);
+        var formattedDate = [tempDate.getMonth() + 1, tempDate.getDate(), tempDate.getFullYear()].join('-');
+          setData((prev) => ({ ...prev, ['fin_mision']:formattedDate}));
+        }
+        else{
+                 setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));   
+        }
+
+      };
+console.log(data,"setsata")
     
     const addContract = async () => {
       return await fetch(API_BASE_URL + "addContractToCRM", {
@@ -199,7 +247,7 @@ function PdfModal({props,closeModal,path} ){
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Contract Date</label>
-                            <input className='form-control inputStyling'  type="date" defaultValue={data ? data.contract_date != "" ? data.contract_date : "" : ""} name='contract_date' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Contract_date" />
+                            <input className='form-control inputStyling'  type="date" defaultValue={data ? data.contract_date != "" ? contract_date : "" : ""} name='contract_date' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Contract_date" />
 
                             </div>
                             <div className='col-4  d-grid '>
@@ -258,7 +306,7 @@ function PdfModal({props,closeModal,path} ){
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Debut Mision (Date)</label>
-                            <input className='form-control inputStyling' type="date"  name='debutMissionDate' onChange={onFormDataChange}  defaultValue={data ? data.debutMissionDate !="" ? data.debutMissionDate : ""  : ""}  placeholder="‎ ‎ ‎ Debut Mision Date" />
+                            <input className='form-control inputStyling' type="date"  name='debutMissionDate' onChange={onFormDataChange}  defaultValue={data ? data.debutMissionDate !="" ? debutMissionDate : ""  : ""}  placeholder="‎ ‎ ‎ Debut Mision Date" />
 
                             </div>
 
@@ -281,7 +329,7 @@ function PdfModal({props,closeModal,path} ){
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Fin Mision</label>
-                            <input className='form-control inputStyling'  type="date" name='fin_mision' onChange={onFormDataChange}  defaultValue={data ? data.fin_mision !="" ? data.fin_mision : ""  : ""}  placeholder="‎ ‎ ‎ indemnisation jour" />
+                            <input className='form-control inputStyling'  type="date" name='fin_mision' onChange={onFormDataChange}  defaultValue={data ? data.fin_mision !="" ? fin_mision : ""  : ""}  placeholder="‎ ‎ ‎ indemnisation jour" />
 
                             </div>
 

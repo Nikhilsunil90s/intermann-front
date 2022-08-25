@@ -75,11 +75,18 @@ console.log(profile,"profile")
   const [RenameDocStatus,setRenameDocStatus]=useState(false)
   const [PDFModal,setPDFModal]=useState(false)
   const datenow=moment().format('YYYY-MM-DD')
-    
+  const [contract_date,setcontract_date]=useState()as any
+  const [debutMissionDate,setdebutMissionDate]=useState()as any
+  const [fin_mision,setfin_mision]=useState()as any
+  const [GetMonth,setMonth]=useState()as any
+  const [GetMonth2,setMonth2]=useState()as any
+  const [GetMonth3,setMonth3]=useState()as any
+
   let date = new Date(datenow);
 
  let start = new Date(profile.candidatStartDate);
  let end = new Date(profile.candidatEndDate);
+  
 
 
 
@@ -284,6 +291,28 @@ const fetchRecommendations = async (candidatSector: string) => {
       .catch(err => err)
   }
 
+  useEffect(()=>{
+    if(profile.candidatContract){
+   
+          let tempdate =new Date(profile.candidatContract.contract_date)
+          setMonth(tempdate.getMonth()+ 1)
+          
+        setcontract_date([tempdate.getFullYear() ,"0" + GetMonth,tempdate.getDate()].join("-"))
+ 
+      let tempdate2 =new Date(profile.candidatContract.debutMissionDate)
+      setMonth2(tempdate2.getMonth()+1)
+      setdebutMissionDate([tempdate2.getFullYear() ,"0"+GetMonth2,tempdate2.getDate()].join("-"))
+    
+    
+
+     let tempdate3 =new Date(profile.candidatContract.fin_mision)
+      setMonth3(tempdate3.getMonth()+1)
+      setfin_mision([tempdate3.getFullYear() ,"0"+GetMonth3,tempdate3.getDate()].join("-"))
+    
+
+
+}},[profile.candidatContract])
+console.log(contract_date,"cont")
   useEffect(() => {
     setLoader(true);
     fetchRecommendations(profile.candidatActivitySector)
@@ -301,6 +330,7 @@ const fetchRecommendations = async (candidatSector: string) => {
       .catch(err => {
         console.log(err)
       })
+
   }, [state])
   const responsive = {
     superLargeDesktop: {
@@ -324,6 +354,7 @@ const fetchRecommendations = async (candidatSector: string) => {
  const  ViewDownloadFiles =( documentName:any)=>{
   window.open(API_BASE_URL + "uploads/" +documentName)
  }
+
   return (
     <>
       <Toaster position="top-right" containerStyle={{ zIndex: '99999999999' }} />
@@ -828,7 +859,7 @@ className="SelectBtn"
                             </div>
                             <div className='col-4  d-grid text-start'>
                             <label className="PDFFormlabel">Contract_date</label>
-                            <input className='form-control inputStylingForView' type="date" value={profile.candidatContract ?profile.candidatContract.contract_date ? profile.candidatContract.contract_date : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Contract_date" />
+                            <input className='form-control inputStylingForView' type="date" value={profile.candidatContract ?profile.candidatContract.contract_date ? contract_date : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Contract_date" />
 
                             </div>
                             <div className='col-4  d-grid text-start'>
@@ -889,7 +920,7 @@ className="SelectBtn"
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Debut Mision (Date)</label>
-                            <input className='form-control inputStyling' type="date"  name='Debut Mision Date' value={profile.candidatContract ?profile.candidatContract.debutMissionDate ? profile.candidatContract.debutMissionDate : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ Debut Mision Date" />
+                            <input className='form-control inputStyling' type="date"  name='Debut Mision Date' value={profile.candidatContract ? profile.candidatContract.debutMissionDate ? debutMissionDate : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ Debut Mision Date" />
 
                             </div>
 
@@ -912,7 +943,7 @@ className="SelectBtn"
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Fin Mision</label>
-                            <input className='form-control inputStyling'  type="date" name='fin_mision' value={profile.candidatContract ? profile.fin_mision !="" ? profile.fin_mision : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ indemnisation jour" />
+                            <input className='form-control inputStyling'  type="date" name='fin_mision' value={profile.candidatContract ? profile.fin_mision !="" ? fin_mision : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ indemnisation jour" />
 
                             </div>
 
