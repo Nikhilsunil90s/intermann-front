@@ -80,24 +80,22 @@ function ProgressCard() {
     
   useEffect(()=>{
     if(profile.candidatContract){
-   
-          let tempdate =new Date(profile.candidatContract.contract_date)
-          setMonth(tempdate.getMonth()+ 1)
-          
-        setcontract_date([tempdate.getFullYear() ,"0" + GetMonth,tempdate.getDate()].join("-"))
- 
-      let tempdate2 =new Date(profile.candidatContract.debutMissionDate)
-      setMonth2(tempdate2.getMonth()+1)
-      setdebutMissionDate([tempdate2.getFullYear() ,"0"+GetMonth2,tempdate2.getDate()].join("-"))
-    
-    
+      let tempdate =new Date(profile.candidatContract.contract_date)
+      setMonth(tempdate.getMonth()+ 1)
+      let NewCdate=[tempdate.getFullYear() ,"0" + GetMonth,tempdate.getDate()].join("-")
+    setcontract_date(NewCdate)
 
-     let tempdate3 =new Date(profile.candidatContract.fin_mision)
-      setMonth3(tempdate3.getMonth()+1)
-      setfin_mision([tempdate3.getFullYear() ,"0"+GetMonth3,tempdate3.getDate()].join("-"))
-    
+  let tempdate2 =new Date(profile.candidatContract.debutMissionDate)
+  setMonth2(tempdate2.getMonth()+1)
+    let NewMDate=  [tempdate2.getFullYear() ,"0"+GetMonth2,tempdate2.getDate()].join("-")
+    setdebutMissionDate(NewMDate)
 
 
+
+ let tempdate3 =new Date(profile.candidatContract.fin_mision)
+  setMonth3(tempdate3.getMonth()+1)
+  let FormatNewDate=[tempdate3.getFullYear() ,"0"+GetMonth3,tempdate3.getDate()].join("-")
+  setfin_mision(FormatNewDate)
 }},)
   // useEffect(() => {
   //   window.scroll({
