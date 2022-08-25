@@ -73,7 +73,7 @@ const ArchivedProfile = () => {
       
   
   
-  }},[profile.candidatContract])
+  }},)
 
     const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
     const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")

@@ -85,7 +85,7 @@ useEffect(()=>{
   
 
 
-}},[profile.candidatContract])
+}},)
 
      // Notification // 
 const notifyMoveSuccess = () => toast.success("Moved Archived Successfully!");

@@ -295,12 +295,12 @@ const fetchRecommendations = async (candidatSector: string) => {
     if(profile.candidatContract){
    
           let tempdate =new Date(profile.candidatContract.contract_date)
-          setMonth(tempdate.getMonth()+ 1)
+          setMonth(tempdate.getMonth() + 1)
           
         setcontract_date([tempdate.getFullYear() ,"0" + GetMonth,tempdate.getDate()].join("-"))
  
       let tempdate2 =new Date(profile.candidatContract.debutMissionDate)
-      setMonth2(tempdate2.getMonth()+1)
+      setMonth2(tempdate2.getMonth() + 1)
       setdebutMissionDate([tempdate2.getFullYear() ,"0"+GetMonth2,tempdate2.getDate()].join("-"))
     
     
@@ -311,7 +311,7 @@ const fetchRecommendations = async (candidatSector: string) => {
     
 
 
-}},[profile.candidatContract])
+}},)
 console.log(contract_date,"cont")
   useEffect(() => {
     setLoader(true);

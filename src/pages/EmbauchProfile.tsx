@@ -98,7 +98,7 @@ function ProgressCard() {
     
 
 
-}},[profile.candidatContract])
+}},)
   // useEffect(() => {
   //   window.scroll({
   //     top: 0,
