@@ -484,7 +484,7 @@ null
                   </p>
                   </div>
                  {
-                    profile.cadidatAlternatePhone !== "" || profile.cadidatAlternatePhone !== undefined ?
+                    profile.candidatAlternatePhone ?
                     <a
                     href={`https://wa.me/${profile.candidatAlternatePhone}`}
                     target="_blank"

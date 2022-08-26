@@ -58,7 +58,28 @@ const EmployeeDataFormat = {
   candiatStatus: "To-Do",
   candidateArchived: {
     reason: ""
-  }
+  },
+  lieu_mission:"",
+  duree_mission:"",
+  duree_hebdomadaire_mission:"",
+  cmp_candidat:"",
+  contract_date:"",
+  company_contact_name:"",
+  nr_inreg:"",
+  serie_id:"",
+  company_siret:"",
+  companyAddress:"",
+  numeroTFCandidat:"",
+  companyVat:"",
+  salaireBrut:"",
+  salaireNet:"",
+  diurnaTotalParJour:"",
+  debutMissionDate:"",
+  heurePerSemaine:"",
+  duree_hebdomadaire:"",
+  indemnisationJour:"",
+  fin_mision:"",
+  contractId:"",
 }
 
 interface State {
@@ -106,43 +127,39 @@ function EditDo() {
   const [Language, setLanguage] = useState([])
   const [sectorOptions, setSectorOptions] = useState([])as any;
   const [jobOptions, setJobOptions] = useState([]);
-  const [candidatContract,setCandidatContract]=useState({
-    lieu_mission: "",
-    duree_mission:"",
-    duree_hebdomadaire_mission: "",
-    candidatJob:"",
-    cmp_candidat:"",
-    contract_date: "",
-    company_contact_name: "",
-    nr_inreg: "",
-    serie_id:"",
-    candidatAddress:"",
-    company_siret:"",
-    companyAddress:"",
-    candidatName:"",
-    numeroTFCandidat:"",
-    companyVat:"" ,
-    salaireBrut:"",
-    salaireNet:"",
-    diurnaTotalParJour:"",
-    debutMissionDate:"",
-    heurePerSemaine:"",
-    duree_hebdomadaire:"",
-    indemnisationJour:"",
-  })
+  const [contract_date,setcontract_date]=useState()as any
+  const [debutMissionDate,setdebutMissionDate]=useState()as any
+  const [fin_mision,setfin_mision]=useState()as any
+  const [GetMonth,setMonth]=useState()as any
+  const [GetMonth2,setMonth2]=useState()as any
+  const [GetMonth3,setMonth3]=useState()as any
 
 
-  const onInputDataChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
-    >
-  ) => {
-    setFormTouched(true)
-    setCandidatContract((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    setData({...data,candidatContract:candidatContract})
-  };
 
 
+
+  useEffect(()=>{
+    if(profile.contract_date){
+   
+          let tempdate =new Date(profile.contract_date)
+          setMonth(tempdate.getMonth()+ 1)
+          
+        setcontract_date([tempdate.getFullYear() ,"0" + GetMonth,tempdate.getDate()].join("-"))
+    }
+    if(profile.debutMissionDate){
+      let tempdate2 =new Date(profile.debutMissionDate)
+      setMonth2(tempdate2.getMonth()+1)
+      setdebutMissionDate([tempdate2.getFullYear() ,"0"+GetMonth2,tempdate2.getDate()].join("-"))
+    }
+    
+    if(profile.fin_mision){
+     let tempdate3 =new Date(profile.fin_mision)
+      setMonth3(tempdate3.getMonth()+1)
+      setfin_mision([tempdate3.getFullYear() ,"0"+GetMonth3,tempdate3.getDate()].join("-"))
+    
+
+
+}},)
 
   const editExperience = (e: any) => {
     e.preventDefault()
@@ -516,7 +533,28 @@ if(checked == false){
         candidatFBURL: data.candidatFBURL != "" ? data.candidatFBURL : profile.candidatFBURL,
         candidatAlternatePhone :data.candidatAlternatePhone !="" ? data.candidatAlternatePhone : profile.candidatAlternatePhone,
         candidatYearsExperience: data.candidatYearsExperience != "" ? data.candidatYearsExperience : profile.candidatYearsExperience,
-        candidatContract:data.candidatContract!={} ? data.candidatContract : profile.candidatContract
+        candidatContract:data.candidatContract!={} ? data.candidatContract : profile.candidatContract,
+        lieu_mission: data.lieu_mission !="" ? data.lieu_mission : profile.candidatContract.lieu_mission ,
+        duree_mission: data.duree_mission != "" ? data.duree_mission : profile.candidatContract.duree_mission, 
+        duree_hebdomadaire_mission: data.duree_hebdomadaire_mission !=""  ? data.duree_hebdomadaire_mission : profile.candidatContract.duree_hebdomadaire_mission,
+        cmp_candidat: data.cmp_candidat != "" ? data.cmp_candidat : profile.candidatContract.cmp_candidat,
+        contract_date:data.contract_date != "" ? data.contract_date : profile.candidatContract.contract_date,
+        company_contact_name:data.company_contact_name != "" ? data.company_contact_name : profile.candidatContract.company_contact_name,
+        nr_inreg:data.nr_inreg != "" ? data.nr_inreg : profile.candidatContract.nr_inreg,
+        serie_id:data.serie_id !="" ? data.serie_id : profile.candidatContract.serie_id,
+        company_siret:data.company_siret !="" ? data.company_siret : profile.candidatContract.company_siret,
+        companyAddress:data.companyAddress !="" ? data.companyAddress : profile.candidatContract.companyAddress,
+        numeroTFCandidat:data.numeroTFCandidat !="" ? data.numeroTFCandidat : profile.candidatContract.numeroTFCandidat,
+        companyVat:data.companyVat !="" ? data.companyVat : profile.candidatContract.companyVat,
+        salaireBrut:data.salaireBrut !="" ? data.salaireBrut : profile.candidatContract.salaireBrut,
+        salaireNet:data.salaireNet !=""? data.salaireNet : profile.candidatContract.salaireNet,
+        diurnaTotalParJour:data.diurnaTotalParJour !="" ? data.diurnaTotalParJour : profile.candidatContract.diurnaTotalParJour,
+        debutMissionDate:data.debutMissionDate !="" ? data.debutMissionDate : profile.candidatContract.debutMissionDate,
+        heurePerSemaine:data.heurePerSemaine !="" ? data.heurePerSemaine : profile.candidatContract.heurePerSemaine,
+        duree_hebdomadaire:data.duree_hebdomadaire !="" ? data.duree_hebdomadaire : profile.candidatContract.duree_hebdomadaire,
+        indemnisationJour:data.indemnisationJour != "" ? data.indemnisationJour : profile.candidatContract.indemnisationJour,
+        fin_mision:data.fin_mision !="" ? data.fin_mision : profile.candidatContract.fin_mision,
+        contractId:data.contractId !="" ? data.contractId : profile.candidatContract.contractId,
       }
       console.log(updatedData)
       // fileData.append('data', JSON.stringify(updatedData))
@@ -1159,94 +1197,92 @@ className="SelectBtn"
                 </div>
                 <div className="col-12 Social-Card mt-1">
               <div className='row  p-1'>
-                            <div className='col-4  d-grid text-start'>
-                                <label className="PDFFormlabel">Lieu_Mission</label>
-                                <input className='form-control inputStylingForView' name="lieu_mission"  onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.lieu_mission ? profile.candidatContract.lieu_mission: "" : ""}  placeholder="‎ ‎ ‎ Lieu_Mission" />
+              <div className='col-4  d-grid '>
+                                <label className="PDFFormlabel">Lieu Mission</label>
+                                <input className='form-control inputStyling' defaultValue={profile.candidatContract ? profile.candidatContract.lieu_mission != "" ? profile.candidatContract.lieu_mission :"" : ""} name='lieu_mission' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Lieu_Mission" />
                             </div>
-                            <div className='col-4  d-grid text-start' >
-                            <label className="PDFFormlabel">Durée_Mission</label>
-                            <input className='form-control inputStylingForView' name='duree_mission'  onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.duree_mission ? profile.candidatContract.duree_mission  : "" : ""}  placeholder="‎ ‎ ‎ Durée_Mission" />
+                            <div className='col-4  d-grid ' >
+                            <label className="PDFFormlabel">Durée Mission</label>
+                            <input className='form-control inputStyling' defaultValue={profile.candidatContract ? profile.candidatContract.duree_mission != "" ? profile.candidatContract.duree_mission :"" :""} name='duree_mission' onChange={onFormDataChange}  placeholder="‎ ‎ ‎ Durée_Mission" />
 
                             </div>
-                            <div className='col-4  d-grid text-start'>
-                            <label className="PDFFormlabel  d-flex align-items-start ">Durée_Hebdomadaire_Mission</label>
-                            <input className='form-control inputStylingForView' name='duree_hebdomadaire_mission' onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.duree_hebdomadaire_mission? profile.candidatContract.duree_hebdomadaire_mission  : "" : ""} placeholder="‎ ‎ ‎ Durée_Hebdomadaire_Mission"/>
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Durée Hebdomadaire Mission</label>
+                            <input className='form-control inputStyling' defaultValue={profile.candidatContract ? profile.candidatContract.duree_hebdomadaire_mission != "" ? profile.candidatContract.duree_hebdomadaire_mission : "" : ""} name='duree_hebdomadaire_mission' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Durée_Hebdomadaire_Mission"/>
 
                             </div>
-                            <div className='col-4  d-grid text-start'>
-                            <label className="PDFFormlabel">Candidate_Job</label>
-                            <input className='form-control inputStylingForView' name='candidatJob'  onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.candidatJob ? profile.candidatContract.candidatJob : "" : ""} placeholder="‎ ‎ ‎ Candidate_Job" />
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Candidate Job</label>
+                            <input className='form-control inputStyling'  name='candidatJob' onChange={onFormDataChange} defaultValue={profile.candidatContract ? profile.candidatContract.candidatJob != "" ? profile.candidatContract.candidatJob : "" : ""} placeholder="‎ ‎ ‎ Candidate_Job" />
 
                             </div>
-                            <div className='col-4  d-grid text-start'>
-                            <label className="PDFFormlabel">CMP_CANDIDATE</label>
-                            <input className='form-control inputStylingForView'  name='cmp_candidat' onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.cmp_candidat? profile.candidatContract.cmp_candidat : "" : ""}  placeholder="‎ ‎ ‎ CMP_CANDIDATE" />
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">CMP CANDIDATE</label>
+                            <input className='form-control inputStyling' defaultValue={profile.candidatContract ? profile.candidatContract.cmp_candidat !="" ? profile.candidatContract.cmp_candidat :""  :""}  name='cmp_candidat' onChange={onFormDataChange} placeholder="‎ ‎ ‎ CMP_CANDIDATE" />
 
                             </div>
-                            <div className='col-4  d-grid text-start'>
-                            <label className="PDFFormlabel">Contract_date</label>
-                            <input className='form-control inputStylingForView' name='contract_date' type="date"  onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.contract_date ? profile.candidatContract.contract_date : "" : ""}  placeholder="‎ ‎ ‎ Contract_date" />
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Contract Date</label>
+                            <input className='form-control inputStyling'  type="date" defaultValue={profile.candidatContract ? profile.candidatContract.contract_date != "" ? contract_date : "" : ""} name='contract_date' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Contract_date" />
 
                             </div>
-                            <div className='col-4  d-grid text-start'>
-                                                      <label className="PDFFormlabel d-flex align-items-start ">Company_Contact_Name</label>
-                            
-
-                            <input className='form-control inputStylingForView' name='company_contact_name' onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.company_contact_name ? profile.candidatContract.company_contact_name : "" : ""} placeholder="‎ ‎ ‎ Company_Contact_Name" />
-                            
-                            </div>
-                            <div className='col-4  d-grid text-start'>
-                            <label className="PDFFormlabel">NR_INREG</label>
-                            <input className='form-control inputStylingForView' name='nr_inreg' onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.nr_inreg ? profile.candidatContract.nr_inreg : "" : ""}  placeholder="‎ ‎ ‎ NR_INREG" />
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Company Contact Name</label>
+                            <input  className='inputStylings wHCompany form-control' defaultValue={profile.candidatContract ? profile.candidatContract.company_contact_name != "" ? profile.candidatContract.company_contact_name : "" : ""} name='company_contact_name' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Company_Contact_Name" />
 
                             </div>
-                            <div className='col-4  d-grid text-start'>
-                            <label className="PDFFormlabel">SERIE_ID</label>
-                            <input className='form-control inputStylingForView'  name='serie_id' onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.serie_id ? profile.candidatContract.serie_id: "" : ""}  placeholder="‎ ‎ ‎ SERIE_ID" />
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">NR INREG</label>
+                            <input className='form-control inputStyling' defaultValue={profile.candidatContract ? profile.candidatContract.nr_inreg !="" ? profile.candidatContract.nr_inreg : "" : ""}  name='nr_inreg' onChange={onFormDataChange} placeholder="‎ ‎ ‎ NR_INREG" />
 
                             </div>
-                            
-                            <div className='col-4 d-grid text-start'>
-                            <label className="PDFFormlabel">Candidate_Adress</label>
-                            <input className='form-control inputStylingForView'  name='candidatAddress'  onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.candidatAddress ? profile.candidatContract.candidatAddress : "" : ""}  placeholder="‎ ‎ ‎ Candidate_Adress" />
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">SERIE ID</label>
+                            <input className='form-control inputStyling' defaultValue={profile.candidatContract ? profile.candidatContract.serie_id !=="" ? profile.candidatContract.serie_id :"" :""} name='serie_id' onChange={onFormDataChange} placeholder="‎ ‎ ‎ SERIE_ID" />
 
                             </div>
-                            <div className='col-4  d-grid text-start'>
-                            <label className="PDFFormlabel">Company_Siret</label>
-                            <input className='form-control inputStylingForView' name='company_siret'  onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.company_siret ? profile.candidatContract.company_siret : "": ""}  placeholder="‎ ‎ ‎ Company_Siret" />
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Candidate Adress</label>
+                            <input className='form-control inputStyling'  name='candidatAddress' onChange={onFormDataChange} defaultValue={profile.candidatContract ? profile.candidatContract.candidatAddress !=="" ? profile.candidatContract.candidatAddress : "" : ""} placeholder="‎ ‎ ‎ Candidate_Adress" />
 
                             </div>
-                            
+                            <div className='col-4  d-grid '>
+                            <label className="PDFFormlabel">Company Siret</label>
+                            <input className='form-control inputStyling' defaultValue={profile.candidatContract ? profile.candidatContract.company_siret !="" ? profile.candidatContract.company_siret : ""  : ""}  name='company_siret' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Company_Siret" />
+
+                            </div>
+
+
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Numero TF Candidat</label>
-                            <input className='form-control inputStyling'  name='numeroTFCandidat'  onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.numeroTFCandidat ? profile.candidatContract.numeroTFCandidat : "": ""}  placeholder="‎ ‎ ‎ Numero TF Candidat" />
+                            <input className='form-control inputStyling'   name='numeroTFCandidat'  defaultValue={profile.candidatContract ? profile.candidatContract.numeroTFCandidat !="" ? profile.candidatContract.numeroTFCandidat : ""  : ""}  onChange={onFormDataChange} placeholder="‎ ‎ ‎ Numero TF Candidat" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Company Vat</label>
-                            <input className='form-control inputStyling'  name='companyVat'  onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.companyVat ? profile.candidatContract.companyVat : "": ""}   placeholder="‎ ‎ ‎ Company Vat" />
+                            <input className='form-control inputStyling'  name='companyVat' onChange={onFormDataChange}  defaultValue={profile.candidatContract ? profile.candidatContract.companyVat !="" ? profile.candidatContract.companyVat : ""  : ""}   placeholder="‎ ‎ ‎ Company Vat" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Salaire Brut</label>
-                            <input className='form-control inputStyling'   name='salaireBrut'  onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.salaireBrut ? profile.candidatContract.salaireBrut : "": ""} placeholder="‎ ‎ ‎ Salaire Brut" />
+                            <input className='form-control inputStyling'   name='salaireBrut' onChange={onFormDataChange}  defaultValue={profile.candidatContract ? profile.candidatContract.salaireBrut !="" ? profile.candidatContract.salaireBrut : ""  : ""}  placeholder="‎ ‎ ‎ Salaire Brut" />
 
                             </div>
 
 
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Salaire Net</label>
-                            <input className='form-control inputStyling'  name='salaireNet'  onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.salaireNet ? profile.candidatContract.salaireNet : "": ""}  placeholder="‎ ‎ ‎ Salaire_Net" />
+                            <input className='form-control inputStyling'  name='salaireNet' onChange={onFormDataChange}  defaultValue={profile.candidatContract ? profile.candidatContract.salaireNet !="" ? profile.candidatContract.salaireNet : ""  : ""}  placeholder="‎ ‎ ‎ Salaire_Net" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Diurna Total Par Jour</label>
-                            <input className='form-control inputStyling'  name='diurnaTotalParJour'  onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.diurnaTotalParJour ? profile.candidatContract.diurnaTotalParJour : "": ""}  placeholder="‎ ‎ ‎ Diurna Total Par Jour" />
+                            <input className='form-control inputStyling'  name='diurnaTotalParJour' onChange={onFormDataChange}  defaultValue={profile.candidatContract ? profile.candidatContract.diurnaTotalParJour !="" ? profile.candidatContract.diurnaTotalParJour : ""  : ""}  placeholder="‎ ‎ ‎ Diurna Total Par Jour" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Debut Mision (Date)</label>
-                            <input className='form-control inputStyling' type="date"  name='debutMissionDate'  onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.debutMissionDate ? profile.candidatContract.debutMissionDate : "": ""}  placeholder="‎ ‎ ‎ Debut Mision Date" />
+                            <input className='form-control inputStyling' type="date"  name='debutMissionDate' onChange={onFormDataChange}  defaultValue={profile.candidatContract ? profile.candidatContract.debutMissionDate !="" ? debutMissionDate : ""  : ""}  placeholder="‎ ‎ ‎ Debut Mision Date" />
 
                             </div>
 
@@ -1254,29 +1290,31 @@ className="SelectBtn"
 
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Heure Par Semaine</label>
-                            <input className='form-control inputStyling'  name='heurePerSemaine'  onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.heurePerSemaine ? profile.candidatContract.heurePerSemaine : "": ""}  placeholder="‎ ‎ ‎ Heure Par Semaine" />
+                            <input className='form-control inputStyling'  name='heurePerSemaine' onChange={onFormDataChange}  defaultValue={profile.candidatContract ? profile.candidatContract.heurePerSemaine !="" ? profile.candidatContract.heurePerSemaine : ""  : ""}  placeholder="‎ ‎ ‎ Heure Par Semaine" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Duree Hebdomadaire</label>
-                            <input className='form-control inputStyling'  name='duree_hebdomadaire'  onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.duree_hebdomadaire ? profile.candidatContract.duree_hebdomadaire : "": ""}   placeholder="‎ ‎ ‎ Duree Hebdomadaire" />
+                            <input className='form-control inputStyling'  name='duree_hebdomadaire' onChange={onFormDataChange}  defaultValue={profile.candidatContract ? profile.candidatContract.duree_hebdomadaire !="" ? profile.candidatContract.duree_hebdomadaire : ""  : ""}   placeholder="‎ ‎ ‎ Duree Hebdomadaire" />
 
                             </div>
-                            <div className='col-4  d-grid'>
+                            <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">indemnisation jour</label>
-                            <input className='form-control inputStyling'  name='indemnisationJour'  onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.indemnisationJour ? profile.candidatContract.indemnisationJour : "": ""}  placeholder="‎ ‎ ‎ indemnisation jour" />
+                            <input className='form-control inputStyling'  name='indemnisationJour' onChange={onFormDataChange}  defaultValue={profile.candidatContract ? profile.candidatContract.indemnisationJour !="" ? profile.candidatContract.indemnisationJour : ""  : ""}  placeholder="‎ ‎ ‎ indemnisation jour" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Fin Mision</label>
-                            <input className='form-control inputStyling'  type="date" name='fin_mision'  onChange={onInputDataChange} defaultValue={profile.candidatContract ? profile.fin_mision !="" ? profile.fin_mision : "": ""}  placeholder="‎ ‎ ‎ indemnisation jour" />
+                            <input className='form-control inputStyling'  type="date" name='fin_mision' onChange={onFormDataChange}  defaultValue={profile.candidatContract ? profile.candidatContract.fin_mision !="" ? fin_mision : ""  : ""}  placeholder="‎ ‎ ‎ indemnisation jour" />
 
                             </div>
-                            <div className='col-12  d-grid text-start'>
-                            <label className="PDFFormlabel">Company_Adress</label>
-                            <textarea className='TextAreaPage form-control' onChange={onInputDataChange} defaultValue={profile.candidatContract ?profile.candidatContract.companyAddress ? profile.candidatContract.companyAddress : "": ""} placeholder='‎ ‎ ‎Company_Adress'></textarea>
+
+
+                            <div className='col-12  d-grid '>
+                            <label className="PDFFormlabel">Company Adress</label>
+                            <textarea className='TextArea form-control' defaultValue={profile.candidatContract ? profile.candidatContract.companyAddress !=""? profile.candidatContract.companyAddress : "" : ""} name='companyAddress' onChange={onFormDataChange} placeholder='‎ ‎ ‎Company_Adress' ></textarea>
                             </div>
-                  
+                     
 
                             <div className="col-12 px-0 mt-3">
                   <div className="row justify-content-end">
