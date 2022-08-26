@@ -38,6 +38,7 @@ const ClientDataFormat = {
     enteredBy: "",
     jobStatus: "To-Do",
     clientReferenceEmail: "",
+    
 }
 let Amountarr = "";
 let Hours = "";
