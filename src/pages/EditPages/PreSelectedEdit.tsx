@@ -132,9 +132,11 @@ function PreSelectedEdit() {
   const [GetMonth2,setMonth2]=useState()as any
   const [GetMonth3,setMonth3]=useState()as any
 
-
   useEffect(()=>{
+
+    if(JSON.stringify(profile).includes(JSON.stringify(profile.candidatContract))){
     if(profile.candidatContract.contract_date){
+
    
           let tempdate =new Date(profile.candidatContract.contract_date)
           setMonth(tempdate.getMonth()+ 1)
@@ -154,8 +156,7 @@ function PreSelectedEdit() {
     
 
 
-}},)
-
+}}},)
  
   console.log(profile,"dls")
 
@@ -1163,7 +1164,11 @@ className="SelectBtn"
 
                 <div className="col-12 mt-1">
               <div className='row  p-1'>
-              <div className='col-4  d-grid '>
+              {
+                  JSON.stringify(profile).includes(JSON.stringify(profile.candidatContract)) ?
+<>
+
+                  <div className='col-4  d-grid '>
                                 <label className="PDFFormlabel">Lieu Mission</label>
                                 <input className='form-control inputStyling' defaultValue={profile.candidatContract ? profile.candidatContract.lieu_mission != "" ? profile.candidatContract.lieu_mission :"" : ""} name='lieu_mission' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Lieu_Mission" />
                             </div>
@@ -1280,8 +1285,16 @@ className="SelectBtn"
                             <label className="PDFFormlabel">Company Adress</label>
                             <textarea className='TextArea form-control' defaultValue={profile.candidatContract ? profile.candidatContract.companyAddress !=""? profile.candidatContract.companyAddress : "" : ""} name='companyAddress' onChange={onFormDataChange} placeholder='‎ ‎ ‎Company_Adress' ></textarea>
                             </div>
-                     
-                  
+                        
+    
+                     </>
+                     : 
+                  <div className="col-12 d-flex justify-content-center pt-2">
+                    <p>
+                    No Contract Available for this Candidat! Please add a New Contract.
+                    </p>
+                    </div>
+                }
                             <div className="col-12 px-0 mt-3">
                   <div className="row justify-content-end">
                     <div className="col-6 d-flex justify-content-end">

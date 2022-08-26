@@ -139,6 +139,9 @@ function EditDo() {
 
 
   useEffect(()=>{
+    if(JSON.stringify(profile).includes(JSON.stringify(profile.candidatContract))){
+
+    
     if(profile.candidatContract.contract_date){
    
           let tempdate =new Date(profile.candidatContract.contract_date)
@@ -159,7 +162,8 @@ function EditDo() {
     
 
 
-}},)
+}}
+},)
 
   const editExperience = (e: any) => {
     e.preventDefault()
@@ -1192,12 +1196,42 @@ className="SelectBtn"
                
                
                 </div>
+                   
+                {/* {
+                  JSON.stringify(profile).includes(JSON.stringify(profile.candidatContract)) ?
 
+                  null 
+                  :
+                <div className="col-12 px-0 mt-3">
+                  <div className="row justify-content-end">
+                    <div className="col-6 d-flex justify-content-end">
+                      <Link to={path} style={{ textDecoration: "none" }}>
+
+                        <button type="button" className="btn edit-btnCancel mr-1">
+                          <img
+                            style={{ width: "25%" }}
+                            src={require("../../images/multiply.svg").default}
+                          />
+                          <p className="mb-0" style={{marginLeft:"5px"}}>Cancel</p>
+                        </button>
+                      </Link>
+                      <button className="btn editBtnSave mb-0" type="submit">
+                        <img style={{marginRight:"5px"}} src={require("../../images/savebtn.svg").default} />
+                        Save Profile
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <div className="col-12 Social-Card mt-1">
+} */}
+                  </div>
+                </div>
+                <div className="col-12 Social-Card my-1">
               <div className='row  p-1'>
-              <div className='col-4  d-grid '>
+                {
+                  JSON.stringify(profile).includes(JSON.stringify(profile.candidatContract)) ?
+<>
+
+                  <div className='col-4  d-grid '>
                                 <label className="PDFFormlabel">Lieu Mission</label>
                                 <input className='form-control inputStyling' defaultValue={profile.candidatContract ? profile.candidatContract.lieu_mission != "" ? profile.candidatContract.lieu_mission :"" : ""} name='lieu_mission' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Lieu_Mission" />
                             </div>
@@ -1314,9 +1348,18 @@ className="SelectBtn"
                             <label className="PDFFormlabel">Company Adress</label>
                             <textarea className='TextArea form-control' defaultValue={profile.candidatContract ? profile.candidatContract.companyAddress !=""? profile.candidatContract.companyAddress : "" : ""} name='companyAddress' onChange={onFormDataChange} placeholder='‎ ‎ ‎Company_Adress' ></textarea>
                             </div>
-                     
-
-                            <div className="col-12 px-0 mt-3">
+                        
+    
+                     </>
+                     : 
+                  <div className="col-12 d-flex justify-content-center pt-2">
+                    <p>
+                    No Contract Available for this Candidat! Please add a New Contract.
+                    </p>
+                    </div>
+                }
+              
+              <div className="col-12 px-0 mt-3">
                   <div className="row justify-content-end">
                     <div className="col-6 d-flex justify-content-end">
                       <Link to={path} style={{ textDecoration: "none" }}>
@@ -1336,9 +1379,8 @@ className="SelectBtn"
                     </div>
                   </div>
                 </div>
-                  
-</div>
-              </div>
+                </div>
+                     </div>   
 
             </div>
           </form>

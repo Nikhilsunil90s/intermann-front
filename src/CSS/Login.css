@@ -111,3 +111,30 @@ color: #6F7187;
     text-align: right;  
     color: #032339;
 }
+
+
+@media (min-width:768px){
+
+}
+
+@media (min-width:1200px){
+    
+}
+
+@media (min-width:1400px){
+    .img-Back {
+        background-image: url('../images/LoginImg.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    padding-right: 0px;
+    background-size: 100%;
+    padding-left: 0px;
+    height: 100vh;
+}
+.Login-fields{
+    display: grid!important;
+    align-items: center;
+    height: 75vh;
+    align-content: center;
+}
+}

@@ -65,7 +65,7 @@ function Login() {
 
                 </div>
               </div>
-              <div className="col-6">
+              <div className="col-6 pt-1">
                 <div className=" d-flex justify-content-between">
                   <div className="">
                     <a href="http://intermann.ro/" target="_blank">
@@ -83,7 +83,7 @@ function Login() {
                   </div>
                 </div>
                 <br />
-                <section className="">
+                <section className="Login-fields">
                   {/* <form className="login-panel" > */}
                   <form className="login-panel" onSubmit={onLoginFormSubmit}>
                     <div className="text-center">
