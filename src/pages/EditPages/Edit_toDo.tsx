@@ -139,21 +139,21 @@ function EditDo() {
 
 
   useEffect(()=>{
-    if(profile.contract_date){
+    if(profile.candidatContract.contract_date){
    
-          let tempdate =new Date(profile.contract_date)
+          let tempdate =new Date(profile.candidatContract.contract_date)
           setMonth(tempdate.getMonth()+ 1)
           
         setcontract_date([tempdate.getFullYear() ,"0" + GetMonth,tempdate.getDate()].join("-"))
     }
-    if(profile.debutMissionDate){
-      let tempdate2 =new Date(profile.debutMissionDate)
+    if(profile.candidatContract.debutMissionDate){
+      let tempdate2 =new Date(profile.candidatContract.debutMissionDate)
       setMonth2(tempdate2.getMonth()+1)
       setdebutMissionDate([tempdate2.getFullYear() ,"0"+GetMonth2,tempdate2.getDate()].join("-"))
     }
     
-    if(profile.fin_mision){
-     let tempdate3 =new Date(profile.fin_mision)
+    if(profile.candidatContract.fin_mision){
+     let tempdate3 =new Date(profile.candidatContract.fin_mision)
       setMonth3(tempdate3.getMonth()+1)
       setfin_mision([tempdate3.getFullYear() ,"0"+GetMonth3,tempdate3.getDate()].join("-"))
     
@@ -554,7 +554,7 @@ if(checked == false){
         duree_hebdomadaire:data.duree_hebdomadaire !="" ? data.duree_hebdomadaire : profile.candidatContract.duree_hebdomadaire,
         indemnisationJour:data.indemnisationJour != "" ? data.indemnisationJour : profile.candidatContract.indemnisationJour,
         fin_mision:data.fin_mision !="" ? data.fin_mision : profile.candidatContract.fin_mision,
-        contractId:data.contractId !="" ? data.contractId : profile.candidatContract.contractId,
+        contractId:data.contractId !="" ? data.contractId : profile.candidatContract._id,
       }
       console.log(updatedData)
       // fileData.append('data', JSON.stringify(updatedData))
