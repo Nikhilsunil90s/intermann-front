@@ -286,9 +286,34 @@ color: #ADADAD;
 
 }
 
-
+.inputData{
+    height: auto;
+    width: 418px;
+    position: fixed;
+    right: 13px;
+    z-index: 9999990;
+    top: 65px;
+    background-color: #ffff;
+}
+.nameCard{
+    background: #F5F6F8;
+    border-radius: 100px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #8F8F8F;
+    height: 35px;
+}
 }
 @media (min-width:1200px){
+
     .searcInputbOx{
         font-family: 'Poppins';
     font-style: normal;
@@ -335,6 +360,7 @@ padding-top:0px ;
         font-size: 14px;
         line-height: 24px;
         color: #F6F7F9;
+        border-radius: 0px !important;
     }
     .fontStylingBar {
         font-family: 'Poppins';
@@ -415,10 +441,98 @@ padding-top:0px ;
         z-index: 9000000;
     }
     .logoSet {
-        padding: 20px 16px;
+        padding: 20px 50px;
         width: 100%;
-        border-bottom: 1px solid rgba(0,0,0,.1);
+        border-bottom: 1px solid #ffff;
     }
  
    
+}
+
+@media  (min-width:1400px){
+    .HeaderModalContainer {
+        position: fixed !important;
+        width: 273px !important;
+        height: 135px !important;
+        left: 805px !important;
+        top: 58px !important;
+    }
+    .LoginModalContainer{
+        position: fixed !important;
+        width: 273px !important;
+        height: 135px !important;
+        left: 1123px !important;
+        top: 58px !important;
+    }
+    
+    
+}
+@media  (min-width:1600px){
+    .HeaderModalContainer {
+        position: fixed !important;
+        width: 273px !important;
+        height: 135px !important;
+        left: 908px !important;
+        top: 58px !important;
+    }
+    .LoginModalContainer{
+        position: fixed !important;
+        width: 273px !important;
+        height: 135px !important;
+        left: 1295px !important;
+        top: 58px !important;
+    }
+
+    
+    
+}
+@media  (min-width:1700px){
+    .HeaderModalContainer {
+        position: fixed !important;
+        width: 273px !important;
+        height: 135px !important;
+        left: 976px !important;
+        top: 58px !important;
+    }
+.LoginModalContainer{
+    position: fixed !important;
+    width: 273px !important;
+    height: 135px !important;
+    left: 1410px !important;
+    top: 58px !important;
+}
+    
+    
+}
+@media  (min-width:1800px){
+    .HeaderModalContainer {
+        position: fixed !important;
+        width: 273px !important;
+        height: 135px !important;
+        left: 1101px !important;
+        top: 58px !important;
+    }
+    .LoginModalContainer{
+        position: fixed !important;
+        width: 273px !important;
+        height: 135px !important;
+        left: 1101px !important;
+        top: 58px !important;  
+    }
+}
+@media  (min-width:1900px){
+    .HeaderModalContainer {
+        position: fixed !important;
+        width: 273px !important;
+        height: 135px !important;
+        left: 1513px !important;
+        top: 58px !important;
+    }
+    .LoginModalContainer{
+        position: fixed !important;
+        width: 273px !important;
+        height: 135px !important;
+        left: 1621px !important;
+        top: 58px !important;
+    }
 }

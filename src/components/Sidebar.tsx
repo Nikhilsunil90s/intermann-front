@@ -38,7 +38,7 @@ function Sidebar(props: any) {
             >
               <Link
                 to="/dashboard"
-                className="d-flex bottom-radius logoSet align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none"
+                className="d-flex bottom-radius logoSet justify-content-center align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none"
               >
                 <span>
                   <img src={require("../images/logo-header.svg").default} className="filter-logo" />
@@ -177,7 +177,7 @@ function Sidebar(props: any) {
                     </div>
                   </div>
                 </div>
-                <li style={{ border: '0px' }} className="list-group-item sideBarBackG" onClick={(e) => LogOut()}>
+                <li style={{ borderTop: '1px solid #ffff',borderBottom:"0px",borderLeft:"0px" }} className="list-group-item sideBarBackG" onClick={(e) => LogOut()}>
                   <Link to="/" className="signOut" aria-current="page">
                     <span className="pe-2">
                       <img className="logoutImage" src={require("../images/logout.svg").default} />
