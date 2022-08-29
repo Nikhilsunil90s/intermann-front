@@ -158,6 +158,10 @@ console.log(data,"setsata")
       })
     }
 
+    const VoirModal=()=>{
+      window.open("https://intermann-v2.herokuapp.com/uploads/models.zip")
+    }
+
     const invokeGeneratePDF = () => {
 
         console.log(data);
@@ -349,7 +353,7 @@ console.log(data,"setsata")
                                            <p className='PDFNotes'>Download cloud</p>
                                            </div>
                                            <div className='col-3'>
-                                           <button className='voirModal' type='button'>
+                                           <button className='voirModal' onClick={VoirModal} type='button'>
                                            Voir le model
                                            </button>
                                            </div>

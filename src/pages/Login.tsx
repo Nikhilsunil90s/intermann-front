@@ -7,8 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import { loginUserAction, logout } from "../redux/actions/userActions";
 import { Toaster, toast } from "react-hot-toast";
-import { useParams } from "react-router";
-import { useLocation } from "react-router";
+import HeaderSelect from "../../src/components/Modal/HeaderSelectModal"
 
 function Login() {
   const navigate = useNavigate();
@@ -18,6 +17,7 @@ function Login() {
   console.log(state, "type");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [ModalOpen,setModalOpen]=useState(false)
 
   const notifyLogin = () => toast.success("Welcome To Intermann!");
   const notifyLoginError = () =>
@@ -53,7 +53,26 @@ function Login() {
       notifyLoginError();
     }
   };
+  const Modal=()=>{
 
+    if(ModalOpen == true){
+     setModalOpen(false)
+    }
+    if(ModalOpen == false){
+     setModalOpen(true)
+    }
+ 
+   }
+
+   const onchange=(val:any)=>{
+    if (val == 'ROUMAIN') {
+          window.open("https://www.intermann.ro/")
+         } 
+         if (val == 'FRANCAIS') {
+           window.open("https://www.intermann.fr/")
+           
+         }
+}
   return (
     <main className="padding-x01">
       <div className="container-fluid">
@@ -66,21 +85,16 @@ function Login() {
                 </div>
               </div>
               <div className="col-6 pt-1">
-                <div className=" d-flex justify-content-between">
-                  <div className="">
-                    <a href="http://intermann.ro/" target="_blank">
-                      <button className="btn btn-001">
-                        VOIR LE SITE EN ROUMAIN
-                      </button>
-                    </a>
-                  </div>
-                  <div className="">
-                    <a href="https://www.intermann.fr/" target="_blank">
-                      <button className="btn btn-001">
-                        VOIR LE SITE EN FRANçAIS
-                      </button>
-                    </a>
-                  </div>
+                <div className=" d-flex justify-content-end">
+                <div  className="d-flex cursor-pointer" onClick={()=>
+                  Modal()}>
+                    <div className="HeaderModalSelect">
+                      <img src={require("../images/headerSelect.svg").default} />
+                    </div>
+                    <div className="d-flex justify-content-center align-items-center ml-1" >
+                      <img src={require("../images/Vector-9.svg").default} />
+                    </div>
+                    </div>
                 </div>
                 <br />
                 <section className="Login-fields">
@@ -212,6 +226,49 @@ function Login() {
                       </div>
                     </div>
                   </form>
+                  {
+                ModalOpen ? 
+                <div className="modal d-flex LoginModalContainer"   data-target='#deleteModal'  id="staticBackdrop2"  data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div className="modal-dialog HeaderWidthModal">
+                    <div className="modal-content">
+                        <div className="modal-body HeaderWidthModal text-start">
+                            <button
+                             style={{
+                               backgroundColor:"transparent",
+                               border:"0px",
+                               width: "100%",
+                               height: "35px",
+                               textAlign:"left"
+                            }}
+                            className="hoverbtnS"
+                      
+                          onClick={()=>{onchange("ROUMAIN");setModalOpen(false);}}
+                            >
+                      <p className="VoirLESite mb-0 ml-1">VOIR LE SITE ROUMAIN</p>
+                           </button>
+                           <button 
+                          onClick={()=>{onchange("FRANCAIS");setModalOpen(false);}}
+                            style={{
+                            marginTop:"10px",
+                            backgroundColor:"transparent",
+                            border:"0px",
+                            width: "100%",
+                         height:"35px",
+                         textAlign:"left"
+                            
+                            }}
+                            className="hoverbtnS"
+                            >
+              <p className="VoirLESite mb-0 ml-1">VOIR LE SITE FRANCAIS</p>
+                           </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+                : 
+                null
+               }
                   <Toaster position="top-right" containerStyle={{zIndex:"9999999999999999"}}/>
                 </section>
               </div>
@@ -220,6 +277,7 @@ function Login() {
         </div>
       </div>
     </main>
+  
   );
 }
 

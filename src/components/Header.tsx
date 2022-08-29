@@ -1,7 +1,21 @@
-import React from "react";
+import React,{useState} from "react";
 import "../CSS/Header.css";
 import { Link } from "react-router-dom";
+import HeaderSelect from "../../src/components/Modal/HeaderSelectModal"
+
 const Header = () => {
+  const [ModalOpen,setModalOpen]=useState(false)
+
+  const Modal=()=>{
+
+   if(ModalOpen == true){
+    setModalOpen(false)
+   }
+   if(ModalOpen == false){
+    setModalOpen(true)
+   }
+
+  }
   return (
     <>
      
@@ -37,8 +51,17 @@ const Header = () => {
 
                 <div className="col-xxl-7 col-xl-7 col-lg-7 col-md-7">
                    <div className="row text-end">
+                 
                     <div className="d-flex justify-content-end">
-                     <a
+                      <div  className="d-flex cursor-pointer" onClick={()=>Modal()}>
+                    <div className="HeaderModalSelect">
+                      <img src={require("../images/headerSelect.svg").default} />
+                    </div>
+                    <div className="d-flex justify-content-center align-items-center ml-1" >
+                      <img src={require("../images/Vector-9.svg").default} />
+                    </div>
+                    </div>
+                     {/* <a
                         className="nav-link p-0"
                         href="https://www.intermann.ro/"
                         target="_blank"
@@ -58,7 +81,17 @@ const Header = () => {
                         <button className=" btn btn-004">
                         VOIR LE SITE EN FRANçAIS
                         </button>
-                      </a>
+                      </a> */}
+
+                      <div className="d-flex mx-2" style={{background: "#F5F6F8",
+    border: "1px solid #ADADAD",
+    borderRadius: "26px",
+    width: "82%"}}>
+                        <div className="d-flex align-items-center pl-1">
+                        <img  src={require("../images/searchIcon.svg").default} />
+                        </div>
+                        <input style={{border:"0px",background: "#F5F6F8"}} className="searcInputbOx pl-1" placeholder="Search, Name, Phone, Work, Jobs..." />
+                      </div>
                       </div>
                    </div>
                 </div>
@@ -66,6 +99,14 @@ const Header = () => {
                   </div>
                 {/* </div>
                </nav> */}
+
+               {
+                ModalOpen ? 
+<HeaderSelect   closeModal={setModalOpen} />
+           
+                : 
+                null
+               }
         
 
     </>
