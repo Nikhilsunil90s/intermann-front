@@ -13,7 +13,16 @@ body {
 
     overflow-x: scroll;
 }
-
+.inputData::-webkit-scrollbar {
+    width: 5px;               /* width of the entire scrollbar */
+  }
+  .inputData::-webkit-scrollbar-track {
+    background: #e7e7e7;        /* color of the tracking area */
+  }
+  .inputData::-webkit-scrollbar-thumb {
+    background-color: orange;    /* color of the scroll thumb */
+    border-radius: 10px;       /* roundness of the scroll thumb */  /* creates padding around scroll thumb */
+  }
 .navbar {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
@@ -92,6 +101,86 @@ body {
     padding-top: 5px;
 }
 
+.EmbaucheCardSearchBtn {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #A461D8;
+    border: 0px;
+    background: #F4E7FF;
+    border-radius: 100px;
+    width: 124%;
+    /* padding: 3px 11px !important; */
+    height: 23px;
+}
+
+.nameCard{
+    background: #F5F6F8;
+    border-radius: 100px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #8F8F8F;
+    height: 35px;
+}
+.nameCardbtn{
+    border-radius: 100px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #8F8F8F;
+    height: 35px;
+}
+.ArchivedCardSearchBtn{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 10px;
+    color: #FF0000;
+    background-color: #FFE0E0;
+    border: 0px;
+    border-radius: 100px;
+    height: 27px;
+    width: 124%;
+}
+.todoBtnStyleCard{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;  
+    color: #3F76E2;
+    background: #E4F4FF;
+    border: 0px;
+    border-radius: 100px;
+    height: 27px;
+    width: 124%;
+}
+.clear{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #ADADAD;
+}
 @media (min-width: 768px){
 .HeaderModalSelect {
     height: 37px;
@@ -286,31 +375,19 @@ color: #ADADAD;
 
 }
 
-.inputData{
-    height: auto;
-    width: 418px;
+.inputData {
+    
+    height: 50%;
+    width: 46%;
     position: fixed;
     right: 13px;
     z-index: 9999990;
     top: 65px;
     background-color: #ffff;
+    border-radius: 10px;
+    overflow-y: scroll;
 }
-.nameCard{
-    background: #F5F6F8;
-    border-radius: 100px;
-    width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px;
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 16px;
-    color: #8F8F8F;
-    height: 35px;
-}
+
 }
 @media (min-width:1200px){
 

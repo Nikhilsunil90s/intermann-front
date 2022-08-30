@@ -1,19 +1,20 @@
 import { Link } from "react-router-dom";
-import "../../CSS/Client/ClientTodo.css";
+import "../../../CSS/Client/ClientTodo.css";
 import StarRatings from "react-star-ratings";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import InProgressClientModal from "../../components/Modal/InProgressClientModal";
-import ArchivedClientModal from "../../components/Modal/ArchivedClientModal";
+import InProgressClientModal from "../../../components/Modal/InProgressClientModal";
+import ArchivedClientModal from "../../../components/Modal/ArchivedClientModal";
 import { ReactComponent as Empty } from "../../images/emptyStar.svg";
 import { ReactComponent as StarRating } from "../../images/RatingStar.svg";
 import Switch from "react-switch";
 import Select from "react-select";
 import { ReactComponent as TurnoFF } from "../../images/FatX.svg";
 import { ReactComponent as TurnOn } from "../../images/base-switch_icon.svg";
-import { API_BASE_URL } from "../../config/serverApiConfig";
+import { API_BASE_URL } from "../../../config/serverApiConfig";
 import toast from "react-hot-toast";
 import moment from 'moment';
+import { useLocation } from "react-router";
 
 let id = "";
 
@@ -21,7 +22,8 @@ const ClientToDoCard = (props: any) => {
   const navigate = useNavigate();
 
   const notificationSwitch=()=>toast.success("Modification sauvegardée")
-
+  
+  const {state} =useLocation()
 
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);

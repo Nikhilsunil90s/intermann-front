@@ -57,7 +57,7 @@ console.log(props,"ppr")
                         />
                     </div>
                     <div className="col-7 EmbauchCard pt-1 px-0" >
-                    <p style={{width:"100%"}}  className="text-dark mb-0"><b>{profile.candidatName.length > 20 ? profile.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : profile.candidatName.toLocaleUpperCase()}</b></p>
+                    <p style={{width:"100%"}}  className="text-dark mb-0"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={profile.candidatName.toLocaleUpperCase()}><b>{profile.candidatName.length > 20 ? profile.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : profile.candidatName.toLocaleUpperCase()}</b></p>
                     <p className="text-dark mb-0">{profile.candidatAge ?  <p className="age00 ml-0 mb-0">Age : <b> {profile.candidatAge}</b></p> : <b>Age Not Available!</b>}</p>
                         <div >  <p className="text-dark d-flex"> <b>{candidatMotivationIcons[profile.candidatMotivation - 1].icon + " " + candidatMotivationIcons[profile.candidatMotivation - 1].motivation}</b> 
                         </p>

@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import "../../CSS/Client/ArchivedCardClient.css"
-
+import $ from 'jquery'
 
 function UploadDow({ closeModal }) {
-
 
     const onchange=(val:any)=>{
         if (val == 'ROUMAIN') {
@@ -17,9 +16,11 @@ function UploadDow({ closeModal }) {
                
              }
     }
+
+ 
     return (<>
 
-        <div className="modal d-flex HeaderModalContainer"   data-target='#deleteModal'  id="staticBackdrop2"  data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div className="modal d-flex HeaderModalContainer"   data-target='#deleteModal'  id="myModal"   aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div className="modal-dialog HeaderWidthModal">
                 <div className="modal-content">
                     <div className="modal-body HeaderWidthModal text-start">
