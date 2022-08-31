@@ -80,9 +80,9 @@ const Header = () => {
 const NameSearch=(e)=>{
   setSearchOpen(true)
 if(e == null ){
-  setValue("‎")
+  setValue("")
   setSearchOpen(false)
-
+  window.location.href="/dashboard"
 }
 else if(e.target.value !== "" && e !== null){
   setValue(e.target.value)
@@ -148,7 +148,7 @@ else if(e.target.value !== "" && e !== null){
                         <div className="d-flex align-items-center pl-1">
                         <img  src={require("../images/searchIcon.svg").default} />
                         </div>
-                        <input style={{border:"0px",background: "#F5F6F8"}} defaultValue={value}  onChange={NameSearch} className="searcInputbOx pl-1" placeholder="Search, Name, Phone, Work, Jobs..." />
+                        <input style={{border:"0px",background: "#F5F6F8"}} defaultValue={value !== "" ?value :""}  onChange={NameSearch} className="searcInputbOx pl-1" placeholder="Search, Name, Phone, Work, Jobs..." />
                      {
                          value !==""?
                          <div className="d-flex align-items-center px-1 clear cursor-pointer" onClick={()=>NameSearch(null)}>
