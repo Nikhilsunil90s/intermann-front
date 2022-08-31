@@ -16,7 +16,7 @@ import ProfileLoader from "../components/Loader/ProfilesLoader";
 import RenameDoc from '../components/Modal/RenameDoc_Modal'
 import UploadDow from '../components/Modal/SelectUploadDownload'
 import PDFGenerate from '../components/Modal/PDFGenerateModal'
-
+import moment from "moment";
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -47,6 +47,7 @@ function PreSelectedView() {
   const [fin_mision,setfin_mision]=useState()as any
   const [GetMonth,setMonth]=useState()as any
   const [GetMonth2,setMonth2]=useState()as any
+  const datenow=moment().format('YYYY-MM-DD')
   const [GetMonth3,setMonth3]=useState()as any
  const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
  const notifyDocumentDeleteError = () => toast.error("Document Not Removed! Please Try Again in few minutes.")
@@ -63,6 +64,12 @@ function PreSelectedView() {
     localStorage.setItem("profile", JSON.stringify(data));
     window.open("/clientSignedView", "_blank");
 }
+
+let date = new Date(datenow);
+
+let start = new Date(profile.candidatStartDate);
+let end = new Date(profile.candidatEndDate);
+ 
 
 
 useEffect(()=>{
@@ -453,8 +460,10 @@ null
                     </div>
                     <div className="d-flex ">
                       <p className="blue-text">Ready for work :</p>
-                      <span className="blue-text">
-                        {profile.candidatStartDate ? profile.candidatStartDate :"No StartDate!"} -{profile.candidatEndDate ? profile.candidatEndDate : "No EndDate!"}
+                      <span className="" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
+                      {date >= start && date <= end  ? profile.candidatStartDate  + "  To  " + profile.candidatEndDate :   "⚠️" + profile.candidatStartDate +"  To  " + profile.candidatEndDate} 
+                      
+                
                       </span>
                     </div>
                     <div className="d-flex">

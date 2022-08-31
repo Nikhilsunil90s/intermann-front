@@ -105,9 +105,9 @@ const PreSelectedCard = (props: any,) => {
                         </div>
                     </div>
                     </div>
-                <div className="card-body CardDetails">
+                <div className="card-todoBody py-1" style={{paddingLeft:"5px"}}>
                
-                    <p className="preCard-Body ">Secteur : {props.data.candidatActivitySector ?  props.data.candidatActivitySector.toLocaleUpperCase() : "No Sector!"}</p>
+                    <p className="preCard-Body  ">Secteur : {props.data.candidatActivitySector ?  props.data.candidatActivitySector.toLocaleUpperCase() : "No Sector!"}</p>
                     <p className="preCard-Body">Job : {props.data.candidatJob ? props.data.candidatJob.toLocaleUpperCase() : "No Job!"}</p> 
                 <p className="preCard-Body-p">Candidats Age : <b>{props.data.candidatAge}</b></p> 
                     <p className="preCard-Body-p">Langues :  <b>{props.data.candidatLanguages ? props.data.candidatLanguages.length > 3 ? props.data.candidatLanguages.slice(0,3).join(", ") + "..." : props.data.candidatLanguages.join(", "): "No Langues Selected!"}</b>
