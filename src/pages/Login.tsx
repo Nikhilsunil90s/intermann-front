@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import Logo from "../components/Logo";
 import "../CSS/Login.css";
 import { connect, useDispatch, useSelector, Connect } from "react-redux";
@@ -73,6 +73,40 @@ function Login() {
            
          }
 }
+
+
+const ref = useRef();
+
+useOnClickOutside(ref, () => setModalOpen(false));
+
+function useOnClickOutside(ref, handler) {
+  useEffect(
+    () => {
+      const listener = (event) => {
+        // Do nothing if clicking ref's element or descendent elements
+        if (!ref.current || ref.current.contains(event.target)) {
+          return;
+        }
+        handler(event);
+      };
+      document.addEventListener("mousedown", listener);
+      document.addEventListener("touchstart", listener);
+      return () => {
+        document.removeEventListener("mousedown", listener);
+        document.removeEventListener("touchstart", listener);
+      };
+    },
+    // Add ref and handler to effect dependencies
+    // It's worth noting that because the passed-in handler is a new ...
+    // ... function on every render that will cause this effect ...
+    // ... callback/cleanup to run every render. It's not a big deal ...
+    // ... but to optimize you can wrap handler in useCallback before ...
+    // ... passing it into this hook.
+    [ref, handler]
+  );
+}
+
+
   return (
     <main className="padding-x01">
       <div className="container-fluid">
@@ -228,7 +262,7 @@ function Login() {
                   </form>
                   {
                 ModalOpen ? 
-                <div className="modal d-flex LoginModalContainer"   data-target='#deleteModal'  id="staticBackdrop2"  data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div className="modal d-flex LoginModalContainer"  ref={ref}  data-target='#deleteModal'  id="staticBackdrop2"  data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog HeaderWidthModal">
                     <div className="modal-content">
                         <div className="modal-body HeaderWidthModal text-start">

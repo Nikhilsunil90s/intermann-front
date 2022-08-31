@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import HeaderSelect from "../../src/components/Modal/HeaderSelectModal"
 import { API_BASE_URL } from "../config/serverApiConfig";
 import SearchModal from "./Modal/GlobalSearchModal";
+import ErrorBar from '../../src/components/Loader/SearchBarError'
 
 const Header = () => {
   const [ModalOpen,setModalOpen]=useState(false)
@@ -11,7 +12,7 @@ const Header = () => {
   const [SearchOpen,setSearchOpen]=useState(false)
  const [filterData,setFilterData]=useState([])as any
  const [data,setData]=useState([])
-
+  const [inputStatus,setInputStatus]=useState(false)
 
   const Modal=()=>{
 
@@ -27,7 +28,7 @@ const Header = () => {
 
   const ref = useRef();
   
-  useOnClickOutside(ref, () => setSearchOpen(false));
+  useOnClickOutside(ref, () => {setSearchOpen(false)});
   function useOnClickOutside(ref, handler) {
     useEffect(
       () => {
@@ -82,9 +83,12 @@ const NameSearch=(e)=>{
 if(e == null ){
   setValue("")
   setSearchOpen(false)
-  window.location.href="/dashboard"
+  setInputStatus(false)
+  // window.location.reload()
+
 }
 else if(e.target.value !== "" && e !== null){
+  setInputStatus(true)
   setValue(e.target.value)
 
 
@@ -98,8 +102,12 @@ else if(e.target.value !== "" && e !== null){
     )
     setFilterData([...FilData])
 }
+else if(e.target.value == ""){
+  setSearchOpen(false)
+}
 
 }
+console.log(filterData,"fldata")
 
   return (
     <>
@@ -148,11 +156,18 @@ else if(e.target.value !== "" && e !== null){
                         <div className="d-flex align-items-center pl-1">
                         <img  src={require("../images/searchIcon.svg").default} />
                         </div>
-                        <input style={{border:"0px",background: "#F5F6F8"}} defaultValue={value !== "" ?value :""}  onChange={NameSearch} className="searcInputbOx pl-1" placeholder="Search, Name, Phone, Work, Jobs..." />
+                       
+                       {
+                        inputStatus ?
+                        <input style={{border:"0px",background: "#F5F6F8"}} defaultValue={value}  onChange={NameSearch} className="searcInputbOx pl-1" placeholder="Search, Name, Phone, Work, Jobs..." />
+                            :
+                       <input style={{border:"0px",background: "#F5F6F8"}} value=""   onChange={NameSearch} className="searcInputbOx pl-1" placeholder="Search, Name, Phone, Work, Jobs..." />
+                       }
                      {
-                         value !==""?
+                         SearchOpen?
+                         
                          <div className="d-flex align-items-center px-1 clear cursor-pointer" onClick={()=>NameSearch(null)}>
-                                 X
+                                <b>X</b>
                         </div>
                         :
                         null
@@ -166,11 +181,19 @@ else if(e.target.value !== "" && e !== null){
                 
  {
       SearchOpen ? 
-       <div className="inputData p-1" >
+       <div className={filterData.length > 0 ? "inputData p-1" : "NoinputData p-1" }>
    
-        {filterData.map((el)=>(
+        {
+        filterData.length > 0 ?
+        filterData.map((el)=>(
         <SearchModal  props={el} closeModal={setSearchOpen}/>
               ))
+
+              :
+              <div ref={ref} className="d-flex align-items-center" >
+                <ErrorBar  />
+            <p className="ErrorSearchBox mb-0">No Card ! Please Enter Valid Name.</p>
+                </div>
  }
            
 </div>

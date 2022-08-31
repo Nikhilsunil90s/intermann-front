@@ -14,6 +14,7 @@ import  ProfileLoader from "../../components/Loader/ProfilesLoader"
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 import toast, { Toaster } from 'react-hot-toast';
+import ErrorLoader from "../../components/Loader/SearchBarError"
 
 declare global {
   namespace JSX {
@@ -938,10 +939,14 @@ setStatus(false)
                       </div>
                     </div>
                   :
-                  <p className="text-center">
-                    No Profiles in Client Signed Contract! Please Add New Clients.
-                  </p>
+               
+  <div className="col-12 d-flex justify-content-center align-items-center">
+  <ErrorLoader />
+  <p className="ErrorSearchBox mb-0">
+  No Profiles in Client Signed Contract! Please Add New Clients.
 
+  </p>
+  </div>
                 }
               </>
               :

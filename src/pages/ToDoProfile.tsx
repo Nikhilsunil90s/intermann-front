@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from "react";
-import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
 import "../CSS/Candidatefile.css";
 import { useLocation } from "react-router-dom";
-import InProgressModal from "../components/Modal/InProgressModal";
 import ArchivedModal from "../components/Modal/ArchivedModal";
 import { useNavigate } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import Select from "react-select";
-import {ReactComponent as Upload} from "../images/upload.svg"
-import {ReactComponent as Download} from '../images/download.svg'
 import PreModal from "../components/Modal/preSelectedModal";
 import ProfileLoader from "../components/Loader/ProfilesLoader";
-import SelectedLoader from "../components/Loader/selectLoader";
 import { API_BASE_URL } from '../config/serverApiConfig';
 import { Toaster, toast } from 'react-hot-toast';
 import "react-multi-carousel/lib/styles.css";

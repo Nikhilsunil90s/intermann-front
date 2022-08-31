@@ -11,7 +11,7 @@ import { colourOptions, ColourOption } from "../Selecteddata/data";
 import PreSelectedCard from "./preSelectedCard";
 import chroma from 'chroma-js';
 import ProfileLoader from "../components/Loader/ProfilesLoader"
-import { Console } from "console";
+import ErrorLoader from '../components/Loader/SearchBarError'
 
 
 declare namespace JSX {
@@ -1226,9 +1226,12 @@ styles={colourStyles}
                       </div>
                     
                   : 
-                    <p className="text-center">
+                  <div className="col-12 d-flex justify-content-center align-items-center">
+                    <ErrorLoader />
+                    <p className="ErrorSearchBox mb-0">
                       No Profiles in Candidat Pre-Selected ! Please Add New Candidats.
                     </p>
+                    </div>
                   }
             </>
           : 

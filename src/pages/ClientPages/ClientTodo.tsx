@@ -15,6 +15,8 @@ import Switch from "react-switch";
 import Loader from "../../components/Loader/loader";
 import { ReactComponent as TurnoFF } from "../../images/FatX.svg";
 import { ReactComponent as TurnOn } from "../../images/base-switch_icon.svg";
+import ErrorLoader from '../../components/Loader/SearchBarError'
+
 
 declare namespace JSX {
   interface IntrinsicElements {
@@ -1265,9 +1267,12 @@ function ClientToDoList() {
                        <Loader />
                      </div>
                    </div> :
-                      <p className="text-center">
-                      No Profiles in Candidat To-Do! Please Add New Candidats.
-                    </p>
+<div className="col-12 d-flex justify-content-center align-items-center">
+<ErrorLoader />
+<p className="ErrorSearchBox mb-0">
+No Profiles in Client To-Do! Please Add New Client.
+</p>
+</div>
                       }
             </>
           : 

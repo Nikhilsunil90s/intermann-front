@@ -8,7 +8,7 @@ import Select, { StylesConfig } from "react-select";
 import chroma from 'chroma-js';
 import { ColourOption } from "../Selecteddata/data";
 import ProfileLoader from "../components/Loader/ProfilesLoader"
-
+import ErrorLoader from '../components/Loader/SearchBarError'
 
 declare namespace JSX {
   interface IntrinsicElements {
@@ -1176,9 +1176,12 @@ styles={colourStyles}
                   </div>
 
                 :
-                <p className="text-center">
-                  No Profiles in Candidat To-Do! Please Add New Candidats.
+                <div className="col-12 d-flex justify-content-center align-items-center">
+                <ErrorLoader />
+                <p className="ErrorSearchBox mb-0">
+                  No Profiles in Candidat To-Do ! Please Add New Candidats.
                 </p>
+                </div>
               }
             </>
             :

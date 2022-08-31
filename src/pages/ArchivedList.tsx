@@ -10,6 +10,9 @@ import chroma from 'chroma-js'
 import Select ,{StylesConfig }from 'react-select'
 import ProfileLoader from "../components/Loader/ProfilesLoader"
 import toast,{Toaster} from 'react-hot-toast'
+import ErrorLoader from '../components/Loader/SearchBarError'
+
+
 declare namespace JSX {
   interface IntrinsicElements {
     "lottie-player": any;
@@ -760,9 +763,13 @@ SelectedClient=[]
                       </div>
                     
                   : 
-                    <p className="text-center">
-                      No Profiles in Candidat To-Do! Please Add New Candidats.
-                    </p>
+               
+<div className="col-12 d-flex justify-content-center align-items-center">
+<ErrorLoader />
+<p className="ErrorSearchBox mb-0">
+No Profiles in Candidat To-Do! Please Add New Candidats.
+</p>
+</div>
                   }
             </>
           : 

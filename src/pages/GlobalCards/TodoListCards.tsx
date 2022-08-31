@@ -1292,7 +1292,7 @@ styles={colourStyles}
                     <p className="todoCardbody mb-0"><b>Secteur : {filterData.candidatActivitySector ?  filterData.candidatActivitySector.toLocaleUpperCase() : "No Sector!"}</b></p>
 
                     <p className="todoCardbody mb-0"><b>Job : {filterData.candidatJob ? filterData.candidatJob.toLocaleUpperCase() : "No Job!"}</b> </p>
-                    <p className="todoCardbody-p mb-0">Langues : <b>{filterData.candidatLanguages !== [] ? filterData.candidatLanguages.length > 3 ? filterData.candidatLanguages.slice(0,3).join(", ") + "...":  filterData.candidatLanguages.join(", ") : "No Langues Selected!"}</b>
+                    <p className="todoCardbody-p mb-0">Langues : <b>{filterData.candidatLanguages.length !== 0 ? filterData.candidatLanguages.length > 3 ? filterData.candidatLanguages.slice(0,3).join(", ") + "...":  filterData.candidatLanguages.join(", ") : "No Langues Selected!"}</b>
                     </p>
                     <p className="todoCardbody-p mb-0">Phone Number : <b>{filterData.candidatPhone}</b> </p>
                     <p className="todoCardbody-p mb-0">Facebook URL : <b>{filterData.candidatFBURL ? <a href={filterData.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile</a> : "No Facebook Profile!"}</b></p>

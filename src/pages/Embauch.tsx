@@ -11,6 +11,7 @@ import SelectLoader from "../components/Loader/selectLoader"
 import { colourOptions, ColourOption } from "../Selecteddata/data";
 import ProfileLoader from "../components/Loader/ProfilesLoader"
 import set from "date-fns/set";
+import ErrorLoader from '../components/Loader/SearchBarError'
 
 
 declare global {
@@ -903,9 +904,13 @@ const notifyMoveError = () => toast.error("Not Moved..");
                       </div>
                     
                   : 
-                    <p className="text-center">
-                      No Profiles in Candidat Embauch! Please Add New Candidats.
-                    </p>
+                
+                     <div className="col-12 d-flex justify-content-center align-items-center">
+                     <ErrorLoader />
+                     <p className="ErrorSearchBox mb-0">
+                     No Profiles in Candidat Embauch! Please Add New Candidats.
+                     </p>
+                     </div>
                   }
             </>
           : 

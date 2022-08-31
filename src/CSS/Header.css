@@ -105,7 +105,7 @@ body {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
-    font-size: 12px;
+    font-size: 10px;
     line-height: 16px;
     color: #A461D8;
     border: 0px;
@@ -113,7 +113,7 @@ body {
     border-radius: 100px;
     width: 124%;
     /* padding: 3px 11px !important; */
-    height: 23px;
+    height: 33px;
 }
 
 .nameCard{
@@ -387,7 +387,75 @@ color: #ADADAD;
     border-radius: 10px;
     overflow-y: scroll;
 }
+.NoinputData {
+    
+    height: 30%;
+    width: 36%;
+    position: fixed;
+    right: 13px;
+    z-index: 9999990;
+    top: 65px;
+    background-color: #ffff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ErrorSearchBox{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 33px;
+letter-spacing: 1px;
+color: #252726;
+}
 
+.hoverSearchList:hover .nameCard{
+    background: #FFE6CA;
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 16px;
+color: #E07700;
+}
+.preLargebtnCard{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 10px;
+    letter-spacing: -0.105991px;
+    text-transform: uppercase;
+    color: #FE8700;
+    border: 0px;
+    background: #FFF7EE;
+    border-radius: 100px;
+    height: 28px;
+    width: 124%;
+  
+}
+.hoverSearchList:hover .imgManLogo{
+    background-image: url("../images/hoverCardLogo.svg");
+    background-repeat: no-repeat;
+    height: 38px;
+}
+
+.imgManLogo{
+    background-image: url("../images/mencard.svg");
+        background-repeat: no-repeat;
+        height: 38px;
+    }
+.hoverSearchList{
+    width: 100%;
+    padding: 10px;
+}
+.hoverSearchList:hover{
+    padding: 10px;
+    background: #FFF7EE;
+    border-radius: 100px;
+}
 }
 @media (min-width:1200px){
 

@@ -17,6 +17,7 @@ import Switch from "react-switch";
 import  ProfileLoader from "../../components/Loader/ProfilesLoader"
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
+import ErrorLoader from '../../components/Loader/SearchBarError'
 
 
 declare namespace JSX {
@@ -1042,9 +1043,13 @@ setStatus(false)
                        <Loader />
                      </div>
                    </div> :
-                      <p className="text-center">
-                      No Profiles in Candidat To-Do! Please Add New Candidats.
+              
+                    <div className="col-12 d-flex justify-content-center align-items-center">
+                    <ErrorLoader />
+                    <p className="ErrorSearchBox mb-0">
+                    No Profiles in Client In-Progress! Please Add New Client.
                     </p>
+                    </div>
                       }
             </>
           : 
