@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "../CSS/CanEmpl.css";
 import ArchivedModal from "./Modal/ArchivedModal";
 import InProgressModal from "./Modal/InProgressModal";
-import {  useEffect, useState } from "react";
+import {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select,{StylesConfig} from 'react-select'
 import chroma from 'chroma-js';
@@ -47,11 +47,15 @@ const fetchProfilesClients = async () => {
     const editCandidatProfile = () => {
         navigate("/editToDo", { state: state});
     }
+
+    let Data={
+       props: props.data,
+       client:Client
+    }
    
     const viewFullProfile = () => {
-
         // navigate("/todoprofile", { state: props.data });
-        localStorage.setItem('profile', JSON.stringify(props.data));
+        localStorage.setItem('profile', JSON.stringify(Data));
         window.open("/todoprofile", "_blank")
     }
  
@@ -76,7 +80,6 @@ const fetchProfilesClients = async () => {
       if(e.value=="Archive"){
         setShowArchiveModal(true) 
       }
-    console.log(e.value)
     }
     return (
         <>
@@ -176,7 +179,7 @@ const fetchProfilesClients = async () => {
                  />
                             </div>
                             <div className="col-xxl-6 col-xl-6 col-md-6 col-lg-6  text-end pl-0">
-                                <button className="btn btn-dark btn-viewprofile-card" onClick={viewFullProfile}>
+                                <button className="btn btn-dark btn-viewprofile-card" onClick={()=>{fetchProfilesClients(); viewFullProfile()}}>
                                     See Full Profile
                                 </button>
                             </div>

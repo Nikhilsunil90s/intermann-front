@@ -39,15 +39,7 @@ import ClientSignedEdit from "./pages/EditPages/SignedContractEdit";
 import SignedView from "../src/pages/ClientPages/FullViewProfile/SignedContract";
 import Error404 from "./pages/ErrorPages/Error404";
 import Error500 from "./pages/ErrorPages/Error500";
-import EmbauchCard from "../src/pages/GlobalCards/EmbauchCard";
-import ToDoListCard from "./pages/GlobalCards/TodoListCards";
-import ArchivedCardList from "./pages/GlobalCards/ArchiveList";
-import ClientCardToDoList from './pages/GlobalCards/ClientPages/ClientTodoCard'
-import ClientCardProgressList from './pages/GlobalCards/ClientPages/ClientProgressCardList'
 import clientSignedGlobalCard from './pages/GlobalCards/ClientPages/ClientContractGlobalCard'
-import clientarchivedGlobalList from './pages/GlobalCards/ClientPages/ClientArchivedGlobalList'
-import preSelectGlobalList from './pages/GlobalCards/PreSelectedGlobalList'
-
 function App() {
   return (
     <Provider store={configureStore}>
@@ -325,58 +317,7 @@ function App() {
           />
 
           {/* Global Search Routes  */}
-          <Route
-            path={"/clientSignedView"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={SignedView} />
-              </Sidebar>
-            }
-          />
-          <Route
-            path={"/todolistCard"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={ToDoListCard} />
-              </Sidebar>
-            }
-          />
-
-          <Route
-            path={"/embauchlistCard"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={EmbauchCard} />
-              </Sidebar>
-            }
-          />
-          <Route
-            path={"/archivedlistCard"}
-            element={
-              <Sidebar>
-               
-                <PrivateRoute Component={ArchivedCardList} />
-              </Sidebar>
-            }
-          />
-
-<Route
-            path={"/todoClientlistCard"}
-            element={
-              <Sidebar>
-               
-                <PrivateRoute Component={ClientCardToDoList} />
-              </Sidebar>
-            }
-          />
-          <Route
-           path={"/ClientGLProgressList"}
-            element={
-            <Sidebar>
-              <PrivateRoute Component={ClientCardProgressList} />
-            </Sidebar>
-          }
-          />
+        
            <Route 
            path={"/clientSignedGlobalCard"}
            element={
@@ -386,24 +327,7 @@ function App() {
            }
 
            />
-           <Route 
-           path={"/clientarchivedGlobalList"}
-          element={
-            <Sidebar>
-              <PrivateRoute   Component={clientarchivedGlobalList} />
-            </Sidebar>
-          }
-
-           />
-              <Route 
-           path={"/preSelectGlobalList"}
-          element={
-            <Sidebar>
-              <PrivateRoute   Component={preSelectGlobalList} />
-            </Sidebar>
-          }
-
-           />
+       
           {/* End */}
           <Route path="/Error404" element={<Error404 />} />
           <Route path="/Error500" element={<Error500 />} />

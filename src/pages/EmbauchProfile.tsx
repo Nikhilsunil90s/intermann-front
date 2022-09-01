@@ -109,7 +109,7 @@ function ProgressCard() {
   const notifyDocumentDeleteError = () => toast.error("Document Not Removed! Please Try Again in few minutes.")
   const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
   const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
-
+console.log(clientProfile,"client")
   useEffect(() => {
     fetchClientProfile(profile.candidatCurrentWork[0].workingFor)
       .then(result => {
@@ -344,7 +344,7 @@ function ProgressCard() {
   // }
   console.log(profile,"profile")
   const showCustomerProfile =(data:any)=>{
-      localStorage.setItem("embauch", JSON.stringify(data));
+      localStorage.setItem("embauch", JSON.stringify(clientProfile));
       window.open("/clientSignedView", "_blank");
   }
   

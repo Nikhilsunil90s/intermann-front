@@ -19,35 +19,45 @@ import PreModalClient from "../../../components/Modal/preSelectedModalForClient"
 let RenameData = [];
 let id = "";
 function Signed() {
+
+
   const profileData = JSON.parse(localStorage.getItem("profile"));
   const profileD = JSON.parse(localStorage.getItem("embauch"));
+  console.log(profileData,profileD)
+  const [EMPunderWorking,setEMPunderWorking]=useState([])as any
  const [GetClientbyID,setGetClient]=useState(profileData._id ? profileData._id : profileD._id)
   const [Loader,setLoader]=useState(false)
   console.log(GetClientbyID,"get")
 useEffect(()=>{
-  GetClient(GetClientbyID).then(res=>
-    {
-    if(res.data.length>0){
-      setLoader(true)
-      res.data.map((el)=>{
+  if(EMPunderWorking.length== 0){
+    GetClient(profileD._id).then(res=>
+      {
+    
+  
+      if(res.data.length>0){
+        setLoader(true)
+        res.data.map((el)=>{
+       
+          setEMPunderWorking(el.employeesWorkingUnder)
         
-        setEMPunderWorking(el.employeesWorkingUnder)
-      })
+        })
+  
+      }
+      else if(res.data==[]) {
+        setLoader(false)
+      }
+      }
+    )
+  }
 
-    }
-    else if(res.data==[]) {
-      setLoader(false)
-    }
-    }
-  )
-},[])
+},[EMPunderWorking])
 
 
-  const [profile, setProfile] = useState<any>(profileData ? profileData : profileD);
+  const [profile, setProfile] = useState(profileD)as any;
+  console.log(profile,"profile")
   const navigate = useNavigate();
 
   const [showArchiveModal, setShowArchiveModal] = useState(false);
-  const [EMPunderWorking,setEMPunderWorking]=useState([])as any
   const [UploadBtn, setSelectUpload] = useState(false);
   const hiddenImageInput = React.useRef(null);
   const [SISPI, setChecked] = useState(profile.sispiDeclared);
@@ -589,7 +599,7 @@ useEffect(()=>{
                 <div className="col-6 ClientSEEPtags">
                   <div className="d-flex">
                     <p>
-                      Company : {profile.clientCompanyName.toLocaleUpperCase()}|
+                      Company : {profileD?.clientCompanyName.toLocaleUpperCase()}|
                       {profile.candidatAge ? profile.candidatAge : "No "}
                     </p>
                     <span className="card-xlSpan">(Age)</span>

@@ -30,7 +30,7 @@ const axiosInstance = axios.create({
  
 let RenameData=[]
 function ToDoProfile() {
-
+  
 
   const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
   const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
@@ -44,8 +44,8 @@ function ToDoProfile() {
   const navigate = useNavigate();
   const { state } = useLocation();
 
-
-  const [profile, setProfile] = useState<any>(state? state : profileData);
+  console.log(profileData,"profile")
+  const [profile, setProfile] = useState<any>(state? state : profileData.props);
 console.log(profile,"profile")
 
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
@@ -750,7 +750,7 @@ className="SelectBtn"
                   <PreModal 
                    props={profile}
                    closepreModal={setShowInPreSelectedModal}
-                   client={null}
+                   client={profileData.client}
                   />
                   :
                   null

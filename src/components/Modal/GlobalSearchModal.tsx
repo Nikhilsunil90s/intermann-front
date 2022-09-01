@@ -49,26 +49,26 @@ export default function SearchModal({props,closeModal}){
     const ListPage=(data)=>{
         if(data.candidatName){
          if(data.candidatStatus =="To-Do"){
-          navigate("/todolist",{state:data})
+          navigate("/todoprofile",{state:data})
 
           setTimeout(()=>{
             closeModal(false)
           },1500)
          }
          if(data.candidatStatus =="In-Progress"){
-          navigate("/embauchlistCard",{state:data})
+          navigate("/embauchprofile",{state:data})
             setTimeout(()=>{
             closeModal(false)
           },500)
         }
         if(data.candidatStatus =="Archived"){
-          navigate("/archivedlistCard",{state:data})
+          navigate("/archivedprofile",{state:data})
             setTimeout(()=>{
             closeModal(false)
           },500)
         }
         if(data.candidatStatus == "Pre-Selected"){
-          navigate("/preSelectGlobalList",{state:data})
+          navigate("/preSelectedView",{state:data})
             setTimeout(()=>{
             closeModal(false)
           },500)
@@ -76,19 +76,19 @@ export default function SearchModal({props,closeModal}){
         }
       else if(data.clientCompanyName){
         if(data.jobStatus =="To-Do"){
-          navigate("/todoClientlistCard",{state:data})
+          navigate("/clientToDoProfile",{state:data})
             setTimeout(()=>{
             closeModal(false)
           },500)
          }
          if(data.jobStatus =="In-Progress"){
-          navigate("/ClientGLProgressList",{state:data})
+          navigate("/clientInProgressProfile",{state:data})
             setTimeout(()=>{
             closeModal(false)
           },500)
         }
         if(data.jobStatus =="Archived"){
-          navigate("/clientarchivedGlobalList",{state:data})
+          navigate("/archivedClientSeeprofile",{state:data})
             setTimeout(()=>{
             closeModal(false)
           },500)

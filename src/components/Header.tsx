@@ -14,6 +14,7 @@ const Header = () => {
  const [data,setData]=useState([])
   const [inputStatus,setInputStatus]=useState(false)
 
+
   const Modal=()=>{
 
    if(ModalOpen == true){
@@ -54,6 +55,7 @@ const Header = () => {
 
 
   useEffect(() => {
+ 
    if(data.length == 0){
     fetchProfiles().then(filteredresponse => {
       setData([...filteredresponse.data])
@@ -62,8 +64,9 @@ const Header = () => {
         console.log(err);
       })
    }
+  },[data])
+ 
 
-  })
   console.log(data,"data")
   const fetchProfiles = async () => {
     return await fetch(API_BASE_URL + "getProfiles", {
@@ -90,24 +93,54 @@ if(e == null ){
 else if(e.target.value !== "" && e !== null){
   setInputStatus(true)
   setValue(e.target.value)
+  console.log(Number.isInteger(Number(e.target.value)),"int")
+  console.log(e.target.value,"int")
 
+if( Number.isInteger(Number(e.target.value))){
 
+  
+    const FilData =   data.filter(el=>(
+      el.candidatPhone !== undefined ?
+     el.candidatPhone.includes(e.target.value)
+      :
+      el.clientPhone !== undefined ?
+      el.clientPhone.includes(e.target.value)                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+      :
+      null
+      )
+      )
+      setFilterData([...FilData])
+}else {
   const FilData =   data.filter(el=>(
+
+    el.candidatEmail ?
+    el.candidatEmail.toLowerCase().includes(value.toLowerCase())
+    :
+    el.clientEmail ?
+    el.clientEmail.toLowerCase().includes(value.toLowerCase())
+
+    :
+
     el.candidatName ?
-    el.candidatName.toLowerCase().includes(e.target.value.toLowerCase())
+    el.candidatName.toLowerCase().includes(value.toLowerCase())
     
     :
-    el.clientCompanyName.toLowerCase().includes(e.target.value.toLowerCase())
+  
+    el.clientCompanyName.toLowerCase().includes(value.toLowerCase())
+  
+
     )
     )
     setFilterData([...FilData])
 }
+
+}
 else if(e.target.value == ""){
   setSearchOpen(false)
 }
+console.log(filterData,"fldata")
 
 }
-console.log(filterData,"fldata")
 
   return (
     <>
