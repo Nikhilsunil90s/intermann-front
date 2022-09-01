@@ -1179,7 +1179,7 @@ styles={colourStyles}
                 <div className="col-12 d-flex justify-content-center align-items-center">
                 <ErrorLoader />
                 <p className="ErrorSearchBox mb-0">
-                  No Profiles in Candidat To-Do ! Please Add New Candidats.
+                  No Profiles in Candidat ToDo ! Please Add New Candidats.
                 </p>
                 </div>
               }

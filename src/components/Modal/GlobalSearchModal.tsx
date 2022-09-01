@@ -49,7 +49,7 @@ export default function SearchModal({props,closeModal}){
     const ListPage=(data)=>{
         if(data.candidatName){
          if(data.candidatStatus =="To-Do"){
-          navigate("/todolistCard",{state:data})
+          navigate("/todolist",{state:data})
 
           setTimeout(()=>{
             closeModal(false)

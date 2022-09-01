@@ -14,6 +14,7 @@ import chroma from 'chroma-js';
 import Select, {StylesConfig } from "react-select";
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
+import ErrorLoader from '../../components/Loader/SearchBarError'
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -1379,7 +1380,8 @@ className="SelectBtn"
                      </>
                      : 
                   <div className="col-12 d-flex justify-content-center pt-2">
-                    <p>
+                    <ErrorLoader  />
+                    <p className="mb-0 ErrorSearchBox">
                     No Contract Available for this Candidat! Please add a New Contract.
                     </p>
                     </div>

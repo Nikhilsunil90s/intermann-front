@@ -14,6 +14,7 @@ import chroma from 'chroma-js';
 import Select, {StylesConfig } from "react-select";
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
+import ErrorLoader from '../../components/Loader/SearchBarError'
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -538,27 +539,27 @@ if(checked == false){
         candidatAlternatePhone :data.candidatAlternatePhone !="" ? data.candidatAlternatePhone : profile.candidatAlternatePhone,
         candidatYearsExperience: data.candidatYearsExperience != "" ? data.candidatYearsExperience : profile.candidatYearsExperience,
         candidatContract:data.candidatContract!={} ? data.candidatContract : profile.candidatContract,
-        lieu_mission: data.lieu_mission !="" ? data.lieu_mission : profile.candidatContract.lieu_mission ,
-        duree_mission: data.duree_mission != "" ? data.duree_mission : profile.candidatContract.duree_mission, 
-        duree_hebdomadaire_mission: data.duree_hebdomadaire_mission !=""  ? data.duree_hebdomadaire_mission : profile.candidatContract.duree_hebdomadaire_mission,
-        cmp_candidat: data.cmp_candidat != "" ? data.cmp_candidat : profile.candidatContract.cmp_candidat,
-        contract_date:data.contract_date != "" ? data.contract_date : profile.candidatContract.contract_date,
-        company_contact_name:data.company_contact_name != "" ? data.company_contact_name : profile.candidatContract.company_contact_name,
-        nr_inreg:data.nr_inreg != "" ? data.nr_inreg : profile.candidatContract.nr_inreg,
-        serie_id:data.serie_id !="" ? data.serie_id : profile.candidatContract.serie_id,
-        company_siret:data.company_siret !="" ? data.company_siret : profile.candidatContract.company_siret,
-        companyAddress:data.companyAddress !="" ? data.companyAddress : profile.candidatContract.companyAddress,
-        numeroTFCandidat:data.numeroTFCandidat !="" ? data.numeroTFCandidat : profile.candidatContract.numeroTFCandidat,
-        companyVat:data.companyVat !="" ? data.companyVat : profile.candidatContract.companyVat,
-        salaireBrut:data.salaireBrut !="" ? data.salaireBrut : profile.candidatContract.salaireBrut,
-        salaireNet:data.salaireNet !=""? data.salaireNet : profile.candidatContract.salaireNet,
-        diurnaTotalParJour:data.diurnaTotalParJour !="" ? data.diurnaTotalParJour : profile.candidatContract.diurnaTotalParJour,
-        debutMissionDate:data.debutMissionDate !="" ? data.debutMissionDate : profile.candidatContract.debutMissionDate,
-        heurePerSemaine:data.heurePerSemaine !="" ? data.heurePerSemaine : profile.candidatContract.heurePerSemaine,
-        duree_hebdomadaire:data.duree_hebdomadaire !="" ? data.duree_hebdomadaire : profile.candidatContract.duree_hebdomadaire,
-        indemnisationJour:data.indemnisationJour != "" ? data.indemnisationJour : profile.candidatContract.indemnisationJour,
-        fin_mision:data.fin_mision !="" ? data.fin_mision : profile.candidatContract.fin_mision,
-        contractId:data.contractId !="" ? data.contractId : profile.candidatContract._id,
+        lieu_mission: data.lieu_mission !="" ? data.lieu_mission : profile.candidatContract ? profile.candidatContract.lieu_mission : "" ,
+        duree_mission: data.duree_mission != "" ? data.duree_mission : profile.candidatContract ? profile.candidatContract.duree_mission : "", 
+        duree_hebdomadaire_mission: data.duree_hebdomadaire_mission !=""  ? data.duree_hebdomadaire_mission : profile.candidatContract ? profile.candidatContract.duree_hebdomadaire_mission : "",
+        cmp_candidat: data.cmp_candidat != "" ? data.cmp_candidat : profile.candidatContract ? profile.candidatContract.cmp_candidat : "",
+        contract_date:data.contract_date != "" ? data.contract_date : profile.candidatContract ? profile.candidatContract.contract_date : "",
+        company_contact_name:data.company_contact_name != "" ? data.company_contact_name : profile.candidatContract ? profile.candidatContract.company_contact_name : "",
+        nr_inreg:data.nr_inreg != "" ? data.nr_inreg : profile.candidatContract ? profile.candidatContract.nr_inreg : "",
+        serie_id:data.serie_id !="" ? data.serie_id : profile.candidatContract ? profile.candidatContract.serie_id : "",
+        company_siret:data.company_siret !="" ? data.company_siret : profile.candidatContract ? profile.candidatContract.company_siret : "",
+        companyAddress:data.companyAddress !="" ? data.companyAddress : profile.candidatContract ? profile.candidatContract.companyAddress : "",
+        numeroTFCandidat:data.numeroTFCandidat !="" ? data.numeroTFCandidat : profile.candidatContract ? profile.candidatContract.numeroTFCandidat : "",
+        companyVat:data.companyVat !="" ? data.companyVat : profile.candidatContract ? profile.candidatContract.companyVat : "",
+        salaireBrut:data.salaireBrut !="" ? data.salaireBrut : profile.candidatContract ? profile.candidatContract.salaireBrut : "",
+        salaireNet:data.salaireNet !=""? data.salaireNet : profile.candidatContract ? profile.candidatContract.salaireNet : "",
+        diurnaTotalParJour:data.diurnaTotalParJour !="" ? data.diurnaTotalParJour : profile.candidatContract ? profile.candidatContract.diurnaTotalParJour : "",
+        debutMissionDate:data.debutMissionDate !="" ? data.debutMissionDate : profile.candidatContract ? profile.candidatContract.debutMissionDate : "",
+        heurePerSemaine:data.heurePerSemaine !="" ? data.heurePerSemaine : profile.candidatContract ? profile.candidatContract.heurePerSemaine : "",
+        duree_hebdomadaire:data.duree_hebdomadaire !="" ? data.duree_hebdomadaire : profile.candidatContract ? profile.candidatContract.duree_hebdomadaire : "",
+        indemnisationJour:data.indemnisationJour != "" ? data.indemnisationJour : profile.candidatContract ? profile.candidatContract.indemnisationJour : "",
+        fin_mision:data.fin_mision !="" ? data.fin_mision : profile.candidatContract ? profile.candidatContract.fin_mision : "",
+        contractId:data.contractId !="" ? data.contractId : profile.candidatContract ? profile.candidatContract._id : "",
       }
       console.log(updatedData)
       // fileData.append('data', JSON.stringify(updatedData))
@@ -1352,8 +1353,9 @@ className="SelectBtn"
     
                      </>
                      : 
-                  <div className="col-12 d-flex justify-content-center pt-2">
-                    <p>
+                  <div className="col-12 d-flex justify-content-center align-items-center pt-2">
+                    <ErrorLoader  />
+                    <p className="mb-0 ErrorSearchBox">
                     No Contract Available for this Candidat! Please add a New Contract.
                     </p>
                     </div>
