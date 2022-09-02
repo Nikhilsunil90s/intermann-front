@@ -62,6 +62,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
   const [Clients,setClients]=useState([])
   const [LanguageOp,setLangOp]=useState([])
   const [licenceOptions, setLicenseOptions] = useState([])
+  const [dateLoader,setdateLoader]=useState(false)
   
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
@@ -139,7 +140,14 @@ const notifyMoveError = () => toast.error("Not Moved..");
    setClients([{value:"Select Client",label:"Select Client",color:"#ff8b00"},...ClientOP])
       })
     }
+    if(dateLoader == false){
+      setTimeout(()=>{
+        setdateLoader(true)
+
+      },1000)
+    }
     if(LanguageOp.length == 0){
+      setTimeout(()=>{
       setLangOp([{ value: 'Roumain', label: 'Roumain', color:  '#FF8B00' },
       { value: 'Français', label: 'Français', color:  '#FF8B00', },
       { value: 'Anglais', label: 'Anglais', color: '#FF8B00' },
@@ -148,9 +156,10 @@ const notifyMoveError = () => toast.error("Not Moved..");
       { value: 'Espagnol', label: 'Espagnol', color: '#FF8B00'},
       { value: 'Autre', label: 'Autre', color: '#FF8B00' },
       { value: 'Suisse', label: 'Suisse', color: '#FF8B00' },
-    ])
+    ])},1000)
       }
       if(licenceOptions.length == 0){
+        setTimeout(()=>{
         setLicenseOptions([    {
           value: "Select Licence", label: "Select Licence", color: '#FF8B00'
         },
@@ -160,6 +169,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
         {
           value: "false", label: "No Licence", color: '#FF8B00'
         }])
+      },1000)
       }
  
     if (sectors.length == 0) {
@@ -183,8 +193,9 @@ const notifyMoveError = () => toast.error("Not Moved..");
     let sectorops = sectors.map((asector) => {
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
-
+setTimeout(()=>{
     setSectorOptions([{value:"Select Sector",label:"Select Sector",color:"#ff8b00"},...sectorops]);
+  },1000)
   }, [sectors])
   useEffect(() => {
     filterFunction();
@@ -647,6 +658,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
   setNameOptions([])
   SelectedName=[]
   setSelectedSector("")
+  setdateLoader(false)
   LicencePermisArr = []
   setSectorOptions([])
   setLicenseOptions([])
@@ -724,7 +736,10 @@ const notifyMoveError = () => toast.error("Not Moved..");
                         onChange={handleSectorChange}
                         options={sectorOptions}
                         styles={colourStyles}
-                      /> : <p>Select Un Secteur!</p>
+                      /> : 
+                      
+                      <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+
                     }
                    
                   </div>

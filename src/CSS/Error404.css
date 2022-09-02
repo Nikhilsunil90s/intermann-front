@@ -48,3 +48,8 @@ width: 50%;
     background: url("../images/500.svg");
     background-repeat: no-repeat;
 }
+
+.ErrorLoader {
+    width: 57% !important;
+
+}

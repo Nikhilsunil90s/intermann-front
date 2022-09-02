@@ -136,6 +136,8 @@ function PreSelectedEdit() {
   useEffect(()=>{
 
     if(JSON.stringify(profile).includes(JSON.stringify(profile.candidatContract))){
+    if(profile.candidatContract !== null){
+
     if(profile.candidatContract.contract_date){
 
    
@@ -155,7 +157,7 @@ function PreSelectedEdit() {
       setMonth3(tempdate3.getMonth()+1)
       setfin_mision([tempdate3.getFullYear() ,"0"+GetMonth3,tempdate3.getDate()].join("-"))
     
-
+    }
 
 }}},)
  

@@ -14,6 +14,7 @@ import ProfileLoader from "../components/Loader/ProfilesLoader"
 import ErrorLoader from '../components/Loader/SearchBarError'
 
 
+
 declare namespace JSX {
     interface IntrinsicElements {
       "lottie-player": any;
@@ -59,7 +60,8 @@ function Preselected(){
           const [motivationOptions, setMotivationOptions] = useState([])
           const [ContactOptions,setContactOptions]=useState([])
           const [LicensePermis, setLicensePermis] = useState([]) as any
-          const [selectByName, setSelectName] = useState([])
+          const [dateLoader,setdateLoader]=useState(false)
+
         
           const colourStyles: StylesConfig<ColourOption, true> = {
             control: (styles) => ({ ...styles, backgroundColor: 'white' }),
@@ -278,7 +280,13 @@ function Preselected(){
 
         )
         useEffect(()=>{
+          if(dateLoader == false){
+            setTimeout(()=>{
+             setdateLoader(true)
+            },1000)
+          }
           if(motivationOptions.length == 0){
+            setTimeout(()=>{
            setMotivationOptions([{
               value: "Select Motivations", label: "Select Motivations", color: '#FF8B00'
             },   {
@@ -292,8 +300,10 @@ function Preselected(){
             }, {
               value: "5", label: "😍", color: '#FF8B00'
             }])
+          },1000)
           }
           if(LicensePermis.length == 0){
+            setTimeout(()=>{
            setLicensePermis([
               {
                 value: "Select Licence", label: "Select Licence", color: '#FF8B00'
@@ -304,8 +314,10 @@ function Preselected(){
                 value: "false", label: "No Licence", color: '#FF8B00'
               }
             ])
+          },1000)
           }
           if(LanguageOp.length == 0){
+            setTimeout(()=>{
             setLangOp([{ value: 'Roumain', label: 'Roumain', color:  '#FF8B00' },
             { value: 'Français', label: 'Français', color:  '#FF8B00', },
             { value: 'Anglais', label: 'Anglais', color: '#FF8B00' },
@@ -315,6 +327,7 @@ function Preselected(){
             { value: 'Autre', label: 'Autre', color: '#FF8B00' },
             { value: 'Suisse', label: 'Suisse', color: '#FF8B00' },
           ])
+        },1000)
             }
           if (email.length == 0) {
             let emailops=[]as any
@@ -869,6 +882,7 @@ console.log(statusProfiles,"filteredresponse.status")
   setSelectedJob([])
   setJobOptions([])
   setMotivationOptions([])
+  setdateLoader(false)
   MotivationArr=[]
   contactArr=[]
    DateArr=[]
@@ -947,7 +961,10 @@ console.log(statusProfiles,"filteredresponse.status")
                         onChange={handleSectorChange}
                         options={sectorOptions}
                         styles={colourStyles}
-                      /> : <p>Select Un Secteur!</p>
+                      /> :
+                      
+                      <div >   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+
                     }
                     {/* <select
                       name="candidatActivitySector"
@@ -1017,7 +1034,9 @@ console.log(statusProfiles,"filteredresponse.status")
                                     </option>
                                   ))}
                               </select> */}
-                              <Select
+                              {
+                                motivationOptions ?
+                                <Select
                                 name="candidatMotivation"
                                 closeMenuOnSelect={true}
                                 placeholder="‎ ‎ ‎ Select Motivation du Candidat"
@@ -1027,6 +1046,12 @@ console.log(statusProfiles,"filteredresponse.status")
                                 options={motivationOptions}
                                 styles={colourStyles}
                               />
+                                :
+                                
+                                <div >   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+
+                              }
+                           
                             </div>
                           </div>
                         </div>
@@ -1034,14 +1059,22 @@ console.log(statusProfiles,"filteredresponse.status")
         <p className="FiltreName">Filter by date</p>
         <div className="dropdown">
           <div aria-labelledby="dropdownMenuButton1">
-                          <input
-                              type="date"
-                              className="form-control"
-                              name="candidatStartDate"
-                                // value={data.candidatStartDate}
-                                onChange={onDateChange}
-                                
-                              />
+            {
+              dateLoader ? 
+              <input
+              type="date"
+              className="form-control"
+              name="candidatStartDate"
+                // value={data.candidatStartDate}
+                onChange={onDateChange}
+                
+              />
+              :
+              <div >   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+
+
+            }
+                      
                             </div>
                           </div>
         </div>

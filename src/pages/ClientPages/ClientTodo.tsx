@@ -175,7 +175,7 @@ function ClientToDoList() {
         color: "#FF8B00",
       };
     });
-
+setTimeout(()=>{
     setSectorOptions([
       {
         value: "Select Un Secteur",
@@ -183,7 +183,7 @@ function ClientToDoList() {
         color: "#FF8B00",
       },
       ...sectorops,
-    ]);
+    ]);},1000)
   }, [sectors]);
 
   useEffect(() => {
@@ -625,7 +625,9 @@ function ClientToDoList() {
         });
     }
     if (optionsOthersFilter.length == 0) {
-      setOtherOptions([
+    
+    
+    setTimeout(()=>{  setOtherOptions([
         {
           value: "Select Others",
           label: "Select Others",
@@ -671,9 +673,10 @@ function ClientToDoList() {
           label: "SISPI déclaré ?",
           color: "#FF8B00",
         },
-      ]);
+      ]);},1000)
     }
     if (importanceOptions.length == 0) {
+   setTimeout(()=>{
       setImportanceOptions([
         {
           value: "Select Importance",
@@ -795,9 +798,10 @@ function ClientToDoList() {
           ),
           color: "#FF8B00",
         },
-      ]);
+      ]);},1000) 
     }
     if (motivationOptions.length == 0) {
+    setTimeout(()=>{
       setMotivationOptions([
         {
           value: "Select Motivations",
@@ -829,7 +833,7 @@ function ClientToDoList() {
           label: "😍",
           color: "#FF8B00",
         },
-      ]);
+      ]);},1000)
     }
 
     console.log(nameOptions, " console.log()");
@@ -980,9 +984,18 @@ function ClientToDoList() {
                         options={sectorOptions}
                         styles={colourStyles}
                       />
-                    ) : (
-                      <p>Select Un Secteur!</p>
-                    )}
+                    ) : 
+                      <div className="">
+                             
+                                <ProfileLoader
+                                  width={"64px"}
+                                  height={"45px"}
+                                  fontSize={"12px"}
+                                  fontWeight={600}
+                                  Title={""}
+                                />
+                              </div>
+                    }
                   </div>
                 </div>
               </div>
@@ -1027,7 +1040,7 @@ function ClientToDoList() {
                               />
                             ) : (
                               <div className="">
-                                {" "}
+                             
                                 <ProfileLoader
                                   width={"64px"}
                                   height={"45px"}
@@ -1086,7 +1099,7 @@ function ClientToDoList() {
                                 options={optionsOthersFilter}
                                 styles={colourStyles}
                               />
-                            ) : (
+                            ) : 
                               <div className="">
                              
                                 <ProfileLoader
@@ -1097,7 +1110,7 @@ function ClientToDoList() {
                                   Title={""}
                                 />
                               </div>
-                            )}
+                            }
                           </div>
                         </div>
                       </div>

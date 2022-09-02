@@ -125,8 +125,9 @@ function ArchivedList() {
     let sectorops = sectors.map((asector) => {
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
+    setTimeout(()=>{
     setSectorOptions([{value:"Select Sector",label:"Select Sector",color:"#ff8b00"},...sectorops]);
-
+  },1000)
   }, [sectors])
    useEffect(() => {
     filterFunction()
@@ -173,6 +174,7 @@ function ArchivedList() {
   }
   useEffect(() => {
     if(LanguageOp.length == 0){
+      setTimeout(()=>{
     setLangOp([{ value: 'Roumain', label: 'Roumain', color:  '#FF8B00' },
     { value: 'Français', label: 'Français', color:  '#FF8B00', },
     { value: 'Anglais', label: 'Anglais', color: '#FF8B00' },
@@ -181,6 +183,7 @@ function ArchivedList() {
     { value: 'Espagnol', label: 'Espagnol', color: '#FF8B00'},
     { value: 'Autre', label: 'Autre', color: '#FF8B00' },
     { value: 'Suisse', label: 'Suisse', color: '#FF8B00' },])
+  },1000)
     }
     if(Clients.length ==0){
       fetchClients().then((data)=>{
@@ -629,7 +632,10 @@ SelectedClient=[]
                         onChange={handleSectorChange}
                         options={sectorOptions}
                         styles={colourStyles}
-                      /> : <p>Select Un Secteur!</p>
+                      /> :
+                      
+                      <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+
                     }
                    
                   </div>

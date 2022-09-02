@@ -142,7 +142,7 @@ function EditDo() {
   useEffect(()=>{
     if(JSON.stringify(profile).includes(JSON.stringify(profile.candidatContract))){
 
-    
+    if(profile.candidatContract !== null){
     if(profile.candidatContract.contract_date){
    
           let tempdate =new Date(profile.candidatContract.contract_date)
@@ -164,6 +164,7 @@ function EditDo() {
 
 
 }}
+}
 },)
 
   const editExperience = (e: any) => {

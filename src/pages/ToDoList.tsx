@@ -9,6 +9,7 @@ import chroma from 'chroma-js';
 import { ColourOption } from "../Selecteddata/data";
 import ProfileLoader from "../components/Loader/ProfilesLoader"
 import ErrorLoader from '../components/Loader/SearchBarError'
+import Error404Loader from '../components/Loader/404Error'
 
 declare namespace JSX {
   interface IntrinsicElements {
@@ -56,10 +57,9 @@ const notifyMoveError = () => toast.error("Not Moved..");
   const [nameOptions, setNameOptions] = useState([])as any                      
   const [showMore, setShowMore] = useState(true)
   const [email,setEmail]=useState([])
-  
-  const [licenceOptions, setLicenseOptions] = useState([
-
-  ])
+  const [dateLoader,setdateLoader]=useState(false)
+  const [LoaderTime,setLoaderTime]=useState(false)
+  const [licenceOptions, setLicenseOptions] = useState([])
 
   const [motivationOptions, setMotivationOptions] = useState([
 
@@ -68,6 +68,12 @@ const notifyMoveError = () => toast.error("Not Moved..");
   const [LanguageOp,setLangOp]=useState([])
 
 
+const LoaderFun=()=>{
+
+    setTimeout(()=>{
+      setLoaderTime(true)
+     },15000)
+  }
 
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
@@ -149,8 +155,10 @@ const notifyMoveError = () => toast.error("Not Moved..");
     let sectorops = sectors.map((asector) => {
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
+setTimeout(()=>{
+  setSectorOptions([{value:"Select Sector",label:"Select Sector",color:"#ff8b00"},...sectorops]);
 
-    setSectorOptions([{value:"Select Sector",label:"Select Sector",color:"#ff8b00"},...sectorops]);
+},1000)
   }, [sectors])
 
   useEffect(() => {
@@ -252,7 +260,13 @@ const notifyMoveError = () => toast.error("Not Moved..");
   };
 
   useEffect(() => {
+    if(dateLoader == false){
+      setTimeout(()=>{
+      setdateLoader(true)
+      },1000)
+    }
     if(licenceOptions.length == 0){
+      setTimeout(()=>{
       setLicenseOptions([    {
         value: "Select Licence", label: "Select Licence", color: '#FF8B00'
       },
@@ -262,8 +276,10 @@ const notifyMoveError = () => toast.error("Not Moved..");
       {
         value: "false", label: "No Licence", color: '#FF8B00'
       }])
-    }
+      },1000)}
+    
     if(LanguageOp.length == 0){
+      setTimeout(()=>{
       setLangOp([{ value: 'Roumain', label: 'Roumain', color:  '#FF8B00' },
       { value: 'Français', label: 'Français', color:  '#FF8B00', },
       { value: 'Anglais', label: 'Anglais', color: '#FF8B00' },
@@ -273,22 +289,26 @@ const notifyMoveError = () => toast.error("Not Moved..");
       { value: 'Autre', label: 'Autre', color: '#FF8B00' },
       { value: 'Suisse', label: 'Suisse', color: '#FF8B00' },
     ])
-      }
+      },1000)
+    }
     if(motivationOptions.length == 0){
-setMotivationOptions([    {
-  value: "Select Motivations", label: "Select Motivations", color: '#FF8B00'
-},
-{
-  value: "1", label: "😟", color: '#FF8B00'
-}, {
-  value: "2", label: "🙁", color: '#FF8B00'
-}, {
-  value: "3", label: "😊", color: '#FF8B00'
-}, {
-  value: "4", label: "🥰", color: '#FF8B00'
-}, {
-  value: "5", label: "😍", color: '#FF8B00'
-}])
+      setTimeout(()=>{
+        setMotivationOptions([    {
+          value: "Select Motivations", label: "Select Motivations", color: '#FF8B00'
+        },
+        {
+          value: "1", label: "😟", color: '#FF8B00'
+        }, {
+          value: "2", label: "🙁", color: '#FF8B00'
+        }, {
+          value: "3", label: "😊", color: '#FF8B00'
+        }, {
+          value: "4", label: "🥰", color: '#FF8B00'
+        }, {
+          value: "5", label: "😍", color: '#FF8B00'
+        }])
+      },1000)
+
     }
     if (nameOptions.length == 0) {
       fetchProfiles().then((profilesResult) => {
@@ -730,7 +750,7 @@ setMotivationOptions([    {
         setLoader(true)
         setStatus(true)
         fetchProfiles().then(filteredresponse => {
-          setFilterData([...filteredresponse])
+          // setFilterData([...filteredresponse])
         })
           .catch(err => {
             console.log(err);
@@ -810,6 +830,7 @@ setMotivationOptions([    {
    OthersFilterArr = []
    setLicenseOptions([])
    setLangOp([])
+   setdateLoader(false)
    emailArr=[]
    setEmail([])
    contactArr=[]
@@ -903,7 +924,8 @@ setMotivationOptions([    {
                         onChange={handleSectorChange}
                         options={sectorOptions}
                         styles={colourStyles}
-                      /> : <p>Select Un Secteur!</p>
+                      /> :                                           <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+
                     }
                     {/* <select
                       name="candidatActivitySector"
@@ -1002,8 +1024,14 @@ setMotivationOptions([    {
                                 onClick={onDateChange}
                                 
                               /> */}
-                        <input type="date"  className="form-control inputDate"
-                              name="candidatStartDate"   onChange={onDateChange} />
+                              { dateLoader ?
+ <input type="date"  className="form-control inputDate"
+ name="candidatStartDate"   onChange={onDateChange} />
+ :
+ <div >   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+
+                              }
+                       
         </div>
                         <div className="col-md-6 col-xxl-4 col-xl-4 col-lg-4 pt-1">
                           <p className="FiltreName">Filter by driver licence</p>
@@ -1170,11 +1198,10 @@ styles={colourStyles}
                   ))
                   :
                   <div className="col-12">
-                    <div className="row d-flex justify-content-center">
-                      <Loader />
-                    </div>
+                  <div className="row d-flex justify-content-center">  
+ <>{LoaderTime ?  <Error404Loader /> : <> <Loader />{LoaderFun()}</>}</>
+    </div>
                   </div>
-
                 :
                 <div className="col-12 d-flex justify-content-center align-items-center">
                 <ErrorLoader />
@@ -1187,10 +1214,12 @@ styles={colourStyles}
             :
             <div className="col-12">
               <div className="row d-flex justify-content-center">
-                <Loader />
-              </div>
-            </div>
-          }
+             
+                      <Loader />
+                    </div>
+                  </div>
+        
+}
         </div>
       </div>
     </>

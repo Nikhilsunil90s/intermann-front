@@ -147,6 +147,7 @@ let OthersFilterArr = []
       })
     }
     if(optionsOthersFilter.length == 0){
+     setTimeout(()=>{
       setOtherOptions([
         {
           value: "Select Others",
@@ -193,10 +194,11 @@ let OthersFilterArr = []
           label: "SISPI déclaré ?",
           color: "#FF8B00",
         },
-      ]);
+      ]);},1000)
     }
     if(importanceOptions.length == 0){
-  setImportanceOptions([
+ setTimeout(()=>{
+      setImportanceOptions([
     {
       value: "Select Importance", label:"Select Importance", color: '#FF8B00'
     },
@@ -210,9 +212,10 @@ let OthersFilterArr = []
         value: "4", label:  <><RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <Empty style={{height:"25px",width:"25px",borderRadius:"30px"}} /></>, color: '#FF8B00'
       }, {
         value: "5", label:  <><RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /> <RatingStar style={{height:"25px",width:"25px",borderRadius:"30px"}} /></>, color: '#FF8B00'
-      }])
+      }])},1000)
     }
     if(motivationOptions.length == 0){
+    setTimeout(()=>{
       setMotivationOptions([    {
         value: "Select Motivations", label: "Select Motivations", color: '#FF8B00'
       },
@@ -226,7 +229,7 @@ let OthersFilterArr = []
         value: "4", label: "🥰", color: '#FF8B00'
       }, {
         value: "5", label: "😍", color: '#FF8B00'
-      }])
+      }])},1000)
           }
  
   });
@@ -236,8 +239,9 @@ let OthersFilterArr = []
     let sectorops = sectors.map((asector) => {
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
-
+setTimeout(()=>{
     setSectorOptions([{value:"Select Un Secteur",label:"Select Un Secteur",color:'#FF8B00'},...sectorops]);
+  },1000)
   }, [sectors])
   useEffect(() => {
     filterFunction();
@@ -766,7 +770,8 @@ setStatus(false)
                        onChange={handleSectorChange}
                         options={sectorOptions}
                         styles={colourStyles}
-                      /> : <p>Select Un Secteur!</p>
+                      /> :                         <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+
                     }
                   </div>
                 </div>

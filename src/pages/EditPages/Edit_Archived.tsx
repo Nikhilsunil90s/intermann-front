@@ -131,6 +131,8 @@ function EditArchive() {
   useEffect(()=>{
 
     if(JSON.stringify(profile).includes(JSON.stringify(profile.candidatContract))){
+    if(profile.candidatContract !== null){
+
     if(profile.candidatContract.contract_date){
 
    
@@ -152,7 +154,7 @@ function EditArchive() {
     
 
 
-}}},)
+}}}},)
 
   
   const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
