@@ -750,7 +750,7 @@ setTimeout(()=>{
         setLoader(true)
         setStatus(true)
         fetchProfiles().then(filteredresponse => {
-          // setFilterData([...filteredresponse])
+          setFilterData([...filteredresponse])
         })
           .catch(err => {
             console.log(err);
