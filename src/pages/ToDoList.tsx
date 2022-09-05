@@ -939,10 +939,10 @@ setTimeout(()=>{
     <>
            <Toaster position="top-right" containerStyle={{ zIndex: '99999999999' }} />
 
-      <div className="container-fluid">
+      <div className="container-fluid cardScrollBar" onScroll={loadMoreHandle}  style={{ overflowY: 'auto', height: '100vh' }}>
         <div className="row pd ">
 
-          <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 card-tops px-1 mt-1 " style={{ padding: "0px", marginBottom: "20px" }}>
+          <div   className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 card-tops px-1 mt-1 " style={{ padding: "0px", marginBottom: "20px" }}>
             <div className="row text-start">
               <div className="card mdquery" style={{ padding: "15px 15px", borderRadius: "10px", marginBottom: "0px" }}>
                 <div className="d-flex topHeading"> <h2 className="">candidats / employes</h2> <span className="topBluetext">list to do / En Sommeil</span></div>
@@ -1278,8 +1278,7 @@ styles={colourStyles}
               }
             </div>
           </div>
-          <div  onScroll={loadMoreHandle} className="col-12 cardScrollBar" style={{ overflowY: 'auto', height: '100vh' }}  >
-          <div  className="row"  >
+          
 
           {loader ?
             <>
@@ -1320,8 +1319,7 @@ styles={colourStyles}
 
 {filterLoader ? <Loader /> : null}
 
-</div>
-</div>
+
         </div>
       </div>
     </>
