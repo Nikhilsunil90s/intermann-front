@@ -11,6 +11,7 @@ import Select ,{StylesConfig }from 'react-select'
 import ProfileLoader from "../components/Loader/ProfilesLoader"
 import toast,{Toaster} from 'react-hot-toast'
 import ErrorLoader from '../components/Loader/SearchBarError'
+import Error404Loader from '../components/Loader/404Error'
 
 
 declare namespace JSX {
@@ -48,6 +49,42 @@ function ArchivedList() {
   const [showMore, setShowMore] = useState(true)
   const [Clients,setClients]=useState([])
   const [LanguageOp,setLangOp]=useState([])
+  const [filterLoader ,setFetchingLoader  ]=useState(true)
+  const [cardTotallength,setTotalLength]=useState(0)
+  let [page, setPage] = useState(0);
+  const [LoaderTime,setLoaderTime]=useState(false)
+
+
+   
+  const loadMoreHandle = (i) => {
+    let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
+    console.log(bottom,"bottom")
+    if (bottom) {
+      if(cardTotallength > page && selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0   && FilterJob.length == 0 && LanguageFilter.length == 0){
+        setPage(page + 20);
+        setFetchingLoader(true)
+        fetchProfileS(page);
+        setLoader(true);
+
+    
+      }
+      
+       
+    }
+}
+
+const LoaderFun=()=>{
+
+    setTimeout(()=>{
+      setLoaderTime(true)
+     },15000)
+  }
+
+  useEffect(() => {
+    fetchProfileS(page);
+}, [page]);
+
+
 
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
@@ -210,6 +247,7 @@ function ArchivedList() {
     ClientFL=[]
     SelectedClient=[]
     LanguageFilter=[]
+    
     setSelectedSector("")
     setSelectedJob([])
     if (e.value === "Select Name") {
@@ -304,6 +342,37 @@ SelectedClient=[]
     console.log(LanguageFilter,"jee")
   }
   }
+
+
+  const fetchProfileS = async (page) => {
+    return await fetch(API_BASE_URL + `archivedCandidats/?skip=${page}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((resD) => resD.json())
+      .then((reD) =>   {   if(cardTotallength > page){
+        setFetchingLoader(true)
+      let resultArr = [...filterData,...reD]
+      setFilterData([...resultArr])
+    
+    }
+    if(cardTotallength < page){
+      setFetchingLoader(false)
+      return true
+    }
+    if(filterData.length === 0){
+      setFetchingLoader(false)
+      setFilterData([...reD])
+
+
+
+  }})
+      .catch((err) => err);
+  };
 
   
   const getSelectedLanguage = (e: any) => {
@@ -519,9 +588,8 @@ SelectedClient=[]
       {
         setLoader(true)
         setStatus(true)
-        fetchProfiles().then(filteredresponse => {
-          setFilterData([...filteredresponse])
-        })
+        fetchProfileS(page)
+        
           .catch(err => {
             console.log(err);
           })
@@ -575,7 +643,7 @@ SelectedClient=[]
   return (
     <>
      <Toaster position="top-right" containerStyle={{zIndex:"99999999999999999999999999"}} />
-      <div className="container-fluid" style={{marginTop:"80px"}}>
+      <div className="container-fluid cardScrollBar" style={{marginTop:"80px"}} onScroll={loadMoreHandle}>
         <div className="row pd">
                <div className="col-12 card-tops px-1" style={{ padding: "0px", marginBottom: "20px" }}>
             <div className="row text-start">
@@ -764,7 +832,7 @@ SelectedClient=[]
                      : 
                       <div className="col-12">
                         <div className="row d-flex justify-content-center">
-                          <Loader />
+                        <>{LoaderTime ?  <Error404Loader /> : <> <Loader />{LoaderFun()}</>}</>
                         </div>
                       </div>
                     
@@ -785,6 +853,8 @@ No Profiles in Candidat To-Do! Please Add New Candidats.
               </div>
             </div>
           }
+{filterLoader ? <Loader /> : null}
+
             </>
        
         </div>

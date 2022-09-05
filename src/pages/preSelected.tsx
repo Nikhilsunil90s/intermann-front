@@ -12,6 +12,8 @@ import PreSelectedCard from "./preSelectedCard";
 import chroma from 'chroma-js';
 import ProfileLoader from "../components/Loader/ProfilesLoader"
 import ErrorLoader from '../components/Loader/SearchBarError'
+import Error404Loader from '../components/Loader/404Error'
+
 
 
 
@@ -61,7 +63,38 @@ function Preselected(){
           const [ContactOptions,setContactOptions]=useState([])
           const [LicensePermis, setLicensePermis] = useState([]) as any
           const [dateLoader,setdateLoader]=useState(false)
+          const [page, setPage] = useState(0)as any;
+          const [filterLoader ,setFetchingLoader  ]=useState(true)
+          const [cardTotallength,setTotalLength]=useState(0)
+          const [LoaderTime,setLoaderTime]=useState(false)
 
+          const loadMoreHandle = (i) => {
+            let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
+            console.log(bottom,"bottom")
+            if (bottom) {
+              if(cardTotallength > page && selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0 && emailArr.length == 0 && contactArr.length == 0 && FilterJob.length == 0 && LanguageFilter.length == 0){
+                setPage(page + 20);
+                setFetchingLoader(true)
+                fetchProfileS(page);
+                setLoader(true);
+        
+            
+              }
+              
+               
+            }
+        }
+        
+        const LoaderFun=()=>{
+        
+            setTimeout(()=>{
+              setLoaderTime(true)
+             },15000)
+          }
+        
+          useEffect(() => {
+            fetchProfileS(page);
+        }, [page]);
         
           const colourStyles: StylesConfig<ColourOption, true> = {
             control: (styles) => ({ ...styles, backgroundColor: 'white' }),
@@ -246,11 +279,43 @@ function Preselected(){
               .then((reD) => reD)
               .catch((err) => err);
           };
+          const fetchProfileS = async (page) => {
+            return await fetch(API_BASE_URL + `preSelectedCandidats/?skip=${page}`, {
+              method: "GET",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            })
+              .then((resD) => resD.json())
+              .then((reD) =>   {   if(cardTotallength > page){
+                setFetchingLoader(true)
+              let resultArr = [...filterData,...reD]
+              setFilterData([...resultArr])
+            
+            }
+            if(cardTotallength < page){
+              setFetchingLoader(false)
+              return true
+            }
+            if(filterData.length === 0){
+              setFetchingLoader(false)
+              setFilterData([...reD])
+      
+      
+      
+          }})
+              .catch((err) => err);
+          };
         
         useEffect(()=>  {
          
             if (nameOptions.length == 0 && statusProfiles===true) {
               fetchProfiles().then((profilesResult) => {
+                if(cardTotallength === 0){
+                  setTotalLength(profilesResult.length)
+                }
                 console.log(profilesResult.data,"profilesResult")
                 if(profilesResult.data.length>0){ 
                 let nameops = profilesResult.data.map((pro) => {
@@ -784,7 +849,7 @@ function Preselected(){
                 fetchProfiles().then(filteredresponse => {
                   if(filteredresponse.data.length > 0){
                    
-                  console.log(filteredresponse.status,"fisponse.statu")
+               
 setStatusProfile(filteredresponse.status)
 console.log(statusProfiles,"filteredresponse.status")
 
@@ -1254,7 +1319,7 @@ styles={colourStyles}
                      : 
                       <div className="col-12">
                         <div className="row d-flex justify-content-center">
-                          <Loader />
+                        <>{LoaderTime ?  <Error404Loader /> : <> <Loader />{LoaderFun()}</>}</>
                         </div>
                       </div>
                     
@@ -1274,6 +1339,7 @@ styles={colourStyles}
               </div>
             </div>
           }
+          {filterLoader ? <Loader /> : null}
         </div>
       </div>
     </>

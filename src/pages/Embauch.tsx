@@ -12,6 +12,7 @@ import { colourOptions, ColourOption } from "../Selecteddata/data";
 import ProfileLoader from "../components/Loader/ProfilesLoader"
 import set from "date-fns/set";
 import ErrorLoader from '../components/Loader/SearchBarError'
+import Error404Loader from '../components/Loader/404Error'
 
 
 declare global {
@@ -63,7 +64,46 @@ const notifyMoveError = () => toast.error("Not Moved..");
   const [LanguageOp,setLangOp]=useState([])
   const [licenceOptions, setLicenseOptions] = useState([])
   const [dateLoader,setdateLoader]=useState(false)
+  const [filterLoader ,setFetchingLoader  ]=useState(true)
+  const [cardTotallength,setTotalLength]=useState(0)
+  let [page, setPage] = useState(0);
+  const [LoaderTime,setLoaderTime]=useState(false)
+
   
+
+
+
+  
+  const loadMoreHandle = (i) => {
+    let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
+    console.log(bottom,"bottom")
+    if (bottom) {
+      if(cardTotallength > page && selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0  && LicencePermisArr.length === 0 && FilterJob.length == 0 && LanguageFilter.length == 0){
+        setPage(page + 20);
+        setFetchingLoader(false)
+        fetchProfileS(page);
+        setLoader(true);
+
+    
+      }
+      
+       
+    }
+}
+
+const LoaderFun=()=>{
+
+    setTimeout(()=>{
+      setLoaderTime(true)
+     },15000)
+  }
+
+  useEffect(() => {
+    fetchProfileS(page);
+}, [page]);
+
+
+
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -214,9 +254,50 @@ setTimeout(()=>{
       .then((reD) => reD)
       .catch((err) => err);
   };
+  
+  const fetchProfileS = async (page) => {
+    return await fetch(API_BASE_URL + `inProgressCandidats/?skip=${page}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((resD) => resD.json())
+      .then((reD) => 
+      
+      {
+        if(cardTotallength > page){
+          setFetchingLoader(false)
+        let resultArr = [...filterData,...reD]
+        setFilterData([...resultArr])
+      
+      }
+      if(cardTotallength < page){
+        setFetchingLoader(true)
+        return true
+      }
+      if(filterData.length === 0){
+        setFetchingLoader(true)
+        setFilterData([...reD])
+
+
+
+  }
+      }
+      )
+      .catch((err) => err);
+  };
+
+
+
   useEffect(() => {
     if (nameOptions.length == 0) {
       fetchProfiles().then((profilesResult) => {
+        if(cardTotallength === 0){
+          setTotalLength(profilesResult.length)
+        }
         let nameops = profilesResult.map((pro) => {
           return { value: pro.candidatName, label: pro.candidatName, color: '#FF8B00' }
         })
@@ -303,6 +384,8 @@ setTimeout(()=>{
     SelectedName = []
     FilterJob = [];
     LanguageFilter=[]
+
+  
     LicencePermisArr = []
     ClientFL=[]
     SelectedClient=[]
@@ -316,6 +399,7 @@ setTimeout(()=>{
     filterFunction()
 
     } else if (e.value !== '' && e.value !== "Select Sector") {
+    debugger;
        
       setSelectedSector(e.value);
       setJobOptions([]);
@@ -339,7 +423,8 @@ setTimeout(()=>{
 
   const filterFunction = async () => {
     setLoader(false);
-    if (SelectedName.length > 0 ) {
+    setLoaderTime(false)
+   if (SelectedName.length > 0 ) {
       if (SelectedName.length > 0) {
        
         fetch(`${API_BASE_URL}getCandidats/?candidatName=${SelectedName}`, {
@@ -399,6 +484,7 @@ setTimeout(()=>{
        if(LicencePermisArr.length > 0 ){
         setFilterData([])
         SelectedName = []
+        setLoaderTime(false)
         fetch(`${API_BASE_URL}getCandidats/?candidatLicensePermis=${LicencePermisArr}&candidatStatus=In-Progress`, {
 
           method: "GET",
@@ -426,6 +512,7 @@ setTimeout(()=>{
       selectedJob.length == 0 &&
       selectedLanguages.length == 0
     ) {
+   
       fetch(
         `${API_BASE_URL}filterInProgressCandidatBySector/?sector=${selectedSector}`,
         {
@@ -572,9 +659,7 @@ setTimeout(()=>{
       {
         setLoader(true)
         setStatus(true)
-        fetchProfiles().then(filteredresponse => {
-          setFilterData([...filteredresponse])
-        })
+        fetchProfileS(page)
           .catch(err => {
             console.log(err);
           })
@@ -651,7 +736,7 @@ setTimeout(()=>{
 
   }
 
-
+console.log(filterData,"filter")
   
  const RestFilters=()=>{
   setSectors([])
@@ -679,7 +764,7 @@ setTimeout(()=>{
   return (
     <>
       <Toaster position="top-right" containerStyle={{zIndex:"99999999999999999999999999"}} />
-      <div className="container-fluid mt-1">
+      <div className="container-fluid mt-1 cardScrollBar" onScroll={loadMoreHandle}>
         <div className="row pd">
           <div className="col-12 card-tops px-1 mt-1" style={{ padding: "0px", marginBottom: "20px" }}>
             <div className="row text-start">
@@ -911,10 +996,11 @@ setTimeout(()=>{
                           <EmbaucheProfileCard path={false} props={profile}  NottifySuccess={notifyMoveSuccess} NottifyErr={notifyMoveError}  />
                         </div>
                       ))
+             
                      : 
                       <div className="col-12">
                         <div className="row d-flex justify-content-center">
-                          <Item />
+                        <>{LoaderTime ?  <Error404Loader /> : <> <Item />{LoaderFun()}</>}</>
                         </div>
                       </div>
                     
@@ -935,6 +1021,8 @@ setTimeout(()=>{
               </div>
             </div>
           }
+
+<> {filterLoader ?  null : <Item />}</>
         </div>
       </div>
     </>

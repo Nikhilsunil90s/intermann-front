@@ -61,9 +61,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
   const [LoaderTime,setLoaderTime]=useState(false)
   const [licenceOptions, setLicenseOptions] = useState([])
   let [page, setPage] = useState(0);
-  const [motivationOptions, setMotivationOptions] = useState([
-
-  ])
+  const [motivationOptions, setMotivationOptions] = useState([])
   const [ContactOptions,setContactOptions]=useState([])
   const [LanguageOp,setLangOp]=useState([])
   const [filterLoader ,setFetchingLoader  ]=useState(true)
@@ -75,7 +73,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
     console.log(bottom,"bottom")
     if (bottom) {
       if(cardTotallength > page && selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0 && emailArr.length == 0 && contactArr.length == 0 && FilterJob.length == 0 && LanguageFilter.length == 0){
-        setPage(page + 10);
+        setPage(page + 20);
         setFetchingLoader(true)
         fetchProfileS(page);
         setLoader(true);
