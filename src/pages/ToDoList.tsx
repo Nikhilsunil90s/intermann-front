@@ -60,13 +60,32 @@ const notifyMoveError = () => toast.error("Not Moved..");
   const [dateLoader,setdateLoader]=useState(false)
   const [LoaderTime,setLoaderTime]=useState(false)
   const [licenceOptions, setLicenseOptions] = useState([])
-
+  let [page, setPage] = useState(0);
   const [motivationOptions, setMotivationOptions] = useState([
 
   ])
   const [ContactOptions,setContactOptions]=useState([])
   const [LanguageOp,setLangOp]=useState([])
+  const [filterLoader ,setFetchingLoader  ]=useState(true)
+  const [cardTotallength,setTotalLength]=useState(0)
 
+
+  const loadMoreHandle = (i) => {
+    let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
+    console.log(bottom,"bottom")
+    if (bottom) {
+      if(cardTotallength > page && selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0 && emailArr.length == 0 && contactArr.length == 0 && FilterJob.length == 0 && LanguageFilter.length == 0){
+        setPage(page + 10);
+        setFetchingLoader(true)
+        fetchProfileS(page);
+        setLoader(true);
+
+    
+      }
+      
+       
+    }
+}
 
 const LoaderFun=()=>{
 
@@ -74,6 +93,10 @@ const LoaderFun=()=>{
       setLoaderTime(true)
      },15000)
   }
+
+  useEffect(() => {
+    fetchProfileS(page);
+}, [page]);
 
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
@@ -259,6 +282,38 @@ setTimeout(()=>{
       .catch((err) => err);
   };
 
+  const fetchProfileS = async (page) => {
+    return await fetch(API_BASE_URL + `toDoCandidats/?skip=${page}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((resD) => resD.json())
+      .then((reD) =>  {
+        if(cardTotallength > page){
+          setFetchingLoader(true)
+        let resultArr = [...filterData,...reD]
+        setFilterData([...resultArr])
+      
+      }
+      if(cardTotallength < page){
+        setFetchingLoader(false)
+        return true
+      }
+      if(filterData.length === 0){
+        setFetchingLoader(false)
+        setFilterData([...reD])
+
+
+
+  }})
+      .catch((err) => err);
+  };
+  console.log(cardTotallength,"LEngth")
+
   useEffect(() => {
     if(dateLoader == false){
       setTimeout(()=>{
@@ -324,6 +379,9 @@ setTimeout(()=>{
       let emailops=[]as any
       fetchProfiles().then((profileResult) => {
         profileResult.filter((item) => {
+          if(cardTotallength === 0){
+            setTotalLength(profileResult.length)
+          }
           if(item.candidatEmail){
          emailops.push({ value: item.candidatEmail, label: item.candidatEmail, color: '#FF8B00' })
           }
@@ -542,6 +600,8 @@ setTimeout(()=>{
     if (SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length>0 || emailArr.length > 0 || contactArr.length > 0) {
       if (SelectedName.length > 0 && MotivationArr.length == 0 && LicencePermisArr.length == 0 && DateArr.length==0 && emailArr.length ==0 && contactArr.length ==0) {
         LicencePermisArr = []
+        setFetchingLoader(false)
+        setLoaderTime(true)
         fetch(`${API_BASE_URL}getCandidats/?candidatName=${SelectedName}`, {
 
           method: "GET",
@@ -566,6 +626,9 @@ setTimeout(()=>{
       if (SelectedName.length == 0 && MotivationArr.length > 0 && LicencePermisArr.length == 0 && DateArr.length == 0 && emailArr.length ==0  && contactArr.length ==0) {
         setFilterData([])
         SelectedName = []
+        setFetchingLoader(false)
+        setLoaderTime(false)
+
         fetch(`${API_BASE_URL}getCandidats/?candidatMotivation=${MotivationArr}`, {
 
           method: "GET",
@@ -591,6 +654,9 @@ setTimeout(()=>{
         setFilterData([])
         SelectedName = []
         MotivationArr = []
+        setFetchingLoader(false)
+        setLoaderTime(false)
+
         fetch(`${API_BASE_URL}getCandidats/?candidatLicensePermis=${LicencePermisArr}`, {
 
           method: "GET",
@@ -604,6 +670,7 @@ setTimeout(()=>{
           .then((result) => {
             {
               setFilterData([...result.data]);
+
             }
           })
           .catch((err) => err);
@@ -612,6 +679,8 @@ setTimeout(()=>{
       if (DateArr.length > 0 && SelectedName.length == 0 && MotivationArr.length == 0 && LicencePermisArr.length == 0 && emailArr.length ==0  && contactArr.length ==0) {
         setFilterData([])
         SelectedName = []
+        setFetchingLoader(false)
+        setLoaderTime(true)
         MotivationArr = []
         LicencePermisArr=[]
         setSelectedSector("")
@@ -621,6 +690,8 @@ setTimeout(()=>{
       if (emailArr.length > 0 && DateArr.length == 0 && SelectedName.length == 0 && MotivationArr.length == 0 && LicencePermisArr.length == 0  && contactArr.length ==0) {
         setFilterData([])
         SelectedName = []
+        setFetchingLoader(false)
+        setLoaderTime(true)
         MotivationArr = []
         LicencePermisArr=[]
         setSelectedSector("")
@@ -642,6 +713,8 @@ setTimeout(()=>{
         MotivationArr = []
         LicencePermisArr=[]
         setSelectedSector("")
+        setFetchingLoader(false)
+        setLoaderTime(true)
         DateArr=[]
         emailArr=[]
         ContactFilter().then((data)=>{
@@ -660,6 +733,9 @@ setTimeout(()=>{
       selectedJob.length == 0 &&
       LanguageFilter.length == 0
     ) {
+      setFetchingLoader(false)
+      setLoaderTime(true)
+
       fetch(
         `${API_BASE_URL}filterToDoCandidatBySector/?sector=${selectedSector}`,
         {
@@ -687,6 +763,9 @@ setTimeout(()=>{
       FilterJob.length > 0 &&
       LanguageFilter.length == 0
     ) {
+      setFetchingLoader(false)
+      setLoaderTime(true)
+
       await fetch(
         `${API_BASE_URL}filterToDoSJ/?sector=${selectedSector}&jobs=${FilterJob}`,
         {
@@ -720,6 +799,9 @@ setTimeout(()=>{
       selectedJob.length == 0 &&
       selectedSector.length == 0
     ) {
+      setFetchingLoader(false)
+      setLoaderTime(true)
+
       await fetch(
         `${API_BASE_URL}filterToDoCandidatByLanguages/?languages=${LanguageFilter}`,
         {
@@ -749,9 +831,16 @@ setTimeout(()=>{
       {
         setLoader(true)
         setStatus(true)
-        fetchProfiles().then(filteredresponse => {
-          setFilterData([...filteredresponse])
-        })
+       setFetchingLoader(false)
+      
+        // fetchProfiles().then(filteredresponse => {
+         
+        //     setFilterData([...filteredresponse])
+
+          
+        // })
+    fetchProfileS(page)
+      
           .catch(err => {
             console.log(err);
           })
@@ -829,8 +918,11 @@ setTimeout(()=>{
    LicencePermisArr=[]
    OthersFilterArr = []
    setLicenseOptions([])
+   setFilterData([])
+   setPage(0)
    setLangOp([])
    setdateLoader(false)
+   setLoaderTime(false)
    emailArr=[]
    setEmail([])
    contactArr=[]
@@ -1186,6 +1278,9 @@ styles={colourStyles}
               }
             </div>
           </div>
+          <div  onScroll={loadMoreHandle} className="col-12 cardScrollBar" style={{ overflowY: 'auto', height: '100vh' }}  >
+          <div  className="row"  >
+
           {loader ?
             <>
               {status ?
@@ -1195,6 +1290,8 @@ styles={colourStyles}
                       <ToDoProfileCard data={profile}
  />
                     </div>
+                  
+                   
                   ))
                   :
                   <div className="col-12">
@@ -1220,6 +1317,11 @@ styles={colourStyles}
                   </div>
         
 }
+
+{filterLoader ? <Loader /> : null}
+
+</div>
+</div>
         </div>
       </div>
     </>

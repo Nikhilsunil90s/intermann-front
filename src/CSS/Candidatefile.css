@@ -10,6 +10,22 @@ body::-webkit-scrollbar {
     border-radius: 10px;       /* roundness of the scroll thumb */  /* creates padding around scroll thumb */
   }
 
+
+  
+
+
+  
+.cardScrollBar::-webkit-scrollbar {
+    width: 5px;               /* width of the entire scrollbar */
+  }
+  .cardScrollBar::-webkit-scrollbar-track {
+    background: #e7e7e7;        /* color of the tracking area */
+  }
+  .cardScrollBar::-webkit-scrollbar-thumb {
+    background-color: orange;    /* color of the scroll thumb */
+    border-radius: 10px;       /* roundness of the scroll thumb */  /* creates padding around scroll thumb */
+  }
+
 .bg-class{
     background-color: #ffff !important;
         margin: 15px 0px;
