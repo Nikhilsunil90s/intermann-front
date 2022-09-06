@@ -45,7 +45,7 @@ function ToDoProfile() {
   const { state } = useLocation();
 
   console.log(profileData,"profile")
-  const [profile, setProfile] = useState<any>(state? state : profileData.props);
+  const [profile, setProfile] = useState<any>(state ? state : profileData.props);
 console.log(profile,"profile")
 
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
@@ -82,7 +82,9 @@ console.log(profile,"profile")
  let end = new Date(profile.candidatEndDate);
   
 
-
+ useEffect(()=>{
+      setProfile(state ? state : profileData.props)
+},[state,profileData])
 
 
   let data={profileData:profile ,path:"/todoprofile"}

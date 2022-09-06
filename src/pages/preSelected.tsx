@@ -585,6 +585,7 @@ function Preselected(){
         
           const filterFunction = async () => {
             setLoader(false);
+            setFetchingLoader(false)
         
             if (SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || emailArr.length > 0 || contactArr.length > 0 || DateArr.length > 0) {
               if (emailArr.length > 0) {

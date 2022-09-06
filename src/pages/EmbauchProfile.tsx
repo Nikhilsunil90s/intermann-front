@@ -29,13 +29,7 @@ function ProgressCard() {
   const { state } = useLocation();
  const navigate = useNavigate()
 
-  // const profileData = ||"");
- 
-  // const profileData=async()=>{
-   
-  //   console.log(await JSON.parse(await localStorage.getItem("embauch")))
-  // }
-  
+
 
   const [loader, setLoader] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -70,6 +64,10 @@ function ProgressCard() {
 
  let start = new Date(profile.candidatStartDate);
  let end = new Date(profile.candidatEndDate);
+
+ useEffect(()=>{
+     setProfile(state ? state : profileData.props)
+},[state,profileData])
 
 
   let data = {profileData:profile,path:"/embauchprofile"}

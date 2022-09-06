@@ -287,6 +287,21 @@ width: 100%;
 height: 50px;
 margin-left: 10px;
 }
+.documentSign{
+    background: #FE8700;
+    border-radius: 100px;
+        font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 27px;
+    text-align: center;
+    color: #FFFFFF;
+    border:0px;
+    width: 100%;
+    height: 50px;
+    margin-left: 10px;
+}
 
 .inputStylingForView{
     border: 1px solid #E7E7E7;

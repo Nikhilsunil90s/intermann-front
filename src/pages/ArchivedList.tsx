@@ -390,6 +390,7 @@ SelectedClient=[]
     setSelectedLanguages(selectedLanguages.filter((l) => l !== lang));
   };
   const filterFunction = async () => {
+    setFetchingLoader(false)
     setLoader(false);
     if (SelectedName.length > 0 ) {
       if (SelectedName.length > 0) {

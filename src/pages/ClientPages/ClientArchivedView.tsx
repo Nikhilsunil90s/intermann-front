@@ -50,7 +50,9 @@ function ArchivedViewPage(){
  let start = new Date(profile.jobStartDate);
  let end = new Date(profile.jobEndDate);
  
-
+ useEffect(()=>{
+  setProfile(state)
+},[state])
 
   const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating   style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}}/> <StarRating style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}} /> <Empty style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /></>}]; 
 
@@ -293,7 +295,7 @@ console.log(ClientImage,"img")
               <Link to="/clientProgress">
                 <button type="button" className="btn FontStyle-TODOSEE">
                   <img src={require("../../images/return.svg").default} />
-                  Client File : {profile.clientCompanyName}
+                  Client File : {profile.clientCompanyName.toLocaleUpperCase()}
                 </button>
               </Link>
             </div>
@@ -366,7 +368,7 @@ className="SelectBtn"
                   <p>Secteur : {profile.clientActivitySector ? profile.clientActivitySector : "No Sector"}</p>
                   <p>Métier/Job : {profile.clientJob ? profile.clientJob : "No Job!"}</p>
                   <p style={{ width: "120%" }}>
-                    Contact Name : {profile.clientReferenceName ? profile.clientReferenceName : "No Contact Name!" }
+                    Contact Name : {profile.clientReferenceName ? profile.clientReferenceName.toLocaleUpperCase() : "No Contact Name!" }
                   </p>
                 </div>
                 {/* <div className="col-4 text-end end-class d-grid justify-content-center align-items-center"> */}

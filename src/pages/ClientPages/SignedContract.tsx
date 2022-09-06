@@ -49,6 +49,11 @@ function Signed() {
   const [PreSelectedData, setPreSelected] = useState([]);
   const [PDFModal,setPDFModal]=useState(false)
 
+
+  useEffect(()=>{
+    setProfile(state)
+  },[state])
+
  console.log(EMPunderWorking,"emp")
   const candidatImportanceIcons = [
     {
@@ -542,7 +547,7 @@ function Signed() {
                   <Link to="/clientProgress">
                     <button type="button" className="btn FontStyle-TODOSEE">
                       <img src={require("../../images/return.svg").default} />
-                      Client File : {profile.clientCompanyName}
+                      Client File : {profile.clientCompanyName.toLocaleUpperCase()}
                     </button>
                   </Link>
                 </div>
@@ -632,7 +637,7 @@ function Signed() {
                   <p>Secteur : {profile.clientActivitySector ? profile.clientActivitySector : "No Sector"}</p>
                   <p>Métier/Job : {profile.clientJob ? profile.clientJob : "No Job!"}</p>
                   <p style={{ width: "120%" }}>
-                    Contact Name : {profile.clientReferenceName ? profile.clientReferenceName : "No Contact Name!" }
+                    Contact Name : {profile.clientReferenceName ? profile.clientReferenceName.toLocaleUpperCase() : "No Contact Name!" }
                   </p>
                 </div>
                 {/* <div className="col-4 text-end end-class d-grid justify-content-center align-items-center"> */}

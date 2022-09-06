@@ -69,7 +69,9 @@ function ClientProgressView() {
   }
 
 
-  
+  useEffect(()=>{
+    setProfile(state)
+  },[state])
 
   const datenow=moment().format('YYYY-MM-DD')
     
@@ -453,7 +455,7 @@ function ClientProgressView() {
               <Link to="/clientProgress">
                 <button type="button" className="btn FontStyle-TODOSEE">
                   <img src={require("../../images/return.svg").default} />
-                  Client File : {profile.clientCompanyName}
+                  Client File : {profile.clientCompanyName.toLocaleUpperCase()}
                 </button>
               </Link>
             </div>
@@ -533,7 +535,7 @@ className="SelectBtn"
                   <p>Secteur : {profile.clientActivitySector ? profile.clientActivitySector : "No Sector"}</p>
                   <p>Métier/Job : {profile.clientJob ? profile.clientJob : "No Job!"}</p>
                   <p style={{ width: "120%" }}>
-                    Contact Name : {profile.clientReferenceName ? profile.clientReferenceName : "No Contact Name!" }
+                    Contact Name : {profile.clientReferenceName ? profile.clientReferenceName.toLocaleUpperCase() : "No Contact Name!" }
                   </p>
                 </div>
                 {/* <div className="col-4 text-end end-class d-grid justify-content-center align-items-center"> */}

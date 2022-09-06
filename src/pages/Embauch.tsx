@@ -78,7 +78,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
     let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
     console.log(bottom,"bottom")
     if (bottom) {
-      if(cardTotallength > page && selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0  && LicencePermisArr.length === 0 && FilterJob.length == 0 && LanguageFilter.length == 0){
+      if(cardTotallength > page &&selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && SelectedClient.length === 0 && LanguageFilter.length === 0 && LicencePermisArr.length ===0){
         setPage(page + 20);
         setFetchingLoader(false)
         fetchProfileS(page);
@@ -98,9 +98,9 @@ const LoaderFun=()=>{
      },15000)
   }
 
-  useEffect(() => {
-    fetchProfileS(page);
-}, [page]);
+//   useEffect(() => {
+//     fetchProfileS(page);
+// }, [page]);
 
 
 
@@ -268,6 +268,7 @@ setTimeout(()=>{
       .then((reD) => 
       
       {
+       
         if(cardTotallength > page){
           setFetchingLoader(false)
         let resultArr = [...filterData,...reD]
@@ -424,6 +425,7 @@ setTimeout(()=>{
   const filterFunction = async () => {
     setLoader(false);
     setLoaderTime(false)
+    setFetchingLoader(true)
    if (SelectedName.length > 0 ) {
       if (SelectedName.length > 0) {
        
@@ -509,8 +511,8 @@ setTimeout(()=>{
     
     if (
       selectedSector.length > 0 &&
-      selectedJob.length == 0 &&
-      selectedLanguages.length == 0
+      FilterJob.length == 0 &&
+      LanguageFilter.length == 0
     ) {
    
       fetch(
@@ -533,7 +535,9 @@ setTimeout(()=>{
           }
           if(result.status == false){
             setLoader(true)
+            setFetchingLoader(false)
             setStatus(false)
+            setFilterData([])
           }
           
         })
@@ -604,7 +608,7 @@ setTimeout(()=>{
     if (
       selectedSector.length > 0 &&
       FilterJob.length > 0 &&
-      selectedLanguages.length > 0
+      selectedLanguages.length === 0
     ) {
       await fetch(
         `${API_BASE_URL}filterInProgressSJL/?sector=${selectedSector}&jobs=${FilterJob}&languages=${selectedLanguages}`,
@@ -1022,7 +1026,7 @@ console.log(filterData,"filter")
             </div>
           }
 
-<> {filterLoader ?  null : <Item />}</>
+<> {filterLoader ? status ?  null : <Item /> : null}</>
         </div>
       </div>
     </>

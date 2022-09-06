@@ -65,6 +65,10 @@ function ClientSee() {
  let end = new Date(profile.jobEndDate);
  
 
+ useEffect(()=>{
+  setProfile(state)
+},[state])
+
   const notificationSwitch=()=>toast.success("Modification sauvegardée")
 
   const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
@@ -573,7 +577,7 @@ console.log(profile,"profile")
                   <Link to="/clientTodo">
                     <button type="button" className="btn FontStyle-TODOSEE">
                       <img src={require("../../images/return.svg").default} />
-                      Client File : {profile.clientCompanyName}
+                      Client File : {profile.clientCompanyName.toLocaleUpperCase()}
                     </button>
                   </Link>
                 </div>
@@ -651,7 +655,7 @@ console.log(profile,"profile")
                 <div className="col-6 ClientSEEPtags">
                   <div className="d-flex">
                     <p>
-                      Company : {profile.clientCompanyName}|
+                      Company : {profile.clientCompanyName.toLocaleUpperCase()}|
                       {profile.candidatAge ? profile.candidatAge : "No "}
                     </p>
                     <span className="card-xlSpan">(Age)</span>
@@ -661,7 +665,7 @@ console.log(profile,"profile")
                   <p>Secteur : {profile.clientActivitySector ? profile.clientActivitySector : "No Sector"}</p>
                   <p>Métier/Job : {profile.clientJob ? profile.clientJob : "No Job!"}</p>
                   <p style={{ width: "120%" }}>
-                    Contact Name : {profile.clientReferenceName ? profile.clientReferenceName : "No Contact Name!" }
+                    Contact Name : {profile.clientReferenceName ? profile.clientReferenceName.toLocaleUpperCase() : "No Contact Name!" }
                   </p>
                 </div>
                 {/* <div className="col-4 text-end end-class d-grid justify-content-center align-items-center"> */}

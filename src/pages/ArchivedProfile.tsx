@@ -52,6 +52,13 @@ const ArchivedProfile = () => {
       navigate("/editArchived", { state: data });
     };
 
+    useEffect(()=>{
+
+         setProfile(state ? state : profileData.props)
+
+     
+   },[state,profileData])
+   
     
     useEffect(()=>{
       if(profile.candidatContract){

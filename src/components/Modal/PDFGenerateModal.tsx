@@ -4,7 +4,7 @@ import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "../../components/Loader/loader";
 import { useNavigate } from 'react-router';
-
+import DOCUSIGNModalCandidate from '../Modal/DOCUSIGNModalCandidate'
 
 
 function PdfModal({props,closeModal,path} ){
@@ -43,6 +43,7 @@ function PdfModal({props,closeModal,path} ){
   const [GetMonth,setMonth]=useState()as any
   const [GetMonth2,setMonth2]=useState()as any
   const [GetMonth3,setMonth3]=useState()as any
+  const [DocumentSignModal,setDocuSignModal]=useState(false)
 
   const navigate =useNavigate()
   useEffect(() => {
@@ -125,6 +126,9 @@ console.log(data,"setsata")
         .then((reD) => reD)
         .catch((err) => err);
     }
+
+    
+
 
     const generatePDF = async () => {
         console.log(data);
@@ -357,14 +361,24 @@ console.log(data,"setsata")
                                            Voir le model
                                            </button>
                                            </div>
-                                           <div className='col-3'>
-
+                                           <div className='col-3 pl-0'>
+                                           <button className='documentSign' onClick={()=>setDocuSignModal(true)} type='button'>
+                                           📨 ENVOYER DOCU SIGN 
+                                           </button>
                                            </div>
                                 </div>
                             </div>
                          </div>
                     </form>
                     </>
+        }
+        {
+          DocumentSignModal ? 
+          <DOCUSIGNModalCandidate   props={props} closeModal={setDocuSignModal} />
+
+          :
+          null
+
         }
                 </div>
 
