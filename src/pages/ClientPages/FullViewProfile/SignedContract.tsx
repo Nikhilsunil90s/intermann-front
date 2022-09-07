@@ -19,11 +19,15 @@ import PreModalClient from "../../../components/Modal/preSelectedModalForClient"
 let RenameData = [];
 let id = "";
 function Signed() {
+  // console.log(localStorage.getItem("embauch"),"profileD")
+
   const profileData = JSON.parse(localStorage.getItem("profile"));
-  const profileD = JSON.parse(localStorage.getItem("embauch"));
- const [GetClientbyID,setGetClient]=useState(profileData._id ? profileData._id : profileD._id)
+  // const profileD = JSON.parse(localStorage.getItem("embauch"));
+  console.log(profileData,"get")
+
+ const [GetClientbyID,setGetClient]=useState(profileData._id)
   const [Loader,setLoader]=useState(false)
-  console.log(GetClientbyID,"get")
+  console.log(GetClientbyID,"GetClientbyID")
 useEffect(()=>{
   GetClient(GetClientbyID).then(res=>
     {
@@ -43,7 +47,7 @@ useEffect(()=>{
 },[])
 
 
-  const [profile, setProfile] = useState<any>(profileData ? profileData : profileD);
+  const [profile, setProfile] = useState<any>(profileData);
   const navigate = useNavigate();
 
   const [showArchiveModal, setShowArchiveModal] = useState(false);

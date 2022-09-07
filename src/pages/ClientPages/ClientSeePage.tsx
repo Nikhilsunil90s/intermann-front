@@ -32,7 +32,8 @@ let id = "";
 function ClientSee() {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const [profile, setProfile] = useState<any>(state);
+  const ProfileData = JSON.parse(localStorage.getItem("profile"))
+  const [profile, setProfile] = useState<any>(state ? state : ProfileData);
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const [SISPI, setChecked] = useState(profile.sispiDeclared);
@@ -66,8 +67,8 @@ function ClientSee() {
  
 
  useEffect(()=>{
-  setProfile(state)
-},[state])
+  setProfile(state ? state : ProfileData)
+},[state,ProfileData])
 
   const notificationSwitch=()=>toast.success("Modification sauvegardée")
 

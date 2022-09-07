@@ -26,11 +26,11 @@ import moment from 'moment';
 let RenameData=[]
 let id = "";
 function ClientProgressView() {
-
+  const profileData = JSON.parse(localStorage.getItem("embauch"))
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  const [profile, setProfile] = useState<any>(state)
+  const [profile, setProfile] = useState<any>(state ? state : profileData)
   const [showArchiveModal, setShowArchiveModal] = useState(false)
   const [showSignedModal, setShowSignedModal] = useState(false);
   const [UploadBtn,setSelectUpload]= useState(false)
@@ -70,7 +70,7 @@ function ClientProgressView() {
 
 
   useEffect(()=>{
-    setProfile(state)
+    setProfile(state ? state : profileData)
   },[state])
 
   const datenow=moment().format('YYYY-MM-DD')

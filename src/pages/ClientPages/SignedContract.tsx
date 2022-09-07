@@ -22,7 +22,8 @@ let RenameData = [];
 let id = "";
 function Signed() {
   const { state } = useLocation();
-  const [profile, setProfile] = useState<any>(state);
+  const profileData = JSON.parse(localStorage.getItem("archive"))
+  const [profile, setProfile] = useState<any>(state ? state : profileData);
   const navigate = useNavigate();
 
   const [showArchiveModal, setShowArchiveModal] = useState(false);
@@ -51,7 +52,7 @@ function Signed() {
 
 
   useEffect(()=>{
-    setProfile(state)
+    setProfile(state ? state : profileData)
   },[state])
 
  console.log(EMPunderWorking,"emp")

@@ -52,7 +52,9 @@ function ClientProgressCard(props: any) {
 
     const viewFullProfile = () => {
         console.log(props.data)
-        navigate("/clientInProgressProfile", { state: props.data });
+        // navigate("/clientInProgressProfile", { state: props.data });
+        localStorage.setItem('embauch', JSON.stringify(props.data));
+        window.open("/clientInProgressProfile", "_blank")
     }
 
 

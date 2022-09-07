@@ -315,7 +315,14 @@ function App() {
               </Sidebar>
             }
           />
-
+<Route
+            path={"/clientSignedView"}
+            element={
+              <Sidebar>
+                <PrivateRoute Component={SignedView} />
+              </Sidebar>
+            }
+          />
           {/* Global Search Routes  */}
         
            <Route 

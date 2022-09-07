@@ -28,7 +28,9 @@ function ClientCardArchived(props:any){
     }
     const viewFullProfile = () => {
         console.log(props.data)
-        navigate("/archivedClientSeeprofile", { state: props.data });
+        // navigate("/archivedClientSeeprofile", { state: props.data });
+        localStorage.setItem('archive', JSON.stringify(props.data));
+        window.open("/archivedClientSeeprofile", "_blank")
     }
 
      const MoreOption=(e:any)=>{

@@ -40,6 +40,7 @@ const viewFullProfile = (data) => {
 
   const editClientProfile = () => {
       navigate("/ClientContractEditprofile", { state: props.data });
+    
   }
   const MoreOption=(e:any)=>{
       if(e.value=="Edit Profile"){
@@ -54,7 +55,9 @@ const viewFullProfile = (data) => {
 
 
   const SeeFullProfile=()=>{
-    navigate("/clientSigned", { state: props.data});
+    // navigate("/clientSigned", { state: props.data});
+    localStorage.setItem('archive', JSON.stringify(props.data));
+    window.open("/clientSigned", "_blank")
   }
   console.log(props.data,"profile")
 

@@ -24,10 +24,12 @@ import moment from 'moment'
 
 let RenameData=[]
 function ArchivedViewPage(){
+
+  const profileData = JSON.parse(localStorage.getItem("archive"))
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  const [profile, setProfile] = useState<any>(state)
+  const [profile, setProfile] = useState<any>(state ? state : profileData)
   const [UploadBtn,setSelectUpload]= useState(false)
   const hiddenImageInput = React.useRef(null);
   const [candidatDocument, setCandidatDocument] = useState("");
@@ -51,7 +53,7 @@ function ArchivedViewPage(){
  let end = new Date(profile.jobEndDate);
  
  useEffect(()=>{
-  setProfile(state)
+  setProfile(state ? state : profileData)
 },[state])
 
   const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating   style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}}/> <StarRating style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}} /> <Empty style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /></>}]; 

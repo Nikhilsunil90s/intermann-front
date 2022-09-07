@@ -17,6 +17,7 @@ import RenameDoc from '../components/Modal/RenameDoc_Modal'
 import UploadDow from '../components/Modal/SelectUploadDownload'
 import PDFGenerate from '../components/Modal/PDFGenerateModal'
 import moment from "moment";
+import ClientSee from "./ClientPages/ClientSeePage";
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
 })
@@ -33,7 +34,7 @@ function ProgressCard() {
 
   const [loader, setLoader] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [profile, setProfile] = useState<any>( state ? state :profileData );
+  const [profile, setProfile] = useState<any>( state ? state : profileData );
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
@@ -64,9 +65,9 @@ function ProgressCard() {
 
  let start = new Date(profile.candidatStartDate);
  let end = new Date(profile.candidatEndDate);
-
+  
  useEffect(()=>{
-     setProfile(state ? state : profileData.props)
+     setProfile(state ? state : profileData)
 },[state,profileData])
 
 
@@ -107,19 +108,26 @@ function ProgressCard() {
   const notifyDocumentDeleteError = () => toast.error("Document Not Removed! Please Try Again in few minutes.")
   const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
   const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
-console.log(clientProfile,"client")
   useEffect(() => {
-    fetchClientProfile(profile.candidatCurrentWork[0].workingFor)
+    if(clientProfile === undefined){
+    if(clientProfile){
+      return
+    }
+    else{
+      fetchClientProfile(profile.candidatCurrentWork[0].workingFor)
       .then(result => {
         if (result.status) {
           setClientProfile(result.data)
+
+    }
         }
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    )}
+ }    
+
     console.log(profile);
-  }, [profile]);
+  }, []);
+console.log(clientProfile,"client")
+
   useEffect(() => {    
     setLoader(true);
     fetchRecommendations(profile.candidatActivitySector)
@@ -342,7 +350,7 @@ console.log(clientProfile,"client")
   // }
   console.log(profile,"profile")
   const showCustomerProfile =(data:any)=>{
-      localStorage.setItem("embauch", JSON.stringify(clientProfile));
+      localStorage.setItem("profile", JSON.stringify(data));
       window.open("/clientSignedView", "_blank");
   }
   

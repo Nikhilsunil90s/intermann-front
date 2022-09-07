@@ -239,7 +239,9 @@ const ClientToDoCard = (props: any) => {
   console.log(props.data);
 
   const viewFullProfile = () => {
-    navigate("/clientToDoProfile", { state: props.data });
+    // navigate("/clientToDoProfile", { state: props.data });
+    localStorage.setItem('profile', JSON.stringify(props.data));
+    window.open("/clientToDoProfile", "_blank")
   };
 
   const MoreOption = (e: any) => {
