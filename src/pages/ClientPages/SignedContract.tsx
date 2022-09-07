@@ -18,6 +18,8 @@ import ReadMoreReact from "read-more-react";
 import PreModalClient from "../../components/Modal/preSelectedModalForClient";
 import PDFModalClient from "../../components/Modal/PDFGenerateclientModal"
 import moment from "moment"
+import ErrorLoader from "../../components/Loader/SearchBarError";
+
 let RenameData = [];
 let id = "";
 function Signed() {
@@ -536,6 +538,7 @@ function Signed() {
   return (
     <>
     <Toaster position="top-right" containerStyle={{zIndex:"9999999999999999999999"}}  />
+    
       <div className="containet-fluid">
         <div className="row px-1">
           <div className="col-12 top-pd mt-1">
@@ -1197,8 +1200,8 @@ function Signed() {
                  Employees working for this client :
                </p>
              </div>
-             {profile.employeesWorkingUnder != null &&
-                profile.employeesWorkingUnder != [] ? 
+             {profile.employeesWorkingUnder !== null &&
+                profile.employeesWorkingUnder !== [] ? 
                   profile.employeesWorkingUnder.map((el) => (
                     <div className="col-12 pb-1">
                       <div className="row">
@@ -1239,7 +1242,7 @@ function Signed() {
                     No Candidat! <span className="pl-1">Since :</span> Since No!
                     <span className="pl-1">Salary :</span> No Salary!
                   </div>
-                }
+               }
              <p className="mb-0">
                Ads Spent on this client :
                {profile.jobTotalBudget
@@ -1664,7 +1667,16 @@ function Signed() {
                         </div>
                       </div>
                       :  
-<p className="text-center">No Documents Uploaded!</p>
+                      <>
+                      <p className="d-flex  justify-content-center align-items-center mb-0"     style={{
+                                        fontFamily: 'Poppins',
+                                        fontStyle: "normal",
+                                        fontWeight: "700",
+                                        fontSize: "16px",
+                                        lineHeight: "24px",
+                                        color: "#000000"
+                                    }}> <ErrorLoader />No Documents Uploaded!</p>
+                         </>
    
                     }
     {progress > 0 && progress < 100 && documentList.length > 0 ?

@@ -17,6 +17,8 @@ import RenameDoc from '../components/Modal/RenameDoc_Modal'
 import UploadDow from '../components/Modal/SelectUploadDownload'
 import PDFGenerate from '../components/Modal/PDFGenerateModal'
 import moment from "moment";
+import ErrorLoader from "../components/Loader/SearchBarError";
+
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -951,7 +953,14 @@ null
                         </div>
                       </div>
                       :  
-<p className="text-center">No Documents Uploaded!</p>
+<p className="d-flex  justify-content-center align-items-center mb-0"     style={{
+                  fontFamily: 'Poppins',
+                  fontStyle: "normal",
+                  fontWeight: "700",
+                  fontSize: "16px",
+                  lineHeight: "24px",
+                  color: "#000000"
+              }}> <ErrorLoader />No Documents Uploaded!</p>
    
                     }
     {progress > 0 && progress < 100 && documentList.length > 0 ?

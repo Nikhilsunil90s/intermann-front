@@ -17,7 +17,7 @@ import RenameDoc from '../components/Modal/RenameDoc_Modal'
 import UploadDow from '../components/Modal/SelectUploadDownload'
 import PDFGenerate from '../components/Modal/PDFGenerateModal'
 import moment from "moment";
-import ClientSee from "./ClientPages/ClientSeePage";
+import ErrorLoader from "../components/Loader/SearchBarError";
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
 })
@@ -469,24 +469,39 @@ className="SelectBtn"
             </div>
             <div className="col-12 boxProgress mt-1">
               <div className="row">
-               <div className="col-8">
-                <div className="row">
-                  <div className="col-12 ">
-                 <div className="row"><div className="col-2 px-0"><b className="workFont"><p className="">WORK FOR </p></b></div> <div className="col-9 px-0"> <b><span className="workFont">: {profile.candidatCurrentWork[0].workingFor}</span></b></div></div>
-                </div>
-                <div className="col-12 px-0 d-flex justify-content-start">
-                  <div className="workFont"><b className="d-flex"><p>Since </p>: <span>{profile.candidatCurrentWork[0].workingSince}</span></b></div>
-                </div>
-                <div className="col-12 px-0 d-flex justify-content-start">
-                  <div className="workFont"><b className="d-flex"><p>Salary  </p>: <span>{profile.candidatCurrentWork[0].salary + " "}</span>€</b></div>
-                </div>
-                </div>
-                
-              </div>
-              <div className="col-4 d-flex justify-content-end align-items-center">
-                <div className="d-flex justify-content-center"><button className="btn customerBtnEmbauch" onClick={(e)=>showCustomerProfile(clientProfile)}> <span><img src={require("../images/eyeProfil.svg").default} /></span>CUSTOMER PROFIL</button></div>
-                </div>
+                {
+                  profile.candidatCurrentWork[0].workingSince !== "" &&   profile.candidatCurrentWork[0].salary !== " " ?
 
+                 <> <div className="col-8">
+                  <div className="row">
+                    <div className="col-12 ">
+                   <div className="row"><div className="col-2 px-0"><b className="workFont"><p className="">WORK FOR </p></b></div> <div className="col-9 px-0"> <b><span className="workFont">: {profile.candidatCurrentWork[0].workingFor}</span></b></div></div>
+                  </div>
+                  <div className="col-12 px-0 d-flex justify-content-start">
+                    <div className="workFont"><b className="d-flex"><p>Since </p>: <span>{profile.candidatCurrentWork[0].workingSince}</span></b></div>
+                  </div>
+                  <div className="col-12 px-0 d-flex justify-content-start">
+                    <div className="workFont"><b className="d-flex"><p>Salary  </p>: <span>{profile.candidatCurrentWork[0].salary + " "}</span>€</b></div>
+                  </div>
+                  </div>
+                  
+                </div>
+                <div className="col-4 d-flex justify-content-end align-items-center">
+                  <div className="d-flex justify-content-center"><button className="btn customerBtnEmbauch" onClick={(e)=>showCustomerProfile(clientProfile)}> <span><img src={require("../images/eyeProfil.svg").default} /></span>CUSTOMER PROFIL</button></div>
+                  </div>
+                  </>
+                  :
+                  
+                <p className="d-flex  justify-content-center align-items-center mb-0"     style={{
+                  fontFamily: 'Poppins',
+                  fontStyle: "normal",
+                  fontWeight: "700",
+                  fontSize: "16px",
+                  lineHeight: "24px",
+                  color: "#000000"
+              }}>  <ErrorLoader />No data available for Client yet !</p>
+                }
+              
                 </div>
               
             </div>
@@ -974,7 +989,14 @@ null
                         </div>
                       </div>
                       :  
-<p className="text-center">No Documents Uploaded!</p>
+<p className="d-flex  justify-content-center align-items-center mb-0"     style={{
+                  fontFamily: 'Poppins',
+                  fontStyle: "normal",
+                  fontWeight: "700",
+                  fontSize: "16px",
+                  lineHeight: "24px",
+                  color: "#000000"
+              }}> <ErrorLoader />No Documents Uploaded!</p>
    
                     }
     {progress > 0 && progress < 100 && documentList.length > 0 ?

@@ -141,7 +141,9 @@ const viewFullProfile = (data) => {
                                       src={require("../../images/menSigned.svg").default}
                                       style={{ width: "15%" }}
                                     />
-                                    <p style={{ fontSize: "8px",marginLeft:"5px" }} className="mb-0 " >
+                                    <p style={{ fontSize: "8px",marginLeft:"5px" }} className="mb-0 " data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.candidatName} >
+                                 
+
                                      {el.candidatName}
                                     </p>
                                   </div>

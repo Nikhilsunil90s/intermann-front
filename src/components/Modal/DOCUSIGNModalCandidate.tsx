@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import "../../CSS/Client/ArchivedCardClient.css"
+import ErrorLoader from '../../components/Loader/SearchBarError'
+
 function ResetProfile({ props, closeModal }) {
 
     console.log(props);
@@ -82,10 +84,29 @@ function ResetProfile({ props, closeModal }) {
                             fontSize: "16px",
                             lineHeight: "24px",
                             color: "#000000"
-                        }}>
+                        }}
+                        >
                        This is the contract link you need to send to the candidate/client via whats’app or by email :
 Once it will be signed we will receive the signed document by email and you will have to archive it on Drive/CRM  [unique_link]  : 
+
                         </p>
+                    <div className="d-flex align-items-center justify-content-center">   <p  className=" mb-0"
+                        style={{
+                            fontFamily: 'Poppins',
+                            fontStyle: "normal",
+                            fontWeight: "700",
+                            fontSize: "16px",
+                            lineHeight: "24px",
+                            color: "#000000"
+                        }}
+                        >
+                            
+                          Work-in-Progress! Please come back after some time.
+
+                        </p>
+                        <ErrorLoader />
+                       
+                        </div> 
                            
                     </div>
                 </div>

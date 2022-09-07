@@ -940,6 +940,11 @@ color: #000000;
     cursor: pointer;
 }
 
+.spinner-grow{
+    width: 10px;
+    height: 10px;
+}
+
 @media (min-width:768px){
 
     .pdf-btn {
