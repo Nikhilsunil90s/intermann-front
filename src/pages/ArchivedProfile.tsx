@@ -54,7 +54,7 @@ const ArchivedProfile = () => {
 
     useEffect(()=>{
 
-         setProfile(state ? state : profileData.props)
+         setProfile(state ? state : profileData)
 
      
    },[state,profileData])
