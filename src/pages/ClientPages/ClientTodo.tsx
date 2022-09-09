@@ -954,18 +954,24 @@ setTimeout(()=>{
                         options={nameOptions}
                         styles={colourStyles}
                       />
-                    ) : (
-                      <div className="">
-                     
-                        <ProfileLoader
-                          width={"64px"}
-                          height={"45px"}
-                          fontSize={"12px"}
-                          fontWeight={600}
-                          Title={""}
-                        />
-                      </div>
-                    )}
+                    ) :    <>                                <div className="spinner-grow text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                  <div className="spinner-grow text-secondary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                  <div className="spinner-grow text-success" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                  <div className="spinner-grow text-danger" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                  <div className="spinner-grow text-warning" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                  <div className="spinner-grow text-dark" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div></>}
                   </div>
                 </div>
               </div>
@@ -985,16 +991,24 @@ setTimeout(()=>{
                         styles={colourStyles}
                       />
                     ) : 
-                      <div className="">
-                             
-                                <ProfileLoader
-                                  width={"64px"}
-                                  height={"45px"}
-                                  fontSize={"12px"}
-                                  fontWeight={600}
-                                  Title={""}
-                                />
-                              </div>
+                       <>                                <div className="spinner-grow text-primary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-secondary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-success" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-danger" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-warning" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-dark" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div></>
                     }
                   </div>
                 </div>
@@ -1019,7 +1033,7 @@ setTimeout(()=>{
                   )}
                 </div>
               </div>
-              {showMore ? (
+              {showMore ? 
                 <>
                   <div className="col-12 ">
                     <div className="row">
@@ -1027,7 +1041,7 @@ setTimeout(()=>{
                         <p className="FiltreName">Filtre by Motivation</p>
                         <div className="dropdown">
                           <div aria-labelledby="dropdownMenuButton1">
-                            {motivationOptions.length > 0 ? (
+                            {motivationOptions.length > 0 ? 
                               <Select
                                 name="ClientMotivation"
                                 closeMenuOnSelect={true}
@@ -1038,18 +1052,26 @@ setTimeout(()=>{
                                 options={motivationOptions}
                                 styles={colourStyles}
                               />
-                            ) : (
-                              <div className="">
-                             
-                                <ProfileLoader
-                                  width={"64px"}
-                                  height={"45px"}
-                                  fontSize={"12px"}
-                                  fontWeight={600}
-                                  Title={""}
-                                />
-                              </div>
-                            )}
+                            : 
+                               <>                                <div className="spinner-grow text-primary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-secondary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-success" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-danger" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-warning" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-dark" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div></>
+                            }
                           </div>
                         </div>
                       </div>
@@ -1057,7 +1079,7 @@ setTimeout(()=>{
                         <p className="FiltreName">Filtre by Importance</p>
                         <div className="dropdown">
                           <div aria-labelledby="dropdownMenuButton1">
-                            {importanceOptions.length > 0 ? (
+                            {importanceOptions.length > 0 ? 
                               <Select
                                 name="ClientLicencePermis"
                                 closeMenuOnSelect={true}
@@ -1068,18 +1090,26 @@ setTimeout(()=>{
                                 options={importanceOptions}
                                 styles={colourStyles}
                               />
-                            ) : (
-                              <div className="">
-                                {" "}
-                                <ProfileLoader
-                                  width={"64px"}
-                                  height={"45px"}
-                                  fontSize={"12px"}
-                                  fontWeight={600}
-                                  Title={""}
-                                />
-                              </div>
-                            )}
+                             : 
+                              <>                                <div className="spinner-grow text-primary" role="status">
+                              <span className="visually-hidden">Loading...</span>
+                            </div>
+                            <div className="spinner-grow text-secondary" role="status">
+                              <span className="visually-hidden">Loading...</span>
+                            </div>
+                            <div className="spinner-grow text-success" role="status">
+                              <span className="visually-hidden">Loading...</span>
+                            </div>
+                            <div className="spinner-grow text-danger" role="status">
+                              <span className="visually-hidden">Loading...</span>
+                            </div>
+                            <div className="spinner-grow text-warning" role="status">
+                              <span className="visually-hidden">Loading...</span>
+                            </div>
+                            <div className="spinner-grow text-dark" role="status">
+                              <span className="visually-hidden">Loading...</span>
+                            </div></>
+                            }
                           </div>
                         </div>
                       </div>
@@ -1087,7 +1117,7 @@ setTimeout(()=>{
                         <p className="FiltreName">Filter by other options</p>
                         <div className="dropdown">
                           <div aria-labelledby="dropdownMenuButton1">
-                            {optionsOthersFilter.length > 0 ? (
+                            {optionsOthersFilter.length > 0 ? 
                               <Select
                                 name="ClientLicencePermis"
                                 closeMenuOnSelect={true}
@@ -1099,17 +1129,25 @@ setTimeout(()=>{
                                 options={optionsOthersFilter}
                                 styles={colourStyles}
                               />
-                            ) : 
-                              <div className="">
-                             
-                                <ProfileLoader
-                                  width={"64px"}
-                                  height={"45px"}
-                                  fontSize={"12px"}
-                                  fontWeight={600}
-                                  Title={""}
-                                />
-                              </div>
+                             : 
+                               <>                                <div className="spinner-grow text-primary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-secondary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-success" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-danger" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-warning" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-dark" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div></>
                             }
                           </div>
                         </div>
@@ -1224,7 +1262,7 @@ setTimeout(()=>{
                     </div>
                   </div>
                 </>
-              ) : (
+               : 
                 <div className="extraPadding">
                   <div className="col-12">
                     <div className="row justify-content-end">
@@ -1238,7 +1276,7 @@ setTimeout(()=>{
                       OthersFilterArr.length > 0 ||
                       phone == true ||
                       email == true 
-                       ? (
+                       ? 
                         <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex align-items-center justify-content-end">
                           <p
                             className="filterStyling  cursor-pointer mt-2"
@@ -1247,7 +1285,7 @@ setTimeout(()=>{
                             Reset Filters
                           </p>
                         </div>
-                      ) : null}
+                      : null}
                       <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 d-flex justify-content-end">
                         <p
                           className="filterStyling pt-2 cursor-pointer"
@@ -1260,7 +1298,7 @@ setTimeout(()=>{
                     </div>
                   </div>
                 </div>
-              )}
+              }
             </div>
           </div>
 

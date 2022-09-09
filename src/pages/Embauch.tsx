@@ -64,7 +64,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
   const [LanguageOp,setLangOp]=useState([])
   const [licenceOptions, setLicenseOptions] = useState([])
   const [dateLoader,setdateLoader]=useState(false)
-  const [filterLoader ,setFetchingLoader  ]=useState(true)
+  const [filterLoader ,setFetchingLoader  ]=useState(false)
   const [cardTotallength,setTotalLength]=useState(0)
   let [page, setPage] = useState(0);
   const [LoaderTime,setLoaderTime]=useState(false)
@@ -80,7 +80,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
     if (bottom) {
       if(cardTotallength > page &&selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && SelectedClient.length === 0 && LanguageFilter.length === 0 && LicencePermisArr.length ===0){
         setPage(page + 20);
-        setFetchingLoader(false)
+        setFetchingLoader(true)
         fetchProfileS(page);
         setLoader(true);
 
@@ -270,17 +270,17 @@ setTimeout(()=>{
       {
        
         if(cardTotallength > page){
-          setFetchingLoader(false)
+          setFetchingLoader(true)
         let resultArr = [...filterData,...reD]
         setFilterData([...resultArr])
       
       }
       if(cardTotallength < page){
-        setFetchingLoader(true)
+        setFetchingLoader(false)
         return true
       }
       if(filterData.length === 0){
-        setFetchingLoader(true)
+        setFetchingLoader(false)
         setFilterData([...reD])
 
 
@@ -425,7 +425,7 @@ setTimeout(()=>{
   const filterFunction = async () => {
     setLoader(false);
     setLoaderTime(false)
-    setFetchingLoader(true)
+    setFetchingLoader(false)
    if (SelectedName.length > 0 ) {
       if (SelectedName.length > 0) {
        
@@ -755,6 +755,7 @@ console.log(filterData,"filter")
   setJobOptions([])
   setLangOp([])
   ClientFL=[]
+  LanguageFilter=[]
   setClients([])
   SelectedClient=[]
   toast.success("Filters Reset Successfully!")
@@ -804,7 +805,24 @@ console.log(filterData,"filter")
                           options={nameOptions}
                           styles={colourStyles}
                         /> :
-                        <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+                           <>                                <div className="spinner-grow text-primary" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-secondary" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-success" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-danger" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-warning" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-dark" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div></>
 
                                             }
                   
@@ -827,7 +845,24 @@ console.log(filterData,"filter")
                         styles={colourStyles}
                       /> : 
                       
-                      <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+                         <>                                <div className="spinner-grow text-primary" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-secondary" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-success" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-danger" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-warning" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-dark" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div></>
 
                     }
                    
@@ -873,7 +908,24 @@ console.log(filterData,"filter")
                                 onChange={ClientChange}
                               />
 :                 
-       <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+          <>                                <div className="spinner-grow text-primary" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-secondary" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-success" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-danger" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-warning" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-dark" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div></>
 
                             }
                             </div>
@@ -907,7 +959,24 @@ console.log(filterData,"filter")
                         styles={colourStyles}
                       /> 
                       : 
-       <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+          <>                                <div className="spinner-grow text-primary" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-secondary" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-success" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-danger" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-warning" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-dark" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div></>
 
                       }
                       
@@ -942,7 +1011,24 @@ console.log(filterData,"filter")
                               styles={colourStyles}
                             />
                             : 
-                        <div >   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+                            <>                                <div className="spinner-grow text-primary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-secondary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-success" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-danger" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-warning" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-dark" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div></>
 
                              }
                        

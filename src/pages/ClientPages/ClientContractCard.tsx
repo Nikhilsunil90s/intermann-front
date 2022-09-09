@@ -123,16 +123,25 @@ const viewFullProfile = (data) => {
                 </div>
                 </div>
                     <div className="SignedClientBox p-1">
+                   
+                 
                         <div className="">
+                        {
+                        props.data.employeesWorkingUnder != null && props.data.employeesWorkingUnder != [] && props.data.employeesWorkingUnder.length > 0 ?
+                 <>
                             <p  className="AdsFont mb-0">Ads Spent on this client:  {props.data.jobTotalBudget != 0 ? props.data.jobTotalBudget + " €" : "N/A"}  </p>
                             <p className="AdsFont mb-0">Employees working for this client :
                             </p>
+                            </>
+                            :
+                            null  
+                            }
                             <div className="col-12">
                     <div className="row">
                     
               
            {
-            props.data.employeesWorkingUnder != null && props.data.employeesWorkingUnder != [] ?
+            props.data.employeesWorkingUnder != null && props.data.employeesWorkingUnder != [] && props.data.employeesWorkingUnder.length > 0 ?
             props.data.employeesWorkingUnder.map((el)=>(
               <div className="col-4 pr-0">
                                        <div className="d-flex align-items-center cursor-pointer" onClick={(e)=>viewFullProfile(el)}>
@@ -152,17 +161,28 @@ const viewFullProfile = (data) => {
                     ))
                     
                     :
-              <div className="col-4 pr-0">
-                    <div className="d-flex align-items-center">
-                    <img
-                    src={require("../../images/menSigned.svg").default}
-                    style={{ width: "15%" }}
-                  />
-                  <p style={{ fontSize: "8px",marginLeft:"5px" }} className="mb-0 ">
-                 No Candidat!
-                  </p>
-                  </div>
-                  </div>
+              // <div className="col-4 pr-0">
+              //       <div className="d-flex align-items-center">
+              //       <img
+              //       src={require("../../images/menSigned.svg").default}
+              //       style={{ width: "15%" }}
+              //     />
+              //     <p style={{ fontSize: "8px",marginLeft:"5px" }} className="mb-0 ">
+              //    No Candidat!
+              //     </p>
+              //     </div>
+              //     </div>
+              <div className="col-12 py-1 d-flex justify-content-center "><p className="d-flex  justify-content-center align-items-center mb-0"     style={{
+                fontFamily: 'Poppins',
+                fontStyle: "normal",
+                fontWeight: "700",
+                fontSize: "11px",
+                lineHeight: "14px",
+                color: "#000000"
+            }}> 
+             ⚠️ No data available for Employees Working under this Client !
+              </p>
+              </div>
                 
            }
                                 

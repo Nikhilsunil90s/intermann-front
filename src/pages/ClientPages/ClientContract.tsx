@@ -751,7 +751,24 @@ setStatus(false)
                           options={nameOptions}
                           styles={colourStyles}
                         /> :
-                        <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+                           <>                                <div className="spinner-grow text-primary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-secondary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-success" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-danger" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-warning" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-dark" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div></>
                                             }
                   </div>
                 </div>
@@ -770,7 +787,24 @@ setStatus(false)
                        onChange={handleSectorChange}
                         options={sectorOptions}
                         styles={colourStyles}
-                      /> :                         <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+                      /> :                            <>                                <div className="spinner-grow text-primary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-secondary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-success" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-danger" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-warning" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-dark" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div></>
 
                     }
                   </div>
@@ -816,7 +850,24 @@ setStatus(false)
                               styles={colourStyles}
                             />
                             :
-                        <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+                           <>                                <div className="spinner-grow text-primary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-secondary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-success" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-danger" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-warning" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-dark" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div></>
 
                             }
                          
@@ -840,7 +891,24 @@ setStatus(false)
                             styles={colourStyles}
                           />
                           :
-                        <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+                           <>                                <div className="spinner-grow text-primary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-secondary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-success" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-danger" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-warning" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-dark" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div></>
 
                            }
                            
@@ -865,7 +933,24 @@ setStatus(false)
                               styles={colourStyles}
                             />
                             :
-                        <div className="">   <ProfileLoader  width={"64px"} height={"45px"} fontSize={"12px"} fontWeight={600} Title={""}/></div>
+                           <>                                <div className="spinner-grow text-primary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-secondary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-success" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-danger" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-warning" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          <div className="spinner-grow text-dark" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div></>
                             }
                       
                             </div>

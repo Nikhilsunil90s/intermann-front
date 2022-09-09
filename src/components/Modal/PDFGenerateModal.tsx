@@ -259,7 +259,7 @@ console.log(data,"setsata")
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">Company Contact Name</label>
+                            <label className="PDFFormlabel">Company Name</label>
                             <input  className='inputStylings wHCompany form-control' defaultValue={data ? data.company_contact_name != "" ? data.company_contact_name : "" : ""} name='company_contact_name' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Company_Contact_Name" />
 
                             </div>
@@ -308,7 +308,7 @@ console.log(data,"setsata")
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">Diurna Total Par Jour</label>
+                            <label className="PDFFormlabel">Diurna Par Jour</label>
                             <input className='form-control inputStyling'  name='diurnaTotalParJour' onChange={onFormDataChange}  defaultValue={data ? data.diurnaTotalParJour !="" ? data.diurnaTotalParJour : ""  : ""}  placeholder="‎ ‎ ‎ Diurna Total Par Jour" />
 
                             </div>

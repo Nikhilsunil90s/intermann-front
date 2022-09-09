@@ -27,12 +27,14 @@ import PreModalClient from "../../components/Modal/preSelectedModalForClient"
 import moment from 'moment'
 import PDFModalClient from "../../components/Modal/PDFGenerateclientModal"
 import ErrorLoader from "../../components/Loader/SearchBarError";
+import ClientContract from "./ClientContract";
 
 let RenameData=[]
 let id = "";
 function ClientSee() {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const [stateid]=useState(state)as any
   const ProfileData = JSON.parse(localStorage.getItem("profile"))
   const [profile, setProfile] = useState<any>(state ? state : ProfileData);
   const [showInProgressModal, setShowInProgressModal] = useState(false);
@@ -59,6 +61,8 @@ function ClientSee() {
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
   const [PreSelectedData,setPreSelected]=useState([])
   const [PDFModal,setPDFModal]=useState(false)
+  const [clientContract,setClientContract]=useState()as any
+  const [PDFModalData,setPDFModalData]=useState()as any
   const datenow=moment().format('YYYY-MM-DD')
     
   let date = new Date(datenow);
@@ -69,7 +73,7 @@ function ClientSee() {
 
  useEffect(()=>{
   setProfile(state ? state : ProfileData)
-},[state,ProfileData])
+},[state])
 
   const notificationSwitch=()=>toast.success("Modification sauvegardée")
 
@@ -79,7 +83,7 @@ function ClientSee() {
   const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
   const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
  
-console.log(profile,"profile")
+
   const axiosInstance = axios.create({
     baseURL: API_BASE_URL,
   })
@@ -102,7 +106,7 @@ console.log(profile,"profile")
       .catch(err => {
         console.log(err)
       })
-  }, [state])
+  }, [])
 
   const removeRecommendation = (rId: any) => {
 
@@ -206,30 +210,34 @@ console.log(profile,"profile")
     }
   }
 
-  useEffect(() => {
-    console.log(profile._id,"id")
-    console.log(documentList,"doc")
-    fetchCandidat(profile._id).then(resData => {
-
-      if (resData.status == true) {
-        resData.data.map((el)=>{
-          setDocumentList(el.clientDocuments)
-        })
-       
-        // setClientImage(resData.data.clientPhoto !== undefined ? resData.data.clientPhoto?.map((el)=>{ return el.documentName }): "")
-        setDocUploaded(false);
-      } else {
-        setDocumentList([...documentList])
-        setDocUploaded(false);
+  useEffect(() => { 
+      fetchCandidat(state ? stateid._id : ProfileData._id).then(resData => {
+  
+        if (resData.status == true) {
+          
+          setProfile([...resData.data])
+          resData.data.map((el)=>{
+            setProfile({...profile,['clientContract']:el.clientContract})
+            setClientContract(el.clientContract) 
+            setDocumentList(el.clientDocuments)
+          })
+         
+          // setClientImage(resData.data.clientPhoto !== undefined ? resData.data.clientPhoto?.map((el)=>{ return el.documentName }): "")
+          setDocUploaded(false);
+        } else {
+          setDocumentList([...documentList])
+          setDocUploaded(false);
+        }
       }
-    })
-      .catch(err => {
-        console.log(err)
-      })
-  }, [docUploaded])
- 
-  console.log("doc",documentList)
-
+      
+      )
+      
+        .catch(err => {
+          console.log(err)
+        })
+          
+      
+  },[docUploaded])
   const  ViewDownloadFiles =( documentName:any)=>{
     window.open(API_BASE_URL +"uploads/"+ documentName)
    }
@@ -296,7 +304,6 @@ console.log(profile,"profile")
     .then(resD => resD)
     .catch(err => err)
 }
-
 
 
 
@@ -566,6 +573,7 @@ console.log(profile,"profile")
     // })
   }
 
+  console.log(profile,"pro")
   return (
     <>
     <Toaster position="top-right" containerStyle={{zIndex:"9999999999999999999999"}}  />
@@ -1544,139 +1552,149 @@ console.log(profile,"profile")
                        <div className='row p-1' >
                          <div className='col-4  d-grid '>
                              <label className="ClientPDFFormlabel">$ numero contrat</label>
-                             <input className='form-control inputStyling'  name='lieu_mission'  placeholder="‎ ‎ ‎ $ numero contrat" />
+                             <input className='form-control inputStyling'  name='numero_contract' value={clientContract ? clientContract.numero_contract : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero contrat" />
                          </div>
                          <div className='col-4  d-grid ' >
                          <label className="ClientPDFFormlabel">$ initial Société client</label>
-                         <input className='form-control inputStyling' name='duree_mission'   placeholder="‎ ‎ ‎ $ initial Société client" />
+                         <input className='form-control inputStyling'   value={clientContract ? clientContract.initial_client_company : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ initial Société client" />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ siret </label>
-                         <input className='form-control inputStyling' name='duree_hebdomadaire_mission'  placeholder="‎ ‎ ‎$ siret"/>
+                         <input className='form-control inputStyling' value={clientContract ? clientContract.siret : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎$ siret"/>
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ numero TVA</label>
-                         <input className='form-control inputStyling'  name='candidatJob' placeholder="‎ ‎ ‎ $ numero TVA" />
+                         <input className='form-control inputStyling'  name='candidatJob ' value={clientContract ? clientContract.numero_tva : ""}  onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero TVA" />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nom gérant</label>
-                         <input className='form-control inputStyling'   name='cmp_candidat'  placeholder="‎ ‎ ‎ $ nom gérant" />
+                         <input className='form-control inputStyling'   name='cmp_candidat' value={clientContract ? clientContract.nom_gerant : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ nom gérant" />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ telephone gerant</label>
-                         <input className='form-control inputStyling'   name='contract_date'  placeholder="‎ ‎ ‎ $ telephone gerant" />
+                         <input className='form-control inputStyling'   name='contract_date' value={clientContract ? clientContract.telephone_gerant : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ telephone gerant" />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ metier en Roumain</label>
-                         <input  className='inputStyling wHCompany form-control' name='company_contact_name'  placeholder="‎ ‎ ‎ $ metier en Roumain" />
+                         <input  className='inputStyling wHCompany form-control' name='company_contact_name' value={clientContract ? clientContract.metier_en_roumain : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ metier en Roumain" />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ metier en Français</label>
-                         <input className='form-control inputStyling'  name='$ metier en Français'  placeholder="‎ ‎ ‎ $ metier en Français" />
+                         <input className='form-control inputStyling'  name='$ metier en Français' value={clientContract ? clientContract.metier_en_francais : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ metier en Français" />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ date du debut de mission</label>
-                         <input className='form-control inputStyling'  name='serie_id'  placeholder="‎ ‎ ‎ $ date du debut de mission" />
+                         <input type="date" className='form-control inputStyling'  name='serie_id' value={clientContract ? clientContract.debut_date : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ date du debut de mission" />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ date de fin de mission</label>
-                         <input className='form-control inputStyling'  name='candidatAddress'   placeholder="‎ ‎ ‎ $ date de fin de mission" />
+                         <input type="date" className='form-control inputStyling'  name='candidatAddress'  value={clientContract ? clientContract.date_fin_mission : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ date de fin de mission" />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ prix en euro / heure selon contract</label>
-                         <input className='form-control inputStyling'  name='company_siret'  placeholder="‎ ‎ ‎ $ prix en euro / heure selon contract" />
+                         <input className='form-control inputStyling'  name='company_siret' value={clientContract ? clientContract.prix_per_heure : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ prix en euro / heure selon contract" />
 
                          </div>
 
 
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ SALAIRE EN EURO</label>
-                         <input className='form-control inputStyling' name='SALAIRE EN EURO'  placeholder="‎ ‎ ‎ $ SALAIRE EN EURO" />
+                         <input className='form-control inputStyling' name='SALAIRE EN EURO' value={clientContract ? clientContract.salaire_euro : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ SALAIRE EN EURO" />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nombre d'heure négocie dans le contrat</label>
-                         <input className='form-control inputStyling'  name='candidatAddress'  placeholder="‎ ‎ ‎ $ nombre d'heure négocie dans le contrat" />
+                         <input className='form-control inputStyling'  name='candidatAddress' value={clientContract ? clientContract.nombre_heure : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ nombre d'heure négocie dans le contrat" />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ numero de tel du travailleur 1</label>
-                         <input className='form-control inputStyling'   name='company_siret'  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1" />
+                         <input className='form-control inputStyling'   name='company_siret' value={clientContract ? clientContract.worker_number_1 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1" />
 
-                         </div> <div className='col-4  d-grid '>
+                         </div> 
+                         <div className='col-4  d-grid '>
+                            <label className="ClientPDFFormlabel">$ Nom Du Travailleur 1</label>
+                            <input className='form-control inputStyling'   name='worker_name_1'   value={clientContract ? clientContract.worker_name_1 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1" />
+
+                            </div>
+                         <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nom du travailleur 2 </label>
-                         <input className='form-control inputStyling' name='serie_id'  placeholder="‎ ‎ ‎ $ nom du travailleur 2 " />
+                         <input className='form-control inputStyling' name='serie_id' value={clientContract ? clientContract.worker_number_2 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ nom du travailleur 2 " />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ numero de tel du travailleur 2</label>
-                         <input className='form-control inputStyling'  name='candidatAddress'   placeholder="‎ ‎ ‎ $ numero de tel du travailleur 2" />
+                         <input className='form-control inputStyling'  name='candidatAddress'  value={clientContract ? clientContract.worker_name_2 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 2" />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nom du travailleur3</label>
-                         <input className='form-control inputStyling'   name='company_siret'  placeholder="‎ ‎ ‎ $ nom du travailleur3" />
+                         <input className='form-control inputStyling'   name='company_siret' value={clientContract ? clientContract.worker_number_3 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ nom du travailleur3" />
 
                          </div> <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ numero de tel du travailleur 3</label>
-                         <input className='form-control inputStyling'  name='serie_id'  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 3" />
+                         <input className='form-control inputStyling'  name='serie_id' value={clientContract ? clientContract.worker_name_3 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 3" />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nom du travailleur 4</label>
-                         <input className='form-control inputStyling'  name='candidatAddress'  placeholder="‎ ‎ ‎ $ nom du travailleur 4" />
+                         <input className='form-control inputStyling'  name='candidatAddress' value={clientContract ? clientContract.worker_number_4 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ nom du travailleur 4" />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ numero de tel du travailleur 4</label>
-                         <input className='form-control inputStyling'  name='company_siret'  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 4" />
+                         <input className='form-control inputStyling'  name='company_siret' value={clientContract ? clientContract.worker_name_4 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 4" />
 
                          </div> <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nom du travailleur 5</label>
-                         <input className='form-control inputStyling'  name='serie_id'  placeholder="‎ ‎ ‎$ nom du travailleur 5" />
+                         <input className='form-control inputStyling'  name='serie_id' value={clientContract ? clientContract.worker_number_5 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎$ nom du travailleur 5" />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ numero de tel du travailleur 5</label>
-                         <input className='form-control inputStyling'  name='candidatAddress'  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 5" />
+                         <input className='form-control inputStyling'  name='candidatAddress' value={clientContract ? clientContract.worker_name_5 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 5" />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nom du travailleur 6</label>
-                         <input className='form-control inputStyling'  name='company_siret'  placeholder="‎ ‎ ‎$ nom du travailleur 6" />
+                         <input className='form-control inputStyling'  name='company_siret' value={clientContract ? clientContract.worker_number_6 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎$ nom du travailleur 6" />
 
                          </div> <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ numero de tel du travailleur 6</label>
-                         <input className='form-control inputStyling'  name='serie_id'  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 6" />
+                         <input className='form-control inputStyling'  name='serie_id' value={clientContract ? clientContract.worker_name_6 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 6" />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nom du travailleur 7</label>
-                         <input className='form-control inputStyling'  name='candidatAddress'  placeholder="‎ ‎ ‎$ nom du travailleur 7" />
+                         <input className='form-control inputStyling'  name='candidatAddress' value={clientContract ? clientContract.worker_number_7 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎$ nom du travailleur 7" />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ numero de tel du travailleur 7</label>
-                         <input className='form-control inputStyling'  name='company_siret'  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 7" />
+                         <input className='form-control inputStyling'  name='company_siret' value={clientContract ? clientContract.worker_name_7 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 7" />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nom du travailleur 8</label>
-                         <input className='inputStyling form-control'  name='companyAddress'  placeholder='‎ ‎ ‎$ nom du travailleur 8'  />
+                         <input className='inputStyling form-control'  name='companyAddress' value={clientContract ? clientContract.worker_number_8 : ""}   onClick={editClientProfile} placeholder='‎ ‎ ‎$ nom du travailleur 8'  />
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ numero de tel du travailleur 8</label>
-                         <input className='inputStyling form-control'  name='companyAddress'  placeholder='‎ ‎ ‎$ numero de tel du travailleur 8'  />
+                         <input className='inputStyling form-control'  name='companyAddress' value={clientContract ? clientContract.worker_name_8 : ""}   onClick={editClientProfile} placeholder='‎ ‎ ‎$ numero de tel du travailleur 8'  />
                          </div>
+                         <div className='col-4  d-grid '>
+                            <label className="ClientPDFFormlabel">$ Poste du Gerant</label>
+                            <input className='inputStyling form-control'  name='poste_du_gerant' value={clientContract ? clientContract.poste_du_gerant : ""}  onClick={editClientProfile} placeholder='‎ ‎ ‎$ Poste du Gerant'  />
+                            </div>
              
                       </div>
                       

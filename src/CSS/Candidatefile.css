@@ -941,8 +941,9 @@ color: #000000;
 }
 
 .spinner-grow{
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
+    animation: spinner-grow 1.75s linear infinite;
 }
 
 @media (min-width:768px){

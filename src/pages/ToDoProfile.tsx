@@ -831,6 +831,9 @@ className="SelectBtn"
                 </div>
               <div className="col-12 Social-Card mt-1">
               <div className='row  p-1'>
+              {
+                  JSON.stringify(profile).includes(JSON.stringify(profile.candidatContract)) ?
+                  <>
                             <div className='col-4  d-grid text-start'>
                                 <label className="PDFFormlabel">Lieu_Mission</label>
                                 <input className='form-control inputStylingForView'  onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.lieu_mission ? profile.candidatContract.lieu_mission: "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Lieu_Mission" />
@@ -949,6 +952,15 @@ className="SelectBtn"
                             <label className="PDFFormlabel">Company_Adress</label>
                             <textarea className='TextAreaPage form-control' onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.companyAddress ? profile.candidatContract.companyAddress : "input Not Available!": "input Not Available!"} placeholder='‎ ‎ ‎Company_Adress'></textarea>
                             </div>
+                            </>
+                                   : 
+                                   <div className="col-12 d-flex justify-content-center align-items-center py-2">
+                                     <ErrorLoader  />
+                                     <p className="mb-0 ErrorSearchBox">
+                                     No Contract Available for this Candidat! Please add a New Contract.
+                                     </p>
+                                     </div>
+                                 }
                   
 </div>
               </div>
