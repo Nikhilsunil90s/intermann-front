@@ -67,6 +67,7 @@ function Preselected(){
           const [filterLoader ,setFetchingLoader  ]=useState(true)
           const [cardTotallength,setTotalLength]=useState(0)
           const [LoaderTime,setLoaderTime]=useState(false)
+      
 
           const loadMoreHandle = (i) => {
             let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
@@ -289,12 +290,17 @@ function Preselected(){
               },
             })
               .then((resD) => resD.json())
-              .then((reD) =>   {   if(cardTotallength > page){
-                setFetchingLoader(true)
-              let resultArr = [...filterData,...reD]
-              setFilterData([...resultArr])
-            
-            }
+              .then((reD) =>   {   
+                if(cardTotallength > page && page !== 0){
+                  setFetchingLoader(true)
+                  let resultArr = [...reD]as any
+                  if(filterData.includes(resultArr.candidatName)){
+                    return true
+                  }else{
+                    setFilterData([...filterData,...resultArr])
+                  }
+              
+              }
             if(cardTotallength < page){
               setFetchingLoader(false)
               return true
@@ -975,7 +981,7 @@ console.log(statusProfiles,"filteredresponse.status")
       <div className="container-fluid">
         <div className="row pd ">
            
-             <div className="col-12 card-pre-tops px-1 mt-2" style={{padding:"0px",marginBottom:"20px"}}>
+             <div className="col-12 card-pre-tops px-1 mt-2 cardScrollBar" onScroll={loadMoreHandle} style={{overflow:"auto",height:'100vh',padding:"0px",marginBottom:"20px"}}> 
           <div className="row text-start">
           <div className="card" style={{padding:"15px 15px",borderRadius:"15px",marginBottom:"0px"}}>
               <div className="">

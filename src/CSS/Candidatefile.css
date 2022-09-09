@@ -946,6 +946,14 @@ color: #000000;
     animation: spinner-grow 1.75s linear infinite;
 }
 
+.my-spinner .spinner-border{
+    width: 14rem;
+    height: 14rem;
+    border: 1.25em solid currentColor;
+}
+.my-spinner .text-danger {
+    color: #FE8700 !important;
+}
 @media (min-width:768px){
 
     .pdf-btn {

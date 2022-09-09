@@ -576,6 +576,7 @@ if(checked == false){
             }, 2000)
           }else{
             toast.error("Candidat Change Failed!")
+   
         }
         })
         .catch(err => {

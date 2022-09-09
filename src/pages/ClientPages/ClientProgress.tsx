@@ -59,8 +59,86 @@ export default function ClientProgress() {
   const [motivationOptions, setMotivationOptions] = useState([])
   const [optionsOthersFilter, setOtherOptions] = useState([])
   const [importanceOptions, setImportanceOptions] = useState([])as any
+  const [filterLoader ,setFetchingLoader  ]=useState(false)
+  let [page, setPage] = useState(0);
+  const [cardTotallength,setTotalLength]=useState(0)
 
 
+
+  console.log(cardTotallength,"card")
+
+  const loadMoreHandle = (i) => {
+    let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
+    console.log(bottom,"bottom")
+    if (bottom) {
+      if(selectedSector.length === 0 &&
+        selectedJob.length === 0 &&
+        selectedLanguages.length === 0 &&
+        SelectedName.length == 0 &&
+        MotivationArr.length == 0 &&
+        Importance.length == 0  &&
+        OthersFilterArr.length ==0 &&
+        email == false && 
+        phone == false )
+        
+        {
+          if(cardTotallength > page){
+            setPage(page + 20);
+            setFetchingLoader(true)
+            fetchProfileS(page);
+          }
+          
+          else{
+            setFetchingLoader(false)
+          }
+      
+        
+
+    
+      }
+      
+       
+    }
+}
+
+useEffect(() => {
+  fetchProfileS(page);
+}, [page]);
+
+const fetchProfileS = async (page) => {
+  return await fetch(API_BASE_URL + `viewInProgressClients/?skip=${page}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  })
+    .then((resD) => resD.json())
+    .then((reD) =>  {
+      if(cardTotallength > page && page !==0){
+        setFetchingLoader(true)
+      let resultArr = [...reD]
+      if(resultArr.includes(filterData)){
+        return false
+      }else{
+        setFilterData([...filterData,...resultArr])
+      }
+    
+    }
+    if(page > cardTotallength){
+      setFetchingLoader(false)
+      return true
+    }
+    if(filterData.length === 0){
+      setFetchingLoader(false)
+      setFilterData([...reD])
+
+
+
+}})
+    .catch((err) => err);
+};
   
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
@@ -157,6 +235,9 @@ setTimeout(()=>{
   useEffect(() => {
     if (nameOptions.length == 0) {
       fetchProfiles().then((profilesResult) => {
+        if(cardTotallength === 0){
+          setTotalLength(profilesResult.length)
+        }
         let nameops = profilesResult.map((pro) => {
           return { value: pro.clientCompanyName, label: pro.clientCompanyName, color: '#FF8B00' }
         })
@@ -471,7 +552,8 @@ setTimeout(()=>{      setImportanceOptions([
     if(selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length == 0 && MotivationArr.length == 0 && Importance.length == 0 &&   OthersFilterArr.length ==0 && email == false && phone == false ){
       setLoader(true)
       setStatus(true)
-      fetchProfiles().then((res)=>setFilterData([...res]))
+      // fetchProfiles().then((res)=>setFilterData([...res]))
+      fetchProfileS(page)
       .catch(err => {
         console.log(err);
       })
@@ -733,6 +815,7 @@ setStatus(false)
     setSelectedSector("")
     setJobs([])
     FilterJob = [];
+    setPage(0)
     MotivationArr = []
     OthersFilterArr = []
     Importance=[]
@@ -745,6 +828,7 @@ setStatus(false)
     phone=false
     fetchAllSectors()
     toast.success("Filters Reset Successful!")
+    fetchProfileS(page)
     setTimeout(()=>{
       filterFunction()
     },1000)
@@ -754,7 +838,7 @@ setStatus(false)
     <>
       <Toaster position="top-right"  containerStyle={{zIndex:"999999999999999999999"}}/>
 
-      <div className="container-fluid" style={{marginTop:"70px"}}>
+      <div className="container-fluid cardScrollBar" style={{marginTop:"80px",height: '100vh',overflow:"auto"}} onScroll={loadMoreHandle}>
         <div className="row ">
           <div className="col-12 text-center p-1 topHeaderClient mt-2">
           <div className="d-flex topinPHeading"> <h2 className="">clients / lead  </h2> <span className="topinProgresstext">in progress</span></div>
@@ -1152,7 +1236,7 @@ setStatus(false)
                 <Loader />
               </div>
             </div>
-          }
+          }{filterLoader ? <Loader /> : null}
         </div>
       </div>
     </>

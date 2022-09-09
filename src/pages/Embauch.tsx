@@ -85,6 +85,8 @@ const notifyMoveError = () => toast.error("Not Moved..");
         setLoader(true);
 
     
+      }else{
+        setFetchingLoader(false)
       }
       
        
@@ -269,13 +271,18 @@ setTimeout(()=>{
       
       {
        
-        if(cardTotallength > page){
+        if(cardTotallength > page && page !== 0){
           setFetchingLoader(true)
-        let resultArr = [...filterData,...reD]
-        setFilterData([...resultArr])
+          let resultArr = [...reD]as any
+          if(filterData.includes(resultArr.candidatName)){
+            return true
+
+          }else{
+            setFilterData([...filterData,...resultArr])
+          }
       
       }
-      if(cardTotallength < page){
+      if(page > cardTotallength){
         setFetchingLoader(false)
         return true
       }
@@ -769,7 +776,7 @@ console.log(filterData,"filter")
   return (
     <>
       <Toaster position="top-right" containerStyle={{zIndex:"99999999999999999999999999"}} />
-      <div className="container-fluid mt-1 cardScrollBar" onScroll={loadMoreHandle}>
+      <div className="container-fluid mt-1 cardScrollBar" onScroll={loadMoreHandle} style={{overflow:"auto",height:'100vh'}}>
         <div className="row pd">
           <div className="col-12 card-tops px-1 mt-1" style={{ padding: "0px", marginBottom: "20px" }}>
             <div className="row text-start">

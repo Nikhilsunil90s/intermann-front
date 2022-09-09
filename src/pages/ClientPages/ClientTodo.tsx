@@ -46,6 +46,10 @@ function ClientToDoList() {
   const [filterData, setFilterData] = useState([]);
   const [status, setStatus] = useState(Boolean);
   const [showMore, setShowMore] = useState(true);
+  const [filterLoader ,setFetchingLoader  ]=useState(false)
+  let [page, setPage] = useState(0);
+  const [cardTotallength,setTotalLength]=useState(0)
+
   // const [email, setEmail] = useState("");
   // const [phone, setPhone] = useState("");
   const [optionsOthersFilter, setOtherOptions] = useState([]);
@@ -55,6 +59,79 @@ function ClientToDoList() {
   console.log(selectedSector, selectedJob, "allfield");
  
 
+
+  const loadMoreHandle = (i) => {
+    let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
+    console.log(bottom,"bottom")
+    if (bottom) {
+      if(selectedSector.length === 0 &&
+        selectedJob.length === 0 &&
+        selectedLanguages.length === 0 &&
+        SelectedName.length == 0 &&
+        MotivationArr.length == 0 &&
+        Importance.length == 0  &&
+        OthersFilterArr.length ==0 &&
+        email == false && 
+        phone == false )
+        
+        {
+          if(cardTotallength > page){
+            setPage(page + 20);
+            setFetchingLoader(true)
+            fetchProfileS(page);
+          }
+          else{
+            setFetchingLoader(false)
+          }
+      
+        
+
+    
+      }
+      
+       
+    }
+}
+
+useEffect(() => {
+  fetchProfileS(page);
+}, [page]);
+
+const fetchProfileS = async (page) => {
+  return await fetch(API_BASE_URL + `viewToDoClients/?skip=${page}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  })
+    .then((resD) => resD.json())
+    .then((reD) =>  {
+      if(cardTotallength > page && page !== 0){
+        setFetchingLoader(true)
+      let resultArr = [...reD]
+      if(resultArr.includes(filterData)){
+        return false
+      }else{
+        setFilterData([...filterData,...resultArr])
+      }
+    
+    }
+    if(page > cardTotallength){
+      setFetchingLoader(false)
+      return true
+    }
+    if(filterData.length === 0){
+      setFetchingLoader(false)
+      setFilterData([...reD])
+
+
+
+}})
+    .catch((err) => err);
+};
+console.log(filterData.length ," length")
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: "white" }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -404,11 +481,8 @@ setTimeout(()=>{
     ) {
       setLoader(true);
       setStatus(true);
-      fetchProfiles()
-        .then((res) => setFilterData([...res]))
-        .catch((err) => {
-          console.log(err);
-        });
+      fetchProfileS(page)
+
     }
     if (MotivationArr.length > 0) {
       fetch(
@@ -607,7 +681,11 @@ setTimeout(()=>{
     if (nameOptions.length == 0) {
       fetchProfiles()
         .then((profilesResult) => {
+          if(cardTotallength === 0){
+            setTotalLength(profilesResult.length)
+          }
           let nameops = profilesResult.map((pro) => {
+           
             return {
               value: pro.clientCompanyName,
               label: pro.clientCompanyName,
@@ -887,6 +965,7 @@ setTimeout(()=>{
     MotivationArr = [];
     OthersFilterArr = [];
     Importance =[];
+    setPage(0)
     OthersFilterArr =[];
     setImportanceOptions([]);
     setSectorOptions([]);
@@ -897,18 +976,20 @@ setTimeout(()=>{
     phone=false;
     toast.success("Filters Reset Successful!")
     fetchAllSectors();
+    fetchProfileS(page)
     setTimeout(()=>{
       filterFunction();
     },1000)
  
   };
+  console.log(cardTotallength,"height: '100vh'")
   return (
     <>
       <Toaster
         position="top-right"
         containerStyle={{ zIndex: "9999999999999999999999" }}
       />
-      <div className="container-fluid" style={{marginTop:"80px"}}>
+      <div className="container-fluid cardScrollBar" style={{marginTop:"80px",height: '100vh',overflow:"auto"}} onScroll={loadMoreHandle}>
         <div className="row pd ">
           <div className="col-12 text-center">
             <div className="row text-start">
@@ -1332,7 +1413,7 @@ No Profiles in Client To-Do! Please Add New Client.
                 <Loader />
               </div>
             </div>
-          }
+          }{filterLoader ? <Loader /> : null}
         </div>
       </div>
     </>

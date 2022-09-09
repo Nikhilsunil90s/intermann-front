@@ -291,10 +291,15 @@ setTimeout(()=>{
     })
       .then((resD) => resD.json())
       .then((reD) =>  {
-        if(cardTotallength > page){
+        if(cardTotallength > page && page !== 0){
           setFetchingLoader(true)
-        let resultArr = [...filterData,...reD]
-        setFilterData([...resultArr])
+          let resultArr = [...reD]as any
+          if(filterData.includes(resultArr.candidatName)){
+            return true
+
+          }else{
+            setFilterData([...filterData,...resultArr])
+          }
       
       }
       if(cardTotallength < page){

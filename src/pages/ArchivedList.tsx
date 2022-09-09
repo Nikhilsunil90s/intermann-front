@@ -232,6 +232,9 @@ const LoaderFun=()=>{
     }
     if (nameOptions.length == 0) {
       fetchProfiles().then((profilesResult) => {
+        if(cardTotallength == 0){
+          setTotalLength(profilesResult.length)
+        }
         let nameops = profilesResult.map((pro) => {
           return { value: pro.candidatName, label: pro.candidatName, color: '#FF8B00' }
         })
@@ -354,13 +357,18 @@ SelectedClient=[]
       },
     })
       .then((resD) => resD.json())
-      .then((reD) =>   {   if(cardTotallength > page){
+      .then((reD) =>   {  
+          if(cardTotallength > page && page !== 0){
         setFetchingLoader(true)
-      let resultArr = [...filterData,...reD]
-      setFilterData([...resultArr])
+        let resultArr = [...reD]as any
+        if(filterData.includes(resultArr.candidatName)){
+          return true
+        }else{
+          setFilterData([...filterData,...resultArr])
+        }
     
     }
-    if(cardTotallength < page){
+    if(page > cardTotallength){
       setFetchingLoader(false)
       return true
     }
@@ -644,7 +652,7 @@ SelectedClient=[]
   return (
     <>
      <Toaster position="top-right" containerStyle={{zIndex:"99999999999999999999999999"}} />
-      <div className="container-fluid cardScrollBar" style={{marginTop:"80px"}} onScroll={loadMoreHandle}>
+      <div className="container-fluid cardScrollBar" style={{marginTop:"80px",height:"100vh",overflow:"auto"}} onScroll={loadMoreHandle}>
         <div className="row pd">
                <div className="col-12 card-tops px-1" style={{ padding: "0px", marginBottom: "20px" }}>
             <div className="row text-start">
