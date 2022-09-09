@@ -573,7 +573,7 @@ function ClientSee() {
     // })
   }
 
-  console.log(profile,"pro")
+
   return (
     <>
     <Toaster position="top-right" containerStyle={{zIndex:"9999999999999999999999"}}  />
@@ -1548,7 +1548,8 @@ function ClientSee() {
 
             <div className="col-12 Social-CardClient mt-1 ">
                        
-                         
+                  {   clientContract? 
+                  <>       
                        <div className='row p-1' >
                          <div className='col-4  d-grid '>
                              <label className="ClientPDFFormlabel">$ numero contrat</label>
@@ -1695,9 +1696,19 @@ function ClientSee() {
                             <label className="ClientPDFFormlabel">$ Poste du Gerant</label>
                             <input className='inputStyling form-control'  name='poste_du_gerant' value={clientContract ? clientContract.poste_du_gerant : ""}  onClick={editClientProfile} placeholder='‎ ‎ ‎$ Poste du Gerant'  />
                             </div>
-             
-                      </div>
+                            </div>
                       
+                            </>
+                            :
+                            <div className="col-12 d-flex justify-content-center align-items-center py-2">
+                                     <ErrorLoader  />
+                                     <p className="mb-0 ErrorSearchBox">
+                                     No Contract Available for this To-Do Client! Please add a New Contract.
+                                     </p>
+                                     </div>
+                                     }
+             
+                     
                  
                  </div>
             <div className="col-12 Social-CardClient my-1">

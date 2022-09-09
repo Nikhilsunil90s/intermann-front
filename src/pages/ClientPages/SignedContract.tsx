@@ -1497,7 +1497,8 @@ null
             </div>
             <div className="col-12 Social-CardClient mt-1 ">
                        
-                         
+           {clientContract ?
+
             <div className='row p-1' >
                          <div className='col-4  d-grid '>
                              <label className="ClientPDFFormlabel">$ numero contrat</label>
@@ -1646,6 +1647,14 @@ null
                             </div>
              
                       </div>
+                      :
+               <div className="col-12 d-flex justify-content-center align-items-center py-2">
+               <ErrorLoader  />
+               <p className="mb-0 ErrorSearchBox">
+               No Contract Available for this Signed Client! Please add a New Contract.
+               </p>
+               </div>
+               }
                       
                  
                  </div>
