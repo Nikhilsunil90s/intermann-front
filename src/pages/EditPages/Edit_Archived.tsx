@@ -41,7 +41,6 @@ const EmployeeDataFormat = {
   candidatYearsExperience: "",
   candidatFetes: [],
   candidatPhoto: "",
-  candidatContract:{},
   candidatExperienceDetails: [{
     period: "",
     location: "",
@@ -454,7 +453,6 @@ function EditArchive() {
         candidatYearsExperience: data.candidatYearsExperience != "" ? data.candidatYearsExperience : profile.candidatYearsExperience,
         candidatArchived: data.candidatArchived.reason != "" ? data.candidatArchived : profile.candidatArchived,
         candidatAlternatePhone :data.candidatAlternatePhone !="" ? data.candidatAlternatePhone : profile.candidatAlternatePhone,
-        candidatContract:data.candidatContract!={} ? data.candidatContract : profile.candidatContract,
         lieu_mission: data.lieu_mission !="" ? data.lieu_mission : profile.candidatContract.lieu_mission ,
         duree_mission: data.duree_mission != "" ? data.duree_mission : profile.candidatContract.duree_mission, 
         duree_hebdomadaire_mission: data.duree_hebdomadaire_mission !=""  ? data.duree_hebdomadaire_mission : profile.candidatContract.duree_hebdomadaire_mission,

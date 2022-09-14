@@ -29,7 +29,6 @@ const EmployeeDataFormat = {
   candidatJob: "",
   candidatFBURL: "",
   candidatAlternatePhone: "",
-  candidatContract:{},
   candidatSkills: "",
   candidatAge: 0,
   candidatMotivation: 0,
@@ -493,7 +492,6 @@ function EditProgress() {
         candidatAddress: data.candidatAddress != "" ? data.candidatAddress : profile.candidatAddress,
         candidatFBURL: data.candidatFBURL != "" ? data.candidatFBURL : profile.candidatFBURL,
         candidatAlternatePhone :data.candidatAlternatePhone !="" ? data.candidatAlternatePhone : profile.candidatAlternatePhone,
-        candidatContract:data.candidatContract!={} ? data.candidatContract : profile.candidatContract,
         candidatYearsExperience: data.candidatYearsExperience != "" ? data.candidatYearsExperience : profile.candidatYearsExperience,
         candidatCurrentWork: [
           {
