@@ -982,7 +982,14 @@ className="SelectBtn"
                          <label className="ClientPDFFormlabel">$ numero de tel du travailleur 1</label>
                          <input className='form-control inputStyling'   name='company_siret'  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1" />
 
-                         </div> <div className='col-4  d-grid '>
+                         </div>
+                         
+                         <div className='col-4  d-grid '>
+                            <label className="ClientPDFFormlabel">$ Nom Du Travailleur 1</label>
+                            <input className='form-control inputStyling'   name='worker_name_1' onChange={onFormDataChange} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1" />
+
+                            </div>
+                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nom du travailleur 2 </label>
                          <input className='form-control inputStyling' name='serie_id'  placeholder="‎ ‎ ‎ $ nom du travailleur 2 " />
 
