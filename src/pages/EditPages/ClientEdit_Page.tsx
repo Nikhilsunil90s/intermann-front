@@ -506,7 +506,7 @@ setJobOptions([])
                 worker_name_7 :   data.worker_name_7 !== "" ? data.worker_name_7 : profile.clientContract ? profile.clientContract.worker_name_7 !== "" ? profile.clientContract.worker_name_7 : "" : "",
                 worker_number_8 :  data.worker_number_8 !== "" ? data.worker_number_8 : profile.clientContract ? profile.clientContract.worker_number_8 !== "" ? profile.clientContract.worker_number_8 : "" : "",
                 worker_name_8 :   data.worker_name_8 !== "" ? data.worker_name_8 : profile.clientContract ? profile.clientContract.worker_name_8 !== "" ? profile.clientContract.worker_name_8 : "" : "",
-                contractId: data.contractId !== "" ? data.contractId : profile.clientContract ? profile.clientContract.contractId !== "" ? profile.clientContract.contractId : "" : "",
+                contractId: profile.clientContract ? profile.clientContract.contractId !== "" ? profile.clientContract.contractId : null : null,
                 poste_du_gerant: data.poste_du_gerant !== "" ? data.poste_du_gerant : profile.clientContract ? profile.clientContract.poste_du_gerant !== "" ? profile.clientContract.poste_du_gerant : "" : "",
             }
             console.log(updatedData)
@@ -1034,63 +1034,63 @@ className="SelectBtn"
                        <div className='row p-1' >
                          <div className='col-4  d-grid '>
                              <label className="ClientPDFFormlabel">$ numero contrat</label>
-                             <input className='form-control inputStyling'      onChange={onFormDataChange}  name='numero_contract'  placeholder="‎ ‎ ‎ $ numero contrat" />
+                             <input className='form-control inputStyling'      onChange={onFormDataChange}  name='numero_contract'  placeholder={profile.clientContract ? profile.clientContract.numero_contract !== "" ? profile.clientContract.numero_contract :"" :""} />
                          </div>
                          <div className='col-4  d-grid ' >
                          <label className="ClientPDFFormlabel">$ initial Société client</label>
-                         <input className='form-control inputStyling'     onChange={onFormDataChange} name='initial_client_company'   placeholder="‎ ‎ ‎ $ initial Société client" />
+                         <input className='form-control inputStyling'     onChange={onFormDataChange} name='initial_client_company'   placeholder={ profile.clientContract ? profile.clientContract.initial_client_company !== "" ? profile.clientContract.initial_client_company : "" : ""} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ siret </label>
-                         <input className='form-control inputStyling'     onChange={onFormDataChange} name='siret'  placeholder="‎ ‎ ‎$ siret"/>
+                         <input className='form-control inputStyling'     onChange={onFormDataChange} name='siret'  placeholder={ profile.clientContract ? profile.clientContract.siret !== "" ? profile.clientContract.siret : "" : ""}/>
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ numero TVA</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='numero_tva' placeholder="‎ ‎ ‎ $ numero TVA" />
+                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='numero_tva' placeholder={ profile.clientContract ? profile.clientContract.numero_tva !== "" ? profile.clientContract.numero_tva : "" : ""} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nom gérant</label>
-                         <input className='form-control inputStyling'       onChange={onFormDataChange} name='nom_gerant'  placeholder="‎ ‎ ‎ $ nom gérant" />
+                         <input className='form-control inputStyling'       onChange={onFormDataChange} name='nom_gerant'  placeholder={profile.clientContract ? profile.clientContract.nom_gerant !== "" ? profile.clientContract.nom_gerant : "" : ""} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ telephone gerant</label>
-                         <input className='form-control inputStyling'       onChange={onFormDataChange} name='telephone_gerant'  placeholder="‎ ‎ ‎ $ telephone gerant" />
+                         <input className='form-control inputStyling'       onChange={onFormDataChange} name='telephone_gerant'  placeholder={profile.clientContract ? profile.clientContract.telephone_gerant !== "" ? profile.clientContract.telephone_gerant : "" : ""} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ metier en Roumain</label>
-                         <input  className='inputStyling wHCompany form-control'     onChange={onFormDataChange} name='metier_en_roumain'  placeholder="‎ ‎ ‎ $ metier en Roumain" />
+                         <input  className='inputStyling wHCompany form-control'     onChange={onFormDataChange} name='metier_en_roumain'  placeholder={profile.clientContract ? profile.clientContract.metier_en_roumain !== "" ? profile.clientContract.metier_en_roumain : "" : ""} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ metier en Français</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='metier_en_francais'  placeholder="‎ ‎ ‎ $ metier en Français" />
+                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='metier_en_francais'  placeholder={profile.clientContract ? profile.clientContract.metier_en_francais !== "" ? profile.clientContract.metier_en_francais : "" : ""}/>
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ date du debut de mission</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='debut_date'  placeholder="‎ ‎ ‎ $ date du debut de mission" />
+                         <input className='form-control inputStyling'  type="date"    onChange={onFormDataChange} name='debut_date'  defaultValue={profile.clientContract ? profile.clientContract.debut_date !== "" ? profile.clientContract.debut_date : "" : ""} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ date de fin de mission</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='date_fin_mission'   placeholder="‎ ‎ ‎ $ date de fin de mission" />
+                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='date_fin_mission' type="date"  defaultValue={profile.clientContract ? profile.clientContract.date_fin_mission !== "" ? profile.clientContract.date_fin_mission : "" : ""} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ prix en euro / heure selon contract</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='prix_per_heure'  placeholder="‎ ‎ ‎ $ prix en euro / heure selon contract" />
+                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='prix_per_heure'  placeholder={profile.clientContract ? profile.clientContract.prix_per_heure !== "" ? profile.clientContract.prix_per_heure : "" : ""} />
 
                          </div>
 
 
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ SALAIRE EN EURO</label>
-                         <input className='form-control inputStyling'     onChange={onFormDataChange} name='salaire_euro'  placeholder="‎ ‎ ‎ $ SALAIRE EN EURO" />
+                         <input className='form-control inputStyling'     onChange={onFormDataChange} name='salaire_euro'  placeholder={profile.clientContract ? profile.clientContract.salaire_euro !== "" ? profile.clientContract.salaire_euro : "" : ""} />
 
                          </div>
                          <div className='col-4  d-grid '>

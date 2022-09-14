@@ -9,10 +9,7 @@ import InProgressClientModal from "../../components/Modal/InProgressClientModal"
 import ArchivedClientModal from "../../components/Modal/ArchivedClientModal";
 import { ReactComponent as Empty } from "../../images/emptyStar.svg";
 import { ReactComponent as StarRating } from "../../images/RatingStar.svg";
-import { ReactComponent as Upload } from "../../images/upload.svg";
-import { ReactComponent as Download } from "../../images/download.svg";
 import Switch from "react-switch";
-import Select from "react-select";
 import UploadDow from "../../components/Modal/SelectUploadDownload";
 import { ReactComponent as TurnoFF } from "../../images/FatX.svg";
 import { ReactComponent as TurnOn } from "../../images/base-switch_icon.svg";
@@ -27,7 +24,6 @@ import PreModalClient from "../../components/Modal/preSelectedModalForClient"
 import moment from 'moment'
 import PDFModalClient from "../../components/Modal/PDFGenerateclientModal"
 import ErrorLoader from "../../components/Loader/SearchBarError";
-import ClientContract from "./ClientContract";
 
 let RenameData=[]
 let id = "";
@@ -672,8 +668,8 @@ function ClientSee() {
                   </div>
                   <p>Number of Positions : {profile.numberOfPosts ? profile.numberOfPosts : "No Posts!"}</p>
 
-                  <p>Secteur : {profile.clientActivitySector ? profile.clientActivitySector : "No Sector"}</p>
-                  <p>Métier/Job : {profile.clientJob ? profile.clientJob : "No Job!"}</p>
+                  <p>Secteur : {profile.clientActivitySector ? profile.clientActivitySector.toLocaleUpperCase() : "No Sector"}</p>
+                  <p>Métier/Job : {profile.clientJob ? profile.clientJob.toLocaleUpperCase() : "No Job!"}</p>
                   <p style={{ width: "120%" }}>
                     Contact Name : {profile.clientReferenceName ? profile.clientReferenceName.toLocaleUpperCase() : "No Contact Name!" }
                   </p>
@@ -1592,7 +1588,7 @@ function ClientSee() {
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ date du debut de mission</label>
-                         <input type="date" className='form-control inputStyling'  name='serie_id' value={clientContract ? clientContract.debut_date : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ date du debut de mission" />
+                         <input type="date" className='form-control inputStyling'   name='serie_id' value={clientContract ? clientContract.debut_date : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ date du debut de mission" />
 
                          </div>
                          <div className='col-4  d-grid '>

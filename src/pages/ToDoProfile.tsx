@@ -86,7 +86,7 @@ console.log(profile,"profile")
 
  useEffect(()=>{
       setProfile(state ? state : profileData.props)
-},[state,profileData])
+},[state])
 
 
   let data={profileData:profile ,path:"/todoprofile"}
@@ -263,7 +263,8 @@ const fetchRecommendations = async (candidatSector: string) => {
       setCandidatImage("")
       if (resData.status) {
         setProfile(resData.data)
-        setDocumentList([...resData.data.candidatDocuments])
+        console.log(resData.data,"propsss")
+         setDocumentList([...resData.data.candidatDocuments])
         setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
         setDocUploaded(false);
       } else {
@@ -836,7 +837,7 @@ className="SelectBtn"
                   <>
                             <div className='col-4  d-grid text-start'>
                                 <label className="PDFFormlabel">Lieu_Mission</label>
-                                <input className='form-control inputStylingForView'  onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.lieu_mission ? profile.candidatContract.lieu_mission: "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Lieu_Mission" />
+                                <input className='form-control inputStylingForView'  onClick={editCandidatProfile} value={profile.candidatContract ? profile.candidatContract.lieu_mission ? profile.candidatContract.lieu_mission: "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Lieu_Mission" />
                             </div>
                             <div className='col-4  d-grid text-start' >
                             <label className="PDFFormlabel">Durée_Mission</label>

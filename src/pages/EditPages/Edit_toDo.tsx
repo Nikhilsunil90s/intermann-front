@@ -526,7 +526,7 @@ if(checked == false){
         candidatMotivation: data.candidatMotivation != 0 ? data.candidatMotivation : profile.candidatMotivation,
         candidatActivitySector: selectedSector != "" ? selectedSector : profile.candidatActivitySector,
         candidatJob: data.candidatJob != "" ? data.candidatJob : profile.candidatJob,
-        candidatLanguages: data.candidatLanguages != [] ? data.candidatLanguages : profile.candidatLanguages,
+        candidatLanguages: data.candidatLanguages.length > 0 ? data.candidatLanguages : profile.candidatLanguages,
         candidatStartDate: data.candidatStartDate != "" ? data.candidatStartDate : profile.candidatStartDate,
         candidatEndDate: data.candidatEndDate != "" ? data.candidatEndDate : profile.candidatEndDate,
         candidatLicensePermis: Permis==true ? true : false,
@@ -560,7 +560,7 @@ if(checked == false){
         duree_hebdomadaire:data.duree_hebdomadaire !="" ? data.duree_hebdomadaire : profile.candidatContract ? profile.candidatContract.duree_hebdomadaire : "",
         indemnisationJour:data.indemnisationJour != "" ? data.indemnisationJour : profile.candidatContract ? profile.candidatContract.indemnisationJour : "",
         fin_mision:data.fin_mision !="" ? data.fin_mision : profile.candidatContract ? profile.candidatContract.fin_mision : "",
-        contractId:data.contractId !="" ? data.contractId : profile.candidatContract ? profile.candidatContract._id : "",
+        contractId:data.contractId !="" ? data.contractId : profile.candidatContract ? profile.candidatContract._id : null,
       }
       console.log(updatedData)
       // fileData.append('data', JSON.stringify(updatedData))
