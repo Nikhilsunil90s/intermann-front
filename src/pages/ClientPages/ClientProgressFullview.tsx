@@ -54,6 +54,7 @@ function ClientProgressView() {
   const [PreSelectedData,setPreSelected]=useState([])
   const [PDFModal,setPDFModal]=useState(false)
   const [clientContract,setClientContract]=useState()as any
+  const [imgSource, setImgSource] = useState("");
 
 
   const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /> <Empty  style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating   style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}}/> <StarRating style={{marginRight:"3px",width:"100%"}} /> <StarRating style={{marginRight:"3px",width:"100%"}} /> <Empty style={{marginRight:"3px",width:"100%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"100%"}} /><StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /> <StarRating  style={{marginRight:"3px",width:"100%"}} /></>}]; 
@@ -69,7 +70,21 @@ function ClientProgressView() {
     }
   }
 
+  useEffect(() => {
+    console.log(profile._id, profile.clientPhoto)
+    fetchCandidat(profile._id).then(resData => {
+        console.log(resData)
+        if (resData.status) {
+          resData.data.map((el)=>{
+            setImgSource(el.clientPhoto.documentName)
 
+          })
+        }
+    })
+        .catch(err => {
+            console.log(err)
+        })
+}, [state])
   useEffect(()=>{
     setProfile(state ? state : profileData)
   },[state])
@@ -236,7 +251,7 @@ function ClientProgressView() {
   console.log("doc",documentList)
 
   const  ViewDownloadFiles =( documentName:any)=>{
-    window.open(API_BASE_URL +"uploads/" + documentName)
+    window.open(API_BASE_URL +"uploads/" + imgSource)
    }
 
 
@@ -306,9 +321,10 @@ function ClientProgressView() {
 
 
   //END //
-
+  let Editdata={state:profile ,path:"/clientInProgressProfile"}
+  
   const editClientProfile = () => {
-    navigate("/clientInProgressEdit", { state: profile });
+    navigate("/clientInProgressEdit", { state: Editdata });
   }
 
   const handleImageUpload = () => {
@@ -499,9 +515,9 @@ function ClientProgressView() {
                 <div className="col-2 pr-0 text-center">
               <div className="">
               {
-              ClientImage !=="" ?
+              imgSource !=="" ?
               <img
-              src={API_BASE_URL + "uploads/" + ClientImage}
+              src={API_BASE_URL + "uploads/" + imgSource}
              className="imgEmbauch-upload-Download"
 
             />
@@ -526,6 +542,7 @@ function ClientProgressView() {
 <button
  onClick={()=>{setSelectUpload(!UploadBtn);}}
 className="SelectBtn"
+type="button"
  ><img className="" src={require("../../images/select.svg").default} />
  {
   UploadBtn? 
@@ -1063,7 +1080,7 @@ null
                        profile.salary_hours.length !== 0? 
                        profile.salary_hours.map((el)=>(
                         <div className="d-flex">
-                            {el.hours}H =    <span>{el.hours * el.salaryPerHour + "€"}</span>
+                           {el.hours ? el.hours : "0" }H =    <span>{el.salaryPerHour ? el.salaryPerHour + "€" : "0€"}</span>
                         </div>
                    
                       )
@@ -1079,7 +1096,8 @@ null
                        profile.rate_hours.length !== 0? 
                        profile.rate_hours.map((el)=>(
                         <div className="d-flex">
-                             {el.hours}H  =   <span>{el.hours * el.ratePerHour + "€"}</span>
+                                                        {el.hours ? el.hours : "0"}H  =   <span>{el.ratePerHour ? el.ratePerHour + "€" : "0€"}</span>
+
                         </div>
                    
                       )

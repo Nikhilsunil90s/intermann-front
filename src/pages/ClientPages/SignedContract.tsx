@@ -1172,7 +1172,7 @@ function Signed() {
                     <div className="d-flex align-items-center">
                       <p className="text-dark">Salary by person </p>
                       <span className="Todo-ClinetCardMore-span">
-                        : {profile.salary_hours.length !=0 ? profile.salary_hours.map((el)=>{return el.salaryPerHour}).slice(0,1) :"No Salary"} €
+                        : {profile.salary_hours.length > 0 ? profile.salary_hours.map((el)=>{return el.salaryPerHour ? el.salaryPerHour : false}) ?  profile.salary_hours.map((el)=>{return el.salaryPerHour}).slice(0,1)  :"No Salary" : "No Salary"} €
                       </span>
                     </div>
                     <div className="d-flex ">
@@ -1183,7 +1183,7 @@ function Signed() {
                        profile.salary_hours.length !== 0? 
                        profile.salary_hours.map((el)=>(
                         <div className="d-flex">
-                            {el.hours}H =    <span>{el.hours * el.salaryPerHour + "€"}</span>
+                            {el.hours ? el.hours : "0" }H =    <span>{el.salaryPerHour ? el.salaryPerHour + "€" : "0€"}</span>
                         </div>
                    
                       )
@@ -1199,7 +1199,7 @@ function Signed() {
                        profile.rate_hours.length !== 0? 
                        profile.rate_hours.map((el)=>(
                         <div className="d-flex">
-                             {el.hours}H  =   <span>{el.hours * el.ratePerHour + "€"}</span>
+                             {el.hours ? el.hours : "0"}H  =   <span>{el.ratePerHour ? el.ratePerHour + "€" : "0€"}</span>
                         </div>
                    
                       )

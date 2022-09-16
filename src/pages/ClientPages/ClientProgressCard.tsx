@@ -46,8 +46,11 @@ function ClientProgressCard(props: any) {
     {value:"Archive",label:"Archive"
     }
  ]as any
+
+ let Editdata={state:props.data ,path:"/clientInProgressProfile"}
+
     const editClientProfile = () => {
-        navigate("/clientInProgressEdit", { state: props.data });
+        navigate("/clientInProgressEdit", { state: Editdata });
     }
 
     const viewFullProfile = () => {

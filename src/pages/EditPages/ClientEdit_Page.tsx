@@ -14,10 +14,12 @@ import $ from "jquery";
 import UploadDow from '../../components/Modal/SelectUploadDownload'
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
+import ErrorLoader from "../../components/Loader/SearchBarError";
 
 let Amountarr = "";
 let Hours = "";
 const ClientDataFormat = {
+  clientLicensePermis:false,
     clientCompanyName: "",
     clientEmail: "",
     clientPhone: "",
@@ -25,6 +27,8 @@ const ClientDataFormat = {
     clientActivitySector: "",
     clientJob: "",
     clientLanguages: [],
+    salary_hours:[],
+    rate_hours :[],
     clientReferenceName: "",
     clientReferenceNumber: "",
     clientRequiredSkills: "",
@@ -73,13 +77,26 @@ const ClientDataFormat = {
     poste_du_gerant:"",
 }
 
+const SalaryTotal = []as any
+const SalaryTotalcheck = []as any
+const TauxH=[]
+let arr = []as any
+let Tauxarr=[]as any
+
+interface State {
+  state: any,
+  path: any
+}
+
 function ClientTodoEdit() {
 
     const notifyClientEditSuccess = () => toast.success("Client Updated Successfully! View Client in To-Do Clients/Leads List.");
 
     const notifyClientEditError = () => toast.error("Cannot Edit This Candidat, Since No Data Changed!");
 
-    const { state } = useLocation();
+    const locationObject = useLocation();
+    console.log(locationObject.state);
+    const { state, path } = locationObject.state as State;
     const navigate = useNavigate();
     const [data, setData] = useState(ClientDataFormat);
     const [formTouched, setFormTouched] = useState(false);
@@ -101,34 +118,275 @@ function ClientTodoEdit() {
   const [id, setID] = useState("");
   const hiddenImageInput = React.useRef(null);
   const [UploadBtn,setSelectUpload]= useState(false)
-  // const[clientImg,setClientImg]=useState(profile.clientPhoto.imageName)
-  const [SalaryH,setSalaryH]=useState([
-    {
-        value:"10000rs",id:"1",text:"35H"
-    },
-    {
-        value:"20000rs",id:"2",text:"39H"
-    },
-    {
-        value:"30000rs",id:"3",text:"40H"
-    },
-    {
-        value:"40000rs",id:"4",text:"41H"
-    },
-    {
-        value:"50000rs",id:"5",text:"42H"
-    },
-    {
-        value:"60000rs",id:"6",text:"43H"
-    },
-    {
-        value:"70000rs",id:"7",text:"44H"
-    },
-    {
-        value:"80000rs",id:"8",text:"45H"
-    },
-  ])as any
+  const [salary,setSalary_hours] =useState({
+    hours:"",
+    salaryPerHour:""
+  })as any
+  const [rateHours,setrate_hours] =useState({
+    hours:"",
+    ratePerHour:""
+  })as any
+  const [taxHours,setHours]=useState("")
+  const [taxHoursID,setHoursId]=useState("")
+  const [disableSalary , setDisableSalary]=useState(false)
+  const [checkBooleanValue , setcheckBooleanValue]=useState(Boolean)as any
+  const [Permis,setPermis]=useState(profile.clientLicensePermis)as any
 
+  useEffect(()=>{
+    // setData({...data,rate_hours:Tauxarr})
+    // setData({...data,salary_hours:ClientDataFormat.salary_hours})
+    ClientDataFormat.salary_hours=arr
+    ClientDataFormat.rate_hours=Tauxarr
+  
+  },[Tauxarr,SalaryTotal]) 
+
+  const switchHandle=(checked,id,e)=>{
+    console.log(checked,id,e,"all")
+console.log(id,"checked")
+setFormTouched(true)
+if(e=="Permis"){
+if(checked === true){
+      setPermis(true)
+      setData({...data,clientLicensePermis:true})
+      setFormTouched(true)
+    }
+    if(checked === false){
+      setPermis(false)
+     setData({...data,clientLicensePermis:false})
+     setFormTouched(true)
+    }
+  }
+ 
+  }
+
+  const RemoveHandling=(e,showHour)=>{
+    let SalaryFData =[]
+    let TauxHour=[]
+    if(e.target.id=="salary"){
+   
+      SalaryFData= ClientDataFormat.salary_hours.filter(el=>{
+      return   el.hours !== showHour ;
+     })
+     if(SalaryFData.length !=0){
+       arr=[]
+       ClientDataFormat.salary_hours=[]
+       SalaryFData.filter(el=>{
+         setcheckBooleanValue(el.hours.includes(showHour))
+           console.log(checkBooleanValue)
+         
+         })
+           if(checkBooleanValue === false){
+           
+           arr.push(...SalaryFData)
+           ClientDataFormat.salary_hours.push(...arr)
+           toast.success(`Removed ${showHour}H Salary!`)
+           return true
+   
+         }
+         return false
+     }
+    
+     }
+     if(e.target.name=="TauxHours"){
+    
+       TauxHour= ClientDataFormat.rate_hours.filter(el=>{
+         return   el.hours !== taxHours ;
+        })
+        if(TauxHour.length !=0){
+          
+          ClientDataFormat.rate_hours=[]
+          TauxHour.filter(el=>{
+            setcheckBooleanValue(el.hours.includes(taxHours))
+              console.log(checkBooleanValue)
+            })
+              if(checkBooleanValue === false){
+              
+             
+              ClientDataFormat.rate_hours.push(...TauxHour)
+              toast.success(`Removed ${taxHours}H Taux!`)
+              console.log(ClientDataFormat,"clientdata")
+              return true
+      
+            }
+            return false
+        }
+       
+     }
+     
+     } 
+
+
+     
+const onSubmitRates=(e)=>{
+ setFormTouched(true)
+  if(e.target.name==="salaryH"){
+
+      if(salary.hours !== "" && salary.salary_hours !== ""){
+      SalaryTotal.push(salary)
+      const FilterSalary=  SalaryTotal.filter(el=>{
+        const duplicate = arr.includes(el) ;
+        if(duplicate == false){
+        console.log(duplicate,"duplic")
+          arr.push(el)
+         ClientDataFormat.salary_hours=arr
+       
+          toast.success("Salary Saved!")
+          return true
+        }
+     
+       return false
+      }
+      )}
+
+
+   
+  }
+    
+  
+  if(e.target.name==="tauxH"){
+    if(rateHours.hours !== "" && rateHours.rate_hours !== ""){
+      TauxH.push(rateHours)
+          const FilterTaux = TauxH.filter(el=>{
+            const duplicate = Tauxarr.includes(el)
+            if(!duplicate){
+              Tauxarr.push(el)
+              
+              toast.success("Taux Horraire Saved!")
+              return true
+            }
+            return false
+          })
+        
+          
+      
+
+  }
+}
+
+}
+
+const onInputChange=(val)=>{
+  if(val.target.name==="salary_hours"){
+    setSalary_hours({...salary,salaryPerHour:val.target.value})
+  }
+  if(val.target.name==="turnover"){
+    setrate_hours({...rateHours,ratePerHour:val.target.value})
+  }
+}
+
+    
+     const HandleChange = (e: any) => {
+      
+       console.log(e.target.value);
+       if (e.target.id === "1") {
+         setShowHour("35");
+         setID(e.target.id);
+         setSalary_hours({...salary,hours:"35"})
+         
+       }
+       if (e.target.id === "2") {
+         setShowHour("39");
+         setID(e.target.id);
+         setSalary_hours({...salary,hours:"39"})
+         
+   
+       }
+       if (e.target.id === "3") {
+         setShowHour("40");
+         setSalary_hours({...salary,hours:"40"})
+         setID(e.target.id);
+         
+   
+       }
+       if (e.target.id === "4") {
+         setShowHour("41");
+         setID(e.target.id);
+         setSalary_hours({...salary,hours:"41"})
+         
+   
+       }
+       if (e.target.id === "5") {
+         setShowHour("42");
+         setSalary_hours({...salary,hours:"42"})
+         setID(e.target.id);
+         
+   
+       }
+       if (e.target.id === "6") {
+         setShowHour("43");
+         setSalary_hours({...salary,hours:"43"})
+         setID(e.target.id);
+         
+   
+       }
+       if (e.target.id === "7") {
+         setShowHour("44");
+         setID(e.target.id);
+         setSalary_hours({...salary,hours:"44"})
+        
+         
+   
+       }
+       if (e.target.id === "8") {
+         setShowHour("45");
+         setID(e.target.id);
+         setSalary_hours({...salary,hours:"45"})
+        
+         
+       }
+     };
+   
+     const TauxHandleChange = (e: any) => {
+       console.log(e.target.value);
+       if (e.target.id === "1") {
+         setHours("35");
+         setHoursId(e.target.id);
+         setrate_hours({...rateHours,hours:"35"})
+         // setData({...data.salary_hours.hours:...salary.hours})
+       }
+       if (e.target.id === "2") {
+         setHours("39");
+         setHoursId(e.target.id);
+         setrate_hours({...rateHours,hours:"39"})
+   
+       }
+       if (e.target.id === "3") {
+         setHours("40");
+         setHoursId(e.target.id);
+         setrate_hours({...rateHours,hours:"40"})
+   
+       }
+       if (e.target.id === "4") {
+         setHours("41");
+         setHoursId(e.target.id);
+         setrate_hours({...rateHours,hours:"41"})
+   
+       }
+       if (e.target.id === "5") {
+         setHours("42");
+         setHoursId(e.target.id);
+         setrate_hours({...rateHours,hours:"42"})
+   
+       }
+       if (e.target.id === "6") {
+         setHours("43");
+         setHoursId(e.target.id);
+         setrate_hours({...rateHours,hours:"43"})
+   
+       }
+       if (e.target.id === "7") {
+         setHours("44");
+         setHoursId(e.target.id);
+         setrate_hours({...rateHours,hours:"44"})
+   
+       }
+       if (e.target.id === "8") {
+         setHours("45");
+         setHoursId(e.target.id);
+         setrate_hours({...rateHours,hours:"45"})
+   
+       }
+     };
 console.log(profile,"pro")
   useEffect(() => {
     $(document).ready(function () {
@@ -192,8 +450,10 @@ console.log(profile,"pro")
         fetchClient(profile._id).then(resData => {
             console.log(resData)
             if (resData.status) {
+              resData.data.map((el)=>{
+                setImgSource(el.clientPhoto.documentName)
 
-                setImgSource(resData.data.clientPhoto.imageName)
+              })
             }
         })
             .catch(err => {
@@ -250,10 +510,6 @@ console.log(profile,"pro")
 
     }
 
-    const RemoveHandling=()=>{
-        setShowHour("")
-        setID("")
-      }
 
     const colourStyles: StylesConfig<ColourOption, true> = {
         control: (styles) => ({ ...styles, backgroundColor: 'white' }),
@@ -341,7 +597,7 @@ console.log(profile,"pro")
         hiddenFileInput.current.click();
     }
     const handleSectorChange = (e: any) => {
-        // console.log(e.target.value)
+        console.log(e.value)
     
 setJobOptions([])
         console.log(e)
@@ -456,26 +712,29 @@ setJobOptions([])
         console.log(data)
         if (formTouched) {
             const updatedData = {
+              salary_hours:data.salary_hours.length > 0 ? data.salary_hours :profile.salary_hours,
+              rate_hours :data.rate_hours.length > 0 ? data.rate_hours : profile.rate_hours,
+              clientLicensePermis: data.clientLicensePermis == true ? true : profile.clientLicensePermis,
                 clientId: profile._id,
-                clientName: data.clientCompanyName != "" ? data.clientCompanyName : profile.clientCompanyName,
-                numberOfPosts: data.numberOfPosts != "" ? data.numberOfPosts : profile.numberOfPosts,
-                clientMotivation: data.clientMotivation != 0 ? data.clientMotivation : profile.clientMotivation,
-                clientImportance: data.clientImportance != 0 ? data.clientImportance : profile.clientImportance,
-                clientActivitySector: selectedSector != "" ? selectedSector : profile.clientActivitySector,
-                clientJob: data.clientJob != "" ? data.clientJob : profile.clientJob,
-                clientLanguages: data.clientLanguages != [] ? data.clientLanguages : profile.clientLanguages,
-                jobStartDate: data.jobStartDate != "" ? data.jobStartDate : profile.jobStartDate,
-                jobEndDate: data.jobEndDate != "" ? data.jobEndDate : profile.jobEndDate,
+                clientName: data.clientCompanyName !== "" ? data.clientCompanyName : profile.clientCompanyName,
+                numberOfPosts: data.numberOfPosts !== "" ? data.numberOfPosts : profile.numberOfPosts,
+                clientMotivation: data.clientMotivation !== 0 ? data.clientMotivation : profile.clientMotivation,
+                clientImportance: data.clientImportance !== 0 ? data.clientImportance : profile.clientImportance,
+                clientActivitySector: selectedSector !== "" ? selectedSector : profile.clientActivitySector,
+                clientJob: data.clientJob !== "" ? data.clientJob : profile.clientJob,
+                clientLanguages: data.clientLanguages.length > 0? data.clientLanguages : profile.clientLanguages,
+                jobStartDate: data.jobStartDate !== "" ? data.jobStartDate : profile.jobStartDate,
+                jobEndDate: data.jobEndDate !== "" ? data.jobEndDate : profile.jobEndDate,
                 clientPermis: data.clientPermis ? data.clientPermis : profile.clientPermis,
-                clientRequiredSkills: data.clientRequiredSkills != "" ? data.clientRequiredSkills : profile.clientRequiredSkills,
-                clientEmail: data.clientEmail != "" ? data.clientEmail : profile.clientEmail,
-                clientPhone: data.clientPhone != "" ? data.clientPhone : profile.clientPhone,
-                jobTotalBudget: data.jobTotalBudget != 0 ? data.jobTotalBudget : profile.jobTotalBudget,
-                netSalary: data.netSalary != 0 ? data.netSalary : profile.netSalary,
-                clientAddress: data.clientAddress != "" ? data.clientAddress : profile.clientAddress,
-                clientReferenceName: data.clientReferenceName != "" ? data.clientReferenceName : profile.clientReferenceName,
-                clientReferenceNumber: data.clientReferenceNumber != "" ? data.clientReferenceNumber : profile.clientReferenceNumber,
-                clientReferenceEmail: data.clientReferenceEmail != "" ? data.clientReferenceEmail : profile.clientReferenceEmail,
+                clientRequiredSkills: data.clientRequiredSkills !== "" ? data.clientRequiredSkills : profile.clientRequiredSkills,
+                clientEmail: data.clientEmail !== "" ? data.clientEmail : profile.clientEmail,
+                clientPhone: data.clientPhone !== "" ? data.clientPhone : profile.clientPhone,
+                jobTotalBudget: data.jobTotalBudget !== 0 ? data.jobTotalBudget : profile.jobTotalBudget,
+                netSalary: data.netSalary !== 0 ? data.netSalary : profile.netSalary,
+                clientAddress: data.clientAddress !== "" ? data.clientAddress : profile.clientAddress,
+                clientReferenceName: data.clientReferenceName !== "" ? data.clientReferenceName : profile.clientReferenceName,
+                clientReferenceNumber: data.clientReferenceNumber !== "" ? data.clientReferenceNumber : profile.clientReferenceNumber,
+                clientReferenceEmail: data.clientReferenceEmail !== "" ? data.clientReferenceEmail : profile.clientReferenceEmail,
                 numero_contract : data.numero_contract !== "" ? data.numero_contract : profile.clientContract ? profile.clientContract.numero_contract !== "" ? profile.clientContract.numero_contract :"" :"",
                 initial_client_company : data.initial_client_company !== "" ? data.initial_client_company : profile.clientContract ? profile.clientContract.initial_client_company !== "" ? profile.clientContract.initial_client_company : "" : "",
 
@@ -518,8 +777,11 @@ setJobOptions([])
                 if (response.status) {
                     notifyClientEditSuccess()
                     setTimeout(() => {
-                        navigate("/clientToDo");
+                        navigate(path);
                     }, 2000)
+                }
+                else{
+                  toast.error("Client Change Failed!")
                 }
             })
                 .catch(err => {
@@ -536,7 +798,7 @@ setJobOptions([])
         handleImageUpload()
       } else if (val === 'Download') {
         console.log("download")
-        // window.open(API_BASE_URL + candidatImage);
+        window.open(API_BASE_URL + "uploads/" + imgSource);
       }
     }
     const handleImageUpload = () => {
@@ -577,6 +839,7 @@ setJobOptions([])
 
     const jobChange = async (jobval) => {
         // console.log(jobval)
+        setFormTouched(true)
         let JobArr=[]as any
         jobval.map((el)=>{
          
@@ -588,7 +851,7 @@ setJobOptions([])
       const handleChange = (selectedOption) => {
         console.log(`Option selected:`, selectedOption)
         let arr = []
-    
+       setFormTouched(true)
         selectedOption.map((el) => {
           arr.push(el.value)
         })
@@ -596,6 +859,8 @@ setJobOptions([])
         console.log(Language, "language")
         setData({ ...data, clientLanguages: arr })
       }
+
+      console.log(API_BASE_URL + "uploads/" + imgSource,"clie")
     return (
         <>
             <Toaster
@@ -605,6 +870,7 @@ setJobOptions([])
             />
             <div className="container-fluid">
                 <div className="row">
+                <form className="form px-0" onSubmit={onFormSubmit}>
                 <div className="col-12 top-pd mt-1">
             {/* <h1 style={{ textDecoration: 'underline' }}>CLIENT FILE: {profile.clientCompanyName}</h1> */}
          <div className="row">
@@ -638,29 +904,29 @@ setJobOptions([])
           </div>
           </div>
                     
-                    <form className="form px-0" onSubmit={onFormSubmit}>
+                  
                         <div className="">
                             <div className="col-12 p-2 Social-CardClient mt-1">
                                 <div className="row">
                                     <div className="col-2  text-center">
                        
-                               {/* { */}
-                                {/* // clientImg ?
+                               {
+                                imgSource ?
                                 <img
-                                src={API_BASE_URL + clientImg}
+                                src={API_BASE_URL + "uploads/" + imgSource}
                                className="img-uploadTodo-Download"
             
-                              />   */}
-                                
+                              />  
+                                :
                                 <img
                                 src={require("../../images/fullClientSee.svg").default}
                                className="img-uploadTodo-Download"
                               />           
-                              {/* } */}
+                              } 
                             
 
 <button
- onClick={()=>{setSelectUpload(!UploadBtn);}}
+ onClick={()=>{setSelectUpload(!UploadBtn);}} type="button"
 className="SelectBtn"
  ><img className="" src={require("../../images/select.svg").default} />
  {
@@ -686,7 +952,7 @@ className="SelectBtn"
                                             </div>
                                             <div className="col-12 pt-2">
                                                 <label className="Edit-LabelsFonts">Number of position</label>
-                                                <input name="numberOfPosts" placeholder="Num Only" className="form-control" defaultValue={profile.numberOfPosts} />
+                                                <input name="numberOfPosts" onChange={onFormDataChange} placeholder="Num Only" className="form-control" defaultValue={profile.numberOfPosts} />
                                             </div>
                                         </div>
                                     </div>
@@ -732,6 +998,7 @@ className="SelectBtn"
        {jobOptions.length > 0 ?
                     <Select
                       name="jobName"
+                      id="clientJob"
                       closeMenuOnSelect={true}
                       isMulti
                       placeholder="‎ ‎ ‎ Select"
@@ -897,9 +1164,10 @@ className="SelectBtn"
                                                     <div className="col-3 px-0 d-flex align-items-center">
                                                         <p className="mb-0 PermisDrive">Permis / Licence drive</p>
                                                         <Switch 
-                                                        checked
-                                                        onChange={null}
-                                                        checkedHandleIcon={
+                                                        onChange={switchHandle}
+                                                        checked={Permis}
+                                                        defaultValue={Permis}
+                                                        id="Permis"                                                        checkedHandleIcon={
                                                           <TurnOn
                                                             style={{
                                                               position: "absolute",
@@ -975,8 +1243,8 @@ className="SelectBtn"
                           options={colourOptions}
                           styles={colourStyles}
                            defaultValue={
-                            profile.clientLanguages?.map((profil,i)=>(
-                             {value:profil[i],label:profil[i],color:""}
+                        profile.clientLanguages?.map((profil,i)=>(
+                       { value:profil ,label:profil ,color:"#FE8700"}
                       
                             
     ))}
@@ -988,7 +1256,7 @@ className="SelectBtn"
                                             <input
                                                 // placeholder="Company Email Of Contact"
                                                 className="form-control"
-                                                name="clientEmail"
+                                                name="clientReferenceEmail"
                                                 defaultValue={profile.clientReferenceEmail}
                                                 placeholder={profile.clientReferenceEmail ? profile.clientReferenceEmail : "No Company email!" }
                                                 onChange={onFormDataChange}
@@ -1033,184 +1301,316 @@ className="SelectBtn"
                                             </div>
                                             <div className="col-12  mt-1 ">
                        
+                         {
+                          profile.clientContract ?
                          
                        <div className='row p-1' >
                          <div className='col-4  d-grid '>
                              <label className="ClientPDFFormlabel">$ numero contrat</label>
-                             <input className='form-control inputStyling'      onChange={onFormDataChange}  name='numero_contract'  placeholder={profile.clientContract ? profile.clientContract.numero_contract !== "" ? profile.clientContract.numero_contract :"" :""} />
+                             <input className='form-control inputStyling'      onChange={onFormDataChange}  name='numero_contract'  placeholder={profile.clientContract ? profile.clientContract.numero_contract !== "" ? profile.clientContract.numero_contract :"Input Not Available!" :"Input Not Available!"} />
                          </div>
                          <div className='col-4  d-grid ' >
                          <label className="ClientPDFFormlabel">$ initial Société client</label>
-                         <input className='form-control inputStyling'     onChange={onFormDataChange} name='initial_client_company'   placeholder={ profile.clientContract ? profile.clientContract.initial_client_company !== "" ? profile.clientContract.initial_client_company : "" : ""} />
+                         <input className='form-control inputStyling'     onChange={onFormDataChange} name='initial_client_company'   placeholder={ profile.clientContract ? profile.clientContract.initial_client_company !== "" ? profile.clientContract.initial_client_company : "Input Not Available!" : "Input Not Available!"} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ siret </label>
-                         <input className='form-control inputStyling'     onChange={onFormDataChange} name='siret'  placeholder={ profile.clientContract ? profile.clientContract.siret !== "" ? profile.clientContract.siret : "" : ""}/>
+                         <input className='form-control inputStyling'     onChange={onFormDataChange} name='siret'  placeholder={ profile.clientContract ? profile.clientContract.siret !== "" ? profile.clientContract.siret : "Input Not Available!" : "Input Not Available!"}/>
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ numero TVA</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='numero_tva' placeholder={ profile.clientContract ? profile.clientContract.numero_tva !== "" ? profile.clientContract.numero_tva : "" : ""} />
+                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='numero_tva' placeholder={ profile.clientContract ? profile.clientContract.numero_tva !== "" ? profile.clientContract.numero_tva : "Input Not Available!" : "Input Not Available!"} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nom gérant</label>
-                         <input className='form-control inputStyling'       onChange={onFormDataChange} name='nom_gerant'  placeholder={profile.clientContract ? profile.clientContract.nom_gerant !== "" ? profile.clientContract.nom_gerant : "" : ""} />
+                         <input className='form-control inputStyling'       onChange={onFormDataChange} name='nom_gerant'  placeholder={profile.clientContract ? profile.clientContract.nom_gerant !== "" ? profile.clientContract.nom_gerant : "Input Not Available!" : "Input Not Available!"} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ telephone gerant</label>
-                         <input className='form-control inputStyling'       onChange={onFormDataChange} name='telephone_gerant'  placeholder={profile.clientContract ? profile.clientContract.telephone_gerant !== "" ? profile.clientContract.telephone_gerant : "" : ""} />
+                         <input className='form-control inputStyling'       onChange={onFormDataChange} name='telephone_gerant'  placeholder={profile.clientContract ? profile.clientContract.telephone_gerant !== "" ? profile.clientContract.telephone_gerant : "Input Not Available!" : "Input Not Available!"} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ metier en Roumain</label>
-                         <input  className='inputStyling wHCompany form-control'     onChange={onFormDataChange} name='metier_en_roumain'  placeholder={profile.clientContract ? profile.clientContract.metier_en_roumain !== "" ? profile.clientContract.metier_en_roumain : "" : ""} />
+                         <input  className='inputStyling wHCompany form-control'     onChange={onFormDataChange} name='metier_en_roumain'  placeholder={profile.clientContract ? profile.clientContract.metier_en_roumain !== "" ? profile.clientContract.metier_en_roumain : "Input Not Available!" : "Input Not Available!"} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ metier en Français</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='metier_en_francais'  placeholder={profile.clientContract ? profile.clientContract.metier_en_francais !== "" ? profile.clientContract.metier_en_francais : "" : ""}/>
+                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='metier_en_francais'  placeholder={profile.clientContract ? profile.clientContract.metier_en_francais !== "" ? profile.clientContract.metier_en_francais : "Input Not Available!" : "Input Not Available!"}/>
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ date du debut de mission</label>
-                         <input className='form-control inputStyling'  type="date"    onChange={onFormDataChange} name='debut_date'  defaultValue={profile.clientContract ? profile.clientContract.debut_date !== "" ? profile.clientContract.debut_date : "" : ""} />
+                         <input className='form-control inputStyling'  type="date"    onChange={onFormDataChange} name='debut_date'  defaultValue={profile.clientContract ? profile.clientContract.debut_date !== "" ? profile.clientContract.debut_date : "Input Not Available!" : "Input Not Available!"} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ date de fin de mission</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='date_fin_mission' type="date"  defaultValue={profile.clientContract ? profile.clientContract.date_fin_mission !== "" ? profile.clientContract.date_fin_mission : "" : ""} />
+                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='date_fin_mission' type="date"  defaultValue={profile.clientContract ? profile.clientContract.date_fin_mission !== "" ? profile.clientContract.date_fin_mission : "Input Not Available!" : "Input Not Available!"} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ prix en euro / heure selon contract</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='prix_per_heure'  placeholder={profile.clientContract ? profile.clientContract.prix_per_heure !== "" ? profile.clientContract.prix_per_heure : "" : ""} />
+                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='prix_per_heure'  placeholder={profile.clientContract ? profile.clientContract.prix_per_heure !== "" ? profile.clientContract.prix_per_heure : "Input Not Available!" : "Input Not Available!"} />
 
                          </div>
 
 
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ SALAIRE EN EURO</label>
-                         <input className='form-control inputStyling'     onChange={onFormDataChange} name='salaire_euro'  placeholder={profile.clientContract ? profile.clientContract.salaire_euro !== "" ? profile.clientContract.salaire_euro : "" : ""} />
+                         <input className='form-control inputStyling'     onChange={onFormDataChange} name='salaire_euro'  placeholder={profile.clientContract ? profile.clientContract.salaire_euro !== "" ? profile.clientContract.salaire_euro : "Input Not Available!" : "Input Not Available!"} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nombre d'heure négocie dans le contrat</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='nombre_heure'  placeholder={profile.clientContract ? profile.clientContract.nombre_heure !== "" ? profile.clientContract.nombre_heure : "" : ""} />
+                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='nombre_heure'  placeholder={profile.clientContract ? profile.clientContract.nombre_heure !== "" ? profile.clientContract.nombre_heure : "Input Not Available!" : "Input Not Available!"} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ numero de tel du travailleur 1</label>
-                         <input className='form-control inputStyling'       onChange={onFormDataChange} name='worker_number_1'  placeholder={profile.clientContract ? profile.clientContract.worker_number_1 !== "" ? profile.clientContract.worker_number_1 : "" : ""} />
+                         <input className='form-control inputStyling'       onChange={onFormDataChange} name='worker_number_1'  placeholder={profile.clientContract ? profile.clientContract.worker_number_1 !== "" ? profile.clientContract.worker_number_1 : "Input Not Available!" : "Input Not Available!"} />
 
                          </div> 
                          <div className='col-4  d-grid '>
                             <label className="ClientPDFFormlabel">$ Nom Du Travailleur 1</label>
-                            <input className='form-control inputStyling'       onChange={onFormDataChange} name='worker_name_1' placeholder={profile.clientContract ? profile.clientContract.worker_name_1 !== "" ? profile.clientContract.worker_name_1 : "" : ""} />
+                            <input className='form-control inputStyling'       onChange={onFormDataChange} name='worker_name_1' placeholder={profile.clientContract ? profile.clientContract.worker_name_1 !== "" ? profile.clientContract.worker_name_1 : "Input Not Available!" : "Input Not Available!"} />
 
                             </div>
                          
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nom du travailleur 2 </label>
-                         <input className='form-control inputStyling'     onChange={onFormDataChange} name='worker_number_2'  placeholder={ profile.clientContract ? profile.clientContract.worker_number_2 !== "" ? profile.clientContract.worker_number_2 : "" : ""} />
+                         <input className='form-control inputStyling'     onChange={onFormDataChange} name='worker_number_2'  placeholder={ profile.clientContract ? profile.clientContract.worker_number_2 !== "" ? profile.clientContract.worker_number_2 : "Input Not Available!" : "Input Not Available!"} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ numero de tel du travailleur 2</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_name_2'   placeholder={profile.clientContract ? profile.clientContract.worker_name_2 !== "" ? profile.clientContract.worker_name_2 : "" : ""} />
+                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_name_2'   placeholder={profile.clientContract ? profile.clientContract.worker_name_2 !== "" ? profile.clientContract.worker_name_2 : "Input Not Available!" : "Input Not Available!"} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nom du travailleur3</label>
-                         <input className='form-control inputStyling'       onChange={onFormDataChange} name='worker_number_3'  placeholder={ profile.clientContract ? profile.clientContract.worker_number_3 !== "" ? profile.clientContract.worker_number_3 : "" : ""} />
+                         <input className='form-control inputStyling'       onChange={onFormDataChange} name='worker_number_3'  placeholder={ profile.clientContract ? profile.clientContract.worker_number_3 !== "" ? profile.clientContract.worker_number_3 : "Input Not Available!" : "Input Not Available!"} />
 
                          </div> <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ numero de tel du travailleur 3</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_name_3'  placeholder={profile.clientContract ? profile.clientContract.worker_name_3 !== "" ? profile.clientContract.worker_name_3 : "" : ""} />
+                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_name_3'  placeholder={profile.clientContract ? profile.clientContract.worker_name_3 !== "" ? profile.clientContract.worker_name_3 : "Input Not Available!" : "Input Not Available!"} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nom du travailleur 4</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_number_4'  placeholder={profile.clientContract ? profile.clientContract.worker_number_4 !== "" ? profile.clientContract.worker_number_4 : "" : ""} />
+                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_number_4'  placeholder={profile.clientContract ? profile.clientContract.worker_number_4 !== "" ? profile.clientContract.worker_number_4 : "Input Not Available!" : "Input Not Available!"} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ numero de tel du travailleur 4</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_name_4'  placeholder={profile.clientContract ? profile.clientContract.worker_name_4 !== "" ? profile.clientContract.worker_name_4 : "" : ""} />
+                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_name_4'  placeholder={profile.clientContract ? profile.clientContract.worker_name_4 !== "" ? profile.clientContract.worker_name_4 : "Input Not Available!" : "Input Not Available!"} />
 
                          </div> <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nom du travailleur 5</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_number_5'  placeholder={profile.clientContract ? profile.clientContract.worker_number_5 !== "" ? profile.clientContract.worker_number_5 : "" : ""} />
+                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_number_5'  placeholder={profile.clientContract ? profile.clientContract.worker_number_5 !== "" ? profile.clientContract.worker_number_5 : "Input Not Available!" : "Input Not Available!"} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ numero de tel du travailleur 5</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_name_5'  placeholder={profile.clientContract ? profile.clientContract.worker_name_5 !== "" ? profile.clientContract.worker_name_5 : "" : ""} />
+                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_name_5'  placeholder={profile.clientContract ? profile.clientContract.worker_name_5 !== "" ? profile.clientContract.worker_name_5 : "Input Not Available!" : "Input Not Available!"} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nom du travailleur 6</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_number_6'  placeholder={profile.clientContract ? profile.clientContract.worker_number_6 !== "" ? profile.clientContract.worker_number_6 : "" : ""} />
+                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_number_6'  placeholder={profile.clientContract ? profile.clientContract.worker_number_6 !== "" ? profile.clientContract.worker_number_6 : "Input Not Available!" : "Input Not Available!"} />
 
                          </div> <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ numero de tel du travailleur 6</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_name_6'  placeholder={profile.clientContract ? profile.clientContract.worker_name_6 !== "" ? profile.clientContract.worker_name_6 : "" : ""} />
+                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_name_6'  placeholder={profile.clientContract ? profile.clientContract.worker_name_6 !== "" ? profile.clientContract.worker_name_6 : "Input Not Available!" : "Input Not Available!"} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nom du travailleur 7</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_number_7'  placeholder={profile.clientContract ? profile.clientContract.worker_number_7 !== "" ? profile.clientContract.worker_number_7 : "" : ""} />
+                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_number_7'  placeholder={profile.clientContract ? profile.clientContract.worker_number_7 !== "" ? profile.clientContract.worker_number_7 : "Input Not Available!" : "Input Not Available!"} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ numero de tel du travailleur 7</label>
-                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_name_7'  placeholder={profile.clientContract ? profile.clientContract.worker_name_7 !== "" ? profile.clientContract.worker_name_7 : "" : ""} />
+                         <input className='form-control inputStyling'      onChange={onFormDataChange} name='worker_name_7'  placeholder={profile.clientContract ? profile.clientContract.worker_name_7 !== "" ? profile.clientContract.worker_name_7 : "Input Not Available!" : "Input Not Available!"} />
 
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ nom du travailleur 8</label>
-                         <input className='inputStyling form-control'      onChange={onFormDataChange} name='worker_number_8'  placeholder={profile.clientContract ? profile.clientContract.worker_number_8 !== "" ? profile.clientContract.worker_number_8 : "" : ""}  />
+                         <input className='inputStyling form-control'      onChange={onFormDataChange} name='worker_number_8'  placeholder={profile.clientContract ? profile.clientContract.worker_number_8 !== "" ? profile.clientContract.worker_number_8 : "Input Not Available!" : "Input Not Available!"}  />
                          </div>
                          <div className='col-4  d-grid '>
                          <label className="ClientPDFFormlabel">$ numero de tel du travailleur 8</label>
-                         <input className='inputStyling form-control'      onChange={onFormDataChange} name='worker_name_8'  placeholder={ profile.clientContract ? profile.clientContract.worker_name_8 !== "" ? profile.clientContract.worker_name_8 : "" : ""}  />
+                         <input className='inputStyling form-control'      onChange={onFormDataChange} name='worker_name_8'  placeholder={ profile.clientContract ? profile.clientContract.worker_name_8 !== "" ? profile.clientContract.worker_name_8 : "Input Not Available!" : "Input Not Available!"}  />
                          </div>
              
                       </div>
-                      
+
+
+:
+<div className="col-12 d-flex justify-content-center align-items-center py-2">
+<ErrorLoader  />
+<p className="mb-0 ErrorSearchBox">
+No Contract Available for this To-Do Client! Please add a New Contract.
+</p>
+</div>
+}
                  
                  </div>
-                                            <div className="col-12 mt-1">
+                 <div className="col-12 mt-1 ">
                   <div className="row">
                     <p className="padding-bottom Form-styling pb-1">
                       Select salaries Hours
                     </p>
-                    <div className="d-flex " id="dam_return">
+                    <div className="mediaQuery d-flex " id="dam_return">
+                
+                      <div className="pr-1">
+                        <button
+                          type="button"
+                       
+                          id="1"
+                          onClick={(e) => {
+                            HandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: id == "1" ? " #F4E7FF" : "",
+                            color: id == "1" ? "#A461D8" : "#979797",
+                          }}
+                          className="btn btnHPaid "
+                        >
+                          35H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button
+                          type="button"
+                        
+                          id="2"
+                          onClick={(e) => {
+                            HandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: id == "2" ? " #F4E7FF" : "",
+                            color: id == "2" ? "#A461D8" : "#979797",
+                          }}
+                          className="btn btnHPaid "
+                        >
+                          39H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button
+                          type="button"
+                         
+                          id="3"
+                          onClick={(e) => {
+                            HandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: id == "3" ? " #F4E7FF" : "",
+                            color: id == "3" ? "#A461D8" : "#979797",
+                          }}
+                          className="btn btnHPaid "
+                        >
+                          40H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button
+                          type="button"
+                        
+                          id="4"
+                          onClick={(e) => {
+                            HandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: id == "4" ? " #F4E7FF" : "",
+                            color: id == "4" ? "#A461D8" : "#979797",
+                          }}
+                          className="btn btnHPaid "
+                        >
+                          41H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button
+                          type="button"
+                         
+                          id="5"
+                          onClick={(e) => {
+                            HandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: id == "5" ? " #F4E7FF" : "",
+                            color: id == "5" ? "#A461D8" : "#979797",
+                          }}
+                          className="btn btnHPaid "
+                        >
+                          42H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button
+                          type="button"
                           
-                            {
-                                SalaryH.map((el)=>(
-                        <div className="pr-1">
-                             <button
-                                    type="button"
-                                    value={el.value}
-                                    id={el.id}
-                                    onClick={(e) => {
-                                      HandleChangeH(e);
-                                  
-                                    }}
-                                    style={{
-                                      backgroundColor: id == el.id ? " #F4E7FF" : "",
-                                      color: id == el.id ? "#A461D8" : "#979797",
-                                    }}
-                                    className="btn btnHPaid "
-                                  >
-                                   {el.text}
-                                  </button>
-                                 </div>
-                                  )  )
-                            }
+                          id="6"
+                          onClick={(e) => {
+                            HandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: id == "6" ? " #F4E7FF" : "",
+                            color: id == "6" ? "#A461D8" : "#979797",
+                          }}
+                          className="btn btnHPaid "
+                        >
+                          43H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button
+                          type="button"
+                          id="7"
+                          onClick={(e) => {
+                            HandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: id == "7" ? " #F4E7FF" : "",
+                            color: id == "7" ? "#A461D8" : "#979797",
+                          }}
+                          className="btn btnHPaid "
+                        >
+                          44H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button
+                          type="button"
+                        
+                          id="8"
+                          onClick={(e) => {
+                            HandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: id == "8" ? " #F4E7FF" : "",
+                            color: id == "8" ? "#A461D8" : "#979797",
+                          }}
+                          className="btn btnHPaid "
+                        >
+                          45H
+                        </button>
+                      </div>
                     </div>
                     <div className="col-5 mt-1">
                       <div
@@ -1218,24 +1618,17 @@ className="SelectBtn"
                         style={{ width: "100%" }}
                       >
                         <span>€</span>
-                        <input
-                          style={{ marginBottom: "0px" }}
-                          type="text"
-                          id="dam"
-                          className="form-control "
-                          name="turnover"
-                          placeholder="Amount"
-                        />
+                        <input type="text" className='form-control placeHolder' disabled={disableSalary} name='salary_hours' placeholder='Amount'   onChange={onInputChange} />
                         <span>.00</span>
                       </div>
                     </div>
                     <div className="col-3 mt-1 px-1 ">
-                      <button type="button" className="btn saveSalary" id="Hour">
+                      <button type="button" className="btn saveSalary" name="salaryH" id="Hour" onClick={(e)=>{onSubmitRates(e);}}>
                         Save Salary {showHour}H
                       </button>
                     </div>
                     <div className="col-4 mt-1 px-1">
-                      <button type="button" onClick={()=>RemoveHandling()} className="btn RemoveSalary">
+                      <button type="button" onClick={(e)=>RemoveHandling(e,showHour)} id="salary" className="btn RemoveSalary">
                         REMOVE Salary {showHour}H
                       </button>
                     </div>
@@ -1245,38 +1638,127 @@ className="SelectBtn"
                     </p>
                   </div>
                 </div>
-                <div className="col-12 mt-1">
-                  <div className="row">
-                    <p className="padding-bottom Form-styling pb-1 mt-1">
+                <div className="col-12">
+                <p className="padding-bottom Form-styling pb-1 mt-2">
                       taux horraire Hours
                     </p>
-                    <div className="d-flex " id="dam_return">
-                    
-                    {
-                                SalaryH.map((el)=>(
-                        <div className="pr-1">
-                             <button
-                                    type="button"
-                                    value={el.value}
-                                    id={el.id}
-                                    onClick={(e) => {
-                                      HandleChangeH(e);
-                                  
-                                    }}
-                                    style={{
-                                      backgroundColor: id == el.id ? " #F4E7FF" : "",
-                                      color: id == el.id ? "#A461D8" : "#979797",
-                                    }}
-                                    className="btn btnHPaid "
-                                  >
-                                   {el.text}
-                                  </button>
-                                 </div>
-                                  )  )
-                            }
-                               
-                     </div>
-                    
+                  <div className="row">
+                    <div className="mediaQuery d-flex">
+                      <div className="pr-1">
+                        <button type="button"
+                          id="1"
+                          onClick={(e) => {
+                            TauxHandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: taxHoursID == "1" ? " #F4E7FF" : "",
+                            color: taxHoursID == "1" ? "#A461D8" : "#979797",
+                          }} className="btn btnHPaid ">
+                          35H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button type="button" 
+                          id="2"
+                          onClick={(e) => {
+                            TauxHandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: taxHoursID == "2" ? " #F4E7FF" : "",
+                            color: taxHoursID == "2" ? "#A461D8" : "#979797",
+                          }}
+                          className="btn btnHPaid ">
+                          39H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button type="button"
+                          id="3"
+                          onClick={(e) => {
+                            TauxHandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: taxHoursID == "3" ? " #F4E7FF" : "",
+                            color: taxHoursID == "3" ? "#A461D8" : "#979797",
+                          }} className="btn btnHPaid ">
+                          40H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button type="button"
+                          id="4"
+                          onClick={(e) => {
+                            TauxHandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: taxHoursID == "4" ? " #F4E7FF" : "",
+                            color: taxHoursID == "4" ? "#A461D8" : "#979797",
+                          }} className="btn btnHPaid ">
+                          41H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button type="button" 
+                          id="5"
+                          onClick={(e) => {
+                            TauxHandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: taxHoursID == "5" ? " #F4E7FF" : "",
+                            color: taxHoursID == "5" ? "#A461D8" : "#979797",
+                          }} className="btn btnHPaid ">
+                          42H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button type="button" 
+                          id="6"
+                          onClick={(e) => {
+                            TauxHandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: taxHoursID == "6" ? " #F4E7FF" : "",
+                            color: taxHoursID == "6" ? "#A461D8" : "#979797",
+                          }} className="btn btnHPaid ">
+                          43H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button type="button" 
+                          id="7"
+                          onClick={(e) => {
+                            TauxHandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: taxHoursID == "7" ? " #F4E7FF" : "",
+                            color: taxHoursID == "7" ? "#A461D8" : "#979797",
+                          }} className="btn btnHPaid ">
+                          44H
+                        </button>
+                      </div>
+                      <div className="pr-1">
+                        <button type="button"
+                          id="8"
+                          onClick={(e) => {
+                            TauxHandleChange(e);
+                        
+                          }}
+                          style={{
+                            backgroundColor: taxHoursID == "8" ? " #F4E7FF" : "",
+                            color: taxHoursID == "8" ? "#A461D8" : "#979797",
+                          }} className="btn btnHPaid ">
+                          45H
+                        </button>
+                      </div>
+                    </div>
+
                     <div className="col-5 mt-1">
                       <div
                         className="d-flex amount-fieldsModal"
@@ -1286,22 +1768,23 @@ className="SelectBtn"
                         <input
                           style={{ marginBottom: "0px" }}
                           type="text"
-                          id="dam"
-                          className="form-control "
+                          className="form-control placeHolder"
                           name="turnover"
                           placeholder="Amount"
+                          onChange={onInputChange}
+                          // disabled={disableTaux}
                         />
                         <span>.00</span>
                       </div>
                     </div>
-                    <div className="col-3 mt-1 px-1 ">
-                      <button type="button" className="btn saveSalary" id="Hour">
-                        Save Salary {showHour}H
+                    <div className="col-3 mt-1 px-0">
+                      <button type="button" className="btn SaveTAUX" name="tauxH" onClick={(e)=>{onSubmitRates(e)}}>
+                        Save TAUX HORRAIRE {taxHours} H
                       </button>
                     </div>
                     <div className="col-4 mt-1 px-1">
-                      <button type="button" onClick={()=>RemoveHandling()} className="btn RemoveSalary">
-                        REMOVE Salary {showHour}H
+                      <button type="button" className="btn RemoveSalary" name="TauxHours" onClick={(e)=>RemoveHandling(e,showHour)}>
+                        REMOVE Salary {taxHours}H
                       </button>
                     </div>
                     <p className="paidHFontChild">
@@ -1309,7 +1792,7 @@ className="SelectBtn"
                       négociées et mettre une valeur du salaire mensuel pour Xh
                     </p>
                   </div>
-                  </div>
+                </div>
                 </div>
 
                     </div>

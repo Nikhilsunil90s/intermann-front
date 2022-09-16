@@ -233,8 +233,11 @@ const ClientToDoCard = (props: any) => {
     { icon: "🥰", motivation: "Great" },
     { icon: "😍", motivation: "Super Lovely" },
   ];
+
+  const Editdata ={state:props.data,path:"/clientTodo"}
+
   const editClientProfile = () => {
-    navigate("/clientToDoEdit", { state: props.data });
+    navigate("/clientToDoEdit", { state: Editdata });
   };
   console.log(props.data);
 
