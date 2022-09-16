@@ -978,10 +978,10 @@ console.log(statusProfiles,"filteredresponse.status")
  return(
     <>
     <Toaster containerStyle={{zIndex:"999999999999999999999999"}} position="top-right" />
-      <div className="container-fluid">
+      <div className="container-fluid" onScroll={loadMoreHandle} style={{overflow:"auto",height:'100vh'}}>
         <div className="row pd ">
            
-             <div className="col-12 card-pre-tops px-1 mt-2 cardScrollBar" onScroll={loadMoreHandle} style={{overflow:"auto",height:'100vh',padding:"0px",marginBottom:"20px"}}> 
+             <div className="col-12 card-pre-tops px-1 mt-2 cardScrollBar"  style={{padding:"0px",marginBottom:"20px"}}> 
           <div className="row text-start">
           <div className="card" style={{padding:"15px 15px",borderRadius:"15px",marginBottom:"0px"}}>
               <div className="">

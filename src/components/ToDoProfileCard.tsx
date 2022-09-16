@@ -95,7 +95,7 @@ const fetchProfilesClients = async () => {
                     <div className="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 fontStylinForcards">
                     <p style={{width:"100%"}}  className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.candidatName.toLocaleUpperCase()}><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
                         <p className="text-dark mb-0">{props.data.candidatAge ?  <p className="age00 mb-0">Age : <b> {props.data.candidatAge}</b></p> : <b>Age Not Available!</b>}</p>
-                        <div >  <p className="text-dark d-flex mb-0"> <b>{props.data.candidatMotivation ==0 ? candidatMotivationIcons[props.data.candidatMotivation + 1].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation + 1].motivation :  candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation}</b>
+                        <div >  <p className="text-dark d-flex mb-0"> <b>{props.data.candidatMotivation == 0 ? candidatMotivationIcons[props.data.candidatMotivation + 1].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation + 1].motivation :  candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation}</b>
                         </p>
                         </div>
                        

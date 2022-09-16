@@ -24,9 +24,13 @@ import PreModalClient from "../../components/Modal/preSelectedModalForClient"
 import moment from 'moment'
 import PDFModalClient from "../../components/Modal/PDFGenerateclientModal"
 import ErrorLoader from "../../components/Loader/SearchBarError";
-
+import { Tabs, Tab } from 'react-tabs-scrollable'
+import 'react-tabs-scrollable/dist/rts.css'
 let RenameData=[]
 let id = "";
+let UploadName=""
+let clDoc;
+let UploadTextBtn="";
 function ClientSee() {
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -58,7 +62,42 @@ function ClientSee() {
   const [PreSelectedData,setPreSelected]=useState([])
   const [PDFModal,setPDFModal]=useState(false)
   const [clientContract,setClientContract]=useState()as any
-  const [PDFModalData,setPDFModalData]=useState()as any
+  const [activeTab, setActiveTab] = React.useState(1)as any
+  const [tabItems,setTabitems]=useState([{
+    text:"CONTRAT CLIENT",value:"contrat_client"
+  }
+  ,
+   {text:"CONTRAT EMPLOYES",value:"contrat_employes"
+  },{
+    text:"CARTE D’IDENTITE EMPLOYES",value:"carte_d'identite_employes"
+  },{
+    text:"ID Card EMPLOYES",value:"id_card_employer"
+},{
+  text:"A1",value:"al"
+},{
+  text:"CONTRATS ASSURANCES EMPLOYES",value:"contrats_assurances_employes"
+},{
+  text:"SISPI",value:"sispi"
+},{
+  text:"DOCUMENT DE REPRESENTATION",value:"document_de_represntation"
+},{
+text:"OFFRE SIGNEE",value:"offre_signee"
+},{
+  text:"ATTESTATIONS SOCIETE INTERMANN",value:"attestations_societe_intermann"
+},{
+  text:"CVS",value:"cvs"
+},{
+  text:"AUTRES DOCUMENTS",value:"autres_documents"
+},{
+  text:"FACTURES",value:"factures"
+},{
+  text:"RAPPORT ACTIVITE",value:"rapport_activite"
+},{
+  text:"OFFRE ENVOYE ET NONSIGNE",value:"offre_envoye_et_nonsigne"
+}])as any
+
+// const [UplaodsName,setUploadNames]=useState("")as any
+
   const datenow=moment().format('YYYY-MM-DD')
     
   let date = new Date(datenow);
@@ -69,7 +108,25 @@ function ClientSee() {
 
  useEffect(()=>{
   setProfile(state ? state : ProfileData)
+
+
+
 },[state])
+
+useEffect(()=>{
+  
+  const FolderName= tabItems.filter((el,i)=>(i == activeTab))
+   
+
+      FolderName.map((el)=>{
+        UploadName=el.value
+        UploadTextBtn=el.text
+
+      })
+
+        clDoc = profile.clientDocuments.filter((el)=>(el.folderName == UploadName))
+        setDocumentList([...clDoc])
+},[])
 
   const notificationSwitch=()=>toast.success("Modification sauvegardée")
 
@@ -83,7 +140,25 @@ function ClientSee() {
   const axiosInstance = axios.create({
     baseURL: API_BASE_URL,
   })
-  //  start recommendation
+
+
+
+    const onTabClick = (e, index:any) => {
+      setActiveTab(index)
+      const FolderName= tabItems.filter((el,i)=>(i == index))
+   
+
+      FolderName.map((el)=>{
+        UploadName=el.value
+        UploadTextBtn=el.text
+
+
+      })
+
+        clDoc = profile.clientDocuments.filter((el)=>(el.folderName == UploadName))
+        setDocumentList([...clDoc])
+    }
+    console.log(UploadName,"FolderName")
 
   useEffect(() => {
     setLoader(true);
@@ -175,6 +250,7 @@ function ClientSee() {
       let formdata = new FormData();
       formdata.append('clientId', profile._id)
       formdata.append('document', fileUploaded)
+      formdata.append('folderName',UploadName)
       axiosInstance.post("uploadClientDocuments", formdata, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -216,7 +292,8 @@ function ClientSee() {
             setProfile(el)
             // setProfile({...profile,['clientContract']:el.clientContract})
             setClientContract(el.clientContract) 
-            setDocumentList(el.clientDocuments)
+            clDoc = el.clientDocuments.filter((el)=>(el.folderName == UploadName))
+            setDocumentList([...clDoc])
           })
          
           // setClientImage(resData.data.clientPhoto !== undefined ? resData.data.clientPhoto?.map((el)=>{ return el.documentName }): "")
@@ -1173,7 +1250,7 @@ function ClientSee() {
                     <div className="d-flex align-items-center">
                       <p className="text-dark">Salary by person </p>
                       <span className="Todo-ClinetCardMore-span">
-                        : {profile.salary_hours.length > 0 ? profile.salary_hours.map((el)=>{return el.salaryPerHour ? el.salaryPerHour : false}) ? profile.salary_hours.map((el)=>{return el.salaryPerHour}).slice(0,1) :"No Salary"  :"No Salary"} €
+                        : {profile.salary_hours.length > 0 ? profile.salary_hours.includes(profile.salary_hours.salaryPerHour) ? profile.salary_hours.map((el)=>{return el.salaryPerHour}).slice(0,1) :"No Salary"  :"No Salary"} €
                       </span>
                     </div>
                     <div className="d-flex ">
@@ -1399,22 +1476,16 @@ function ClientSee() {
                     </div>
                   </div>
                 </div>
-                <div className="col-6 d-flex justify-content-end align-items-center">
+                {/* <div className="col-6 d-flex justify-content-end align-items-center">
                   <button className="pdf-btn"  onClick={handleFileUpload}>
                     <img
                       src={require("../../images/doc.svg").default}
                       className="docImg"
                     />
-                      <input
-                    type="file"
-                    ref={hiddenFileInput}
-                    onChange={fileChange}
-                    name="clientDocuments"
-                    style={{ display: 'none' }}
-                  />
+                    
                     <span>Add document about this client </span>
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="col-12 Social-CardClient p-1">
@@ -1709,15 +1780,40 @@ function ClientSee() {
                  
                  </div>
             <div className="col-12 Social-CardClient my-1">
-              <div className="row p-1">
-              <div className="row" style={{ marginRight: '1px' }}>
+              <div className="row px-1 pt-1 pb-0">
+              <div className="col-4 pr-0">
+             <p className="DocShareLink mb-0"> Share this link with the client : <br/>Patager ce client avec le client:</p>
+              </div>
+              <div className="col-8 pl-0">
+              <div className="DocShareLinkBackground p-1">
+                <a className="LinkStyling"  href="fkdjfk" target="_blank">Clink On this Link</a>
+              </div>
+              </div>
+              <div className="col-12 mt-2">
+              <Tabs activeTab={activeTab} onTabClick={onTabClick} rightBtnIcon={'>'} hideNavBtns={true}  leftBtnIcon={'<'} showTabsScroll={false} tabsScrollAmount={7}>
+      {/* generating an array to loop through it  */}
+      {
+        tabItems.map((el,i)=>(
+
+            <Tab key={i}>{el.text}</Tab>
+          
+        ))
+      }
+   
+    </Tabs>
+
+    {
+
+    }
+              </div>
+              <div className="row py-1" style={{ marginRight: '1px' }}>
                     {
                       documentList.length > 0  ?
                         documentList.map((doc, index) =>
                           <div className="col-6 mx-0">
                             <div className="row CardClassDownload mt-1 mx-0">
-                              <div className="col-4 d-flex align-items-center ">
-                                <p className="download-font mb-0">{doc.originalName}</p>
+                              <div className="col-4 d-flex align-items-center cursor-pointer" data-bs-toggle="tooltip" data-bs-placement="bottom" title={doc.originalName}>
+                                <p className="download-font mb-0" >{doc.originalName.length > 20 ? doc.originalName.slice(0, 21) + "..." : doc.originalName}</p>
                               </div>
                               <div className="col-6 text-center">
                                 {/* {progress > 0 && progress < 100  ?
@@ -1750,6 +1846,7 @@ function ClientSee() {
                           </div>
                         ) :
                         progress > 0 && progress < 100 && documentList.length == 0?
+                        <>
                         <div className="col-6 mx-0">
                         <div className="row CardClassDownload p-0 mt-1 mx-0">
                           <div className="col-4 pr-0 d-flex align-items-center ">
@@ -1772,15 +1869,20 @@ function ClientSee() {
                           </div>
                         </div>
                       </div>
+                    
+                        </>
                       :  
-<p className="d-flex  justify-content-center align-items-center mb-0"     style={{
+<div className="d-grid  justify-content-center align-items-center mb-0"    > <div className="d-flex justify-content-center"> <img  src={require("../../images/docupload.svg").default} /> </div><p  style={{
                   fontFamily: 'Poppins',
                   fontStyle: "normal",
-                  fontWeight: "700",
+                  fontWeight: "500",
                   fontSize: "16px",
                   lineHeight: "24px",
-                  color: "#000000"
-              }}> <ErrorLoader />No Documents Uploaded!</p>
+                  color: "#92929D"
+              }}>contrat client file not Uploaded Yet</p>
+              
+              
+              </div>
    
                     }
     {progress > 0 && progress < 100 && documentList.length > 0 ?
@@ -1810,6 +1912,15 @@ function ClientSee() {
                   
 
                           }
+                          <div className="col-12 d-flex justify-content-center mt-2">
+                          <button className="uploadBtnForClient p-1" onClick={handleFileUpload}><img src={require("../../images/resume.svg").default} />Upload {UploadTextBtn} file Now  <input
+                    type="file"
+                    ref={hiddenFileInput}
+                    onChange={fileChange}
+                    name="clientDocuments"
+                    style={{ display: 'none' }}
+                  /></button>
+                        </div>
                           {
                             RenameDocStatus? 
                             <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus}  path={"/clientToDoProfile"}/>
@@ -1833,6 +1944,20 @@ null
                   }
                   </div>
                 
+              </div>
+            </div>
+
+            <div className="col-12 Social-CardClient my-1 "style={{padding:"13px 26px;"}}>
+              <div className="row alertMessage align-items-center">
+                <div className="col-4 pr-0 py-1">
+                <p className="mb-0 redColorStyling">⚠️ CONTRATS EMPLOYES IS MISSING / MANQUANT</p>
+                </div>
+                <div className="col-4 px-0">
+                <p className="mb-0 redColorStyling">⚠️  CONTRATS EMPLOYES IS MISSING / MANQUANT</p>
+                </div>
+                <div className="col-4 px-0">
+                <p className="mb-0 redColorStyling">⚠️  OFFRE SIGNEE IS MISSING / MANQUANT</p> 
+                </div>
               </div>
             </div>
           </div>

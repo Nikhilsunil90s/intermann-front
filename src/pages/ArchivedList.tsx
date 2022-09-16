@@ -357,28 +357,31 @@ SelectedClient=[]
       },
     })
       .then((resD) => resD.json())
-      .then((reD) =>   {  
-          if(cardTotallength > page && page !== 0){
-        setFetchingLoader(true)
-        let resultArr = [...reD]as any
-        if(filterData.includes(resultArr.candidatName)){
-          return true
-        }else{
-          setFilterData([...filterData,...resultArr])
-        }
-    
-    }
-    if(page > cardTotallength){
-      setFetchingLoader(false)
-      return true
-    }
-    if(filterData.length === 0){
-      setFetchingLoader(false)
-      setFilterData([...reD])
+      .then((reD) =>   {
+       
+        if(cardTotallength > page && page !== 0){
+          setFetchingLoader(true)
+          let resultArr = [...reD]as any
+          if(filterData.includes(resultArr.candidatName)){
+            return true
+
+          }else{
+            setFilterData([...filterData,...resultArr])
+          }
+      
+      }
+      if(page > cardTotallength){
+        setFetchingLoader(false)
+        return true
+      }
+      if(filterData.length === 0){
+        setFetchingLoader(false)
+        setFilterData([...reD])
 
 
 
-  }})
+  }
+      })
       .catch((err) => err);
   };
 

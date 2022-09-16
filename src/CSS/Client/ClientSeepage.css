@@ -5,6 +5,94 @@
   padding: 20px;
 }
 
+.DocShareLink{
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 24px;
+color: #032339;
+
+}
+
+.rts___tab {
+  padding: 6px 15px !important;
+  white-space: nowrap;
+  vertical-align: middle;
+  text-align: center;
+  margin: 0 5px;
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 21px;
+color: #D3D2D2;
+}
+.rts___tabs.hide___rts___tabs___scroll {
+  /* -ms-overflow-style: none;
+  scrollbar-width: none; */
+  background: #F2F3F5;
+border-radius: 10px;
+}
+.alertMessage{
+  border-radius: 4px;
+  background: #FFE0E0;
+
+}
+.redColorStyling{
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 11px;
+line-height: 21px;
+color: #E21B1B;
+mix-blend-mode: normal;
+}
+.uploadBtnForClient{
+  border: 1px solid #3F76E2;
+  border-radius: 100px;
+  font-family: 'Arial';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 24px;
+background-color: #ffffff;
+/* identical to box height, or 133% */
+
+display: flex;
+align-items: flex-end;
+text-transform: capitalize;
+
+color: #3F76E2;
+}
+
+
+.rts___btn {
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 40px; 
+  border: 0px !important;
+  transition: 0.3s all linear;
+}
+.rts___tab___selected {
+  background-color:#000000 !important;
+  color: var(--rts-white-color);
+  box-shadow: rgb(0 0 0 / 16%) 0px 1px 4px;
+}
+.DocShareLinkBackground{
+  background: #E4F4FF;
+border-radius: 4px;
+}
+.LinkStyling{
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+text-decoration-line: underline;
+color: #3F76E2;
+}
+
 .stable img {
   padding-right: 10px;
 }
