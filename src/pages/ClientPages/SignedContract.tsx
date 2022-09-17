@@ -16,20 +16,25 @@ import ProfileLoader from "../../components/Loader/ProfilesLoader";
 import RenameDoc from "../../components/Modal/RenameDoc_ModalClient";
 import ReadMoreReact from "read-more-react";
 import PreModalClient from "../../components/Modal/preSelectedModalForClient";
-import PDFModalClient from "../../components/Modal/PDFGenerateclientModal"
-import moment from "moment"
+import PDFModalClient from "../../components/Modal/PDFGenerateclientModal";
+import moment from "moment";
 import ErrorLoader from "../../components/Loader/SearchBarError";
+import { Tabs, Tab } from "react-tabs-scrollable";
+import "react-tabs-scrollable/dist/rts.css";
 
 let RenameData = [];
 let id = "";
+let UploadName = "";
+let clDoc;
+let UploadTextBtn = "";
 function Signed() {
   const { state } = useLocation();
-  const profileData = JSON.parse(localStorage.getItem("archive"))
+  const profileData = JSON.parse(localStorage.getItem("archive"));
   const [profile, setProfile] = useState<any>(state ? state : profileData);
   const navigate = useNavigate();
-  const [stateid]=useState(state)as any
+  const [stateid] = useState(state) as any;
   const [showArchiveModal, setShowArchiveModal] = useState(false);
-  const [EMPunderWorking,setEMPunderWorking]=useState([])as any
+  const [EMPunderWorking, setEMPunderWorking] = useState([]) as any;
   const [UploadBtn, setSelectUpload] = useState(false);
   const hiddenImageInput = React.useRef(null);
   const [SISPI, setChecked] = useState(profile.sispiDeclared);
@@ -44,21 +49,96 @@ function Signed() {
   const [progress, setProgress] = useState<any>(0);
   const [docUploaded, setDocUploaded] = useState(false);
   const [documentList, setDocumentList] = useState([]);
-  const [ClientImage, setClientImage] = useState(profile.clientPhoto && profile.clientPhoto?.documentName !== undefined ? profile.clientPhoto?.documentName : "");
+  const [ClientImage, setClientImage] = useState(
+    profile.clientPhoto && profile.clientPhoto?.documentName !== undefined
+      ? profile.clientPhoto?.documentName
+      : ""
+  );
   const hiddenFileInput = React.useRef(null);
   const [RenameDocStatus, setRenameDocStatus] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
   const [PreSelectedData, setPreSelected] = useState([]);
-  const [PDFModal,setPDFModal]=useState(false)
-  const [clientContract,setClientContract]=useState()as any
+  const [PDFModal, setPDFModal] = useState(false);
+  const [clientContract, setClientContract] = useState() as any;
+  const [activeTab, setActiveTab] = React.useState(1) as any;
+  const [tabItems, setTabitems] = useState([
+    {
+      text: "CONTRAT CLIENT",
+      value: "contrat_client",
+    },
+    { text: "CONTRAT EMPLOYES", value: "contrat_employes" },
+    {
+      text: "CARTE D’IDENTITE EMPLOYES",
+      value: "carte_d'identite_employes",
+    },
+    {
+      text: "ID Card EMPLOYES",
+      value: "id_card_employer",
+    },
+    {
+      text: "A1",
+      value: "al",
+    },
+    {
+      text: "CONTRATS ASSURANCES EMPLOYES",
+      value: "contrats_assurances_employes",
+    },
+    {
+      text: "SISPI",
+      value: "sispi",
+    },
+    {
+      text: "DOCUMENT DE REPRESENTATION",
+      value: "document_de_represntation",
+    },
+    {
+      text: "OFFRE SIGNEE",
+      value: "offre_signee",
+    },
+    {
+      text: "ATTESTATIONS SOCIETE INTERMANN",
+      value: "attestations_societe_intermann",
+    },
+    {
+      text: "CVS",
+      value: "cvs",
+    },
+    {
+      text: "AUTRES DOCUMENTS",
+      value: "autres_documents",
+    },
+    {
+      text: "FACTURES",
+      value: "factures",
+    },
+    {
+      text: "RAPPORT ACTIVITE",
+      value: "rapport_activite",
+    },
+    {
+      text: "OFFRE ENVOYE ET NONSIGNE",
+      value: "offre_envoye_et_nonsigne",
+    },
+  ]) as any;
 
+  useEffect(() => {
+    setProfile(state ? state : profileData);
+  }, [state]);
 
-  useEffect(()=>{
-    setProfile(state ? state : profileData)
-  },[state])
+  useEffect(() => {
+    const FolderName = tabItems.filter((el, i) => i == activeTab);
 
- console.log(EMPunderWorking,"emp")
+    FolderName.map((el) => {
+      UploadName = el.value;
+      UploadTextBtn = el.text;
+    });
+
+    clDoc = profile.clientDocuments.filter((el) => el.folderName == UploadName);
+    setDocumentList([...clDoc]);
+  }, []);
+
+  console.log(EMPunderWorking, "emp");
   const candidatImportanceIcons = [
     {
       icon: (
@@ -144,7 +224,7 @@ function Signed() {
     baseURL: API_BASE_URL,
   });
   // NOTIFY //
-  const notificationSwitch=()=>toast.success("Modification sauvegardée")
+  const notificationSwitch = () => toast.success("Modification sauvegardée");
   const notifyDocumentUploadError = () =>
     toast.error("Document Upload Failed! Please Try Again in few minutes.");
   const notifyDocumentDeleteError = () =>
@@ -169,128 +249,138 @@ function Signed() {
     // })
   };
 
+  const onTabClick = (e, index: any) => {
+    setActiveTab(index);
+    const FolderName = tabItems.filter((el, i) => i == index);
+
+    FolderName.map((el) => {
+      UploadName = el.value;
+      UploadTextBtn = el.text;
+    });
+
+    clDoc = profile.clientDocuments.filter((el) => el.folderName == UploadName);
+    setDocumentList([...clDoc]);
+  };
 
   const fileChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
     >
   ) => {
-    if (e.target.name === 'clientPhoto') {
-      console.log(e.target.files,"e.target.files")
-      console.log(e.target.files[0],"e.target.files[]")
-      const fileUploaded = e.target.files[0]
+    if (e.target.name === "clientPhoto") {
+      console.log(e.target.files, "e.target.files");
+      console.log(e.target.files[0], "e.target.files[]");
+      const fileUploaded = e.target.files[0];
       let formdata = new FormData();
-      formdata.append('clientId', profile._id)
-      formdata.append('image', fileUploaded)
-      axiosInstance.post("uploadClientImage", formdata, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "Authorization": "Bearer " + localStorage.getItem('token')
-        }
-      })
-        .then(datares => {
-          console.log(datares)
+      formdata.append("clientId", profile._id);
+      formdata.append("image", fileUploaded);
+      axiosInstance
+        .post("uploadClientImage", formdata, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((datares) => {
+          console.log(datares);
           if (datares.data.status) {
-            
-            console.log(datares.data.status,"datares.data.status")
-    //  setClientImage(datares.data.filename)
-     notifyDocumentUploadSuccess()
+            console.log(datares.data.status, "datares.data.status");
+            //  setClientImage(datares.data.filename)
+            notifyDocumentUploadSuccess();
 
-     
-            setTimeout(()=>{
-              window.location.href = "/clientSigned"
-            },2000)
+            setTimeout(() => {
+              window.location.href = "/clientSigned";
+            }, 2000);
           } else {
-            notifyDocumentUploadError()
+            notifyDocumentUploadError();
           }
         })
-        .catch(err => { console.log(err) })
+        .catch((err) => {
+          console.log(err);
+        });
       return;
     }
-    if (e.target.name === 'clientDocuments') {
+    if (e.target.name === "clientDocuments") {
       const fileUploaded = e.target.files[0];
-      setCandidatDocument(fileUploaded)
+      setCandidatDocument(fileUploaded);
       let formdata = new FormData();
-      formdata.append('clientId', profile._id)
-      formdata.append('document', fileUploaded)
-      axiosInstance.post("uploadClientDocuments", formdata, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "Authorization": "Bearer " + localStorage.getItem('token')
-        },
-        onUploadProgress: data => {
-          //Set the progress value to show the progress bar
-          setProgress(Math.round((100 * data.loaded) / data.total))
-        },
-      })
-        .then(resData => {
-          console.log(resData.data.status,"resData.data.status")
+      formdata.append("clientId", profile._id);
+      formdata.append("document", fileUploaded);
+      formdata.append("folderName", UploadName);
+      axiosInstance
+        .post("uploadClientDocuments", formdata, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+          onUploadProgress: (data) => {
+            //Set the progress value to show the progress bar
+            setProgress(Math.round((100 * data.loaded) / data.total));
+          },
+        })
+        .then((resData) => {
+          console.log(resData.data.status, "resData.data.status");
           if (resData.data.status) {
-            console.log(resData.data,"resData")
+            console.log(resData.data, "resData");
             setDocUploaded(true);
-            setProgress(0); 
+            setProgress(0);
             notifyDocumentUploadSuccess();
           } else {
-            console.log(resData)
+            console.log(resData);
             setDocUploaded(false);
           }
         })
-        .catch(err => {
-          console.log(err)
+        .catch((err) => {
+          console.log(err);
           setDocUploaded(false);
-
-        })
+        });
       return;
     }
-  }
+  };
 
+  useEffect(() => {
+    fetchCandidat(state ? stateid._id : profileData._id)
+      .then((resData) => {
+        if (resData.status == true) {
+          resData.data.map((el) => {
+            setProfile(el);
+            setClientContract(el.clientContract);
+            clDoc = el.clientDocuments.filter(
+              (el) => el.folderName == UploadName
+            );
+            setDocumentList([...clDoc]);
+          });
 
-
-  useEffect(() => { 
-    fetchCandidat(state ? stateid._id : profileData._id).then(resData => {
-
-      if (resData.status == true) {
-        
-        
-        resData.data.map((el)=>{
-          setProfile(el)
-          setClientContract(el.clientContract) 
-          setDocumentList(el.clientDocuments)
-        })
-       
-        // setClientImage(resData.data.clientPhoto !== undefined ? resData.data.clientPhoto?.map((el)=>{ return el.documentName }): "")
-        setDocUploaded(false);
-      } else {
-        setDocumentList([...documentList])
-        setDocUploaded(false);
-      }
-    }
-    
-    )
-    
-      .catch(err => {
-        console.log(err)
+          // setClientImage(resData.data.clientPhoto !== undefined ? resData.data.clientPhoto?.map((el)=>{ return el.documentName }): "")
+          setDocUploaded(false);
+        } else {
+          setDocumentList([...documentList]);
+          setDocUploaded(false);
+        }
       })
-        
-      // if(PDFModalData == null){
-      //   fetchCandidat(profile._id).then(resData => {
 
-      //     if (resData.status == true) {
-      //       setPDFModalData([...resData.data])             
-      //       // setClientImage(resData.data.clientPhoto !== undefined ? resData.data.clientPhoto?.map((el)=>{ return el.documentName }): ""
-          
-      //     }
-      //   }
-        
-      //   )
-        
-      //     .catch(err => {
-      //       console.log(err)
-      //     })
-        
-      // }
-    
-},[docUploaded])
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // if(PDFModalData == null){
+    //   fetchCandidat(profile._id).then(resData => {
+
+    //     if (resData.status == true) {
+    //       setPDFModalData([...resData.data])
+    //       // setClientImage(resData.data.clientPhoto !== undefined ? resData.data.clientPhoto?.map((el)=>{ return el.documentName }): ""
+
+    //     }
+    //   }
+
+    //   )
+
+    //     .catch(err => {
+    //       console.log(err)
+    //     })
+
+    // }
+  }, [docUploaded]);
 
   console.log("doc", documentList);
 
@@ -337,7 +427,7 @@ function Signed() {
               return doc.documentName !== docName;
             }),
           ]);
-   } else {
+        } else {
           notifyDocumentDeleteError();
         }
       })
@@ -374,7 +464,6 @@ function Signed() {
   //     GetClient(IdFromURL)
   // })
 
-
   const GetClient = async (IdFromURL) => {
     return await fetch(API_BASE_URL + `getClientById/?clientId=${IdFromURL}`, {
       headers: {
@@ -403,14 +492,12 @@ function Signed() {
         setOffre(true);
         id = e._id;
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setOffre(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "signatureSent") {
@@ -419,14 +506,12 @@ function Signed() {
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setSignature(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "contractSigned") {
@@ -435,14 +520,12 @@ function Signed() {
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setContrat(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "publicityStarted") {
@@ -451,14 +534,12 @@ function Signed() {
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setPublic(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "A1selected") {
@@ -467,14 +548,12 @@ function Signed() {
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setA1(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "assuranceFaite") {
@@ -483,14 +562,12 @@ function Signed() {
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setAssurance(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "agenceDeVoyage") {
@@ -499,14 +576,12 @@ function Signed() {
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setAgence(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "sispiDeclared") {
@@ -515,18 +590,16 @@ function Signed() {
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setChecked(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
   };
-  console.log(EMPunderWorking,"pro")
+  console.log(EMPunderWorking, "pro");
 
   const onChangeSwitches = async (id, AName, val) => {
     await fetch(
@@ -545,20 +618,20 @@ function Signed() {
       .catch((err) => err);
   };
 
+  const datenow = moment().format("YYYY-MM-DD");
 
-  const datenow=moment().format('YYYY-MM-DD')
-    
   let date = new Date(datenow);
 
- let start = new Date(profile.jobStartDate);
- let end = new Date(profile.jobEndDate);
- 
+  let start = new Date(profile.jobStartDate);
+  let end = new Date(profile.jobEndDate);
 
- 
   return (
     <>
-    <Toaster position="top-right" containerStyle={{zIndex:"9999999999999999999999"}}  />
-    
+      <Toaster
+        position="top-right"
+        containerStyle={{ zIndex: "9999999999999999999999" }}
+      />
+
       <div className="containet-fluid">
         <div className="row px-1">
           <div className="col-12 top-pd mt-1">
@@ -571,7 +644,8 @@ function Signed() {
                   <Link to="/clientProgress">
                     <button type="button" className="btn FontStyle-TODOSEE">
                       <img src={require("../../images/return.svg").default} />
-                      Client File : {profile.clientCompanyName.toLocaleUpperCase()}
+                      Client File :{" "}
+                      {profile.clientCompanyName.toLocaleUpperCase()}
                     </button>
                   </Link>
                 </div>
@@ -591,26 +665,18 @@ function Signed() {
             <div className="col-12 my-1 py-1 ClientSEE-TopDetails">
               <div className="row">
                 <div className="col-2 pr-0 text-center">
-             
-                  {
+                  {ClientImage !== "" ? (
+                    <img
+                      src={API_BASE_URL + "uploads/" + ClientImage}
+                      className="imgSigned-upload-Download"
+                    />
+                  ) : (
+                    <img
+                      src={require("../../images/fullClientSee.svg").default}
+                      className="imgSigned-upload-Download"
+                    />
+                  )}
 
-              ClientImage !=="" ?
-            
-              <img
-              src={API_BASE_URL + "uploads/" + ClientImage}
-             className="imgSigned-upload-Download"
-
-            />
-:
-             
-
-            <img
-            src={require("../../images/fullClientSee.svg").default}
-           className="imgSigned-upload-Download"
-/>
-          
-            }
-                  
                   {/* <Select
                           closeMenuOnSelect={true}
   // onChange={handleChange}
@@ -656,12 +722,28 @@ function Signed() {
                     </p>
                     <span className="card-xlSpan">(Age)</span>
                   </div>
-                  <p>Number of Positions : {profile.numberOfPosts ? profile.numberOfPosts : "No Posts!"}</p>
+                  <p>
+                    Number of Positions :{" "}
+                    {profile.numberOfPosts
+                      ? profile.numberOfPosts
+                      : "No Posts!"}
+                  </p>
 
-                  <p>Secteur : {profile.clientActivitySector ? profile.clientActivitySector : "No Sector"}</p>
-                  <p>Métier/Job : {profile.clientJob ? profile.clientJob : "No Job!"}</p>
+                  <p>
+                    Secteur :{" "}
+                    {profile.clientActivitySector
+                      ? profile.clientActivitySector
+                      : "No Sector"}
+                  </p>
+                  <p>
+                    Métier/Job :{" "}
+                    {profile.clientJob ? profile.clientJob : "No Job!"}
+                  </p>
                   <p style={{ width: "120%" }}>
-                    Contact Name : {profile.clientReferenceName ? profile.clientReferenceName.toLocaleUpperCase() : "No Contact Name!" }
+                    Contact Name :{" "}
+                    {profile.clientReferenceName
+                      ? profile.clientReferenceName.toLocaleUpperCase()
+                      : "No Contact Name!"}
                   </p>
                 </div>
                 {/* <div className="col-4 text-end end-class d-grid justify-content-center align-items-center"> */}
@@ -1006,13 +1088,12 @@ function Signed() {
                 >
                   <div className="d-flex">
                     <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                     
                       {profile.clientEmail
-                        ?  " Mail :" + profile.clientEmail
+                        ? " Mail :" + profile.clientEmail
                         : null}
                     </p>
                   </div>
-                  {profile.clientEmail ? 
+                  {profile.clientEmail ? (
                     <button className="btn-TODOgmail">
                       <a
                         href="https://accounts.google.com/"
@@ -1028,16 +1109,17 @@ function Signed() {
                         Send Email
                       </a>
                     </button>
-                   : null}
+                  ) : null}
 
                   <div className="d-flex">
                     <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                      
-                      {profile.clientEmail ? "Contact :" + profile.clientEmail : null}
+                      {profile.clientEmail
+                        ? "Contact :" + profile.clientEmail
+                        : null}
                     </p>
                   </div>
 
-                  {profile.clientEmail ? 
+                  {profile.clientEmail ? (
                     <a
                       href={profile.clientEmail}
                       target="_blank"
@@ -1048,19 +1130,16 @@ function Signed() {
                       </span>
                       Send Email
                     </a>
-                  : 
-                 null
-                  }
+                  ) : null}
 
                   <div className="d-flex">
                     <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                      
                       {profile.clientPhone
-                        ?  "Company Phone :" + profile.clientPhone
+                        ? "Company Phone :" + profile.clientPhone
                         : null}
                     </p>
                   </div>
-                  {profile.clientPhone ? 
+                  {profile.clientPhone ? (
                     <a
                       href={`https://wa.me/${profile.clientPhone}`}
                       target="_blank"
@@ -1075,19 +1154,16 @@ function Signed() {
                         Send What’s App
                       </button>
                     </a>
-                  : 
-                  null
-                  }
+                  ) : null}
 
                   <div className="d-flex">
                     <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                      
                       {profile.clientReferenceNumber
-                        ?  "Contact Phone :" + profile.clientReferenceNumber
+                        ? "Contact Phone :" + profile.clientReferenceNumber
                         : null}
                     </p>
                   </div>
-                  {profile.clientReferenceNumber !="" ? 
+                  {profile.clientReferenceNumber != "" ? (
                     <a
                       href={`https://wa.me/${profile.clientReferenceNumber}`}
                       target="_blank"
@@ -1102,9 +1178,7 @@ function Signed() {
                         Send What’s App
                       </button>
                     </a>
-                  : 
-                 null
-                  }
+                  ) : null}
                 </div>
                 <div
                   className="col-xxl-8 col-xl-8 col-lg-8 col-md-7 Social-Card p-1 detailsCardClientSee scrollbar Social-btnS"
@@ -1114,32 +1188,46 @@ function Signed() {
                   <div className="Todo-ClinetCardMore force-overflow">
                     <div className="d-flex">
                       <div className="col-12 px-0">
-                      <div className="row">
-                        <div className="col-4">
-                        <p className="CompanyAddres">Company Adress</p></div>
-                        <div className="col-8">
-                        <span className="Todo-ClinetCardMore-span">
-                          :
-                          {profile.clientAddress
-                            ? profile.clientAddress
-                            : "No Address!"}
-                        </span>
+                        <div className="row">
+                          <div className="col-4">
+                            <p className="CompanyAddres">Company Adress</p>
+                          </div>
+                          <div className="col-8">
+                            <span className="Todo-ClinetCardMore-span">
+                              :
+                              {profile.clientAddress
+                                ? profile.clientAddress
+                                : "No Address!"}
+                            </span>
+                          </div>
                         </div>
-                      </div>
                       </div>
                     </div>
                     <div className="d-flex align-items-center ">
                       <p className="blue-text">Research for work :</p>
-                      <span className="bluetextCardSee"style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>{date >= start && date <= end  ? profile.jobStartDate  + "  To  " + profile.jobEndDate :   "⚠️" + profile.jobStartDate +  "  To  "  + profile.jobEndDate}
+                      <span
+                        className="bluetextCardSee"
+                        style={{
+                          color:
+                            date >= start && date <= end
+                              ? "#3F76E2"
+                              : "#ca1313",
+                        }}
+                      >
+                        {date >= start && date <= end
+                          ? profile.jobStartDate + "  To  " + profile.jobEndDate
+                          : "⚠️" +
+                            profile.jobStartDate +
+                            "  To  " +
+                            profile.jobEndDate}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
                       <p>Langues : </p>
                       <span className="Todo-ClinetCardMore-span">
-                      {profile.clientLanguages.length
-                            
-                            ? profile.clientLanguages.join(", ")
-                            : "No Langues!"} 
+                        {profile.clientLanguages.length
+                          ? profile.clientLanguages.join(", ")
+                          : "No Langues!"}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
@@ -1172,57 +1260,68 @@ function Signed() {
                     <div className="d-flex align-items-center">
                       <p className="text-dark">Salary by person </p>
                       <span className="Todo-ClinetCardMore-span">
-                      : {profile.salary_hours.length > 0 ? profile.salary_hours.includes(profile.salary_hours.salaryPerHour) ? profile.salary_hours.map((el)=>{return el.salaryPerHour}).slice(0,1) :"No Salary"  :"No Salary"} €
-
+                        :{" "}
+                        {profile.salary_hours.length > 0
+                          ? profile.salary_hours.includes(
+                              profile.salary_hours.salaryPerHour
+                            )
+                            ? profile.salary_hours
+                                .map((el) => {
+                                  return el.salaryPerHour;
+                                })
+                                .slice(0, 1)
+                            : "No Salary"
+                          : "No Salary"}{" "}
+                        €
                       </span>
                     </div>
                     <div className="d-flex ">
-                      <p className="text-dark">Salaire net du salarié  :  </p>
+                      <p className="text-dark">Salaire net du salarié : </p>
                       <span className="Todo-ClinetCardMore-span">
-                       
-                       {
-                       profile.salary_hours.length !== 0? 
-                       profile.salary_hours.map((el)=>(
-                        <div className="d-flex">
-                            {el.hours ? el.hours : "0" }H =    <span>{el.salaryPerHour ? el.salaryPerHour + "€" : "0€"}</span>
-                        </div>
-                   
-                      )
-                      )
-                      :
-                      "No Salaire!" }
+                        {profile.salary_hours.length !== 0
+                          ? profile.salary_hours.map((el) => (
+                              <div className="d-flex">
+                                {el.hours ? el.hours : "0"}H ={" "}
+                                <span>
+                                  {el.salaryPerHour
+                                    ? el.salaryPerHour + "€"
+                                    : "0€"}
+                                </span>
+                              </div>
+                            ))
+                          : "No Salaire!"}
                       </span>
                     </div>
                     <div className="d-flex ">
                       <p className="text-dark">Taux horraire :</p>
                       <span className="Todo-ClinetCardMore-span">
-                      {
-                       profile.rate_hours.length !== 0? 
-                       profile.rate_hours.map((el)=>(
-                        <div className="d-flex">
-                             {el.hours ? el.hours : "0"}H  =   <span>{el.ratePerHour ? el.ratePerHour + "€" : "0€"}</span>
-                        </div>
-                   
-                      )
-                      )
-                      :
-                      "No horraire!" }
+                        {profile.rate_hours.length !== 0
+                          ? profile.rate_hours.map((el) => (
+                              <div className="d-flex">
+                                {el.hours ? el.hours : "0"}H ={" "}
+                                <span>
+                                  {el.ratePerHour ? el.ratePerHour + "€" : "0€"}
+                                </span>
+                              </div>
+                            ))
+                          : "No horraire!"}
                       </span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          
-           <div className="col-12 inPAdsBOX py-1">
-           <div className="row">
-             <div className="col-6 pt-2">
-               <p className="EmpWorking">
-                 Employees working for this client :
-               </p>
-             </div>
-             {profile.employeesWorkingUnder !== null &&
-                profile.employeesWorkingUnder !== [] && profile.employeesWorkingUnder.length > 0   ? 
+
+            <div className="col-12 inPAdsBOX py-1">
+              <div className="row">
+                <div className="col-6 pt-2">
+                  <p className="EmpWorking">
+                    Employees working for this client :
+                  </p>
+                </div>
+                {profile.employeesWorkingUnder !== null &&
+                profile.employeesWorkingUnder !== [] &&
+                profile.employeesWorkingUnder.length > 0 ? (
                   profile.employeesWorkingUnder.map((el) => (
                     <div className="col-12 pb-1">
                       <div className="row">
@@ -1234,9 +1333,7 @@ function Signed() {
                           />
                           {el.candidatName}
                           <span className="pl-1">Since :</span>
-                          {el.candidatCurrentWork.map(
-                            (el) => el.workingSince
-                          )}
+                          {el.candidatCurrentWork.map((el) => el.workingSince)}
                           <span className="pl-1">Salary :</span>
                           {el.candidatCurrentWork.map((el) => el.salary)}
                         </div>
@@ -1254,7 +1351,7 @@ function Signed() {
                       </div>
                     </div>
                   ))
-                : 
+                ) : (
                   // <div className="col-12 pb-1 d-flex">
                   //   <img
                   //     className="pr-1"
@@ -1263,34 +1360,35 @@ function Signed() {
                   //   No Candidat! <span className="pl-1">Since :</span> Since No!
                   //   <span className="pl-1">Salary :</span> No Salary!
                   // </div>
-                   <div className="col-12 pb-1 d-flex justify-content-center "><p className="d-flex  justify-content-center align-items-center mb-0"     style={{
-                    fontFamily: 'Poppins',
-                    fontStyle: "normal",
-                    fontWeight: "700",
-                    fontSize: "16px",
-                    lineHeight: "24px",
-                    color: "#000000"
-                }}> 
-                 <ErrorLoader /> No data available for Employees Working under this Client !
-                  </p>
+                  <div className="col-12 pb-1 d-flex justify-content-center ">
+                    <p
+                      className="d-flex  justify-content-center align-items-center mb-0"
+                      style={{
+                        fontFamily: "Poppins",
+                        fontStyle: "normal",
+                        fontWeight: "700",
+                        fontSize: "16px",
+                        lineHeight: "24px",
+                        color: "#000000",
+                      }}
+                    >
+                      <ErrorLoader /> No data available for Employees Working
+                      under this Client !
+                    </p>
                   </div>
-               }
+                )}
                 {profile.employeesWorkingUnder !== null &&
-                profile.employeesWorkingUnder !== [] && profile.employeesWorkingUnder.length > 0   ? 
-             <p className="mb-0">
-               Ads Spent on this client :
-               {profile.jobTotalBudget
-                 ? profile.jobTotalBudget + "€"
-                 : "No Budget!"}
-                     </p>
-:
-null
-                }
-         
-           </div>
-         </div>
-          
-        
+                profile.employeesWorkingUnder !== [] &&
+                profile.employeesWorkingUnder.length > 0 ? (
+                  <p className="mb-0">
+                    Ads Spent on this client :
+                    {profile.jobTotalBudget
+                      ? profile.jobTotalBudget + "€"
+                      : "No Budget!"}
+                  </p>
+                ) : null}
+              </div>
+            </div>
 
             {/* <div className="col-12 pt-4">
                 <div className="row">
@@ -1348,7 +1446,11 @@ null
                     <p className="mb-0 pt-1" style={{ width: "130%" }}>
                       Motivation :
                       <b style={{ background: "transparent", zIndex: "9999" }}>
-                        {candidatMotivationIcons[profile.clientMotivation].icon +" " +candidatMotivationIcons[profile.clientMotivation].motivation}
+                        {candidatMotivationIcons[profile.clientMotivation]
+                          .icon +
+                          " " +
+                          candidatMotivationIcons[profile.clientMotivation]
+                            .motivation}
                       </b>
                     </p>
 
@@ -1441,7 +1543,6 @@ null
                   <p className="btn-Down text-center">Si plus d’actualité</p>
                 </div>
                 <div className="col-3">
-               
                   <a
                     href="https://docs.google.com/spreadsheets/d/14xzXy9FD5V7ASYfYZg1kPmHSGvPqr4APfIWP_S9r_tI/edit#gid=0"
                     target="_blank"
@@ -1459,7 +1560,6 @@ null
                   </p>
                 </div>
                 <div className="col-3">
-                 
                   <a
                     href="https://drive.google.com/drive/folders/1MqR9nDBLtpl_xMCmVGmcy5g0T3noPhgZ"
                     target="_blank"
@@ -1480,7 +1580,7 @@ null
                   <button
                     type="button"
                     className="btn btn-careerClient"
-                    onClick={(e)=>setPDFModal(true)}
+                    onClick={(e) => setPDFModal(true)}
                   >
                     <span>
                       <img
@@ -1491,187 +1591,466 @@ null
                     Générér un contrat
                   </button>
                   <p style={{ width: "106%" }} className="btn-Down text-center">
-                  Créer un contrat avec le logiciel CRM
+                    Créer un contrat avec le logiciel CRM
                   </p>
                 </div>
               </div>
             </div>
             <div className="col-12 Social-CardClient mt-1 ">
-                       
-           {clientContract ?
+              {clientContract ? (
+                <div className="row p-1">
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero contrat
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="numero_contract"
+                      value={
+                        clientContract ? clientContract.numero_contract : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero contrat"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ initial Société client
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      value={
+                        clientContract
+                          ? clientContract.initial_client_company
+                          : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ initial Société client"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">$ siret </label>
+                    <input
+                      className="form-control inputStyling"
+                      value={clientContract ? clientContract.siret : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎$ siret"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">$ numero TVA</label>
+                    <input
+                      className="form-control inputStyling"
+                      name="candidatJob "
+                      value={clientContract ? clientContract.numero_tva : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero TVA"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">$ nom gérant</label>
+                    <input
+                      className="form-control inputStyling"
+                      name="cmp_candidat"
+                      value={clientContract ? clientContract.nom_gerant : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ nom gérant"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ telephone gerant
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="contract_date"
+                      value={
+                        clientContract ? clientContract.telephone_gerant : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ telephone gerant"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ metier en Roumain
+                    </label>
+                    <input
+                      className="inputStyling wHCompany form-control"
+                      name="company_contact_name"
+                      value={
+                        clientContract ? clientContract.metier_en_roumain : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ metier en Roumain"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ metier en Français
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="$ metier en Français"
+                      value={
+                        clientContract ? clientContract.metier_en_francais : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ metier en Français"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ date du debut de mission
+                    </label>
+                    <input
+                      type="date"
+                      className="form-control inputStyling"
+                      name="serie_id"
+                      value={clientContract ? clientContract.debut_date : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ date du debut de mission"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ date de fin de mission
+                    </label>
+                    <input
+                      type="date"
+                      className="form-control inputStyling"
+                      name="candidatAddress"
+                      value={
+                        clientContract ? clientContract.date_fin_mission : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ date de fin de mission"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ prix en euro / heure selon contract
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="company_siret"
+                      value={
+                        clientContract ? clientContract.prix_per_heure : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ prix en euro / heure selon contract"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ SALAIRE EN EURO
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="SALAIRE EN EURO"
+                      value={clientContract ? clientContract.salaire_euro : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ SALAIRE EN EURO"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ nombre d'heure négocie dans le contrat
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="candidatAddress"
+                      value={clientContract ? clientContract.nombre_heure : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ nombre d'heure négocie dans le contrat"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 1
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="company_siret"
+                      value={
+                        clientContract ? clientContract.worker_number_1 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ Nom Du Travailleur 1
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="worker_name_1"
+                      value={clientContract ? clientContract.worker_name_1 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ nom du travailleur 2{" "}
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="serie_id"
+                      value={
+                        clientContract ? clientContract.worker_number_2 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ nom du travailleur 2 "
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 2
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="candidatAddress"
+                      value={clientContract ? clientContract.worker_name_2 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 2"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ nom du travailleur3
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="company_siret"
+                      value={
+                        clientContract ? clientContract.worker_number_3 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ nom du travailleur3"
+                    />
+                  </div>{" "}
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 3
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="serie_id"
+                      value={clientContract ? clientContract.worker_name_3 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 3"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ nom du travailleur 4
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="candidatAddress"
+                      value={
+                        clientContract ? clientContract.worker_number_4 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ nom du travailleur 4"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 4
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="company_siret"
+                      value={clientContract ? clientContract.worker_name_4 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 4"
+                    />
+                  </div>{" "}
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ nom du travailleur 5
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="serie_id"
+                      value={
+                        clientContract ? clientContract.worker_number_5 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎$ nom du travailleur 5"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 5
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="candidatAddress"
+                      value={clientContract ? clientContract.worker_name_5 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 5"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ nom du travailleur 6
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="company_siret"
+                      value={
+                        clientContract ? clientContract.worker_number_6 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎$ nom du travailleur 6"
+                    />
+                  </div>{" "}
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 6
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="serie_id"
+                      value={clientContract ? clientContract.worker_name_6 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 6"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ nom du travailleur 7
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="candidatAddress"
+                      value={
+                        clientContract ? clientContract.worker_number_7 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎$ nom du travailleur 7"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 7
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="company_siret"
+                      value={clientContract ? clientContract.worker_name_7 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 7"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ nom du travailleur 8
+                    </label>
+                    <input
+                      className="inputStyling form-control"
+                      name="companyAddress"
+                      value={
+                        clientContract ? clientContract.worker_number_8 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎$ nom du travailleur 8"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 8
+                    </label>
+                    <input
+                      className="inputStyling form-control"
+                      name="companyAddress"
+                      value={clientContract ? clientContract.worker_name_8 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎$ numero de tel du travailleur 8"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ Poste du Gerant
+                    </label>
+                    <input
+                      className="inputStyling form-control"
+                      name="poste_du_gerant"
+                      value={
+                        clientContract ? clientContract.poste_du_gerant : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎$ Poste du Gerant"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="col-12 d-flex justify-content-center align-items-center py-2">
+                  <ErrorLoader />
+                  <p className="mb-0 ErrorSearchBox">
+                    No Contract Available for this Signed Client! Please add a
+                    New Contract.
+                  </p>
+                </div>
+              )}
+            </div>
+            <div className="col-12 Social-CardClient my-1">
+              <div className="row px-1 pt-1 pb-0">
+                <div className="col-4 pr-0">
+                  <p className="DocShareLink mb-0">
+                    {" "}
+                    Share this link with the client : <br />
+                    Patager ce client avec le client:
+                  </p>
+                </div>
+                <div className="col-8 pl-0">
+                  <div className="DocShareLinkBackground p-1">
+                    <a className="LinkStyling" href="fkdjfk" target="_blank">
+                      Clink On this Link
+                    </a>
+                  </div>
+                </div>
+                <div className="col-12 mt-2">
+                  <Tabs
+                    activeTab={activeTab}
+                    onTabClick={onTabClick}
+                    rightBtnIcon={">"}
+                    hideNavBtns={true}
+                    leftBtnIcon={"<"}
+                    showTabsScroll={false}
+                    tabsScrollAmount={7}
+                  >
+                    {/* generating an array to loop through it  */}
+                    {tabItems.map((el, i) => (
+                      <Tab key={i}>{el.text}</Tab>
+                    ))}
+                  </Tabs>
 
-            <div className='row p-1' >
-                         <div className='col-4  d-grid '>
-                             <label className="ClientPDFFormlabel">$ numero contrat</label>
-                             <input className='form-control inputStyling'  name='numero_contract' value={clientContract ? clientContract.numero_contract : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero contrat" />
-                         </div>
-                         <div className='col-4  d-grid ' >
-                         <label className="ClientPDFFormlabel">$ initial Société client</label>
-                         <input className='form-control inputStyling'   value={clientContract ? clientContract.initial_client_company : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ initial Société client" />
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ siret </label>
-                         <input className='form-control inputStyling' value={clientContract ? clientContract.siret : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎$ siret"/>
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ numero TVA</label>
-                         <input className='form-control inputStyling'  name='candidatJob ' value={clientContract ? clientContract.numero_tva : ""}  onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero TVA" />
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ nom gérant</label>
-                         <input className='form-control inputStyling'   name='cmp_candidat' value={clientContract ? clientContract.nom_gerant : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ nom gérant" />
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ telephone gerant</label>
-                         <input className='form-control inputStyling'   name='contract_date' value={clientContract ? clientContract.telephone_gerant : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ telephone gerant" />
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ metier en Roumain</label>
-                         <input  className='inputStyling wHCompany form-control' name='company_contact_name' value={clientContract ? clientContract.metier_en_roumain : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ metier en Roumain" />
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ metier en Français</label>
-                         <input className='form-control inputStyling'  name='$ metier en Français' value={clientContract ? clientContract.metier_en_francais : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ metier en Français" />
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ date du debut de mission</label>
-                         <input type="date" className='form-control inputStyling'  name='serie_id' value={clientContract ? clientContract.debut_date : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ date du debut de mission" />
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ date de fin de mission</label>
-                         <input type="date" className='form-control inputStyling'  name='candidatAddress'  value={clientContract ? clientContract.date_fin_mission : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ date de fin de mission" />
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ prix en euro / heure selon contract</label>
-                         <input className='form-control inputStyling'  name='company_siret' value={clientContract ? clientContract.prix_per_heure : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ prix en euro / heure selon contract" />
-
-                         </div>
-
-
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ SALAIRE EN EURO</label>
-                         <input className='form-control inputStyling' name='SALAIRE EN EURO' value={clientContract ? clientContract.salaire_euro : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ SALAIRE EN EURO" />
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ nombre d'heure négocie dans le contrat</label>
-                         <input className='form-control inputStyling'  name='candidatAddress' value={clientContract ? clientContract.nombre_heure : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ nombre d'heure négocie dans le contrat" />
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 1</label>
-                         <input className='form-control inputStyling'   name='company_siret' value={clientContract ? clientContract.worker_number_1 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1" />
-
-                         </div> 
-                         <div className='col-4  d-grid '>
-                            <label className="ClientPDFFormlabel">$ Nom Du Travailleur 1</label>
-                            <input className='form-control inputStyling'   name='worker_name_1'   value={clientContract ? clientContract.worker_name_1 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1" />
-
-                            </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ nom du travailleur 2 </label>
-                         <input className='form-control inputStyling' name='serie_id' value={clientContract ? clientContract.worker_number_2 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ nom du travailleur 2 " />
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 2</label>
-                         <input className='form-control inputStyling'  name='candidatAddress'  value={clientContract ? clientContract.worker_name_2 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 2" />
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ nom du travailleur3</label>
-                         <input className='form-control inputStyling'   name='company_siret' value={clientContract ? clientContract.worker_number_3 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ nom du travailleur3" />
-
-                         </div> <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 3</label>
-                         <input className='form-control inputStyling'  name='serie_id' value={clientContract ? clientContract.worker_name_3 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 3" />
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ nom du travailleur 4</label>
-                         <input className='form-control inputStyling'  name='candidatAddress' value={clientContract ? clientContract.worker_number_4 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ nom du travailleur 4" />
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 4</label>
-                         <input className='form-control inputStyling'  name='company_siret' value={clientContract ? clientContract.worker_name_4 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 4" />
-
-                         </div> <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ nom du travailleur 5</label>
-                         <input className='form-control inputStyling'  name='serie_id' value={clientContract ? clientContract.worker_number_5 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎$ nom du travailleur 5" />
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 5</label>
-                         <input className='form-control inputStyling'  name='candidatAddress' value={clientContract ? clientContract.worker_name_5 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 5" />
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ nom du travailleur 6</label>
-                         <input className='form-control inputStyling'  name='company_siret' value={clientContract ? clientContract.worker_number_6 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎$ nom du travailleur 6" />
-
-                         </div> <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 6</label>
-                         <input className='form-control inputStyling'  name='serie_id' value={clientContract ? clientContract.worker_name_6 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 6" />
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ nom du travailleur 7</label>
-                         <input className='form-control inputStyling'  name='candidatAddress' value={clientContract ? clientContract.worker_number_7 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎$ nom du travailleur 7" />
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 7</label>
-                         <input className='form-control inputStyling'  name='company_siret' value={clientContract ? clientContract.worker_name_7 : ""}   onClick={editClientProfile} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 7" />
-
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ nom du travailleur 8</label>
-                         <input className='inputStyling form-control'  name='companyAddress' value={clientContract ? clientContract.worker_number_8 : ""}   onClick={editClientProfile} placeholder='‎ ‎ ‎$ nom du travailleur 8'  />
-                         </div>
-                         <div className='col-4  d-grid '>
-                         <label className="ClientPDFFormlabel">$ numero de tel du travailleur 8</label>
-                         <input className='inputStyling form-control'  name='companyAddress' value={clientContract ? clientContract.worker_name_8 : ""}   onClick={editClientProfile} placeholder='‎ ‎ ‎$ numero de tel du travailleur 8'  />
-                         </div>
-                         <div className='col-4  d-grid '>
-                            <label className="ClientPDFFormlabel">$ Poste du Gerant</label>
-                            <input className='inputStyling form-control'  name='poste_du_gerant' value={clientContract ? clientContract.poste_du_gerant : ""}  onClick={editClientProfile} placeholder='‎ ‎ ‎$ Poste du Gerant'  />
-                            </div>
-             
-                      </div>
-                      :
-               <div className="col-12 d-flex justify-content-center align-items-center py-2">
-               <ErrorLoader  />
-               <p className="mb-0 ErrorSearchBox">
-               No Contract Available for this Signed Client! Please add a New Contract.
-               </p>
-               </div>
-               }
-                      
-                 
-                 </div>
-            <div className="col-12 Social-CardClient my-1 ">
-              <div className="row p-1">
-              <div className="row" style={{ marginRight: '1px' }}>
-                    {
-                      documentList.length > 0  ?
-                        documentList.map((doc, index) =>
-                          <div className="col-6 mx-0">
-                            <div className="row CardClassDownload mt-1 mx-0">
-                              <div className="col-4 d-flex align-items-center ">
-                                <p className="download-font mb-0">{doc.originalName}</p>
-                              </div>
-                              <div className="col-6 text-center">
-                                {/* {progress > 0 && progress < 100  ?
+                  {}
+                </div>
+                <div className="row py-1" style={{ marginRight: "1px" }}>
+                  {documentList.length > 0 ? (
+                    documentList.map((doc, index) => (
+                      <div className="col-6 mx-0">
+                        <div className="row CardClassDownload mt-1 mx-0">
+                          <div
+                            className="col-4 d-flex align-items-center cursor-pointer"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="bottom"
+                            title={doc.originalName}
+                          >
+                            <p className="download-font mb-0">
+                              {doc.originalName.length > 20
+                                ? doc.originalName.slice(0, 21) + "..."
+                                : doc.originalName}
+                            </p>
+                          </div>
+                          <div className="col-6 text-center">
+                            {/* {progress > 0 && progress < 100  ?
                                   <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
                                   :
                                   <button className="btnDownload">
@@ -1679,116 +2058,211 @@ null
                                     {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
                                   </button>
                                 } */}
-                                     <button className="btnDownload" onClick={()=>ViewDownloadFiles( doc.documentName)}>
-                                    <img src={require("../../images/dowBtn.svg").default} />
-                                    {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
-                                  </button>
-                              </div>
-                              <div className="col-2  d-flex align-item-end justify-content-end">
-                                <img
-                                  src={require("../../images/editSvg.svg").default}
-                                  style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
-                                  // onClick={() => renameDocument(doc._id, doc.documentName)}
-                                  onClick={()=>{setRenameDocStatus(true);renameDocument(doc._id, doc.documentName,doc.originalName)}}
-                                />
-                                <img
-                                  src={require("../../images/Primaryfill.svg").default}
-                                  style={{ width: "20px", cursor: 'pointer' }}
-                                  onClick={() => deleteDocument(doc._id, doc.documentName)}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        ) :
-                        progress > 0 && progress < 100 && documentList.length == 0?
-                        <div className="col-6 mx-0">
-                        <div className="row CardClassDownload p-0 mt-1 mx-0">
-                          <div className="col-4 pr-0 d-flex align-items-center ">
-                        <ProfileLoader width={"90"} height={"56px"} fontSize={"12px"} fontWeight={600} Title={"Uploading!"}/>
-                          </div>
-                          <div className="col-6 text-center  mb-0" style={{marginTop:"21px"}}>
-                              <ProgressBar className="mb-0" now={progress} label={`${progress}%`} />
+                            <button
+                              className="btnDownload"
+                              onClick={() =>
+                                ViewDownloadFiles(doc.documentName)
+                              }
+                            >
+                              <img
+                                src={require("../../images/dowBtn.svg").default}
+                              />
+                              {doc.originalName.length > 10
+                                ? doc.originalName.slice(0, 11) + "..."
+                                : doc.originalName}
+                            </button>
                           </div>
                           <div className="col-2  d-flex align-item-end justify-content-end">
                             <img
                               src={require("../../images/editSvg.svg").default}
-                              style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                              style={{
+                                width: "20px",
+                                marginRight: "5px",
+                                cursor: "pointer",
+                              }}
+                              // onClick={() => renameDocument(doc._id, doc.documentName)}
+                              onClick={() => {
+                                setRenameDocStatus(true);
+                                renameDocument(
+                                  doc._id,
+                                  doc.documentName,
+                                  doc.originalName
+                                );
+                              }}
+                            />
+                            <img
+                              src={
+                                require("../../images/Primaryfill.svg").default
+                              }
+                              style={{ width: "20px", cursor: "pointer" }}
+                              onClick={() =>
+                                deleteDocument(doc._id, doc.documentName)
+                              }
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  ) : progress > 0 &&
+                    progress < 100 &&
+                    documentList.length == 0 ? (
+                    <>
+                      <div className="col-6 mx-0">
+                        <div className="row CardClassDownload p-0 mt-1 mx-0">
+                          <div className="col-4 pr-0 d-flex align-items-center ">
+                            <ProfileLoader
+                              width={"90"}
+                              height={"56px"}
+                              fontSize={"12px"}
+                              fontWeight={600}
+                              Title={"Uploading!"}
+                            />
+                          </div>
+                          <div
+                            className="col-6 text-center  mb-0"
+                            style={{ marginTop: "21px" }}
+                          >
+                            <ProgressBar
+                              className="mb-0"
+                              now={progress}
+                              label={`${progress}%`}
+                            />
+                          </div>
+                          <div className="col-2  d-flex align-item-end justify-content-end">
+                            <img
+                              src={require("../../images/editSvg.svg").default}
+                              style={{
+                                width: "20px",
+                                marginRight: "5px",
+                                cursor: "pointer",
+                              }}
                               // onClick={() => renameDocument(doc._id, doc.documentName)}
                             />
                             <img
-                              src={require("../../images/Primaryfill.svg").default}
-                              style={{ width: "20px", cursor: 'pointer' }}
+                              src={
+                                require("../../images/Primaryfill.svg").default
+                              }
+                              style={{ width: "20px", cursor: "pointer" }}
                               // onClick={() => deleteDocument(doc._id, doc.documentName)}
                             />
                           </div>
                         </div>
                       </div>
-                      :  
-                      <>
-                      <p className="d-flex  justify-content-center align-items-center mb-0"     style={{
-                                        fontFamily: 'Poppins',
-                                        fontStyle: "normal",
-                                        fontWeight: "700",
-                                        fontSize: "16px",
-                                        lineHeight: "24px",
-                                        color: "#000000"
-                                    }}> <ErrorLoader />No Documents Uploaded!</p>
-                         </>
-   
-                    }
-    {progress > 0 && progress < 100 && documentList.length > 0 ?
-                        <div className="col-6 mx-0">
-                        <div className="row CardClassDownload p-0 mt-1 mx-0">
-                          <div className="col-4 pr-0 d-flex align-items-center ">
-                        <ProfileLoader width={"90"} height={"56px"} fontSize={"12px"} fontWeight={600} Title={"Uploading!"}/>
-                          </div>
-                          <div className="col-6 text-center  mb-0" style={{marginTop:"21px"}}>
-                              <ProgressBar className="mb-0" now={progress} label={`${progress}%`} />
-                          </div>
-                          <div className="col-2  d-flex align-item-end justify-content-end">
-                            <img
-                              src={require("../../images/editSvg.svg").default}
-                              style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
-                            />
-                            <img
-                              src={require("../../images/Primaryfill.svg").default}
-                              style={{ width: "20px", cursor: 'pointer' }}
-                            />
-                          </div>
+                    </>
+                  ) : (
+                    <div className="d-grid  justify-content-center align-items-center mb-0">
+                      {" "}
+                      <div className="d-flex justify-content-center">
+                        {" "}
+                        <img
+                          src={require("../../images/docupload.svg").default}
+                        />{" "}
+                      </div>
+                      <p
+                        style={{
+                          fontFamily: "Poppins",
+                          fontStyle: "normal",
+                          fontWeight: "500",
+                          fontSize: "16px",
+                          lineHeight: "24px",
+                          color: "#92929D",
+                        }}
+                      >
+                        contrat client file not Uploaded Yet
+                      </p>
+                    </div>
+                  )}
+                  {progress > 0 && progress < 100 && documentList.length > 0 ? (
+                    <div className="col-6 mx-0">
+                      <div className="row CardClassDownload p-0 mt-1 mx-0">
+                        <div className="col-4 pr-0 d-flex align-items-center ">
+                          <ProfileLoader
+                            width={"90"}
+                            height={"56px"}
+                            fontSize={"12px"}
+                            fontWeight={600}
+                            Title={"Uploading!"}
+                          />
+                        </div>
+                        <div
+                          className="col-6 text-center  mb-0"
+                          style={{ marginTop: "21px" }}
+                        >
+                          <ProgressBar
+                            className="mb-0"
+                            now={progress}
+                            label={`${progress}%`}
+                          />
+                        </div>
+                        <div className="col-2  d-flex align-item-end justify-content-end">
+                          <img
+                            src={require("../../images/editSvg.svg").default}
+                            style={{
+                              width: "20px",
+                              marginRight: "5px",
+                              cursor: "pointer",
+                            }}
+                          />
+                          <img
+                            src={
+                              require("../../images/Primaryfill.svg").default
+                            }
+                            style={{ width: "20px", cursor: "pointer" }}
+                          />
                         </div>
                       </div>
-                        :
-                      
-                 null 
-                  
-
-                          }
-                              {PDFModal ?
-<PDFModalClient props={profile} closeModal={setPDFModal}  />
-:
-null
-                  }
-                          {
-                            RenameDocStatus? 
-                            <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus}  path={"/clientSigned"}/>
-                            :
-                            null
-                          }
-                {showPreSelectedModal?
-                  <PreModalClient 
-                   props={PreSelectedData}
-                   closepreModal={setShowInPreSelectedModal}
-                   clientProps={profile}
-                  />
-                  :
-                  null
-
-                  }
+                    </div>
+                  ) : null}
+                  <div className="col-12 d-flex justify-content-center mt-2">
+                    <button
+                      className="uploadBtnForClient p-1"
+                      onClick={handleFileUpload}
+                    >
+                      <img src={require("../../images/resume.svg").default} />
+                      Upload {UploadTextBtn} file Now{" "}
+                      <input
+                        type="file"
+                        ref={hiddenFileInput}
+                        onChange={fileChange}
+                        name="clientDocuments"
+                        style={{ display: "none" }}
+                      />
+                    </button>
                   </div>
+                  {PDFModal ? (
+                    <PDFModalClient props={profile} closeModal={setPDFModal} />
+                  ) : null}
+                  {RenameDocStatus ? (
+                    <RenameDoc
+                      props={RenameData}
+                      closepreModal={setRenameDocStatus}
+                      path={"/clientSigned"}
+                    />
+                  ) : null}
+                  {showPreSelectedModal ? (
+                    <PreModalClient
+                      props={PreSelectedData}
+                      closepreModal={setShowInPreSelectedModal}
+                      clientProps={profile}
+                    />
+                  ) : null}
                 </div>
               </div>
-            
-               </div>
+            </div>
+            <div className="col-12 Social-CardClient mb-1 "  style={{padding:"13px 26px"}}>
+              <div className="row alertMessage align-items-center" >
+                <div className="col-4 pr-0 py-1">
+                <p className="mb-0 redColorStyling">⚠️ CONTRATS EMPLOYES IS MISSING / MANQUANT</p>
+                </div>
+                <div className="col-4 px-0">
+                <p className="mb-0 redColorStyling">⚠️  CONTRATS EMPLOYES IS MISSING / MANQUANT</p>
+                </div>
+                <div className="col-4 px-0">
+                <p className="mb-0 redColorStyling">⚠️  OFFRE SIGNEE IS MISSING / MANQUANT</p> 
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

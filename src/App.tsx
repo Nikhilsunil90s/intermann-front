@@ -40,6 +40,7 @@ import SignedView from "../src/pages/ClientPages/FullViewProfile/SignedContract"
 import Error404 from "./pages/ErrorPages/Error404";
 import Error500 from "./pages/ErrorPages/Error500";
 import clientSignedGlobalCard from './pages/GlobalCards/ClientPages/ClientContractGlobalCard'
+import ClientContractPage from './components/ClientContractPage'
 function App() {
   return (
     <Provider store={configureStore}>
@@ -334,10 +335,18 @@ function App() {
            }
 
            />
-       
+       <Route
+            path={"/clientContractPage/:id"}
+            element={
+            
+                <ClientContractPage />
+            
+            }
+          />
           {/* End */}
           <Route path="/Error404" element={<Error404 />} />
           <Route path="/Error500" element={<Error500 />} />
+
         </Routes>
       </Router>
     </Provider>

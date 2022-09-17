@@ -5,6 +5,72 @@
   padding: 20px;
 }
 
+/* ClientContractPage */
+.bg-ContractPage{
+  background: #032339;
+  overflow-x: hidden;
+}
+
+.retrouverez{
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 32px;
+line-height: 40px;
+text-align: center;
+
+color: #FFFFFF;
+
+}
+.necessaryDoc{
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 15px;
+line-height: 32px;
+text-align: center;
+color: #FFFFFF;
+}
+
+.cardPDFDetails{
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 39px;
+color: #000000;
+
+}
+.CLIntermann{
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 15px;
+line-height: 39px;
+text-align: center;
+text-transform: capitalize;
+color: #000000;
+}
+.PDFcardBG{
+  background: #E4F4FF;
+border: 1px solid #3F76E2;
+border-radius: 5px;
+padding: 7px 0px 7px 5px;
+width: 100%;
+}
+.contractEMPStyle{
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 11px;
+line-height: 39px;
+text-align: center;
+color: #032339;
+
+}
+
+/* End Page */
+
 .DocShareLink{
   font-family: 'Poppins';
 font-style: normal;

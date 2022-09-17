@@ -69,8 +69,6 @@ function ClientSee() {
   ,
    {text:"CONTRAT EMPLOYES",value:"contrat_employes"
   },{
-    text:"CARTE D’IDENTITE EMPLOYES",value:"carte_d'identite_employes"
-  },{
     text:"ID Card EMPLOYES",value:"id_card_employer"
 },{
   text:"A1",value:"al"
@@ -647,7 +645,9 @@ useEffect(()=>{
     // })
   }
 
-
+ const contractPageView=()=>{
+  navigate("/ClientContractPage",{state:profile})
+ }
   return (
     <>
     <Toaster position="top-right" containerStyle={{zIndex:"9999999999999999999999"}}  />
@@ -1786,7 +1786,7 @@ useEffect(()=>{
               </div>
               <div className="col-8 pl-0">
               <div className="DocShareLinkBackground p-1">
-                <a className="LinkStyling"  href="fkdjfk" target="_blank">Clink On this Link</a>
+                <Link className="LinkStyling"  to={`/clientContractPage/${profile._id}`} target="_blank">{API_BASE_URL+"ClientContractPage/"+profile._id}</Link>
               </div>
               </div>
               <div className="col-12 mt-2">
@@ -1947,8 +1947,8 @@ null
               </div>
             </div>
 
-            <div className="col-12 Social-CardClient my-1 "style={{padding:"13px 26px;"}}>
-              <div className="row alertMessage align-items-center">
+            <div className="col-12 Social-CardClient mb-1 "  style={{padding:"13px 26px"}}>
+              <div className="row alertMessage align-items-center" >
                 <div className="col-4 pr-0 py-1">
                 <p className="mb-0 redColorStyling">⚠️ CONTRATS EMPLOYES IS MISSING / MANQUANT</p>
                 </div>
