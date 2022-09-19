@@ -72,10 +72,6 @@ function ClientProgressView() {
     },
     { text: "CONTRAT EMPLOYES", value: "contrat_employes" },
     {
-      text: "CARTE D’IDENTITE EMPLOYES",
-      value: "carte_d'identite_employes",
-    },
-    {
       text: "ID Card EMPLOYES",
       value: "id_card_employer",
     },
@@ -1327,7 +1323,7 @@ function ClientProgressView() {
             {/* <div className="row">
                   <div className="col-6 mb-3">
                     <p className="poppins">
-                      Par exemple : Contrat signé; Offre signé.... 
+                      Par exemple : Contrat signé; Offre signé....
                     </p>
                     <span className="poppins">
                       PDF; Word; PNG; Excel etc ......
@@ -1934,14 +1930,12 @@ function ClientProgressView() {
                 <p className="DocShareLink mb-0">
                   {" "}
                   Share this link with the client : <br />
-                  Patager ce client avec le client:
+                  Patager ce lien avec le client:
                 </p>
               </div>
               <div className="col-8 pl-0">
                 <div className="DocShareLinkBackground p-1">
-                  <a className="LinkStyling" href="fkdjfk" target="_blank">
-                    Clink On this Link
-                  </a>
+                    <Link className="LinkStyling" to={`/documentbox/${profile.clientCompanyName}/${profile._id}`} target="_blank">{API_BASE_URL + `documentbox/${profile.clientCompanyName}/` + profile._id}</Link>
                 </div>
               </div>
               <div className="col-12 mt-2">
@@ -2184,7 +2178,7 @@ function ClientProgressView() {
                 <p className="mb-0 redColorStyling">⚠️  OFFRE SIGNEE IS MISSING / MANQUANT</p> 
                 </div>
               </div>
-            </div>
+          </div>
         </div>
       </div>
     </>

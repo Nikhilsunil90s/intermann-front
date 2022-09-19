@@ -69,10 +69,6 @@ function Signed() {
     },
     { text: "CONTRAT EMPLOYES", value: "contrat_employes" },
     {
-      text: "CARTE D’IDENTITE EMPLOYES",
-      value: "carte_d'identite_employes",
-    },
-    {
       text: "ID Card EMPLOYES",
       value: "id_card_employer",
     },
@@ -1320,7 +1316,6 @@ function Signed() {
                   </p>
                 </div>
                 {profile.employeesWorkingUnder !== null &&
-                profile.employeesWorkingUnder !== [] &&
                 profile.employeesWorkingUnder.length > 0 ? (
                   profile.employeesWorkingUnder.map((el) => (
                     <div className="col-12 pb-1">
@@ -1378,7 +1373,6 @@ function Signed() {
                   </div>
                 )}
                 {profile.employeesWorkingUnder !== null &&
-                profile.employeesWorkingUnder !== [] &&
                 profile.employeesWorkingUnder.length > 0 ? (
                   <p className="mb-0">
                     Ads Spent on this client :
@@ -1402,7 +1396,7 @@ function Signed() {
             {/* <div className="row">
                   <div className="col-6 mb-3">
                     <p className="poppins">
-                      Par exemple : Contrat signé; Offre signé.... 
+                      Par exemple : Contrat signé; Offre signé....
                     </p>
                     <span className="poppins">
                       PDF; Word; PNG; Excel etc ......
@@ -2009,9 +2003,7 @@ function Signed() {
                 </div>
                 <div className="col-8 pl-0">
                   <div className="DocShareLinkBackground p-1">
-                    <a className="LinkStyling" href="fkdjfk" target="_blank">
-                      Clink On this Link
-                    </a>
+                    <Link className="LinkStyling" to={`/documentbox/${profile.clientCompanyName}/${profile._id}`} target="_blank">{API_BASE_URL + `documentbox/${profile.clientCompanyName}/` + profile._id}</Link>
                   </div>
                 </div>
                 <div className="col-12 mt-2">

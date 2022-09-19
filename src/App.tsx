@@ -336,7 +336,7 @@ function App() {
 
            />
        <Route
-            path={"/clientContractPage/:id"}
+            path={"/documentbox/:clientCompanyName/:id"}
             element={
             
                 <ClientContractPage />

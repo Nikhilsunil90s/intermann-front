@@ -47,6 +47,10 @@ function ClientContractPage() {
       });
   }, [id]);
 
+  const ViewDownloadFiles = (documentName: any) => {
+    window.open(API_BASE_URL + "uploads/" + documentName);
+  };
+
   useEffect(() => {
     documentList.map((el) => {
       if (
@@ -134,11 +138,10 @@ function ClientContractPage() {
   console.log(profile)
 
   const fetchCandidat = async (clientId: any) => {
-    return await fetch(API_BASE_URL + `getClientById/?clientId=${clientId}`, {
+    return await fetch(API_BASE_URL + `getClientDetailsById/?clientId=${clientId}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
       },
     })
       .then((resp) => resp.json())
@@ -161,8 +164,8 @@ console.log(contrat_client,"dks")
             </span>
             <img
               src={require("../images/LogoName.svg").default}
-              className="filter-text "
-              style={{ width: "26%", paddingLeft: "30px" }}
+              className="filter-text LogoIntermann"
+              style={{ paddingLeft: "30px" }}
             />
           </div>
           <div
@@ -181,47 +184,38 @@ console.log(contrat_client,"dks")
           </div>
           <div className="col-12 px-3 mt-2 mb-1">
             <div className="row Social-CardClient p-1">
-              <div className="col-3 d-flex align-items-center justify-content-center">
-                <div className="">
-                  {/* {
-              ClientImage !=="" ?
-              <img
-              src={API_BASE_URL +"uploads/"+ ClientImage}
-             className="img-uploadTodo-Download"
-
-            />
-
-            : */}
+              <div className="col-md-3 col-sm-12  d-flex align-items-center justify-content-center">
+             
                   <img
-                    src={require("../images/fullClientSee.svg").default}
-                    className="img-uploadTodo-Download"
+                    src={require("../images/representant.png")}
+                    className="representant"
                   />
 
-                  {/* } */}
-                </div>
+               
+               
               </div>
-              <div className="col-9">
+              <div className="col-md-9 col-sm-12 d-grid align-items-center ">
                 <p className="mb-0 cardPDFDetails">
-                  Votre représentant : {profile?.clientCompanyName}
-                </p>
-                <p className="mb-0 cardPDFDetails">INTERMANN WORK S.R.L</p>
-                <p className="mb-0 cardPDFDetails">VAT : RO44515629 </p>
-                <p className="mb-0 cardPDFDetails">{profile?.clientPhone}</p>
-              </div>
+                  Votre représentant : Jeremy Roggy
+                <br/>
+INTERMANN WORK S.R.L <br/>
+ VAT : RO44515629 <br/>
++40 770 504 158</p>
+             </div>
             </div>
           </div>
           <div className="col-12 px-3 mb-1 ">
             <div className="row Social-CardClient p-1">
-              <div className="col-4 d-flex align-items-center">
+              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
                 <p className="mb-0 CLIntermann">CONTRAT CLIENT x Intermann</p>
               </div>
-            <div className="col-8">
+            <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {
                    contrat_client ?
                     documentList?.map((el)=>(
                         JSON.stringify(el.folderName).includes(JSON.stringify("contrat_client")) ?
-                    <>    <div className="col-6 mb-1">
+                    <>    <div className="col-md-6 col-sm-12 mb-1">
                         <div className="row PDFcardBG ">
                           <div className="col-2 px-0 d-flex align-items-center">
                             <img
@@ -232,7 +226,9 @@ console.log(contrat_client,"dks")
                           <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                             <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                           </div>
-                          <div className="col-2 px-0 d-flex align-items-center justify-content-center">
+                          <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                             <img
                               style={{ width: "73%" }}
                               src={require("../images/dowcard.svg").default}
@@ -266,18 +262,18 @@ console.log(contrat_client,"dks")
           </div>
           <div className="col-12 px-3 mb-1 ">
             <div className="row Social-CardClient p-1">
-              <div className="col-4 d-flex align-items-center">
+              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
                 <p className="mb-0 CLIntermann">
                   Contrats employes x Intermann
                 </p>
               </div>
-              <div className="col-8">
+              <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                 {
                    contrat_employes ?
                    documentList?.map((el)=>(
                        JSON.stringify(el.folderName).includes(JSON.stringify("contrat_employes")) ?
-                   <>    <div className="col-6 mb-1">
+                   <>    <div className="col-md-6 col-sm-12 mb-1">
                        <div className="row PDFcardBG ">
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -288,7 +284,9 @@ console.log(contrat_client,"dks")
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center">
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -320,16 +318,16 @@ console.log(contrat_client,"dks")
           </div>{" "}
           <div className="col-12 px-3 mb-1 ">
             <div className="row Social-CardClient p-1">
-              <div className="col-4 d-flex align-items-center">
+              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
                 <p className="mb-0 CLIntermann">Id Card Employes</p>
               </div>
-              <div className="col-8">
+              <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                 {
                    id_card_employer ?
                    documentList?.map((el)=>(
                        JSON.stringify(el.folderName).includes(JSON.stringify("id_card_employer")) ?
-                   <>    <div className="col-6 mb-1">
+                   <>    <div className="col-md-6 col-sm-12  mb-1">
                        <div className="row PDFcardBG ">
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -340,7 +338,9 @@ console.log(contrat_client,"dks")
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center">
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -372,16 +372,16 @@ console.log(contrat_client,"dks")
           </div>{" "}
           <div className="col-12 px-3 mb-1 ">
             <div className="row Social-CardClient p-1">
-              <div className="col-4 d-flex align-items-center">
+              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
                 <p className="mb-0 CLIntermann">A1</p>
               </div>
-              <div className="col-8">
+              <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                 {
                    al ?
                    documentList?.map((el)=>(
                        JSON.stringify(el.folderName).includes(JSON.stringify("al")) ?
-                   <>    <div className="col-6 mb-1">
+                   <>    <div className="col-md-6 col-sm-12 mb-1">
                        <div className="row PDFcardBG ">
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -392,7 +392,9 @@ console.log(contrat_client,"dks")
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center">
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -424,16 +426,16 @@ console.log(contrat_client,"dks")
           </div>{" "}
           <div className="col-12 px-3 mb-1 ">
             <div className="row Social-CardClient p-1">
-              <div className="col-4 d-flex align-items-center">
+              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
                 <p className="mb-0 CLIntermann">CONTRATS ASSURANCES EMPLOYES</p>
               </div>
-              <div className="col-8">
+              <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                 {
                    contrats_assurances_employes ?
                    documentList?.map((el)=>(
                        JSON.stringify(el.folderName).includes(JSON.stringify("contrats_assurances_employes")) ?
-                   <>    <div className="col-6 mb-1">
+                   <>    <div className="col-md-6 col-sm-12 mb-1">
                        <div className="row PDFcardBG ">
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -444,7 +446,9 @@ console.log(contrat_client,"dks")
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center">
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -475,16 +479,16 @@ console.log(contrat_client,"dks")
           </div>{" "}
           <div className="col-12 px-3 mb-1 ">
             <div className="row Social-CardClient p-1">
-              <div className="col-4 d-flex align-items-center">
+              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
                 <p className="mb-0 CLIntermann">SISPI</p>
               </div>
-              <div className="col-8">
+              <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                 {
                    sispi ?
                    documentList?.map((el)=>(
                        JSON.stringify(el.folderName).includes(JSON.stringify("sispi")) ?
-                   <>    <div className="col-6 mb-1">
+                   <>    <div className="col-md-6 col-sm-12 mb-1">
                        <div className="row PDFcardBG ">
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -495,7 +499,9 @@ console.log(contrat_client,"dks")
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center">
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -525,18 +531,18 @@ console.log(contrat_client,"dks")
           </div>{" "}
           <div className="col-12 px-3 mb-1 ">
             <div className="row Social-CardClient p-1">
-              <div className="col-4 d-flex align-items-center">
+              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
                 <p className="mb-0 CLIntermann">
                   DOCUMENT DE REPRESENTANCE / REPRESENTATION
                 </p>
               </div>
-              <div className="col-8">
+              <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                 {
                    document_de_represntation ?
                    documentList?.map((el)=>(
                        JSON.stringify(el.folderName).includes(JSON.stringify("document_de_represntation")) ?
-                   <>    <div className="col-6 mb-1">
+                   <>    <div className="col-md-6 col-sm-12 mb-1">
                        <div className="row PDFcardBG ">
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -547,7 +553,9 @@ console.log(contrat_client,"dks")
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center">
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -578,16 +586,16 @@ console.log(contrat_client,"dks")
           </div>{" "}
           <div className="col-12 px-3 mb-1 ">
             <div className="row Social-CardClient p-1">
-              <div className="col-4 d-flex align-items-center">
+              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
                 <p className="mb-0 CLIntermann">OFFRE SIGNEE / QUOTES</p>
               </div>
-              <div className="col-8">
+              <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                 {
                    offre_signee ?
                    documentList?.map((el)=>(
                        JSON.stringify(el.folderName).includes(JSON.stringify("offre_signee")) ?
-                   <>    <div className="col-6 mb-1">
+                   <>    <div className="col-md-6 col-sm-12 mb-1">
                        <div className="row PDFcardBG ">
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -598,7 +606,9 @@ console.log(contrat_client,"dks")
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center">
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -629,18 +639,18 @@ console.log(contrat_client,"dks")
           </div>{" "}
           <div className="col-12 px-3 mb-1 ">
             <div className="row Social-CardClient p-1">
-              <div className="col-4 d-flex align-items-center">
+              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
                 <p className="mb-0 CLIntermann">
                   ATTESTATIONS SOCIETE INTERMANN WORK S.R.L
                 </p>
               </div>
-              <div className="col-8">
+              <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                 {
                   attestations_societe_intermann ? 
                    documentList?.map((el)=>(
                        JSON.stringify(el.folderName).includes(JSON.stringify("attestations_societe_intermann")) ?
-                   <>    <div className="col-6 mb-1">
+                   <>    <div className="col-md-6 col-sm-12 mb-1">
                        <div className="row PDFcardBG ">
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -651,7 +661,9 @@ console.log(contrat_client,"dks")
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center">
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -683,16 +695,16 @@ console.log(contrat_client,"dks")
           </div>{" "}
           <div className="col-12 px-3 mb-1 ">
             <div className="row Social-CardClient p-1">
-              <div className="col-4 d-flex align-items-center">
+              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
                 <p className="mb-0 CLIntermann">CVS</p>
               </div>
-              <div className="col-8">
+              <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                 {
                    cvs ?
                    documentList?.map((el)=>(
                        JSON.stringify(el.folderName).includes(JSON.stringify("cvs")) ?
-                   <>    <div className="col-6 mb-1">
+                   <>    <div className="col-md-6 col-sm-12  mb-1">
                        <div className="row PDFcardBG ">
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -703,7 +715,9 @@ console.log(contrat_client,"dks")
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center">
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -735,16 +749,16 @@ console.log(contrat_client,"dks")
           </div>{" "}
           <div className="col-12 px-3 mb-1 ">
             <div className="row Social-CardClient p-1">
-              <div className="col-4 d-flex align-items-center">
+              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
                 <p className="mb-0 CLIntermann">AUTRES DOCUMENTS / OTHER </p>
               </div>
-              <div className="col-8">
+              <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                 {
                    autres_documents ?
                    documentList?.map((el)=>(
                        JSON.stringify(el.folderName).includes(JSON.stringify("autres_documents")) ?
-                   <>    <div className="col-6 mb-1">
+                   <>    <div className="col-md-6 col-sm-12 mb-1">
                        <div className="row PDFcardBG ">
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -755,7 +769,9 @@ console.log(contrat_client,"dks")
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center">
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -787,16 +803,16 @@ console.log(contrat_client,"dks")
           </div>{" "}
           <div className="col-12 px-3 mb-1 ">
             <div className="row Social-CardClient p-1">
-              <div className="col-4 d-flex align-items-center">
+              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
                 <p className="mb-0 CLIntermann">FACTURES</p>
               </div>
-              <div className="col-8">
+              <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                 {
                    factures ?
                    documentList?.map((el)=>(
                        JSON.stringify(el.folderName).includes(JSON.stringify("factures")) ?
-                   <>    <div className="col-6 mb-1">
+                   <>    <div className="col-md-6 col-sm-12  mb-1">
                        <div className="row PDFcardBG ">
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -807,7 +823,9 @@ console.log(contrat_client,"dks")
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center">
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -838,16 +856,16 @@ console.log(contrat_client,"dks")
           </div>{" "}
           <div className="col-12 px-3 mb-1 ">
             <div className="row Social-CardClient p-1">
-              <div className="col-4 d-flex align-items-center">
+              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
                 <p className="mb-0 CLIntermann">RAPPORT ACTIVITE</p>
               </div>
-              <div className="col-8">
+              <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                 {
                    rapport_activite ? 
                    documentList?.map((el)=>(
                        JSON.stringify(el.folderName).includes(JSON.stringify("rapport_activite")) ?
-                   <>    <div className="col-6 mb-1">
+                   <>    <div className="col-md-6 col-sm-12 mb-1">
                        <div className="row PDFcardBG ">
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -858,7 +876,9 @@ console.log(contrat_client,"dks")
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center">
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -889,16 +909,16 @@ console.log(contrat_client,"dks")
           </div>
           <div className="col-12 px-3 mb-1">
             <div className="row Social-CardClient p-1">
-              <div className="col-4 d-flex align-items-center">
+              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
                 <p className="mb-0 CLIntermann">OFFRE ENVOYE ET NON SIGNE</p>
               </div>
-              <div className="col-8">
+              <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                 {
                    offre_envoye_et_nonsigne ?
                    documentList?.map((el)=>(
                        JSON.stringify(el.folderName).includes(JSON.stringify("offre_envoye_et_nonsigne")) ?
-                   <>    <div className="col-6 mb-1">
+                   <>    <div className="col-md-6 col-sm-12 mb-1">
                        <div className="row PDFcardBG ">
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -909,7 +929,9 @@ console.log(contrat_client,"dks")
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center">
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}

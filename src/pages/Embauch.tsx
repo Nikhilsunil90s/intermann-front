@@ -407,7 +407,7 @@ setTimeout(()=>{
     filterFunction()
 
     } else if (e.value !== '' && e.value !== "Select Sector") {
-    debugger;
+    // debugger;
        
       setSelectedSector(e.value);
       setJobOptions([]);

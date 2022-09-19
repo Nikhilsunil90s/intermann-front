@@ -10,7 +10,6 @@
   background: #032339;
   overflow-x: hidden;
 }
-
 .retrouverez{
   font-family: 'Poppins';
 font-style: normal;
@@ -37,7 +36,7 @@ color: #FFFFFF;
 font-style: normal;
 font-weight: 500;
 font-size: 20px;
-line-height: 39px;
+line-height: 35px;
 color: #000000;
 
 }
@@ -815,10 +814,22 @@ right: 11px !important;
   padding: 8px 2px !important
 
 }
+@media (max-width: 568px) { 
+  .LogoIntermann{
+    width: 58%;
+  }
+ }
 @media (min-width:768px){
+  .LogoIntermann{
+    width: 36%;
+  }
+  .representant{
+    width: 100%;
+  }
   .btn-BlackEdit:hover{
     color:"#ffff" !important;
   }
+
   .ArchivedBoxAds{
     background: #FFE0E0;
 border: 2px solid #E21B1B;
@@ -1926,8 +1937,14 @@ border: 0px;
 padding: 10px 25px;
 
 }
+.LogoIntermann{
+  width: 26%;
+}
 }
 @media (min-width:1400px){
+  .LogoIntermann{
+    width: 26%;
+  }
   .Social-cardDiv {
     height: 540px;
 }

@@ -248,7 +248,7 @@ const ClientToDoCard = (props: any) => {
   };
 
   const MoreOption = (e: any) => {
-    debugger;
+    // debugger;
     if (e.value == "Edit Profile") {
       editClientProfile();
     }

@@ -1239,7 +1239,7 @@ function Signed() {
             {/* <div className="row">
                   <div className="col-6 mb-3">
                     <p className="poppins">
-                      Par exemple : Contrat signé; Offre signé.... 
+                      Par exemple : Contrat signé; Offre signé....
                     </p>
                     <span className="poppins">
                       PDF; Word; PNG; Excel etc ......
