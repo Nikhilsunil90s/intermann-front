@@ -474,7 +474,7 @@ className="SelectBtn"
                   {
                     profile.candidatEmail != undefined ?
                     <a
-                    href="https://accounts.google.com/"
+                    href={`mailto:${profile.candidatEmail}`}
                     className="text-dark fw-bold"
                     target="_blank"
                   >

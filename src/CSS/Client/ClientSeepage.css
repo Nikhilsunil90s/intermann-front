@@ -99,11 +99,16 @@ color: #D3D2D2;
   background: #F2F3F5;
 border-radius: 10px;
 }
-.alertMessage{
+
+.alertMessage .rts___tabs___container {
   border-radius: 4px;
   background: #FFE0E0;
-
 }
+.alertMessage .rts___tabs___container .hide___rts___tabs___scroll {
+  border-radius: 4px;
+  background: #FFE0E0;
+}
+
 .redColorStyling{
   font-family: 'Poppins';
 font-style: normal;

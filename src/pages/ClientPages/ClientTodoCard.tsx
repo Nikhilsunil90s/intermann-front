@@ -226,7 +226,7 @@ const ClientToDoCard = (props: any) => {
   ];
 
   const candidatMotivationIcons = [
-    { icon: "No Icon", motivation: "No Motivation" },
+    { icon: " ", motivation: "No Motivation" },
     { icon: "😟", motivation: "Disappointed" },
     { icon: "🙁", motivation: "Not Really" },
     { icon: "😊", motivation: "Like" },
@@ -378,7 +378,7 @@ const ClientToDoCard = (props: any) => {
                 <b>
                   {" "}
                   {props.data.clientLanguages.length
-                    ? props.data.clientLanguages
+                    ? props.data.clientLanguages.join(", ")
                     : "No Langues!"}
                 </b>{" "}
               </p>
@@ -403,7 +403,7 @@ const ClientToDoCard = (props: any) => {
               <p>
                 Salary by person :{" "}
                 <b>
-                  {props.data.netSalary || props.data.salary_hours ? props.data.netSalary + "€" || props.data.salary_hours.salaryPerHour * props.data.salary_hours.hours  + " €" : "N/A"}
+                  {props.data.netSalary ? props.data.netSalary + "€" || props.data.netSalary + " €" : "0€"}
                 </b>{" "}
               </p>
               <p>

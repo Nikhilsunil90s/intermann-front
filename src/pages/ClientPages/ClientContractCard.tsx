@@ -108,13 +108,14 @@ const viewFullProfile = (data) => {
                 <div className="col-5 fontStylingCardDetails px-0 py-1">
                 <p className="fontStylingCardP">Secteur : {props.data.clientActivitySector ? props.data.clientActivitySector.length > 20 ? props.data.clientActivitySector.toLocaleUpperCase().slice(0, 15) + "..." :props.data.clientActivitySector.toLocaleUpperCase() : "No Sector!"} </p>
                     <p className="fontStylingCardP">Job :  {props.data.clientJob ? props.data.clientJob.length > 20 ?  props.data.clientJob.toLocaleUpperCase().slice(0,15) + "..." : props.data.clientJob.toLocaleUpperCase() : "No Job!"}</p>
-                    <p>Langues : <b> {props.data.clientLanguages.length ? props.data.clientLanguages : "No Langues!"}</b> </p>
+                    <p>Langues : <b> {props.data.clientLanguages.length ? props.data.clientLanguages.join(", ") : "No Langues!"}</b> </p>
                     <p>Phone :<b>{props.data.clientPhone.length ? props.data.clientPhone : "No Phone Number!"}</b> </p>
                     <p>Estimated CA :   <b>{props.data.jobTotalBudget ? props.data.jobTotalBudget + " €" : "N/A"}</b> </p>                
 
                 </div>
                 <div className="col-7 pl-1 fontStylingCardDetails px-0 pt-1">
-                <p>Salary by person : <b>  {props.data.netSalary || props.data.salary_hours ? props.data.netSalary + "€" || props.data.salary_hours.salaryPerHour * props.data.salary_hours.hours  + " €" : "N/A"}</b> </p>
+                <p>Salary by person : <b>  {props.data.netSalary  ? props.data.netSalary + "€" || props.data.salary_hours.salaryPerHour + " €" : "0€"}</b> </p>
+
                 <p>E-Mail : <b>{props.data.clientEmail ? props.data.clientEmail.length > 20 ?  props.data.clientEmail.slice(0,21) + "..." : props.data.clientEmail : "No Email!"}</b> </p>
                     <p>Cl-Phone : <b>{props.data.clientPhone.length? props.data.clientPhone : "No Client Number!"}</b> </p>
                     <p>C-Name :  <b>{props.data.clientReferenceName ? props.data.clientReferenceName : "No Name!"}</b> </p>

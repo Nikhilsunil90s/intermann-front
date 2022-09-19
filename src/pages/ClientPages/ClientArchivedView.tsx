@@ -365,7 +365,7 @@ function ArchivedViewPage() {
         setoffre_envoye_et_nonsigne([el]);
       }
     });
-  },[documentList]);
+  },[profile.clientDocuments,documentList]);
 
   
   const fileChange = (
@@ -702,7 +702,7 @@ function ArchivedViewPage() {
                   {profile.clientEmail ? (
                     <button className="btn-TODOgmail">
                       <a
-                        href="https://accounts.google.com/"
+                         href={`mailto:${profile.clientEmail}`}
                         className="text-dark fw-bold"
                         target="_blank"
                       >
@@ -720,15 +720,15 @@ function ArchivedViewPage() {
                   <div className="d-flex">
                     <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
                       {" "}
-                      {profile.clientEmail
-                        ? "Contact :" + profile.clientEmail
+                      {profile.clientReferenceEmail
+                        ? "Contact :" + profile.clientReferenceEmail
                         : null}
                     </p>
                   </div>
 
-                  {profile.clientEmail ? (
+                  {profile.clientReferenceEmail ? (
                     <a
-                      href={profile.clientEmail}
+                    href={`mailto:${profile.clientReferenceEmail}`}
                       target="_blank"
                       className="btn  fw-bold btn-TODOgmail"
                     >
@@ -1778,114 +1778,67 @@ function ArchivedViewPage() {
                 </div>
               </div>
             </div>
-            <div className="col-12 Social-CardClient mb-1 " style={{ padding: "13px 26px" }}>
-              <div className="row alertMessage align-items-center py-1" >
-              {
-                contrat_client ?
-null
-                :
-<div className="col-4">
-                  <p className="mb-0 redColorStyling">⚠️ CONTRAT CLIENT IS MISSING / MANQUANT</p>
-                </div>
-
-              }
-                {
-                  contrat_employes ?
-                  null 
-                  :
-                  <div className="col-4">
-                  <p className="mb-0 redColorStyling">⚠️  CONTRATS EMPLOYES IS MISSING / MANQUANT</p>
-                </div>
-                }
-              {
-                id_card_employer ?
-                null 
-                :
-                <div className="col-4">
-                <p className="mb-0 redColorStyling">⚠️  Id Card Employes IS MISSING / MANQUANT</p>
-              </div>
-              }
-              {
-                al ?
-                null
-                :
-                <div className="col-4">
-                <p className="mb-0 redColorStyling">⚠️  A1 IS MISSING / MANQUANT</p>
-              </div>
-              }
-               {
-                contrats_assurances_employes ?
-                null
-                :
-                <div className="col-4">
-                <p className="mb-0 redColorStyling">⚠️  CONTRATS ASSURANCES EMPLOYES IS MISSING / MANQUANT</p>
-              </div>
-              } {
-                sispi ?
-                null
-                :
-                <div className="col-4">
-                <p className="mb-0 redColorStyling">⚠️  SISPI IS MISSING / MANQUANT</p>
-              </div>
-              } {
-                document_de_represntation ?
-                null
-                :
-                <div className="col-4">
-                <p className="mb-0 redColorStyling">⚠️  DOCUMENT DE REPRESENTANCE / REPRESENTATION IS MISSING / MANQUANT</p>
-              </div>
-              } {
-                offre_signee ?
-                null
-                :
-                <div className="col-4">
-                <p className="mb-0 redColorStyling">⚠️  OFFRE SIGNEE / QUOTES IS MISSING / MANQUANT</p>
-              </div>
-              } {
-                attestations_societe_intermann ?
-                null
-                :
-                <div className="col-4">
-                <p className="mb-0 redColorStyling">⚠️ ATTESTATIONS SOCIETE INTERMANN WORK S.R.L IS MISSING / MANQUANT</p>
-              </div>
-              } {
-                cvs ?
-                null
-                :
-                <div className="col-4">
-                <p className="mb-0 redColorStyling">⚠️  CVS IS MISSING / MANQUANT</p>
-              </div>
-              } {
-                autres_documents ?
-                null
-                :
-                <div className="col-4">
-                <p className="mb-0 redColorStyling">⚠️  AUTRES DOCUMENTS / OTHER IS MISSING / MANQUANT</p>
-              </div>
-              } {
-                factures ?
-                null
-                :
-                <div className="col-4">
-                <p className="mb-0 redColorStyling">⚠️  FACTURES IS MISSING / MANQUANT</p>
-              </div>
-              }
-               {
-                rapport_activite ?
-                null
-                :
-                <div className="col-4">
-                <p className="mb-0 redColorStyling">⚠️  RAPPORT ACTIVITE IS MISSING / MANQUANT</p>
-              </div>
-              }
-               {
-                offre_envoye_et_nonsigne ?
-                null
-                :
-                <div className="col-4">
-                <p className="mb-0 redColorStyling">⚠️  OFFRE ENVOYE ET NON SIGNE IS MISSING / MANQUANT</p>
-              </div>
-              }
+            <div
+              className="col-12 Social-CardClient mb-1 "
+              style={{ padding: "13px 26px" }}
+            >
+              <div className="row alertMessage align-items-center py-1">
+                <Tabs
+                  rightBtnIcon={">"}
+                  hideNavBtns={false}
+                  leftBtnIcon={"<"}
+                  showTabsScroll={false}
+                  tabsScrollAmount={5}
+                  
+                  className="alertMessage"
+                >
+                  {contrat_client ? null : (
+                    <Tab className="redColorStyling"> ⚠️ CONTRAT CLIENT IS MISSING / MANQUANT</Tab>
+                  )}
+                  {contrat_employes ? null : (
+                    <Tab className="redColorStyling">⚠️ CONTRATS EMPLOYES IS MISSING / MANQUANT</Tab>
+                  )}
+                  {id_card_employer ? null : (
+                    <Tab className="redColorStyling">⚠️ Id Card Employes IS MISSING / MANQUANT</Tab>
+                  )}
+                  {al ? null : <Tab className="redColorStyling">⚠️ A1 IS MISSING / MANQUANT</Tab>}
+                  {contrats_assurances_employes ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ CONTRATS ASSURANCES EMPLOYES IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {sispi ? null : <Tab className="redColorStyling">⚠️ SISPI IS MISSING / MANQUANT</Tab>}
+                  {document_de_represntation ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ DOCUMENT DE REPRESENTANCE / REPRESENTATION IS MISSING /
+                      MANQUANT
+                    </Tab>
+                  )}
+                  {offre_signee ? null : (
+                    <Tab className="redColorStyling">⚠️ OFFRE SIGNEE / QUOTES IS MISSING / MANQUANT</Tab>
+                  )}
+                  {attestations_societe_intermann ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ ATTESTATIONS SOCIETE INTERMANN WORK S.R.L IS MISSING /
+                      MANQUANT
+                    </Tab>
+                  )}
+                  {cvs ? null : <Tab className="redColorStyling">⚠️ CVS IS MISSING / MANQUANT</Tab>}
+                  {autres_documents ? null : (
+                    <Tab className="redColorStyling">⚠️ AUTRES DOCUMENTS / OTHER IS MISSING / MANQUANT</Tab>
+                  )}
+                  {factures ? null : (
+                    <Tab className="redColorStyling">⚠️ FACTURES IS MISSING / MANQUANT</Tab>
+                  )}
+                  {rapport_activite ? null : (
+                    <Tab className="redColorStyling">⚠️ RAPPORT ACTIVITE IS MISSING / MANQUANT</Tab>
+                  )}
+                  {offre_envoye_et_nonsigne ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ OFFRE ENVOYE ET NON SIGNE IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                </Tabs>
               </div>
             </div>
           </div>
