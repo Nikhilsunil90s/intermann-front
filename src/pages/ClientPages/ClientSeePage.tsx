@@ -26,6 +26,8 @@ import PDFModalClient from "../../components/Modal/PDFGenerateclientModal"
 import ErrorLoader from "../../components/Loader/SearchBarError";
 import { Tabs, Tab } from 'react-tabs-scrollable'
 import 'react-tabs-scrollable/dist/rts.css'
+import ScrollArea from "react-scrollbar"
+
 let RenameData = []
 let id = "";
 let UploadName = ""
@@ -63,6 +65,25 @@ function ClientSee() {
   const [PDFModal, setPDFModal] = useState(false)
   const [clientContract, setClientContract] = useState() as any
   const [activeTab, setActiveTab] = React.useState(1) as any
+  const [contrat_client, setcontrat_client] = useState() as any;
+  const [contrat_employes, setcontrat_employes] = useState() as any;
+  const [carte_d, setcarte_d] = useState() as any;
+  const [id_card_employer, setid_card_employer] = useState() as any;
+  const [al, setal] = useState() as any;
+  const [contrats_assurances_employes, setcontrats_assurances_employes] =
+    useState() as any;
+  const [sispi, setsispi] = useState() as any;
+  const [document_de_represntation, setdocument_de_represntation] =
+    useState() as any;
+  const [offre_signee, setoffre_signee] = useState() as any;
+  const [attestations_societe_intermann, setattestations_societe_intermann] =
+    useState() as any;
+  const [cvs, setcvs] = useState() as any;
+  const [autres_documents, setautres_documents] = useState() as any;
+  const [factures, setfactures] = useState() as any;
+  const [rapport_activite, setrapport_activite] = useState() as any;
+  const [offre_envoye_et_nonsigne, setoffre_envoye_et_nonsigne] =
+    useState() as any;
   const [tabItems, setTabitems] = useState([{
     text: "CONTRAT CLIENT", value: "contrat_client"
   }
@@ -111,6 +132,94 @@ function ClientSee() {
 
 
   }, [state])
+
+
+  
+  useEffect(() => {
+    profile.clientDocuments.map((el) => {
+      if (
+        JSON.stringify(el.folderName).includes(JSON.stringify("contrat_client"))
+      ) {
+       setcontrat_client([el]);
+        }
+       
+      if (
+        JSON.stringify(el.folderName).includes(
+          JSON.stringify("contrat_employes")
+        )
+      ) {
+        setcontrat_employes([el]);
+      }
+      if (
+        JSON.stringify(el.folderName).includes(JSON.stringify("carte_d'identite_employes"))
+      ) {
+        setcarte_d([el]);
+      }
+      if (
+        JSON.stringify(el.folderName).includes(JSON.stringify("id_card_employer"))
+      ) {
+        setid_card_employer([el]);
+      }
+      if (
+        JSON.stringify(el.folderName).includes(JSON.stringify("al"))
+      ) {
+        setal([el]);
+      }
+      if (
+        JSON.stringify(el.folderName).includes(JSON.stringify("contrats_assurances_employes"))
+      ) {
+        setcontrats_assurances_employes([el]);
+      }
+      if (
+        JSON.stringify(el.folderName).includes(JSON.stringify("sispi"))
+      ) {
+        setsispi([el]);
+      }
+      if (
+        JSON.stringify(el.folderName).includes(JSON.stringify("document_de_represntation"))
+      ) {
+        setdocument_de_represntation([el]);
+      }
+      if (
+        JSON.stringify(el.folderName).includes(JSON.stringify("offre_signee"))
+      ) {
+        setoffre_signee([el]);
+      }
+      if (
+        JSON.stringify(el.folderName).includes(JSON.stringify("attestations_societe_intermann"))
+      ) {
+        setattestations_societe_intermann([el]);
+      }
+      if (
+        JSON.stringify(el.folderName).includes(JSON.stringify("cvs"))
+      ) {
+        setcvs([el]);
+      }
+      if (
+        JSON.stringify(el.folderName).includes(JSON.stringify("autres_documents"))
+      ) {
+        setautres_documents([el]);
+      }
+      if (
+        JSON.stringify(el.folderName).includes(JSON.stringify("factures"))
+      ) {
+        setfactures([el]);
+      }
+
+      if (
+        JSON.stringify(el.folderName).includes(JSON.stringify("rapport_activite"))
+      ) {
+        setrapport_activite([el]);
+      } if (
+        JSON.stringify(el.folderName).includes(JSON.stringify("offre_envoye_et_nonsigne"))
+      ) {
+        setoffre_envoye_et_nonsigne([el]);
+      }
+    });
+  },[documentList]);
+
+
+  console.log(contrat_client,"fkdjf")
 
   useEffect(() => {
 
@@ -1949,15 +2058,120 @@ function ClientSee() {
 
             <div className="col-12 Social-CardClient mb-1 " style={{ padding: "13px 26px" }}>
               <div className="row alertMessage align-items-center" >
-                <div className="col-4 pr-0 py-1">
-                  <p className="mb-0 redColorStyling">⚠️ CONTRATS EMPLOYES IS MISSING / MANQUANT</p>
+             
+              <ScrollArea
+            speed={0.8}
+            className="area"
+            contentClassName="content"
+            horizontal={true}
+            >
+            <div className="d-flex"> {
+                contrat_client ?
+null
+                :
+<div className="col-4 pr-0 py-1">
+                  <p className="mb-0 redColorStyling">⚠️ CONTRAT CLIENT IS MISSING / MANQUANT</p>
                 </div>
-                <div className="col-4 px-0">
+
+              }
+                {
+                  contrat_employes ?
+                  null 
+                  :
+                  <div className="col-4 px-0">
                   <p className="mb-0 redColorStyling">⚠️  CONTRATS EMPLOYES IS MISSING / MANQUANT</p>
                 </div>
+                }
+              {
+                id_card_employer ?
+                null 
+                :
                 <div className="col-4 px-0">
-                  <p className="mb-0 redColorStyling">⚠️  OFFRE SIGNEE IS MISSING / MANQUANT</p>
-                </div>
+                <p className="mb-0 redColorStyling">⚠️  Id Card Employes IS MISSING / MANQUANT</p>
+              </div>
+              }
+              {
+                al ?
+                null
+                :
+                <div className="col-4 px-0">
+                <p className="mb-0 redColorStyling">⚠️  A1 IS MISSING / MANQUANT</p>
+              </div>
+              }
+               {
+                contrats_assurances_employes ?
+                null
+                :
+                <div className="col-4 px-0">
+                <p className="mb-0 redColorStyling">⚠️  CONTRATS ASSURANCES EMPLOYES IS MISSING / MANQUANT</p>
+              </div>
+              } {
+                sispi ?
+                null
+                :
+                <div className="col-4 px-0">
+                <p className="mb-0 redColorStyling">⚠️  SISPI IS MISSING / MANQUANT</p>
+              </div>
+              } {
+                document_de_represntation ?
+                null
+                :
+                <div className="col-4 px-0">
+                <p className="mb-0 redColorStyling">⚠️  DOCUMENT DE REPRESENTANCE / REPRESENTATION IS MISSING / MANQUANT</p>
+              </div>
+              } {
+                offre_signee ?
+                null
+                :
+                <div className="col-4 px-0">
+                <p className="mb-0 redColorStyling">⚠️  OFFRE SIGNEE / QUOTES IS MISSING / MANQUANT</p>
+              </div>
+              } {
+                attestations_societe_intermann ?
+                null
+                :
+                <div className="col-4 px-0">
+                <p className="mb-0 redColorStyling">⚠️ ATTESTATIONS SOCIETE INTERMANN WORK S.R.L IS MISSING / MANQUANT</p>
+              </div>
+              } {
+                cvs ?
+                null
+                :
+                <div className="col-4 px-0">
+                <p className="mb-0 redColorStyling">⚠️  CVS IS MISSING / MANQUANT</p>
+              </div>
+              } {
+                autres_documents ?
+                null
+                :
+                <div className="col-4 px-0">
+                <p className="mb-0 redColorStyling">⚠️  AUTRES DOCUMENTS / OTHER IS MISSING / MANQUANT</p>
+              </div>
+              } {
+                factures ?
+                null
+                :
+                <div className="col-4 px-0">
+                <p className="mb-0 redColorStyling">⚠️  FACTURES IS MISSING / MANQUANT</p>
+              </div>
+              }
+               {
+                rapport_activite ?
+                null
+                :
+                <div className="col-4 px-0">
+                <p className="mb-0 redColorStyling">⚠️  RAPPORT ACTIVITE IS MISSING / MANQUANT</p>
+              </div>
+              }
+               {
+                offre_envoye_et_nonsigne ?
+                null
+                :
+                <div className="col-4 px-0">
+                <p className="mb-0 redColorStyling">⚠️  OFFRE ENVOYE ET NON SIGNE IS MISSING / MANQUANT</p>
+              </div>
+              }</div>
+          </ScrollArea>
               </div>
             </div>
           </div>
