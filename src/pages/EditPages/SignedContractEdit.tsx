@@ -89,6 +89,7 @@ function ClientSignedEdit() {
   const [id, setID] = useState("");
   const hiddenImageInput = React.useRef(null);
   const [UploadBtn,setSelectUpload]= useState(false)
+  const [Permis,setPermis]=useState(profile.clientPermis)as any
   // const[clientImg,setClientImg]=useState(profile.clientPhoto.imageName ? profile.clientPhoto.imageName : "")
     const [SalaryH,setSalaryH]=useState([
       {
@@ -243,7 +244,24 @@ function ClientSignedEdit() {
             })
     }, [state])
 
-
+    const switchHandle=(checked,id,e)=>{
+        console.log(checked,id,e,"all")
+    console.log(id,"checked")
+    setFormTouched(true)
+    if(e=="Permis"){
+    if(checked === true){
+          setPermis(true)
+          setData({...data,clientPermis:true})
+          setFormTouched(true)
+        }
+        if(checked === false){
+          setPermis(false)
+         setData({...data,clientPermis:false})
+         setFormTouched(true)
+        }
+      }
+     
+      }
     const fetchAllJobs = async (sector: string) => {
         return await fetch(API_BASE_URL + `fetchAllJobs/?sector=${sector}`, {
             method: "GET",
@@ -388,10 +406,10 @@ function ClientSignedEdit() {
                 clientImportance: data.clientImportance != 0 ? data.clientImportance : profile.clientImportance,
                 clientActivitySector: selectedSector != "" ? selectedSector : profile.clientActivitySector,
                 clientJob: data.clientJob != "" ? data.clientJob : profile.clientJob,
-                clientLanguages: data.clientLanguages != [] ? data.clientLanguages : profile.clientLanguages,
+                clientLanguages: data.clientLanguages.length >  0? data.clientLanguages : profile.clientLanguages,
                 jobStartDate: data.jobStartDate != "" ? data.jobStartDate : profile.jobStartDate,
                 jobEndDate: data.jobEndDate != "" ? data.jobEndDate : profile.jobEndDate,
-                clientPermis: data.clientPermis ? data.clientPermis : profile.clientPermis,
+                clientPermis: data.clientPermis == true ? true : profile.clientPermis,
                 clientRequiredSkills: data.clientRequiredSkills != "" ? data.clientRequiredSkills : profile.clientRequiredSkills,
                 clientEmail: data.clientEmail != "" ? data.clientEmail : profile.clientEmail,
                 clientPhone: data.clientPhone != "" ? data.clientPhone : profile.clientPhone,
@@ -1358,8 +1376,10 @@ type="button"
                                                     <div className="col-3 px-0 d-flex align-items-center">
                                                         <p className="mb-0 PermisDrive">Permis / Licence drive</p>
                                                         <Switch 
-                                                        checked
-                                                        onChange={null}
+                                                         onChange={switchHandle}
+                                                         checked={Permis}
+                                                         defaultValue={Permis}
+                                                         id="Permis"  
                                                         checkedHandleIcon={
                                                             <TurnOn
                                                               style={{

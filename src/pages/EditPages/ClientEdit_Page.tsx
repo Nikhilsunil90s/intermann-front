@@ -19,7 +19,6 @@ import ErrorLoader from "../../components/Loader/SearchBarError";
 let Amountarr = "";
 let Hours = "";
 const ClientDataFormat = {
-  clientLicensePermis:false,
     clientCompanyName: "",
     clientEmail: "",
     clientPhone: "",
@@ -130,7 +129,7 @@ function ClientTodoEdit() {
   const [taxHoursID,setHoursId]=useState("")
   const [disableSalary , setDisableSalary]=useState(false)
   const [checkBooleanValue , setcheckBooleanValue]=useState(Boolean)as any
-  const [Permis,setPermis]=useState(profile.clientLicensePermis)as any
+  const [Permis,setPermis]=useState(profile.clientPermis)as any
 
   useEffect(()=>{
     // setData({...data,rate_hours:Tauxarr})
@@ -147,12 +146,12 @@ setFormTouched(true)
 if(e=="Permis"){
 if(checked === true){
       setPermis(true)
-      setData({...data,clientLicensePermis:true})
+      setData({...data,clientPermis:true})
       setFormTouched(true)
     }
     if(checked === false){
       setPermis(false)
-     setData({...data,clientLicensePermis:false})
+     setData({...data,clientPermis:false})
      setFormTouched(true)
     }
   }
@@ -714,7 +713,7 @@ setJobOptions([])
             const updatedData = {
               salary_hours:data.salary_hours.length > 0 ? data.salary_hours :profile.salary_hours,
               rate_hours :data.rate_hours.length > 0 ? data.rate_hours : profile.rate_hours,
-              clientLicensePermis: data.clientLicensePermis == true ? true : profile.clientLicensePermis,
+              clientPermis: data.clientPermis == true ? true : profile.clientPermis,
                 clientId: profile._id,
                 clientName: data.clientCompanyName !== "" ? data.clientCompanyName : profile.clientCompanyName,
                 numberOfPosts: data.numberOfPosts !== "" ? data.numberOfPosts : profile.numberOfPosts,
@@ -725,7 +724,6 @@ setJobOptions([])
                 clientLanguages: data.clientLanguages.length > 0? data.clientLanguages : profile.clientLanguages,
                 jobStartDate: data.jobStartDate !== "" ? data.jobStartDate : profile.jobStartDate,
                 jobEndDate: data.jobEndDate !== "" ? data.jobEndDate : profile.jobEndDate,
-                clientPermis: data.clientPermis ? data.clientPermis : profile.clientPermis,
                 clientRequiredSkills: data.clientRequiredSkills !== "" ? data.clientRequiredSkills : profile.clientRequiredSkills,
                 clientEmail: data.clientEmail !== "" ? data.clientEmail : profile.clientEmail,
                 clientPhone: data.clientPhone !== "" ? data.clientPhone : profile.clientPhone,
@@ -885,16 +883,17 @@ setJobOptions([])
             </div>
           </div>
           <div className="col-4 d-flex align-items-center justify-content-end">
-          <button className="btn bg-ClientCancel">
+          <Link to={path} style={{ textDecoration: "none" }}><button className="btn bg-ClientCancel" type="button">
                                     <img
                                         style={{ width: "25%" }}
                                         src={require("../../images/multiply.svg").default}
                                     />
                                     <p className="mb-0">Cancel</p>
                                 </button>
+                                </Link>
           </div>
           <div className="col-2 d-flex align-items-center justify-content-center pr-1 pl-0">
-          {/* <Link to="/clientTodo" style={{ textDecoration: "none" }}> */}
+          {/* <Link to={path} style={{ textDecoration: "none" }}> */}
                                 <button className="btn btn-Clientsave" type="submit">
                                 <img src={require("../../images/ClientSave.svg").default} style={{marginRight:"5px"}} />
                                 Save Profile
@@ -1307,7 +1306,7 @@ className="SelectBtn"
                        <div className='row p-1' >
                          <div className='col-4  d-grid '>
                              <label className="ClientPDFFormlabel">$ numero contrat</label>
-                             <input className='form-control inputStyling'      onChange={onFormDataChange}  name='numero_contract'  placeholder={profile.clientContract ? profile.clientContract.numero_contract !== "" ? profile.clientContract.numero_contract :"Input Not Available!" :"Input Not Available!"} />
+                             <input className='form-control inputStyling'      onChange={onFormDataChange}  name='numero_contract'  placeholder={profile.clientContract ? profile.clientContract.numero_contract ? profile.clientContract.numero_contract :"Input Not Available!" :"Input Not Available!"} />
                          </div>
                          <div className='col-4  d-grid ' >
                          <label className="ClientPDFFormlabel">$ initial Société client</label>
@@ -1618,7 +1617,9 @@ No Contract Available for this To-Do Client! Please add a New Contract.
                         style={{ width: "100%" }}
                       >
                         <span>€</span>
-                        <input type="text" className='form-control placeHolder' disabled={disableSalary} name='salary_hours' placeholder='Amount'   onChange={onInputChange} />
+                        <input type="text" className='form-control placeHolder' disabled={disableSalary} 
+                          defaultValue={profile.salary_hours ? profile.salary_hours.map((el)=>(el.salaryPerHour))[0] : "0"}
+                        name='salary_hours' placeholder='Amount'   onChange={onInputChange} />
                         <span>.00</span>
                       </div>
                     </div>
@@ -1772,6 +1773,7 @@ No Contract Available for this To-Do Client! Please add a New Contract.
                           name="turnover"
                           placeholder="Amount"
                           onChange={onInputChange}
+                          defaultValue={profile.rate_hours ? profile.rate_hours.map((el)=>(el.ratePerHour))[0] : "0"}
                           // disabled={disableTaux}
                         />
                         <span>.00</span>
@@ -1828,7 +1830,7 @@ No Contract Available for this To-Do Client! Please add a New Contract.
                                                     <div className="col-12 px-0 mt-3">
                                     <div className="row justify-content-end">
                                         <div className="col-6 d-flex justify-content-end">
-                                            <Link to="/clientToDo" style={{ textDecoration: "none" }}>
+                                            <Link to={path} style={{ textDecoration: "none" }}>
                                                 <button type="button" className="btn edit-btnCancel mr-1">
                                                     <img
                                                         style={{ width: "25%" }}

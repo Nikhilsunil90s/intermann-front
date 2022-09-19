@@ -763,7 +763,7 @@ function ClientSee() {
     //   console.log(err)
     // })
   };
-
+  console.log(profile,"proo")
 
   const contractPageView = () => {
     navigate("/ClientContractPage", { state: profile });
@@ -1373,6 +1373,14 @@ function ClientSee() {
                         {profile.candidatConduireEnFrance ? "Yes" : "No"}
                       </span>
                     </div>
+                    <div className="d-flex align-items-center">
+                      <p>Permis / Licence Drive :</p>
+                      <span className="Todo-ClinetCardMore-span">
+                        {profile.clientPermis ? "Yes" : "No"}
+                      </span>
+                    </div>
+                   
+
 
                     <div className="d-flex">
                       <p style={{ width: "121px" }}>Client Note:</p>

@@ -199,7 +199,7 @@ function ClientProgressView() {
   ];
 
   const candidatMotivationIcons = [
-    { icon: "No Icon", motivation: "No Motivation" },
+    { icon: "", motivation: "No Motivation" },
     { icon: "😟", motivation: "Disappointed" },
     { icon: "🙁", motivation: "Not Really" },
     { icon: "😊", motivation: "Like" },

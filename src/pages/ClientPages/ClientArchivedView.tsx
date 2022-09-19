@@ -235,7 +235,7 @@ function ArchivedViewPage() {
   };
 
   const editClientProfile = () => {
-    navigate("/clientInProgressEdit", { state: profile });
+    navigate("/archivedClientEditprofile", { state: profile });
   };
 
   // DOC Upload //\

@@ -15,7 +15,6 @@ import RatingCmp from '../../components/AddClientRating/Rating'
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 const ClientDataFormat = {
-  clientLicensePermis:false,
     clientCompanyName: "",
     clientEmail: "",
     clientPhone: "",
@@ -128,7 +127,8 @@ function ClientInProgressEdit() {
   const [taxHoursID,setHoursId]=useState("")
   const [disableSalary , setDisableSalary]=useState(false)
   const [checkBooleanValue , setcheckBooleanValue]=useState(Boolean)as any
-  const [Permis,setPermis]=useState(profile.clientLicensePermis)as any
+  const [Permis,setPermis]=useState(profile.clientPermis)as any
+
 
 
   const fetchCandidat = async (clientId: any) => {
@@ -170,24 +170,7 @@ function ClientInProgressEdit() {
 
   
 
-  const switchHandle=(checked,id,e)=>{
-    console.log(checked,id,e,"all")
-console.log(id,"checked")
-setFormTouched(true)
-if(e=="Permis"){
-if(checked === true){
-      setPermis(true)
-      setData({...data,clientLicensePermis:true})
-      setFormTouched(true)
-    }
-    if(checked === false){
-      setPermis(false)
-     setData({...data,clientLicensePermis:false})
-     setFormTouched(true)
-    }
-  }
- 
-  }
+
 
   const RemoveHandling=(e,showHour)=>{
     let SalaryFData =[]
@@ -650,6 +633,26 @@ const onSubmitRates=(e)=>{
         setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     }
 
+
+    const switchHandle=(checked,id,e)=>{
+      console.log(checked,id,e,"all")
+  console.log(id,"checked")
+  setFormTouched(true)
+  if(e=="Permis"){
+  if(checked === true){
+        setPermis(true)
+        setData({...data,clientPermis:true})
+        setFormTouched(true)
+      }
+      if(checked === false){
+        setPermis(false)
+       setData({...data,clientPermis:false})
+       setFormTouched(true)
+      }
+    }
+   
+    }
+
     const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(data)
@@ -667,7 +670,7 @@ const onSubmitRates=(e)=>{
                 clientLanguages: data.clientLanguages.length > 0 ? data.clientLanguages : profile.clientLanguages,
                 jobStartDate: data.jobStartDate != "" ? data.jobStartDate : profile.jobStartDate,
                 jobEndDate: data.jobEndDate != "" ? data.jobEndDate : profile.jobEndDate,
-                clientPermis: data.clientPermis ? data.clientPermis : profile.clientPermis,
+                clientPermis: data.clientPermis == true ? true : profile.clientPermis,
                 clientRequiredSkills: data.clientRequiredSkills != "" ? data.clientRequiredSkills : profile.clientRequiredSkills,
                 clientEmail: data.clientEmail != "" ? data.clientEmail : profile.clientEmail,
                 clientPhone: data.clientPhone != "" ? data.clientPhone : profile.clientPhone,
@@ -1098,8 +1101,10 @@ className="SelectBtn"
                                                     <div className="col-3 px-0 d-flex align-items-center">
                                                         <p className="mb-0 PermisDrive">Permis / Licence drive</p>
                                                         <Switch 
-                                                        checked
-                                                        onChange={null}
+                                                        onChange={switchHandle}
+                                                        checked={Permis}
+                                                        defaultValue={Permis}
+                                                        id="Permis"  
                                                         checkedHandleIcon={
                                                           <TurnOn
                                                             style={{
