@@ -41,7 +41,7 @@ function PdfModal({props,closeModal} ){
     clientId :  props._id ?  props._id : "",
     contractId: props.clientContract ? props.clientContract._id !== "" ? props.clientContract._id :"" : "",
     clientAddress: props.clientAddress ? props.clientAddress :"",
-    clientEmail: props.clientEmail ? props.clientEmail.tolowercase() : "",
+    clientEmail: props.clientEmail ? props.clientEmail.toLowerCase() : "",
     poste_du_gerant:  props.clientContract ? props.clientContract.poste_du_gerant !== "" ? props.clientContract.poste_du_gerant :"" : "",
 }
   const [data, setData] = useState(PdfFormat);
