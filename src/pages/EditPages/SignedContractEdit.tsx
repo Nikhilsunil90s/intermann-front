@@ -120,6 +120,7 @@ function ClientSignedEdit() {
   
 
 
+
     const colourStyles: StylesConfig<ColourOption, true> = {
         control: (styles) => ({ ...styles, backgroundColor: 'white' }),
         option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -172,6 +173,7 @@ function ClientSignedEdit() {
           },
         }),
       };
+  
       console.log(profile,"pro")
       useEffect(() => {
         $(document).ready(function () {
@@ -1197,7 +1199,7 @@ type="button"
                                             options={sectorOptions}
                                             onChange={handleSectorChange}
                                             defaultValue={{label:profile.clientActivitySector,value:profile.clientActivitySector,color:"#FE8700"}}
-                                            styles={colourStyles}
+                                            // styles={colourStyles}
                                             className="basic-multi-select"
                                             classNamePrefix="select"
                                             closeMenuOnSelect={true}
@@ -1222,7 +1224,7 @@ type="button"
                       // defaultInputValue={{label:profile.clientJob,value:profile.clientJob,color:"#FE8700"}}
                       onChange={jobChange}
                       options={jobOptions}
-                      styles={colourStyles}
+                    //   styles={colourStyles}
                     /> 
                                             </div>
                                         </div>

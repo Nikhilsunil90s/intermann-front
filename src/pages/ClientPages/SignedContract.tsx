@@ -2126,7 +2126,7 @@ function Signed() {
                 </div>
                 <div className="col-8 pl-0">
                   <div className="DocShareLinkBackground p-1">
-                    <Link className="LinkStyling" to={`/documentbox/${profile.clientCompanyName}/${profile._id}`} target="_blank">{API_BASE_URL + `documentbox/${profile.clientCompanyName.replace(" ","%20")}/` + profile._id}</Link>
+                    <Link className="LinkStyling" to={`/documentbox/${profile.clientCompanyName}/${profile._id}`} target="_blank">{API_BASE_URL + `documentbox/${profile.clientCompanyName.replaceAll(" ","%20")}/` + profile._id}</Link>
                   </div>
                 </div>
                 <div className="col-12 mt-2">

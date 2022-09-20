@@ -2291,7 +2291,7 @@ function ClientSee() {
                       target="_blank"
                     >
                       {API_BASE_URL +
-                        `documentbox/${profile.clientCompanyName.replace(
+                        `documentbox/${profile.clientCompanyName.replaceAll(
                           " ",
                           "%20"
                         )}/` +

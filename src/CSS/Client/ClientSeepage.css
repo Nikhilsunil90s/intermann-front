@@ -152,7 +152,20 @@ color: #3F76E2;
 .DocShareLinkBackground{
   background: #E4F4FF;
 border-radius: 4px;
+overflow: auto;
 }
+.DocShareLinkBackground::-webkit-scrollbar {
+  width: 2px;         
+  height: 3px;      /* width of the entire scrollbar */
+}
+.DocShareLinkBackground::-webkit-scrollbar-track {
+  background: #e7e7e7;        /* color of the tracking area */
+}
+.DocShareLinkBackground::-webkit-scrollbar-thumb {
+  background-color: #3f76e2;    /* color of the scroll thumb */
+  border-radius: 10px;       /* roundness of the scroll thumb */  /* creates padding around scroll thumb */
+}
+
 .LinkStyling{
   font-family: 'Poppins';
 font-style: normal;

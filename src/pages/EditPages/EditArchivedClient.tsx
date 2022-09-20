@@ -150,18 +150,7 @@ function ClientArchivedEdit() {
         },
       }),
     };
-
-  console.log(profile,"pro")
-    useEffect(() => {
-      $(document).ready(function () {
-        $("#dam_return button").click(function () {
-          Amountarr = $(this).val().toString();
-          var input = $("#dam");
-          input.val(Amountarr);
-        });
-      });
-      console.log(Hours, "hr");
-    });
+ 
   
     const RemoveHandling=()=>{
       setShowHour("")
