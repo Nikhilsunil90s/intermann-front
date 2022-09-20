@@ -345,7 +345,7 @@ function App() {
             }
           />
               <Route
-            path={"/document-checker/:clientCompanyName/:id"}
+            path={"/document-checker"}
             element={
             
                 <DocumentChecker />

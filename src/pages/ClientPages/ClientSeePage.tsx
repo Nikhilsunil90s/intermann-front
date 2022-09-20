@@ -88,11 +88,9 @@ function ClientSee() {
   const [fiche_medicale, setfiche_medicale] = useState() as any;
   const [offre_envoye_et_nonsigne, setoffre_envoye_et_nonsigne] =
     useState() as any;
+  const [fiche_de_mise_a_disposition, setfiche_de_mise_a_disposition] =
+    useState() as any;
   const [tabItems, setTabitems] = useState([
-    {
-      text: "REGES",
-      value: "reges",
-    },
     {
       text: "CONTRAT CLIENT",
       value: "contrat_client",
@@ -153,6 +151,14 @@ function ClientSee() {
       text: "FICHE MEDICALE",
       value: "fiche_medicale",
     },
+    {
+      text: "REGES",
+      value: "reges",
+    },
+    {
+      text: "FICHE DE MISE A DISPOSITION",
+      value: "fiche_de_mise_a_disposition",
+    },
   ]) as any;
 
   // const [UplaodsName,setUploadNames]=useState("")as any
@@ -170,11 +176,17 @@ function ClientSee() {
 
   useEffect(() => {
     profile.clientDocuments.map((el) => {
-      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("reges"))) {
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("reges")
+        )
+      ) {
         setreges([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrat_client"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("contrat_client")
+        )
       ) {
         setcontrat_client([el]);
       }
@@ -200,7 +212,11 @@ function ClientSee() {
       ) {
         setid_card_employer([el]);
       }
-      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("al"))) {
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("al")
+        )
+      ) {
         setal([el]);
       }
       if (
@@ -210,7 +226,11 @@ function ClientSee() {
       ) {
         setcontrats_assurances_employes([el]);
       }
-      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("sispi"))) {
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("sispi")
+        )
+      ) {
         setsispi([el]);
       }
       if (
@@ -221,7 +241,9 @@ function ClientSee() {
         setdocument_de_represntation([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("offre_signee"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("offre_signee")
+        )
       ) {
         setoffre_signee([el]);
       }
@@ -232,7 +254,11 @@ function ClientSee() {
       ) {
         setattestations_societe_intermann([el]);
       }
-      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("cvs"))) {
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("cvs")
+        )
+      ) {
         setcvs([el]);
       }
       if (
@@ -242,7 +268,11 @@ function ClientSee() {
       ) {
         setautres_documents([el]);
       }
-      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("factures"))) {
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("factures")
+        )
+      ) {
         setfactures([el]);
       }
 
@@ -261,9 +291,18 @@ function ClientSee() {
         setoffre_envoye_et_nonsigne([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("fiche_medicale"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("fiche_medicale")
+        )
       ) {
         setfiche_medicale([el]);
+      }
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("fiche_de_mise_a_disposition")
+        )
+      ) {
+        setfiche_de_mise_a_disposition([el]);
       }
     });
   }, [profile.clientDocuments, documentList]);
@@ -2284,20 +2323,18 @@ function ClientSee() {
                   </p>
                 </div>
                 <div className="col-8 DocShareLinkBackground p-1 pl-0">
-                
-                    <Link
-                      className="LinkStyling"
-                      to={`/documentbox/${profile.clientCompanyName}/${profile._id}`}
-                      target="_blank"
-                    >
-                      {API_BASE_URL +
-                        `documentbox/${profile.clientCompanyName.replaceAll(
-                          " ",
-                          "%20"
-                        )}/` +
-                        profile._id}
-                    </Link>
-                
+                  <Link
+                    className="LinkStyling"
+                    to={`/documentbox/${profile.clientCompanyName}/${profile._id}`}
+                    target="_blank"
+                  >
+                    {API_BASE_URL +
+                      `documentbox/${profile.clientCompanyName.replaceAll(
+                        " ",
+                        "%20"
+                      )}/` +
+                      profile._id}
+                  </Link>
                 </div>
                 <div className="col-12 mt-2">
                   <Tabs
@@ -2314,8 +2351,6 @@ function ClientSee() {
                       <Tab key={i}>{el.text}</Tab>
                     ))}
                   </Tabs>
-
-                  {}
                 </div>
                 <div className="row py-1" style={{ marginRight: "1px" }}>
                   {documentList.length > 0 ? (
@@ -2545,15 +2580,8 @@ function ClientSee() {
                   tabsScrollAmount={5}
                   className="alertMessage"
                 >
-                  {reges ? null : (
-                    <Tab className="redColorStyling">
-                      
-                      ⚠️ REGES IS MISSING / MANQUANT
-                    </Tab>
-                  )}
                   {contrat_client ? null : (
                     <Tab className="redColorStyling">
-                      
                       ⚠️ CONTRAT CLIENT IS MISSING / MANQUANT
                     </Tab>
                   )}
@@ -2627,6 +2655,16 @@ function ClientSee() {
                   {fiche_medicale ? null : (
                     <Tab className="redColorStyling">
                       ⚠️ FICHE MEDICALE IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {reges ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ REGES IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {fiche_de_mise_a_disposition ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ FICHE DE MISE A DISPOSITION / MANQUANT
                     </Tab>
                   )}
                 </Tabs>

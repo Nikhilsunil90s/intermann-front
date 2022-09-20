@@ -75,7 +75,8 @@ function ArchivedViewPage() {
   const [fiche_medicale, setfiche_medicale] = useState() as any;
   const [offre_envoye_et_nonsigne, setoffre_envoye_et_nonsigne] =
     useState() as any;
-
+    const [fiche_de_mise_a_disposition, setfiche_de_mise_a_disposition] =
+    useState() as any;
   const candidatImportanceIcons = [
     {
       icon: (
@@ -144,10 +145,6 @@ function ArchivedViewPage() {
   const [activeTab, setActiveTab] = React.useState(1) as any;
   const [tabItems, setTabitems] = useState([
     {
-      text: "REGES",
-      value: "reges",
-    },
-    {
       text: "CONTRAT CLIENT",
       value: "contrat_client",
     },
@@ -203,6 +200,14 @@ function ArchivedViewPage() {
     {
       text: "FICHE MEDICALE",
       value: "fiche_medicale",
+    },
+    {
+      text: "REGES",
+      value: "reges",
+    },
+    {
+      text: "FICHE DE MISE A DISPOSITION",
+      value: "fiche_de_mise_a_disposition",
     },
   ]) as any;
 
@@ -386,6 +391,10 @@ function ArchivedViewPage() {
       }
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("fiche_medicale"))
+      ) {
+        setfiche_medicale([el]);
+      }if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("fiche_de_mise_a_disposition"))
       ) {
         setfiche_medicale([el]);
       }
@@ -1825,12 +1834,7 @@ function ArchivedViewPage() {
                   className="alertMessage"
                 >
                  
-                  {reges ? null : (
-                    <Tab className="redColorStyling">
-                     
-                      ⚠️ REGES IS MISSING / MANQUANT
-                    </Tab>
-                  )}
+                 
                   {contrat_client ? null : (
                     <Tab className="redColorStyling">
                      
@@ -1907,6 +1911,17 @@ function ArchivedViewPage() {
                   {fiche_medicale ? null : (
                     <Tab className="redColorStyling">
                       ⚠️ FICHE MEDICALE IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                   {reges ? null : (
+                    <Tab className="redColorStyling">
+                     
+                      ⚠️ REGES IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                    {fiche_de_mise_a_disposition ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ FICHE DE MISE A DISPOSITION / MANQUANT
                     </Tab>
                   )}
                 </Tabs>

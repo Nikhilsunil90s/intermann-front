@@ -86,11 +86,10 @@ function ClientProgressView() {
   const [fiche_medicale, setfiche_medicale] = useState() as any;
   const [offre_envoye_et_nonsigne, setoffre_envoye_et_nonsigne] =
     useState() as any;
+   const [fiche_de_mise_a_disposition, setfiche_de_mise_a_disposition] =
+    useState() as any;
   const [tabItems, setTabitems] = useState([
-    {
-      text: "REGES",
-      value: "reges",
-    }, {
+  {
       text: "CONTRAT CLIENT",
       value: "contrat_client",
     },
@@ -146,6 +145,14 @@ function ClientProgressView() {
     {
       text: "FICHE MEDICALE",
       value: "fiche_medicale",
+    },
+    {
+      text: "REGES",
+      value: "reges",
+    },
+    {
+      text: "FICHE DE MISE A DISPOSITION",
+      value: "fiche_de_mise_a_disposition",
     },
   ]) as any;
 
@@ -328,6 +335,13 @@ function ClientProgressView() {
         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("fiche_medicale"))
       ) {
         setfiche_medicale([el]);
+      }
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("fiche_de_mise_a_disposition")
+        )
+      ) {
+        setfiche_de_mise_a_disposition([el]);
       }
     });
   },[profile.clientDocuments,documentList]);
@@ -2294,34 +2308,45 @@ function ClientProgressView() {
               className="col-12 Social-CardClient mb-1 "
               style={{ padding: "13px 26px" }}
             >
-              <div className="row alertMessage align-items-center py-1">
+               <div className="row alertMessage align-items-center py-1">
                 <Tabs
                   rightBtnIcon={">"}
                   hideNavBtns={false}
                   leftBtnIcon={"<"}
                   showTabsScroll={false}
                   tabsScrollAmount={5}
-                  
                   className="alertMessage"
                 >
-                   {reges ? null : (
-                    <Tab className="redColorStyling"> ⚠️ REGES IS MISSING / MANQUANT</Tab>
-                  )}{contrat_client ? null : (
-                    <Tab className="redColorStyling"> ⚠️ CONTRAT CLIENT IS MISSING / MANQUANT</Tab>
+                  {contrat_client ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ CONTRAT CLIENT IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {contrat_employes ? null : (
-                    <Tab className="redColorStyling">⚠️ CONTRATS EMPLOYES IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ CONTRATS EMPLOYES IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {id_card_employer ? null : (
-                    <Tab className="redColorStyling">⚠️ Id Card Employes IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ Id Card Employes IS MISSING / MANQUANT
+                    </Tab>
                   )}
-                  {al ? null : <Tab className="redColorStyling">⚠️ A1 IS MISSING / MANQUANT</Tab>}
+                  {al ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ A1 IS MISSING / MANQUANT
+                    </Tab>
+                  )}
                   {contrats_assurances_employes ? null : (
                     <Tab className="redColorStyling">
                       ⚠️ CONTRATS ASSURANCES EMPLOYES IS MISSING / MANQUANT
                     </Tab>
                   )}
-                  {sispi ? null : <Tab className="redColorStyling">⚠️ SISPI IS MISSING / MANQUANT</Tab>}
+                  {sispi ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ SISPI IS MISSING / MANQUANT
+                    </Tab>
+                  )}
                   {document_de_represntation ? null : (
                     <Tab className="redColorStyling">
                       ⚠️ DOCUMENT DE REPRESENTANCE / REPRESENTATION IS MISSING /
@@ -2329,7 +2354,9 @@ function ClientProgressView() {
                     </Tab>
                   )}
                   {offre_signee ? null : (
-                    <Tab className="redColorStyling">⚠️ OFFRE SIGNEE / QUOTES IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ OFFRE SIGNEE / QUOTES IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {attestations_societe_intermann ? null : (
                     <Tab className="redColorStyling">
@@ -2337,24 +2364,44 @@ function ClientProgressView() {
                       MANQUANT
                     </Tab>
                   )}
-                  {cvs ? null : <Tab className="redColorStyling">⚠️ CVS IS MISSING / MANQUANT</Tab>}
+                  {cvs ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ CVS IS MISSING / MANQUANT
+                    </Tab>
+                  )}
                   {autres_documents ? null : (
-                    <Tab className="redColorStyling">⚠️ AUTRES DOCUMENTS / OTHER IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ AUTRES DOCUMENTS / OTHER IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {factures ? null : (
-                    <Tab className="redColorStyling">⚠️ FACTURES IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ FACTURES IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {rapport_activite ? null : (
-                    <Tab className="redColorStyling">⚠️ RAPPORT ACTIVITE IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ RAPPORT ACTIVITE IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {offre_envoye_et_nonsigne ? null : (
                     <Tab className="redColorStyling">
                       ⚠️ OFFRE ENVOYE ET NON SIGNE IS MISSING / MANQUANT
                     </Tab>
                   )}
-                   {fiche_medicale ? null : (
+                  {fiche_medicale ? null : (
                     <Tab className="redColorStyling">
                       ⚠️ FICHE MEDICALE IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {reges ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ REGES IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {fiche_de_mise_a_disposition ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ FICHE DE MISE A DISPOSITION / MANQUANT
                     </Tab>
                   )}
                 </Tabs>

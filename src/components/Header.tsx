@@ -81,6 +81,8 @@ const Header = () => {
       .then((reD) => reD)
       .catch((err) => err);
   };
+
+  
 const NameSearch=(e)=>{
   setSearchOpen(true)
 if(e == null ){
