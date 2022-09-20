@@ -82,10 +82,15 @@ function ClientProgressView() {
   const [autres_documents, setautres_documents] = useState() as any;
   const [factures, setfactures] = useState() as any;
   const [rapport_activite, setrapport_activite] = useState() as any;
+  const [reges, setreges] = useState() as any;
+  const [fiche_medicale, setfiche_medicale] = useState() as any;
   const [offre_envoye_et_nonsigne, setoffre_envoye_et_nonsigne] =
     useState() as any;
   const [tabItems, setTabitems] = useState([
     {
+      text: "REGES",
+      value: "reges",
+    }, {
       text: "CONTRAT CLIENT",
       value: "contrat_client",
     },
@@ -137,6 +142,10 @@ function ClientProgressView() {
     {
       text: "OFFRE ENVOYE ET NONSIGNE",
       value: "offre_envoye_et_nonsigne",
+    },
+    {
+      text: "FICHE MEDICALE",
+      value: "fiche_medicale",
     },
   ]) as any;
 
@@ -233,6 +242,11 @@ function ClientProgressView() {
   useEffect(() => {
     profile.clientDocuments.map((el) => {
       if (
+        JSON.stringify(el.folderName).includes(JSON.stringify("reges"))
+      ) {
+        setreges([el]);
+      }
+      if (
         JSON.stringify(el.folderName).includes(JSON.stringify("contrat_client"))
       ) {
        setcontrat_client([el]);
@@ -309,6 +323,11 @@ function ClientProgressView() {
         JSON.stringify(el.folderName).includes(JSON.stringify("offre_envoye_et_nonsigne"))
       ) {
         setoffre_envoye_et_nonsigne([el]);
+      }
+      if (
+        JSON.stringify(el.folderName).includes(JSON.stringify("fiche_medicale"))
+      ) {
+        setfiche_medicale([el]);
       }
     });
   },[profile.clientDocuments,documentList]);
@@ -2040,7 +2059,7 @@ function ClientProgressView() {
               </div>
               <div className="col-8 pl-0">
                 <div className="DocShareLinkBackground p-1">
-                    <Link className="LinkStyling" to={`/documentbox/${profile.clientCompanyName}/${profile._id}`} target="_blank">{API_BASE_URL + `documentbox/${profile.clientCompanyName}/` + profile._id}</Link>
+                    <Link className="LinkStyling" to={`/documentbox/${profile.clientCompanyName}/${profile._id}`} target="_blank">{API_BASE_URL + `documentbox/${profile.clientCompanyName.replace(" ","%20")}/` + profile._id}</Link>
                 </div>
               </div>
               <div className="col-12 mt-2">
@@ -2285,7 +2304,9 @@ function ClientProgressView() {
                   
                   className="alertMessage"
                 >
-                  {contrat_client ? null : (
+                   {reges ? null : (
+                    <Tab className="redColorStyling"> ⚠️ REGES IS MISSING / MANQUANT</Tab>
+                  )}{contrat_client ? null : (
                     <Tab className="redColorStyling"> ⚠️ CONTRAT CLIENT IS MISSING / MANQUANT</Tab>
                   )}
                   {contrat_employes ? null : (
@@ -2329,6 +2350,11 @@ function ClientProgressView() {
                   {offre_envoye_et_nonsigne ? null : (
                     <Tab className="redColorStyling">
                       ⚠️ OFFRE ENVOYE ET NON SIGNE IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                   {fiche_medicale ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ FICHE MEDICALE IS MISSING / MANQUANT
                     </Tab>
                   )}
                 </Tabs>

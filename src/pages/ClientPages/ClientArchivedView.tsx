@@ -71,6 +71,8 @@ function ArchivedViewPage() {
   const [autres_documents, setautres_documents] = useState() as any;
   const [factures, setfactures] = useState() as any;
   const [rapport_activite, setrapport_activite] = useState() as any;
+  const [reges, setreges] = useState() as any;
+  const [fiche_medicale, setfiche_medicale] = useState() as any;
   const [offre_envoye_et_nonsigne, setoffre_envoye_et_nonsigne] =
     useState() as any;
 
@@ -142,6 +144,10 @@ function ArchivedViewPage() {
   const [activeTab, setActiveTab] = React.useState(1) as any;
   const [tabItems, setTabitems] = useState([
     {
+      text: "REGES",
+      value: "reges",
+    },
+    {
       text: "CONTRAT CLIENT",
       value: "contrat_client",
     },
@@ -193,6 +199,10 @@ function ArchivedViewPage() {
     {
       text: "OFFRE ENVOYE ET NONSIGNE",
       value: "offre_envoye_et_nonsigne",
+    },
+    {
+      text: "FICHE MEDICALE",
+      value: "fiche_medicale",
     },
   ]) as any;
 
@@ -282,16 +292,17 @@ function ArchivedViewPage() {
     // })
   };
 
-
-  
   useEffect(() => {
     profile.clientDocuments.map((el) => {
+      if (JSON.stringify(el.folderName).includes(JSON.stringify("reges"))) {
+        setreges([el]);
+      }
       if (
         JSON.stringify(el.folderName).includes(JSON.stringify("contrat_client"))
       ) {
-       setcontrat_client([el]);
-        }
-       
+        setcontrat_client([el]);
+      }
+
       if (
         JSON.stringify(el.folderName).includes(
           JSON.stringify("contrat_employes")
@@ -300,32 +311,36 @@ function ArchivedViewPage() {
         setcontrat_employes([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("carte_d'identite_employes"))
+        JSON.stringify(el.folderName).includes(
+          JSON.stringify("carte_d'identite_employes")
+        )
       ) {
         setcarte_d([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("id_card_employer"))
+        JSON.stringify(el.folderName).includes(
+          JSON.stringify("id_card_employer")
+        )
       ) {
         setid_card_employer([el]);
       }
-      if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("al"))
-      ) {
+      if (JSON.stringify(el.folderName).includes(JSON.stringify("al"))) {
         setal([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("contrats_assurances_employes"))
+        JSON.stringify(el.folderName).includes(
+          JSON.stringify("contrats_assurances_employes")
+        )
       ) {
         setcontrats_assurances_employes([el]);
       }
-      if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("sispi"))
-      ) {
+      if (JSON.stringify(el.folderName).includes(JSON.stringify("sispi"))) {
         setsispi([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("document_de_represntation"))
+        JSON.stringify(el.folderName).includes(
+          JSON.stringify("document_de_represntation")
+        )
       ) {
         setdocument_de_represntation([el]);
       }
@@ -335,39 +350,48 @@ function ArchivedViewPage() {
         setoffre_signee([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("attestations_societe_intermann"))
+        JSON.stringify(el.folderName).includes(
+          JSON.stringify("attestations_societe_intermann")
+        )
       ) {
         setattestations_societe_intermann([el]);
       }
-      if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("cvs"))
-      ) {
+      if (JSON.stringify(el.folderName).includes(JSON.stringify("cvs"))) {
         setcvs([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("autres_documents"))
+        JSON.stringify(el.folderName).includes(
+          JSON.stringify("autres_documents")
+        )
       ) {
         setautres_documents([el]);
       }
-      if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("factures"))
-      ) {
+      if (JSON.stringify(el.folderName).includes(JSON.stringify("factures"))) {
         setfactures([el]);
       }
 
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("rapport_activite"))
+        JSON.stringify(el.folderName).includes(
+          JSON.stringify("rapport_activite")
+        )
       ) {
         setrapport_activite([el]);
-      } if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("offre_envoye_et_nonsigne"))
+      }
+      if (
+        JSON.stringify(el.folderName).includes(
+          JSON.stringify("offre_envoye_et_nonsigne")
+        )
       ) {
         setoffre_envoye_et_nonsigne([el]);
       }
+      if (
+        JSON.stringify(el.folderName).includes(JSON.stringify("fiche_medicale"))
+      ) {
+        setfiche_medicale([el]);
+      }
     });
-  },[profile.clientDocuments,documentList]);
+  }, [profile.clientDocuments, documentList]);
 
-  
   const fileChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
@@ -702,7 +726,7 @@ function ArchivedViewPage() {
                   {profile.clientEmail ? (
                     <button className="btn-TODOgmail">
                       <a
-                         href={`mailto:${profile.clientEmail}`}
+                        href={`mailto:${profile.clientEmail}`}
                         className="text-dark fw-bold"
                         target="_blank"
                       >
@@ -719,7 +743,7 @@ function ArchivedViewPage() {
 
                   <div className="d-flex">
                     <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                      {" "}
+                     
                       {profile.clientReferenceEmail
                         ? "Contact :" + profile.clientReferenceEmail
                         : null}
@@ -728,7 +752,7 @@ function ArchivedViewPage() {
 
                   {profile.clientReferenceEmail ? (
                     <a
-                    href={`mailto:${profile.clientReferenceEmail}`}
+                      href={`mailto:${profile.clientReferenceEmail}`}
                       target="_blank"
                       className="btn  fw-bold btn-TODOgmail"
                     >
@@ -827,7 +851,7 @@ function ArchivedViewPage() {
                     <div className="d-flex align-items-center">
                       <p>Langues : </p>
                       <span className="Todo-ClinetCardMore-span">
-                        {" "}
+                       
                         {profile.clientLanguages.length
                           ? profile.clientLanguages.join(", ")
                           : "No Langues!"}{" "}
@@ -1519,14 +1543,25 @@ function ArchivedViewPage() {
               <div className="row px-1 pt-1 pb-0">
                 <div className="col-4 pr-0">
                   <p className="DocShareLink mb-0">
-                    {" "}
+                   
                     Share this link with the client : <br />
                     Patager ce lien avec le client:
                   </p>
                 </div>
                 <div className="col-8 pl-0">
                   <div className="DocShareLinkBackground p-1">
-                    <Link className="LinkStyling" to={`/documentbox/${profile.clientCompanyName}/${profile._id}`} target="_blank">{API_BASE_URL + `documentbox/${profile.clientCompanyName}/` + profile._id}</Link>                    
+                    <Link
+                      className="LinkStyling"
+                      to={`/documentbox/${profile.clientCompanyName}/${profile._id}`}
+                      target="_blank"
+                    >
+                      {API_BASE_URL +
+                        `documentbox/${profile.clientCompanyName.replace(
+                          " ",
+                          "%20"
+                        )}/` +
+                        profile._id}
+                    </Link>
                   </div>
                 </div>
                 <div className="col-12 mt-2">
@@ -1544,8 +1579,6 @@ function ArchivedViewPage() {
                       <Tab key={i}>{el.text}</Tab>
                     ))}
                   </Tabs>
-
-                  {}
                 </div>
                 <div className="row py-1" style={{ marginRight: "1px" }}>
                   {documentList.length > 0 ? (
@@ -1666,9 +1699,9 @@ function ArchivedViewPage() {
                     </>
                   ) : (
                     <div className="d-grid  justify-content-center align-items-center mb-0">
-                      {" "}
+                     
                       <div className="d-flex justify-content-center">
-                        {" "}
+                       
                         <img
                           src={require("../../images/docupload.svg").default}
                         />{" "}
@@ -1789,25 +1822,46 @@ function ArchivedViewPage() {
                   leftBtnIcon={"<"}
                   showTabsScroll={false}
                   tabsScrollAmount={5}
-                  
                   className="alertMessage"
                 >
+                 
+                  {reges ? null : (
+                    <Tab className="redColorStyling">
+                     
+                      ⚠️ REGES IS MISSING / MANQUANT
+                    </Tab>
+                  )}
                   {contrat_client ? null : (
-                    <Tab className="redColorStyling"> ⚠️ CONTRAT CLIENT IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                     
+                      ⚠️ CONTRAT CLIENT IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {contrat_employes ? null : (
-                    <Tab className="redColorStyling">⚠️ CONTRATS EMPLOYES IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ CONTRATS EMPLOYES IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {id_card_employer ? null : (
-                    <Tab className="redColorStyling">⚠️ Id Card Employes IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ Id Card Employes IS MISSING / MANQUANT
+                    </Tab>
                   )}
-                  {al ? null : <Tab className="redColorStyling">⚠️ A1 IS MISSING / MANQUANT</Tab>}
+                  {al ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ A1 IS MISSING / MANQUANT
+                    </Tab>
+                  )}
                   {contrats_assurances_employes ? null : (
                     <Tab className="redColorStyling">
                       ⚠️ CONTRATS ASSURANCES EMPLOYES IS MISSING / MANQUANT
                     </Tab>
                   )}
-                  {sispi ? null : <Tab className="redColorStyling">⚠️ SISPI IS MISSING / MANQUANT</Tab>}
+                  {sispi ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ SISPI IS MISSING / MANQUANT
+                    </Tab>
+                  )}
                   {document_de_represntation ? null : (
                     <Tab className="redColorStyling">
                       ⚠️ DOCUMENT DE REPRESENTANCE / REPRESENTATION IS MISSING /
@@ -1815,7 +1869,9 @@ function ArchivedViewPage() {
                     </Tab>
                   )}
                   {offre_signee ? null : (
-                    <Tab className="redColorStyling">⚠️ OFFRE SIGNEE / QUOTES IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ OFFRE SIGNEE / QUOTES IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {attestations_societe_intermann ? null : (
                     <Tab className="redColorStyling">
@@ -1823,19 +1879,34 @@ function ArchivedViewPage() {
                       MANQUANT
                     </Tab>
                   )}
-                  {cvs ? null : <Tab className="redColorStyling">⚠️ CVS IS MISSING / MANQUANT</Tab>}
+                  {cvs ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ CVS IS MISSING / MANQUANT
+                    </Tab>
+                  )}
                   {autres_documents ? null : (
-                    <Tab className="redColorStyling">⚠️ AUTRES DOCUMENTS / OTHER IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ AUTRES DOCUMENTS / OTHER IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {factures ? null : (
-                    <Tab className="redColorStyling">⚠️ FACTURES IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ FACTURES IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {rapport_activite ? null : (
-                    <Tab className="redColorStyling">⚠️ RAPPORT ACTIVITE IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ RAPPORT ACTIVITE IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {offre_envoye_et_nonsigne ? null : (
                     <Tab className="redColorStyling">
                       ⚠️ OFFRE ENVOYE ET NON SIGNE IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {fiche_medicale ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ FICHE MEDICALE IS MISSING / MANQUANT
                     </Tab>
                   )}
                 </Tabs>

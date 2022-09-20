@@ -24,8 +24,8 @@ function ClientCardArchived(props:any){
         ,{value:"Hide This Profile",label:"Hide This Profile"}
      ]as any
      const editClientProfile = () => {
-        navigate("/clientInProgressEdit", { state: props.data });
-    }
+        navigate("/archivedClientEditprofile", { state: props.data });
+      };
     const viewFullProfile = () => {
         console.log(props.data)
         // navigate("/archivedClientSeeprofile", { state: props.data });

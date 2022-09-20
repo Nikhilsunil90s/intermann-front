@@ -84,9 +84,15 @@ function ClientSee() {
   const [autres_documents, setautres_documents] = useState() as any;
   const [factures, setfactures] = useState() as any;
   const [rapport_activite, setrapport_activite] = useState() as any;
+  const [reges, setreges] = useState() as any;
+  const [fiche_medicale, setfiche_medicale] = useState() as any;
   const [offre_envoye_et_nonsigne, setoffre_envoye_et_nonsigne] =
     useState() as any;
   const [tabItems, setTabitems] = useState([
+    {
+      text: "REGES",
+      value: "reges",
+    },
     {
       text: "CONTRAT CLIENT",
       value: "contrat_client",
@@ -143,6 +149,10 @@ function ClientSee() {
       text: "OFFRE ENVOYE ET NONSIGNE",
       value: "offre_envoye_et_nonsigne",
     },
+    {
+      text: "FICHE MEDICALE",
+      value: "fiche_medicale",
+    },
   ]) as any;
 
   // const [UplaodsName,setUploadNames]=useState("")as any
@@ -160,6 +170,9 @@ function ClientSee() {
 
   useEffect(() => {
     profile.clientDocuments.map((el) => {
+      if (JSON.stringify(el.folderName).includes(JSON.stringify("reges"))) {
+        setreges([el]);
+      }
       if (
         JSON.stringify(el.folderName).includes(JSON.stringify("contrat_client"))
       ) {
@@ -247,8 +260,13 @@ function ClientSee() {
       ) {
         setoffre_envoye_et_nonsigne([el]);
       }
+      if (
+        JSON.stringify(el.folderName).includes(JSON.stringify("fiche_medicale"))
+      ) {
+        setfiche_medicale([el]);
+      }
     });
-  }, [profile.clientDocuments,documentList]);
+  }, [profile.clientDocuments, documentList]);
 
   console.log(contrat_client, "fkdjf");
 
@@ -486,7 +504,7 @@ function ClientSee() {
               return doc.documentName !== docName;
             }),
           ]);
-          window.location.reload()
+          window.location.reload();
         } else {
           notifyDocumentDeleteError();
         }
@@ -763,7 +781,7 @@ function ClientSee() {
     //   console.log(err)
     // })
   };
-  console.log(profile,"proo")
+  console.log(profile, "proo");
 
   const contractPageView = () => {
     navigate("/ClientContractPage", { state: profile });
@@ -1379,8 +1397,6 @@ function ClientSee() {
                         {profile.clientPermis ? "Yes" : "No"}
                       </span>
                     </div>
-                   
-
 
                     <div className="d-flex">
                       <p style={{ width: "121px" }}>Client Note:</p>
@@ -1555,7 +1571,6 @@ function ClientSee() {
                           <p className="mb-0 FontStylingCardtext styledNotes">
                             {recommendation.candidatSkills !== "" ? (
                               <div style={{ height: "100px" }}>
-                                
                                 <ReadMoreReact
                                   text={recommendation.candidatSkills}
                                   min={0}
@@ -2264,23 +2279,25 @@ function ClientSee() {
               <div className="row px-1 pt-1 pb-0">
                 <div className="col-4 pr-0">
                   <p className="DocShareLink mb-0">
-                    
                     Share this link with the client : <br />
                     Patager ce lien avec le client:
                   </p>
                 </div>
-                <div className="col-8 pl-0">
-                  <div className="DocShareLinkBackground p-1">
+                <div className="col-8 DocShareLinkBackground p-1 pl-0">
+                
                     <Link
                       className="LinkStyling"
                       to={`/documentbox/${profile.clientCompanyName}/${profile._id}`}
                       target="_blank"
                     >
                       {API_BASE_URL +
-                        `documentbox/${profile.clientCompanyName}/` +
+                        `documentbox/${profile.clientCompanyName.replace(
+                          " ",
+                          "%20"
+                        )}/` +
                         profile._id}
                     </Link>
-                  </div>
+                
                 </div>
                 <div className="col-12 mt-2">
                   <Tabs
@@ -2419,9 +2436,7 @@ function ClientSee() {
                     </>
                   ) : (
                     <div className="d-grid  justify-content-center align-items-center mb-0">
-                      
                       <div className="d-flex justify-content-center">
-                        
                         <img
                           src={require("../../images/docupload.svg").default}
                         />
@@ -2528,25 +2543,45 @@ function ClientSee() {
                   leftBtnIcon={"<"}
                   showTabsScroll={false}
                   tabsScrollAmount={5}
-                  
                   className="alertMessage"
                 >
+                  {reges ? null : (
+                    <Tab className="redColorStyling">
+                      
+                      ⚠️ REGES IS MISSING / MANQUANT
+                    </Tab>
+                  )}
                   {contrat_client ? null : (
-                    <Tab className="redColorStyling"> ⚠️ CONTRAT CLIENT IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      
+                      ⚠️ CONTRAT CLIENT IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {contrat_employes ? null : (
-                    <Tab className="redColorStyling">⚠️ CONTRATS EMPLOYES IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ CONTRATS EMPLOYES IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {id_card_employer ? null : (
-                    <Tab className="redColorStyling">⚠️ Id Card Employes IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ Id Card Employes IS MISSING / MANQUANT
+                    </Tab>
                   )}
-                  {al ? null : <Tab className="redColorStyling">⚠️ A1 IS MISSING / MANQUANT</Tab>}
+                  {al ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ A1 IS MISSING / MANQUANT
+                    </Tab>
+                  )}
                   {contrats_assurances_employes ? null : (
                     <Tab className="redColorStyling">
                       ⚠️ CONTRATS ASSURANCES EMPLOYES IS MISSING / MANQUANT
                     </Tab>
                   )}
-                  {sispi ? null : <Tab className="redColorStyling">⚠️ SISPI IS MISSING / MANQUANT</Tab>}
+                  {sispi ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ SISPI IS MISSING / MANQUANT
+                    </Tab>
+                  )}
                   {document_de_represntation ? null : (
                     <Tab className="redColorStyling">
                       ⚠️ DOCUMENT DE REPRESENTANCE / REPRESENTATION IS MISSING /
@@ -2554,7 +2589,9 @@ function ClientSee() {
                     </Tab>
                   )}
                   {offre_signee ? null : (
-                    <Tab className="redColorStyling">⚠️ OFFRE SIGNEE / QUOTES IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ OFFRE SIGNEE / QUOTES IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {attestations_societe_intermann ? null : (
                     <Tab className="redColorStyling">
@@ -2562,19 +2599,34 @@ function ClientSee() {
                       MANQUANT
                     </Tab>
                   )}
-                  {cvs ? null : <Tab className="redColorStyling">⚠️ CVS IS MISSING / MANQUANT</Tab>}
+                  {cvs ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ CVS IS MISSING / MANQUANT
+                    </Tab>
+                  )}
                   {autres_documents ? null : (
-                    <Tab className="redColorStyling">⚠️ AUTRES DOCUMENTS / OTHER IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ AUTRES DOCUMENTS / OTHER IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {factures ? null : (
-                    <Tab className="redColorStyling">⚠️ FACTURES IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ FACTURES IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {rapport_activite ? null : (
-                    <Tab className="redColorStyling">⚠️ RAPPORT ACTIVITE IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ RAPPORT ACTIVITE IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {offre_envoye_et_nonsigne ? null : (
                     <Tab className="redColorStyling">
                       ⚠️ OFFRE ENVOYE ET NON SIGNE IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {fiche_medicale ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ FICHE MEDICALE IS MISSING / MANQUANT
                     </Tab>
                   )}
                 </Tabs>
