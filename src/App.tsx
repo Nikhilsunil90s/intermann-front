@@ -41,6 +41,7 @@ import Error404 from "./pages/ErrorPages/Error404";
 import Error500 from "./pages/ErrorPages/Error500";
 import clientSignedGlobalCard from './pages/GlobalCards/ClientPages/ClientContractGlobalCard'
 import ClientContractPage from './components/ClientContractPage'
+import DocumentChecker from './components/Document-checker'
 function App() {
   return (
     <Provider store={configureStore}>
@@ -340,6 +341,14 @@ function App() {
             element={
             
                 <ClientContractPage />
+            
+            }
+          />
+              <Route
+            path={"/document-checker/:clientCompanyName/:id"}
+            element={
+            
+                <DocumentChecker />
             
             }
           />

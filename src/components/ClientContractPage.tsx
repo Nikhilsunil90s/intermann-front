@@ -55,89 +55,89 @@ function ClientContractPage() {
 
   useEffect(() => {
     documentList.map((el) => {
-        if (JSON.stringify(el.folderName).includes(JSON.stringify("reges"))) {
+        if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("reges"))) {
             setreges([el]);
           }
         if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("contrat_client"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrat_client"))
       ) {
        setcontrat_client([el]);
         }
        
       if (
-        JSON.stringify(el.folderName).includes(
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
           JSON.stringify("contrat_employes")
         )
       ) {
         setcontrat_employes([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("carte_d'identite_employes"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("carte_d'identite_employes"))
       ) {
         setcarte_d([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("id_card_employer"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("id_card_employer"))
       ) {
         setid_card_employer([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("al"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("al"))
       ) {
         setal([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("contrats_assurances_employes"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrats_assurances_employes"))
       ) {
         setcontrats_assurances_employes([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("sispi"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("sispi"))
       ) {
         setsispi([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("document_de_represntation"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("document_de_represntation"))
       ) {
         setdocument_de_represntation([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("offre_signee"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("offre_signee"))
       ) {
         setoffre_signee([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("attestations_societe_intermann"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("attestations_societe_intermann"))
       ) {
         setattestations_societe_intermann([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("cvs"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("cvs"))
       ) {
         setcvs([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("autres_documents"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("autres_documents"))
       ) {
         setautres_documents([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("factures"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("factures"))
       ) {
         setfactures([el]);
       }
 
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("rapport_activite"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("rapport_activite"))
       ) {
         setrapport_activite([el]);
       } if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("offre_envoye_et_nonsigne"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("offre_envoye_et_nonsigne"))
       ) {
         setoffre_envoye_et_nonsigne([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("fiche_medicale"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("fiche_medicale"))
       ) {
         setfiche_medicale([el]);
       }
@@ -224,9 +224,11 @@ INTERMANN WORK S.R.L <br/>
                   {
                    reges ?
                     documentList?.map((el)=>(
-                        JSON.stringify(el.folderName).includes(JSON.stringify("reges")) ?
+                        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("reges")) ?
                     <>    <div className="col-md-6 col-sm-12 mb-1">
-                        <div className="row PDFcardBG ">
+                        <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                           <div className="col-2 px-0 d-flex align-items-center">
                             <img
                               style={{ width: "73%" }}
@@ -236,9 +238,7 @@ INTERMANN WORK S.R.L <br/>
                           <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                             <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                           </div>
-                          <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
-                              }>
+                          <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
                             <img
                               style={{ width: "73%" }}
                               src={require("../images/dowcard.svg").default}
@@ -280,9 +280,11 @@ INTERMANN WORK S.R.L <br/>
                   {
                    contrat_client ?
                     documentList?.map((el)=>(
-                        JSON.stringify(el.folderName).includes(JSON.stringify("contrat_client")) ?
+                        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrat_client")) ?
                     <>    <div className="col-md-6 col-sm-12 mb-1">
-                        <div className="row PDFcardBG ">
+                       <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                           <div className="col-2 px-0 d-flex align-items-center">
                             <img
                               style={{ width: "73%" }}
@@ -292,9 +294,7 @@ INTERMANN WORK S.R.L <br/>
                           <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                             <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                           </div>
-                          <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
-                              }>
+                          <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
                             <img
                               style={{ width: "73%" }}
                               src={require("../images/dowcard.svg").default}
@@ -338,9 +338,11 @@ INTERMANN WORK S.R.L <br/>
                 {
                    contrat_employes ?
                    documentList?.map((el)=>(
-                       JSON.stringify(el.folderName).includes(JSON.stringify("contrat_employes")) ?
+                       JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrat_employes")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
-                       <div className="row PDFcardBG ">
+                       <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
                              style={{ width: "73%" }}
@@ -350,9 +352,7 @@ INTERMANN WORK S.R.L <br/>
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
-                              }>
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -392,9 +392,11 @@ INTERMANN WORK S.R.L <br/>
                 {
                    id_card_employer ?
                    documentList?.map((el)=>(
-                       JSON.stringify(el.folderName).includes(JSON.stringify("id_card_employer")) ?
+                       JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("id_card_employer")) ?
                    <>    <div className="col-md-6 col-sm-12  mb-1">
-                       <div className="row PDFcardBG ">
+                       <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
                              style={{ width: "73%" }}
@@ -404,9 +406,7 @@ INTERMANN WORK S.R.L <br/>
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
-                              }>
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -446,9 +446,11 @@ INTERMANN WORK S.R.L <br/>
                 {
                    al ?
                    documentList?.map((el)=>(
-                       JSON.stringify(el.folderName).includes(JSON.stringify("al")) ?
+                       JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("al")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
-                       <div className="row PDFcardBG ">
+                        <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
                              style={{ width: "73%" }}
@@ -458,9 +460,7 @@ INTERMANN WORK S.R.L <br/>
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
-                              }>
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -500,9 +500,11 @@ INTERMANN WORK S.R.L <br/>
                 {
                    contrats_assurances_employes ?
                    documentList?.map((el)=>(
-                       JSON.stringify(el.folderName).includes(JSON.stringify("contrats_assurances_employes")) ?
+                       JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrats_assurances_employes")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
-                       <div className="row PDFcardBG ">
+                       <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
                              style={{ width: "73%" }}
@@ -512,9 +514,7 @@ INTERMANN WORK S.R.L <br/>
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
-                              }>
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -553,9 +553,11 @@ INTERMANN WORK S.R.L <br/>
                 {
                    sispi ?
                    documentList?.map((el)=>(
-                       JSON.stringify(el.folderName).includes(JSON.stringify("sispi")) ?
+                       JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("sispi")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
-                       <div className="row PDFcardBG ">
+                        <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
                              style={{ width: "73%" }}
@@ -565,9 +567,7 @@ INTERMANN WORK S.R.L <br/>
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
-                              }>
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -607,9 +607,11 @@ INTERMANN WORK S.R.L <br/>
                 {
                    document_de_represntation ?
                    documentList?.map((el)=>(
-                       JSON.stringify(el.folderName).includes(JSON.stringify("document_de_represntation")) ?
+                       JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("document_de_represntation")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
-                       <div className="row PDFcardBG ">
+                      <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
                              style={{ width: "73%" }}
@@ -619,9 +621,7 @@ INTERMANN WORK S.R.L <br/>
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
-                              }>
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -660,9 +660,11 @@ INTERMANN WORK S.R.L <br/>
                 {
                    offre_signee ?
                    documentList?.map((el)=>(
-                       JSON.stringify(el.folderName).includes(JSON.stringify("offre_signee")) ?
+                       JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("offre_signee")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
-                       <div className="row PDFcardBG ">
+                    <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
                              style={{ width: "73%" }}
@@ -672,9 +674,7 @@ INTERMANN WORK S.R.L <br/>
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
-                              }>
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -715,9 +715,11 @@ INTERMANN WORK S.R.L <br/>
                 {
                   attestations_societe_intermann ? 
                    documentList?.map((el)=>(
-                       JSON.stringify(el.folderName).includes(JSON.stringify("attestations_societe_intermann")) ?
+                       JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("attestations_societe_intermann")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
-                       <div className="row PDFcardBG ">
+                        <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
                              style={{ width: "73%" }}
@@ -727,9 +729,7 @@ INTERMANN WORK S.R.L <br/>
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
-                              }>
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -769,9 +769,11 @@ INTERMANN WORK S.R.L <br/>
                 {
                    cvs ?
                    documentList?.map((el)=>(
-                       JSON.stringify(el.folderName).includes(JSON.stringify("cvs")) ?
+                       JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("cvs")) ?
                    <>    <div className="col-md-6 col-sm-12  mb-1">
-                       <div className="row PDFcardBG ">
+                        <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
                              style={{ width: "73%" }}
@@ -781,9 +783,7 @@ INTERMANN WORK S.R.L <br/>
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
-                              }>
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -823,9 +823,11 @@ INTERMANN WORK S.R.L <br/>
                 {
                    autres_documents ?
                    documentList?.map((el)=>(
-                       JSON.stringify(el.folderName).includes(JSON.stringify("autres_documents")) ?
+                       JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("autres_documents")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
-                       <div className="row PDFcardBG ">
+                      <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
                              style={{ width: "73%" }}
@@ -835,9 +837,7 @@ INTERMANN WORK S.R.L <br/>
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
-                              }>
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -877,9 +877,11 @@ INTERMANN WORK S.R.L <br/>
                 {
                    factures ?
                    documentList?.map((el)=>(
-                       JSON.stringify(el.folderName).includes(JSON.stringify("factures")) ?
+                       JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("factures")) ?
                    <>    <div className="col-md-6 col-sm-12  mb-1">
-                       <div className="row PDFcardBG ">
+                       <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
                              style={{ width: "73%" }}
@@ -889,9 +891,7 @@ INTERMANN WORK S.R.L <br/>
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
-                              }>
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -930,9 +930,11 @@ INTERMANN WORK S.R.L <br/>
                 {
                    rapport_activite ? 
                    documentList?.map((el)=>(
-                       JSON.stringify(el.folderName).includes(JSON.stringify("rapport_activite")) ?
+                       JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("rapport_activite")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
-                       <div className="row PDFcardBG ">
+                         <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
                              style={{ width: "73%" }}
@@ -942,9 +944,7 @@ INTERMANN WORK S.R.L <br/>
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
-                              }>
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -983,9 +983,11 @@ INTERMANN WORK S.R.L <br/>
                 {
                    offre_envoye_et_nonsigne ?
                    documentList?.map((el)=>(
-                       JSON.stringify(el.folderName).includes(JSON.stringify("offre_envoye_et_nonsigne")) ?
+                       JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("offre_envoye_et_nonsigne")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
-                       <div className="row PDFcardBG ">
+                       <div className="row PDFcardBG " onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
                              style={{ width: "73%" }}
@@ -995,9 +997,7 @@ INTERMANN WORK S.R.L <br/>
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
-                              }>
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}
@@ -1036,9 +1036,11 @@ INTERMANN WORK S.R.L <br/>
                 {
                    fiche_medicale ?
                    documentList?.map((el)=>(
-                       JSON.stringify(el.folderName).includes(JSON.stringify("fiche_medicale")) ?
+                       JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("fiche_medicale")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
-                       <div className="row PDFcardBG ">
+                       <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.documentName)
+                              }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
                              style={{ width: "73%" }}
@@ -1048,9 +1050,7 @@ INTERMANN WORK S.R.L <br/>
                          <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.originalName}>
                            <p className="mb-0 contractEMPStyle">{el.originalName.length > 20 ? el.originalName.slice(0, 21) + "..." : el.originalName}</p>
                          </div>
-                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
-                              }>
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
                            <img
                              style={{ width: "73%" }}
                              src={require("../images/dowcard.svg").default}

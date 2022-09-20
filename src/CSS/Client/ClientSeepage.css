@@ -79,7 +79,29 @@ line-height: 24px;
 color: #032339;
 
 }
+.rts___tab:hover{
 
+color: #FE8700;
+text-decoration: underline;
+}
+.rts___tab {
+  margin: 0 5px;
+  padding: 10px 40px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  color: black;
+}
+.rts___nav___btn {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 31px !important;
+  font-weight: bold;
+  background: transparent;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .rts___tab {
   padding: 6px 15px !important;
   white-space: nowrap;
@@ -91,7 +113,6 @@ font-style: normal;
 font-weight: 500;
 font-size: 14px;
 line-height: 21px;
-color: #D3D2D2;
 }
 .rts___tabs.hide___rts___tabs___scroll {
   /* -ms-overflow-style: none;
@@ -164,6 +185,17 @@ overflow: auto;
 .DocShareLinkBackground::-webkit-scrollbar-thumb {
   background-color: #3f76e2;    /* color of the scroll thumb */
   border-radius: 10px;       /* roundness of the scroll thumb */  /* creates padding around scroll thumb */
+}
+
+.verification{
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 39px;
+line-height: 58px;
+text-align: center;
+color: #FFFFFF;
+
 }
 
 .LinkStyling{

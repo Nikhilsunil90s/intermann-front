@@ -242,90 +242,90 @@ function ClientProgressView() {
   useEffect(() => {
     profile.clientDocuments.map((el) => {
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("reges"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("reges"))
       ) {
         setreges([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("contrat_client"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrat_client"))
       ) {
        setcontrat_client([el]);
         }
        
       if (
-        JSON.stringify(el.folderName).includes(
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
           JSON.stringify("contrat_employes")
         )
       ) {
         setcontrat_employes([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("carte_d'identite_employes"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("carte_d'identite_employes"))
       ) {
         setcarte_d([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("id_card_employer"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("id_card_employer"))
       ) {
         setid_card_employer([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("al"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("al"))
       ) {
         setal([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("contrats_assurances_employes"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrats_assurances_employes"))
       ) {
         setcontrats_assurances_employes([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("sispi"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("sispi"))
       ) {
         setsispi([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("document_de_represntation"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("document_de_represntation"))
       ) {
         setdocument_de_represntation([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("offre_signee"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("offre_signee"))
       ) {
         setoffre_signee([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("attestations_societe_intermann"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("attestations_societe_intermann"))
       ) {
         setattestations_societe_intermann([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("cvs"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("cvs"))
       ) {
         setcvs([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("autres_documents"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("autres_documents"))
       ) {
         setautres_documents([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("factures"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("factures"))
       ) {
         setfactures([el]);
       }
 
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("rapport_activite"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("rapport_activite"))
       ) {
         setrapport_activite([el]);
       } if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("offre_envoye_et_nonsigne"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("offre_envoye_et_nonsigne"))
       ) {
         setoffre_envoye_et_nonsigne([el]);
       }
       if (
-        JSON.stringify(el.folderName).includes(JSON.stringify("fiche_medicale"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("fiche_medicale"))
       ) {
         setfiche_medicale([el]);
       }

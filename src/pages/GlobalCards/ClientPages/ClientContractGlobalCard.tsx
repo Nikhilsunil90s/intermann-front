@@ -15,9 +15,13 @@ import { ProgressBar } from "react-bootstrap";
 import ProfileLoader from "../../../components/Loader/ProfilesLoader";
 import RenameDoc from "../../../components/Modal/RenameDoc_Modal";
 import PreModalClient from "../../../components/Modal/preSelectedModalForClient";
+import { Tabs, Tab } from "react-tabs-scrollable";
 
 let RenameData = [];
 let id = "";
+let UploadName = "";
+let clDoc;
+let UploadTextBtn = "";
 function Signed() {
 
   const {state} = useLocation()
@@ -55,6 +59,91 @@ function Signed() {
   const [recommendations, setRecommendations] = useState([]);
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
   const [PreSelectedData, setPreSelected] = useState([]);
+  const [contrat_client, setcontrat_client] = useState() as any;
+  const [contrat_employes, setcontrat_employes] = useState() as any;
+  const [carte_d, setcarte_d] = useState() as any;
+  const [id_card_employer, setid_card_employer] = useState() as any;
+  const [al, setal] = useState() as any;
+  const [contrats_assurances_employes, setcontrats_assurances_employes] =
+    useState() as any;
+  const [sispi, setsispi] = useState() as any;
+  const [document_de_represntation, setdocument_de_represntation] =
+    useState() as any;
+  const [offre_signee, setoffre_signee] = useState() as any;
+  const [attestations_societe_intermann, setattestations_societe_intermann] =
+    useState() as any;
+  const [cvs, setcvs] = useState() as any;
+  const [autres_documents, setautres_documents] = useState() as any;
+  const [factures, setfactures] = useState() as any;
+  const [rapport_activite, setrapport_activite] = useState() as any;
+  const [reges, setreges] = useState() as any;
+  const [fiche_medicale, setfiche_medicale] = useState() as any;
+  const [activeTab, setActiveTab] = React.useState(1) as any;
+  const [offre_envoye_et_nonsigne, setoffre_envoye_et_nonsigne] =
+  useState() as any;
+  const [tabItems, setTabitems] = useState([
+    {
+      text: "REGES",
+      value: "reges",
+    },
+    {
+      text: "CONTRAT CLIENT",
+      value: "contrat_client",
+    },
+    { text: "CONTRAT EMPLOYES", value: "contrat_employes" },
+    {
+      text: "ID Card EMPLOYES",
+      value: "id_card_employer",
+    },
+    {
+      text: "A1",
+      value: "al",
+    },
+    {
+      text: "CONTRATS ASSURANCES EMPLOYES",
+      value: "contrats_assurances_employes",
+    },
+    {
+      text: "SISPI",
+      value: "sispi",
+    },
+    {
+      text: "DOCUMENT DE REPRESENTATION",
+      value: "document_de_represntation",
+    },
+    {
+      text: "OFFRE SIGNEE",
+      value: "offre_signee",
+    },
+    {
+      text: "ATTESTATIONS SOCIETE INTERMANN",
+      value: "attestations_societe_intermann",
+    },
+    {
+      text: "CVS",
+      value: "cvs",
+    },
+    {
+      text: "AUTRES DOCUMENTS",
+      value: "autres_documents",
+    },
+    {
+      text: "FACTURES",
+      value: "factures",
+    },
+    {
+      text: "RAPPORT ACTIVITE",
+      value: "rapport_activite",
+    },
+    {
+      text: "OFFRE ENVOYE ET NONSIGNE",
+      value: "offre_envoye_et_nonsigne",
+    },
+    {
+      text: "FICHE MEDICALE",
+      value: "fiche_medicale",
+    },
+  ]) as any;
  console.log(EMPunderWorking,"emp")
   const candidatImportanceIcons = [
     {
@@ -113,6 +202,130 @@ function Signed() {
       ),
     },
   ];
+
+  const onTabClick = (e, index: any) => {
+    setActiveTab(index);
+    const FolderName = tabItems.filter((el, i) => i == index);
+
+    FolderName.map((el) => {
+      UploadName = el.value;
+      UploadTextBtn = el.text;
+    });
+
+    clDoc = profile.clientDocuments.filter((el) => el.folderName == UploadName);
+    setDocumentList([...clDoc]);
+  };
+  useEffect(() => {
+    const FolderName = tabItems.filter((el, i) => i == activeTab);
+
+    FolderName.map((el) => {
+      UploadName = el.value;
+      UploadTextBtn = el.text;
+    });
+
+    clDoc = profile.clientDocuments.filter((el) => el.folderName == UploadName);
+    setDocumentList([...clDoc]);
+  }, []);
+
+  useEffect(() => {
+    profile.clientDocuments.map((el) => {
+      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("reges"))) {
+        setreges([el]);
+      }
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrat_client"))
+      ) {
+        setcontrat_client([el]);
+      }
+
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("contrat_employes")
+        )
+      ) {
+        setcontrat_employes([el]);
+      }
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("carte_d'identite_employes")
+        )
+      ) {
+        setcarte_d([el]);
+      }
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("id_card_employer")
+        )
+      ) {
+        setid_card_employer([el]);
+      }
+      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("al"))) {
+        setal([el]);
+      }
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("contrats_assurances_employes")
+        )
+      ) {
+        setcontrats_assurances_employes([el]);
+      }
+      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("sispi"))) {
+        setsispi([el]);
+      }
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("document_de_represntation")
+        )
+      ) {
+        setdocument_de_represntation([el]);
+      }
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("offre_signee"))
+      ) {
+        setoffre_signee([el]);
+      }
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("attestations_societe_intermann")
+        )
+      ) {
+        setattestations_societe_intermann([el]);
+      }
+      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("cvs"))) {
+        setcvs([el]);
+      }
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("autres_documents")
+        )
+      ) {
+        setautres_documents([el]);
+      }
+      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("factures"))) {
+        setfactures([el]);
+      }
+
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("rapport_activite")
+        )
+      ) {
+        setrapport_activite([el]);
+      }
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("offre_envoye_et_nonsigne")
+        )
+      ) {
+        setoffre_envoye_et_nonsigne([el]);
+      }
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("fiche_medicale"))
+      ) {
+        setfiche_medicale([el]);
+      }
+    });
+  }, [profile.clientDocuments, documentList]);
 
   const candidatMotivationIcons = [
     { icon: "No icon", motivation: "No Motivation" },
@@ -1406,19 +1619,66 @@ function Signed() {
                 </div>
               </div>
             </div>
-            <div className="col-12 Social-CardClient my-1 ">
-              <div className="row p-1">
-              <div className="row" style={{ marginRight: '1px' }}>
-                    {
-                      documentList.length > 0  ?
-                        documentList.map((doc, index) =>
-                          <div className="col-6 mx-0">
-                            <div className="row CardClassDownload mt-1 mx-0">
-                              <div className="col-4 d-flex align-items-center ">
-                                <p className="download-font mb-0">{doc.originalName}</p>
-                              </div>
-                              <div className="col-6 text-center">
-                                {/* {progress > 0 && progress < 100  ?
+             <div className="col-12 Social-CardClient my-1">
+              <div className="row px-1 pt-1 pb-0">
+                <div className="col-4 pr-0">
+                  <p className="DocShareLink mb-0">
+                   
+                    Share this link with the client : <br />
+                    Patager ce lien avec le client:
+                  </p>
+                </div>
+                <div className="col-8 pl-0">
+                  <div className="DocShareLinkBackground p-1">
+                    <Link
+                      className="LinkStyling"
+                      to={`/documentbox/${profile.clientCompanyName}/${profile._id}`}
+                      target="_blank"
+                    >
+                      {API_BASE_URL +
+                        `documentbox/${profile.clientCompanyName.replaceAll(
+                          " ",
+                          "%20"
+                        )}/` +
+                        profile._id}
+                    </Link>
+                  </div>
+                </div>
+                <div className="col-12 mt-2">
+                  <Tabs
+                    activeTab={activeTab}
+                    onTabClick={onTabClick}
+                    rightBtnIcon={">"}
+                    hideNavBtns={false}
+                    leftBtnIcon={"<"}
+                    showTabsScroll={false}
+                    tabsScrollAmount={5}
+                  >
+                    {/* generating an array to loop through it  */}
+                    {tabItems.map((el, i) => (
+                      <Tab key={i}>{el.text}</Tab>
+                    ))}
+                  </Tabs>
+                </div>
+                <div className="row py-1" style={{ marginRight: "1px" }}>
+                  {documentList.length > 0 ? (
+                    documentList.map((doc, index) => (
+                      <div className="col-6 mx-0">
+                        <div className="row CardClassDownload mt-1 mx-0">
+                          <div
+                            className="col-4 d-flex align-items-center cursor-pointer"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="bottom"
+                            title={doc.originalName}
+                          >
+                            <p className="download-font mb-0">
+                              {doc.originalName.length > 20
+                                ? doc.originalName.slice(0, 21) + "..."
+                                : doc.originalName}
+                            </p>
+                          </div>
+                          <div className="col-6 text-center">
+                            {/* {progress > 0 && progress < 100  ?
                                   <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
                                   :
                                   <button className="btnDownload">
@@ -1426,82 +1686,287 @@ function Signed() {
                                     {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
                                   </button>
                                 } */}
-                                     <button className="btnDownload" onClick={()=>ViewDownloadFiles( doc.documentName)}>
-                                    <img src={require("../../../images/dowBtn.svg").default} />
-                                    {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
-                                  </button>
-                              </div>
-                              <div className="col-2  d-flex align-item-end justify-content-end">
-                                <img
-                                  src={require("../../../images/editSvg.svg").default}
-                                  style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
-                                  // onClick={() => renameDocument(doc._id, doc.documentName)}
-                                  onClick={()=>{setRenameDocStatus(true);renameDocument(doc._id, doc.documentName,doc.originalName)}}
-                                />
-                                <img
-                                  src={require("../../../images/Primaryfill.svg").default}
-                                  style={{ width: "20px", cursor: 'pointer' }}
-                                  onClick={() => deleteDocument(doc._id, doc.documentName)}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        ) :
-                        progress > 0 && progress < 100 && documentList.length == 0?
-                        <div className="col-6 mx-0">
-                        <div className="row CardClassDownload p-0 mt-1 mx-0">
-                          <div className="col-4 pr-0 d-flex align-items-center ">
-                        <ProfileLoader width={"90"} height={"56px"} fontSize={"12px"} fontWeight={600} Title={"Uploading!"}/>
-                          </div>
-                          <div className="col-6 text-center  mb-0" style={{marginTop:"21px"}}>
-                              <ProgressBar className="mb-0" now={progress} label={`${progress}%`} />
+                            <button
+                              className="btnDownload"
+                              onClick={() =>
+                                ViewDownloadFiles(doc.documentName)
+                              }
+                            >
+                              <img
+                                src={require("../../../images/dowBtn.svg").default}
+                              />
+                              {doc.originalName.length > 10
+                                ? doc.originalName.slice(0, 11) + "..."
+                                : doc.originalName}
+                            </button>
                           </div>
                           <div className="col-2  d-flex align-item-end justify-content-end">
                             <img
                               src={require("../../../images/editSvg.svg").default}
-                              style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                              style={{
+                                width: "20px",
+                                marginRight: "5px",
+                                cursor: "pointer",
+                              }}
+                              // onClick={() => renameDocument(doc._id, doc.documentName)}
+                              onClick={() => {
+                                setRenameDocStatus(true);
+                                renameDocument(
+                                  doc._id,
+                                  doc.documentName,
+                                  doc.originalName
+                                );
+                              }}
+                            />
+                            <img
+                              src={
+                                require("../../../images/Primaryfill.svg").default
+                              }
+                              style={{ width: "20px", cursor: "pointer" }}
+                              onClick={() =>
+                                deleteDocument(doc._id, doc.documentName)
+                              }
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  ) : progress > 0 &&
+                    progress < 100 &&
+                    documentList.length == 0 ? (
+                    <>
+                      <div className="col-6 mx-0">
+                        <div className="row CardClassDownload p-0 mt-1 mx-0">
+                          <div className="col-4 pr-0 d-flex align-items-center ">
+                            <ProfileLoader
+                              width={"90"}
+                              height={"56px"}
+                              fontSize={"12px"}
+                              fontWeight={600}
+                              Title={"Uploading!"}
+                            />
+                          </div>
+                          <div
+                            className="col-6 text-center  mb-0"
+                            style={{ marginTop: "21px" }}
+                          >
+                            <ProgressBar
+                              className="mb-0"
+                              now={progress}
+                              label={`${progress}%`}
+                            />
+                          </div>
+                          <div className="col-2  d-flex align-item-end justify-content-end">
+                            <img
+                              src={require("../../../images/editSvg.svg").default}
+                              style={{
+                                width: "20px",
+                                marginRight: "5px",
+                                cursor: "pointer",
+                              }}
                               // onClick={() => renameDocument(doc._id, doc.documentName)}
                             />
                             <img
-                              src={require("../../../images/Primaryfill.svg").default}
-                              style={{ width: "20px", cursor: 'pointer' }}
+                              src={
+                                require("../../../images/Primaryfill.svg").default
+                              }
+                              style={{ width: "20px", cursor: "pointer" }}
                               // onClick={() => deleteDocument(doc._id, doc.documentName)}
                             />
                           </div>
                         </div>
                       </div>
-                      :  
-<p className="text-center">No Documents Uploaded!</p>
-   
-                    }
-    {progress > 0 && progress < 100 && documentList.length > 0 ?
-                        <div className="col-6 mx-0">
-                        <div className="row CardClassDownload p-0 mt-1 mx-0">
-                          <div className="col-4 pr-0 d-flex align-items-center ">
-                        <ProfileLoader width={"90"} height={"56px"} fontSize={"12px"} fontWeight={600} Title={"Uploading!"}/>
-                          </div>
-                          <div className="col-6 text-center  mb-0" style={{marginTop:"21px"}}>
-                              <ProgressBar className="mb-0" now={progress} label={`${progress}%`} />
-                          </div>
-                          <div className="col-2  d-flex align-item-end justify-content-end">
-                            <img
-                              src={require("../../../images/editSvg.svg").default}
-                              style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
-                            />
-                            <img
-                              src={require("../../../images/Primaryfill.svg").default}
-                              style={{ width: "20px", cursor: 'pointer' }}
-                            />
-                          </div>
+                    </>
+                  ) : (
+                    <div className="d-grid  justify-content-center align-items-center mb-0">
+                     
+                      <div className="d-flex justify-content-center">
+                       
+                        <img
+                          src={require("../../../images/docupload.svg").default}
+                        />{" "}
+                      </div>
+                      <p
+                        style={{
+                          fontFamily: "Poppins",
+                          fontStyle: "normal",
+                          fontWeight: "500",
+                          fontSize: "16px",
+                          lineHeight: "24px",
+                          color: "#92929D",
+                        }}
+                      >
+                        contrat client file not Uploaded Yet
+                      </p>
+                    </div>
+                  )}
+                  {progress > 0 && progress < 100 && documentList.length > 0 ? (
+                    <div className="col-6 mx-0">
+                      <div className="row CardClassDownload p-0 mt-1 mx-0">
+                        <div className="col-4 pr-0 d-flex align-items-center ">
+                          <ProfileLoader
+                            width={"90"}
+                            height={"56px"}
+                            fontSize={"12px"}
+                            fontWeight={600}
+                            Title={"Uploading!"}
+                          />
+                        </div>
+                        <div
+                          className="col-6 text-center  mb-0"
+                          style={{ marginTop: "21px" }}
+                        >
+                          <ProgressBar
+                            className="mb-0"
+                            now={progress}
+                            label={`${progress}%`}
+                          />
+                        </div>
+                        <div className="col-2  d-flex align-item-end justify-content-end">
+                          <img
+                            src={require("../../../images/editSvg.svg").default}
+                            style={{
+                              width: "20px",
+                              marginRight: "5px",
+                              cursor: "pointer",
+                            }}
+                          />
+                          <img
+                            src={
+                              require("../../../images/Primaryfill.svg").default
+                            }
+                            style={{ width: "20px", cursor: "pointer" }}
+                          />
                         </div>
                       </div>
-                        :
-                      
-                 null 
-                  
-
-                          }
-                          {
+                    </div>
+                  ) : null}
+                  <div className="col-12 d-flex justify-content-center mt-2">
+                    <button
+                      className="uploadBtnForClient p-1"
+                      onClick={handleFileUpload}
+                    >
+                      <img src={require("../../../images/resume.svg").default} />
+                      Upload {UploadTextBtn} file Now{" "}
+                      <input
+                        type="file"
+                        ref={hiddenFileInput}
+                        onChange={fileChange}
+                        name="clientDocuments"
+                        style={{ display: "none" }}
+                      />
+                    </button>
+                  </div>
+                
+             
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-12 Social-CardClient mb-1 "
+              style={{ padding: "13px 26px" }}
+            >
+              <div className="row alertMessage align-items-center py-1">
+                <Tabs
+                  rightBtnIcon={">"}
+                  hideNavBtns={false}
+                  leftBtnIcon={"<"}
+                  showTabsScroll={false}
+                  tabsScrollAmount={5}
+                  className="alertMessage"
+                >
+                 
+                  {reges ? null : (
+                    <Tab className="redColorStyling">
+                     
+                      ⚠️ REGES IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {contrat_client ? null : (
+                    <Tab className="redColorStyling">
+                     
+                      ⚠️ CONTRAT CLIENT IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {contrat_employes ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ CONTRATS EMPLOYES IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {id_card_employer ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ Id Card Employes IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {al ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ A1 IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {contrats_assurances_employes ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ CONTRATS ASSURANCES EMPLOYES IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {sispi ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ SISPI IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {document_de_represntation ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ DOCUMENT DE REPRESENTANCE / REPRESENTATION IS MISSING /
+                      MANQUANT
+                    </Tab>
+                  )}
+                  {offre_signee ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ OFFRE SIGNEE / QUOTES IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {attestations_societe_intermann ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ ATTESTATIONS SOCIETE INTERMANN WORK S.R.L IS MISSING /
+                      MANQUANT
+                    </Tab>
+                  )}
+                  {cvs ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ CVS IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {autres_documents ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ AUTRES DOCUMENTS / OTHER IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {factures ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ FACTURES IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {rapport_activite ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ RAPPORT ACTIVITE IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {offre_envoye_et_nonsigne ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ OFFRE ENVOYE ET NON SIGNE IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {fiche_medicale ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ FICHE MEDICALE IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                </Tabs>
+              </div>
+            </div>
+            
+               </div>
+        </div>
+        {
                             RenameDocStatus? 
                             <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus}  path={"/todoprofile"}/>
                             :
@@ -1517,12 +1982,6 @@ function Signed() {
                   null
 
                   }
-                  </div>
-                </div>
-              </div>
-            
-               </div>
-        </div>
       </div>
     </>
   );
