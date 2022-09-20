@@ -4,8 +4,7 @@ import { API_BASE_URL } from "../config/serverApiConfig";
 import ErrorLoader from "../components/Loader/SearchBarError";
 import Error from "../components/Loader/loader";
 
-function ClientContractPage() {
-  // const {state}= useLocation()
+function DocumentCheck() {
   const [data,setData]=useState([])
   const [todoClient,settodoClient]=useState([])
   const [Inprogress,setInprogress]=useState([])
@@ -217,4 +216,4 @@ function ClientContractPage() {
     </>
   );
 }
-export default ClientContractPage;
+export default DocumentCheck;
