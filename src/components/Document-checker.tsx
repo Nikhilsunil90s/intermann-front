@@ -121,7 +121,7 @@ function DocumentCheck() {
                 todoClient.length > 0 ?
                 todoClient.map((el)=>(
               
-              <div className="col-4 d-flex align-items-center justify-content-center boxClientName cursor-pointer mb-1 p-1" style={{maxWidth:"333px"}} onClick={(e)=>DocumentClientPage(el._id,el.clientCompanyName)}>
+              <div className="col-4 d-flex align-items-center justify-content-center boxClientName cursor-pointer mb-1 p-1" style={{maxWidth:"384px",height:"130px"}} onClick={(e)=>DocumentClientPage(el._id,el.clientCompanyName)}>
                 <p className="ClientNameBox mb-0">📂{el.clientCompanyName.length > 13 ? el.clientCompanyName.slice(0,13) + "..." : el.clientCompanyName }</p>
                </div>
 ))
@@ -147,7 +147,7 @@ function DocumentCheck() {
                 Inprogress.length > 0 ?
                 Inprogress.map((el)=>(
               
-              <div className="col-4 d-flex align-items-center justify-content-center boxClientName cursor-pointer mb-1 p-1" style={{maxWidth:"333px"}} onClick={(e)=>DocumentClientPage(el._id,el.clientCompanyName)}>
+              <div className="col-4 d-flex align-items-center justify-content-center boxClientName cursor-pointer mb-1 p-1" style={{maxWidth:"384px",height:"130px"}} onClick={(e)=>DocumentClientPage(el._id,el.clientCompanyName)}>
                 <p className="ClientNameBox mb-0">📂{el.clientCompanyName.length > 13 ? el.clientCompanyName.slice(0,13) + "..." : el.clientCompanyName }</p>
                </div>
 ))
@@ -173,7 +173,7 @@ function DocumentCheck() {
                 ClientSigned.length > 0 ?
                 ClientSigned.map((el)=>(
               
-              <div className="col-4 d-flex align-items-center justify-content-center boxClientName cursor-pointer mb-1 p-1" style={{maxWidth:"333px"}} onClick={(e)=>DocumentClientPage(el._id,el.clientCompanyName)}>
+              <div className="col-4 d-flex align-items-center justify-content-center boxClientName cursor-pointer mb-1 p-1" style={{maxWidth:"384px",height:"130px"}} onClick={(e)=>DocumentClientPage(el._id,el.clientCompanyName)}>
                 <p className="ClientNameBox mb-0">📂{el.clientCompanyName.length > 13 ? el.clientCompanyName.slice(0,13) + "..." : el.clientCompanyName }</p>
                </div>
 ))
@@ -199,7 +199,7 @@ function DocumentCheck() {
                 Archived.length > 0 ?
                 Archived.map((el)=>(
               
-              <div className="col-4 d-flex align-items-center justify-content-center boxClientName cursor-pointer mb-1 p-1" style={{maxWidth:"333px"}} onClick={(e)=>DocumentClientPage(el._id,el.clientCompanyName)}>
+              <div className="col-4 d-flex align-items-center justify-content-center boxClientName cursor-pointer mb-1 p-1" style={{maxWidth:"384px",height:"130px"}} onClick={(e)=>DocumentClientPage(el._id,el.clientCompanyName)}>
                 <p className="ClientNameBox mb-0">📂{el.clientCompanyName.length > 13 ? el.clientCompanyName.slice(0,13) + "..." : el.clientCompanyName }</p>
                </div>
 ))
