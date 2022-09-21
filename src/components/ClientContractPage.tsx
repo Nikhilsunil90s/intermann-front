@@ -52,7 +52,7 @@ function ClientContractPage() {
   }, [id]);
 
   const ViewDownloadFiles = (documentName: any) => {
-    window.open(API_BASE_URL + "uploads/" + documentName);
+    window.open(documentName);
   };
 
   useEffect(() => {
@@ -237,7 +237,7 @@ INTERMANN WORK S.R.L <br/>
                         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrat_client")) ?
                     <>    <div className="col-md-6 col-sm-12 mb-1">
                        <div className="row PDFcardBG cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
+                                ViewDownloadFiles(el.url)
                               }>
                           <div className="col-2 px-0 d-flex align-items-center">
                             <img
@@ -295,7 +295,7 @@ INTERMANN WORK S.R.L <br/>
                        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrat_employes")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
                        <div className="row PDFcardBG cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
+                                ViewDownloadFiles(el.url)
                               }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -349,7 +349,7 @@ INTERMANN WORK S.R.L <br/>
                        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("id_card_employer")) ?
                    <>    <div className="col-md-6 col-sm-12  mb-1">
                        <div className="row PDFcardBG cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
+                                ViewDownloadFiles(el.url)
                               }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -403,7 +403,7 @@ INTERMANN WORK S.R.L <br/>
                        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("al")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
                         <div className="row PDFcardBG cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
+                                ViewDownloadFiles(el.url)
                               }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -457,7 +457,7 @@ INTERMANN WORK S.R.L <br/>
                        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrats_assurances_employes")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
                        <div className="row PDFcardBG cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
+                                ViewDownloadFiles(el.url)
                               }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -510,7 +510,7 @@ INTERMANN WORK S.R.L <br/>
                        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("sispi")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
                         <div className="row PDFcardBG cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
+                                ViewDownloadFiles(el.url)
                               }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -564,7 +564,7 @@ INTERMANN WORK S.R.L <br/>
                        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("document_de_represntation")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
                       <div className="row PDFcardBG cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
+                                ViewDownloadFiles(el.url)
                               }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -617,7 +617,7 @@ INTERMANN WORK S.R.L <br/>
                        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("offre_signee")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
                     <div className="row PDFcardBG cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
+                                ViewDownloadFiles(el.url)
                               }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -672,7 +672,7 @@ INTERMANN WORK S.R.L <br/>
                        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("attestations_societe_intermann")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
                         <div className="row PDFcardBG cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
+                                ViewDownloadFiles(el.url)
                               }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -726,7 +726,7 @@ INTERMANN WORK S.R.L <br/>
                        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("cvs")) ?
                    <>    <div className="col-md-6 col-sm-12  mb-1">
                         <div className="row PDFcardBG cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
+                                ViewDownloadFiles(el.url)
                               }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -780,7 +780,7 @@ INTERMANN WORK S.R.L <br/>
                        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("autres_documents")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
                       <div className="row PDFcardBG cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
+                                ViewDownloadFiles(el.url)
                               }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -834,7 +834,7 @@ INTERMANN WORK S.R.L <br/>
                        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("factures")) ?
                    <>    <div className="col-md-6 col-sm-12  mb-1">
                        <div className="row PDFcardBG cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
+                                ViewDownloadFiles(el.url)
                               }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -887,7 +887,7 @@ INTERMANN WORK S.R.L <br/>
                        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("rapport_activite")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
                          <div className="row PDFcardBG cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
+                                ViewDownloadFiles(el.url)
                               }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -940,7 +940,7 @@ INTERMANN WORK S.R.L <br/>
                        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("offre_envoye_et_nonsigne")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
                        <div className="row PDFcardBG " onClick={() =>
-                                ViewDownloadFiles(el.documentName)
+                                ViewDownloadFiles(el.url)
                               }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -993,7 +993,7 @@ INTERMANN WORK S.R.L <br/>
                        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("fiche_medicale")) ?
                    <>    <div className="col-md-6 col-sm-12 mb-1">
                        <div className="row PDFcardBG cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
+                                ViewDownloadFiles(el.url)
                               }>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
@@ -1046,7 +1046,7 @@ INTERMANN WORK S.R.L <br/>
                         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("reges")) ?
                     <>    <div className="col-md-6 col-sm-12 mb-1">
                         <div className="row PDFcardBG cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
+                                ViewDownloadFiles(el.url)
                               }>
                           <div className="col-2 px-0 d-flex align-items-center">
                             <img
@@ -1102,7 +1102,7 @@ INTERMANN WORK S.R.L <br/>
                         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("reges")) ?
                     <>    <div className="col-md-6 col-sm-12 mb-1">
                         <div className="row PDFcardBG cursor-pointer" onClick={() =>
-                                ViewDownloadFiles(el.documentName)
+                                ViewDownloadFiles(el.url)
                               }>
                           <div className="col-2 px-0 d-flex align-items-center">
                             <img

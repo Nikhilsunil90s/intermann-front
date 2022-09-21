@@ -539,7 +539,7 @@ function ClientProgressView() {
 
 
   const ViewDownloadFiles = (documentName: any) => {
-    window.open(API_BASE_URL + "uploads/" + documentName);
+    window.open(documentName);
   };
 
   const fetchCandidat = async (clientId: any) => {
@@ -2122,7 +2122,7 @@ function ClientProgressView() {
                                 } */}
                           <button
                             className="btnDownload"
-                            onClick={() => ViewDownloadFiles(doc.documentName)}
+                            onClick={() => ViewDownloadFiles(doc.url)}
                           >
                             <img
                               src={require("../../images/dowBtn.svg").default}

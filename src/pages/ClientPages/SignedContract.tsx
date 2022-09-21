@@ -517,7 +517,7 @@ function Signed() {
 
 
   const ViewDownloadFiles = (documentName: any) => {
-    window.open(API_BASE_URL + "uploads/" + documentName);
+    window.open(documentName);
   };
 
   const fetchCandidat = async (clientId: any) => {
@@ -2191,7 +2191,7 @@ function Signed() {
                             <button
                               className="btnDownload"
                               onClick={() =>
-                                ViewDownloadFiles(doc.documentName)
+                                ViewDownloadFiles(doc.url)
                               }
                             >
                               <img
