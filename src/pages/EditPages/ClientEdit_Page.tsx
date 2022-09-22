@@ -788,6 +788,8 @@ setJobOptions([])
         } else {
             notifyClientEditError()
         }
+
+
     }
 
     const handleImageChange = (val) => {
@@ -846,7 +848,7 @@ setJobOptions([])
         })
         changeJobSelection(JobArr)
       }
-      const handleChange = (selectedOption) => {
+      const handleChangeLanguage = (selectedOption) => {
         console.log(`Option selected:`, selectedOption)
         let arr = []
        setFormTouched(true)
@@ -1238,7 +1240,7 @@ className="SelectBtn"
                           placeholder=""
                           className="basic-multi-select"
                           classNamePrefix="select"
-                          onChange={handleChange}
+                          onChange={handleChangeLanguage}
                           options={colourOptions}
                           styles={colourStyles}
                            defaultValue={
@@ -1473,7 +1475,7 @@ No Contract Available for this To-Do Client! Please add a New Contract.
                        
                           id="1"
                           onClick={(e) => {
-                            HandleChange(e);
+                            HandleChangeH(e);
                         
                           }}
                           style={{
@@ -1491,7 +1493,7 @@ No Contract Available for this To-Do Client! Please add a New Contract.
                         
                           id="2"
                           onClick={(e) => {
-                            HandleChange(e);
+                            HandleChangeH(e);
                         
                           }}
                           style={{
@@ -1509,7 +1511,7 @@ No Contract Available for this To-Do Client! Please add a New Contract.
                          
                           id="3"
                           onClick={(e) => {
-                            HandleChange(e);
+                            HandleChangeH(e);
                         
                           }}
                           style={{
@@ -1527,7 +1529,7 @@ No Contract Available for this To-Do Client! Please add a New Contract.
                         
                           id="4"
                           onClick={(e) => {
-                            HandleChange(e);
+                            HandleChangeH(e);
                         
                           }}
                           style={{
@@ -1545,7 +1547,7 @@ No Contract Available for this To-Do Client! Please add a New Contract.
                          
                           id="5"
                           onClick={(e) => {
-                            HandleChange(e);
+                            HandleChangeH(e);
                         
                           }}
                           style={{
@@ -1563,7 +1565,7 @@ No Contract Available for this To-Do Client! Please add a New Contract.
                           
                           id="6"
                           onClick={(e) => {
-                            HandleChange(e);
+                            HandleChangeH(e);
                         
                           }}
                           style={{
@@ -1580,7 +1582,7 @@ No Contract Available for this To-Do Client! Please add a New Contract.
                           type="button"
                           id="7"
                           onClick={(e) => {
-                            HandleChange(e);
+                            HandleChangeH(e);
                         
                           }}
                           style={{
@@ -1598,7 +1600,7 @@ No Contract Available for this To-Do Client! Please add a New Contract.
                         
                           id="8"
                           onClick={(e) => {
-                            HandleChange(e);
+                            HandleChangeH(e);
                         
                           }}
                           style={{

@@ -347,8 +347,11 @@ function Signed() {
       window.open(API_BASE_URL + "uploads/" + ClientImage);
     }
   };
+
+const Editdata ={state:profile,path:"/clientSigned"}
+
   const editClientProfile = () => {
-    navigate("/ClientContractEditprofile", { state: profile });
+    navigate("/ClientContractEditprofile", { state: Editdata });
   };
 
   // DOC Upload //\
@@ -1370,7 +1373,12 @@ function Signed() {
                         {profile.candidatConduireEnFrance ? "Yes" : "No"}
                       </span>
                     </div>
-
+                    <div className="d-flex align-items-center">
+                      <p>Permis / Licence Drive :</p>
+                      <span className="Todo-ClinetCardMore-span">
+                        {profile.clientPermis ? "Yes" : "No"}
+                      </span>
+                    </div>
                     <div className="d-flex">
                       <p style={{ width: "121px" }}>Client Note:</p>
                       <span

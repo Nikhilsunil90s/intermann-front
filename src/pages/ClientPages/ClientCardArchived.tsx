@@ -23,6 +23,10 @@ function ClientCardArchived(props:any){
        {value:"Reset Profile",label:"Reset Profile"}
         ,{value:"Hide This Profile",label:"Hide This Profile"}
      ]as any
+
+  let EditData ={state:props.data,path:"/archived"}
+
+
      const editClientProfile = () => {
         navigate("/archivedClientEditprofile", { state: props.data });
       };

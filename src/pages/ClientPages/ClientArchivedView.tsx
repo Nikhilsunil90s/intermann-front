@@ -249,8 +249,9 @@ function ArchivedViewPage() {
     hiddenImageInput.current.click();
   };
 
+  let EditData ={state:profile,path:"/archivedClientSeeprofile"}
   const editClientProfile = () => {
-    navigate("/archivedClientEditprofile", { state: profile });
+    navigate("/archivedClientEditprofile", { state: EditData });
   };
 
   // DOC Upload //\
@@ -872,7 +873,12 @@ function ArchivedViewPage() {
                         {profile.candidatConduireEnFrance ? "Yes" : "No"}
                       </span>
                     </div>
-
+                    <div className="d-flex align-items-center">
+                      <p>Permis / Licence Drive :</p>
+                      <span className="Todo-ClinetCardMore-span">
+                        {profile.clientPermis ? "Yes" : "No"}
+                      </span>
+                    </div>
                     <div className="d-flex">
                       <p className="ClientN">Client Note:</p>
                       <span

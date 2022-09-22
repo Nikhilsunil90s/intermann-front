@@ -38,8 +38,11 @@ const viewFullProfile = (data) => {
   window.open("/embauchprofile", "_blank");
 };
 
+const Editdata ={state:props.data,path:"/clientContract"}
+
+
   const editClientProfile = () => {
-      navigate("/ClientContractEditprofile", { state: props.data });
+      navigate("/ClientContractEditprofile", { state:Editdata });
     
   }
   const MoreOption=(e:any)=>{

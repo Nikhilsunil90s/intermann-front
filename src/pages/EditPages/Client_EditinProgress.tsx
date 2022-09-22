@@ -37,7 +37,7 @@ const ClientDataFormat = {
     clientImportance: 0,
     clientPhoto: {},
     enteredBy: "",
-    jobStatus: "To-Do",
+    jobStatus: "In-Progress",
     clientReferenceEmail: "",
     numero_contract :"",
     initial_client_company : "",
@@ -86,7 +86,7 @@ interface State {
 function ClientInProgressEdit() {
 
 
-    const notifyClientEditSuccess = () => toast.success("Client Updated Successfully! View Client in To-Do Clients/Leads List.");
+    const notifyClientEditSuccess = () => toast.success("Client Updated Successfully! View Client in In-Progress Clients/Leads List.");
 
     const notifyClientEditError = () => toast.error("Cannot Edit This Client, Since No Data Changed!");
 
@@ -670,7 +670,7 @@ const onSubmitRates=(e)=>{
                 clientLanguages: data.clientLanguages.length > 0 ? data.clientLanguages : profile.clientLanguages,
                 jobStartDate: data.jobStartDate != "" ? data.jobStartDate : profile.jobStartDate,
                 jobEndDate: data.jobEndDate != "" ? data.jobEndDate : profile.jobEndDate,
-                clientPermis: data.clientPermis == true ? true : profile.clientPermis,
+                clientPermis: data.clientPermis == true ? true : false,
                 clientRequiredSkills: data.clientRequiredSkills != "" ? data.clientRequiredSkills : profile.clientRequiredSkills,
                 clientEmail: data.clientEmail != "" ? data.clientEmail : profile.clientEmail,
                 clientPhone: data.clientPhone != "" ? data.clientPhone : profile.clientPhone,
@@ -710,7 +710,7 @@ const onSubmitRates=(e)=>{
                 worker_name_7 :   data.worker_name_7 !== "" ? data.worker_name_7 : profile.clientContract ? profile.clientContract.worker_name_7 !== "" ? profile.clientContract.worker_name_7 : "" : "",
                 worker_number_8 :  data.worker_number_8 !== "" ? data.worker_number_8 : profile.clientContract ? profile.clientContract.worker_number_8 !== "" ? profile.clientContract.worker_number_8 : "" : "",
                 worker_name_8 :   data.worker_name_8 !== "" ? data.worker_name_8 : profile.clientContract ? profile.clientContract.worker_name_8 !== "" ? profile.clientContract.worker_name_8 : "" : "",
-                contractId: profile.clientContract ? profile.clientContract.contractId !== "" ? profile.clientContract.contractId : null : null,
+                contractId: profile.clientContract ? profile.clientContract._id !== "" ? profile.clientContract._id : null : null,
                 poste_du_gerant: data.poste_du_gerant !== "" ? data.poste_du_gerant : profile.clientContract ? profile.clientContract.poste_du_gerant !== "" ? profile.clientContract.poste_du_gerant : "" : "",
         
             }
@@ -779,10 +779,10 @@ const onSubmitRates=(e)=>{
       })
       changeJobSelection(JobArr)
     }
-    const handleChange = (selectedOption) => {
+    const handleChangeLanguage = (selectedOption) => {
       console.log(`Option selected:`, selectedOption)
       let arr = []
-  
+      setFormTouched(true)
       selectedOption.map((el) => {
         arr.push(el.value)
       })
@@ -814,7 +814,7 @@ const onSubmitRates=(e)=>{
          <div className="row">
           <div className="col-6">
             <div className="stable">
-              <Link to="/clientProgress">
+              <Link to={path}>
                 <button type="button" className="btn FontStyle-TODOSEE">
                   <img src={require("../../images/return.svg").default} />
                Client File : {profile.clientCompanyName}
@@ -823,6 +823,7 @@ const onSubmitRates=(e)=>{
             </div>
           </div>
           <div className="col-4 d-flex align-items-center justify-content-end">
+          <Link to={path}>
           <button className="btn bg-ClientCancel" style={{padding:"8px"}}>
                                     <img
                                         style={{ width: "25%" }}
@@ -830,6 +831,8 @@ const onSubmitRates=(e)=>{
                                     />
                                     <p className="mb-0">Cancel</p>
                                 </button>
+              </Link>
+
           </div>
           <div className="col-2 d-flex align-items-center justify-content-center pr-1 pl-0">
           {/* <Link to="/clientProgress" style={{ textDecoration: "none" }}> */}
@@ -1177,7 +1180,7 @@ className="SelectBtn"
                           placeholder=""
                           className="basic-multi-select"
                           classNamePrefix="select"
-                          onChange={handleChange}
+                          onChange={handleChangeLanguage}
                           options={colourOptions}
                           styles={colourStyles}
                            
@@ -1384,6 +1387,17 @@ className="SelectBtn"
                          <label className="ClientPDFFormlabel">$ numero de tel du travailleur 8</label>
                          <input className='inputStyling form-control'      onChange={onFormDataChange} name='worker_name_8'  placeholder={ profile.clientContract ? profile.clientContract.worker_name_8 !== "" ? profile.clientContract.worker_name_8 : "Input Not Available!" : "Input Not Available!"}  />
                          </div>
+                         <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ Poste du Gerant
+                    </label>
+                    <input
+                      className="inputStyling form-control"
+                      name="poste_du_gerant"
+                      onChange={onFormDataChange}
+                      placeholder={profile.clientContract ? profile.clientContract.poste_du_gerant !== "" ? profile.clientContract.poste_du_gerant : "Input Not Available!" : "Input Not Available!" }
+                    />
+                  </div>
              
                       </div>
                       
@@ -1546,7 +1560,7 @@ className="SelectBtn"
                         style={{ width: "100%" }}
                       >
                         <span>€</span>
-                        <input type="text" className='form-control placeHolder' disabled={disableSalary} name='salary_hours' placeholder='Amount'   onChange={onInputChange} />
+                        <input type="text" className='form-control placeHolder' disabled={disableSalary} name='salary_hours'  placeholder={profile.salary_hours ? profile.salary_hours.map((el)=>(el.salaryPerHour))[0] :"Amount"}     onChange={onInputChange} />
                         <span>.00</span>
                       </div>
                     </div>
@@ -1698,8 +1712,8 @@ className="SelectBtn"
                           type="text"
                           className="form-control placeHolder"
                           name="turnover"
-                          placeholder="Amount"
-                          onChange={onInputChange}
+                          onChange={onInputChange}  
+                          placeholder={profile.rate_hours ? profile.rate_hours.map((el)=>(el.ratePerHour))[0] :"Amount"}   
                           // disabled={disableTaux}
                         />
                         <span>.00</span>
@@ -1756,7 +1770,7 @@ className="SelectBtn"
                                                     <div className="col-12 px-0 mt-3">
                                     <div className="row justify-content-end">
                                         <div className="col-6 d-flex justify-content-end">
-                                            <Link to="/clientProgress" style={{ textDecoration: "none" }}>
+                                            <Link to={path} style={{ textDecoration: "none" }}>
                                                 <button type="button" className="btn edit-btnCancel mr-1">
                                                     <img
                                                         style={{ width: "25%" }}
