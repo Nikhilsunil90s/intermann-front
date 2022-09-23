@@ -215,7 +215,7 @@ function ClientProgressView() {
   ];
 
   const candidatMotivationIcons = [
-    { icon: "", motivation: "No Motivation" },
+    { icon: "", motivation: "No Motivation!" },
     { icon: "😟", motivation: "Disappointed" },
     { icon: "🙁", motivation: "Not Really" },
     { icon: "😊", motivation: "Like" },
@@ -1449,7 +1449,7 @@ function ClientProgressView() {
             <div className="col-12 inPAdsBOX">
               <div className="row">
                 <div className="col-6 pt-2 pb-1">
-                  <p>Ads Spent on this client : {profile.jobTotalBudget}</p>
+                  <p>Ads Spent on this client : <b>{profile.jobTotalBudget ? profile.jobTotalBudget : "No Ads!"}</b></p>
                 </div>
               </div>
             </div>
@@ -1504,7 +1504,7 @@ function ClientProgressView() {
                           ? candidatImportanceIcons[
                               profile.clientImportance - 1
                             ]?.icon
-                          : "No Importance"}
+                          : "No Importance!"}
                       </b>
                     </p>
                     <p className="mb-0 pt-1" style={{ width: "130%" }}>
@@ -2233,7 +2233,7 @@ function ClientProgressView() {
                         color: "#92929D",
                       }}
                     >
-                      contrat client file not Uploaded Yet
+                      {UploadTextBtn} file not Uploaded Yet
                     </p>
                   </div>
                 )}

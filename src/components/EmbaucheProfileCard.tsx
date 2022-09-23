@@ -19,7 +19,7 @@ console.log(props,"ppr")
         }
      ]
      const [profile,setProfile]=useState(props.props ? props.props : props)
-    const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
+    const candidatMotivationIcons = [{ icon: "", motivation: 'No Motivation!' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
     const viewFullProfile=()=>{
      localStorage.setItem('embauch', JSON.stringify(props.props));
      window.open("/embauchprofile" ,"_blank")
@@ -59,7 +59,7 @@ console.log(props,"ppr")
                     <div className="col-7 EmbauchCard pt-1 px-0" >
                     <p style={{width:"100%"}}  className="text-dark mb-0"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={profile.candidatName.toLocaleUpperCase()}><b>{profile.candidatName.length > 20 ? profile.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : profile.candidatName.toLocaleUpperCase()}</b></p>
                     <p className="text-dark mb-0">{profile.candidatAge ?  <p className="age00 ml-0 mb-0">Age : <b> {profile.candidatAge}</b></p> : <b>Age Not Available!</b>}</p>
-                        <div >  <p className="text-dark d-flex"> <b>{candidatMotivationIcons[profile.candidatMotivation - 1].icon + " " + candidatMotivationIcons[profile.candidatMotivation - 1].motivation}</b> 
+                        <div >  <p className="text-dark d-flex"> <b>{candidatMotivationIcons[profile.candidatMotivation ].icon + " " + candidatMotivationIcons[profile.candidatMotivation ].motivation}</b> 
                         </p>
                         </div> 
                         
@@ -83,7 +83,7 @@ console.log(props,"ppr")
                     <p className="mb-0">Secteur: <b> {profile.candidatActivitySector ?  profile.candidatActivitySector.toLocaleUpperCase() : "No Sector!"}</b></p>
                     <p className="mb-0">Job: <b>{profile.candidatJob ? profile.candidatJob.toLocaleUpperCase() : "No Job!"}</b></p>
                     <p className="mb-0">Langues:  <b> {profile.candidatLanguages.length ? profile.candidatLanguages.length > 3 ? profile.candidatLanguages.slice(0,3).join(", ") + "..." : profile.candidatLanguages.join(", ") : "No Langues Selected!"} </b></p>
-                    <p className="mb-0">Phone Number:  <b>{profile.candidatPhone}</b></p>
+                    <p className="mb-0">Phone Number:  <b>{profile.candidatPhone ? profile.candidatPhone : "No Phone!"}</b></p>
                     <p className="mb-0">Facebook URL:  <b>{profile.candidatFBURL ? <a href={profile.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
                     <p className="preCard-Body-p">Email :  <b> {profile.candidatEmail ? profile.candidatEmail.length > 20 ? profile.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : profile.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b></p>
                     <h6 className="todoCardbodyBlue mb-0 my-1" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>

@@ -171,10 +171,10 @@ const ClientToDoCard = (props: any) => {
     {
       icon: (
         <>
-          <StarRating style={{ marginRight: "3px", width: "70%" }} />{" "}
-          <Empty style={{ marginRight: "3px", width: "70%" }} />{" "}
-          <Empty style={{ marginRight: "3px", width: "70%" }} />{" "}
-          <Empty style={{ marginRight: "3px", width: "70%" }} />{" "}
+          <StarRating style={{ marginRight: "3px", width: "70%" }} />
+          <Empty style={{ marginRight: "3px", width: "70%" }} />
+          <Empty style={{ marginRight: "3px", width: "70%" }} />
+          <Empty style={{ marginRight: "3px", width: "70%" }} />
           <Empty style={{ marginRight: "3px", width: "70%" }} />
         </>
       ),
@@ -183,31 +183,9 @@ const ClientToDoCard = (props: any) => {
       icon: (
         <>
           <StarRating style={{ marginRight: "3px", width: "70%" }} />
-          <StarRating style={{ marginRight: "3px", width: "70%" }} />{" "}
-          <Empty style={{ marginRight: "3px", width: "70%" }} />{" "}
-          <Empty style={{ marginRight: "3px", width: "70%" }} />{" "}
+          <StarRating style={{ marginRight: "3px", width: "70%" }} />
           <Empty style={{ marginRight: "3px", width: "70%" }} />
-        </>
-      ),
-    },
-    {
-      icon: (
-        <>
-          <StarRating style={{ marginRight: "3px", width: "70%" }} />{" "}
-          <StarRating style={{ marginRight: "3px", width: "70%" }} />{" "}
-          <StarRating style={{ marginRight: "3px", width: "70%" }} />{" "}
-          <Empty style={{ marginRight: "3px", width: "70%" }} />{" "}
           <Empty style={{ marginRight: "3px", width: "70%" }} />
-        </>
-      ),
-    },
-    {
-      icon: (
-        <>
-          <StarRating style={{ marginRight: "3px", width: "70%" }} />{" "}
-          <StarRating style={{ marginRight: "3px", width: "70%" }} />{" "}
-          <StarRating style={{ marginRight: "3px", width: "70%" }} />{" "}
-          <StarRating style={{ marginRight: "3px", width: "70%" }} />{" "}
           <Empty style={{ marginRight: "3px", width: "70%" }} />
         </>
       ),
@@ -216,9 +194,31 @@ const ClientToDoCard = (props: any) => {
       icon: (
         <>
           <StarRating style={{ marginRight: "3px", width: "70%" }} />
-          <StarRating style={{ marginRight: "3px", width: "70%" }} />{" "}
-          <StarRating style={{ marginRight: "3px", width: "70%" }} />{" "}
-          <StarRating style={{ marginRight: "3px", width: "70%" }} />{" "}
+          <StarRating style={{ marginRight: "3px", width: "70%" }} />
+          <StarRating style={{ marginRight: "3px", width: "70%" }} />
+          <Empty style={{ marginRight: "3px", width: "70%" }} />
+          <Empty style={{ marginRight: "3px", width: "70%" }} />
+        </>
+      ),
+    },
+    {
+      icon: (
+        <>
+          <StarRating style={{ marginRight: "3px", width: "70%" }} />
+          <StarRating style={{ marginRight: "3px", width: "70%" }} />
+          <StarRating style={{ marginRight: "3px", width: "70%" }} />
+          <StarRating style={{ marginRight: "3px", width: "70%" }} />
+          <Empty style={{ marginRight: "3px", width: "70%" }} />
+        </>
+      ),
+    },
+    {
+      icon: (
+        <>
+          <StarRating style={{ marginRight: "3px", width: "70%" }} />
+          <StarRating style={{ marginRight: "3px", width: "70%" }} />
+          <StarRating style={{ marginRight: "3px", width: "70%" }} />
+          <StarRating style={{ marginRight: "3px", width: "70%" }} />
           <StarRating style={{ marginRight: "3px", width: "70%" }} />
         </>
       ),
@@ -303,7 +303,7 @@ const ClientToDoCard = (props: any) => {
               </b>
             </p>
             <div>
-              {" "}
+              
               <p
                 className="textClientCard"
                 style={{
@@ -327,13 +327,13 @@ const ClientToDoCard = (props: any) => {
             </div>
             <div>
               <p className="textClientCard">
-                Num of position :{" "}
+                Num of position :
                 <b>
-                  {" "}
+                  
                   {props.data.numberOfPosts
                     ? props.data.numberOfPosts
                     : "No Posts!"}
-                </b>{" "}
+                </b>
               </p>
             </div>
           </div>
@@ -355,17 +355,17 @@ const ClientToDoCard = (props: any) => {
           <div className="row pxbody">
             <div className="col-5 fontStylingCardDetails px-0 py-1">
               <p className="fontStylingCardP">
-                Secteur :{" "}
+                Secteur :
                 {props.data.clientActivitySector
-                  ? props.data.clientActivitySector.length > 15
+                  ? props.data.clientActivitySector.length > 14
                     ? props.data.clientActivitySector
                         .toLocaleUpperCase()
                         .slice(0, 14) + "..."
                     : props.data.clientActivitySector.toLocaleUpperCase()
-                  : "No Sector!"}{" "}
+                  : "No Sector!"}
               </p>
               <p className="fontStylingCardP">
-                Job :{" "}
+                Job :
                 {props.data.clientJob
                   ? props.data.clientJob.length > 15
                     ? props.data.clientJob.toLocaleUpperCase().slice(0, 14) +
@@ -374,13 +374,13 @@ const ClientToDoCard = (props: any) => {
                   : "No Job!"}
               </p>
               <p>
-                Langues :{" "}
+                Langues :
                 <b>
-                  {" "}
+                  
                   {props.data.clientLanguages.length
                     ? props.data.clientLanguages.join(", ")
                     : "No Langues!"}
-                </b>{" "}
+                </b>
               </p>
               <p>
                 Phone :
@@ -388,57 +388,57 @@ const ClientToDoCard = (props: any) => {
                   {props.data.clientPhone.length
                     ? props.data.clientPhone
                     : "No Phone Number!"}
-                </b>{" "}
+                </b>
               </p>
               <p>
-                Estimated CA :{" "}
+                Estimated CA :
                 <b>
                   {props.data.jobTotalBudget
                     ? props.data.jobTotalBudget + " €"
                     : "N/A"}
-                </b>{" "}
+                </b>
               </p>
             </div>
             <div className="col-7 fontStylingCardDetails px-0 pt-1">
               <p>
-                Salary by person :{" "}
+                Salary by person :
                 <b>
                   {props.data.netSalary ? props.data.netSalary + "€" || props.data.netSalary + " €" : "0€"}
-                </b>{" "}
+                </b>
               </p>
               <p>
-                E-Mail :{" "}
+                E-Mail :
                 <b>
                   {props.data.clientEmail
                     ? props.data.clientEmail.length > 20
                       ? props.data.clientEmail.slice(0, 19) + "..."
                       : props.data.clientEmail
                     : "No Email!"}
-                </b>{" "}
+                </b>
               </p>
               <p>
-                Client Phone :{" "}
+                Client Phone :
                 <b>
                   {props.data.clientPhone.length
                     ? props.data.clientPhone
                     : "No Client Number!"}
-                </b>{" "}
+                </b>
               </p>
               <p>
-                Contact Name :{" "}
+                Contact Name :
                 <b>
                   {props.data.clientReferenceName
                     ? props.data.clientReferenceName
                     : "No Name!"}
-                </b>{" "}
+                </b>
               </p>
               <p>
-                Contact phone :{" "}
+                Contact phone :
                 <b>
                   {props.data.clientReferenceNumber.length
                     ? props.data.clientReferenceNumber
                     : "No Contact Number!"}
-                </b>{" "}
+                </b>
               </p>
             </div>
           </div>

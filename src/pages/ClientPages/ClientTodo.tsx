@@ -55,14 +55,14 @@ function ClientToDoList() {
   const [optionsOthersFilter, setOtherOptions] = useState([]);
   const [motivationOptions, setMotivationOptions] = useState([]);
   const [importanceOptions, setImportanceOptions] = useState([]) as any;
-  console.log(status);
-  console.log(selectedSector, selectedJob, "allfield");
+  
+ 
  
 
 
   const loadMoreHandle = (i) => {
     let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
-    console.log(bottom,"bottom")
+  
     if (bottom) {
       if(selectedSector.length === 0 &&
         selectedJob.length === 0 &&
@@ -131,7 +131,7 @@ const fetchProfileS = async (page) => {
 }})
     .catch((err) => err);
 };
-console.log(filterData.length ," length")
+
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: "white" }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -184,7 +184,8 @@ console.log(filterData.length ," length")
       },
     }),
   };
-  console.log(EmailCheck, "email");
+
+  
 
   const MissingHandler = (checked, e, id) => {
     setNameOptions([]);
@@ -202,7 +203,6 @@ console.log(filterData.length ," length")
     setSectors([]);
     setSelectedJob([]);
     setSelectedSector("");
-    console.log(id, "id");
     if (id == "EmailMissing") {
       if (checked == true) {
         email=true
@@ -230,7 +230,7 @@ console.log(filterData.length ," length")
     if (sectors.length == 0) {
       fetchAllSectors()
         .then((data) => {
-          console.log(data.data);
+         
           setSectors([...data.data]);
         })
         .catch((err) => {
@@ -241,10 +241,10 @@ console.log(filterData.length ," length")
       return { value: ajob.jobName, label: ajob.jobName, color: "#FF8B00" };
     });
     setJobOptions([...jobResults]);
-    console.log(jobs);
+   
   }, [jobs]);
   useEffect(() => {
-    console.log(sectors);
+  
     let sectorops = sectors.map((asector) => {
       return {
         value: asector.sectorName,
@@ -326,7 +326,6 @@ setTimeout(()=>{
   const HandelOthers = (e) => {
     // setEmail("")
     // setPhone("")
-    console.log(e)
     email=false;
     phone=false;
     SelectedName = [];
@@ -334,7 +333,6 @@ setTimeout(()=>{
     Importance = [];
     MotivationArr = [];
     FilterJob = [];
-    console.log(e.value);
     let OthersF=[]
     e.map((el)=>{
       OthersF.push(el.value)
@@ -360,8 +358,6 @@ setTimeout(()=>{
     } else if (e.value !== "Select Motivation") {
       MotivationArr = [];
       let MField = e.value;
-
-      console.log(MField, "motivation");
       MotivationArr.push(MField);
       filterFunction();
       // setSelectedSector(sectorField);
@@ -407,7 +403,6 @@ setTimeout(()=>{
     OthersFilterArr = [];
     FilterJob = [];
     setSelectedJob([]);
-    console.log(e);
     if (e.value === "Select Un Secteur") {
       setJobs([]);
       setSelectedSector("");
@@ -434,7 +429,6 @@ setTimeout(()=>{
   const HandleChecked = (e: any, job: any) => {
     // FilterJob=[]
     if (!FilterJob.find((e) => e == job.jobName)) {
-      console.log("hello");
       FilterJob.push(job.jobName);
       setSelectedJob(FilterJob);
     } else {
@@ -692,7 +686,6 @@ setTimeout(()=>{
               color: "#FF8B00",
             };
           });
-          console.log(nameops, "console");
           setNameOptions([
             { value: "Select Name", label: "Select Name", color: "#FF8B00" },
             ...nameops,
@@ -913,8 +906,6 @@ setTimeout(()=>{
         },
       ]);},1000)
     }
-
-    console.log(nameOptions, " console.log()");
   });
 
   const jobChange = async (jobval) => {
@@ -924,7 +915,6 @@ setTimeout(()=>{
       JobArr.push(el.value);
     });
     FilterJob = JobArr;
-    console.log(FilterJob, "flJob");
     filterFunction();
   };
 
@@ -982,7 +972,6 @@ setTimeout(()=>{
     },1000)
  
   };
-  console.log(cardTotallength,"height: '100vh'")
   return (
     <>
       <Toaster

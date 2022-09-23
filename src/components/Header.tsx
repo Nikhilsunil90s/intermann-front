@@ -6,6 +6,9 @@ import { API_BASE_URL } from "../config/serverApiConfig";
 import SearchModal from "./Modal/GlobalSearchModal";
 import ErrorBar from '../../src/components/Loader/SearchBarError'
 
+
+let FilDataCName
+let FilDataCNName
 const Header = () => {
   const [ModalOpen,setModalOpen]=useState(false)
   const [value,setValue]=useState("")
@@ -96,12 +99,12 @@ else if(e.target.value !== "" && e !== null){
   setInputStatus(true)
   setValue(e.target.value)
   console.log(Number.isInteger(Number(e.target.value)),"int")
-  console.log(e.target.value,"int")
+  console.log(e.target.value.toString().replaceAll(" ","").toLowerCase(),"int")
 
 if( Number.isInteger(Number(e.target.value))){
 
   
-    const FilData =   data.filter(el=>(
+    const FilDataNo =   data.filter(el=>(
       el.candidatPhone !== undefined ?
      el.candidatPhone.includes(e.target.value)
       :
@@ -111,8 +114,34 @@ if( Number.isInteger(Number(e.target.value))){
       null
       )
       )
-      setFilterData([...FilData])
-}else {
+    console.log(FilDataNo,"no")
+
+      setFilterData([...FilDataNo])
+}
+ if(e.target.value){
+   FilDataCName =   data.filter((el)=>{
+    if(el.clientCompanyName){
+    return el.clientCompanyName.toString().toLowerCase() == e.target.value.toString().toLowerCase()
+  }
+}
+  )
+  console.log(FilDataCName,"cname")
+  
+
+
+}
+if(e.target.value){
+  FilDataCNName =   data.filter((el)=>{
+   if(el.candidatName){
+   return el.candidatName.toString().toLowerCase() == e.target.value.toString().toLowerCase()
+ }
+}
+ )
+ 
+
+
+}
+if(e.target.value){
   const FilData =   data.filter(el=>(
 
     el.candidatEmail ?
@@ -124,23 +153,29 @@ if( Number.isInteger(Number(e.target.value))){
     :
 
     el.candidatName ?
-    el.candidatName.toLowerCase().includes(value.toLowerCase())
+    el.candidatName.toString().toLowerCase().replaceAll(" ","").includes(value.toString().toLowerCase().replaceAll(" ",""))
     
     :
-  
-    el.clientCompanyName.toLowerCase().includes(value.toLowerCase())
-  
+    el.clientCompanyName ?
+    el.clientCompanyName.toString().toLowerCase().replaceAll(" ","").includes(value.toString().toLowerCase().replaceAll(" ",""))
+    :
+     null
 
     )
     )
-    setFilterData([...FilData])
+    console.log(FilData)
+    setFilterData([...FilDataCName,...FilDataCNName, ...FilData])
 }
+
+
+  
+
+
 
 }
 else if(e.target.value == ""){
   setSearchOpen(false)
 }
-console.log(filterData,"fldata")
 
 }
 
@@ -216,7 +251,7 @@ console.log(filterData,"fldata")
                 
  {
       SearchOpen ? 
-       <div className={filterData.length > 0 ? "inputData p-1" : "NoinputData p-1" }>
+       <div className={filterData.length > 0? "inputData p-1" : "NoinputData p-1" }>
    
         {
         filterData.length > 0 ?

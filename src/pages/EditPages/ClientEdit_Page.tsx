@@ -1448,6 +1448,17 @@ className="SelectBtn"
                          <label className="ClientPDFFormlabel">$ numero de tel du travailleur 8</label>
                          <input className='inputStyling form-control'      onChange={onFormDataChange} name='worker_name_8'  placeholder={ profile.clientContract ? profile.clientContract.worker_name_8 !== "" ? profile.clientContract.worker_name_8 : "Input Not Available!" : "Input Not Available!"}  />
                          </div>
+                         <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ Poste du Gerant
+                    </label>
+                    <input
+                      className="inputStyling form-control"
+                      name="poste_du_gerant"
+                      onChange={onFormDataChange}
+                      placeholder={profile.clientContract ? profile.clientContract.poste_du_gerant !== "" ? profile.clientContract.poste_du_gerant : "Input Not Available!" : "Input Not Available!" }
+                    />
+                  </div>
              
                       </div>
 

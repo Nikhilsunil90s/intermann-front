@@ -139,7 +139,7 @@ return(<>
             
              :
             props.jobStatus == "Signed Contract" ?
-            <button className="SignedClientBtn" style={{padding:"10px 8px" , fontSize:"12px",fontWeight:"400"}}>SIGNED CONTRACT</button>
+            <button className="SignedClientBtn" style={{padding:"10px 8px" , fontSize:"10px",fontWeight:"400"}}>SIGNED CONTRACT</button>
 
             :
             props.candidatStatus == "Pre-Selected"?

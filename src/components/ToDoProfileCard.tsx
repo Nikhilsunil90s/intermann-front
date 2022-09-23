@@ -41,7 +41,7 @@ const fetchProfilesClients = async () => {
   };
    let state ={profileData:props.data,path:"/todolist"}
 
-   const [candidatMotivationIcons,setMotivation] = useState([{ icon: "no", motivation: 'no' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }]);
+   const [candidatMotivationIcons,setMotivation] = useState([{ icon: "No", motivation: 'Motivation!' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }]);
 
    
     const editCandidatProfile = () => {
@@ -95,7 +95,7 @@ const fetchProfilesClients = async () => {
                     <div className="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 fontStylinForcards">
                     <p style={{width:"100%"}}  className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.candidatName.toLocaleUpperCase()}><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
                         <p className="text-dark mb-0">{props.data.candidatAge ?  <p className="age00 mb-0">Age : <b> {props.data.candidatAge}</b></p> : <b>Age Not Available!</b>}</p>
-                        <div >  <p className="text-dark d-flex mb-0"> <b>{props.data.candidatMotivation == 0 ? candidatMotivationIcons[props.data.candidatMotivation + 1].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation + 1].motivation :  candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation}</b>
+                        <div >  <p className="text-dark d-flex mb-0"> <b>{props.data.candidatMotivation == 0 ? candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation :  candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation}</b>
                         </p>
                         </div>
                        
@@ -137,7 +137,7 @@ const fetchProfilesClients = async () => {
                     <p className="todoCardbody mb-0"><b>Job : {props.data.candidatJob ? props.data.candidatJob.toLocaleUpperCase() : "No Job!"}</b> </p>
                     <p className="todoCardbody-p mb-0">Langues : <b>{props.data.candidatLanguages.length !== 0 ? props.data.candidatLanguages.length > 3 ? props.data.candidatLanguages.slice(0,3).join(", ") + "...":  props.data.candidatLanguages.join(", ") : "No Langues Selected!"}</b>
                     </p>
-                    <p className="todoCardbody-p mb-0">Phone Number : <b>{props.data.candidatPhone}</b> </p>
+                    <p className="todoCardbody-p mb-0">Phone Number : <b>{props.data.candidatPhone ? props.data.candidatPhone : "No Phone!"}</b> </p>
                     <p className="todoCardbody-p " style={{marginBottom:"8px"}}>Facebook URL : <b>{props.data.candidatFBURL ? <a href={props.data.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile</a> : "No Facebook Profile!"}</b></p>
                     <p className="preCard-Body-p">Email :  <b> {props.data.candidatEmail ? props.data.candidatEmail.length > 20 ? props.data.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.data.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b></p>
                     <p className="todoCardbodyBlue py-1" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>

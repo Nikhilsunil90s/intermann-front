@@ -52,7 +52,7 @@ console.log(profile,"profile")
 
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
-  const candidatMotivationIcons = [{ icon: "no", motivation: 'no' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
+  const candidatMotivationIcons = [{ icon: "", motivation: 'No Motivation!' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
   const hiddenFileInput = React.useRef(null);
   const [recommendations, setRecommendations] = useState([]);
   const [candidatContactOne, setCandidatContactOne] = useState(profile.candidatPhone != "" ? profile.candidatPhone.split(" ").join("") : "");
@@ -655,11 +655,11 @@ className="SelectBtn"
               <div className="row">
                 <div className="col-12 d-flex AnneesStyle">
                  <p className="">Années d’expériance :</p>
-                 <span> {profile.candidatYearsExperience}years </span>
+                 <span> {profile.candidatYearsExperience ? profile.candidatYearsExperience : "No "}years </span>
                 </div>
                 <div className="col-12 d-flex AddressEnteredBy">
                  <p className="">Adresse : </p>
-                 <span> {profile.candidatAddress}</span>
+                 <span> {profile.candidatAddress ? profile.candidatAddress : "No Address!"}</span>
                 </div><div className="col-12 d-flex AddressEnteredBy">
                  <p className="">Ajouté par/Added by :</p>
                  <span> {profile.enteredBy}</span>

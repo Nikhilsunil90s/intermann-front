@@ -376,27 +376,31 @@ color: #ADADAD;
 }
 
 .inputData {
-    
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+    border-left: 1px solid #000;
     height: 50%;
     width: 46%;
     position: fixed;
     right: 13px;
     z-index: 9999990;
-    top: 65px;
+    top: 70px;
     background-color: #ffff;
-    border-radius: 10px;
+    border-radius: 0px 0px 10px 10px;
     overflow-y: scroll;
 }
 .NoinputData {
-    
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+    border-left: 1px solid #000;
     height: 30%;
     width: 36%;
     position: fixed;
     right: 13px;
     z-index: 9999990;
-    top: 65px;
+    top: 70px;
     background-color: #ffff;
-    border-radius: 10px;
+    border-radius: 0px 0px 10px 10px;
     display: flex;
     justify-content: center;
     align-items: center;

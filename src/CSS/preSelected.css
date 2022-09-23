@@ -80,10 +80,20 @@ color: #92929D;
 font-style: normal !important;
 font-weight: 600 !important;
 font-size: 12px !important;
-line-height: 5px !important;
+line-height: 22px !important;
 display: flex;
 align-items: center;
 color: #000000 !important;
+}
+.preCards-Body {
+    font-family: 'Poppins' !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    line-height: 22px !important;
+    display: flex;
+    align-items: center;
+    color: #000000 !important;
 }
 .preSelectedCommentBox{
     background: #FFF7EE;
@@ -360,7 +370,7 @@ border-radius: 10px;
         font-style: normal !important;
         font-weight: 600 !important;
         font-size: 12px !important;
-        line-height: 5px !important;
+        line-height:5px !important;
         display: flex;
         align-items: center;
         color: #000000 !important;
@@ -955,6 +965,16 @@ color: #ffff;
         align-items: center;
         color: #000000 !important;
     }
+    .preCards-Body {
+        font-family: 'Poppins' !important;
+        font-style: normal !important;
+        font-weight: 600 !important;
+        font-size: 16px !important;
+        line-height: 5px !important;
+        display: flex;
+        align-items: center;
+        color: #000000 !important;
+    }
     .preCard-Body-p {
         font-family: 'Poppins' !important;
         font-style: normal !important;
@@ -965,12 +985,12 @@ color: #ffff;
         align-items: center;
         color: #000000 !important;
     }
-    .preCard-Body {
+    .preCards-Body  {
         font-family: 'Poppins' !important;
         font-style: normal !important;
         font-weight: 600 !important;
         font-size: 16px !important;
-        line-height: 5px !important;
+        line-height: 22px !important;
         display: flex;
         align-items: center;
         color: #000000 !important;

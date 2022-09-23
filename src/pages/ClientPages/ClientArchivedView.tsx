@@ -135,6 +135,7 @@ function ArchivedViewPage() {
     },
   ];
   const candidatMotivationIcons = [
+    { icon: "", motivation: "No Motivation!" },
     { icon: "😟", motivation: "Disappointed" },
     { icon: "🙁", motivation: "Not Really" },
     { icon: "😊", motivation: "Like" },
@@ -1020,29 +1021,21 @@ function ArchivedViewPage() {
                           ? candidatImportanceIcons[
                               profile.clientImportance - 1
                             ]?.icon
-                          : "No Importance"}
+                          : "No Importance!"}
                       </b>
                     </p>
                     <p className="mb-0 pt-1" style={{ width: "130%" }}>
                       Motivation :
                       <b style={{ background: "transparent", zIndex: "9999" }}>
-                        {candidatMotivationIcons[profile.clientMotivation - 1]
-                          ?.icon +
-                        " " +
-                        candidatMotivationIcons[profile.clientMotivation - 1]
-                          ?.motivation
-                          ? candidatMotivationIcons[
-                              profile.clientMotivation != 0
-                                ? profile.clientMotivation - 1
-                                : profile.clientMotivation
-                            ]?.icon +
+                        { candidatMotivationIcons[
+                            profile.clientMotivation]?.icon +
                             " " +
                             candidatMotivationIcons[
-                              profile.clientMotivation != 0
-                                ? profile.clientMotivation - 1
-                                : profile.clientMotivation
+                           
+                                 profile.clientMotivation
+                                
                             ]?.motivation
-                          : "No Motivation!"}
+                        }
                       </b>
                     </p>
 
@@ -1731,7 +1724,7 @@ function ArchivedViewPage() {
                           color: "#92929D",
                         }}
                       >
-                        contrat client file not Uploaded Yet
+                        {UploadTextBtn} file not Uploaded Yet
                       </p>
                     </div>
                   )}

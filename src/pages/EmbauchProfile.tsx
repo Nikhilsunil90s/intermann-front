@@ -37,7 +37,7 @@ function ProgressCard() {
   const [profile, setProfile] = useState<any>( state ? state : profileData );
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
-  const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
+  const candidatMotivationIcons = [{ icon: "", motivation: 'No Motivation!' }, { icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
   const [documentList, setDocumentList] = useState([]);
   const hiddenFileInput = React.useRef(null);
   const [candidatDocument, setCandidatDocument] = useState("");
@@ -68,7 +68,7 @@ function ProgressCard() {
   
  useEffect(()=>{
      setProfile(state ? state : profileData)
-},[state,profileData])
+},[state])
 
 
   let data = {profileData:profile,path:"/embauchprofile"}
@@ -435,18 +435,18 @@ className="SelectBtn"
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 card-preProfile">
                   <div className="d-flex">
                     <p>
-                      Name : {profile.candidatName.toLocaleUpperCase()}|{profile.candidatAge}
+                      Name : {profile.candidatName.toLocaleUpperCase()}|{profile.candidatAge ?profile.candidatAge : "No Age"}
                     </p>
                     <span className="card-xlSpan">(Age)</span>
                   </div>
                   <div>
                     <p className="d-flex mb-0">
-                    <p>Motivation : <b>{candidatMotivationIcons[profile.candidatMotivation - 1].icon + " " + candidatMotivationIcons[profile.candidatMotivation - 1].motivation}</b> </p>
+                    <p>Motivation : <b>{candidatMotivationIcons[profile.candidatMotivation ].icon + " " + candidatMotivationIcons[profile.candidatMotivation ].motivation}</b> </p>
                     </p>
                   </div>
-                  <p>Secteur : {profile.candidatActivitySector.toLocaleUpperCase()}</p>
+                  <p>Secteur : {profile.candidatActivitySector ? profile.candidatActivitySector.toLocaleUpperCase() : "No Secteur!"}</p>
                   <p className="" style={{ width: "150%" }}>
-                    Métier/Job :{profile.candidatJob.toLocaleUpperCase()}
+                    Métier/Job :{profile.candidatJob ? profile.candidatJob.toLocaleUpperCase() : "No Job!"}
                   </p>
                 </div>
                 <div className="col-4 px-0 text-end end-class d-flex align-items-center justify-content-center">
@@ -543,12 +543,12 @@ className="SelectBtn"
                    
                     <div className="d-flex">
                       <p>Skills/note: </p>
-                      <span>{profile.candidatSkills}</span>
+                      <span>{profile.candidatSkills ? profile.candidatSkills :"No Skills!"}</span>
                     </div>
                     <div className="d-flex">
                       <p className="text-dark">Trouvé sur  : </p>
                       <span className="text-dark">
-                        {profile.candidatJob}
+                        {profile.candidatJob ? profile.candidatJob : "No Trouvé sur!"}
                       </span>
                     </div>
                    
@@ -701,7 +701,7 @@ null
               <div className="row">
                 <div className="col-12 d-flex AnneesStyle">
                  <p className="">Années d’expériance :</p>
-                 <span> {profile.candidatYearsExperience}years </span>
+                 <span> {profile.candidatYearsExperience ? profile.candidatYearsExperience : "No "}years </span>
                 </div>
                 <div className="col-12 d-flex AddressEnteredBy">
                  <p className="">Adresse : </p>

@@ -331,7 +331,7 @@ function Signed() {
   ];
 
   const candidatMotivationIcons = [
-    { icon: "", motivation: "No Motivation" },
+    { icon: "", motivation: "No Motivation!" },
     { icon: "😟", motivation: "Disappointed" },
     { icon: "🙁", motivation: "Not Really" },
     { icon: "😊", motivation: "Like" },
@@ -1580,7 +1580,7 @@ const Editdata ={state:profile,path:"/clientSigned"}
                           ? candidatImportanceIcons[
                               profile.clientImportance - 1
                             ]?.icon
-                          : "No Importance"}
+                          : "No Importance!"}
                       </b>
                     </p>
                     <p className="mb-0 pt-1" style={{ width: "130%" }}>
@@ -2306,7 +2306,7 @@ const Editdata ={state:profile,path:"/clientSigned"}
                           color: "#92929D",
                         }}
                       >
-                        contrat client file not Uploaded Yet
+                        {UploadTextBtn} file not Uploaded Yet
                       </p>
                     </div>
                   )}

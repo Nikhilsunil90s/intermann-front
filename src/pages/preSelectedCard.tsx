@@ -19,7 +19,7 @@ const PreSelectedCard = (props: any,) => {
     const [ClientID,setClientID]=useState([])
  
 
-    const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
+    const candidatMotivationIcons = [{ icon: "", motivation: 'No Motivation!' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
     const CardOptions=[{
         value:"editProfile",label:"Edit Profile"
         },
@@ -51,7 +51,10 @@ const PreSelectedCard = (props: any,) => {
         setShowArchiveModal(true) 
       }
     }
-
+    const showCustomerProfile =(data)=>{
+        localStorage.setItem("profile", JSON.stringify(data));
+        window.open("/clientSignedView", "_blank");
+    }
 
     const datenow=moment().format('YYYY-MM-DD')
     
@@ -74,7 +77,7 @@ const PreSelectedCard = (props: any,) => {
                     <div className="col-xxl-9 col-xl-8 col-md-8 col-lg-8 fontStylinForPrecards">
                         <p style={{width:"100%"}}  className="text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.candidatName.toLocaleUpperCase()}><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
                         <p className="text-dark"><b>{props.data.candidatAge ? props.data.candidatAge : "Age Not Available!"}</b></p>
-                        <div >  <p className="text-dark d-flex"><b>{candidatMotivationIcons[props.data.candidatMotivation - 1].icon + " " + candidatMotivationIcons[props.data.candidatMotivation - 1].motivation}</b>
+                        <div >  <p className="text-dark d-flex"><b>{candidatMotivationIcons[props.data.candidatMotivation].icon + " " + candidatMotivationIcons[props.data.candidatMotivation].motivation}</b>
                         </p>
                         </div>
                        
@@ -108,11 +111,11 @@ const PreSelectedCard = (props: any,) => {
                 <div className="card-todoBody py-1" style={{paddingLeft:"5px"}}>
                
                     <p className="preCard-Body  ">Secteur : {props.data.candidatActivitySector ?  props.data.candidatActivitySector.toLocaleUpperCase() : "No Sector!"}</p>
-                    <p className="preCard-Body">Job : {props.data.candidatJob ? props.data.candidatJob.toLocaleUpperCase() : "No Job!"}</p> 
-                <p className="preCard-Body-p">Candidats Age : <b>{props.data.candidatAge}</b></p> 
-                    <p className="preCard-Body-p">Langues :  <b>{props.data.candidatLanguages ? props.data.candidatLanguages.length > 3 ? props.data.candidatLanguages.slice(0,3).join(", ") + "..." : props.data.candidatLanguages.join(", "): "No Langues Selected!"}</b>
+                    <p className="preCard-Body ">Job : {props.data.candidatJob ? props.data.candidatJob.toLocaleUpperCase() : "No Job!"}</p> 
+                <p className="preCard-Body-p">Candidats Age : <b>{props.data.candidatAge ? props.data.candidatAge :"No Age!"}</b></p> 
+                    <p className="preCard-Body-p">Langues :  <b>{props.data.candidatLanguages.length > 0 ? props.data.candidatLanguages.length > 3 ? props.data.candidatLanguages.slice(0,3).join(", ") + "..." : props.data.candidatLanguages.join(", "): "No Langues Selected!"}</b>
                      </p>
-                    <p className="preCard-Body-p">Phone Number : <b>{props.data.candidatPhone} </b></p>
+                    <p className="preCard-Body-p">Phone Number : <b>{props.data.candidatPhone ? props.data.candidatPhone : "No Phone!"} </b></p>
                     <p className="preCard-Body-p">Facebook URL : <b>{props.data.candidatFBURL ? <a href={props.data.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
                     <p className="preCard-Body-p">Email :  <b> {props.data.candidatEmail ? props.data.candidatEmail.length > 20 ? props.data.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.data.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b></p>
                     <p className="preCard-Body-blue " style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
@@ -121,7 +124,7 @@ const PreSelectedCard = (props: any,) => {
                 </div>
                 <div className="col-12">
                  <div className="row preSelectedCommentBox">
-                    <div className="col-12 preCard-Body ">Preselected for client : {props.data.candidatPreSelectedFor ? props.data.candidatPreSelectedFor.length > 2 ?props.data.candidatPreSelectedFor.map((el)=>{return el.clientId.clientCompanyName}).join(", "): props.data.candidatPreSelectedFor.map((el)=>(el.clientId.clientCompanyName)) : "No Client!"}</div>
+                    <div className="col-12 preCards-Body ">Preselected for client : {props.data.candidatPreSelectedFor ? props.data.candidatPreSelectedFor.length > 2 ? <p className="mb-0" >{props.data.candidatPreSelectedFor.map((el)=>{return <p className="mb-0 cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.clientId.clientCompanyName.toLocaleUpperCase()} onClick={()=>showCustomerProfile(el.clientId)}>{el.clientId.clientCompanyName.join(", ")}</p>} )}</p>:<p className="mb-0"> {props.data.candidatPreSelectedFor.map((el)=>(<p className="mb-0 cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={"Click On This For Full Profile View!"}  onClick={()=>showCustomerProfile(el.clientId)}>{el.clientId.clientCompanyName}</p>))}</p> : "No Client!"}</div>
                     <div className="col-12"><ReadMoreReact text={props.data.candidatPreSelectedFor[0] ? props.data.candidatPreSelectedFor[0].reasonForPreSelection : "No Reason Available!"}
             min={100}
             ideal={150}

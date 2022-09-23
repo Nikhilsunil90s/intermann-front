@@ -33,7 +33,7 @@ function PreSelectedView() {
   const [Data,setData]=useState(profileData)
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
-  const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
+  const candidatMotivationIcons = [{ icon: "", motivation: 'No Motivation!' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
   const hiddenFileInput = React.useRef(null);
   const [candidatDocument, setCandidatDocument] = useState("");
   const [progress, setProgress] = useState<any>(0);
@@ -392,7 +392,7 @@ className="SelectBtn"
                   </div>
                   <div>
                     <p className="d-flex mb-0">
-                    <p>Motivation : <b>{candidatMotivationIcons[profile.candidatMotivation - 1].icon + " " + candidatMotivationIcons[profile.candidatMotivation - 1].motivation}</b> </p>
+                    <p>Motivation : <b>{candidatMotivationIcons[profile.candidatMotivation].icon + " " + candidatMotivationIcons[profile.candidatMotivation].motivation}</b> </p>
                     </p>
                   </div>
                   <p>Secteur : {profile.candidatActivitySector ? profile.candidatActivitySector.toLocaleUpperCase() : "No Sector!"}</p>
@@ -488,7 +488,7 @@ null
                     <div className="d-flex">
                       <p className="text-dark">Trouvé sur  : </p>
                       <span className="text-dark">
-                        {profile.candidatJob}
+                      {profile.candidatJob ? profile.candidatJob : "No Trouvé!"}
                       </span>
                     </div>
                    
@@ -520,7 +520,7 @@ null
                   null
                   }
                 <div className="text-start px-1">
-                  <p className="Span-Styling my-2 px-3"> {profile.candidatEmail ? "Mail :" + profile.candidatEmail : null}</p>
+                  <p className="Span-Styling my-2 px-3"> {profile.candidatFBURL ? "Facebook  :" + profile.candidatFBURL : null}</p>
                   </div>
                   {
 profile.candidatFBURL ?
@@ -642,11 +642,11 @@ null
               <div className="row">
                 <div className="col-12 d-flex AnneesStyle">
                  <p className="">Années d’expériance :</p>
-                 <span> {profile.candidatYearsExperience}years </span>
+                 <span> {profile.candidatYearsExperience ? profile.candidatYearsExperience : "No "}years </span>
                 </div>
                 <div className="col-12 d-flex AddressEnteredBy">
                  <p className="">Adresse : </p>
-                 <span> {profile.candidatAddress}</span>
+                 <span> {profile.candidatAddress ? profile.candidatAddress : "No Address!"}</span>
                 </div><div className="col-12 d-flex AddressEnteredBy">
                  <p className="">Ajouté par/Added by :</p>
                  <span> {profile.enteredBy}</span>

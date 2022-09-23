@@ -14,6 +14,7 @@ import { ColourOption ,colourOptions} from "../../Selecteddata/data";
 import $ from "jquery";
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
+import ErrorLoader from "../../components/Loader/SearchBarError";
 
 const ClientDataFormat = {
     clientCompanyName: "",
@@ -1839,8 +1840,9 @@ type="button"
                                             </div>
                                             <div className="col-12 mt-1 ">
                        
-                         
-                                            <div className='row p-1' >
+                         {profile.clientContract ?
+                          
+                          <div className='row p-1' >
                          <div className='col-4  d-grid '>
                              <label className="ClientPDFFormlabel">$ numero contrat</label>
                              <input className='form-control inputStyling'      onChange={onFormDataChange}  name='numero_contract'  placeholder={profile.clientContract ? profile.clientContract.numero_contract !== "" ? profile.clientContract.numero_contract :"Input Not Available!" :"Input Not Available!"} />
@@ -1996,6 +1998,18 @@ type="button"
                   </div>
              
                       </div>
+                      :
+
+                      <div className="col-12 d-flex justify-content-center align-items-center py-2">
+<ErrorLoader  />
+<p className="mb-0 ErrorSearchBox">
+No Contract Available for this Signed Client! Please add a New Contract.
+</p>
+</div>
+                        
+                        
+                        }
+                                            
                       
                  
                  </div>

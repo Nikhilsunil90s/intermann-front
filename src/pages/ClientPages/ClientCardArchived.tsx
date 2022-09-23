@@ -102,7 +102,7 @@ let end = new Date(props.data.jobEndDate);
                 <div className="col-12 ">
     <div className="row pl-1">
                 <div className="col-5 fontStylingCardDetails px-0 py-1">
-                <p className="fontStylingCardP">Secteur : {props.data.clientActivitySector ? props.data.clientActivitySector.length > 20 ? props.data.clientActivitySector.toLocaleUpperCase().slice(0, 15) + "..." :props.data.clientActivitySector.toLocaleUpperCase() : "No Sector!"} </p>
+                <p className="fontStylingCardP">Secteur : {props.data.clientActivitySector ? props.data.clientActivitySector.length > 14 ? props.data.clientActivitySector.toLocaleUpperCase().slice(0, 14) + "..." :props.data.clientActivitySector.toLocaleUpperCase() : "No Sector!"} </p>
                     <p className="fontStylingCardP">Job :  {props.data.clientJob ? props.data.clientJob.length > 20 ?  props.data.clientJob.toLocaleUpperCase().slice(0,15) + "..." : props.data.clientJob.toLocaleUpperCase() : "No Job!"}</p>
                     <p>Langues : <b> {props.data.clientLanguages.length ? props.data.clientLanguages.join(", ") : "No Langues!"}</b> </p>
                     <p>Phone :<b>{props.data.clientPhone.length ? props.data.clientPhone : "No Phone Number!"}</b> </p>

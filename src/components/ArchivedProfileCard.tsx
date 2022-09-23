@@ -16,7 +16,7 @@ const ArchivedProfileCard = (props: any) => {
     const [ResetModalProfile,setResetModalProfile]=useState(false)
     const [showArchiveModal, setShowArchiveModal] = useState(false)
     //  let data={state:props.props,path:"/archivedlist"}
-    const [candidatMotivationIcons,setMotivation] = useState([{ icon: "no", motivation: 'no' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }]);
+    const [candidatMotivationIcons,setMotivation] = useState([{ icon: "", motivation: 'No Motivation!' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }]);
 
 
     let data={profileData:props.props,path:"/archivedprofile"}
@@ -70,9 +70,9 @@ const ArchivedProfileCard = (props: any) => {
                         />
                     </div>
                     <div className="col-7 ArchivedCard pt-1 px-0" >
-                    <p style={{width:"100%"}} className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.props.candidatName.toLocaleUpperCase()}><b>{props.props.candidatName.length > 20 ? props.props.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.props.candidatName.toLocaleUpperCase()}</b></p>
+                    <p style={{width:"100%"}} className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.props.candidatName.toLocaleUpperCase()}><b>{props.props.candidatName.length > 15 ? props.props.candidatName.slice(0, 18).toLocaleUpperCase() + "..." : props.props.candidatName.toLocaleUpperCase()}</b></p>
                     <p className="text-dark mb-0">{props.props.candidatAge ?  <p className="age00 ml-0 mb-0">Age : <b> {props.props.candidatAge}</b></p> : <b>Age Not Available!</b>}</p>
-                        <div >  <p className="text-dark d-flex"> <b>{props.props.candidatMotivation == 0 ? candidatMotivationIcons[props.props.candidatMotivation + 1].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation + 1].motivation :  candidatMotivationIcons[props.props.candidatMotivation].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation}</b>
+                        <div >  <p className="text-dark d-flex"> <b>{props.props.candidatMotivation == 0 ? candidatMotivationIcons[props.props.candidatMotivation ].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation :  candidatMotivationIcons[props.props.candidatMotivation].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation}</b>
                         </p>
                         </div>
                         
@@ -109,8 +109,8 @@ const ArchivedProfileCard = (props: any) => {
                     <p>Secteur: <b> {props.props.candidatActivitySector ?  props.props.candidatActivitySector.toLocaleUpperCase() : "No Sector!"}</b></p>
                     <p>Job: <b> {props.props.candidatJob ? props.props.candidatJob.toLocaleUpperCase() : "No Job!"}</b></p>
                     <p>Candidats age: <b>{props.props.candidatAge ? props.props.candidatAge +"years old" : "Age Not Available!"}</b></p>
-                    <p>Langues:  <b>  {props.props.candidatLanguages ? props.props.candidatLanguages.length > 3 ? props.props.candidatLanguages.slice(0,3).join(", ") + "..." : props.props.candidatLanguages.join(", "): "No Langues Selected!"} </b></p>
-                    <p>Phone Number:  <b>{props.props.candidatPhone}</b></p>
+                    <p>Langues:  <b>  {props.props.candidatLanguages.length ? props.props.candidatLanguages.length > 3 ? props.props.candidatLanguages.slice(0,3).join(", ") + "..." : props.props.candidatLanguages.join(", "): "No Langues Selected!"} </b></p>
+                    <p>Phone Number:  <b>{props.props.candidatPhone ? props.props.candidatPhone : "No Phone!"}</b></p>
                     <p>Facebook URL:  <b>{props.props.candidatFBURL ? <a href={props.props.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
                     <p>Email: <b>{props.props.candidatEmail ? props.props.candidatEmail.length > 20 ? props.props.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.props.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b> </p>
                     <p className=" my-1"  style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}><b>Ready for work: {date >= start && date <= end  ? props.props.candidatStartDate  + "  To  " + props.props.candidatEndDate :   "⚠️" + props.props.candidatStartDate +"  To  " + props.props.candidatEndDate } </b></p>

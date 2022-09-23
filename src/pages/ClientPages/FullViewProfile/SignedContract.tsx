@@ -15,7 +15,7 @@ import { ProgressBar } from "react-bootstrap";
 import ProfileLoader from "../../../components/Loader/ProfilesLoader";
 import RenameDoc from "../../../components/Modal/RenameDoc_Modal";
 import PreModalClient from "../../../components/Modal/preSelectedModalForClient";
-
+import ErrorLoader from '../../../components/Loader/SearchBarError' 
 let RenameData = [];
 let id = "";
 function Signed() {
@@ -136,7 +136,7 @@ useEffect(()=>{
   ];
 
   const candidatMotivationIcons = [
-    { icon: "No icon", motivation: "No Motivation" },
+    { icon: "", motivation: "No Motivation!" },
     { icon: "😟", motivation: "Disappointed" },
     { icon: "🙁", motivation: "Not Really" },
     { icon: "😊", motivation: "Like" },
@@ -598,12 +598,12 @@ useEffect(()=>{
                     </p>
                     <span className="card-xlSpan">(Age)</span>
                   </div>
-                  <p>Number of Positions : {profile.numberOfPosts}</p>
+                  <p>Number of Positions : {profile.numberOfPosts ? profile.numberOfPosts  : "No Posts!"}</p>
 
-                  <p>Secteur : {profile.clientActivitySector}</p>
-                  <p>Métier/Job : {profile.clientJob}</p>
+                  <p>Secteur : {profile.clientActivitySector ? profile.clientActivitySector : "No Secteur!"}</p>
+                  <p>Métier/Job : {profile.clientJob ? profile.clientJob : "No Job!"}</p>
                   <p style={{ width: "120%" }}>
-                    Contact Name : {profile.clientReferenceName}
+                    Contact Name : {profile.clientReferenceName ? profile.clientReferenceName : "No Name!"}
                   </p>
                 </div>
                 {/* <div className="col-4 text-end end-class d-grid justify-content-center align-items-center"> */}
@@ -1297,18 +1297,18 @@ useEffect(()=>{
                           ? candidatImportanceIcons[
                               profile.clientImportance - 1
                             ]?.icon
-                          : "No Importance"}
+                          : "No Importance!"}
                       </b>
                     </p>
                     <p className="mb-0 pt-1" style={{ width: "130%" }}>
                       Motivation :
                       <b style={{ background: "transparent", zIndex: "9999" }}>
                         {candidatMotivationIcons[profile.clientMotivation]
-                          ?.icon +
-                        " " +
-                        candidatMotivationIcons[profile.clientMotivation]
-                          ?.motivation
-                          ? candidatMotivationIcons[profile.clientMotivation]
+                              ?.icon +
+                            " " +
+                            candidatMotivationIcons[profile.clientMotivation]
+                              ?.motivation ?
+                              candidatMotivationIcons[profile.clientMotivation]
                               ?.icon +
                             " " +
                             candidatMotivationIcons[profile.clientMotivation]
@@ -1490,9 +1490,19 @@ useEffect(()=>{
                           </div>
                         </div>
                       </div>
-                      :  
-<p className="text-center">No Documents Uploaded!</p>
-   
+                      : 
+                      <>
+                      <div className="col-12 d-flex justify-content-center"> 
+<p className="d-flex align-items-center mb-0" style={{
+                        fontFamily: "Poppins",
+                        fontStyle: "normal",
+                        fontWeight: "700",
+                        fontSize: "16px",
+                        lineHeight: "24px",
+                        color: "#000000",
+                      }}><ErrorLoader />No Documents Uploaded!</p>
+</div>
+</>
                     }
     {progress > 0 && progress < 100 && documentList.length > 0 ?
                         <div className="col-6 mx-0">

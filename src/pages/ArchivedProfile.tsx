@@ -29,7 +29,7 @@ const ArchivedProfile = () => {
   const [profile, setProfile] = useState<any>(state ? state : profileData);
   const [hideProfile,setHideProfile]=useState(false)
   const [ResetModalProfile,setResetModalProfile]=useState(false)
-  const candidatMotivationIcons = [{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
+  const candidatMotivationIcons = [{ icon: "", motivation: 'No Motivation!' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
   const hiddenImageInput = React.useRef(null);
   const [UploadBtn,setSelectUpload]= useState(false)
     const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
@@ -288,18 +288,18 @@ className="SelectBtn"
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 card-TodoProfile">
                   <div className="d-flex">
                     <p>
-                     {profile.candidatName.toLocaleUpperCase()}|{profile.candidatAge}
+                     {profile.candidatName.toLocaleUpperCase()}|{profile.candidatAge ? profile.candidatAge :"No"}
                     </p>
                     <span className="card-xlSpan">(Age)</span>
                   </div>
                   <div>
                     <p className="d-flex mb-0">
-                    <p>Motivation : {candidatMotivationIcons[profile.candidatMotivation - 1].icon + " " + candidatMotivationIcons[profile.candidatMotivation - 1].motivation} </p>
+                    <p>Motivation : {candidatMotivationIcons[profile.candidatMotivation].icon + " " + candidatMotivationIcons[profile.candidatMotivation ].motivation} </p>
                     </p>
                   </div>
-                  <p>Secteur : {profile.candidatActivitySector.toLocaleUpperCase()}</p>
+                  <p>Secteur : {profile.candidatActivitySector ? profile.candidatActivitySector.toLocaleUpperCase() : "No Secteur!"}</p>
                   <p className="" style={{ width: "150%" }}>
-                    Métier/Job : {profile.candidatJob.toLocaleUpperCase()}
+                    Métier/Job : {profile.candidatJob ? profile.candidatJob.toLocaleUpperCase() :"No Job!"}
                   </p>
                 </div>
                 <div className="col-4 px-0 text-end end-class align-items-center justify-content-end pt-1 pr-2">
@@ -401,12 +401,12 @@ className="SelectBtn"
                    
                     <div className="d-flex">
                       <p>Skills/note: </p>
-                      <span>{profile.candidatSkills}</span>
+                      <span>{profile.candidatSkills ? profile.candidatSkills :"No Skills!"}</span>
                     </div>
                     <div className="d-flex">
                       <p className="text-dark">Trouvé sur  : </p>
                       <span className="text-dark">
-                        {profile.candidatJob}
+                        {profile.candidatJob ? profile.candidatJob :"No Trouvé sur!"}
                       </span>
                     </div>
                    
@@ -557,11 +557,11 @@ null
               <div className="row">
                 <div className="col-12 d-flex AnneesStyle">
                  <p className="">Années d’expériance :</p>
-                 <span> {profile.candidatYearsExperience}years </span>
+                 <span> {profile.candidatYearsExperience ? profile.candidatYearsExperience : "No "}years </span>
                 </div>
                <div className="col-12 d-flex AddressEnteredBy">
                  <p className="">Ajouté par/Added by :</p>
-                 <span> {profile.enteredBy}</span>
+                 <span> {profile.enteredBy ?profile.enteredBy :"No Added by!"}</span>
                   
                   </div>
                   <div className="col-12">

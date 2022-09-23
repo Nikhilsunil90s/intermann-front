@@ -81,69 +81,74 @@ function Signed() {
   const [activeTab, setActiveTab] = React.useState(1) as any;
   const [offre_envoye_et_nonsigne, setoffre_envoye_et_nonsigne] =
   useState() as any;
+  const [fiche_de_mise_a_disposition, setfiche_de_mise_a_disposition] =
+  useState() as any;
   const [tabItems, setTabitems] = useState([
     {
-      text: "REGES",
-      value: "reges",
-    },
-    {
-      text: "CONTRAT CLIENT",
-      value: "contrat_client",
-    },
-    { text: "CONTRAT EMPLOYES", value: "contrat_employes" },
-    {
-      text: "ID Card EMPLOYES",
-      value: "id_card_employer",
-    },
-    {
-      text: "A1",
-      value: "al",
-    },
-    {
-      text: "CONTRATS ASSURANCES EMPLOYES",
-      value: "contrats_assurances_employes",
-    },
-    {
-      text: "SISPI",
-      value: "sispi",
-    },
-    {
-      text: "DOCUMENT DE REPRESENTATION",
-      value: "document_de_represntation",
-    },
-    {
-      text: "OFFRE SIGNEE",
-      value: "offre_signee",
-    },
-    {
-      text: "ATTESTATIONS SOCIETE INTERMANN",
-      value: "attestations_societe_intermann",
-    },
-    {
-      text: "CVS",
-      value: "cvs",
-    },
-    {
-      text: "AUTRES DOCUMENTS",
-      value: "autres_documents",
-    },
-    {
-      text: "FACTURES",
-      value: "factures",
-    },
-    {
-      text: "RAPPORT ACTIVITE",
-      value: "rapport_activite",
-    },
-    {
-      text: "OFFRE ENVOYE ET NONSIGNE",
-      value: "offre_envoye_et_nonsigne",
-    },
-    {
-      text: "FICHE MEDICALE",
-      value: "fiche_medicale",
-    },
-  ]) as any;
+     text: "CONTRAT CLIENT",
+     value: "contrat_client",
+   },
+   { text: "CONTRAT EMPLOYES", value: "contrat_employes" },
+   {
+     text: "ID Card EMPLOYES",
+     value: "id_card_employer",
+   },
+   {
+     text: "A1",
+     value: "al",
+   },
+   {
+     text: "CONTRATS ASSURANCES EMPLOYES",
+     value: "contrats_assurances_employes",
+   },
+   {
+     text: "SISPI",
+     value: "sispi",
+   },
+   {
+     text: "DOCUMENT DE REPRESENTATION",
+     value: "document_de_represntation",
+   },
+   {
+     text: "OFFRE SIGNEE",
+     value: "offre_signee",
+   },
+   {
+     text: "ATTESTATIONS SOCIETE INTERMANN",
+     value: "attestations_societe_intermann",
+   },
+   {
+     text: "CVS",
+     value: "cvs",
+   },
+   {
+     text: "AUTRES DOCUMENTS",
+     value: "autres_documents",
+   },
+   {
+     text: "FACTURES",
+     value: "factures",
+   },
+   {
+     text: "RAPPORT ACTIVITE",
+     value: "rapport_activite",
+   },
+   {
+     text: "OFFRE ENVOYE ET NONSIGNE",
+     value: "offre_envoye_et_nonsigne",
+   },  {
+     text: "FICHE MEDICALE",
+     value: "fiche_medicale",
+   },
+   {
+     text: "REGES",
+     value: "reges",
+   },
+   {
+     text: "FICHE DE MISE A DISPOSITION",
+     value: "fiche_de_mise_a_disposition",
+   },
+ ]) as any;
  console.log(EMPunderWorking,"emp")
   const candidatImportanceIcons = [
     {
@@ -229,15 +234,17 @@ function Signed() {
 
   useEffect(() => {
     profile.clientDocuments.map((el) => {
-      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("reges"))) {
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("reges"))
+      ) {
         setreges([el]);
       }
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrat_client"))
       ) {
-        setcontrat_client([el]);
-      }
-
+       setcontrat_client([el]);
+        }
+       
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(
           JSON.stringify("contrat_employes")
@@ -246,36 +253,32 @@ function Signed() {
         setcontrat_employes([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(
-          JSON.stringify("carte_d'identite_employes")
-        )
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("carte_d'identite_employes"))
       ) {
         setcarte_d([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(
-          JSON.stringify("id_card_employer")
-        )
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("id_card_employer"))
       ) {
         setid_card_employer([el]);
       }
-      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("al"))) {
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("al"))
+      ) {
         setal([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(
-          JSON.stringify("contrats_assurances_employes")
-        )
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrats_assurances_employes"))
       ) {
         setcontrats_assurances_employes([el]);
       }
-      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("sispi"))) {
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("sispi"))
+      ) {
         setsispi([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(
-          JSON.stringify("document_de_represntation")
-        )
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("document_de_represntation"))
       ) {
         setdocument_de_represntation([el]);
       }
@@ -285,37 +288,32 @@ function Signed() {
         setoffre_signee([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(
-          JSON.stringify("attestations_societe_intermann")
-        )
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("attestations_societe_intermann"))
       ) {
         setattestations_societe_intermann([el]);
       }
-      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("cvs"))) {
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("cvs"))
+      ) {
         setcvs([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(
-          JSON.stringify("autres_documents")
-        )
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("autres_documents"))
       ) {
         setautres_documents([el]);
       }
-      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("factures"))) {
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("factures"))
+      ) {
         setfactures([el]);
       }
 
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(
-          JSON.stringify("rapport_activite")
-        )
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("rapport_activite"))
       ) {
         setrapport_activite([el]);
-      }
-      if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(
-          JSON.stringify("offre_envoye_et_nonsigne")
-        )
+      } if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("offre_envoye_et_nonsigne"))
       ) {
         setoffre_envoye_et_nonsigne([el]);
       }
@@ -324,11 +322,20 @@ function Signed() {
       ) {
         setfiche_medicale([el]);
       }
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("fiche_de_mise_a_disposition")
+        )
+      ) {
+        setfiche_de_mise_a_disposition([el]);
+      }
     });
-  }, [profile.clientDocuments, documentList]);
+  },[profile.clientDocuments,documentList]);
+
+
 
   const candidatMotivationIcons = [
-    { icon: "No icon", motivation: "No Motivation" },
+    { icon: "", motivation: "No Motivation!" },
     { icon: "😟", motivation: "Disappointed" },
     { icon: "🙁", motivation: "Not Really" },
     { icon: "😊", motivation: "Like" },
@@ -434,8 +441,12 @@ function Signed() {
         
           resData.data.map((el) => {
             setProfile(el)
-            setDocumentList(el.clientDocuments);
+            clDoc = el.clientDocuments.filter(
+              (el) => el.folderName == UploadName
+            );
+            setDocumentList([...clDoc]);
           });
+        
 
           setCandidatImage(
             resData.data.candidatPhoto !== undefined
@@ -791,12 +802,12 @@ function Signed() {
                     </p>
                     <span className="card-xlSpan">(Age)</span>
                   </div>
-                  <p>Number of Positions : {profile.numberOfPosts}</p>
+                  <p>Number of Positions : {profile.numberOfPosts ? profile.numberOfPosts : "No Posts!"}</p>
 
-                  <p>Secteur : {profile.clientActivitySector}</p>
-                  <p>Métier/Job : {profile.clientJob}</p>
+                  <p>Secteur : {profile.clientActivitySector !=="" ? profile.clientActivitySector  :"No Secteur!"}</p>
+                  <p>Métier/Job : {profile.clientJob !=="" ? profile.clientJob :"No Job!"}</ p>
                   <p style={{ width: "120%" }}>
-                    Contact Name : {profile.clientReferenceName}
+                    Contact Name : {profile.clientReferenceName ? profile.clientReferenceName:"No Name!"}
                   </p>
                 </div>
                 {/* <div className="col-4 text-end end-class d-grid justify-content-center align-items-center"> */}
@@ -1141,10 +1152,10 @@ function Signed() {
                 >
                   <div className="d-flex">
                     <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                      Mail :
+                     
                       {profile.clientEmail
-                        ? profile.clientEmail
-                        : "No Email Provided!"}
+                        ? " Mail :" + profile.clientEmail
+                        : null}
                     </p>
                   </div>
                   {profile.clientEmail ? (
@@ -1163,22 +1174,12 @@ function Signed() {
                         Send Email
                       </a>
                     </button>
-                  ) : (
-                    <button className="btn-TODOgmail">
-                      <span className="padding-email">
-                        <img
-                          style={{ width: "8%" }}
-                          src={require("../../../images/gmail.svg").default}
-                        />
-                      </span>
-                      No Email !
-                    </button>
-                  )}
+                  ) :null}
 
                   <div className="d-flex">
                     <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                      Contact :
-                      {profile.clientEmail ? profile.clientEmail : "No Email!"}
+                     
+                      {profile.clientEmail ? "Contact :" + profile.clientEmail : null}
                     </p>
                   </div>
 
@@ -1193,21 +1194,14 @@ function Signed() {
                       </span>
                       Send Email
                     </a>
-                  ) : (
-                    <button className="btn  fw-bold btn-TODOgmail">
-                      <span className="padding-email">
-                        <img src={require("../../../images/gmail.svg").default} />
-                      </span>
-                      No Email !
-                    </button>
-                  )}
+                  ) :null}
 
                   <div className="d-flex">
                     <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                      Company Phone :
+                     
                       {profile.clientPhone
-                        ? profile.clientPhone
-                        : "No Phone Number!"}
+                        ?  "Company Phone :" + profile.clientPhone
+                        :null}
                     </p>
                   </div>
                   {profile.clientPhone ? (
@@ -1225,24 +1219,14 @@ function Signed() {
                         Send What’s App
                       </button>
                     </a>
-                  ) : (
-                    <button className="btn-whatsapp my-1">
-                      <span className="padding-email">
-                        <img
-                          style={{ width: "8%" }}
-                          src={require("../../../images/whatsapp.svg").default}
-                        />
-                      </span>
-                      No What’s App !
-                    </button>
-                  )}
+                  ) :null}
 
                   <div className="d-flex">
                     <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                      Contact Phone :
+                     
                       {profile.clientReferenceNumber
-                        ? profile.clientReferenceNumber
-                        : "No Number!"}
+                        ? " Contact Phone :" + profile.clientReferenceNumber
+                        : null}
                     </p>
                   </div>
                   {profile.clientReferenceNumber ? (
@@ -1260,17 +1244,7 @@ function Signed() {
                         Send What’s App
                       </button>
                     </a>
-                  ) : (
-                    <button className="btn-whatsapp my-1">
-                      <span className="padding-email">
-                        <img
-                          style={{ width: "8%" }}
-                          src={require("../../../images/whatsapp.svg").default}
-                        />
-                      </span>
-                      No What’s App !
-                    </button>
-                  )}
+                  ) :null}
                 </div>
                 <div
                   className="col-xxl-8 col-xl-8 col-lg-8 col-md-7 Social-Card p-1 detailsCardClientSee scrollbar Social-btnS"
@@ -1847,7 +1821,7 @@ function Signed() {
                       onClick={handleFileUpload}
                     >
                       <img src={require("../../../images/resume.svg").default} />
-                      Upload {UploadTextBtn} file Now{" "}
+                      Upload {UploadTextBtn} file Now
                       <input
                         type="file"
                         ref={hiddenFileInput}

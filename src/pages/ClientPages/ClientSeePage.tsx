@@ -307,7 +307,6 @@ function ClientSee() {
     });
   }, [profile.clientDocuments, documentList]);
 
-  console.log(contrat_client, "fkdjf");
 
   useEffect(() => {
     const FolderName = tabItems.filter((el, i) => i == activeTab);
@@ -349,7 +348,6 @@ function ClientSee() {
     clDoc = profile.clientDocuments.filter((el) => el.folderName == UploadName);
     setDocumentList([...clDoc]);
   };
-  console.log(UploadName, "FolderName");
 
   useEffect(() => {
     setLoader(true);
@@ -454,14 +452,12 @@ function ClientSee() {
           },
         })
         .then((resData) => {
-          console.log(resData.data.status, "resData.data.status");
           if (resData.data.status) {
-            console.log(resData.data, "resData");
             setDocUploaded(true);
             setProgress(0);
             notifyDocumentUploadSuccess();
           } else {
-            console.log(resData);
+         
             setDocUploaded(false);
           }
         })
@@ -639,7 +635,7 @@ function ClientSee() {
   ];
 
   const candidatMotivationIcons = [
-    { icon: "", motivation: "No Motivation" },
+    { icon: "", motivation: "No Motivation!" },
     { icon: "😟", motivation: "Disappointed" },
     { icon: "🙁", motivation: "Not Really" },
     { icon: "😊", motivation: "Like" },
@@ -820,7 +816,6 @@ function ClientSee() {
     //   console.log(err)
     // })
   };
-  console.log(profile, "proo");
 
   const contractPageView = () => {
     navigate("/ClientContractPage", { state: profile });
@@ -1721,14 +1716,14 @@ function ClientSee() {
                       Importance :
                       <b
                         className="d-flex align-items-center"
-                        style={{ width: "25%", marginLeft: "5px" }}
+                        style={{ width: "35%", marginLeft: "5px" }}
                       >
                         {candidatImportanceIcons[profile.clientImportance - 1]
                           ?.icon
                           ? candidatImportanceIcons[
                               profile.clientImportance - 1
                             ]?.icon
-                          : "No Importance"}
+                          : "No Importance!"}
                       </b>
                     </p>
 

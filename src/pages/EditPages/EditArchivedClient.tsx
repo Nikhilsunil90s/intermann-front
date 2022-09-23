@@ -14,6 +14,9 @@ import UploadDow from '../../components/Modal/SelectUploadDownload'
 import RatingCmp from '../../components/AddClientRating/Rating'
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
+import ErrorLoader from "../../components/Loader/SearchBarError";
+
+
 const ClientDataFormat = {
     clientCompanyName: "",
     clientEmail: "",
@@ -1321,7 +1324,9 @@ type="button"
                                                 ></textarea>
                                             </div>
                                             <div className="col-12 mt-1 ">
-                       
+                                            {
+                          profile.clientContract ?
+                         
                          
                        <div className='row p-1' >
                          <div className='col-4  d-grid '>
@@ -1480,6 +1485,14 @@ type="button"
              
                       </div>
                       
+                      :
+<div className="col-12 d-flex justify-content-center align-items-center py-2">
+<ErrorLoader  />
+<p className="mb-0 ErrorSearchBox">
+No Contract Available for this Archived Client! Please add a New Contract.
+</p>
+</div>
+                                            }
                  
                  </div>
                                             <div className="col-12 mt-1 ">
