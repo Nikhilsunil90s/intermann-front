@@ -42,6 +42,7 @@ import Error500 from "./pages/ErrorPages/Error500";
 import clientSignedGlobalCard from './pages/GlobalCards/ClientPages/ClientContractGlobalCard'
 import ClientContractPage from './components/ClientContractPage'
 import DocumentChecker from './components/Document-checker'
+import DocumentSign from "./components/DocumentSignCandidatePage";
 function App() {
   return (
     <Provider store={configureStore}>
@@ -341,6 +342,14 @@ function App() {
             element={
             
                 <ClientContractPage />
+            
+            }
+          />
+                <Route
+            path={"/documentSign"}
+            element={
+            
+                <DocumentSign />
             
             }
           />

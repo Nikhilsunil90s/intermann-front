@@ -4,7 +4,7 @@ import { API_BASE_URL } from "../../config/serverApiConfig";
 import { useNavigate } from "react-router-dom";
 import { call } from "redux-saga/effects";
 
-export default function SearchModal({props,closeModal}){
+export default function SearchModal({props,closeModal,}){
 
 
     const navigate = useNavigate()
@@ -149,6 +149,8 @@ return(<>
           :
           null}
 </div>
+              
+              
           </div>
           </div>
    </>)

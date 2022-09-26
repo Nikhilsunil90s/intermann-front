@@ -164,6 +164,8 @@ if(e.target.value){
     )
     )
     console.log(FilData)
+ 
+
     setFilterData([...FilDataCName,...FilDataCNName, ...FilData])
 }
 
