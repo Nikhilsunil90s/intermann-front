@@ -23,7 +23,7 @@ useEffect(()=>{
     return { label: client.clientCompanyName, value: client._id, color: '#FF8B00' }
   }): [{ label: 'No Clients In this Sector', value: "", color: '#FF8B00' }])
 }
-})
+},[clientDataOptions])
 
 
 console.log(clientDataOptions,"clients")

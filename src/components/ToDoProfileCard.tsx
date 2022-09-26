@@ -49,11 +49,11 @@ const fetchProfilesClients = async () => {
     }
 
     let Data={
-       props: props.data,
-       client:Client
+       props: props.data
     }
    
     const viewFullProfile = () => {
+     
         // navigate("/todoprofile", { state: props.data });
         localStorage.setItem('profile', JSON.stringify(Data));
         window.open("/todoprofile", "_blank")

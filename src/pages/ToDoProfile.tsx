@@ -86,8 +86,28 @@ console.log(profile,"profile")
 
  useEffect(()=>{
       setProfile(state ? state : profileData.props)
+
+      if(Client.length == 0){
+        fetchProfilesClients().then((res)=>setClients([...res]))
+      }
 },[state])
 
+
+const [Client,setClients]=useState([])as any
+
+
+const fetchProfilesClients = async () => {
+  return await fetch(API_BASE_URL + "allToDoClients", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  })
+    .then((resD) => resD.json())
+    .then(res => res)
+    .catch((err) => err);
+};
 
   let data={profileData:profile ,path:"/todoprofile"}
 
@@ -755,7 +775,7 @@ className="SelectBtn"
                   <PreModal 
                    props={profile}
                    closepreModal={setShowInPreSelectedModal}
-                   client={profileData.client}
+                   client={Client}
                   />
                   :
                   null
