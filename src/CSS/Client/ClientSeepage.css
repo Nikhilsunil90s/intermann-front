@@ -258,7 +258,63 @@ color: #FFFFFF;
 height: 50vh;
 overflow-y: auto;
 }
+.kiHXWb {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  min-width: 100% !important;
+  max-width: 508px;
+  height: 100% !important;
+  justify-content: center;
+  border: dashed 2px #0658c2;
+  padding: 8px 16px 8px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+}
 
+.fVfcRr {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+   justify-content: center !important;
+  -ms-flex-pack: justify;
+
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+.fVfcRr > span {
+  align-items: flex-end;
+  background-color: #fff;
+  /* border: 1px solid #3f76e2; */
+  border-radius: 100px;
+  color: #3f76e2 !important;
+  display: flex;
+  font-family: Arial;
+  font-size: 18px !important;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  text-transform: capitalize;
+}
+.cXBrtO span {
+
+  text-decoration: none !important;
+  padding-right: 6px;
+}
 .travaillant{
 font-family: 'Poppins';
 font-style: italic;

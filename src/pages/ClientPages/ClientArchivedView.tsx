@@ -23,6 +23,7 @@ import moment from "moment";
 import ErrorLoader from "../../components/Loader/SearchBarError";
 import { Tabs, Tab } from "react-tabs-scrollable";
 import "react-tabs-scrollable/dist/rts.css";
+import { FileUploader } from "react-drag-drop-files";
 
 let RenameData = [];
 let id = "";
@@ -403,6 +404,43 @@ function ArchivedViewPage() {
     });
   }, [profile.clientDocuments, documentList]);
 
+
+  const FilesUploads=(file)=>{
+    const fileUploaded = file;
+    setCandidatDocument(fileUploaded);
+    let formdata = new FormData();
+    formdata.append("clientId", profile._id);
+    formdata.append("document", fileUploaded);
+    formdata.append("folderName", UploadName);
+    axiosInstance
+      .post("uploadClientDocuments", formdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        onUploadProgress: (data) => {
+          //Set the progress value to show the progress bar
+          setProgress(Math.round((100 * data.loaded) / data.total));
+        },
+      })
+      .then((resData) => {
+        if (resData.data.status) {
+          setDocUploaded(true);
+          setProgress(0);
+          notifyDocumentUploadSuccess();
+        } else {
+       
+          setDocUploaded(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setDocUploaded(false);
+      });
+  
+  }
+
+
   const fileChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
@@ -440,42 +478,42 @@ function ArchivedViewPage() {
         });
       return;
     }
-    if (e.target.name === "clientDocuments") {
-      const fileUploaded = e.target.files[0];
-      setCandidatDocument(fileUploaded);
-      let formdata = new FormData();
-      formdata.append("clientId", profile._id);
-      formdata.append("document", fileUploaded);
-      formdata.append("folderName", UploadName);
-      axiosInstance
-        .post("uploadClientDocuments", formdata, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-          onUploadProgress: (data) => {
-            //Set the progress value to show the progress bar
-            setProgress(Math.round((100 * data.loaded) / data.total));
-          },
-        })
-        .then((resData) => {
-          console.log(resData.data.status, "resData.data.status");
-          if (resData.data.status) {
-            console.log(resData.data, "resData");
-            setDocUploaded(true);
-            setProgress(0);
-            notifyDocumentUploadSuccess();
-          } else {
-            console.log(resData);
-            setDocUploaded(false);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          setDocUploaded(false);
-        });
-      return;
-    }
+    // if (e.target.name === "clientDocuments") {
+    //   const fileUploaded = e.target.files[0];
+    //   setCandidatDocument(fileUploaded);
+    //   let formdata = new FormData();
+    //   formdata.append("clientId", profile._id);
+    //   formdata.append("document", fileUploaded);
+    //   formdata.append("folderName", UploadName);
+    //   axiosInstance
+    //     .post("uploadClientDocuments", formdata, {
+    //       headers: {
+    //         "Content-Type": "multipart/form-data",
+    //         Authorization: "Bearer " + localStorage.getItem("token"),
+    //       },
+    //       onUploadProgress: (data) => {
+    //         //Set the progress value to show the progress bar
+    //         setProgress(Math.round((100 * data.loaded) / data.total));
+    //       },
+    //     })
+    //     .then((resData) => {
+    //       console.log(resData.data.status, "resData.data.status");
+    //       if (resData.data.status) {
+    //         console.log(resData.data, "resData");
+    //         setDocUploaded(true);
+    //         setProgress(0);
+    //         notifyDocumentUploadSuccess();
+    //       } else {
+    //         console.log(resData);
+    //         setDocUploaded(false);
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //       setDocUploaded(false);
+    //     });
+    //   return;
+    // }
   };
 
   useEffect(() => {
@@ -1770,7 +1808,7 @@ function ArchivedViewPage() {
                     </div>
                   ) : null}
                   <div className="col-12 d-flex justify-content-center mt-2">
-                    <button
+                    {/* <button
                       className="uploadBtnForClient p-1"
                       onClick={handleFileUpload}
                     >
@@ -1783,7 +1821,12 @@ function ArchivedViewPage() {
                         name="clientDocuments"
                         style={{ display: "none" }}
                       />
-                    </button>
+                    </button> */}
+                      <FileUploader 
+                      handleChange={FilesUploads}
+                      name="clientDocuments"
+                      label={`Upload ${UploadTextBtn} file Now`}
+                      />
                   </div>
                   {RenameDocStatus ? (
                     <RenameDoc
