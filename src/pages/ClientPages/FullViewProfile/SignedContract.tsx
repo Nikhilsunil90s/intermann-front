@@ -23,11 +23,9 @@ function Signed() {
 
   const profileData = JSON.parse(localStorage.getItem("profile"));
   // const profileD = JSON.parse(localStorage.getItem("embauch"));
-  console.log(profileData,"get")
 
  const [GetClientbyID,setGetClient]=useState(profileData._id)
   const [Loader,setLoader]=useState(false)
-  console.log(GetClientbyID,"GetClientbyID")
 useEffect(()=>{
   GetClient(GetClientbyID).then(res=>
     {
@@ -76,7 +74,7 @@ useEffect(()=>{
   const [recommendations, setRecommendations] = useState([]);
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
   const [PreSelectedData, setPreSelected] = useState([]);
- console.log(EMPunderWorking,"emp")
+
   const candidatImportanceIcons = [
     {
       icon: (
@@ -145,10 +143,8 @@ useEffect(()=>{
   ];
   const handleImageChange = (val) => {
     if (val === "upload") {
-      console.log("upload");
       handleImageUpload();
     } else if (val === "Download") {
-      console.log("download");
       // window.open(API_BASE_URL + candidatImage);
     }
   };
@@ -211,14 +207,11 @@ useEffect(()=>{
           },
         })
         .then((resData) => {
-          console.log(resData.data.status, "resData.data.status");
           if (resData.data.status) {
-            console.log(resData.data, "resData");
             setDocUploaded(true);
             setProgress(0);
             notifyDocumentUploadSuccess();
           } else {
-            console.log(resData);
             setDocUploaded(false);
           }
         })
@@ -231,12 +224,8 @@ useEffect(()=>{
   };
 
   useEffect(() => {
-    console.log(profile._id, "id");
-    console.log(documentList, "doc");
     fetchCandidat(profile._id)
-      .then((resData) => {
-        console.log(resData);
-
+      .then((resData) => {;
         setCandidatImage("");
         if (resData.status == true) {
           // setProfile(resData.data)
@@ -260,7 +249,6 @@ useEffect(()=>{
       });
   }, [docUploaded]);
 
-  console.log("doc", documentList);
 
   const ViewDownloadFiles = (documentName: any) => {
     window.open(API_BASE_URL + documentName);
@@ -297,7 +285,6 @@ useEffect(()=>{
   const deleteDocument = async (docId: any, docName: any) => {
     await deleteCandidatDocument(docId, docName, profile._id)
       .then((resData) => {
-        console.log(resData);
         if (resData.status) {
           notifyDocumentDeleteSuccess();
           setDocumentList([
@@ -494,7 +481,6 @@ useEffect(()=>{
       }
     }
   };
-  console.log(EMPunderWorking,"pro")
 
   const onChangeSwitches = async (id, AName, val) => {
     await fetch(

@@ -346,7 +346,7 @@ function App() {
             }
           />
                 <Route
-            path={"/documentSign"}
+            path={"/documentSign/:Candidate/:id"}
             element={
             
                 <DocumentSign />

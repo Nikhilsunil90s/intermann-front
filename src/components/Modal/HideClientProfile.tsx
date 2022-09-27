@@ -5,8 +5,6 @@ import { API_BASE_URL } from "../../config/serverApiConfig";
 import "../../CSS/Client/ArchivedCardClient.css"
 function HideClientProfile({ props, closeModal, path }) {
 
-    console.log(props);
-
     const navigate = useNavigate();
     const [clientId, setClientId] = useState(props._id);
 
@@ -34,9 +32,7 @@ function HideClientProfile({ props, closeModal, path }) {
     }
 
     const sendHideRequest = () => {
-        console.log(data);
         HideProfile().then((resdata) => {
-            console.log(resdata)
             setTimeout(function () {
                 if (path == "/embauchlist") {
                     window.location.href = path;

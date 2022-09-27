@@ -1,5 +1,4 @@
 import React, { useState, useEffect,useRef } from "react";
-import Logo from "../components/Logo";
 import "../CSS/Login.css";
 import { connect, useDispatch, useSelector, Connect } from "react-redux";
 // import { loginUser } from '../redux/actions/userActions';
@@ -14,7 +13,6 @@ function Login() {
   const state = useSelector((state: any) => state.loginReducer);
   const action = useSelector((action: any) => action.loginReducer);
   const dispatch = useDispatch();
-  console.log(state, "type");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [ModalOpen,setModalOpen]=useState(false)
@@ -27,7 +25,6 @@ function Login() {
   useEffect(() => {
     if (state?.login?.status) {
       notifyLogin();
-      console.log(state.login.token);
       localStorage.setItem("token", state.login.token);
       navigate("/dashboard");
     } else if (state?.login?.error !== undefined) {
@@ -46,7 +43,6 @@ function Login() {
     dispatch(loginUserAction({ email, password }));
     if (state?.login?.status) {
       notifyLogin();
-      console.log(state.login.token);
       localStorage.setItem("token", state.login.token);
       navigate("/dashboard");
     } else if (state?.login?.error !== undefined) {

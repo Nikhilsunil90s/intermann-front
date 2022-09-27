@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import StarRatings from "react-star-ratings";
 import "../../CSS/Client/ClientSeepage.css";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -238,11 +237,9 @@ function ArchivedViewPage() {
 
   const handleImageChange = (val) => {
     if (val === "upload") {
-      console.log("upload");
       handleImageUpload();
     }
     if (val === "Download") {
-      console.log("download");
       window.open(API_BASE_URL + "uploads/" + ClientImage);
     }
   };
@@ -461,7 +458,6 @@ function ArchivedViewPage() {
           },
         })
         .then((datares) => {
-          console.log(datares);
           if (datares.data.status) {
             //  setClientImage(datares.data.filename)
             notifyDocumentUploadSuccess();
@@ -541,7 +537,6 @@ function ArchivedViewPage() {
         console.log(err);
       });
   }, [docUploaded]);
-  console.log("doc", documentList);
 
   const ViewDownloadFiles = (documentName: any) => {
     window.open(documentName);
@@ -578,7 +573,6 @@ function ArchivedViewPage() {
   const deleteDocument = async (docId: any, docName: any) => {
     await deleteCandidatDocument(docId, docName, profile._id)
       .then((resData) => {
-        console.log(resData);
         if (resData.status) {
           notifyDocumentDeleteSuccess();
           setDocumentList([
@@ -616,8 +610,6 @@ function ArchivedViewPage() {
       .then((resD) => resD)
       .catch((err) => err);
   };
-
-  console.log(ClientImage, "img");
 
   //END //
 

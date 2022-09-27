@@ -93,7 +93,6 @@ function ClientInProgressEdit() {
     const notifyClientEditError = () => toast.error("Cannot Edit This Client, Since No Data Changed!");
 
     const locationObject = useLocation();
-    console.log(locationObject.state);
     const { state, path } = locationObject.state as State;
     const navigate = useNavigate();
     const [data, setData] = useState(ClientDataFormat);
@@ -148,9 +147,7 @@ function ClientInProgressEdit() {
 
   
   useEffect(() => {
-    console.log(profile._id, profile.clientPhoto)
-    fetchCandidat(profile._id).then(resData => {
-        console.log(resData)
+     fetchCandidat(profile._id).then(resData => {
         if (resData.status) {
           resData.data.map((el)=>{
             setImgSource(el.clientPhoto.documentName)
@@ -163,8 +160,6 @@ function ClientInProgressEdit() {
         })
 }, [state])
   useEffect(()=>{
-    // setData({...data,rate_hours:Tauxarr})
-    // setData({...data,salary_hours:ClientDataFormat.salary_hours})
     ClientDataFormat.salary_hours=arr
     ClientDataFormat.rate_hours=Tauxarr
   
@@ -187,8 +182,6 @@ function ClientInProgressEdit() {
        ClientDataFormat.salary_hours=[]
        SalaryFData.filter(el=>{
          setcheckBooleanValue(el.hours.includes(showHour))
-           console.log(checkBooleanValue)
-         
          })
            if(checkBooleanValue === false){
            
@@ -212,14 +205,12 @@ function ClientInProgressEdit() {
           ClientDataFormat.rate_hours=[]
           TauxHour.filter(el=>{
             setcheckBooleanValue(el.hours.includes(taxHours))
-              console.log(checkBooleanValue)
-            })
+                    })
               if(checkBooleanValue === false){
               
              
               ClientDataFormat.rate_hours.push(...TauxHour)
               toast.success(`Removed ${taxHours}H Taux!`)
-              console.log(ClientDataFormat,"clientdata")
               return true
       
             }
@@ -285,7 +276,6 @@ function ClientInProgressEdit() {
       }),
     };
 
-  console.log(profile,"pro")
     useEffect(() => {
       $(document).ready(function () {
         $("#dam_return button").click(function () {
@@ -294,7 +284,6 @@ function ClientInProgressEdit() {
           input.val(Amountarr);
         });
       });
-      console.log(Hours, "hr");
     });
   
 
@@ -337,9 +326,7 @@ function ClientInProgressEdit() {
 
     const handleSectorChange = (e: any) => {
       // console.log(e.target.value)
-  
-setJobOptions([])
-      console.log(e)
+        setJobOptions([])
       if (e.value === "Select Un Secteur") {
         setJobs([]);
         setSelectedSector("");
@@ -364,8 +351,6 @@ const onInputChange=(val)=>{
 
     
      const HandleChange = (e: any) => {
-      
-       console.log(e.target.value);
        if (e.target.id === "1") {
          setShowHour("35");
          setID(e.target.id);
@@ -435,7 +420,6 @@ const onSubmitRates=(e)=>{
        const FilterSalary=  SalaryTotal.filter(el=>{
          const duplicate = arr.includes(el) ;
          if(duplicate == false){
-         console.log(duplicate,"duplic")
            arr.push(el)
           ClientDataFormat.salary_hours=arr
         
@@ -476,7 +460,6 @@ const onSubmitRates=(e)=>{
  
    
      const TauxHandleChange = (e: any) => {
-       console.log(e.target.value);
        if (e.target.id === "1") {
          setHours("35");
          setHoursId(e.target.id);
@@ -530,10 +513,8 @@ const onSubmitRates=(e)=>{
  
   const handleImageChange = (val) => {
     if (val === 'upload') {
-      console.log("upload")
       handleImageUpload()
     } else if (val === 'Download') {
-      console.log("download")
       // window.open(API_BASE_URL + candidatImage);
     }
   }
@@ -547,13 +528,11 @@ const onSubmitRates=(e)=>{
             setSelectedSector(sec);
             await fetchAllJobs(sec)
                 .then(data => {
-                    console.log(data.data)
                     setJobs([...data.data]);
                 })
                 .catch(err => {
                     console.log(err);
                 })
-            console.log(jobs);
         }
 
     }
@@ -637,8 +616,6 @@ const onSubmitRates=(e)=>{
 
 
     const switchHandle=(checked,id,e)=>{
-      console.log(checked,id,e,"all")
-  console.log(id,"checked")
   setFormTouched(true)
   if(e=="Permis"){
   if(checked === true){
@@ -721,7 +698,6 @@ const onSubmitRates=(e)=>{
             formdata.append('image', clientImage)
             formdata.append("data", JSON.stringify(updatedData))
             updateClient(formdata).then(response => {
-                console.log(response)
                 if (response.status) {
                     notifyClientEditSuccess()
                     setTimeout(() => {
@@ -745,14 +721,12 @@ const onSubmitRates=(e)=>{
         if (activitySectors.length === 0) {
             fetchActivitySectors()
                 .then(redata => {
-                    console.log(redata);
                     setActivitySectors([...redata.data]);
                 })
                 .catch(err => {
                     console.log(err)
                 })
         }
-        console.log(profile.clientActivitySector)
         if (jobs.length === 0 && profile.clientActivitySector !== "") {
             fetchAllJobs(profile.clientActivitySector)
                 .then((data) => {
@@ -763,16 +737,13 @@ const onSubmitRates=(e)=>{
                     console.log(err)
                 })
         }
-        console.log(data);
         let jobResults = jobs.map(ajob => {
             return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
           })
           setJobOptions([...jobResults]);
-          console.log(jobs);
     }, [jobs])
 
     const jobChange = async (jobval) => {
-      // console.log(jobval)
       let JobArr=[]as any
       jobval.map((el)=>{
        
@@ -789,12 +760,10 @@ const onSubmitRates=(e)=>{
         arr.push(el.value)
       })
       setLanguage(arr)
-      console.log(Language, "language")
       setData({ ...data, clientLanguages: arr })
     }
 
     useEffect(() => {
-      console.log(activitySectors);
       let sectorops = activitySectors.map((asector) => {
         return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
       })

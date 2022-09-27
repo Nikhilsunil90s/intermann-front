@@ -67,7 +67,7 @@ function DocumentCheck() {
    }
   }
 
- console.log(data,"data")
+
    const fetchProfiles = async () => {
      return await fetch(API_BASE_URL + "getClients", {
        method: "GET",

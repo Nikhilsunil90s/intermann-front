@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 function SignedClientModal({ props, closeModal }) {
-    console.log(props)
 
     const navigate = useNavigate();
 
@@ -32,7 +31,6 @@ function SignedClientModal({ props, closeModal }) {
         let data = { clientId: props._id, clientJob: props.clientJob }
         moveToSigned(data)
             .then((resp) => {
-                console.log(resp)
                 closeModal(false);
                 notifyMoveSuccess();
                 setTimeout(function () {

@@ -1,21 +1,16 @@
 import React,{useState} from 'react';
-import StarRatings from 'react-star-ratings';
 import { Link } from "react-router-dom";
 import "../CSS/Canceled.css";
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select'
-import ArchivedModal from "./Modal/ArchivedModal";
 import HideProfile from "../components/Modal/HideProfileModalForArchived";
 import ResetProfile from "../components/Modal/RestProfileForArchived";
 import moment from 'moment';
 
 const ArchivedProfileCard = (props: any) => {
-    console.log(props,"props")
     const navigate = useNavigate();
     const [hideProfile,setHideProfile]=useState(false)
     const [ResetModalProfile,setResetModalProfile]=useState(false)
-    const [showArchiveModal, setShowArchiveModal] = useState(false)
-    //  let data={state:props.props,path:"/archivedlist"}
     const [candidatMotivationIcons,setMotivation] = useState([{ icon: "", motivation: 'No Motivation!' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }]);
 
 
@@ -47,7 +42,6 @@ const ArchivedProfileCard = (props: any) => {
         if(e.value=="Hide This Profile"){
             setHideProfile(true) 
           }
-      console.log(e.value)
       }
 
 

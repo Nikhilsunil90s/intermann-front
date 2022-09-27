@@ -3,7 +3,6 @@ import { Toaster, toast } from 'react-hot-toast';
 import {API_BASE_URL} from '../../config/serverApiConfig'
 
 function DeleteUser({props, closeModal} ) {
-    console.log(props,"props")
     const NotifySuccess=()=>toast("Deleted SuccessFully!!")
     const deleteUser = async () => {
         let userid=props._id

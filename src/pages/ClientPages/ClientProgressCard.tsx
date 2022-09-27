@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
-import StarRatings from 'react-star-ratings';
 import "../../CSS/Client/ProgressCardClient.css";
 import ArchivedClientModal from "../../components/Modal/ArchivedClientModal";
 import { useNavigate } from "react-router-dom";
@@ -8,13 +7,11 @@ import {ReactComponent as Empty} from "../../images/emptyStar.svg";
 import {ReactComponent as StarRating} from "../../images/RatingStar.svg";
 import Switch from "react-switch";
 import Select from "react-select";
-import InProgressClientModal from "../../components/Modal/InProgressClientModal";
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast, { Toaster } from "react-hot-toast";
 import SignedClientModal from "../../components/Modal/SignContractModal";
-import Moment from 'react-moment';
 import moment from 'moment';
 let id=""
 function ClientProgressCard(props: any) {
@@ -54,7 +51,6 @@ function ClientProgressCard(props: any) {
     }
 
     const viewFullProfile = () => {
-        console.log(props.data)
         // navigate("/clientInProgressProfile", { state: props.data });
         localStorage.setItem('embauch', JSON.stringify(props.data));
         window.open("/clientInProgressProfile", "_blank")
@@ -71,7 +67,6 @@ function ClientProgressCard(props: any) {
         if(e.value=="Archive"){
           setShowArchiveModal(true) 
         }
-      console.log(e.value)
       }
 
       const SwitchChange = (checked: any, e: any, Name: any) => {

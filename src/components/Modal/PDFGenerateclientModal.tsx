@@ -46,9 +46,6 @@ function PdfModal({props,closeModal} ){
 }
   const [data, setData] = useState(PdfFormat);
   const [loader, setLoader] = useState(false);
-
-console.log(props,"props")
-
   // useEffect(() => {
   //   if (data.initial_client_company == "") {
   //       setData((prev) => ({ ...prev,['initial_client_company']:props.clientCompanyName}));
@@ -91,7 +88,7 @@ console.log(props,"props")
     }
 
     const generatePDF = async () => {
-        console.log(data);
+
         setLoader(true);
         return await fetch(API_BASE_URL + "makeClientContract", {
             method: "POST",
@@ -109,7 +106,6 @@ console.log(props,"props")
 
     const addContractToCRM = () => {
       addContract().then(result => {
-        console.log(result);
         if(result.status==true){
             toast.success("Contract Added To CRM Successfully!")
             setTimeout(()=>{
@@ -125,10 +121,7 @@ console.log(props,"props")
 // console.log(props,"props")
     const invokeGeneratePDF = () => {
 
-        console.log(data);
-        
         generatePDF().then(result => {
-            console.log(result);
             setLoader(false);
             if (result.status) {
               let splittedFilePath = result.filePath.split("/app/");

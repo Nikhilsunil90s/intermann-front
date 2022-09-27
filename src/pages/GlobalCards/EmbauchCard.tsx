@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import StarRatings from "react-star-ratings";
 import "../../CSS/Embauch.css";
 import EmbaucheProfileCard from "../../components/EmbaucheProfileCard";
 import { API_BASE_URL } from "../../config/serverApiConfig";
@@ -7,7 +6,6 @@ import toast, { Toaster } from "react-hot-toast";
 import Item from "../../components/Loader/loader";
 import Select ,{StylesConfig }from 'react-select'
 import chroma from 'chroma-js'
-import SelectLoader from "../../components/Loader/selectLoader"
 import { colourOptions, ColourOption } from "../../Selecteddata/data";
 import ProfileLoader from "../../components/Loader/ProfilesLoader"
 import set from "date-fns/set";
@@ -54,7 +52,6 @@ function Embauch() {
 const notifyMoveSuccess = () => toast.success("Moved Archived Successfully!");
 const notifyMoveError = () => toast.error("Not Moved..");
   //    End   // 
-console.log(state,"profiledfata")
   const [sectors, setSectors] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState([]);
@@ -191,10 +188,8 @@ console.log(state,"profiledfata")
       return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
     })
     setJobOptions([...jobResults]);
-    console.log(jobs);
   }, [jobs]);
   useEffect(() => {
-    console.log(sectors);
     let sectorops = sectors.map((asector) => {
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
@@ -237,7 +232,6 @@ console.log(state,"profiledfata")
     SelectedClient = []
     LanguageFilter=[]
     setSelectedSector("")
-    console.log(e.value)
     if(e.value=="Select Licence"){
       LicencePermisArr=[]
       filterFunction()
@@ -312,7 +306,6 @@ console.log(state,"profiledfata")
     SelectedClient=[]
       setSelectedSector("");
       setSelectedJob([])
-    console.log(e)
     if (e.value === "Select Sector") {
       setJobs([]);
       setSelectedSector("");
@@ -623,7 +616,6 @@ console.log(state,"profiledfata")
         })
         LanguageFilter=LangArr
         filterFunction()
-        console.log(LanguageFilter,"jee")
       }
       if(LanguageFilter.length == 0){
         filterFunction()
@@ -710,7 +702,6 @@ const MoreOption=(e:any)=>{
   if(e.value=="Archive"){
     setShowArchiveModal(true) 
   }
-console.log(e.value)
 }
 
 const datenow=moment().format('YYYY-MM-DD')

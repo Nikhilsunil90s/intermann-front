@@ -110,8 +110,7 @@ function PdfModal({props,closeModal,path} ){
         }
 
       };
-console.log(data,"setsata")
-    
+
     const addContract = async () => {
       return await fetch(API_BASE_URL + "addContractToCRM", {
         method: "POST",
@@ -131,7 +130,6 @@ console.log(data,"setsata")
 
 
     const generatePDF = async () => {
-        console.log(data);
         setLoader(true);
         return await fetch(API_BASE_URL + "makeContract", {
             method: "POST",
@@ -149,7 +147,6 @@ console.log(data,"setsata")
 
     const addContractToCRM = () => {
       addContract().then(result => {
-        console.log(result);
         if(result.status==true){
             toast.success("Contract Added To CRM Successfully!")
             setTimeout(()=>{
@@ -167,11 +164,8 @@ console.log(data,"setsata")
     }
 
     const invokeGeneratePDF = () => {
-
-        console.log(data);
-        
+      
         generatePDF().then(result => {
-            console.log(result);
             setLoader(false);
             if (result.status) {
               let splittedFilePath = result.filePath.split("/app/");

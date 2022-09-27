@@ -9,7 +9,6 @@ import { API_BASE_URL } from "../../config/serverApiConfig";
 function RenameDoc({props,closepreModal,path}) {
   const notifyCandidatMovedSuccess = () => toast.success("Document Name Changed Successfully!");
   const notifyCandidatMovedError = () => toast.error("Document Name Not Change Please Try Again.");
-console.log(props,"props")
   const [NewName, setNewName] = useState("");
   const onDataChange = (e: React.ChangeEvent<
     HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
@@ -22,7 +21,6 @@ console.log(props,"props")
     setNewName(e.target.value); 
     }
   }
- console.log(props[3],"props")
   const renameClientDocument = async () => {
     let headers = {
       "Accept": 'application/json',

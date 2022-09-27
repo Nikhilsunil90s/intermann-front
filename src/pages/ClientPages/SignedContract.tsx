@@ -153,7 +153,6 @@ function Signed() {
     },
   ]) as any;
 
-  console.log("doc", profile.clientDocuments);
 
   useEffect(() => {
     profile.clientDocuments.map((el) => {
@@ -272,7 +271,6 @@ function Signed() {
     setDocumentList([...clDoc]);
   }, []);
 
-  console.log(EMPunderWorking, "emp");
   const candidatImportanceIcons = [
     {
       icon: (
@@ -341,10 +339,8 @@ function Signed() {
   ];
   const handleImageChange = (val) => {
     if (val === "upload") {
-      console.log("upload");
       handleImageUpload();
     } else if (val === "Download") {
-      console.log("download");
       window.open(API_BASE_URL + "uploads/" + ClientImage);
     }
   };
@@ -455,9 +451,7 @@ const Editdata ={state:profile,path:"/clientSigned"}
           },
         })
         .then((datares) => {
-          console.log(datares);
           if (datares.data.status) {
-            console.log(datares.data.status, "datares.data.status");
             //  setClientImage(datares.data.filename)
             notifyDocumentUploadSuccess();
 
@@ -591,7 +585,6 @@ const Editdata ={state:profile,path:"/clientSigned"}
   const deleteDocument = async (docId: any, docName: any) => {
     await deleteCandidatDocument(docId, docName, profile._id)
       .then((resData) => {
-        console.log(resData);
         if (resData.status) {
           notifyDocumentDeleteSuccess();
           setDocumentList([
@@ -772,8 +765,6 @@ const Editdata ={state:profile,path:"/clientSigned"}
       }
     }
   };
-  console.log(EMPunderWorking, "pro");
-
   const onChangeSwitches = async (id, AName, val) => {
     await fetch(
       `${API_BASE_URL}switchClientAttributes/?clientId=${id}&attribute=${AName}&value=${val}`,

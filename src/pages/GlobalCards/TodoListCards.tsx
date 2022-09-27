@@ -150,12 +150,11 @@ const notifyMoveError = () => toast.error("Not Moved..");
       return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
     })
     setJobOptions([...jobResults]);
-    console.log(jobs);
+
   }, [jobs]);
 
   useEffect(() => {
-    console.log(sectors);
-    let sectorops = sectors.map((asector) => {
+      let sectorops = sectors.map((asector) => {
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
 
@@ -320,9 +319,7 @@ setMotivationOptions([    {
          setEmail([  {
           value: "Select email", label: "Select Email", color: '#FF8B00'
         },...emailops])
-        console.log(emailops,"emailops")
       })
-        console.log([...email],"email")
       }
       if (ContactOptions.length == 0) {
         let ContactOp =[]as any
@@ -335,9 +332,7 @@ setMotivationOptions([    {
            setContactOptions([  {
             value: "Select Contact", label: "Select Contact", color: '#FF8B00'
           },...ContactOp])
-          console.log(ContactOp,"ContactOp")
         })
-          console.log([...email],"email")
         }
     
   } )
@@ -389,7 +384,6 @@ setMotivationOptions([    {
     DateArr=[]
     setSelectedSector("")
     MotivationArr = []
-    console.log(e.value)
     if(e.value=="Select Licence"){
       LicencePermisArr=[]
       filterFunction()
@@ -417,8 +411,6 @@ setMotivationOptions([    {
     } else if (e.value !== "" && e.value !== "Select Motivations") {
       MotivationArr = []
       let sectorField = e.value;
-
-      console.log(sectorField, "motivation")
       MotivationArr.push(sectorField)
       filterFunction()
       // setSelectedSector(sectorField);
@@ -436,7 +428,6 @@ setMotivationOptions([    {
     setSelectedJob([])
     emailArr=[]
     contactArr=[]
-    console.log(e)
     if (e.value === "Select Sector") {
       setJobs([]);
       setSelectedSector("");
@@ -495,7 +486,6 @@ setMotivationOptions([    {
     filterFunction()
 
     } else if (e.value !== '' && e.value !== "Select Contact") {
-      console.log(e.value,"contact")
           contactArr = e.value;
     }
   }
@@ -769,7 +759,6 @@ setMotivationOptions([    {
     let SelectedDate=[]
     SelectedDate=e.target.value
     DateArr.push(SelectedDate)
-    console.log(DateArr,"hey")
     filterFunction()
     }
  }
@@ -797,7 +786,6 @@ setMotivationOptions([    {
       })
       LanguageFilter=LangArr
       filterFunction()
-      console.log(LanguageFilter,"jee")
     }
     }
 
@@ -899,7 +887,6 @@ let end = new Date(filterData.candidatEndDate);
    if(e.value=="Archive"){
      setShowArchiveModal(true) 
    }
- console.log(e.value)
  }
   return (
     <>

@@ -215,7 +215,12 @@ display: flex;
 align-items: flex-end;
 color: #489767;
   }
-  
+  .pg-viewer-wrapper .document-container {
+    padding: 30px;
+    width: 100% !important;
+    background: #fff;
+    margin: auto;
+}
 
 
   @media (min-width:768px){

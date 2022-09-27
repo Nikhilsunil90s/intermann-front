@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import "../CSS/CanEmpl.css";
-import StarRatings from 'react-star-ratings';
 import ArchivedModal from "./../components/Modal/ArchivedModal";
 import InProgressModal from "../components/Modal/InProgressModal";
 import { useEffect, useState } from "react";

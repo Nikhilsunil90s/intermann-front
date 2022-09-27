@@ -94,7 +94,6 @@ function ClientTodoEdit() {
     const notifyClientEditError = () => toast.error("Cannot Edit This Candidat, Since No Data Changed!");
 
     const locationObject = useLocation();
-    console.log(locationObject.state);
     const { state, path } = locationObject.state as State;
     const navigate = useNavigate();
     const [data, setData] = useState(ClientDataFormat);
@@ -140,7 +139,6 @@ function ClientTodoEdit() {
   },[Tauxarr,SalaryTotal]) 
 
   const switchHandle=(checked,id,e)=>{
-    console.log(checked,id,e,"all")
 console.log(id,"checked")
 setFormTouched(true)
 if(e=="Permis"){
@@ -171,8 +169,6 @@ if(checked === true){
        ClientDataFormat.salary_hours=[]
        SalaryFData.filter(el=>{
          setcheckBooleanValue(el.hours.includes(showHour))
-           console.log(checkBooleanValue)
-         
          })
            if(checkBooleanValue === false){
            
@@ -196,14 +192,12 @@ if(checked === true){
           ClientDataFormat.rate_hours=[]
           TauxHour.filter(el=>{
             setcheckBooleanValue(el.hours.includes(taxHours))
-              console.log(checkBooleanValue)
             })
               if(checkBooleanValue === false){
               
              
               ClientDataFormat.rate_hours.push(...TauxHour)
               toast.success(`Removed ${taxHours}H Taux!`)
-              console.log(ClientDataFormat,"clientdata")
               return true
       
             }
@@ -225,7 +219,6 @@ const onSubmitRates=(e)=>{
       const FilterSalary=  SalaryTotal.filter(el=>{
         const duplicate = arr.includes(el) ;
         if(duplicate == false){
-        console.log(duplicate,"duplic")
           arr.push(el)
          ClientDataFormat.salary_hours=arr
        
@@ -273,68 +266,7 @@ const onInputChange=(val)=>{
   }
 }
 
-    
-     const HandleChange = (e: any) => {
-      
-       console.log(e.target.value);
-       if (e.target.id === "1") {
-         setShowHour("35");
-         setID(e.target.id);
-         setSalary_hours({...salary,hours:"35"})
-         
-       }
-       if (e.target.id === "2") {
-         setShowHour("39");
-         setID(e.target.id);
-         setSalary_hours({...salary,hours:"39"})
-         
-   
-       }
-       if (e.target.id === "3") {
-         setShowHour("40");
-         setSalary_hours({...salary,hours:"40"})
-         setID(e.target.id);
-         
-   
-       }
-       if (e.target.id === "4") {
-         setShowHour("41");
-         setID(e.target.id);
-         setSalary_hours({...salary,hours:"41"})
-         
-   
-       }
-       if (e.target.id === "5") {
-         setShowHour("42");
-         setSalary_hours({...salary,hours:"42"})
-         setID(e.target.id);
-         
-   
-       }
-       if (e.target.id === "6") {
-         setShowHour("43");
-         setSalary_hours({...salary,hours:"43"})
-         setID(e.target.id);
-         
-   
-       }
-       if (e.target.id === "7") {
-         setShowHour("44");
-         setID(e.target.id);
-         setSalary_hours({...salary,hours:"44"})
-        
-         
-   
-       }
-       if (e.target.id === "8") {
-         setShowHour("45");
-         setID(e.target.id);
-         setSalary_hours({...salary,hours:"45"})
-        
-         
-       }
-     };
-   
+  
      const TauxHandleChange = (e: any) => {
        console.log(e.target.value);
        if (e.target.id === "1") {
@@ -386,7 +318,7 @@ const onInputChange=(val)=>{
    
        }
      };
-console.log(profile,"pro")
+
   useEffect(() => {
     $(document).ready(function () {
       $("#dam_return button").click(function () {
@@ -395,7 +327,6 @@ console.log(profile,"pro")
         input.val(Amountarr);
       });
     });
-    console.log(Hours, "hr");
   });
 
     const notifyPhotoUploadSuccess = () => toast.success("Client/Company Image Uploaded Successfully!");
@@ -445,9 +376,7 @@ console.log(profile,"pro")
     }
 
     useEffect(() => {
-        console.log(profile._id, profile.clientPhoto)
         fetchClient(profile._id).then(resData => {
-            console.log(resData)
             if (resData.status) {
               resData.data.map((el)=>{
                 setImgSource(el.clientPhoto.documentName)
@@ -460,7 +389,6 @@ console.log(profile,"pro")
             })
     }, [state])
     useEffect(() => {
-        console.log(activitySectors);
         let sectorops = activitySectors.map((asector) => {
           return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
         })
@@ -498,14 +426,12 @@ console.log(profile,"pro")
             setSelectedSector(sec);
             await fetchAllJobs(sec)
                 .then(data => {
-                    console.log(data.data)
                     setJobs([...data.data]);
                 })
                 .catch(err => {
                     console.log(err);
                 })
-            console.log(jobs);
-        }
+              }
 
     }
 
@@ -577,7 +503,6 @@ console.log(profile,"pro")
     }
 
     const updateClient = async (updatedData: any) => {
-        console.log(updatedData)
         let headers = {
             "Accept": 'application/json',
             "Authorization": "Bearer " + localStorage.getItem('token')
@@ -596,8 +521,6 @@ console.log(profile,"pro")
         hiddenFileInput.current.click();
     }
     const handleSectorChange = (e: any) => {
-        console.log(e.value)
-    
 setJobOptions([])
         console.log(e)
         if (e.value === "Select Un Secteur") {
@@ -794,10 +717,8 @@ setJobOptions([])
 
     const handleImageChange = (val) => {
       if (val === 'upload') {
-        console.log("upload")
         handleImageUpload()
       } else if (val === 'Download') {
-        console.log("download")
         window.open(API_BASE_URL + "uploads/" + imgSource);
       }
     }
@@ -810,18 +731,15 @@ setJobOptions([])
         if (activitySectors.length === 0) {
             fetchActivitySectors()
                 .then(redata => {
-                    console.log(redata);
                     setActivitySectors([...redata.data]);
                 })
                 .catch(err => {
                     console.log(err)
                 })
         }
-        console.log(profile.clientActivitySector)
         if (jobs.length === 0 && profile.clientActivitySector !== "") {
             fetchAllJobs(profile.clientActivitySector)
                 .then((data) => {
-                    console.log(data);
                     setJobs([...data.data])
                 })
                 .catch(err => {
@@ -829,12 +747,10 @@ setJobOptions([])
                 })
         }
                    
-        console.log(data);
         let jobResults = jobs.map(ajob => {
             return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
           })
           setJobOptions([...jobResults]);
-          console.log(jobs);
     }, [jobs])
 
     const jobChange = async (jobval) => {
@@ -849,18 +765,14 @@ setJobOptions([])
         changeJobSelection(JobArr)
       }
       const handleChangeLanguage = (selectedOption) => {
-        console.log(`Option selected:`, selectedOption)
         let arr = []
        setFormTouched(true)
         selectedOption.map((el) => {
           arr.push(el.value)
         })
         setLanguage(arr)
-        console.log(Language, "language")
         setData({ ...data, clientLanguages: arr })
       }
-
-      console.log(API_BASE_URL + "uploads/" + imgSource,"clie")
     return (
         <>
             <Toaster

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
 import "../../CSS/Client/ClientSeepage.css";
 import { useLocation } from "react-router-dom";
@@ -225,10 +224,8 @@ function ClientProgressView() {
   ];
   const handleImageChange = (val) => {
     if (val === "upload") {
-      console.log("upload");
       handleImageUpload();
     } else if (val === "Download") {
-      console.log("download");
       window.open(API_BASE_URL + "uploads/" + ClientImage);
     }
   };
@@ -348,10 +345,8 @@ function ClientProgressView() {
   },[profile.clientDocuments,documentList]);
 
   useEffect(() => {
-    console.log(profile._id, profile.clientPhoto);
     fetchCandidat(profile._id)
       .then((resData) => {
-        console.log(resData);
         if (resData.status) {
           resData.data.map((el) => {
             setImgSource(el.clientPhoto.documentName);
@@ -474,7 +469,6 @@ function ClientProgressView() {
           },
         })
         .then((datares) => {
-          console.log(datares);
           if (datares.data.status) {
             //  setClientImage(datares.data.filename)
             notifyDocumentUploadSuccess();

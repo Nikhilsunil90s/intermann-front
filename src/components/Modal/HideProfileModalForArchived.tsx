@@ -5,8 +5,6 @@ import { API_BASE_URL } from "../../config/serverApiConfig";
 import "../../CSS/Client/ArchivedCardClient.css"
 function HideProfile({ props, closeModal, path }) {
 
-    console.log(props);
-
     const navigate = useNavigate();
     const [candidatId, setCandidatId] = useState(props._id);
 
@@ -18,7 +16,6 @@ function HideProfile({ props, closeModal, path }) {
     }
 
     const HideProfile = async () => {
-        console.log(data);
         return await fetch(API_BASE_URL + "hideCandidat", {
             method: "POST",
             headers: {
@@ -36,7 +33,6 @@ function HideProfile({ props, closeModal, path }) {
     const sendHideRequest = () => {
         console.log(data);
         HideProfile().then((resdata) => {
-            console.log(resdata)
             setTimeout(function () {
                 if (path == "/embauchlist") {
                     window.location.href = path;

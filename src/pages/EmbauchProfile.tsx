@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import StarRatings from "react-star-ratings";
 import { Link ,useNavigate} from "react-router-dom";
 import "../CSS/inProgressCard.css";
 import { useLocation } from 'react-router-dom';
@@ -124,9 +123,9 @@ function ProgressCard() {
     )}
  }    
 
-    console.log(profile);
+ 
   }, []);
-console.log(clientProfile,"client")
+
 
   useEffect(() => {    
     setLoader(true);
@@ -147,11 +146,7 @@ console.log(clientProfile,"client")
       })
   }, [state])
   useEffect(() => {
-    console.log(profile._id,"id")
-    console.log(documentList,"doc")
     fetchCandidat(profile._id).then(resData => {
-      console.log(resData)
-
       setCandidatImage("")
       if (resData.status) {
         setProfile(resData.data)
@@ -221,7 +216,6 @@ console.log(clientProfile,"client")
         }
       })
         .then(datares => {
-          console.log(datares)
           if (datares.data.status) {
             notifyDocumentUploadSuccess()
             // setCandidatImage(datares.data.filename)
@@ -253,12 +247,10 @@ console.log(clientProfile,"client")
       })
         .then(resData => {
           if (resData.data.status) {
-            console.log(resData.data)
             setDocUploaded(true);
             setProgress(0);
             notifyDocumentUploadSuccess();
           } else {
-            console.log(resData)
             setDocUploaded(false);
           }
         })
@@ -284,7 +276,6 @@ console.log(clientProfile,"client")
   }
 
   const renameDocument = (docId: any, docName: any ,originalName:any) => {
-    console.log(originalName,"originalName")
     setRenameDoc(true);
 
     RenameData=[
@@ -315,7 +306,6 @@ console.log(clientProfile,"client")
   }
   const deleteDocument = async (docId: any, docName: any) => {
     await deleteCandidatDocument(docId, docName, profile._id).then(resData => {
-      console.log(resData);
       if (resData.status) {
         notifyDocumentDeleteSuccess()
         setDocumentList([...documentList.filter((doc) => {
@@ -348,7 +338,6 @@ console.log(clientProfile,"client")
   //     window.location.href=`/clientSigned?id=${clientProfile._id}`
   //   }
   // }
-  console.log(profile,"profile")
   const showCustomerProfile =(data:any)=>{
       localStorage.setItem("profile", JSON.stringify(data));
       window.open("/clientSignedView", "_blank");

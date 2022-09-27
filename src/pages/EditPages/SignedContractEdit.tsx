@@ -209,69 +209,6 @@ function ClientSignedEdit() {
         }),
       };
   
-
-      const HandleChange = (e: any) => {
-      
-        console.log(e.target.value);
-        if (e.target.id === "1") {
-          setShowHour("35");
-          setID(e.target.id);
-          setSalary_hours({...salary,hours:"35"})
-          
-        }
-        if (e.target.id === "2") {
-          setShowHour("39");
-          setID(e.target.id);
-          setSalary_hours({...salary,hours:"39"})
-          
-    
-        }
-        if (e.target.id === "3") {
-          setShowHour("40");
-          setSalary_hours({...salary,hours:"40"})
-          setID(e.target.id);
-          
-    
-        }
-        if (e.target.id === "4") {
-          setShowHour("41");
-          setID(e.target.id);
-          setSalary_hours({...salary,hours:"41"})
-          
-    
-        }
-        if (e.target.id === "5") {
-          setShowHour("42");
-          setSalary_hours({...salary,hours:"42"})
-          setID(e.target.id);
-          
-    
-        }
-        if (e.target.id === "6") {
-          setShowHour("43");
-          setSalary_hours({...salary,hours:"43"})
-          setID(e.target.id);
-          
-    
-        }
-        if (e.target.id === "7") {
-          setShowHour("44");
-          setID(e.target.id);
-          setSalary_hours({...salary,hours:"44"})
-         
-          
-    
-        }
-        if (e.target.id === "8") {
-          setShowHour("45");
-          setID(e.target.id);
-          setSalary_hours({...salary,hours:"45"})
-         
-          
-        }
-      };
- 
- 
         
  const onSubmitRates=(e)=>{
    setFormTouched(true)

@@ -7,7 +7,6 @@ import Loader from "../components/Loader/loader";
 import Select, { StylesConfig } from "react-select";
 import chroma from 'chroma-js';
 import { ColourOption } from "../Selecteddata/data";
-import ProfileLoader from "../components/Loader/ProfilesLoader"
 import ErrorLoader from '../components/Loader/SearchBarError'
 import Error404Loader from '../components/Loader/404Error'
 
@@ -70,7 +69,6 @@ const notifyMoveError = () => toast.error("Not Moved..");
 
   const loadMoreHandle = (i) => {
     let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
-    console.log(bottom,"bottom")
     if (bottom) {
       if(cardTotallength > page && selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0 && emailArr.length == 0 && contactArr.length == 0 && FilterJob.length == 0 && LanguageFilter.length == 0){
         setPage(page + 20);
@@ -168,11 +166,10 @@ const LoaderFun=()=>{
       return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
     })
     setJobOptions([...jobResults]);
-    console.log(jobs);
+    // console.log(jobs);
   }, [jobs]);
 
   useEffect(() => {
-    console.log(sectors);
     let sectorops = sectors.map((asector) => {
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
@@ -315,7 +312,6 @@ setTimeout(()=>{
   }})
       .catch((err) => err);
   };
-  console.log(cardTotallength,"LEngth")
 
   useEffect(() => {
     if(dateLoader == false){
@@ -392,9 +388,7 @@ setTimeout(()=>{
          setEmail([  {
           value: "Select email", label: "Select Email", color: '#FF8B00'
         },...emailops])
-        console.log(emailops,"emailops")
       })
-        console.log([...email],"email")
       }
       if (ContactOptions.length == 0) {
         let ContactOp =[]as any
@@ -407,9 +401,7 @@ setTimeout(()=>{
            setContactOptions([  {
             value: "Select Contact", label: "Select Contact", color: '#FF8B00'
           },...ContactOp])
-          console.log(ContactOp,"ContactOp")
         })
-          console.log([...email],"email")
         }
   } )
 
@@ -460,7 +452,6 @@ setTimeout(()=>{
     DateArr=[]
     setSelectedSector("")
     MotivationArr = []
-    console.log(e.value)
     if(e.value=="Select Licence"){
       LicencePermisArr=[]
       filterFunction()
@@ -488,8 +479,6 @@ setTimeout(()=>{
     } else if (e.value !== "" && e.value !== "Select Motivations") {
       MotivationArr = []
       let sectorField = e.value;
-
-      console.log(sectorField, "motivation")
       MotivationArr.push(sectorField)
       filterFunction()
       // setSelectedSector(sectorField);
@@ -507,7 +496,6 @@ setTimeout(()=>{
     setSelectedJob([])
     emailArr=[]
     contactArr=[]
-    console.log(e)
     if (e.value === "Select Sector") {
       setJobs([]);
       setSelectedSector("");
@@ -566,7 +554,6 @@ setTimeout(()=>{
     filterFunction()
 
     } else if (e.value !== '' && e.value !== "Select Contact") {
-      console.log(e.value,"contact")
           contactArr = e.value;
     }
   }
@@ -871,7 +858,6 @@ setTimeout(()=>{
     let SelectedDate=[]
     SelectedDate=e.target.value
     DateArr.push(SelectedDate)
-    console.log(DateArr,"hey")
     filterFunction()
     }
  }
@@ -899,7 +885,6 @@ setTimeout(()=>{
       })
       LanguageFilter=LangArr
       filterFunction()
-      console.log(LanguageFilter,"jee")
     }
     }
 
@@ -1467,6 +1452,7 @@ styles={colourStyles}
 
         </div>
       </div>
+      
     </>
   );
 }

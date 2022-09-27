@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
 import "../../CSS/EditArchive.css";
 import { useLocation } from "react-router-dom";
@@ -497,14 +496,11 @@ function EditArchive() {
           notifyCandidatEditError();
         })
     } else {
-      console.log("Modify Something !");
       notifyCandidatUntouched()
     }
   }
   
   const switchHandle=(checked,id,e)=>{
-    console.log(checked,id,e,"all")
-console.log(checked,"checked")
 setFormTouched(true)
 if(e=="Permis"){
 if(checked === true){
@@ -534,14 +530,12 @@ if(checked == false){
 
   const handleChange = (selectedOption) => {
     setFormTouched(true)
-    console.log(`Option selected:`, selectedOption)
     let arr = []
 
     selectedOption.map((el) => {
       arr.push(el.value)
     })
     setLanguage(arr)
-    console.log(Language, "language")
     setData({ ...data, candidatLanguages: arr })
     
   }
@@ -566,8 +560,6 @@ if(checked == false){
         .then(datares => {
           console.log(datares)
           if (datares.data.status) {
-            
-            console.log(datares.data.status,"datares.data.status")
      // setCandidatImage(datares.data.filename)
      notifyDocumentUploadSuccess()
 
@@ -598,10 +590,7 @@ if(checked == false){
 
 
   useEffect(() => {
-    console.log(profile._id,"id")
     fetchCandidat(profile._id).then(resData => {
-      console.log(resData)
-
       setCandidatImage("")
       if (resData.status) {
         setProfile(resData.data)
@@ -619,7 +608,6 @@ if(checked == false){
     if (activitySectors.length === 0) {
       fetchActivitySectors()
         .then(redata => {
-          console.log([...redata.data],"red");
           setActivitySectors([...redata.data]);
         })
         .catch(err => {
@@ -643,11 +631,9 @@ if(checked == false){
           setJobOptions([...jobResults]);
     }
     if (data.candidatLanguages.length == 0) {
-      console.log(selectedLanguages);
       setData((prev) => ({ ...prev, ["candidatLanguages"]: selectedLanguages }));
     }
     if (data.candidatLanguages.length == 0) {
-      console.log(selectedLanguages);
       setData((prev) => ({ ...prev, ["candidatLanguages"]: selectedLanguages }));
     }
 
@@ -660,14 +646,11 @@ if(checked == false){
       })
     }
 
-    console.log(data);
   },[selectedSector]);
 
 
   const handleSectorChange = (e: any) => {
     // console.log(e.target.value)
-
-    console.log(e)
     if (e.value === "Select Un Secteur") {
       setJobs([]);
       setSelectedSector("");

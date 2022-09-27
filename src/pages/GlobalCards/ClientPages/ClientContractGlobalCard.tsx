@@ -149,7 +149,6 @@ function Signed() {
      value: "fiche_de_mise_a_disposition",
    },
  ]) as any;
- console.log(EMPunderWorking,"emp")
   const candidatImportanceIcons = [
     {
       icon: (
@@ -344,10 +343,8 @@ function Signed() {
   ];
   const handleImageChange = (val) => {
     if (val === "upload") {
-      console.log("upload");
       handleImageUpload();
     } else if (val === "Download") {
-      console.log("download");
       // window.open(API_BASE_URL + candidatImage);
     }
   };
@@ -410,15 +407,12 @@ function Signed() {
           },
         })
         .then((resData) => {
-          console.log(resData.data.status, "resData.data.status");
           if (resData.data.status) {
-            console.log(resData.data, "resData");
             setDocUploaded(true);
             setProgress(0);
             notifyDocumentUploadSuccess();
           } else {
-            console.log(resData);
-            setDocUploaded(false);
+              setDocUploaded(false);
           }
         })
         .catch((err) => {
@@ -430,12 +424,8 @@ function Signed() {
   };
 
   useEffect(() => {
-    console.log(profile._id, "id");
-    console.log(documentList, "doc");
     fetchCandidat(profile._id)
       .then((resData) => {
-        console.log(resData);
-
         setCandidatImage("");
         if (resData.status == true) {
         
@@ -464,7 +454,6 @@ function Signed() {
       });
   }, [docUploaded]);
 
-  console.log("doc", documentList);
 
   const ViewDownloadFiles = (documentName: any) => {
     window.open(API_BASE_URL + documentName);
@@ -501,7 +490,6 @@ function Signed() {
   const deleteDocument = async (docId: any, docName: any) => {
     await deleteCandidatDocument(docId, docName, profile._id)
       .then((resData) => {
-        console.log(resData);
         if (resData.status) {
           notifyDocumentDeleteSuccess();
           setDocumentList([
@@ -546,19 +534,6 @@ function Signed() {
   //     GetClient(IdFromURL)
   // })
 
-
-  const GetClient = async (IdFromURL) => {
-    return await fetch(API_BASE_URL + `getClientById/?clientId=${IdFromURL}`, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    })
-      .then((resp) => resp.json())
-      .then((respData) => respData)
-      .catch((err) => err);
-  };
 
   const viewFullProfile = (data) => {
     localStorage.setItem("embauch", JSON.stringify(data));
@@ -698,7 +673,7 @@ function Signed() {
       }
     }
   };
-  console.log(EMPunderWorking,"pro")
+
 
   const onChangeSwitches = async (id, AName, val) => {
     await fetch(

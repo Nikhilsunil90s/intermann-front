@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import StarRatings from "react-star-ratings";
 import "../CSS/Canceled.css";
 import ArchivedProfileCard from "../components/ArchivedProfileCard";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import Loader from '../components/Loader/loader'
 import { colourOptions, ColourOption } from "../Selecteddata/data";
-import SelectLoader from "../components/Loader/selectLoader"
 import chroma from 'chroma-js'
 import Select ,{StylesConfig }from 'react-select'
 import ProfileLoader from "../components/Loader/ProfilesLoader"
@@ -58,7 +56,6 @@ function ArchivedList() {
    
   const loadMoreHandle = (i) => {
     let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
-    console.log(bottom,"bottom")
     if (bottom) {
       if(cardTotallength > page && selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0   && FilterJob.length == 0 && LanguageFilter.length == 0){
         setPage(page + 20);
@@ -155,10 +152,8 @@ const LoaderFun=()=>{
       return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
     })
     setJobOptions([...jobResults]);
-    console.log(jobs);
   }, [jobs]);
   useEffect(() => {
-    console.log(sectors);
     let sectorops = sectors.map((asector) => {
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
@@ -342,7 +337,6 @@ SelectedClient=[]
     })
     LanguageFilter=LangArr
     filterFunction()
-    console.log(LanguageFilter,"jee")
   }
   }
 
@@ -453,7 +447,6 @@ SelectedClient=[]
              setLoader(true)
              setStatus(true)
             setFilterData([...ClientFL])
-            console.log([...ClientFL],"sab")
           }
         }
          
@@ -491,7 +484,6 @@ SelectedClient=[]
       FilterJob.length > 0 &&
       selectedLanguages.length == 0
     ) {
-      console.log(FilterJob, "seletedjobss");
       await fetch(
         `${API_BASE_URL}filterArchivedSJ/?sector=${selectedSector}&jobs=${FilterJob}`,
         {

@@ -8,8 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 let CName=[]
 function InProgressModal({ props, closeModal }) {
-  console.log(props);
-  //  End   //
   const navigate = useNavigate();
   const [workingFor, setWorkingFor] = useState("")
   const [workingSince, setWorking] = useState("")
@@ -94,7 +92,6 @@ function InProgressModal({ props, closeModal }) {
     if (clients.length == 0) {
       fetchClients()
         .then(result => {
-          console.log(result.data,"result")
           if (result.status) {
          
         CName=    result.data.map((el)=>{
@@ -110,7 +107,6 @@ function InProgressModal({ props, closeModal }) {
   })
 
   const saveModalData = async () => {
-    console.log(data)
     return await fetch(API_BASE_URL + "moveToInProgress", {
       method: "POST",
       headers: {
@@ -126,11 +122,9 @@ function InProgressModal({ props, closeModal }) {
   }
 
   const saveFormData = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log(data);
     e.preventDefault();
     saveModalData()
       .then((resp) => {
-        console.log(resp)
         closeModal(false);
         notifyMoveSuccess();
         setTimeout(function () {
@@ -151,15 +145,12 @@ function InProgressModal({ props, closeModal }) {
   ) => {
 
     if (e.name === 'clientName') {
-      console.log(e.name, e.value);
       setWorkingFor(e.value);
     }
     else if (e.target.name === "date") {
-      console.log(e.target.name, e.target.value);
       setWorking(e.target.value)
     }
     else if (e.target.name === "turnover") {
-      console.log(e.target.value)
       setSalary(e.target.value)
     }
   }

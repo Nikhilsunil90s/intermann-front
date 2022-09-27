@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import "../../CSS/Client/ClientTodo.css";
-import StarRatings from "react-star-ratings";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import InProgressClientModal from "../../components/Modal/InProgressClientModal";
@@ -41,8 +40,6 @@ const ClientToDoCard = (props: any) => {
     { value: "moveProgress", label: "Move to In Progress" },
     { value: "Archive", label: "Archive" },
   ] as any;
-  console.log(Offre, "ofree");
-
   const SwitchChange = (checked: any, e: any, Name: any) => {
     id = e.data._id;
     if (Name === "offerSent") {
@@ -239,7 +236,6 @@ const ClientToDoCard = (props: any) => {
   const editClientProfile = () => {
     navigate("/clientToDoEdit", { state: Editdata });
   };
-  console.log(props.data);
 
   const viewFullProfile = () => {
     // navigate("/clientToDoProfile", { state: props.data });
@@ -258,11 +254,8 @@ const ClientToDoCard = (props: any) => {
     if (e.value == "Archive") {
       setShowArchiveModal(true);
     }
-    console.log(e.value);
   };
 
-  const [isSwitchOn, setIsSwitchOn] = useState(true) as any;
-  console.log(props, "props");
   // useEffect(() => {
   //     console.log(props.data)
   // })

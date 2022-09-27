@@ -608,11 +608,7 @@ if(checked == false){
         }
       })
         .then(datares => {
-          console.log(datares)
           if (datares.data.status) {
-            
-            console.log(datares.data.status,"datares.data.status")
-     // setCandidatImage(datares.data.filename)
      notifyDocumentUploadSuccess()
 
      
@@ -629,14 +625,12 @@ if(checked == false){
   }
   const handleChange = (selectedOption) => {
     setFormTouched(true)
-    console.log(`Option selected:`, selectedOption)
     let arr = []
 
     selectedOption.map((el) => {
       arr.push(el.value)
     })
     setLanguage(arr)
-    console.log(Language, "language")
     setData({ ...data, candidatLanguages: arr })
   }
   const FetesDate = (selectedOption: any) => {
@@ -663,10 +657,7 @@ if(checked == false){
   }
 
   useEffect(() => {
-    console.log(profile._id,"id")
     fetchCandidat(profile._id).then(resData => {
-      console.log(resData)
-
       setCandidatImage("")
       if (resData.status) {
         setProfile(resData.data)
@@ -683,7 +674,6 @@ if(checked == false){
   const handleSectorChange = (e: any) => {
     // console.log(e.target.value)
 
-    console.log(e)
     if (e.value === "Select Un Secteur") {
       setJobs([]);
       setSelectedSector("");

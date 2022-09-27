@@ -13,7 +13,6 @@ function PreModal({props,closepreModal,client}) {
   const [selectedClient, setSelectedClient] = useState("");
   const [reason, setReason] = useState("");
   const [clientDataOptions,setClientOption]=useState([])
-console.log(props,"props")
 
 useEffect(()=>{
   if(clientDataOptions.length == 0){
@@ -26,17 +25,14 @@ useEffect(()=>{
 },[clientDataOptions])
 
 
-console.log(clientDataOptions,"clients")
   const onClientChange = (sc: any) => {
-    console.log(sc)
-    setSelectedClient(sc.value);
+      setSelectedClient(sc.value);
   }
 
   const onDataChange = (e: React.ChangeEvent<
     HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
   >) => {
     // debugger
-    console.log(e.target.value)
     setReason(e.target.value);
   }
 
@@ -56,14 +52,12 @@ console.log(clientDataOptions,"clients")
   }
 
   const moveToPreSelected = () => {
-    console.log(reason, selectedClient, props._id);
     const preSelectedData = {
       candidatId: props._id,
       clientId: selectedClient,
       reason: reason
     }
     changeStatus(preSelectedData).then((resData) => {
-      console.log(resData);
       if (resData.status) {
         notifyCandidatMovedSuccess()
         setTimeout(() => {

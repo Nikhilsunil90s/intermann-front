@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
 import "../../CSS/inProgressCard.css";
 import Modal from '../../components/Modal/InProgressModal'
@@ -9,7 +8,6 @@ import toast, { Toaster } from 'react-hot-toast';
 import Loader from "../../components/Loader/loader";
 import { ColourOption } from "../../Selecteddata/data";
 import Select, {StylesConfig } from "react-select";
-import SelectLoader from "../../components/Loader/selectLoader"
 import chroma from 'chroma-js';
 import {ReactComponent as RatingStar} from "../../images/RatingStar.svg"
 import {ReactComponent as Empty} from "../../images/emptyStar.svg"
@@ -63,9 +61,6 @@ export default function ClientProgress() {
   let [page, setPage] = useState(0);
   const [cardTotallength,setTotalLength]=useState(0)
 
-
-
-  console.log(cardTotallength,"card")
 
   const loadMoreHandle = (i) => {
     let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
@@ -196,7 +191,6 @@ const fetchProfileS = async (page) => {
   useEffect(() => {
     if (sectors.length == 0) {
       fetchAllSectors().then(data => {
-        console.log(data.data);
         setSectors([...data.data]);
       })
         .catch(err => {
@@ -207,10 +201,8 @@ const fetchProfileS = async (page) => {
       return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
     })
     setJobOptions([...jobResults]);
-    console.log(jobs);
   }, [jobs])
   useEffect(() => {
-    console.log(sectors);
     let sectorops = sectors.map((asector) => {
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
@@ -241,7 +233,6 @@ setTimeout(()=>{
         let nameops = profilesResult.map((pro) => {
           return { value: pro.clientCompanyName, label: pro.clientCompanyName, color: '#FF8B00' }
         })
-        console.log(nameops,"console")
         setNameOptions([{value:"Select Name",label :"Select Name" ,color:"#FF8B00"},...nameops])
       }).catch(err => {
         console.log(err)
@@ -316,8 +307,7 @@ setTimeout(()=>{      setImportanceOptions([
           }
 
   });
- 
-  console.log(status,"status")
+
   useEffect(() => {
     filterFunction();
   }, [selectedLanguages, selectedJob, selectedSector]);
@@ -400,7 +390,6 @@ setTimeout(()=>{      setImportanceOptions([
     OthersFilterArr = []
     FilterJob = [];
     setSelectedJob([])
-    console.log(e)
     if (e.value === "Select Un Secteur") {
       setJobs([]);
       setSelectedSector("");
@@ -427,31 +416,6 @@ setTimeout(()=>{      setImportanceOptions([
 
   },[selectedJob])
 
-  const HandleChecked=(e:any,job:any)=>{
-    // FilterJob=[]
-    if(!FilterJob.find((e) => e == job.jobName)){
-      console.log("hello")
-        FilterJob.push(job.jobName);
-        setSelectedJob(FilterJob);
-        filterFunction()
-  }
-    else {
-      if(FilterJob.length===1){
-        FilterJob=[]
-      }
-     FilterJob= FilterJob.filter((item)=>{return item !==job.jobName})
-      setSelectedJob(FilterJob)
-      filterFunction()
-    
-    } 
-  }
-  const getSelectedLanguage = (e: any) => {
-    if (e.target.checked) {
-      addLanguages(e.target.value);
-    } else {
-      removeLanguages(e.target.value);
-    }
-  }
   const addLanguages = (lang: string) => {
     setSelectedLanguages((prev) => ([...prev, lang]));
   }
@@ -477,8 +441,6 @@ setTimeout(()=>{      setImportanceOptions([
     } else if (e.value !== "Select Motivation") {
       MotivationArr = []
       let MField = e.value;
-
-      console.log(MField, "motivation")
       MotivationArr.push(MField)
       filterFunction()
       // setSelectedSector(sectorField);
@@ -512,7 +474,6 @@ setTimeout(()=>{      setImportanceOptions([
     Importance=[]
     MotivationArr = []
     FilterJob=[]
-    console.log(e.value)
     let OthersF=[]
     e.map((el)=>{
       OthersF.push(el.value)
@@ -521,7 +482,6 @@ setTimeout(()=>{      setImportanceOptions([
       filterFunction()
   }
   const MissingHandler = (checked, e, id) => {
-    console.log(id, "id");
     if (id == "EmailMissing") {
       if (checked == true) {
        email=true
@@ -536,12 +496,10 @@ setTimeout(()=>{      setImportanceOptions([
       if (checked == true) {
        phone=true
         filterFunction()
-        console.log(phone, "Phone");
       }
       if (checked == false) {
        phone=false
         filterFunction()
-        console.log(phone, "hone");
       }
     }
   };
@@ -794,7 +752,6 @@ setStatus(false)
     }
   };
   const jobChange = async (jobval) => {
-    // console.log(jobval)
     let JobArr=[]
     setSelectedSector("")
     jobval.map((el)=>{
@@ -802,7 +759,6 @@ setStatus(false)
       FilterJob.push(el.value)
   
     })
-    console.log(FilterJob,"fl")
     filterFunction()
   }
 

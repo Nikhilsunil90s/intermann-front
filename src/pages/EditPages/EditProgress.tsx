@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
 import "../../CSS/EditProgress.css";
 import { useLocation } from "react-router-dom";
@@ -528,7 +527,6 @@ function EditProgress() {
       formdata.append("data", JSON.stringify(updatedData))
       updateCandidat(formdata)
         .then(response => {
-          console.log(response)
           if (response.status) {
             notifyCandidatEditSuccess();
             setTimeout(() => {
@@ -549,8 +547,7 @@ function EditProgress() {
   }
   
   const switchHandle=(checked,id,e)=>{
-    console.log(checked,id,e,"all")
-console.log(checked,"checked")
+
 setFormTouched(true)
 if(e=="Permis"){
 if(checked === true){
@@ -582,14 +579,12 @@ if(checked == false){
 
   const handleChange = (selectedOption) => {
     setFormTouched(true)
-    console.log(`Option selected:`, selectedOption)
     let arr = []
 
     selectedOption.map((el) => {
       arr.push(el.value)
     })
     setLanguage(arr)
-    console.log(Language, "language")
     setData({ ...data, candidatLanguages: arr })
   }
   const fileChange = (
@@ -611,10 +606,7 @@ if(checked == false){
         }
       })
         .then(datares => {
-          console.log(datares)
           if (datares.data.status) {
-            
-            console.log(datares.data.status,"datares.data.status")
      // setCandidatImage(datares.data.filename)
      notifyDocumentUploadSuccess()
 
@@ -649,7 +641,6 @@ if(checked == false){
     if (activitySectors.length === 0) {
       fetchActivitySectors()
         .then(redata => {
-          console.log(redata, profile.candidatActivitySector);
           setActivitySectors([...redata.data]);
         })
         .catch(err => {
@@ -669,7 +660,6 @@ if(checked == false){
     }
 
     if (data.candidatLanguages.length == 0) {
-      console.log(selectedLanguages);
       setData((prev) => ({ ...prev, ["candidatLanguages"]: selectedLanguages }));
     }
 
@@ -681,8 +671,6 @@ if(checked == false){
         setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [{ period: detail.period, location: detail.location, workDoneSample: detail.workDoneSample }] }))
       })
     }
-    console.log(workingFor, workingSince, salary);
-    console.log(data);
   }, [activitySectors,selectedSector]);
 
   const fetchCandidat = async (candidatId: any) => {
@@ -699,10 +687,7 @@ if(checked == false){
   }
 
   useEffect(() => {
-    console.log(profile._id,"id")
     fetchCandidat(profile._id).then(resData => {
-      console.log(resData)
-
       setCandidatImage("")
       if (resData.status) {
         setProfile(resData.data)
@@ -719,7 +704,6 @@ if(checked == false){
   const handleSectorChange = (e: any) => {
     // console.log(e.target.value)
 
-    console.log(e)
     if (e.value === "Select Un Secteur") {
       setJobs([]);
       setSelectedSector("");

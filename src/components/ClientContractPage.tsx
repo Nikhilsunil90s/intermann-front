@@ -153,8 +153,7 @@ function ClientContractPage() {
     });
   },[documentList]);
 
-  // const [ClientImage, setClientImage] = useState(profile.clientPhoto && profile.clientPhoto?.documentName !== undefined ? profile.clientPhoto?.documentName : "");
-  console.log(profile)
+
 
   const fetchCandidat = async (clientId: any) => {
     return await fetch(API_BASE_URL + `getClientDetailsById/?clientId=${clientId}`, {
@@ -167,8 +166,7 @@ function ClientContractPage() {
       .then((respData) => respData)
       .catch((err) => err);
   };
-  console.log(id, "id");
-console.log(contrat_client,"dks")
+
   return (
     <>
       <div className="container-fluied bg-ContractPage">

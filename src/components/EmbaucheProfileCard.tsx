@@ -1,15 +1,12 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import "../CSS/Embauch.css";
-import StarRatings from 'react-star-ratings';
 import ArchivedModal from "./Modal/ArchivedModal";
 import { useNavigate } from "react-router-dom";
 import Select from 'react-select'
 import moment from "moment";
 const EmbaucheProfileCard = (props: any) => {
-console.log(props,"ppr")
-
-    const navigate = useNavigate();
+const navigate = useNavigate();
 
     const [showArchiveModal, setShowArchiveModal] = useState(false)
     const CardOptions=[{
@@ -35,7 +32,7 @@ console.log(props,"ppr")
       if(e.value=="Archive"){
         setShowArchiveModal(true) 
       }
-    console.log(e.value)
+
     }
 
     const datenow=moment().format('YYYY-MM-DD')

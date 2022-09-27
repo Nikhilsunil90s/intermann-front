@@ -92,7 +92,6 @@ function ClientArchivedEdit() {
 
     const notifyClientEditError = () => toast.error("Cannot Edit This Candidat, Since No Data Changed!");
     const locationObject = useLocation();
-    console.log(locationObject.state);
     const { state, path } = locationObject.state as State;
     const navigate = useNavigate();
     const [data, setData] = useState(ClientDataFormat);
@@ -208,7 +207,6 @@ function ClientArchivedEdit() {
          ClientDataFormat.salary_hours=[]
          SalaryFData.filter(el=>{
            setcheckBooleanValue(el.hours.includes(showHour))
-             console.log(checkBooleanValue)
            
            })
              if(checkBooleanValue === false){
@@ -233,14 +231,12 @@ function ClientArchivedEdit() {
             ClientDataFormat.rate_hours=[]
             TauxHour.filter(el=>{
               setcheckBooleanValue(el.hours.includes(taxHours))
-                console.log(checkBooleanValue)
               })
                 if(checkBooleanValue === false){
                 
                
                 ClientDataFormat.rate_hours.push(...TauxHour)
                 toast.success(`Removed ${taxHours}H Taux!`)
-                console.log(ClientDataFormat,"clientdata")
                 return true
         
               }
@@ -269,7 +265,6 @@ function ClientArchivedEdit() {
  
     const HandleChange = (e: any) => {
       
-      console.log(e.target.value);
       if (e.target.id === "1") {
         setShowHour("35");
         setID(e.target.id);
@@ -339,7 +334,6 @@ const onSubmitRates=(e)=>{
       const FilterSalary=  SalaryTotal.filter(el=>{
         const duplicate = arr.includes(el) ;
         if(duplicate == false){
-        console.log(duplicate,"duplic")
           arr.push(el)
          ClientDataFormat.salary_hours=arr
        
@@ -380,7 +374,6 @@ const onSubmitRates=(e)=>{
 
   
     const TauxHandleChange = (e: any) => {
-      console.log(e.target.value);
       if (e.target.id === "1") {
         setHours("35");
         setHoursId(e.target.id);
@@ -477,9 +470,7 @@ const onSubmitRates=(e)=>{
     }
 
     useEffect(() => {
-        console.log(profile._id, profile.clientPhoto)
         fetchClient(profile._id).then(resData => {
-            console.log(resData)
             if (resData.status) {
 
                 setImgSource(resData.data.clientPhoto.imageName)
@@ -520,13 +511,11 @@ const onSubmitRates=(e)=>{
             setSelectedSector(sec);
             await fetchAllJobs(sec)
                 .then(data => {
-                    console.log(data.data)
                     setJobs([...data.data]);
                 })
                 .catch(err => {
                     console.log(err);
                 })
-            console.log(jobs);
         }
 
     }
@@ -534,30 +523,25 @@ const onSubmitRates=(e)=>{
       if (activitySectors.length === 0) {
           fetchActivitySectors()
               .then(redata => {
-                  console.log(redata);
                   setActivitySectors([...redata.data]);
               })
               .catch(err => {
                   console.log(err)
               })
       }
-      console.log(profile.clientActivitySector)
       if (jobs.length === 0 && profile.clientActivitySector !== "") {
           fetchAllJobs(profile.clientActivitySector)
               .then((data) => {
-                  console.log(data);
                   setJobs([...data.data])
               })
               .catch(err => {
                   console.log(err)
               })
       }
-      console.log(data);
       let jobResults = jobs.map(ajob => {
           return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
         })
         setJobOptions([...jobResults]);
-        console.log(jobs);
   }, [jobs])
 
     const changeJobSelection = (value: string) => {
@@ -575,7 +559,6 @@ const onSubmitRates=(e)=>{
     }
 
     const updateClient = async (updatedData: any) => {
-        console.log(updatedData)
         let headers = {
             "Accept": 'application/json',
             "Authorization": "Bearer " + localStorage.getItem('token')
@@ -602,7 +585,6 @@ const onSubmitRates=(e)=>{
         console.log(e.target.name, e.target.value)
         setFormTouched(true);
         if (e.target.name === 'clientPhoto') {
-            console.log("Check photo")
             const fileUploaded = e.target.files[0];
             setClientImage(fileUploaded);
             let formdata = new FormData();
@@ -630,11 +612,9 @@ const onSubmitRates=(e)=>{
         if (e.target.name === 'clientLanguages') {
             if (e.target?.checked) {
                 addLanguages(e.target.value);
-                console.log(selectedLanguages)
                 return
             } else {
                 removeLanguages(e.target.value);
-                console.log(selectedLanguages)
                 return
             }
         }
@@ -830,7 +810,6 @@ const onSubmitRates=(e)=>{
         if (activitySectors.length === 0) {
             fetchActivitySectors()
                 .then(redata => {
-                    console.log(redata);
                     setActivitySectors([...redata.data]);
                 })
                 .catch(err => {
@@ -841,14 +820,14 @@ const onSubmitRates=(e)=>{
         if (jobs.length === 0 && profile.clientActivitySector !== "") {
             fetchAllJobs(profile.clientActivitySector)
                 .then((data) => {
-                    console.log(data);
+                 
                     setJobs([...data.data])
                 })
                 .catch(err => {
                     console.log(err)
                 })
         }
-        console.log(data);
+  
     }, [])
 
     const jobChange = async (jobval) => {

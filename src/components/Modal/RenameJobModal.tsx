@@ -38,10 +38,8 @@ function RenameJobModal({ props, closeModal }) {
     }
 
     const saveNewJobName = () => {
-        console.log(newJobName)
         if (newJobName != "") {
             sendNewNameToDB().then(data => {
-                console.log(data)
                 if (data.status) {
                     notifyJobRenameSuccess();
                     setTimeout(() => {

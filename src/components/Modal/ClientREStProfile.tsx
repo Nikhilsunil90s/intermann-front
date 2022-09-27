@@ -8,7 +8,6 @@ function ResetClientProfile({ props, closeModal, path }) {
     console.log(props);
 
     const navigate = useNavigate();
-    const [reasonToArchive, setReasonToArchive] = useState([]);
     const [clientId, setClientId] = useState(props._id);
 
     const notifyMoveSuccess = () => toast.success("Client Reset To To-DO Successfully!");
@@ -19,7 +18,6 @@ function ResetClientProfile({ props, closeModal, path }) {
     }
 
     const ResetCandidat = async () => {
-        console.log(data);
         return await fetch(API_BASE_URL + "moveClientToToDo", {
             method: "POST",
             headers: {

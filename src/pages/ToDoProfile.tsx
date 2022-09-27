@@ -46,9 +46,7 @@ function ToDoProfile() {
   const navigate = useNavigate();
   const { state } = useLocation();
 
-  console.log(profileData,"profile")
   const [profile, setProfile] = useState<any>(state ? state : profileData.props);
-console.log(profile,"profile")
 
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
@@ -126,7 +124,6 @@ const fetchProfilesClients = async () => {
 }
 const deleteDocument = async (docId: any, docName: any) => {
   await deleteCandidatDocument(docId, docName, profile._id).then(resData => {
-    console.log(resData);
     if (resData.status) {
       notifyDocumentDeleteSuccess()
       setDocumentList([...documentList.filter((doc) => {
@@ -141,11 +138,9 @@ const deleteDocument = async (docId: any, docName: any) => {
 }
  const removeRecommendation = (rId: any) => {
 
-  console.log(recommendations);
   let filteredRecommendations = recommendations.filter((recomm) => {
     return recomm._id !== rId;
   })
-  console.log(filteredRecommendations)
   setRecommendations([...filteredRecommendations])
   setLoader(true);
 }
@@ -174,10 +169,8 @@ const fetchRecommendations = async (candidatSector: string) => {
   
   const handleImageChange = (val) => {
     if (val === 'upload') {
-      console.log("upload")
       handleImageUpload()
     } else if (val === 'Download') {
-      console.log("download")
       window.open(API_BASE_URL + "uploads/" +candidatImage);
     }
   }
@@ -216,10 +209,7 @@ const fetchRecommendations = async (candidatSector: string) => {
         }
       })
         .then(datares => {
-          console.log(datares)
           if (datares.data.status) {
-            
-            console.log(datares.data.status,"datares.data.status")
      // setCandidatImage(datares.data.filename)
      notifyDocumentUploadSuccess()
 
@@ -252,12 +242,10 @@ const fetchRecommendations = async (candidatSector: string) => {
       })
         .then(resData => {
           if (resData.data.status) {
-            console.log(resData.data,"resData")
             setDocUploaded(true);
             setProgress(0); 
             notifyDocumentUploadSuccess();
           } else {
-            console.log(resData)
             setDocUploaded(false);
           }
         })
@@ -275,15 +263,11 @@ const fetchRecommendations = async (candidatSector: string) => {
   }, [recommendations])
 
   useEffect(() => {
-    console.log(profile._id,"id")
-    console.log(documentList,"doc")
     fetchCandidat(profile._id).then(resData => {
-      console.log(resData)
 
       setCandidatImage("")
       if (resData.status) {
         setProfile(resData.data)
-        console.log(resData.data,"propsss")
          setDocumentList([...resData.data.candidatDocuments])
         setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
         setDocUploaded(false);
@@ -331,7 +315,7 @@ const fetchRecommendations = async (candidatSector: string) => {
   setfin_mision(FormatNewDate)
 
 }},)
-console.log(contract_date,"cont")
+// console.log(contract_date,"cont")
   useEffect(() => {
     setLoader(true);
     fetchRecommendations(profile.candidatActivitySector)

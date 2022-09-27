@@ -127,10 +127,8 @@ useEffect(()=>{
       return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
     })
     setJobOptions([...jobResults]);
-    console.log(jobs);
   }, [jobs]);
   useEffect(() => {
-    console.log(sectors);
     let sectorops = sectors.map((asector) => {
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
@@ -307,7 +305,6 @@ SelectedClient=[]
     })
     LanguageFilter=LangArr
     filterFunction()
-    console.log(LanguageFilter,"jee")
   }
   }
 
@@ -616,7 +613,6 @@ SelectedClient=[]
       if(e.value=="Hide This Profile"){
           setHideProfile(true) 
         }
-    console.log(e.value)
     }
 
 

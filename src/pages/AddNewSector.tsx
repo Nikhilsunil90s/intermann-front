@@ -23,7 +23,6 @@ function AddSector() {
   const Navigate=useNavigate()
   
   const jobName=(jobs:any)=>{
-      console.log(jobs)
       Navigate("/joblist",{state:jobs})
   }
 
@@ -47,7 +46,6 @@ function AddSector() {
   useEffect(() => {
     getSectors()
       .then((resp) => {
-        console.log(resp.data);
         setSectorsList([...resp.data]);
       })
       .catch((err) => {

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import StarRatings from "react-star-ratings";
 import "../../CSS/Client/ClientTodo.css";
 import ClientToDoCard from "../../pages/ClientPages/ClientTodoCard";
 import toast, { Toaster } from "react-hot-toast";
@@ -301,9 +300,6 @@ setTimeout(()=>{
       .catch((err) => err);
   };
   const handleNameChange = (e: any) => {
-    // setEmail("")
-    // setPhone("")
-    // console.log(e.target.value)
     email=false;
     phone=false;
     SelectedName = [];
@@ -395,9 +391,6 @@ setTimeout(()=>{
   };
 
   const handleSectorChange = (e: any) => {
-    // console.log(e.target.value)
-    // setEmail("")
-    // setPhone("")
     SelectedName = [];
     MotivationArr = [];
     OthersFilterArr = [];

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
 import "../../CSS/Client/ClientSeepage.css";
 import { useLocation } from "react-router-dom";
@@ -834,7 +833,6 @@ function ClientSee() {
 
   const handleImageChange = (val) => {
     if (val === "upload") {
-      console.log("upload");
       handleImageUpload();
     } else if (val === "Download") {
       window.open(API_BASE_URL + "uploads/" + ClientImage);

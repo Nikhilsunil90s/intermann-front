@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
 import "../CSS/Candidatefile.css";
 import { useLocation } from "react-router-dom";
@@ -121,7 +120,6 @@ const notifyMoveError = () => toast.error("Not Moved..");
         }
       })
         .then(datares => {
-          console.log(datares)
           if (datares.data.status) {
             notifyDocumentUploadSuccess()
             // setCandidatImage(datares.data.filename)
@@ -154,7 +152,6 @@ const notifyMoveError = () => toast.error("Not Moved..");
       })
         .then(resData => {
           if (resData.data.status) {
-            console.log(resData.data)
             setDocUploaded(true);
             setProgress(0);
             notifyDocumentUploadSuccess();
@@ -173,10 +170,8 @@ const notifyMoveError = () => toast.error("Not Moved..");
   }
   const handleImageChange = (val) => {
     if (val == 'upload') {
-      console.log("upload")
       handleImageUpload()
     } else if (val == 'Download') {
-      console.log("download")
       window.open(API_BASE_URL + "uploads/" + candidatImage);
     }
   }
@@ -246,11 +241,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
 
     
     useEffect(() => {
-    console.log(profile._id,"id")
-    console.log(documentList,"doc")
     fetchCandidat(profile._id).then(resData => {
-      console.log(resData)
-
       setCandidatImage("")
       if (resData.status) {
         setProfile(resData.data)
@@ -279,7 +270,6 @@ const notifyMoveError = () => toast.error("Not Moved..");
       .then(respData => respData)
       .catch(err => err)
   }
-  console.log(Data)
 
   const responsive = {
     superLargeDesktop: {

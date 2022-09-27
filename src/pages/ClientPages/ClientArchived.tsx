@@ -5,7 +5,6 @@ import { API_BASE_URL } from "../../config/serverApiConfig";
 import Loader from '../../components/Loader/loader'
 import { ColourOption } from "../../Selecteddata/data";
 import Select, {StylesConfig } from "react-select";
-import SelectLoader from "../../components/Loader/selectLoader"
 import chroma from 'chroma-js';
 import {ReactComponent as RatingStar} from "../../images/RatingStar.svg"
 import {ReactComponent as Empty} from "../../images/emptyStar.svg"
@@ -76,7 +75,6 @@ export default function ClientArchived() {
   
   const loadMoreHandle = (i) => {
     let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
-    console.log(bottom,"bottom")
     if (bottom) {
       if(selectedSector.length === 0 &&
         selectedJob.length === 0 &&
@@ -204,7 +202,7 @@ const fetchProfileS = async (page) => {
   useEffect(() => {
     if (sectors.length == 0) {
       fetchAllSectors().then(data => {
-        console.log(data.data);
+     
         setSectors([...data.data]);
       })
         .catch(err => {
@@ -215,10 +213,8 @@ const fetchProfileS = async (page) => {
       return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
     })
     setJobOptions([...jobResults]);
-    console.log(jobs);
   }, [jobs])
   useEffect(() => {
-    console.log(sectors);
     let sectorops = sectors.map((asector) => {
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
@@ -333,7 +329,6 @@ setTimeout(()=>{
   useEffect(() => {
     filterFunction();
   }, [selectedLanguages, selectedJob, selectedSector]);
- console.log(filterData,"data")
     const fetchProfiles = async () => {
       return await fetch(API_BASE_URL + "allArchivedClients", {
         method: "GET",
@@ -389,7 +384,6 @@ setTimeout(()=>{
   const HandleChecked=(e:any,job:any)=>{
     // FilterJob=[]
     if(!FilterJob.find((e) => e == job.jobName)){
-      console.log("hello")
         FilterJob.push(job.jobName);
         setSelectedJob(FilterJob);
         filterFunction()
@@ -437,7 +431,6 @@ setTimeout(()=>{
     OthersFilterArr = []
     FilterJob = [];
     setSelectedJob([])
-    console.log(e)
     if (e.value === "Select Un Secteur") {
       setJobs([]);
       setSelectedSector("");
@@ -771,14 +764,12 @@ setStatus(false)
     Importance=[]
     MotivationArr = []
     FilterJob=[]
-    console.log(e.value)
     e.map((el)=>{
       OthersFilterArr.push(el.value)
     })
     filterFunction()
   }
   const MissingHandler = (checked, e, id) => {
-    console.log(id, "id");
     if (id == "EmailMissing") {
       if (checked == true) {
        email=true
@@ -793,12 +784,10 @@ setStatus(false)
       if (checked == true) {
        phone=true
         filterFunction()
-        console.log(phone, "Phone");
       }
       if (checked == false) {
        phone=false
         filterFunction()
-        console.log(phone, "hone");
       }
     }
   };

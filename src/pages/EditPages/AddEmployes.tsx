@@ -5,9 +5,7 @@ import { API_BASE_URL } from "../../config/serverApiConfig";
 import Select, { GroupBase, StylesConfig } from "react-select";
 import chroma from 'chroma-js';
 import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../../Selecteddata/data';
-import 'react-date-range/dist/styles.css'; // main style file
-import 'react-date-range/dist/theme/default.css'; // theme css file
-// import  DateRangePicker from 'react-bootstrap-daterangepicker/dist/index.es';
+
 const EmployeeDataFormat = {
   candidatName: "",
   candidatEmail: "",
@@ -150,7 +148,6 @@ const [sectorOption,setSectorOptions]=useState([])
   }
 
   const handleChange = (selectedOption) => {
-    console.log(`Option selected:`, selectedOption)
     let arr = []
 
     selectedOption.map((el) => {
@@ -169,8 +166,6 @@ const [sectorOption,setSectorOptions]=useState([])
 
     setData({ ...data, candidatFetes: FetesArr })
   }
-
-console.log(data)
 
   const handleSectorChange = (e: any) => {
     setJobOptions([])
@@ -202,7 +197,6 @@ useEffect(() => {
       return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
     })
     setJobOptions([...jobResults]);
-    console.log(jobs,"jobs");
 }, [jobs])
 
   useEffect(() => {
@@ -279,7 +273,6 @@ useEffect(() => {
 
   const addWorkExperience = (e: any) => {
     e.preventDefault();
-    console.log(period, location, workDoneSample);
     if (period == "") {
       return
     }
@@ -377,11 +370,9 @@ useEffect(() => {
 
 
   useEffect(() => {
-    console.log("workex-", workExperience)
     const wex = workExperience.filter((workex) => {
       return workex.period != "" && workex.location != "" && workex.workDoneSample != "";
     })
-    console.log(wex);
     setData((prev) => ({ ...prev, ["candidatExperienceDetails"]: wex }));
   }, [workExperience])
 
@@ -418,20 +409,16 @@ useEffect(() => {
       setSelectedSector(sec)
       await fetchAllJobs(sec)
         .then(data => {
-          console.log(data.data)
           setJobs([...data.data]);
         })
         .catch(err => {
           console.log(err);
         })
-      console.log(jobs);
     }
     let jobResults = jobs.map(ajob => {
       return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
     })
     setJobOptions([...jobResults]);
-    console.log(jobs,"jobs");
-
   }
 
   const jobChange = async (jobval) => {
@@ -464,7 +451,6 @@ useEffect(() => {
       setData((prev) => ({ ...prev, ["candidatEndDate"]: "2027-12-12" }));
       return false;
     }
-    console.log(data);
     saveCandidatData().then(data => {
       console.log(data)
       if (data.status) {
@@ -481,22 +467,8 @@ useEffect(() => {
         console.log(err)
       })
   };
-  // const handleSelect=(ranges)=>{
-  const   handleEvent=(event:any, picker:any)=> {
-      console.log(picker.startDate);
-    }
-  const   handleCallback=(start:any, end:any, label:any)=> {
-      console.log(start, end, label);
-    }
+
   
-  // console.log(format(new Date(ranges), 'yyyy/dd/MM'));
-    // {
-    //   selection: {
-    //     startDate: [native Date Object],
-    //     endDate: [native Date Object],
-    //   }
-    // }
-  // }
   const selectionRange = {
     startDate: new Date(),
     endDate: "",

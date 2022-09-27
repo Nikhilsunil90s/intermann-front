@@ -20,7 +20,6 @@ function PreModal({props,closepreModal,clientProps}) {
     HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
   >) => {
     // debugger
-    console.log(e.target.value)
     setReason(e.target.value);
   }
 

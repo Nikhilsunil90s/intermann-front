@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import "../../CSS/Client/ArchivedCardClient.css"
 import ErrorLoader from '../../components/Loader/SearchBarError'
 
-function ResetProfile({ props, closeModal }) {
+function DocumSign({ props, closeModal }) {
 
     console.log(props);
 
     const navigate = useNavigate();
     const [reasonToArchive, setReasonToArchive] = useState([]);
-    const [candidatId, setCandidatId] = useState(props._id);
+    const [candidatId, setCandidatId] = useState(props.candidatId);
 
     const notifyMoveSuccess = () => toast.success("Candidat Reset To To-DO Successfully!");
     const notifyMoveError = () => toast.error("Cannot Reset Candidat! Please Try Again.");
@@ -20,21 +20,21 @@ function ResetProfile({ props, closeModal }) {
         candidatId
     }
 
-    const ResetClient = async () => {
-        console.log(data);
-        return await fetch(API_BASE_URL + "moveToToDo", {
-            method: "POST",
-            headers: {
-                "Accept": 'application/json',
-                'Content-Type': 'application/json',
-                "Authorization": "Bearer " + localStorage.getItem('token')
-            },
-            body: JSON.stringify(data),
-        })
-            .then(resp => resp.json())
-            .then(reD => (reD))
-            .catch(err => err)
-    }
+    // const ResetClient = async () => {
+    //     console.log(data);
+    //     return await fetch(API_BASE_URL + "moveToToDo", {
+    //         method: "POST",
+    //         headers: {
+    //             "Accept": 'application/json',
+    //             'Content-Type': 'application/json',
+    //             "Authorization": "Bearer " + localStorage.getItem('token')
+    //         },
+    //         body: JSON.stringify(data),
+    //     })
+    //         .then(resp => resp.json())
+    //         .then(reD => (reD))
+    //         .catch(err => err)
+    // }
 
     // const sendResetRequest = () => {
     //     console.log(data);
@@ -87,10 +87,10 @@ function ResetProfile({ props, closeModal }) {
                         }}
                         >
                        This is the contract link you need to send to the candidate/client via whats’app or by email :
-Once it will be signed we will receive the signed document by email and you will have to archive it on Drive/CRM  [unique_link]  : 
+Once it will be signed we will receive the signed document by email and you will have to archive it on Drive/CRM  [unique_link]  :   <Link className="LinkStyling" to={`/documentSign/${props.candidatName}/${props._id}`} target="_blank">{API_BASE_URL + `documentSign/${props.candidatName.replaceAll(" ","%20")}/` + props._id}</Link>
 
                         </p>
-                    <div className="d-flex align-items-center justify-content-center">   <p  className=" mb-0"
+                    {/* <div className="d-flex align-items-center justify-content-center">   <p  className=" mb-0"
                         style={{
                             fontFamily: 'Poppins',
                             fontStyle: "normal",
@@ -106,7 +106,7 @@ Once it will be signed we will receive the signed document by email and you will
                         </p>
                         <ErrorLoader />
                        
-                        </div> 
+                        </div>  */}
                            
                     </div>
                 </div>
@@ -114,4 +114,4 @@ Once it will be signed we will receive the signed document by email and you will
         </div>
     </>)
 }
-export default ResetProfile;
+export default DocumSign;

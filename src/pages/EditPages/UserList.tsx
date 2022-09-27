@@ -37,7 +37,7 @@ function UserList(){
  useEffect(()=>{
     getAllUsers()
  },[])
-  console.log(allUsers)       
+
        
     
     // }

@@ -10,7 +10,6 @@ import toast, { Toaster } from "react-hot-toast";
 import moment from 'moment';
 
 function ClientContractCard(props:any) {
-  console.log(props)
   const navigate = useNavigate();
 
   const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /><StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating   style={{marginRight:"3px",width:"70%"}} /> <StarRating style={{marginRight:"3px",width:"70%"}}/> <StarRating style={{marginRight:"3px",width:"70%"}} /> <StarRating style={{marginRight:"3px",width:"70%"}} /> <Empty style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /><StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /></>}]; 
@@ -52,7 +51,6 @@ const Editdata ={state:props.data,path:"/clientContract"}
       if(e.value=="Archive"){
         setShowArchiveModal(true) 
       }
-    console.log(e.value)
     }
 
 
@@ -62,9 +60,6 @@ const Editdata ={state:props.data,path:"/clientContract"}
     localStorage.setItem('archive', JSON.stringify(props.data));
     window.open("/clientSigned", "_blank")
   }
-  console.log(props.data,"profile")
-
-
   const datenow=moment().format('YYYY-MM-DD')
     
   let date = new Date(datenow);

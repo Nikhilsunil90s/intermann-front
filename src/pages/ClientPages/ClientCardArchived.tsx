@@ -1,6 +1,4 @@
 import React,{useState} from "react";
-import StarRatings from "react-star-ratings";
-import {Link} from 'react-router-dom'
 import "../../CSS/Client/ProgressCardClient.css";
 import {ReactComponent as Empty} from "../../images/emptyStar.svg";
 import {ReactComponent as StarRating} from "../../images/RatingStar.svg";
@@ -31,7 +29,6 @@ function ClientCardArchived(props:any){
         navigate("/archivedClientEditprofile", { state: props.data });
       };
     const viewFullProfile = () => {
-        console.log(props.data)
         // navigate("/archivedClientSeeprofile", { state: props.data });
         localStorage.setItem('archive', JSON.stringify(props.data));
         window.open("/archivedClientSeeprofile", "_blank")
@@ -50,10 +47,8 @@ function ClientCardArchived(props:any){
         if(e.value=="Archive"){
           setShowArchiveModal(true) 
         }
-      console.log(e.value)
       }
 
-console.log(props)
 const candidatImportanceIcons = [{ icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /><StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /> <Empty  style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating   style={{marginRight:"3px",width:"70%"}} /> <StarRating style={{marginRight:"3px",width:"70%"}}/> <StarRating style={{marginRight:"3px",width:"70%"}} /> <StarRating style={{marginRight:"3px",width:"70%"}} /> <Empty style={{marginRight:"3px",width:"70%"}} /></>}, {icon:<><StarRating  style={{marginRight:"3px",width:"70%"}} /><StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /> <StarRating  style={{marginRight:"3px",width:"70%"}} /></>}]; 
 const candidatMotivationIcons = [{ icon:"", motivation: 'No Motivation' },{ icon:"😟", motivation: 'Disappointed' }, { icon:"🙁", motivation: 'Not Really' }, { icon:"😊", motivation: 'Like' }, { icon:"🥰", motivation: 'Great' }, { icon:"😍", motivation: 'Super Lovely' }];
   

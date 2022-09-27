@@ -12,7 +12,16 @@ body::-webkit-scrollbar {
 
 
   
-
+.overFlowHeight::-webkit-scrollbar {
+    width: 5px;               /* width of the entire scrollbar */
+  }
+  .overFlowHeight::-webkit-scrollbar-track {
+    background: #e7e7e7;        /* color of the tracking area */
+  }
+  .overFlowHeight::-webkit-scrollbar-thumb {
+    background-color: orange;    /* color of the scroll thumb */
+    border-radius: 10px;       /* roundness of the scroll thumb */  /* creates padding around scroll thumb */
+  }
 
   
 .cardScrollBar::-webkit-scrollbar {

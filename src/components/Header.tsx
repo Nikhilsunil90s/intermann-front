@@ -70,7 +70,7 @@ const Header = () => {
   },[data])
  
 
-  console.log(data,"data")
+
   const fetchProfiles = async () => {
     return await fetch(API_BASE_URL + "getProfiles", {
       method: "GET",
@@ -98,8 +98,6 @@ if(e == null ){
 else if(e.target.value !== "" && e !== null){
   setInputStatus(true)
   setValue(e.target.value)
-  console.log(Number.isInteger(Number(e.target.value)),"int")
-  console.log(e.target.value.toString().replaceAll(" ","").toLowerCase(),"int")
 
 if( Number.isInteger(Number(e.target.value))){
 
@@ -114,7 +112,6 @@ if( Number.isInteger(Number(e.target.value))){
       null
       )
       )
-    console.log(FilDataNo,"no")
 
       setFilterData([...FilDataNo])
 }
@@ -125,8 +122,7 @@ if( Number.isInteger(Number(e.target.value))){
   }
 }
   )
-  console.log(FilDataCName,"cname")
-  
+
 
 
 }
@@ -163,8 +159,7 @@ if(e.target.value){
 
     )
     )
-    console.log(FilData)
- 
+
 
     setFilterData([...FilDataCName,...FilDataCNName, ...FilData])
 }

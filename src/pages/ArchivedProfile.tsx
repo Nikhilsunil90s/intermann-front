@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
-import StarRatings from "react-star-ratings";
 import { Link, useNavigate, useNavigationType } from 'react-router-dom'
 import '../CSS/Archived.css'
 import { useLocation } from "react-router-dom";
-import {ReactComponent as Upload} from "../images/upload.svg"
-import {ReactComponent as Download} from '../images/download.svg'
-import Select from 'react-select'
-import ProfileLoader from "../components/Loader/ProfilesLoader";
 import { API_BASE_URL } from '../config/serverApiConfig';
 import axios from "axios";
 import HideProfile from "../components/Modal/HideProfileModalForArchived";
@@ -91,10 +86,10 @@ const ArchivedProfile = () => {
     }
     const handleImageChange = (val) => {
       if (val === 'upload') {
-        console.log("upload")
+       
         handleImageUpload()
       } else if (val === 'Download') {
-        console.log("download")
+
         window.open(API_BASE_URL + "uploads/" + candidatImage);
       }
     }
@@ -129,7 +124,7 @@ const ArchivedProfile = () => {
           }
         })
           .then(datares => {
-            console.log(datares)
+        
             if (datares.data.status) {
               notifyDocumentUploadSuccess()
               // setCandidatImage(datares.data.filename)
@@ -147,10 +142,7 @@ const ArchivedProfile = () => {
    
     }
     useEffect(() => {
-      console.log(profile._id,"id")
-      fetchCandidat(profile._id).then(resData => {
-        console.log(resData)
-  
+      fetchCandidat(profile._id).then(resData => {  
         setCandidatImage("")
         if (resData.status) {
           setProfile(resData.data)

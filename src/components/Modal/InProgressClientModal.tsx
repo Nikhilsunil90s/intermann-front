@@ -5,7 +5,6 @@ import { toast } from "react-hot-toast";
 import "../../CSS/Client/ProgressCardClient.css"
 
 function InProgressClientModal({ props, closeModal }) {
-    console.log(props)
 
     const navigate = useNavigate();
 

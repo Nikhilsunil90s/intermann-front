@@ -1,15 +1,12 @@
 import React,{useState,useEffect} from "react";
 import { Link } from "react-router-dom";
-import StarRatings from "react-star-ratings";
 import "../../CSS/preSelected.css";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import {toast, Toaster } from "react-hot-toast";
-import Loader from "../../components/Loader/loader";
 import Select, { GroupBase, StylesConfig } from "react-select";
 import { colourOptions, ColourOption } from "../../Selecteddata/data";
 import chroma from 'chroma-js';
 import ProfileLoader from "../../components/Loader/ProfilesLoader"
-import { Console } from "console";
 import moment from 'moment'
 import { useLocation,useNavigate } from "react-router-dom";
 import ArchivedModal from "./../../components/Modal/ArchivedModal";

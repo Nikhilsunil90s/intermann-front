@@ -47,7 +47,6 @@ export default function SearchModal({props,closeModal,}){
     
 
     const ListPage=(data)=>{
-      console.log("check",data.candidatStatus)
         if(data.candidatName){
          if(data.candidatStatus =="To-Do"){
           navigate("/todoprofile",{state:data})

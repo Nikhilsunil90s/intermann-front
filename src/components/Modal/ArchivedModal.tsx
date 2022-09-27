@@ -3,8 +3,6 @@ import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast, { Toaster } from "react-hot-toast";
 
 function ArchivedModal({ props, closeModal,path }) {
-  console.log(props);
-  console.log(props._id,"path")
   const [reasonToArchive, setReasonToArchive] = useState([]);
   const [candidatId, setCandidatId] = useState(props._id);
 
@@ -30,7 +28,6 @@ function ArchivedModal({ props, closeModal,path }) {
   };
 
   const ArchiveCandidat = async () => {
-    console.log(data);
     return await fetch(API_BASE_URL + "moveToArchived", {
       method: "POST",
       headers: {

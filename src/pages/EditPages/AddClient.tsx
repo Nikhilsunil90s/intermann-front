@@ -71,7 +71,6 @@ let arr = []as any
 let Tauxarr=[]as any
 export default function AddClient(props) {
   const SwitchChange = (checked: any, e: any, Name: any) => {
-console.log(Name,"checkd")
     if (Name === "offerSent") {
       if (checked === true) {
         setOffre(true);
@@ -235,9 +234,6 @@ useEffect(()=>{
   ClientDataFormat.rate_hours=Tauxarr
 
 },[Tauxarr,SalaryTotal]) 
-console.log(data,"data")
-
-
   const RemoveHandling=(e,showHour)=>{
  let SalaryFData =[]
  let TauxHour=[]
@@ -250,9 +246,7 @@ console.log(data,"data")
     arr=[]
     ClientDataFormat.salary_hours=[]
     SalaryFData.filter(el=>{
-      setcheckBooleanValue(el.hours.includes(showHour))
-        console.log(checkBooleanValue)
-      
+      setcheckBooleanValue(el.hours.includes(showHour)) 
       })
         if(checkBooleanValue === false){
         
@@ -276,14 +270,12 @@ console.log(data,"data")
        ClientDataFormat.rate_hours=[]
        TauxHour.filter(el=>{
          setcheckBooleanValue(el.hours.includes(taxHours))
-           console.log(checkBooleanValue)
          })
            if(checkBooleanValue === false){
            
           
            ClientDataFormat.rate_hours.push(...TauxHour)
            toast.success(`Removed ${taxHours}H Taux!`)
-           console.log(ClientDataFormat,"clientdata")
            return true
    
          }
@@ -296,7 +288,6 @@ console.log(data,"data")
  
   const HandleChange = (e: any) => {
    
-    console.log(e.target.value);
     if (e.target.id === "1") {
       setShowHour("35");
       setID(e.target.id);
@@ -356,7 +347,6 @@ console.log(data,"data")
   };
 
   const TauxHandleChange = (e: any) => {
-    console.log(e.target.value);
     if (e.target.id === "1") {
       setHours("35");
       setHoursId(e.target.id);
@@ -415,7 +405,6 @@ console.log(data,"data")
         input.val(Amountarr);
       });
     });
-    console.log(Hours, "hr");
   });
  
   
@@ -426,13 +415,11 @@ console.log(data,"data")
       setSelectedSector(sec)
         await fetchAllJobs(sec)
             .then(data => {
-                console.log(data.data)
                 setJobs([...data.data]);
             })
             .catch(err => {
                 console.log(err);
             })
-        console.log(jobs);
     }
 
 }
@@ -528,7 +515,6 @@ const saveClientData = async () => {
 
 
 const NoteCofac=(e)=>{
-console.log(e.value,"value")
 let NoteCofac=""
 NoteCofac=e.value
 setData({...data,note_cofac:NoteCofac})
@@ -543,7 +529,6 @@ const onSubmitRates=(e)=>{
       const FilterSalary=  SalaryTotal.filter(el=>{
         const duplicate = arr.includes(el) ;
         if(duplicate == false){
-        console.log(duplicate,"duplic")
           arr.push(el)
          ClientDataFormat.salary_hours=arr
           toast.success("Salary Saved!")

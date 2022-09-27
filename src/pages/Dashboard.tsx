@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../CSS/Dashboard.css";
 import { API_BASE_URL } from "../config/serverApiConfig";
@@ -54,7 +54,6 @@ function Dashboard() {
     });
     fetchCandidatCounts()
       .then((data) => {
-        console.log(data);
         setToDoCandidatCount(data.toDoCount);
         setInProgressCandidatCount(data.inProgressCount);
         setArchivedCandidatCount(data.archivedCount);
@@ -65,7 +64,6 @@ function Dashboard() {
 
     fetchClientCounts()
       .then((resp) => {
-        console.log(resp)
         setToDoClientCount(resp.toDoCount)
         setInProgressClientCount(resp.inProgressCount)
         setSignedClientCount(resp.signedCount)

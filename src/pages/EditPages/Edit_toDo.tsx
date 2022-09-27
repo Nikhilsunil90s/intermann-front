@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
 import "../../CSS/EditTodo.css";
 import { useLocation } from "react-router-dom";
@@ -92,7 +91,7 @@ function EditDo() {
   const locationObject = useLocation();
   console.log(locationObject.state);
   const { profileData, path } = locationObject.state as State;
-  console.log(profileData);
+
   const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
   const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
 
@@ -167,7 +166,6 @@ function EditDo() {
   const editExperience = (e: any) => {
     e.preventDefault()
     setAllowEditExperience(true);
-    console.log(workExperience)
     setWorkExperience([{ period: "", location: "", workDoneSample: "" }])
   }
 
@@ -230,8 +228,6 @@ function EditDo() {
   const notifyCandidatEditError = () => toast.error("Cannot Edit Candidat! Please Try Again.");
 
   const switchHandle=(checked,id,e)=>{
-    console.log(checked,id,e,"all")
-console.log(checked,"checked")
 setFormTouched(true)
 if(e=="Permis"){
 if(checked === true){
@@ -297,11 +293,9 @@ if(checked == false){
   }
   const handleImageChange = (val) => {
     if (val === 'upload') {
-      console.log("upload")
       handleImageUpload()
     } else if (val === 'Download') {
-      console.log("download")
-      window.open(API_BASE_URL + "uploads/" + candidatImage);
+        window.open(API_BASE_URL + "uploads/" + candidatImage);
     }
   }
   const onFormDataChange = (
@@ -327,18 +321,14 @@ if(checked == false){
       return;
     }
     if (e.target.name === 'candidatMotivation ') {
-      console.log(e.target.value);
       changeCandidatMotivation(e.target.value);
     }
     if (e.target.name === 'candidatLanguages') {
       if (e.target?.checked) {
         addLanguages(e.target.value);
-        console.log(selectedLanguages)
         return
       } else {
         removeLanguages(e.target.value);
-        console.log(selectedLanguages)
-
         return
       }
     }
@@ -352,7 +342,6 @@ if(checked == false){
       return
     }
     if (e.target.name === 'location') {
-      console.log(e.target.defaultValue);
       setLocation(e.target.value);
       if (e.target.value) {
         setLocationModified(true);
@@ -421,18 +410,15 @@ if(checked == false){
     if (activitySectors.length === 0) {
       fetchActivitySectors()
         .then(redata => {
-          console.log(redata);
           setActivitySectors([...redata.data]);
         })
         .catch(err => {
           console.log(err)
         })
     }
-    console.log(profile.candidatActivitySector)
     if (jobs.length === 0 && selectedSector != "" ? selectedSector : profile.candidatActivitySector !== "") {
       fetchAllJobs(selectedSector !== "" ? selectedSector : profile.candidatActivitySector)
         .then((data) => {
-          console.log(data);
           setJobs([...data.data])
         })
         .catch(err => {
@@ -445,7 +431,6 @@ if(checked == false){
           setJobOptions([...jobResults]);
     }
     if (data.candidatLanguages.length == 0) {
-      console.log(selectedLanguages);
       setData((prev) => ({ ...prev, ["candidatLanguages"]: selectedLanguages }));
     }
 
@@ -463,7 +448,6 @@ if(checked == false){
 
   const addWorkExperience = (e: any) => {
     e.preventDefault();
-    console.log(period, location, workDoneSample);
     if (period == "") {
       return
     }
@@ -481,18 +465,15 @@ if(checked == false){
     const wex = workExperience.filter((workex, index) => {
       return workex.period != "" && index != workExperience.length
     })
-    console.log(wex);
     setWorkExperience([...wex])
     setDisplayRow(false);
     setInputDisabled(true);
   }
 
   useEffect(() => {
-    console.log("workex-", workExperience)
     const wex = workExperience.filter((workex) => {
       return workex.period != "" && workex.location != "" && workex.workDoneSample != "";
     })
-    console.log(wex);
     setData((prev) => ({ ...prev, ["candidatExperienceDetails"]: wex }));
   }, [workExperience])
 
@@ -602,10 +583,7 @@ if(checked == false){
         }
       })
         .then(datares => {
-          console.log(datares)
           if (datares.data.status) {
-            
-            console.log(datares.data.status,"datares.data.status")
      // setCandidatImage(datares.data.filename)
      notifyDocumentUploadSuccess()
 
@@ -623,14 +601,12 @@ if(checked == false){
   }
   const handleChange = (selectedOption) => {
     setFormTouched(true)
-    console.log(`Option selected:`, selectedOption)
     let arr = []
 
     selectedOption.map((el) => {
       arr.push(el.value)
     })
     setLanguage(arr)
-    console.log(Language, "language")
     setData({ ...data, candidatLanguages: arr })
   }
   const FetesDate = (selectedOption: any) => {
@@ -656,7 +632,6 @@ if(checked == false){
   }
 
   useEffect(() => {
-    console.log(activitySectors);
     let sectorops = activitySectors.map((asector) => {
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
@@ -665,14 +640,10 @@ if(checked == false){
   }, [activitySectors])
 
   useEffect(() => {
-    console.log(profile._id,"id")
     fetchCandidat(profile._id).then(resData => {
-      console.log(resData)
-
       setCandidatImage("")
       if (resData.status) {
         setProfile(resData.data)
-        console.log(resData.data.candidatPhoto)
         setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
       }
     })
@@ -682,8 +653,6 @@ if(checked == false){
   }, [])
   const handleSectorChange = (e: any) => {
     // console.log(e.target.value)
-
-    console.log(e)
     if (e.value === "Select Un Secteur") {
       setJobs([]);
       setSelectedSector("");
