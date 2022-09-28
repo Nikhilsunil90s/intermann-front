@@ -7,7 +7,7 @@ import FileViewer from 'react-file-viewer';
 import "../CSS/AddClient.css"
 import "../CSS/Candidatefile.css"
 import Loader from "../components/Loader/loader"
-
+import ErrorLoader from '../pages/ErrorPages/Error404';
 
 function  DocumentSign(){
     const [ContractSignModal,setContractSignModal]=useState(false)
@@ -39,12 +39,14 @@ function  DocumentSign(){
         setTimeout(()=>{
           setpdfTimeOut(true)
         },4000)
-             if(pdfUrl == undefined || pdfUrl == null){
+             if(pdfUrl == undefined || pdfUrl == null ){
           setUrl(profile.candidatDocuments ? profile.candidatDocuments.map((el)=>(el.url)) : null)
              }
 
    
       })
+      console.log(pdfUrl,"pdf")
+
   
       console.log(profile,"props")
 
@@ -87,13 +89,15 @@ return (
          <div className='col-12 d-flex justify-content-center mt-1 overFlowHeight' style={{overflow:"scroll",height:"64vh"}}>
        
       {pdfTimeOut ?
- <FileViewer
- filePath={pdfUrl}
- fileType={'docx'}
- onError={onError}
+
+<FileViewer
+filePath={pdfUrl}
+fileType={'docx'}
+onError={onError}
 />
 
 :
+
 
 <Loader />
 

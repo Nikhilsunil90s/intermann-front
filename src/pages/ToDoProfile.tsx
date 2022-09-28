@@ -583,24 +583,24 @@ className="SelectBtn"
                       <p className="blue-text">Ready for work :</p>
                       <span className="bluetextCardSee" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
                        
-                        {date >= start && date <= end  ? profile.candidatStartDate  + "  To  " + profile.candidatEndDate :   "⚠️" + profile.candidatStartDate +"  To  " + profile.candidatEndDate} 
+                        {date >= start && date <= end  ?" 📆" + profile.candidatStartDate  + "  To  " + profile.candidatEndDate :   "⚠️" + profile.candidatStartDate +"  To  " + profile.candidatEndDate} 
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
                       <p>Permis :</p>
                       <span className="Todo-CardMore-span">
-                        {profile.candidatLicensePermis ? "Yes" : "No"}
+                        {profile.candidatLicensePermis ? `✔ Yes` : "✘ No"}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
                       <p>Voyage en voiture :</p>
                       <span className="Todo-CardMore-span">
-                        {profile.candidatConduireEnFrance ? "Yes" : "No"}
+                        {profile.candidatConduireEnFrance ? "✔ Yes" : "✘ No"}
                       </span>
                     </div>
                    
                     <div className="d-flex align-items-center">
-                    <div className="d-flex">  <p>Skills/note: </p> <span className="Todo-CardMore-span">{profile.candidatSkills ? profile.candidatSkills : "No Skills!"}</span></div>
+                    <div className="d-flex"> <p>Skills/note: </p> <span className="Todo-CardMore-span">{profile.candidatSkills ? profile.candidatSkills : "No Skills!"}</span></div>
                      
                     </div>
                     <div className="d-flex align-items-center">

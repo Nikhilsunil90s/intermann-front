@@ -92,7 +92,7 @@ let end = new Date(props.data.jobEndDate);
                 
                 </div>
                 <div className="col-12 d-flex align-items-center colorARecruting my-1 ">
-                <p className="A-Recruting mb-0 " style={{ color: date >= start && date <= end  ? "#E21B1B" : "#ca1313"}}>Recruiting  :    {date >= start && date < end  ? "From  " + props.data.jobStartDate  + "  To  " + props.data.jobEndDate :   "⚠️ From  " + props.data.jobStartDate +"  To  " + props.data.jobEndDate}</p>
+                <p className="A-Recruting mb-0 " style={{ color: date >= start && date <= end  ? "#E21B1B" : "#ca1313"}}>Recruiting  :    {date >= start && date < end  ? "From  " + " 📆" +props.data.jobStartDate  + "  To  " + " 📆" +props.data.jobEndDate :   "⚠️ From  " + props.data.jobStartDate +"  To  " + props.data.jobEndDate}</p>
                 </div>
                 <div className="col-12 ">
     <div className="row pl-1">

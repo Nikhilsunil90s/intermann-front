@@ -130,6 +130,7 @@ function Dashboard() {
                   </div>
                   </Link>
                 </div>
+             
                
                 <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer">
                   <Link to="/clientProgress">
@@ -218,6 +219,8 @@ function Dashboard() {
                   </div>
                   </Link>
                 </div>
+
+                
   
               </div>
             </section>

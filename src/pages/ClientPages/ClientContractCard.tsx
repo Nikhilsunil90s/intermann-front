@@ -99,7 +99,7 @@ const Editdata ={state:props.data,path:"/clientContract"}
                     </div>
                 </div>
                 <div className="col-12 d-flex align-items-center textSignedClient my-1 ">
-                <p className=" mb-0 " style={{ color: date >= start && date <= end  ? "#489767" : "#ca1313"}}>Recruiting  :    {date >= start && date <= end  ? "From " + props.data.jobStartDate  + "  To  " + props.data.jobEndDate :   "⚠️ From  " + props.data.jobStartDate +"  To  " + props.data.jobEndDate} </p>
+                <p className=" mb-0 " style={{ color: date >= start && date <= end  ? "#489767" : "#ca1313"}}>Recruiting  :    {date >= start && date <= end  ? "From " + " 📆" +props.data.jobStartDate  + "  To  " + " 📆" +props.data.jobEndDate :   "⚠️ From  " + props.data.jobStartDate +"  To  " + props.data.jobEndDate} </p>
                 </div>
 <div className="col-12 ">
     <div className="row pl-1">

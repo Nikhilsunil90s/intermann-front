@@ -23,6 +23,7 @@ import ErrorLoader from "../../components/Loader/SearchBarError";
 import { Tabs, Tab } from "react-tabs-scrollable";
 import "react-tabs-scrollable/dist/rts.css";
 import { FileUploader } from "react-drag-drop-files";
+import Share from '../../components/Loader/Share'
 
 let RenameData = [];
 let id = "";
@@ -882,7 +883,7 @@ function ArchivedViewPage() {
                         }}
                       >
                         {date >= start && date <= end
-                          ? profile.jobStartDate + "  To  " + profile.jobEndDate
+                          ?" 📆" + profile.jobStartDate + "  To  " + profile.jobEndDate
                           : "⚠️" +
                             profile.jobStartDate +
                             "  To  " +
@@ -1583,7 +1584,7 @@ function ArchivedViewPage() {
                   <p className="DocShareLink mb-0">
                    
                     Share this link with the client : <br />
-                    Patager ce lien avec le client:
+                    Patager ce lien avec le client:<div className="d-flex justify-content-center"> <Share width={25} /></div>
                   </p>
                 </div>
                 <div className="col-8 pl-0">

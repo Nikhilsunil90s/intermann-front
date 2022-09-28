@@ -250,7 +250,7 @@ function ClientProgressCard(props: any) {
                     </div>
                 </div>
                 <div className="col-12 d-flex align-items-center colorRecruting my-1 ">
-                <p className="in-Recruting mb-0 " style={{ color: date >= start && date < end  ? "#A461D8" : "#ca1313"}}>Recruiting  :    {date >= start && date < end  ? "From " + props.data.jobStartDate  + "  To  " + props.data.jobEndDate :   "⚠️ From  " + props.data.jobStartDate +"  To  " + props.data.jobEndDate} </p>
+                <p className="in-Recruting mb-0 " style={{ color: date >= start && date < end  ? "#A461D8" : "#ca1313"}}>Recruiting  :    {date >= start && date < end  ? "From " + " 📆" +props.data.jobStartDate  + "  To  " + " 📆" +props.data.jobEndDate :   "⚠️ From  " + props.data.jobStartDate +"  To  " + props.data.jobEndDate} </p>
                 </div>
 <div className="col-12 ">
     <div className="row pl-1">

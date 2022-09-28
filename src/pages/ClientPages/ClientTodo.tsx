@@ -111,7 +111,7 @@ const fetchProfileS = async (page) => {
         setFetchingLoader(true)
       let resultArr = [...reD]
       if(resultArr.includes(filterData)){
-        return false
+        return 
       }else{
         setFilterData([...filterData,...resultArr])
       }

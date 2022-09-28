@@ -3,7 +3,8 @@ import { useNavigate,Link } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import "../../CSS/Client/ArchivedCardClient.css"
-import ErrorLoader from '../../components/Loader/SearchBarError'
+import "../../CSS/Dashboard.css";
+import Share from '../../components/Loader/Share'
 
 function DocumSign({ props, closeModal }) {
 
@@ -88,38 +89,17 @@ function DocumSign({ props, closeModal }) {
     color: "#000000"
 }}
 >   This is the contract link you need to send to the candidate/client via whats’app or by email :
-                            Once it will be signed we will receive the signed document by email and you will have to archive it on Drive/CRM  [unique_link]  : <Link  style={{
+                            Once it will be signed we will receive the signed document by email and you will have to archive it on Drive/CRM  [unique_link]  : <span className="d-flex align-items-center"> <img src={require("../../images/LogoModal.svg").default}/><Link   style={{
     fontFamily: 'Poppins',
     fontStyle: "normal",
     fontWeight: "700",
     fontSize: "16px",
     lineHeight: "24px",
     color: "#3F76E2"
-}} to={`/documentSign/${props.candidatName}/${props._id}`} target="_blank">{API_BASE_URL + `documentSign/${props.candidatName.replaceAll(" ","%20")}/` + props._id}</Link>
-                        
+}} to={`/documentSign/${props.candidatName.replaceAll(" ","")}/${props._id}`} target="_blank">{API_BASE_URL + `documentSign/${props.candidatName.replaceAll(" ","")}/` + props._id}</Link>
+               </span>         
                          </p>
-                        
-                      
-
-                     
-                    {/* <div className="d-flex align-items-center justify-content-center">   <p  className=" mb-0"
-                        style={{
-                            fontFamily: 'Poppins',
-                            fontStyle: "normal",
-                            fontWeight: "700",
-                            fontSize: "16px",
-                            lineHeight: "24px",
-                            color: "#000000"
-                        }}
-                        >
-                            
-                          Work-in-Progress! Please come back after some time.
-
-                        </p>
-                        <ErrorLoader />
-                       
-                        </div>  */}
-                           
+     
                     </div>
                 </div>
             </div>

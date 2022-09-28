@@ -1243,7 +1243,7 @@ function Signed() {
                       <p className="blue-text">Research for work :</p>
                       <span className="bluetextCardSee">
                         {profile.jobStartDate != ""
-                          ? profile.jobStartDate
+                          ?" 📆" + profile.jobStartDate
                           : "___"}
                         To
                         {profile.jobEndDate != "" ? profile.jobEndDate : "___"}

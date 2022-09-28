@@ -107,7 +107,7 @@ const ArchivedProfileCard = (props: any) => {
                     <p>Phone Number:  <b>{props.props.candidatPhone ? props.props.candidatPhone : "No Phone!"}</b></p>
                     <p>Facebook URL:  <b>{props.props.candidatFBURL ? <a href={props.props.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
                     <p>Email: <b>{props.props.candidatEmail ? props.props.candidatEmail.length > 20 ? props.props.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.props.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b> </p>
-                    <p className=" my-1"  style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}><b>Ready for work: {date >= start && date <= end  ? props.props.candidatStartDate  + "  To  " + props.props.candidatEndDate :   "⚠️" + props.props.candidatStartDate +"  To  " + props.props.candidatEndDate } </b></p>
+                    <p className=" my-1"  style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}><b>Ready for work: {date >= start && date <= end  ? " 📆" +props.props.candidatStartDate  + "  To  " + props.props.candidatEndDate :   "⚠️" + props.props.candidatStartDate +"  To  " + props.props.candidatEndDate } </b></p>
                     </div>
                     <div className="box-red pl-1">
                         <p> <b>REASON WHY CANCELED</b> : </p><span> {props.props.candidatArchived?.reason ? props.props.candidatArchived?.reason : "No Reason Specified!"}</span>

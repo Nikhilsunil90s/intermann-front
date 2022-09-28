@@ -340,7 +340,7 @@ const ClientToDoCard = (props: any) => {
         </div>
         <div className="col-12">
           <div className="row color-rowClientCard ">
-            <p style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>Recruiting  :  {date >= start && date <= end  ? " From " + props.data.jobStartDate  + "  To  " + props.data.jobEndDate :   "⚠️ From  " + props.data.jobStartDate +"  To  " + props.data.jobEndDate} 
+            <p style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>Recruiting  :  {date >= start && date <= end  ? " From " + " 📆" +props.data.jobStartDate  + "  To  " + " 📆" +props.data.jobEndDate :   "⚠️ From  " + props.data.jobStartDate +"  To  " + props.data.jobEndDate} 
             </p>
           </div>
         </div>

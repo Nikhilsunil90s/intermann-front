@@ -366,7 +366,7 @@ SelectedClient=[]
       }
       if(page > cardTotallength){
         setFetchingLoader(false)
-        return true
+        return 
       }
       if(filterData.length === 0){
         setFetchingLoader(false)
