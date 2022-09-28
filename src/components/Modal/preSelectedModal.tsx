@@ -5,24 +5,71 @@ import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../
 import chroma from 'chroma-js';
 import { Toaster, toast } from "react-hot-toast";
 import { API_BASE_URL } from "../../config/serverApiConfig";
+import ProfileLoader from "../../components/Loader/ProfilesLoader" 
 
-function PreModal({props,closepreModal,client}) {
+function PreModal({props,closepreModal}) {
   const notifyCandidatMovedSuccess = () => toast.success("Candidat Pre-Selected Successfully!");
   const notifyCandidatMovedError = () => toast.error("Candidat Not Pre-Selected! Please Try Again.");
-
   const [selectedClient, setSelectedClient] = useState("");
   const [reason, setReason] = useState("");
   const [clientDataOptions,setClientOption]=useState([])
+  const [data,setData]=useState([])
+  const [Client,setClients]=useState([])as any
 
 useEffect(()=>{
   if(clientDataOptions.length == 0){
-  setClientOption( client ? client.map((client) => {
+  setClientOption( Client ? Client.map((client) => {
     return { label: client.clientCompanyName, value: client._id, color: '#FF8B00' }
   }) :  props.clients ? props.clients.map((client) => {
     return { label: client.clientCompanyName, value: client._id, color: '#FF8B00' }
   }): [{ label: 'No Clients In this Sector', value: "", color: '#FF8B00' }])
 }
 },[clientDataOptions])
+
+
+
+
+const fetchProfilesClients = async () => {
+  return await fetch(API_BASE_URL + "getProfiles", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  })
+    .then((resD) => resD.json())
+    .then((reD) => reD)
+    .catch((err) => err);
+};
+
+
+useEffect(() => {
+
+  if(data.length == 0){
+    fetchProfilesClients().then(filteredresponse => {
+     setData([...filteredresponse.data])
+   })
+     .catch(err => {
+       console.log(err);
+     })
+  }
+  if(Client.length == 0){
+  let    FilDataCName =  data.filter((el)=>{
+          if(el.clientCompanyName && el.jobStatus !== "Archived"){
+            return el.clientCompanyName 
+        }
+      
+        else{
+          return 
+        }
+  }
+    )
+    setClients([...FilDataCName])
+  }
+
+ 
+ },[data])
 
 
   const onClientChange = (sc: any) => {
@@ -150,7 +197,10 @@ useEffect(()=>{
             <div className="modal-body">
 
 <p className="ChildStylePreModal">pour quel client {props.candidatName} est selectionné ?</p>
-<div >                        <Select
+<div >                    
+  {clientDataOptions.length > 0 ?
+  
+      <Select
                              name="clientCompanyName"
                                 closeMenuOnSelect={true}
                                 placeholder="Select A Client"
@@ -160,7 +210,11 @@ useEffect(()=>{
                                 onChange={onClientChange}
                                 options={clientDataOptions}
                                 // styles={colourStyles}
-                              /></div>
+                              />
+                           :
+                       <div className="col-12">    <ProfileLoader  width ={150} height={100} fontSize={"12px"} fontWeight={"600"}  Title={"Please Wait!"}/>     </div>}   
+                          
+                              </div>
                               <p className="ChildStylePreModal mt-2">pour quel raison {props.candidatName} est selectionné ?</p>
 <div><div className="form-floating">
   <textarea className="form-control" onChange={onDataChange} name="reason" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: "100px"}}></textarea>

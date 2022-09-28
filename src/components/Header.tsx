@@ -176,6 +176,7 @@ else if(e.target.value == ""){
 
 }
 
+console.log(filterData,"fldata")
   return (
     <>
 

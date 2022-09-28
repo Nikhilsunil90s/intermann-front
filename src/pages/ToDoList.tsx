@@ -51,7 +51,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
   const [jobOptions, setJobOptions] = useState([]);
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [loader, setLoader] = useState(false);
-  const [filterData, setFilterData] = useState([]);
+  const [filterData, setFilterData] = useState([])as any;
   const [status, setStatus] = useState(Boolean);
   const [nameOptions, setNameOptions] = useState([])as any                      
   const [showMore, setShowMore] = useState(true)
@@ -65,7 +65,6 @@ const notifyMoveError = () => toast.error("Not Moved..");
   const [LanguageOp,setLangOp]=useState([])
   const [filterLoader ,setFetchingLoader  ]=useState(true)
   const [cardTotallength,setTotalLength]=useState(0)
-
 
   const loadMoreHandle = (i) => {
     let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
@@ -82,6 +81,12 @@ const notifyMoveError = () => toast.error("Not Moved..");
        
     }
 }
+
+
+
+
+
+
 
 const LoaderFun=()=>{
 
@@ -405,20 +410,6 @@ setTimeout(()=>{
         }
   } )
 
-  const fetchProfilesForAJob = async (jobName: string) => {
-    return await fetch(API_BASE_URL + "fetchProfilesForAJob", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: JSON.stringify({ jobName: jobName }),
-    })
-      .then((reD) => reD.json())
-      .then((result) => result)
-      .catch((err) => err);
-  };
 
   const handleNameChange = (e: any) => {
     // console.log(e.target.value)
@@ -1417,6 +1408,7 @@ styles={colourStyles}
                   filterData.map((profile, index) => (
                     <div className="col-md-6 col-xxl-4  col-xl-4 col-lg-4 col-sm-6 pl-0">
                       <ToDoProfileCard data={profile}
+                     
  />
                     </div>
                   

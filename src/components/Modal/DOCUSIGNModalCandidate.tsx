@@ -77,19 +77,31 @@ function DocumSign({ props, closeModal }) {
                     </div>
                     </div>
                     <div className="modal-body text-start">
-                        <p style={{
-                            fontFamily: 'Poppins',
-                            fontStyle: "normal",
-                            fontWeight: "700",
-                            fontSize: "16px",
-                            lineHeight: "24px",
-                            color: "#000000"
-                        }}
-                        >
-                       This is the contract link you need to send to the candidate/client via whats’app or by email :
-Once it will be signed we will receive the signed document by email and you will have to archive it on Drive/CRM  [unique_link]  :   <Link className="LinkStyling" to={`/documentSign/${props.candidatName}/${props._id}`} target="_blank">{API_BASE_URL + `documentSign/${props.candidatName.replaceAll(" ","%20")}/` + props._id}</Link>
+                   
 
-                        </p>
+<p style={{
+    fontFamily: 'Poppins',
+    fontStyle: "normal",
+    fontWeight: "700",
+    fontSize: "16px",
+    lineHeight: "24px",
+    color: "#000000"
+}}
+>   This is the contract link you need to send to the candidate/client via whats’app or by email :
+                            Once it will be signed we will receive the signed document by email and you will have to archive it on Drive/CRM  [unique_link]  : <Link  style={{
+    fontFamily: 'Poppins',
+    fontStyle: "normal",
+    fontWeight: "700",
+    fontSize: "16px",
+    lineHeight: "24px",
+    color: "#3F76E2"
+}} to={`/documentSign/${props.candidatName}/${props._id}`} target="_blank">{API_BASE_URL + `documentSign/${props.candidatName.replaceAll(" ","%20")}/` + props._id}</Link>
+                        
+                         </p>
+                        
+                      
+
+                     
                     {/* <div className="d-flex align-items-center justify-content-center">   <p  className=" mb-0"
                         style={{
                             fontFamily: 'Poppins',

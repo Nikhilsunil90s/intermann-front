@@ -11,6 +11,7 @@ function DocSignCandidate({ props, closeModal }) {
 
     const SignSave=()=>{
      SignData=   SignPad.current.toDataURL()
+     console.log(SignData,"jhj")
     }
 
     const SignPad =useRef(null)
@@ -88,12 +89,12 @@ function DocSignCandidate({ props, closeModal }) {
 Declar că am citit contractul și îl accept în întregime.Adresa dvs. IP va fi înregistrată</span>
                         </p>
                         </div> 
-                           <div className="col-12 " style={{background:"#ffff" ,height:"46vh"}}>
+                           <div className="col-12 " style={{background:"#ffff" }}>
                                 <div className="row " style={{padding:"10px"}}>
                                     <div className="col-12 " style={{background:"#E7E7E7",border:"2px solid #000000"}}>
                                   
                                   <SignatureCanvas penColor='black'  ref={SignPad}
-    canvasProps={{ className: 'sigCanvas'}} 
+    canvasProps={{ className: 'sigCanvas',velocityFilterWeight:200,height:350}} 
     
     />  
                                   
@@ -125,18 +126,8 @@ Declar că am citit contractul și îl accept în întregime.Adresa dvs. IP va f
                            </div>
                          
                  </div>
-                 <div className="modal-body p-0">
-                  <div className='col-12 d-flex p-2 align-items-center justify-content-center  bg-ContractPage ' onClick={()=>SignSave()} style={{
-                                        fontFamily: 'Poppins',
-                                        fontStyle: "normal",
-                                        fontWeight: "700",
-                                        fontSize: "22px",
-                                        lineHeight:"86px",
-                                        textAlign: "center",
-                                        textTransform: "uppercase",
-                                        color:" #FFFFFF"
-                                        
-                                      }}>
+                 <div className="modal-body p-0 cursor-pointer">
+                  <div className='col-12 d-flex p-2 align-items-center justify-content-center  bg-ContractPage  semneaza' onClick={()=>SignSave()} >
        
           📨 acepta si semneaza
 accept and sign

@@ -64,3 +64,24 @@ color: #FFFFFF;
 border: 0px ;
 padding: 15px 50px;
 }
+
+.semneaza:hover{
+    color: coral;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 86px;
+    text-align: center;
+    text-transform: uppercase;
+}
+.semneaza{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 86px;
+    text-align: center;
+    text-transform: uppercase;
+    color: rgb(255, 255, 255);
+}

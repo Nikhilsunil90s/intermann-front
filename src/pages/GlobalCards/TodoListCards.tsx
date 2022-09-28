@@ -1328,7 +1328,7 @@ styles={colourStyles}
                                 </button>
                             </div>
                             {showInProgressModal ?
-                                <PreSelectedModal props={filterData} closepreModal={setShowInProgressModal}  client={Client} /> : null
+                                <PreSelectedModal props={filterData} closepreModal={setShowInProgressModal} /> : null
                             }
                             {showArchiveModal ?
                                 <ArchivedModal props={filterData} closeModal={setShowArchiveModal} path={"/todolist"}  /> : null

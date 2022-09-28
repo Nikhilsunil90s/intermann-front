@@ -64,7 +64,6 @@ function ToDoProfile() {
   const [progress, setProgress] = useState<any>(0);
   const [docUploaded, setDocUploaded] = useState(false);
   const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
-  const [clientList, setClientList] = useState([]);
   const [UploadBtn,setSelectUpload]= useState(false)
   const [RenameDocStatus,setRenameDocStatus]=useState(false)
   const [PDFModal,setPDFModal]=useState(false)
@@ -322,7 +321,6 @@ const fetchRecommendations = async (candidatSector: string) => {
       .then(respData => {
         if (respData.status) {
           setRecommendations([...respData.data]);
-          setClientList([...respData.data]);
           setLoader(true);
         } else {
           setRecommendations([])
@@ -759,7 +757,7 @@ className="SelectBtn"
                   <PreModal 
                    props={profile}
                    closepreModal={setShowInPreSelectedModal}
-                   client={Client}
+                   
                   />
                   :
                   null

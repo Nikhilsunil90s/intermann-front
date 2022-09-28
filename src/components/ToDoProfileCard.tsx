@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "../CSS/CanEmpl.css";
 import ArchivedModal from "./Modal/ArchivedModal";
 import InProgressModal from "./Modal/InProgressModal";
-import {  useState } from "react";
+import {  useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Select,{StylesConfig} from 'react-select'
 import chroma from 'chroma-js';
@@ -10,12 +10,15 @@ import PreSelectedModal from "../components/Modal/preSelectedModal"
 import { API_BASE_URL } from '../config/serverApiConfig';
 import moment from "moment";
 
-const ToDoProfileCard = (props: any) => {
+const ToDoProfileCard = (props: any,Clients) => {
     const navigate = useNavigate();
+
     const [profile,setProfile]=useState(props.data)
+    const [data,setData]=useState([])
+
     const [showInProgressModal, setShowInProgressModal] = useState(false);
     const [showArchiveModal, setShowArchiveModal] = useState(false)
-    const [Client,setClients]=useState([])as any
+    const [Client,setClients]=useState([])
     const CardOptions=[{
    value:"Edit Profile",label:"Edit Profile"
    },
@@ -27,18 +30,12 @@ const ToDoProfileCard = (props: any) => {
 
 ]
 
-const fetchProfilesClients = async () => {
-    return await fetch(API_BASE_URL + "allToDoClients", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    })
-      .then((resD) => resD.json())
-      .then(res => setClients([...res]))
-      .catch((err) => err);
-  };
+
+
+
+
+
+
    let state ={profileData:props.data,path:"/todolist"}
 
    const [candidatMotivationIcons,setMotivation] = useState([{ icon: "No", motivation: 'Motivation!' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }]);
@@ -74,7 +71,6 @@ const fetchProfilesClients = async () => {
           editCandidatProfile()
       }
       if(e.value=="move to pre selected"){
-        fetchProfilesClients() 
        setShowInProgressModal(true)
       }
       if(e.value=="Archive"){
@@ -179,12 +175,12 @@ const fetchProfilesClients = async () => {
                  />
                             </div>
                             <div className="col-xxl-6 col-xl-6 col-md-6 col-lg-6  text-end pl-0">
-                                <button className="btn btn-dark btn-viewprofile-card" onClick={()=>{fetchProfilesClients(); viewFullProfile()}}>
+                                <button className="btn btn-dark btn-viewprofile-card" onClick={()=>{viewFullProfile()}}>
                                     See Full Profile
                                 </button>
                             </div>
                             {showInProgressModal ?
-                                <PreSelectedModal props={props.data} closepreModal={setShowInProgressModal}  client={Client} /> : null
+                                <PreSelectedModal props={props.data} closepreModal={setShowInProgressModal}  /> : null
                             }
                             {showArchiveModal ?
                                 <ArchivedModal props={props.data} closeModal={setShowArchiveModal} path={"/todolist"}  /> : null
