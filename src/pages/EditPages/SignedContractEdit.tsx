@@ -92,7 +92,8 @@ function ClientSignedEdit() {
     const notifyClientEditError = () => toast.error("Cannot Edit This Candidat, Since No Data Changed!");
 
     const locationObject = useLocation();
-    const { state, path } = locationObject.state as State;
+    const { state, path } = locationObject.state as State
+    console.log(state,"state")
     const navigate = useNavigate();
     // const [data, setData] = useState(ClientDataFormat);
     // const [formTouched, setFormTouched] = useState(false);

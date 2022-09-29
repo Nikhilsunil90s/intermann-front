@@ -447,7 +447,7 @@ null
                       <p>Langues : </p>
                       </div>
                     <div className="col-9 px-0">
-                    <span className="Todo-CardMore-span"> {profile.candidatLanguages.length != 0 ? profile.candidatLanguages.join(", ") : "No Langues!"}</span>
+                    <span className="Todo-CardMore-span"> {profile.candidatLanguages.length != 0 ? profile.candidatLanguages.join(", ") : "✘ No Langues!"}</span>
                     </div>
                     </div>
                     <div className="d-flex ">
@@ -461,24 +461,24 @@ null
                     <div className="d-flex">
                       <p>Permis :</p>
                       <span>
-                        {profile.candidatLicensePermis ? "Yes" : "No"}
+                        {profile.candidatLicensePermis ? `✔ Yes` : "✘ No"}
                       </span>
                     </div>
                     <div className="d-flex">
                       <p>Voyage en voiture :</p>
                       <span>
-                        {profile.candidatConduireEnFrance ? "Yes" : "No"}
+                        {profile.candidatConduireEnFrance ? `✔ Yes` : "✘ No"}
                       </span>
                     </div>
                    
                     <div className="d-flex">
                       <p>Skills/note: </p>
-                      <span>{profile.candidatSkills ? profile.candidatSkills : "No Skills!"}</span>
+                      <span>{profile.candidatSkills ? profile.candidatSkills : "✘ No Skills!"}</span>
                     </div>
                     <div className="d-flex">
                       <p className="text-dark">Trouvé sur  : </p>
                       <span className="text-dark">
-                      {profile.candidatJob ? profile.candidatJob : "No Trouvé!"}
+                      {profile.candidatJob ? profile.candidatJob : "✘ No Trouvé!"}
                       </span>
                     </div>
                    
@@ -863,7 +863,7 @@ null
                                    <div className="col-12 d-flex justify-content-center align-items-center py-2">
                                      <ErrorLoader  />
                                      <p className="mb-0 ErrorSearchBox">
-                                     No Contract Available for this Candidat! Please add a New Contract.
+                                     ✘ No Contract Available for this Candidat! Please add a New Contract ✘
                                      </p>
                                      </div>
                                  }

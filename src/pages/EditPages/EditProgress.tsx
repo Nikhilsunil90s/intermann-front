@@ -1188,16 +1188,15 @@ className="SelectBtn"
                       <p className="currentEMP mb-0">Current Employer</p>
                       <div className="dropdown">
                         <div aria-labelledby="dropdownMenuButton1">
-                          <select className="form-select" style={{backgroundColor:"transparent",color:"white"}} name="workingFor" onChange={onFormDataChange} defaultChecked>
-                            <option>Select Un Client</option>
+                          <select className="form-select" style={{backgroundColor:"transparent",color:"white"}} name="workingFor"  onChange={onFormDataChange} defaultChecked>
+                            <option  style={{color:"#000"}} >Select Un Client</option>
                             {
                               clients.length > 0 ?
                                 clients.map((client) =>
-                                  <option value={client.clientCompanyName} selected={profile.candidatCurrentWork[0].workingFor == client.clientCompanyName}>{client.clientCompanyName}</option>
+                                  <option style={{color:"#000"}}  value={client.clientCompanyName} selected={profile.candidatCurrentWork[0].workingFor == client.clientCompanyName}>{client.clientCompanyName}</option>
                                 ) : <option>No Clients/Job Leads Available!</option>
                             }
-                            <option value="2" selected={profile.candidatCurrentWork[0].workingFor == 2}>Client Two</option>
-                            <option value="3" selected={profile.candidatCurrentWork[0].workingFor == 3}>Client Three</option>
+                         
                           </select>
                         </div>
                       </div>

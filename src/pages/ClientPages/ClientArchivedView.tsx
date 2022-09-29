@@ -82,10 +82,10 @@ function ArchivedViewPage() {
     {
       icon: (
         <>
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />{" "}
-          <Empty style={{ marginRight: "3px", width: "100%" }} />{" "}
-          <Empty style={{ marginRight: "3px", width: "100%" }} />{" "}
-          <Empty style={{ marginRight: "3px", width: "100%" }} />{" "}
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <Empty style={{ marginRight: "3px", width: "100%" }} />
+          <Empty style={{ marginRight: "3px", width: "100%" }} />
+          <Empty style={{ marginRight: "3px", width: "100%" }} />
           <Empty style={{ marginRight: "3px", width: "100%" }} />
         </>
       ),
@@ -94,31 +94,9 @@ function ArchivedViewPage() {
       icon: (
         <>
           <StarRating style={{ marginRight: "3px", width: "100%" }} />
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />{" "}
-          <Empty style={{ marginRight: "3px", width: "100%" }} />{" "}
-          <Empty style={{ marginRight: "3px", width: "100%" }} />{" "}
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
           <Empty style={{ marginRight: "3px", width: "100%" }} />
-        </>
-      ),
-    },
-    {
-      icon: (
-        <>
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />{" "}
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />{" "}
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />{" "}
-          <Empty style={{ marginRight: "3px", width: "100%" }} />{" "}
           <Empty style={{ marginRight: "3px", width: "100%" }} />
-        </>
-      ),
-    },
-    {
-      icon: (
-        <>
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />{" "}
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />{" "}
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />{" "}
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />{" "}
           <Empty style={{ marginRight: "3px", width: "100%" }} />
         </>
       ),
@@ -127,9 +105,31 @@ function ArchivedViewPage() {
       icon: (
         <>
           <StarRating style={{ marginRight: "3px", width: "100%" }} />
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />{" "}
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />{" "}
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />{" "}
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <Empty style={{ marginRight: "3px", width: "100%" }} />
+          <Empty style={{ marginRight: "3px", width: "100%" }} />
+        </>
+      ),
+    },
+    {
+      icon: (
+        <>
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <Empty style={{ marginRight: "3px", width: "100%" }} />
+        </>
+      ),
+    },
+    {
+      icon: (
+        <>
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
           <StarRating style={{ marginRight: "3px", width: "100%" }} />
         </>
       ),
@@ -632,7 +632,7 @@ function ArchivedViewPage() {
                   <Link to="/archived">
                     <button type="button" className="btn FontStyle-TODOSEE">
                       <img src={require("../../images/return.svg").default} />
-                      Client File :{" "}
+                      Client File :
                       {profile.clientCompanyName.toLocaleUpperCase()}
                     </button>
                   </Link>
@@ -714,17 +714,17 @@ function ArchivedViewPage() {
                   </p>
 
                   <p>
-                    Secteur :{" "}
+                    Secteur :
                     {profile.clientActivitySector
                       ? profile.clientActivitySector
                       : "No Sector"}
                   </p>
                   <p>
-                    Métier/Job :{" "}
+                    Métier/Job :
                     {profile.clientJob ? profile.clientJob : "No Job!"}
                   </p>
                   <p style={{ width: "120%" }}>
-                    Contact Name :{" "}
+                    Contact Name :
                     {profile.clientReferenceName
                       ? profile.clientReferenceName.toLocaleUpperCase()
                       : "No Contact Name!"}
@@ -743,7 +743,7 @@ function ArchivedViewPage() {
                     <div className="Lead-encore">
                       <p className="mb-0  pt-1">Lead en recherche active</p>
                       <p className="TODOclientChild">
-                        Nous recehrchons activement{" "}
+                        Nous recehrchons activement
                       </p>
                     </div>
                   </div>
@@ -867,7 +867,7 @@ function ArchivedViewPage() {
                           :
                           {profile.clientAddress
                             ? profile.clientAddress
-                            : "No Address!"}
+                            : "✘ No Address!"}
                         </span>
                       </div>
                     </div>
@@ -896,19 +896,19 @@ function ArchivedViewPage() {
                        
                         {profile.clientLanguages.length
                           ? profile.clientLanguages.join(", ")
-                          : "No Langues!"}{" "}
+                          : " ✘ No Langues!"}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
                       <p>Voyage en voiture :</p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.candidatConduireEnFrance ? "Yes" : "No"}
+                        {profile.candidatConduireEnFrance ? `✔ Yes` : "✘ No"}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
                       <p>Permis / Licence Drive :</p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.clientPermis ? "Yes" : "No"}
+                        {profile.clientPermis ? `✔ Yes` : "✘ No"}
                       </span>
                     </div>
                     <div className="d-flex">
@@ -919,13 +919,13 @@ function ArchivedViewPage() {
                       >
                         {profile.clientRequiredSkills != ""
                           ? profile.clientRequiredSkills
-                          : "Not Available!"}
+                          : "✘ Not Available!"}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
                       <p className="text-dark">Potential Turnover CA</p>
                       <span className="Todo-ClinetCardMore-span">
-                        :{" "}
+                        :
                         {profile.jobTotalBudget != null
                           ? profile.jobTotalBudget + "€"
                           : "No Budget!"}
@@ -934,7 +934,7 @@ function ArchivedViewPage() {
                     <div className="d-flex align-items-center">
                       <p className="text-dark">Salary by person </p>
                       <span className="Todo-ClinetCardMore-span">
-                        :{" "}
+                        :
                         {profile.salary_hours
                           ? profile.salary_hours.includes(
                               profile.salary_hours.salaryPerHour
@@ -944,8 +944,8 @@ function ArchivedViewPage() {
                                   return el.salaryPerHour;
                                 })
                                 .slice(0, 1)
-                            : "No Salary"
-                          : "No Salary"}{" "}
+                            : "✘ No Salary"
+                          : "✘ No Salary"}
                         €
                       </span>
                     </div>
@@ -955,7 +955,7 @@ function ArchivedViewPage() {
                         {profile.salary_hours.length !== 0
                           ? profile.salary_hours.map((el) => (
                               <div className="d-flex">
-                                {el.hours ? el.hours : "0"}H ={" "}
+                                {el.hours ? el.hours : "0"}H =
                                 <span>
                                   {el.salaryPerHour
                                     ? el.salaryPerHour + "€"
@@ -963,7 +963,7 @@ function ArchivedViewPage() {
                                 </span>
                               </div>
                             ))
-                          : "No Salaire!"}
+                          : "✘ No Salaire!"}
                       </span>
                     </div>
                     <div className="d-flex ">
@@ -972,13 +972,13 @@ function ArchivedViewPage() {
                         {profile.rate_hours.length !== 0
                           ? profile.rate_hours.map((el) => (
                               <div className="d-flex">
-                                {el.hours ? el.hours : "0"}H ={" "}
+                                {el.hours ? el.hours : "0"}H =
                                 <span>
                                   {el.ratePerHour ? el.ratePerHour + "€" : "0€"}
                                 </span>
                               </div>
                             ))
-                          : "No horraire!"}
+                          : "✘ No horraire!"}
                       </span>
                     </div>
                   </div>
@@ -990,13 +990,13 @@ function ArchivedViewPage() {
               <div className="row py-2">
                 <div className="col-6 ">
                   <p className="StylingArchivedAds mb-0">
-                    Ads Spent on this client : {profile.jobTotalBudget}
+                    Ads Spent on this client : {profile.jobTotalBudget ? profile.jobTotalBudget :"✘ No Budget!"}
                   </p>
                 </div>
                 <div className="col-12">
                   <p className="StylingArchivedAdss">
-                    WHY THIS LEAD/CLIENT HAVE BEEN ARCHIVED :{" "}
-                    {profile.clientArchived.reason}{" "}
+                    WHY THIS LEAD/CLIENT HAVE BEEN ARCHIVED :
+                    {profile.clientArchived.reason}
                   </p>
                 </div>
               </div>
@@ -1358,7 +1358,7 @@ function ArchivedViewPage() {
                     </div>
                     <div className="col-4  d-grid ">
                       <label className="ClientPDFFormlabel">
-                        $ nom du travailleur 2{" "}
+                        $ nom du travailleur 2
                       </label>
                       <input
                         className="form-control inputStyling"
@@ -1397,7 +1397,7 @@ function ArchivedViewPage() {
                         onClick={editClientProfile}
                         placeholder="‎ ‎ ‎ $ nom du travailleur3"
                       />
-                    </div>{" "}
+                    </div>
                     <div className="col-4  d-grid ">
                       <label className="ClientPDFFormlabel">
                         $ numero de tel du travailleur 3
@@ -1439,7 +1439,7 @@ function ArchivedViewPage() {
                         onClick={editClientProfile}
                         placeholder="‎ ‎ ‎ $ numero de tel du travailleur 4"
                       />
-                    </div>{" "}
+                    </div>
                     <div className="col-4  d-grid ">
                       <label className="ClientPDFFormlabel">
                         $ nom du travailleur 5
@@ -1481,7 +1481,7 @@ function ArchivedViewPage() {
                         onClick={editClientProfile}
                         placeholder="‎ ‎ ‎$ nom du travailleur 6"
                       />
-                    </div>{" "}
+                    </div>
                     <div className="col-4  d-grid ">
                       <label className="ClientPDFFormlabel">
                         $ numero de tel du travailleur 6
@@ -1572,20 +1572,19 @@ function ArchivedViewPage() {
                 <div className="col-12 d-flex justify-content-center align-items-center py-2">
                   <ErrorLoader />
                   <p className="mb-0 ErrorSearchBox">
-                    No Contract Available for this Archived Client! Please add a
-                    New Contract.
+                  ✘ No Contract Available for this Archived Client! Please add a
+                    New Contract ✘
                   </p>
                 </div>
               )}
             </div>
             <div className="col-12 Social-CardClient my-1">
               <div className="row px-1 pt-1 pb-0">
-                <div className="col-4 pr-0">
-                  <p className="DocShareLink mb-0">
-                   
-                    Share this link with the client : <br />
-                    Patager ce lien avec le client:<div className="d-flex justify-content-center"> <Share width={25} /></div>
-                  </p>
+              <div className="col-4 d-flex align-items-center  px-0">
+              <div className="d-flex">  <p className="DocShareLink mb-0">
+                   Share this link with the client <br />
+                    Patager ce lien avec le client
+                  </p><div className="d-flex justify-content-center align-items-center " style={{paddingLeft:"5px"}}> <Share width={25} /><b className="pl-1"> :</b></div></div>  
                 </div>
                 <div className="col-8 pl-0">
                   <div className="DocShareLinkBackground p-1">
@@ -1743,7 +1742,7 @@ function ArchivedViewPage() {
                        
                         <img
                           src={require("../../images/docupload.svg").default}
-                        />{" "}
+                        />
                       </div>
                       <p
                         style={{
@@ -1806,7 +1805,7 @@ function ArchivedViewPage() {
                       onClick={handleFileUpload}
                     >
                       <img src={require("../../images/resume.svg").default} />
-                      Upload {UploadTextBtn} file Now{" "}
+                      Upload {UploadTextBtn} file Now
                       <input
                         type="file"
                         ref={hiddenFileInput}

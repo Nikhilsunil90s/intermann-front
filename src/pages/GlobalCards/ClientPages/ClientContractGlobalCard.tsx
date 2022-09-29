@@ -348,8 +348,12 @@ function Signed() {
       // window.open(API_BASE_URL + candidatImage);
     }
   };
+
+
+ let Editdata ={state:profile,path:"/clientSigned"}
+
   const editClientProfile = () => {
-    navigate("/ClientContractEditprofile", { state: profile });
+    navigate("/ClientContractEditprofile", { state:Editdata });
   };
 
   // DOC Upload //\
@@ -706,7 +710,7 @@ function Signed() {
                   <Link to="/clientProgress">
                     <button type="button" className="btn FontStyle-TODOSEE">
                       <img src={require("../../../images/return.svg").default} />
-                      Client File : {profile.clientCompanyName}
+                      Client File : {profile.clientCompanyName.toLocaleUpperCase()}
                     </button>
                   </Link>
                 </div>
@@ -782,7 +786,7 @@ function Signed() {
                   <p>Secteur : {profile.clientActivitySector !=="" ? profile.clientActivitySector  :"No Secteur!"}</p>
                   <p>Métier/Job : {profile.clientJob !=="" ? profile.clientJob :"No Job!"}</ p>
                   <p style={{ width: "120%" }}>
-                    Contact Name : {profile.clientReferenceName ? profile.clientReferenceName:"No Name!"}
+                    Contact Name : {profile.clientReferenceName ? profile.clientReferenceName.toLocaleUpperCase():"No Name!"}
                   </p>
                 </div>
                 {/* <div className="col-4 text-end end-class d-grid justify-content-center align-items-center"> */}
@@ -1235,7 +1239,7 @@ function Signed() {
                           :
                           {profile.clientAddress
                             ? profile.clientAddress
-                            : "No Address!"}
+                            : "✘ No Address!"}
                         </span>
                       </div>
                     </div>
@@ -1255,13 +1259,13 @@ function Signed() {
                         
                         {profile.clientLanguages.length
                           ? profile.clientLanguages.join(", ")
-                          : "No Langues!"}
+                          : " ✘ No Langues!"}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
                       <p>Voyage en voiture :</p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.candidatConduireEnFrance ? "Yes" : "No"}
+                        {profile.candidatConduireEnFrance ? "✔ Yes" : "✘ No"}
                       </span>
                     </div>
 
@@ -1273,7 +1277,7 @@ function Signed() {
                       >
                         {profile.clientRequiredSkills != ""
                           ? profile.clientRequiredSkills
-                          : "Not Available!"}
+                          : "✘ Not Available!"}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
@@ -1291,7 +1295,7 @@ function Signed() {
                         :
                         {profile.salary_hours
                           ? profile.salary_hours.salaryPerHour + "€"
-                          : "No Salary"}
+                          : "✘ No Salary"}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
@@ -1302,7 +1306,7 @@ function Signed() {
                           ? profile.salary_hours.hours *
                               profile.salary_hours.salaryPerHour +
                             "€"
-                          : "No Hours!"}
+                          : "✘ No Hours!"}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
@@ -1313,7 +1317,7 @@ function Signed() {
                           ? profile.rate_hours.hours *
                               profile.rate_hours.ratePerHour +
                             "€"
-                          : "No Hours!"}
+                          : "✘ No Hours!"}
                       </span>
                     </div>
                   </div>
@@ -1381,7 +1385,7 @@ function Signed() {
                Ads Spent on this client :
                {profile.jobTotalBudget
                  ? profile.jobTotalBudget
-                 : "No Budget!"}
+                 : "✘ No Budget!"}
              </p>
            </div>
          </div>

@@ -346,10 +346,10 @@ function Signed() {
     }
   };
 
-const Editdata ={state:profile,path:"/clientSigned"}
+let Editdata ={state:profile,path:"/clientSigned"}
 
   const editClientProfile = () => {
-    navigate("/ClientContractEditprofile", { state: Editdata });
+    navigate("/ClientContractEditprofile", { state:Editdata });
   };
 
   // DOC Upload //\
@@ -1393,19 +1393,19 @@ const Editdata ={state:profile,path:"/clientSigned"}
                       <span className="Todo-ClinetCardMore-span">
                         {profile.clientLanguages.length
                           ? profile.clientLanguages.join(", ")
-                          : "No Langues!"}
+                          : " ✘ No Langues!"}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
                       <p>Voyage en voiture :</p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.candidatConduireEnFrance ? "Yes" : "No"}
+                        {profile.candidatConduireEnFrance ? `✔ Yes` : "✘ No"}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
                       <p>Permis / Licence Drive :</p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.clientPermis ? "Yes" : "No"}
+                        {profile.clientPermis ? `✔ Yes` : "✘ No"}
                       </span>
                     </div>
                     <div className="d-flex">
@@ -1416,7 +1416,7 @@ const Editdata ={state:profile,path:"/clientSigned"}
                       >
                         {profile.clientRequiredSkills != ""
                           ? profile.clientRequiredSkills
-                          : "Not Available!"}
+                          : "✘ Not Available!"}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
@@ -1441,8 +1441,8 @@ const Editdata ={state:profile,path:"/clientSigned"}
                                   return el.salaryPerHour;
                                 })
                                 .slice(0, 1)
-                            : "No Salary"
-                          : "No Salary"}{" "}
+                            : "✘ No Salary"
+                          : "✘ No Salary"}{" "}
                         €
                       </span>
                     </div>
@@ -1460,7 +1460,7 @@ const Editdata ={state:profile,path:"/clientSigned"}
                                 </span>
                               </div>
                             ))
-                          : "No Salaire!"}
+                          : "✘ No Salaire!"}
                       </span>
                     </div>
                     <div className="d-flex ">
@@ -1475,7 +1475,7 @@ const Editdata ={state:profile,path:"/clientSigned"}
                                 </span>
                               </div>
                             ))
-                          : "No horraire!"}
+                          : "✘ No horraire!"}
                       </span>
                     </div>
                   </div>
@@ -1553,7 +1553,7 @@ const Editdata ={state:profile,path:"/clientSigned"}
                     Ads Spent on this client :
                     {profile.jobTotalBudget
                       ? profile.jobTotalBudget + "€"
-                      : "No Budget!"}
+                      : "✘ No Budget!"}
                   </p>
                 ) : null}
               </div>
@@ -2161,20 +2161,19 @@ const Editdata ={state:profile,path:"/clientSigned"}
                 <div className="col-12 d-flex justify-content-center align-items-center py-2">
                   <ErrorLoader />
                   <p className="mb-0 ErrorSearchBox">
-                    No Contract Available for this Signed Client! Please add a
-                    New Contract.
+                  ✘ No Contract Available for this Signed Client! Please add a
+                    New Contract ✘
                   </p>
                 </div>
               )}
             </div>
             <div className="col-12 Social-CardClient my-1">
               <div className="row px-1 pt-1 pb-0">
-                <div className="col-4 pr-0">
-                  <p className="DocShareLink mb-0">
-                    {" "}
-                    Share this link with the client : <br />
-                    Patager ce client avec le client:<div className="d-flex justify-content-center"> <Share width={25} /></div>
-                  </p>
+              <div className="col-4 d-flex align-items-center  px-0">
+              <div className="d-flex">  <p className="DocShareLink mb-0">
+                   Share this link with the client <br />
+                    Patager ce lien avec le client
+                  </p><div className="d-flex justify-content-center align-items-center " style={{paddingLeft:"5px"}}> <Share width={25} /><b className="pl-1"> :</b></div></div>  
                 </div>
                 <div className="col-8 pl-0">
                   <div className="DocShareLinkBackground p-1">

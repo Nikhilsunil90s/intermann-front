@@ -223,7 +223,7 @@ const ClientToDoCard = (props: any) => {
   ];
 
   const candidatMotivationIcons = [
-    { icon: " ", motivation: "No Motivation" },
+    { icon: "", motivation: "No Motivation!" },
     { icon: "😟", motivation: "Disappointed" },
     { icon: "🙁", motivation: "Not Really" },
     { icon: "😊", motivation: "Like" },
@@ -286,7 +286,7 @@ const ClientToDoCard = (props: any) => {
                         .toLocaleUpperCase()
                         .slice(0, 29) + "..."
                     : props.data.clientCompanyName.toLocaleUpperCase()
-                  : "No CompanyName!"}
+                  : "✘ No CompanyName!"}
               </b>
             </p>
             <p className="textClientCard" style={{ width: "130%" }}>
@@ -308,13 +308,13 @@ const ClientToDoCard = (props: any) => {
                 Importance :
                 <b
                   className="d-flex"
-                  style={{ width: "44%", marginLeft: "5px" }}
+                  style={{ width: "47%", marginLeft: "5px" }}
                 >
                   {candidatImportanceIcons[props.data.clientImportance - 1]
                     ?.icon
                     ? candidatImportanceIcons[props.data.clientImportance - 1]
                         ?.icon
-                    : "No Importance"}
+                    : "No Importance!"}
                 </b>
               </p>
             </div>
@@ -325,7 +325,7 @@ const ClientToDoCard = (props: any) => {
                   
                   {props.data.numberOfPosts
                     ? props.data.numberOfPosts
-                    : "No Posts!"}
+                    : "✘ No Posts!"}
                 </b>
               </p>
             </div>
@@ -355,7 +355,7 @@ const ClientToDoCard = (props: any) => {
                         .toLocaleUpperCase()
                         .slice(0, 14) + "..."
                     : props.data.clientActivitySector.toLocaleUpperCase()
-                  : "No Sector!"}
+                  : "✘ No Sector!"}
               </p>
               <p className="fontStylingCardP">
                 Job :
@@ -364,7 +364,7 @@ const ClientToDoCard = (props: any) => {
                     ? props.data.clientJob.toLocaleUpperCase().slice(0, 14) +
                       "..."
                     : props.data.clientJob.toLocaleUpperCase()
-                  : "No Job!"}
+                  : "✘ No Job!"}
               </p>
               <p>
                 Langues :
@@ -372,7 +372,7 @@ const ClientToDoCard = (props: any) => {
                   
                   {props.data.clientLanguages.length
                     ? props.data.clientLanguages.join(", ")
-                    : "No Langues!"}
+                    : "✘ No Langues!"}
                 </b>
               </p>
               <p>
@@ -380,7 +380,7 @@ const ClientToDoCard = (props: any) => {
                 <b>
                   {props.data.clientPhone.length
                     ? props.data.clientPhone
-                    : "No Phone Number!"}
+                    : "✘ No Phone Number!"}
                 </b>
               </p>
               <p>
@@ -414,7 +414,7 @@ const ClientToDoCard = (props: any) => {
                 <b>
                   {props.data.clientPhone.length
                     ? props.data.clientPhone
-                    : "No Client Number!"}
+                    : "✘ No Client Number!"}
                 </b>
               </p>
               <p>
@@ -422,7 +422,7 @@ const ClientToDoCard = (props: any) => {
                 <b>
                   {props.data.clientReferenceName
                     ? props.data.clientReferenceName
-                    : "No Name!"}
+                    : "✘ No Name!"}
                 </b>
               </p>
               <p>
@@ -430,7 +430,7 @@ const ClientToDoCard = (props: any) => {
                 <b>
                   {props.data.clientReferenceNumber.length
                     ? props.data.clientReferenceNumber
-                    : "No Contact Number!"}
+                    : "✘ No Contact Number!"}
                 </b>
               </p>
             </div>

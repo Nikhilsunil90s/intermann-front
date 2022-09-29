@@ -46,7 +46,11 @@ function RenameSector() {
               
                           <button
                             className="btn AddNEwSector"
-                            //   onClick={()=>setAddModal(true)}
+                              // onClick={()=>setAddModal(true)}
+                              // onClick={() => {
+                              //   setJobModal(true);
+                              //   setJobModalData(sector?.sectorName);
+                              // }}
                           >
                             Add a job on {data[0].associatedSector}
                           </button>
