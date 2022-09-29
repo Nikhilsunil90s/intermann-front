@@ -16,6 +16,9 @@ import ProfileLoader from "../../../components/Loader/ProfilesLoader";
 import RenameDoc from "../../../components/Modal/RenameDoc_Modal";
 import PreModalClient from "../../../components/Modal/preSelectedModalForClient";
 import { Tabs, Tab } from "react-tabs-scrollable";
+import ArchivedModal from "../../../components/Modal/ArchivedModal";
+import ErrorLoader from "../../../components/Loader/SearchBarError";
+
 
 let RenameData = [];
 let id = "";
@@ -83,6 +86,8 @@ function Signed() {
   useState() as any;
   const [fiche_de_mise_a_disposition, setfiche_de_mise_a_disposition] =
   useState() as any;
+  const [deleteModal,setDeleteModal]=useState(false)
+  const [DeleteEmp,setDeleteEmp]=useState([])
   const [tabItems, setTabitems] = useState([
     {
      text: "CONTRAT CLIENT",
@@ -1333,54 +1338,94 @@ function Signed() {
                  Employees working for this client :
                </p>
              </div>
-             {
-           Loader ?
-            
-             
-               EMPunderWorking?.map((el) =>
-         
-               (
-                 <div className="col-12 pb-1">
-                   <div className="row">
-                     <div className="col-9 d-flex align-items-center">
-                       <img
-                         style={{ width: "7%" }}
-                         className="pr-1"
-                         src={require("../../../images/menSigned.svg").default}
-                       />
-                       {el.candidatName}
-                       <span className="pl-1">Since :</span>
-                       {el.candidatCurrentWork ?
-                       el.candidatCurrentWork.map(
-                         (el) => el.workingSince
-                       )
-                     :
-                     "No workingSince!"
-                     }
-                       <span className="pl-1">Salary :</span>
-                       {el.candidatCurrentWork.length >0 ?
-                       
-                       el.candidatCurrentWork.map((el) => el.salary)
-                     :"No salary!"
-                     }
-                     </div>
-                     <div className="col-3">
-                       <button
-                         className="seeFullCandidat"
-                         onClick={(e) => viewFullProfile(el)}
-                       >
-                         <img
-                           src={require("../../../images/seeCan.svg").default}
-                         />
-                         See profile
-                       </button>
-                     </div>
-                   </div>
-                 </div>
-               ))
-               : 
-               null
-         }
+             {profile.employeesWorkingUnder !== null &&
+                profile.employeesWorkingUnder?.length > 0 ? 
+                  profile.employeesWorkingUnder?.map((el) => (
+                    <div className="col-12 pb-1">
+                      <div className="row">
+                     { el.candidatName && el.candidatStatus !== "Archived" ?
+                          <>                          <div className="col-8 d-flex align-items-center">
+                          <img
+                            style={{ width: "7%" }}
+                            className="pr-1"
+                            src={require("../../../images/menSigned.svg").default}
+                          />
+                          {el.candidatName && el.candidatStatus !== "Archived" ? el.candidatName : null }
+                          <span className="pl-1">Since :</span>
+                          {el.candidatName && el.candidatStatus !== "Archived" ? el.candidatCurrentWork.map((el) => el.workingSince) : null}
+                          <span className="pl-1">Salary :</span>
+                          {el.candidatName && el.candidatStatus !== "Archived" ?  el.candidatCurrentWork.map((el) => el.salary) : null}
+                        </div>
+                      
+                        <div className="col-4 d-flex">
+                          <button
+                            className="seeFullCandidat"
+                            onClick={(e) => viewFullProfile(el)}
+                          >
+                            <img
+                              src={require("../../../images/seeCan.svg").default}
+                            />
+                            See profile
+                          </button>
+                          <div className="col-1 px-0">
+                        <button
+                                className="btn"   
+                                onClick={(e)=>{setDeleteModal(true);setDeleteEmp(el)}}
+                            >
+                                <img src={require("../../../images/Deletebucket.svg").default} />
+                            </button>
+                          </div>
+                        </div>
+
+                        </>
+:
+<>                          <div className="col-8 d-flex align-items-center">
+<img
+  style={{ width: "7%" }}
+  className="pr-1"
+  src={require("../../../images/menSigned.svg").default}
+/><p className="mb-0" style={{color:"red"}}>
+{el.candidatName}</p>
+<span style={{color:"red"}} className="pl-1">Since :</span>
+<p className="mb-0" style={{color:"red"}}>{el.candidatCurrentWork?.map((el) => el.workingSince)}</p>
+<span style={{color:"red"}} className="pl-1">Salary :</span>
+<p className="mb-0" style={{color:"red"}}>{el.candidatCurrentWork?.map((el) => el.salary)}</p>
+</div>
+
+
+
+</>}
+                     
+                      
+                      </div>
+                    </div>
+                  ))
+                 : (
+                  // <div className="col-12 pb-1 d-flex">
+                  //   <img
+                  //     className="pr-1"
+                  //     src={require("../../images/menSigned.svg").default}
+                  //   />
+                  //   No Candidat! <span className="pl-1">Since :</span> Since No!
+                  //   <span className="pl-1">Salary :</span> No Salary!
+                  // </div>
+                  <div className="col-12 pb-1 d-flex justify-content-center ">
+                    <p
+                      className="d-flex  justify-content-center align-items-center mb-0"
+                      style={{
+                        fontFamily: "Poppins",
+                        fontStyle: "normal",
+                        fontWeight: "700",
+                        fontSize: "16px",
+                        lineHeight: "24px",
+                        color: "#000000",
+                      }}
+                    >
+                      <ErrorLoader /> No data available for Employees Working
+                      under this Client !
+                    </p>
+                  </div>
+                )}
              <p className="mb-0">
                Ads Spent on this client :
                {profile.jobTotalBudget
@@ -1543,7 +1588,17 @@ function Signed() {
                       closeModal={setShowArchiveModal}
                       path={"/clientToDoProfile"}
                     />
-                  ) : null}
+                  ) : null}                {
+                    deleteModal ? 
+                    <ArchivedModal
+                    props={DeleteEmp}
+                    closeModal={setDeleteModal}
+                    path={"/clientSigned"}
+                    
+                  />
+                    :
+                    null
+                  }
                   <p className="btn-Down text-center">Si plus d’actualité</p>
                 </div>
                 <div className="col-3">

@@ -23,6 +23,9 @@ import { Tabs, Tab } from "react-tabs-scrollable";
 import "react-tabs-scrollable/dist/rts.css";
 import { FileUploader } from "react-drag-drop-files";
 import Share from "../../components/Loader/Share"
+import ArchivedModal from "../../components/Modal/ArchivedModal";
+
+
 
 let RenameData = [];
 let id = "";
@@ -31,6 +34,7 @@ let clDoc;
 let UploadTextBtn = "";
 function Signed() {
   const { state } = useLocation();
+
   const profileData = JSON.parse(localStorage.getItem("archive"));
   const [profile, setProfile] = useState<any>(state ? state : profileData);
   const navigate = useNavigate();
@@ -87,6 +91,8 @@ function Signed() {
     useState() as any;
   const [fiche_de_mise_a_disposition, setfiche_de_mise_a_disposition] =
     useState() as any;
+    const [deleteModal,setDeleteModal]=useState(false)
+    const [DeleteEmp,setDeleteEmp]=useState([])
   const [tabItems, setTabitems] = useState([
      {
       text: "CONTRAT CLIENT",
@@ -806,7 +812,7 @@ let Editdata ={state:profile,path:"/clientSigned"}
             <div className="row">
               <div className="col-8">
                 <div className="stable">
-                  <Link to="/clientProgress">
+                  <Link to="/clientContract">
                     <button type="button" className="btn FontStyle-TODOSEE">
                       <img src={require("../../images/return.svg").default} />
                       Client File :{" "}
@@ -1495,19 +1501,21 @@ let Editdata ={state:profile,path:"/clientSigned"}
                   profile.employeesWorkingUnder.map((el) => (
                     <div className="col-12 pb-1">
                       <div className="row">
-                        <div className="col-9 d-flex align-items-center">
+                     { el.candidatName && el.candidatStatus !== "Archived" ?
+                          <>                          <div className="col-8 d-flex align-items-center">
                           <img
                             style={{ width: "7%" }}
                             className="pr-1"
                             src={require("../../images/menSigned.svg").default}
                           />
-                          {el.candidatName}
+                          {el.candidatName && el.candidatStatus !== "Archived" ? el.candidatName : null }
                           <span className="pl-1">Since :</span>
-                          {el.candidatCurrentWork.map((el) => el.workingSince)}
+                          {el.candidatName && el.candidatStatus !== "Archived" ? el.candidatCurrentWork.map((el) => el.workingSince) : null}
                           <span className="pl-1">Salary :</span>
-                          {el.candidatCurrentWork.map((el) => el.salary)}
+                          {el.candidatName && el.candidatStatus !== "Archived" ?  el.candidatCurrentWork.map((el) => el.salary) : null}
                         </div>
-                        <div className="col-3">
+                      
+                        <div className="col-4 d-flex">
                           <button
                             className="seeFullCandidat"
                             onClick={(e) => viewFullProfile(el)}
@@ -1517,7 +1525,36 @@ let Editdata ={state:profile,path:"/clientSigned"}
                             />
                             See profile
                           </button>
+                          <div className="col-1 px-0">
+                        <button
+                                className="btn"   
+                                onClick={(e)=>{setDeleteModal(true);setDeleteEmp(el)}}
+                            >
+                                <img src={require("../../images/Deletebucket.svg").default} />
+                            </button>
+                          </div>
                         </div>
+
+                        </>
+:
+<>                          <div className="col-8 d-flex align-items-center">
+<img
+  style={{ width: "7%" }}
+  className="pr-1"
+  src={require("../../images/menSigned.svg").default}
+/><p className="mb-0" style={{color:"red"}}>
+{el.candidatName}</p>
+<span style={{color:"red"}} className="pl-1">Since :</span>
+<p className="mb-0" style={{color:"red"}}>{el.candidatCurrentWork.map((el) => el.workingSince)}</p>
+<span style={{color:"red"}} className="pl-1">Salary :</span>
+<p className="mb-0" style={{color:"red"}}>{el.candidatCurrentWork.map((el) => el.salary)}</p>
+</div>
+
+
+
+</>}
+                     
+                      
                       </div>
                     </div>
                   ))
@@ -2404,6 +2441,17 @@ let Editdata ={state:profile,path:"/clientSigned"}
                       clientProps={profile}
                     />
                   ) : null}
+                  {
+                    deleteModal ? 
+                    <ArchivedModal
+                    props={DeleteEmp}
+                    closeModal={setDeleteModal}
+                    path={"/clientSigned"}
+                    
+                  />
+                    :
+                    null
+                  }
                 </div>
               </div>
             </div>

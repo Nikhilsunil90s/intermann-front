@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../../config/serverApiConfig';
 
 
-function AddJobModal({ props, closeModal }) {
+function AddJobModal({ props, closeModal ,path}) {
 
   const notifyJobAddSuccess = () => toast("Job Added Successfully! You can Add More Jobs to this Sector", {
     
@@ -45,17 +45,17 @@ function AddJobModal({ props, closeModal }) {
       console.log(resD)
       if (resD.status) {
         notifyJobAddSuccess()
-        window.location.href = "/addNewSector";
+        window.location.href = path;
       } else {
         notifyJobAddError()
-        window.location.href = "/addNewSector";
+        window.location.href = path;
 
       }
     })
       .catch(err => {
         console.log(err)
         notifyGeneralError();
-        window.location.href = "/addNewSector";
+        window.location.href =path;
 
       })
   }
@@ -65,7 +65,7 @@ function AddJobModal({ props, closeModal }) {
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title AddNewFont" id="exampleModalLabel">Add A Job To Sector - {props}</h5>
+            <h5 className="modal-title AddNewFont" id="exampleModalLabel">Add A Job To Sector - {props.toUpperCase()}</h5>
             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => { closeModal(false) }}></button>
           </div>
           <div className="modal-body text-center">

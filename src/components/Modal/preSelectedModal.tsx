@@ -15,6 +15,7 @@ function PreModal({props,closepreModal}) {
   const [clientDataOptions,setClientOption]=useState([])
   const [data,setData]=useState([])
   const [Client,setClients]=useState([])as any
+  const [btnLoader, setbtnLoader] = useState(false);
 
 useEffect(()=>{
   if(clientDataOptions.length == 0){
@@ -105,15 +106,18 @@ useEffect(() => {
       reason: reason
     }
     changeStatus(preSelectedData).then((resData) => {
+      setbtnLoader(true)
       if (resData.status) {
         notifyCandidatMovedSuccess()
         setTimeout(() => {
           window.location.href = "/todolist";
         }, 2000)
+        setbtnLoader(false)
       }
     }).catch(err => {
       console.log(err)
       notifyCandidatMovedError()
+      setbtnLoader(false)
     })
   }
 
@@ -222,8 +226,8 @@ useEffect(() => {
 </div></div>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn preSelectedStageBtn"  onClick={moveToPreSelected}>
-              Move this person to in preselected status
+              <button type="button" className="btn preSelectedStageBtn d-flex"  onClick={moveToPreSelected}>
+              {btnLoader ?   <div className="RESTloader " >Loading...</div>   : null} Move this person to in preselected status
               </button>
             </div>
           </div>

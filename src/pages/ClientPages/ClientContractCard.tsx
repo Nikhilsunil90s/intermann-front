@@ -143,6 +143,7 @@ const Editdata ={state:props.data,path:"/clientContract"}
             props.data.employeesWorkingUnder != null && props.data.employeesWorkingUnder != [] && props.data.employeesWorkingUnder.length > 0 ?
             props.data.employeesWorkingUnder.map((el)=>(
               <div className="col-4 pr-0">
+                { el.candidatName && el.candidatStatus !== "Archived" ?
                                        <div className="d-flex align-items-center cursor-pointer" onClick={(e)=>viewFullProfile(el)}>
                    
                                     <img
@@ -155,6 +156,20 @@ const Editdata ={state:props.data,path:"/clientContract"}
                                      {el.candidatName}
                                     </p>
                                   </div>
+                                  :
+                                  <div className="d-flex align-items-center cursor-pointer" >
+                   
+                                  <img
+                                    src={require("../../images/menSigned.svg").default}
+                                    style={{ width: "15%" }}
+                                  />
+                                  <p style={{ fontSize: "8px",marginLeft:"5px",color:"red" }} className="mb-0 " data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.candidatName} >
+                               
+
+                                   {el.candidatName}
+                                  </p>
+                                </div>
+}  
 
                                   </div>
                     ))

@@ -146,6 +146,7 @@ function AddSector() {
                       <AddJobModal
                         props={jobModalData}
                         closeModal={setJobModal}
+                        path="/addNewSector"
                       />
                     ) : null}
                     {renameModal ? (

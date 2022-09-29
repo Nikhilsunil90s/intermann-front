@@ -65,7 +65,7 @@ const ArchivedProfileCard = (props: any) => {
                     </div>
                     <div className="col-7 ArchivedCard pt-1 px-0" >
                     <p style={{width:"100%"}} className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.props.candidatName.toLocaleUpperCase()}><b>{props.props.candidatName.length > 15 ? props.props.candidatName.slice(0, 18).toLocaleUpperCase() + "..." : props.props.candidatName.toLocaleUpperCase()}</b></p>
-                    <p className="text-dark mb-0">{props.props.candidatAge ?  <p className="age00 ml-0 mb-0">Age : <b> {props.props.candidatAge}</b></p> : <b>Age Not Available!</b>}</p>
+                    <p className="text-dark mb-0">{props.props.candidatAge ?  <p className="age00 ml-0 mb-0">Age : <b> {props.props.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</p>
                         <div >  <p className="text-dark d-flex"> <b>{props.props.candidatMotivation == 0 ? candidatMotivationIcons[props.props.candidatMotivation ].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation :  candidatMotivationIcons[props.props.candidatMotivation].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation}</b>
                         </p>
                         </div>
@@ -100,17 +100,17 @@ const ArchivedProfileCard = (props: any) => {
                 <div className="px-0  mb-1 ArchivedCardChildFonts" style={{marginLeft:"6px"}}>
                     {/* <p>Name:  <b>{props.props.candidatName}</b> </p> */}
                     {/* <p>Age: <b>{props.props.candidatAge}</b></p> */}
-                    <p>Secteur: <b> {props.props.candidatActivitySector ?  props.props.candidatActivitySector.toLocaleUpperCase() : "No Sector!"}</b></p>
-                    <p>Job: <b> {props.props.candidatJob ? props.props.candidatJob.toLocaleUpperCase() : "No Job!"}</b></p>
-                    <p>Candidats age: <b>{props.props.candidatAge ? props.props.candidatAge +"years old" : "Age Not Available!"}</b></p>
-                    <p>Langues:  <b>  {props.props.candidatLanguages.length ? props.props.candidatLanguages.length > 3 ? props.props.candidatLanguages.slice(0,3).join(", ") + "..." : props.props.candidatLanguages.join(", "): "No Langues Selected!"} </b></p>
-                    <p>Phone Number:  <b>{props.props.candidatPhone ? props.props.candidatPhone : "No Phone!"}</b></p>
-                    <p>Facebook URL:  <b>{props.props.candidatFBURL ? <a href={props.props.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "No Facebook Profile!"}</b></p>
-                    <p>Email: <b>{props.props.candidatEmail ? props.props.candidatEmail.length > 20 ? props.props.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.props.candidatEmail.toLocaleUpperCase() : "No Email Provided!"}</b> </p>
+                    <p>Secteur: <b> {props.props.candidatActivitySector ?  props.props.candidatActivitySector.toLocaleUpperCase() : "✘ No Sector!"}</b></p>
+                    <p>Job: <b> {props.props.candidatJob ? props.props.candidatJob.toLocaleUpperCase() : "✘ No Job!"}</b></p>
+                    <p>Candidats age: <b>{props.props.candidatAge ? props.props.candidatAge +"years old" : "✘ Age Not Available!"}</b></p>
+                    <p>Langues:  <b>  {props.props.candidatLanguages.length ? props.props.candidatLanguages.length > 3 ? props.props.candidatLanguages.slice(0,3).join(", ") + "..." : props.props.candidatLanguages.join(", "): "✘ No Langues Selected!"} </b></p>
+                    <p>Phone Number:  <b>{props.props.candidatPhone ? props.props.candidatPhone : "✘ No Phone!"}</b></p>
+                    <p>Facebook URL:  <b>{props.props.candidatFBURL ? <a href={props.props.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "✘ No Facebook Profile!"}</b></p>
+                    <p>Email: <b>{props.props.candidatEmail ? props.props.candidatEmail.length > 20 ? props.props.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.props.candidatEmail.toLocaleUpperCase() : "✘ No Email Provided!"}</b> </p>
                     <p className=" my-1"  style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}><b>Ready for work: {date >= start && date <= end  ? " 📆" +props.props.candidatStartDate  + "  To  " + props.props.candidatEndDate :   "⚠️" + props.props.candidatStartDate +"  To  " + props.props.candidatEndDate } </b></p>
                     </div>
                     <div className="box-red pl-1">
-                        <p> <b>REASON WHY CANCELED</b> : </p><span> {props.props.candidatArchived?.reason ? props.props.candidatArchived?.reason : "No Reason Specified!"}</span>
+                        <p> <b>REASON WHY CANCELED</b> : </p><span> {props.props.candidatArchived?.reason ? props.props.candidatArchived?.reason : "✘ No Reason Specified!"}</span>
 
                     </div>
                     <div className='col-12 mt-1'>

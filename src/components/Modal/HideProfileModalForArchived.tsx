@@ -7,7 +7,7 @@ function HideProfile({ props, closeModal, path }) {
 
     const navigate = useNavigate();
     const [candidatId, setCandidatId] = useState(props._id);
-
+    const [ResetLoader, setResetLoader] = useState(false);
     const notifyMoveSuccess = () => toast.success("Candidat Hidden Successfully!");
     const notifyMoveError = () => toast.error("Cannot Hide Candidat! Please try Again.");
 
@@ -16,6 +16,7 @@ function HideProfile({ props, closeModal, path }) {
     }
 
     const HideProfile = async () => {
+        setResetLoader(true)
         return await fetch(API_BASE_URL + "hideCandidat", {
             method: "POST",
             headers: {
@@ -31,6 +32,7 @@ function HideProfile({ props, closeModal, path }) {
     }
 
     const sendHideRequest = () => {
+        
         console.log(data);
         HideProfile().then((resdata) => {
             setTimeout(function () {
@@ -45,10 +47,12 @@ function HideProfile({ props, closeModal, path }) {
 
             }, 2000);
             notifyMoveSuccess();
+            setResetLoader(false)
         })
             .catch(err => {
                 console.log(err)
                 notifyMoveError();
+                setResetLoader(false)
             })
     }
 
@@ -98,7 +102,7 @@ function HideProfile({ props, closeModal, path }) {
                                          className="btnHide-ArchivedModal"
                                          onClick={sendHideRequest}
                                          style={{backgroundColor:"#FF0000"}}
-                                        >Hide</button>
+                                        >{ResetLoader ?   <div className="RESTloader " >Loading...</div>   : null}Hide</button>
                                         <button
                                          className="btnHide-ArchivedModal"
                                          style={{backgroundColor:"#FF0000", color: 'black', marginLeft: "10px"}}

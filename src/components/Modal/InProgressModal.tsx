@@ -14,6 +14,8 @@ function InProgressModal({ props, closeModal }) {
   const [salary, setSalary] = useState("")
   const [clients, setClients] = useState([]);
   const [candidatId, setCandidateID] = useState(props._id)
+  const [btnLoader, setbtnLoader] = useState(false);
+
 
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
@@ -95,7 +97,7 @@ function InProgressModal({ props, closeModal }) {
           if (result.status) {
          
         CName=    result.data.map((el)=>{
-         return { value:el.clientCompanyName,label:el.clientCompanyName,color:  '#FF8B00',name:"clientName"}            })
+         return { value:el.clientCompanyName,label:el.clientCompanyName + `-(${el.jobStatus})`,color:  '#FF8B00',name:"clientName"}            })
     }
     setClients([...CName])
         })
@@ -107,6 +109,7 @@ function InProgressModal({ props, closeModal }) {
   })
 
   const saveModalData = async () => {
+    setbtnLoader(true)
     return await fetch(API_BASE_URL + "moveToInProgress", {
       method: "POST",
       headers: {
@@ -133,10 +136,12 @@ function InProgressModal({ props, closeModal }) {
         },
           2000
         );
+        setbtnLoader(false)
       })
       .catch(err => {
         console.log(err)
         notifyMoveError();
+        setbtnLoader(false)
       })
   }
 
@@ -286,9 +291,11 @@ function InProgressModal({ props, closeModal }) {
                           lineHeight: "24px",
                           color: "white",
                           border: "unset",
-                        }}
+                          display:"flex",
+                          justifyContent:"center",
+                                          }}
                       >
-                        Move {props.candidatName} to In-Progress status
+                    {btnLoader ?   <div className="RESTloader " >Loading...</div>   : null}        Move {props.candidatName} To In-Progress Status
                       </button>
                     </div>
                   </div>

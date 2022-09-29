@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import 'react-toastify/dist/ReactToastify.css';
 import { API_BASE_URL } from '../../config/serverApiConfig';
 import { toast } from "react-hot-toast";
 
-function RenameJobModal({ props, closeModal }) {
+function RenameJobModal({ sector, closeModal,jobName }) {
     const [newJobName, setNewJobName] = useState("");
-
+console.log(jobName,"jobName")
     const notifyJobRenameSuccess = () => toast.success("Job Renamed Successfully!");
     const notifyJobRenameError = () => toast.error("Cannot Be Renamed! Please Try Again.");
     const notifyJobBlankError = () => toast.error("Job Name Can't Be Blank.");
@@ -27,8 +26,8 @@ function RenameJobModal({ props, closeModal }) {
                 "Authorization": "Bearer " + localStorage.getItem('token')
             },
             body: JSON.stringify({
-                currentJobName: props.jobName,
-                currentSectorName: props.associatedSector,
+                currentJobName: jobName,
+                currentSectorName: sector,
                 newName: newJobName
             })
         })
@@ -63,11 +62,11 @@ function RenameJobModal({ props, closeModal }) {
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">Rename Job - {props.jobName}</h5>
+                        <h5 className="modal-title" id="exampleModalLabel">Rename Job - {jobName}</h5>
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => closeModal(false)}></button>
                     </div>
                     <div className="modal-body text-center">
-                        <input type="text" name="jobName" onChange={handleJobNameChange} className='form-control' required placeholder={'Enter New Name for Job - ' + props.jobName} />
+                        <input type="text" name="jobName" onChange={handleJobNameChange} className='form-control' required placeholder={'Enter New Name for Job - ' + jobName} />
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => closeModal(false)}>Cancel</button>

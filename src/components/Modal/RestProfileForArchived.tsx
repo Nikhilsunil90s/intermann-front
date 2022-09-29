@@ -8,7 +8,7 @@ function ResetProfile({ props, closeModal, path }) {
     console.log(props);
 
     const navigate = useNavigate();
-    const [reasonToArchive, setReasonToArchive] = useState([]);
+    const [ResetLoader, setResetLoader] = useState(false);
     const [candidatId, setCandidatId] = useState(props._id);
 
     const notifyMoveSuccess = () => toast.success("Candidat Reset To To-DO Successfully!");
@@ -19,6 +19,7 @@ function ResetProfile({ props, closeModal, path }) {
     }
 
     const ResetClient = async () => {
+        setResetLoader(true)
         console.log(data);
         return await fetch(API_BASE_URL + "moveToToDo", {
             method: "POST",
@@ -39,6 +40,7 @@ function ResetProfile({ props, closeModal, path }) {
         ResetClient().then((resdata) => {
             console.log(resdata)
             closeModal(false);
+            setResetLoader(false)
             setTimeout(function () {
                 if (path == "/embauchlist") {
                     window.location.href = path;
@@ -50,10 +52,12 @@ function ResetProfile({ props, closeModal, path }) {
                 }
             }, 2000);
             notifyMoveSuccess();
+
         })
             .catch(err => {
                 console.log(err)
                 notifyMoveError();
+                setResetLoader(false)
             })
     }
 
@@ -90,9 +94,9 @@ function ResetProfile({ props, closeModal, path }) {
                                     <div className="col-12 d-flex justify-content-end">
                                         <button
                                         onClick={sendResetRequest}
-                                         className="btnHide-ArchivedModal"
-                                         style={{backgroundColor:"#489767"}}
-                                        >Reset</button>
+                                         className="btnHide-ArchivedModal d-flex justify-content-center "
+                                         style={{backgroundColor:"#489767",width:"15%",padding:"0px",height:"46px"}}
+                                        >{ResetLoader ?   <div className="RESTloader " >Loading...</div>   : null} Reset</button>
                                     </div>
 
                                 

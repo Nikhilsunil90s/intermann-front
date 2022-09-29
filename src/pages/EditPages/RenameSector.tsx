@@ -2,15 +2,21 @@ import React, { useEffect, useState } from "react";
 import "../../CSS/AddSector.css";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import RenameModal from "../../components/Modal/RenameModal";
+import RenameModal from "../../components/Modal/RenameJobModal";
+import AddJobModal from "../../components/Modal/Add_Modal";
+
 function RenameSector() {
+
+  
   const { state } = useLocation();
   useEffect(() => {
     console.log(state, "state");
   });
-
+  const [jobModalData, setJobModalData] = useState("");
+  const [jobModal, setJobModal] = useState(false);
   const [data, setData] = useState<any>(state);
   const [renameModalData, setRenameModalData] = useState("");
+  const [jobName, setjobName] = useState("");
   const [renameModal, setRenameModal] = useState(false);
   return (
     <>
@@ -30,7 +36,7 @@ function RenameSector() {
                           <button
                             type="button"
                             className="btn list-001"
-                            
+                          
                           >
                             <img
                               src={require("../../images/return.svg").default}
@@ -46,13 +52,12 @@ function RenameSector() {
               
                           <button
                             className="btn AddNEwSector"
-                              // onClick={()=>setAddModal(true)}
-                              // onClick={() => {
-                              //   setJobModal(true);
-                              //   setJobModalData(sector?.sectorName);
-                              // }}
+                            onClick={() => {
+                              setJobModal(true);
+                              setJobModalData(data[0].associatedSector);
+                            }}
                           >
-                            Add a job on {data[0].associatedSector}
+                           + Add a job on {data[0].associatedSector}
                           </button>
                      
 </div>
@@ -78,15 +83,24 @@ function RenameSector() {
                                             setRenameModalData(
                                               e.associatedSector
                                             );
+                                            setjobName(e.jobName)
                                         } }>
                                    <img src={require("../../images/editResume.svg").default} />   Rename
                                   </button>
                                   {renameModal ? 
                       <RenameModal
-                        props={renameModalData}
+                        sector={renameModalData}
+                        jobName={jobName}
+
                         closeModal={setRenameModal}
                       />
-                     : null}     
+                     : null}     {jobModal ? (
+                      <AddJobModal
+                        props={jobModalData}
+                        closeModal={setJobModal}
+                        path="/addNewSector"
+                      />
+                    ) : null}  
                                 </div>
                               </div>
                             </div>

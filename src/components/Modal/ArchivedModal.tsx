@@ -5,6 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 function ArchivedModal({ props, closeModal,path }) {
   const [reasonToArchive, setReasonToArchive] = useState([]);
   const [candidatId, setCandidatId] = useState(props._id);
+  const [btnLoader, setbtnLoader] = useState(false);
 
   // Notification //
   const notifyMoveSuccess = () => toast.success("Moved Archived Successfully!");
@@ -28,6 +29,7 @@ function ArchivedModal({ props, closeModal,path }) {
   };
 
   const ArchiveCandidat = async () => {
+    setbtnLoader(true)
     return await fetch(API_BASE_URL + "moveToArchived", {
       method: "POST",
       headers: {
@@ -44,6 +46,7 @@ function ArchivedModal({ props, closeModal,path }) {
 
   const sendArchiveRequest = (e) => {
     e.preventDefault();
+
     ArchiveCandidat()
       .then((resdata) => {
         console.log(resdata);
@@ -55,13 +58,15 @@ function ArchivedModal({ props, closeModal,path }) {
        else{
         window.location.href = "/todolist";
        }
-         
+    
         }, 2000);
+        setbtnLoader(false)
         notifyMoveSuccess();
       })
       .catch((err) => {
         console.log(err);
         notifyMoveError();
+        setbtnLoader(false)
       });
   };
 
@@ -123,8 +128,9 @@ function ArchivedModal({ props, closeModal,path }) {
                 </div>
                 <div className="col-12 text-center pt-3">
                   <div className="row justify-content-end">
-                    <div className="col-8">
+                    <div className="col-7">
                       <button
+                      className="d-flex justify-content-center" 
                         style={{
                           borderRadius: "25px",
                           backgroundColor: "#FF0000",
@@ -139,7 +145,7 @@ function ArchivedModal({ props, closeModal,path }) {
                           border: "unset",
                         }}
                       >
-                        Move {props.candidatName} to Status Archived.
+                        {btnLoader ?   <div className="RESTloader " >Loading...</div>   : null}   Move {props.candidatName} to Status Archived.
                       </button>
                     </div>
 
