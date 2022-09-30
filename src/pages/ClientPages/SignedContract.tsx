@@ -93,6 +93,7 @@ function Signed() {
     useState() as any;
     const [deleteModal,setDeleteModal]=useState(false)
     const [DeleteEmp,setDeleteEmp]=useState([])
+    const [Archived,setArchived]=useState(  profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived")):null )
   const [tabItems, setTabitems] = useState([
      {
       text: "CONTRAT CLIENT",
@@ -1369,7 +1370,7 @@ let Editdata ={state:profile,path:"/clientSigned"}
                               :
                               {profile.clientAddress
                                 ? profile.clientAddress
-                                : "No Address!"}
+                                : "✘ No Address!"}
                             </span>
                           </div>
                         </div>
@@ -1510,9 +1511,9 @@ let Editdata ={state:profile,path:"/clientSigned"}
                           />
                           {el.candidatName && el.candidatStatus !== "Archived" ? el.candidatName : null }
                           <span className="pl-1">Since :</span>
-                          {el.candidatName && el.candidatStatus !== "Archived" ? el.candidatCurrentWork.map((el) => el.workingSince) : null}
+                          {el.candidatName && el.candidatStatus !== "Archived" ? el.candidatCurrentWork.map((el) => el.workingSince ? el.workingSince :"✘ No Working Since!") : null}
                           <span className="pl-1">Salary :</span>
-                          {el.candidatName && el.candidatStatus !== "Archived" ?  el.candidatCurrentWork.map((el) => el.salary) : null}
+                          {el.candidatName && el.candidatStatus !== "Archived" ?  el.candidatCurrentWork.map((el) => el.salary ? el.salary : "0€") : null}
                         </div>
                       
                         <div className="col-4 d-flex">
@@ -1536,28 +1537,17 @@ let Editdata ={state:profile,path:"/clientSigned"}
                         </div>
 
                         </>
+                        
 :
-<>                          <div className="col-8 d-flex align-items-center">
-<img
-  style={{ width: "7%" }}
-  className="pr-1"
-  src={require("../../images/menSigned.svg").default}
-/><p className="mb-0" style={{color:"red"}}>
-{el.candidatName}</p>
-<span style={{color:"red"}} className="pl-1">Since :</span>
-<p className="mb-0" style={{color:"red"}}>{el.candidatCurrentWork.map((el) => el.workingSince)}</p>
-<span style={{color:"red"}} className="pl-1">Salary :</span>
-<p className="mb-0" style={{color:"red"}}>{el.candidatCurrentWork.map((el) => el.salary)}</p>
-</div>
+<>                    
 
 
 
 </>}
-                     
-                      
-                      </div>
+                          </div>
                     </div>
                   ))
+                  
                  : (
                   // <div className="col-12 pb-1 d-flex">
                   //   <img
@@ -1584,6 +1574,32 @@ let Editdata ={state:profile,path:"/clientSigned"}
                     </p>
                   </div>
                 )}
+
+<div className="col-12 pb-1">
+                      <div className="row">
+{Archived ?
+                   Archived.map((el)=>(
+<>      <div className="col-8 d-flex align-items-center">
+<img
+  style={{ width: "7%" }}
+  className="pr-1"
+  src={require("../../images/menSigned.svg").default}
+/><p className="mb-0" style={{color:"red"}}>
+{el.candidatName}</p>
+<span style={{color:"red"}} className="pl-1">Since :</span>
+<p className="mb-0" style={{color:"red"}}>{el.candidatCurrentWork.map((el) => el.workingSince ? el.workingSince :"✘ No Working Since!")}</p>
+<span style={{color:"red"}} className="pl-1">Salary :</span>
+<p className="mb-0" style={{color:"red"}}>{el.candidatCurrentWork.map((el) => el.salary ? el.salary : "0€")}</p>
+</div></>
+))
+ :
+ null
+
+                      }
+                      </div>
+                      </div>
+         
+
                 {profile.employeesWorkingUnder !== null &&
                 profile.employeesWorkingUnder.length > 0 ? (
                   <p className="mb-0">

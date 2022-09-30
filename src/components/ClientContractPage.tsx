@@ -1097,7 +1097,7 @@ INTERMANN WORK S.R.L <br/>
                   {
                    fiche_de_mise_a_disposition ?
                     documentList?.map((el)=>(
-                        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("reges")) ?
+                        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("fiche_de_mise_a_disposition")) ?
                     <>    <div className="col-md-6 col-sm-12 mb-1">
                         <div className="row PDFcardBG cursor-pointer" onClick={() =>
                                 ViewDownloadFiles(el.url)

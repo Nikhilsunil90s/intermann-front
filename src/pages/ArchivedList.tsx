@@ -858,7 +858,7 @@ SelectedClient=[]
                         <div className="col-2 d-flex justify-content-end">
                       {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || LanguageFilter.length>0 || SelectedClient.length > 0 ?
 
-<p className="filterStyling  cursor-pointer mt-2" onClick={() => ResetFilters()}>Reset Filters</p>
+<p className="filterStyling HoveRESTClass cursor-pointer mt-2" onClick={() => ResetFilters()}>Reset Filters</p>
 : null
 }
 </div>
@@ -877,7 +877,7 @@ SelectedClient=[]
                       <div className="col-2 d-flex justify-content-end">
                       {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || LanguageFilter.length>0  || SelectedClient.length > 0 ?
 
-<p className="filterStyling  cursor-pointer mt-2" onClick={() => ResetFilters()}>Reset Filters</p>
+<p className="filterStyling HoveRESTClass cursor-pointer mt-2" onClick={() => ResetFilters()}>Reset Filters</p>
 : null
 }
 </div>

@@ -644,7 +644,7 @@ className="SelectBtn"
                       
                         <tr className="">
                           <td colSpan={3} className="text-center">
-                            <p>No Experience Details Available!</p>
+                            <b className="d-flex align-items-center justify-content-center my-1"><ErrorLoader />No Experience Details Available!</b>
                             <button className="btn btn-sm text-light btn-dark" onClick={editCandidatProfile}>Edit Candidat To Add Experience Details!</button>
                           </td>
                         </tr>
@@ -1061,7 +1061,7 @@ className="SelectBtn"
                   fontSize: "16px",
                   lineHeight: "24px",
                   color: "#000000"
-              }}> <ErrorLoader />No Documents Uploaded!</p>
+              }}> <ErrorLoader />✘  No Documents Uploaded! </p>
    
                     }
     {progress > 0 && progress < 100 && documentList.length > 0 ?

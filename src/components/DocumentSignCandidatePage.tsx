@@ -17,12 +17,13 @@ function  DocumentSign(){
     const [pdfUrl,setUrl]=useState()as any
     useEffect(() => {
       if(profile.length == 0){
+  
      fetchCandidat(id).then((resData) => {
               if (resData.status == true) {
                 // setProfile(resData.data)
               
                   setProfile(resData.data);
-                  
+                  fetchThePDF(resData.data.candidatContract._id)
               } else {
                 return false;
               }
@@ -32,6 +33,7 @@ function  DocumentSign(){
               console.log(err);
             }); 
           } 
+
   
       },[id,profile]);
 
@@ -39,12 +41,11 @@ function  DocumentSign(){
         setTimeout(()=>{
           setpdfTimeOut(true)
         },4000)
-             if(pdfUrl == undefined || pdfUrl == null ){
-          setUrl(profile.candidatDocuments ? profile.candidatDocuments.map((el)=>(el.url)) : null)
-             }
+          
 
    
       })
+
       console.log(pdfUrl,"pdf")
 
   
@@ -60,6 +61,18 @@ function  DocumentSign(){
         })
           .then((resp) => resp.json())
           .then((respData) => respData)
+          .catch((err) => err);
+      };
+          const fetchThePDF = async (id:any) => {
+        return await fetch(API_BASE_URL + `getContract/?contractId=${id}`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+          .then((resp) => resp.json())
+          .then((respData) => setUrl(respData.filePath))
           .catch((err) => err);
       };
 
@@ -92,7 +105,7 @@ return (
 
 <FileViewer
 filePath={pdfUrl}
-fileType={'docx'}
+fileType={'pdf'}
 onError={onError}
 />
 
@@ -105,7 +118,7 @@ onError={onError}
          </div>
          {
             ContractSignModal ? 
-             <DocSignCandidate  props={null} closeModal={setContractSignModal} />
+             <DocSignCandidate  props={profile.candidatContract._id} closeModal={setContractSignModal} />
 
             :
 

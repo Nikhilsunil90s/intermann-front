@@ -1303,7 +1303,7 @@ setTimeout(()=>{
                       
                           <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex align-items-center justify-content-end">
                             <p
-                              className="filterStyling  cursor-pointer mt-2"
+                              className="filterStyling HoveRESTClass cursor-pointer mt-2"
                               onClick={() => RestFilters()}
                             >
                               Reset Filters
@@ -1342,7 +1342,7 @@ setTimeout(()=>{
                        ? 
                         <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex align-items-center justify-content-end">
                           <p
-                            className="filterStyling  cursor-pointer mt-2"
+                            className="filterStyling HoveRESTClass cursor-pointer mt-2"
                             onClick={() => RestFilters()}
                           >
                             Reset Filters

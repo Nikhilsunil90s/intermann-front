@@ -963,6 +963,123 @@ color: #000000;
 .my-spinner .text-danger {
     color: #FE8700 !important;
 }
+
+
+
+
+.HoveRESTClass {
+  position: relative;
+  text-decoration: none;
+/*   border: 2px solid #f00; */
+height: 28px;
+width: 100%;
+  text-align: center;
+  color: #262626;
+}
+
+.HoveRESTClass:before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+/*   width: 100%;
+  height: 100%; */
+  width: 0;
+  height: 0;
+  background: transparent;
+/*   border: 2px solid #262626; */
+  border: 2px solid transparent;
+}
+
+.HoveRESTClass:hover:before {
+  animation: animate-border 1s linear forwards;
+}
+
+@keyframes animate-border {
+  0% {
+    width: 0;
+    height: 0;
+/*     border: 2px solid transparent; */
+    border-top-color: #262626;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    background-color: #FE8700;
+  }
+  50% {
+    width: 100%;
+    height: 0;
+/*     border: 2px solid #262626; */
+    border-top-color: #262626;
+    border-right-color: #262626;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    background-color: #FE8700;
+  }  
+  100% {
+    width: 100%;
+    height: 100%;
+/*     border: 2px solid #262626; */
+    border-top-color: #262626;
+    border-right-color: #262626;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    background-color: transparent;
+  }
+}
+
+
+/*****************************/
+
+
+.HoveRESTClass:after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+/*   width: 100%;
+  height: 100%; */
+  width: 0;
+  height: 0;
+  background: transparent;
+/*   border: 2px solid #262626; */
+  border: 2px solid transparent;
+}
+
+.HoveRESTClass:hover:after {
+  animation: animate-border-2 1s linear forwards;
+  animation-delay: 1s;
+}
+
+@keyframes animate-border-2 {
+  0% {
+    width: 0;
+    height: 0;
+/*     border: 2px solid transparent; */
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: #262626;
+  }
+  50% {
+    width: 0;
+    height: 100%;
+/*     border: 2px solid #262626; */
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: #262626;
+    border-left-color: #262626;
+  }  
+  100% {
+    width: 100%;
+    height: 100%;
+/*     border: 2px solid #262626; */
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: #262626;
+    border-left-color: #262626;
+  }
+}
 @media (min-width:768px){
 
     .pdf-btn {

@@ -70,7 +70,7 @@ const Editdata ={state:props.data,path:"/clientContract"}
 
   return (
     <>
-<div className="card cardInPro p-0">
+<div className="card cardInPro p-0 HoveRESTClassCardS">
                 <div className="d-flex cursor-pointer" onClick={SeeFullProfile}>
                     <div className="col-3 px-0 d-flex justify-content-center">
                         <img

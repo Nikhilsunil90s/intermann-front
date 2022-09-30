@@ -70,7 +70,6 @@ const notifyMoveError = () => toast.error("Not Moved..");
   
 
 
-
   
   const loadMoreHandle = (i) => {
     let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
@@ -751,6 +750,7 @@ setTimeout(()=>{
   setdateLoader(false)
   LicencePermisArr = []
   setSectorOptions([])
+  FilterJob=[]
   setLicenseOptions([])
   setSelectedJob([])
   setJobOptions([])
@@ -1044,13 +1044,13 @@ setTimeout(()=>{
                         <div className="col-2 d-flex justify-content-end">
                       {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || SelectedClient.length > 0 || LanguageFilter.length > 0 || LicencePermisArr.length > 0 ?
 
-<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
+<p className="filterStyling  HoveRESTClass cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 : null
 }
 </div>
 
                           <div className="col-2 d-flex justify-content-end">
-                            <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(false)}>Less Filters <img src={require("../images/downup.svg").default} /></p>
+                            <p className="filterStyling pt-2  cursor-pointer" onClick={() => setShowMore(false)}>Less Filters <img src={require("../images/downup.svg").default} /></p>
                           </div>
                         </div>
                       </div>
@@ -1064,7 +1064,7 @@ setTimeout(()=>{
                       <div className="col-2 d-flex justify-content-end">
                       {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || SelectedClient.length > 0 || LanguageFilter.length > 0  || LicencePermisArr.length > 0 ?
 
-<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
+<p className="filterStyling  cursor-pointer HoveRESTClass mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 : null
 }
 </div>

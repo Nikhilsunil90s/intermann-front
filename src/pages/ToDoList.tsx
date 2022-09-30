@@ -1369,7 +1369,7 @@ styles={colourStyles}
                         <div className="col-2 d-flex align-items-center justify-content-end">
                         {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length > 0 || emailArr.length > 0 || contactArr.length > 0 || LanguageFilter.length > 0?
 
-                          <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
+                          <p className="filterStyling  cursor-pointer mt-2 HoveRESTClass" onClick={() => RestFilters()}>Reset Filters</p>
                           : null
                         }
                         </div>
@@ -1386,9 +1386,9 @@ styles={colourStyles}
                     <div className="col-12">
                       <div className="row justify-content-end">
                       <div className="col-2 d-flex align-items-center justify-content-end">
-                      {selectedSector.length === 0 || selectedJob.length === 0 || selectedLanguages.length === 0 || SelectedName.length === 0 || MotivationArr.length === 0 || LicencePermisArr.length === 0 || DateArr.length === 0 || emailArr.length == 0 || contactArr.length == 0 || LanguageFilter.length == 0?
+                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length > 0 || emailArr.length > 0 || contactArr.length > 0 || LanguageFilter.length > 0?
 
-<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
+<p className="filterStyling HoveRESTClass cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 : null
 }   </div>
                         <div className="col-2 d-flex justify-content-end">
@@ -1406,7 +1406,7 @@ styles={colourStyles}
               {status ?
                 filterData.length > 0 ?
                   filterData.map((profile, index) => (
-                    <div className="col-md-6 col-xxl-4  col-xl-4 col-lg-4 col-sm-6 pl-0">
+                    <div className="col-md-6 col-xxl-4   col-xl-4 col-lg-4 col-sm-6 pl-0">
                       <ToDoProfileCard data={profile}
                      
  />

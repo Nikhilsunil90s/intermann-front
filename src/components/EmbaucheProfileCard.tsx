@@ -44,7 +44,7 @@ const navigate = useNavigate();
 
     return (
         <>
-            <div className="card card-color mb-0">
+            <div className="card card-color mb-0 HoveRESTClassCardIn">
                 <div className="card-upper cursor-pointer" onClick={()=>viewFullProfile()}>
                     <div className="col-4">
                         <img
@@ -55,7 +55,7 @@ const navigate = useNavigate();
                     </div>
                     <div className="col-7 EmbauchCard pt-1 px-0" >
                     <p style={{width:"100%"}}  className="text-dark mb-0"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={profile.candidatName.toLocaleUpperCase()}><b>{profile.candidatName.length > 20 ? profile.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : profile.candidatName.toLocaleUpperCase()}</b></p>
-                    <p className="text-dark mb-0">{profile.candidatAge ?  <p className="age00 ml-0 mb-0">Age : <b> {profile.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</p>
+                    <p className="text-dark mb-0">{profile.candidatAge ?  <p className="age00 ml-0 mb-0"> <b>Age :  {profile.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</p>
                         <div >  <p className="text-dark d-flex"> <b>{candidatMotivationIcons[profile.candidatMotivation ].icon + " " + candidatMotivationIcons[profile.candidatMotivation ].motivation}</b> 
                         </p>
                         </div> 
@@ -97,7 +97,7 @@ const navigate = useNavigate();
                 <div className="box-purple">
                         <p className="mb-0"><b>Works At : {profile.candidatCurrentWork[0].workingFor ? profile.candidatCurrentWork[0].workingFor.length > 20 ? profile.candidatCurrentWork[0].workingFor.slice(0, 25).toLocaleUpperCase() + "...." : profile.candidatCurrentWork[0].workingFor : "✘ No Working"}</b></p>
                         <p className="mb-0"><b>Since : {profile.candidatCurrentWork[0].workingSince}</b></p>
-                        <p className="mb-0"><b>Salary :  {profile.candidatCurrentWork[0].salary} €</b></p>
+                        <p className="mb-0"><b>Salary :  {profile.candidatCurrentWork[0].salary ? profile.candidatCurrentWork[0].salary + "€": "✘ No Salary!"} </b></p>
                     </div>
                     <div className="col-12 my-1">
                     <div className="row">

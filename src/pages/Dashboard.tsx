@@ -94,7 +94,7 @@ function Dashboard() {
                 <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 ">
                 <Link to="/clientTodo">
                   <div
-                    className="card"
+                    className="card HoveRESTClassCardDash"
                     style={{ padding: "5px 10px", borderRadius: "10px" }}
                   >
                     <div className="card-content">
@@ -135,7 +135,7 @@ function Dashboard() {
                 <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer">
                   <Link to="/clientProgress">
                   <div
-                    className="card"
+                    className="card HoveRESTClassCardDash"
                     style={{ padding: "5px 10px", borderRadius: "10px" }}
                   >
                     <div className="card-content">
@@ -164,7 +164,7 @@ function Dashboard() {
                 <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4">
                 <Link to="/clientContract">
                   <div
-                    className="card"
+                    className="card HoveRESTClassCardDash"
                     style={{ padding: "5px 10px", borderRadius: "10px" }}
                   >
                     <div className="card-content">
@@ -194,7 +194,7 @@ function Dashboard() {
                 <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4">
                 <Link to="/archived">
                   <div
-                    className="card"
+                    className="card HoveRESTClassCardArchived"
                     style={{ padding: "5px 10px", borderRadius: "10px" }}
                   >
                     <div className="card-content">
@@ -243,7 +243,7 @@ function Dashboard() {
                 <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 ">
                 <Link to="/todolist">
                   <div
-                    className="card mb-0"
+                    className="card HoveRESTClassCardDash mb-0"
                     style={{ padding: "5px 10px", borderRadius: "10px" }}
                   >
                     <div className="card-content">
@@ -283,7 +283,7 @@ function Dashboard() {
                 <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4">
                   <Link to="/preSelected">
                   <div
-                    className="card"
+                    className="card HoveRESTClassCardDash"
                     style={{ padding: "5px 10px", borderRadius: "10px" }}
                   >
                     <div className="card-content">
@@ -312,7 +312,7 @@ function Dashboard() {
                 <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4" >
                 <Link to="/embauchlist">
                   <div
-                    className="card"
+                    className="card HoveRESTClassCardDash"
                     style={{ padding: "5px 10px", borderRadius: "10px" }}
                   >
                     <div className="card-content">
@@ -342,7 +342,7 @@ function Dashboard() {
                 <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4">
                 <Link to="/archivedlist">
                   <div
-                    className="card"
+                    className="card HoveRESTClassCardArchived"
                     style={{ padding: "5px 10px", borderRadius: "10px" }}
                   >
                     <div className="card-content">

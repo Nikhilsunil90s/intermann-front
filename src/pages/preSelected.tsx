@@ -1400,12 +1400,12 @@ styles={colourStyles}
                         <div className="col-2 d-flex align-items-center justify-content-end">
                         {selectedSector.length > 0 || selectedJob.length > 0 || LanguageFilter.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length > 0  || emailArr.length >0 || contactArr.length > 0 || LanguageFilter.length > 0?
 
-                          <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
+                          <p className="filterStyling HoveRESTClass cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
                           : null
                         }
                         </div>
                           <div className="col-2 d-flex justify-content-end">
-                            <p className="filterStyling pt-2 cursor-pointer" onClick={() => setShowMore(false)}>Less Filters <img src={require("../images/downup.svg").default} /></p>
+                            <p className="filterStyling  pt-2 cursor-pointer" onClick={() => setShowMore(false)}>Less Filters <img src={require("../images/downup.svg").default} /></p>
                           </div>
                         </div>
                       </div>
@@ -1419,7 +1419,7 @@ styles={colourStyles}
                       <div className="col-2 d-flex align-items-center justify-content-end">
                         {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length > 0 || emailArr.length > 0 || contactArr.length > 0  || LanguageFilter.length > 0 ?
 
-                          <p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
+                          <p className="filterStyling HoveRESTClass  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
                           : null
                         }
                         </div>

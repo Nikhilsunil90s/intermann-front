@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "../../CSS/Client/ClientTodo.css";
+import "../../CSS/Animation.css" 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import InProgressClientModal from "../../components/Modal/InProgressClientModal";
@@ -13,6 +14,7 @@ import { ReactComponent as TurnOn } from "../../images/base-switch_icon.svg";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast from "react-hot-toast";
 import moment from 'moment';
+
 
 let id = "";
 
@@ -268,7 +270,7 @@ const ClientToDoCard = (props: any) => {
       
   return (
     <>
-      <div className="card cardTODO pr-0">
+      <div className="card cardTODO pr-0 HoveRESTClassCard">
         <div className="d-flex cursor-pointer" onClick={viewFullProfile}>
           <div className="col-3 px-0 d-flex justify-content-center">
             <img

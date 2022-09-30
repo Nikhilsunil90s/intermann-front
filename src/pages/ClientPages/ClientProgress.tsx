@@ -1131,7 +1131,7 @@ setStatus(false)
                         email ===true ?
                           <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex align-items-center justify-content-end">
 
-<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
+<p className="filterStyling HoveRESTClass cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 </div>: null
 } 
                           <div className="col-2 d-flex justify-content-end">
@@ -1150,7 +1150,7 @@ setStatus(false)
                         email == true ?
                           <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex align-items-center justify-content-end">
 
-<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
+<p className="filterStyling HoveRESTClass cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 </div>: null
 } 
                         <div className="col-2 d-flex justify-content-end">

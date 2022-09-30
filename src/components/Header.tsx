@@ -16,14 +16,14 @@ const Header = () => {
  const [filterData,setFilterData]=useState([])as any
  const [data,setData]=useState([])
   const [inputStatus,setInputStatus]=useState(false)
-
+  const [spinner,setSpinner]=useState(false)
 
   const Modal=()=>{
 
    if(ModalOpen == true){
     setModalOpen(false)
    }
-   if(ModalOpen == false){
+   else{
     setModalOpen(true)
    }
 
@@ -87,6 +87,7 @@ const Header = () => {
 
   
 const NameSearch=(e)=>{
+  setSpinner(true)
   setSearchOpen(true)
 if(e == null ){
   setValue("")
@@ -98,6 +99,13 @@ if(e == null ){
 else if(e.target.value !== "" && e !== null){
   setInputStatus(true)
   setValue(e.target.value)
+
+if(e.target.value){
+  setTimeout(()=>{
+    setSpinner(false)
+
+  },600)
+}
 
 if( Number.isInteger(Number(e.target.value))){
 
@@ -172,6 +180,8 @@ if(e.target.value){
 }
 else if(e.target.value == ""){
   setSearchOpen(false)
+  setSpinner(false)
+  setValue("")
 }
 
 }
@@ -232,10 +242,12 @@ console.log(filterData,"fldata")
                        <input style={{border:"0px",background: "#F5F6F8"}} value=""   onChange={NameSearch} className="searcInputbOx pl-1" placeholder="Search, Name, Phone, Work, Jobs..." />
                        }
                      {
-                         SearchOpen?
+                         value ?
                          
                          <div className="d-flex align-items-center px-1 clear cursor-pointer" onClick={()=>NameSearch(null)}>
-                                <b>X</b>
+                             {spinner ?  <div className="spinner-border text-dark" role="status" style={{width:"1rem" ,height :"1rem"}}>
+  <span className="visually-hidden">Loading...</span>
+</div> :  <b>X</b>}
                         </div>
                         :
                         null
@@ -254,7 +266,7 @@ console.log(filterData,"fldata")
         {
         filterData.length > 0 ?
         filterData.map((el)=>(
-        <SearchModal  props={el} closeModal={setSearchOpen}/>
+        <SearchModal  props={el} closeModal={setSearchOpen} />
               ))
 
               :

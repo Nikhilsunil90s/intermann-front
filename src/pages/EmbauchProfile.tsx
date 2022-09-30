@@ -16,6 +16,7 @@ import RenameDoc from '../components/Modal/RenameDoc_Modal'
 import UploadDow from '../components/Modal/SelectUploadDownload'
 import PDFGenerate from '../components/Modal/PDFGenerateModal'
 import moment from "moment";
+import ResetProfile from "../components/Modal/RestProfileForArchived";
 import ErrorLoader from "../components/Loader/SearchBarError";
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -57,6 +58,7 @@ function ProgressCard() {
   const [GetMonth,setMonth]=useState()as any
   const [GetMonth2,setMonth2]=useState()as any
   const [GetMonth3,setMonth3]=useState()as any
+  const [ResetModalProfile,setResetModalProfile]=useState(false)
 
   const datenow=moment().format('YYYY-MM-DD')
     
@@ -677,7 +679,8 @@ null
                       
                         <tr className="">
                           <td colSpan={3} className="text-center">
-                            <p>No Experience Details Available!</p>
+                          <b className="d-flex align-items-center justify-content-center my-1"><ErrorLoader />No Experience Details Available!</b>
+
                             <button className="btn btn-sm text-light btn-dark" onClick={editCandidatProfile}>Edit Candidat To Add Experience Details!</button>
                           </td>
                         </tr>
@@ -732,7 +735,12 @@ null
                   <PDFGenerate props={profile}  closeModal={setPDFModal} path="/embauchprofile"/>
                   : 
                   null
-                }
+                }  {
+                  ResetModalProfile?
+                  <ResetProfile props={profile} closeModal={setResetModalProfile}  path={"/todolist"}/>
+                  :
+                  null
+                 }
                 </div>
                 <div className="col-xxl-3 px-0 col-lg-3 col-md-4 col-sm-4 text-center">
                   <button
@@ -772,7 +780,12 @@ null
                   Pour Adrian, générer un contrat pour un candidat
                   </p>
                 </div>
-         
+                <div className="col-3 px-0">
+                     <button className="restProfile" onClick={()=>setResetModalProfile(true)} style={{width:"100%"}}>
+                    <img src={require("../images/rest.svg").default} />
+                    To-Do</button>
+                    <p className="italic-fontStyle text-center">Profile will be reset to todo stage</p>
+                </div>
                   </div>
               
                 </div>
@@ -997,7 +1010,7 @@ null
                   fontSize: "16px",
                   lineHeight: "24px",
                   color: "#000000"
-              }}> <ErrorLoader />No Documents Uploaded!</p>
+              }}> <ErrorLoader />✘ No Documents Uploaded!</p>
    
                     }
     {progress > 0 && progress < 100 && documentList.length > 0 ?

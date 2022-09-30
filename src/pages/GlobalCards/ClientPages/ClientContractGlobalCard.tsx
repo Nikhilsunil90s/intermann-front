@@ -86,6 +86,7 @@ function Signed() {
   useState() as any;
   const [fiche_de_mise_a_disposition, setfiche_de_mise_a_disposition] =
   useState() as any;
+  const [Archived,setArchived]=useState(  profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived")):null )
   const [deleteModal,setDeleteModal]=useState(false)
   const [DeleteEmp,setDeleteEmp]=useState([])
   const [tabItems, setTabitems] = useState([
@@ -154,6 +155,16 @@ function Signed() {
      value: "fiche_de_mise_a_disposition",
    },
  ]) as any;
+ useEffect(()=>{ 
+  setProfile(state ? state :
+    [])
+    if(profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived"))){
+      
+    
+  setArchived(profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived")):null)
+}
+},[state])
+
   const candidatImportanceIcons = [
     {
       icon: (
@@ -212,6 +223,7 @@ function Signed() {
     },
   ];
 
+ 
   const onTabClick = (e, index: any) => {
     setActiveTab(index);
     const FolderName = tabItems.filter((el, i) => i == index);
@@ -461,6 +473,7 @@ function Signed() {
       .catch((err) => {
         console.log(err);
       });
+     
   }, [docUploaded]);
 
 
@@ -1339,8 +1352,8 @@ function Signed() {
                </p>
              </div>
              {profile.employeesWorkingUnder !== null &&
-                profile.employeesWorkingUnder?.length > 0 ? 
-                  profile.employeesWorkingUnder?.map((el) => (
+                profile.employeesWorkingUnder.length > 0 ? 
+                  profile.employeesWorkingUnder.map((el) => (
                     <div className="col-12 pb-1">
                       <div className="row">
                      { el.candidatName && el.candidatStatus !== "Archived" ?
@@ -1352,9 +1365,9 @@ function Signed() {
                           />
                           {el.candidatName && el.candidatStatus !== "Archived" ? el.candidatName : null }
                           <span className="pl-1">Since :</span>
-                          {el.candidatName && el.candidatStatus !== "Archived" ? el.candidatCurrentWork.map((el) => el.workingSince) : null}
+                          {el.candidatName && el.candidatStatus !== "Archived" ? el.candidatCurrentWork.map((el) => el.workingSince ? el.workingSince :"✘ No Working Since!") : null}
                           <span className="pl-1">Salary :</span>
-                          {el.candidatName && el.candidatStatus !== "Archived" ?  el.candidatCurrentWork.map((el) => el.salary) : null}
+                          {el.candidatName && el.candidatStatus !== "Archived" ?  el.candidatCurrentWork.map((el) => el.salary ? el.salary : "0€") : null}
                         </div>
                       
                         <div className="col-4 d-flex">
@@ -1378,28 +1391,17 @@ function Signed() {
                         </div>
 
                         </>
+                        
 :
-<>                          <div className="col-8 d-flex align-items-center">
-<img
-  style={{ width: "7%" }}
-  className="pr-1"
-  src={require("../../../images/menSigned.svg").default}
-/><p className="mb-0" style={{color:"red"}}>
-{el.candidatName}</p>
-<span style={{color:"red"}} className="pl-1">Since :</span>
-<p className="mb-0" style={{color:"red"}}>{el.candidatCurrentWork?.map((el) => el.workingSince)}</p>
-<span style={{color:"red"}} className="pl-1">Salary :</span>
-<p className="mb-0" style={{color:"red"}}>{el.candidatCurrentWork?.map((el) => el.salary)}</p>
-</div>
+<>                    
 
 
 
 </>}
-                     
-                      
-                      </div>
+                          </div>
                     </div>
                   ))
+                  
                  : (
                   // <div className="col-12 pb-1 d-flex">
                   //   <img
@@ -1426,6 +1428,32 @@ function Signed() {
                     </p>
                   </div>
                 )}
+
+<div className="col-12 pb-1">
+                      <div className="row">
+{Archived ?
+                   Archived.map((el)=>(
+<>      <div className="col-8 d-flex align-items-center">
+<img
+  style={{ width: "7%" }}
+  className="pr-1"
+  src={require("../../../images/menSigned.svg").default}
+/><p className="mb-0" style={{color:"red"}}>
+{el.candidatName}</p>
+<span style={{color:"red"}} className="pl-1">Since :</span>
+<p className="mb-0" style={{color:"red"}}>{el.candidatCurrentWork.map((el) => el.workingSince ? el.workingSince :"✘ No Working Since!")}</p>
+<span style={{color:"red"}} className="pl-1">Salary :</span>
+<p className="mb-0" style={{color:"red"}}>{el.candidatCurrentWork.map((el) => el.salary ? el.salary : "0€")}</p>
+</div></>
+))
+ :
+ null
+
+                      }
+                      </div>
+                      </div>
+         
+
              <p className="mb-0">
                Ads Spent on this client :
                {profile.jobTotalBudget

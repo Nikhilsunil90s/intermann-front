@@ -54,7 +54,7 @@ const ArchivedProfileCard = (props: any) => {
 
     return (
         <>
-            <div className="card card-color mt-1 mb-0">
+            <div className="card card-color mt-1 mb-0 HoveRESTClassCardA">
                 <div className="card-upper cursor-pointer" onClick={()=>viewFullProfile()}>
                     <div className="col-4">
                         <img
@@ -65,7 +65,7 @@ const ArchivedProfileCard = (props: any) => {
                     </div>
                     <div className="col-7 ArchivedCard pt-1 px-0" >
                     <p style={{width:"100%"}} className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.props.candidatName.toLocaleUpperCase()}><b>{props.props.candidatName.length > 15 ? props.props.candidatName.slice(0, 18).toLocaleUpperCase() + "..." : props.props.candidatName.toLocaleUpperCase()}</b></p>
-                    <p className="text-dark mb-0">{props.props.candidatAge ?  <p className="age00 ml-0 mb-0">Age : <b> {props.props.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</p>
+                    <p className="text-dark mb-0">{props.props.candidatAge ?  <p className="age00 ml-0 mb-0"><b>Age :  {props.props.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</p>
                         <div >  <p className="text-dark d-flex"> <b>{props.props.candidatMotivation == 0 ? candidatMotivationIcons[props.props.candidatMotivation ].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation :  candidatMotivationIcons[props.props.candidatMotivation].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation}</b>
                         </p>
                         </div>

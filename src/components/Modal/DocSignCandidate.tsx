@@ -1,39 +1,61 @@
-import React, {useRef} from "react";
+import React, {useRef,useState} from "react";
 import "../../CSS/Client/ArchivedCardClient.css"
 import ErrorLoader from '../../components/Loader/SearchBarError'
 import SignatureCanvas from 'react-signature-canvas'
 import { styled } from "precise-ui/dist/es6";
+import { Toast } from "react-bootstrap";
+import { API_BASE_URL } from "../../config/serverApiConfig";
+import toast from "react-hot-toast";
+
 function DocSignCandidate({ props, closeModal }) {
-
-    console.log(props);
-    
-    let SignData=""
-
+    const [Sign,setSign]=useState()as any
+console.log(props)
+  const [contractID]=useState(props)
     const SignSave=()=>{
-     SignData=   SignPad.current.toDataURL()
-     console.log(SignData,"jhj")
+        setSign(SignPad.current.toDataURL())
+    }
+    let Data={
+        contractId:contractID,
+        signature:Sign
     }
 
-    const SignPad =useRef(null)
+    const SignPad =useRef(undefined)
     const clear=()=>{
         SignPad.current.clear();
     }
+    console.log(Data,"jhj")
 
-    // const ResetClient = async () => {
-    //     console.log(data);
-    //     return await fetch(API_BASE_URL + "moveToToDo", {
-    //         method: "POST",
-    //         headers: {
-    //             "Accept": 'application/json',
-    //             'Content-Type': 'application/json',
-    //             "Authorization": "Bearer " + localStorage.getItem('token')
-    //         },
-    //         body: JSON.stringify(data),
-    //     })
-    //         .then(resp => resp.json())
-    //         .then(reD => (reD))
-    //         .catch(err => err)
-    // }
+
+    const SaveSignFun=()=>{
+        SignSave()
+        
+
+        ResetClient().then((res)=>{
+            if(res){
+              toast.success("Signatures Added Successfully")
+            }
+        })
+        .catch(err=>{
+            console.log(err)
+            toast.error("Signatures Not Added !")
+        })
+    }
+
+    const ResetClient =async() => {
+      
+      return await  fetch(API_BASE_URL + "addSignatures", {
+            method: "POST",
+            headers: {
+                "Accept": 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + localStorage.getItem('token')
+            },
+            body: JSON.stringify(Data),
+        })
+            .then(resp => resp.json())
+            .then((reD) => reD)
+            .catch(err => err)
+    }
 
 
     return (<>
@@ -94,6 +116,7 @@ Declar că am citit contractul și îl accept în întregime.Adresa dvs. IP va f
                                     <div className="col-12 " style={{background:"#E7E7E7",border:"2px solid #000000"}}>
                                   
                                   <SignatureCanvas penColor='black'  ref={SignPad}
+                                //   onEnd={SignSave()}
     canvasProps={{ className: 'sigCanvas',velocityFilterWeight:200,height:350}} 
     
     />  
@@ -106,7 +129,9 @@ Declar că am citit contractul și îl accept în întregime.Adresa dvs. IP va f
                                 </div>
                            </div>
                            <div className="col-12">  <div className="col-12" >
+                           <button onClick={()=>{SignSave()}} className="" style={{background:"transparent",border:"none"}}>Save</button>
     <button onClick={()=>{clear()}} className="" style={{background:"transparent",border:"none"}}>Clear</button>
+
         </div></div>
                            <div className="col-12">
                             <p  style={{color:"#ffff",   fontFamily: 'Poppins',
@@ -127,7 +152,7 @@ Declar că am citit contractul și îl accept în întregime.Adresa dvs. IP va f
                          
                  </div>
                  <div className="modal-body p-0 cursor-pointer">
-                  <div className='col-12 d-flex p-2 align-items-center justify-content-center  bg-ContractPage  semneaza' onClick={()=>SignSave()} >
+                  <div className='col-12 d-flex p-2 align-items-center justify-content-center  bg-ContractPage  semneaza' onClick={()=>{SignSave();SaveSignFun()}} >
        
           📨 acepta si semneaza
 accept and sign

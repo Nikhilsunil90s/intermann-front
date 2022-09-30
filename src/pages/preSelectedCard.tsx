@@ -64,7 +64,7 @@ const PreSelectedCard = (props: any,) => {
 
     return (
         <>
-            <div className="card card-color mb-1">
+            <div className="card card-color mb-1 HoveRESTClassCardPre">
                 <div onClick={viewFullProfile} className="card-upper  cursor-pointer">
                     <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-3 " style={{paddingLeft:"5px"}}>
                         <img
@@ -75,7 +75,7 @@ const PreSelectedCard = (props: any,) => {
                     </div>
                     <div className="col-xxl-9 col-xl-8 col-md-8 col-lg-8 fontStylinForPrecards">
                         <p style={{width:"100%"}}  className="text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.candidatName.toLocaleUpperCase()}><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
-                        <p className="text-dark"><b>{props.data.candidatAge ? props.data.candidatAge : "Age Not Available!"}</b></p>
+                        <p className="text-dark"><b>{props.data.candidatAge ? "Age :" +props.data.candidatAge : "Age Not Available!"}</b></p>
                         <div >  <p className="text-dark d-flex"><b>{candidatMotivationIcons[props.data.candidatMotivation].icon + " " + candidatMotivationIcons[props.data.candidatMotivation].motivation}</b>
                         </p>
                         </div>

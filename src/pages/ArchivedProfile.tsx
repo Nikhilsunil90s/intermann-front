@@ -536,7 +536,8 @@ null
                       
                         <tr className="">
                           <td colSpan={3} className="text-center">
-                            <p>No Experience Details Available!</p>
+                          <b className="d-flex align-items-center justify-content-center my-1"><ErrorLoader />No Experience Details Available!</b>
+
                             <button className="btn btn-sm text-light btn-dark" onClick={editCandidatProfile}>Edit Candidat To Add Experience Details!</button>
                           </td>
                         </tr>

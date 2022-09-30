@@ -62,7 +62,7 @@ let end = new Date(props.data.jobEndDate);
 
 
   return(<>
-       <div className="card cardInPro p-0">
+       <div className="card cardInPro p-0 HoveRESTClassCardA">
                 <div className="d-flex cursor-pointer" onClick={viewFullProfile}>
                     <div className="col-3 px-0 d-flex justify-content-center">
                         <img

@@ -1,0 +1,362 @@
+/* TO-DO */
+.HoveRESTClassCard {
+    position: relative;
+    text-decoration: none;
+
+  /*   border: 2px solid #f00; */
+  }
+  
+  .HoveRESTClassCard:before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+  /*   width: 100%;
+    height: 100%; */
+    width: 0;
+    height: 0;
+    background: transparent;
+    border-radius: 16px !important;
+
+  /*   border: 2px solid #262626; */
+  }
+  
+  .HoveRESTClassCard:hover:before {
+    border-radius: 16px !important;
+
+    animation: HoveRESTClassCard 1s linear forwards;
+  }
+  
+@keyframes HoveRESTClassCard {
+    0% {
+      width: 0;
+      height: 0;
+  /*     border: 2px solid transparent; */
+      background-color: #b9dbf3;
+    }
+    50% {
+      width: 100%;
+      height: 0;
+  /*     border: 2px solid #262626; */
+      background-color: #91bcda;
+    }  
+    100% {
+      width: 100%;
+      height: 100%;
+  /*     border: 2px solid #262626; */
+      background-color: transparent;
+    }
+  }
+/* END */
+/* PRE  */
+.HoveRESTClassCardPre {
+  position: relative;
+  text-decoration: none;
+
+/*   border: 2px solid #f00; */
+}
+
+.HoveRESTClassCardPre:before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+/*   width: 100%;
+  height: 100%; */
+  width: 0;
+  height: 0;
+  background: transparent;
+  border-radius: 16px !important;
+
+/*   border: 2px solid #262626; */
+}
+
+.HoveRESTClassCardPre:hover:before {
+  border-radius: 16px !important;
+
+  animation: HoveRESTClassCardPre 1s linear forwards;
+}
+
+@keyframes HoveRESTClassCardPre {
+  0% {
+    width: 0;
+    height: 0;
+/*     border: 2px solid transparent; */
+    background-color: #fadfbf;
+  }
+  50% {
+    width: 100%;
+    height: 0;
+/*     border: 2px solid #262626; */
+    background-color: #FFF7EE;
+  }  
+  100% {
+    width: 100%;
+    height: 100%;
+/*     border: 2px solid #262626; */
+    background-color: transparent;
+  }
+}
+/* END */
+
+
+/* IN-Progress  */
+.HoveRESTClassCardIn {
+  position: relative;
+  text-decoration: none;
+
+/*   border: 2px solid #f00; */
+}
+
+.HoveRESTClassCardIn:before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+/*   width: 100%;
+  height: 100%; */
+  width: 0;
+  height: 0;
+  background: transparent;
+  border-radius: 16px !important;
+
+/*   border: 2px solid #262626; */
+}
+
+.HoveRESTClassCardIn:hover:before {
+  border-radius: 16px !important;
+
+  animation: HoveRESTClassCardIn 1s linear forwards;
+}
+
+@keyframes HoveRESTClassCardIn {
+  0% {
+    width: 0;
+    height: 0;
+/*     border: 2px solid transparent; */
+    background-color: #dfbbfc;
+  }
+  50% {
+    width: 100%;
+    height: 0;
+/*     border: 2px solid #262626; */
+    background-color: #f4e7ff;
+  }  
+  100% {
+    width: 100%;
+    height: 100%;
+/*     border: 2px solid #262626; */
+    background-color: transparent;
+  }
+}
+/* END */
+
+
+
+/* Archived  */
+.HoveRESTClassCardA {
+  position: relative;
+  text-decoration: none;
+
+/*   border: 2px solid #f00; */
+}
+
+.HoveRESTClassCardA:before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+/*   width: 100%;
+  height: 100%; */
+  width: 0;
+  height: 0;
+  background: transparent;
+  border-radius: 16px !important;
+
+/*   border: 2px solid #262626; */
+}
+
+.HoveRESTClassCardA:hover:before {
+  border-radius: 16px !important;
+
+  animation: HoveRESTClassCardA 1s linear forwards;
+}
+
+@keyframes HoveRESTClassCardA {
+  0% {
+    width: 0;
+    height: 0;
+/*     border: 2px solid transparent; */
+    background-color: #ff9a9a;
+  }
+  50% {
+    width: 100%;
+    height: 0;
+/*     border: 2px solid #262626; */
+    background-color: #FFE0E0;
+  }  
+  100% {
+    width: 100%;
+    height: 100%;
+/*     border: 2px solid #262626; */
+    background-color: transparent;
+  }
+}
+/* END */
+
+
+
+/* Signed  */
+.HoveRESTClassCardS {
+  position: relative;
+  text-decoration: none;
+
+/*   border: 2px solid #f00; */
+}
+
+.HoveRESTClassCardS:before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+/*   width: 100%;
+  height: 100%; */
+  width: 0;
+  height: 0;
+  background: transparent;
+  border-radius: 16px !important;
+
+/*   border: 2px solid #262626; */
+}
+
+.HoveRESTClassCardS:hover:before {
+  border-radius: 16px !important;
+
+  animation: HoveRESTClassCardS 1s linear forwards;
+}
+
+@keyframes HoveRESTClassCardS {
+  0% {
+    width: 0;
+    height: 0;
+/*     border: 2px solid transparent; */
+    background-color: #80f8b0;;
+  }
+  50% {
+    width: 100%;
+    height: 0;
+/*     border: 2px solid #262626; */
+    background-color: #E4FFEF;;
+  }  
+  100% {
+    width: 100%;
+    height: 100%;
+/*     border: 2px solid #262626; */
+    background-color: transparent;
+  }
+}
+/* END */
+
+
+
+/* Dash  */
+.HoveRESTClassCardDash {
+  position: relative;
+  text-decoration: none;
+
+/*   border: 2px solid #f00; */
+}
+
+.HoveRESTClassCardDash:before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+/*   width: 100%;
+  height: 100%; */
+  width: 0;
+  height: 0;
+  background: transparent;
+  border-radius: 16px !important;
+
+/*   border: 2px solid #262626; */
+}
+
+.HoveRESTClassCardDash:hover:before {
+  border-radius: 16px !important;
+
+  animation: HoveRESTClassCardDash 1s linear forwards;
+}
+
+@keyframes HoveRESTClassCardDash {
+  0% {
+    width: 0;
+    height: 0;
+/*     border: 2px solid transparent; */
+    background-color: #FE8700;;
+  }
+  50% {
+    width: 100%;
+    height: 0;
+/*     border: 2px solid #262626; */
+    background-color: #FE8700;;
+  }  
+  100% {
+    width: 100%;
+    height: 100%;
+/*     border: 2px solid #262626; */
+    background-color: transparent;
+  }
+}
+/* END */
+
+/* Dash  */
+.HoveRESTClassCardArchived {
+  position: relative;
+  text-decoration: none;
+
+/*   border: 2px solid #f00; */
+}
+
+.HoveRESTClassCardArchived:before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+/*   width: 100%;
+  height: 100%; */
+  width: 0;
+  height: 0;
+  background: transparent;
+  border-radius: 16px !important;
+
+/*   border: 2px solid #262626; */
+}
+
+.HoveRESTClassCardArchived:hover:before {
+  border-radius: 16px !important;
+
+  animation: HoveRESTClassCardArchived 1s linear forwards;
+}
+
+@keyframes HoveRESTClassCardArchived {
+  0% {
+    width: 0;
+    height: 0;
+/*     border: 2px solid transparent; */
+    background-color: #FF0000;;
+  }
+  50% {
+    width: 100%;
+    height: 0;
+/*     border: 2px solid #262626; */
+    background-color: #FF0000;;
+  }  
+  100% {
+    width: 100%;
+    height: 100%;
+/*     border: 2px solid #262626; */
+    background-color: transparent;
+  }
+}
+/* END */

@@ -1054,7 +1054,7 @@ setStatus(false)
                       {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 || email == true || phone == true  ?
                           <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex align-items-center justify-content-end">
 
-<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
+<p className="filterStyling HoveRESTClass cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 </div>: null
 } 
                           <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex justify-content-end">
@@ -1071,7 +1071,7 @@ setStatus(false)
                       <div className="row justify-content-end">
                       {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || MotivationArr.length > 0 || SelectedName.length > 0 || Importance.length > 0 || OthersFilterArr.length > 0 || email == true || phone == true ?
                       <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3d-flex align-items-center justify-content-end">
-<p className="filterStyling  cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
+<p className="filterStyling HoveRESTClass cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 </div>: null
 }  
                         <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex justify-content-end">
