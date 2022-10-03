@@ -18,6 +18,8 @@ import PDFGenerate from '../components/Modal/PDFGenerateModal'
 import moment from "moment";
 import ResetProfile from "../components/Modal/RestProfileForArchived";
 import ErrorLoader from "../components/Loader/SearchBarError";
+import DOCUSIGNModalCandidate from '../components/Modal/DOCUSIGNModalCandidate'
+
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
 })
@@ -59,6 +61,7 @@ function ProgressCard() {
   const [GetMonth2,setMonth2]=useState()as any
   const [GetMonth3,setMonth3]=useState()as any
   const [ResetModalProfile,setResetModalProfile]=useState(false)
+  const [DocumentSignModal,setDocuSignModal]=useState(false)
 
   const datenow=moment().format('YYYY-MM-DD')
     
@@ -732,7 +735,7 @@ null
                          {
                   PDFModal ?
                   
-                  <PDFGenerate props={profile}  closeModal={setPDFModal} path="/embauchprofile"/>
+                  <PDFGenerate props={profile}  LinkModal={setDocuSignModal} closeModal={setPDFModal} path="/embauchprofile"/>
                   : 
                   null
                 }  {
@@ -1046,6 +1049,13 @@ null
                             <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus} path={"/embauchprofile"} />
                             :
                             null
+                          }   {
+                            DocumentSignModal ? 
+                            <DOCUSIGNModalCandidate props={profile} closeModal={setDocuSignModal} />
+                  
+                            :
+                            null
+                  
                           }
      </div>     </div>
      </div>

@@ -18,6 +18,7 @@ import PDFGenerate from '../components/Modal/PDFGenerateModal'
 import moment from "moment";
 import ErrorLoader from "../components/Loader/SearchBarError";
 import ResetProfile from "../components/Modal/RestProfileForArchived";
+import DOCUSIGNModalCandidate from '../components/Modal/DOCUSIGNModalCandidate'
 
 
 const axiosInstance = axios.create({
@@ -51,6 +52,7 @@ function PreSelectedView() {
   const [GetMonth2,setMonth2]=useState()as any
   const datenow=moment().format('YYYY-MM-DD')
   const [GetMonth3,setMonth3]=useState()as any
+  const [DocumentSignModal,setDocuSignModal]=useState(false)
   const [ResetModalProfile,setResetModalProfile]=useState(false)
  const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
  const notifyDocumentDeleteError = () => toast.error("Document Not Removed! Please Try Again in few minutes.")
@@ -716,8 +718,7 @@ null
                   }
                       {
                   PDFModal ?
-                  
-                  <PDFGenerate props={profile}  closeModal={setPDFModal} path="/preSelected"/>
+  <PDFGenerate props={profile} LinkModal={setDocuSignModal}  closeModal={setPDFModal} path="/preSelected"/>
                   : 
                   null
                 }  {
@@ -1013,6 +1014,14 @@ null
                             :
                             null
                           }
+                           {
+        DocumentSignModal ? 
+        <DOCUSIGNModalCandidate props={profile} closeModal={setDocuSignModal} />
+
+        :
+        null
+
+      }
                   </div>
                 </div>
                 </div>

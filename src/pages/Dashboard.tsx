@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useRef,useCallback} from "react";
 import { Link } from "react-router-dom";
 import "../CSS/Dashboard.css";
 import { API_BASE_URL } from "../config/serverApiConfig";
-import { Toaster } from "react-hot-toast";
+import { Toaster,toast } from "react-hot-toast";
+import ReactCanvasConfetti from "react-canvas-confetti";
+import { useLocation } from "react-router";
 function Dashboard() {
   const [toDoCandidatCount, setToDoCandidatCount] = useState(0);
   const [inProgressCandidatCount, setInProgressCandidatCount] = useState(0);
@@ -12,7 +14,8 @@ function Dashboard() {
   const [inProgressClientCount, setInProgressClientCount] = useState(0);
   const [signedClientCount, setSignedClientCount] = useState(0);
   const [archivedClientCount, setArchivedClientCount] = useState(0);
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState( false);
+
 
   const fetchCandidatCounts = async () => {
     return await fetch(API_BASE_URL + "getCounts", {
@@ -74,10 +77,12 @@ function Dashboard() {
         console.log(err)
       })
   });
+
   return (
     <>
       <Toaster position="top-right" containerStyle={{zIndex:"999999999999999999"}}/>
       <div className="container-fluid px-0">
+        
         <div className="row mx-0">
           <div className="col-12  card-tops mt-2" style={{padding:"0px",marginBottom:"20px"}}>
             <div className="card d-flex justify-content-center" style={{padding:"0px 15px",borderRadius:"10px",marginBottom:"0px",height:"77px"}}>

@@ -11,12 +11,7 @@ function DocumSign({ props, closeModal }) {
     console.log(props);
 
     const navigate = useNavigate();
-    const [reasonToArchive, setReasonToArchive] = useState([]);
     const [candidatId, setCandidatId] = useState(props.candidatId);
-
-    const notifyMoveSuccess = () => toast.success("Candidat Reset To To-DO Successfully!");
-    const notifyMoveError = () => toast.error("Cannot Reset Candidat! Please Try Again.");
-
     let data = {
         candidatId
     }

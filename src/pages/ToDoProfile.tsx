@@ -19,11 +19,12 @@ import UploadDow from '../components/Modal/SelectUploadDownload'
 import PDFGenerate from '../components/Modal/PDFGenerateModal'
 import moment from 'moment'
 import ErrorLoader from "../components/Loader/SearchBarError";
-
+import DOCUSIGNModalCandidate from '../components/Modal/DOCUSIGNModalCandidate'
 
 interface State {
   profileData: any,
-  path: any
+  path: any,
+  UserID:any
 }
 
 const axiosInstance = axios.create({
@@ -32,11 +33,8 @@ const axiosInstance = axios.create({
  
 let RenameData=[]
 function ToDoProfile() {
-  
-
   const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
   const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
- 
   const profileData = JSON.parse(localStorage.getItem("profile"));
 
 
@@ -44,7 +42,7 @@ function ToDoProfile() {
   const notifyDocumentDeleteError = () => toast.error("Document Not Removed! Please Try Again in few minutes.")
 
   const navigate = useNavigate();
-  const { state } = useLocation();
+  const { state} = useLocation();
 
   const [profile, setProfile] = useState<any>(state ? state : profileData.props);
 
@@ -74,7 +72,7 @@ function ToDoProfile() {
   const [GetMonth,setMonth]=useState()as any
   const [GetMonth2,setMonth2]=useState()as any
   const [GetMonth3,setMonth3]=useState()as any
-
+  const [DocumentSignModal,setDocuSignModal]=useState(false)
   let date = new Date(datenow);
 
  let start = new Date(profile.candidatStartDate);
@@ -83,7 +81,7 @@ function ToDoProfile() {
 
  useEffect(()=>{
       setProfile(state ? state : profileData.props)
-
+    
       if(Client.length == 0){
         fetchProfilesClients().then((res)=>setClients([...res]))
       }
@@ -826,7 +824,7 @@ className="SelectBtn"
                 {
                   PDFModal ?
                   
-                  <PDFGenerate props={profile}  closeModal={setPDFModal} path="/todoprofile" />
+                  <PDFGenerate props={profile}   LinkModal={setDocuSignModal}  closeModal={setPDFModal} path="/todoprofile" />
                   : 
                   null
                 }
@@ -1097,6 +1095,13 @@ className="SelectBtn"
                             <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus}  path={"/todoprofile"}/>
                             :
                             null
+                          }   {
+                            DocumentSignModal ? 
+                            <DOCUSIGNModalCandidate props={profile} closeModal={setDocuSignModal} />
+                  
+                            :
+                            null
+                  
                           }
                 
               

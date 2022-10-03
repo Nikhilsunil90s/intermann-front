@@ -8,6 +8,7 @@ import Select,{StylesConfig} from 'react-select'
 import ReadMoreReact from 'read-more-react';
 import { API_BASE_URL } from "../config/serverApiConfig";
 import moment from "moment";
+import ResetProfile from "../components/Modal/RestProfileForArchived";
 
 const PreSelectedCard = (props: any,) => {
 
@@ -16,6 +17,8 @@ const PreSelectedCard = (props: any,) => {
     const [showInProgressModal, setShowInProgressModal] = useState(false);
     const [showArchiveModal, setShowArchiveModal] = useState(false)
     const [ClientID,setClientID]=useState([])
+    const [ResetModalProfile,setResetModalProfile]=useState(false)
+    
  
 
     const candidatMotivationIcons = [{ icon: "", motivation: 'No Motivation!' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
@@ -25,6 +28,9 @@ const PreSelectedCard = (props: any,) => {
         {value:"Move to In Progress",label:"Move to In Progress"
         },
         {value:"Archive",label:"Archive"
+        },
+        ,
+        {value:"RESET-to-Todo",label:"RESET-to-Todo"
         }
      ]
    
@@ -48,6 +54,9 @@ const PreSelectedCard = (props: any,) => {
       }
       if(e.value==="Archive"){
         setShowArchiveModal(true) 
+      }
+      if(e.value==="RESET-to-Todo"){
+        setResetModalProfile(true) 
       }
     }
     const showCustomerProfile =(data)=>{
@@ -157,6 +166,12 @@ const PreSelectedCard = (props: any,) => {
                         {showArchiveModal ?
                             <ArchivedModal props={props.data} closeModal={setShowArchiveModal} path={"/todolist"} /> : null
                         }
+                          {
+                  ResetModalProfile?
+                  <ResetProfile props={props.data} closeModal={setResetModalProfile}  path={"/todolist"}/>
+                  :
+                  null
+                 }
 </div>
                     </div>
 

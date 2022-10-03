@@ -5,14 +5,22 @@ import ArchivedModal from "./Modal/ArchivedModal";
 import { useNavigate } from "react-router-dom";
 import Select from 'react-select'
 import moment from "moment";
+import ResetProfile from "../components/Modal/RestProfileForArchived";
+
+
 const EmbaucheProfileCard = (props: any) => {
 const navigate = useNavigate();
 
     const [showArchiveModal, setShowArchiveModal] = useState(false)
+    const [ResetModalProfile,setResetModalProfile]=useState(false)
+
     const CardOptions=[{
         value:"Edit Profile",label:"Edit Profile"
         },
         {value:"Archive",label:"Archive"
+        }
+        ,
+        {value:"RESET-to-Todo",label:"RESET-to-Todo"
         }
      ]
      const [profile,setProfile]=useState(props.props ? props.props : props)
@@ -31,6 +39,9 @@ const navigate = useNavigate();
       }
       if(e.value=="Archive"){
         setShowArchiveModal(true) 
+      }
+      if(e.value==="RESET-to-Todo"){
+        setResetModalProfile(true) 
       }
 
     }
@@ -91,7 +102,12 @@ const navigate = useNavigate();
 
                     {showArchiveModal ?
                         <ArchivedModal props={profile} closeModal={setShowArchiveModal}  path={"/embauchlist"} /> : null
-                    }
+                    }     {
+                        ResetModalProfile?
+                        <ResetProfile props={props.props} closeModal={setResetModalProfile}  path={"/todolist"}/>
+                        :
+                        null
+                       }
 
                 </div>
                 <div className="box-purple">
@@ -117,7 +133,7 @@ const navigate = useNavigate();
                         </button>
                         </div>
                     </div></div>
-
+               
             </div>
         </>
     )

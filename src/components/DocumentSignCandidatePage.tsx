@@ -3,11 +3,9 @@ import DocSignCandidate from '../components/Modal/DocSignCandidate'
 import { PDFViewer } from 'react-view-pdf';
 import { useParams } from "react-router";
 import { API_BASE_URL } from "../config/serverApiConfig";
-import FileViewer from 'react-file-viewer';
 import "../CSS/AddClient.css"
 import "../CSS/Candidatefile.css"
 import Loader from "../components/Loader/loader"
-import ErrorLoader from '../pages/ErrorPages/Error404';
 
 function  DocumentSign(){
     const [ContractSignModal,setContractSignModal]=useState(false)
@@ -15,6 +13,19 @@ function  DocumentSign(){
     const { id } = useParams();
     const [profile, setProfile] = useState([])as any;
     const [pdfUrl,setUrl]=useState()as any
+    const [pageNumber, setPageNumber] = useState(1);
+    const [numPages, setNumPages] = useState(null);
+    function onDocumentLoadSuccess({ numPages }) {
+      setNumPages(numPages);
+    }
+    const docs = [
+      { uri: API_BASE_URL + pdfUrl },
+     // Local File
+    ];
+
+    const windPdf=()=>{
+      window.open(API_BASE_URL+ pdfUrl)
+    }
     useEffect(() => {
       if(profile.length == 0){
   
@@ -24,6 +35,7 @@ function  DocumentSign(){
               
                   setProfile(resData.data);
                   fetchThePDF(resData.data.candidatContract._id)
+                 
               } else {
                 return false;
               }
@@ -40,13 +52,13 @@ function  DocumentSign(){
       useEffect(()=>{
         setTimeout(()=>{
           setpdfTimeOut(true)
-        },4000)
+        },5000)
           
-
+   
    
       })
 
-      console.log(pdfUrl,"pdf")
+   
 
   
       console.log(profile,"props")
@@ -72,14 +84,14 @@ function  DocumentSign(){
           },
         })
           .then((resp) => resp.json())
-          .then((respData) => setUrl(respData.filePath))
+          .then((respData) => {setUrl(respData.filePath.replace("/app/",""));})
           .catch((err) => err);
       };
 
     const onError=()=>{
      return  'error in file-viewer'
     } 
-
+    console.log(pdfUrl,"pdf")
 return (
     <>
     <div className='container-fluid'>
@@ -102,12 +114,8 @@ return (
          <div className='col-12 d-flex justify-content-center mt-1 overFlowHeight' style={{overflow:"scroll",height:"64vh"}}>
        
       {pdfTimeOut ?
+<PDFViewer url={API_BASE_URL + pdfUrl} />
 
-<FileViewer
-filePath={pdfUrl}
-fileType={'pdf'}
-onError={onError}
-/>
 
 :
 

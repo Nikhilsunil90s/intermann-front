@@ -11,6 +11,7 @@ import UploadDow from '../components/Modal/SelectUploadDownload'
 import PDFGenerate from '../components/Modal/PDFGenerateModal'
 import moment from "moment";
 import ErrorLoader from "../components/Loader/SearchBarError";
+import DOCUSIGNModalCandidate from '../components/Modal/DOCUSIGNModalCandidate'
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -18,6 +19,7 @@ const axiosInstance = axios.create({
 
 const ArchivedProfile = () => {
   const profileData=JSON.parse(localStorage.getItem("archive"))
+  const  ModalLinkTrue = JSON.parse(localStorage.getItem("embauch"))
  const navigate=useNavigate()
   const { state } = useLocation();
 
@@ -35,7 +37,10 @@ const ArchivedProfile = () => {
     const [GetMonth,setMonth]=useState()as any
     const [GetMonth2,setMonth2]=useState()as any
     const [GetMonth3,setMonth3]=useState()as any
+ 
+
     const datenow=moment().format('YYYY-MM-DD')
+  const [DocumentSignModal,setDocuSignModal]=useState(false)
     
     let date = new Date(datenow);
   
@@ -632,7 +637,7 @@ null
                 {
                   PDFModal ?
                   
-                  <PDFGenerate props={profile}  closeModal={setPDFModal} path="/archivedprofile"/>
+                  <PDFGenerate props={profile}  LinkModal={setDocuSignModal}  closeModal={setPDFModal} path="/archivedprofile"/>
                   : 
                   null
                 }
@@ -647,7 +652,15 @@ null
         <ResetProfile props={profile} closeModal={setResetModalProfile}  path={"/todolist"}/>
         :
         null
-       }
+       } {
+        DocumentSignModal ? 
+        <DOCUSIGNModalCandidate props={profile} closeModal={setDocuSignModal} />
+
+        :
+        null
+
+      }
+
       <div className="col-12 Social-Card my-1">
               <div className='row  p-1'>
                             {

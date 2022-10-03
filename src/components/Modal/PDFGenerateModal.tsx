@@ -3,11 +3,22 @@ import "../../CSS/PreModal.css";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "../../components/Loader/loader";
-import { useNavigate } from 'react-router';
+import { useNavigate ,useLocation} from 'react-router';
 import DOCUSIGNModalCandidate from '../Modal/DOCUSIGNModalCandidate'
 
+interface State {
+  profileData: any,
+  path: any,
+  search:any
 
-function PdfModal({props,closeModal,path} ){
+}
+
+function PdfModal({props,closeModal,LinkModal,path} ){
+
+   const navigate =useNavigate()
+   let Data={
+    Bool:true
+   }as any
   const PdfFormat = {
     lieu_mission: props.candidatContract ? props.candidatContract.lieu_mission  ? props.candidatContract.lieu_mission :"" : "",
     duree_mission:props.candidatContract ? props.candidatContract.duree_mission  ? props.candidatContract.duree_mission :"" :"",
@@ -43,9 +54,8 @@ function PdfModal({props,closeModal,path} ){
   const [GetMonth,setMonth]=useState()as any
   const [GetMonth2,setMonth2]=useState()as any
   const [GetMonth3,setMonth3]=useState()as any
-  const [DocumentSignModal,setDocuSignModal]=useState(false)
+  // const [DocumentSignModal,setDocuSignModal]=useState(false)
 
-  const navigate =useNavigate()
   useEffect(() => {
     if (data.candidatName == "") {
         setData((prev) => ({ ...prev, ["candidatName"]: props.candidatName }));
@@ -145,12 +155,32 @@ function PdfModal({props,closeModal,path} ){
             .catch((err) => err);
     }
 
-    const addContractToCRM = () => {
+    const addContractToCRM = (e) => {
       addContract().then(result => {
         if(result.status==true){
             toast.success("Contract Added To CRM Successfully!")
             setTimeout(()=>{
+              if(e.target.name=="ADDtoCRM"){
                 window.location.reload();
+              }
+              if(e.target.name=="DOCU"){
+                if(path ==="/embauchprofile"){
+                  closeModal(false)
+                 LinkModal(true)  
+                }
+                if(path === "/todoprofile"){
+                  closeModal(false)
+                 LinkModal(true)
+                }
+                if(path === "/archivedprofile"){
+                  closeModal(false)
+                  LinkModal(true)   
+                }  if(path === "/preSelected"){
+                  closeModal(false)
+                  LinkModal(true)       
+                }
+                }
+
             },2000)
         }
         if(result.status == false){
@@ -347,7 +377,7 @@ function PdfModal({props,closeModal,path} ){
                                             <p className='PDFNotes'>Download local</p>
                                            </div>
                                            <div className='col-3 px-0'>
-                                           <button type='button' className='contractCRM text-center' onClick={addContractToCRM}>Add the contract to CRM</button>
+                                           <button type='button' className='contractCRM text-center' name='ADDtoCRM' onClick={(e)=>addContractToCRM(e)}>Add the contract to CRM</button>
                                            <p className='PDFNotes'>Download cloud</p>
                                            </div>
                                            <div className='col-3'>
@@ -356,7 +386,7 @@ function PdfModal({props,closeModal,path} ){
                                            </button>
                                            </div>
                                            <div className='col-3 pl-0'>
-                                           <button className='documentSign' onClick={()=>setDocuSignModal(true)} type='button'>
+                                           <button className='documentSign' name="DOCU" onClick={(e)=>{addContractToCRM(e)}} type='button'>
                                            📨 ENVOYER DOCU SIGN 
                                            </button>
                                            </div>
@@ -366,14 +396,7 @@ function PdfModal({props,closeModal,path} ){
                     </form>
                     </>
         }
-        {
-          DocumentSignModal ? 
-          <DOCUSIGNModalCandidate   props={props} closeModal={setDocuSignModal} />
-
-          :
-          null
-
-        }
+     
                 </div>
 
             </div>
