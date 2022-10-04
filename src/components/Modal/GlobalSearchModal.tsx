@@ -93,7 +93,7 @@ export default function SearchModal({props,closeModal}){
           },500)
         }
         if(data.jobStatus == "Signed Contract"){
-          navigate("/clientSignedGlobalCard",{state:data})
+          navigate("/clientSigned",{state:data})
             setTimeout(()=>{
             closeModal(false)
           },500)

@@ -1832,7 +1832,7 @@ function Signed() {
                           color: "#92929D",
                         }}
                       >
-                        contrat client file not Uploaded Yet
+                       {UploadTextBtn} file not Uploaded Yet
                       </p>
                     </div>
                   )}
