@@ -16,6 +16,7 @@ function PreModal({props,closepreModal}) {
   const [data,setData]=useState([])
   const [Client,setClients]=useState([])as any
   const [btnLoader, setbtnLoader] = useState(false);
+  const [btnDisabled,setbtnDisabled]=useState(false)
 
 useEffect(()=>{
   if(clientDataOptions.length == 0){
@@ -31,6 +32,7 @@ useEffect(()=>{
 
 
 const fetchProfilesClients = async () => {
+ 
   return await fetch(API_BASE_URL + "getProfiles", {
     method: "GET",
     headers: {
@@ -50,6 +52,7 @@ useEffect(() => {
   if(data.length == 0){
     fetchProfilesClients().then(filteredresponse => {
      setData([...filteredresponse.data])
+     setbtnDisabled(false)
    })
      .catch(err => {
        console.log(err);
@@ -100,6 +103,7 @@ useEffect(() => {
   }
 
   const moveToPreSelected = () => {
+    setbtnDisabled(true)
     const preSelectedData = {
       candidatId: props._id,
       clientId: selectedClient,
@@ -226,7 +230,7 @@ useEffect(() => {
 </div></div>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn preSelectedStageBtn d-flex"  onClick={moveToPreSelected}>
+              <button type="button" className="btn preSelectedStageBtn d-flex" disabled={btnDisabled}  onClick={moveToPreSelected}>
               {btnLoader ?   <div className="RESTloader " >Loading...</div>   : null} Move this person to in preselected status
               </button>
             </div>

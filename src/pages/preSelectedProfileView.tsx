@@ -67,7 +67,7 @@ function PreSelectedView() {
 
   const showCustomerProfile =(data)=>{
     localStorage.setItem("profile", JSON.stringify(data));
-    window.open("/clientSignedView", "_blank");
+    window.open("/clientSignedGlobalCard", "_blank");
 }
 
 let date = new Date(datenow);

@@ -49,25 +49,29 @@ export default function SearchModal({props,closeModal}){
     const ListPage=(data)=>{
         if(data.candidatName){
          if(data.candidatStatus =="To-Do"){
-          navigate("/todoprofile",{state:data})
+          localStorage.setItem('profile', JSON.stringify(data));
+          window.open("/todoprofile")
           setTimeout(()=>{
             closeModal(false)
           },1500)
          }
          if(data.candidatStatus =="In-Progress"){
-          navigate("/embauchprofile",{state:data})
+          localStorage.setItem('embauch', JSON.stringify(data));
+          window.open("/embauchprofile")
             setTimeout(()=>{
             closeModal(false)
           },500)
         }
         if(data.candidatStatus =="Archived"){
-          navigate("/archivedprofile",{state:data})
+        localStorage.setItem("archive", JSON.stringify(data))
+          window.open("/archivedprofile")
             setTimeout(()=>{
             closeModal(false)
           },500)
         }
         if(data.candidatStatus == "Pre-Selected"){
-          navigate("/preSelectedView",{state:data})
+        localStorage.setItem("profile", JSON.stringify(data));
+          window.open("/preSelectedView")
             setTimeout(()=>{
             closeModal(false)
           },500)
@@ -75,28 +79,32 @@ export default function SearchModal({props,closeModal}){
         }
       else if(data.clientCompanyName){
         if(data.jobStatus =="To-Do"){
-          navigate("/clientToDoProfile",{state:data})
-            setTimeout(()=>{
-            closeModal(false)
-          },500)
+          localStorage.setItem('profile', JSON.stringify(data));
+          window.open("/clientToDoProfile")
+          setTimeout(()=>{
+          closeModal(false)
+        },500)
          }
          if(data.jobStatus =="In-Progress"){
-          navigate("/clientInProgressProfile",{state:data})
-            setTimeout(()=>{
-            closeModal(false)
-          },500)
+        localStorage.setItem('embauch', JSON.stringify(data));
+          window.open("/clientInProgressProfile")
+          setTimeout(()=>{
+          closeModal(false)
+        },500)
         }
         if(data.jobStatus =="Archived"){
-          navigate("/archivedClientSeeprofile",{state:data})
-            setTimeout(()=>{
-            closeModal(false)
-          },500)
+    localStorage.setItem('archive', JSON.stringify(data));
+          window.open("/archivedClientSeeprofile")
+          setTimeout(()=>{
+          closeModal(false)
+        },500)
         }
         if(data.jobStatus == "Signed Contract"){
-          navigate("/clientSigned",{state:data})
-            setTimeout(()=>{
-            closeModal(false)
-          },500)
+    localStorage.setItem('archive', JSON.stringify(data));
+          window.open("/clientSigned")
+          setTimeout(()=>{
+          closeModal(false)
+        },500)
         }
     
         }

@@ -37,14 +37,14 @@ function ToDoProfile() {
   const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
   const profileData = JSON.parse(localStorage.getItem("profile"));
 
-
+ console.log(profileData,"pros")
   const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
   const notifyDocumentDeleteError = () => toast.error("Document Not Removed! Please Try Again in few minutes.")
 
   const navigate = useNavigate();
   const { state} = useLocation();
 
-  const [profile, setProfile] = useState<any>(state ? state : profileData.props);
+  const [profile, setProfile] = useState<any>(state ? state : profileData);
 
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
@@ -80,7 +80,7 @@ function ToDoProfile() {
   
 
  useEffect(()=>{
-      setProfile(state ? state : profileData.props)
+      setProfile(state ? state : profileData)
     
       if(Client.length == 0){
         fetchProfilesClients().then((res)=>setClients([...res]))

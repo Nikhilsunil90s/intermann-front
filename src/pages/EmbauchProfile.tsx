@@ -345,7 +345,7 @@ function ProgressCard() {
   // }
   const showCustomerProfile =(data:any)=>{
       localStorage.setItem("profile", JSON.stringify(data));
-      window.open("/clientSignedView", "_blank");
+      window.open("/clientSignedGlobalCard", "_blank");
   }
   
   return (
@@ -464,7 +464,7 @@ className="SelectBtn"
             <div className="col-12 boxProgress mt-1">
               <div className="row">
                 {
-                  profile.candidatCurrentWork[0].workingSince !== "" &&   profile.candidatCurrentWork[0].salary !== " " ?
+                 profile.candidatCurrentWork[0].workingFor !== "" || profile.candidatCurrentWork[0].workingSince !== "" ||  profile.candidatCurrentWork[0].salary !== " " ?
 
                  <> <div className="col-8">
                   <div className="row">
@@ -472,10 +472,10 @@ className="SelectBtn"
                    <div className="row"><div className="col-2 px-0"><b className="workFont"><p className="">WORK FOR </p></b></div> <div className="col-9 px-0"> <b><span className="workFont">: {profile.candidatCurrentWork[0].workingFor}</span></b></div></div>
                   </div>
                   <div className="col-12 px-0 d-flex justify-content-start">
-                    <div className="workFont"><b className="d-flex"><p>Since </p>: <span>{profile.candidatCurrentWork[0].workingSince}</span></b></div>
+                    <div className="workFont"><b className="d-flex"><p>Since </p>: <span>{profile.candidatCurrentWork[0].workingSince ? profile.candidatCurrentWork[0].workingSince : "✘No Since!"}</span></b></div>
                   </div>
                   <div className="col-12 px-0 d-flex justify-content-start">
-                    <div className="workFont"><b className="d-flex"><p>Salary  </p>: <span>{profile.candidatCurrentWork[0].salary + " "}</span>€</b></div>
+                    <div className="workFont"><b className="d-flex"><p>Salary  </p>: <span>{profile.candidatCurrentWork[0].salary + "✘No "}</span>€</b></div>
                   </div>
                   </div>
                   

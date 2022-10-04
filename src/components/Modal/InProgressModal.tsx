@@ -5,6 +5,7 @@ import { API_BASE_URL } from "../../config/serverApiConfig";
 import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../../Selecteddata/data';
 import chroma from 'chroma-js';
 import { useNavigate } from "react-router-dom";
+import ProfileLoader from "../../components/Loader/ProfilesLoader" 
 
 let CName=[]
 function InProgressModal({ props, closeModal }) {
@@ -214,6 +215,8 @@ function InProgressModal({ props, closeModal }) {
                   <option value="2">Client Two</option>
                   <option value="3">Client Three</option>
                 </select> */}
+            {clients.length > 0 ?
+
                 <Select 
                 options={clients}
                 onChange={onFormDataChange}
@@ -222,6 +225,8 @@ function InProgressModal({ props, closeModal }) {
                 placeholder="{Client_list}"
                 />
   
+                :
+                <div className="col-12">    <ProfileLoader  width ={150} height={100} fontSize={"12px"} fontWeight={"600"}  Title={"Please Wait!"}/>     </div>}   
                 <div className="noteModal">
                   <span className="">NOTE: </span>
                   <span>

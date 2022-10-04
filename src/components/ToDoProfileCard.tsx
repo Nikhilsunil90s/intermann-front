@@ -45,14 +45,12 @@ const ToDoProfileCard = (props: any,Clients) => {
         navigate("/editToDo", { state: state});
     }
 
-    let Data={
-       props: props.data
-    }
+
    
     const viewFullProfile = () => {
      
         // navigate("/todoprofile", { state: props.data });
-        localStorage.setItem('profile', JSON.stringify(Data));
+        localStorage.setItem('profile', JSON.stringify(props.data));
         window.open("/todoprofile", "_blank")
     }
  

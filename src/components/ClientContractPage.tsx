@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import ErrorLoader from "../components/Loader/SearchBarError";
+import { FileUploader } from "react-drag-drop-files";
+import axios from "axios";
+import {toast,Toaster} from "react-hot-toast"
+import ProfileLoader from "../components/Loader/ProfilesLoader";
+import { ProgressBar } from "react-bootstrap";
 
 let clDoc;
 function ClientContractPage() {
@@ -32,6 +37,14 @@ function ClientContractPage() {
   useState() as any;
   const [offre_envoye_et_nonsigne, setoffre_envoye_et_nonsigne] =
     useState() as any;
+    const [progress, setProgress] = useState<any>(0);
+    const [docUploaded, setDocUploaded] = useState(false);
+    const notifyDocumentUploadSuccess = () =>
+    toast.success("Document Uploaded Successfully!");
+    const axiosInstance = axios.create({
+      baseURL: API_BASE_URL,
+    });
+
   useEffect(() => {
     fetchCandidat(id)
       .then((resData) => {
@@ -167,8 +180,52 @@ function ClientContractPage() {
       .catch((err) => err);
   };
 
+
+  const FilesUploads=(file)=>{
+    setDocUploaded(true);
+    const fileUploaded = file;
+    let formdata = new FormData();
+    formdata.append("clientId", profile._id);
+    formdata.append("document", fileUploaded);
+    formdata.append("folderName", "rapport_activite");
+    axiosInstance
+      .post("uploadClientDocuments", formdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        onUploadProgress: (data) => {
+          setDocUploaded(true);
+          //Set the progress value to show the progress bar
+          setProgress(Math.round((100 * data.loaded) / data.total));
+        },
+      })
+      .then((resData) => {
+        if (resData.data.status) {
+          setDocUploaded(true);
+          setProgress(0);
+          notifyDocumentUploadSuccess();
+          setTimeout(()=>{
+            window.location.reload()
+          },2000)
+        } else {
+       
+          setDocUploaded(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setDocUploaded(false);
+        toast.error("File Not Uploaded!")
+      });
+  
+  }
+
+
+
   return (
     <>
+    <Toaster position="top-right" />
       <div className="container-fluied bg-ContractPage">
         <div className="row">
           <div className="col-12 d-flex justify-content-center p-1 mt-2">
@@ -490,7 +547,7 @@ INTERMANN WORK S.R.L <br/>
               }}> <ErrorLoader />No Documents Uploaded!</p>
                    
                }
-           
+            
               </div>
               </div>
             </div>
@@ -875,10 +932,21 @@ INTERMANN WORK S.R.L <br/>
           <div className="col-12 px-3 mb-1 ">
             <div className="row Social-CardClient p-1">
               <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
+                <div className="row">
+                  <div className="col-12">
                 <p className="mb-0 CLIntermann">RAPPORT ACTIVITE</p>
+                </div>
+                <div className="col-12">
+                <FileUploader 
+                      handleChange={FilesUploads}
+                      name="clientDocuments"
+                      label={`Upload file Now`}
+                      />
+</div>
+                </div>
               </div>
-              <div className="col-md-8 col-sm-12">
-                <div className="row justify-content-end">
+              <div className="col-md-8 col-sm-12 ">
+                <div className="row justify-content-end align-items-center">
                 {
                    rapport_activite ? 
                    documentList?.map((el)=>(
@@ -886,7 +954,7 @@ INTERMANN WORK S.R.L <br/>
                    <>    <div className="col-md-6 col-sm-12 mb-1">
                          <div className="row PDFcardBG cursor-pointer" onClick={() =>
                                 ViewDownloadFiles(el.url)
-                              }>
+                              } style={{height:"100%"}}>
                          <div className="col-2 px-0 d-flex align-items-center">
                            <img
                              style={{ width: "73%" }}
@@ -909,8 +977,16 @@ INTERMANN WORK S.R.L <br/>
                           null
                    )
                    )
-                   :
-                  <p className="d-flex  justify-content-center align-items-center mb-0"     style={{
+                 
+                 :
+                 docUploaded ?
+
+                <div className="col-12 d-flex align-items-center">    <ProfileLoader  width ={150} height={100} fontSize={"12px"} fontWeight={"600"}  Title={"Please Wait!"}/>     </div>
+                 
+                  
+                  :
+
+<div className="col-12 d-flex  justify-content-center  align-items-center" style={{height:"100%"}}>                  <p className="d-flex  justify-content-center align-items-center mb-0"     style={{
                   fontFamily: 'Poppins',
                   fontStyle: "normal",
                   fontWeight: "700",
@@ -919,7 +995,48 @@ INTERMANN WORK S.R.L <br/>
                   color: "#000000"
               }}> <ErrorLoader />No Documents Uploaded!</p>
                    
-               }  
+               </div>}  
+                 {progress > 0 && progress < 100 && documentList.length > 0 ? (
+                <div className="col-6 mx-0">
+                  <div className="row CardClassDownload p-0 mt-1 mx-0">
+                    <div className="col-4 pr-0 d-flex align-items-center ">
+                      <ProfileLoader
+                        width={"90"}
+                        height={"56px"}
+                        fontSize={"12px"}
+                        fontWeight={600}
+                        Title={"Uploading!"}
+                      />
+                    </div>
+                    <div
+                      className="col-6 text-center  mb-0"
+                      style={{ marginTop: "21px" }}
+                    >
+                      <ProgressBar
+                        className="mb-0"
+                        now={progress}
+                        label={`${progress}%`}
+                      />
+                    </div>
+                    <div className="col-2  d-flex align-item-end justify-content-end">
+                      <img
+                        src={require("../images/editSvg.svg").default}
+                        style={{
+                          width: "20px",
+                          marginRight: "5px",
+                          cursor: "pointer",
+                        }}
+                      />
+                      <img
+                        src={
+                          require("../images/Primaryfill.svg").default
+                        }
+                        style={{ width: "20px", cursor: "pointer" }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ) : null}
            
               </div>
               </div>

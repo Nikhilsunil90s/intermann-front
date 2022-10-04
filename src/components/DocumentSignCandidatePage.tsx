@@ -6,6 +6,7 @@ import { API_BASE_URL } from "../config/serverApiConfig";
 import "../CSS/AddClient.css"
 import "../CSS/Candidatefile.css"
 import Loader from "../components/Loader/loader"
+import ProfileLoader from "../components/Loader/ProfilesLoader" 
 
 function  DocumentSign(){
     const [ContractSignModal,setContractSignModal]=useState(false)
@@ -13,19 +14,9 @@ function  DocumentSign(){
     const { id } = useParams();
     const [profile, setProfile] = useState([])as any;
     const [pdfUrl,setUrl]=useState()as any
-    const [pageNumber, setPageNumber] = useState(1);
-    const [numPages, setNumPages] = useState(null);
-    function onDocumentLoadSuccess({ numPages }) {
-      setNumPages(numPages);
-    }
-    const docs = [
-      { uri: API_BASE_URL + pdfUrl },
-     // Local File
-    ];
 
-    const windPdf=()=>{
-      window.open(API_BASE_URL+ pdfUrl)
-    }
+console.log(API_BASE_URL + pdfUrl,"url")
+
     useEffect(() => {
       if(profile.length == 0){
   
@@ -33,7 +24,7 @@ function  DocumentSign(){
               if (resData.status == true) {
                 // setProfile(resData.data)
               
-                  setProfile(resData.data);
+                  setProfile(resData.data); 
                   fetchThePDF(resData.data.candidatContract._id)
                  
               } else {
@@ -57,11 +48,6 @@ function  DocumentSign(){
    
    
       })
-
-   
-
-  
-      console.log(profile,"props")
 
     const fetchCandidat = async (candidatId: any) => {
         return await fetch(API_BASE_URL + `getCandidatById/?candidatId=${candidatId}`, {
@@ -113,10 +99,8 @@ return (
          </div>
          <div className='col-12 d-flex justify-content-center mt-1 overFlowHeight' style={{overflow:"scroll",height:"64vh"}}>
        
-      {pdfTimeOut ?
-<PDFViewer url={API_BASE_URL + pdfUrl} />
-
-
+      {pdfUrl ?
+<PDFViewer  url={API_BASE_URL + pdfUrl} />
 :
 
 
@@ -133,9 +117,17 @@ return (
             null
         }
          <div className='col-12 footerDocSign bg-ContractPage'>
-          <button className='btn' onClick={(e)=>setContractSignModal(true)}>
-          ✒️ incepe  CONTRACTUL(sign the contract)
-          </button>
+          {
+            pdfTimeOut ? 
+
+            <button className='btn' onClick={(e)=>setContractSignModal(true)}>
+            ✒️ incepe  CONTRACTUL(sign the contract)
+            </button>
+            :
+            <div className="col-12 d-flex justify-content-center px-1">    <ProfileLoader  width ={150} height={100} fontSize={"12px"} fontWeight={"600"}  Title={null}/>     </div>}   
+           
+          
+         
          </div>
         </div>
       

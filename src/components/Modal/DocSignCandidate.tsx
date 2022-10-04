@@ -2,29 +2,27 @@ import React, {useRef,useState} from "react";
 import "../../CSS/Client/ArchivedCardClient.css"
 import ErrorLoader from '../../components/Loader/SearchBarError'
 import SignatureCanvas from 'react-signature-canvas'
-import { styled } from "precise-ui/dist/es6";
-import { Toast } from "react-bootstrap";
+import { Toaster,toast } from 'react-hot-toast';
 import { API_BASE_URL } from "../../config/serverApiConfig";
-import toast from "react-hot-toast";
 
+let Data 
 function DocSignCandidate({ props, closeModal }) {
-    const [Sign,setSign]=useState()as any
+    const SignPad =useRef(undefined)
+
 console.log(props)
   const [contractID]=useState(props)
     const SignSave=()=>{
-        setSign(SignPad.current.toDataURL())
-    }
-    let Data={
+    SignPad.current.toDataURL()
+    Data={
         contractId:contractID,
-        signature:Sign
+        signature:SignPad.current.toDataURL()
     }
 
-    const SignPad =useRef(undefined)
+    }
+   
     const clear=()=>{
         SignPad.current.clear();
     }
-    console.log(Data,"jhj")
-
 
     const SaveSignFun=()=>{
         SignSave()
@@ -32,7 +30,10 @@ console.log(props)
 
         ResetClient().then((res)=>{
             if(res){
-              toast.success("Signatures Added Successfully")
+              toast.success("Signatures Added Successfully!")
+              setTimeout(()=>{
+                window.location.reload()
+              },2000)
             }
         })
         .catch(err=>{
@@ -43,7 +44,7 @@ console.log(props)
 
     const ResetClient =async() => {
       
-      return await  fetch(API_BASE_URL + "addSignatures", {
+      return await  fetch(API_BASE_URL + "addCandidatSignatures", {
             method: "POST",
             headers: {
                 "Accept": 'application/json',
@@ -59,7 +60,7 @@ console.log(props)
 
 
     return (<>
-
+ <Toaster position="top-right" containerStyle={{zIndex:"99999999999999999999999999",marginRight:"40px"}} />
         <div className="modal d-block" style={{ backgroundColor: "#00000052" }} id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div className="modal-dialog modal-lg ">
                 <div className="modal-content overFlowHeight" style={{height:"80vh"}}> 
@@ -129,8 +130,11 @@ Declar că am citit contractul și îl accept în întregime.Adresa dvs. IP va f
                                 </div>
                            </div>
                            <div className="col-12">  <div className="col-12" >
-                           <button onClick={()=>{SignSave()}} className="" style={{background:"transparent",border:"none"}}>Save</button>
-    <button onClick={()=>{clear()}} className="" style={{background:"transparent",border:"none"}}>Clear</button>
+                        
+    <button onClick={()=>{clear()}} className="" style={{marginTop:"5px",background:"#fd0202",border:"none" , fontFamily:"Poppins", fontWeight: "700",padding:"7px",borderRadius:"10px",
+                            fontSize: "14px",
+                            lineHeight: "24px",
+                            color: "#424242;"}}>X Clear</button>
 
         </div></div>
                            <div className="col-12">

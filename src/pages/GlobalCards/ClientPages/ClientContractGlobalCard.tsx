@@ -27,12 +27,44 @@ let clDoc;
 let UploadTextBtn = "";
 function Signed() {
 
-  const {state} = useLocation()
+  const profileData = JSON.parse(localStorage.getItem("profile"));
+  // const profileD = JSON.parse(localStorage.getItem("embauch"));
 
+ const [GetClientbyID,setGetClient]=useState(profileData._id)
   const [Loader,setLoader]=useState(false)
+useEffect(()=>{
+  GetClient(GetClientbyID).then(res=>
+    {
+    if(res.data.length>0){
+      setLoader(true)
+      res.data.map((el)=>{
+        
+        setEMPunderWorking(el.employeesWorkingUnder)
+      })
+
+    }
+    else if(res.data==[]) {
+      setLoader(false)
+    }
+    }
+  )
+},[])
+
+const GetClient = async (IdFromURL) => {
+  return await fetch(API_BASE_URL + `getClientById/?clientId=${IdFromURL}`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  })
+    .then((resp) => resp.json())
+    .then((respData) => respData)
+    .catch((err) => err);
+};
 
 
-  const [profile, setProfile] = useState(state ? state : [])as any;
+  const [profile, setProfile] = useState<any>(profileData);
   const navigate = useNavigate();
 
 
@@ -155,16 +187,17 @@ function Signed() {
      value: "fiche_de_mise_a_disposition",
    },
  ]) as any;
- useEffect(()=>{ 
-  setProfile(state ? state :
-    [])
-    if(profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived"))){
+//  useEffect(()=>{ 
+//   setProfile(profileData ? profileData :
+//     [])
+//     if(profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived"))){
       
     
-  setArchived(profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived")):null)
-}
-},[state])
+//   setArchived(profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived")):null)
+// }
+// },[profileData])
 
+console.log(profile,"prof")
   const candidatImportanceIcons = [
     {
       icon: (
@@ -478,7 +511,7 @@ function Signed() {
 
 
   const ViewDownloadFiles = (documentName: any) => {
-    window.open(API_BASE_URL + documentName);
+    window.open(documentName);
   };
 
   const fetchCandidat = async (clientId: any) => {
@@ -1725,7 +1758,7 @@ function Signed() {
                             <button
                               className="btnDownload"
                               onClick={() =>
-                                ViewDownloadFiles(doc.documentName)
+                                ViewDownloadFiles(doc.url)
                               }
                             >
                               <img
