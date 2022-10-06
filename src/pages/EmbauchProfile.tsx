@@ -792,6 +792,31 @@ null
                   </div>
               
                 </div>
+                <div className="col-12 Social-Card mt-1"> 
+                 <div className="row p-1" >
+                  <div className="col-4">
+                  <label className="PDFFormlabel">IBAN EURO</label>
+                                <input className='form-control inputStylingForView'  onClick={editCandidatProfile}  placeholder="‎ ‎ ‎ youmail@gmail.com" />
+                 
+                  </div>
+                  <div className="col-4">
+                  <label className="PDFFormlabel">BANK NAME EURO</label>
+                                <input className='form-control inputStylingForView'  onClick={editCandidatProfile}  placeholder="‎ ‎ ‎ BANK NAME EURO" />
+                 
+                  </div>
+                  <div className="col-4">
+                  <label className="PDFFormlabel">IBAN RON/LEI</label>
+                                <input className='form-control inputStylingForView'  onClick={editCandidatProfile}  placeholder="‎ ‎ ‎ IBAN RON/LEI" />
+                 
+                  </div>
+                  <div className="col-4">
+                  <label className="PDFFormlabel">BANK NAME LEI</label>
+                                <input className='form-control inputStylingForView'  onClick={editCandidatProfile}  placeholder="‎ ‎ ‎ BANK NAME LEI" />
+                 
+                  </div>
+                 </div>
+
+                </div>
                 <div className="col-12 Social-Card mt-1">
               <div className='row  p-1'>
               {
