@@ -48,7 +48,7 @@ function ProgressCard() {
   const [renameDoc, setRenameDoc] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
   const [clientList, setClientList] = useState([]);
-  const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
+  const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.url !== undefined ? profile.candidatPhoto?.url : "");
   const [RenameDocStatus,setRenameDocStatus]=useState(false)
   const hiddenImageInput = React.useRef(null);
   const [UploadBtn,setSelectUpload]= useState(false)
@@ -156,7 +156,7 @@ function ProgressCard() {
       if (resData.status) {
         setProfile(resData.data)
         setDocumentList([...resData.data.candidatDocuments])
-        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
+        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.url : "")
         setDocUploaded(false);
       } else {
         setDocumentList([...documentList])
@@ -174,7 +174,7 @@ function ProgressCard() {
     if (val === 'upload') {
       handleImageUpload()
     } else if (val === 'Download') {
-      window.open(API_BASE_URL + "uploads/" + candidatImage);
+      window.open(candidatImage);
     }
   }
   const fetchCandidat = async (candidatId: any) => {
@@ -390,7 +390,7 @@ function ProgressCard() {
                       {candidatImage !== "" ?
                       <img
                         // src={require("../images/menlogos.svg").default}
-                        src={API_BASE_URL + "uploads/" + candidatImage}
+                        src={candidatImage}
                      className="imgEmbauch-upload-Download"
                       /> :
                     <img
@@ -796,22 +796,22 @@ null
                  <div className="row p-1" >
                   <div className="col-4">
                   <label className="PDFFormlabel">IBAN EURO</label>
-                                <input className='form-control inputStylingForView'  onClick={editCandidatProfile}  placeholder="‎ ‎ ‎ youmail@gmail.com" />
+                                <input className='form-control inputStylingForView' value={profile.iban_euro}  onClick={editCandidatProfile}  placeholder="‎ ‎ ‎ youmail@gmail.com" />
                  
                   </div>
                   <div className="col-4">
                   <label className="PDFFormlabel">BANK NAME EURO</label>
-                                <input className='form-control inputStylingForView'  onClick={editCandidatProfile}  placeholder="‎ ‎ ‎ BANK NAME EURO" />
+                                <input className='form-control inputStylingForView' value={profile.bankName_euro}  onClick={editCandidatProfile}  placeholder="‎ ‎ ‎ BANK NAME EURO" />
                  
                   </div>
                   <div className="col-4">
                   <label className="PDFFormlabel">IBAN RON/LEI</label>
-                                <input className='form-control inputStylingForView'  onClick={editCandidatProfile}  placeholder="‎ ‎ ‎ IBAN RON/LEI" />
+                                <input className='form-control inputStylingForView' value={profile.iban_ron_lei}     onClick={editCandidatProfile}  placeholder="‎ ‎ ‎ IBAN RON/LEI" />
                  
                   </div>
                   <div className="col-4">
                   <label className="PDFFormlabel">BANK NAME LEI</label>
-                                <input className='form-control inputStylingForView'  onClick={editCandidatProfile}  placeholder="‎ ‎ ‎ BANK NAME LEI" />
+                                <input className='form-control inputStylingForView' value={profile.bankName_lei}   onClick={editCandidatProfile}  placeholder="‎ ‎ ‎ BANK NAME LEI" />
                  
                   </div>
                  </div>

@@ -602,7 +602,7 @@ margin-bottom: 0px !important;
    .card-body{
     padding:0.5rem 0rem 0.5rem 0rem ; 
    }
-   .ArchivedCardChildFonts p{
+   .ArchivedCardChildFonts{
     font-family: 'Poppins' !important;
 font-style: normal !important;
 font-weight: 400 !important;
@@ -712,7 +712,7 @@ line-height: 18px !important;
             line-height: 28px !important;
             color: #000000 !important;
         }
-        .ArchivedCardChildFonts p {
+        .ArchivedCardChildFonts  {
             font-family: 'Poppins' !important;
             font-style: normal !important;
             font-weight: 400 !important;

@@ -94,6 +94,7 @@ function Signed() {
     const [deleteModal,setDeleteModal]=useState(false)
     const [DeleteEmp,setDeleteEmp]=useState([])
     const [Archived,setArchived]=useState(  profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived")):null )
+    const [preSelect,setPreselected]=useState( profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Pre-Selected")):null )
   const [tabItems, setTabitems] = useState([
      {
       text: "CONTRAT CLIENT",
@@ -1500,53 +1501,52 @@ let Editdata ={state:profile,path:"/clientSigned"}
                 {profile.employeesWorkingUnder !== null &&
                 profile.employeesWorkingUnder.length > 0 ? 
                   profile.employeesWorkingUnder.map((el) => (
-                    <div className="col-12 pb-1">
-                      <div className="row">
-                     { el.candidatName && el.candidatStatus !== "Archived" ?
-                          <>                          <div className="col-8 d-flex align-items-center">
-                          <img
-                            style={{ width: "7%" }}
-                            className="pr-1"
-                            src={require("../../images/menSigned.svg").default}
-                          />
-                          {el.candidatName && el.candidatStatus !== "Archived" ? el.candidatName : null }
-                          <span className="pl-1">Since :</span>
-                          {el.candidatName && el.candidatStatus !== "Archived" ? el.candidatCurrentWork.map((el) => el.workingSince ? el.workingSince :"✘ No Working Since!") : null}
-                          <span className="pl-1">Salary :</span>
-                          {el.candidatName && el.candidatStatus !== "Archived" ?  el.candidatCurrentWork.map((el) => el.salary ? el.salary : "0€") : null}
-                        </div>
-                      
-                        <div className="col-4 d-flex">
-                          <button
-                            className="seeFullCandidat"
-                            onClick={(e) => viewFullProfile(el)}
-                          >
-                            <img
-                              src={require("../../images/seeCan.svg").default}
-                            />
-                            See profile
-                          </button>
-                          <div className="col-1 px-0">
-                        <button
-                                className="btn"   
-                                onClick={(e)=>{setDeleteModal(true);setDeleteEmp(el)}}
-                            >
-                                <img src={require("../../images/Deletebucket.svg").default} />
-                            </button>
-                          </div>
-                        </div>
+                <>    
+                     {  el.candidatStatus == "Archived" ||  el.candidatStatus == "Pre-Selected" ?
+                         
+                        null
+:                    
+<>
+  <div className="col-12 pb-1">
+<div className="row">   
+                   <div className="col-8 d-flex align-items-center">
+<img
+  style={{ width: "7%" }}
+  className="pr-1"
+  src={require("../../images/menSigned.svg").default}
+/>
+{ el.candidatStatus == "Archived" ||  el.candidatStatus == "Pre-Selected" ? null : el.candidatName }
+<span className="pl-1">Since :</span>
+{el.candidatName && el.candidatStatus == "Archived" ||el.candidatName && el.candidatStatus == "Pre-Selected" ? null : el.candidatCurrentWork.map((el) => el.workingSince ? el.workingSince :"✘ No Working Since!")}
+<span className="pl-1">Salary :</span>
+{el.candidatName && el.candidatStatus == "Archived" || el.candidatName && el.candidatStatus == "Pre-Selected" ? null : el.candidatCurrentWork.map((el) => el.salary ? el.salary : "0€")}
+</div>
 
-                        </>
-                        
-:
-<>                    
+<div className="col-4 d-flex">
+<button
+  className="seeFullCandidat"
+  onClick={(e) => viewFullProfile(el)}
+>
+  <img
+    src={require("../../images/seeCan.svg").default}
+  />
+  See profile
+</button>
+<div className="col-1 px-0">
+<button
+      className="btn"   
+      onClick={(e)=>{setDeleteModal(true);setDeleteEmp(el)}}
+  >
+      <img src={require("../../images/Deletebucket.svg").default} />
+  </button>
+</div>
+</div>
 
-
-
-</>}
-                          </div>
-                    </div>
-                  ))
+</div>
+</div>
+</>
+}
+</>      ))
                   
                  : (
                   // <div className="col-12 pb-1 d-flex">
@@ -1577,20 +1577,58 @@ let Editdata ={state:profile,path:"/clientSigned"}
 
 <div className="col-12 pb-1">
                       <div className="row">
+                        {
+                          preSelect ?
+                          preSelect.map((el)=>(
+                            <>      <div className="col-4 d-flex align-items-center mb-1">
+                            <img
+                              style={{ width: "15%" }}
+                              className="pr-1"
+                              src={require("../../images/menSigned.svg").default}
+                            /><p className="mb-0" style={{color:"#fd9e02"}}>
+                            {el.candidatName.toLocaleUpperCase()}</p>
+   
+                            </div>
+                            <div className="col-8 text-end">
+                            <b     style={{
+                        fontFamily: "Poppins",
+                        fontStyle: "normal",
+                        fontWeight: "700",
+                        fontSize: "10px",
+                        lineHeight: "24px",
+                        color: "#000000",
+                      }}>"⚠️This Candidat is Preselected But Don't Work for the Company yet!"</b>
+                            </div>
+                            
+                            </>
+                            ))
+                             :
+                             null
+                            
+                        }
 {Archived ?
                    Archived.map((el)=>(
-<>      <div className="col-8 d-flex align-items-center">
+<>      <div className="col-3 d-flex align-items-center">
 <img
-  style={{ width: "7%" }}
+  style={{ width: "20%" }}
   className="pr-1"
   src={require("../../images/menSigned.svg").default}
 /><p className="mb-0" style={{color:"red"}}>
-{el.candidatName}</p>
-<span style={{color:"red"}} className="pl-1">Since :</span>
-<p className="mb-0" style={{color:"red"}}>{el.candidatCurrentWork.map((el) => el.workingSince ? el.workingSince :"✘ No Working Since!")}</p>
-<span style={{color:"red"}} className="pl-1">Salary :</span>
-<p className="mb-0" style={{color:"red"}}>{el.candidatCurrentWork.map((el) => el.salary ? el.salary : "0€")}</p>
-</div></>
+{el.candidatName.toLocaleUpperCase()}</p>
+
+</div>
+
+<div className="col-9 text-end">
+                            <b     style={{
+                        fontFamily: "Poppins",
+                        fontStyle: "normal",
+                        fontWeight: "700",
+                        fontSize: "10px",
+                        lineHeight: "24px",
+                        color: "#000000",
+                      }}>"⚠️This candidat previously worked for this company but have been archived, please reset to todo if something changed"</b>
+                            </div>
+</>
 ))
  :
  null

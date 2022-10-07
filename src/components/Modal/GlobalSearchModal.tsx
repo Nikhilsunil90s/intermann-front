@@ -4,7 +4,7 @@ import { API_BASE_URL } from "../../config/serverApiConfig";
 import { useNavigate } from "react-router-dom";
 import { call } from "redux-saga/effects";
 
-export default function SearchModal({props,closeModal}){
+export default function SearchModal({props,closeModal,value}){
 
 
     const navigate = useNavigate()
@@ -15,7 +15,7 @@ export default function SearchModal({props,closeModal}){
   
         useOnClickOutside(
             
-            ref, () =>setTimeout(()=>{ closeModal(false)},1000)
+            ref, () =>setTimeout(()=>{ closeModal(false);value(false)},1000)
             );
 
 

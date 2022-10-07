@@ -266,7 +266,7 @@ console.log(filterData,"fldata")
         {
         filterData.length > 0 ?
         filterData.map((el)=>(
-        <SearchModal  props={el} closeModal={setSearchOpen} />
+        <SearchModal  props={el} closeModal={setSearchOpen}  value={setInputStatus}/>
               ))
 
               :

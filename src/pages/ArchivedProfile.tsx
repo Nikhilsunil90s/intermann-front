@@ -29,7 +29,7 @@ const ArchivedProfile = () => {
   const candidatMotivationIcons = [{ icon: "", motivation: 'No Motivation!' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
   const hiddenImageInput = React.useRef(null);
   const [UploadBtn,setSelectUpload]= useState(false)
-    const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
+    const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.url !== undefined ? profile.candidatPhoto?.url : "");
     const [PDFModal,setPDFModal]=useState(false)
     const [contract_date,setcontract_date]=useState()as any
     const [debutMissionDate,setdebutMissionDate]=useState()as any
@@ -95,7 +95,7 @@ const ArchivedProfile = () => {
         handleImageUpload()
       } else if (val === 'Download') {
 
-        window.open(API_BASE_URL + "uploads/" + candidatImage);
+        window.open(candidatImage);
       }
     }
     const fetchCandidat = async (candidatId: any) => {
@@ -152,7 +152,7 @@ const ArchivedProfile = () => {
         if (resData.status) {
           setProfile(resData.data)
         
-          setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
+          setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.url : "")
         
         }
       })
@@ -247,7 +247,7 @@ const ArchivedProfile = () => {
                    
                       <img
                         // src={require("../images/menlogos.svg").default}
-                        src={API_BASE_URL + "uploads/" + candidatImage}
+                        src={candidatImage}
                      className="imgArchived-upload-download"
                       /> :
                     <img

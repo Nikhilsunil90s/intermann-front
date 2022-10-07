@@ -57,13 +57,23 @@ const ArchivedProfileCard = (props: any) => {
             <div className="card card-color mt-1 mb-0 HoveRESTClassCardA">
                 <div className="card-upper cursor-pointer" onClick={()=>viewFullProfile()}>
                     <div className="col-4">
+                    {
+                           props.props.candidatPhoto && props.props.candidatPhoto?.url !== undefined ?
                         <img
-                            src={require("../images/card-men.svg").default}
-                            className="card-img-top"
+                            src={props.props.candidatPhoto?.url}
+                            className="card-img-top-Progress"
                             alt="..."
+                            style={{border:"3px solid #E21B1B",margin:"10px 0px 8px 0px"}}
                         />
+                        :
+                        <img
+                        src={require("../images/card-men.svg").default}
+                        className="card-img-top"
+                        alt="..."
+                    />
+                    }
                     </div>
-                    <div className="col-7 ArchivedCard pt-1 px-0" >
+                    <div className="col-7 ArchivedCard pt-1 px-1" >
                     <p style={{width:"100%"}} className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.props.candidatName.toLocaleUpperCase()}><b>{props.props.candidatName.length > 15 ? props.props.candidatName.slice(0, 18).toLocaleUpperCase() + "..." : props.props.candidatName.toLocaleUpperCase()}</b></p>
                     <p className="text-dark mb-0">{props.props.candidatAge ?  <p className="age00 ml-0 mb-0"><b>Age :  {props.props.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</p>
                         <div >  <p className="text-dark d-flex"> <b>{props.props.candidatMotivation == 0 ? candidatMotivationIcons[props.props.candidatMotivation ].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation :  candidatMotivationIcons[props.props.candidatMotivation].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation}</b>
@@ -96,18 +106,21 @@ const ArchivedProfileCard = (props: any) => {
                         </div>
                     </div>
                     </div>
-                <div className="card-body pl-0">
-                <div className="px-0  mb-1 ArchivedCardChildFonts" style={{marginLeft:"6px"}}>
+                <div className="card-todoBody pl-0">
+                <div className="px-0  mb-1 " style={{marginLeft:"6px"}}>
                     {/* <p>Name:  <b>{props.props.candidatName}</b> </p> */}
                     {/* <p>Age: <b>{props.props.candidatAge}</b></p> */}
-                    <p>Secteur: <b> {props.props.candidatActivitySector ?  props.props.candidatActivitySector.toLocaleUpperCase() : "✘ No Sector!"}</b></p>
-                    <p>Job: <b> {props.props.candidatJob ? props.props.candidatJob.toLocaleUpperCase() : "✘ No Job!"}</b></p>
-                    <p>Candidats age: <b>{props.props.candidatAge ? props.props.candidatAge +"years old" : "✘ Age Not Available!"}</b></p>
-                    <p>Langues:  <b>  {props.props.candidatLanguages.length ? props.props.candidatLanguages.length > 3 ? props.props.candidatLanguages.slice(0,3).join(", ") + "..." : props.props.candidatLanguages.join(", "): "✘ No Langues Selected!"} </b></p>
-                    <p>Phone Number:  <b>{props.props.candidatPhone ? props.props.candidatPhone : "✘ No Phone!"}</b></p>
-                    <p>Facebook URL:  <b>{props.props.candidatFBURL ? <a href={props.props.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "✘ No Facebook Profile!"}</b></p>
-                    <p>Email: <b>{props.props.candidatEmail ? props.props.candidatEmail.length > 20 ? props.props.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.props.candidatEmail.toLocaleUpperCase() : "✘ No Email Provided!"}</b> </p>
-                    <p className=" my-1"  style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}><b>Ready for work: {date >= start && date <= end  ? " 📆" +props.props.candidatStartDate  + "  To  " + props.props.candidatEndDate :   "⚠️" + props.props.candidatStartDate +"  To  " + props.props.candidatEndDate } </b></p>
+                    <p className='ArchivedCardChildFonts mb-0'>Secteur: <b> {props.props.candidatActivitySector ?  props.props.candidatActivitySector.toLocaleUpperCase() : "✘ No Sector!"}</b></p>
+                    <p className='ArchivedCardChildFonts mb-0'>Job: <b> {props.props.candidatJob ? props.props.candidatJob.toLocaleUpperCase() : "✘ No Job!"}</b></p>
+                    <p className='ArchivedCardChildFonts mb-0'>Candidats age: <b>{props.props.candidatAge ? props.props.candidatAge +"years old" : "✘ Age Not Available!"}</b></p>
+                    <p className='ArchivedCardChildFonts mb-0'>Langues:  <b>  {props.props.candidatLanguages.length ? props.props.candidatLanguages.length > 3 ? props.props.candidatLanguages.slice(0,3).join(", ") + "..." : props.props.candidatLanguages.join(", "): "✘ No Langues Selected!"} </b></p>
+                    <p className='ArchivedCardChildFonts mb-0'>Phone Number:  <b>{props.props.candidatPhone ? props.props.candidatPhone : "✘ No Phone!"}</b></p>
+                    <p className='ArchivedCardChildFonts mb-0'>Facebook URL:  <b>{props.props.candidatFBURL ? <a href={props.props.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "✘ No Facebook Profile!"}</b></p>
+                    <p className='ArchivedCardChildFonts mb-0'>Email: <b>{props.props.candidatEmail ? props.props.candidatEmail.length > 20 ? props.props.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.props.candidatEmail.toLocaleUpperCase() : "✘ No Email Provided!"}</b> </p>
+                    <p className="todoCardbodyBlue py-1" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
+                        Ready for work : {date >= start && date <= end  ? " 📆" +props.props.candidatStartDate  + "  To  " + props.props.candidatEndDate :   "⚠️" + props.props.candidatStartDate +"  To  " + props.props.candidatEndDate} 
+                    </p>
+                
                     </div>
                     <div className="box-red pl-1">
                         <p> <b>REASON WHY CANCELED</b> : </p><span> {props.props.candidatArchived?.reason ? props.props.candidatArchived?.reason : "✘ No Reason Specified!"}</span>

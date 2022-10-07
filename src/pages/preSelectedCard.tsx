@@ -75,21 +75,44 @@ const PreSelectedCard = (props: any,) => {
         <>
             <div className="card card-color mb-1 HoveRESTClassCardPre">
                 <div onClick={viewFullProfile} className="card-upper  cursor-pointer">
-                    <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-3 " style={{paddingLeft:"5px"}}>
-                        <img
-                            src={require("../images/card-men.svg").default}
-                            className="card-img-top"
+                    {  props.data.candidatPhoto && props.data.candidatPhoto?.url !== undefined ?
+                    <>  <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-4 d-flex justify-content-center" style={{paddingLeft:"5px"}}>
+                      <img
+                            src={props.data.candidatPhoto?.url}
+                            className="card-img-top-url-pre"
                             alt="..."
                         />
-                    </div>
-                    <div className="col-xxl-9 col-xl-8 col-md-8 col-lg-8 fontStylinForPrecards">
-                        <p style={{width:"100%"}}  className="text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.candidatName.toLocaleUpperCase()}><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
-                        <p className="text-dark"><b>{props.data.candidatAge ? "Age :" +props.data.candidatAge : "Age Not Available!"}</b></p>
-                        <div >  <p className="text-dark d-flex"><b>{candidatMotivationIcons[props.data.candidatMotivation].icon + " " + candidatMotivationIcons[props.data.candidatMotivation].motivation}</b>
-                        </p>
-                        </div>
-                       
-                    </div>
+                  </div>
+                  <div className="col-xxl-8 col-xl-8 col-md-8 col-lg-8 fontStylinForPrecards">
+                      <p style={{width:"100%"}}  className="text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.candidatName.toLocaleUpperCase()}><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
+                      <p className="text-dark"><b>{props.data.candidatAge ? "Age :" +props.data.candidatAge : "Age Not Available!"}</b></p>
+                      <div >  <p className="text-dark d-flex"><b>{candidatMotivationIcons[props.data.candidatMotivation].icon + " " + candidatMotivationIcons[props.data.candidatMotivation].motivation}</b>
+                      </p>
+                      </div>
+                     
+                  </div>
+                  </>
+                  :
+                  <>
+                  <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-3 " style={{paddingLeft:"5px"}}>
+                  <img
+                      src={require("../images/card-men.svg").default}
+                      className="card-img-top"
+                      alt="..."
+                  />
+              </div>
+              <div className="col-xxl-9 col-xl-8 col-md-8 col-lg-8 fontStylinForPrecards">
+                  <p style={{width:"100%"}}  className="text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.candidatName.toLocaleUpperCase()}><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
+                  <p className="text-dark"><b>{props.data.candidatAge ? "Age :" +props.data.candidatAge : "Age Not Available!"}</b></p>
+                  <div >  <p className="text-dark d-flex"><b>{candidatMotivationIcons[props.data.candidatMotivation].icon + " " + candidatMotivationIcons[props.data.candidatMotivation].motivation}</b>
+                  </p>
+                  </div>
+                 
+              </div>
+              </>
+                
+                }
+                
                    
                 </div>
                 <div className="col-12 ">
@@ -131,7 +154,7 @@ const PreSelectedCard = (props: any,) => {
                     </p>
                 </div>
                 <div className="col-12">
-                 <div className="row preSelectedCommentBox">
+                 <div className="row preSelectedCommentBox ">
                     <div className="col-12 preCards-Body ">Preselected for client : {props.data.candidatPreSelectedFor ? props.data.candidatPreSelectedFor.length > 2 ? <p className="mb-0 " >{props.data.candidatPreSelectedFor.map((el)=>{return <p className="mb-0 cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.clientId.clientCompanyName.toLocaleUpperCase()} onClick={()=>showCustomerProfile(el.clientId)}>{el.clientId.clientCompanyName}</p>} )}</p>:<p className="mb-0"> {props.data.candidatPreSelectedFor.map((el)=>(<p className="mb-0 cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={"Click On This For Full Profile View!"}  onClick={()=>showCustomerProfile(el.clientId)}>{el.clientId.clientCompanyName}</p>))}</p> : "✘ No Client!"}</div>
                     <div className="col-12"><ReadMoreReact text={props.data.candidatPreSelectedFor[0] ? props.data.candidatPreSelectedFor[0].reasonForPreSelection : "✘ No Reason Available!"}
             min={100}

@@ -110,6 +110,20 @@ color: #000000 !important;
     align-items: center;  
     color: #000000;
 }
+
+.preSelectedCommentBox::-webkit-scrollbar {
+    width: 5px;               /* width of the entire scrollbar */
+  }
+  
+  .preSelectedCommentBox::-webkit-scrollbar-track {
+    background: #E7E7E7;        /* color of the tracking area */
+  }
+  
+  .preSelectedCommentBox::-webkit-scrollbar-thumb {
+    background-color: #FE8700;    /* color of the scroll thumb */
+    border-radius: 5px;       /* roundness of the scroll thumb */
+    border: 2px solid orange;  /* creates padding around scroll thumb */
+  }
 .css-319lph-ValueContainer{
     padding: 0px !important;
 }
@@ -999,7 +1013,7 @@ color: #ffff;
         font-family: 'Poppins' !important;
         font-style: normal !important;
         font-weight: 400 !important;
-        font-size: 16px !important;
+        font-size: 14px !important;
         line-height: 5px !important;
         display: flex;
         align-items: center;

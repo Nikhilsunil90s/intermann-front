@@ -61,7 +61,7 @@ function ToDoProfile() {
   const [candidatDocument, setCandidatDocument] = useState("");
   const [progress, setProgress] = useState<any>(0);
   const [docUploaded, setDocUploaded] = useState(false);
-  const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
+  const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.url !== undefined ? profile.candidatPhoto?.url : "");
   const [UploadBtn,setSelectUpload]= useState(false)
   const [RenameDocStatus,setRenameDocStatus]=useState(false)
   const [PDFModal,setPDFModal]=useState(false)
@@ -168,7 +168,7 @@ const fetchRecommendations = async (candidatSector: string) => {
     if (val === 'upload') {
       handleImageUpload()
     } else if (val === 'Download') {
-      window.open(API_BASE_URL + "uploads/" +candidatImage);
+      window.open(candidatImage);
     }
   }
   const renameDocument = (docId: any, docName: any ,originalName:any) => {
@@ -266,7 +266,7 @@ const fetchRecommendations = async (candidatSector: string) => {
       if (resData.status) {
         setProfile(resData.data)
          setDocumentList([...resData.data.candidatDocuments])
-        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
+        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.url : "")
         setDocUploaded(false);
       } else {
         setDocumentList([...documentList])
@@ -399,7 +399,7 @@ const fetchRecommendations = async (candidatSector: string) => {
                 {candidatImage !== "" ?
                       <img
                         // src={require("../images/menlogos.svg").default}
-                        src={API_BASE_URL + "uploads/" +candidatImage}
+                        src={candidatImage}
                      className="img-uploadTodo-Download"
                       /> :
                     <img

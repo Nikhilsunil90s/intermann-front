@@ -57,7 +57,27 @@ const navigate = useNavigate();
         <>
             <div className="card card-color mb-0 HoveRESTClassCardIn">
                 <div className="card-upper cursor-pointer" onClick={()=>viewFullProfile()}>
-                    <div className="col-4">
+                {
+                           profile.candidatPhoto && profile.candidatPhoto?.url !== undefined ?
+               <>     <div className="col-4">
+                        <img
+                            src={profile.candidatPhoto?.url}
+                            className="card-img-top-Progress"
+                            alt="..."
+                        />
+                    </div>
+                    <div className="col-7 EmbauchCard pt-1 px-0" >
+                    <p style={{width:"100%"}}  className="text-dark mb-0"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={profile.candidatName.toLocaleUpperCase()}><b>{profile.candidatName.length > 20 ? profile.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : profile.candidatName.toLocaleUpperCase()}</b></p>
+                    <p className="text-dark mb-0">{profile.candidatAge ?  <p className="age00 ml-0 mb-0"> <b>Age :  {profile.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</p>
+                        <div >  <p className="text-dark d-flex"> <b>{candidatMotivationIcons[profile.candidatMotivation ].icon + " " + candidatMotivationIcons[profile.candidatMotivation ].motivation}</b> 
+                        </p>
+                        </div> 
+                    
+                    </div>
+                </>
+                :
+                  
+                <> <div className="col-4">
                         <img
                             src={require("../images/card-men.svg").default}
                             className="card-img-top"
@@ -70,9 +90,12 @@ const navigate = useNavigate();
                         <div >  <p className="text-dark d-flex"> <b>{candidatMotivationIcons[profile.candidatMotivation ].icon + " " + candidatMotivationIcons[profile.candidatMotivation ].motivation}</b> 
                         </p>
                         </div> 
-                        
-                    </div>
-                </div>
+                
+                        </div>
+                        </>
+                  }
+                
+               </div>
                 <div className="col-12 ">
                         <div className="row cardColorRowEmbaunch">
 
@@ -134,6 +157,7 @@ const navigate = useNavigate();
                         </div>
                     </div></div>
                
+  
             </div>
         </>
     )

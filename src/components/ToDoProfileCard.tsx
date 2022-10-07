@@ -18,7 +18,7 @@ const ToDoProfileCard = (props: any,Clients) => {
 
     const [showInProgressModal, setShowInProgressModal] = useState(false);
     const [showArchiveModal, setShowArchiveModal] = useState(false)
-    const [Client,setClients]=useState([])
+   
     const CardOptions=[{
    value:"Edit Profile",label:"Edit Profile"
    },
@@ -79,22 +79,50 @@ const ToDoProfileCard = (props: any,Clients) => {
         <>
             <div className="card card-color mb-1 px-0 HoveRESTClassCard">
                 <div onClick={viewFullProfile} className="card-upper cursor-pointer">
-                    <div className="col-4">
-                        <img
-                            src={require("../images/card-men.svg").default}
-                            className="card-img-top"
+            
+                        {
+                           props.data.candidatPhoto && props.data.candidatPhoto?.url !== undefined ?
+                           <>
+                           <div className="col-5 d-flex justify-content-center p-1">
+                            <img
+                            src={props.data.candidatPhoto?.url}
+                            className="card-img-top-url"
                             alt="..."
                         />
-                    </div>
-                    <div className="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 fontStylinForcards">
-                    <p style={{width:"100%"}}  className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.candidatName.toLocaleUpperCase()}><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
-                        <p className="text-dark mb-0">{props.data.candidatAge ?  <p className="age00 mb-0"> <b>Age : {props.data.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</p>
-                        <div >  <p className="text-dark d-flex mb-0"> <b>{props.data.candidatMotivation == 0 ? candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation :  candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation}</b>
-                        </p>
-                        </div>
-                       
-                   
-                </div>
+                        
+                                </div>
+                                   <div className="col-xxl-7 col-xl-7 col-lg-7 col-md-7 col-sm-7 fontStylinForcards">
+                                   <p style={{width:"100%"}}  className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.candidatName.toLocaleUpperCase()}><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
+                                       <p className="text-dark mb-0">{props.data.candidatAge ?  <p className="age00 mb-0"> <b>Age : {props.data.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</p>
+                                       <div >  <p className="text-dark d-flex mb-0"> <b>{props.data.candidatMotivation == 0 ? candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation :  candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation}</b>
+                                       </p>
+                                       </div>
+                                      
+                                  
+                               </div>
+                               </>
+                        :
+                        <>
+                        <div className="col-4">
+                        <img
+                        src={require("../images/card-men.svg").default}
+                        className="card-img-top"
+                        alt="..."
+                    />
+                     </div>
+   <div className="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 fontStylinForcards">
+   <p style={{width:"100%"}}  className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.candidatName.toLocaleUpperCase()}><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
+       <p className="text-dark mb-0">{props.data.candidatAge ?  <p className="age00 mb-0"> <b>Age : {props.data.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</p>
+       <div >  <p className="text-dark d-flex mb-0"> <b>{props.data.candidatMotivation == 0 ? candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation :  candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation}</b>
+       </p>
+       </div>
+      
+  
+</div>
+</>            }
+                    
+            
+                 
                 </div>
                 <div className="col-12 ">
                         <div className="row cardColorRow">
@@ -134,9 +162,10 @@ const ToDoProfileCard = (props: any,Clients) => {
                     <p className="todoCardbody-p mb-0">Phone Number : <b>{props.data.candidatPhone ? props.data.candidatPhone : "✘ No Phone!"}</b> </p>
                     <p className="todoCardbody-p " style={{marginBottom:"8px"}}>Facebook URL : <b>{props.data.candidatFBURL ? <a href={props.data.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile</a> : "✘ No Facebook Profile!"}</b></p>
                     <p className="preCard-Body-p">Email :  <b> {props.data.candidatEmail ? props.data.candidatEmail.length > 20 ? props.data.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.data.candidatEmail.toLocaleUpperCase() : "✘ No Email Provided!"}</b></p>
-                    <p className="todoCardbodyBlue py-1" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
+                      <p className="todoCardbodyBlue py-1" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
                         Ready for work : {date >= start && date <= end  ? " 📆" +props.data.candidatStartDate  + "  To  " + props.data.candidatEndDate :   "⚠️" + props.data.candidatStartDate +"  To  " + props.data.candidatEndDate} 
                     </p>
+                
                     </div>
             
                 <div className="card-bodyTodo mb-1 py-0" >

@@ -77,6 +77,10 @@ const EmployeeDataFormat = {
   indemnisationJour:"",
   fin_mision:"",
   contractId:"",
+  iban_euro:"",
+  bankName_euro: "",
+  iban_ron_lei: "",
+  bankName_lei: "",
 }
 
 interface State {
@@ -520,6 +524,12 @@ function EditProgress() {
         indemnisationJour:data.indemnisationJour != "" ? data.indemnisationJour : profile.candidatContract ? profile.candidatContract.indemnisationJour : "",
         fin_mision:data.fin_mision !="" ? data.fin_mision : profile.candidatContract ? profile.candidatContract.fin_mision : "",
         contractId:data.contractId !="" ? data.contractId : profile.candidatContract ? profile.candidatContract._id : null,
+        iban_euro:data.iban_euro !=="" ? data.iban_euro  : profile.iban_euro ? profile.iban_euro :"",              
+        bankName_euro: data.bankName_euro !=="" ? data.bankName_euro : profile.bankName_euro ? profile.bankName_euro : "",
+        iban_ron_lei: data.iban_ron_lei
+         !== "" ? data.iban_ron_lei
+         : profile.iban_ron_lei ? profile.iban_ron_lei : "",
+        bankName_lei: data.bankName_lei !=="" ? data.bankName_lei : profile.bankName_lei ? profile.bankName_lei : "",
       }
       console.log(updatedData);
       let formdata = new FormData();
@@ -1239,22 +1249,22 @@ className="SelectBtn"
                  <div className="row p-1" >
                   <div className="col-4">
                   <label className="PDFFormlabel">IBAN EURO</label>
-                                <input className='form-control inputStylingForView'   placeholder="‎ ‎ ‎ youmail@gmail.com" />
+                                <input className='form-control inputStylingForView' defaultValue={profile.iban_euro ? profile.iban_euro : ""}  name="iban_euro"  onChange={onFormDataChange}    placeholder="‎ ‎ ‎ youmail@gmail.com" />
                  
                   </div>
                   <div className="col-4">
                   <label className="PDFFormlabel">BANK NAME EURO</label>
-                                <input className='form-control inputStylingForView'   placeholder="‎ ‎ ‎ BANK NAME EURO" />
+                                <input className='form-control inputStylingForView' defaultValue={profile.bankName_euro ? profile.bankName_euro: ""}  name="bankName_euro"  onChange={onFormDataChange}   placeholder="‎ ‎ ‎ BANK NAME EURO" />
                  
                   </div>
                   <div className="col-4">
                   <label className="PDFFormlabel">IBAN RON/LEI</label>
-                                <input className='form-control inputStylingForView'   placeholder="‎ ‎ ‎ IBAN RON/LEI" />
+                                <input className='form-control inputStylingForView' defaultValue={profile.iban_ron_lei ? profile.iban_ron_lei : ""}  name="iban_ron_lei" onChange={onFormDataChange}   placeholder="‎ ‎ ‎ IBAN RON/LEI" />
                  
                   </div>
                   <div className="col-4">
                   <label className="PDFFormlabel">BANK NAME LEI</label>
-                                <input className='form-control inputStylingForView'   placeholder="‎ ‎ ‎ BANK NAME LEI" />
+                                <input className='form-control inputStylingForView' defaultValue={profile.bankName_lei ? profile.bankName_lei : ""}  name="bankName_lei" onChange={onFormDataChange} placeholder="‎ ‎ ‎ BANK NAME LEI" />
                  
                   </div>
                  </div>

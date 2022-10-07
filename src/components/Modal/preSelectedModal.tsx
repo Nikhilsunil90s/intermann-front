@@ -231,7 +231,7 @@ useEffect(() => {
             </div>
             <div className="modal-footer">
               <button type="button" className="btn preSelectedStageBtn d-flex" disabled={btnDisabled}  onClick={moveToPreSelected}>
-              {btnLoader ?   <div className="RESTloader " >Loading...</div>   : null} Move this person to in preselected status
+              {btnLoader ?   <div className="RESTloader " >Loading...</div>   : null} Move this person to preselected status
               </button>
             </div>
           </div>

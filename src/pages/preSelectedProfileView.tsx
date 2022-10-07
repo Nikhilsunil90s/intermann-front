@@ -42,7 +42,7 @@ function PreSelectedView() {
   const [documentList, setDocumentList] = useState([]);
   const [renameDoc, setRenameDoc] = useState(false);
   const [RenameDocStatus,setRenameDocStatus]=useState(false)
-  const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined ? profile.candidatPhoto?.documentName : "");
+  const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.url !== undefined ? profile.candidatPhoto?.url : "");
   const hiddenImageInput = React.useRef(null);
   const [UploadBtn,setSelectUpload]= useState(false)
   const [contract_date,setcontract_date]=useState()as any
@@ -176,7 +176,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
     if (val == 'upload') {
       handleImageUpload()
     } else if (val == 'Download') {
-      window.open(API_BASE_URL + "uploads/" + candidatImage);
+      window.open(candidatImage);
     }
   }
   const handleImageUpload = () => {
@@ -250,7 +250,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
       if (resData.status) {
         setProfile(resData.data)
         setDocumentList([...resData.data.candidatDocuments])
-        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
+        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.url : "")
         setDocUploaded(false);
       } else {
         setDocumentList([...documentList])
@@ -342,7 +342,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
                      {candidatImage !== "" ?
                       <img
                         // src={require("../images/menlogos.svg").default}
-                        src={API_BASE_URL + "uploads/" +candidatImage}
+                        src={candidatImage}
                      className="img-upload-Download"
                       /> :
                     <img
