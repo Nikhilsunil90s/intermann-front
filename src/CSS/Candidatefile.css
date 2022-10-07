@@ -1456,6 +1456,9 @@ padding: 10px 20px;
         border-radius: 100px;
         border: 4px solid rgb(63, 118, 226);
     }
+    .img-uploadTodo-Download:hover {
+        border: 4px solid rgb(0, 8, 255);
+    }
 .btn-EditProfile img {
 width: 21px;
 margin-right: 5px;

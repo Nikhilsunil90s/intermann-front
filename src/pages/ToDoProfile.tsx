@@ -20,6 +20,7 @@ import PDFGenerate from '../components/Modal/PDFGenerateModal'
 import moment from 'moment'
 import ErrorLoader from "../components/Loader/SearchBarError";
 import DOCUSIGNModalCandidate from '../components/Modal/DOCUSIGNModalCandidate'
+import ReactRoundedImage from "react-rounded-image";
 
 interface State {
   profileData: any,
@@ -397,11 +398,23 @@ const fetchRecommendations = async (candidatSector: string) => {
               <div className="row bg-todoTodoDetails mt-0">
                 <div className="col-xxl-2 col-xl-2 col-md-2 col-sm-2 text-center ">
                 {candidatImage !== "" ?
+                
                       <img
                         // src={require("../images/menlogos.svg").default}
                         src={candidatImage}
                      className="img-uploadTodo-Download"
-                      /> :
+                      />
+                  //   <ReactRoundedImage
+                  //   image={candidatImage}
+                  //   roundedColor="#b3e0ff"
+                  //   imageWidth="130"
+                  //   imageHeight="130"
+                  //   roundedSize="13"
+                  //   borderRadius="70"
+                  //   hoverColor="#1abeff"
+                  // />
+                      :
+
                     <img
                       src={require("../images/menlogos.svg").default}
                      className="img-uploadTodo-Download"

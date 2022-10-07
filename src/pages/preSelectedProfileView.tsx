@@ -19,7 +19,7 @@ import moment from "moment";
 import ErrorLoader from "../components/Loader/SearchBarError";
 import ResetProfile from "../components/Modal/RestProfileForArchived";
 import DOCUSIGNModalCandidate from '../components/Modal/DOCUSIGNModalCandidate'
-
+import ReactRoundedImage from "react-rounded-image";
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -344,7 +344,18 @@ const notifyMoveError = () => toast.error("Not Moved..");
                         // src={require("../images/menlogos.svg").default}
                         src={candidatImage}
                      className="img-upload-Download"
-                      /> :
+                      />
+                      
+                  //   <ReactRoundedImage
+                  //   image={candidatImage}
+                  //   roundedColor="#FE8700"
+                  //   imageWidth="130%"
+                  //   imageHeight="130%"
+                  //   roundedSize="13"
+                  //   borderRadius="70"
+                  //   hoverColor="#070203"
+                  // />
+                      :
                     <img
                       src={require("../images/menlogos.svg").default}
                      className="img-upload-Download"

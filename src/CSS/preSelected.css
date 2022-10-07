@@ -607,7 +607,9 @@ line-height: 21px;
 text-align: end;
 color: #000000;
    }
-  
+   .img-upload-Download:hover {
+    border: 4px solid #ff3700;
+   }
     .img-upload-Download {
         width: 112px !important;
         object-fit: cover;

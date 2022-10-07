@@ -609,6 +609,10 @@ font-weight: 400 !important;
 font-size: 12px !important;
 line-height: 18px !important;
 }
+.imgArchived-upload-download:hover {
+    border: 4px solid #b70000;
+
+}
 .imgArchived-upload-download {
     width: 121px !important;
     object-fit: cover;
