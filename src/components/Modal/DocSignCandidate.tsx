@@ -4,13 +4,16 @@ import ErrorLoader from '../../components/Loader/SearchBarError'
 import SignatureCanvas from 'react-signature-canvas'
 import { Toaster,toast } from 'react-hot-toast';
 import { API_BASE_URL } from "../../config/serverApiConfig";
+import { useLocation } from "react-router";
 
 let Data 
-function DocSignCandidate({ props, closeModal }) {
+function DocSignCandidate() {
+
+    const {state}=useLocation()
     const SignPad =useRef(undefined)
 
-console.log(props)
-  const [contractID]=useState(props)
+console.log(state)
+  const [contractID]=useState(state)
     const SignSave=()=>{
     SignPad.current.toDataURL()
     Data={
@@ -32,7 +35,7 @@ console.log(props)
             if(res){
               toast.success("Signatures Added Successfully!")
               setTimeout(()=>{
-                window.location.reload()
+                window.location.href="/ContractSigend/thankYou"
               },2000)
             }
         })
@@ -61,54 +64,39 @@ console.log(props)
 
     return (<>
  <Toaster position="top-right" containerStyle={{zIndex:"99999999999999999999999999",marginRight:"40px"}} />
-        <div className="modal d-block" style={{ backgroundColor: "#00000052" }} id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div className="modal-dialog modal-lg ">
-                <div className="modal-content overFlowHeight" style={{height:"80vh"}}> 
-                    <div className="modal-header p-0">
-                    <div className="col-12">
-                        <div className="row bg-ContractPage">
-                         <div className="col-11 d-flex justify-content-center p-2">
-                         <span>
-              <img
+        <div className="container-fluid" style={{ backgroundColor: "#00000052" }} >
+            <div className="row">
+               
+                    <div className="col-12 px-0">
+                    <div className='col-12 bg-ContractPage'>
+   <div className="row d-flex justify-content-center">
+
+    <div className="col-8 heightScreenTop d-flex justify-content-center">
+          
+               
+                <img
                 src={require("../../images/logo-header.svg").default}
-                className="filter-logo"
-                style={{ width: "130%" }}
+                className="filter-logo LogoScreenSign"
+               
               />
-            </span>
-            <img
+             
+             
+                <img
               src={require("../../images/LogoName.svg").default}
               className="filter-text LogoIntermann"
-              style={{ paddingLeft: "20px" }}
-            />
-                         </div>
-                    <div className="col-1 text-end d-flex align-items-center">
-                    <button type="button" className="btn-close text-light" onClick={() => closeModal(false)} data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    <div className="modal-body text-start " style={{background:"#FE8700",padding:"10px"}}>
+              style={{ paddingLeft: "15px" }}
+            />          </div> 
+    </div>
+         </div>
+                    <div className="row text-start mx-0 overFlowHeight heightScreen" style={{background:"#FE8700",padding:"10px"}}>
                 
-                    <div className="col-12 " >   <p  className=" mb-0"
-                        style={{
-                            fontFamily: 'Poppins',
-                            fontStyle: "normal",
-                            fontWeight: "700",
-                            fontSize: "22px",
-                            lineHeight: "24px",
-                            color: "#424242;"
-                        }}
+                    <div className="col-12 " >   <p  className=" mb-0 topTitle"
                         >
                             
 
 
                      
-                        Va rog semnati aici : <span style={{color:"#ffff",   fontFamily: 'Poppins',
-                            fontStyle: "normal",
-                            fontWeight: "700",
-                            fontSize: "18px",
-                            lineHeight: "24px",
-                    }}>I declare that I have read the contract and accept it in its entirety.
+                        Va rog semnati aici : <span style={{color:"#ffff"}}>I declare that I have read the contract and accept it in its entirety.
 Declar că am citit contractul și îl accept în întregime.Adresa dvs. IP va fi înregistrată</span>
                         </p>
                         </div> 
@@ -131,19 +119,12 @@ Declar că am citit contractul și îl accept în întregime.Adresa dvs. IP va f
                            </div>
                            <div className="col-12">  <div className="col-12" >
                         
-    <button onClick={()=>{clear()}} className="" style={{marginTop:"5px",background:"#fd0202",border:"none" , fontFamily:"Poppins", fontWeight: "700",padding:"7px",borderRadius:"10px",
-                            fontSize: "14px",
-                            lineHeight: "24px",
-                            color: "#424242;"}}>X Clear</button>
+    <button onClick={()=>{clear()}} className="clearbtn" 
+                        >X Clear</button>
 
         </div></div>
                            <div className="col-12">
-                            <p  style={{color:"#ffff",   fontFamily: 'Poppins',
-                            fontStyle: "normal",
-                            fontWeight: "700",
-                            fontSize: "12px",
-                            lineHeight: "24px",
-                    textAlign:"center"}}> L'écrit sous forme électronique est admis en preuve au même titre que l'écrit sur support papier, sous réserve que puisse être dûment identifiée la personne dont il émane et qu'il soit établi et conservé dans des conditions de nature à en garantir l'intégrité
+                            <p className="bottomText mb-0"> L'écrit sous forme électronique est admis en preuve au même titre que l'écrit sur support papier, sous réserve que puisse être dûment identifiée la personne dont il émane et qu'il soit établi et conservé dans des conditions de nature à en garantir l'intégrité
 <br />
                     Scrierea în formă electronică este admisă ca probă în același mod ca și scrierea pe hârtie, cu condiția ca persoana de la care emană să poată fi identificată în mod corespunzător și să fie întocmită și păstrată în condiții care să garanteze integritatea acesteia.
 <br />
@@ -155,15 +136,14 @@ Declar că am citit contractul și îl accept în întregime.Adresa dvs. IP va f
                            </div>
                          
                  </div>
-                 <div className="modal-body p-0 cursor-pointer">
-                  <div className='col-12 d-flex p-2 align-items-center justify-content-center  bg-ContractPage  semneaza' onClick={()=>{SignSave();SaveSignFun()}} >
+         <div className='col-12 cursor-pointer d-flex p-2 align-items-center justify-content-center  bg-ContractPage  semneaza' onClick={()=>{SignSave();SaveSignFun()}} >
        
           📨 acepta si semneaza
 accept and sign
          
         
          </div>
-                    </div>
+                
                              
 
                 </div>

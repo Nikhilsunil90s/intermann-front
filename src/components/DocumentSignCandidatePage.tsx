@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import DocSignCandidate from '../components/Modal/DocSignCandidate'
 import { PDFViewer } from 'react-view-pdf';
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import "../CSS/AddClient.css"
 import "../CSS/Candidatefile.css"
@@ -16,6 +16,8 @@ function  DocumentSign(){
     const [pdfUrl,setUrl]=useState()as any
 
 console.log(API_BASE_URL + pdfUrl,"url")
+
+  const navigate = useNavigate()
 
     useEffect(() => {
       if(profile.length == 0){
@@ -48,6 +50,10 @@ console.log(API_BASE_URL + pdfUrl,"url")
    
    
       })
+      const SignDocu =(e)=>{
+     
+        navigate("/ContractSigend",{state:profile.candidatContract._id})
+      }
 
     const fetchCandidat = async (candidatId: any) => {
         return await fetch(API_BASE_URL + `getCandidatDetailsById/?candidatId=${candidatId}`, {
@@ -107,19 +113,19 @@ return (
 
       }  
          </div>
-         {
+         {/* {
             ContractSignModal ? 
              <DocSignCandidate  props={profile.candidatContract._id} closeModal={setContractSignModal} />
 
             :
 
             null
-        }
+        } */}
          <div className='col-12 footerDocSign bg-ContractPage'>
           {
             pdfTimeOut ? 
 
-            <button className='btn' onClick={(e)=>setContractSignModal(true)}>
+            <button className='btn' onClick={(e)=>SignDocu(e)}>
             ✒️ incepe  CONTRACTUL(sign the contract)
             </button>
             :

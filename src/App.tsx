@@ -43,6 +43,8 @@ import clientSignedGlobalCard from './pages/GlobalCards/ClientPages/ClientContra
 import ClientContractPage from './components/ClientContractPage'
 import DocumentChecker from './components/Document-checker'
 import DocumentSign from "./components/DocumentSignCandidatePage";
+import DocSignCandidate from "./components/Modal/DocSignCandidate";
+import ThankYouPage from "./components/ThankYouPage";
 function App() {
   return (
     <Provider store={configureStore}>
@@ -342,6 +344,22 @@ function App() {
             element={
             
                 <ClientContractPage />
+            
+            }
+          />
+           <Route
+            path={"/ContractSigend"}
+            element={
+            
+                <DocSignCandidate />
+            
+            }
+          />
+           <Route
+            path={"/ContractSigend/thankYou"}
+            element={
+            
+                <ThankYouPage />
             
             }
           />

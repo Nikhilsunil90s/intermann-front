@@ -151,3 +151,282 @@ padding: 15px 50px;
       transform: rotate(360deg);
     }
   }
+  @media (min-width:400px){
+    .semneaza{
+      position: fixed;
+      bottom: 0;
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 30px;
+      text-align: center;
+      text-transform: uppercase;
+      color: rgb(255, 255, 255);
+      height: 10vh;
+      }
+      .heightScreen{
+        height:75vh;
+      }
+      .LogoScreenSign{
+        /* width: 10%; */
+      }
+      .heightScreenTop{
+        height: 10vh;
+        display: flex;
+      align-items: center;
+    }
+    .topTitle{
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 26px;
+  
+    }
+    .topTitle .span{
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 25px;
+      color: #ffff !important;
+  
+    }
+    .bottomText{
+      
+        color: rgb(255, 255, 255);
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 13px;
+        line-height: 23px;
+        text-align: center;
+    
+    }
+    .clearbtn{
+        
+      margin-top: 5px;
+      background: rgb(253, 2, 2);
+      border: none;
+      font-family: Poppins;
+      font-weight: 700;
+      padding: 11px;
+      border-radius: 10px;
+      font-size: 17px;
+      line-height: 18px;
+  
+  }
+     
+  }
+  @media (min-width:600px){
+    .semneaza{
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 30px;
+      text-align: center;
+      text-transform: uppercase;
+      color: rgb(255, 255, 255);
+      padding:20px 0px !important;
+      height: 10vh;
+
+  }
+  .heightScreen{
+    height: 77vh
+  }
+  .heightScreenTop{
+    height: 10vh;
+    display: flex;
+    align-items: center;
+  }
+  }
+
+  @media (min-width:768px){
+    .topTitle{
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 22px;
+      line-height: 44px;
+  
+    }
+    .topTitle .span{
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 22px;
+      line-height: 44px;
+      color: #ffff !important;
+  
+    }
+    .bottomText{
+      
+        color: rgb(255, 255, 255);
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 33px;
+        text-align: center;
+    
+    }
+     
+      .semneaza{
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 46px;
+        text-align: center;
+        text-transform: uppercase;
+        color: rgb(255, 255, 255);
+      padding:10px 0px !important;
+  height: 10vh;
+
+
+    }
+    .heightScreen{
+      height: 77vh;
+    }
+    .heightScreenTop{
+      height: 10vh;
+    }
+    }
+    
+    @media (min-width:1200px){
+      .topTitle{
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 44px;
+    
+      }
+      .topTitle .span{
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 44px;
+        color: #ffff !important;
+    
+      }
+      .bottomText{
+        
+          color: rgb(255, 255, 255);
+          font-family: Poppins;
+          font-style: normal;
+          font-weight: 700;
+          font-size: 20px;
+          line-height: 33px;
+          text-align: center;
+      
+      }
+       
+      .semneaza{
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 86px;
+        text-align: center;
+        text-transform: uppercase;
+        color: rgb(255, 255, 255);
+      padding:0px 0px !important;
+  height: 12vh;
+overflow: hidden;
+      
+    }
+
+    .clearbtn{
+        
+      margin-top: 5px;
+      background: rgb(253, 2, 2);
+      border: none;
+      font-family: Poppins;
+      font-weight: 700;
+      padding: 13px;
+      border-radius: 10px;
+      font-size: 20px;
+      line-height: 18px;
+  
+  }
+  .heightScreenTop{
+    height: 15vh;
+    display: flex;
+    align-items: center;
+  }
+  .heightScreen{
+    height: 70vh;
+
+  }
+    }
+    @media (min-width:1400px){
+      .topTitle{
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 49px;
+    
+      }
+      .topTitle .span{
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 28px;
+        line-height:49px;
+        color: #ffff !important;
+    
+      }
+      .bottomText{
+        
+          color: rgb(255, 255, 255);
+          font-family: Poppins;
+          font-style: normal;
+          font-weight: 700;
+          font-size: 22px;
+          line-height: 69px;
+          text-align: center;
+      
+      }
+       
+        .semneaza{
+          font-family: Poppins;
+          font-style: normal;
+          font-weight: 700;
+          font-size: 29px;
+          line-height: 86px;
+          text-align: center;
+          text-transform: uppercase;
+          color: rgb(255, 255, 255);
+      padding:0px 0px !important;
+  height: 14vh;
+
+
+      }
+      .clearbtn{
+        
+          margin-top: 5px;
+          background: rgb(253, 2, 2);
+          border: none;
+          font-family: Poppins;
+          font-weight: 700;
+          padding: 15px;
+          border-radius: 10px;
+          font-size: 24px;
+          line-height: 31px;
+      
+      }
+      .heightScreenTop{
+        height: 15vh;
+        display: flex;
+        align-items: center;
+      }
+      .heightScreen{
+        height: 70vh;
+  
+      }
+    }
