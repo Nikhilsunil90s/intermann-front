@@ -220,7 +220,7 @@ const LoaderFun=()=>{
     if(Clients.length ==0){
       fetchClients().then((data)=>{
    let ClientOP:any= data.data.map((el)=>{
-      return  { value: el, label:el, color: '#FF8B00' }
+      return  { value: el, label:el.toLocaleUpperCase(), color: '#FF8B00' }
    })
    setClients([{value:"Select Client",label:"Select Client",color:"#ff8b00"},...ClientOP])
       })
@@ -231,7 +231,7 @@ const LoaderFun=()=>{
           setTotalLength(profilesResult.length)
         }
         let nameops = profilesResult.map((pro) => {
-          return { value: pro.candidatName, label: pro.candidatName, color: '#FF8B00' }
+          return { value: pro.candidatName, label: pro.candidatName.toLocaleUpperCase(), color: '#FF8B00' }
         })
         setNameOptions([{value:"Select Name",label:"Select Name",color:"#ff8b00"},...nameops])
       }).catch(err => {

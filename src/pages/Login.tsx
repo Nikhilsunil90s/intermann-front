@@ -16,6 +16,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [ModalOpen,setModalOpen]=useState(false)
+  const [LoginLoad,setLoginLoad]=useState(false)
 
   const notifyLogin = () => toast.success("Welcome To Intermann!");
   const notifyLoginError = () =>
@@ -25,10 +26,13 @@ function Login() {
   useEffect(() => {
     if (state?.login?.status) {
       notifyLogin();
+    setLoginLoad(false)
       localStorage.setItem("token", state.login.token);
       navigate("/dashboard");
     } else if (state?.login?.error !== undefined) {
       notifyLoginError();
+    setLoginLoad(false)
+
     }
   }, [state]);
   useEffect(() => {
@@ -39,14 +43,17 @@ function Login() {
   });
 
   const onLoginFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setLoginLoad(true)
     e.preventDefault();
     dispatch(loginUserAction({ email, password }));
     if (state?.login?.status) {
       notifyLogin();
+    setLoginLoad(false)
       localStorage.setItem("token", state.login.token);
       navigate("/dashboard");
     } else if (state?.login?.error !== undefined) {
-      notifyLoginError();
+    setLoginLoad(false)
+    notifyLoginError();
     }
   };
   const Modal=()=>{
@@ -107,6 +114,7 @@ function useOnClickOutside(ref, handler) {
     <main className="padding-x01">
       <div className="container-fluid">
         <div className="row m-0">
+        
           <div className="col-12">
             <div className="row">
               <div className="col-6 px-0">
@@ -177,6 +185,8 @@ function useOnClickOutside(ref, handler) {
                               }}
                               placeholder="Email"
                               required
+                              disabled={LoginLoad}
+                              
                             />
                           </span>
                         </div>
@@ -224,6 +234,7 @@ function useOnClickOutside(ref, handler) {
                               }}
                               placeholder="Password"
                               required
+                              disabled={LoginLoad}
                             />
                           </span>
                         </div>
@@ -250,8 +261,22 @@ function useOnClickOutside(ref, handler) {
                         <button
                           type="submit"
                           className="sign-in-btn mx-auto btn"
+                          disabled={LoginLoad}
                         >
-                          SIGN IN
+                          <div className="col-12">
+                            <div className="row">
+                              <div className="col-4 d-flex justify-content-start align-items-center">
+                              {LoginLoad ? <div className="loaderLogin"></div> :null}
+                              </div>
+                              <div className="col-4 d-flex justify-content-center align-items-center">
+                              SIGN IN
+                                </div>
+                                <div className="col-4 d-flex  justify-content-end align-items-center ">
+                                {LoginLoad ? <div className="loaderLogin"></div> :null}
+                                </div>
+                            </div>
+                          </div>
+                   
                         </button>
                       </div>
                     </div>

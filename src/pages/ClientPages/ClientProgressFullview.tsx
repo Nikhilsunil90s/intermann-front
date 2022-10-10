@@ -89,6 +89,7 @@ function ClientProgressView() {
     useState() as any;
    const [fiche_de_mise_a_disposition, setfiche_de_mise_a_disposition] =
     useState() as any;
+    const [DriveLink,setDriveLink]=useState("")
   const [tabItems, setTabitems] = useState([
   {
       text: "CONTRAT CLIENT",
@@ -788,6 +789,36 @@ function ClientProgressView() {
       .then((result) => result)
       .catch((err) => err);
   };
+  let Data={
+    clientId:profile._id,
+    link:DriveLink,
+    folder:UploadTextBtn
+  }as any
+  const LinktoDrive = async () => {
+    console.log()
+    let headers = {
+      "Accept": 'application/json',
+      "Authorization": "Bearer " + localStorage.getItem('token')
+    }
+    return await fetch(API_BASE_URL + "addClientLink", {
+      method: "POST",
+      headers: headers,
+      body:JSON.stringify(Data),
+    })
+      .then(reD => reD.json())
+      .then(resD => resD)
+      .catch(err => err)
+  }
+
+  const onDriveLinkChange=(e)=>{
+    if(e.target.name =="inputDrive"){
+      setDriveLink(e.target.value)
+    }
+    
+    if(e.target.name =="DriveLinkSubmit"){
+      LinktoDrive()
+    }
+  }
   return (
     <>
       <Toaster

@@ -320,7 +320,7 @@ function Preselected(){
                 }
                 if(profilesResult.data.length>0){ 
                 let nameops = profilesResult.data.map((pro) => {
-                  return { value: pro.candidatName, label: pro.candidatName, color: '#FF8B00' }
+                  return { value: pro.candidatName, label: pro.candidatName.toLocaleUpperCase(), color: '#FF8B00' }
                 })
                 setNameOptions([{value:"Select Name",label:"Select Name",color:"#ff8b00"},...nameops])
             }})
@@ -399,7 +399,7 @@ function Preselected(){
             fetchProfiles().then((profileResult) => {
               profileResult.data.filter((item) => {
                 if(item.candidatEmail){
-               emailops.push({ value: item.candidatEmail, label: item.candidatEmail, color: '#FF8B00' })
+               emailops.push({ value: item.candidatEmail, label: item.candidatEmail.toLocaleUpperCase(), color: '#FF8B00' })
                 }
             })
                setEmail([  {

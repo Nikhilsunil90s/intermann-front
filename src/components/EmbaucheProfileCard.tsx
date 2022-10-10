@@ -135,7 +135,7 @@ const navigate = useNavigate();
                 </div>
                 <div className="box-purple">
                         <p className="mb-0"><b>Works At : {profile.candidatCurrentWork[0].workingFor ? profile.candidatCurrentWork[0].workingFor.length > 20 ? profile.candidatCurrentWork[0].workingFor.slice(0, 25).toLocaleUpperCase() + "...." : profile.candidatCurrentWork[0].workingFor : "✘ No Working"}</b></p>
-                        <p className="mb-0"><b>Since : {profile.candidatCurrentWork[0].workingSince}</b></p>
+                        <p className="mb-0"><b>Since : {profile.candidatCurrentWork[0].workingSince ?profile.candidatCurrentWork[0].workingSince : "✘ No Since"}</b></p>
                         <p className="mb-0"><b>Salary :  {profile.candidatCurrentWork[0].salary ? profile.candidatCurrentWork[0].salary + "€": "✘ No Salary!"} </b></p>
                     </div>
                     <div className="col-12 my-1">

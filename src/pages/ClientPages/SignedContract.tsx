@@ -95,6 +95,7 @@ function Signed() {
     const [DeleteEmp,setDeleteEmp]=useState([])
     const [Archived,setArchived]=useState(  profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived")):null )
     const [preSelect,setPreselected]=useState( profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Pre-Selected")):null )
+    const [DriveLink,setDriveLink]=useState("")
   const [tabItems, setTabitems] = useState([
      {
       text: "CONTRAT CLIENT",
@@ -798,6 +799,38 @@ let Editdata ={state:profile,path:"/clientSigned"}
   let start = new Date(profile.jobStartDate);
   let end = new Date(profile.jobEndDate);
 
+  let Data={
+    clientId:profile._id,
+    link:DriveLink,
+    folder:UploadName
+  }as any
+
+ 
+  const LinktoDrive = async (updatedData: any) => {
+    console.log(updatedData)
+    let headers = {
+      "Accept": 'application/json',
+      "Authorization": "Bearer " + localStorage.getItem('token')
+    }
+    return await fetch(API_BASE_URL + "addClientLink", {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(updatedData),
+    })
+      .then(reD => reD.json())
+      .then(resD => resD)
+      .catch(err => err)
+  }
+
+  const onDriveLinkChange=(e)=>{
+    if(e.target.name =="inputDrive"){
+      setDriveLink(e.target.value)
+    }
+    
+    if(e.target.name =="DriveLinkSubmit"){
+      LinktoDrive(Data)
+    }
+  }
   return (
     <>
       <Toaster
@@ -2509,6 +2542,27 @@ let Editdata ={state:profile,path:"/clientSigned"}
                 </div>
               </div>
             </div>
+            <div
+              className="col-12 Social-CardClient mb-1 "
+              style={{ padding: "13px 26px" }}
+            >
+              <div className="row">
+             <div className="col-3 px-0" style={{fontFamily: 'Poppins',
+fontStyle: "normal",
+fontWeight: "500",
+fontSize: "14px",
+lineHeight: "21px",
+color: "#000000",
+display:"flex",
+alignItems:"center"}}><p className="mb-0">ORADD AN EXTERNAL LINK 
+(GOOGLE DRIVE) :</p></div>
+             <div className="col-5 px-0"><input name="inputDrive" placeholder="WWW.XXXXXX.COM" onChange={onDriveLinkChange} style={{background:"#D3D6DB",borderRadius:"20px",width:"100%",height:"100%",border:"0px",paddingLeft:"10px",paddingRight:"10px",fontFamily: 'Poppins',
+fontStyle: "normal",
+fontWeight: "500",
+fontSize: "14px",}} /></div>
+             <div className="col-4"><button name="DriveLinkSubmit" onClick={(e)=>{onDriveLinkChange(e)}} className="LinkAsDocument">add this link as document</button></div>
+             </div>
+              </div>
             <div
               className="col-12 Social-CardClient mb-1 "
               style={{ padding: "13px 26px" }}

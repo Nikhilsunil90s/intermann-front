@@ -111,7 +111,26 @@ color: #6F7187;
     text-align: right;  
     color: #032339;
 }
-
+.loaderLogin {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #FE8700;
+    width: 12px;
+    height: 12px;
+    -webkit-animation: spinLogin 2s linear infinite; /* Safari */
+    animation: spinLogin 2s linear infinite;
+  }
+  
+  /* Safari */
+  @-webkit-keyframes spinLogin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spinLogin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
 @media (min-width:768px){
 

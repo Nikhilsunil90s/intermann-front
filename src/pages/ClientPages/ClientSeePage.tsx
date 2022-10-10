@@ -92,6 +92,8 @@ function ClientSee() {
     useState() as any;
   const [fiche_de_mise_a_disposition, setfiche_de_mise_a_disposition] =
     useState() as any;
+    const [DriveLink,setDriveLink]=useState("")
+
   const [tabItems, setTabitems] = useState([
     {
       text: "CONTRAT CLIENT",
@@ -858,6 +860,38 @@ function ClientSee() {
   const contractPageView = () => {
     navigate("/ClientContractPage", { state: profile });
   };
+
+
+  const LinktoDrive = async (updatedData: any) => {
+    console.log(updatedData)
+    let headers = {
+      "Accept": 'application/json',
+      "Authorization": "Bearer " + localStorage.getItem('token')
+    }
+    return await fetch(API_BASE_URL + "addClientLink", {
+      method: "POST",
+      headers: headers,
+      body: updatedData
+    })
+      .then(reD => reD.json())
+      .then(resD => resD)
+      .catch(err => err)
+  }
+
+  const onDriveLinkChange=(e)=>{
+    if(e.target.name =="inputDrive"){
+      setDriveLink(e.target.value)
+    }
+    
+    if(e.target.name =="DriveLinkSubmit"){
+      let Data={
+        clientId:profile._id,
+        link:DriveLink,
+        folder:UploadTextBtn
+      }
+      LinktoDrive(Data)
+    }
+  }
   return (
     <>
       <Toaster
@@ -2602,6 +2636,27 @@ function ClientSee() {
                 </div>
               </div>
             </div>
+            <div
+              className="col-12 Social-CardClient mb-1 "
+              style={{ padding: "13px 26px" }}
+            >
+              <div className="row">
+             <div className="col-3 px-0" style={{fontFamily: 'Poppins',
+fontStyle: "normal",
+fontWeight: "500",
+fontSize: "14px",
+lineHeight: "21px",
+color: "#000000",
+display:"flex",
+alignItems:"center"}}><p className="mb-0">ORADD AN EXTERNAL LINK 
+(GOOGLE DRIVE) :</p></div>
+             <div className="col-5 px-0"><input name="inputDrive" placeholder="WWW.XXXXXX.COM" onChange={onDriveLinkChange} style={{background:"#D3D6DB",borderRadius:"20px",width:"100%",height:"100%",border:"0px",paddingLeft:"10px",paddingRight:"10px",fontFamily: 'Poppins',
+fontStyle: "normal",
+fontWeight: "500",
+fontSize: "14px",}} /></div>
+             <div className="col-4"><button name="DriveLinkSubmit" onClick={(e)=>{onDriveLinkChange(e)}} className="LinkAsDocument">add this link as document</button></div>
+             </div>
+              </div>
             <div
               className="col-12 Social-CardClient mb-1 "
               style={{ padding: "13px 26px" }}

@@ -675,7 +675,7 @@ setTimeout(()=>{
            
             return {
               value: pro.clientCompanyName,
-              label: pro.clientCompanyName,
+              label: pro.clientCompanyName.toLocaleUpperCase(),
               color: "#FF8B00",
             };
           });

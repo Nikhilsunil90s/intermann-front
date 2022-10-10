@@ -67,7 +67,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
   const [cardTotallength,setTotalLength]=useState(0)
 
   const loadMoreHandle = (i) => {
-    let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
+    let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 30;
     if (bottom) {
       if(cardTotallength > page && selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0 && emailArr.length == 0 && contactArr.length == 0 && FilterJob.length == 0 && LanguageFilter.length == 0){
         setPage(page + 20);
@@ -372,7 +372,7 @@ setTimeout(()=>{
     if (nameOptions.length == 0) {
       fetchProfiles().then((profilesResult) => {
         let nameops = profilesResult.map((pro) => {
-          return { value: pro.candidatName, label: pro.candidatName, color: '#FF8B00' }
+          return { value: pro.candidatName, label: pro.candidatName.toLocaleUpperCase(), color: '#FF8B00' }
         })
         setNameOptions([{value:"Select Name",label:"Select Name",color:"#ff8b00"},...nameops])
       }).catch(err => {
@@ -387,7 +387,7 @@ setTimeout(()=>{
             setTotalLength(profileResult.length)
           }
           if(item.candidatEmail){
-         emailops.push({ value: item.candidatEmail, label: item.candidatEmail, color: '#FF8B00' })
+         emailops.push({ value: item.candidatEmail, label: item.candidatEmail.toLocaleUpperCase(), color: '#FF8B00' })
           }
       })
          setEmail([  {

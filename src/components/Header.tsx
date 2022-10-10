@@ -126,7 +126,7 @@ if( Number.isInteger(Number(e.target.value))){
  if(e.target.value){
    FilDataCName =   data.filter((el)=>{
     if(el.clientCompanyName){
-    return el.clientCompanyName.toString().toLowerCase() == e.target.value.toString().toLowerCase()
+    return el.clientCompanyName.toString().toLowerCase().replaceAll(" ","") == e.target.value.toString().toLowerCase().replaceAll(" ","")
   }
 }
   )
@@ -137,7 +137,7 @@ if( Number.isInteger(Number(e.target.value))){
 if(e.target.value){
   FilDataCNName =   data.filter((el)=>{
    if(el.candidatName){
-   return el.candidatName.toString().toLowerCase() == e.target.value.toString().toLowerCase()
+   return el.candidatName.toString().toLowerCase().replaceAll(" ","") == e.target.value.toString().toLowerCase().replaceAll(" ","")
  }
 }
  )
@@ -149,19 +149,19 @@ if(e.target.value){
   const FilData =   data.filter(el=>(
 
     el.candidatEmail ?
-    el.candidatEmail.toLowerCase().includes(value.toLowerCase())
+    el.candidatEmail.toLowerCase().includes(e.target.value.toLowerCase())
     :
     el.clientEmail ?
-    el.clientEmail.toLowerCase().includes(value.toLowerCase())
+    el.clientEmail.toLowerCase().includes(e.target.value.toLowerCase())
 
     :
 
     el.candidatName ?
-    el.candidatName.toString().toLowerCase().replaceAll(" ","").includes(value.toString().toLowerCase().replaceAll(" ",""))
+    el.candidatName.toString().toLowerCase().replaceAll(" ","").includes(e.target.value.toString().toLowerCase().replaceAll(" ",""))
     
     :
     el.clientCompanyName ?
-    el.clientCompanyName.toString().toLowerCase().replaceAll(" ","").includes(value.toString().toLowerCase().replaceAll(" ",""))
+    el.clientCompanyName.toString().toLowerCase().replaceAll(" ","").includes(e.target.value.toString().toLowerCase().replaceAll(" ",""))
     :
      null
 

@@ -50,11 +50,10 @@ console.log(API_BASE_URL + pdfUrl,"url")
       })
 
     const fetchCandidat = async (candidatId: any) => {
-        return await fetch(API_BASE_URL + `getCandidatById/?candidatId=${candidatId}`, {
+        return await fetch(API_BASE_URL + `getCandidatDetailsById/?candidatId=${candidatId}`, {
           method: "GET",
           headers: {
             Accept: "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
           .then((resp) => resp.json())

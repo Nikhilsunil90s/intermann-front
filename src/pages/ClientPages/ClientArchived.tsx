@@ -231,7 +231,7 @@ setTimeout(()=>{
           setTotalLength(profilesResult.length)
         }
         let nameops = profilesResult?.map((pro) => {
-         return  { value: pro.clientCompanyName, label: pro.clientCompanyName, color: '#FF8B00'}
+         return  { value: pro.clientCompanyName, label: pro.clientCompanyName.toLocaleUpperCase(), color: '#FF8B00'}
         })
         setNameOptions([{value:"Select Name",label :"Select Name" ,color:"#FF8B00"},...nameops])
       }).catch(err => {
