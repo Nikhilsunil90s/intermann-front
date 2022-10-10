@@ -29,7 +29,7 @@ import ArchivedModal from "../../components/Modal/ArchivedModal";
 
 let RenameData = [];
 let id = "";
-let UploadName = "";
+let UploadName = ""as any;
 let clDoc;
 let Links;
 let UploadTextBtn = "";
@@ -97,7 +97,7 @@ function Signed() {
     const [Archived,setArchived]=useState(  profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived")):null )
     const [preSelect,setPreselected]=useState( profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Pre-Selected")):null )
     const [DriveLink,setDriveLink]=useState("")
-    const [BtnDisabled,setBtnDisabled]=useState(false)
+    const [LinkDoc,setLinkDoc]=useState()as any
   const [tabItems, setTabitems] = useState([
      {
       text: "CONTRAT CLIENT",
@@ -280,9 +280,11 @@ function Signed() {
     });
 
     clDoc = profile.clientDocuments.filter((el) => el.folderName == UploadName);
-    Links = profile.clientLinks.filter((el) => el.folder == UploadName);
-    setDocumentList([...clDoc,Links ? Links : null]);
-  }, []);
+    Links = profile.clientLinks.filter((el) => el.folder.toString() == UploadName.toString());
+    setDocumentList([...clDoc]);
+    console.log(Links)
+    setLinkDoc([...Links])
+  }, [UploadName]);
 
   const candidatImportanceIcons = [
     {
@@ -404,9 +406,12 @@ let Editdata ={state:profile,path:"/clientSigned"}
       UploadTextBtn = el.text;
     });
 
-    clDoc = profile.clientDocuments.filter((el) => el.folderName == UploadName);
-    Links = profile.clientLinks.filter((el) => el.folder == UploadName);
-    setDocumentList([...clDoc,Links ? Links : null]);
+    clDoc = profile.clientDocuments.filter((el) => el.folderName === UploadName);
+    Links = profile.clientLinks.filter((el) => el.folder.toString() === UploadName.toString());
+    setDocumentList([...clDoc]);
+    console.log(Links)
+    setLinkDoc([...Links])
+
 
   };
 
@@ -531,7 +536,9 @@ let Editdata ={state:profile,path:"/clientSigned"}
               (el) => el.folderName == UploadName
             );
             Links = profile.clientLinks.filter((el) => el.folder == UploadName);
-            setDocumentList([...clDoc,Links ? Links : null]);
+            setDocumentList([...clDoc]);
+            setLinkDoc([...Links])
+
   
           });
 
@@ -539,6 +546,7 @@ let Editdata ={state:profile,path:"/clientSigned"}
           setDocUploaded(false);
         } else {
           setDocumentList([...documentList]);
+          setLinkDoc([...LinkDoc])
           setDocUploaded(false);
         }
       })
@@ -564,11 +572,16 @@ let Editdata ={state:profile,path:"/clientSigned"}
     //     })
 
     // }
-  }, [docUploaded]);
+  }, [docUploaded,UploadName]);
 
 
-  const ViewDownloadFiles = (documentName: any) => {
+  const ViewDownloadFiles = (e,documentName) => {
+    if(e.target.name ==="btnDownloadLink"){
     window.open(documentName);
+      
+    }else{
+      window.open(documentName);
+    }
   };
 
   const fetchCandidat = async (clientId: any) => {
@@ -619,6 +632,25 @@ let Editdata ={state:profile,path:"/clientSigned"}
       });
   };
 
+  // const deleteLink = async (Id: any, FolderName: any,Link: any) => {
+  //   await deleteCandidatLink(Id, FolderName,Link).then((resData) => {
+  //       if (resData.status) {
+  //         notifyDocumentDeleteSuccess();
+  //         // setDocumentList([
+  //         //   ...documentList.filter((doc) => {
+  //         //     return doc.documentName !== docName;
+  //         //   }),
+  //         // ]);
+  //         window.location.reload()
+  //       } else {
+  //         notifyDocumentDeleteError();
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
   const deleteCandidatDocument = async (
     docId: any,
     docName: any,
@@ -639,6 +671,26 @@ let Editdata ={state:profile,path:"/clientSigned"}
       .then((reD) => reD.json())
       .then((resD) => resD)
       .catch((err) => err);
+  };
+const deleteCandidatLink = (Id : any,Link:any ) => {
+ let Data={
+  clientId:Id,
+  folder:UploadName,
+  link:Link,
+ }
+    let headers = {
+      "Accept": 'application/json',
+      'Content-Type': 'application/json',
+      "Authorization": "Bearer " + localStorage.getItem('token')
+    }
+   fetch(API_BASE_URL + "removeClientLink", {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(Data),
+    })
+      .then(reD => reD.json())
+      .then(resD => toast.success(resD.message))
+      .catch(err => toast.error("Link Not Removed! Please Try Again in few minutes."))
   };
 
   //END //
@@ -841,14 +893,14 @@ let Editdata ={state:profile,path:"/clientSigned"}
   const onDriveLinkChange=(e)=>{
     if(e.target.name =="inputDrive"){
       setDriveLink(e.target.value)
-   
+      
     }
     
     if(e.target.name =="DriveLinkSubmit"){
       let Check = isValidUrl(DriveLink)
-     
       if(Check){
-        LinktoDrive(Data).then((resD)=>toast.success(resD.message))
+    setLinkDoc([...Links])
+        LinktoDrive(Data).then((resD)=>{toast.success(resD.message);setLinkDoc([...resD.link]);})
       }else{
         return toast.error("Please Enter Valid Url!")
       }
@@ -2381,8 +2433,8 @@ let Editdata ={state:profile,path:"/clientSigned"}
                                 } */}
                             <button
                               className="btnDownload"
-                              onClick={() =>
-                                ViewDownloadFiles(doc.url)
+                              onClick={(e) =>
+                                ViewDownloadFiles(e,doc.url)
                               }
                             >
                               <img
@@ -2423,79 +2475,78 @@ let Editdata ={state:profile,path:"/clientSigned"}
                           </div>
                         </div>
                       </div>
-                      :
-                     doc.link ?
-                     <div className="col-6 mx-0">
-                     <div className="row CardClassDownload mt-1 mx-0">
-                       <div
-                         className="col-4 d-flex align-items-center cursor-pointer"
-                         data-bs-toggle="tooltip"
-                         data-bs-placement="bottom"
-                         title={doc.originalName}
-                       >
-                         <p className="download-font mb-0">
-                           {doc.originalName.length > 20
-                             ? doc.originalName.slice(0, 21) + "..."
-                             : doc.originalName}
-                         </p>
-                       </div>
-                       <div className="col-6 text-center">
-                         {/* {progress > 0 && progress < 100  ?
-                               <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
-                               :
-                               <button className="btnDownload">
-                                 <img src={require("../images/dowBtn.svg").default} />
-                                 {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
-                               </button>
-                             } */}
-                         <button
-                           className="btnDownload"
-                           onClick={() =>
-                             ViewDownloadFiles(doc.url)
-                           }
-                         >
-                           <img
-                             src={require("../../images/dowBtn.svg").default}
-                           />
-                           {doc.originalName.length > 10
-                             ? doc.originalName.slice(0, 11) + "..."
-                             : doc.originalName}
-                         </button>
-                       </div>
-                       <div className="col-2  d-flex align-item-end justify-content-end">
-                         <img
-                           src={require("../../images/editSvg.svg").default}
-                           style={{
-                             width: "20px",
-                             marginRight: "5px",
-                             cursor: "pointer",
-                           }}
-                           // onClick={() => renameDocument(doc._id, doc.documentName)}
-                           onClick={() => {
-                             setRenameDocStatus(true);
-                             renameDocument(
-                               doc._id,
-                               doc.documentName,
-                               doc.originalName
-                             );
-                           }}
-                         />
-                         <img
-                           src={
-                             require("../../images/Primaryfill.svg").default
-                           }
-                           style={{ width: "20px", cursor: "pointer" }}
-                           onClick={() =>
-                             deleteDocument(doc._id, doc.documentName)
-                           }
-                         />
-                       </div>
-                     </div>
-                   </div>
-                   :
+                      :             
+      
                    null
-                     } 
-                      </> )
+                     }
+                    <>
+                    {
+                        LinkDoc ?
+                        LinkDoc.map((Link)=>(
+                          <div className="col-6 mx-0">
+                          <div className="row CardClassDownload mt-1 mx-0">
+                            <div
+                              className="col-4 d-flex align-items-center cursor-pointer"
+                              data-bs-toggle="tooltip"
+                              data-bs-placement="bottom"
+                              title={doc.link}
+                            >
+                              <p className="download-font mb-0">
+                                {Link.link.length > 30
+                                  ? Link.link.slice(0, 28) + "..."
+                                  : Link.link}
+                              </p>
+                            </div>
+                            <div className="col-6 text-center">
+                              {/* {progress > 0 && progress < 100  ?
+                                    <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
+                                    :
+                                    <button className="btnDownload">
+                                      <img src={require("../images/dowBtn.svg").default} />
+                                      {Link.originalName.length > 10 ? Link.originalName.slice(0, 11) + "..." : Link.originalName}
+                                    </button>
+                                  } */}
+                              <button
+                                name="btnDownloadLink"
+                                className="btnDownload"
+                                onClick={(e) =>
+                                  ViewDownloadFiles(e,Link.link)
+                                }
+                              >
+                                <img
+                                  src={require("../../images/dowBtn.svg").default}
+                                />
+                                {Link.link.length > 10
+                                  ? Link.link.slice(0, 11) + "..."
+                                  : Link.link}
+                              </button>
+                            </div>
+                            <div className="col-2  d-flex align-item-end justify-content-end">
+                            
+                              <img
+                                src={
+                                  require("../../images/Primaryfill.svg").default
+                                }
+                                style={{ width: "20px", cursor: "pointer" }}
+                                onClick={() =>
+                                  deleteCandidatLink(Link._id,Link.link)
+                                }
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        ))
+                       
+                      :
+                      null
+                     }
+                    
+                    </>
+                      </>
+                     
+                      
+                      
+                      )
                     
                     )
                   ) : progress > 0 &&
