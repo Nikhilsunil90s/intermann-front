@@ -31,6 +31,7 @@ let RenameData = [];
 let id = "";
 let UploadName = "";
 let clDoc;
+let Links;
 let UploadTextBtn = "";
 function Signed() {
   const { state } = useLocation();
@@ -96,6 +97,7 @@ function Signed() {
     const [Archived,setArchived]=useState(  profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived")):null )
     const [preSelect,setPreselected]=useState( profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Pre-Selected")):null )
     const [DriveLink,setDriveLink]=useState("")
+    const [BtnDisabled,setBtnDisabled]=useState(false)
   const [tabItems, setTabitems] = useState([
      {
       text: "CONTRAT CLIENT",
@@ -278,7 +280,8 @@ function Signed() {
     });
 
     clDoc = profile.clientDocuments.filter((el) => el.folderName == UploadName);
-    setDocumentList([...clDoc]);
+    Links = profile.clientLinks.filter((el) => el.folder == UploadName);
+    setDocumentList([...clDoc,Links ? Links : null]);
   }, []);
 
   const candidatImportanceIcons = [
@@ -402,7 +405,9 @@ let Editdata ={state:profile,path:"/clientSigned"}
     });
 
     clDoc = profile.clientDocuments.filter((el) => el.folderName == UploadName);
-    setDocumentList([...clDoc]);
+    Links = profile.clientLinks.filter((el) => el.folder == UploadName);
+    setDocumentList([...clDoc,Links ? Links : null]);
+
   };
 
   const FilesUploads=(file)=>{
@@ -525,7 +530,9 @@ let Editdata ={state:profile,path:"/clientSigned"}
             clDoc = el.clientDocuments.filter(
               (el) => el.folderName == UploadName
             );
-            setDocumentList([...clDoc]);
+            Links = profile.clientLinks.filter((el) => el.folder == UploadName);
+            setDocumentList([...clDoc,Links ? Links : null]);
+  
           });
 
           // setClientImage(resData.data.clientPhoto !== undefined ? resData.data.clientPhoto?.map((el)=>{ return el.documentName }): "")
@@ -804,12 +811,21 @@ let Editdata ={state:profile,path:"/clientSigned"}
     link:DriveLink,
     folder:UploadName
   }as any
-
- 
+  // const urlPattern = new RegExp(DriveLink);
+  const isValidUrl = urlString=> {
+    var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // validate OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // validate port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // validate query string
+    '(\\#[-a-z\\d_]*)?$','i'); // validate fragment locator
+  return !!urlPattern.test(urlString);
+}
   const LinktoDrive = async (updatedData: any) => {
     console.log(updatedData)
     let headers = {
       "Accept": 'application/json',
+      'Content-Type': 'application/json',
       "Authorization": "Bearer " + localStorage.getItem('token')
     }
     return await fetch(API_BASE_URL + "addClientLink", {
@@ -825,12 +841,24 @@ let Editdata ={state:profile,path:"/clientSigned"}
   const onDriveLinkChange=(e)=>{
     if(e.target.name =="inputDrive"){
       setDriveLink(e.target.value)
+   
     }
     
     if(e.target.name =="DriveLinkSubmit"){
-      LinktoDrive(Data)
+      let Check = isValidUrl(DriveLink)
+     
+      if(Check){
+        LinktoDrive(Data).then((resD)=>toast.success(resD.message))
+      }else{
+        return toast.error("Please Enter Valid Url!")
+      }
+     
+      
+
+      console.log(isValidUrl(DriveLink));
     }
   }
+  console.log(documentList,"document")
   return (
     <>
       <Toaster
@@ -2325,6 +2353,9 @@ let Editdata ={state:profile,path:"/clientSigned"}
                 <div className="row py-1" style={{ marginRight: "1px" }}>
                   {documentList.length > 0 ? (
                     documentList.map((doc, index) => (
+                  <>
+                     {
+                      doc.documentName ?
                       <div className="col-6 mx-0">
                         <div className="row CardClassDownload mt-1 mx-0">
                           <div
@@ -2392,7 +2423,81 @@ let Editdata ={state:profile,path:"/clientSigned"}
                           </div>
                         </div>
                       </div>
-                    ))
+                      :
+                     doc.link ?
+                     <div className="col-6 mx-0">
+                     <div className="row CardClassDownload mt-1 mx-0">
+                       <div
+                         className="col-4 d-flex align-items-center cursor-pointer"
+                         data-bs-toggle="tooltip"
+                         data-bs-placement="bottom"
+                         title={doc.originalName}
+                       >
+                         <p className="download-font mb-0">
+                           {doc.originalName.length > 20
+                             ? doc.originalName.slice(0, 21) + "..."
+                             : doc.originalName}
+                         </p>
+                       </div>
+                       <div className="col-6 text-center">
+                         {/* {progress > 0 && progress < 100  ?
+                               <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
+                               :
+                               <button className="btnDownload">
+                                 <img src={require("../images/dowBtn.svg").default} />
+                                 {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
+                               </button>
+                             } */}
+                         <button
+                           className="btnDownload"
+                           onClick={() =>
+                             ViewDownloadFiles(doc.url)
+                           }
+                         >
+                           <img
+                             src={require("../../images/dowBtn.svg").default}
+                           />
+                           {doc.originalName.length > 10
+                             ? doc.originalName.slice(0, 11) + "..."
+                             : doc.originalName}
+                         </button>
+                       </div>
+                       <div className="col-2  d-flex align-item-end justify-content-end">
+                         <img
+                           src={require("../../images/editSvg.svg").default}
+                           style={{
+                             width: "20px",
+                             marginRight: "5px",
+                             cursor: "pointer",
+                           }}
+                           // onClick={() => renameDocument(doc._id, doc.documentName)}
+                           onClick={() => {
+                             setRenameDocStatus(true);
+                             renameDocument(
+                               doc._id,
+                               doc.documentName,
+                               doc.originalName
+                             );
+                           }}
+                         />
+                         <img
+                           src={
+                             require("../../images/Primaryfill.svg").default
+                           }
+                           style={{ width: "20px", cursor: "pointer" }}
+                           onClick={() =>
+                             deleteDocument(doc._id, doc.documentName)
+                           }
+                         />
+                       </div>
+                     </div>
+                   </div>
+                   :
+                   null
+                     } 
+                      </> )
+                    
+                    )
                   ) : progress > 0 &&
                     progress < 100 &&
                     documentList.length == 0 ? (
@@ -2559,7 +2664,8 @@ alignItems:"center"}}><p className="mb-0">ORADD AN EXTERNAL LINK
              <div className="col-5 px-0"><input name="inputDrive" placeholder="WWW.XXXXXX.COM" onChange={onDriveLinkChange} style={{background:"#D3D6DB",borderRadius:"20px",width:"100%",height:"100%",border:"0px",paddingLeft:"10px",paddingRight:"10px",fontFamily: 'Poppins',
 fontStyle: "normal",
 fontWeight: "500",
-fontSize: "14px",}} /></div>
+fontSize: "14px",}} />
+</div>
              <div className="col-4"><button name="DriveLinkSubmit" onClick={(e)=>{onDriveLinkChange(e)}} className="LinkAsDocument">add this link as document</button></div>
              </div>
               </div>
