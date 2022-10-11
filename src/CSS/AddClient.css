@@ -223,9 +223,20 @@ color: #489767;
 }
 
 
+@media (min-width:400px){
+    .mediaQuery{
+        display: grid !important;
+    }
+    .pdfViewMobile{
+        width: 100vw;
+    }
+    }
   @media (min-width:768px){
 .mediaQuery{
     display: grid !important;
+}
+.pdfViewMobile{
+
 }
 }
 @media (min-width:1200px){

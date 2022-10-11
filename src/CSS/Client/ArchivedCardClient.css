@@ -165,6 +165,18 @@ padding: 15px 50px;
       color: rgb(255, 255, 255);
       height: 10vh;
       }
+      .semneaza:hover{
+        color: coral;
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 30px;
+        text-align: center;
+        text-transform: uppercase;
+        color: rgb(255, 255, 255);
+        height: 10vh;
+    }
       .heightScreen{
         height:75vh;
       }
@@ -233,6 +245,19 @@ padding: 15px 50px;
       height: 10vh;
 
   }
+  .semneaza:hover{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    color: coral;
+    padding:20px 0px !important;
+    height: 10vh;
+
+}
   .heightScreen{
     height: 77vh
   }
@@ -272,7 +297,20 @@ padding: 15px 50px;
         text-align: center;
     
     }
-     
+    .semneaza:hover{
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 46px;
+      text-align: center;
+      text-transform: uppercase;
+      color: coral;
+      padding:10px 0px !important;
+      height: 10vh;
+    
+  
+  }
       .semneaza{
         font-family: Poppins;
         font-style: normal;
@@ -324,7 +362,21 @@ padding: 15px 50px;
           text-align: center;
       
       }
-       
+      .semneaza:hover{
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 46px;
+        text-align: center;
+        text-transform: uppercase;
+        color: coral;
+        padding:0px 0px !important;
+        height: 12vh;
+      overflow: hidden;
+      
+    
+    }
       .semneaza{
         font-family: Poppins;
         font-style: normal;
@@ -392,6 +444,20 @@ overflow: hidden;
           text-align: center;
       
       }
+      .semneaza:hover{
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 46px;
+        text-align: center;
+        text-transform: uppercase;
+        color: coral;
+        padding:0px 0px !important;
+        height: 14vh;
+      
+    
+    }
        
         .semneaza{
           font-family: Poppins;
