@@ -21,13 +21,18 @@ import moment from 'moment'
 import ErrorLoader from "../components/Loader/SearchBarError";
 import DOCUSIGNModalCandidate from '../components/Modal/DOCUSIGNModalCandidate'
 import ReactRoundedImage from "react-rounded-image";
+import Share from "../components/Loader/Share"
+import { Tabs, Tab } from "react-tabs-scrollable";
+import { FileUploader } from "react-drag-drop-files";
 
 interface State {
   profileData: any,
   path: any,
   UserID:any
 }
-
+let UploadName = "";
+let clDoc;
+let UploadTextBtn = "";
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
 })
@@ -57,7 +62,7 @@ function ToDoProfile() {
   const [inputField,setinputField]=useState(true)
   const [loader, setLoader] = useState(false);
   const hiddenImageInput = React.useRef(null);
-  const [documentList, setDocumentList] = useState([]);
+  const [documentList, setDocumentList] = useState([])as any;
   const [renameDoc, setRenameDoc] = useState(false);
   const [candidatDocument, setCandidatDocument] = useState("");
   const [progress, setProgress] = useState<any>(0);
@@ -74,11 +79,98 @@ function ToDoProfile() {
   const [GetMonth2,setMonth2]=useState()as any
   const [GetMonth3,setMonth3]=useState()as any
   const [DocumentSignModal,setDocuSignModal]=useState(false)
+  const [activeTab, setActiveTab] = React.useState(1) as any;
+  const [CONTRACT_EMPLOYE_INTERMANN, setCONTRACT_EMPLOYE_INTERMANN] = useState() as any;
+  const [Fiche_Medicale, setFiche_Medicale] = useState() as any;
+  const [Assurance, setAssurance] = useState() as any;
+  const [ID_CARD, setID_CARD] = useState() as any;
+  const [Reges, setReges] = useState() as any;
+  const [Fiche_mise_à_disposition, setFiche_mise_à_disposition] =
+    useState() as any;
+
+  const [tabItems, setTabitems] = useState([
+    {
+      text: "CONTRACT EMPLOYE INTERMANN",
+      value: "CONTRACT",
+    },
+    {
+      text: "ID CARD",
+      value: "BULETIN_/_ID_CARD",
+    },
+    {
+      text: "FICHE MEDICALE",
+      value: "Fiche_Medicale",
+    },
+    {
+      text: "ASSURANCE",
+      value: "Assurance",
+    },
+    {
+      text: "REGES",
+      value: "Reges",
+    },
+    {
+      text: "FICHE MISE A DISPOSITION",
+      value: "Fiche_mise_à_disposition",
+    },
+   
+  ]) as any;
+
   let date = new Date(datenow);
 
  let start = new Date(profile.candidatStartDate);
  let end = new Date(profile.candidatEndDate);
   
+
+ useEffect(() => {
+  profile.candidatDocuments.map((el) => {
+    if (
+      JSON.stringify(el.folderName ? el.folderName : null).includes(
+        JSON.stringify("Reges")
+      )
+    ) {
+      setReges([el]);
+    }
+    if (
+      JSON.stringify(el.folderName ? el.folderName : null).includes(
+        JSON.stringify("CONTRACT_EMPLOYE_INTERMANN")
+      )
+    ) {
+      setCONTRACT_EMPLOYE_INTERMANN([el]);
+    }
+    if (
+      JSON.stringify(el.folderName ? el.folderName : null).includes(
+        JSON.stringify("BULETIN_/_ID_CARD")
+      )
+    ) {
+      setID_CARD([el]);
+    }
+    if (
+      JSON.stringify(el.folderName ? el.folderName : null).includes(
+        JSON.stringify("Fiche_Medicale")
+      )
+    ) {
+      setFiche_Medicale([el]);
+    }
+    if (
+      JSON.stringify(el.folderName ? el.folderName : null).includes(
+        JSON.stringify("Assurance")
+      )
+    ) {
+      setAssurance([el]);
+    }
+    if (
+      JSON.stringify(el.folderName ? el.folderName : null).includes(
+        JSON.stringify("Fiche_mise_à_disposition")
+      )
+    ) {
+      setFiche_mise_à_disposition([el]);
+    }
+  });
+}, [profile.candidatDocuments, documentList]);
+
+
+
 
  useEffect(()=>{
       setProfile(state ? state : profileData)
@@ -105,6 +197,38 @@ const fetchProfilesClients = async () => {
     .catch((err) => err);
 };
 
+
+const onTabClick = (e, index: any) => {
+  setActiveTab(index);
+  const FolderName = tabItems.filter((el, i) => i == index);
+
+  FolderName.map((el) => {
+    UploadName = el.value;
+    UploadTextBtn = el.text;
+  });
+
+  clDoc = profile.candidatDocuments.filter((el) => el.folderName == UploadName);
+  setDocumentList([...clDoc]);
+};
+
+useEffect(() => {
+  const FolderName = tabItems.filter((el, i) => i == activeTab);
+if(UploadName == "" ){
+  FolderName.map((el) => {
+    UploadName = el.value;
+    UploadTextBtn = el.text;
+  });
+
+
+}
+
+if(profile.candidatDocuments.length > 0 && documentList.length == 0){
+  clDoc = profile.candidatDocuments.filter((el) => (el.folderName == UploadName));
+  console.log(documentList,"doc",clDoc)
+  setDocumentList([...clDoc]);
+ } 
+
+});
   let data={profileData:profile ,path:"/todoprofile"}
 
  const deleteCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
@@ -124,9 +248,8 @@ const deleteDocument = async (docId: any, docName: any) => {
   await deleteCandidatDocument(docId, docName, profile._id).then(resData => {
     if (resData.status) {
       notifyDocumentDeleteSuccess()
-      setDocumentList([...documentList.filter((doc) => {
-        return doc.documentName !== docName
-      })])
+      window.location.reload()
+      setDocumentList([...documentList.filter((docN) => (docN.documentName !== resData.doc))])
     } else {
       notifyDocumentDeleteError()
     }
@@ -188,6 +311,45 @@ const fetchRecommendations = async (candidatSector: string) => {
     //   console.log(err)
     // })
   }
+
+  const FilesUploads=(file)=>{
+    const fileUploaded = file;
+    setCandidatDocument(fileUploaded)
+      let formdata = new FormData();
+      formdata.append('candidatId', profile._id)
+      formdata.append('document', fileUploaded)
+      formdata.append('folderName', UploadName)
+      axiosInstance.post("uploadCandidatDocuments", formdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": "Bearer " + localStorage.getItem('token')
+        },
+        onUploadProgress: data => {
+          //Set the progress value to show the progress bar
+          setProgress(Math.round((100 * data.loaded) / data.total))
+        },
+      })
+      .then(resData => {
+        if (resData.data.status) {
+          setDocUploaded(true);
+          setProgress(0); 
+          notifyDocumentUploadSuccess();
+        } else {
+          setDocUploaded(false);
+        }
+      })
+      .catch(err => {
+        console.log(err)
+        setDocUploaded(false);
+
+      })
+    return;
+  }
+  
+  
+
+
+
   const fileChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
@@ -223,38 +385,8 @@ const fetchRecommendations = async (candidatSector: string) => {
       return;
     }
     if (e.target.name === 'candidatDocuments') {
-      const fileUploaded = e.target.files[0];
-      setCandidatDocument(fileUploaded)
-      let formdata = new FormData();
-      formdata.append('candidatId', profile._id)
-      formdata.append('document', fileUploaded)
-      axiosInstance.post("uploadCandidatDocuments", formdata, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "Authorization": "Bearer " + localStorage.getItem('token')
-        },
-        onUploadProgress: data => {
-          //Set the progress value to show the progress bar
-          setProgress(Math.round((100 * data.loaded) / data.total))
-        },
-      })
-        .then(resData => {
-          if (resData.data.status) {
-            setDocUploaded(true);
-            setProgress(0); 
-            notifyDocumentUploadSuccess();
-          } else {
-            setDocUploaded(false);
-          }
-        })
-        .catch(err => {
-          console.log(err)
-          setDocUploaded(false);
-
-        })
-      return;
-    }
-  }
+ }
+}
   useEffect(() => {
     setProfile((prev) => ({ ...prev, ["clients"]: [...recommendations] }));
     setLoader(false);
@@ -266,7 +398,8 @@ const fetchRecommendations = async (candidatSector: string) => {
       setCandidatImage("")
       if (resData.status) {
         setProfile(resData.data)
-         setDocumentList([...resData.data.candidatDocuments])
+        clDoc = profile.candidatDocuments.filter((el) => el.folderName == UploadName);
+        setDocumentList([...clDoc]);
         setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.url : "")
         setDocUploaded(false);
       } else {
@@ -978,31 +1111,47 @@ className="SelectBtn"
                   
 </div>
               </div>
-             
-                         <div className="col-12 Social-Card mt-1">
-              <div className="row justify-content-center">
-                <div className="col-12 d-flex justify-content-center">
-                  <button className="CandidateCV" onClick={handleFileUpload}>
-                    <div className="col-8" >
-                      <img src={require("../images/Upload+text.svg").default} />
-                    </div>
-                  </button>
-                  <input
-                    type="file"
-                    ref={hiddenFileInput}
-                    onChange={fileChange}
-                    name="candidatDocuments"
-                    style={{ display: 'none' }}
-                  />
+             <div className="col-12 Social-Card mt-1">
+             <div className="row px-1 pt-1 pb-0">
+             <div className="col-4 d-flex align-items-center  px-0">
+              <div className="d-flex">  <p className="DocShareLink mb-0">
+                   Share this link with the client <br />
+                    Patager ce lien avec le client
+                  </p><div className="d-flex justify-content-center align-items-center " style={{paddingLeft:"5px"}}> <Share width={25} /><b className="pl-1"> :</b></div></div>  
                 </div>
-                <div className="col-12 mb-1">
-                  <div className="row">
-
-                    <div className="col-6  pr-0 mb-1">
-                      <p className="candidatecVs pt-2">Candidate CV & Other Document</p>
-                    </div>
-                  </div>
-                  <div className="row" style={{ marginRight: '1px' }}>
+                <div className="col-8 DocShareLinkBackground p-1 pl-0">
+                  <Link
+                    className="LinkStyling"
+                    to=""
+                    // to={`/documentbox/${profile.candidatName}/${profile._id}`}
+                    // target="_blank"
+                  >
+                    Work-in-Progress!
+                    {/* {API_BASE_URL +
+                      `documentbox/${profile.candidatName.replaceAll(
+                        " ",
+                        "%20"
+                      )}/` +
+                      profile._id} */}
+                  </Link>
+                </div>
+                <div className="col-12 my-2 px-0">
+                  <Tabs
+                    activeTab={activeTab}
+                    onTabClick={onTabClick}
+                    rightBtnIcon={">"}
+                    hideNavBtns={false}
+                    leftBtnIcon={"<"}
+                    showTabsScroll={false}
+                    tabsScrollAmount={7}
+                  >
+                    {/* generating an array to loop through it  */}
+                    {tabItems.map((el, i) => (
+                      <Tab key={i}>{el.text}</Tab>
+                    ))}
+                  </Tabs>
+                </div>
+                <div className="row pt-0 pb-1" style={{ marginRight: '1px' }}>
                     {
                       documentList.length > 0  ?
                         documentList.map((doc, index) =>
@@ -1065,14 +1214,25 @@ className="SelectBtn"
                         </div>
                       </div>
                       :  
-<p className="d-flex  justify-content-center align-items-center mb-0"     style={{
-                  fontFamily: 'Poppins',
-                  fontStyle: "normal",
-                  fontWeight: "700",
-                  fontSize: "16px",
-                  lineHeight: "24px",
-                  color: "#000000"
-              }}> <ErrorLoader />✘  No Documents Uploaded! </p>
+                      <div className="d-grid  justify-content-center align-items-center mb-0">
+                      <div className="d-flex justify-content-center">
+                        <img
+                          src={require("../images/docupload.svg").default}
+                        />
+                      </div>
+                      <p
+                        style={{
+                          fontFamily: "Poppins",
+                          fontStyle: "normal",
+                          fontWeight: "500",
+                          fontSize: "16px",
+                          lineHeight: "24px",
+                          color: "#92929D",
+                        }}
+                      >
+                        {UploadTextBtn} file not Uploaded Yet
+                      </p>
+                    </div>
    
                     }
     {progress > 0 && progress < 100 && documentList.length > 0 ?
@@ -1102,7 +1262,24 @@ className="SelectBtn"
                   
 
                           }
-                       
+                         <div className="col-12 d-flex justify-content-center mt-2" >
+                
+                <img src={require("../images/resume.svg").default} />
+           
+                {/* <input
+                  type="file"
+                  ref={hiddenFileInput}
+                  onChange={fileChange}
+                  name="candidatDocuments"
+                  style={{ display: "none" }}
+                /> */}
+                <FileUploader 
+                handleChange={FilesUploads}
+                name="candidatDocuments"
+                label={`Upload ${UploadTextBtn} file Now`}
+                />
+         
+            </div>
                           {
                             RenameDocStatus? 
                             <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus}  path={"/todoprofile"}/>
@@ -1119,9 +1296,50 @@ className="SelectBtn"
                 
               
                   </div>
-                </div>
+              </div>
 
-
+             </div>
+                         <div className="col-12 Social-Card mt-1">
+                         <div className="row alertMessage align-items-center py-1">
+                <Tabs
+                  rightBtnIcon={">"}
+                  hideNavBtns={false}
+                  leftBtnIcon={"<"}
+                  showTabsScroll={false}
+                  tabsScrollAmount={5}
+                  className="alertMessage"
+                >
+                  {CONTRACT_EMPLOYE_INTERMANN ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ CONTRACT EMPLOYE INTERMANN IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {ID_CARD ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ ID CARD IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {Fiche_Medicale ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️FICHE MEDICALE IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {Assurance ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ ASSURANCE IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {Reges ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ REGES IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {Fiche_mise_à_disposition ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ FICHE MISE A DISPOSITION IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                 </Tabs>
               </div>
             </div>
               </div>
