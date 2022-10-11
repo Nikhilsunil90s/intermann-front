@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import "../CSS/Dashboard.css";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import { Toaster,toast } from "react-hot-toast";
-import ReactCanvasConfetti from "react-canvas-confetti";
 import { useLocation } from "react-router";
 function Dashboard() {
   const [toDoCandidatCount, setToDoCandidatCount] = useState(0);

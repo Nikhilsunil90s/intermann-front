@@ -1,6 +1,4 @@
 import React,{useState,useEffect} from 'react'
-import DocSignCandidate from '../components/Modal/DocSignCandidate'
-import { PDFViewer } from 'react-view-pdf';
 import { useNavigate, useParams } from "react-router";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import "../CSS/AddClient.css"
