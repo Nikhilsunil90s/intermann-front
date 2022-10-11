@@ -15,6 +15,9 @@ function DocumSign({ props, closeModal }) {
     let data = {
         candidatId
     }
+   const  CloseTheModal =()=>{
+    closeModal(false)
+   }
 
     // const ResetClient = async () => {
     //     console.log(data);
@@ -72,7 +75,7 @@ function DocumSign({ props, closeModal }) {
                     </div>
                     </div>
                     </div>
-                    <div className="modal-body text-start">
+                    <div className="modal-body text-start"  >
                    
 
 <p style={{
@@ -84,14 +87,14 @@ function DocumSign({ props, closeModal }) {
     color: "#000000"
 }}
 >   This is the contract link you need to send to the candidate/client via whats’app or by email :
-                            Once it will be signed we will receive the signed document by email and you will have to archive it on Drive/CRM  [unique_link]  : <span className="d-flex align-items-center"> <img src={require("../../images/LogoModal.svg").default}/><Link   style={{
+                            Once it will be signed we will receive the signed document by email and you will have to archive it on Drive/CRM  [unique_link]  : <span className="d-flex align-items-center"> <img src={require("../../images/LogoModal.svg").default}/><a   style={{
     fontFamily: 'Poppins',
     fontStyle: "normal",
     fontWeight: "700",
     fontSize: "16px",
     lineHeight: "24px",
     color: "#3F76E2"
-}} to={`/documentSign/${props.candidatName.replaceAll(" ","")}/${props._id}`} target="_blank">{API_BASE_URL + `documentSign/${props.candidatName.replaceAll(" ","")}/` + props._id}</Link>
+}}  onClick={()=>CloseTheModal()} href={`/documentSign/${props.candidatName.replaceAll(" ","")}/${props._id}`} target="_blank">https://intermann-v2.herokuapp.com/documentSign/{props.candidatName.replaceAll(" ","")}/{props._id}</a>
                </span>         
                          </p>
      

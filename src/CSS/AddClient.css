@@ -230,6 +230,18 @@ color: #489767;
     .pdfViewMobile{
         width: 100vw;
     }
+    .iFrameView{
+        display: none;
+    }
+    .PdfViewMobileRes{
+        display: initial;
+    }
+    .canvaspdf{
+        position: relative;
+        top: 0px;
+        right: -44%;
+        width: 39%;
+    }
     }
   @media (min-width:768px){
 .mediaQuery{
@@ -238,14 +250,32 @@ color: #489767;
 .pdfViewMobile{
 
 }
+.PdfViewMobileRes{
+    display: none;
+}
+.iFrameView{
+    display: initial;
+}
 }
 @media (min-width:1200px){
     .mediaQuery{
         display: flex !important;
     }
+    .iFrameView{
+        display: initial;
+    }
+    .PdfViewMobileRes{
+        display: none;
+    }
 }
 @media (min-width:1400px){
     .mediaQuery{
         display: flex !important;
+    }
+    .iFrameView{
+        display: initial;
+    }
+    .PdfViewMobileRes{
+        display: none;
     }
 }

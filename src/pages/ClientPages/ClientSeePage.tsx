@@ -33,6 +33,7 @@ let id = "";
 let UploadName = "";
 let clDoc;
 let UploadTextBtn = "";
+let Links ;
 function ClientSee() {
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -357,8 +358,9 @@ function ClientSee() {
     });
 
     clDoc = profile.clientDocuments.filter((el) => el.folderName == UploadName);
-    setDocumentList([...clDoc]);
-  }, []);
+    Links = profile.clientLinks.filter((el) => el.folder == UploadName);
+    setDocumentList([...clDoc,...Links]);
+  }, [UploadName]);
 
   const notificationSwitch = () => toast.success("Modification sauvegardée");
 
@@ -386,7 +388,8 @@ function ClientSee() {
     });
 
     clDoc = profile.clientDocuments.filter((el) => el.folderName == UploadName);
-    setDocumentList([...clDoc]);
+    Links = profile.clientLinks.filter((profile) => profile.folder == UploadName);
+    setDocumentList([...clDoc,...Links]);
   };
 
   useEffect(() => {
@@ -522,7 +525,8 @@ function ClientSee() {
             clDoc = el.clientDocuments.filter(
               (el) => el.folderName == UploadName
             );
-            setDocumentList([...clDoc]);
+            Links = el.clientLinks.filter((el) => el.folder == UploadName);
+            setDocumentList([...clDoc,...Links]);
           });
 
           // setClientImage(resData.data.clientPhoto !== undefined ? resData.data.clientPhoto?.map((el)=>{ return el.documentName }): "")
@@ -537,8 +541,13 @@ function ClientSee() {
         console.log(err);
       });
   }, [docUploaded]);
-  const ViewDownloadFiles = (documentName: any) => {
-    window.open(documentName);
+  const ViewDownloadFiles = (e,documentName: any) => {
+    if(e.target.name ==="btnDownloadLink"){
+      window.open(documentName);
+        
+      }else{
+        window.open(documentName);
+      }
   };
 
   const fetchCandidat = async (clientId: any) => {
@@ -857,21 +866,47 @@ function ClientSee() {
     // })
   };
 
+  const deleteCandidatLink = (Id : any) => {
+    let Data={
+     clientId:profile._id,
+     linkId:Id,
+    }
+       let headers = {
+         "Accept": 'application/json',
+         'Content-Type': 'application/json',
+         "Authorization": "Bearer " + localStorage.getItem('token')
+       }
+      fetch(API_BASE_URL + "removeClientLink", {
+         method: "POST",
+         headers: headers,
+         body: JSON.stringify(Data),
+       })
+         .then(reD => reD.json())
+         .then(resD =>{toast.success(resD.message);setTimeout(()=>{ window.location.reload()},2000)})
+         .catch(err => toast.error("Link Not Removed! Please Try Again in few minutes."))
+     };
+
+     
   const contractPageView = () => {
     navigate("/ClientContractPage", { state: profile });
   };
-
+  let Data={
+    clientId:profile._id,
+    link:DriveLink,
+    folder:UploadName
+  }as any
 
   const LinktoDrive = async (updatedData: any) => {
     console.log(updatedData)
     let headers = {
       "Accept": 'application/json',
+      'Content-Type': 'application/json',
       "Authorization": "Bearer " + localStorage.getItem('token')
     }
     return await fetch(API_BASE_URL + "addClientLink", {
       method: "POST",
       headers: headers,
-      body: updatedData
+      body:JSON.stringify(updatedData),
     })
       .then(reD => reD.json())
       .then(resD => resD)
@@ -881,17 +916,36 @@ function ClientSee() {
   const onDriveLinkChange=(e)=>{
     if(e.target.name =="inputDrive"){
       setDriveLink(e.target.value)
+      
     }
     
     if(e.target.name =="DriveLinkSubmit"){
-      let Data={
-        clientId:profile._id,
-        link:DriveLink,
-        folder:UploadTextBtn
+      let Check = isValidUrl(DriveLink)
+      if(Check){
+        // setLinkDoc([...Links])
+        LinktoDrive(Data).then((resD)=>{toast.success(resD.message);setTimeout(()=>{window.location.reload()},2000)})
+      }else{
+        return toast.error("Please Enter Valid Url!")
       }
-      LinktoDrive(Data)
+     
+      
+
+      console.log(isValidUrl(DriveLink));
     }
   }
+      // const urlPattern = new RegExp(DriveLink);
+  const isValidUrl = urlString=> {
+    var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // validate OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // validate port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // validate query string
+    '(\\#[-a-z\\d_]*)?$','i'); // validate fragment locator
+  return !!urlPattern.test(urlString);
+}
+    
+
+
   return (
     <>
       <Toaster
@@ -2422,73 +2476,82 @@ function ClientSee() {
                 <div className="row py-1" style={{ marginRight: "1px" }}>
                   {documentList.length > 0 ? (
                     documentList.map((doc, index) => (
-                      <div className="col-6 mx-0">
-                        <div className="row CardClassDownload mt-1 mx-0">
-                          <div
-                            className="col-4 d-flex align-items-center cursor-pointer"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="bottom"
-                            title={doc.originalName}
-                          >
-                            <p className="download-font mb-0">
-                              {doc.originalName.length > 20
-                                ? doc.originalName.slice(0, 21) + "..."
-                                : doc.originalName}
-                            </p>
-                          </div>
-                          <div className="col-6 text-center">
-                            {/* {progress > 0 && progress < 100  ?
-                                  <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
-                                  :
-                                  <button className="btnDownload">
-                                    <img src={require("../images/dowBtn.svg").default} />
-                                    {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
-                                  </button>
-                                } */}
-                            <button
-                              className="btnDownload"
-                              onClick={() =>
-                                ViewDownloadFiles(doc.url)
-                              }
-                            >
-                              <img
-                                src={require("../../images/dowBtn.svg").default}
-                              />
-                              {doc.originalName.length > 10
-                                ? doc.originalName.slice(0, 11) + "..."
-                                : doc.originalName}
-                            </button>
-                          </div>
-                          <div className="col-2  d-flex align-item-end justify-content-end">
-                            <img
-                              src={require("../../images/editSvg.svg").default}
-                              style={{
-                                width: "20px",
-                                marginRight: "5px",
-                                cursor: "pointer",
-                              }}
-                              // onClick={() => renameDocument(doc._id, doc.documentName)}
-                              onClick={() => {
-                                setRenameDocStatus(true);
-                                renameDocument(
-                                  doc._id,
-                                  doc.documentName,
-                                  doc.originalName
-                                );
-                              }}
-                            />
-                            <img
-                              src={
-                                require("../../images/Primaryfill.svg").default
-                              }
-                              style={{ width: "20px", cursor: "pointer" }}
-                              onClick={() =>
-                                deleteDocument(doc._id, doc.documentName)
-                              }
-                            />
-                          </div>
-                        </div>
-                      </div>
+                      <>
+                      {
+                       doc.documentName ?
+                       <div className="col-6 mx-0">
+                         <div className="row CardClassDownload mt-1 mx-0">
+                           <div
+                             className="col-4 d-flex align-items-center cursor-pointer"
+                             data-bs-toggle="tooltip"
+                             data-bs-placement="bottom"
+                             title={doc.originalName}
+                           >
+                             <p className="download-font mb-0">
+                               {doc.originalName.length > 20
+                                 ? doc.originalName.slice(0, 21) + "..."
+                                 : doc.originalName}
+                             </p>
+                           </div>
+                           <div className="col-6 text-center">
+                             {/* {progress > 0 && progress < 100  ?
+                                   <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
+                                   :
+                                   <button className="btnDownload">
+                                     <img src={require("../images/dowBtn.svg").default} />
+                                     {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
+                                   </button>
+                                 } */}
+                             <button
+                               className="btnDownload"
+                               onClick={(e) =>
+                                 ViewDownloadFiles(e,doc.url)
+                               }
+                             >
+                               <img
+                                 src={require("../../images/dowBtn.svg").default}
+                               />
+                               {doc.originalName.length > 10
+                                 ? doc.originalName.slice(0, 11) + "..."
+                                 : doc.originalName}
+                             </button>
+                           </div>
+                           <div className="col-2  d-flex align-item-end justify-content-end">
+                             <img
+                               src={require("../../images/editSvg.svg").default}
+                               style={{
+                                 width: "20px",
+                                 marginRight: "5px",
+                                 cursor: "pointer",
+                               }}
+                               // onClick={() => renameDocument(doc._id, doc.documentName)}
+                               onClick={() => {
+                                 setRenameDocStatus(true);
+                                 renameDocument(
+                                   doc._id,
+                                   doc.documentName,
+                                   doc.originalName
+                                 );
+                               }}
+                             />
+                             <img
+                               src={
+                                 require("../../images/Primaryfill.svg").default
+                               }
+                               style={{ width: "20px", cursor: "pointer" }}
+                               onClick={() =>
+                                 deleteDocument(doc._id, doc.documentName)
+                               }
+                             />
+                           </div>
+                         </div>
+                       </div>
+                       :             
+       
+                    null
+                      }
+                  
+                       </>
                     ))
                   ) : progress > 0 &&
                     progress < 100 &&
@@ -2557,6 +2620,72 @@ function ClientSee() {
                       </p>
                     </div>
                   )}
+                    <>
+                    {
+                      documentList.map((Link, index) => (
+                        Link.link && Link._id?
+                       
+                          <div className="col-6 mx-0">
+                          <div className="row CardClassDownload mt-1 mx-0">
+                            <div
+                              className="col-4 d-flex align-items-center cursor-pointer"
+                              data-bs-toggle="tooltip"
+                              data-bs-placement="bottom"
+                              title={Link.link}
+                            >
+                              <p className="download-font mb-0">
+                                {Link.link.length > 30
+                                  ? Link.link.slice(0, 28) + "..."
+                                  : Link.link}
+                              </p>
+                            </div>
+                            <div className="col-6 text-center">
+                              {/* {progress > 0 && progress < 100  ?
+                                    <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
+                                    :
+                                    <button className="btnDownload">
+                                      <img src={require("../images/dowBtn.svg").default} />
+                                      {Link.originalName.length > 10 ? Link.originalName.slice(0, 11) + "..." : Link.originalName}
+                                    </button>
+                                  } */}
+                              <button
+                                name="btnDownloadLink"
+                                className="btnDownload"
+                                onClick={(e) =>
+                                  ViewDownloadFiles(e,Link.link)
+                                }
+                              >
+                                <img
+                                  src={require("../../images/dowBtn.svg").default}
+                                />
+                                {Link.link.length > 10
+                                  ? Link.link.slice(0, 11) + "..."
+                                  : Link.link}
+                              </button>
+                            </div>
+                            <div className="col-2  d-flex align-item-end justify-content-end">
+                            
+                              <img
+                                src={
+                                  require("../../images/Primaryfill.svg").default
+                                }
+                                style={{ width: "20px", cursor: "pointer" }}
+                                onClick={() =>
+                                  deleteCandidatLink(Link._id)
+                                }
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        
+                      
+                      :
+                      null
+                      )
+                      )
+                     }
+                    
+                    </>
                   {progress > 0 && progress < 100 && documentList.length > 0 ? (
                     <div className="col-6 mx-0">
                       <div className="row CardClassDownload p-0 mt-1 mx-0">

@@ -97,7 +97,6 @@ function Signed() {
     const [Archived,setArchived]=useState(  profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived")):null )
     const [preSelect,setPreselected]=useState( profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Pre-Selected")):null )
     const [DriveLink,setDriveLink]=useState("")
-    const [LinkDoc,setLinkDoc]=useState()as any
   const [tabItems, setTabitems] = useState([
      {
       text: "CONTRAT CLIENT",
@@ -408,7 +407,7 @@ let Editdata ={state:profile,path:"/clientSigned"}
     clDoc = profile.clientDocuments.filter((el) => el.folderName === UploadName);
     Links = profile.clientLinks.filter((el) => el.folder.toString() === UploadName.toString());
     setDocumentList([...clDoc,...Links]);
-    console.log(Links)
+    
     // setLinkDoc([...Links])
 
 
@@ -544,7 +543,7 @@ let Editdata ={state:profile,path:"/clientSigned"}
           // setClientImage(resData.data.clientPhoto !== undefined ? resData.data.clientPhoto?.map((el)=>{ return el.documentName }): "")
           setDocUploaded(false);
         } else {
-          setDocumentList([...documentList,...LinkDoc]);
+          setDocumentList([...documentList]);
           // setLinkDoc([...LinkDoc])
           setDocUploaded(false);
         }

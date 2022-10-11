@@ -7,13 +7,20 @@ import "../CSS/AddClient.css"
 import "../CSS/Candidatefile.css"
 import Loader from "../components/Loader/loader"
 import ProfileLoader from "../components/Loader/ProfilesLoader" 
-
+import PDFreader from './AddClientRating/PDFreader';
+let ContractData={
+  id:"",
+  filePath:"",
+  public_id:""
+ 
+}
 function  DocumentSign(){
-    const [ContractSignModal,setContractSignModal]=useState(false)
+    const [ContractSignData,setContractSignData]=useState(ContractData)as any
     const [pdfTimeOut,setpdfTimeOut]=useState(false)
     const { id } = useParams();
     const [profile, setProfile] = useState([])as any;
     const [pdfUrl,setUrl]=useState()as any
+    
 
 console.log(API_BASE_URL + pdfUrl,"url")
 
@@ -51,8 +58,10 @@ console.log(API_BASE_URL + pdfUrl,"url")
    
       })
       const SignDocu =(e)=>{
-     
-        navigate("/ContractSigend",{state:profile.candidatContract._id})
+        ContractData.filePath=pdfUrl
+        ContractData.id=profile.candidatContract._id
+   
+        navigate("/ContractSigend",{state:ContractSignData})
       }
 
     const fetchCandidat = async (candidatId: any) => {
@@ -71,11 +80,12 @@ console.log(API_BASE_URL + pdfUrl,"url")
           method: "GET",
           headers: {
             Accept: "application/json",
+            'Content-Type': 'application/json',
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
           .then((resp) => resp.json())
-          .then((respData) => {setUrl(respData.filePath.replace("/app/",""));})
+          .then((respData) => {setUrl(respData.filePath.replace("/app/",""));ContractData.public_id=respData.public_id})
           .catch((err) => err);
       };
 
@@ -102,11 +112,17 @@ return (
             />
     
          </div>
-         <div className='col-12 d-flex justify-content-center mt-1 overFlowHeight' style={{overflow:"scroll",height:"64vh"}}>
+         <div className='col-12 d-flex justify-content-center  overFlowHeight' style={{msOverflowY:"scroll"}}>
        
       {pdfUrl ?
-<PDFViewer  url={API_BASE_URL + pdfUrl} />
-
+      <>
+      <div className='iFrameView'>
+<iframe  src={pdfUrl} style={{width:"90vw",height:"61vh"}} /> 
+</div>
+<div className='PdfViewMobileRes'>
+<PDFreader  props={pdfUrl}  />
+</div>
+</>
 :
 
 

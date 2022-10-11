@@ -1022,6 +1022,16 @@ right: 11px !important;
   .LogoIntermann{
     width: 58%;
   }
+  .footerDocSign .btn{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 14px;
+    line-height: 70px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #FFFFFF;
+  }
  }
 @media (min-width:768px){
   .LogoIntermann{
@@ -1032,6 +1042,16 @@ right: 11px !important;
   }
   .btn-BlackEdit:hover{
     color:"#ffff" !important;
+  }
+  .footerDocSign .btn{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 16px;
+    line-height: 70px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #FFFFFF;
   }
 
   .ArchivedBoxAds{
@@ -1324,6 +1344,16 @@ color: #000000;
 }
 
 @media (min-width:1200px){
+  .footerDocSign .btn{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 19px;
+    line-height: 70px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #FFFFFF;
+  }
   .btn-BlackEdit:hover{
     color:"#ffff" !important;
   }
@@ -2146,6 +2176,16 @@ padding: 10px 25px;
 }
 }
 @media (min-width:1400px){
+  .footerDocSign .btn{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 19px;
+    line-height: 70px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #FFFFFF;
+  }
   .LogoIntermann{
     width: 26%;
   }

@@ -5,20 +5,25 @@ import SignatureCanvas from 'react-signature-canvas'
 import { Toaster,toast } from 'react-hot-toast';
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import { useLocation } from "react-router";
+import ProfileLoader from "../../components/Loader/ProfilesLoader" 
 
 let Data 
 function DocSignCandidate() {
-
+    const [SignLoad,setSingLoad]=useState(false)
     const {state}=useLocation()
     const SignPad =useRef(undefined)
 
-console.log(state)
-  const [contractID]=useState(state)
+  const [contractID]=useState(state)as any
+console.log(contractID.id)
+  
     const SignSave=()=>{
     SignPad.current.toDataURL()
     Data={
-        contractId:contractID,
-        signature:SignPad.current.toDataURL()
+        contractId:contractID.id,
+        signature:SignPad.current.toDataURL(),
+        filePath:contractID.filePath,
+        public_id:contractID.public_id
+
     }
 
     }
@@ -29,11 +34,12 @@ console.log(state)
 
     const SaveSignFun=()=>{
         SignSave()
-        
+   
 
         ResetClient().then((res)=>{
             if(res){
               toast.success("Signatures Added Successfully!")
+              setSingLoad(false)
               setTimeout(()=>{
                 window.location.href="/ContractSigend/thankYou"
               },2000)
@@ -46,7 +52,7 @@ console.log(state)
     }
 
     const ResetClient =async() => {
-      
+      setSingLoad(true)
       return await  fetch(API_BASE_URL + "addCandidatSignatures", {
             method: "POST",
             headers: {
@@ -136,13 +142,14 @@ Declar că am citit contractul și îl accept în întregime.Adresa dvs. IP va f
                            </div>
                          
                  </div>
-         <div className='col-12 cursor-pointer d-flex p-2 align-items-center justify-content-center  bg-ContractPage  semneaza' onClick={()=>{SignSave();SaveSignFun()}} >
+         <button className='col-12 cursor-pointer d-flex p-2 align-items-center justify-content-center  bg-ContractPage  semneaza' onClick={()=>{SignSave();SaveSignFun()}} disabled={SignLoad} >
        
-          📨 acepta si semneaza
-accept and sign
-         
-        
-         </div>
+         {SignLoad ? 
+          <div className="col-12 d-flex justify-content-center px-1">    <ProfileLoader  width ={150} height={100} fontSize={"12px"} fontWeight={"600"}  Title={null}/>   </div>
+:
+`📨 acepta si semneaza
+accept and sign`   }   
+         </button>
                 
                              
 
