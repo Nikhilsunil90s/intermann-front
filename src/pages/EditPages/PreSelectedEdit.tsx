@@ -310,7 +310,7 @@ if(checked == false){
       handleImageUpload()
     } else if (val === 'Download') {
       console.log("download")
-      window.open(API_BASE_URL+ "uploads/" + candidatImage);
+      window.open(candidatImage);
     }
   }
   const onFormDataChange = (
@@ -662,7 +662,7 @@ if(checked == false){
       if (resData.status) {
         setProfile(resData.data)
       
-        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
+        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.url : "")
       
       }
     })
@@ -744,9 +744,9 @@ const jobChange = async (jobval) => {
               <div className="col-12  p-1 bg-colorForEdit">
                 <div className="row">
                   <div className="col-2 text-center ">
-                  {candidatImage !== "" ?
+                  {candidatImage ?
                       <img
-                        src={API_BASE_URL + "uploads/" + candidatImage}
+                        src={candidatImage}
                      className="img-upload-Download"
                       /> :
                     <img

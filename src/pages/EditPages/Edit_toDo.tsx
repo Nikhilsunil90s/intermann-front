@@ -108,7 +108,7 @@ function EditDo() {
   const [experienceChanged, setExperienceChanged] = useState(false);
   const [candidatMotivation, setCandidatMotivation] = useState(profile.candidatMotivation);
   const [selectedLanguages, setSelectedLanguages] = useState(profile.candidatLanguages);
-  const [candidatImage, setCandidatImage] = useState("");
+  const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto ? profile.candidatPhoto.url : "")as any;
   const hiddenFileInput = React.useRef(null);
   const [displayRow, setDisplayRow] = useState(false);
   const [workExperience, setWorkExperience] = useState(profile.candidatExperienceDetails.length > 0 ? [...profile.candidatExperienceDetails] : []);
@@ -295,7 +295,7 @@ if(checked == false){
     if (val === 'upload') {
       handleImageUpload()
     } else if (val === 'Download') {
-        window.open(API_BASE_URL + "uploads/" + candidatImage);
+        window.open(candidatImage);
     }
   }
   const onFormDataChange = (
@@ -627,7 +627,7 @@ if(checked == false){
       },
     })
       .then(resp => resp.json())
-      .then(respData => respData)
+      .then((respData) => respData)
       .catch(err => err)
   }
 
@@ -640,11 +640,14 @@ if(checked == false){
   }, [activitySectors])
 
   useEffect(() => {
-    fetchCandidat(profile._id).then(resData => {
-      setCandidatImage("")
+    fetchCandidat(profile._id).then((resData) => {
       if (resData.status) {
-        setProfile(resData.data)
-        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
+        // resData.data.map((el)=>{
+        //   setProfile(el)
+        //   setCandidatImage(el.candidatPhoto.url)
+        //   window.open(el.candidatPhoto.url)
+        // })
+        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.url : "")
       }
     })
       .catch(err => {
@@ -728,10 +731,10 @@ const jobChange = async (jobval) => {
               <div className="col-12  p-1 bg-colorForEdit">
                 <div className="row">
                   <div className="col-2 text-center ">
-                  {candidatImage !== "" ?
+                  {candidatImage ?
                       <img
                         // src={require("../images/menlogos.svg").default}
-                        src={API_BASE_URL + "uploads/" + candidatImage}
+                        src={candidatImage}
                      className="img-uploadTodo-Download"
                       /> :
                     <img

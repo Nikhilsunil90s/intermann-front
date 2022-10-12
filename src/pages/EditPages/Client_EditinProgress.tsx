@@ -150,7 +150,7 @@ function ClientInProgressEdit() {
      fetchCandidat(profile._id).then(resData => {
         if (resData.status) {
           resData.data.map((el)=>{
-            setImgSource(el.clientPhoto.documentName)
+            setImgSource(el.clientPhoto.url)
 
           })
         }

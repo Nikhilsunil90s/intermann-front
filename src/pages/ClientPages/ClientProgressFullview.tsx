@@ -56,8 +56,8 @@ function ClientProgressView() {
   const [docUploaded, setDocUploaded] = useState(false);
   const [documentList, setDocumentList] = useState([]);
   const [ClientImage, setClientImage] = useState(
-    profile.clientPhoto && profile.clientPhoto?.documentName !== undefined
-      ? profile.clientPhoto?.documentName
+    profile.clientPhoto && profile.clientPhoto?.url !== undefined
+      ? profile.clientPhoto?.url
       : ""
   );
   const hiddenFileInput = React.useRef(null);
@@ -230,7 +230,7 @@ function ClientProgressView() {
     if (val === "upload") {
       handleImageUpload();
     } else if (val === "Download") {
-      window.open(API_BASE_URL + "uploads/" + ClientImage);
+      window.open(imgSource);
     }
   };
 
@@ -354,7 +354,7 @@ function ClientProgressView() {
       .then((resData) => {
         if (resData.status) {
           resData.data.map((el) => {
-            setImgSource(el.clientPhoto.documentName);
+            setImgSource(el.clientPhoto.url);
           });
         }
       })
@@ -913,7 +913,7 @@ function ClientProgressView() {
                   <div className="">
                     {imgSource !== "" ? (
                       <img
-                        src={API_BASE_URL + "uploads/" + imgSource}
+                        src={imgSource}
                         className="imgEmbauch-upload-Download"
                       />
                     ) : (

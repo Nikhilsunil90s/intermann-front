@@ -57,8 +57,8 @@ function Signed() {
   const [docUploaded, setDocUploaded] = useState(false);
   const [documentList, setDocumentList] = useState([]);
   const [ClientImage, setClientImage] = useState(
-    profile.clientPhoto && profile.clientPhoto?.documentName !== undefined
-      ? profile.clientPhoto?.documentName
+    profile.clientPhoto && profile.clientPhoto?.url !== undefined
+      ? profile.clientPhoto?.url
       : ""
   );
   const hiddenFileInput = React.useRef(null);
@@ -537,10 +537,10 @@ let Editdata ={state:profile,path:"/clientSigned"}
             setDocumentList([...clDoc,...Links]);
             // setLinkDoc([...Links])
 
-  
+            setClientImage(el.clientPhoto.url)
           });
 
-          // setClientImage(resData.data.clientPhoto !== undefined ? resData.data.clientPhoto?.map((el)=>{ return el.documentName }): "")
+      
           setDocUploaded(false);
         } else {
           setDocumentList([...documentList]);
@@ -950,7 +950,7 @@ const deleteCandidatLink = (Id : any) => {
                 <div className="col-2 pr-0 text-center">
                   {ClientImage !== "" ? (
                     <img
-                      src={API_BASE_URL + "uploads/" + ClientImage}
+                      src={ClientImage}
                       className="imgSigned-upload-Download"
                     />
                   ) : (

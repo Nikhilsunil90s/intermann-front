@@ -272,10 +272,16 @@ const ClientToDoCard = (props: any) => {
     <>
       <div className="card cardTODO pr-0 HoveRESTClassCard">
         <div className="d-flex cursor-pointer" onClick={viewFullProfile}>
-          <div className="col-3 px-0 d-flex justify-content-center">
+          <div className="col-3 px-0 d-flex justify-content-center align-items-center">
             <img
-              src={require("../../images/ClientCardPhoto.svg").default}
-              className="cardTODO-img"
+              src={props.data.clientPhoto ?  props.data.clientPhoto.url : require("../../images/ClientCardPhoto.svg").default}
+           className={props.data.clientPhoto ? "" :"cardTODO-img" }
+           style={props.data.clientPhoto ? {width:"75px",
+            height: "75px",
+            padding:" 0px",
+            border: "2px solid",
+            borderRadius: "100px"}: null}
+
               alt="..."
             />
           </div>

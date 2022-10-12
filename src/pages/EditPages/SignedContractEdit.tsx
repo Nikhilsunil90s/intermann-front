@@ -465,9 +465,14 @@ function ClientSignedEdit() {
         fetchClient(profile._id).then(resData => {
             console.log(resData)
             if (resData.status) {
+              resData.data.map((el)=>{
+                setProfile(el)
+                setImgSource(el.clientPhoto.url)
 
-                setImgSource(resData.data.clientPhoto.imageName)
+              }
+              )
             }
+          
         })
             .catch(err => {
                 console.log(err)
@@ -1386,19 +1391,20 @@ function ClientSignedEdit() {
                                 <div className="row">
                                     <div className="col-2  text-center">
                             
-                            {/* {
-                              clientImg ?
+                            {
+                              imgSource ?
                               <img
-                              src={API_BASE_URL + clientImg}
-                             className="imgEmbauch-upload-Download"
+                              src={imgSource}
+                             className="imgSigned-upload-Download"
           
                             />  
-                              : */}
+                              :
                               <img
                               src={require("../../images/fullClientSee.svg").default}
                              className="imgSigned-upload-Download"
-                            />      
-                            {/* }                  */}
+                            />   
+}   
+                        
 
 <button
  onClick={()=>{setSelectUpload(!UploadBtn);}}

@@ -73,10 +73,17 @@ function ClientContractCard(props: any) {
     <>
       <div className="card cardInPro p-0 HoveRESTClassCardS">
         <div className="d-flex cursor-pointer" onClick={SeeFullProfile}>
-          <div className="col-3 px-0 d-flex justify-content-center">
-            <img
-              src={require("../../images/ClientCardPhoto.svg").default}
-              className="card-img-top widthIMG"
+          <div className="col-3 px-0 d-flex justify-content-center align-items-center">
+          
+                 <img
+              src={props.data.clientPhoto ?  props.data.clientPhoto.url : require("../../images/ClientCardPhoto.svg").default}
+           className={props.data.clientPhoto ? "" :"card-img-top widthIMG" }
+           style={props.data.clientPhoto ? {width:"75px",
+            height: "75px",
+            padding:" 0px",
+            border:"2px solid #489767",
+            borderRadius: "100px"}: null}
+
               alt="..."
             />
           </div>

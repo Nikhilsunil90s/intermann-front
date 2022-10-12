@@ -33,6 +33,7 @@ interface State {
 let UploadName = "";
 let clDoc;
 let UploadTextBtn = "";
+let Links ;
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
 })
@@ -87,7 +88,7 @@ function ToDoProfile() {
   const [Reges, setReges] = useState() as any;
   const [Fiche_mise_à_disposition, setFiche_mise_à_disposition] =
     useState() as any;
-
+    const [DriveLink,setDriveLink]=useState("")
   const [tabItems, setTabitems] = useState([
     {
       text: "CONTRACT EMPLOYE INTERMANN",
@@ -196,6 +197,25 @@ const fetchProfilesClients = async () => {
     .then(res => res)
     .catch((err) => err);
 };
+const deleteCandidatLink = (Id : any) => {
+  let Data={
+    candidatId:profile._id,
+   linkId:Id,
+  }
+     let headers = {
+       "Accept": 'application/json',
+       'Content-Type': 'application/json',
+       "Authorization": "Bearer " + localStorage.getItem('token')
+     }
+    fetch(API_BASE_URL + "removeCandidatLink", {
+       method: "POST",
+       headers: headers,
+       body: JSON.stringify(Data),
+     })
+       .then(reD => reD.json())
+       .then(resD =>{toast.success(resD.message);setTimeout(()=>{ window.location.reload()},2000)})
+       .catch(err => toast.error("Link Not Removed! Please Try Again in few minutes."))
+   };
 
 
 const onTabClick = (e, index: any) => {
@@ -208,7 +228,8 @@ const onTabClick = (e, index: any) => {
   });
 
   clDoc = profile.candidatDocuments.filter((el) => el.folderName == UploadName);
-  setDocumentList([...clDoc]);
+  Links = profile.candidatLinks.filter((el) => el.folder == UploadName);
+    setDocumentList([...clDoc,...Links]);
 };
 
 useEffect(() => {
@@ -222,10 +243,10 @@ if(UploadName == "" ){
 
 }
 
-if(profile.candidatDocuments.length > 0 && documentList.length == 0){
+if(profile.candidatDocuments.length > 0 && documentList.length == 0 || profile.candidatLinks.length > 0  && documentList.length == 0  ){
   clDoc = profile.candidatDocuments.filter((el) => (el.folderName == UploadName));
-  console.log(documentList,"doc",clDoc)
-  setDocumentList([...clDoc]);
+  Links = profile.candidatLinks.filter((el) => el.folder == UploadName);
+    setDocumentList([...clDoc,...Links]);
  } 
 
 });
@@ -249,6 +270,8 @@ const deleteDocument = async (docId: any, docName: any) => {
     if (resData.status) {
       notifyDocumentDeleteSuccess()
       window.location.reload()
+      // let DocDeleted= documentList.filter(Doc=>  Doc.documentName !== resData.doc)
+      // console.log(documentList,DocDeleted,"doc")
       setDocumentList([...documentList.filter((docN) => (docN.documentName !== resData.doc))])
     } else {
       notifyDocumentDeleteError()
@@ -399,6 +422,8 @@ const fetchRecommendations = async (candidatSector: string) => {
       if (resData.status) {
         setProfile(resData.data)
         clDoc = profile.candidatDocuments.filter((el) => el.folderName == UploadName);
+        Links = profile.candidatLinks.filter((el) => el.folder == UploadName);
+        setDocumentList([...clDoc,...Links]);
         setDocumentList([...clDoc]);
         setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.url : "")
         setDocUploaded(false);
@@ -485,8 +510,66 @@ const fetchRecommendations = async (candidatSector: string) => {
     },
   };
  const  ViewDownloadFiles =( documentName:any)=>{
-  window.open(API_BASE_URL + "uploads/" +documentName)
+  window.open(documentName)
  }
+
+ let Data={
+  candidatId:profile._id,
+  link:DriveLink,
+  folder:UploadName
+}as any
+
+
+ const LinktoDrive = async (updatedData: any) => {
+  console.log(updatedData)
+  let headers = {
+    "Accept": 'application/json',
+    'Content-Type': 'application/json',
+    "Authorization": "Bearer " + localStorage.getItem('token')
+  }
+  return await fetch(API_BASE_URL + "addCandidatLink", {
+    method: "POST",
+    headers: headers,
+    body:JSON.stringify(updatedData),
+  })
+    .then(reD => reD.json())
+    .then(resD => resD)
+    .catch(err => err)
+}
+
+ const onDriveLinkChange=(e)=>{
+  if(e.target.name =="inputDrive"){
+    setDriveLink(e.target.value)
+    
+  }
+  
+  if(e.target.name =="DriveLinkSubmit"){
+    let Check = isValidUrl(DriveLink)
+    if(Check){
+      // setLinkDoc([...Links])
+      LinktoDrive(Data).then((resD)=>{toast.success(resD.message);setTimeout(()=>{window.location.reload()},2000)})
+    }else{
+      return toast.error("Please Enter Valid Url!")
+    }
+   
+    
+
+    console.log(isValidUrl(DriveLink));
+  }
+}
+    // const urlPattern = new RegExp(DriveLink);
+const isValidUrl = urlString=> {
+  var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
+  '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
+  '((\\d{1,3}\\.){3}\\d{1,3}))'+ // validate OR ip (v4) address
+  '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // validate port and path
+  '(\\?[;&a-z\\d%_.~+=-]*)?'+ // validate query string
+  '(\\#[-a-z\\d_]*)?$','i'); // validate fragment locator
+return !!urlPattern.test(urlString);
+}
+  
+
+console.log(documentList,"docment")
 
   return (
     <>
@@ -1155,6 +1238,7 @@ className="SelectBtn"
                     {
                       documentList.length > 0  ?
                         documentList.map((doc, index) =>
+                        doc.originalName ?
                           <div className="col-6 mx-0">
                             <div className="row CardClassDownload mt-1 mx-0">
                               <div className="col-4 d-flex align-items-center ">
@@ -1169,7 +1253,7 @@ className="SelectBtn"
                                     {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
                                   </button>
                                 } */}
-                                     <button className="btnDownload" onClick={()=>ViewDownloadFiles( doc.documentName)}>
+                                     <button className="btnDownload" onClick={()=>ViewDownloadFiles( doc.url)}>
                                     <img src={require("../images/dowBtn.svg").default} />
                                     {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
                                   </button>
@@ -1189,6 +1273,8 @@ className="SelectBtn"
                               </div>
                             </div>
                           </div>
+                          :
+                          null
                         ) :
                         progress > 0 && progress < 100 && documentList.length == 0?
                         <div className="col-6 mx-0">
@@ -1235,6 +1321,72 @@ className="SelectBtn"
                     </div>
    
                     }
+                      <>
+                    {
+                      documentList.map((Link, index) => (
+                        Link.link && Link._id?
+                       
+                          <div className="col-6 mx-0">
+                          <div className="row CardClassDownload mt-1 mx-0">
+                            <div
+                              className="col-4 d-flex align-items-center cursor-pointer"
+                              data-bs-toggle="tooltip"
+                              data-bs-placement="bottom"
+                              title={Link.link}
+                            >
+                              <p className="download-font mb-0">
+                                {Link.link.length > 30
+                                  ? Link.link.slice(0, 28) + "..."
+                                  : Link.link}
+                              </p>
+                            </div>
+                            <div className="col-6 text-center">
+                              {/* {progress > 0 && progress < 100  ?
+                                    <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
+                                    :
+                                    <button className="btnDownload">
+                                      <img src={require("../images/dowBtn.svg").default} />
+                                      {Link.originalName.length > 10 ? Link.originalName.slice(0, 11) + "..." : Link.originalName}
+                                    </button>
+                                  } */}
+                              <button
+                                name="btnDownloadLink"
+                                className="btnDownload"
+                                onClick={(e) =>
+                                  ViewDownloadFiles(Link.link)
+                                }
+                              >
+                                <img
+                                  src={require("../images/dowBtn.svg").default}
+                                />
+                                {Link.link.length > 10
+                                  ? Link.link.slice(0, 11) + "..."
+                                  : Link.link}
+                              </button>
+                            </div>
+                            <div className="col-2  d-flex align-item-end justify-content-end">
+                            
+                              <img
+                                src={
+                                  require("../images/Primaryfill.svg").default
+                                }
+                                style={{ width: "20px", cursor: "pointer" }}
+                                onClick={() =>
+                                  deleteCandidatLink(Link._id)
+                                }
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        
+                      
+                      :
+                      null
+                      )
+                      )
+                     }
+                    
+                    </>
     {progress > 0 && progress < 100 && documentList.length > 0 ?
                         <div className="col-6 mx-0">
                         <div className="row CardClassDownload p-0 mt-1 mx-0">
@@ -1299,6 +1451,27 @@ className="SelectBtn"
               </div>
 
              </div>
+             <div
+              className="col-12 Social-CardClient mb-1 mt-1"
+              style={{ padding: "13px 26px" }}
+            >
+              <div className="row">
+             <div className="col-3 px-0" style={{fontFamily: 'Poppins',
+fontStyle: "normal",
+fontWeight: "500",
+fontSize: "14px",
+lineHeight: "21px",
+color: "#000000",
+display:"flex",
+alignItems:"center"}}><p className="mb-0">ORADD AN EXTERNAL LINK 
+(GOOGLE DRIVE) :</p></div>
+             <div className="col-5 px-0"><input name="inputDrive" placeholder="WWW.XXXXXX.COM" onChange={onDriveLinkChange} style={{background:"#D3D6DB",borderRadius:"20px",width:"100%",height:"100%",border:"0px",paddingLeft:"10px",paddingRight:"10px",fontFamily: 'Poppins',
+fontStyle: "normal",
+fontWeight: "500",
+fontSize: "14px",}} /></div>
+             <div className="col-4"><button name="DriveLinkSubmit" onClick={(e)=>{onDriveLinkChange(e)}} className="LinkAsDocument">add this link as document</button></div>
+             </div>
+              </div>
                          <div className="col-12 Social-Card mt-1">
                          <div className="row alertMessage align-items-center py-1">
                 <Tabs

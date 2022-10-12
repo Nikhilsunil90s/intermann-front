@@ -64,12 +64,18 @@ let end = new Date(props.data.jobEndDate);
   return(<>
        <div className="card cardInPro p-0 HoveRESTClassCardA">
                 <div className="d-flex cursor-pointer" onClick={viewFullProfile}>
-                    <div className="col-3 px-0 d-flex justify-content-center">
-                        <img
-                            src={require("../../images/ClientCardPhoto.svg").default}
-                            className="card-img-top widthIMG"
-                            alt="..."
-                        />
+                    <div className="col-3 px-0 d-flex justify-content-center align-items-center">
+                    <img
+              src={props.data.clientPhoto ?  props.data.clientPhoto.url ?  props.data.clientPhoto.url : require("../../images/ClientCardPhoto.svg").default :  require("../../images/ClientCardPhoto.svg").default}
+           className={props.data.clientPhoto ? props.data.clientPhoto.url ? "" :"card-img-top widthIMG"  :"card-img-top widthIMG" }
+           style={props.data.clientPhoto ? props.data.clientPhoto.url ? {width:"75px",
+            height: "75px",
+            padding:" 0px",
+            border:"2px solid #ff0000",
+            borderRadius: "100px"}:null: null}
+
+              alt="..."
+            />
                     </div>
                     <div className="col-5 px-0 mt-1">
                     <p className="textClientCard" style={{width:"150%"}} data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.clientCompanyName.toLocaleUpperCase()}><b>{props.data.clientCompanyName ? props.data.clientCompanyName.length > 20 ? props.data.clientCompanyName.toLocaleUpperCase().slice(0,29)+ "..." : props.data.clientCompanyName.toLocaleUpperCase(): "✘ No CompanyName!"}</b></p>

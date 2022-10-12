@@ -45,8 +45,8 @@ function ArchivedViewPage() {
   const [docUploaded, setDocUploaded] = useState(false);
   const [documentList, setDocumentList] = useState([]);
   const [ClientImage, setClientImage] = useState(
-    profile.clientPhoto && profile.clientPhoto?.documentName !== undefined
-      ? profile.clientPhoto?.documentName
+    profile.clientPhoto && profile.clientPhoto?.url !== undefined
+      ? profile.clientPhoto?.url
       : ""
   );
   const hiddenFileInput = React.useRef(null);
@@ -244,7 +244,7 @@ function ArchivedViewPage() {
       handleImageUpload();
     }
     if (val === "Download") {
-      window.open(API_BASE_URL + "uploads/" + ClientImage);
+      window.open(ClientImage);
     }
   };
 
@@ -523,6 +523,7 @@ function ArchivedViewPage() {
         if (resData.status == true) {
           resData.data.map((el) => {
             setProfile(el);
+          setClientImage(el.clientPhoto.url)
             setClientContract(el.clientContract);
             clDoc = el.clientDocuments.filter(
               (el) => el.folderName == UploadName
@@ -531,7 +532,6 @@ function ArchivedViewPage() {
     setDocumentList([...clDoc,...Links]);
           });
 
-          // setClientImage(resData.data.clientPhoto !== undefined ? resData.data.clientPhoto?.map((el)=>{ return el.documentName }): "")
           setDocUploaded(false);
         } else {
           setDocumentList([...documentList]);
@@ -738,7 +738,7 @@ function ArchivedViewPage() {
                   <div className="">
                     {ClientImage !== "" ? (
                       <img
-                        src={API_BASE_URL + "uploads/" + ClientImage}
+                        src={ClientImage}
                         className="imgArchived-upload-download"
                       />
                     ) : (

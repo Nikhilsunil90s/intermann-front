@@ -57,8 +57,8 @@ function ClientSee() {
   const [docUploaded, setDocUploaded] = useState(false);
   const [documentList, setDocumentList] = useState([]);
   const [ClientImage, setClientImage] = useState(
-    profile.clientPhoto && profile.clientPhoto?.documentName !== undefined
-      ? profile.clientPhoto?.documentName
+    profile.clientPhoto && profile.clientPhoto?.url !== undefined
+      ? profile.clientPhoto?.url
       : ""
   );
   const hiddenFileInput = React.useRef(null);
@@ -520,6 +520,7 @@ function ClientSee() {
           // setProfile(resData.data)
           resData.data.map((el) => {
             setProfile(el);
+            setClientImage(el.clientPhoto.url)
             // setProfile({...profile,['clientContract']:el.clientContract})
             setClientContract(el.clientContract);
             clDoc = el.clientDocuments.filter(
@@ -986,7 +987,7 @@ function ClientSee() {
                   <div className="">
                     {ClientImage !== "" ? (
                       <img
-                        src={API_BASE_URL + "uploads/" + ClientImage}
+                        src={ClientImage}
                         className="img-uploadTodo-Download"
                       />
                     ) : (

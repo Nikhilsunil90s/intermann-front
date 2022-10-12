@@ -472,8 +472,11 @@ const onSubmitRates=(e)=>{
     useEffect(() => {
         fetchClient(profile._id).then(resData => {
             if (resData.status) {
+                resData.data.map((el)=>{
+                  setProfile(el)
+                  setImgSource(el.clientPhoto.url)
 
-                setImgSource(resData.data.clientPhoto.imageName)
+                })
             }
         })
             .catch(err => {
@@ -793,7 +796,7 @@ const onSubmitRates=(e)=>{
         handleImageUpload()
       } else if (val === 'Download') {
         console.log("download")
-        // window.open(API_BASE_URL + candidatImage);
+        window.open(imgSource);
       }
     }
     const handleImageUpload = () => {
@@ -908,20 +911,20 @@ const onSubmitRates=(e)=>{
                                 <div className="row">
                                     <div className="col-2  text-center">
                               
-                              {/* {
-                                clientImg ?
+                              {
+                                imgSource ?
                                 <img
-                                src={API_BASE_URL + clientImg}
+                                src={imgSource}
                                className="imgArchived-upload-download"
             
                               />  
-                                : */}
+                                :
                                 <img
                                 src={require("../../images/fullClientSee.svg").default}
                                className="imgArchived-upload-download"
             
                               />   
-                              {/* } */}
+                             } 
                       
 
 <button

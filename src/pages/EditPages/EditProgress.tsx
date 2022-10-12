@@ -360,7 +360,7 @@ function EditProgress() {
       handleImageUpload()
     } else if (val === 'Download') {
       console.log("download")
-      window.open(API_BASE_URL + "uploads/" +candidatImage);
+      window.open(candidatImage);
     }
   }
   const changeJobSelection = (value: string) => {
@@ -702,7 +702,7 @@ if(checked == false){
       if (resData.status) {
         setProfile(resData.data)
       
-        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
+        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.url : "")
       
       }
     })
@@ -783,7 +783,7 @@ const jobChange = async (jobval) => {
                   {candidatImage !== "" ?
                       <img
                         // src={require("../images/menlogos.svg").default}
-                        src={API_BASE_URL + "uploads/" + candidatImage}
+                        src={candidatImage}
                      className="imgEmbauch-upload-Download"
                       /> :
                     <img

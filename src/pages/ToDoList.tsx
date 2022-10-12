@@ -34,6 +34,7 @@ let emailArr=[]
 let contactArr=[]
 let OthersFilterArr = []
 let LanguageFilter=[]
+let SecJobHaveArr=[]
 function ToDoList() {
 
 
@@ -65,6 +66,10 @@ const notifyMoveError = () => toast.error("Not Moved..");
   const [LanguageOp,setLangOp]=useState([])
   const [filterLoader ,setFetchingLoader  ]=useState(true)
   const [cardTotallength,setTotalLength]=useState(0)
+  const [SectorJob,setSectorJob]=useState([])
+  const [sectorName,setSectorNme]=useState("")
+  const [JobName,setJobName]=useState("")
+  const [HaveName,setHaveName]=useState("")
 
   const loadMoreHandle = (i) => {
     let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 30;
@@ -82,6 +87,21 @@ const notifyMoveError = () => toast.error("Not Moved..");
     }
 }
 
+
+
+const fetchAllProfiles = async () => {
+  return await fetch(API_BASE_URL + "getProfiles", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  })
+    .then((resD) => resD.json())
+    .then((reD) => reD)
+    .catch((err) => err);
+};
 
 
 
@@ -157,6 +177,17 @@ const LoaderFun=()=>{
 
 
   useEffect(() => {
+    if(SectorJob.length == 0){
+      fetchAllProfiles().then((res)=>{
+      if(res.status){
+        setSectorJob([... res.data.filter((resFl)=> resFl.candidatName)])
+        console.log(SectorJob,"cjeck")
+
+      }
+  
+      })
+      .catch(err=>err)
+    }
     if (sectors.length == 0) {
       fetchAllSectors()
         .then((data) => {
@@ -317,8 +348,16 @@ setTimeout(()=>{
   }})
       .catch((err) => err);
   };
+ 
 
+  if(JobName !== ""  && sectorName !== "" && HaveName !== ""){
+   SecJobHaveArr =SectorJob.filter((el)=> JSON.stringify(el).includes(JSON.stringify(sectorName && JobName && HaveName))
+
+   )
+   }
+   console.log(SecJobHaveArr,"sectr")
   useEffect(() => {
+  
     if(dateLoader == false){
       setTimeout(()=>{
       setdateLoader(true)
@@ -409,6 +448,7 @@ setTimeout(()=>{
         })
         }
   } )
+  console.log(SecJobHaveArr,"checking")
 
 
   const handleNameChange = (e: any) => {
@@ -449,10 +489,11 @@ setTimeout(()=>{
     }
     if(e.value !=="" && e.value !=="Select Licence"){
     LicencePermisArr.push(e.value)
+    setHaveName(e.value)
     filterFunction()
     }
   }
- 
+ console.log(sectorName,JobName,HaveName,"have")
   const handleMotivationChange = (e: any) => {
     // console.log(e.target.value)
     MotivationArr = []
@@ -477,6 +518,7 @@ setTimeout(()=>{
   };
 
   const handleSectorChange = (e: any) => {
+    
     // console.log(e.target.value)
     SelectedName = []
     LanguageFilter=[]
@@ -495,6 +537,7 @@ setTimeout(()=>{
 
     } else if (e.value !== '' && e.value !== "Select Sector") {
       let sectorField = e.value;
+     setSectorNme(e.value)
       setSelectedSector(sectorField);
       setJobOptions([]);
     }
@@ -508,6 +551,8 @@ setTimeout(()=>{
         // console.log(err);
       });
   };
+
+
 
   const handleEmailChange=(e:any)=>{
     SelectedName = []
@@ -552,7 +597,7 @@ setTimeout(()=>{
 
   useEffect(() => {
     setSelectedJob(FilterJob)
-
+    
   }, [selectedJob])
 
 
@@ -829,9 +874,11 @@ setTimeout(()=>{
   };
 
   const jobChange = async (jobval) => {
-    // console.log(jobval)
+   
+
     jobval.map((el)=>{
       FilterJob.push(el.value)
+      setJobName(el.value)
     })
     filterFunction()
   }

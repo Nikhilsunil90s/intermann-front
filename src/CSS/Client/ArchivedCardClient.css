@@ -151,14 +151,14 @@ padding: 15px 50px;
       transform: rotate(360deg);
     }
   }
-  @media (min-width:400px){
+  @media (min-device-width:320px) and (max-device-width:768px){
     .semneaza{
       position: fixed;
       bottom: 0;
       font-family: Poppins;
       font-style: normal;
       font-weight: 700;
-      font-size: 16px;
+      font-size: 12px;
       line-height: 30px;
       text-align: center;
       text-transform: uppercase;
@@ -223,7 +223,7 @@ padding: 15px 50px;
       border: none;
       font-family: Poppins;
       font-weight: 700;
-      padding: 11px;
+      padding: 9px;
       border-radius: 10px;
       font-size: 17px;
       line-height: 18px;
@@ -231,7 +231,7 @@ padding: 15px 50px;
   }
      
   }
-  @media (min-width:600px){
+  /* @media (min-width:600px){
     .semneaza{
       font-family: Poppins;
       font-style: normal;
@@ -266,7 +266,7 @@ padding: 15px 50px;
     display: flex;
     align-items: center;
   }
-  }
+  } */
 
   @media (min-width:768px){
     .topTitle{

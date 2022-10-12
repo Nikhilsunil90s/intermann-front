@@ -1018,19 +1018,25 @@ right: 11px !important;
   padding: 8px 2px !important
 
 }
-@media (max-width: 568px) { 
+
+@media (min-device-width:320px) and (max-device-width:768px)  { 
   .LogoIntermann{
     width: 58%;
   }
   .footerDocSign .btn{
     font-family: 'Poppins';
     font-style: normal;
-    font-weight: 900;
-    font-size: 14px;
+    font-weight: 700;
+    font-size: 12px;
     line-height: 70px;
     text-align: center;
     text-transform: uppercase;
     color: #FFFFFF;
+  }
+  
+  .canvaspdf{width: 38%;
+    position: relative;
+    right: -25%;
   }
  }
 @media (min-width:768px){

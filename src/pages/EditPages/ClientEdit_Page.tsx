@@ -379,7 +379,7 @@ const onInputChange=(val)=>{
         fetchClient(profile._id).then(resData => {
             if (resData.status) {
               resData.data.map((el)=>{
-                setImgSource(el.clientPhoto.documentName)
+                setImgSource(el.clientPhoto.url)
 
               })
             }
@@ -719,7 +719,7 @@ setJobOptions([])
       if (val === 'upload') {
         handleImageUpload()
       } else if (val === 'Download') {
-        window.open(API_BASE_URL + "uploads/" + imgSource);
+        window.open(imgSource);
       }
     }
     const handleImageUpload = () => {
@@ -826,7 +826,7 @@ setJobOptions([])
                                {
                                 imgSource ?
                                 <img
-                                src={API_BASE_URL + "uploads/" + imgSource}
+                                src={imgSource}
                                className="img-uploadTodo-Download"
             
                               />  

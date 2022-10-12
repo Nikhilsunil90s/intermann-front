@@ -227,7 +227,7 @@ function EditArchive() {
       handleImageUpload()
     } else if (val === 'Download') {
       console.log("download")
-      window.open(API_BASE_URL + "uploads/" + candidatImage);
+      window.open( candidatImage);
     }
   }
   const addWorkExperience = (e: any) => {
@@ -595,7 +595,7 @@ if(checked == false){
       if (resData.status) {
         setProfile(resData.data)
       
-        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.documentName : "")
+        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.url : "")
       
       }
     })
@@ -727,7 +727,7 @@ const jobChange = async (jobval) => {
                    
                    <img
                      // src={require("../images/menlogos.svg").default}
-                     src={API_BASE_URL+ "uploads/" + candidatImage}
+                     src={candidatImage}
                   className="imgArchived-upload-download"
                    /> :
                  <img
