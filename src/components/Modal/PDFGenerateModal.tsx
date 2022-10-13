@@ -5,6 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Loader from "../../components/Loader/loader";
 import { useNavigate ,useLocation} from 'react-router';
 import DOCUSIGNModalCandidate from '../Modal/DOCUSIGNModalCandidate'
+import ProfileLoader from '../Loader/ProfilesLoader' 
 
 interface State {
   profileData: any,
@@ -54,6 +55,7 @@ function PdfModal({props,closeModal,LinkModal,path} ){
   const [GetMonth,setMonth]=useState()as any
   const [GetMonth2,setMonth2]=useState()as any
   const [GetMonth3,setMonth3]=useState()as any
+  const [Btndisabled,setBtndisabled]=useState(false)
   // const [DocumentSignModal,setDocuSignModal]=useState(false)
 
   useEffect(() => {
@@ -156,6 +158,7 @@ function PdfModal({props,closeModal,LinkModal,path} ){
     }
 
     const addContractToCRM = (e) => {
+      setBtndisabled(true)
       addContract().then(result => {
         if(result.status==true){
             toast.success("Contract Added To CRM Successfully!")
@@ -164,6 +167,7 @@ function PdfModal({props,closeModal,LinkModal,path} ){
                 window.location.reload();
               }
               if(e.target.name=="DOCU"){
+                setBtndisabled(false)
                 if(path ==="/embauchprofile"){
                   closeModal(false)
                  LinkModal(true)  
@@ -386,8 +390,8 @@ function PdfModal({props,closeModal,LinkModal,path} ){
                                            </button>
                                            </div>
                                            <div className='col-3 pl-0'>
-                                           <button className='documentSign' name="DOCU" onClick={(e)=>{addContractToCRM(e)}} type='button'>
-                                           📨 ENVOYER DOCU SIGN 
+                                           <button className='documentSign d-flex align-items-center justify-content-center' name="DOCU" onClick={(e)=>{addContractToCRM(e)}} type='button' disabled={Btndisabled} >
+                                       {Btndisabled ?  <>Please Wait...</> :  "📨 ENVOYER DOCU SIGN" }
                                            </button>
                                            </div>
                                 </div>

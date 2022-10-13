@@ -83,7 +83,7 @@ console.log(API_BASE_URL + pdfUrl,"url")
           },
         })
           .then((resp) => resp.json())
-          .then((respData) => {setUrl(respData.filePath.replace("/app/",""));ContractData.public_id=respData.public_id})
+          .then((respData) => {setUrl(respData.filePath.replace("/app/",""));setUrl(respData.filePath.replace("http","https"));ContractData.public_id=respData.public_id})
           .catch((err) => err);
       };
 
