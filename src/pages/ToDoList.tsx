@@ -35,6 +35,8 @@ let contactArr=[]
 let OthersFilterArr = []
 let LanguageFilter=[]
 let SecJobHaveArr=[]
+let SectorFilterArr=[]
+let JobFilterArr=[]
 function ToDoList() {
 
 
@@ -180,8 +182,7 @@ const LoaderFun=()=>{
     if(SectorJob.length == 0){
       fetchAllProfiles().then((res)=>{
       if(res.status){
-        setSectorJob([... res.data.filter((resFl)=> resFl.candidatName)])
-        console.log(SectorJob,"cjeck")
+        setSectorJob([... res.data.filter((resFl)=> resFl.candidatStatus === "To-Do")])
 
       }
   
@@ -204,6 +205,7 @@ const LoaderFun=()=>{
     setJobOptions([...jobResults]);
     // console.log(jobs);
   }, [jobs]);
+
 
   useEffect(() => {
     let sectorops = sectors.map((asector) => {
@@ -350,13 +352,15 @@ setTimeout(()=>{
   };
  
 
-  if(JobName !== ""  && sectorName !== "" && HaveName !== ""){
-   SecJobHaveArr =SectorJob.filter((el)=> JSON.stringify(el).includes(JSON.stringify(sectorName && JobName && HaveName))
+  // if(JobName !== ""  && sectorName !== "" && HaveName !== ""){
+  //  SecJobHaveArr =SectorJob.filter((el)=> JSON.stringify(el).includes(JSON.stringify(sectorName && JobName && HaveName))
 
-   )
-   }
-   console.log(SecJobHaveArr,"sectr")
+  //  )
+  //  }
+
+
   useEffect(() => {
+
   
     if(dateLoader == false){
       setTimeout(()=>{
@@ -448,7 +452,6 @@ setTimeout(()=>{
         })
         }
   } )
-  console.log(SecJobHaveArr,"checking")
 
 
   const handleNameChange = (e: any) => {
@@ -518,7 +521,7 @@ setTimeout(()=>{
   };
 
   const handleSectorChange = (e: any) => {
-    
+    setSectorNme(e.value)
     // console.log(e.target.value)
     SelectedName = []
     LanguageFilter=[]
@@ -537,7 +540,7 @@ setTimeout(()=>{
 
     } else if (e.value !== '' && e.value !== "Select Sector") {
       let sectorField = e.value;
-     setSectorNme(e.value)
+    
       setSelectedSector(sectorField);
       setJobOptions([]);
     }
@@ -621,7 +624,6 @@ setTimeout(()=>{
 
   const filterFunction = async () => {
     setLoader(false);
-
     if (SelectedName.length > 0 || MotivationArr.length > 0 || LicencePermisArr.length > 0 || DateArr.length>0 || emailArr.length > 0 || contactArr.length > 0) {
       if (SelectedName.length > 0 && MotivationArr.length == 0 && LicencePermisArr.length == 0 && DateArr.length==0 && emailArr.length ==0 && contactArr.length ==0) {
         LicencePermisArr = []
@@ -791,6 +793,7 @@ setTimeout(()=>{
       setFetchingLoader(false)
       setLoaderTime(true)
 
+   
       await fetch(
         `${API_BASE_URL}filterToDoSJ/?sector=${selectedSector}&jobs=${FilterJob}`,
         {
@@ -874,12 +877,10 @@ setTimeout(()=>{
   };
 
   const jobChange = async (jobval) => {
-   
+      FilterJob.push(jobval.value)
+      setJobName(jobval.value)
 
-    jobval.map((el)=>{
-      FilterJob.push(el.value)
-      setJobName(el.value)
-    })
+
     filterFunction()
   }
   const onDateChange=(e:any)=>{

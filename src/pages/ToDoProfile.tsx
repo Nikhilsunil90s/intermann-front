@@ -1205,17 +1205,16 @@ className="SelectBtn"
                 <div className="col-8 DocShareLinkBackground p-1 pl-0">
                   <Link
                     className="LinkStyling"
-                    to=""
-                    // to={`/documentbox/${profile.candidatName}/${profile._id}`}
-                    // target="_blank"
+                    to={`/candidateDocumentbox/${profile.candidatName}/${profile._id}`}
+                    target="_blank"
                   >
-                    Work-in-Progress!
-                    {/* {API_BASE_URL +
-                      `documentbox/${profile.candidatName.replaceAll(
+                   
+                    {API_BASE_URL +
+                      `candidateDocumentbox/${profile.candidatName.replaceAll(
                         " ",
                         "%20"
                       )}/` +
-                      profile._id} */}
+                      profile._id}
                   </Link>
                 </div>
                 <div className="col-12 my-2 px-0">
@@ -1242,7 +1241,7 @@ className="SelectBtn"
                           <div className="col-6 mx-0">
                             <div className="row CardClassDownload mt-1 mx-0">
                               <div className="col-4 d-flex align-items-center ">
-                                <p className="download-font mb-0">{doc.originalName}</p>
+                                <p className="download-font mb-0"> {doc.originalName.length > 20 ? doc.originalName.slice(0,20) + "..." : doc.originalName}</p>
                               </div>
                               <div className="col-6 text-center">
                                 {/* {progress > 0 && progress < 100  ?

@@ -5,7 +5,7 @@ import HeaderSelect from "../../src/components/Modal/HeaderSelectModal"
 import { API_BASE_URL } from "../config/serverApiConfig";
 import SearchModal from "./Modal/GlobalSearchModal";
 import ErrorBar from '../../src/components/Loader/SearchBarError'
-
+import Profiles from "../components/Loader/SearchEmp"
 
 let FilDataCName
 let FilDataCNName
@@ -15,9 +15,10 @@ const Header = () => {
   const [SearchOpen,setSearchOpen]=useState(false)
  const [filterData,setFilterData]=useState([])as any
  const [data,setData]=useState([])
+ const [dataLength,setDataLength]=useState(0)
   const [inputStatus,setInputStatus]=useState(false)
   const [spinner,setSpinner]=useState(false)
-
+  const [Loadspinner,setLoadSpinner]=useState(false)
   const Modal=()=>{
 
    if(ModalOpen == true){
@@ -59,17 +60,21 @@ const Header = () => {
 
   useEffect(() => {
  
-   if(data.length == 0){
-    fetchProfiles().then(filteredresponse => {
-      setData([...filteredresponse.data])
-    })
-      .catch(err => {
-        console.log(err);
-      })
-   }
-  },[data])
- 
+    if(dataLength == 1){
+      if(data.length == 0){
+        fetchProfiles().then(filteredresponse => {
+          setLoadSpinner(true)
+          setData([...filteredresponse.data])
+          // setDataLength(filteredresponse.data.length)
+        })
+          .catch(err => {
+            console.log(err);
+          })
+       }
+    }
 
+  },[data,dataLength])
+ 
 
   const fetchProfiles = async () => {
     return await fetch(API_BASE_URL + "getProfiles", {
@@ -227,7 +232,7 @@ console.log(filterData,"fldata")
                     </div>
                     
 
-                      <div className="d-flex mx-2" style={{background: "#F5F6F8",
+                      <div className="d-flex mx-2"   style={{background: "#F5F6F8",
     border: "1px solid #ADADAD",
     borderRadius: "26px",
     width: "82%"}}>
@@ -237,9 +242,17 @@ console.log(filterData,"fldata")
                        
                        {
                         inputStatus ?
+                        <>
+                        {
+                         Loadspinner ? 
                         <input style={{border:"0px",background: "#F5F6F8"}} defaultValue={value}  onChange={NameSearch} className="searcInputbOx pl-1" placeholder="Search, Name, Phone, Work, Jobs..." />
+                         :
+                        <div className="col-12 d-flex justify-content-center "><div className="loadingSearchBar" data-loading-text="PleaseWait.."></div>    <Profiles width={"50px"} height={"50px"} /></div>
+                        }
+                        
+                        </>
                             :
-                       <input style={{border:"0px",background: "#F5F6F8"}} value=""   onChange={NameSearch} className="searcInputbOx pl-1" placeholder="Search, Name, Phone, Work, Jobs..." />
+                       <input style={{border:"0px",background: "#F5F6F8"}} value=""  onClick={()=> { setDataLength(1); setInputStatus(true) }}  className="searcInputbOx pl-1" placeholder="Search, Name, Phone, Work, Jobs..." />
                        }
                      {
                          value ?
@@ -262,11 +275,10 @@ console.log(filterData,"fldata")
  {
       SearchOpen ? 
        <div className={filterData.length > 0? "inputData p-1" : "NoinputData p-1" }>
-   
-        {
+        { 
         filterData.length > 0 ?
         filterData.map((el)=>(
-        <SearchModal  props={el} closeModal={setSearchOpen}  value={setInputStatus}/>
+        <SearchModal  props={el} closeModal={setSearchOpen}  value={setInputStatus} Text={setValue} ReloadSearch={setDataLength} InputState={setLoadSpinner} Data={setData}/>
               ))
 
               :
@@ -274,6 +286,7 @@ console.log(filterData,"fldata")
                 <ErrorBar  />
             <p className="ErrorSearchBox mb-0">No Card ! Please Enter Valid Name.</p>
                 </div>
+                
  }
            
 </div>

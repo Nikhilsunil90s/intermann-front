@@ -1205,19 +1205,18 @@ null
                   </p><div className="d-flex justify-content-center align-items-center " style={{paddingLeft:"5px"}}> <Share width={25} /><b className="pl-1"> :</b></div></div>  
                 </div>
                 <div className="col-8 DocShareLinkBackground p-1 pl-0">
-                  <Link
+                <Link
                     className="LinkStyling"
-                    to=""
-                    // to={`/documentbox/${profile.candidatName}/${profile._id}`}
-                    // target="_blank"
+                    to={`/candidateDocumentbox/${profile.candidatName}/${profile._id}`}
+                    target="_blank"
                   >
-                    Work-in-Progress!
-                    {/* {API_BASE_URL +
-                      `documentbox/${profile.candidatName.replaceAll(
+                   
+                    {API_BASE_URL +
+                      `candidateDocumentbox/${profile.candidatName.replaceAll(
                         " ",
                         "%20"
                       )}/` +
-                      profile._id} */}
+                      profile._id}
                   </Link>
                 </div>
                 <div className="col-12 my-2 px-0">

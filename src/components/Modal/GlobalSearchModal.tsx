@@ -4,7 +4,7 @@ import { API_BASE_URL } from "../../config/serverApiConfig";
 import { useNavigate } from "react-router-dom";
 import { call } from "redux-saga/effects";
 
-export default function SearchModal({props,closeModal,value}){
+export default function SearchModal({props,closeModal,value,ReloadSearch,Text,InputState,Data}){
 
 
     const navigate = useNavigate()
@@ -48,62 +48,121 @@ export default function SearchModal({props,closeModal,value}){
 
     const ListPage=(data)=>{
         if(data.candidatName){
+         value(false)
+          InputState(false)
+          ReloadSearch(0)
+          Data([])
+         
          if(data.candidatStatus =="To-Do"){
           localStorage.setItem('profile', JSON.stringify(data));
           window.open("/todoprofile")
+          
+            Text("")
           setTimeout(()=>{
             closeModal(false)
+          
           },1500)
          }
          if(data.candidatStatus =="In-Progress"){
           localStorage.setItem('embauch', JSON.stringify(data));
+          
           window.open("/embauchprofile")
-            setTimeout(()=>{
+          
+       
+          
+            Text("")
+          setTimeout(()=>{
             closeModal(false)
+          
+
           },500)
         }
         if(data.candidatStatus =="Archived"){
         localStorage.setItem("archive", JSON.stringify(data))
-          window.open("/archivedprofile")
-            setTimeout(()=>{
+          
+        window.open("/archivedprofile")
+          
+     
+          
+            Text("")
+        setTimeout(()=>{
             closeModal(false)
+          
+
           },500)
         }
         if(data.candidatStatus == "Pre-Selected"){
         localStorage.setItem("profile", JSON.stringify(data));
-          window.open("/preSelectedView")
-            setTimeout(()=>{
+          
+        window.open("/preSelectedView")
+          
+     
+          
+            Text("")
+        setTimeout(()=>{
             closeModal(false)
+          
+
           },500)
         }
         }
       else if(data.clientCompanyName){
+         value(false)
+          InputState(false)
+        ReloadSearch(0)
+         Data([])
         if(data.jobStatus =="To-Do"){
+        
+       
+        
+          Text("")
           localStorage.setItem('profile', JSON.stringify(data));
           window.open("/clientToDoProfile")
+     
           setTimeout(()=>{
           closeModal(false)
+        
+
         },500)
          }
          if(data.jobStatus =="In-Progress"){
+        
+       
+        
+          Text("")
         localStorage.setItem('embauch', JSON.stringify(data));
           window.open("/clientInProgressProfile")
           setTimeout(()=>{
           closeModal(false)
+        
+
         },500)
         }
         if(data.jobStatus =="Archived"){
+        
+       
+        
+          Text("")
     localStorage.setItem('archive', JSON.stringify(data));
           window.open("/archivedClientSeeprofile")
+       
           setTimeout(()=>{
           closeModal(false)
+        
+
         },500)
         }
         if(data.jobStatus == "Signed Contract"){
+        
+       
+        
+          Text("")
     localStorage.setItem('archive', JSON.stringify(data));
           window.open("/clientSigned")
           setTimeout(()=>{
           closeModal(false)
+        
+
         },500)
         }
     

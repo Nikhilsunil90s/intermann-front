@@ -41,6 +41,7 @@ import Error404 from "./pages/ErrorPages/Error404";
 import Error500 from "./pages/ErrorPages/Error500";
 import clientSignedGlobalCard from './pages/GlobalCards/ClientPages/ClientContractGlobalCard'
 import ClientContractPage from './components/ClientContractPage'
+import GlobalDocumentPage from './components/GlobalDocumentCandidatePage'
 import DocumentChecker from './components/Document-checker'
 import DocumentSign from "./components/DocumentSignCandidatePage";
 import DocSignCandidate from "./components/Modal/DocSignCandidate";
@@ -376,6 +377,14 @@ function App() {
             element={
             
                 <DocumentChecker />
+            
+            }
+          />
+              <Route
+            path={"/candidateDocumentbox/:candidateCompanyName/:id"}
+            element={
+            
+                <GlobalDocumentPage />
             
             }
           />
