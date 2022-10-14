@@ -244,7 +244,7 @@ function ArchivedViewPage() {
       handleImageUpload();
     }
     if (val === "Download") {
-      window.open(ClientImage);
+      window.open(ClientImage.replace("http","https"));
     }
   };
 
@@ -546,10 +546,10 @@ function ArchivedViewPage() {
 
   const ViewDownloadFiles = (e,documentName: any) => {
     if(e.target.name ==="btnDownloadLink"){
-      window.open(documentName);
+      window.open(documentName.replace("http","https"));
         
       }else{
-        window.open(documentName);
+        window.open(documentName.replace("http","https"));
       }
   };
 

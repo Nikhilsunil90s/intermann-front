@@ -131,7 +131,7 @@ if( Number.isInteger(Number(e.target.value))){
  if(e.target.value){
    FilDataCName =   data.filter((el)=>{
     if(el.clientCompanyName){
-    return el.clientCompanyName.toString().toLowerCase().replaceAll(" ","") == e.target.value.toString().toLowerCase().replaceAll(" ","")
+    return el.clientCompanyName.toString().toUpperCase().replaceAll(" ","").replaceAll("-","") == e.target.value.toString().toUpperCase().replaceAll(" ","").replaceAll("-","")
   }
 }
   )
@@ -142,7 +142,7 @@ if( Number.isInteger(Number(e.target.value))){
 if(e.target.value){
   FilDataCNName =   data.filter((el)=>{
    if(el.candidatName){
-   return el.candidatName.toString().toLowerCase().replaceAll(" ","") == e.target.value.toString().toLowerCase().replaceAll(" ","")
+   return el.candidatName.toString().toUpperCase().replaceAll(" ","").replaceAll("-","") == e.target.value.toString().toUpperCase().replaceAll(" ","").replaceAll("-","")
  }
 }
  )
@@ -153,20 +153,21 @@ if(e.target.value){
 if(e.target.value){
   const FilData =   data.filter(el=>(
 
-    el.candidatEmail ?
-    el.candidatEmail.toLowerCase().includes(e.target.value.toLowerCase())
+    el.clientCompanyName ?
+    el.clientCompanyName.toString().toUpperCase().replaceAll(" ","").replaceAll("-","").includes(e.target.value.toString().toUpperCase().replaceAll(" ","").replaceAll("-",""))
+    
     :
     el.clientEmail ?
-    el.clientEmail.toLowerCase().includes(e.target.value.toLowerCase())
+    el.clientEmail.toUpperCase().includes(e.target.value.toUpperCase())
 
     :
 
     el.candidatName ?
-    el.candidatName.toString().toLowerCase().replaceAll(" ","").includes(e.target.value.toString().toLowerCase().replaceAll(" ",""))
+    el.candidatName.toString().toUpperCase().replaceAll(" ","").replaceAll("-","").includes(e.target.value.toString().toUpperCase().replaceAll(" ","").replaceAll("-",""))
     
     :
-    el.clientCompanyName ?
-    el.clientCompanyName.toString().toLowerCase().replaceAll(" ","").includes(e.target.value.toString().toLowerCase().replaceAll(" ",""))
+    el.candidatEmail ?
+    el.candidatEmail.toUpperCase().includes(e.target.value.toUpperCase())
     :
      null
 

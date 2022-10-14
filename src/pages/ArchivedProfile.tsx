@@ -471,7 +471,7 @@ const deleteCandidatLink = (Id : any) => {
 
 
 const  ViewDownloadFiles =( documentName:any)=>{
-  window.open(documentName)
+  window.open(documentName.replace("http","https"))
  }
 
 

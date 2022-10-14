@@ -229,7 +229,7 @@ const onTabClick = (e, index: any) => {
 
   clDoc = profile.candidatDocuments.filter((el) => el.folderName == UploadName);
   Links = profile.candidatLinks.filter((el) => el.folder == UploadName);
-    setDocumentList([...clDoc,...Links]);
+    setDocumentList([...clDoc]);
 };
 
 useEffect(() => {
@@ -243,13 +243,13 @@ if(UploadName == "" ){
 
 }
 
-if(profile.candidatDocuments.length > 0 && documentList.length == 0 || profile.candidatLinks.length > 0  && documentList.length == 0  ){
+if(profile.candidatDocuments.length > 0 && documentList.length == 0 || profile.candidatLinks.length > 0  && Links.length == 0  ){
   clDoc = profile.candidatDocuments.filter((el) => (el.folderName == UploadName));
   Links = profile.candidatLinks.filter((el) => el.folder == UploadName);
-    setDocumentList([...clDoc,...Links]);
+    setDocumentList([...clDoc]);
  } 
 
-});
+},[Links]);
   let data={profileData:profile ,path:"/todoprofile"}
 
  const deleteCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
@@ -421,9 +421,8 @@ const fetchRecommendations = async (candidatSector: string) => {
       setCandidatImage("")
       if (resData.status) {
         setProfile(resData.data)
-        clDoc = profile.candidatDocuments.filter((el) => el.folderName == UploadName);
-        Links = profile.candidatLinks.filter((el) => el.folder == UploadName);
-        setDocumentList([...clDoc,...Links]);
+        clDoc = resData.data.candidatDocuments.filter((el) => el.folderName == UploadName);
+        Links = resData.data.candidatLinks.filter((el) => el.folder.toLocaleLowerCase() == UploadName.toLocaleLowerCase());
         setDocumentList([...clDoc]);
         setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.url : "")
         setDocUploaded(false);
@@ -436,7 +435,7 @@ const fetchRecommendations = async (candidatSector: string) => {
         console.log(err)
       })
   }, [docUploaded])
-  
+  console.log(Links,"link")
   const fetchCandidat = async (candidatId: any) => {
     return await fetch(API_BASE_URL + `getCandidatById/?candidatId=${candidatId}`, {
       method: "GET",
@@ -510,7 +509,7 @@ const fetchRecommendations = async (candidatSector: string) => {
     },
   };
  const  ViewDownloadFiles =( documentName:any)=>{
-  window.open(documentName)
+  window.open(documentName.replace("http","https"))
  }
 
  let Data={
@@ -521,7 +520,6 @@ const fetchRecommendations = async (candidatSector: string) => {
 
 
  const LinktoDrive = async (updatedData: any) => {
-  console.log(updatedData)
   let headers = {
     "Accept": 'application/json',
     'Content-Type': 'application/json',
@@ -546,15 +544,15 @@ const fetchRecommendations = async (candidatSector: string) => {
   if(e.target.name =="DriveLinkSubmit"){
     let Check = isValidUrl(DriveLink)
     if(Check){
-      // setLinkDoc([...Links])
-      LinktoDrive(Data).then((resD)=>{toast.success(resD.message);setTimeout(()=>{window.location.reload()},2000)})
+      // setLinkDoc(])
+      LinktoDrive(Data).then((resD)=>{toast.success(resD.message)
+        ;
+        fetchCandidat(profile._id)
+        setTimeout(()=>{window.location.reload()},2000)
+      })
     }else{
       return toast.error("Please Enter Valid Url!")
     }
-   
-    
-
-    console.log(isValidUrl(DriveLink));
   }
 }
     // const urlPattern = new RegExp(DriveLink);
@@ -1322,7 +1320,7 @@ className="SelectBtn"
                     }
                       <>
                     {
-                      documentList.map((Link, index) => (
+                      Links?.map((Link, index) => (
                         Link.link && Link._id?
                        
                           <div className="col-6 mx-0">

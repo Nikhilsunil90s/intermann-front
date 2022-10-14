@@ -145,7 +145,7 @@ useEffect(()=>{
     if (val === "upload") {
       handleImageUpload();
     } else if (val === "Download") {
-      // window.open(API_BASE_URL + candidatImage);
+      window.open(candidatImage.replace("http","https"));
     }
   };
   const editClientProfile = () => {

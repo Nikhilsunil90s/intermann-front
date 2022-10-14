@@ -544,10 +544,10 @@ function ClientSee() {
   }, [docUploaded]);
   const ViewDownloadFiles = (e,documentName: any) => {
     if(e.target.name ==="btnDownloadLink"){
-      window.open(documentName);
+      window.open(documentName.replace("http","https"));
         
       }else{
-        window.open(documentName);
+        window.open(documentName.replace("http","https"));
       }
   };
 
@@ -848,7 +848,7 @@ function ClientSee() {
     if (val === "upload") {
       handleImageUpload();
     } else if (val === "Download") {
-      window.open(API_BASE_URL + "uploads/" + ClientImage);
+      window.open(ClientImage.replace("http","https"));
     }
   };
   const handleImageUpload = () => {

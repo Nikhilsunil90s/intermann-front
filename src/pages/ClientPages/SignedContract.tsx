@@ -354,7 +354,7 @@ function Signed() {
     if (val === "upload") {
       handleImageUpload();
     } else if (val === "Download") {
-      window.open(API_BASE_URL + "uploads/" + ClientImage);
+      window.open(ClientImage.replace("http","https"));
     }
   };
 
@@ -575,10 +575,10 @@ let Editdata ={state:profile,path:"/clientSigned"}
 
   const ViewDownloadFiles = (e,documentName) => {
     if(e.target.name ==="btnDownloadLink"){
-    window.open(documentName);
+    window.open(documentName.replace("http","https"));
       
     }else{
-      window.open(documentName);
+      window.open(documentName.replace("http","https"));
     }
   };
 

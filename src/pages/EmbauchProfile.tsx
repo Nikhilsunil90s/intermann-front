@@ -492,7 +492,7 @@ const FilesUploads=(file)=>{
     hiddenFileInput.current.click();
   }
   const  ViewDownloadFiles =( documentName:any)=>{
-    window.open(documentName)
+    window.open(documentName.replace("http","https"))
    }
 
   //  const showCustomerProfile = async () => {

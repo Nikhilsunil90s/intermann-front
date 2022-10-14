@@ -34,9 +34,6 @@ let emailArr=[]
 let contactArr=[]
 let OthersFilterArr = []
 let LanguageFilter=[]
-let SecJobHaveArr=[]
-let SectorFilterArr=[]
-let JobFilterArr=[]
 function ToDoList() {
 
 
@@ -68,15 +65,14 @@ const notifyMoveError = () => toast.error("Not Moved..");
   const [LanguageOp,setLangOp]=useState([])
   const [filterLoader ,setFetchingLoader  ]=useState(true)
   const [cardTotallength,setTotalLength]=useState(0)
-  const [SectorJob,setSectorJob]=useState([])
-  const [sectorName,setSectorNme]=useState("")
-  const [JobName,setJobName]=useState("")
-  const [HaveName,setHaveName]=useState("")
-
+  const [sectorName,setSectorName]=useState("")
+  const [JobName,setJobName]=useState([])as any
+  let HaveName =null ;
+  let MotivationCount=null;
   const loadMoreHandle = (i) => {
     let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 30;
     if (bottom) {
-      if(cardTotallength > page && selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0 && emailArr.length == 0 && contactArr.length == 0 && FilterJob.length == 0 && LanguageFilter.length == 0){
+      if(cardTotallength > page && selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0 && emailArr.length == 0 && contactArr.length == 0 && FilterJob.length == 0 && LanguageFilter.length == 0 && sectorName === "" && JobName.length == 0 && HaveName == null && MotivationCount == null){
         setPage(page + 20);
         setFetchingLoader(true)
         fetchProfileS(page);
@@ -179,16 +175,7 @@ const LoaderFun=()=>{
 
 
   useEffect(() => {
-    if(SectorJob.length == 0){
-      fetchAllProfiles().then((res)=>{
-      if(res.status){
-        setSectorJob([... res.data.filter((resFl)=> resFl.candidatStatus === "To-Do")])
-
-      }
-  
-      })
-      .catch(err=>err)
-    }
+   
     if (sectors.length == 0) {
       fetchAllSectors()
         .then((data) => {
@@ -456,6 +443,10 @@ setTimeout(()=>{
 
   const handleNameChange = (e: any) => {
     // console.log(e.target.value)
+    MotivationCount=null
+    HaveName=null
+    setSectorName("")
+    setJobName([])
     SelectedName = []
     DateArr=[]
     emailArr=[]
@@ -478,7 +469,9 @@ setTimeout(()=>{
   };
 
   const HandelLicence = (e) => {
+
     LicencePermisArr = []
+    MotivationCount=null
     SelectedName = []
     emailArr=[]
     LanguageFilter=[]
@@ -491,12 +484,21 @@ setTimeout(()=>{
       filterFunction()
     }
     if(e.value !=="" && e.value !=="Select Licence"){
-    LicencePermisArr.push(e.value)
-    setHaveName(e.value)
-    filterFunction()
+      if(sectorName == "" && JobName.length == 0){
+        LicencePermisArr.push(e.value)
+        filterFunction()
+      }else{
+        HaveName=e.value
+       setTimeout(()=>{
+        filterFunction()
+
+       },1000)
+
+      }
+
     }
   }
- console.log(sectorName,JobName,HaveName,"have")
+
   const handleMotivationChange = (e: any) => {
     // console.log(e.target.value)
     MotivationArr = []
@@ -512,16 +514,25 @@ setTimeout(()=>{
       filterFunction()
 
     } else if (e.value !== "" && e.value !== "Select Motivations") {
-      MotivationArr = []
-      let sectorField = e.value;
-      MotivationArr.push(sectorField)
-      filterFunction()
+      if(sectorName == "" && JobName.length == 0){
+        MotivationArr = []
+        let sectorField = e.value;
+        MotivationArr.push(sectorField)
+        filterFunction()
+      }else{
+        MotivationCount =null
+        
+        MotivationCount =e.value
+        filterFunction()
+
+      }
+ 
       // setSelectedSector(sectorField);
     }
   };
 
   const handleSectorChange = (e: any) => {
-    setSectorNme(e.value)
+    setSectorName(e.value)
     // console.log(e.target.value)
     SelectedName = []
     LanguageFilter=[]
@@ -558,6 +569,10 @@ setTimeout(()=>{
 
 
   const handleEmailChange=(e:any)=>{
+    MotivationCount=null
+    HaveName=null
+    setSectorName("")
+    setJobName([])
     SelectedName = []
     MotivationArr = []
     LanguageFilter=[]
@@ -579,6 +594,10 @@ setTimeout(()=>{
 
   const handleContactChange=(e:any)=>{
     SelectedName = []
+    MotivationCount=null
+    HaveName=null
+    setSectorName("")
+    setJobName([])
     LanguageFilter=[]
     MotivationArr = []
     LicencePermisArr = []
@@ -855,7 +874,73 @@ setTimeout(()=>{
         .catch((err) => err);
     }
 
-    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0 && emailArr.length == 0 && contactArr.length == 0 && FilterJob.length == 0 && LanguageFilter.length == 0) {
+    if (
+      sectorName !== "" &&
+      JobName.length > 0 &&
+      HaveName  !==null
+    ) {
+      setFetchingLoader(false)
+      setLoaderTime(true)
+
+      await fetch(
+        `${API_BASE_URL}filterToDoSJLicence/?sector=${sectorName}&jobs=${JobName}&licence=${HaveName}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          if(result.length > 0){
+            setLoader(true)
+            setStatus(true)
+              setFilterData([...result.data]);
+            }
+            if(result.data.length == 0){
+              setLoader(true)
+              setStatus(false);
+              setdateLoader(false)
+      }  })
+        .catch((err) => err);
+    }
+    if (
+      sectorName !== "" &&
+      JobName.length > 0 &&
+      MotivationCount  !==null
+    ) {
+      setFetchingLoader(false)
+      setLoaderTime(true)
+
+      await fetch(
+        `${API_BASE_URL}filterToDoSJM/?sector=${sectorName}&jobs=${JobName}&motivation=${MotivationCount}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          if(result.length > 0){
+            setLoader(true)
+            setStatus(true)
+              setFilterData([...result.data]);
+            }
+            if(result.data.length == 0){
+              setLoader(true)
+              setStatus(false);
+              setdateLoader(false)
+      }  })
+        .catch((err) => err);
+    }
+    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0 && emailArr.length == 0 && contactArr.length == 0 && FilterJob.length == 0 && LanguageFilter.length == 0 && sectorName == "" && JobName.length == 0 && MotivationCount == null && HaveName == null) {
       {
         setLoader(true)
         setStatus(true)
@@ -877,14 +962,26 @@ setTimeout(()=>{
   };
 
   const jobChange = async (jobval) => {
-      FilterJob.push(jobval.value)
-      setJobName(jobval.value)
-
-
-    filterFunction()
+    HaveName =null 
+    MotivationCount=null
+    jobval.map((el)=> 
+      FilterJob.push(el.value)
+   
+  
+  )
+  setJobName(FilterJob)
+  filterFunction()
   }
   const onDateChange=(e:any)=>{
+    MotivationCount=null
+    HaveName=null
+    setSectorName("")
+    setJobName([])
     LanguageFilter=[]
+    MotivationCount=null
+    HaveName=null
+    setSectorName("")
+    setJobName([])
     DateArr=[]
     SelectedName=[]
     emailArr=[]
@@ -901,7 +998,15 @@ setTimeout(()=>{
     }
  }
  const LanguageChange = async (lang) => {
+  MotivationCount=null
+  HaveName=null
+  setSectorName("")
+  setJobName([])
   DateArr=[]
+  MotivationCount=null
+  HaveName=null
+  setSectorName("")
+  setJobName([])
   setSelectedSector("")
   SelectedName=[]
   LicencePermisArr=[]

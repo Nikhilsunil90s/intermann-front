@@ -84,11 +84,11 @@ const GetClient = async (IdFromURL) => {
   const [progress, setProgress] = useState<any>(0);
   const [docUploaded, setDocUploaded] = useState(false);
   const [documentList, setDocumentList] = useState([]);
-  const [candidatImage, setCandidatImage] = useState(
-    profile.candidatPhoto && profile.candidatPhoto?.documentName !== undefined
-      ? profile.candidatPhoto?.documentName
+  const [ClientImage, setClientImage] = useState(
+    profile.clientPhoto && profile.clientPhoto?.url !== undefined
+      ? profile.clientPhoto?.url
       : ""
-  );
+  )as any;
   const hiddenFileInput = React.useRef(null);
   const [RenameDocStatus, setRenameDocStatus] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
@@ -395,7 +395,7 @@ console.log(profile,"prof")
     if (val === "upload") {
       handleImageUpload();
     } else if (val === "Download") {
-      // window.open(API_BASE_URL + candidatImage);
+      window.open(ClientImage.replace("http","https"));
     }
   };
 
@@ -480,7 +480,6 @@ console.log(profile,"prof")
   useEffect(() => {
     fetchCandidat(profile._id)
       .then((resData) => {
-        setCandidatImage("");
         if (resData.status == true) {
         
           resData.data.map((el) => {
@@ -492,11 +491,11 @@ console.log(profile,"prof")
           });
         
 
-          setCandidatImage(
-            resData.data.candidatPhoto !== undefined
-              ? resData.data.candidatPhoto?.documentName
+          setClientImage(
+            profile.clientPhoto && profile.clientPhoto?.url !== undefined
+              ? profile.clientPhoto?.url
               : ""
-          );
+          )
           setDocUploaded(false);
         } else {
           setDocumentList([...documentList]);
@@ -782,8 +781,10 @@ console.log(profile,"prof")
               <div className="row">
                 <div className="col-2 pr-0 text-center">
                   <div className="">
+               
+               
                     <img
-                      src={require("../../../images/fullClientSee.svg").default}
+                      src={ClientImage ? ClientImage : require("../../../images/fullClientSee.svg").default}
                       className="imgSigned-upload-Download"
                     />
                   </div>

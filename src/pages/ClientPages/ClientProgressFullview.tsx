@@ -230,7 +230,7 @@ function ClientProgressView() {
     if (val === "upload") {
       handleImageUpload();
     } else if (val === "Download") {
-      window.open(imgSource);
+      window.open(imgSource.replace("http","https"));
     }
   };
 
@@ -598,10 +598,10 @@ function ClientProgressView() {
 
   const ViewDownloadFiles = (e,documentName: any) => {
     if(e.target.name ==="btnDownloadLink"){
-      window.open(documentName);
+      window.open(documentName.replace("http","https"));
         
       }else{
-        window.open(documentName);
+        window.open(documentName.replace("http","https"));
       }
   };
 

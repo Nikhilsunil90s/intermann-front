@@ -457,7 +457,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
     },
   };
   const  ViewDownloadFiles =( documentName:any)=>{
-    window.open(documentName)
+    window.open(documentName.replace("http","https"))
    }
 
    const deleteCandidatLink = (Id : any) => {
