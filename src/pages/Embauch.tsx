@@ -66,7 +66,9 @@ const notifyMoveError = () => toast.error("Not Moved..");
   const [cardTotallength,setTotalLength]=useState(0)
   let [page, setPage] = useState(0);
   const [LoaderTime,setLoaderTime]=useState(false)
-
+  const [sectorName,setSectorName]=useState("")
+  const [JobName,setJobName]=useState([])as any
+  let HaveName =null ;
   
 
 
@@ -75,7 +77,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
     let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
 
     if (bottom) {
-      if(cardTotallength > page &&selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && SelectedClient.length === 0 && LanguageFilter.length === 0 && LicencePermisArr.length ===0){
+      if(cardTotallength > page &&selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && SelectedClient.length === 0 && LanguageFilter.length === 0 && LicencePermisArr.length ===0 && sectorName == "" && JobName.length == 0  && HaveName == null) {
         setPage(page + 20);
         setFetchingLoader(true)
         fetchProfileS(page);
@@ -324,15 +326,27 @@ setTimeout(()=>{
       filterFunction()
     }
     if(e.value !=="" && e.value !=="Select Licence"){
-    LicencePermisArr.push(e.value)
-    filterFunction()
-    }
-  }   
+      if(sectorName == "" && JobName.length == 0){
+        LicencePermisArr.push(e.value)
+        filterFunction()
+      }else{
+        HaveName=e.value
+       setTimeout(()=>{
+        filterFunction()
+
+       },1000)
+
+      }
+  }
+}   
 
   const handleNameChange = (e: any) => {
     // console.log(e.target.value)
     SelectedName = []
     LanguageFilter=[]
+    HaveName=null
+    setSectorName("")
+    setJobName([])
     LicencePermisArr = []
     setSelectedSector("")
     setSelectedJob([])
@@ -388,7 +402,7 @@ setTimeout(()=>{
     SelectedName = []
     FilterJob = [];
     LanguageFilter=[]
-
+    setSectorName(e.value)
   
     LicencePermisArr = []
     ClientFL=[]
@@ -548,6 +562,39 @@ setTimeout(()=>{
      
     }
     if (
+      sectorName !== "" &&
+      JobName.length > 0 &&
+      HaveName  !==null
+    ) {
+      setFetchingLoader(false)
+      setLoaderTime(true)
+
+      await fetch(
+        `${API_BASE_URL}filterInProgressSJLicence/?sector=${sectorName}&jobs=${JobName}&licence=${HaveName}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          if(result.length > 0){
+            setLoader(true)
+            setStatus(true)
+              setFilterData([...result.data]);
+            }
+            if(result.data.length == 0){
+              setLoader(true)
+              setStatus(false);
+              setdateLoader(false)
+      }  })
+        .catch((err) => err);
+    }
+    if (
       selectedSector.length > 0 &&
       FilterJob.length > 0 &&
       selectedLanguages.length == 0
@@ -582,8 +629,8 @@ setTimeout(()=>{
 
     if (
       selectedSector.length > 0 &&
-      selectedLanguages.length > 0 &&
-      selectedJob.length == 0
+      LanguageFilter.length > 0 &&
+      JobName.length == 0
     ) {
       await fetch(
         `${API_BASE_URL}filterInProgressSL/?sector=${selectedSector}&languages=${selectedLanguages}`,
@@ -609,11 +656,11 @@ setTimeout(()=>{
     }
     if (
       selectedSector.length > 0 &&
-      FilterJob.length > 0 &&
-      selectedLanguages.length === 0
+      JobName.length > 0 &&
+      LanguageFilter.length > 0
     ) {
       await fetch(
-        `${API_BASE_URL}filterInProgressSJL/?sector=${selectedSector}&jobs=${FilterJob}&languages=${selectedLanguages}`,
+        `${API_BASE_URL}filterInProgressSJL/?sector=${selectedSector}&jobs=${FilterJob}&languages=${LanguageFilter}`,
         {
           method: "GET",
           headers: {
@@ -636,8 +683,8 @@ setTimeout(()=>{
     }
     if (
       LanguageFilter.length > 0 &&
-      selectedJob.length == 0 &&
-      selectedSector.length == 0
+      JobName.length == 0 &&
+      sectorName.length == 0
     ) {
       await fetch(
         `${API_BASE_URL}filterInProgressCandidatByLanguages/?languages=${LanguageFilter}`,
@@ -661,7 +708,7 @@ setTimeout(()=>{
       setLoader(true);
 
     }
-    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && SelectedClient.length === 0 && LanguageFilter.length === 0 && LicencePermisArr.length ===0) {
+    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && SelectedClient.length === 0 && LanguageFilter.length === 0 && LicencePermisArr.length ===0 && sectorName == "" && JobName.length == 0 && HaveName == null)  {
       {
         setLoader(true)
         setStatus(true)
@@ -693,7 +740,7 @@ setTimeout(()=>{
     fetchProfiles();
   }, []);
   const LanguageChange = async (lang) => {
- 
+    HaveName=null
     setSelectedSector("")
     SelectedName=[]
     LicencePermisArr = []
@@ -717,17 +764,22 @@ setTimeout(()=>{
       }
  
   const jobChange = (jobval) => {
-    let Arr=[]
-    jobval.map((el)=>{
-          Arr.push(el.value)
-      })
-      FilterJob=Arr
-        filterFunction()
+    HaveName =null 
+    jobval.map((el)=> 
+      FilterJob.push(el.value)
+   
+  
+  )
+  setJobName(FilterJob)
+  filterFunction()
   }
  
 
   const ClientChange=(e)=>{
     setSelectedSector("")
+    HaveName=null
+    setSectorName("")
+    setJobName([])
     LanguageFilter=[]
     SelectedName=[]
     LicencePermisArr = []
@@ -745,6 +797,9 @@ setTimeout(()=>{
  const RestFilters=()=>{
   setSectors([])
   setNameOptions([])
+  HaveName=null
+  setSectorName("")
+  setJobName([])
   SelectedName=[]
   setSelectedSector("")
   setdateLoader(false)
@@ -1042,7 +1097,7 @@ setTimeout(()=>{
                       <div className="col-12">
                         <div className="row justify-content-end">
                         <div className="col-2 d-flex justify-content-end">
-                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || SelectedClient.length > 0 || LanguageFilter.length > 0 || LicencePermisArr.length > 0 ?
+                      {selectedSector.length > 0 ||   selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || SelectedClient.length > 0 || LanguageFilter.length > 0 || LicencePermisArr.length > 0  || sectorName == "" || JobName.length == 0 || HaveName == null ?
 
 <p className="filterStyling  HoveRESTClass cursor-pointer mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 : null
@@ -1062,7 +1117,7 @@ setTimeout(()=>{
                     <div className="col-12">
                       <div className="row justify-content-end">
                       <div className="col-2 d-flex justify-content-end">
-                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || SelectedClient.length > 0 || LanguageFilter.length > 0  || LicencePermisArr.length > 0 ?
+                      {selectedSector.length > 0 || selectedJob.length > 0 || selectedLanguages.length > 0 || SelectedName.length > 0 || SelectedClient.length > 0 || LanguageFilter.length > 0  || LicencePermisArr.length > 0  || sectorName !== "" || JobName.length > 0 || HaveName !== null ?
 
 <p className="filterStyling  cursor-pointer HoveRESTClass mt-2" onClick={() => RestFilters()}>Reset Filters</p>
 : null

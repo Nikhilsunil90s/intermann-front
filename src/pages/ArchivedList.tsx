@@ -51,13 +51,14 @@ function ArchivedList() {
   const [cardTotallength,setTotalLength]=useState(0)
   let [page, setPage] = useState(0);
   const [LoaderTime,setLoaderTime]=useState(false)
-
+  const [sectorName,setSectorName]=useState("")
+  const [JobName,setJobName]=useState([])as any
 
    
   const loadMoreHandle = (i) => {
     let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
     if (bottom) {
-      if(cardTotallength > page && selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0   && FilterJob.length == 0 && LanguageFilter.length == 0){
+      if(cardTotallength > page && selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0   && FilterJob.length == 0 && LanguageFilter.length == 0  && sectorName == "" && JobName.length === 0){
         setPage(page + 20);
         setFetchingLoader(true)
         fetchProfileS(page);
@@ -245,6 +246,9 @@ const LoaderFun=()=>{
     ClientFL=[]
     SelectedClient=[]
     LanguageFilter=[]
+  
+    setSectorName("")
+    setJobName([])
     
     setSelectedSector("")
     setSelectedJob([])
@@ -278,6 +282,7 @@ const LoaderFun=()=>{
   const handleSectorChange = (e: any) => {
     // console.log(e.target.value)
     SelectedName = []
+    setSectorName(e.value)
     FilterJob = [];
     setSelectedJob([])
     LanguageFilter=[]
@@ -308,13 +313,11 @@ const LoaderFun=()=>{
  
 
   const jobChange = async (jobval) => {
-    let JobArr=[]
-    jobval.map((el)=>{
-     
-     FilterJob.push(el.value)
-  
-    })
-    filterFunction()
+    jobval.map((el)=> 
+      FilterJob.push(el.value)
+  )
+  setJobName(FilterJob)
+  filterFunction()
   } 
 
   const LanguageChange = async (lang) => {
@@ -507,9 +510,9 @@ SelectedClient=[]
     }
 
     if (
-      selectedSector.length > 0 &&
-      selectedLanguages.length > 0 &&
-      selectedJob.length == 0
+      sectorName.length > 0 &&
+      LanguageFilter.length > 0 &&
+      JobName.length == 0
     ) {
       await fetch(
         `${API_BASE_URL}filterArchivedSL/?sector=${selectedSector}&languages=${selectedLanguages}`,
@@ -533,8 +536,8 @@ SelectedClient=[]
       setLoader(true);
     }
     if (
-      selectedSector.length > 0 &&
-      FilterJob.length > 0 &&
+      sectorName.length > 0 &&
+      JobName.length > 0 &&
       LanguageFilter.length > 0
     ) {
       await fetch(
@@ -588,7 +591,7 @@ SelectedClient=[]
         .catch((err) => err);
       setLoader(true);
     }
-    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0  && LanguageFilter.length ===0 && SelectedClient.length === 0 && FilterJob.length ===0 ) {
+    if (selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0  && LanguageFilter.length ===0 && SelectedClient.length === 0 && FilterJob.length ===0 && sectorName == "" && JobName.length === 0) {
       {
         setLoader(true)
         setStatus(true)
@@ -604,6 +607,9 @@ SelectedClient=[]
 
 
   const ClientChange=(e)=>{
+  
+    setSectorName("")
+    setJobName([])
     setSelectedSector("")
     LanguageFilter=[]
     if(e.value=="Select Client"){
@@ -622,7 +628,9 @@ SelectedClient=[]
 
 }
   const ResetFilters=()=>{
-
+  
+    setSectorName("")
+    setJobName([])
     setSectors([])
     setNameOptions([])
     SelectedName=[]

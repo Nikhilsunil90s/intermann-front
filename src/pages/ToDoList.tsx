@@ -803,6 +803,38 @@ setTimeout(()=>{
         .catch((err) => err);
       setLoader(true);
     }
+    if (
+      sectorName.length > 0 &&
+      JobName.length > 0 &&
+      LanguageFilter.length > 0
+    ) {
+      await fetch(
+        `${API_BASE_URL}filterToDoSJL/?sector=${sectorName}&jobs=${JobName}&languages=${LanguageFilter}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then((reD) => reD.json())
+        .then((result) => {
+          if(result.length > 0){
+            setLoader(true)
+            setStatus(true)
+              setFilterData([...result.data]);
+            }
+            if(result.status == false){
+              setLoader(true)
+              setStatus(false);
+            }
+        })
+        .catch((err) => err);
+      setLoader(true);
+    }
+
 
     if (
       selectedSector.length > 0 &&
@@ -1000,8 +1032,6 @@ setTimeout(()=>{
  const LanguageChange = async (lang) => {
   MotivationCount=null
   HaveName=null
-  setSectorName("")
-  setJobName([])
   DateArr=[]
   MotivationCount=null
   HaveName=null
@@ -1041,6 +1071,10 @@ setTimeout(()=>{
   setJobs([])
   setSelectedJob([])
   setJobOptions([])
+  MotivationCount=null
+  HaveName=null
+  setSectorName("")
+  setJobName([])
   setMotivationOptions([])
   MotivationArr=[]
   LanguageFilter=[]

@@ -66,12 +66,15 @@ function Preselected(){
           const [filterLoader ,setFetchingLoader  ]=useState(true)
           const [cardTotallength,setTotalLength]=useState(0)
           const [LoaderTime,setLoaderTime]=useState(false)
-      
+          const [sectorName,setSectorName]=useState("")
+          const [JobName,setJobName]=useState([])as any
+          let HaveName =null ;
+          let MotivationCount=null;
 
           const loadMoreHandle = (i) => {
             let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
             if (bottom) {
-              if(cardTotallength > page && selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0 && emailArr.length == 0 && contactArr.length == 0 && FilterJob.length == 0 && LanguageFilter.length == 0){
+              if(cardTotallength > page && selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0 && emailArr.length == 0 && contactArr.length == 0 && FilterJob.length == 0 && LanguageFilter.length == 0 && sectorName == "" && JobName.length == 0 && MotivationCount == null && HaveName == null) {
                 setPage(page + 20);
                 setFetchingLoader(true)
                 fetchProfileS(page);
@@ -438,6 +441,10 @@ function Preselected(){
         
           const handleNameChange = (e: any) => {
             // console.log(e.target.value)
+            MotivationCount=null
+            HaveName=null
+            setSectorName("")
+            setJobName([])
             SelectedName = []
             MotivationArr = []
             emailArr=[]
@@ -469,11 +476,19 @@ function Preselected(){
               filterFunction()
             }
             if(e.value !=="" && e.value !=="Select Licence"){
-            LicencePermisArr.push(e.value)
-            filterFunction()
-
-                }  
+              if(sectorName == "" && JobName.length == 0){
+                LicencePermisArr.push(e.value)
+                filterFunction()
+              }else{
+                HaveName=e.value
+               setTimeout(()=>{
+                filterFunction()
+        
+               },1000)
+        
               }
+              }
+            }
               const handleMotivationChange = (e: any) => {
               // console.log(e.target.value)
               MotivationArr = []
@@ -488,16 +503,28 @@ function Preselected(){
                 filterFunction()
           
               } else if (e.value !== "" && e.value !== "Select Motivations") {
-                MotivationArr = []
-                let sectorField = e.value;
-                MotivationArr.push(sectorField)
-                filterFunction()
-                // setSelectedSector(sectorField);
+                if(sectorName == "" && JobName.length == 0){
+                  MotivationArr = []
+                  let sectorField = e.value;
+                  MotivationArr.push(sectorField)
+                  filterFunction()
+                }else{
+                  MotivationCount =null
+                  
+                  MotivationCount =e.value
+                  filterFunction()
+          
+                }
               }
             };
 
             const LanguageChange = async (lang) => {
- 
+              MotivationCount=null
+              HaveName=null
+              DateArr=[]
+              MotivationCount=null
+         
+              setJobName([])
               setSelectedSector("")
               SelectedName=[]
               LicencePermisArr = []
@@ -520,6 +547,7 @@ function Preselected(){
           
           const handleSectorChange = (e: any) => {
             // console.log(e.target.value)
+            setSectorName(e.value)
             SelectedName = []
             MotivationArr = []
             emailArr=[]
@@ -709,6 +737,32 @@ function Preselected(){
               }
             }
             if (
+              sectorName !== "" &&
+              JobName.length > 0 &&
+              LanguageFilter.length > 0
+            ) {
+              await fetch(
+                `${API_BASE_URL}filterPreSelectedSJL/?sector=${sectorName}&jobs=${JobName}&languages=${LanguageFilter}`,
+                {
+                  method: "GET",
+                  headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                  },
+                }
+              )
+                .then((reD) => reD.json())
+                .then((result) => {
+                  {
+                    setFilterData([...result.data]);
+                  }
+                  setStatus(result.status);
+                })
+                .catch((err) => err);
+              setLoader(true);
+            }
+            if (
               selectedSector.length > 0 &&
               selectedJob.length == 0 &&
               selectedLanguages.length == 0
@@ -738,14 +792,80 @@ function Preselected(){
                 .catch((err) => err);
               setLoader(true);
             }
+            if (
+              sectorName !== "" &&
+              JobName.length > 0 &&
+              HaveName  !==null
+            ) {
+              setFetchingLoader(false)
+              setLoaderTime(true)
+        
+              await fetch(
+                `${API_BASE_URL}filterPreSelectedSJLicence/?sector=${sectorName}&jobs=${JobName}&licence=${HaveName}`,
+                {
+                  method: "GET",
+                  headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                  },
+                }
+              )
+                .then((reD) => reD.json())
+                .then((result) => {
+                  if(result.length > 0){
+                    setLoader(true)
+                    setStatus(true)
+                      setFilterData([...result.data]);
+                    }
+                    if(result.data.length == 0){
+                      setLoader(true)
+                      setStatus(false);
+                      setdateLoader(false)
+              }  })
+                .catch((err) => err);
+            }
+            if (
+              sectorName !== "" &&
+              JobName.length > 0 &&
+              MotivationCount  !==null
+            ) {
+              setFetchingLoader(false)
+              setLoaderTime(true)
+        
+              await fetch(
+                `${API_BASE_URL}filterPreSelectedSJM/?sector=${sectorName}&jobs=${JobName}&motivation=${MotivationCount}`,
+                {
+                  method: "GET",
+                  headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                  },
+                }
+              )
+                .then((reD) => reD.json())
+                .then((result) => {
+                  if(result.length > 0){
+                    setLoader(true)
+                    setStatus(true)
+                      setFilterData([...result.data]);
+                    }
+                    if(result.data.length == 0){
+                      setLoader(true)
+                      setStatus(false);
+                      setdateLoader(false)
+              }  })
+                .catch((err) => err);
+            }
         
             if (
-              selectedSector.length > 0 &&
-              FilterJob.length > 0 &&
-              selectedLanguages.length == 0
+              sectorName.length > 0 &&
+              JobName.length > 0 &&
+              LanguageFilter.length == 0
             ) {
               await fetch(
-                `${API_BASE_URL}getCandidats/?candidatActivitySector=${selectedSector}&jobs=${FilterJob}&candidatStatus=Pre-Selected`,
+                `${API_BASE_URL}getCandidats/?candidatActivitySector=${sectorName}&jobs=${JobName}&candidatStatus=Pre-Selected`,
                 {
                   method: "GET",
                   headers: {
@@ -834,7 +954,7 @@ function Preselected(){
             })
                 .catch((err) => err);
             }
-            if (selectedSector.length === 0 && selectedJob.length === 0 && LanguageFilter.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && emailArr.length === 0 && contactArr.length === 0 && DateArr.length === 0) {
+            if (selectedSector.length === 0 && selectedJob.length === 0 && LanguageFilter.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && emailArr.length === 0 && contactArr.length === 0 && DateArr.length === 0 && sectorName == "" && JobName.length == 0 && MotivationCount == null && HaveName == null)  {
               
 
                 fetchProfiles().then(filteredresponse => {
@@ -864,13 +984,24 @@ console.log(statusProfiles,"filteredresponse.status")
           };
         
           const jobChange = async (jobval) => {
-          jobval.map((el)=>{
-            filterData.push(el.value)
-          })
+            HaveName =null 
+            MotivationCount=null
+            jobval.map((el)=> 
+              FilterJob.push(el.value)
+           
+          
+          )
+          setJobName(FilterJob)
           filterFunction()
-
           }
           const onDateChange=(e:any)=>{
+            HaveName=null
+            setSectorName("")
+            setJobName([])
+            LanguageFilter=[]
+            MotivationCount=null
+            HaveName=null
+            setSectorName("")
             DateArr=[]
             emailArr=[]
             SelectedName=[]
@@ -888,6 +1019,10 @@ console.log(statusProfiles,"filteredresponse.status")
          
          const handleEmailChange=(e:any)=>{
           SelectedName = []
+          MotivationCount=null
+          HaveName=null
+          setSectorName("")
+          setJobName([])
           MotivationArr = []
           LanguageFilter=[]
           LicencePermisArr = []
@@ -907,6 +1042,10 @@ console.log(statusProfiles,"filteredresponse.status")
         }
 
         const handleContactChange=(e:any)=>{
+          MotivationCount=null
+          HaveName=null
+          setSectorName("")
+          setJobName([])
           SelectedName = []
           LanguageFilter=[]
           MotivationArr = []
@@ -927,6 +1066,10 @@ console.log(statusProfiles,"filteredresponse.status")
         }
 
  const RestFilters=()=>{
+  MotivationCount=null
+  HaveName=null
+  setSectorName("")
+  setJobName([])
   setSectors([])
   setNameOptions([])
   SelectedName=[]
