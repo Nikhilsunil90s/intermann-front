@@ -70,7 +70,7 @@ function ResetProfile({ props, closeModal, path }) {
                     <div className="col-12">
                         <div className="row">
                             <div className="col-8 px-0 clientArchivedModal-font">
-                    <h2 className="modal-title  py-1 pRight" id="staticBackdropLabel">RESET {props.candidatName} Profile to <span className="" style={{color:"#489767",marginLeft:"5px"}}>To-Do.</span> </h2>
+                    <h2 className="modal-title  py-1 pRight" id="staticBackdropLabel">RESET {props.candidatName.toUpperCase()} Profile to <span className="" style={{color:"#489767",marginLeft:"5px"}}>To-Do.</span> </h2>
                     </div>
                     <div className="col-4 text-end d-flex align-items-center">
                     <button type="button" className="btn-close" onClick={() => closeModal(false)} data-bs-dismiss="modal" aria-label="Close"></button>
@@ -87,12 +87,13 @@ function ResetProfile({ props, closeModal, path }) {
                             lineHeight: "24px",
                             color: "#000000"
                         }}>
-                         Candidate Name :   {props.candidatName}
+                         Candidate Name :   {props.candidatName.toUpperCase()}
                         </p>
                             <div className="col-12 text-center mt-1">
                                 <div className="row ">
                                     <div className="col-12 d-flex justify-content-end">
                                         <button
+                                        disabled={ResetLoader}
                                         onClick={sendResetRequest}
                                          className="btnHide-ArchivedModal d-flex justify-content-center "
                                          style={{backgroundColor:"#489767",width:"15%",padding:"0px",height:"46px"}}

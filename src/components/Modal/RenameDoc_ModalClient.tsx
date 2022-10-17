@@ -10,6 +10,8 @@ function RenameDoc({props,closepreModal,path}) {
   const notifyCandidatMovedSuccess = () => toast.success("Document Name Changed Successfully!");
   const notifyCandidatMovedError = () => toast.error("Document Name Not Change Please Try Again.");
   const [NewName, setNewName] = useState("");
+  const [btnDisabled,setBtnDisabled]=useState(false)
+
   const onDataChange = (e: React.ChangeEvent<
     HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
   >) => {
@@ -22,6 +24,7 @@ function RenameDoc({props,closepreModal,path}) {
     }
   }
   const renameClientDocument = async () => {
+    setBtnDisabled(true)
     let headers = {
       "Accept": 'application/json',
       "Authorization": "Bearer " + localStorage.getItem('token')
@@ -39,6 +42,7 @@ function RenameDoc({props,closepreModal,path}) {
   const RenameMoved=()=>{
     notifyCandidatMovedSuccess()
     setTimeout(function () {
+     setBtnDisabled(false)
       window.location.href = path;
     },
       2000
@@ -82,7 +86,7 @@ function RenameDoc({props,closepreModal,path}) {
 </div></div>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn preSelectedStageBtn"  onClick={renameClientDocument}>
+              <button type="button" className="btn preSelectedStageBtn" disabled={btnDisabled} onClick={renameClientDocument}>
              Save New Name.
               </button>
             </div>

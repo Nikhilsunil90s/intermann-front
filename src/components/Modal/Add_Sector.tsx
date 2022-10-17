@@ -21,6 +21,7 @@ function SectorModal() {
   const [showSaveSectorBtn, setSaveSectorBtn] = useState(false);
   const [showJobAdders, setShowJobAdders] = useState(false);
   const [disableSectorInput, setDisableSectorInput] = useState(false);
+  const [btnDisabled,setDisabled]=useState(false)
 
   const checkSectorExistence = async (sector: String) => {
     return await fetch(API_BASE_URL + "checkSectorExistence/?sector=" + sector, {
@@ -97,10 +98,12 @@ function SectorModal() {
   }
 
   const addSector = async () => {
+    setDisabled(true)
     sendSectorToDB().then(resp => {
       console.log(resp)
       if (resp.status) {
         notifySectorAddSuccess();
+        setDisabled(false)
         window.location.href = "/addNewSector"
       }
     }).catch(err => {
@@ -141,7 +144,7 @@ function SectorModal() {
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-secondary " data-bs-dismiss="modal">Cancel</button>
-            <button type="button" className="btn btn-primary" onClick={addSector}>Add The Sector</button>
+            <button type="button" className="btn btn-primary" disabled={btnDisabled} onClick={addSector}>Add The Sector</button>
           </div>
         </div>
       </div>

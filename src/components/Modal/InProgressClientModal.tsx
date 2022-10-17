@@ -7,6 +7,7 @@ import "../../CSS/Client/ProgressCardClient.css"
 function InProgressClientModal({ props, closeModal }) {
 
     const navigate = useNavigate();
+    const [btnDisabled,setDisabled]=useState(false)
 
     const notifyMoveSuccess = () => toast.success("Moved Client to In-Progress Successfully!");
 
@@ -29,6 +30,7 @@ function InProgressClientModal({ props, closeModal }) {
 
     const saveFormData = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setDisabled(true)
         let data = { clientId: props._id, clientCompanyName: props.clientCompanyName, clientJob: props.clientJob }
         moveToInProgress(data)
             .then((resp) => {
@@ -37,6 +39,7 @@ function InProgressClientModal({ props, closeModal }) {
                 notifyMoveSuccess();
                 setTimeout(function () {
                     // window.location.href = "/clientToDo";
+                  setDisabled(false)
                     navigate("/dashboard");
                 },
                     2000
@@ -75,6 +78,7 @@ function InProgressClientModal({ props, closeModal }) {
                                 <div className="row text-center">
                                           
                                           <div className="d-flex justify-content-center">   <button 
+                                          disabled={btnDisabled}
                                         className="btnClient-Modal"
                                             type="submit"
                                         >

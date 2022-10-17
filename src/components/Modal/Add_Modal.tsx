@@ -18,7 +18,7 @@ function AddJobModal({ props, closeModal ,path}) {
     
   });
 
-
+  const [btnDisabled,setDisabled]=useState(false)
   const [jobName, setJobName] = useState("");
 
   const checkJobExistence = async () => {
@@ -41,10 +41,12 @@ function AddJobModal({ props, closeModal ,path}) {
   }
 
   const checkandaddJob = () => {
+    setDisabled(true)
     checkJobExistence().then(resD => {
       console.log(resD)
       if (resD.status) {
         notifyJobAddSuccess()
+        setDisabled(false)
         window.location.href = path;
       } else {
         notifyJobAddError()
@@ -79,7 +81,7 @@ function AddJobModal({ props, closeModal ,path}) {
             <button type="button" className="btn btn-job-list" data-bs-dismiss="modal" onClick={() => { closeModal(false) }}>Cancel</button>
                 </div>
                 <div className='col-4 pr-0'>
-            <button type="button" className="btn btn-job" onClick={checkandaddJob}>Add Job</button>
+            <button type="button"  className="btn btn-job" disabled={btnDisabled} onClick={checkandaddJob}>Add Job</button>
                 </div>
               </div>
             </div>

@@ -234,7 +234,8 @@ color: #489767;
         display: none;
     }
     .PdfViewMobileRes{
-        display: initial;
+        display: flex;
+        justify-content: center;
     }
     .canvaspdf{
         position: relative;
@@ -242,6 +243,14 @@ color: #489767;
         right: -44%;
         width: 39%;
     }
+    .react-pdf__Page{
+        display: flex;
+        justify-content: center;
+      }
+      ._1CDf-Fj0nLQTDw84Sho5JS{
+        display: grid;
+        justify-content: center;
+      }
     }
   @media (min-width:768px){
 .mediaQuery{

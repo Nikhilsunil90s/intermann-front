@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 function SignedClientModal({ props, closeModal }) {
+    const [btnDisabled, setbtnDisabled] = useState(false);
 
     const navigate = useNavigate();
 
@@ -28,12 +29,15 @@ function SignedClientModal({ props, closeModal }) {
 
     const saveFormData = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setbtnDisabled(true)
         let data = { clientId: props._id, clientJob: props.clientJob }
         moveToSigned(data)
             .then((resp) => {
                 closeModal(false);
                 notifyMoveSuccess();
                 setTimeout(function () {
+                    setbtnDisabled(true)
+
                     // window.location.href = "/clientToDo";
                     navigate("/dashboard");
                 },
@@ -43,6 +47,8 @@ function SignedClientModal({ props, closeModal }) {
             .catch(err => {
                 console.log(err)
                 notifyMoveError();
+                setbtnDisabled(false)
+
             })
     }
 
@@ -64,13 +70,14 @@ function SignedClientModal({ props, closeModal }) {
                     <form onSubmit={saveFormData}>
                         <div className="modal-body text-start mt-1">
                             <div className="text-center">
-                                Move {props.clientCompanyName} to Signed Contract Status ?
+                                Move {props.clientCompanyName.toUpperCase()} to Signed Contract Status ?
                             </div>
                             <div className="col-12 text-center pt-3">
                                 <div className="row ">
                                     <div className="col-2"></div>
                                     <div className="col-9">
                                         <button
+                                        disabled={btnDisabled}
                                             className="btn btn-success"
                                             style={{
                                                 borderRadius: "8px", width: "100%", fontFamily: 'Inter',

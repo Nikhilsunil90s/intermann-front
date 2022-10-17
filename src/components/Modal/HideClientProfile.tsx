@@ -7,7 +7,7 @@ function HideClientProfile({ props, closeModal, path }) {
 
     const navigate = useNavigate();
     const [clientId, setClientId] = useState(props._id);
-
+    const [btnDisabled,setDisabled]=useState(false)
     const notifyMoveSuccess = () => toast.success("Client Hidden Successfully!");
     const notifyMoveError = () => toast.error("Cannot Hide Client! Please try Again.");
 
@@ -32,14 +32,19 @@ function HideClientProfile({ props, closeModal, path }) {
     }
 
     const sendHideRequest = () => {
+    setDisabled(true)
         HideProfile().then((resdata) => {
             setTimeout(function () {
+                
                 if (path == "/embauchlist") {
+                    setDisabled(false)
                     window.location.href = path;
                 }
                 else if (path == "/clientToDo") {
+                    setDisabled(false)
                     window.location.href = "/clientToDo";
                 } else {
+                    setDisabled(false)
                     window.location.href = "/dashboard";
                 }
 
@@ -95,6 +100,7 @@ function HideClientProfile({ props, closeModal, path }) {
                                         
                                         <div className="col-6 d-flex">
                                         <button
+                                         disabled={btnDisabled}
                                          className="btnHide-ArchivedModal"
                                          onClick={sendHideRequest}
                                          style={{backgroundColor:"#FF0000"}}

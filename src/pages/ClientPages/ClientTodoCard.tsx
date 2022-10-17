@@ -225,7 +225,7 @@ const ClientToDoCard = (props: any) => {
   ];
 
   const candidatMotivationIcons = [
-    { icon: "", motivation: "No Motivation!" },
+    { icon: "", motivation: "✘✘!" },
     { icon: "😟", motivation: "Disappointed" },
     { icon: "🙁", motivation: "Not Really" },
     { icon: "😊", motivation: "Like" },
@@ -322,7 +322,7 @@ const ClientToDoCard = (props: any) => {
                     ?.icon
                     ? candidatImportanceIcons[props.data.clientImportance - 1]
                         ?.icon
-                    : "No Importance!"}
+                    : "✘✘!"}
                 </b>
               </p>
             </div>
@@ -604,7 +604,7 @@ const ClientToDoCard = (props: any) => {
                 />
               </div>
             </div>
-            <div className="col-7 d-flex px-0 justify-content-start">
+            <div className="col-7 d-flex pl-1 pr-0">
               <div className="d-flex align-items-center ">
                 <p className="switch-fontCard mb-0">Client singé ?</p>
                 <Switch

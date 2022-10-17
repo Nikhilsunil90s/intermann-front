@@ -7,6 +7,8 @@ function UserAddModal({ closeModal }) {
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [res,setResponse]=useState([])
+  const [btnDisabled,setDisabled]=useState(false)
+
  const data={
    emailAddress:emailAddress,
    password:password
@@ -17,6 +19,7 @@ function UserAddModal({ closeModal }) {
   const AddSuccess=()=>toast("SuccessFully User Added !")
   const AddFailure=()=>toast("User Added Fail !")
   const saveUserData = async () => {
+    setDisabled(true)
     return await fetch(API_BASE_URL + "signup", {
       method: "POST",
       headers: {
@@ -27,7 +30,7 @@ function UserAddModal({ closeModal }) {
       body: JSON.stringify({...data}),
     })
       .then(resp => resp.json())
-      .then(reD =>{setResponse(reD);setTimeout(function () {
+      .then(reD =>{setResponse(reD);setDisabled(false);setTimeout(function () {
         window.location.href = "/userList";
         
       },
@@ -106,6 +109,7 @@ console.log(res,"res")
                     <div className="row text-center">
                         <div className="col-12 ">
                         <button
+                        disabled={btnDisabled}
                 type="button"
                 className="btn btn-addUser"
                 onClick={()=>saveUserData()}

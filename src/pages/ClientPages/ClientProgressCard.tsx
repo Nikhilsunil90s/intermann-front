@@ -240,12 +240,12 @@ function ClientProgressCard(props: any) {
                     <div className="col-6 px-0 mt-1">
                     <p className="textClientCard" style={{width:"150%"}} data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.clientCompanyName.toLocaleUpperCase()}><b>{props.data.clientCompanyName ? props.data.clientCompanyName.length > 20 ? props.data.clientCompanyName.toLocaleUpperCase().slice(0,29)+ "..." : props.data.clientCompanyName.toLocaleUpperCase(): "✘ No CompanyName!"}</b></p>
                     <div >  <p  className="textClientCard" style={{height:"30px", background:"transparent"}}>Importance:
-                             <b className="d-flex" style={{width:"37%",marginLeft:"3px",height:"43px"}}>{candidatImportanceIcons[props.data.clientImportance - 1]?.icon ? candidatImportanceIcons[props.data.clientImportance - 1]?.icon : "No Importance!" }</b>
+                             <b className="d-flex" style={{width:"37%",marginLeft:"3px",height:"43px"}}>{candidatImportanceIcons[props.data.clientImportance - 1]?.icon ? candidatImportanceIcons[props.data.clientImportance - 1]?.icon : "✘✘!" }</b>
 
                         </p>
                         </div>
                         <div >  <p  className="textClientCard" style={{width:"130%"}}>Motivation :
-                             <b style={{background:"transparent" , zIndex:"9"}}>{candidatMotivationIcons[props.data.clientMotivation]?.icon ?candidatMotivationIcons[props.data.clientMotivation]?.icon + candidatMotivationIcons[props.data.clientMotivation]?.motivation : "No Motivation!"}</b>
+                             <b style={{background:"transparent" , zIndex:"9"}}>{candidatMotivationIcons[props.data.clientMotivation]?.icon ?candidatMotivationIcons[props.data.clientMotivation]?.icon + candidatMotivationIcons[props.data.clientMotivation]?.motivation : "✘✘!"}</b>
                         </p>
                         </div>
                         <div ><p  className="textClientCard">Num of position : <b>  {props.data.numberOfPosts ? props.data.numberOfPosts : "✘ No Posts!"}</b> </p></div>
@@ -440,7 +440,7 @@ function ClientProgressCard(props: any) {
                 />
               </div>
             </div>
-            <div className="col-7 d-flex px-0 justify-content-start">
+            <div className="col-7 d-flex pl-1 pr-0">
               <div className="d-flex align-items-center ">
                 <p className="switch-fontCard mb-0">Client singé ?</p>
                 <Switch

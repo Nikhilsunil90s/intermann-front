@@ -11,7 +11,8 @@ function ArchivedClientModal({ props, closeModal, path }) {
     const [reasonToArchive, setReasonToArchive] = useState([]);
     const [clientId, setClientId] = useState(props._id);
     const [clientJobName, setClientJobName] = useState(props.clientJob);
-
+    const [btnDisabled,setDisabled]=useState(false)
+     
     const notifyMoveSuccess = () => toast.success("Client Archived Successfully!");
     const notifyMoveError = () => toast.error("Cannot Archive Client Yet! Please try Again.");
 
@@ -50,6 +51,7 @@ function ArchivedClientModal({ props, closeModal, path }) {
 
     const sendArchiveRequest = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        setDisabled(true)
         console.log(data);
         ArchiveClient().then((resdata) => {
             console.log(resdata)
@@ -57,11 +59,17 @@ function ArchivedClientModal({ props, closeModal, path }) {
             setTimeout(function () {
                 if (path == "/embauchlist") {
                     window.location.href = path;
+                    setDisabled(false)
+
                 }
                 else if (path == "/clientToDo") {
                     window.location.href = "/clientToDo";
+                    setDisabled(false)
+
                 } else {
                     window.location.href = "/dashboard";
+                   setDisabled(false)
+
                 }
 
             }, 2000);
@@ -118,9 +126,10 @@ function ArchivedClientModal({ props, closeModal, path }) {
                                    </div>
                                     <div className="col-12 d-flex justify-content-end">
                                         <button
+                                        disabled={btnDisabled}
                                             type="submit"
                                          className="btnClient-ArchivedModal"
-                                        >Move {props.clientCompanyName} to Status Archived.</button>
+                                        >Move {props.clientCompanyName.toUpperCase()} to Status Archived.</button>
                                     </div>
 
                                 

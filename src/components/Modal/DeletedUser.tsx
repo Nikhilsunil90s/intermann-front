@@ -3,8 +3,11 @@ import { Toaster, toast } from 'react-hot-toast';
 import {API_BASE_URL} from '../../config/serverApiConfig'
 
 function DeleteUser({props, closeModal} ) {
+  const [btnDisabled,setDisabled]=useState(false)
+
     const NotifySuccess=()=>toast("Deleted SuccessFully!!")
     const deleteUser = async () => {
+      setDisabled(true)
         let userid=props._id
         fetch(`${API_BASE_URL}deleteuser/`, {
            method: "POST",
@@ -18,7 +21,7 @@ function DeleteUser({props, closeModal} ) {
           })
        })
            .then(result => result.json())
-           .then(data =>{console.log(data);setTimeout(function () {
+           .then(data =>{console.log(data);setDisabled(false);setTimeout(function () {
             window.location.href = "/userList";
             
           },
@@ -44,7 +47,7 @@ function DeleteUser({props, closeModal} ) {
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => { closeModal(false) }}>Cancel</button>
-            <button type="button" className="btn btn-primary" onClick={()=>deleteUser()}>Proceed</button>
+            <button type="button" className="btn btn-primary" disabled={btnDisabled} onClick={()=>deleteUser()}>Proceed</button>
           </div>
         </div>
       </div>

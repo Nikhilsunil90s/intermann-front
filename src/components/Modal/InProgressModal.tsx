@@ -284,6 +284,7 @@ function InProgressModal({ props, closeModal }) {
                   <div className="row justify-content-end">
                     <div className="col-8">
                       <button
+                      disabled={btnLoader}
                         style={{
                           borderRadius: "30px",
                           backgroundColor: "#A461D8",

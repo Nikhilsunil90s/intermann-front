@@ -5,6 +5,7 @@ import { API_BASE_URL } from '../../config/serverApiConfig';
 function RenameModal({ props, closeModal }) {
 
     const [newSectorName, setNewSectorName] = useState("");
+    const [btnDisabled,setBtnDisabled]=useState(false)
 
     const notifySectorRenameSuccess = () => toast("Sector Renamed Successfully! You can Add More Jobs to this Sector", {
       
@@ -40,13 +41,16 @@ function RenameModal({ props, closeModal }) {
     }
 
     const saveNewSectorName = () => {
+        setBtnDisabled(true)
         sendNewNameToDB().then(data => {
             console.log(data)
             if (data.status) {
                 notifySectorRenameSuccess();
+                setBtnDisabled(false)
                 window.location.href = "/addNewSector";
             } else {
                 notifySectorRenameError();
+                setBtnDisabled(false)
             }
         })
             .catch(err => {
@@ -72,7 +76,7 @@ function RenameModal({ props, closeModal }) {
                         <button type="button" className="btn btn-job-list" data-bs-dismiss="modal" onClick={() => closeModal(false)}>Cancel</button>
                                 </div>
                                 <div className='col-9'>
-                        <button type="button" className="btn  btn-resume" onClick={saveNewSectorName}>Save Changes To Sector Name</button>
+                        <button type="button" disabled={btnDisabled} className="btn  btn-resume" onClick={saveNewSectorName}>Save Changes To Sector Name</button>
                                 </div>
                             </div>
                         </div>

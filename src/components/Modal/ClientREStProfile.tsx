@@ -9,6 +9,7 @@ function ResetClientProfile({ props, closeModal, path }) {
 
     const navigate = useNavigate();
     const [clientId, setClientId] = useState(props._id);
+    const [btnDisabled,setDisabled]=useState(false)
 
     const notifyMoveSuccess = () => toast.success("Client Reset To To-DO Successfully!");
     const notifyMoveError = () => toast.error("Cannot Reset Client! Please Try Again.");
@@ -33,17 +34,21 @@ function ResetClientProfile({ props, closeModal, path }) {
     }
 
     const sendResetRequest = () => {
+        setDisabled(true)
         console.log(data);
         ResetCandidat().then((resdata) => {
             console.log(resdata)
             closeModal(false);
             setTimeout(function () {
                 if (path == "/embauchlist") {
+                    setDisabled(false)
                     window.location.href = path;
                 }
                 else if (path == "/clientToDo") {
+                    setDisabled(false)
                     window.location.href = "/clientToDo";
                 } else {
+                    setDisabled(false)
                     window.location.href = "/dashboard";
                 }
             }, 2000);
@@ -87,6 +92,7 @@ function ResetClientProfile({ props, closeModal, path }) {
                                 <div className="row ">
                                     <div className="col-12 d-flex justify-content-end">
                                         <button
+                                        disabled={btnDisabled}
                                         onClick={sendResetRequest}
                                          className="btnHide-ArchivedModal"
                                          style={{backgroundColor:"#489767"}}

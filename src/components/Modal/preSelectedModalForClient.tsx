@@ -12,7 +12,7 @@ function PreModal({props,closepreModal,clientProps}) {
 
   const [selectedClient, setSelectedClient] = useState(clientProps._id);
   const [reason, setReason] = useState("");
-
+  const [btnDisabled,setBtnDisabled]=useState(false)
 
 
 
@@ -40,6 +40,7 @@ function PreModal({props,closepreModal,clientProps}) {
 
  
   const moveToPreSelected = () => {
+    setBtnDisabled(true)
     console.log(reason, selectedClient, props._id);
     const preSelectedData = {
       candidatId: props._id,
@@ -51,6 +52,7 @@ function PreModal({props,closepreModal,clientProps}) {
       if (resData.status) {
         notifyCandidatMovedSuccess()
         setTimeout(() => {
+    setBtnDisabled(false)
           window.location.href = "/todolist";
         }, 2000)
       }
@@ -127,7 +129,7 @@ function PreModal({props,closepreModal,clientProps}) {
           <div className="modal-content" style={{width:"670px"}}>
             <div className="modal-header">
               <h5 className="modal-title modalStylingfont" id="exampleModalLabel">
-              Move {props.candidatName} to <span> PRE SELECTED </span>
+              Move {props.candidatName.toUpperCase()} to <span> PRE SELECTED </span>
               </h5>
               <button
                 type="button"
@@ -141,14 +143,14 @@ function PreModal({props,closepreModal,clientProps}) {
 
 <p className="ChildStylePreModal">pour quel client {props.candidatName} est selectionné ?</p>
 <div >                    <p className="modalStylingfont"><span>{clientProps.clientCompanyName}</span></p></div>
-                              <p className="ChildStylePreModal mt-2">pour quel raison {props.candidatName} est selectionné ?</p>
+                              <p className="ChildStylePreModal mt-2">pour quel raison {props.candidatName.toUpperCase()} est selectionné ?</p>
 <div><div className="form-floating">
   <textarea className="form-control" onChange={onDataChange} name="reason" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: "100px"}}></textarea>
   <label htmlFor="floatingTextarea2" placeholder="{client_List}"></label>
 </div></div>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn preSelectedStageBtn"  onClick={moveToPreSelected}>
+              <button type="button" className="btn preSelectedStageBtn"  onClick={moveToPreSelected} disabled={btnDisabled}>
               Move this person to in preselected status
               </button>
             </div>

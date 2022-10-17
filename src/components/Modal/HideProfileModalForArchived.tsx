@@ -8,6 +8,7 @@ function HideProfile({ props, closeModal, path }) {
     const navigate = useNavigate();
     const [candidatId, setCandidatId] = useState(props._id);
     const [ResetLoader, setResetLoader] = useState(false);
+
     const notifyMoveSuccess = () => toast.success("Candidat Hidden Successfully!");
     const notifyMoveError = () => toast.error("Cannot Hide Candidat! Please try Again.");
 
@@ -31,9 +32,7 @@ function HideProfile({ props, closeModal, path }) {
             .catch(err => err)
     }
 
-    const sendHideRequest = () => {
-        
-        console.log(data);
+    const sendHideRequest = () => {        console.log(data);
         HideProfile().then((resdata) => {
             setTimeout(function () {
                 if (path == "/embauchlist") {
@@ -42,6 +41,7 @@ function HideProfile({ props, closeModal, path }) {
                 else if (path == "/clientToDo") {
                     window.location.href = "/clientToDo";
                 } else {
+                     
                     window.location.href = "/dashboard";
                 }
 
@@ -99,6 +99,7 @@ function HideProfile({ props, closeModal, path }) {
                                         
                                         <div className="col-6 d-flex">
                                         <button
+                                        disabled={ResetLoader}
                                          className="btnHide-ArchivedModal"
                                          onClick={sendHideRequest}
                                          style={{backgroundColor:"#FF0000"}}

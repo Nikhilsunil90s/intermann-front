@@ -131,6 +131,7 @@ function ArchivedModal({ props, closeModal,path }) {
                     <div className="col-7">
                       <button
                       className="d-flex justify-content-center" 
+                      disabled={btnLoader}
                         style={{
                           borderRadius: "25px",
                           backgroundColor: "#FF0000",
@@ -145,7 +146,7 @@ function ArchivedModal({ props, closeModal,path }) {
                           border: "unset",
                         }}
                       >
-                        {btnLoader ?   <div className="RESTloader " >Loading...</div>   : null}   Move {props.candidatName} to Status Archived.
+                        {btnLoader ?   <div className="RESTloader " >Loading...</div>   : null}   Move {props.candidatName.toUpperCase()} to Status Archived.
                       </button>
                     </div>
 
