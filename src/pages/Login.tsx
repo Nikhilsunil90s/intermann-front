@@ -116,10 +116,19 @@ function useOnClickOutside(ref, handler) {
         <div className="row m-0">
         
           <div className="col-12">
-            <div className="row">
+            <div className="row" style={{height:"100vh"}}>
               <div className="col-6 px-0">
-                <div className="img-Back">
-
+                <div className="img-Back d-flex justify-content-center align-items-center">
+                <div
+              
+                className="d-flex bottom-radius  justify-content-center align-items-center text-decoration-none"
+              >
+                <img className="TopStickClass" src={require("../images/LoginStick.svg").default} />
+                <span>
+                  <img src={require("../images/logo-header.svg").default} style={{width:"70px"}} className="filter-logo" />
+                </span>
+                <img src={require("../images/LogoName.svg").default} style={{width:"175px"}} className="filter-text" />
+              </div>
                 </div>
               </div>
               <div className="col-6 pt-1">

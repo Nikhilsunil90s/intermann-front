@@ -57,16 +57,31 @@
     font-size: 20px;
     line-height: 30px;
 }
-.img-Back{    background-image: url('../images/LoginImg.svg');
+/* .img-Back{    background-image: url('../images/LoginImg.svg');
     background-position: center;
-    /* background-size: 102%; */
+    background-size: 102%  cc;
     background-repeat: no-repeat;
     padding-right: 0px;
     padding-left: 0px;
     height: 100vh;
     position: relative !important;
     left: -15px;
+} */
+
+.img-Back{
+    background-color: #032339;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    left: -15px;
 }
+.TopStickClass{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+}
+
 .Remember-me{
     font-family: 'Plus Jakarta Sans';
     font-style: normal;
@@ -141,7 +156,7 @@ color: #6F7187;
 }
 
 @media (min-width:1400px){
-    .img-Back {
+    /* .img-Back {
         background-image: url('../images/LoginImg.svg');
     background-position: center;
     background-repeat: no-repeat;
@@ -149,7 +164,7 @@ color: #6F7187;
     background-size: 100%;
     padding-left: 0px;
     height: 100vh;
-}
+} */
 .Login-fields{
     display: grid!important;
     align-items: center;
