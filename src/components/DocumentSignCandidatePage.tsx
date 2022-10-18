@@ -6,6 +6,8 @@ import "../CSS/Candidatefile.css"
 import Loader from "../components/Loader/loader"
 import ProfileLoader from "../components/Loader/ProfilesLoader" 
 import PDFreader from './AddClientRating/PDFreader';
+import $ from "jquery"
+import CountDown from "../../src/components/Loader/CountDown"
 let ContractData={
   id:"",
   filePath:"",
@@ -24,7 +26,17 @@ console.log(API_BASE_URL + pdfUrl,"url")
 
   const navigate = useNavigate()
 
+
     useEffect(() => {
+      $(function() {
+        setTimeout(function() { $("#hideDiv").fadeOut(2000);}, 15000)
+        
+        })
+        $(function() {
+          setTimeout(function() { $("#hideDivPc").fadeOut(1500);}, 4000)
+          
+          })
+
       if(profile.length == 0){
   
      fetchCandidat(id).then((resData) => {
@@ -93,9 +105,26 @@ console.log(API_BASE_URL + pdfUrl,"url")
     console.log(pdfUrl,"pdf")
 return (
     <>
+      <div id="hideDiv">
+        <div className='d-grid justify-content-center align-items-center'>
+        <p className='mb-0 d-flex justify-content-center align-items-end'>Please wait while we are processing your request....</p>
+  <div className='d-flex justify-content-center'>
+   <CountDown />
+   </div>
+   </div>
+   </div>
+   <div id="hideDivPc">
+        <div className='d-grid justify-content-center align-items-center'>
+        <p className='mb-0 d-flex justify-content-center align-items-end'>Please wait while we are processing your request....</p>
+  <div className='d-flex justify-content-center'>
+   <CountDown />
+   </div>
+   </div>
+  </div>
     <div className='container-fluid'>
         <div className='row'>
          <div className='col-12 d-flex justify-content-center  bg-ContractPage p-2'>
+       
          <span>
               <img
                 src={require("../images/logo-header.svg").default}
@@ -118,6 +147,7 @@ return (
 <iframe  src={pdfUrl} style={{width:"90vw",height:"61vh"}} /> 
 </div>
 <div className='PdfViewMobileRes'>
+
 <PDFreader  props={pdfUrl}  />
 </div>
 </>

@@ -1034,10 +1034,9 @@ right: 11px !important;
     color: #FFFFFF;
   }
   
-  .canvaspdf{width: 38%;
-    position: relative;
-    right: -30%;
-  }
+  /* .canvaspdf{
+
+  } */
 
  }
 @media (min-width:768px){
