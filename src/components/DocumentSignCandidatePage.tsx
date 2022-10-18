@@ -29,7 +29,7 @@ console.log(API_BASE_URL + pdfUrl,"url")
 
     useEffect(() => {
       $(function() {
-        setTimeout(function() { $("#hideDiv").fadeOut(2000);}, 15000)
+        setTimeout(function() { $("#hideDiv").fadeOut(1500);}, 15000)
         
         })
         $(function() {
