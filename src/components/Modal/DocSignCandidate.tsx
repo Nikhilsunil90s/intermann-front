@@ -74,7 +74,7 @@ console.log(contractID.id)
             <div className="row">
                
                     <div className="col-12 px-0">
-                    <div className='col-12 bg-ContractPage'>
+                    <div className='col-12 bg-ContractPage' style={{height:"10vh"}}>
    <div className="row d-flex justify-content-center">
 
     <div className="col-8 heightScreenTop d-flex justify-content-center">
@@ -94,7 +94,7 @@ console.log(contractID.id)
             />          </div> 
     </div>
          </div>
-                    <div className="row text-start mx-0 overFlowHeight heightScreen" style={{background:"#FE8700",padding:"10px"}}>
+                    <div className="row text-start mx-0 " style={{background:"#FE8700",padding:"10px",height:"80vh"}}>
                 
                     <div className="col-12 " >   <p  className=" mb-0 topTitle"
                         >
