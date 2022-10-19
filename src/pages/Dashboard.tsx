@@ -1,9 +1,8 @@
-import React, { useEffect, useState ,useRef,useCallback} from "react";
+import React, { useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import "../CSS/Dashboard.css";
 import { API_BASE_URL } from "../config/serverApiConfig";
-import { Toaster,toast } from "react-hot-toast";
-import { useLocation } from "react-router";
+import { Toaster } from "react-hot-toast";
 function Dashboard() {
   const [toDoCandidatCount, setToDoCandidatCount] = useState(0);
   const [inProgressCandidatCount, setInProgressCandidatCount] = useState(0);
@@ -56,11 +55,11 @@ function Dashboard() {
     });
     fetchCandidatCounts()
       .then((data) => {
-        setToDoCandidatCount(data.toDoCount);
-        setInProgressCandidatCount(data.inProgressCount);
-        setArchivedCandidatCount(data.archivedCount);
+        setToDoCandidatCount(data.toDoCount)
+        setInProgressCandidatCount(data.inProgressCount)
+        setArchivedCandidatCount(data.archivedCount)
         setInPreselectedCount(data.preSelectedCount)
-        setLoader(true);
+        setLoader(true)
       })
       .catch(err => err)
 

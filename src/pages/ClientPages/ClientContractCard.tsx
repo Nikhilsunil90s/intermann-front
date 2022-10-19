@@ -149,9 +149,9 @@ function ClientContractCard(props: any) {
 
                 {
                   props.data.employeesWorkingUnder != null && props.data.employeesWorkingUnder != [] && props.data.employeesWorkingUnder.length > 0 ?
-                    props.data.employeesWorkingUnder.map((el) => (
+                    props.data.employeesWorkingUnder.map((el,i) => (
 
-                      <div className="col-4 pr-0">
+                      <div className="col-4 pr-0" key={i}>
                         {el.candidatStatus !== "Archived" && el.candidatStatus !== "Pre-Selected" || el.candidatStatus !== "Archived" && el.candidatStatus !== "Pre-Selected" ?
                           <div className="d-flex align-items-center cursor-pointer" onClick={(e) => viewFullProfile(el)}>
 
@@ -188,8 +188,6 @@ function ClientContractCard(props: any) {
                                   style={{ width: "15%" }}
                                 />
                                 <p style={{ fontSize: "8px", marginLeft: "5px", color: "red" }} className="mb-0 " data-bs-toggle="tooltip" data-bs-placement="bottom" title={`Archived ${el.candidatName.toLocaleUpperCase()}`} >
-
-
                                   {el.candidatName.toLocaleUpperCase()}
                                 </p>
                               </div>

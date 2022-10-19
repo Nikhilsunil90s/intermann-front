@@ -1593,7 +1593,7 @@ styles={colourStyles}
               {status ?
                 filterData.length > 0 ?
                   filterData.map((profile, index) => (
-                    <div className="col-md-6 col-xxl-4   col-xl-4 col-lg-4 col-sm-6 pl-0">
+                    <div className="col-md-6 col-xxl-4   col-xl-4 col-lg-4 col-sm-6 pl-0" key={index}>
                       <ToDoProfileCard data={profile}
                      
  />

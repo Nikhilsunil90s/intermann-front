@@ -191,8 +191,6 @@ else if(e.target.value == ""){
 }
 
 }
-
-console.log(filterData,"fldata")
   return (
     <>
 
@@ -253,7 +251,7 @@ console.log(filterData,"fldata")
                         
                         </>
                             :
-                       <input style={{border:"0px",background: "#F5F6F8"}} value=""  onClick={()=> { setDataLength(1); setInputStatus(true) }}  className="searcInputbOx pl-1" placeholder="Search, Name, Phone, Work, Jobs..." />
+                       <input style={{border:"0px",background: "#F5F6F8"}} defaultValue=""  onClick={()=> { setDataLength(1); setInputStatus(true) }}  className="searcInputbOx pl-1" placeholder="Search, Name, Phone, Work, Jobs..." />
                        }
                      {
                          value ?
@@ -278,8 +276,8 @@ console.log(filterData,"fldata")
        <div className={filterData.length > 0? "inputData p-1" : "NoinputData p-1" }>
         { 
         filterData.length > 0 ?
-        filterData.map((el)=>(
-        <SearchModal  props={el} closeModal={setSearchOpen}  value={setInputStatus} Text={setValue} ReloadSearch={setDataLength} InputState={setLoadSpinner} Data={setData}/>
+        filterData.map((el,i)=>(
+        <SearchModal  props={el} closeModal={setSearchOpen}  value={setInputStatus} Text={setValue} ReloadSearch={setDataLength} InputState={setLoadSpinner} Data={setData} key={i}/>
               ))
 
               :

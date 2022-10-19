@@ -75,7 +75,7 @@ const ArchivedProfileCard = (props: any) => {
                     </div>
                     <div className="col-7 ArchivedCard pt-1 px-1" >
                     <p style={{width:"100%"}} className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.props.candidatName.toLocaleUpperCase()}><b>{props.props.candidatName.length > 15 ? props.props.candidatName.slice(0, 16).toLocaleUpperCase() + "..." : props.props.candidatName.toLocaleUpperCase()}</b></p>
-                    <p className="text-dark mb-0">{props.props.candidatAge ?  <p className="age00 ml-0 mb-0"><b>Age :  {props.props.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</p>
+                    <div className="text-dark mb-0">{props.props.candidatAge ?  <p className="age00 ml-0 mb-0"><b>Age :  {props.props.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</div>
                         <div >  <p className="text-dark d-flex"> <b>{props.props.candidatMotivation == 0 ? candidatMotivationIcons[props.props.candidatMotivation ].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation :  candidatMotivationIcons[props.props.candidatMotivation].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation}</b>
                         </p>
                         </div>
@@ -95,11 +95,11 @@ const ArchivedProfileCard = (props: any) => {
                         {
                                     props.props.candidatLicensePermis ?
                                         <div className="d-flex  justify-content-center align-items-center">
-                                            <input type="checkbox" name="candidatLicensePermis" id="css" checked={props.props.candidatLicensePermis} />
+                                            <input type="checkbox" name="candidatLicensePermis" id="css" defaultChecked={props.props.candidatLicensePermis} />
                                             <label htmlFor="css" className="Licence mb-0">Have Licence</label>
                                         </div> :
                                        <div className="d-flex  justify-content-center align-items-center">
-                                       <input type="checkbox" name="candidatLicensePermis" id="css" checked={props.props.candidatLicensePermis} />
+                                       <input type="checkbox" name="candidatLicensePermis" id="css" defaultChecked={props.props.candidatLicensePermis} />
                                        <label htmlFor="css" className="NoLicence mb-0">No Licence</label>
                                    </div>
                                 }

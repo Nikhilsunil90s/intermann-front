@@ -107,7 +107,7 @@ return (
     <>
       <div id="hideDiv">
         <div className='d-grid justify-content-center align-items-center'>
-        <p className='mb-0 d-flex justify-content-center align-items-end'>Please wait while the Contract is being prepared!</p>
+        <p className='mb-0 d-flex justify-content-center align-items-end'>Nu închideți pagina, poate dura până la 1 minut. Doar așteaptă!<br/>Veuillez ne pas fermer la page cela peut prendre 1mn</p>
   <div className='d-flex justify-content-center'>
    <CountDown />
    </div>
@@ -115,7 +115,7 @@ return (
    </div>
    <div id="hideDivPc">
         <div className='d-grid justify-content-center align-items-center'>
-        <p className='mb-0 d-flex justify-content-center align-items-end'>Please wait while the Contract is being prepared!</p>
+        <p className='mb-0 d-flex justify-content-center align-items-end'>Nu închideți pagina, poate dura până la 1 minut. Doar așteaptă!<br/>Veuillez ne pas fermer la page cela peut prendre 1mn</p>
   <div className='d-flex justify-content-center'>
    <CountDown />
    </div>

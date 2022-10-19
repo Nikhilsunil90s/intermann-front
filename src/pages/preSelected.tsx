@@ -962,7 +962,7 @@ function Preselected(){
                    
                
 setStatusProfile(filteredresponse.status)
-console.log(statusProfiles,"filteredresponse.status")
+
 
                   setFilterData([...filteredresponse.data])
                   setLoader(true)
@@ -1580,7 +1580,7 @@ styles={colourStyles}
                   {status ? 
                     filterData.length > 0 ? 
                       filterData.map((profile, index) => (
-                        <div className="col-md-6 col-xxl-4  col-xl-4 col-lg-4 pd-left">
+                        <div className="col-md-6 col-xxl-4  col-xl-4 col-lg-4 pd-left" key={index}>
                           <PreSelectedCard data={profile}  />
                         </div>
                       ))

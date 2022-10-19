@@ -229,8 +229,6 @@ function PreSelectedEdit() {
 
  
   const switchHandle=(checked,id,e)=>{
-    console.log(checked,id,e,"all")
-console.log(checked,"checked")
 setFormTouched(true)
 if(e=="Permis"){
 if(checked === true){
@@ -306,10 +304,10 @@ if(checked == false){
   }
   const handleImageChange = (val) => {
     if (val === 'upload') {
-      console.log("upload")
+   
       handleImageUpload()
     } else if (val === 'Download') {
-      console.log("download")
+  
       window.open(candidatImage);
     }
   }
@@ -336,17 +334,17 @@ if(checked == false){
       return;
     }
     if (e.target.name === 'candidatMotivation ') {
-      console.log(e.target.value);
+  
       changeCandidatMotivation(e.target.value);
     }
     if (e.target.name === 'candidatLanguages') {
       if (e.target?.checked) {
         addLanguages(e.target.value);
-        console.log(selectedLanguages)
+  
         return
       } else {
         removeLanguages(e.target.value);
-        console.log(selectedLanguages)
+
 
         return
       }
@@ -431,18 +429,15 @@ if(checked == false){
     if (activitySectors.length === 0) {
       fetchActivitySectors()
         .then(redata => {
-          console.log(redata);
           setActivitySectors([...redata.data]);
         })
         .catch(err => {
           console.log(err)
         })
     }
-    console.log(profile.candidatActivitySector)
     if (jobs.length === 0 &&selectedSector != "" ? selectedSector : profile.candidatActivitySector !== "") {
       fetchAllJobs(selectedSector !== "" ? selectedSector : profile.candidatActivitySector)
         .then((data) => {
-          console.log(data);
           setJobs([...data.data])
         })
         .catch(err => {
@@ -451,7 +446,6 @@ if(checked == false){
     }
 
     if (data.candidatLanguages.length == 0) {
-      console.log(selectedLanguages);
       setData((prev) => ({ ...prev, ["candidatLanguages"]: selectedLanguages }));
     }
 
@@ -463,7 +457,6 @@ if(checked == false){
         setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [{ period: detail.period, location: detail.location, workDoneSample: detail.workDoneSample }] }))
       })
     }
-    console.log(data);
   }, [selectedSector]);
 
 
@@ -480,7 +473,6 @@ if(checked == false){
 
     setWorkExperience([...workExperience, { period: period, location: location, workDoneSample: workDoneSample }]);
     setDisplayRow(true);
-    console.log(data)
   }
 
   const cancelWorkExperience = () => {

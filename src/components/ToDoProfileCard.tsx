@@ -12,10 +12,6 @@ import moment from "moment";
 
 const ToDoProfileCard = (props: any,Clients) => {
     const navigate = useNavigate();
-
-    const [profile,setProfile]=useState(props.data)
-    const [data,setData]=useState([])
-
     const [showInProgressModal, setShowInProgressModal] = useState(false);
     const [showArchiveModal, setShowArchiveModal] = useState(false)
    
@@ -112,7 +108,7 @@ const ToDoProfileCard = (props: any,Clients) => {
                      </div>
    <div className="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 fontStylinForcards">
    <p style={{width:"100%"}}  className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.candidatName.toLocaleUpperCase()}><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
-       <p className="text-dark mb-0">{props.data.candidatAge ?  <p className="age00 mb-0"> <b>Age : {props.data.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</p>
+       <div className="text-dark mb-0">{props.data.candidatAge ?  <p className="age00 mb-0"> <b>Age : {props.data.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</div>
        <div >  <p className="text-dark d-flex mb-0"> <b>{props.data.candidatMotivation == 0 ? candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation :  candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation}</b>
        </p>
        </div>
@@ -137,11 +133,11 @@ const ToDoProfileCard = (props: any,Clients) => {
                         {
                                     props.data.candidatLicensePermis ?
                                         <div className="d-flex  justify-content-center align-items-center">
-                                            <input type="checkbox" name="candidatLicensePermis" id="css" checked={props.data.candidatLicensePermis} />
+                                            <input type="checkbox" name="candidatLicensePermis" id="css" defaultChecked={props.data.candidatLicensePermis} />
                                             <label htmlFor="css" className="Licence">Have Licence</label>
                                         </div> :
                                        <div className="d-flex  justify-content-center align-items-center">
-                                       <input type="checkbox" name="candidatLicensePermis" id="css" checked={props.data.candidatLicensePermis} />
+                                       <input type="checkbox" name="candidatLicensePermis" id="css" defaultChecked={props.data.candidatLicensePermis} />
                                        <label htmlFor="css" className="NoLicence">No Licence</label>
                                    </div>
                                 }
@@ -173,26 +169,6 @@ const ToDoProfileCard = (props: any,Clients) => {
                     <div className="col-xxl-12 col-xl-12 col-md-12 col-lg-12 py-0 px-0 mt-0">
                         <div className="row">
                             <div className="col-xxl-6 col-xl-6 col-md-6 col-lg-6">
-                                {/* <select className="selectOption firstoption" onChange={MoreOption}>
-                                    <option  value="" disabled selected hidden>
-                                        More options
-                                    </option>
-                                    <option value="editProfile">
-
-                                        Edit Profile
-
-                                    </option>
-                                    <option value="moveProgress"  >
-
-                                        Move to In Progress
-
-                                    </option>
-                                    <option value="Archive">
-
-                                        Archive
-
-                                    </option>
-                                </select> */}
                  <Select
                     placeholder="More options"
                     options={CardOptions}

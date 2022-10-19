@@ -602,12 +602,10 @@ const onSubmitRates=(e)=>{
         }
 
         if (e.target.name === 'clientMotivation') {
-            console.log(e.target.value);
             changeClientMotivation(e.target.value);
         }
 
         if (e.target.name === 'clientImportance') {
-            console.log(e.target.value);
             changeClientImportance(e.target.value);
         }
 
@@ -730,7 +728,6 @@ const onSubmitRates=(e)=>{
         if (jobs.length === 0 && profile.clientActivitySector !== "") {
             fetchAllJobs(profile.clientActivitySector)
                 .then((data) => {
-                    console.log(data);
                     setJobs([...data.data])
                 })
                 .catch(err => {

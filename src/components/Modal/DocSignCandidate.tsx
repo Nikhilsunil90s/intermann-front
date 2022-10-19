@@ -1,6 +1,5 @@
 import React, {useRef,useState} from "react";
 import "../../CSS/Client/ArchivedCardClient.css"
-import ErrorLoader from '../../components/Loader/SearchBarError'
 import SignatureCanvas from 'react-signature-canvas'
 import { Toaster,toast } from 'react-hot-toast';
 import { API_BASE_URL } from "../../config/serverApiConfig";

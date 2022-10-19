@@ -905,7 +905,7 @@ SelectedClient=[]
                   {status ? 
                     filterData.length > 0 ? 
                       filterData.map((profile, index) => (
-                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-1 pd-left">
+                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-1 pd-left" key={profile._id}>
                           <ArchivedProfileCard  props={profile}  />
                         </div>
                       ))

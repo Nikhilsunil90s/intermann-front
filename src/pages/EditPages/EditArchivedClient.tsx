@@ -819,7 +819,6 @@ const onSubmitRates=(e)=>{
                     console.log(err)
                 })
         }
-        console.log(profile.clientActivitySector)
         if (jobs.length === 0 && profile.clientActivitySector !== "") {
             fetchAllJobs(profile.clientActivitySector)
                 .then((data) => {

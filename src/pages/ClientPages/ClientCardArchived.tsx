@@ -121,12 +121,12 @@ let end = new Date(props.data.jobEndDate);
                 <div className="">
             <div className="colorARecruting p-1">
                     <p className="AdsFont">Ads Spent on this client: {props.data.jobTotalBudget ? props.data.jobTotalBudget : "✘ No Ads!"}€  </p>
-                    <p className="AdsFont">Reason archived :<ReadMoreReact text={props.data.clientArchived.reason ? props.data.clientArchived.reason : "✘ No Reason!"}
+                    <div className="AdsFont">Reason archived :<ReadMoreReact text={props.data.clientArchived.reason ? props.data.clientArchived.reason : "✘ No Reason!"}
             min={0}
             ideal={50}
             max={120}
             readMoreText={"....."}/> 
-                         </p>
+                         </div>
                     </div>
                     <div className="col-12 d-flex justify-content-end my-1">
                     <div className="row ">

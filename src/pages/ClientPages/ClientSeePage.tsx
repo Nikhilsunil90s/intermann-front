@@ -520,7 +520,7 @@ function ClientSee() {
           // setProfile(resData.data)
           resData.data.map((el) => {
             setProfile(el);
-            setClientImage(el.clientPhoto.url)
+            setClientImage(el.clientPhoto? el.clientPhoto.url : "")
             // setProfile({...profile,['clientContract']:el.clientContract})
             setClientContract(el.clientContract);
             clDoc = el.clientDocuments.filter(
@@ -953,9 +953,9 @@ function ClientSee() {
         position="top-right"
         containerStyle={{ zIndex: "9999999999999999999999" }}
       />
-      <div className="containet-fluid p-1">
+      <div className="containet-fluid p-1" >
         <div className="row">
-          <div className="col-12 top-pd mt-1">
+          <div className="col-12 top-pd mt-1" key={profile._id}>
             {/* <h1 style={{ textDecoration: 'underline' }}>CLIENT FILE: {profile.clientCompanyName}</h1> */}
             <div className="row">
               <div className="col-8">
@@ -1686,7 +1686,7 @@ function ClientSee() {
                       <div
                         className="row p-1  m-1 Social-Card client-Card"
                         style={{ height: "330px" }}
-                      >
+                         key={recommendation}>
                         <div className="col-3">
                           <img
                             src={
@@ -1729,7 +1729,7 @@ function ClientSee() {
 
                         <div className="col-12 mb-1">
                           <p className="mb-0 FontStylingCardtext">Notes:</p>
-                          <p className="mb-0 FontStylingCardtext styledNotes">
+                          <div className="mb-0 FontStylingCardtext styledNotes">
                             {recommendation.candidatSkills !== "" ? (
                               <div style={{ height: "100px" }}>
                                 <ReadMoreReact
@@ -1748,7 +1748,7 @@ function ClientSee() {
                                 No Notes/Skills Available!
                               </p>
                             )}
-                          </p>
+                          </div>
                         </div>
                         <div className="col-6 text-center d-flex align-items-center justify-content-center px-0">
                           <button
@@ -2799,6 +2799,7 @@ fontSize: "14px",}} /></div>
                   showTabsScroll={false}
                   tabsScrollAmount={5}
                   className="alertMessage"
+                  activeTab
                 >
                   {contrat_client ? null : (
                     <Tab className="redColorStyling">

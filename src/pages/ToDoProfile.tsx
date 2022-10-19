@@ -44,7 +44,6 @@ function ToDoProfile() {
   const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
   const profileData = JSON.parse(localStorage.getItem("profile"));
 
- console.log(profileData,"pros")
   const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
   const notifyDocumentDeleteError = () => toast.error("Document Not Removed! Please Try Again in few minutes.")
 
@@ -423,7 +422,7 @@ const fetchRecommendations = async (candidatSector: string) => {
         setProfile(resData.data)
         clDoc = resData.data.candidatDocuments.filter((el) => el.folderName == UploadName);
         Links = resData.data.candidatLinks.filter((el) => el.folder.toLocaleLowerCase() == UploadName.toLocaleLowerCase());
-        setDocumentList([...clDoc]);
+        setDocumentList([...clDoc,...Links]);
         setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.url : "")
         setDocUploaded(false);
       } else {
@@ -435,7 +434,6 @@ const fetchRecommendations = async (candidatSector: string) => {
         console.log(err)
       })
   }, [docUploaded])
-  console.log(Links,"link")
   const fetchCandidat = async (candidatId: any) => {
     return await fetch(API_BASE_URL + `getCandidatById/?candidatId=${candidatId}`, {
       method: "GET",
@@ -453,7 +451,7 @@ const fetchRecommendations = async (candidatSector: string) => {
     if(profile.candidatContract){
    
       let tempdate =new Date(profile.candidatContract.contract_date)
-      setMonth(tempdate.getMonth()+ 1)
+      setMonth(tempdate.getMonth()+1)
       let NewCdate=[tempdate.getFullYear() ,"0" + GetMonth,tempdate.getDate()].join("-")
     setcontract_date(NewCdate)
 
@@ -470,7 +468,7 @@ const fetchRecommendations = async (candidatSector: string) => {
   setfin_mision(FormatNewDate)
 
 }},)
-// console.log(contract_date,"cont")
+
   useEffect(() => {
     setLoader(true);
     fetchRecommendations(profile.candidatActivitySector)
@@ -508,8 +506,14 @@ const fetchRecommendations = async (candidatSector: string) => {
       items: 1,
     },
   };
- const  ViewDownloadFiles =( documentName:any)=>{
-  window.open(documentName.replace("http","https"))
+ const  ViewDownloadFiles =(e, documentName:any)=>{
+  if(e.target.name=== "btnDownloadLink"){
+    window.open(documentName)
+  }
+  else{
+    window.open(documentName.replace("http","https"))
+
+  }
  }
 
  let Data={
@@ -567,7 +571,6 @@ return !!urlPattern.test(urlString);
 }
   
 
-console.log(documentList,"docment")
 
   return (
     <>
@@ -663,9 +666,9 @@ className="SelectBtn"
                     <span className="card-xlSpan">(Age)</span>
                   </div>
                   <div>
-                    <p className="d-flex mb-0">
+                    <div className="d-flex mb-0">
                     <p>Motivation : <b>{candidatMotivationIcons[profile.candidatMotivation ].icon + " " + candidatMotivationIcons[profile.candidatMotivation ].motivation}</b> </p>
-                    </p>
+                    </div>
                   </div>
                   <p>Secteur : {profile.candidatActivitySector ? profile.candidatActivitySector.toLocaleUpperCase() : "No Sector!"}</p>
                   <p className="" style={{ width: "150%" }}>
@@ -859,7 +862,7 @@ className="SelectBtn"
                     profile.candidatExperienceDetails.length > 0 &&
                       profile.candidatExperienceDetails[0].period != "" ?
                       (profile.candidatExperienceDetails.map((detail) =>
-                        <tr>
+                        <tr key={detail}>
                           <td>{detail.period}</td>
                           <td>{detail.location}</td>
                           <td>{detail.workDoneSample}</td>
@@ -903,7 +906,7 @@ className="SelectBtn"
                 {
                   recommendations && recommendations.length > 0 ?
                     recommendations.map(recommendation => (
-                      <div className="row p-1  m-1 Social-Card client-Card" style={{height:"330px"}}>
+                      <div className="row p-1  m-1 Social-Card client-Card" style={{height:"330px"}} key={recommendation}>
                         <div className="col-3">
                           <img 
                             src={
@@ -928,13 +931,13 @@ className="SelectBtn"
                       
                         <div className="col-12 mb-1">
                           <p className="mb-0 FontStylingCardtext">Notes:</p>
-                          <p className="mb-0 FontStylingCardtext styledNotes">
+                          <div className="mb-0 FontStylingCardtext styledNotes">
                           {recommendation.clientRequiredSkills !== "" ? <div style={{height:"100px"}}>  <ReadMoreReact text={recommendation.clientRequiredSkills}
             min={0}
             ideal={50}
             max={150}
             readMoreText={"....."}/></div>  : <p style={{height:"100px"}} className="mb-0 FontStylingCardtext">No Notes/Skills Available!</p>}
-                          </p>
+                          </div>
                         </div>
                         <div className="col-6 text-center d-flex align-items-center justify-content-center px-0">
                           <button className="btnMatched" onClick={() => setShowInPreSelectedModal(true)}>Matched</button>
@@ -1236,7 +1239,7 @@ className="SelectBtn"
                       documentList.length > 0  ?
                         documentList.map((doc, index) =>
                         doc.originalName ?
-                          <div className="col-6 mx-0">
+                          <div className="col-6 mx-0" key={index}>
                             <div className="row CardClassDownload mt-1 mx-0">
                               <div className="col-4 d-flex align-items-center ">
                                 <p className="download-font mb-0"> {doc.originalName.length > 20 ? doc.originalName.slice(0,20) + "..." : doc.originalName}</p>
@@ -1250,7 +1253,7 @@ className="SelectBtn"
                                     {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
                                   </button>
                                 } */}
-                                     <button className="btnDownload" onClick={()=>ViewDownloadFiles( doc.url)}>
+                                     <button className="btnDownload" onClick={(e)=>ViewDownloadFiles(e, doc.url)}>
                                     <img src={require("../images/dowBtn.svg").default} />
                                     {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
                                   </button>
@@ -1297,33 +1300,33 @@ className="SelectBtn"
                         </div>
                       </div>
                       :  
-                      <div className="d-grid  justify-content-center align-items-center mb-0">
-                      <div className="d-flex justify-content-center">
-                        <img
-                          src={require("../images/docupload.svg").default}
-                        />
-                      </div>
-                      <p
-                        style={{
-                          fontFamily: "Poppins",
-                          fontStyle: "normal",
-                          fontWeight: "500",
-                          fontSize: "16px",
-                          lineHeight: "24px",
-                          color: "#92929D",
-                        }}
-                      >
-                        {UploadTextBtn} file not Uploaded Yet
-                      </p>
-                    </div>
-   
+                
+   <div className="d-grid  justify-content-center align-items-center mb-0">
+   <div className="d-flex justify-content-center">
+     <img
+       src={require("../images/docupload.svg").default}
+     />
+   </div>
+   <p
+     style={{
+       fontFamily: "Poppins",
+       fontStyle: "normal",
+       fontWeight: "500",
+       fontSize: "16px",
+       lineHeight: "24px",
+       color: "#92929D",
+     }}
+   >
+     {UploadTextBtn} file not Uploaded Yet
+   </p>
+ </div>
                     }
                       <>
                     {
                       Links?.map((Link, index) => (
                         Link.link && Link._id?
                        
-                          <div className="col-6 mx-0">
+                          <div className="col-6 mx-0" key={index}>
                           <div className="row CardClassDownload mt-1 mx-0">
                             <div
                               className="col-4 d-flex align-items-center cursor-pointer"
@@ -1350,7 +1353,7 @@ className="SelectBtn"
                                 name="btnDownloadLink"
                                 className="btnDownload"
                                 onClick={(e) =>
-                                  ViewDownloadFiles(Link.link)
+                                  ViewDownloadFiles(e,Link.link)
                                 }
                               >
                                 <img
@@ -1478,6 +1481,7 @@ fontSize: "14px",}} /></div>
                   showTabsScroll={false}
                   tabsScrollAmount={5}
                   className="alertMessage"
+                  activeTab
                 >
                   {CONTRACT_EMPLOYE_INTERMANN ? null : (
                     <Tab className="redColorStyling">

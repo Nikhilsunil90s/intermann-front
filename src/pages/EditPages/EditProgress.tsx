@@ -356,10 +356,8 @@ function EditProgress() {
   
   const handleImageChange = (val) => {
     if (val === 'upload') {
-      console.log("upload")
       handleImageUpload()
     } else if (val === 'Download') {
-      console.log("download")
       window.open(candidatImage);
     }
   }
@@ -387,17 +385,17 @@ function EditProgress() {
       return;
     }
     if (e.target.name === 'candidatMotivation ') {
-      console.log(e.target.value);
+    
       changeCandidatMotivation(e.target.value);
     }
     if (e.target.name === 'candidatLanguages') {
       if (e.target?.checked) {
         addLanguages(e.target.value);
-        console.log(selectedLanguages)
+     
         return
       } else {
         removeLanguages(e.target.value);
-        console.log(selectedLanguages)
+     
 
         return
       }
@@ -412,7 +410,6 @@ function EditProgress() {
       return
     }
     if (e.target.name === 'location') {
-      console.log(e.target.defaultValue);
       setLocation(e.target.value);
       if (e.target.value) {
         setLocationModified(true);

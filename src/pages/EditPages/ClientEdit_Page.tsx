@@ -268,7 +268,6 @@ const onInputChange=(val)=>{
 
   
      const TauxHandleChange = (e: any) => {
-       console.log(e.target.value);
        if (e.target.id === "1") {
          setHours("35");
          setHoursId(e.target.id);
@@ -522,8 +521,7 @@ const onInputChange=(val)=>{
     }
     const handleSectorChange = (e: any) => {
 setJobOptions([])
-        console.log(e)
-        if (e.value === "Select Un Secteur") {
+          if (e.value === "Select Un Secteur") {
           setJobs([]);
           setSelectedSector("");
           setJobOptions([]);
@@ -581,19 +579,18 @@ setJobOptions([])
         }
 
         if (e.target.name === 'clientMotivation') {
-            console.log(e.target.value);
+        
             changeClientMotivation(e.target.value);
         }
 
         if (e.target.name === 'clientImportance') {
-            console.log(e.target.value);
+        
             changeClientImportance(e.target.value);
         }
 
         setData((prev) => ({ ...prev, [e.target.name] : e.target.value }));
     }
     const HandleChangeH = (e: any) => {
-        console.log(e.target.value);
         if (e.target.id === "1") {
           setShowHour("35");
           setID(e.target.id);

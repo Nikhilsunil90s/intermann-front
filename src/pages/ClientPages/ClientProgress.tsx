@@ -64,7 +64,6 @@ export default function ClientProgress() {
 
   const loadMoreHandle = (i) => {
     let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
-    console.log(bottom,"bottom")
     if (bottom) {
       if(selectedSector.length === 0 &&
         selectedJob.length === 0 &&
@@ -1166,7 +1165,7 @@ setStatus(false)
                   {  status? 
                    filterData.length > 0 ? 
                       filterData.map((profile, index) => (
-                        <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left">
+                        <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left" key={profile._id}>
                           <ClientProgressCard data={profile} />
                         </div>
                       ))

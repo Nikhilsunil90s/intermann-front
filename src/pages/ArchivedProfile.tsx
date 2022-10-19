@@ -234,7 +234,7 @@ useEffect(() => {
      
         let tempdate =new Date(profile.candidatContract.contract_date)
         setMonth(tempdate.getMonth()+ 1)
-        let NewCdate=[tempdate.getFullYear() ,"0" + GetMonth,tempdate.getDate()].join("-")
+        let NewCdate=[tempdate.getFullYear() , GetMonth,tempdate.getDate()].join("-")
       setcontract_date(NewCdate)
   
     let tempdate2 =new Date(profile.candidatContract.debutMissionDate)
@@ -510,51 +510,7 @@ const  ViewDownloadFiles =( documentName:any)=>{
               </div>
             </div>
           </div>
-            {/* <div className="col-12 p-3 bg-color-card">
-              <div className="row">
-                <div className="col-2 text-center ">
-                  <img
-                    src={require("../images/menlogos.svg").default}
-                    style={{ width: "90%" }}
-                  />
-
-                  <button type="button" className="btn btn-upload">
-                    UPLOAD PHOTO
-                  </button>
-                </div>
-                <div className="col-5 card-xl">
-                  <p>Name : {profile.candidatName}</p>
-                  <p>Age : {profile.candidatAge}</p>
-                  <div>
-
-                    <p>
-                      Motivation:
-                      <StarRatings
-                        rating={profile.candidatMotivation}
-                        starRatedColor="#ffc107"
-                        // changeRating={}
-                        numberOfStars={profile.candidatMotivation}
-                        starDimension={"19px"}
-                        starSpacing={"1px"}
-                        name="rating"
-                      />
-                    </p>
-                  </div>
-                  <p>Secteur : {profile.candidatActivitySector}</p>
-                  <p>Métier/Job : {profile.candidatJob}</p>
-                </div>
-                <div className="col-5 text-end end-class">
-                  <div>
-                    <button type="button" className="btn btnArchive">
-                      <span><img src={require("../images/multiplyyy.svg").default} /></span>
-                      ARCHIVED
-                    </button>
-                  </div>
-                  <p className="fw-bold">Candidat Archivé/Annulé/Viré</p>
-                  <p>This candidate have been Archived</p>
-                </div>
-              </div>
-            </div> */}
+           
              <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pb-0 mt-2">
               <div className="row bg-ArchiveDetails mt-0">
                 <div className="col-xxl-2 col-xl-2 col-md-2 col-sm-2 text-center">
@@ -572,13 +528,7 @@ const  ViewDownloadFiles =( documentName:any)=>{
                   />
               
                   }
-                    {/* <Select
-                          closeMenuOnSelect={true}
-                          onChange={handleImageChange}
-  options={uploadOption}
-  className="Todoupload"
-
-/> */}
+                 
 <button
  onClick={()=>{setSelectUpload(!UploadBtn);}}
 className="SelectBtn"
@@ -605,9 +555,9 @@ className="SelectBtn"
                     <span className="card-xlSpan">(Age)</span>
                   </div>
                   <div>
-                    <p className="d-flex mb-0">
+                    <div className="d-flex mb-0">
                     <p>Motivation : {candidatMotivationIcons[profile.candidatMotivation].icon + " " + candidatMotivationIcons[profile.candidatMotivation ].motivation} </p>
-                    </p>
+                    </div>
                   </div>
                   <p>Secteur : {profile.candidatActivitySector ? profile.candidatActivitySector.toLocaleUpperCase() : "No Secteur!"}</p>
                   <p className="" style={{ width: "150%" }}>
@@ -632,50 +582,7 @@ className="SelectBtn"
                 <div className="whyFont"><p>WHY THIS CANDIDATES HAVE BEEN ARCHIVED: <span> {profile?.candidatArchived?.reason}</span></p></div>
               </div>
             </div>
-            {/* <div className="col-12 social-box-size">
-              <div className="row">
-                <div className="col-6 text-center">
-                  <p>Mail : {profile.candidatEmail}</p>
-                  <button className="btn btn-email"> <a href="https://accounts.google.com/" target="_blank" >
-                    <span className="padding-email">
-                    <img src={require("../images/gmail.svg").default} />
-                    </span>
-                    See Profile
-                    </a>
-                  </button>
-                  <p>Facebook : {profile.candidatFBURL}</p>
-                  <button className="btn btn-primary btn-see">
-                  <a href={profile.candidatFBURL} target="_blank" >
-                    <span className="padding-email">
-                      <img src={require("../images/facebook.svg").default} />
-                    </span>
-                    See Profile
-                    </a>
-                    </button>
-                </div>
-
-                <div className="col-6">
-                  <p>Phone : {profile.candidatPhone}</p>
-                  <button className="btn btn-whatsapp btn-see">
-                  <a href={`https://wa.me/${profile.candidatPhone}`} target="_blank">
-                    <span className="padding-email">
-                      <img src={require("../images/whatsapp.svg").default} />
-                    </span>
-                    Send What’s App
-                    </a>
-                  </button>
-                  <p> Phone 2 : {profile.candidatAlternatePhone} </p>
-                  <button className="btn btn-whatsapp btn-see">
-                  <a href={`https://wa.me/${profile.candidatAlternatePhone}`} target="_blank">
-                    <span className="padding-email">
-                      <img src={require("../images/whatsapp.svg").default} />
-                    </span>
-                    Send What’s App
-                    </a>
-                  </button>
-                </div>
-              </div>
-            </div> */}
+            
              <div className="col-12 mt-2 ">
               <div className="row justify-content-between">
               
@@ -846,7 +753,7 @@ null
                     profile.candidatExperienceDetails.length > 0 &&
                       profile.candidatExperienceDetails[0].period != "" ?
                       (profile.candidatExperienceDetails.map((detail) =>
-                        <tr>
+                        <tr key={detail}>
                           <td>{detail.period}</td>
                           <td>{detail.location}</td>
                           <td>{detail.workDoneSample}</td>
@@ -885,18 +792,7 @@ null
             </div>
             <div className="col-12 Archived-Card mt-2">
               <div className="row p-1 justify-content-between">
-                {/* <div className="col-3 text-center">
-                  <button type="button" className="btn btn-move" onClick={() => setShowInProgressModal(true)}>
-                    Move to In Progress
-                  </button>
-                  {showInProgressModal ?
-                    <InProgressModal props={profile} closeModal={setShowInProgressModal} /> : null
-                  }
-                  <p className="italic-font">Si embauché</p>
-                </div> */}
-               
-            
-                <div className="col-3 px-0 text-center">
+              <div className="col-3 px-0 text-center">
                   <button
                     type="button"
                     className="btn btn-ArchiveEditProfile"
@@ -983,92 +879,92 @@ null
                   <>
                             <div className='col-4  d-grid text-start'>
                                 <label className="PDFFormlabel">Lieu_Mission</label>
-                                <input className='form-control inputStylingForView'  onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.lieu_mission ? profile.candidatContract.lieu_mission: "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Lieu_Mission" />
+                                <input className='form-control inputStylingForView'  onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.lieu_mission ? profile.candidatContract.lieu_mission: "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Lieu_Mission" />
                             </div>
                             <div className='col-4  d-grid text-start' >
                             <label className="PDFFormlabel">Durée_Mission</label>
-                            <input className='form-control inputStylingForView'  onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.duree_mission ? profile.candidatContract.duree_mission  : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Durée_Mission" />
+                            <input className='form-control inputStylingForView'  onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.duree_mission ? profile.candidatContract.duree_mission  : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Durée_Mission" />
 
                             </div>
                             <div className='col-4  d-grid text-start'>
                             <label className="PDFFormlabel  d-flex align-items-start ">Durée_Hebdomadaire_Mission</label>
-                            <input className='form-control inputStylingForView' onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.duree_hebdomadaire_mission? profile.candidatContract.duree_hebdomadaire_mission  : "input Not Available!" : "input Not Available!"} placeholder="‎ ‎ ‎ Durée_Hebdomadaire_Mission"/>
+                            <input className='form-control inputStylingForView' onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.duree_hebdomadaire_mission? profile.candidatContract.duree_hebdomadaire_mission  : "input Not Available!" : "input Not Available!"} placeholder="‎ ‎ ‎ Durée_Hebdomadaire_Mission"/>
 
                             </div>
                             <div className='col-4  d-grid text-start'>
                             <label className="PDFFormlabel">Candidate_Job</label>
-                            <input className='form-control inputStylingForView'  onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.candidatJob ? profile.candidatContract.candidatJob : "input Not Available!" : "input Not Available!"} placeholder="‎ ‎ ‎ Candidate_Job" />
+                            <input className='form-control inputStylingForView'  onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.candidatJob ? profile.candidatContract.candidatJob : "input Not Available!" : "input Not Available!"} placeholder="‎ ‎ ‎ Candidate_Job" />
 
                             </div>
                             <div className='col-4  d-grid text-start'>
                             <label className="PDFFormlabel">CMP_CANDIDATE</label>
-                            <input className='form-control inputStylingForView' onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.cmp_candidat? profile.candidatContract.cmp_candidat : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ CMP_CANDIDATE" />
+                            <input className='form-control inputStylingForView' onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.cmp_candidat? profile.candidatContract.cmp_candidat : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ CMP_CANDIDATE" />
 
                             </div>
                             <div className='col-4  d-grid text-start'>
                             <label className="PDFFormlabel">Contract_date</label>
-                            <input className='form-control inputStylingForView' type="date"  onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.contract_date ? contract_date : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Contract_date" />
+                            <input className='form-control inputStylingForView' type="date"  onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.contract_date ? contract_date : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Contract_date" />
 
                             </div>
                             <div className='col-4  d-grid text-start'>
                                                       <label className="PDFFormlabel d-flex align-items-start ">Company_Contact_Name</label>
                             
 
-                            <input className='form-control inputStylingForView' onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.company_contact_name ? profile.candidatContract.company_contact_name : "input Not Available!" : "input Not Available!"} placeholder="‎ ‎ ‎ Company_Contact_Name" />
+                            <input className='form-control inputStylingForView' onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.company_contact_name ? profile.candidatContract.company_contact_name : "input Not Available!" : "input Not Available!"} placeholder="‎ ‎ ‎ Company_Contact_Name" />
                             
                             </div>
                             <div className='col-4  d-grid text-start'>
                             <label className="PDFFormlabel">NR_INREG</label>
-                            <input className='form-control inputStylingForView' onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.nr_inreg ? profile.candidatContract.nr_inreg : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ NR_INREG" />
+                            <input className='form-control inputStylingForView' onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.nr_inreg ? profile.candidatContract.nr_inreg : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ NR_INREG" />
 
                             </div>
                             <div className='col-4  d-grid text-start'>
                             <label className="PDFFormlabel">SERIE_ID</label>
-                            <input className='form-control inputStylingForView' onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.serie_id ? profile.candidatContract.serie_id: "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ SERIE_ID" />
+                            <input className='form-control inputStylingForView' onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.serie_id ? profile.candidatContract.serie_id: "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ SERIE_ID" />
 
                             </div>
                             
                             <div className='col-4 d-grid text-start'>
                             <label className="PDFFormlabel">Candidate_Adress</label>
-                            <input className='form-control inputStylingForView' onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.candidatAddress ? profile.candidatContract.candidatAddress : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Candidate_Adress" />
+                            <input className='form-control inputStylingForView' onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.candidatAddress ? profile.candidatContract.candidatAddress : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Candidate_Adress" />
 
                             </div>
                             <div className='col-4  d-grid text-start'>
                             <label className="PDFFormlabel">Company_Siret</label>
-                            <input className='form-control inputStylingForView'  onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.company_siret ? profile.candidatContract.company_siret : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ Company_Siret" />
+                            <input className='form-control inputStylingForView'  onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.company_siret ? profile.candidatContract.company_siret : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ Company_Siret" />
 
                             </div>
                             
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Numero TF Candidat</label>
-                            <input className='form-control inputStyling'  name='Numero_TF_Candidat'  onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.numeroTFCandidat ? profile.candidatContract.numeroTFCandidat : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ Numero TF Candidat" />
+                            <input className='form-control inputStyling'  name='Numero_TF_Candidat'  onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.numeroTFCandidat ? profile.candidatContract.numeroTFCandidat : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ Numero TF Candidat" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Company Vat</label>
-                            <input className='form-control inputStyling'  name='Company_Vat'  onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.companyVat ? profile.candidatContract.companyVat : "input Not Available!": "input Not Available!"}   placeholder="‎ ‎ ‎ Company Vat" />
+                            <input className='form-control inputStyling'  name='Company_Vat'  onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.companyVat ? profile.candidatContract.companyVat : "input Not Available!": "input Not Available!"}   placeholder="‎ ‎ ‎ Company Vat" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Salaire Brut</label>
-                            <input className='form-control inputStyling'   name='Salaire_Brut'  onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.salaireBrut ? profile.candidatContract.salaireBrut : "input Not Available!": "input Not Available!"} placeholder="‎ ‎ ‎ Salaire Brut" />
+                            <input className='form-control inputStyling'   name='Salaire_Brut'  onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.salaireBrut ? profile.candidatContract.salaireBrut : "input Not Available!": "input Not Available!"} placeholder="‎ ‎ ‎ Salaire Brut" />
 
                             </div>
 
 
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Salaire Net</label>
-                            <input className='form-control inputStyling'  name='Salaire_Net'  onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.salaireNet ? profile.candidatContract.salaireNet : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ Salaire_Net" />
+                            <input className='form-control inputStyling'  name='Salaire_Net'  onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.salaireNet ? profile.candidatContract.salaireNet : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ Salaire_Net" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Diurna Total Par Jour</label>
-                            <input className='form-control inputStyling'  name='Diurna_Total_Par_Jour'  onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.diurnaTotalParJour ? profile.candidatContract.diurnaTotalParJour : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ Diurna Total Par Jour" />
+                            <input className='form-control inputStyling'  name='Diurna_Total_Par_Jour'  onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.diurnaTotalParJour ? profile.candidatContract.diurnaTotalParJour : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ Diurna Total Par Jour" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Debut Mision (Date)</label>
-                            <input className='form-control inputStyling' type="date"  name='Debut Mision Date'  onClick={editCandidatProfile} value={profile.candidatContract ? profile.candidatContract.debutMissionDate ? debutMissionDate : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ Debut Mision Date" />
+                            <input className='form-control inputStyling' type="date"  name='Debut Mision Date'  onClick={editCandidatProfile} defaultValue={profile.candidatContract ? profile.candidatContract.debutMissionDate ? debutMissionDate : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ Debut Mision Date" />
 
                             </div>
 
@@ -1076,28 +972,28 @@ null
 
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Heure Par Semaine</label>
-                            <input className='form-control inputStyling'  name='Heure_Par_Semaine'  onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.heurePerSemaine ? profile.candidatContract.heurePerSemaine : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ Heure Par Semaine" />
+                            <input className='form-control inputStyling'  name='Heure_Par_Semaine'  onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.heurePerSemaine ? profile.candidatContract.heurePerSemaine : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ Heure Par Semaine" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Duree Hebdomadaire</label>
-                            <input className='form-control inputStyling'  name='Duree_Hebdomadaire'  onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.duree_hebdomadaire ? profile.candidatContract.duree_hebdomadaire : "input Not Available!": "input Not Available!"}   placeholder="‎ ‎ ‎ Duree Hebdomadaire" />
+                            <input className='form-control inputStyling'  name='Duree_Hebdomadaire'  onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.duree_hebdomadaire ? profile.candidatContract.duree_hebdomadaire : "input Not Available!": "input Not Available!"}   placeholder="‎ ‎ ‎ Duree Hebdomadaire" />
 
                             </div>
                             <div className='col-4  d-grid'>
                             <label className="PDFFormlabel">indemnisation jour</label>
-                            <input className='form-control inputStyling'  name='indemnisation_jour'  onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.indemnisationJour ? profile.candidatContract.indemnisationJour : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ indemnisation jour" />
+                            <input className='form-control inputStyling'  name='indemnisation_jour'  onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.indemnisationJour ? profile.candidatContract.indemnisationJour : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ indemnisation jour" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Fin Mision</label>
-                            <input className='form-control inputStyling'  type="date" name='fin_mision'  onClick={editCandidatProfile} value={profile.candidatContract ? profile.fin_mision !="" ? fin_mision : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ indemnisation jour" />
+                            <input className='form-control inputStyling'  type="date" name='fin_mision'  onClick={editCandidatProfile} defaultValue={profile.candidatContract ? profile.fin_mision !="" ? fin_mision : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ indemnisation jour" />
 
                             </div>
 
                             <div className='col-12  d-grid text-start'>
                             <label className="PDFFormlabel">Company_Adress</label>
-                            <textarea className='TextAreaPage form-control' onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.companyAddress ? profile.candidatContract.companyAddress : "input Not Available!": "input Not Available!"} placeholder='‎ ‎ ‎Company_Adress'></textarea>
+                            <textarea className='TextAreaPage form-control' onClick={editCandidatProfile} defaultValue={profile.candidatContract ?profile.candidatContract.companyAddress ? profile.candidatContract.companyAddress : "input Not Available!": "input Not Available!"} placeholder='‎ ‎ ‎Company_Adress'></textarea>
                             </div>
                             </>
                                    : 
@@ -1335,13 +1231,7 @@ null
                 
                 <img src={require("../images/resume.svg").default} />
            
-                {/* <input
-                  type="file"
-                  ref={hiddenFileInput}
-                  onChange={fileChange}
-                  name="candidatDocuments"
-                  style={{ display: "none" }}
-                /> */}
+         
                 <FileUploader 
                 handleChange={FilesUploads}
                 name="candidatDocuments"
@@ -1398,6 +1288,7 @@ fontSize: "14px",}} /></div>
                   showTabsScroll={false}
                   tabsScrollAmount={5}
                   className="alertMessage"
+                  activeTab
                 >
                   {CONTRACT_EMPLOYE_INTERMANN ? null : (
                     <Tab className="redColorStyling">

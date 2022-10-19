@@ -479,42 +479,6 @@ function ArchivedViewPage() {
         });
       return;
     }
-    // if (e.target.name === "clientDocuments") {
-    //   const fileUploaded = e.target.files[0];
-    //   setCandidatDocument(fileUploaded);
-    //   let formdata = new FormData();
-    //   formdata.append("clientId", profile._id);
-    //   formdata.append("document", fileUploaded);
-    //   formdata.append("folderName", UploadName);
-    //   axiosInstance
-    //     .post("uploadClientDocuments", formdata, {
-    //       headers: {
-    //         "Content-Type": "multipart/form-data",
-    //         Authorization: "Bearer " + localStorage.getItem("token"),
-    //       },
-    //       onUploadProgress: (data) => {
-    //         //Set the progress value to show the progress bar
-    //         setProgress(Math.round((100 * data.loaded) / data.total));
-    //       },
-    //     })
-    //     .then((resData) => {
-    //       console.log(resData.data.status, "resData.data.status");
-    //       if (resData.data.status) {
-    //         console.log(resData.data, "resData");
-    //         setDocUploaded(true);
-    //         setProgress(0);
-    //         notifyDocumentUploadSuccess();
-    //       } else {
-    //         console.log(resData);
-    //         setDocUploaded(false);
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //       setDocUploaded(false);
-    //     });
-    //   return;
-    // }
   };
 
   useEffect(() => {
@@ -523,7 +487,7 @@ function ArchivedViewPage() {
         if (resData.status == true) {
           resData.data.map((el) => {
             setProfile(el);
-          setClientImage(el.clientPhoto.url)
+          setClientImage(el.clientPhoto ? el.clientPhoto.url : "")
             setClientContract(el.clientContract);
             clDoc = el.clientDocuments.filter(
               (el) => el.folderName == UploadName
@@ -570,16 +534,6 @@ function ArchivedViewPage() {
     hiddenFileInput.current.click();
   };
 
-  // const removeRecommendation = (rId: any) => {
-
-  //   console.log(recommendations);
-  //   let filteredRecommendations = recommendations.filter((recomm) => {
-  //     return recomm._id !== rId;
-  //   })
-  //   console.log(filteredRecommendations)
-  //   setRecommendations([...filteredRecommendations])
-  //   setLoader(true);
-  // }
 
   const deleteDocument = async (docId: any, docName: any) => {
     await deleteCandidatDocument(docId, docName, profile._id)
@@ -703,9 +657,6 @@ function ArchivedViewPage() {
       <div className="container-fluid ">
         <div className="row  mt-1">
           <div className="col-12 top-pd mt-2">
-            {/* <div className="col-12 top-pd text-center">
-              <h1 style={{ textDecoration: 'underline' }}>CLIENT FILE: {profile.clientCompanyName}</h1>
-            </div> */}
             <div className="row">
               <div className="col-8">
                 <div className="stable">
@@ -727,7 +678,6 @@ function ArchivedViewPage() {
                   <img src={require("../../images/Edit.svg").default} />
                   Edit Profile
                 </button>
-                {/* </Link> */}
               </div>
             </div>
           </div>
@@ -774,10 +724,6 @@ function ArchivedViewPage() {
                     style={{ display: "none" }}
                   />
                 </div>
-
-                {/* <button type="button" className="btn btn-upload">
-                    UPLOAD PHOTO
-                  </button> */}
                 <div className="col-6 ClientSEEPtags">
                   <div className="d-flex">
                     <p>
@@ -1033,8 +979,8 @@ function ArchivedViewPage() {
                       <p className="text-dark">Salaire net du salarié : </p>
                       <span className="Todo-ClinetCardMore-span">
                         {profile.salary_hours.length !== 0
-                          ? profile.salary_hours.map((el) => (
-                              <div className="d-flex">
+                          ? profile.salary_hours.map((el,i) => (
+                              <div className="d-flex" key={i}>
                                 {el.hours ? el.hours : "0"}H =
                                 <span>
                                   {el.salaryPerHour
@@ -1050,8 +996,8 @@ function ArchivedViewPage() {
                       <p className="text-dark">Taux horraire :</p>
                       <span className="Todo-ClinetCardMore-span">
                         {profile.rate_hours.length !== 0
-                          ? profile.rate_hours.map((el) => (
-                              <div className="d-flex">
+                          ? profile.rate_hours.map((el,i) => (
+                              <div className="d-flex" key={i}>
                                 {el.hours ? el.hours : "0"}H =
                                 <span>
                                   {el.ratePerHour ? el.ratePerHour + "€" : "0€"}
@@ -1081,43 +1027,10 @@ function ArchivedViewPage() {
                 </div>
               </div>
             </div>
-
-            {/* <div className="col-12 pt-4">
-                <div className="row">
-                  <div className="col-5 pdf-btn">
-                    <img src={require("../../images/doc.svg").default} />
-                    <span>Add document about this client </span>
-                  </div>
-                </div>
-              </div> */}
-            {/* <div className="col-12"> */}
-            {/* <div className="row">
-                  <div className="col-6 mb-3">
-                    <p className="poppins">
-                      Par exemple : Contrat signé; Offre signé....
-                    </p>
-                    <span className="poppins">
-                      PDF; Word; PNG; Excel etc ......
-                    </span>
-                  </div>
-                </div>
-              </div> */}
-            <div className="col-12 Social-CardClient my-1 p-1">
+           <div className="col-12 Social-CardClient my-1 p-1">
               <div className="row">
                 <div className="col-6">
                   <div className="ClientFontMotivationsStyling">
-                    {/* <p>
-                    Importance:
-                    <StarRatings
-                      rating={profile.clientImportance}
-                      starRatedColor="#ffc107"
-                      // changeRating={}
-                      numberOfStars={profile.clientImportance}
-                      starDimension={"19px"}
-                      starSpacing={"1px"}
-                      name="rating"
-                    />
-                  </p> */}
                     <p
                       className="d-flex align-items-center mb-0"
                       style={{ height: "30px", background: "transparent" }}
@@ -2043,6 +1956,7 @@ fontSize: "14px",}} />
                   showTabsScroll={false}
                   tabsScrollAmount={5}
                   className="alertMessage"
+                  activeTab
                 >
                  
                  

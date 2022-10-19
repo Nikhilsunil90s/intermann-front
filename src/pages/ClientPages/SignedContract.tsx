@@ -537,7 +537,7 @@ let Editdata ={state:profile,path:"/clientSigned"}
             setDocumentList([...clDoc,...Links]);
             // setLinkDoc([...Links])
 
-            setClientImage(el.clientPhoto.url)
+            setClientImage(el.clientPhoto ? el.clientPhoto.url : "")
           });
 
       
@@ -907,7 +907,6 @@ const deleteCandidatLink = (Id : any) => {
       console.log(isValidUrl(DriveLink));
     }
   }
-  console.log(documentList,"document")
   return (
     <>
       <Toaster
@@ -1568,8 +1567,8 @@ const deleteCandidatLink = (Id : any) => {
                       <p className="text-dark">Salaire net du salarié : </p>
                       <span className="Todo-ClinetCardMore-span">
                         {profile.salary_hours.length !== 0
-                          ? profile.salary_hours.map((el) => (
-                              <div className="d-flex">
+                          ? profile.salary_hours.map((el,i) => (
+                              <div className="d-flex" key={i}>
                                 {el.hours ? el.hours : "0"}H ={" "}
                                 <span>
                                   {el.salaryPerHour
@@ -1585,8 +1584,8 @@ const deleteCandidatLink = (Id : any) => {
                       <p className="text-dark">Taux horraire :</p>
                       <span className="Todo-ClinetCardMore-span">
                         {profile.rate_hours.length !== 0
-                          ? profile.rate_hours.map((el) => (
-                              <div className="d-flex">
+                          ? profile.rate_hours.map((el,i) => (
+                              <div className="d-flex" key={i}>
                                 {el.hours ? el.hours : "0"}H ={" "}
                                 <span>
                                   {el.ratePerHour ? el.ratePerHour + "€" : "0€"}
@@ -1610,14 +1609,14 @@ const deleteCandidatLink = (Id : any) => {
                 </div>
                 {profile.employeesWorkingUnder !== null &&
                 profile.employeesWorkingUnder.length > 0 ? 
-                  profile.employeesWorkingUnder.map((el) => (
+                  profile.employeesWorkingUnder.map((el,i) => (
                 <>    
                      {  el.candidatStatus == "Archived" ||  el.candidatStatus == "Pre-Selected" ?
                          
                         null
 :                    
 <>
-  <div className="col-12 pb-1">
+  <div className="col-12 pb-1" key={i}>
 <div className="row">   
                    <div className="col-8 d-flex align-items-center">
 <img
@@ -1689,8 +1688,8 @@ const deleteCandidatLink = (Id : any) => {
                       <div className="row">
                         {
                           preSelect ?
-                          preSelect.map((el)=>(
-                            <>      <div className="col-4 d-flex align-items-center mb-1">
+                          preSelect.map((el,i)=>(
+                            <>      <div className="col-4 d-flex align-items-center mb-1" key={i}>
                             <img
                               style={{ width: "15%" }}
                               className="pr-1"
@@ -1717,8 +1716,8 @@ const deleteCandidatLink = (Id : any) => {
                             
                         }
 {Archived ?
-                   Archived.map((el)=>(
-<>      <div className="col-3 d-flex align-items-center">
+                   Archived.map((el,i)=>(
+<>      <div className="col-3 d-flex align-items-center" key={i}>
 <img
   style={{ width: "20%" }}
   className="pr-1"
@@ -1976,7 +1975,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="numero_contract"
-                      value={
+                      defaultValue={
                         clientContract ? clientContract.numero_contract : ""
                       }
                       onClick={editClientProfile}
@@ -1989,7 +1988,7 @@ const deleteCandidatLink = (Id : any) => {
                     </label>
                     <input
                       className="form-control inputStyling"
-                      value={
+                      defaultValue={
                         clientContract
                           ? clientContract.initial_client_company
                           : ""
@@ -2002,7 +2001,7 @@ const deleteCandidatLink = (Id : any) => {
                     <label className="ClientPDFFormlabel">$ siret </label>
                     <input
                       className="form-control inputStyling"
-                      value={clientContract ? clientContract.siret : ""}
+                      defaultValue={clientContract ? clientContract.siret : ""}
                       onClick={editClientProfile}
                       placeholder="‎ ‎ ‎$ siret"
                     />
@@ -2012,7 +2011,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="candidatJob "
-                      value={clientContract ? clientContract.numero_tva : ""}
+                      defaultValue={clientContract ? clientContract.numero_tva : ""}
                       onClick={editClientProfile}
                       placeholder="‎ ‎ ‎ $ numero TVA"
                     />
@@ -2022,7 +2021,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="cmp_candidat"
-                      value={clientContract ? clientContract.nom_gerant : ""}
+                      defaultValue={clientContract ? clientContract.nom_gerant : ""}
                       onClick={editClientProfile}
                       placeholder="‎ ‎ ‎ $ nom gérant"
                     />
@@ -2034,7 +2033,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="contract_date"
-                      value={
+                      defaultValue={
                         clientContract ? clientContract.telephone_gerant : ""
                       }
                       onClick={editClientProfile}
@@ -2048,7 +2047,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="inputStyling wHCompany form-control"
                       name="company_contact_name"
-                      value={
+                      defaultValue={
                         clientContract ? clientContract.metier_en_roumain : ""
                       }
                       onClick={editClientProfile}
@@ -2062,7 +2061,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="$ metier en Français"
-                      value={
+                      defaultValue={
                         clientContract ? clientContract.metier_en_francais : ""
                       }
                       onClick={editClientProfile}
@@ -2077,7 +2076,7 @@ const deleteCandidatLink = (Id : any) => {
                       type="date"
                       className="form-control inputStyling"
                       name="serie_id"
-                      value={clientContract ? clientContract.debut_date : ""}
+                      defaultValue={clientContract ? clientContract.debut_date : ""}
                       onClick={editClientProfile}
                       placeholder="‎ ‎ ‎ $ date du debut de mission"
                     />
@@ -2090,7 +2089,7 @@ const deleteCandidatLink = (Id : any) => {
                       type="date"
                       className="form-control inputStyling"
                       name="candidatAddress"
-                      value={
+                      defaultValue={
                         clientContract ? clientContract.date_fin_mission : ""
                       }
                       onClick={editClientProfile}
@@ -2104,7 +2103,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="company_siret"
-                      value={
+                      defaultValue={
                         clientContract ? clientContract.prix_per_heure : ""
                       }
                       onClick={editClientProfile}
@@ -2118,7 +2117,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="SALAIRE EN EURO"
-                      value={clientContract ? clientContract.salaire_euro : ""}
+                      defaultValue={clientContract ? clientContract.salaire_euro : ""}
                       onClick={editClientProfile}
                       placeholder="‎ ‎ ‎ $ SALAIRE EN EURO"
                     />
@@ -2130,7 +2129,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="candidatAddress"
-                      value={clientContract ? clientContract.nombre_heure : ""}
+                      defaultValue={clientContract ? clientContract.nombre_heure : ""}
                       onClick={editClientProfile}
                       placeholder="‎ ‎ ‎ $ nombre d'heure négocie dans le contrat"
                     />
@@ -2142,7 +2141,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="company_siret"
-                      value={
+                      defaultValue={
                         clientContract ? clientContract.worker_number_1 : ""
                       }
                       onClick={editClientProfile}
@@ -2156,7 +2155,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="worker_name_1"
-                      value={clientContract ? clientContract.worker_name_1 : ""}
+                      defaultValue={clientContract ? clientContract.worker_name_1 : ""}
                       onClick={editClientProfile}
                       placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1"
                     />
@@ -2168,7 +2167,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="serie_id"
-                      value={
+                      defaultValue={
                         clientContract ? clientContract.worker_number_2 : ""
                       }
                       onClick={editClientProfile}
@@ -2182,7 +2181,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="candidatAddress"
-                      value={clientContract ? clientContract.worker_name_2 : ""}
+                      defaultValue={clientContract ? clientContract.worker_name_2 : ""}
                       onClick={editClientProfile}
                       placeholder="‎ ‎ ‎ $ numero de tel du travailleur 2"
                     />
@@ -2194,7 +2193,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="company_siret"
-                      value={
+                      defaultValue={
                         clientContract ? clientContract.worker_number_3 : ""
                       }
                       onClick={editClientProfile}
@@ -2208,7 +2207,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="serie_id"
-                      value={clientContract ? clientContract.worker_name_3 : ""}
+                      defaultValue={clientContract ? clientContract.worker_name_3 : ""}
                       onClick={editClientProfile}
                       placeholder="‎ ‎ ‎ $ numero de tel du travailleur 3"
                     />
@@ -2220,7 +2219,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="candidatAddress"
-                      value={
+                      defaultValue={
                         clientContract ? clientContract.worker_number_4 : ""
                       }
                       onClick={editClientProfile}
@@ -2234,7 +2233,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="company_siret"
-                      value={clientContract ? clientContract.worker_name_4 : ""}
+                      defaultValue={clientContract ? clientContract.worker_name_4 : ""}
                       onClick={editClientProfile}
                       placeholder="‎ ‎ ‎ $ numero de tel du travailleur 4"
                     />
@@ -2246,7 +2245,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="serie_id"
-                      value={
+                      defaultValue={
                         clientContract ? clientContract.worker_number_5 : ""
                       }
                       onClick={editClientProfile}
@@ -2260,7 +2259,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="candidatAddress"
-                      value={clientContract ? clientContract.worker_name_5 : ""}
+                      defaultValue={clientContract ? clientContract.worker_name_5 : ""}
                       onClick={editClientProfile}
                       placeholder="‎ ‎ ‎ $ numero de tel du travailleur 5"
                     />
@@ -2272,7 +2271,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="company_siret"
-                      value={
+                      defaultValue={
                         clientContract ? clientContract.worker_number_6 : ""
                       }
                       onClick={editClientProfile}
@@ -2286,7 +2285,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="serie_id"
-                      value={clientContract ? clientContract.worker_name_6 : ""}
+                      defaultValue={clientContract ? clientContract.worker_name_6 : ""}
                       onClick={editClientProfile}
                       placeholder="‎ ‎ ‎ $ numero de tel du travailleur 6"
                     />
@@ -2298,7 +2297,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="candidatAddress"
-                      value={
+                      defaultValue={
                         clientContract ? clientContract.worker_number_7 : ""
                       }
                       onClick={editClientProfile}
@@ -2312,7 +2311,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="form-control inputStyling"
                       name="company_siret"
-                      value={clientContract ? clientContract.worker_name_7 : ""}
+                      defaultValue={clientContract ? clientContract.worker_name_7 : ""}
                       onClick={editClientProfile}
                       placeholder="‎ ‎ ‎ $ numero de tel du travailleur 7"
                     />
@@ -2324,7 +2323,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="inputStyling form-control"
                       name="companyAddress"
-                      value={
+                      defaultValue={
                         clientContract ? clientContract.worker_number_8 : ""
                       }
                       onClick={editClientProfile}
@@ -2338,7 +2337,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="inputStyling form-control"
                       name="companyAddress"
-                      value={clientContract ? clientContract.worker_name_8 : ""}
+                      defaultValue={clientContract ? clientContract.worker_name_8 : ""}
                       onClick={editClientProfile}
                       placeholder="‎ ‎ ‎$ numero de tel du travailleur 8"
                     />
@@ -2350,7 +2349,7 @@ const deleteCandidatLink = (Id : any) => {
                     <input
                       className="inputStyling form-control"
                       name="poste_du_gerant"
-                      value={
+                      defaultValue={
                         clientContract ? clientContract.poste_du_gerant : ""
                       }
                       onClick={editClientProfile}
@@ -2397,7 +2396,7 @@ const deleteCandidatLink = (Id : any) => {
                     ))}
                   </Tabs>
 
-                  {}
+              
                 </div>
                 <div className="row py-1" style={{ marginRight: "1px" }}>
                   {documentList.length > 0 ? (
@@ -2405,7 +2404,7 @@ const deleteCandidatLink = (Id : any) => {
                   <>
                      {
                       doc.documentName ?
-                      <div className="col-6 mx-0">
+                      <div className="col-6 mx-0" key={index}>
                         <div className="row CardClassDownload mt-1 mx-0">
                           <div
                             className="col-4 d-flex align-items-center cursor-pointer"
@@ -2559,7 +2558,7 @@ const deleteCandidatLink = (Id : any) => {
                       documentList.map((Link, index) => (
                         Link.link && Link._id?
                        
-                          <div className="col-6 mx-0">
+                          <div className="col-6 mx-0" key={index}>
                           <div className="row CardClassDownload mt-1 mx-0">
                             <div
                               className="col-4 d-flex align-items-center cursor-pointer"
@@ -2733,7 +2732,7 @@ fontSize: "14px",}} />
                   leftBtnIcon={"<"}
                   showTabsScroll={false}
                   tabsScrollAmount={5}
-                  
+                  activeTab
                   className="alertMessage"
                 >
                 

@@ -93,24 +93,9 @@ function ClientSignedEdit() {
 
     const locationObject = useLocation();
     const { state, path } = locationObject.state as State
-    console.log(state,"state")
+
     const navigate = useNavigate();
-    // const [data, setData] = useState(ClientDataFormat);
-    // const [formTouched, setFormTouched] = useState(false);
-    // const [profile, setProfile] = useState<any>(state);
-    // const [activitySectors, setActivitySectors] = useState([])
-    // const [selectedSector, setSelectedSector] = useState("");
-    // const [jobs, setJobs] = useState([]);
-    // const [clientMotivation, setClientMotivation] = useState(profile.clientMotivation);
-    // const [selectedLanguages, setSelectedLanguages] = useState(profile.clientLanguages);
-    // const [clientImportance, setClientImportance] = useState(profile.clientImportance);
-    // const [clientImage, setClientImage] = useState("");
-    // const hiddenFileInput = React.useRef(null);
-    // const [imgSource, setImgSource] = useState("");
-    // const [Permis,setPermis]=useState(profile.candidatLicensePermis )
-    // const [Voyage,setVoyage]=useState(profile.candidatConduireEnFrance)
-    // const [sectorOptions, setSectorOptions] = useState([])as any;
-    // const [jobOptions, setJobOptions] = useState([]);
+    
   
     const [data, setData] = useState(ClientDataFormat);
     const [formTouched, setFormTouched] = useState(false);
@@ -220,7 +205,6 @@ function ClientSignedEdit() {
         const FilterSalary=  SalaryTotal.filter(el=>{
           const duplicate = arr.includes(el) ;
           if(duplicate == false){
-          console.log(duplicate,"duplic")
             arr.push(el)
            ClientDataFormat.salary_hours=arr
          
@@ -273,8 +257,7 @@ function ClientSignedEdit() {
        ClientDataFormat.salary_hours=[]
        SalaryFData.filter(el=>{
          setcheckBooleanValue(el.hours.includes(showHour))
-           console.log(checkBooleanValue)
-         
+
          })
            if(checkBooleanValue === false){
            
@@ -298,14 +281,14 @@ function ClientSignedEdit() {
           ClientDataFormat.rate_hours=[]
           TauxHour.filter(el=>{
             setcheckBooleanValue(el.hours.includes(taxHours))
-              console.log(checkBooleanValue)
+        
             })
               if(checkBooleanValue === false){
               
              
               ClientDataFormat.rate_hours.push(...TauxHour)
               toast.success(`Removed ${taxHours}H Taux!`)
-              console.log(ClientDataFormat,"clientdata")
+        
               return true
       
             }
@@ -319,7 +302,7 @@ function ClientSignedEdit() {
 
     
       const TauxHandleChange = (e: any) => {
-        console.log(e.target.value);
+
         if (e.target.id === "1") {
           setHours("35");
           setHoursId(e.target.id);
@@ -370,8 +353,7 @@ function ClientSignedEdit() {
         }
       };
   
-      
-      console.log(profile,"pro")
+
       useEffect(() => {
         $(document).ready(function () {
           $("#dam_return button").click(function () {
@@ -380,7 +362,7 @@ function ClientSignedEdit() {
             input.val(Amountarr);
           });
         });
-        console.log(Hours, "hr");
+
       });
 
 
@@ -388,14 +370,12 @@ function ClientSignedEdit() {
         if (activitySectors.length === 0) {
             fetchActivitySectors()
                 .then(redata => {
-                    console.log(redata);
                     setActivitySectors([...redata.data]);
                 })
                 .catch(err => {
                     console.log(err)
                 })
         }
-        console.log(profile.clientActivitySector)
         if (jobs.length === 0 && profile.clientActivitySector !== "") {
             fetchAllJobs(profile.clientActivitySector)
                 .then((data) => {
@@ -406,13 +386,11 @@ function ClientSignedEdit() {
                     console.log(err)
                 })
         }
-        console.log(data);
         let jobResults = jobs.map(ajob => {
             return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
           })
           setJobOptions([...jobResults]);
-          console.log(jobs);
-    }, [jobs])
+        }, [jobs])
       
     const notifyPhotoUploadSuccess = () => toast.success("Client/Company Image Uploaded Successfully!");
 
@@ -461,10 +439,9 @@ function ClientSignedEdit() {
     }
 
     useEffect(() => {
-        console.log(profile._id, profile.clientPhoto)
+   
         fetchClient(profile._id).then(resData => {
-            console.log(resData)
-            if (resData.status) {
+               if (resData.status) {
               resData.data.map((el)=>{
                 setProfile(el)
                 setImgSource(el.clientPhoto.url)
@@ -480,8 +457,6 @@ function ClientSignedEdit() {
     }, [state])
 
     const switchHandle=(checked,id,e)=>{
-        console.log(checked,id,e,"all")
-    console.log(id,"checked")
     setFormTouched(true)
     if(e=="Permis"){
     if(checked === true){
@@ -526,13 +501,11 @@ function ClientSignedEdit() {
             setSelectedSector(sec);
             await fetchAllJobs(sec)
                 .then(data => {
-                    console.log(data.data)
                     setJobs([...data.data]);
                 })
                 .catch(err => {
                     console.log(err);
                 })
-            console.log(jobs);
         }
 
     }

@@ -1133,7 +1133,7 @@ setStatus(false)
                   filterData.length > 0 ? 
    
                       filterData.map((profile, index) => (
-                        <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left">
+                        <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left" key={profile._id}>
                           <ClientCardArchived  data={profile}  />
                         </div>
                       ))

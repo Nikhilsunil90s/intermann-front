@@ -1138,7 +1138,7 @@ setTimeout(()=>{
                   {status ? 
                     filterData.length > 0 ? 
                       filterData.map((profile, index) => (
-                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 mt-1  pr-0">
+                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 mt-1  pr-0" key={index}>
                           <EmbaucheProfileCard path={false} props={profile}  NottifySuccess={notifyMoveSuccess} NottifyErr={notifyMoveError}  />
                         </div>
                       ))

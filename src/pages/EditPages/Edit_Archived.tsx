@@ -223,10 +223,10 @@ function EditArchive() {
   
   const handleImageChange = (val) => {
     if (val === 'upload') {
-      console.log("upload")
+      
       handleImageUpload()
     } else if (val === 'Download') {
-      console.log("download")
+    
       window.open( candidatImage);
     }
   }
@@ -257,7 +257,7 @@ function EditArchive() {
   }
 
   useEffect(() => {
-    console.log(activitySectors);
+
     let sectorops = activitySectors.map((asector) => {
       return { value: asector.sectorName, label: asector.sectorName, color: '#FF8B00' }
     })
@@ -266,17 +266,15 @@ function EditArchive() {
   }, [activitySectors])
   
   useEffect(() => {
-    console.log("workex-", workExperience)
     const wex = workExperience.filter((workex) => {
       return workex.period != "" && workex.location != "" && workex.workDoneSample != "";
     })
-    console.log(wex);
+
     setData((prev) => ({ ...prev, ["candidatExperienceDetails"]: wex }));
   }, [workExperience])
 
   const editExperience = (e: any) => {
     e.preventDefault()
-    console.log(workExperience)
     setWorkExperience([{ period: "", location: "", workDoneSample: "" }])
   }
 
@@ -382,17 +380,16 @@ function EditArchive() {
       return;
     }
     if (e.target.name === 'candidatMotivation ') {
-      console.log(e.target.value);
       changeCandidatMotivation(e.target.value);
     }
     if (e.target.name === 'candidatLanguages') {
       if (e.target?.checked) {
         addLanguages(e.target.value);
-        console.log(selectedLanguages)
+     
         return
       } else {
         removeLanguages(e.target.value);
-        console.log(selectedLanguages)
+     
 
         return
       }
@@ -403,7 +400,6 @@ function EditArchive() {
       return
     }
     if (e.target.name === 'location') {
-      console.log(e.target.defaultValue);
       setLocation(e.target.value);
       setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [{ period: period, location: e.target.value, workDoneSample: workDoneSample }] }))
       return
@@ -480,7 +476,6 @@ function EditArchive() {
       formdata.append("data", JSON.stringify(updatedData))
       updateCandidat(formdata)
         .then(data => {
-          console.log(data);
           if (data.status==true) {
             notifyCandidatEditSuccess()
             setTimeout(() => {
@@ -618,13 +613,11 @@ if(checked == false){
     if (jobs.length === 0 && selectedSector != "" ? selectedSector : profile.candidatActivitySector !== "") {
       fetchAllJobs(selectedSector !== "" ? selectedSector : profile.candidatActivitySector)
         .then((data) => {
-          console.log(data);
           setJobs([...data.data])
         })
         .catch(err => {
           console.log(err)
         })
-        console.log(data);
         let jobResults = jobs.map(ajob => {
             return { value: ajob.jobName, label: ajob.jobName, color: '#FF8B00' }
           })

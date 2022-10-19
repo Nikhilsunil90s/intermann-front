@@ -9,9 +9,7 @@ function RenameSector() {
 
   
   const { state } = useLocation();
-  useEffect(() => {
-    console.log(state, "state");
-  });
+
   const [jobModalData, setJobModalData] = useState("");
   const [jobModal, setJobModal] = useState(false);
   const [data, setData] = useState<any>(state);

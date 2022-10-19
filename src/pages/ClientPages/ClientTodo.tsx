@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import "../../CSS/Client/ClientTodo.css";
 import ClientToDoCard from "../../pages/ClientPages/ClientTodoCard";
 import toast, { Toaster } from "react-hot-toast";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import { ColourOption } from "../../Selecteddata/data";
-import ProfileLoader from "../../components/Loader/ProfilesLoader";
 import chroma from "chroma-js";
 import Select, { StylesConfig } from "react-select";
 import { ReactComponent as RatingStar } from "../../images/RatingStar.svg";
@@ -29,7 +27,6 @@ let OthersFilterArr = [];
 let Importance = [];
 let email=false;
 let phone=false;
-let MultiBvalues=[]
 function ClientToDoList() {
   const [loader, setLoader] = useState(true);
   const [sectors, setSectors] = useState([]);
@@ -1370,7 +1367,7 @@ setTimeout(()=>{
                   {  status? 
                    filterData.length > 0 ? 
                       filterData.map((profile, index) => (
-                        <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left">
+                        <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left" key={profile._id}>
                           <ClientToDoCard data={profile}  />
                         </div>
                       ))

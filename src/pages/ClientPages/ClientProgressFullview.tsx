@@ -354,7 +354,7 @@ function ClientProgressView() {
       .then((resData) => {
         if (resData.status) {
           resData.data.map((el) => {
-            setImgSource(el.clientPhoto.url);
+            setImgSource(el.clientPhoto ?el.clientPhoto.url : "");
           });
         }
       })
@@ -1530,7 +1530,7 @@ function ClientProgressView() {
                       <span className="Todo-ClinetCardMore-span">
                         {profile.salary_hours.length !== 0
                           ? profile.salary_hours.map((el) => (
-                              <div className="d-flex">
+                              <div className="d-flex" key={el}>
                                 {el.hours ? el.hours : "0"}H ={" "}
                                 <span>
                                   {el.salaryPerHour
@@ -1547,7 +1547,7 @@ function ClientProgressView() {
                       <span className="Todo-ClinetCardMore-span">
                         {profile.rate_hours.length !== 0
                           ? profile.rate_hours.map((el) => (
-                              <div className="d-flex">
+                              <div className="d-flex" key={el}>
                                 {el.hours ? el.hours : "0"}H ={" "}
                                 <span>
                                   {el.ratePerHour ? el.ratePerHour + "€" : "0€"}
@@ -2205,6 +2205,7 @@ function ClientProgressView() {
                   leftBtnIcon={"<"}
                   showTabsScroll={false}
                   tabsScrollAmount={7}
+                
                 >
                   {/* generating an array to loop through it  */}
                   {tabItems.map((el, i) => (
@@ -2220,7 +2221,7 @@ function ClientProgressView() {
                     <>
                     {
                      doc.documentName ?
-                     <div className="col-6 mx-0">
+                     <div className="col-6 mx-0" key={index}>
                        <div className="row CardClassDownload mt-1 mx-0">
                          <div
                            className="col-4 d-flex align-items-center cursor-pointer"
@@ -2534,6 +2535,7 @@ fontSize: "14px",}} />
             >
                <div className="row alertMessage align-items-center py-1">
                 <Tabs
+                  activeTab
                   rightBtnIcon={">"}
                   hideNavBtns={false}
                   leftBtnIcon={"<"}
