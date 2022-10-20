@@ -2669,7 +2669,7 @@ const deleteCandidatLink = (Id : any) => {
                       />
                   </div>
                   {PDFModal ? (
-                    <PDFModalClient props={profile} closeModal={setPDFModal} />
+                    <PDFModalClient props={profile} closeModal={setPDFModal}  LinkModal={null} path="" />
                   ) : null}
                   {RenameDocStatus ? (
                     <RenameDoc

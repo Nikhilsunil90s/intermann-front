@@ -11,12 +11,19 @@ function DocSignCandidate() {
     const [SignLoad,setSingLoad]=useState(false)
     const {state}=useLocation()
     const SignPad =useRef(undefined)
+    const [SignError,setSignError]=useState(false)
 
   const [contractID]=useState(state)as any
 console.log(contractID.id)
   
     const SignSave=()=>{
+  if(SignPad.current.isEmpty()){
+    
+  }
+  if( SignPad.current.toDataURL()){
     SignPad.current.toDataURL()
+  }
+
     Data={
         contractId:contractID.id,
         signature:SignPad.current.toDataURL(),
@@ -30,24 +37,31 @@ console.log(contractID.id)
     const clear=()=>{
         SignPad.current.clear();
     }
+const Checkking=(e)=>{
+  setSignError(e.isTrusted)
+
+}
 
     const SaveSignFun=()=>{
         SignSave()
-   
-
-        ResetClient().then((res)=>{
-            if(res){
-              toast.success("Signatures Added Successfully!")
-              setSingLoad(false)
-              setTimeout(()=>{
-                window.location.href="/ContractSigend/thankYou"
-              },2000)
-            }
-        })
-        .catch(err=>{
-            console.log(err)
-            toast.error("Signatures Not Added !")
-        })
+        if(SignError){
+          ResetClient().then((res)=>{
+                 if(res){
+                   toast.success("Signatures Added Successfully!")
+                   setSingLoad(false)
+                   setTimeout(()=>{
+                     window.location.href="/ContractSigend/thankYou"
+                   },2000)
+                 }
+             })
+             .catch(err=>{
+                 console.log(err)
+                 toast.error("Signatures Not Added !")
+             })
+        }else{
+            toast.error("Trebuie să semnezi ! / You must sign / Veuillez signer !")
+        }
+      
     }
 
     const ResetClient =async() => {
@@ -73,7 +87,7 @@ console.log(contractID.id)
             <div className="row">
                
                     <div className="col-12 px-0">
-                    <div className='col-12 bg-ContractPage' style={{height:"10vh"}}>
+                    <div className='col-12 bg-ContractPage HeightLogoContract' >
    <div className="row d-flex justify-content-center">
 
     <div className="col-8 heightScreenTop d-flex justify-content-center">
@@ -93,7 +107,7 @@ console.log(contractID.id)
             />          </div> 
     </div>
          </div>
-                    <div className="row text-start mx-0 " style={{background:"#FE8700",padding:"10px",height:"80vh"}}>
+                    <div className="row text-start mx-0 HeightWidthControl" style={{background:"#FE8700",padding:"10px"}}>
                 
                     <div className="col-12 " >   <p  className=" mb-0 topTitle"
                         >
@@ -112,6 +126,7 @@ Declar că am citit contractul și îl accept în întregime.Adresa dvs. IP va f
                                   <SignatureCanvas penColor='black'  ref={SignPad}
                                 //   onEnd={SignSave()}
     canvasProps={{ className: 'sigCanvas',velocityFilterWeight:200,height:350}} 
+    onEnd={Checkking}
     
     />  
                                   

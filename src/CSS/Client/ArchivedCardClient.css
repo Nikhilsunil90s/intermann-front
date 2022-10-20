@@ -151,7 +151,23 @@ padding: 15px 50px;
       transform: rotate(360deg);
     }
   }
+  
+.go3958317564 {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 20px;
+  text-transform: uppercase;
+  color: #0000;
+}
   @media (min-device-width:320px) and (max-device-width:768px){
+    .HeightWidthControl{
+    height: 80vh;
+    }
+    .HeightLogoContract{
+      height: 10vh;
+    }
     .semneaza{
       position: fixed;
       bottom: 0;

@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 
 
 
-function PdfModal({props,closeModal} ){
+function PdfModal({props,closeModal,LinkModal,path} ){
   const PdfFormat = {
     numero_contract : props.clientContract ? props.clientContract.numero_contract !== "" ?  props.clientContract.numero_contract : "" : "",
     initial_client_company : props.clientCompanyName ? props.clientCompanyName : "",
@@ -46,22 +46,9 @@ function PdfModal({props,closeModal} ){
 }
   const [data, setData] = useState(PdfFormat);
   const [loader, setLoader] = useState(false);
-  // useEffect(() => {
-  //   if (data.initial_client_company == "") {
-  //       setData((prev) => ({ ...prev,['initial_client_company']:props.clientCompanyName}));
-  //     }
-  //   if (data.clientId == "") {
-  //       setData((prev) => ({ ...prev,['clientId']: props._id }));
-  //     }
-  //     if(data.clientEmail == "") {
-  //       setData((prev) => ({ ...prev,['clientEmail']: props.clientEmail }));
-  //     }
-  //     if (data.clientAddress == "") {
-  //       setData((prev) => ({ ...prev,['clientAddress']: props.clientAddress }));
-  //     } if (data.contractId == "") {
-  //       setData((prev) => ({ ...prev, ['contractId']: props ? props.clientContract ? props.clientContract.clientContract : "" :"" }));
-  //     }
-  // },[])
+  const [Btndisabled,setBtndisabled]=useState(false)
+
+
 
     const onFormDataChange = (
         e: React.ChangeEvent<
@@ -104,12 +91,34 @@ function PdfModal({props,closeModal} ){
             .catch((err) => err);
     }
 
-    const addContractToCRM = () => {
+    const addContractToCRM = (e) => {
+      setBtndisabled(true)
       addContract().then(result => {
         if(result.status==true){
             toast.success("Contract Added To CRM Successfully!")
             setTimeout(()=>{
+              if(e.target.name=="ADDtoCRM"){
                 window.location.reload();
+              }
+              if(e.target.name=="DOCU"){
+                setBtndisabled(false)
+                if(path ==="/embauchprofile"){
+                  closeModal(false)
+                 LinkModal(true)  
+                }
+                if(path === "/todoprofile"){
+                  closeModal(false)
+                 LinkModal(true)
+                }
+                if(path === "/archivedprofile"){
+                  closeModal(false)
+                  LinkModal(true)   
+                }  if(path === "/preSelected"){
+                  closeModal(false)
+                  LinkModal(true)       
+                }
+                }
+
             },2000)
         }
         if(result.status == false){
@@ -330,7 +339,7 @@ function PdfModal({props,closeModal} ){
                                             <p className='PDFNotes'>Download local</p>
                                            </div>
                                            <div className='col-3 px-0'>
-                                           <button type='button' className='contractCRM text-center' onClick={addContractToCRM}>Add the contract to CRM</button>
+                                           <button type='button' className='contractCRM text-center' onClick={(e)=>addContractToCRM(e)}>Add the contract to CRM</button>
                                            <p className='PDFNotes'>Download cloud</p>
                                            </div>
                                            <div className='col-3'>
@@ -338,8 +347,10 @@ function PdfModal({props,closeModal} ){
                                            Voir le model
                                            </button>
                                            </div>
-                                           <div className='col-3'>
-
+                                           <div className='col-3 pl-0'>
+                                           <button className='documentSign d-flex align-items-center justify-content-center' name="DOCU" onClick={(e)=>{addContractToCRM(e)}} type='button' disabled={Btndisabled} >
+                                       {Btndisabled ?  <>Please Wait...</> :  "📨 ENVOYER DOCU SIGN" }
+                                           </button>
                                            </div>
                                 </div>
                             </div>

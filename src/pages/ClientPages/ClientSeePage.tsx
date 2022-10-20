@@ -2761,7 +2761,7 @@ function ClientSee() {
                     />
                   ) : null}
                   {PDFModal ? (
-                    <PDFModalClient props={profile} closeModal={setPDFModal} />
+                    <PDFModalClient props={profile} closeModal={setPDFModal}  LinkModal={null} path="" />
                   ) : null}
                 </div>
               </div>
