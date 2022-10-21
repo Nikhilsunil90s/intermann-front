@@ -12,7 +12,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { ProgressBar } from "react-bootstrap";
 import ProfileLoader from "../../components/Loader/ProfilesLoader";
 import RenameDoc from "../../components/Modal/RenameDoc_ModalClient";
-import ReadMoreReact from "read-more-react";
+import DOCUSIGNModalCandidate from '../../components/Modal/DOCUSIGNModalCandidate'
 import PreModalClient from "../../components/Modal/preSelectedModalForClient";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import CLintHide from "../../components/Modal/HideClientProfile";
@@ -190,8 +190,12 @@ function ArchivedViewPage() {
       value: "autres_documents",
     },
     {
-      text: "FACTURES",
-      value: "factures",
+      text: "FACTURES PAYES",
+      value: "factures_payes",
+    },
+    {
+      text: "FACTURES IMPAYES",
+      value: "factures_impayes",
     },
     {
       text: "RAPPORT ACTIVITE",
@@ -214,6 +218,8 @@ function ArchivedViewPage() {
       value: "fiche_de_mise_a_disposition",
     },
   ]) as any;
+  const [DocumentSignModal,setDocuSignModal]=useState(false)
+
 
   const datenow = moment().format("YYYY-MM-DD");
 
@@ -510,10 +516,10 @@ function ArchivedViewPage() {
 
   const ViewDownloadFiles = (e,documentName: any) => {
     if(e.target.name ==="btnDownloadLink"){
-      window.open(documentName.replace("http","https"));
+      window.open(documentName);
         
       }else{
-        window.open(documentName.replace("http","https"));
+        window.open(documentName);
       }
   };
 
@@ -1903,8 +1909,16 @@ function ArchivedViewPage() {
                     />
                   ) : null}
                   {PDFModal ? (
-                    <PDFModalClient props={profile} closeModal={setPDFModal} LinkModal={null} path="" />
+                    <PDFModalClient props={profile} closeModal={setPDFModal} LinkModal={setDocuSignModal} path="/archivedClientSeeprofile" />
                   ) : null}
+                   {
+        DocumentSignModal ? 
+        <DOCUSIGNModalCandidate props={profile} closeModal={setDocuSignModal} />
+
+        :
+        null
+
+      }
                   {HideProfile ? (
                     <CLintHide
                       props={profile}

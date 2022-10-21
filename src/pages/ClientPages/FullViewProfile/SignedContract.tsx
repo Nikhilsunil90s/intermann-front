@@ -251,7 +251,7 @@ useEffect(()=>{
 
 
   const ViewDownloadFiles = (documentName: any) => {
-    window.open(API_BASE_URL + documentName);
+    window.open(documentName);
   };
 
   const fetchCandidat = async (clientId: any) => {
@@ -1432,7 +1432,7 @@ useEffect(()=>{
                                     {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
                                   </button>
                                 } */}
-                                     <button className="btnDownload" onClick={()=>ViewDownloadFiles( doc.documentName)}>
+                                     <button className="btnDownload" onClick={()=>ViewDownloadFiles( doc.url)}>
                                     <img src={require("../../../images/dowBtn.svg").default} />
                                     {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
                                   </button>

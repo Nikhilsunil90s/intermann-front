@@ -11,7 +11,8 @@ function DocumSign({ props, closeModal }) {
     console.log(props);
 
     const navigate = useNavigate();
-    const [candidatId, setCandidatId] = useState(props.candidatId);
+    const [candidatId, setCandidatId] = useState(props.candidatId ? props.candidatId :
+        props._id);
     let data = {
         candidatId
     }
@@ -67,7 +68,7 @@ function DocumSign({ props, closeModal }) {
                     <div className="col-12">
                         <div className="row">
                             <div className="col-8 px-0 clientArchivedModal-font">
-                    <h2 className="modal-title  py-1 pRight" id="staticBackdropLabel">Send contract to sign to : <span className="" style={{color:"#FE8700",marginLeft:"5px"}}>{props.candidatName.toLocaleUpperCase()}</span> </h2>
+                    <h2 className="modal-title  py-1 pRight" id="staticBackdropLabel">Send contract to sign to : <span className="" style={{color:"#FE8700",marginLeft:"5px"}}>{props.candidatName ? props.candidatName.toLocaleUpperCase() : props.clientCompanyName.toLocaleUpperCase()}</span> </h2>
                     </div>
                     <div className="col-4 text-end d-flex align-items-center">
                     <button type="button" className="btn-close" onClick={() => closeModal(false)} data-bs-dismiss="modal" aria-label="Close"></button>
@@ -94,7 +95,7 @@ function DocumSign({ props, closeModal }) {
     fontSize: "16px",
     lineHeight: "24px",
     color: "#3F76E2"
-}}  onClick={()=>CloseTheModal()} href={`/documentSign/${props.candidatName.replaceAll(" ","")}/${props._id}`} target="_blank">https://intermann-v2.herokuapp.com/documentSign/{props.candidatName.replaceAll(" ","")}/{props._id}</a>
+}}  onClick={()=>CloseTheModal()} href={`/${props.candidatName ? `Candidate` : `Client`}/documentSign/${props.candidatName ? props.candidatName.toLocaleUpperCase().replaceAll(" ","")  : props.clientCompanyName.toLocaleUpperCase().replaceAll(" ","") }/${props._id}`} target="_blank">{API_BASE_URL}{props.candidatName ? `Candidate` : `Client`}/documentSign/{props.candidatName ? props.candidatName.toLocaleUpperCase().replaceAll(" ","")  : props.clientCompanyName.toLocaleUpperCase().replaceAll(" ","") }/{props._id}</a>
                </span>         
                          </p>
      

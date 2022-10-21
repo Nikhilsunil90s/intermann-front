@@ -16,14 +16,6 @@ function ClientContractCard(props: any) {
   const candidatMotivationIcons = [{ icon: "No", motivation: 'Motivation!' }, { icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false)
-  const [SISPI, setChecked] = useState(false);
-  const [Agence, setAgence] = useState(false)
-  const [Assurance, setAssurance] = useState(false)
-  const [A1, setA1] = useState(false)
-  const [Public, setPublic] = useState(false)
-  const [Contrat, setContrat] = useState(false)
-  const [Signature, setSignature] = useState(false)
-  const [Offre, setOffre] = useState(false)
   const CardOption = [{
     value: "Edit Profile", label: "Edit Profile"
   },

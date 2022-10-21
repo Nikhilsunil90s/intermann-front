@@ -27,6 +27,8 @@ import { Tabs, Tab } from "react-tabs-scrollable";
 import "react-tabs-scrollable/dist/rts.css";
 import { FileUploader } from "react-drag-drop-files";
 import Share from "../../components/Loader/Share"
+import DOCUSIGNModalCandidate from '../../components/Modal/DOCUSIGNModalCandidate'
+
 
 let RenameData = [];
 let id = "";
@@ -94,7 +96,7 @@ function ClientSee() {
   const [fiche_de_mise_a_disposition, setfiche_de_mise_a_disposition] =
     useState() as any;
     const [DriveLink,setDriveLink]=useState("")
-
+    const [DocumentSignModal,setDocuSignModal]=useState(false)
   const [tabItems, setTabitems] = useState([
     {
       text: "CONTRAT CLIENT",
@@ -141,8 +143,12 @@ function ClientSee() {
       value: "autres_documents",
     },
     {
-      text: "FACTURES",
-      value: "factures",
+      text: "FACTURES PAYES",
+      value: "factures_payes",
+    },
+    {
+      text: "FACTURES IMPAYES",
+      value: "factures_impayes",
     },
     {
       text: "RAPPORT ACTIVITE",
@@ -544,10 +550,10 @@ function ClientSee() {
   }, [docUploaded]);
   const ViewDownloadFiles = (e,documentName: any) => {
     if(e.target.name ==="btnDownloadLink"){
-      window.open(documentName.replace("http","https"));
+      window.open(documentName);
         
       }else{
-        window.open(documentName.replace("http","https"));
+        window.open(documentName);
       }
   };
 
@@ -2761,8 +2767,16 @@ function ClientSee() {
                     />
                   ) : null}
                   {PDFModal ? (
-                    <PDFModalClient props={profile} closeModal={setPDFModal}  LinkModal={null} path="" />
+                    <PDFModalClient props={profile} closeModal={setPDFModal}  LinkModal={setDocuSignModal} path="/clientToDoProfile" />
                   ) : null}
+                   {
+        DocumentSignModal ? 
+        <DOCUSIGNModalCandidate props={profile} closeModal={setDocuSignModal} />
+
+        :
+        null
+
+      }
                 </div>
               </div>
             </div>

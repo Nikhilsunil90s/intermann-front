@@ -11,19 +11,18 @@ import CountDown from "../../src/components/Loader/CountDown"
 let ContractData={
   id:"",
   filePath:"",
-  public_id:""
- 
+  public_id:"",
+  user:""
 }
 function  DocumentSign(){
     const [ContractSignData,setContractSignData]=useState(ContractData)as any
     const [pdfTimeOut,setpdfTimeOut]=useState(false)
     const { id } = useParams();
+    const { ClientEmp } = useParams();
     const [profile, setProfile] = useState([])as any;
+    const [Clientprofile, setClientProfile] = useState()as any;
     const [pdfUrl,setUrl]=useState()as any
     
-
-console.log(API_BASE_URL + pdfUrl,"url")
-
   const navigate = useNavigate()
 
 
@@ -33,18 +32,33 @@ console.log(API_BASE_URL + pdfUrl,"url")
         
         })
         $(function() {
-          setTimeout(function() { $("#hideDivPc").fadeOut(1500);}, 4000)
+          setTimeout(function() { $("#hideDivPc").fadeOut(1500);}, 7000)
           
           })
 
       if(profile.length == 0){
-  
-     fetchCandidat(id).then((resData) => {
+  if(ClientEmp === "Candidate"){
+    fetchCandidat(id).then((resData) => {
+      if (resData.status == true) {
+        // setProfile(resData.data)
+      
+          setProfile(resData.data); 
+        
+         
+      } else {
+        return false;
+      }
+    })
+
+  }
+      
+  if(ClientEmp === "Client"){ 
+     fetchClient(id).then((resData) => {
               if (resData.status == true) {
                 // setProfile(resData.data)
               
-                  setProfile(resData.data); 
-                  fetchThePDF(resData.data.candidatContract._id)
+                setClientProfile(...resData.data); 
+                 
                  
               } else {
                 return false;
@@ -54,9 +68,8 @@ console.log(API_BASE_URL + pdfUrl,"url")
             .catch((err) => {
               console.log(err);
             }); 
-          } 
-
-  
+          }   
+        }
       },[id,profile]);
 
       useEffect(()=>{
@@ -67,9 +80,24 @@ console.log(API_BASE_URL + pdfUrl,"url")
    
    
       })
+      useEffect(()=>{
+          if(pdfUrl === undefined){
+            if(profile.candidatName){
+              fetchThePDF(profile.candidatContract._id)
+
+            }
+            if(Clientprofile){             
+              fetchTheClientPDF(Clientprofile?.clientContract?._id)
+            }
+          
+
+
+        }
+      })
       const SignDocu =(e)=>{
+        ContractData.user=ClientEmp
         ContractData.filePath=pdfUrl
-        ContractData.id=profile.candidatContract._id
+        ContractData.id=ClientEmp === "Candidate" ? profile.candidatContract._id : Clientprofile?.clientContract?._id
    
         navigate("/ContractSigend",{state:ContractSignData})
       }
@@ -85,24 +113,47 @@ console.log(API_BASE_URL + pdfUrl,"url")
           .then((respData) => respData)
           .catch((err) => err);
       };
+
+      const fetchClient = async (ClientId: any) => {
+        return await fetch(API_BASE_URL + `getClientDetailsById/?clientId=${ClientId}`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+          },
+        })
+          .then((resp) => resp.json())
+          .then((respData) => respData)
+          .catch((err) => err);
+      };
+
           const fetchThePDF = async (id:any) => {
         return await fetch(API_BASE_URL + `getContract/?contractId=${id}`, {
           method: "GET",
           headers: {
             Accept: "application/json",
             'Content-Type': 'application/json',
-            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
           .then((resp) => resp.json())
           .then((respData) => {setUrl(respData.filePath.replace("/app/",""));setUrl(respData.filePath.replace("http","https"));ContractData.public_id=respData.public_id})
           .catch((err) => err);
       };
-
+      const fetchTheClientPDF = async (id:any) => {
+        return await fetch(API_BASE_URL + `getClientContract/?contractId=${id}`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            'Content-Type': 'application/json',
+          },
+        })
+          .then((resp) => resp.json())
+          .then((respData) => {setUrl(respData.filePath.replace("/app/",""));setUrl(respData.filePath.replace("http","https"));ContractData.public_id=respData.public_id})
+          .catch((err) => err);
+      };
     const onError=()=>{
      return  'error in file-viewer'
     } 
-    console.log(pdfUrl,"pdf")
+
 return (
     <>
       <div id="hideDiv">

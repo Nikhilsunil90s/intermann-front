@@ -95,6 +95,14 @@ function PreSelectedView() {
       text: "FICHE MISE A DISPOSITION",
       value: "Fiche_mise_à_disposition",
     },
+    {
+      text: "FACTURES PAYES",
+      value: "factures_payes",
+    },
+    {
+      text: "FACTURES IMPAYES",
+      value: "factures_impayes",
+    },
    
   ]) as any;
  const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
@@ -457,7 +465,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
     },
   };
   const  ViewDownloadFiles =( documentName:any)=>{
-    window.open(documentName.replace("http","https"))
+    window.open(documentName)
    }
 
    const deleteCandidatLink = (Id : any) => {

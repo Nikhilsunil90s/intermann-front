@@ -45,7 +45,24 @@ const Checkking=(e)=>{
     const SaveSignFun=()=>{
         SignSave()
         if(SignError){
-          ResetClient().then((res)=>{
+          if(contractID.user === "Candidate"){
+
+            CandidateSign().then((res)=>{
+              if(res){
+                toast.success("Signatures Added Successfully!")
+                setSingLoad(false)
+                setTimeout(()=>{
+                  window.location.href="/ContractSigend/thankYou"
+                },2000)
+              }
+          })
+          .catch(err=>{
+              console.log(err)
+              toast.error("Signatures Not Added !")
+          })
+          }
+          if(contractID.user === "Client"){
+          SignClient().then((res)=>{
                  if(res){
                    toast.success("Signatures Added Successfully!")
                    setSingLoad(false)
@@ -58,15 +75,31 @@ const Checkking=(e)=>{
                  console.log(err)
                  toast.error("Signatures Not Added !")
              })
+            }
         }else{
             toast.error("Trebuie să semnezi ! / You must sign / Veuillez signer !")
         }
       
     }
 
-    const ResetClient =async() => {
+    const CandidateSign =async() => {
       setSingLoad(true)
       return await  fetch(API_BASE_URL + "addCandidatSignatures", {
+            method: "POST",
+            headers: {
+                "Accept": 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + localStorage.getItem('token')
+            },
+            body: JSON.stringify(Data),
+        })
+            .then(resp => resp.json())
+            .then((reD) => reD)
+            .catch(err => err)
+    }
+    const SignClient =async() => {
+      setSingLoad(true)
+      return await  fetch(API_BASE_URL + "addClientSignatures", {
             method: "POST",
             headers: {
                 "Accept": 'application/json',

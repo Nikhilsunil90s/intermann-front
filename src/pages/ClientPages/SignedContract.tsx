@@ -24,7 +24,8 @@ import "react-tabs-scrollable/dist/rts.css";
 import { FileUploader } from "react-drag-drop-files";
 import Share from "../../components/Loader/Share"
 import ArchivedModal from "../../components/Modal/ArchivedModal";
-
+import DOCUSIGNModalCandidate from '../../components/Modal/DOCUSIGNModalCandidate'
+import SalaryAdsEdit from "../../components/Modal/SignedSalary&AdsEdit"
 
 
 let RenameData = [];
@@ -33,6 +34,8 @@ let UploadName = ""as any;
 let clDoc;
 let Links;
 let UploadTextBtn = "";
+let DetailsEdit;
+let DetailsAds;
 function Signed() {
   const { state } = useLocation();
 
@@ -97,6 +100,10 @@ function Signed() {
     const [Archived,setArchived]=useState(  profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived")):null )
     const [preSelect,setPreselected]=useState( profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Pre-Selected")):null )
     const [DriveLink,setDriveLink]=useState("")
+    const [salaryModal,setsalaryModal]=useState("")
+    const [salaryEditModal,setsalaryEditModal]=useState(false)
+    const [DocumentSignModal,setDocuSignModal]=useState(false)
+
   const [tabItems, setTabitems] = useState([
      {
       text: "CONTRAT CLIENT",
@@ -140,8 +147,12 @@ function Signed() {
       value: "autres_documents",
     },
     {
-      text: "FACTURES",
-      value: "factures",
+      text: "FACTURES PAYES",
+      value: "factures_payes",
+    },
+    {
+      text: "FACTURES IMPAYES",
+      value: "factures_impayes",
     },
     {
       text: "RAPPORT ACTIVITE",
@@ -574,11 +585,12 @@ let Editdata ={state:profile,path:"/clientSigned"}
 
 
   const ViewDownloadFiles = (e,documentName) => {
+    console.log(documentName,"jj")
     if(e.target.name ==="btnDownloadLink"){
-    window.open(documentName.replace("http","https"));
+    window.open(documentName);
       
     }else{
-      window.open(documentName.replace("http","https"));
+      window.open(documentName);
     }
   };
 
@@ -907,6 +919,30 @@ const deleteCandidatLink = (Id : any) => {
       console.log(isValidUrl(DriveLink));
     }
   }
+
+
+  const EditSalaryAds=(e:any,CanId:any,currentWorkId:any,CurrentSalary:any)=>{
+   
+ 
+   if(e === "Salary"){
+    DetailsEdit={
+      Canid:CanId,
+      currentWorkId:currentWorkId ? currentWorkId.toString() : "",
+      CurrentSalary:CurrentSalary ? CurrentSalary.toString() : ""
+
+    }
+    setsalaryModal("Salary") 
+    setsalaryEditModal(true)
+   }
+   if(e === "Ads"){
+    DetailsAds={
+      clientId:profile._id, 
+      currentBudget:profile.jobTotalBudget ? profile.jobTotalBudget : "0",
+    }
+    setsalaryModal("Ads Spent") 
+    setsalaryEditModal(true)
+   }
+  } 
   return (
     <>
       <Toaster
@@ -1554,7 +1590,7 @@ const deleteCandidatLink = (Id : any) => {
                               profile.salary_hours.salaryPerHour
                             )
                             ? profile.salary_hours
-                                .map((el) => {
+                                .map((el,i) => {
                                   return el.salaryPerHour;
                                 })
                                 .slice(0, 1)
@@ -1628,7 +1664,7 @@ const deleteCandidatLink = (Id : any) => {
 <span className="pl-1">Since :</span>
 {el.candidatName && el.candidatStatus == "Archived" ||el.candidatName && el.candidatStatus == "Pre-Selected" ? null : el.candidatCurrentWork.map((el) => el.workingSince ? el.workingSince :"✘ No Working Since!")}
 <span className="pl-1">Salary :</span>
-{el.candidatName && el.candidatStatus == "Archived" || el.candidatName && el.candidatStatus == "Pre-Selected" ? null : el.candidatCurrentWork.map((el) => el.salary ? el.salary : "0€")}
+{el.candidatName && el.candidatStatus == "Archived" || el.candidatName && el.candidatStatus == "Pre-Selected" ? null : el.candidatCurrentWork.map((el) => el.salary ? el.salary +"€" : "0€")}
 </div>
 
 <div className="col-4 d-flex">
@@ -1641,6 +1677,13 @@ const deleteCandidatLink = (Id : any) => {
   />
   See profile
 </button>
+<button
+      className="btn py-0" 
+      id="Salary"  
+      onClick={(e)=>EditSalaryAds("Salary",el._id,el.candidatCurrentWork.map((el) => el._id),el.candidatCurrentWork.map((el) => el.salary ? el.salary : "0"))}
+  >
+      <img style={{width:"20px"}} src={require("../../images/editpen.svg").default} />
+  </button>
 <div className="col-1 px-0">
 <button
       className="btn"   
@@ -1749,12 +1792,20 @@ const deleteCandidatLink = (Id : any) => {
 
                 {profile.employeesWorkingUnder !== null &&
                 profile.employeesWorkingUnder.length > 0 ? (
-                  <p className="mb-0">
+                 <div className="col-12"> <div className="row"><div className="col-8"><p className="mb-0">
                     Ads Spent on this client :
                     {profile.jobTotalBudget
                       ? profile.jobTotalBudget + "€"
                       : "✘ No Budget!"}
+               
                   </p>
+               </div><div className="col-4 text-center"> <button
+      className="btn py-0"
+      name="Ads"
+      onClick={(e)=>EditSalaryAds("Ads",null,null,null)}   
+  >
+      <img style={{width:"20px"}} src={require("../../images/editpen.svg").default} />
+  </button>  </div> </div>  </div>
                 ) : null}
               </div>
             </div>
@@ -2669,7 +2720,7 @@ const deleteCandidatLink = (Id : any) => {
                       />
                   </div>
                   {PDFModal ? (
-                    <PDFModalClient props={profile} closeModal={setPDFModal}  LinkModal={null} path="" />
+                    <PDFModalClient props={profile} closeModal={setPDFModal}  LinkModal={setDocuSignModal} path="/clientSigned" />
                   ) : null}
                   {RenameDocStatus ? (
                     <RenameDoc
@@ -2678,6 +2729,21 @@ const deleteCandidatLink = (Id : any) => {
                       path={"/clientSigned"}
                     />
                   ) : null}
+                   {
+        DocumentSignModal ? 
+        <DOCUSIGNModalCandidate props={profile} closeModal={setDocuSignModal} />
+
+        :
+        null
+
+      }
+
+    {
+      salaryEditModal ?
+      <SalaryAdsEdit  name={salaryModal} closeModal={setsalaryEditModal}  details={salaryModal === "Salary" ? DetailsEdit : DetailsAds}/>
+      :
+      false
+    }
                   {showPreSelectedModal ? (
                     <PreModalClient
                       props={PreSelectedData}

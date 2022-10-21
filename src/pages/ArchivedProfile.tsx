@@ -86,6 +86,14 @@ const ArchivedProfile = () => {
         text: "FICHE MISE A DISPOSITION",
         value: "Fiche_mise_à_disposition",
       },
+      {
+        text: "FACTURES PAYES",
+        value: "factures_payes",
+      },
+      {
+        text: "FACTURES IMPAYES",
+        value: "factures_impayes",
+      },
      
     ]) as any;
   
@@ -471,7 +479,7 @@ const deleteCandidatLink = (Id : any) => {
 
 
 const  ViewDownloadFiles =( documentName:any)=>{
-  window.open(documentName.replace("http","https"))
+  window.open(documentName)
  }
 
 

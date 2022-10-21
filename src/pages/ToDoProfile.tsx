@@ -113,6 +113,14 @@ function ToDoProfile() {
       text: "FICHE MISE A DISPOSITION",
       value: "Fiche_mise_à_disposition",
     },
+    {
+      text: "FACTURES PAYES",
+      value: "factures_payes",
+    },
+    {
+      text: "FACTURES IMPAYES",
+      value: "factures_impayes",
+    },
    
   ]) as any;
 
@@ -511,7 +519,7 @@ const fetchRecommendations = async (candidatSector: string) => {
     window.open(documentName)
   }
   else{
-    window.open(documentName.replace("http","https"))
+    window.open(documentName)
 
   }
  }

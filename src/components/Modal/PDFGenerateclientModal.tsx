@@ -102,18 +102,18 @@ function PdfModal({props,closeModal,LinkModal,path} ){
               }
               if(e.target.name=="DOCU"){
                 setBtndisabled(false)
-                if(path ==="/embauchprofile"){
+                if(path ==="/clientToDoProfile"){
                   closeModal(false)
                  LinkModal(true)  
                 }
-                if(path === "/todoprofile"){
+                if(path === "/clientInProgressProfile"){
                   closeModal(false)
                  LinkModal(true)
                 }
-                if(path === "/archivedprofile"){
+                if(path === "/archivedClientSeeprofile"){
                   closeModal(false)
                   LinkModal(true)   
-                }  if(path === "/preSelected"){
+                }  if(path === "/clientSigned"){
                   closeModal(false)
                   LinkModal(true)       
                 }
