@@ -328,12 +328,21 @@ const fetchRecommendations = async (candidatSector: string) => {
   const renameDocument = (docId: any, docName: any ,originalName:any) => {
     setRenameDoc(true);
 
-    RenameData=[
-      docId,
-      docName,
-      profile._id,
-      originalName
-    ]
+    if(originalName=="LinkEdit"){
+      RenameData=[
+        docId,
+        docName,
+        originalName,
+
+      ]
+    }else{
+      RenameData=[
+        docId,
+        docName,
+        profile._id,
+        originalName
+      ]
+    }
     // renameCandidatDocument(docId, docName, profile._id).then(resData => {
     //   console.log(resData)
     //   setRenameDoc(false);
@@ -1335,7 +1344,7 @@ className="SelectBtn"
                         Link.link && Link._id?
                        
                           <div className="col-6 mx-0" key={index}>
-                          <div className="row CardClassDownload mt-1 mx-0">
+                           <div className="row CardClassDownload mt-1 mx-0">
                             <div
                               className="col-4 d-flex align-items-center cursor-pointer"
                               data-bs-toggle="tooltip"
@@ -1343,7 +1352,7 @@ className="SelectBtn"
                               title={Link.link}
                             >
                               <p className="download-font mb-0">
-                                {Link.link.length > 30
+                                {Link.displayName ? Link.displayName: Link.link.length > 30
                                   ? Link.link.slice(0, 28) + "..."
                                   : Link.link}
                               </p>
@@ -1373,7 +1382,12 @@ className="SelectBtn"
                               </button>
                             </div>
                             <div className="col-2  d-flex align-item-end justify-content-end">
-                            
+                            <img
+                                  src={require("../images/editSvg.svg").default}
+                                  style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                                  // onClick={() => renameDocument(doc._id, doc.documentName)}
+                                  onClick={()=>{setRenameDocStatus(true);renameDocument(Link._id,Link.link,"LinkEdit")}}
+                                />
                               <img
                                 src={
                                   require("../images/Primaryfill.svg").default

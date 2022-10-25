@@ -125,6 +125,20 @@ function DocumentCheck() {
        .catch((err) => err);
    };
 
+   function openCity(e:any, cityName:any) {
+    var i, x, tablinks;
+    x = document.getElementsByClassName("city");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < x.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    e.currentTarget.className += " w3-red";
+  }
+
   return (
     <>
       <div className="container-fluied bg-ContractPage">
@@ -148,8 +162,29 @@ function DocumentCheck() {
 <p className="pouvez mb-0">Les clients de la société sont listés sur cette page, vous pouvez cliquer sur un client et faire un controle des documents obligatoires.</p><p className="pouvezz">Chaque client doit avoir accès à sa propre page qui doit lui etre communiqué par Jeremy</p>
 
             </div>
-            <hr className="hrLineDocChecker" />
-            <div  className="col-12" style={{padding:"0px 30px"}}>
+            {/* <div className="col-12 ">
+
+            <div id="navbar-example2" className="row align-items-center bg-light py-1">
+              <div className="col-3 px-0"  onClick={(e)=>openCity(e,'sommeil')}>
+              <a className="sommeilTab" href="#scrollspyHeading1">😴 Clients en sommeil</a>
+              </div>
+              <div className="col-3 px-0">
+              <a className="sommeilTab" onClick={(e)=>openCity(e,'recherche')} href="#scrollspyHeading2">🔍 Clients en cours de recherche</a>
+              </div>
+              <div className="col-3 px-0">
+              <a className="sommeilTab" onClick={(e)=>openCity(e,'COURS')} href="#scrollspyHeading3">✅ Clients EN COURS</a>
+              </div>
+              <div className="col-3 px-0">
+              <a className="sommeilTab" onClick={(e)=>openCity(e,'archives')} href="#scrollspyHeading4">🗑️ Clients EN archives ?</a>
+              </div>
+</div>
+            </div> */}
+  
+             <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" className="scrollspy-example" tabIndex={0}>
+           
+             <hr className="hrLineDocChecker" />
+            <div  className="col-12" id="scrollspyHeading1" style={{padding:"0px 30px"}}>
+
             <div className="row">
               <div className="col-4">
 <p className="sommeil mb-0">😴 Clients en sommeil</p>
@@ -192,7 +227,7 @@ function DocumentCheck() {
                 </div>
             </div>
             <hr className="hrLineDocChecker" />
-            <div  className="col-12" style={{padding:"0px 30px"}}>
+            <div  className="col-12" id="scrollspyHeading2" style={{padding:"0px 30px"}}>
             <div className="row">
               <div className="col-6">
 <p className="sommeil mb-0">🔍 Clients en cours de recherche</p>
@@ -234,7 +269,7 @@ function DocumentCheck() {
                 </div>
             </div>
             <hr className="hrLineDocChecker" />
-            <div  className="col-12" style={{padding:"0px 30px"}}>
+            <div  className="col-12" id="scrollspyHeading3" style={{padding:"0px 30px"}}>
             <div className="row">
               <div className="col-4">
 <p className="sommeil mb-0">✅ Clients EN COURS </p>
@@ -277,7 +312,7 @@ function DocumentCheck() {
                 </div>
             </div>
             <hr className="hrLineDocChecker" />
-            <div  className="col-12" style={{padding:"0px 30px"}}>
+            <div  className="col-12" id="scrollspyHeading4" style={{padding:"0px 30px"}}>
             <div className="row">
               <div className="col-4">
 <p className="sommeil mb-0">🗑️ Clients EN archives  </p>
@@ -318,6 +353,7 @@ function DocumentCheck() {
              }
               
                 </div>
+            </div>
             </div>
         </div>
         </div>

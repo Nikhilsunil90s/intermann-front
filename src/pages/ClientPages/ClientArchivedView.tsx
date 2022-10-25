@@ -299,13 +299,16 @@ function ArchivedViewPage() {
   const renameDocument = (docId: any, docName: any, originalName: any) => {
     // setRenameDoc(true);
 
-    RenameData = [docId, docName, profile._id, originalName];
-    // renameCandidatDocument(docId, docName, profile._id).then(resData => {
-    //   console.log(resData)
-    //   setRenameDoc(false);
-    // }).catch(err => {
-    //   console.log(err)
-    // })
+    if(originalName=="LinkEdit"){
+      RenameData=[
+        docId,
+        docName,
+        originalName,
+
+      ]
+    }else{
+      RenameData = [docId, docName, profile._id, originalName];
+    }
   };
 
   useEffect(() => {
@@ -1780,7 +1783,7 @@ function ArchivedViewPage() {
                               title={Link.link}
                             >
                               <p className="download-font mb-0">
-                                {Link.link.length > 30
+                              {Link.displayName ? Link.displayName: Link.link.length > 30
                                   ? Link.link.slice(0, 28) + "..."
                                   : Link.link}
                               </p>
@@ -1810,7 +1813,15 @@ function ArchivedViewPage() {
                               </button>
                             </div>
                             <div className="col-2  d-flex align-item-end justify-content-end">
-                            
+                            <img
+                               src={require("../../images/editSvg.svg").default}
+                               style={{
+                                 width: "20px",
+                                 marginRight: "5px",
+                                 cursor: "pointer",
+                               }}
+                               onClick={() =>{  setRenameDocStatus(true); renameDocument(Link._id,Link.link,"LinkEdit")}}
+                             />
                               <img
                                 src={
                                   require("../../images/Primaryfill.svg").default

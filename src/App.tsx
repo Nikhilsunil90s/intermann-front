@@ -357,7 +357,7 @@ function App() {
             }
           />
            <Route
-            path={"/ContractSigend/thankYou"}
+            path={"/documentSigned/thankYou"}
             element={
             
                 <ThankYouPage />
@@ -381,7 +381,7 @@ function App() {
             }
           />
               <Route
-            path={"/candidateDocumentbox/:candidateCompanyName/:id"}
+            path={"/candidateDocumentbox/:candidateName/:id"}
             element={
             
                 <GlobalDocumentPage />

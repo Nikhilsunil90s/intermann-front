@@ -13,6 +13,7 @@ function ClientContractPage() {
   const { id } = useParams();
   // const {state}= useLocation()
   const [documentList, setDocumentList] = useState([]);
+  const [linksList, setLinksList] = useState([]);
   const [profile, setProfile] = useState() as any;
   const [contrat_client, setcontrat_client] = useState() as any;
   const [contrat_employes, setcontrat_employes] = useState() as any;
@@ -50,10 +51,12 @@ function ClientContractPage() {
     fetchCandidat(id)
       .then((resData) => {
         if (resData.status == true) {
+          console.log(resData.data);
           // setProfile(resData.data)
           resData.data.map((el) => {
             setProfile(el);
             setDocumentList(el.clientDocuments);
+            setLinksList(el.clientLinks);
           });
         } else {
           return false;
@@ -1316,6 +1319,56 @@ INTERMANN WORK S.R.L <br/>
                     
                 }
            
+              </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-12 px-3 mb-1 ">
+            <div className="row Social-CardClient p-1">
+              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
+                <p className="mb-0 CLIntermann">CLIENT LINKS</p>
+              </div>
+              <div className="col-md-8 col-sm-12">
+                <div className="row justify-content-end">
+                {
+                  linksList.length > 0 ?
+                   linksList.map((el)=>(
+                   <>    
+                   <div className="col-md-6 col-sm-12 mb-1">
+                        <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.link)
+                              }>
+                         <div className="col-2 px-0 d-flex align-items-center">
+                           <img
+                             style={{ width: "73%" }}
+                             src={require("../images/newresume.svg").default}
+                           />
+                         </div>
+                         <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.link}>
+                           <p className="mb-0 contractEMPStyle">{el.link.length > 30 ? el.link.slice(0,32) + "..." : el.link}</p>
+                         </div>
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
+                           <img
+                             style={{ width: "73%" }}
+                             src={require("../images/dowcard.svg").default}
+                           />
+                         </div>
+                         </div>
+                   </div>
+                   </>
+                   )
+                   )
+                   :
+                  <p className="d-flex  justify-content-center align-items-center mb-0"     style={{
+                  fontFamily: 'Poppins',
+                  fontStyle: "normal",
+                  fontWeight: "700",
+                  fontSize: "16px",
+                  lineHeight: "24px",
+                  color: "#000000"
+              }}> <ErrorLoader />No Links Added!</p>
+                   
+               }
               </div>
               </div>
             </div>

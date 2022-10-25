@@ -505,6 +505,25 @@ margin-bottom: 0px !important;
 
 }
 @media (min-width:1200px){
+    .sommeilTab{
+        font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 15px;
+line-height: 38px;
+text-transform: uppercase;
+color: #032339;
+    }
+    .sommeilTab:focus{
+        font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 15px;
+line-height: 38px;
+text-decoration-line: underline;
+text-transform: uppercase;
+color: #032339;
+    }
     .whyFont {
         font-family: 'Poppins';
         font-style: normal;

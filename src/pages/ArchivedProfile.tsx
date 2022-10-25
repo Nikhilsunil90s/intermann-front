@@ -222,8 +222,8 @@ useEffect(() => {
     setCandidatImage("")
     if (resData.status) {
       setProfile(resData.data)
-      clDoc = profile.candidatDocuments.filter((el) => el.folderName == UploadName);
-      Links = profile.candidatLinks.filter((el) => el.folder == UploadName);
+      clDoc = resData.data.candidatDocuments.filter((el) => el.folderName == UploadName);
+      Links = resData.data.candidatLinks.filter((el) => el.folder == UploadName);
       setDocumentList([...clDoc,...Links]);
       setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.url : "")
       setDocUploaded(false);
@@ -393,12 +393,21 @@ useEffect(() => {
 }as any
 const renameDocument = (docId: any, docName: any ,originalName:any) => {
 
-  RenameData=[
-    docId,
-    docName,
-    profile._id,
-    originalName
-  ]
+  if(originalName=="LinkEdit"){
+    RenameData=[
+      docId,
+      docName,
+      originalName,
+
+    ]
+  }else{
+    RenameData=[
+      docId,
+      docName,
+      profile._id,
+      originalName
+    ]
+  }
   // renameCandidatDocument(docId, docName, profile._id).then(resData => {
   //   console.log(resData)
   //   setRenameDoc(false);
@@ -1148,7 +1157,7 @@ null
                         Link.link && Link._id?
                        
                           <div className="col-6 mx-0">
-                          <div className="row CardClassDownload mt-1 mx-0">
+                            <div className="row CardClassDownload mt-1 mx-0">
                             <div
                               className="col-4 d-flex align-items-center cursor-pointer"
                               data-bs-toggle="tooltip"
@@ -1156,7 +1165,7 @@ null
                               title={Link.link}
                             >
                               <p className="download-font mb-0">
-                                {Link.link.length > 30
+                                {Link.displayName ? Link.displayName: Link.link.length > 30
                                   ? Link.link.slice(0, 28) + "..."
                                   : Link.link}
                               </p>
@@ -1186,7 +1195,12 @@ null
                               </button>
                             </div>
                             <div className="col-2  d-flex align-item-end justify-content-end">
-                            
+                            <img
+                                  src={require("../images/editSvg.svg").default}
+                                  style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                                  // onClick={() => renameDocument(doc._id, doc.documentName)}
+                                  onClick={()=>{setRenameDocStatus(true);renameDocument(Link._id,Link.link,"LinkEdit")}}
+                                />
                               <img
                                 src={
                                   require("../images/Primaryfill.svg").default

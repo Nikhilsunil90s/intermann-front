@@ -3,128 +3,64 @@ import "../../CSS/PreModal.css";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "../../components/Loader/loader";
-import { useNavigate ,useLocation} from 'react-router';
-import DOCUSIGNModalCandidate from '../Modal/DOCUSIGNModalCandidate'
-import ProfileLoader from '../Loader/ProfilesLoader' 
+import { useNavigate } from 'react-router';
 
-interface State {
-  profileData: any,
-  path: any,
-  search:any
 
-}
 
 function PdfModal({props,closeModal,LinkModal,path} ){
-
-   const navigate =useNavigate()
-   let Data={
-    Bool:true
-   }as any
   const PdfFormat = {
-    lieu_mission: props.candidatContract ? props.candidatContract.lieu_mission  ? props.candidatContract.lieu_mission :"" : "",
-    duree_mission:props.candidatContract ? props.candidatContract.duree_mission  ? props.candidatContract.duree_mission :"" :"",
-    duree_hebdomadaire_mission:props.candidatContract ? props.candidatContract.duree_hebdomadaire_mission  ? props.candidatContract.duree_hebdomadaire_mission : "" : "",
-    candidatJob: props.candidatContract ? props.candidatContract.candidatJob  ? props.candidatContract.candidatJob : "" : "",
-    cmp_candidat: props.candidatContract ? props.candidatContract.cmp_candidat  ? props.candidatContract.cmp_candidat :""  :"",
-    contract_date:props.candidatContract ? props.candidatContract.contract_date  ? props.candidatContract.contract_date : "" : "",
-    company_contact_name: props.candidatContract ? props.candidatContract.company_contact_name  ? props.candidatContract.company_contact_name : "" : "",
-    nr_inreg: props.candidatContract ? props.candidatContract.nr_inreg ? props.candidatContract.nr_inreg : "" : "",
-    serie_id: props.candidatContract ? props.candidatContract.serie_id ? props.candidatContract.serie_id :"" :"",
-    candidatAddress: props.candidatContract ? props.candidatContract.candidatAddress ? props.candidatContract.candidatAddress : "" : "",
-    company_siret: props.candidatContract ? props.candidatContract.company_siret  ? props.candidatContract.company_siret : ""  : "",
-    companyAddress: props.candidatContract ? props.candidatContract.companyAddress ? props.candidatContract.companyAddress : "" : "",
-    candidatId: props.candidatContract ? props.candidatContract.candidatId? props.candidatContract.candidatId : "" : "",
-    candidatName: props.candidatContract ? props.candidatContract.candidatName ? props.candidatContract.candidatName : "" : "",
-    numeroTFCandidat:props.candidatContract ? props.candidatContract.numeroTFCandidat  ? props.candidatContract.numeroTFCandidat :"" : "",
-    companyVat:props.candidatContract ? props.candidatContract.companyVat? props.candidatContract.companyVat :"" : "" ,
-    salaireBrut: props.candidatContract ? props.candidatContract.salaireBrut ? props.candidatContract.salaireBrut :"" : "",
-    salaireNet: props.candidatContract ? props.candidatContract.salaireNet? props.candidatContract.salaireNet : "" : "",
-    diurnaTotalParJour:props.candidatContract ? props.candidatContract.diurnaTotalParJour ?   props.candidatContract.diurnaTotalParJour  :"":"",
-    debutMissionDate: props.candidatContract ? props.candidatContract.debutMissionDate?   props.candidatContract.debutMissionDate  :"":"",
-    heurePerSemaine: props.candidatContract ? props.candidatContract.heurePerSemaine ?   props.candidatContract.heurePerSemaine  :"":"",
-    duree_hebdomadaire: props.candidatContract ? props.candidatContract.duree_hebdomadaire?   props.candidatContract.duree_hebdomadaire  :"":"",
-    indemnisationJour: props.candidatContract ? props.candidatContract.indemnisationJour ?   props.candidatContract.indemnisationJour  :"":"",
-    contractId: props.candidatContract ? props.candidatContract._id ? props.candidatContract._id : "" : "",
-    fin_mision:props.candidatContract ? props.candidatContract.fin_mision ? props.candidatContract.fin_mision : "" : ""
+    numero_contract : props.clientContract ? props.clientContract.numero_contract !== "" ?  props.clientContract.numero_contract : "" : "",
+    initial_client_company : props.clientCompanyName ? props.clientCompanyName : "",
+    siret : props.clientContract ? props.clientContract.siret !== "" ? props.clientContract.siret :"" : "",
+    numero_tva : props.clientContract ? props.clientContract.numero_tva !== "" ? props.clientContract.numero_tva :"" : "",
+    nom_gerant :  props.clientContract ? props.clientContract.nom_gerant !== "" ? props.clientContract.nom_gerant :"" : "",
+    telephone_gerant :  props.clientContract ? props.clientContract.telephone_gerant !== "" ? props.clientContract.telephone_gerant :"" : "",
+    metier_en_roumain :  props.clientContract ? props.clientContract.metier_en_roumain !== "" ? props.clientContract.metier_en_roumain :"" : "",
+    metier_en_francais :  props.clientContract ? props.clientContract.metier_en_francais !== "" ? props.clientContract.metier_en_francais :"" : "",
+    debut_date :  props.clientContract ? props.clientContract.debut_date !== "" ? props.clientContract.debut_date :"" : "",
+    date_fin_mission :  props.clientContract ? props.clientContract.date_fin_mission !== "" ? props.clientContract.date_fin_mission :"" : "",
+    prix_per_heure :  props.clientContract ? props.clientContract.prix_per_heure !== "" ? props.clientContract.prix_per_heure :"" : "",
+    salaire_euro :  props.clientContract ? props.clientContract.salaire_euro !== "" ? props.clientContract.salaire_euro :"" : "",
+    nombre_heure :  props.clientContract ? props.clientContract.nombre_heure !== "" ? props.clientContract.nombre_heure :"" : "",
+    worker_number_1 :  props.clientContract ? props.clientContract.worker_number_1 !== "" ? props.clientContract.worker_number_1 :"" : "",
+    worker_name_1 :  props.clientContract ? props.clientContract.worker_name_1 !== "" ? props.clientContract.worker_name_1 :"" : "",
+    worker_number_2 :  props.clientContract ? props.clientContract.worker_number_2 !== "" ? props.clientContract.worker_number_2 :"" : "",
+    worker_name_2 :  props.clientContract ? props.clientContract.worker_name_2 !== "" ? props.clientContract.worker_name_2 :"" : "",
+    worker_number_3 :  props.clientContract ? props.clientContract.worker_number_3 !== "" ? props.clientContract.worker_number_3 :"" : "",
+    worker_name_3 :  props.clientContract ? props.clientContract.worker_name_3 !== "" ? props.clientContract.worker_name_3 :"" : "",
+    worker_number_4 :  props.clientContract ? props.clientContract.worker_number_4 !== "" ? props.clientContract.worker_number_4 :"" : "",
+    worker_name_4 :  props.clientContract ? props.clientContract.worker_name_4 !== "" ? props.clientContract.worker_name_4 :"" : "",
+    worker_number_5 :  props.clientContract ? props.clientContract.worker_number_5 !== "" ? props.clientContract.worker_number_5 :"" : "",
+    worker_name_5 :  props.clientContract ? props.clientContract.worker_name_5 !== "" ? props.clientContract.worker_name_5 :"" : "",
+    worker_number_6 :  props.clientContract ? props.clientContract.worker_number_6 !== "" ? props.clientContract.worker_number_6 :"" : "",
+    worker_name_6 :  props.clientContract ? props.clientContract.worker_name_6 !== "" ? props.clientContract.worker_name_6 :"" : "",
+    worker_number_7 :  props.clientContract ? props.clientContract.worker_number_7 !== "" ? props.clientContract.worker_number_7 :"" : "",
+    worker_name_7 :  props.clientContract ? props.clientContract.worker_name_7 !== "" ? props.clientContract.worker_name_7 :"" : "",
+    worker_number_8 :  props.clientContract ? props.clientContract.worker_number_8 !== "" ? props.clientContract.worker_number_8 :"" : "",
+    worker_name_8 :  props.clientContract ? props.clientContract.worker_name_8 !== "" ? props.clientContract.worker_name_8 :"" : "",
+    clientId :  props._id ?  props._id : "",
+    contractId: props.clientContract ? props.clientContract._id !== "" ? props.clientContract._id :"" : "",
+    clientAddress: props.clientAddress ? props.clientAddress :"",
+    clientEmail: props.clientEmail ? props.clientEmail.toLowerCase() : "",
+    poste_du_gerant:  props.clientContract ? props.clientContract.poste_du_gerant !== "" ? props.clientContract.poste_du_gerant :"" : "",
 }
   const [data, setData] = useState(PdfFormat);
   const [loader, setLoader] = useState(false);
-  const [contract_date,setcontract_date]=useState()as any
-  const [debutMissionDate,setdebutMissionDate]=useState()as any
-  const [fin_mision,setfin_mision]=useState()as any
-  const [GetMonth,setMonth]=useState()as any
-  const [GetMonth2,setMonth2]=useState()as any
-  const [GetMonth3,setMonth3]=useState()as any
   const [Btndisabled,setBtndisabled]=useState(false)
-  // const [DocumentSignModal,setDocuSignModal]=useState(false)
-
-  useEffect(() => {
-    if (data.candidatName == "") {
-        setData((prev) => ({ ...prev, ["candidatName"]: props.candidatName }));
-      }
-    if (data.candidatId == "") {
-        setData((prev) => ({ ...prev, ["candidatId"]: props._id }));
-      }
-    if(data.candidatAddress == "") {
-        setData((prev) => ({ ...prev, ["candidatAddress"]: props.candidatAddress }));
-      }
-      if (data.candidatJob == "") {
-        setData((prev) => ({ ...prev, ["candidatJob"]: props.candidatJob }));
-      }
-  },[])
-
-  useEffect(()=>{
-    if(data.contract_date){
-   
-          let tempdate =new Date(data.contract_date)
-          setMonth(tempdate.getMonth()+ 1)
-          
-        setcontract_date([tempdate.getFullYear() ,"0" + GetMonth,tempdate.getDate()].join("-"))
-    }
-    if(data.debutMissionDate){
-      let tempdate2 =new Date(data.debutMissionDate)
-      setMonth2(tempdate2.getMonth()+1)
-      setdebutMissionDate([tempdate2.getFullYear() ,"0"+GetMonth2,tempdate2.getDate()].join("-"))
-    }
-    
-    if(data.fin_mision){
-     let tempdate3 =new Date(data.fin_mision)
-      setMonth3(tempdate3.getMonth()+1)
-      setfin_mision([tempdate3.getFullYear() ,"0"+GetMonth3,tempdate3.getDate()].join("-"))
-    
 
 
-}},)
 
     const onFormDataChange = (
         e: React.ChangeEvent<
           HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
         >
       ) => {
-
-        if(e.target.name === "contract_date"){
-          var tempDate = new Date(e.target.value);
-            var formattedDate = [tempDate.getMonth() + 1, tempDate.getDate(), tempDate.getFullYear()].join('-');
-          setData((prev) => ({ ...prev, ['contract_date']:formattedDate}));
-        }
-     else   if(e.target.name === "debutMissionDate"){
-      var tempDate = new Date(e.target.value);
-      var formattedDate = [tempDate.getMonth() + 1, tempDate.getDate(), tempDate.getFullYear()].join('-');
-          setData((prev) => ({ ...prev, ['debutMissionDate']:formattedDate }));
-        }
-       else if(e.target.name === "fin_mision"){   
-        var tempDate = new Date(e.target.value);
-        var formattedDate = [tempDate.getMonth() + 1, tempDate.getDate(), tempDate.getFullYear()].join('-');
-          setData((prev) => ({ ...prev, ['fin_mision']:formattedDate}));
-        }
-        else{
-                 setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));   
-        }
-
+          setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
       };
 
+    
     const addContract = async () => {
-      return await fetch(API_BASE_URL + "addContractToCRM", {
+      return await fetch(API_BASE_URL + "addClientContractToCRM", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -138,12 +74,10 @@ function PdfModal({props,closeModal,LinkModal,path} ){
         .catch((err) => err);
     }
 
-    
-
-
     const generatePDF = async () => {
+
         setLoader(true);
-        return await fetch(API_BASE_URL + "makeContract", {
+        return await fetch(API_BASE_URL + "makeClientContract", {
             method: "POST",
             headers: {
               Accept: "application/json",
@@ -168,18 +102,18 @@ function PdfModal({props,closeModal,LinkModal,path} ){
               }
               if(e.target.name=="DOCU"){
                 setBtndisabled(false)
-                if(path ==="/embauchprofile"){
+                if(path ==="/clientToDoProfile"){
                   closeModal(false)
                  LinkModal(true)  
                 }
-                if(path === "/todoprofile"){
+                if(path === "/clientInProgressProfile"){
                   closeModal(false)
                  LinkModal(true)
                 }
-                if(path === "/archivedprofile"){
+                if(path === "/archivedClientSeeprofile"){
                   closeModal(false)
                   LinkModal(true)   
-                }  if(path === "/preSelected"){
+                }  if(path === "/clientSigned"){
                   closeModal(false)
                   LinkModal(true)       
                 }
@@ -193,20 +127,14 @@ function PdfModal({props,closeModal,LinkModal,path} ){
       })
     }
 
-    const VoirModal=()=>{
-      window.open("https://intermann-v2.herokuapp.com/uploads/models.zip")
-    }
-
+// console.log(props,"props")
     const invokeGeneratePDF = () => {
-      
+
         generatePDF().then(result => {
             setLoader(false);
             if (result.status) {
               let splittedFilePath = result.filePath.split("/app/");
                   window.open(API_BASE_URL + splittedFilePath[1]); 
-                  setTimeout(()=>{
-                    window.location.reload();
-                },2000)
             }
         }).catch(err => {
             console.log(err);
@@ -256,123 +184,153 @@ function PdfModal({props,closeModal,LinkModal,path} ){
                     </div></div>
                     </div>
                     <form className="col-12 scrollbarModal modal-body text-center ">
+                       
+                         
                           <div className='row ' style={{height:"100%"}}>
                             <div className='col-4  d-grid '>
-                                <label className="PDFFormlabel">Lieu Mission</label>
-                                <input className='form-control inputStyling' defaultValue={data ? data.lieu_mission != "" ? data.lieu_mission :"" : ""} name='lieu_mission' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Lieu_Mission" />
+                                <label className="ClientPDFFormlabel">$ numero contrat</label>
+                                <input className='form-control inputStyling'  name='numero_contract' onChange={onFormDataChange} defaultValue={ data.numero_contract ? data.numero_contract : ""}   placeholder="‎ ‎ ‎ $ numero contrat" />
                             </div>
                             <div className='col-4  d-grid ' >
-                            <label className="PDFFormlabel">Durée Mission</label>
-                            <input className='form-control inputStyling' defaultValue={data ? data.duree_mission != "" ? data.duree_mission :"" :""} name='duree_mission' onChange={onFormDataChange}  placeholder="‎ ‎ ‎ Durée_Mission" />
+                            <label className="ClientPDFFormlabel">$ initial Société client</label>
+                            <input className='form-control inputStyling' name='initial_client_company' onChange={onFormDataChange} defaultValue={ props.clientCompanyName ? props.clientCompanyName : ""}  placeholder="‎ ‎ ‎ $ initial Société client" />
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">Durée Hebdomadaire Mission</label>
-                            <input className='form-control inputStyling' defaultValue={data ? data.duree_hebdomadaire_mission != "" ? data.duree_hebdomadaire_mission : "" : ""} name='duree_hebdomadaire_mission' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Durée_Hebdomadaire_Mission"/>
+                            <label className="ClientPDFFormlabel">$ siret </label>
+                            <input className='form-control inputStyling'  name='siret' onChange={onFormDataChange} defaultValue={ data.siret ?  data.siret : ""} placeholder="‎ ‎ ‎$ siret"/>
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">Candidate Job</label>
-                            <input className='form-control inputStyling'  name='candidatJob' onChange={onFormDataChange} defaultValue={data ? data.candidatJob != "" ? data.candidatJob : "" : ""} placeholder="‎ ‎ ‎ Candidate_Job" />
+                            <label className="ClientPDFFormlabel">$ numero TVA</label>
+                            <input className='form-control inputStyling'  name='numero_tva' onChange={onFormDataChange} defaultValue={ data.numero_tva ? data.numero_tva  : ""} placeholder="‎ ‎ ‎ $ numero TVA" />
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">CMP CANDIDATE</label>
-                            <input className='form-control inputStyling' defaultValue={data ? data.cmp_candidat !="" ? data.cmp_candidat :""  :""}  name='cmp_candidat' onChange={onFormDataChange} placeholder="‎ ‎ ‎ CMP_CANDIDATE" />
+                            <label className="ClientPDFFormlabel">$ nom gérant</label>
+                            <input className='form-control inputStyling'  defaultValue={ data.nom_gerant ? data.nom_gerant : ""} name='nom_gerant' onChange={onFormDataChange} placeholder="‎ ‎ ‎ $ nom gérant" />
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">Contract Date</label>
-                            <input className='form-control inputStyling'  type="date" defaultValue={data ? data.contract_date != "" ? contract_date : "" : ""} name='contract_date' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Contract_date" />
+                            <label className="ClientPDFFormlabel">$ telephone gerant</label>
+                              <input className='form-control inputStyling' defaultValue={ data.telephone_gerant ? data.telephone_gerant : ""}   name='telephone_gerant' onChange={onFormDataChange} placeholder="‎ ‎ ‎ $ telephone gerant" />
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">Company Name</label>
-                            <input  className='inputStylings wHCompany form-control' defaultValue={data ? data.company_contact_name != "" ? data.company_contact_name : "" : ""} name='company_contact_name' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Company_Contact_Name" />
+                            <label className="ClientPDFFormlabel">$ metier en Roumain</label>
+                            <input  className='inputStyling wHCompany form-control' defaultValue={ data.metier_en_roumain ? data.metier_en_roumain : ""} name='metier_en_roumain' onChange={onFormDataChange} placeholder="‎ ‎ ‎ $ metier en Roumain" />
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">NR INREG</label>
-                            <input className='form-control inputStyling' defaultValue={data ? data.nr_inreg !="" ? data.nr_inreg : "" : ""}  name='nr_inreg' onChange={onFormDataChange} placeholder="‎ ‎ ‎ NR_INREG" />
+                            <label className="ClientPDFFormlabel">$ metier en Français</label>
+                            <input className='form-control inputStyling'  name='metier_en_francais' onChange={onFormDataChange} defaultValue={ data.metier_en_francais ? data.metier_en_francais : ""} placeholder="‎ ‎ ‎ $ metier en Français" />
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">SERIE ID</label>
-                            <input className='form-control inputStyling' defaultValue={data ? data.serie_id !=="" ? data.serie_id :"" :""} name='serie_id' onChange={onFormDataChange} placeholder="‎ ‎ ‎ SERIE_ID" />
+                            <label className="ClientPDFFormlabel">$ date du debut de mission</label>
+                            <input type="date" className='form-control inputStyling'  name='debut_date' onChange={onFormDataChange} defaultValue={ data.debut_date ? data.debut_date : ""} placeholder="‎ ‎ ‎ $ date du debut de mission" />
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">Candidate Adress</label>
-                            <input className='form-control inputStyling'  name='candidatAddress' onChange={onFormDataChange} defaultValue={data ? data.candidatAddress !=="" ? data.candidatAddress : "" : ""} placeholder="‎ ‎ ‎ Candidate_Adress" />
+                            <label className="ClientPDFFormlabel">$ date de fin de mission</label>
+                            <input type="date" className='form-control inputStyling'  name='date_fin_mission' defaultValue={ data.date_fin_mission ? data.date_fin_mission : ""} onChange={onFormDataChange}  placeholder="‎ ‎ ‎ $ date de fin de mission" />
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">Company Siret</label>
-                            <input className='form-control inputStyling' defaultValue={data ? data.company_siret !="" ? data.company_siret : ""  : ""}  name='company_siret' onChange={onFormDataChange} placeholder="‎ ‎ ‎ Company_Siret" />
-
-                            </div>
-
-
-                            <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">Numero TF Candidat</label>
-                            <input className='form-control inputStyling'   name='numeroTFCandidat'  defaultValue={data ? data.numeroTFCandidat !="" ? data.numeroTFCandidat : ""  : ""}  onChange={onFormDataChange} placeholder="‎ ‎ ‎ Numero TF Candidat" />
-
-                            </div>
-                            <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">Company Vat</label>
-                            <input className='form-control inputStyling'  name='companyVat' onChange={onFormDataChange}  defaultValue={data ? data.companyVat !="" ? data.companyVat : ""  : ""}   placeholder="‎ ‎ ‎ Company Vat" />
-
-                            </div>
-                            <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">Salaire Brut</label>
-                            <input className='form-control inputStyling'   name='salaireBrut' onChange={onFormDataChange}  defaultValue={data ? data.salaireBrut !="" ? data.salaireBrut : ""  : ""}  placeholder="‎ ‎ ‎ Salaire Brut" />
+                            <label className="ClientPDFFormlabel">$ prix en euro / heure selon contract</label>
+                            <input className='form-control inputStyling'  name='prix_per_heure' defaultValue={ data.prix_per_heure ? data.prix_per_heure : ""} onChange={onFormDataChange} placeholder="‎ ‎ ‎ $ prix en euro / heure selon contract" />
 
                             </div>
 
 
                             <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">Salaire Net</label>
-                            <input className='form-control inputStyling'  name='salaireNet' onChange={onFormDataChange}  defaultValue={data ? data.salaireNet !="" ? data.salaireNet : ""  : ""}  placeholder="‎ ‎ ‎ Salaire_Net" />
+                            <label className="ClientPDFFormlabel">$ SALAIRE EN EURO</label>
+                            <input className='form-control inputStyling' name='salaire_euro' onChange={onFormDataChange} defaultValue={ data.salaire_euro ? data.salaire_euro : ""} placeholder="‎ ‎ ‎ $ SALAIRE EN EURO" />
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">Diurna Par Jour</label>
-                            <input className='form-control inputStyling'  name='diurnaTotalParJour' onChange={onFormDataChange}  defaultValue={data ? data.diurnaTotalParJour !="" ? data.diurnaTotalParJour : ""  : ""}  placeholder="‎ ‎ ‎ Diurna Total Par Jour" />
+                            <label className="ClientPDFFormlabel">$ nombre d'heure négocie dans le contrat</label>
+                            <input className='form-control inputStyling'  name='nombre_heure' defaultValue={ data.nombre_heure ? data.nombre_heure : ""} onChange={onFormDataChange} placeholder="‎ ‎ ‎ $ nombre d'heure négocie dans le contrat" />
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">Debut Mision (Date)</label>
-                            <input className='form-control inputStyling' type="date"  name='debutMissionDate' onChange={onFormDataChange}  defaultValue={data ? data.debutMissionDate !="" ? debutMissionDate : ""  : ""}  placeholder="‎ ‎ ‎ Debut Mision Date" />
+                            <label className="ClientPDFFormlabel">$ numero de tel du travailleur 1</label>
+                            <input className='form-control inputStyling' defaultValue={ data.worker_number_1 ? data.worker_number_1 :""}  name='worker_number_1' onChange={onFormDataChange} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1" />
 
-                            </div>
-
-
-
+                            </div> 
                             <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">Heure Par Semaine</label>
-                            <input className='form-control inputStyling'  name='heurePerSemaine' onChange={onFormDataChange}  defaultValue={data ? data.heurePerSemaine !="" ? data.heurePerSemaine : ""  : ""}  placeholder="‎ ‎ ‎ Heure Par Semaine" />
+                            <label className="ClientPDFFormlabel">$ Nom Du Travailleur 1</label>
+                            <input className='form-control inputStyling'   name='worker_name_1' defaultValue={ data.worker_name_1 ? data.worker_name_1 : "" } onChange={onFormDataChange} placeholder="‎ ‎ ‎ $ nom de tel du travailleur 1" />
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">Duree Hebdomadaire</label>
-                            <input className='form-control inputStyling'  name='duree_hebdomadaire' onChange={onFormDataChange}  defaultValue={data ? data.duree_hebdomadaire !="" ? data.duree_hebdomadaire : ""  : ""}   placeholder="‎ ‎ ‎ Duree Hebdomadaire" />
+                            <label className="ClientPDFFormlabel">$ numero de tel du travailleur 2 </label>
+                            <input className='form-control inputStyling' name='worker_number_2' defaultValue={ data.worker_number_2 ? data.worker_number_2 : ""} onChange={onFormDataChange} placeholder="‎ ‎ ‎ $ numero du travailleur 2 " />
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">indemnisation jour</label>
-                            <input className='form-control inputStyling'  name='indemnisationJour' onChange={onFormDataChange}  defaultValue={data ? data.indemnisationJour !="" ? data.indemnisationJour : ""  : ""}  placeholder="‎ ‎ ‎ indemnisation jour" />
+                            <label className="ClientPDFFormlabel">$ Nom Du travailleur 2</label>
+                            <input className='form-control inputStyling'  name='worker_name_2' onChange={onFormDataChange} defaultValue={ data.worker_name_2 ? data.worker_name_2 : ""}  placeholder="‎ ‎ ‎ $ nom de tel du travailleur 2" />
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="PDFFormlabel">Fin Mision</label>
-                            <input className='form-control inputStyling'  type="date" name='fin_mision' onChange={onFormDataChange}  defaultValue={data ? data.fin_mision !="" ? fin_mision : ""  : ""}  placeholder="‎ ‎ ‎ indemnisation jour" />
+                            <label className="ClientPDFFormlabel">$ numero de tel du travailleur 3</label>
+                            <input className='form-control inputStyling'   name='worker_number_3' onChange={onFormDataChange} defaultValue={ data.worker_number_3 ? data.worker_number_3 :""} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 3" />
+
+                            </div> <div className='col-4  d-grid '>
+                            <label className="ClientPDFFormlabel">$ nom du travailleur 3</label>
+                            <input className='form-control inputStyling'  name='worker_name_3' onChange={onFormDataChange} defaultValue={ data.worker_name_3 ? data.worker_name_3 :""} placeholder="‎ ‎ ‎ $ nom du travailleur 3" />
 
                             </div>
+                            <div className='col-4  d-grid '>
+                            <label className="ClientPDFFormlabel">$ numero de tel du travailleur 4</label>
+                            <input className='form-control inputStyling'  name='worker_number_4' defaultValue={ data.worker_number_4 ? data.worker_number_4 :""} onChange={onFormDataChange} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 4" />
 
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="ClientPDFFormlabel">$ nom du travailleur 4</label>
+                            <input className='form-control inputStyling'  name='worker_name_4' onChange={onFormDataChange} defaultValue={ data.worker_name_4 ? data.worker_name_4 : "" } placeholder="‎ ‎ ‎ $ nom du travailleur 4" />
 
-                            <div className='col-12  d-grid '>
-                            <label className="PDFFormlabel">Company Adress</label>
-                            <textarea className='TextArea form-control' defaultValue={data ? data.companyAddress !=""? data.companyAddress : "" : ""} name='companyAddress' onChange={onFormDataChange} placeholder='‎ ‎ ‎Company_Adress' ></textarea>
+                            </div> <div className='col-4  d-grid '>
+                            <label className="ClientPDFFormlabel">$ numero de tel du travailleur 5</label>
+                            <input className='form-control inputStyling'  name='worker_number_5' onChange={onFormDataChange} defaultValue={ data.worker_number_5 ? data.worker_number_5 :""} placeholder="‎ ‎ ‎$ numero de tel du travailleur 5" />
+
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="ClientPDFFormlabel">$ nom du travailleur 5</label>
+                            <input className='form-control inputStyling'  name='worker_name_5' onChange={onFormDataChange} defaultValue={ data.worker_name_5 ? data.worker_name_5 : ""} placeholder="‎ ‎ ‎ $ nom du travailleur 5" />
+
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="ClientPDFFormlabel">$ numero de tel du travailleur 6</label>
+                            <input className='form-control inputStyling'  name='worker_number_6' onChange={onFormDataChange} defaultValue={ data.worker_number_6 ? data.worker_number_6 : ""} placeholder="‎ ‎ ‎$ numero de tel du travailleur 6" />
+
+                            </div> <div className='col-4  d-grid '>
+                            <label className="ClientPDFFormlabel">$ nom du travailleur 6</label>
+                            <input className='form-control inputStyling' defaultValue={ data.worker_name_6 ? data.worker_name_6 :""}  name='worker_name_6' onChange={onFormDataChange} placeholder="‎ ‎ ‎ $ nom du travailleur 6" />
+
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="ClientPDFFormlabel">$ numero de tel du travailleur 7</label>
+                            <input className='form-control inputStyling'  name='worker_number_7' onChange={onFormDataChange} defaultValue={ data.worker_number_7 ? data.worker_number_7 :""} placeholder="‎ ‎ ‎$ numero de tel du travailleur 7" />
+
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="ClientPDFFormlabel">$ nom du travailleur 7</label>
+                            <input className='form-control inputStyling'  name='worker_name_7' onChange={onFormDataChange} defaultValue={ data.worker_name_7 ? data.worker_name_7 :""} placeholder="‎ ‎ ‎ $ nom du travailleur 7" />
+
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="ClientPDFFormlabel">$ numero de tel du travailleur 8</label>
+                            <input className='inputStyling form-control'  name='worker_number_8' onChange={onFormDataChange} defaultValue={ data.worker_number_8 ? data.worker_number_8 :""} placeholder='‎ ‎ ‎$ numero de tel du travailleur 8'  />
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="ClientPDFFormlabel">$ nom du travailleur 8</label>
+                            <input className='inputStyling form-control'  name='worker_name_8' defaultValue={ data.worker_name_8 ? data.worker_name_8 : "" } onChange={onFormDataChange} placeholder='‎ ‎ ‎$ nom du travailleur 8'  />
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="ClientPDFFormlabel">$ Poste du Gerant</label>
+                            <input className='inputStyling form-control'  name='poste_du_gerant' defaultValue={ data.poste_du_gerant ? data.poste_du_gerant :""}  onChange={onFormDataChange} placeholder='‎ ‎ ‎$ Poste du Gerant'  />
                             </div>
                             <div className="col-12 text-center mt-2">
                                 <div className="row">
@@ -381,11 +339,11 @@ function PdfModal({props,closeModal,LinkModal,path} ){
                                             <p className='PDFNotes'>Download local</p>
                                            </div>
                                            <div className='col-3 px-0'>
-                                           <button type='button' className='contractCRM text-center' name='ADDtoCRM' onClick={(e)=>addContractToCRM(e)}>Add the contract to CRM</button>
+                                           <button type='button' className='contractCRM text-center' onClick={(e)=>addContractToCRM(e)}>Add the contract to CRM</button>
                                            <p className='PDFNotes'>Download cloud</p>
                                            </div>
                                            <div className='col-3'>
-                                           <button className='voirModal' onClick={VoirModal} type='button'>
+                                           <button className='voirModal' type='button'>
                                            Voir le model
                                            </button>
                                            </div>
@@ -397,10 +355,11 @@ function PdfModal({props,closeModal,LinkModal,path} ){
                                 </div>
                             </div>
                          </div>
+                         
+                    
                     </form>
                     </>
         }
-     
                 </div>
 
             </div>

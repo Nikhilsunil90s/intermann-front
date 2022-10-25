@@ -52,7 +52,7 @@ const Checkking=(e)=>{
                 toast.success("Signatures Added Successfully!")
                 setSingLoad(false)
                 setTimeout(()=>{
-                  window.location.href="/ContractSigend/thankYou"
+                  window.location.href="/documentSigned/thankYou"
                 },2000)
               }
           })
@@ -67,7 +67,7 @@ const Checkking=(e)=>{
                    toast.success("Signatures Added Successfully!")
                    setSingLoad(false)
                    setTimeout(()=>{
-                     window.location.href="/ContractSigend/thankYou"
+                     window.location.href="/documentSigned/thankYou"
                    },2000)
                  }
              })

@@ -11,8 +11,10 @@ import { ProgressBar } from "react-bootstrap";
 let clDoc;
 function GdocumentCandidatePage() {
   const { id } = useParams();
+  console.log(id);
   // const {state}= useLocation()
   const [documentList, setDocumentList] = useState([]);
+  const [linksList, setLinksList] = useState([]);
   const [profile, setProfile] = useState() as any;
     const [CONTRACT_EMPLOYE_INTERMANN, setCONTRACT_EMPLOYE_INTERMANN] = useState() as any;
     const [Fiche_Medicale, setFiche_Medicale] = useState() as any;
@@ -35,8 +37,9 @@ function GdocumentCandidatePage() {
     fetchCandidat(id).then((resData) => {
         if (resData.status == true) {
           setProfile(resData.data)
+          console.log(resData.data);
         setDocumentList(resData.data?.candidatDocuments);
-
+        setLinksList(resData.data?.candidatLinks);
         //   resData.data.map((el) => {
             // setProfile(el);
 
@@ -57,6 +60,7 @@ function GdocumentCandidatePage() {
 
   useEffect(() => {
     // documentList.map((el) => {
+        console.log(linksList);
         profile?.candidatDocuments?.map((el) => {
             if (
               JSON.stringify(el.folderName ? el.folderName : null).includes(
@@ -652,6 +656,57 @@ INTERMANN WORK S.R.L <br/>
                   lineHeight: "24px",
                   color: "#000000"
               }}> <ErrorLoader />No Documents Uploaded!</p>
+                   
+               }
+              </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-12 px-3 mb-1 ">
+            <div className="row Social-CardClient p-1">
+              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
+                <p className="mb-0 CLIntermann">CANDIDAT LINKS</p>
+              </div>
+              <div className="col-md-8 col-sm-12">
+                <div className="row justify-content-end">
+                {
+                  linksList.length > 0 ?
+                   linksList.map((el)=>(
+                   <>    
+                   <div className="col-md-6 col-sm-12 mb-1">
+                        <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.link)
+                              }>
+                         <div className="col-2 px-0 d-flex align-items-center">
+                           <img
+                             style={{ width: "73%" }}
+                             src={require("../images/newresume.svg").default}
+                           />
+                         </div>
+                         <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.link}>
+                           <p className="mb-0 contractEMPStyle">{el.link.length > 30 ? el.link.slice(0,32) + "..." : el.link}</p>
+                         </div>
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
+                           <img
+                             style={{ width: "73%" }}
+                             src={require("../images/dowcard.svg").default}
+                           />
+                         </div>
+                         </div>
+                   </div>
+                   </>
+                   )
+                   )
+                   :
+                  <p className="d-flex  justify-content-center align-items-center mb-0"     style={{
+                  fontFamily: 'Poppins',
+                  fontStyle: "normal",
+                  fontWeight: "700",
+                  fontSize: "16px",
+                  lineHeight: "24px",
+                  color: "#000000"
+              }}> <ErrorLoader />No Links Added!</p>
                    
                }
               </div>

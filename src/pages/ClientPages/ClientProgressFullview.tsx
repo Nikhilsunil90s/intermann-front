@@ -438,14 +438,16 @@ function ClientProgressView() {
 
   const renameDocument = (docId: any, docName: any, originalName: any) => {
     // setRenameDoc(true);
+    if(originalName=="LinkEdit"){
+      RenameData=[
+        docId,
+        docName,
+        originalName,
 
-    RenameData = [docId, docName, profile._id, originalName];
-    // renameCandidatDocument(docId, docName, profile._id).then(resData => {
-    //   console.log(resData)
-    //   setRenameDoc(false);
-    // }).catch(err => {
-    //   console.log(err)
-    // })
+      ]
+    }else{
+      RenameData = [docId, docName, profile._id, originalName];
+    }
   };
 
   const onTabClick = (e, index: any) => {
@@ -2393,7 +2395,7 @@ function ClientProgressView() {
                               title={Link.link}
                             >
                               <p className="download-font mb-0">
-                                {Link.link.length > 30
+                              {Link.displayName ? Link.displayName: Link.link.length > 30
                                   ? Link.link.slice(0, 28) + "..."
                                   : Link.link}
                               </p>
@@ -2423,7 +2425,15 @@ function ClientProgressView() {
                               </button>
                             </div>
                             <div className="col-2  d-flex align-item-end justify-content-end">
-                            
+                            <img
+                               src={require("../../images/editSvg.svg").default}
+                               style={{
+                                 width: "20px",
+                                 marginRight: "5px",
+                                 cursor: "pointer",
+                               }}
+                               onClick={() =>{  setRenameDocStatus(true); renameDocument(Link._id,Link.link,"LinkEdit")}}
+                             />
                               <img
                                 src={
                                   require("../../images/Primaryfill.svg").default

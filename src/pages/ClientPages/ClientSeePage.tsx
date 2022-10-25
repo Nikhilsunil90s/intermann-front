@@ -862,15 +862,18 @@ function ClientSee() {
   };
 
   const renameDocument = (docId: any, docName: any, originalName: any) => {
-    // setRenameDoc(true);
+   
+    if(originalName=="LinkEdit"){
+      RenameData=[
+        docId,
+        docName,
+        originalName,
 
-    RenameData = [docId, docName, profile._id, originalName];
-    // renameCandidatDocument(docId, docName, profile._id).then(resData => {
-    //   console.log(resData)
-    //   setRenameDoc(false);
-    // }).catch(err => {
-    //   console.log(err)
-    // })
+      ]
+    }else{
+      RenameData = [docId, docName, profile._id, originalName];
+    }
+    
   };
 
   const deleteCandidatLink = (Id : any) => {
@@ -2641,20 +2644,13 @@ function ClientSee() {
                               title={Link.link}
                             >
                               <p className="download-font mb-0">
-                                {Link.link.length > 30
+                              {Link.displayName ? Link.displayName: Link.link.length > 30
                                   ? Link.link.slice(0, 28) + "..."
                                   : Link.link}
                               </p>
                             </div>
                             <div className="col-6 text-center">
-                              {/* {progress > 0 && progress < 100  ?
-                                    <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
-                                    :
-                                    <button className="btnDownload">
-                                      <img src={require("../images/dowBtn.svg").default} />
-                                      {Link.originalName.length > 10 ? Link.originalName.slice(0, 11) + "..." : Link.originalName}
-                                    </button>
-                                  } */}
+                            
                               <button
                                 name="btnDownloadLink"
                                 className="btnDownload"
@@ -2671,7 +2667,15 @@ function ClientSee() {
                               </button>
                             </div>
                             <div className="col-2  d-flex align-item-end justify-content-end">
-                            
+                            <img
+                               src={require("../../images/editSvg.svg").default}
+                               style={{
+                                 width: "20px",
+                                 marginRight: "5px",
+                                 cursor: "pointer",
+                               }}
+                               onClick={() =>{  setRenameDocStatus(true); renameDocument(Link._id,Link.link,"LinkEdit")}}
+                             />
                               <img
                                 src={
                                   require("../../images/Primaryfill.svg").default
