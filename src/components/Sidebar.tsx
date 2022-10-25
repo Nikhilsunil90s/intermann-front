@@ -177,6 +177,17 @@ function Sidebar(props: any) {
                     </div>
                   </div>
                 </div>
+                <li style={{border:"none",borderBottom:"0px",borderLeft:"0px" }} className="list-group-item sideBarBackG" >
+                  <Link to="/downloadCenter" className="signOut" aria-current="page">
+                    <span className="pe-2">
+                      <img className="logoutImage" src={require("../images/telecharger.svg").default} />
+                    </span>
+                    Download Center
+                    <Toaster
+                      position="top-right"
+                    />
+                  </Link>
+                </li>
                 <li style={{ borderTop: '1px solid #ffff',borderBottom:"0px",borderLeft:"0px" }} className="list-group-item sideBarBackG" onClick={(e) => LogOut()}>
                   <Link to="/" className="signOut" aria-current="page">
                     <span className="pe-2">

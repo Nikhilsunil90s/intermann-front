@@ -418,6 +418,29 @@ margin-top: 5px;
       .wrapBar{
         width: 40%;
       }
+
+      .downLoadCenter h3{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 30px;
+        letter-spacing: 1px;
+        text-transform: uppercase;  
+        color: #252726;
+      }
+
+      .downLoadCenter p{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 15px;
+        display: flex;
+        align-items: center;
+        color: #373A3C;
+    }
+
 @media (min-width:768px){
     .boxArchivedProfile {
         background: #FFE0E0;

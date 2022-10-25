@@ -260,73 +260,73 @@ function PdfModal({props,closeModal,LinkModal,path} ){
                             </div> 
                             <div className='col-4  d-grid '>
                             <label className="ClientPDFFormlabel">$ Nom Du Travailleur 1</label>
-                            <input className='form-control inputStyling'   name='worker_name_1' defaultValue={ data.worker_name_1 ? data.worker_name_1 : "" } onChange={onFormDataChange} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1" />
+                            <input className='form-control inputStyling'   name='worker_name_1' defaultValue={ data.worker_name_1 ? data.worker_name_1 : "" } onChange={onFormDataChange} placeholder="‎ ‎ ‎ $ nom de tel du travailleur 1" />
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="ClientPDFFormlabel">$ nom du travailleur 2 </label>
-                            <input className='form-control inputStyling' name='worker_number_2' defaultValue={ data.worker_number_2 ? data.worker_number_2 : ""} onChange={onFormDataChange} placeholder="‎ ‎ ‎ $ nom du travailleur 2 " />
+                            <label className="ClientPDFFormlabel">$ numero de tel du travailleur 2 </label>
+                            <input className='form-control inputStyling' name='worker_number_2' defaultValue={ data.worker_number_2 ? data.worker_number_2 : ""} onChange={onFormDataChange} placeholder="‎ ‎ ‎ $ numero du travailleur 2 " />
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="ClientPDFFormlabel">$ numero de tel du travailleur 2</label>
-                            <input className='form-control inputStyling'  name='worker_name_2' onChange={onFormDataChange} defaultValue={ data.worker_name_2 ? data.worker_name_2 : ""}  placeholder="‎ ‎ ‎ $ numero de tel du travailleur 2" />
+                            <label className="ClientPDFFormlabel">$ Nom Du travailleur 2</label>
+                            <input className='form-control inputStyling'  name='worker_name_2' onChange={onFormDataChange} defaultValue={ data.worker_name_2 ? data.worker_name_2 : ""}  placeholder="‎ ‎ ‎ $ nom de tel du travailleur 2" />
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="ClientPDFFormlabel">$ nom du travailleur3</label>
-                            <input className='form-control inputStyling'   name='worker_number_3' onChange={onFormDataChange} defaultValue={ data.worker_number_3 ? data.worker_number_3 :""} placeholder="‎ ‎ ‎ $ nom du travailleur3" />
+                            <label className="ClientPDFFormlabel">$ numero de tel du travailleur 3</label>
+                            <input className='form-control inputStyling'   name='worker_number_3' onChange={onFormDataChange} defaultValue={ data.worker_number_3 ? data.worker_number_3 :""} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 3" />
 
                             </div> <div className='col-4  d-grid '>
-                            <label className="ClientPDFFormlabel">$ numero de tel du travailleur 3</label>
-                            <input className='form-control inputStyling'  name='worker_name_3' onChange={onFormDataChange} defaultValue={ data.worker_name_3 ? data.worker_name_3 :""} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 3" />
-
-                            </div>
-                            <div className='col-4  d-grid '>
-                            <label className="ClientPDFFormlabel">$ nom du travailleur 4</label>
-                            <input className='form-control inputStyling'  name='worker_number_4' defaultValue={ data.worker_number_4 ? data.worker_number_4 :""} onChange={onFormDataChange} placeholder="‎ ‎ ‎ $ nom du travailleur 4" />
+                            <label className="ClientPDFFormlabel">$ nom du travailleur 3</label>
+                            <input className='form-control inputStyling'  name='worker_name_3' onChange={onFormDataChange} defaultValue={ data.worker_name_3 ? data.worker_name_3 :""} placeholder="‎ ‎ ‎ $ nom du travailleur 3" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="ClientPDFFormlabel">$ numero de tel du travailleur 4</label>
-                            <input className='form-control inputStyling'  name='worker_name_4' onChange={onFormDataChange} defaultValue={ data.worker_name_4 ? data.worker_name_4 : "" } placeholder="‎ ‎ ‎ $ numero de tel du travailleur 4" />
-
-                            </div> <div className='col-4  d-grid '>
-                            <label className="ClientPDFFormlabel">$ nom du travailleur 5</label>
-                            <input className='form-control inputStyling'  name='worker_number_5' onChange={onFormDataChange} defaultValue={ data.worker_number_5 ? data.worker_number_5 :""} placeholder="‎ ‎ ‎$ nom du travailleur 5" />
+                            <input className='form-control inputStyling'  name='worker_number_4' defaultValue={ data.worker_number_4 ? data.worker_number_4 :""} onChange={onFormDataChange} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 4" />
 
                             </div>
                             <div className='col-4  d-grid '>
+                            <label className="ClientPDFFormlabel">$ nom du travailleur 4</label>
+                            <input className='form-control inputStyling'  name='worker_name_4' onChange={onFormDataChange} defaultValue={ data.worker_name_4 ? data.worker_name_4 : "" } placeholder="‎ ‎ ‎ $ nom du travailleur 4" />
+
+                            </div> <div className='col-4  d-grid '>
                             <label className="ClientPDFFormlabel">$ numero de tel du travailleur 5</label>
-                            <input className='form-control inputStyling'  name='worker_name_5' onChange={onFormDataChange} defaultValue={ data.worker_name_5 ? data.worker_name_5 : ""} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 5" />
+                            <input className='form-control inputStyling'  name='worker_number_5' onChange={onFormDataChange} defaultValue={ data.worker_number_5 ? data.worker_number_5 :""} placeholder="‎ ‎ ‎$ numero de tel du travailleur 5" />
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="ClientPDFFormlabel">$ nom du travailleur 6</label>
-                            <input className='form-control inputStyling'  name='worker_number_6' onChange={onFormDataChange} defaultValue={ data.worker_number_6 ? data.worker_number_6 : ""} placeholder="‎ ‎ ‎$ nom du travailleur 6" />
+                            <label className="ClientPDFFormlabel">$ nom du travailleur 5</label>
+                            <input className='form-control inputStyling'  name='worker_name_5' onChange={onFormDataChange} defaultValue={ data.worker_name_5 ? data.worker_name_5 : ""} placeholder="‎ ‎ ‎ $ nom du travailleur 5" />
+
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="ClientPDFFormlabel">$ numero de tel du travailleur 6</label>
+                            <input className='form-control inputStyling'  name='worker_number_6' onChange={onFormDataChange} defaultValue={ data.worker_number_6 ? data.worker_number_6 : ""} placeholder="‎ ‎ ‎$ numero de tel du travailleur 6" />
 
                             </div> <div className='col-4  d-grid '>
-                            <label className="ClientPDFFormlabel">$ numero de tel du travailleur 6</label>
-                            <input className='form-control inputStyling' defaultValue={ data.worker_name_6 ? data.worker_name_6 :""}  name='worker_name_6' onChange={onFormDataChange} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 6" />
-
-                            </div>
-                            <div className='col-4  d-grid '>
-                            <label className="ClientPDFFormlabel">$ nom du travailleur 7</label>
-                            <input className='form-control inputStyling'  name='worker_number_7' onChange={onFormDataChange} defaultValue={ data.worker_number_7 ? data.worker_number_7 :""} placeholder="‎ ‎ ‎$ nom du travailleur 7" />
+                            <label className="ClientPDFFormlabel">$ nom du travailleur 6</label>
+                            <input className='form-control inputStyling' defaultValue={ data.worker_name_6 ? data.worker_name_6 :""}  name='worker_name_6' onChange={onFormDataChange} placeholder="‎ ‎ ‎ $ nom du travailleur 6" />
 
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="ClientPDFFormlabel">$ numero de tel du travailleur 7</label>
-                            <input className='form-control inputStyling'  name='worker_name_7' onChange={onFormDataChange} defaultValue={ data.worker_name_7 ? data.worker_name_7 :""} placeholder="‎ ‎ ‎ $ numero de tel du travailleur 7" />
+                            <input className='form-control inputStyling'  name='worker_number_7' onChange={onFormDataChange} defaultValue={ data.worker_number_7 ? data.worker_number_7 :""} placeholder="‎ ‎ ‎$ numero de tel du travailleur 7" />
 
                             </div>
                             <div className='col-4  d-grid '>
-                            <label className="ClientPDFFormlabel">$ nom du travailleur 8</label>
-                            <input className='inputStyling form-control'  name='worker_number_8' onChange={onFormDataChange} defaultValue={ data.worker_number_8 ? data.worker_number_8 :""} placeholder='‎ ‎ ‎$ nom du travailleur 8'  />
+                            <label className="ClientPDFFormlabel">$ nom du travailleur 7</label>
+                            <input className='form-control inputStyling'  name='worker_name_7' onChange={onFormDataChange} defaultValue={ data.worker_name_7 ? data.worker_name_7 :""} placeholder="‎ ‎ ‎ $ nom du travailleur 7" />
+
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="ClientPDFFormlabel">$ numero de tel du travailleur 8</label>
-                            <input className='inputStyling form-control'  name='worker_name_8' defaultValue={ data.worker_name_8 ? data.worker_name_8 : "" } onChange={onFormDataChange} placeholder='‎ ‎ ‎$ numero de tel du travailleur 8'  />
+                            <input className='inputStyling form-control'  name='worker_number_8' onChange={onFormDataChange} defaultValue={ data.worker_number_8 ? data.worker_number_8 :""} placeholder='‎ ‎ ‎$ numero de tel du travailleur 8'  />
+                            </div>
+                            <div className='col-4  d-grid '>
+                            <label className="ClientPDFFormlabel">$ nom du travailleur 8</label>
+                            <input className='inputStyling form-control'  name='worker_name_8' defaultValue={ data.worker_name_8 ? data.worker_name_8 : "" } onChange={onFormDataChange} placeholder='‎ ‎ ‎$ nom du travailleur 8'  />
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="ClientPDFFormlabel">$ Poste du Gerant</label>

@@ -46,6 +46,7 @@ import DocumentChecker from './components/Document-checker'
 import DocumentSign from "./components/DocumentSignCandidatePage";
 import DocSignCandidate from "./components/Modal/DocSignCandidate";
 import ThankYouPage from "./components/ThankYouPage";
+import DownloadCenter from "./components/DownloadCenter";
 function App() {
   return (
     <Provider store={configureStore}>
@@ -326,6 +327,14 @@ function App() {
             element={
               <Sidebar>
                 <PrivateRoute Component={SignedView} />
+              </Sidebar>
+            }
+          />
+          <Route
+            path={"/downloadCenter"}
+            element={
+              <Sidebar>
+                <PrivateRoute Component={DownloadCenter} />
               </Sidebar>
             }
           />
