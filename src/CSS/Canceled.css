@@ -440,7 +440,30 @@ margin-top: 5px;
         align-items: center;
         color: #373A3C;
     }
+    .ContractListFont{
+        font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 24px;
+text-transform: capitalize;
+color: #FE8700;
 
+    }
+    .RoundDiv{
+        max-width: 37px;
+        height: 37px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #ffff;
+        border-radius: 100%;
+    }
+
+  .tabsClass  .rts___tabs.hide___rts___tabs___scroll {
+        background: transparent !important;
+        border-radius: 10px;
+    }
 @media (min-width:768px){
     .boxArchivedProfile {
         background: #FFE0E0;
