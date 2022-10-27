@@ -324,7 +324,7 @@ function ClientProgressCard(props: any) {
                 />
               </div>
             </div>
-            <div className="col-5 px-0 d-flex  justify-content-center">
+            <div className="col-5 px-0 d-flex  justify-content-start">
               <div className="d-flex align-items-center ">
                 <p className="switch-fontCard mb-0">
                   Signature digitale envoyé ?
@@ -440,7 +440,7 @@ function ClientProgressCard(props: any) {
                 />
               </div>
             </div>
-            <div className="col-7 d-flex pl-1 pr-0">
+            <div className="col-5 d-flex justify-content-start px-0">
               <div className="d-flex align-items-center ">
                 <p className="switch-fontCard mb-0">Client singé ?</p>
                 <Switch
@@ -478,7 +478,7 @@ function ClientProgressCard(props: any) {
                 />
               </div>
             </div>
-            <div className="col-5 px-0 d-flex justify-content-start">
+            <div className="col-4 px-0 d-flex justify-content-start">
               <div className="d-flex align-items-center ">
                 <p className="switch-fontCard mb-0">Agence de voyage ok ?</p>
                 <Switch
@@ -516,7 +516,7 @@ function ClientProgressCard(props: any) {
                 />
               </div>
             </div>
-            <div className="col-6 d-flex px-0  justify-content-start">
+            <div className="col-5 d-flex px-0  justify-content-start">
               <div className="d-flex align-items-center ">
                 <p className="switch-fontCard mb-0">Publicité commencé ?</p>
                 <Switch

@@ -1612,7 +1612,7 @@ function ArchivedViewPage() {
                     hideNavBtns={false}
                     leftBtnIcon={"<"}
                     showTabsScroll={false}
-                    tabsScrollAmount={5}
+                    tabsScrollAmount={2}
                   >
                     {/* generating an array to loop through it  */}
                     {tabItems.map((el, i) => (

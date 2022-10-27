@@ -375,19 +375,10 @@ function PdfModal({props,closeModal,LinkModal,path} ){
                             <textarea className='TextArea form-control' defaultValue={data ? data.companyAddress !=""? data.companyAddress : "" : ""} name='companyAddress' onChange={onFormDataChange} placeholder='‎ ‎ ‎Company_Adress' ></textarea>
                             </div>
                             <div className="col-12 text-center mt-2">
-                                <div className="row">
+                                <div className="row justify-content-end">
                                            <div className='col-3'>
                                             <button type='button' className='btnGeneratePDF' onClick={invokeGeneratePDF}>Generate the PDF</button>
                                             <p className='PDFNotes'>Download local</p>
-                                           </div>
-                                           <div className='col-3 px-0'>
-                                           <button type='button' className='contractCRM text-center' name='ADDtoCRM' onClick={(e)=>addContractToCRM(e)}>Add the contract to CRM</button>
-                                           <p className='PDFNotes'>Download cloud</p>
-                                           </div>
-                                           <div className='col-3'>
-                                           <button className='voirModal' onClick={VoirModal} type='button'>
-                                           Voir le model
-                                           </button>
                                            </div>
                                            <div className='col-3 pl-0'>
                                            <button className='documentSign d-flex align-items-center justify-content-center' name="DOCU" onClick={(e)=>{addContractToCRM(e)}} type='button' disabled={Btndisabled} >

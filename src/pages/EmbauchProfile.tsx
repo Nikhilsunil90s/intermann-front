@@ -30,7 +30,7 @@ let Links ;
 function ProgressCard() {
   // console.log(localStorage.getItem("profile"),"poiu")
  const  profileData = JSON.parse(localStorage.getItem("embauch"))
-
+  console.log(profileData)
   const { state } = useLocation();
  const navigate = useNavigate()
 
@@ -1049,7 +1049,7 @@ null
                 <div className="col-12 Social-Card mt-1">
               <div className='row  p-1'>
               {
-                  JSON.stringify(profile).includes(JSON.stringify(profile.candidatContract)) ?
+                  JSON.stringify(profile).includes(JSON.stringify(profile.candidatContract))  && profile.candidatContract !== null ?
                   <>
                             <div className='col-4  d-grid text-start'>
                                 <label className="PDFFormlabel">Lieu_Mission</label>
@@ -1138,7 +1138,7 @@ null
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Debut Mision (Date)</label>
-                            <input className='form-control inputStyling' type="date"  name='Debut Mision Date'  onClick={editCandidatProfile} defaultValue={profile.candidatContract !=="" ? profile.candidatContract.debutMissionDate ? debutMissionDate : "": ""}  placeholder="‎ ‎ ‎ Debut Mision Date" />
+                            <input className='form-control inputStyling' type="date"  name='Debut Mision Date'  onClick={editCandidatProfile} defaultValue={profile.candidatContract !=="" ? profile.candidatContract.debutMissionDate !== null ? debutMissionDate : "": ""}  placeholder="‎ ‎ ‎ Debut Mision Date" />
 
                             </div>
 
@@ -1212,7 +1212,7 @@ null
                     hideNavBtns={false}
                     leftBtnIcon={"<"}
                     showTabsScroll={false}
-                    tabsScrollAmount={7}
+                    tabsScrollAmount={2}
                   >
                     {/* generating an array to loop through it  */}
                     {tabItems.map((el, i) => (

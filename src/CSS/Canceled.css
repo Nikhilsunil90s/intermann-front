@@ -558,9 +558,19 @@ font-weight: 600;
 font-size: 15px;
 line-height: 38px;
 text-transform: uppercase;
-color: #032339;
+color:#B3B3B3;
     }
-    .sommeilTab:focus{
+    .sommeilTab:hover{
+        font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 15px;
+line-height: 38px;
+text-decoration-line: underline;
+text-transform: uppercase;
+color: #032339 !important;
+    }
+    .sommeilTabActive{
         font-family: 'Poppins';
 font-style: normal;
 font-weight: 600;

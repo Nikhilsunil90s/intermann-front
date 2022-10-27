@@ -8,6 +8,7 @@ import { Toaster, toast } from 'react-hot-toast';
 import { logout } from '../redux/actions/userActions';
 import $ from 'jquery'
 function Sidebar(props: any) {
+  const [activeTab,setActiveTab]=useState("")
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const LogNotify = () => toast.success("Log-Out!");
@@ -27,6 +28,11 @@ function Sidebar(props: any) {
       $(this).removeClass('active')
     })
   })
+
+  const OnClickColorChange=(name:any)=>{  
+    setActiveTab(name)
+  }
+
   return (
     <>
       <div className="container-fluid"  style={{ height: "100%",backgroundColor:"white",zIndex:9000000 }}>
@@ -67,7 +73,8 @@ function Sidebar(props: any) {
                     </h2>
                     <div id="flush-collapseTwo" className="accordion-collapse collapse " aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                       <div className="">
-                        <ul style={{paddingLeft:"0px",width:"100%"}} className="hello">  <li className="sideBarBackG">
+                        <ul style={{paddingLeft:"0px",width:"100%"}} className="hello">
+                            <li onClick={(e)=>OnClickColorChange("todoClient")} className={activeTab === "todoClient" ? "sideBarBackGactive"  : "sideBarBackG"}>
                           <Link to="/clientTodo" className="nav-link link-dark  fontStylingBar">
                           <span className="pe-2">
                         <img src={require("../images/list-text.svg").default} />
@@ -75,7 +82,7 @@ function Sidebar(props: any) {
                             To do / Non traité / Attente
                           </Link>
                         </li>
-                          <li className="sideBarBackG">
+                          <li onClick={(e)=>OnClickColorChange("Clientinprogress")}  className={activeTab === "Clientinprogress" ? "sideBarBackGactive"  : "sideBarBackG"}>
                             <Link to="/clientProgress" className="nav-link link-dark  fontStylingBar">
                             <span className="pe-2">
                         <img src={require("../images/analytics.svg").default} />
@@ -83,14 +90,14 @@ function Sidebar(props: any) {
                               En cours de recherche
                             </Link>
                           </li>
-                          <li className="sideBarBackG">
+                          <li onClick={(e)=>OnClickColorChange("contract")}  className={activeTab === "contract" ? "sideBarBackGactive"  : "sideBarBackG"}>
                             <Link to="/clientContract" className="nav-link link-dark  fontStylingBar">
                             <span className="pe-2">
                         <img src={require("../images/contractList.svg").default} />
                       </span>
                               Terminé / Contrat en cours
                             </Link>
-                          </li> <li className="sideBarBackG">
+                          </li> <li onClick={(e)=>OnClickColorChange("Clientarchive")} className={activeTab === "Clientarchive" ? "sideBarBackGactive"  : "sideBarBackG"}>
                             <Link to="/archived" className="nav-link link-dark fontStylingBar"> <span className="pe-2">
                         <img src={require("../images/archivedList.svg").default} />
                       </span>Annulé / Archivé
@@ -111,7 +118,7 @@ function Sidebar(props: any) {
                     <div id="flush-collapseThree" className="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                       <div className="">
                         <ul style={{paddingLeft:"0px",width:"100%"}}>
-                          <li className="sideBarBackG">
+                          <li onClick={(e)=>OnClickColorChange("todo")}  className={activeTab === "todo" ? "sideBarBackGactive"  : "sideBarBackG"}>
                             <Link to="/todolist" className="nav-link link-dark fontStylingBar">
                             <span className="pe-2">
                         <img src={require("../images/list-text.svg").default} />
@@ -119,7 +126,7 @@ function Sidebar(props: any) {
                               En sommeil
                             </Link>
                           </li>
-                          <li className="sideBarBackG">
+                          <li onClick={(e)=>OnClickColorChange("preSelected")} className={activeTab === "preSelected" ? "sideBarBackGactive"  : "sideBarBackG"}>
                             <Link to="/preSelected" className="nav-link link-dark fontStylingBar">
                             <span className="pe-2">
                         <img src={require("../images/todoList.svg").default} />
@@ -127,14 +134,14 @@ function Sidebar(props: any) {
                       Preselected
                             </Link>
                           </li>
-                          <li className="sideBarBackG">
+                          <li onClick={(e)=>OnClickColorChange("progress")}  className={activeTab === "progress" ? "sideBarBackGactive"  : "sideBarBackG"}>
                             <Link to="/embauchlist" className="nav-link link-dark fontStylingBar">
                             <span className="pe-2">
                         <img src={require("../images/contractList.svg").default} />
                       </span>Embauché
                            
                             </Link>
-                          </li> <li className="sideBarBackG">
+                          </li> <li onClick={(e)=>OnClickColorChange("archive")}  className={activeTab === "archive" ? "sideBarBackGactive"  : "sideBarBackG"}>
                             <Link to="/archivedlist" className="nav-link link-dark fontStylingBar">
                             <span className="pe-2">
                         <img src={require("../images/archivedList.svg").default} />

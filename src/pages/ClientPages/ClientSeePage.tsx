@@ -1293,7 +1293,7 @@ function ClientSee() {
                     />
                   </div>
                 </div>
-                <div className="col-3 d-flex pt-1 px-0 justify-content-start">
+                <div className="col-2 d-flex pt-1 px-0 justify-content-start">
                   <div className="d-flex align-items-center ">
                     <p className="fontSizeReactSwitch mb-0">
                       Assurance faite ?
@@ -1332,7 +1332,7 @@ function ClientSee() {
                     />
                   </div>
                 </div>
-                <div className="col-3 d-flex pt-1 px-0 justify-content-start">
+                <div className="col-3 d-flex pt-1 px-0 justify-content-center">
                   <div className="d-flex align-items-center ">
                     <p className="fontSizeReactSwitch mb-0">
                       Agence de voyage ok ?
@@ -1371,7 +1371,7 @@ function ClientSee() {
                     />
                   </div>
                 </div>
-                <div className="col-3 d-flex pt-1 px-0 ">
+                <div className="col-3 d-flex pt-1 px-0 justify-content-center">
                   <div className="d-flex align-items-start ">
                     <p className="fontSizeReactSwitch mb-0">SISPI déclaré ?</p>
                     <Switch
@@ -2475,7 +2475,7 @@ function ClientSee() {
                     hideNavBtns={false}
                     leftBtnIcon={"<"}
                     showTabsScroll={false}
-                    tabsScrollAmount={7}
+                    tabsScrollAmount={2}
                   >
                     {/* generating an array to loop through it  */}
                     {tabItems.map((el, i) => (

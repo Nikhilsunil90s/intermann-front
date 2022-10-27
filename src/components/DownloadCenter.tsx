@@ -4,13 +4,14 @@ import { Tabs, Tab } from "react-tabs-scrollable";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import Loader from "./Loader/loader";
 import Error from "./Loader/SearchBarError";
-import toast from "react-hot-toast";
+import {Toaster,toast} from "react-hot-toast";
 export default function  DownloadCenter(){
   const [activeTab, setActiveTab] = React.useState(0) as any;
   const [candidateContracts,setCandidateContracts]=useState([])
   const [ClientContracts,setClientContracts]=useState([])
   const [AllProfiles,setAllProfiles]=useState([])
   const [Status,setStatus]=useState(false)
+  const [deleteCanContract,setdeleteCanContract]=useState(false)
   const [tabItems] = useState([
     {
       text: "Contrat Employés",
@@ -56,6 +57,43 @@ export default function  DownloadCenter(){
       .catch((err) => err);
   };
 
+  const deleteClientsContracts = async (id:any,CId) => {
+    return await fetch(API_BASE_URL + `deleteClientContract/?clientId=${id}&contractId=${CId}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((resp) => resp.json())
+      .then((respData) => {
+        toast.success("Contrat Client Removed Successfully!")
+        setdeleteCanContract(true)
+      })
+      .catch((err) => {
+        toast.error("Contrat Client Not Removed!")
+        
+      });
+  };
+  const deleteCandiateContracts = async (id:any,CId) => {
+    return await fetch(API_BASE_URL + `deleteCandidatContract/?candidatId=${id}&contractId=${CId}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((resp) => resp.json())
+      .then((respData) => {
+        toast.success("Contrat Employé Removed Successfully!")
+        setdeleteCanContract(true)
+      })
+      .catch((err) => 
+      {
+        toast.error("Contrat Employé Not Removed!")
+      });
+  };
+
   const removeCandidateContract = async (url) => {
     return await fetch(API_BASE_URL + `getClientSignedContracts`, {
       method: "POST",
@@ -87,11 +125,18 @@ export default function  DownloadCenter(){
         if(res.status){
             setStatus(true)
             setCandidateContracts([...res.data])
+            setdeleteCanContract(false)
             if(activeTab === 0){
                 setAllProfiles([...res.data])
             }
-        }else{
-            return
+        }
+        else{
+          setStatus(true)
+          if(activeTab === 0){
+            setAllProfiles([])
+            setCandidateContracts([])
+        }
+
             
         }
     })
@@ -99,14 +144,21 @@ export default function  DownloadCenter(){
             if(res.status){
                 setStatus(true)
                 setClientContracts([...res.data])
-                if(activeTab === 1){
+                setdeleteCanContract(false)
+
+                if(activeTab === 1 ){
                     setAllProfiles([...res.data])
                 }
             }else{
-                return
+              setStatus(true)
+              if(activeTab === 1 ){
+                setAllProfiles([])
+                setClientContracts([])
+            }
             }
     })
-  },[])       
+
+  },[deleteCanContract])       
    
 
     const onTabClick = (e,index: any) => {
@@ -125,20 +177,9 @@ export default function  DownloadCenter(){
         }
       
       };
-    
-      
-
-      const HandleDeleteView =(e,url)=>{
-        console.log(e.target.id)
-   if(e.target.id === "delete"){
-   removeCandidateContract(url)
-   }
-   if(e.target.id == "view"){
-    window.open(url)
-   }
-      }
     return(
         <>
+        <Toaster  position="top-right" containerStyle={{zIndex:"999999999999999999"}}  />
         <div className="container-fluid">
             <div className="row">
                 <div className="col-12 mt-2" style={{background:"#ffff",borderRadius:"10px"}}>
@@ -168,20 +209,20 @@ export default function  DownloadCenter(){
                     {
                         
                         Status  ?
-                        AllProfiles.length > 0 && activeTab === 0 || activeTab === 1 ?
+                        AllProfiles.length > 0 && activeTab === 0 || AllProfiles.length > 0 && activeTab === 1 ?
                         AllProfiles.map((el,i)=>(
                             <div className="col-12 mt-1" style={{background:"#fe87001f",borderRadius:"10px"}} key={i}>
                             <div className="row p-1 align-items-center">
                                 <div className="col-10 px-0">
-                                  <p className="ContractListFont mb-0">{el.candidatName ? el.candidatName : el.initial_client_company} - Generated : <b>{el.contract_date ? el.contract_date : "01-01-2022 "} </b> Signed : <b>{el.contract_signed_on ? el.contract_signed_on : el.contract_signed_on}</b></p>
+                                  <p className="ContractListFont mb-0">{el.candidatName ? el.candidatName : el.initial_client_company} - Generated : <b>{el.contract_date ? el.contract_date : el.contract_generated_on} </b> Signed : <b>{el.contract_signed_on ? el.contract_signed_on : el.contract_signed_on}</b></p>
                                 </div>
                                 <div className="col-2 px-0 ">
                                     <div className="row d-flex justify-content-evenly">
-                                        <div className="col-6 px-0 RoundDiv cursor-pointer" id="delete" onClick={(e)=>{HandleDeleteView(e,el.signed_contract_url)}}>
+                                        <div className="col-6 px-0 RoundDiv cursor-pointer" id="delete" onClick={(e)=>el.candidatName ? deleteCandiateContracts(el.candidatId,el._id) : deleteClientsContracts(el.clientId,el._id)}>
                                     <img src={require("../images/Deletebucket.svg").default} />
                                     </div>
                                   
-                                    <div className="col-6 px-0 RoundDiv cursor-pointer" id="view" onClick={(e)=>HandleDeleteView(e,el.signed_contract_url)}>
+                                    <div className="col-6 px-0 RoundDiv cursor-pointer" id="view" onClick={(e)=>window.open(el.signed_contract_url)}>
                                 <img
                                       src={require("../images/dowBtn.svg").default}
                                     />

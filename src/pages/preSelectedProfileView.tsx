@@ -1095,7 +1095,7 @@ null
                     hideNavBtns={false}
                     leftBtnIcon={"<"}
                     showTabsScroll={false}
-                    tabsScrollAmount={7}
+                    tabsScrollAmount={2}
                   >
                     {/* generating an array to loop through it  */}
                     {tabItems.map((el, i) => (

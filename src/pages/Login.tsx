@@ -230,13 +230,13 @@ function useOnClickOutside(ref, handler) {
                         >
                           <div className="col-12">
                             <div className="row">
-                              <div className="col-4 d-flex justify-content-start align-items-center">
+                              <div className="col-2 d-flex justify-content-start align-items-center">
                               {LoginLoad ? <div className="loaderLogin"></div> :null}
                               </div>
-                              <div className="col-4 d-flex justify-content-center align-items-center">
-                              SIGN IN
+                              <div className="col-8 d-flex justify-content-center align-items-center">
+                              {LoginLoad ? "Please Wait.."  :  "SIGN IN"}
                                 </div>
-                                <div className="col-4 d-flex  justify-content-end align-items-center ">
+                                <div className="col-2 d-flex  justify-content-end align-items-center ">
                                 {LoginLoad ? <div className="loaderLogin"></div> :null}
                                 </div>
                             </div>

@@ -37,7 +37,7 @@ font-size: 14px;
 line-height: 25x;
 display: flex;
 align-items: center;
-color: #999FA9 !important;
+color: #999FA9 ;
 padding-left: 40px !important;
 padding-top: 5px;
 }
@@ -206,4 +206,10 @@ color: #000000;
 }
 .sideBarBackG{
     background: #032339;
+}
+.sideBarBackGactive {
+    background: #FFF7EE;
+}
+.sideBarBackGactive a{
+    color: #FE8700 ;
 }
