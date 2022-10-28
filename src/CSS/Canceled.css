@@ -464,7 +464,96 @@ color: #FE8700;
         background: transparent !important;
         border-radius: 10px;
     }
+@media (min-device-width:320px) and (max-device-width:768px){
+    .somilActiveTab{
+        
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 17px;
+line-height: 60px;
+text-decoration-line: underline;
+color: #032339;
+
+    }
+    .somil{
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 17px;
+line-height: 60px;
+color:#565A5C;
+
+    }
+     .LineHR{
+        height:4px;
+        border-width:0;
+        color:gray;
+        background-color:#ffff;
+        margin-bottom: 10px;
+        margin-top: 10px;
+     }
+    .pouvezz {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 23px;
+        text-align: center;
+        color: #FFFFFF;
+    }
+    .pouvez {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 200;
+        font-size: 13px;
+        line-height: 25px;
+        text-align: center;
+        color: #FFFFFF;
+    }
+    
+    
+    .heightCheckerBox{
+        max-width:48% !important;
+        height:100px !important
+    }
+    .ClientNameBox {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 18px;
+        text-align: center;
+        color: #373A3C;
+    }
+    .searchBarChecker{
+        display: none !important;
+    }
+    .sommeil {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 48px;
+        text-align: center;
+        text-transform: uppercase;
+        color: #FFFFFF;
+    }
+    .travaillant{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 18px;
+        color: #FFFFFF;
+        }
+        
+}
+
 @media (min-width:768px){
+    .MobileView{
+        display: none;
+    }
     .boxArchivedProfile {
         background: #FFE0E0;
         border: 1px solid #FF0000;
@@ -550,7 +639,36 @@ margin-bottom: 0px !important;
     }
 
 }
+
 @media (min-width:1200px){
+    .MobileView{
+        display: none;
+    }
+    .travaillant{
+        font-family: 'Poppins';
+        font-style: italic;
+        font-weight: 275;
+        font-size: 16px;
+        line-height: 26px;
+        color: #FFFFFF;
+        }
+        
+    .pouvez {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 200;
+        font-size: 22px;
+        line-height: 41px;
+        text-align: center;
+        color: #FFFFFF;
+    }
+    .MobileView{
+        display: none;
+    }
+    .heightCheckerBox{
+        max-width:32% !important;
+        height:130px !important
+    }
     .sommeilTab{
         font-family: 'Poppins';
 font-style: normal;
@@ -727,6 +845,21 @@ line-height: 18px !important;
 
     }
     @media (min-width:1400px){
+        .MobileView{
+            display: none;
+        }
+        .pouvez {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 200;
+            font-size: 22px;
+            line-height: 41px;
+            text-align: center;
+            color: #FFFFFF;
+        }
+        .MobileView{
+            display: none;
+        }
         .ArchiveLargebtn {
             background: #FFE0E0;
             border-radius: 100px;

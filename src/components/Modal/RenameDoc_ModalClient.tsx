@@ -8,7 +8,7 @@ import { API_BASE_URL } from "../../config/serverApiConfig";
 
 
 let LinkData={};
-function RenameDoc({props,closepreModal,path}) {
+function RenameDoc({props,closepreModal,reload}) {
   const notifyCandidatMovedSuccess = () => toast.success("Document Name Changed Successfully!");
   const notifyCandidatMovedError = () => toast.error("Document Name Not Change Please Try Again.");
   const [NewName, setNewName] = useState("");
@@ -64,9 +64,10 @@ function RenameDoc({props,closepreModal,path}) {
     if(props[2] ==="LinkEdit"){
       changeLinkName(LinkData).then((res)=>{
         toast.success("Renamed Successfully!")
-        setBtnDisabled(false)
+        reload(true)
         setTimeout(()=>{
-          window.location.reload()
+          closepreModal(false)
+        setBtnDisabled(false)
         },2000)
       })
       .catch(err=>{
@@ -78,27 +79,35 @@ function RenameDoc({props,closepreModal,path}) {
       "Accept": 'application/json',
       "Authorization": "Bearer " + localStorage.getItem('token')
     }
-    return await fetch(API_BASE_URL + `renameClientDocument/?documentId=${props[0]}&newName=${NewName}&clientId=${props[2]}`, {
+     fetch(API_BASE_URL + `renameClientDocument/?documentId=${props[0]}&newName=${NewName}&clientId=${props[2]}`, {
       method: "GET",
       headers: headers
     })
       .then(reD => reD.json())
-      .then(resD => resD.status === true ?  RenameMoved()  : notifyCandidatMovedError()
-      )
-      .catch(err => err )
+      .then((resD) =>{ 
+        DataHandle(resD.status)
+            }
+        )
+      .catch(err => err  )
   }
 }
 
-  const RenameMoved=()=>{
-    notifyCandidatMovedSuccess()
-    setTimeout(function () {
-     setBtnDisabled(false)
-      window.location.href = path;
-    },
-      2000
-    );
+const DataHandle=(el)=>{
+if(el){
+  notifyCandidatMovedSuccess()
+  reload(true)
+  setTimeout(()=>{
+    closepreModal(false)
+  },2000)
+}else{
+  notifyCandidatMovedError()
 
-  }
+}
+
+
+
+}
+
 
   return (
     <>

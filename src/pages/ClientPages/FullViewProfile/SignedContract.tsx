@@ -1519,7 +1519,7 @@ useEffect(()=>{
                           }
                           {
                             RenameDocStatus? 
-                            <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus}  path={"/todoprofile"}/>
+                            <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus} status={null} />
                             :
                             null
                           }

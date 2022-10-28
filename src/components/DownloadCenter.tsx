@@ -94,30 +94,7 @@ export default function  DownloadCenter(){
       });
   };
 
-  const removeCandidateContract = async (url) => {
-    return await fetch(API_BASE_URL + `getClientSignedContracts`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body:url
-    })
-      .then((resp) => resp.json())
-      .then((respData) => 
-      {
-        if(respData.status){
-            toast.success("Contrat Employé Removed Successfully!")
-            setTimeout(()=>{
-               window.location.reload()
-            },2000)
-        }
-        
-      })
-      .catch((err) => {
-        toast.error("Contrat Employé Not Removed!")
-      });
-  };
+ 
   
   useEffect(()=>{
     setStatus(false)

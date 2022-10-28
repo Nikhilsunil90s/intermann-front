@@ -7,7 +7,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 
 let LinkData={};
-function RenameDoc({props,closepreModal,path}) {
+function RenameDoc({props,closepreModal,status}) {
   const notifyCandidatMovedSuccess = () => toast.success("Document Name Changed Successfully!");
   const notifyCandidatMovedError = () => toast.error("Document Name Not Change Please Try Again.");
   const [NewName, setNewName] = useState("");
@@ -66,8 +66,9 @@ function RenameDoc({props,closepreModal,path}) {
       changeLinkName(LinkData).then((res)=>{
         toast.success("Renamed Successfully!")
         setBtnDisabled(false)
+        status(true)
         setTimeout(()=>{
-          window.location.reload()
+        closepreModal(false)
         },2000)
       })
       .catch(err=>{
@@ -88,9 +89,11 @@ function RenameDoc({props,closepreModal,path}) {
 
   const RenameMoved=()=>{
     notifyCandidatMovedSuccess()
+    status(true)
     setTimeout(function () {
       setBtnDisabled(false)
-      window.location.href = path;
+      closepreModal(false)
+      // window.location.reload()
     },
       2000
     );

@@ -15,7 +15,6 @@ import { ReactComponent as TurnOn } from "../../images/base-switch_icon.svg";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
-import { ProgressBar } from "react-bootstrap";
 import ProfileLoader from "../../components/Loader/ProfilesLoader";
 import RenameDoc from "../../components/Modal/RenameDoc_ModalClient";
 import ReadMoreReact from "read-more-react";
@@ -25,17 +24,12 @@ import PDFModalClient from "../../components/Modal/PDFGenerateclientModal";
 import ErrorLoader from "../../components/Loader/SearchBarError";
 import { Tabs, Tab } from "react-tabs-scrollable";
 import "react-tabs-scrollable/dist/rts.css";
-import { FileUploader } from "react-drag-drop-files";
-import Share from "../../components/Loader/Share"
 import DOCUSIGNModalCandidate from '../../components/Modal/DOCUSIGNModalCandidate'
+import PDFBoxClient from "../../components/PDFboxBothSide/PdfBoxClient";
 
 
 let RenameData = [];
 let id = "";
-let UploadName = "";
-let clDoc;
-let UploadTextBtn = "";
-let Links ;
 function ClientSee() {
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -54,8 +48,6 @@ function ClientSee() {
   const [Offre, setOffre] = useState(profile.offerSent);
   const [UploadBtn, setSelectUpload] = useState(false);
   const hiddenImageInput = React.useRef(null);
-  const [candidatDocument, setCandidatDocument] = useState("");
-  const [progress, setProgress] = useState<any>(0);
   const [docUploaded, setDocUploaded] = useState(false);
   const [documentList, setDocumentList] = useState([]);
   const [ClientImage, setClientImage] = useState(
@@ -63,15 +55,13 @@ function ClientSee() {
       ? profile.clientPhoto?.url
       : ""
   );
-  const hiddenFileInput = React.useRef(null);
-  const [RenameDocStatus, setRenameDocStatus] = useState(false);
+  const [UpdatedWarning, setUpdatedWarning] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
   const [loader, setLoader] = useState(false);
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
   const [PreSelectedData, setPreSelected] = useState([]);
   const [PDFModal, setPDFModal] = useState(false);
   const [clientContract, setClientContract] = useState() as any;
-  const [activeTab, setActiveTab] = React.useState(1) as any;
   const [contrat_client, setcontrat_client] = useState() as any;
   const [contrat_employes, setcontrat_employes] = useState() as any;
   const [carte_d, setcarte_d] = useState() as any;
@@ -95,84 +85,7 @@ function ClientSee() {
     useState() as any;
   const [fiche_de_mise_a_disposition, setfiche_de_mise_a_disposition] =
     useState() as any;
-    const [DriveLink,setDriveLink]=useState("")
     const [DocumentSignModal,setDocuSignModal]=useState(false)
-  const [tabItems, setTabitems] = useState([
-    {
-      text: "CONTRAT CLIENT",
-      value: "contrat_client",
-    },
-    {
-      text: "CONTRAT EMPLOYES",
-      value: "contrat_employes",
-    },
-    {
-      text: "ID Card EMPLOYES",
-      value: "id_card_employer",
-    },
-    {
-      text: "A1",
-      value: "al",
-    },
-    {
-      text: "CONTRATS ASSURANCES EMPLOYES",
-      value: "contrats_assurances_employes",
-    },
-    {
-      text: "SISPI",
-      value: "sispi",
-    },
-    {
-      text: "DOCUMENT DE REPRESENTATION",
-      value: "document_de_represntation",
-    },
-    {
-      text: "OFFRE SIGNEE",
-      value: "offre_signee",
-    },
-    {
-      text: "ATTESTATIONS SOCIETE INTERMANN",
-      value: "attestations_societe_intermann",
-    },
-    {
-      text: "CVS",
-      value: "cvs",
-    },
-    {
-      text: "AUTRES DOCUMENTS",
-      value: "autres_documents",
-    },
-    {
-      text: "FACTURES PAYES",
-      value: "factures_payes",
-    },
-    {
-      text: "FACTURES IMPAYES",
-      value: "factures_impayes",
-    },
-    {
-      text: "RAPPORT ACTIVITE",
-      value: "rapport_activite",
-    },
-    {
-      text: "OFFRE ENVOYE ET NONSIGNE",
-      value: "offre_envoye_et_nonsigne",
-    },
-    {
-      text: "FICHE MEDICALE",
-      value: "fiche_medicale",
-    },
-    {
-      text: "REGES",
-      value: "reges",
-    },
-    {
-      text: "FICHE DE MISE A DISPOSITION",
-      value: "fiche_de_mise_a_disposition",
-    },
-  ]) as any;
-
-  // const [UplaodsName,setUploadNames]=useState("")as any
 
   const datenow = moment().format("YYYY-MM-DD");
 
@@ -185,41 +98,6 @@ function ClientSee() {
     setProfile(state ? state : ProfileData);
   }, [state]);
 
-
-  const FilesUploads=(file)=>{
-    const fileUploaded = file;
-    setCandidatDocument(fileUploaded);
-    let formdata = new FormData();
-    formdata.append("clientId", profile._id);
-    formdata.append("document", fileUploaded);
-    formdata.append("folderName", UploadName);
-    axiosInstance
-      .post("uploadClientDocuments", formdata, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        onUploadProgress: (data) => {
-          //Set the progress value to show the progress bar
-          setProgress(Math.round((100 * data.loaded) / data.total));
-        },
-      })
-      .then((resData) => {
-        if (resData.data.status) {
-          setDocUploaded(true);
-          setProgress(0);
-          notifyDocumentUploadSuccess();
-        } else {
-       
-          setDocUploaded(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setDocUploaded(false);
-      });
-  
-  }
 
   useEffect(() => {
     profile.clientDocuments.map((el) => {
@@ -352,21 +230,9 @@ function ClientSee() {
         setfiche_de_mise_a_disposition([el]);
       }
     });
-  }, [profile.clientDocuments, documentList]);
+  }, [UpdatedWarning]);
 
 
-  useEffect(() => {
-    const FolderName = tabItems.filter((el, i) => i == activeTab);
-
-    FolderName.map((el) => {
-      UploadName = el.value;
-      UploadTextBtn = el.text;
-    });
-
-    clDoc = profile.clientDocuments.filter((el) => el.folderName == UploadName);
-    Links = profile.clientLinks.filter((el) => el.folder == UploadName);
-    setDocumentList([...clDoc,...Links]);
-  }, [UploadName]);
 
   const notificationSwitch = () => toast.success("Modification sauvegardée");
 
@@ -383,20 +249,6 @@ function ClientSee() {
   const axiosInstance = axios.create({
     baseURL: API_BASE_URL,
   });
-
-  const onTabClick = (e, index: any) => {
-    setActiveTab(index);
-    const FolderName = tabItems.filter((el, i) => i == index);
-
-    FolderName.map((el) => {
-      UploadName = el.value;
-      UploadTextBtn = el.text;
-    });
-
-    clDoc = profile.clientDocuments.filter((el) => el.folderName == UploadName);
-    Links = profile.clientLinks.filter((profile) => profile.folder == UploadName);
-    setDocumentList([...clDoc,...Links]);
-  };
 
   useEffect(() => {
     setLoader(true);
@@ -482,62 +334,18 @@ function ClientSee() {
         });
       return;
     }
-    // if (e.target.name === "clientDocuments") {
-    //   console.log(e.target.files[0],"file")
-    //  const fileUploaded = e.target.files[0];
-    //   setCandidatDocument(fileUploaded);
-    //   let formdata = new FormData();
-    //   formdata.append("clientId", profile._id);
-    //   formdata.append("document", fileUploaded);
-    //   formdata.append("folderName", UploadName);
-    //   axiosInstance
-    //     .post("uploadClientDocuments", formdata, {
-    //       headers: {
-    //         "Content-Type": "multipart/form-data",
-    //         Authorization: "Bearer " + localStorage.getItem("token"),
-    //       },
-    //       onUploadProgress: (data) => {
-    //         //Set the progress value to show the progress bar
-    //         setProgress(Math.round((100 * data.loaded) / data.total));
-    //       },
-    //     })
-    //     .then((resData) => {
-    //       if (resData.data.status) {
-    //         setDocUploaded(true);
-    //         setProgress(0);
-    //         notifyDocumentUploadSuccess();
-    //       } else {
-         
-    //         setDocUploaded(false);
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //       setDocUploaded(false);
-    //     });
-    //   return;
-    // }
   };
 
   useEffect(() => {
     fetchCandidat(state ? stateid._id : ProfileData._id)
       .then((resData) => {
         if (resData.status == true) {
-          // setProfile(resData.data)
           resData.data.map((el) => {
             setProfile(el);
             setClientImage(el.clientPhoto? el.clientPhoto.url : "")
-            // setProfile({...profile,['clientContract']:el.clientContract})
             setClientContract(el.clientContract);
-            clDoc = el.clientDocuments.filter(
-              (el) => el.folderName == UploadName
-            );
-            Links = el.clientLinks.filter((el) => el.folder == UploadName);
-            setDocumentList([...clDoc,...Links]);
           });
-
-          // setClientImage(resData.data.clientPhoto !== undefined ? resData.data.clientPhoto?.map((el)=>{ return el.documentName }): "")
-          setDocUploaded(false);
+       setDocUploaded(false);
         } else {
           setDocumentList([...documentList]);
           setDocUploaded(false);
@@ -548,14 +356,6 @@ function ClientSee() {
         console.log(err);
       });
   }, [docUploaded]);
-  const ViewDownloadFiles = (e,documentName: any) => {
-    if(e.target.name ==="btnDownloadLink"){
-      window.open(documentName);
-        
-      }else{
-        window.open(documentName);
-      }
-  };
 
   const fetchCandidat = async (clientId: any) => {
     return await fetch(API_BASE_URL + `getClientById/?clientId=${clientId}`, {
@@ -568,65 +368,8 @@ function ClientSee() {
       .then((resp) => resp.json())
       .then((respData) => respData)
       .catch((err) => err);
-  };
+  }
 
-  const handleFileUpload = () => {
-    hiddenFileInput.current.click();
-  };
-
-  // const removeRecommendation = (rId: any) => {
-
-  //   console.log(recommendations);
-  //   let filteredRecommendations = recommendations.filter((recomm) => {
-  //     return recomm._id !== rId;
-  //   })
-  //   console.log(filteredRecommendations)
-  //   setRecommendations([...filteredRecommendations])
-  //   setLoader(true);
-  // }
-
-  const deleteDocument = async (docId: any, docName: any) => {
-    await deleteCandidatDocument(docId, docName, profile._id)
-      .then((resData) => {
-        console.log(resData);
-        if (resData.status) {
-          notifyDocumentDeleteSuccess();
-          setDocumentList([
-            ...documentList.filter((doc) => {
-              return doc.documentName !== docName;
-            }),
-          ]);
-          window.location.reload();
-        } else {
-          notifyDocumentDeleteError();
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const deleteCandidatDocument = async (
-    docId: any,
-    docName: any,
-    clientId: any
-  ) => {
-    let headers = {
-      Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
-    };
-    return await fetch(
-      API_BASE_URL +
-        `deleteClientDocument/?documentId=${docId}&documentName=${docName}&clientId=${clientId}`,
-      {
-        method: "GET",
-        headers: headers,
-      }
-    )
-      .then((reD) => reD.json())
-      .then((resD) => resD)
-      .catch((err) => err);
-  };
 
   const Editdata = { state: profile, path: "/clientToDoProfile" };
 
@@ -861,99 +604,6 @@ function ClientSee() {
     hiddenImageInput.current.click();
   };
 
-  const renameDocument = (docId: any, docName: any, originalName: any) => {
-   
-    if(originalName=="LinkEdit"){
-      RenameData=[
-        docId,
-        docName,
-        originalName,
-
-      ]
-    }else{
-      RenameData = [docId, docName, profile._id, originalName];
-    }
-    
-  };
-
-  const deleteCandidatLink = (Id : any) => {
-    let Data={
-     clientId:profile._id,
-     linkId:Id,
-    }
-       let headers = {
-         "Accept": 'application/json',
-         'Content-Type': 'application/json',
-         "Authorization": "Bearer " + localStorage.getItem('token')
-       }
-      fetch(API_BASE_URL + "removeClientLink", {
-         method: "POST",
-         headers: headers,
-         body: JSON.stringify(Data),
-       })
-         .then(reD => reD.json())
-         .then(resD =>{toast.success(resD.message);setTimeout(()=>{ window.location.reload()},2000)})
-         .catch(err => toast.error("Link Not Removed! Please Try Again in few minutes."))
-     };
-
-     
-  const contractPageView = () => {
-    navigate("/ClientContractPage", { state: profile });
-  };
-  let Data={
-    clientId:profile._id,
-    link:DriveLink,
-    folder:UploadName
-  }as any
-
-  const LinktoDrive = async (updatedData: any) => {
-    console.log(updatedData)
-    let headers = {
-      "Accept": 'application/json',
-      'Content-Type': 'application/json',
-      "Authorization": "Bearer " + localStorage.getItem('token')
-    }
-    return await fetch(API_BASE_URL + "addClientLink", {
-      method: "POST",
-      headers: headers,
-      body:JSON.stringify(updatedData),
-    })
-      .then(reD => reD.json())
-      .then(resD => resD)
-      .catch(err => err)
-  }
-
-  const onDriveLinkChange=(e)=>{
-    if(e.target.name =="inputDrive"){
-      setDriveLink(e.target.value)
-      
-    }
-    
-    if(e.target.name =="DriveLinkSubmit"){
-      let Check = isValidUrl(DriveLink)
-      if(Check){
-        // setLinkDoc([...Links])
-        LinktoDrive(Data).then((resD)=>{toast.success(resD.message);setTimeout(()=>{window.location.reload()},2000)})
-      }else{
-        return toast.error("Please Enter Valid Url!")
-      }
-     
-      
-
-      console.log(isValidUrl(DriveLink));
-    }
-  }
-      // const urlPattern = new RegExp(DriveLink);
-  const isValidUrl = urlString=> {
-    var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
-    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // validate OR ip (v4) address
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // validate port and path
-    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // validate query string
-    '(\\#[-a-z\\d_]*)?$','i'); // validate fragment locator
-  return !!urlPattern.test(urlString);
-}
-    
 
 
   return (
@@ -2445,324 +2095,12 @@ function ClientSee() {
                 </div>
               )}
             </div>
-            <div className="col-12 Social-CardClient my-1">
-              <div className="row px-1 pt-1 pb-0">
-                <div className="col-4 d-flex align-items-center  px-0">
-              <div className="d-flex">  <p className="DocShareLink mb-0">
-                   Share this link with the client <br />
-                    Patager ce lien avec le client
-                  </p><div className="d-flex justify-content-center align-items-center " style={{paddingLeft:"5px"}}> <Share width={25} /><b className="pl-1"> :</b></div></div>  
-                </div>
-                <div className="col-8 DocShareLinkBackground p-1 pl-0">
-                  <Link
-                    className="LinkStyling"
-                    to={`/documentbox/${profile.clientCompanyName}/${profile._id}`}
-                    target="_blank"
-                  >
-                    {API_BASE_URL +
-                      `documentbox/${profile.clientCompanyName.replaceAll(
-                        " ",
-                        "%20"
-                      )}/` +
-                      profile._id}
-                  </Link>
-                </div>
-                <div className="col-12 mt-2">
-                  <Tabs
-                    activeTab={activeTab}
-                    onTabClick={onTabClick}
-                    rightBtnIcon={">"}
-                    hideNavBtns={false}
-                    leftBtnIcon={"<"}
-                    showTabsScroll={false}
-                    tabsScrollAmount={2}
-                  >
-                    {/* generating an array to loop through it  */}
-                    {tabItems.map((el, i) => (
-                      <Tab key={i}>{el.text}</Tab>
-                    ))}
-                  </Tabs>
-                </div>
-                <div className="row py-1" style={{ marginRight: "1px" }}>
-                  {documentList.length > 0 ? (
-                    documentList.map((doc, index) => (
-                      <>
-                      {
-                       doc.documentName ?
-                       <div className="col-6 mx-0">
-                         <div className="row CardClassDownload mt-1 mx-0">
-                           <div
-                             className="col-4 d-flex align-items-center cursor-pointer"
-                             data-bs-toggle="tooltip"
-                             data-bs-placement="bottom"
-                             title={doc.originalName}
-                           >
-                             <p className="download-font mb-0">
-                               {doc.originalName.length > 20
-                                 ? doc.originalName.slice(0, 21) + "..."
-                                 : doc.originalName}
-                             </p>
-                           </div>
-                           <div className="col-6 text-center">
-                             {/* {progress > 0 && progress < 100  ?
-                                   <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
-                                   :
-                                   <button className="btnDownload">
-                                     <img src={require("../images/dowBtn.svg").default} />
-                                     {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
-                                   </button>
-                                 } */}
-                             <button
-                               className="btnDownload"
-                               onClick={(e) =>
-                                 ViewDownloadFiles(e,doc.url)
-                               }
-                             >
-                               <img
-                                 src={require("../../images/dowBtn.svg").default}
-                               />
-                               {doc.originalName.length > 10
-                                 ? doc.originalName.slice(0, 11) + "..."
-                                 : doc.originalName}
-                             </button>
-                           </div>
-                           <div className="col-2  d-flex align-item-end justify-content-end">
-                             <img
-                               src={require("../../images/editSvg.svg").default}
-                               style={{
-                                 width: "20px",
-                                 marginRight: "5px",
-                                 cursor: "pointer",
-                               }}
-                               // onClick={() => renameDocument(doc._id, doc.documentName)}
-                               onClick={() => {
-                                 setRenameDocStatus(true);
-                                 renameDocument(
-                                   doc._id,
-                                   doc.documentName,
-                                   doc.originalName
-                                 );
-                               }}
-                             />
-                             <img
-                               src={
-                                 require("../../images/Primaryfill.svg").default
-                               }
-                               style={{ width: "20px", cursor: "pointer" }}
-                               onClick={() =>
-                                 deleteDocument(doc._id, doc.documentName)
-                               }
-                             />
-                           </div>
-                         </div>
-                       </div>
-                       :             
-       
-                    null
-                      }
-                  
-                       </>
-                    ))
-                  ) : progress > 0 &&
-                    progress < 100 &&
-                    documentList.length == 0 ? (
-                    <>
-                      <div className="col-6 mx-0">
-                        <div className="row CardClassDownload p-0 mt-1 mx-0">
-                          <div className="col-4 pr-0 d-flex align-items-center ">
-                            <ProfileLoader
-                              width={"90"}
-                              height={"56px"}
-                              fontSize={"12px"}
-                              fontWeight={600}
-                              Title={"Uploading!"}
-                            />
-                          </div>
-                          <div
-                            className="col-6 text-center  mb-0"
-                            style={{ marginTop: "21px" }}
-                          >
-                            <ProgressBar
-                              className="mb-0"
-                              now={progress}
-                              label={`${progress}%`}
-                            />
-                          </div>
-                          <div className="col-2  d-flex align-item-end justify-content-end">
-                            <img
-                              src={require("../../images/editSvg.svg").default}
-                              style={{
-                                width: "20px",
-                                marginRight: "5px",
-                                cursor: "pointer",
-                              }}
-                              // onClick={() => renameDocument(doc._id, doc.documentName)}
-                            />
-                            <img
-                              src={
-                                require("../../images/Primaryfill.svg").default
-                              }
-                              style={{ width: "20px", cursor: "pointer" }}
-                              // onClick={() => deleteDocument(doc._id, doc.documentName)}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    <div className="d-grid  justify-content-center align-items-center mb-0">
-                      <div className="d-flex justify-content-center">
-                        <img
-                          src={require("../../images/docupload.svg").default}
-                        />
-                      </div>
-                      <p
-                        style={{
-                          fontFamily: "Poppins",
-                          fontStyle: "normal",
-                          fontWeight: "500",
-                          fontSize: "16px",
-                          lineHeight: "24px",
-                          color: "#92929D",
-                        }}
-                      >
-                        {UploadTextBtn} file not Uploaded Yet
-                      </p>
-                    </div>
-                  )}
-                    <>
-                    {
-                      documentList.map((Link, index) => (
-                        Link.link && Link._id?
-                       
-                          <div className="col-6 mx-0">
-                          <div className="row CardClassDownload mt-1 mx-0">
-                            <div
-                              className="col-4 d-flex align-items-center cursor-pointer"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="bottom"
-                              title={Link.link}
-                            >
-                              <p className="download-font mb-0">
-                              {Link.displayName ? Link.displayName: Link.link.length > 30
-                                  ? Link.link.slice(0, 28) + "..."
-                                  : Link.link}
-                              </p>
-                            </div>
-                            <div className="col-6 text-center">
-                            
-                              <button
-                                name="btnDownloadLink"
-                                className="btnDownload"
-                                onClick={(e) =>
-                                  ViewDownloadFiles(e,Link.link)
-                                }
-                              >
-                                <img
-                                  src={require("../../images/dowBtn.svg").default}
-                                />
-                                {Link.link.length > 10
-                                  ? Link.link.slice(0, 11) + "..."
-                                  : Link.link}
-                              </button>
-                            </div>
-                            <div className="col-2  d-flex align-item-end justify-content-end">
-                            <img
-                               src={require("../../images/editSvg.svg").default}
-                               style={{
-                                 width: "20px",
-                                 marginRight: "5px",
-                                 cursor: "pointer",
-                               }}
-                               onClick={() =>{  setRenameDocStatus(true); renameDocument(Link._id,Link.link,"LinkEdit")}}
-                             />
-                              <img
-                                src={
-                                  require("../../images/Primaryfill.svg").default
-                                }
-                                style={{ width: "20px", cursor: "pointer" }}
-                                onClick={() =>
-                                  deleteCandidatLink(Link._id)
-                                }
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        
-                      
-                      :
-                      null
-                      )
-                      )
-                     }
-                    
-                    </>
-                  {progress > 0 && progress < 100 && documentList.length > 0 ? (
-                    <div className="col-6 mx-0">
-                      <div className="row CardClassDownload p-0 mt-1 mx-0">
-                        <div className="col-4 pr-0 d-flex align-items-center ">
-                          <ProfileLoader
-                            width={"90"}
-                            height={"56px"}
-                            fontSize={"12px"}
-                            fontWeight={600}
-                            Title={"Uploading!"}
-                          />
-                        </div>
-                        <div
-                          className="col-6 text-center  mb-0"
-                          style={{ marginTop: "21px" }}
-                        >
-                          <ProgressBar
-                            className="mb-0"
-                            now={progress}
-                            label={`${progress}%`}
-                          />
-                        </div>
-                        <div className="col-2  d-flex align-item-end justify-content-end">
-                          <img
-                            src={require("../../images/editSvg.svg").default}
-                            style={{
-                              width: "20px",
-                              marginRight: "5px",
-                              cursor: "pointer",
-                            }}
-                          />
-                          <img
-                            src={
-                              require("../../images/Primaryfill.svg").default
-                            }
-                            style={{ width: "20px", cursor: "pointer" }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ) : null}
-                  <div className="col-12 d-flex justify-content-center mt-2" >
-                
-                      <img src={require("../../images/resume.svg").default} />
-                 
-                      {/* <input
-                        type="file"
-                        ref={hiddenFileInput}
-                        onChange={fileChange}
-                        name="clientDocuments"
-                        style={{ display: "none" }}
-                      /> */}
-                      <FileUploader 
-                      handleChange={FilesUploads}
-                      name="clientDocuments"
-                      label={`Upload ${UploadTextBtn} file Now`}
-                      />
-               
-                  </div>
-                  {RenameDocStatus ? (
-                    <RenameDoc
-                      props={RenameData}
-                      closepreModal={setRenameDocStatus}
-                      path={"/clientToDoProfile"}
-                    />
-                  ) : null}
+{/* PDF Upload */}
+            <div>
+              <PDFBoxClient   props={profile} value={setProfile} updated={setUpdatedWarning} />
+            </div>
+{/* PDF Upload End */}
+            
                   {showPreSelectedModal ? (
                     <PreModalClient
                       props={PreSelectedData}
@@ -2781,30 +2119,7 @@ function ClientSee() {
         null
 
       }
-                </div>
-              </div>
-            </div>
-            <div
-              className="col-12 Social-CardClient mb-1 "
-              style={{ padding: "13px 26px" }}
-            >
-              <div className="row">
-             <div className="col-3 px-0" style={{fontFamily: 'Poppins',
-fontStyle: "normal",
-fontWeight: "500",
-fontSize: "14px",
-lineHeight: "21px",
-color: "#000000",
-display:"flex",
-alignItems:"center"}}><p className="mb-0">ORADD AN EXTERNAL LINK 
-(GOOGLE DRIVE) :</p></div>
-             <div className="col-5 px-0"><input name="inputDrive" placeholder="WWW.XXXXXX.COM" onChange={onDriveLinkChange} style={{background:"#D3D6DB",borderRadius:"20px",width:"100%",height:"100%",border:"0px",paddingLeft:"10px",paddingRight:"10px",fontFamily: 'Poppins',
-fontStyle: "normal",
-fontWeight: "500",
-fontSize: "14px",}} /></div>
-             <div className="col-4"><button name="DriveLinkSubmit" onClick={(e)=>{onDriveLinkChange(e)}} className="LinkAsDocument">add this link as document</button></div>
-             </div>
-              </div>
+         
             <div
               className="col-12 Social-CardClient mb-1 "
               style={{ padding: "13px 26px" }}

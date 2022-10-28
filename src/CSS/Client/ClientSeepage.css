@@ -196,23 +196,7 @@ line-height: 33px;
 text-align: center;
 color: #FFFFFF;
 }
-.pouvez{
-font-family: 'Poppins';
-font-style: normal;
-font-weight: 200;
-font-size: 22px;
-line-height: 41px;
-text-align: center;
-color: #FFFFFF;
-}.pouvezz{
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 22px;
-  line-height: 41px;
-  text-align: center;
-  color: #FFFFFF;
-  }
+
 .hrLineDocChecker{
   border: 4px solid #ffffff;
   height: 0px !important;
@@ -315,14 +299,6 @@ overflow-y: auto;
   text-decoration: none !important;
   padding-right: 6px;
 }
-.travaillant{
-font-family: 'Poppins';
-font-style: italic;
-font-weight: 275;
-font-size: 16px;
-line-height: 26px;
-color: #FFFFFF;
-}
 
 .footerDocSign{
   position: fixed;
@@ -353,15 +329,7 @@ color: #FE8700;
   overflow-y: scroll;
 }
 
-.ClientNameBox{
-  font-family: 'Poppins';
-font-style: normal;
-font-weight: 600;
-font-size: 25px;
-line-height: 38px;
-text-align: center;
-color: #373A3C;
-}
+
 .stable img {
   padding-right: 10px;
 }
