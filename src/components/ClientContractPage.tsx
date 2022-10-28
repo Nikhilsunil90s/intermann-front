@@ -1060,7 +1060,7 @@ INTERMANN WORK S.R.L <br/>
                    
                </div>}  
                  {progress > 0 && progress < 100 && documentList.length > 0 ? (
-                <div className="col-6 mx-0">
+                <div className="col-md-6 col-sm-12 mx-0">
                   <div className="row CardClassDownload p-0 mt-1 mx-0">
                     <div className="col-4 pr-0 d-flex align-items-center ">
                       <ProfileLoader

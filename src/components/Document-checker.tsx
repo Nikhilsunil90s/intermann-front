@@ -455,7 +455,7 @@ function DocumentCheck() {
     ))
                    :
                    <div className="col-12 d-flex justify-content-center">
-                    <Loader   />
+                    <Error   />
                     </div>
                    :
     

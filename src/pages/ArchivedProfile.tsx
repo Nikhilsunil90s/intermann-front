@@ -12,23 +12,19 @@ import PDFGenerate from '../components/Modal/PDFGenerateModal'
 import moment from "moment";
 import ErrorLoader from "../components/Loader/SearchBarError";
 import DOCUSIGNModalCandidate from '../components/Modal/DOCUSIGNModalCandidate'
-import Share from "../components/Loader/Share"
-import { Tabs, Tab } from "react-tabs-scrollable";
 
-import ProfileLoader from "../components/Loader/ProfilesLoader";
+import { Tabs, Tab } from "react-tabs-scrollable";
+import Representance from "../components/Modal/RepresentanceModalCandidate";
+import AvanceModal from "../components/Modal/AvanceModalCandidate";
+
 import PDFBoxCandidate from "../components/PDFboxBothSide/PDFBoxCandidate";
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
 })
-let UploadName = "";
-let clDoc;
-let UploadTextBtn = "";
-let RenameData=[]
-let Links ;
+
 const ArchivedProfile = () => {
   const profileData=JSON.parse(localStorage.getItem("archive"))
-  const  ModalLinkTrue = JSON.parse(localStorage.getItem("embauch"))
  const navigate=useNavigate()
   const { state } = useLocation();
 
@@ -40,6 +36,8 @@ const ArchivedProfile = () => {
   const [UploadBtn,setSelectUpload]= useState(false)
     const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.url !== undefined ? profile.candidatPhoto?.url : "");
     const [PDFModal,setPDFModal]=useState(false)
+    const [representance,setRepresentance]=useState(false)
+    const [Avance,setAvance]=useState(false)
     const [contract_date,setcontract_date]=useState()as any
     const [debutMissionDate,setdebutMissionDate]=useState()as any
     const [fin_mision,setfin_mision]=useState()as any
@@ -607,7 +605,9 @@ null
                     Reset this profile</button>
                     <p className="italic-fontStyle text-center">Profile will be reset to todo stage</p>
                 </div>
-                <div className="col-4 px-0 text-center">
+                <div className="col-12">
+                  <div className="row">
+                  <div className="col-3 px-0 text-center">
                 <button
                     type="button"
                     onClick={()=>setPDFModal(true)}
@@ -620,6 +620,30 @@ null
                   Pour Adrian, générer un contrat pour un candidat
                   </p>
                 </div>
+                <div className="col-4 pl-1 px-0 text-start">
+                <button
+                    type="button"
+                    onClick={()=>setRepresentance(true)}
+                    className="btn text-white btn-pre-moveProgress"
+                  >
+                    <img src={require("../images/resume.svg").default} />
+                    Générer représentance
+                  </button>
+                 
+                </div>
+                <div className="col-3 px-0 text-center">
+                <button
+                    type="button"
+                    onClick={()=>setAvance(true)}
+                    className="btn text-white btn-pre-moveProgress"
+                  >
+                    <img src={require("../images/resume.svg").default} />
+                    Générer Avance
+                  </button>
+                  </div>
+                  </div>
+                </div>
+                
                 </div >
                 </div>
 
@@ -649,6 +673,19 @@ null
         null
 
       }
+       {
+                  representance ? 
+                 <Representance   props={profile}  closeModal={setRepresentance}    />
+
+                  :
+                  null
+                }
+                {
+                  Avance ?
+                  <AvanceModal  props={profile} closeModal={setAvance} />
+                  :
+                  null
+                }
 
       <div className="col-12 Social-Card my-1">
               <div className='row  p-1'>

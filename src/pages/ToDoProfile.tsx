@@ -12,19 +12,17 @@ import { API_BASE_URL } from '../config/serverApiConfig';
 import { Toaster, toast } from 'react-hot-toast';
 import "react-multi-carousel/lib/styles.css";
 import axios from "axios";
-import { ProgressBar } from "react-bootstrap";
 import ReadMoreReact from 'read-more-react';
-import RenameDoc from '../components/Modal/RenameDoc_Modal'
 import UploadDow from '../components/Modal/SelectUploadDownload'
 import PDFGenerate from '../components/Modal/PDFGenerateModal'
 import moment from 'moment'
 import ErrorLoader from "../components/Loader/SearchBarError";
 import DOCUSIGNModalCandidate from '../components/Modal/DOCUSIGNModalCandidate'
-import ReactRoundedImage from "react-rounded-image";
-import Share from "../components/Loader/Share"
 import { Tabs, Tab } from "react-tabs-scrollable";
-import { FileUploader } from "react-drag-drop-files";
 import PDFBoxCandidate from "../components/PDFboxBothSide/PDFBoxCandidate";
+import InProgressModal from "../components/Modal/InProgressModal";
+import Representance from "../components/Modal/RepresentanceModalCandidate";
+import AvanceModal from "../components/Modal/AvanceModalCandidate";
 
 interface State {
   profileData: any,
@@ -59,18 +57,18 @@ function ToDoProfile() {
   const hiddenFileInput = React.useRef(null);
   const [recommendations, setRecommendations] = useState([]);
   const [candidatContactOne, setCandidatContactOne] = useState(profile.candidatPhone != "" ? profile.candidatPhone.split(" ").join("") : "");
-  const [candidatContactTwo, setCandidatContactTwo] = useState(profile.candidatAlternatePhone != "" ? profile.candidatAlternatePhone.split(" ").join("") : "");
-  const [inputField,setinputField]=useState(true)
   const [loader, setLoader] = useState(false);
   const hiddenImageInput = React.useRef(null);
   const [documentList, setDocumentList] = useState([])as any;
   const [renameDoc, setRenameDoc] = useState(false);
   const [candidatDocument, setCandidatDocument] = useState("");
   const [progress, setProgress] = useState<any>(0);
+  const [representance,setRepresentance]=useState(false)
+  const [Avance,setAvance]=useState(false)
   const [docUploaded, setDocUploaded] = useState(false);
   const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.url !== undefined ? profile.candidatPhoto?.url : "");
   const [UploadBtn,setSelectUpload]= useState(false)
-  const [RenameDocStatus,setRenameDocStatus]=useState(false)
+  const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [PDFModal,setPDFModal]=useState(false)
   const datenow=moment().format('YYYY-MM-DD')
   const [contract_date,setcontract_date]=useState()as any
@@ -989,6 +987,17 @@ className="SelectBtn"
                   }
                   <p className="italic-font">Si embauché</p>
                 </div> */}
+                  <div className="col-3 px-0 text-center">
+                  <button
+                    type="button"
+                    className="btn-EditProfile"
+                    onClick={editCandidatProfile}
+                  >
+                    <img src={require("../images/Edit.svg").default} />
+                    Edit Profile
+                  </button>
+              
+                </div>
                 <div className="col-3 px-0 text-center">
                   <button
         type="button"
@@ -1031,17 +1040,7 @@ className="SelectBtn"
                     />
                   ) : null}
                 </div>
-                <div className="col-3 px-0 text-center">
-                  <button
-                    type="button"
-                    className="btn-EditProfile"
-                    onClick={editCandidatProfile}
-                  >
-                    <img src={require("../images/Edit.svg").default} />
-                    Edit Profile
-                  </button>
               
-                </div>
                 <div className="col-3 px-0 text-center">
                 <a
                     type="button"
@@ -1056,7 +1055,17 @@ className="SelectBtn"
                     Edit CV with Canva
                   </p>
                 </div>
-                <div className="col-4 px-0 text-center">
+                <div className="col-3 px-0 text-center">
+                <button
+                    type="button"
+                    className="btn text-white btn-CVManual"
+                    onClick={() => setShowInProgressModal(true)}
+                  >
+                    Move to In Progress
+                  </button>
+                 
+                </div>
+                <div className="col-4 px-0 text-start">
                 <button
                     type="button"
                     onClick={()=>setPDFModal(true)}
@@ -1069,11 +1078,45 @@ className="SelectBtn"
                   Pour Adrian, générer un contrat pour un candidat
                   </p>
                 </div>
+                <div className="col-4 px-0 text-start">
+                <button
+                    type="button"
+                    onClick={()=>setRepresentance(true)}
+                    className="btn text-white btn-pre-moveProgress"
+                  >
+                    <img src={require("../images/resume.svg").default} />
+                    Générer représentance
+                  </button>
+                 
+                </div> <div className="col-3 px-0 text-center">
+                <button
+                    type="button"
+                    onClick={()=>setAvance(true)}
+                    className="btn text-white btn-pre-moveProgress"
+                  >
+                    <img src={require("../images/resume.svg").default} />
+                    Générer Avance
+                  </button>
+                
+                </div>
                 {
                   PDFModal ?
                   
                   <PDFGenerate props={profile}   LinkModal={setDocuSignModal}  closeModal={setPDFModal} path="/todoprofile" />
                   : 
+                  null
+                }
+                {
+                  representance ? 
+                 <Representance   props={profile}  closeModal={setRepresentance}    />
+
+                  :
+                  null
+                }
+                {
+                  Avance ?
+                  <AvanceModal  props={profile} closeModal={setAvance} />
+                  :
                   null
                 }
                 </div>
@@ -1266,6 +1309,8 @@ className="SelectBtn"
                             :
                             null
                   
+                          }  {showInProgressModal ?
+                            <InProgressModal props={profile} closeModal={setShowInProgressModal} /> : null
                           }
               </div>
             </div>

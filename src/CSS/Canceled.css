@@ -641,6 +641,15 @@ margin-bottom: 0px !important;
 }
 
 @media (min-width:1200px){
+    .ClientNameBox {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 18px;
+        text-align: center;
+        color: #373A3C;
+    }
     .MobileView{
         display: none;
     }

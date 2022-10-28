@@ -15,10 +15,10 @@ import moment from "moment";
 import ResetProfile from "../components/Modal/RestProfileForArchived";
 import ErrorLoader from "../components/Loader/SearchBarError";
 import DOCUSIGNModalCandidate from '../components/Modal/DOCUSIGNModalCandidate'
-import Share from "../components/Loader/Share"
 import { Tabs, Tab } from "react-tabs-scrollable";
-import { FileUploader } from "react-drag-drop-files";
 import PDFBoxCandidate from "../components/PDFboxBothSide/PDFBoxCandidate";
+import Representance from "../components/Modal/RepresentanceModalCandidate";
+import AvanceModal from "../components/Modal/AvanceModalCandidate";
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -43,7 +43,8 @@ function ProgressCard() {
   const [candidatDocument, setCandidatDocument] = useState("");
   const [progress, setProgress] = useState<any>(0);
   const [docUploaded, setDocUploaded] = useState(false);
-  const [renameDoc, setRenameDoc] = useState(false);
+  const [representance,setRepresentance]=useState(false)
+  const [Avance,setAvance]=useState(false)
   const [recommendations, setRecommendations] = useState([]);
   const [clientList, setClientList] = useState([]);
   const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.url !== undefined ? profile.candidatPhoto?.url : "");
@@ -736,7 +737,17 @@ null
             </div>
             <div className="col-12 Social-Card mt-1">
               <div className="row p-1 justify-content-between">
-              
+              <div className="col-xxl-3 px-0 col-lg-3 col-md-4 col-sm-4 text-center">
+                  <button
+                    type="button"
+                    className="btn btn-EditProfileEmbauch"
+                    onClick={editCandidatProfile}
+                  >
+                    <img src={require("../images/Edit.svg").default} />
+                    Edit Profile
+                  </button>
+                  <p className="italic-fontStyle text-center">Editer le profil</p>
+                </div>
                
                 <div className="col-xxl-3 px-0 col-lg-3 col-md-4 col-sm-4 text-center">
                   <button
@@ -767,17 +778,7 @@ null
                   null
                  }
                 </div>
-                <div className="col-xxl-3 px-0 col-lg-3 col-md-4 col-sm-4 text-center">
-                  <button
-                    type="button"
-                    className="btn btn-EditProfileEmbauch"
-                    onClick={editCandidatProfile}
-                  >
-                    <img src={require("../images/Edit.svg").default} />
-                    Edit Profile
-                  </button>
-                  <p className="italic-fontStyle text-center">Editer le profil</p>
-                </div>
+              
                 <div className="col-xxl-3 col-lg-3 col-md-4 col-sm-4 px-0 text-center">
                   <a
                     type="button"
@@ -805,11 +806,36 @@ null
                   Pour Adrian, générer un contrat pour un candidat
                   </p>
                 </div>
+                <div className="col-12">
+                  <div className="row">
                 <div className="col-3 px-0">
                      <button className="restProfile" onClick={()=>setResetModalProfile(true)} style={{width:"100%"}}>
                     <img src={require("../images/rest.svg").default} />
                     To-Do</button>
                     <p className="italic-fontStyle text-center">Profile will be reset to todo stage</p>
+                </div>
+                <div className="col-4 pl-1 px-0 text-start">
+                <button
+                    type="button"
+                    onClick={()=>setRepresentance(true)}
+                    className="btn text-white btn-pre-moveProgress"
+                  >
+                    <img src={require("../images/resume.svg").default} />
+                    Générer représentance
+                  </button>
+                 
+                </div>
+                <div className="col-3 px-0 text-center">
+                <button
+                    type="button"
+                    onClick={()=>setAvance(true)}
+                    className="btn text-white btn-pre-moveProgress"
+                  >
+                    <img src={require("../images/resume.svg").default} />
+                    Générer Avance
+                  </button>
+                  </div>
+                </div>
                 </div>
                   </div>
               
@@ -1029,6 +1055,19 @@ null
                             null
                   
                           }
+                            {
+                  representance ? 
+                 <Representance   props={profile}  closeModal={setRepresentance}    />
+
+                  :
+                  null
+                }
+                {
+                  Avance ?
+                  <AvanceModal  props={profile} closeModal={setAvance} />
+                  :
+                  null
+                }
               </div>
             </div>
           </div>

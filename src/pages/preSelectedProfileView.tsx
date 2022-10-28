@@ -5,11 +5,9 @@ import { useLocation } from "react-router-dom";
 import InProgressModal from "../components/Modal/InProgressModal";
 import ArchivedModal from "../components/Modal/ArchivedModal";
 import { useNavigate } from "react-router-dom";
-import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import axios from "axios";
 import { API_BASE_URL } from '../config/serverApiConfig';
-import { ProgressBar } from "react-bootstrap";
 import { Toaster, toast } from 'react-hot-toast';
 import UploadDow from '../components/Modal/SelectUploadDownload'
 import PDFGenerate from '../components/Modal/PDFGenerateModal'
@@ -17,19 +15,16 @@ import moment from "moment";
 import ErrorLoader from "../components/Loader/SearchBarError";
 import ResetProfile from "../components/Modal/RestProfileForArchived";
 import DOCUSIGNModalCandidate from '../components/Modal/DOCUSIGNModalCandidate'
-import ReactRoundedImage from "react-rounded-image";
 import { Tabs, Tab } from "react-tabs-scrollable";
-import { FileUploader } from "react-drag-drop-files";
-import Share from "../components/Loader/Share"
 import PDFBoxCandidate from "../components/PDFboxBothSide/PDFBoxCandidate";
+import Representance from "../components/Modal/RepresentanceModalCandidate";
+import AvanceModal from "../components/Modal/AvanceModalCandidate";
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
 })
-let RenameData=[]
 let UploadName = "";
 let clDoc;
-let UploadTextBtn = "";
 let Links ;
 function PreSelectedView() {
   const navigate = useNavigate();
@@ -44,10 +39,10 @@ function PreSelectedView() {
   const hiddenFileInput = React.useRef(null);
   const [candidatDocument, setCandidatDocument] = useState("");
   const [progress, setProgress] = useState<any>(0);
+  const [representance,setRepresentance]=useState(false)
+  const [Avance,setAvance]=useState(false)
   const [docUploaded, setDocUploaded] = useState(false);
   const [documentList, setDocumentList] = useState([]);
-  const [renameDoc, setRenameDoc] = useState(false);
-  const [RenameDocStatus,setRenameDocStatus]=useState(false)
   const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.url !== undefined ? profile.candidatPhoto?.url : "");
   const hiddenImageInput = React.useRef(null);
   const [UploadBtn,setSelectUpload]= useState(false)
@@ -60,59 +55,19 @@ function PreSelectedView() {
   const [GetMonth3,setMonth3]=useState()as any
   const [DocumentSignModal,setDocuSignModal]=useState(false)
   const [ResetModalProfile,setResetModalProfile]=useState(false)
-  const [activeTab, setActiveTab] = React.useState(1) as any;
   const [CONTRACT_EMPLOYE_INTERMANN, setCONTRACT_EMPLOYE_INTERMANN] = useState() as any;
   const [Fiche_Medicale, setFiche_Medicale] = useState() as any;
   const [Assurance, setAssurance] = useState() as any;
   const [ID_CARD, setID_CARD] = useState() as any;
   const [Reges, setReges] = useState() as any;
-  const [DriveLink,setDriveLink]=useState("")
   const [Fiche_mise_à_disposition, setFiche_mise_à_disposition] =
     useState() as any;
-  const [tabItems, setTabitems] = useState([
-    {
-      text: "CONTRACT EMPLOYE INTERMANN",
-      value: "CONTRACT",
-    },
-    {
-      text: "ID CARD",
-      value: "BULETIN_/_ID_CARD",
-    },
-    {
-      text: "FICHE MEDICALE",
-      value: "Fiche_Medicale",
-    },
-    {
-      text: "ASSURANCE",
-      value: "Assurance",
-    },
-    {
-      text: "REGES",
-      value: "Reges",
-    },
-    {
-      text: "FICHE MISE A DISPOSITION",
-      value: "Fiche_mise_à_disposition",
-    },
-    {
-      text: "FACTURES PAYES",
-      value: "factures_payes",
-    },
-    {
-      text: "FACTURES IMPAYES",
-      value: "factures_impayes",
-    },
-   
-  ]) as any;
+ 
  const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
  const notifyDocumentDeleteError = () => toast.error("Document Not Removed! Please Try Again in few minutes.")
  const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
  const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
-  // const [Dissapointed, setDissapointed] = useState(false);
-  // const [Notreally, setNotreally] = useState(false);
-  // const [Like, setLike] = useState(false);
-  // const [Great, setGreat] = useState(false);
-  // const [Superlovely, setSuperlovely] = useState(false);
+
   let data={profileData:profile ,path:"/preSelectedView"}
 
   const showCustomerProfile =(data)=>{
@@ -124,125 +79,7 @@ let date = new Date(datenow);
 
 let start = new Date(profile.candidatStartDate);
 let end = new Date(profile.candidatEndDate);
- 
-const onTabClick = (e, index: any) => {
-  setActiveTab(index);
-  const FolderName = tabItems.filter((el, i) => i == index);
 
-  FolderName.map((el,i) => {
-    UploadName = el.value;
-    UploadTextBtn = el.text;
-  });
-
-  clDoc = profile.candidatDocuments.filter((el) => el.folderName == UploadName);
-  Links = profile.candidatLinks.filter((el) => el.folder == UploadName);
-  setDocumentList([...clDoc,...Links]);
-};
-useEffect(() => {
-  const FolderName = tabItems.filter((el, i) => i == activeTab);
-if(UploadName == "" ){
-  FolderName.map((el,i) => {
-    UploadName = el.value;
-    UploadTextBtn = el.text;
-  });
-
-
-}
-
-if(profile.candidatDocuments.length > 0 && documentList.length == 0 || profile.candidatLinks.length > 0  && documentList.length == 0  ){
-  clDoc = profile.candidatDocuments.filter((el) => (el.folderName == UploadName));
-  Links = profile.candidatLinks.filter((el) => el.folder == UploadName);
-    setDocumentList([...clDoc,...Links]);
- } 
-});
-
-
-const FilesUploads=(file)=>{
-  const fileUploaded = file;
-  setCandidatDocument(fileUploaded)
-    let formdata = new FormData();
-    formdata.append('candidatId', profile._id)
-    formdata.append('document', fileUploaded)
-    formdata.append('folderName', UploadName)
-    axiosInstance.post("uploadCandidatDocuments", formdata, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        "Authorization": "Bearer " + localStorage.getItem('token')
-      },
-      onUploadProgress: data => {
-        //Set the progress value to show the progress bar
-        setProgress(Math.round((100 * data.loaded) / data.total))
-      },
-    })
-    .then(resData => {
-      if (resData.data.status) {
-        setDocUploaded(true);
-        setProgress(0); 
-        notifyDocumentUploadSuccess();
-      } else {
-        setDocUploaded(false);
-      }
-    })
-    .catch(err => {
-      console.log(err)
-      setDocUploaded(false);
-
-    })
-  return;
-}
-let DataLink={
-  candidatId:profile._id,
-  link:DriveLink,
-  folder:UploadName
-}as any
-
-
-const LinktoDrive = async (updatedData: any) => {
-  console.log(updatedData)
-  let headers = {
-    "Accept": 'application/json',
-    'Content-Type': 'application/json',
-    "Authorization": "Bearer " + localStorage.getItem('token')
-  }
-  return await fetch(API_BASE_URL + "addCandidatLink", {
-    method: "POST",
-    headers: headers,
-    body:JSON.stringify(updatedData),
-  })
-    .then(reD => reD.json())
-    .then(resD => resD)
-    .catch(err => err)
-}
-const onDriveLinkChange=(e)=>{
-  if(e.target.name =="inputDrive"){
-    setDriveLink(e.target.value)
-    
-  }
-  
-  if(e.target.name =="DriveLinkSubmit"){
-    let Check = isValidUrl(DriveLink)
-    if(Check){
-      // setLinkDoc([...Links])
-      LinktoDrive(DataLink).then((resD)=>{toast.success(resD.message);setTimeout(()=>{window.location.reload()},2000)})
-    }else{
-      return toast.error("Please Enter Valid Url!")
-    }
-   
-    
-
-    console.log(isValidUrl(DriveLink));
-  }
-}
-
-const isValidUrl = urlString=> {
-  var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
-  '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
-  '((\\d{1,3}\\.){3}\\d{1,3}))'+ // validate OR ip (v4) address
-  '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // validate port and path
-  '(\\?[;&a-z\\d%_.~+=-]*)?'+ // validate query string
-  '(\\#[-a-z\\d_]*)?$','i'); // validate fragment locator
-return !!urlPattern.test(urlString);
-}
 
 useEffect(()=>{
   if(profile.candidatContract){
@@ -392,31 +229,6 @@ const notifyMoveError = () => toast.error("Not Moved..");
       console.log(err)
     })
   }
-  const renameDocument = (docId: any, docName: any,originalName:any) => {
-    setRenameDoc(true);
-    console.log(originalName,"originalName")
-    if(originalName=="LinkEdit"){
-      RenameData=[
-        docId,
-        docName,
-        originalName,
-
-      ]
-    }else{
-      RenameData=[
-        docId,
-        docName,
-        profile._id,
-        originalName
-      ]
-    }
-    // renameCandidatDocument(docId, docName, profile._id).then(resData => {
-    //   console.log(resData)
-    //   setRenameDoc(false);
-    // }).catch(err => {
-    //   console.log(err)
-    // })
-  }
 
     
     useEffect(() => {
@@ -452,49 +264,6 @@ const notifyMoveError = () => toast.error("Not Moved..");
       .catch(err => err)
   }
 
-  const responsive = {
-    superLargeDesktop: {
-      // the naming can be any, depends on you.
-      breakpoint: { max: 4000, min: 3000 },
-      items: 5,
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
-  };
-  const  ViewDownloadFiles =( documentName:any)=>{
-    window.open(documentName)
-   }
-
-   const deleteCandidatLink = (Id : any) => {  
-    let Data={
-      candidatId:profile._id,
-     linkId:Id,
-    }
-       let headers = {
-         "Accept": 'application/json',
-         'Content-Type': 'application/json',
-         "Authorization": "Bearer " + localStorage.getItem('token')
-       }
-      fetch(API_BASE_URL + "removeCandidatLink", {
-         method: "POST",
-         headers: headers,
-         body: JSON.stringify(Data),
-       })
-         .then(reD => reD.json())
-         .then(resD =>{toast.success(resD.message);setTimeout(()=>{ window.location.reload()},2000)})
-         .catch(err => toast.error("Link Not Removed! Please Try Again in few minutes."))
-     };
-  
   
   return (
     <>
@@ -843,6 +612,17 @@ null
         
             <div className="col-12 Social-Card mt-1">
               <div className="row p-1 ">
+              <div className="col-3 px-0 text-center">
+                  <button
+                    type="button"
+                    className="btn btn-pre-EditProfile"
+                    onClick={editCandidatProfile}
+                  >
+                    <img src={require("../images/Edit.svg").default} />
+                    Edit Profile
+                  </button>
+                  <p className="italic-fontStyle text-start">Editer le profil</p>
+                </div>
                 <div className="col-3 px-0 text-center">
                   <button
                     type="button"
@@ -860,17 +640,7 @@ null
                     />
                    : null}
                 </div>
-                <div className="col-3 px-0 text-center">
-                  <button
-                    type="button"
-                    className="btn btn-pre-EditProfile"
-                    onClick={editCandidatProfile}
-                  >
-                    <img src={require("../images/Edit.svg").default} />
-                    Edit Profile
-                  </button>
-                  <p className="italic-fontStyle text-start">Editer le profil</p>
-                </div>
+            
                 <div className="col-3 px-0 text-center">
               
                         <a
@@ -887,7 +657,7 @@ null
                   </p>
                 </div>
           <div className="col-3 px-0 text-center">
-                  <button type="button" className="btn btn-pre-moveProgress" onClick={() => setShowInProgressModal(true)}>
+                  <button type="button" className="btn btn-pre-CVManual" onClick={() => setShowInProgressModal(true)}>
                     Move to In Progress
                   </button>
                   {showInProgressModal ?
@@ -905,6 +675,19 @@ null
                   :
                   null
                  }
+                  {
+                  representance ? 
+                 <Representance   props={profile}  closeModal={setRepresentance}    />
+
+                  :
+                  null
+                }
+                {
+                  Avance ?
+                  <AvanceModal  props={profile} closeModal={setAvance} />
+                  :
+                  null
+                }
                   <p className="italic-fontStyle">Si embaché pour un client en cours de recherche</p>
                 </div>
                 <div className="col-4 px-0 text-center">
@@ -920,11 +703,33 @@ null
                   Pour Adrian, générer un contrat pour un candidat
                   </p>
                 </div>
+                <div className="col-4 px-0 text-start">
+                <button
+                    type="button"
+                    onClick={()=>setRepresentance(true)}
+                    className="btn text-white btn-pre-moveProgress"
+                  >
+                    <img src={require("../images/resume.svg").default} />
+                    Générer représentance
+                  </button>
+                 
+                </div>
                 <div className="col-3 px-0">
                      <button className="restProfile" onClick={()=>setResetModalProfile(true)} style={{width:"100%"}}>
                     <img src={require("../images/rest.svg").default} />
                     To-Do</button>
                     <p className="italic-fontStyle text-center">Profile will be reset to todo stage</p>
+                </div>
+                <div className="col-3 px-0 text-center">
+                <button
+                    type="button"
+                    onClick={()=>setAvance(true)}
+                    className="btn text-white btn-pre-moveProgress"
+                  >
+                    <img src={require("../images/resume.svg").default} />
+                    Générer Avance
+                  </button>
+                
                 </div>
                 </div>
               </div>
