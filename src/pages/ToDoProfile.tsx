@@ -18,26 +18,23 @@ import PDFGenerate from '../components/Modal/PDFGenerateModal'
 import moment from 'moment'
 import ErrorLoader from "../components/Loader/SearchBarError";
 import DOCUSIGNModalCandidate from '../components/Modal/DOCUSIGNModalCandidate'
-import { Tabs, Tab } from "react-tabs-scrollable";
 import PDFBoxCandidate from "../components/PDFboxBothSide/PDFBoxCandidate";
 import InProgressModal from "../components/Modal/InProgressModal";
 import Representance from "../components/Modal/RepresentanceModalCandidate";
 import AvanceModal from "../components/Modal/AvanceModalCandidate";
+import CandidateContract from "../components/CandidateComponents/CandidateContract";
+import DocumLink from "../components/Modal/CandidateRepresentModal/LinkModal"
+import { Tabs, Tab } from "react-tabs-scrollable";
 
 interface State {
   profileData: any,
   path: any,
   UserID:any
 }
-let UploadName = "";
-let clDoc;
-let UploadTextBtn = "";
-let Links ;
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
 })
- 
-let RenameData=[]
+
 function ToDoProfile() {
   const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
   const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
@@ -59,10 +56,6 @@ function ToDoProfile() {
   const [candidatContactOne, setCandidatContactOne] = useState(profile.candidatPhone != "" ? profile.candidatPhone.split(" ").join("") : "");
   const [loader, setLoader] = useState(false);
   const hiddenImageInput = React.useRef(null);
-  const [documentList, setDocumentList] = useState([])as any;
-  const [renameDoc, setRenameDoc] = useState(false);
-  const [candidatDocument, setCandidatDocument] = useState("");
-  const [progress, setProgress] = useState<any>(0);
   const [representance,setRepresentance]=useState(false)
   const [Avance,setAvance]=useState(false)
   const [docUploaded, setDocUploaded] = useState(false);
@@ -71,14 +64,9 @@ function ToDoProfile() {
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [PDFModal,setPDFModal]=useState(false)
   const datenow=moment().format('YYYY-MM-DD')
-  const [contract_date,setcontract_date]=useState()as any
-  const [debutMissionDate,setdebutMissionDate]=useState()as any
-  const [fin_mision,setfin_mision]=useState()as any
-  const [GetMonth,setMonth]=useState()as any
-  const [GetMonth2,setMonth2]=useState()as any
-  const [GetMonth3,setMonth3]=useState()as any
   const [DocumentSignModal,setDocuSignModal]=useState(false)
-  const [activeTab, setActiveTab] = React.useState(1) as any;
+  const [DocuLink,setDocuLink]=useState(false)
+  const [repID,setRepId]=useState("")
   const [CONTRACT_EMPLOYE_INTERMANN, setCONTRACT_EMPLOYE_INTERMANN] = useState() as any;
   const [Fiche_Medicale, setFiche_Medicale] = useState() as any;
   const [Assurance, setAssurance] = useState() as any;
@@ -86,95 +74,12 @@ function ToDoProfile() {
   const [Reges, setReges] = useState() as any;
   const [Fiche_mise_à_disposition, setFiche_mise_à_disposition] =
     useState() as any;
-    const [DriveLink,setDriveLink]=useState("")
-  const [tabItems, setTabitems] = useState([
-    {
-      text: "CONTRACT EMPLOYE INTERMANN",
-      value: "CONTRACT",
-    },
-    {
-      text: "ID CARD",
-      value: "BULETIN_/_ID_CARD",
-    },
-    {
-      text: "FICHE MEDICALE",
-      value: "Fiche_Medicale",
-    },
-    {
-      text: "ASSURANCE",
-      value: "Assurance",
-    },
-    {
-      text: "REGES",
-      value: "Reges",
-    },
-    {
-      text: "FICHE MISE A DISPOSITION",
-      value: "Fiche_mise_à_disposition",
-    },
-    {
-      text: "FACTURES PAYES",
-      value: "factures_payes",
-    },
-    {
-      text: "FACTURES IMPAYES",
-      value: "factures_impayes",
-    },
-   
-  ]) as any;
 
   let date = new Date(datenow);
 
  let start = new Date(profile.candidatStartDate);
  let end = new Date(profile.candidatEndDate);
   
-
- useEffect(() => {
-  profile.candidatDocuments.map((el) => {
-    if (
-      JSON.stringify(el.folderName ? el.folderName : null).includes(
-        JSON.stringify("Reges")
-      )
-    ) {
-      setReges([el]);
-    }
-    if (
-      JSON.stringify(el.folderName ? el.folderName : null).includes(
-        JSON.stringify("CONTRACT_EMPLOYE_INTERMANN")
-      )
-    ) {
-      setCONTRACT_EMPLOYE_INTERMANN([el]);
-    }
-    if (
-      JSON.stringify(el.folderName ? el.folderName : null).includes(
-        JSON.stringify("BULETIN_/_ID_CARD")
-      )
-    ) {
-      setID_CARD([el]);
-    }
-    if (
-      JSON.stringify(el.folderName ? el.folderName : null).includes(
-        JSON.stringify("Fiche_Medicale")
-      )
-    ) {
-      setFiche_Medicale([el]);
-    }
-    if (
-      JSON.stringify(el.folderName ? el.folderName : null).includes(
-        JSON.stringify("Assurance")
-      )
-    ) {
-      setAssurance([el]);
-    }
-    if (
-      JSON.stringify(el.folderName ? el.folderName : null).includes(
-        JSON.stringify("Fiche_mise_à_disposition")
-      )
-    ) {
-      setFiche_mise_à_disposition([el]);
-    }
-  });
-}, [profile.candidatDocuments, documentList]);
 
 
 
@@ -203,59 +108,8 @@ const fetchProfilesClients = async () => {
     .then(res => res)
     .catch((err) => err);
 };
-const deleteCandidatLink = (Id : any) => {
-  let Data={
-    candidatId:profile._id,
-   linkId:Id,
-  }
-     let headers = {
-       "Accept": 'application/json',
-       'Content-Type': 'application/json',
-       "Authorization": "Bearer " + localStorage.getItem('token')
-     }
-    fetch(API_BASE_URL + "removeCandidatLink", {
-       method: "POST",
-       headers: headers,
-       body: JSON.stringify(Data),
-     })
-       .then(reD => reD.json())
-       .then(resD =>{toast.success(resD.message);setTimeout(()=>{ window.location.reload()},2000)})
-       .catch(err => toast.error("Link Not Removed! Please Try Again in few minutes."))
-   };
 
 
-const onTabClick = (e, index: any) => {
-  setActiveTab(index);
-  const FolderName = tabItems.filter((el, i) => i == index);
-
-  FolderName.map((el) => {
-    UploadName = el.value;
-    UploadTextBtn = el.text;
-  });
-
-  clDoc = profile.candidatDocuments.filter((el) => el.folderName == UploadName);
-  Links = profile.candidatLinks.filter((el) => el.folder == UploadName);
-    setDocumentList([...clDoc]);
-};
-
-useEffect(() => {
-  const FolderName = tabItems.filter((el, i) => i == activeTab);
-if(UploadName == "" ){
-  FolderName.map((el) => {
-    UploadName = el.value;
-    UploadTextBtn = el.text;
-  });
-
-
-}
-
-if(profile.candidatDocuments.length > 0 && documentList.length == 0 || profile.candidatLinks.length > 0  && Links.length == 0  ){
-  clDoc = profile.candidatDocuments.filter((el) => (el.folderName == UploadName));
-  Links = profile.candidatLinks.filter((el) => el.folder == UploadName);
-    setDocumentList([...clDoc]);
- } 
-
-},[Links]);
   let data={profileData:profile ,path:"/todoprofile"}
 
  const deleteCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
@@ -271,21 +125,7 @@ if(profile.candidatDocuments.length > 0 && documentList.length == 0 || profile.c
     .then(resD => resD)
     .catch(err => err)
 }
-const deleteDocument = async (docId: any, docName: any) => {
-  await deleteCandidatDocument(docId, docName, profile._id).then(resData => {
-    if (resData.status) {
-      notifyDocumentDeleteSuccess()
-      window.location.reload()
-      // let DocDeleted= documentList.filter(Doc=>  Doc.documentName !== resData.doc)
-      // console.log(documentList,DocDeleted,"doc")
-      setDocumentList([...documentList.filter((docN) => (docN.documentName !== resData.doc))])
-    } else {
-      notifyDocumentDeleteError()
-    }
-  }).catch(err => {
-    console.log(err)
-  })
-}
+
  const removeRecommendation = (rId: any) => {
 
   let filteredRecommendations = recommendations.filter((recomm) => {
@@ -324,67 +164,9 @@ const fetchRecommendations = async (candidatSector: string) => {
       window.open(candidatImage);
     }
   }
-  const renameDocument = (docId: any, docName: any ,originalName:any) => {
-    setRenameDoc(true);
 
-    if(originalName=="LinkEdit"){
-      RenameData=[
-        docId,
-        docName,
-        originalName,
 
-      ]
-    }else{
-      RenameData=[
-        docId,
-        docName,
-        profile._id,
-        originalName
-      ]
-    }
-    // renameCandidatDocument(docId, docName, profile._id).then(resData => {
-    //   console.log(resData)
-    //   setRenameDoc(false);
-    // }).catch(err => {
-    //   console.log(err)
-    // })
-  }
-
-  const FilesUploads=(file)=>{
-    const fileUploaded = file;
-    setCandidatDocument(fileUploaded)
-      let formdata = new FormData();
-      formdata.append('candidatId', profile._id)
-      formdata.append('document', fileUploaded)
-      formdata.append('folderName', UploadName)
-      axiosInstance.post("uploadCandidatDocuments", formdata, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "Authorization": "Bearer " + localStorage.getItem('token')
-        },
-        onUploadProgress: data => {
-          //Set the progress value to show the progress bar
-          setProgress(Math.round((100 * data.loaded) / data.total))
-        },
-      })
-      .then(resData => {
-        if (resData.data.status) {
-          setDocUploaded(true);
-          setProgress(0); 
-          notifyDocumentUploadSuccess();
-        } else {
-          setDocUploaded(false);
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        setDocUploaded(false);
-
-      })
-    return;
-  }
-  
-  
+   
 
 
 
@@ -436,13 +218,9 @@ const fetchRecommendations = async (candidatSector: string) => {
       setCandidatImage("")
       if (resData.status) {
         setProfile(resData.data)
-        clDoc = resData.data.candidatDocuments.filter((el) => el.folderName == UploadName);
-        Links = resData.data.candidatLinks.filter((el) => el.folder.toLocaleLowerCase() == UploadName.toLocaleLowerCase());
-        setDocumentList([...clDoc,...Links]);
         setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.url : "")
         setDocUploaded(false);
       } else {
-        setDocumentList([...documentList])
         setDocUploaded(false);
       }
     })
@@ -463,27 +241,6 @@ const fetchRecommendations = async (candidatSector: string) => {
       .catch(err => err)
   }
 
-  useEffect(()=>{
-    if(profile.candidatContract){
-   
-      let tempdate =new Date(profile.candidatContract.contract_date)
-      setMonth(tempdate.getMonth()+1)
-      let NewCdate=[tempdate.getFullYear() ,"0" + GetMonth,tempdate.getDate()].join("-")
-    setcontract_date(NewCdate)
-
-  let tempdate2 =new Date(profile.candidatContract.debutMissionDate)
-  setMonth2(tempdate2.getMonth()+1)
-    let NewMDate=  [tempdate2.getFullYear() ,"0"+GetMonth2,tempdate2.getDate()].join("-")
-    setdebutMissionDate(NewMDate)
-
-
-
- let tempdate3 =new Date(profile.candidatContract.fin_mision)
-  setMonth3(tempdate3.getMonth()+1)
-  let FormatNewDate=[tempdate3.getFullYear() ,"0"+GetMonth3,tempdate3.getDate()].join("-")
-  setfin_mision(FormatNewDate)
-
-}},)
 
   useEffect(() => {
     setLoader(true);
@@ -522,71 +279,8 @@ const fetchRecommendations = async (candidatSector: string) => {
       items: 1,
     },
   };
- const  ViewDownloadFiles =(e, documentName:any)=>{
-  if(e.target.name=== "btnDownloadLink"){
-    window.open(documentName)
-  }
-  else{
-    window.open(documentName)
 
-  }
- }
-
- let Data={
-  candidatId:profile._id,
-  link:DriveLink,
-  folder:UploadName
-}as any
-
-
- const LinktoDrive = async (updatedData: any) => {
-  let headers = {
-    "Accept": 'application/json',
-    'Content-Type': 'application/json',
-    "Authorization": "Bearer " + localStorage.getItem('token')
-  }
-  return await fetch(API_BASE_URL + "addCandidatLink", {
-    method: "POST",
-    headers: headers,
-    body:JSON.stringify(updatedData),
-  })
-    .then(reD => reD.json())
-    .then(resD => resD)
-    .catch(err => err)
-}
-
- const onDriveLinkChange=(e)=>{
-  if(e.target.name =="inputDrive"){
-    setDriveLink(e.target.value)
-    
-  }
-  
-  if(e.target.name =="DriveLinkSubmit"){
-    let Check = isValidUrl(DriveLink)
-    if(Check){
-      // setLinkDoc(])
-      LinktoDrive(Data).then((resD)=>{toast.success(resD.message)
-        ;
-        fetchCandidat(profile._id)
-        setTimeout(()=>{window.location.reload()},2000)
-      })
-    }else{
-      return toast.error("Please Enter Valid Url!")
-    }
-  }
-}
-    // const urlPattern = new RegExp(DriveLink);
-const isValidUrl = urlString=> {
-  var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
-  '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
-  '((\\d{1,3}\\.){3}\\d{1,3}))'+ // validate OR ip (v4) address
-  '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // validate port and path
-  '(\\?[;&a-z\\d%_.~+=-]*)?'+ // validate query string
-  '(\\#[-a-z\\d_]*)?$','i'); // validate fragment locator
-return !!urlPattern.test(urlString);
-}
-  
-
+ 
 
   return (
     <>
@@ -1081,7 +775,7 @@ className="SelectBtn"
                 <div className="col-4 px-0 text-start">
                 <button
                     type="button"
-                    onClick={()=>setRepresentance(true)}
+                    onClick={()=>{setRepresentance(true)}}
                     className="btn text-white btn-pre-moveProgress"
                   >
                     <img src={require("../images/resume.svg").default} />
@@ -1108,7 +802,7 @@ className="SelectBtn"
                 }
                 {
                   representance ? 
-                 <Representance   props={profile}  closeModal={setRepresentance}    />
+                 <Representance   props={profile}  closeModal={setRepresentance}  rePid={setRepId}  LinkModal={setDocuLink} />
 
                   :
                   null
@@ -1126,7 +820,9 @@ className="SelectBtn"
               {
                   JSON.stringify(profile).includes(JSON.stringify(profile.candidatContract)) ?
                   <>
-                            <div className='col-4  d-grid text-start'>
+
+                  <CandidateContract  props={profile} path={"/editToDo"}   />
+                            {/* <div className='col-4  d-grid text-start'>
                                 <label className="PDFFormlabel">Lieu_Mission</label>
                                 <input className='form-control inputStylingForView'  onClick={editCandidatProfile} value={profile.candidatContract ? profile.candidatContract.lieu_mission ? profile.candidatContract.lieu_mission: "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Lieu_Mission" />
                             </div>
@@ -1243,7 +939,7 @@ className="SelectBtn"
                             <div className='col-12  d-grid text-start'>
                             <label className="PDFFormlabel">Company_Adress</label>
                             <textarea className='TextAreaPage form-control' onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.companyAddress ? profile.candidatContract.companyAddress : "input Not Available!": "input Not Available!"} placeholder='‎ ‎ ‎Company_Adress'></textarea>
-                            </div>
+                            </div> */}
                             </>
                                    : 
                                    <div className="col-12 d-flex justify-content-center align-items-center py-2">
@@ -1257,10 +953,29 @@ className="SelectBtn"
 </div>
               </div>
               < >
-<PDFBoxCandidate  props={profile}  value={setProfile}  />
+<PDFBoxCandidate  props={profile}  value={setProfile}   />
 
 </>
-                         <div className="col-12 Social-Card mt-1">
+                      
+              </div>
+              {DocuLink ?
+              <DocumLink   props={profile} closeModal={setDocuLink} id={repID}   />
+
+              :
+              null
+              }
+              {
+                            DocumentSignModal ? 
+                            <DOCUSIGNModalCandidate props={profile} closeModal={setDocuSignModal} />
+                  
+                            :
+                            null
+                  
+                          } 
+                           {showInProgressModal ?
+                            <InProgressModal props={profile} closeModal={setShowInProgressModal} /> : null 
+                          }
+                             <div className="col-12 Social-Card mt-1">
                          <div className="row alertMessage align-items-center py-1">
                 <Tabs
                   rightBtnIcon={">"}
@@ -1302,19 +1017,9 @@ className="SelectBtn"
                     </Tab>
                   )}
                  </Tabs>
-                 {
-                            DocumentSignModal ? 
-                            <DOCUSIGNModalCandidate props={profile} closeModal={setDocuSignModal} />
-                  
-                            :
-                            null
-                  
-                          }  {showInProgressModal ?
-                            <InProgressModal props={profile} closeModal={setShowInProgressModal} /> : null
-                          }
+                
               </div>
             </div>
-              </div>
             </div>
       </div>
    

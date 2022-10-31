@@ -47,6 +47,8 @@ import DocumentSign from "./components/DocumentSignCandidatePage";
 import DocSignCandidate from "./components/Modal/DocSignCandidate";
 import ThankYouPage from "./components/ThankYouPage";
 import DownloadCenter from "./components/DownloadCenter";
+import DocumentRepresentPDFVIEW from "../src/pages/DocumentRepresentPDFVIEW"
+import RepresentanceSign from '../src/components/CandidateComponents/DocSignRepresentance'
 function App() {
   return (
     <Provider store={configureStore}>
@@ -365,6 +367,14 @@ function App() {
             
             }
           />
+            <Route
+            path={"/RepresentenceContractSigend"}
+            element={
+            
+                <RepresentanceSign />
+            
+            }
+          />
            <Route
             path={"/documentSigned/thankYou"}
             element={
@@ -378,6 +388,14 @@ function App() {
             element={
             
                 <DocumentSign />
+            
+            }
+          />
+              <Route
+            path={"/:ClientEmp/documentSignForRepresentence/:Candidate/:id"}
+            element={
+            
+                <DocumentRepresentPDFVIEW />
             
             }
           />

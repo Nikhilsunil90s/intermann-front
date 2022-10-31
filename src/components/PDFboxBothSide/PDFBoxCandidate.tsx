@@ -13,6 +13,8 @@ import ProfileLoader from "../../components/Loader/ProfilesLoader";
 let RenameData=[]
 let UploadName ="";
 let UploadTextBtn="";
+let WarningLabel=[]
+let WarningText=[]
 function PDFBoxCandidate({props,value}){
     const axiosInstance = axios.create({
         baseURL: API_BASE_URL,
@@ -23,12 +25,15 @@ function PDFBoxCandidate({props,value}){
       const [documentList, setDocumentList] = useState([])as any;
       const [ListLink, setListLink] = useState([])as any;
       const [DriveLink,setDriveLink]=useState("")
-  const [progress, setProgress] = useState<any>(0);
-  const [DeleteStatus, setDeleteStatus] = useState(false);
-
-  const [docUploaded, setDocUploaded] = useState(false);
-
-    const [tabItems, setTabitems] = useState([
+      const [progress, setProgress] = useState<any>(0);
+      const [DeleteStatus, setDeleteStatus] = useState(false);
+      const [CONTRACT_EMPLOYE_INTERMANN, setCONTRACT_EMPLOYE_INTERMANN] = useState() as any;
+      const [Fiche_Medicale, setFiche_Medicale] = useState() as any;
+      const [Assurance, setAssurance] = useState() as any;
+      const [ID_CARD, setID_CARD] = useState() as any;
+      const [Reges, setReges] = useState() as any;
+      const [Fiche_mise_à_disposition, setFiche_mise_à_disposition] =useState() as any;
+        const [tabItems] = useState([
       {
         text: "CONTRACT EMPLOYE INTERMANN",
         value: "CONTRACT",
@@ -64,6 +69,8 @@ function PDFBoxCandidate({props,value}){
      
     ]) as any;
   
+
+    
        
    const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
    const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
@@ -94,10 +101,56 @@ function PDFBoxCandidate({props,value}){
         //   console.log(err)
         // })
       }
+      useEffect(() => {
+        props.candidatDocuments.map((el) => {
+          {tabItems.map((tab)=>{
+              if(el.folderName === tab.value ){
+                if(WarningLabel.includes(tab.text)){
+                  WarningText =  WarningLabel.filter((el)=> (el !== tab.text))
+              }else{
+                WarningLabel.push(tab.text)
+              }
+            }
+          }
+            
+          )}
+        })
+      const FolderName = tabItems.filter((el, i) => i == activeTab);
+    if(UploadName == "" ){
+      FolderName.map((el) => {
+        UploadName = el.value;
+        UploadTextBtn = el.text;
+      });
+    
+    
+    }
+  
+     ;
+     setListLink(props?.candidatLinks.filter((el) => el.folder == UploadName))
 
+        setDocumentList(props.candidatDocuments.filter((el) => (el.folderName == UploadName)));
+     
+    
+    },[props]);
 
       useEffect(()=>{
         fetchCandidat(props._id)
+        if(profile){
+          profile.candidatDocuments.map((el) => {
+            {tabItems.map((tab)=>{
+              if(el.folderName === tab.value ){
+                if(WarningLabel.includes(tab.text)){
+                  WarningText =  WarningLabel.filter((el)=> (el !== tab.text))
+                }else{
+                  WarningLabel.push(tab.text)
+                }
+              }
+            }
+              
+            )}
+          })
+        }
+     
       },[DeleteStatus])
       
 const onTabClick = (e, index: any) => {
@@ -117,24 +170,7 @@ const onTabClick = (e, index: any) => {
   
       
 
-      useEffect(() => {
-        const FolderName = tabItems.filter((el, i) => i == activeTab);
-      if(UploadName == "" ){
-        FolderName.map((el) => {
-          UploadName = el.value;
-          UploadTextBtn = el.text;
-        });
-      
-      
-      }
-    
-       ;
-       setListLink(props?.candidatLinks.filter((el) => el.folder == UploadName))
-
-          setDocumentList(props.candidatDocuments.filter((el) => (el.folderName == UploadName)));
-       
-      
-      },[props]);
+ 
 
       const fetchCandidat = async (candidatId: any) => {
         await  fetch(API_BASE_URL + `getCandidatById/?candidatId=${candidatId}`, {
@@ -185,12 +221,12 @@ const onTabClick = (e, index: any) => {
               setProgress(0); 
               notifyDocumentUploadSuccess();
             } else {
-              setDocUploaded(false);
+          
             }
           })
           .catch(err => {
             console.log(err)
-            setDocUploaded(false);
+        
       
           })
         return;
@@ -309,9 +345,8 @@ const onTabClick = (e, index: any) => {
          .then(resD =>{toast.success(resD.message);setDeleteStatus(true)})
          .catch(err => toast.error("Link Not Removed! Please Try Again in few minutes."))
      };
-  
-  
-  
+
+     console.log(WarningText,"text")
     return(
         <>
           <div className="col-12 Social-Card mt-1">
@@ -585,6 +620,34 @@ fontSize: "14px",}} /></div>
              <div className="col-4"><button name="DriveLinkSubmit" onClick={(e)=>{onDriveLinkChange(e)}} className="LinkAsDocument">add this link as document</button></div>
              </div>
               </div>
+                
+                  {/* <div className="col-12 Social-Card mt-1">
+                    <div className="row alertMessage align-items-center py-1">      
+                <Tabs
+                  rightBtnIcon={">"}
+                  hideNavBtns={false}
+                  leftBtnIcon={"<"}
+                  showTabsScroll={false}
+                  tabsScrollAmount={5}
+                  className="alertMessage"
+                  activeTab
+                >
+                   {WarningText.map((el) => (
+                        <Tab className="redColorStyling">
+                       ⚠️ {el}
+                          </Tab>
+
+                   ))
+                          }
+               
+                 </Tabs>
+              
+                     </div>
+                     </div> */}
+                
+                            
+                 
+             
         
         </>
     )
