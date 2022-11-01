@@ -43,6 +43,7 @@ function PreSelectedView() {
   const [progress, setProgress] = useState<any>(0);
   const [representance,setRepresentance]=useState(false)
   const [Avance,setAvance]=useState(false)
+  const [ReAvance,setReAvance]=useState("")
   const [docUploaded, setDocUploaded] = useState(false);
   const [documentList, setDocumentList] = useState([]);
   const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.url !== undefined ? profile.candidatPhoto?.url : "");
@@ -612,26 +613,26 @@ null
                   :
                   null
                  }
-                  {
+                   {
                   representance ? 
-                  <Representance   props={profile}  closeModal={setRepresentance}  rePid={setRepId}  LinkModal={setDocuLink} />
-
+                 <Representance   props={profile}  closeModal={setRepresentance}  rePid={setRepId}  LinkModal={setDocuLink} setReAvance={setReAvance} />
 
                   :
                   null
                 }
-                     {DocuLink ?
-              <DocumLink   props={profile} closeModal={setDocuLink} id={repID}   />
-
-              :
-              null
-              }
                 {
                   Avance ?
-                  <AvanceModal  props={profile} closeModal={setAvance} />
+                  <AvanceModal  props={profile} closeModal={setAvance} rePid={setRepId} LinkModal={setDocuLink}  setReAvance={setReAvance}/>
                   :
                   null
                 }
+                  {DocuLink ?
+                  <DocumLink   props={profile} closeModal={setDocuLink} id={repID} ReAvance={ReAvance}   />
+    
+                  :
+                  null
+                  }
+              
                   <p className="italic-fontStyle">Si embaché pour un client en cours de recherche</p>
                 </div>
                 <div className="col-4 px-0 text-center">

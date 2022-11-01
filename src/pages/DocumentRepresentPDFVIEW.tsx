@@ -17,7 +17,7 @@ function  DocumentRepresentPDFVIEW(){
     const [ContractSignData,setContractSignData]=useState(ContractData)as any
     const [pdfTimeOut,setpdfTimeOut]=useState(false)
     const { id } = useParams();
-    const { ClientEmp } = useParams();
+    const { ReAvance } = useParams();
     const [publicid, setPublic_id] = useState()as any;
     const [pdfUrl,setUrl]=useState()as any
     
@@ -33,7 +33,7 @@ function  DocumentRepresentPDFVIEW(){
           setTimeout(function() { $("#hideDivPc").fadeOut(1500);}, 7000)
           
           })
-  if(ClientEmp === "Candidate"){
+  // if(ReAvance === "Represent"){
     fetchThePdf(id).then((resData) => {
       if (resData.status == true) {
         setUrl(resData.filePath.replace("http","https"))
@@ -43,7 +43,9 @@ function  DocumentRepresentPDFVIEW(){
       }
     })
 
-      }
+      
+      // if(ReAvance === "Avance"){
+       
       },[id]);
 
       useEffect(()=>{
@@ -54,17 +56,17 @@ function  DocumentRepresentPDFVIEW(){
    
    
       })
-
+console.log(ReAvance,"re")
       const SignDocu =(e)=>{
-        ContractData.user=ClientEmp
+        ContractData.user=ReAvance
         ContractData.representenceId=id
         ContractData.public_id=publicid
    
-        navigate("/RepresentenceContractSigend",{state:ContractSignData})
+        navigate(ReAvance === "Representance" ? "/RepresentenceContractSigend": "/AvanceContractSigend",{state:ContractSignData})
       }
 
     const fetchThePdf = async (candidatId: any) => {
-        return await fetch(API_BASE_URL + `getRepresentence/?representenceId=${candidatId}`, {
+        return await fetch(API_BASE_URL + `${ReAvance === "Representance" ? "getRepresentence/?representenceId=":"getAvance/?avanceId="}${candidatId}`, {
           method: "GET",
           headers: {
             Accept: "application/json",

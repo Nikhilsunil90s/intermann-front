@@ -37,7 +37,8 @@ const ArchivedProfile = () => {
     const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.url !== undefined ? profile.candidatPhoto?.url : "");
     const [PDFModal,setPDFModal]=useState(false)
     const [representance,setRepresentance]=useState(false)
-    const [Avance,setAvance]=useState(false)
+  const [ReAvance,setReAvance]=useState("")
+  const [Avance,setAvance]=useState(false)
     const [docUploaded, setDocUploaded] = useState(false);
     const [CONTRACT_EMPLOYE_INTERMANN, setCONTRACT_EMPLOYE_INTERMANN] = useState() as any;
     const [Fiche_Medicale, setFiche_Medicale] = useState() as any;
@@ -649,23 +650,24 @@ null
       }
        {
                   representance ? 
-                  <Representance   props={profile}  closeModal={setRepresentance}  rePid={setRepId}  LinkModal={setDocuLink} />
+                 <Representance   props={profile}  closeModal={setRepresentance}  rePid={setRepId}  LinkModal={setDocuLink} setReAvance={setReAvance} />
 
                   :
                   null
                 }
                 {
                   Avance ?
-                  <AvanceModal  props={profile} closeModal={setAvance} />
+                  <AvanceModal  props={profile} closeModal={setAvance} rePid={setRepId} LinkModal={setDocuLink}  setReAvance={setReAvance}/>
                   :
                   null
                 }
-  {DocuLink ?
-              <DocumLink   props={profile} closeModal={setDocuLink} id={repID}   />
-
-              :
-              null
-              }
+                  {DocuLink ?
+                  <DocumLink   props={profile} closeModal={setDocuLink} id={repID} ReAvance={ReAvance}   />
+    
+                  :
+                  null
+                  }
+              
       <div className="col-12 Social-Card my-1">
               <div className='row  p-1'>
                             {

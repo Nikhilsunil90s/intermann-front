@@ -12,7 +12,7 @@ function RepresentanceSign() {
     const {state}=useLocation()
     const SignPad =useRef(undefined)
     const [SignError,setSignError]=useState(false)
-
+     console.log(state,"state")
   const [contractID]=useState(state)as any
 console.log(contractID.id)
   
@@ -24,11 +24,20 @@ console.log(contractID.id)
     SignPad.current.toDataURL()
   }
 
-    Data={
+
+  Data=  contractID.user === "Representance" ?
+  {
         representenceId:contractID.representenceId,
         signature:SignPad.current.toDataURL(),
         public_id:contractID.public_id
+        
 
+    }
+    :
+    {
+      signature:SignPad.current.toDataURL(),
+      avanceId:contractID.representenceId,
+      publicid:contractID.public_id
     }
 
     }
@@ -44,10 +53,9 @@ const Checkking=(e)=>{
     const SaveSignFun=()=>{
         SignSave()
         if(SignError){
-          if(contractID.user === "Candidate"){
 
             CandidateSign().then((res)=>{
-              if(res){
+              if(res.status){
                 toast.success("Signatures Added Successfully!")
                 setSingLoad(false)
                 setTimeout(()=>{
@@ -59,22 +67,7 @@ const Checkking=(e)=>{
               console.log(err)
               toast.error("Signatures Not Added !")
           })
-          }
-          if(contractID.user === "Client"){
-          SignClient().then((res)=>{
-                 if(res){
-                   toast.success("Signatures Added Successfully!")
-                   setSingLoad(false)
-                   setTimeout(()=>{
-                     window.location.href="/documentSigned/thankYou"
-                   },2000)
-                 }
-             })
-             .catch(err=>{
-                 console.log(err)
-                 toast.error("Signatures Not Added !")
-             })
-            }
+          
         }else{
             toast.error("Trebuie să semnezi ! / You must sign / Veuillez signer !")
         }
@@ -83,7 +76,7 @@ const Checkking=(e)=>{
 
     const CandidateSign =async() => {
       setSingLoad(true)
-      return await  fetch(API_BASE_URL + "addRepresentenceSignatures", {
+      return await  fetch(contractID.user ==="Representance" ? API_BASE_URL +"addRepresentenceSignatures" : API_BASE_URL + "addAvanceSignatures", {
             method: "POST",
             headers: {
                 "Accept": 'application/json',
@@ -96,21 +89,7 @@ const Checkking=(e)=>{
             .then((reD) => reD)
             .catch(err => err)
     }
-    const SignClient =async() => {
-      setSingLoad(true)
-      return await  fetch(API_BASE_URL + "addClientSignatures", {
-            method: "POST",
-            headers: {
-                "Accept": 'application/json',
-                'Content-Type': 'application/json',
-                "Authorization": "Bearer " + localStorage.getItem('token')
-            },
-            body: JSON.stringify(Data),
-        })
-            .then(resp => resp.json())
-            .then((reD) => reD)
-            .catch(err => err)
-    }
+   
 
 
     return (<>

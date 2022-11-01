@@ -6,7 +6,7 @@ import "../../../CSS/Client/ArchivedCardClient.css"
 import "../../../CSS/Dashboard.css";
 import Share from '../../../components/Loader/Share'
 
-function DocumentLink({ props, closeModal,id }) {
+function DocumentLink({ props, closeModal,id ,ReAvance}) {
 
     console.log(props);
    const  CloseTheModal =()=>{
@@ -51,7 +51,7 @@ function DocumentLink({ props, closeModal,id }) {
     fontSize: "16px",
     lineHeight: "24px",
     color: "#3F76E2"
-}}  onClick={()=>CloseTheModal()} href={`/${props.candidatName ? `Candidate` : `Client`}/documentSignForRepresentence/${props.candidatName ? props.candidatName.toLocaleUpperCase().replaceAll(" ","")  : props.clientCompanyName.toLocaleUpperCase().replaceAll(" ","") }/${id}`} target="_blank">{API_BASE_URL}{props.candidatName ? `Candidate` : `Client`}/documentSignForRepresentence/{props.candidatName ? props.candidatName.toLocaleUpperCase().replaceAll(" ","")  : props.clientCompanyName.toLocaleUpperCase().replaceAll(" ","") }/{id}</a>
+}}  onClick={()=>CloseTheModal()} href={`/${ReAvance === "Represent" ? `Representance` : `Avance`}/documentSignForReAvance/${props.candidatName ? props.candidatName.toLocaleUpperCase().replaceAll(" ","")  : props.clientCompanyName.toLocaleUpperCase().replaceAll(" ","") }/${id}`} target="_blank">{API_BASE_URL}{ReAvance === "Represent" ? `Representance` : `Avance`}/documentSignForReAvance/{props.candidatName ? props.candidatName.toLocaleUpperCase().replaceAll(" ","")  : props.clientCompanyName.toLocaleUpperCase().replaceAll(" ","") }/{id}</a>
                </span>         
                          </p>
      

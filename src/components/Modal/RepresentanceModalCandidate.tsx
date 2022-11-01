@@ -3,7 +3,7 @@ import LoaderLoad from "../../components/Loader/loader"
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import {toast} from "react-hot-toast"
 
-function Representance ({props,closeModal,rePid,LinkModal}){
+function Representance ({props,closeModal,rePid,LinkModal,setReAvance}){
  
   const [DataP,setDataP]=useState()as any
   const [id,setId]=useState(null)
@@ -148,6 +148,8 @@ if(e.target.name == "Generate"){
       .then((reD) =>{if(reD.status){
         toast.success(reD.message)
         setLoader(false)
+        setReAvance("Represent")
+        rePid(reD.representenceid)
         closeModal(false)
         LinkModal(true)
       }else{

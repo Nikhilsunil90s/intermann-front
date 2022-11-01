@@ -66,6 +66,7 @@ function ToDoProfile() {
   const datenow=moment().format('YYYY-MM-DD')
   const [DocumentSignModal,setDocuSignModal]=useState(false)
   const [DocuLink,setDocuLink]=useState(false)
+  const [ReAvance,setReAvance]=useState("")
   const [repID,setRepId]=useState("")
   const [CONTRACT_EMPLOYE_INTERMANN, setCONTRACT_EMPLOYE_INTERMANN] = useState() as any;
   const [Fiche_Medicale, setFiche_Medicale] = useState() as any;
@@ -802,14 +803,14 @@ className="SelectBtn"
                 }
                 {
                   representance ? 
-                 <Representance   props={profile}  closeModal={setRepresentance}  rePid={setRepId}  LinkModal={setDocuLink} />
+                 <Representance   props={profile}  closeModal={setRepresentance}  rePid={setRepId}  LinkModal={setDocuLink} setReAvance={setReAvance} />
 
                   :
                   null
                 }
                 {
                   Avance ?
-                  <AvanceModal  props={profile} closeModal={setAvance} />
+                  <AvanceModal  props={profile} closeModal={setAvance} rePid={setRepId} LinkModal={setDocuLink}  setReAvance={setReAvance}/>
                   :
                   null
                 }
@@ -959,7 +960,7 @@ className="SelectBtn"
                       
               </div>
               {DocuLink ?
-              <DocumLink   props={profile} closeModal={setDocuLink} id={repID}   />
+              <DocumLink   props={profile} closeModal={setDocuLink} id={repID} ReAvance={ReAvance}   />
 
               :
               null

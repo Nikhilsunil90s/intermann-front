@@ -375,6 +375,14 @@ function App() {
             
             }
           />
+            <Route
+            path={"/AvanceContractSigend"}
+            element={
+            
+                <RepresentanceSign />
+            
+            }
+          />
            <Route
             path={"/documentSigned/thankYou"}
             element={
@@ -392,7 +400,7 @@ function App() {
             }
           />
               <Route
-            path={"/:ClientEmp/documentSignForRepresentence/:Candidate/:id"}
+            path={"/:ReAvance/documentSignForReAvance/:Candidate/:id"}
             element={
             
                 <DocumentRepresentPDFVIEW />

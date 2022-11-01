@@ -38,6 +38,7 @@ function ProgressCard() {
   const [docUploaded, setDocUploaded] = useState(false);
   const [representance,setRepresentance]=useState(false)
   const [Avance,setAvance]=useState(false)
+  const [ReAvance,setReAvance]=useState("")
   const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.url !== undefined ? profile.candidatPhoto?.url : "");
   const hiddenImageInput = React.useRef(null);
   const [UploadBtn,setSelectUpload]= useState(false)
@@ -644,7 +645,7 @@ null
                   :
                   null
                  }  {DocuLink ?
-                  <DocumLink   props={profile} closeModal={setDocuLink} id={repID}   />
+                  <DocumLink   props={profile} closeModal={setDocuLink} id={repID} ReAvance={ReAvance}   />
     
                   :
                   null
@@ -814,16 +815,16 @@ null
                             null
                   
                           }
-                            {
+                        {
                   representance ? 
-                  <Representance   props={profile}  closeModal={setRepresentance}  rePid={setRepId}  LinkModal={setDocuLink} />
+                 <Representance   props={profile}  closeModal={setRepresentance}  rePid={setRepId}  LinkModal={setDocuLink} setReAvance={setReAvance} />
 
                   :
                   null
                 }
                 {
                   Avance ?
-                  <AvanceModal  props={profile} closeModal={setAvance} />
+                  <AvanceModal  props={profile} closeModal={setAvance} rePid={setRepId} LinkModal={setDocuLink}  setReAvance={setReAvance}/>
                   :
                   null
                 }
