@@ -296,7 +296,7 @@ console.log(representance,"res")
                             <div className="col-12 mt-1" style={{background:"#fe87001f",borderRadius:"10px"}} key={i}>
                             <div className="row p-1 align-items-center">
                                 <div className="col-10 px-0">
-                                  <p className="ContractListFont mb-0">{el.candidatName ? el.candidatName : el.initial_client_company ? el.initial_client_company  : el.candidat_name} {el.amount_avance ? `- Amount : ${el.amount_avance +" €"}` :null} - Generated : <b>{el.contract_date ? el.contract_date : el.contract_generated_on ? el.contract_generated_on : el.generated_on} </b> Signed : <b>{el.contract_signed_on ? el.contract_signed_on : el.contract_signed_on ?   el.contract_signed_on : el.signed_on}</b></p>
+                                  <p className="ContractListFont mb-0">{el.candidatName ? el.candidatName : el.initial_client_company ? el.initial_client_company  : el.candidat_name} {el.amount_avance ? `- Amount : ${el.amount_avance +" €"}` :null} - Generated : <b>{el.contract_generated_on ? el.contract_generated_on : el.contract_generated_on ? el.contract_generated_on : el.generated_on} </b> Signed : <b>{el.contract_signed_on ? el.contract_signed_on : el.contract_signed_on ?   el.contract_signed_on : el.signed_on}</b></p>
                                 </div>
                                 <div className="col-2 px-0 ">
                                     <div className="row d-flex justify-content-evenly">
