@@ -1,7 +1,9 @@
-import React from "react";
+import React ,{useState} from "react";
 
 function AvanceModal ({props,closeModal}){
 console.log(props,"props")
+    const [Loader,setLoader]=useState(false)
+    
     return(<>
     
     <div
@@ -29,7 +31,7 @@ console.log(props,"props")
     <div className="row">
         <div className="col-4">
             <label className="ChildStylePreModal">candidate_name </label>
-            <input className="form-control" style={{fontSize:"12px",fontFamily:"Poppins"}} placeholder="candidate_name" name="DOCName" />
+            <input className="form-control" defaultValue={props.candidatName} style={{fontSize:"12px",fontFamily:"Poppins"}} placeholder="candidate_name" name="DOCName" disabled />
             <span style={{fontFamily:"Poppins" ,fontSize:"9px",color: "#68B085"}}>Name of the candidate </span>
         </div>
         <div className="col-4">

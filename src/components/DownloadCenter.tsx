@@ -9,6 +9,7 @@ export default function  DownloadCenter(){
   const [activeTab, setActiveTab] = React.useState(0) as any;
   const [candidateContracts,setCandidateContracts]=useState([])
   const [ClientContracts,setClientContracts]=useState([])
+  const [representance,setRepresentance]=useState([])
   const [AllProfiles,setAllProfiles]=useState([])
   const [Status,setStatus]=useState(false)
   const [deleteCanContract,setdeleteCanContract]=useState(false)
@@ -33,6 +34,20 @@ export default function  DownloadCenter(){
 
   const fetchCandidatContracts = async () => {
     return await fetch(API_BASE_URL + `getCandidatSignedContracts`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((resp) => resp.json())
+      .then((respData) => respData)
+      .catch((err) => err);
+  };
+
+  
+  const fetchCandidatRepresentance = async () => {
+    return await fetch(API_BASE_URL + `getSignedRepresentences`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -94,7 +109,24 @@ export default function  DownloadCenter(){
       });
   };
 
- 
+  const deleteRepresentance = async (id:any) => {
+    return await fetch(API_BASE_URL + `deleteRepresentence/?representenceId=${id}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((resp) => resp.json())
+      .then((respData) => {
+        toast.success("Représentance Removed Successfully!")
+        setdeleteCanContract(true)
+      })
+      .catch((err) => 
+      {
+        toast.error("Représentance Not Removed!")
+      });
+  };
   
   useEffect(()=>{
     setStatus(false)
@@ -134,10 +166,32 @@ export default function  DownloadCenter(){
             }
             }
     })
+      fetchCandidatRepresentance().then((res)=>{
+        if(res.status){
+          setStatus(true)
+          setRepresentance([...res.data])
+          console.log(...res.data)
+          setdeleteCanContract(false)
+
+          if(activeTab === 3 ){
+              setAllProfiles([...res.data])
+          }
+      }else{
+        setStatus(true)
+        if(activeTab === 3 ){
+          setAllProfiles([])
+          setRepresentance([])
+      }
+      }
+
+
+
+      })
+
 
   },[deleteCanContract])       
    
-
+console.log(representance,"res")
     const onTabClick = (e,index: any) => {
         setActiveTab(index);
         if(index === 0){
@@ -150,7 +204,7 @@ export default function  DownloadCenter(){
             setAllProfiles([])
         }
         if(index === 3){
-            setAllProfiles([])
+            setAllProfiles(representance.filter((el)=>(el)))
         }
       
       };
@@ -186,20 +240,20 @@ export default function  DownloadCenter(){
                     {
                         
                         Status  ?
-                        AllProfiles.length > 0 && activeTab === 0 || AllProfiles.length > 0 && activeTab === 1 ?
+                        AllProfiles.length > 0 && activeTab === 0 || AllProfiles.length > 0 && activeTab === 1 ||  AllProfiles.length > 0 && activeTab === 3 ?
                         AllProfiles.map((el,i)=>(
                             <div className="col-12 mt-1" style={{background:"#fe87001f",borderRadius:"10px"}} key={i}>
                             <div className="row p-1 align-items-center">
                                 <div className="col-10 px-0">
-                                  <p className="ContractListFont mb-0">{el.candidatName ? el.candidatName : el.initial_client_company} - Generated : <b>{el.contract_date ? el.contract_date : el.contract_generated_on} </b> Signed : <b>{el.contract_signed_on ? el.contract_signed_on : el.contract_signed_on}</b></p>
+                                  <p className="ContractListFont mb-0">{el.candidatName ? el.candidatName : el.initial_client_company ? el.initial_client_company  : el.candidat_name} - Generated : <b>{el.contract_date ? el.contract_date : el.contract_generated_on ? el.contract_generated_on : el.generated_on} </b> Signed : <b>{el.contract_signed_on ? el.contract_signed_on : el.contract_signed_on ?   el.contract_signed_on : el.signed_on}</b></p>
                                 </div>
                                 <div className="col-2 px-0 ">
                                     <div className="row d-flex justify-content-evenly">
-                                        <div className="col-6 px-0 RoundDiv cursor-pointer" id="delete" onClick={(e)=>el.candidatName ? deleteCandiateContracts(el.candidatId,el._id) : deleteClientsContracts(el.clientId,el._id)}>
+                                        <div className="col-6 px-0 RoundDiv cursor-pointer" id="delete" onClick={(e)=>el.candidatName ? deleteCandiateContracts(el.candidatId,el._id) : el.clientId ?  deleteClientsContracts(el.clientId,el._id)  :  deleteRepresentance(el._id) }>
                                     <img src={require("../images/Deletebucket.svg").default} />
                                     </div>
                                   
-                                    <div className="col-6 px-0 RoundDiv cursor-pointer" id="view" onClick={(e)=>window.open(el.signed_contract_url)}>
+                                    <div className="col-6 px-0 RoundDiv cursor-pointer" id="view" onClick={(e)=>window.open(el.signed_contract_url ?  el.signed_contract_url  : el.signed_representence_url)}>
                                 <img
                                       src={require("../images/dowBtn.svg").default}
                                     />
