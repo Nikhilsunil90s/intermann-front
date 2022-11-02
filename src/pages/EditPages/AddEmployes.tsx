@@ -46,7 +46,6 @@ const EmployeeDataFormat = {
   }
 }
 
-let FilterJob = []
 export default function Employes() {
 
   const [data, setData] = useState(EmployeeDataFormat);
@@ -60,11 +59,12 @@ export default function Employes() {
   const [Language, setLanguage] = useState([])
   const [showMessage, setShowMessage] = useState(false);
   const [selectedSector, setSelectedSector] = useState("")
-  const [person, setPerson] = useState([])
+  const [dsBtn, setdsBtn] = useState(false)
   const [showError, setShowError] = useState(false);
   const [inputDisabled, setInputDisabled] = useState(false);
   const [jobOptions, setJobOptions] = useState([])
   const [displayRow, setDisplayRow] = useState(false);
+  const [contactErr, setcontactErr] = useState([]);
 const [sectorOption,setSectorOptions]=useState([])
   const [workExperience, setWorkExperience] = useState([{
     period: "",
@@ -256,6 +256,21 @@ useEffect(() => {
       .catch(err => err)
   }
 
+  const checkCandidatePhone = async (num: any) => {
+    return await fetch(API_BASE_URL + `checkCandidatExists/?candidatPhone=${num.replace("+","")}`, {
+      method: 'GET',
+      headers: {
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+    })
+      .then(resp => resp.json())
+      .then(reD => reD)
+      .catch(err => err)
+  }
+
+
   const saveCandidatData = async () => {
     return await fetch(API_BASE_URL + "addCandidat", {
       method: "POST",
@@ -319,6 +334,17 @@ useEffect(() => {
       let val = e.target.value.toLocaleUpperCase()
       setData((prev) => ({ ...prev, ["candidatName"]: val }));
       return;
+    }
+    if(e.target.name === 'candidatPhone'){
+      checkCandidatePhone(e.target.value.replace(" ","")).then((res)=>{
+      console.log(res,"res")
+      if(res.status){
+        setcontactErr([...res.data])
+      }else{
+        setcontactErr([])
+      }
+      })
+      .catch(err=>err)
     }
     if (e.target.name === 'candidatMotivation') {
       changeSectorSelection(e.target.value);
@@ -433,6 +459,7 @@ useEffect(() => {
     }
 
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    setdsBtn(true)
     e.preventDefault();
     // setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [] }));
     if (data.candidatName == "") {
@@ -455,12 +482,14 @@ useEffect(() => {
       console.log(data)
       if (data.status) {
         notifyCandidatAddSuccess()
+        setdsBtn(false)
         setTimeout(() => {
           window.location.href = "/addCandidate";
         }, 2000)
 
       } else {
         notifyCandidatAddError()
+        setdsBtn(false)
       }
     })
       .catch(err => {
@@ -473,7 +502,10 @@ useEffect(() => {
     startDate: new Date(),
     endDate: "",
     key: 'selection',
-  }
+  } 
+
+
+  console.log(contactErr,"sjs")
 
   return (
     <> <Toaster position="bottom-right" />
@@ -494,7 +526,7 @@ useEffect(() => {
             <div className="row px-1 pb-1">
               <form className="add-form form needs-validation p-0" name="contact-form" onSubmit={onFormSubmit} noValidate>
                 <div className="d-flex flex-wrap justify-content-around">
-                  <div className="col-4">
+                  <div className="col-4 ">
                     <div className="p-1">
                       <label className="Form-styling" htmlFor="validationCustom01">Candidat Name</label>
                       <input
@@ -507,17 +539,16 @@ useEffect(() => {
                         value={data.candidatName.toLocaleUpperCase()}
                         onChange={onFormDataChange}
                       />
-                      <div className="valid-feedback">
-                        Looks good!
-                      </div>
-                      <span className="text-small">
-                        Mandatory, please add company candidat
-                      </span>
+                   
+                     
                       {
                         showError ?
-                          <p style={{ color: 'red', overflow: 'hidden' }}>
-                            Attention ! Un autre profil avec le meme nom existe déjà !
-                          </p> : null
+                          <p style={{ color: '#FE8700', overflow: 'hidden' }} className="text-small">
+                          
+                       ⚠️ Attention ! Un autre profil avec le meme nom existe déjà !
+                          </p> :  <span className="text-small">
+                        Mandatory, please add company candidat
+                      </span>
                       }
                     </div>
                   </div>
@@ -550,10 +581,27 @@ useEffect(() => {
                         value={data.candidatPhone}
                         onChange={onFormDataChange}
                       />
-                      <span className="text-small">
+                      
+                      {
+                        contactErr.length > 0 ?
+                        <span  style={{ color: '#FE8700', overflow: 'hidden' }} className="text-small">⚠️ This name already exists on database, please check if it's not a doublon.</span>
+
+                        :
+                         data.candidatPhone === "" ?
+                        <span className="text-small">
                         NOT Mandatory, please add phone candidat with +() . exemple :
                         +33623167260
                       </span>
+                      :
+                      data.candidatPhone.includes("+") &&  data.candidatPhone !== "" ?
+                      <span className="text-small">
+                      NOT Mandatory, please add phone candidat with +() . exemple :
+                      +33623167260
+                    </span>
+                    :
+                    <span  style={{ color: '#FE8700', overflow: 'hidden' }} className="text-small">⚠️ Please store international format exemple : 0712131516 should be +4071213141516</span>
+                      }
+
                     </div>
                   </div>
                   <div className="col-4">
@@ -1118,7 +1166,7 @@ useEffect(() => {
                     </span>
                   </div>
                   <div className="col-md-12 py-4 d-flex justify-content-center px-2">
-                    <button className="btn btn-dark text-light  btn-stylingEnd" type="submit" >
+                    <button disabled={dsBtn} className="btn btn-dark text-light  btn-stylingEnd" type="submit" >
                       Ajouter ce candidat / Add this candidate
                     </button>
                   </div>

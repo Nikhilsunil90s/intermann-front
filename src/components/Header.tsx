@@ -55,6 +55,19 @@ const Header = () => {
   }
 
 
+  const checkCandidatePhone = async (num: any) => {
+    return await fetch(API_BASE_URL + `checkCandidatExists/?candidatPhone=${num.replace("+","")}`, {
+      method: 'GET',
+      headers: {
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+    })
+      .then(resp => resp.json())
+      .then(reD => reD)
+      .catch(err => err)
+  }
 
 
 
@@ -113,12 +126,17 @@ if(e.target.value){
 }
 
 if( Number.isInteger(Number(e.target.value))){
-
+    
+  checkCandidatePhone(e.target.value.replace("+","").replace(" ","")).then((res)=>{
+    if(res.status){
+    setFilterData([...res.data])
+    }else{
+      return
+    }
+  })
+    
   
     const FilDataNo =   data.filter(el=>(
-      el.candidatPhone !== undefined ?
-     el.candidatPhone.includes(e.target.value)
-      :
       el.clientPhone !== undefined ?
       el.clientPhone.includes(e.target.value)                                                                                                                                                                                                                                                                                                                                                                                                                                                           
       :
