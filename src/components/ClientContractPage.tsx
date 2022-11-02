@@ -55,8 +55,7 @@ function ClientContractPage() {
           // setProfile(resData.data)
           resData.data.map((el) => {
             setProfile(el);
-            setDocumentList(el.clientDocuments);
-            setLinksList(el.clientLinks);
+            setDocumentList([...el.clientDocuments,...el.clientLinks]);
           });
         } else {
           return false;
@@ -75,11 +74,11 @@ function ClientContractPage() {
 
   useEffect(() => {
     documentList.map((el) => {
-        if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("reges"))) {
+        if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("reges"))  || JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("reges"))) {
             setreges([el]);
           }
         if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrat_client"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrat_client")) || JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("reges"))
       ) {
        setcontrat_client([el]);
         }
@@ -88,95 +87,147 @@ function ClientContractPage() {
         JSON.stringify(el.folderName ? el.folderName : null).includes(
           JSON.stringify("contrat_employes")
         )
-      ) {
+        ||         JSON.stringify(el.folder ? el.folder : null).includes(
+          JSON.stringify("contrat_employes")
+      )) {
         setcontrat_employes([el]);
       }
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("carte_d'identite_employes"))
-      ) {
+        ||         JSON.stringify(el.folder ? el.folder : null).includes(
+          JSON.stringify("carte_d'identite_employes")
+      )
+      
+      ){
         setcarte_d([el]);
       }
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("id_card_employer"))
-      ) {
+      ||  JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("id_card_employer"))
+      
+        )
+       {
         setid_card_employer([el]);
       }
       if (
+      
         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("al"))
-      ) {
+      || 
+      JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("al"))
+
+        ) {
         setal([el]);
       }
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrats_assurances_employes"))
-      ) {
+     ||
+     JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("contrats_assurances_employes"))
+
+        ) {
         setcontrats_assurances_employes([el]);
       }
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("sispi"))
-      ) {
+      ||
+      JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("sispi"))
+
+        ) {
         setsispi([el]);
       }
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("document_de_represntation"))
-      ) {
+      ||
+      JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("document_de_represntation"))
+
+        ) {
         setdocument_de_represntation([el]);
       }
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("offre_signee"))
-      ) {
+    ||
+    JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("offre_signee"))
+
+        ) {
         setoffre_signee([el]);
       }
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("attestations_societe_intermann"))
-      ) {
+     ||
+     JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("attestations_societe_intermann"))
+
+        ) {
         setattestations_societe_intermann([el]);
       }
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("cvs"))
-      ) {
+    ||
+    JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("cvs"))
+
+        ) {
         setcvs([el]);
       }
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("autres_documents"))
-      ) {
+    ||
+    JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("autres_documents"))
+
+        ) {
         setautres_documents([el]);
       }
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("factures_payes"))
-      ) {
+      ||
+      JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("factures_payes"))
+
+        ) {
         setfactures([el]);
       }
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("factures_impayes"))
-      ) {
+    ||
+    JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("factures_impayes"))
+
+        ) {
         setfacturesimpayes([el]);
       }
 
       if (
+        
         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("rapport_activite"))
-      ) {
+      ||
+      JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("rapport_activite"))
+
+        ) {
         setrapport_activite([el]);
       } if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("offre_envoye_et_nonsigne"))
-      ) {
+    ||
+    JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("offre_envoye_et_nonsigne"))
+
+        ) {
         setoffre_envoye_et_nonsigne([el]);
       }
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("fiche_medicale"))
-      ) {
+     ||
+     JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("fiche_medicale"))
+
+        ) {
         setfiche_medicale([el]);
       }
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(
           JSON.stringify("fiche_de_mise_a_disposition")
         )
-      ) {
+     ||
+     JSON.stringify(el.folder ? el.folder : null).includes(
+      JSON.stringify("fiche_de_mise_a_disposition")
+    )
+        ) {
         setfiche_de_mise_a_disposition([el]);
       }
     });
   },[documentList]);
-
-
 
   const fetchCandidat = async (clientId: any) => {
     return await fetch(API_BASE_URL + `getClientDetailsById/?clientId=${clientId}`, {
@@ -324,6 +375,32 @@ INTERMANN WORK S.R.L <br/>
                       </>
                         
                          : 
+                        JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("contrat_client")) ?
+                        <>    
+                        <div className="col-md-6 col-sm-12 mb-1">
+                             <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                     ViewDownloadFiles(el.link)
+                                   }>
+                              <div className="col-2 px-0 d-flex align-items-center">
+                                <img
+                                  style={{ width: "73%" }}
+                                  src={require("../images/newresume.svg").default}
+                                />
+                              </div>
+                              <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.link}>
+                                <p className="mb-0 contractEMPStyle">{el.link.length > 30 ? el.link.slice(0,32) + "..." : el.link}</p>
+                              </div>
+                              <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
+                                <img
+                                  style={{ width: "73%" }}
+                                  src={require("../images/dowcard.svg").default}
+                                />
+                              </div>
+                              </div>
+                        </div>
+                        </>
+                        :
+
                        null
 
                     )
@@ -381,6 +458,32 @@ INTERMANN WORK S.R.L <br/>
                        </div>
                      </>
                           :
+
+                       JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("contrat_employes")) ?
+                       <>    
+                       <div className="col-md-6 col-sm-12 mb-1">
+                            <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                    ViewDownloadFiles(el.link)
+                                  }>
+                             <div className="col-2 px-0 d-flex align-items-center">
+                               <img
+                                 style={{ width: "73%" }}
+                                 src={require("../images/newresume.svg").default}
+                               />
+                             </div>
+                             <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.link}>
+                               <p className="mb-0 contractEMPStyle">{el.link.length > 30 ? el.link.slice(0,32) + "..." : el.link}</p>
+                             </div>
+                             <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
+                               <img
+                                 style={{ width: "73%" }}
+                                 src={require("../images/dowcard.svg").default}
+                               />
+                             </div>
+                             </div>
+                       </div>
+                       </>
+                       :
                           null
                    )
                    )
@@ -435,6 +538,32 @@ INTERMANN WORK S.R.L <br/>
                        </div>
                      </>
                           :
+                       JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("id_card_employer")) ?
+                       <>    
+                       <div className="col-md-6 col-sm-12 mb-1">
+                            <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                    ViewDownloadFiles(el.link)
+                                  }>
+                             <div className="col-2 px-0 d-flex align-items-center">
+                               <img
+                                 style={{ width: "73%" }}
+                                 src={require("../images/newresume.svg").default}
+                               />
+                             </div>
+                             <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.link}>
+                               <p className="mb-0 contractEMPStyle">{el.link.length > 30 ? el.link.slice(0,32) + "..." : el.link}</p>
+                             </div>
+                             <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
+                               <img
+                                 style={{ width: "73%" }}
+                                 src={require("../images/dowcard.svg").default}
+                               />
+                             </div>
+                             </div>
+                       </div>
+                       </>
+                       :
+
                           null
                    )
                    )
@@ -489,6 +618,32 @@ INTERMANN WORK S.R.L <br/>
                        </div>
                      </>
                           :
+                       JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("al")) ?
+                         
+                       <>    
+                       <div className="col-md-6 col-sm-12 mb-1">
+                            <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                    ViewDownloadFiles(el.link)
+                                  }>
+                             <div className="col-2 px-0 d-flex align-items-center">
+                               <img
+                                 style={{ width: "73%" }}
+                                 src={require("../images/newresume.svg").default}
+                               />
+                             </div>
+                             <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.link}>
+                               <p className="mb-0 contractEMPStyle">{el.link.length > 30 ? el.link.slice(0,32) + "..." : el.link}</p>
+                             </div>
+                             <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
+                               <img
+                                 style={{ width: "73%" }}
+                                 src={require("../images/dowcard.svg").default}
+                               />
+                             </div>
+                             </div>
+                       </div>
+                       </>
+                       :
                           null
                    )
                    )
@@ -543,6 +698,31 @@ INTERMANN WORK S.R.L <br/>
                        </div>
                      </>
                           :
+                       JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("contrats_assurances_employes")) ?
+                       <>    
+                       <div className="col-md-6 col-sm-12 mb-1">
+                            <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                    ViewDownloadFiles(el.link)
+                                  }>
+                             <div className="col-2 px-0 d-flex align-items-center">
+                               <img
+                                 style={{ width: "73%" }}
+                                 src={require("../images/newresume.svg").default}
+                               />
+                             </div>
+                             <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.link}>
+                               <p className="mb-0 contractEMPStyle">{el.link.length > 30 ? el.link.slice(0,32) + "..." : el.link}</p>
+                             </div>
+                             <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
+                               <img
+                                 style={{ width: "73%" }}
+                                 src={require("../images/dowcard.svg").default}
+                               />
+                             </div>
+                             </div>
+                       </div>
+                       </>
+                       :
                           null
                    )
                    )
@@ -595,6 +775,32 @@ INTERMANN WORK S.R.L <br/>
                          </div>
                        </div>
                      </>
+
+                     :
+                     JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("sispi")) ?
+                      <>    
+                      <div className="col-md-6 col-sm-12 mb-1">
+                           <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                   ViewDownloadFiles(el.link)
+                                 }>
+                            <div className="col-2 px-0 d-flex align-items-center">
+                              <img
+                                style={{ width: "73%" }}
+                                src={require("../images/newresume.svg").default}
+                              />
+                            </div>
+                            <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.link}>
+                              <p className="mb-0 contractEMPStyle">{el.link.length > 30 ? el.link.slice(0,32) + "..." : el.link}</p>
+                            </div>
+                            <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
+                              <img
+                                style={{ width: "73%" }}
+                                src={require("../images/dowcard.svg").default}
+                              />
+                            </div>
+                            </div>
+                      </div>
+                      </>
                           :
                           null
                    )
@@ -649,6 +855,32 @@ INTERMANN WORK S.R.L <br/>
                          </div>
                        </div>
                      </>
+
+                     :
+                     JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("document_de_represntation")) ?
+                     <>    
+                     <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                  ViewDownloadFiles(el.link)
+                                }>
+                           <div className="col-2 px-0 d-flex align-items-center">
+                             <img
+                               style={{ width: "73%" }}
+                               src={require("../images/newresume.svg").default}
+                             />
+                           </div>
+                           <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.link}>
+                             <p className="mb-0 contractEMPStyle">{el.link.length > 30 ? el.link.slice(0,32) + "..." : el.link}</p>
+                           </div>
+                           <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
+                             <img
+                               style={{ width: "73%" }}
+                               src={require("../images/dowcard.svg").default}
+                             />
+                           </div>
+                           </div>
+                     </div>
+                     </>
                           :
                           null
                    )
@@ -702,6 +934,31 @@ INTERMANN WORK S.R.L <br/>
                          </div>
                        </div>
                      </>
+                          :
+                       JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("offre_signee")) ?
+                       <>    
+                       <div className="col-md-6 col-sm-12 mb-1">
+                            <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                    ViewDownloadFiles(el.link)
+                                  }>
+                             <div className="col-2 px-0 d-flex align-items-center">
+                               <img
+                                 style={{ width: "73%" }}
+                                 src={require("../images/newresume.svg").default}
+                               />
+                             </div>
+                             <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.link}>
+                               <p className="mb-0 contractEMPStyle">{el.link.length > 30 ? el.link.slice(0,32) + "..." : el.link}</p>
+                             </div>
+                             <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
+                               <img
+                                 style={{ width: "73%" }}
+                                 src={require("../images/dowcard.svg").default}
+                               />
+                             </div>
+                             </div>
+                       </div>
+                       </>
                           :
                           null
                    )
@@ -758,6 +1015,31 @@ INTERMANN WORK S.R.L <br/>
                        </div>
                      </>
                           :
+                       JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("attestations_societe_intermann")) ?
+<>
+<div className="col-md-6 col-sm-12 mb-1">
+                        <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.link)
+                              }>
+                         <div className="col-2 px-0 d-flex align-items-center">
+                           <img
+                             style={{ width: "73%" }}
+                             src={require("../images/newresume.svg").default}
+                           />
+                         </div>
+                         <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.link}>
+                           <p className="mb-0 contractEMPStyle">{el.link.length > 30 ? el.link.slice(0,32) + "..." : el.link}</p>
+                         </div>
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
+                           <img
+                             style={{ width: "73%" }}
+                             src={require("../images/dowcard.svg").default}
+                           />
+                         </div>
+                         </div>
+                   </div>
+</>
+:
                           null
                    )
                    )
@@ -866,6 +1148,32 @@ INTERMANN WORK S.R.L <br/>
                        </div>
                      </>
                           :
+                       JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("autres_documents")) ?
+                       <>    
+                       <div className="col-md-6 col-sm-12 mb-1">
+                            <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                    ViewDownloadFiles(el.link)
+                                  }>
+                             <div className="col-2 px-0 d-flex align-items-center">
+                               <img
+                                 style={{ width: "73%" }}
+                                 src={require("../images/newresume.svg").default}
+                               />
+                             </div>
+                             <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.link}>
+                               <p className="mb-0 contractEMPStyle">{el.link.length > 30 ? el.link.slice(0,32) + "..." : el.link}</p>
+                             </div>
+                             <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
+                               <img
+                                 style={{ width: "73%" }}
+                                 src={require("../images/dowcard.svg").default}
+                               />
+                             </div>
+                             </div>
+                       </div>
+                       </>
+
+                       :
                           null
                    )
                    )
@@ -920,6 +1228,32 @@ INTERMANN WORK S.R.L <br/>
                        </div>
                      </>
                           :
+                       JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("factures_payes")) ?
+                       <>    
+                       <div className="col-md-6 col-sm-12 mb-1">
+                            <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                    ViewDownloadFiles(el.link)
+                                  }>
+                             <div className="col-2 px-0 d-flex align-items-center">
+                               <img
+                                 style={{ width: "73%" }}
+                                 src={require("../images/newresume.svg").default}
+                               />
+                             </div>
+                             <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.link}>
+                               <p className="mb-0 contractEMPStyle">{el.link.length > 30 ? el.link.slice(0,32) + "..." : el.link}</p>
+                             </div>
+                             <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
+                               <img
+                                 style={{ width: "73%" }}
+                                 src={require("../images/dowcard.svg").default}
+                               />
+                             </div>
+                             </div>
+                       </div>
+                       </>
+
+                       :
                           null
                    )
                    )
@@ -973,6 +1307,32 @@ INTERMANN WORK S.R.L <br/>
                        </div>
                      </>
                           :
+                       JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("factures_impayes")) ?
+                       <>    
+                       <div className="col-md-6 col-sm-12 mb-1">
+                            <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                    ViewDownloadFiles(el.link)
+                                  }>
+                             <div className="col-2 px-0 d-flex align-items-center">
+                               <img
+                                 style={{ width: "73%" }}
+                                 src={require("../images/newresume.svg").default}
+                               />
+                             </div>
+                             <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.link}>
+                               <p className="mb-0 contractEMPStyle">{el.link.length > 30 ? el.link.slice(0,32) + "..." : el.link}</p>
+                             </div>
+                             <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
+                               <img
+                                 style={{ width: "73%" }}
+                                 src={require("../images/dowcard.svg").default}
+                               />
+                             </div>
+                             </div>
+                       </div>
+                       </>
+
+                       :
                           null
                    )
                    )
@@ -1037,6 +1397,32 @@ INTERMANN WORK S.R.L <br/>
                        </div>
                      </>
                           :
+                       JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("rapport_activite")) ?
+                           <>
+                                <div className="col-md-6 col-sm-12 mb-1">
+                        <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.link)
+                              }>
+                         <div className="col-2 px-0 d-flex align-items-center">
+                           <img
+                             style={{ width: "73%" }}
+                             src={require("../images/newresume.svg").default}
+                           />
+                         </div>
+                         <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.link}>
+                           <p className="mb-0 contractEMPStyle">{el.link.length > 30 ? el.link.slice(0,32) + "..." : el.link}</p>
+                         </div>
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
+                           <img
+                             style={{ width: "73%" }}
+                             src={require("../images/dowcard.svg").default}
+                           />
+                         </div>
+                         </div>
+                   </div>
+                           </>
+
+                           :
                           null
                    )
                    )
@@ -1139,6 +1525,33 @@ INTERMANN WORK S.R.L <br/>
                        </div>
                      </>
                           :
+
+                       JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("offre_envoye_et_nonsigne")) ?
+                       <>
+                                <div className="col-md-6 col-sm-12 mb-1">
+                        <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                                ViewDownloadFiles(el.link)
+                              }>
+                         <div className="col-2 px-0 d-flex align-items-center">
+                           <img
+                             style={{ width: "73%" }}
+                             src={require("../images/newresume.svg").default}
+                           />
+                         </div>
+                         <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.link}>
+                           <p className="mb-0 contractEMPStyle">{el.link.length > 30 ? el.link.slice(0,32) + "..." : el.link}</p>
+                         </div>
+                         <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
+                           <img
+                             style={{ width: "73%" }}
+                             src={require("../images/dowcard.svg").default}
+                           />
+                         </div>
+                         </div>
+                   </div>
+                       </>
+
+                       :
                           null
                    )
                    )
@@ -1192,6 +1605,31 @@ INTERMANN WORK S.R.L <br/>
                        </div>
                      </>
                           :
+                       JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("fiche_medicale")) ?
+                       <>
+                       <div className="col-md-6 col-sm-12 mb-1">
+                       <div className="row PDFcardBG cursor-pointer" onClick={() =>
+                               ViewDownloadFiles(el.link)
+                             }>
+                        <div className="col-2 px-0 d-flex align-items-center">
+                          <img
+                            style={{ width: "73%" }}
+                            src={require("../images/newresume.svg").default}
+                          />
+                        </div>
+                        <div className="col-8 px-0 d-flex align-items-center cursor-pointer"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.link}>
+                          <p className="mb-0 contractEMPStyle">{el.link.length > 30 ? el.link.slice(0,32) + "..." : el.link}</p>
+                        </div>
+                        <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer" >
+                          <img
+                            style={{ width: "73%" }}
+                            src={require("../images/dowcard.svg").default}
+                          />
+                        </div>
+                        </div>
+                  </div>
+                  </>
+                  :
                           null
                    )
                    )
@@ -1300,41 +1738,10 @@ INTERMANN WORK S.R.L <br/>
                           </div>
                         </div>
                       </>
-                        
-                         : 
-                       null
-
-                    )
-                    )
-                    :
-                   <p className="d-flex  justify-content-center align-items-center mb-0"     style={{
-                  fontFamily: 'Poppins',
-                  fontStyle: "normal",
-                  fontWeight: "700",
-                  fontSize: "16px",
-                  lineHeight: "24px",
-                  color: "#000000"
-              }}> <ErrorLoader />No Documents Uploaded!</p>
-                    
-                    
-                }
-           
-              </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 px-3 mb-1 ">
-            <div className="row Social-CardClient p-1">
-              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
-                <p className="mb-0 CLIntermann">CLIENT LINKS</p>
-              </div>
-              <div className="col-md-8 col-sm-12">
-                <div className="row justify-content-end">
-                {
-                  linksList.length > 0 ?
-                   linksList.map((el)=>(
-                   <>    
-                   <div className="col-md-6 col-sm-12 mb-1">
+                        :
+                        JSON.stringify(el.folder ? el.folder : null).includes(JSON.stringify("fiche_de_mise_a_disposition")) ?
+<>
+<div className="col-md-6 col-sm-12 mb-1">
                         <div className="row PDFcardBG cursor-pointer" onClick={() =>
                                 ViewDownloadFiles(el.link)
                               }>
@@ -1355,20 +1762,25 @@ INTERMANN WORK S.R.L <br/>
                          </div>
                          </div>
                    </div>
-                   </>
-                   )
-                   )
-                   :
-                  <p className="d-flex  justify-content-center align-items-center mb-0"     style={{
+</>
+                         : 
+                       null
+
+                    )
+                    )
+                    :
+                   <p className="d-flex  justify-content-center align-items-center mb-0"     style={{
                   fontFamily: 'Poppins',
                   fontStyle: "normal",
                   fontWeight: "700",
                   fontSize: "16px",
                   lineHeight: "24px",
                   color: "#000000"
-              }}> <ErrorLoader />No Links Added!</p>
-                   
-               }
+              }}> <ErrorLoader />No Documents Uploaded!</p>
+                    
+                    
+                }
+           
               </div>
               </div>
             </div>
