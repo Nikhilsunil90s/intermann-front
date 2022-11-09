@@ -49,6 +49,11 @@ import ThankYouPage from "./components/ThankYouPage";
 import DownloadCenter from "./components/DownloadCenter";
 import DocumentRepresentPDFVIEW from "../src/pages/DocumentRepresentPDFVIEW"
 import RepresentanceSign from '../src/components/CandidateComponents/DocSignRepresentance'
+import LeadsCenter from "./Leads/LeadsCenter";
+import AddLeads from "./Leads/AddLeads"
+import JobAdsList from "./JobAdsCenter/JobAdsList";
+import AddReaserch from "./JobAdsCenter/AddReaserch";
+import EditPage from "./JobAdsCenter/EditPage"
 function App() {
   return (
     <Provider store={configureStore}>
@@ -332,6 +337,7 @@ function App() {
               </Sidebar>
             }
           />
+          {/* Download Center */}
           <Route
             path={"/downloadCenter"}
             element={
@@ -340,6 +346,55 @@ function App() {
               </Sidebar>
             }
           />
+
+          {/* End */}
+          {/* Leads Center */}
+
+          <Route
+            path={"/LeadsCenter"}
+            element={
+              <Sidebar>
+                <PrivateRoute Component={LeadsCenter} />
+              </Sidebar>
+            }
+          />
+  <Route
+            path={"/LeadsCenter/AddLeads"}
+            element={
+              <Sidebar>
+                <PrivateRoute Component={AddLeads} />
+              </Sidebar>
+            }
+          />
+          {/* End */}
+
+          {/* Job Ads */}
+          <Route
+            path={"/JobAdsCenter"}
+            element={
+              <Sidebar>
+                <PrivateRoute Component={JobAdsList} />
+              </Sidebar>
+            }
+          />
+ <Route
+            path={"/JobAdsCenter/AddReaserch"}
+            element={
+              <Sidebar>
+                <PrivateRoute Component={AddReaserch} />
+              </Sidebar>
+            }
+          />
+           <Route
+            path={"/JobAdsCenter/EditPage"}
+            element={
+              <Sidebar>
+                <PrivateRoute Component={EditPage} />
+              </Sidebar>
+            }
+          />
+
+          {/* End Job Ads */}
           {/* Global Search Routes  */}
         
            <Route 

@@ -64,18 +64,37 @@ console.log(jobName,"jobName")
 
     return (<>
         <div className="modal d-block" id="renameModal" style={{ backgroundColor: "#00000052" }} aria-labelledby="exampleModalLabel" aria-hidden="true" >
-            <div className="modal-dialog">
+            <div className="modal-dialog" style={{maxWidth:"577px"}}>
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">Rename Job - {jobName.toUpperCase()}</h5>
+                        <div className='col-12'>
+                            <div className='row'>
+                                <div className='col-10 text-start'>
+                        <h5 className="modal-title" id="exampleModalLabel" style={{
+                            fontFamily: 'Poppins',
+                            fontStyle: "normal",
+                            fontWeight: "500",
+                            fontSize: "18px",
+                            lineHeight: "24px",
+                            color: "#000000",
+                      
+                        }}>Rename Job - {jobName.toUpperCase()}</h5></div><div className='col-2 text-end'>
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => closeModal(false)}></button>
-                    </div>
+                        </div>
+                        </div>
+                        </div></div>
                     <div className="modal-body text-center">
                         <input type="text" name="jobName" onChange={handleJobNameChange} className='form-control' required placeholder={'Enter New Name for Job - ' + jobName} />
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => closeModal(false)}>Cancel</button>
-                        <button type="button" className="btn btn-primary" disabled={btnDisabled} onClick={saveNewJobName}>Save Changes To Job Name</button>
+                        <button type="button" className="btn "  style={{backgroundColor: "transparent",
+    borderRadius:"22px",
+
+    color:'#3F76E2',border:"1px solid #3F76E2"}} data-bs-dismiss="modal" onClick={() => closeModal(false)}>Cancel</button>
+                        <button type="button" className="btn"  style={{backgroundColor: "#3F76E2",
+    borderRadius:"22px",
+    border:"0px",
+    color:'#fff'}}  disabled={btnDisabled} onClick={saveNewJobName}>Save Changes To Job Name</button>
                     </div>
                 </div>
             </div>

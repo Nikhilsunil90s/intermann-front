@@ -286,7 +286,7 @@ console.log(representance,"res")
                     ))}
                   </Tabs>
                 </div>
-                <div className="col-12" style={{background:"#ffff",borderBottomLeftRadius:"10px",borderBottomRightRadius:"10px"}}>
+                <div className="col-12 mb-2" style={{background:"#ffff",borderBottomLeftRadius:"10px",borderBottomRightRadius:"10px"}}>
                  <div className="row p-1">
                     {
                         

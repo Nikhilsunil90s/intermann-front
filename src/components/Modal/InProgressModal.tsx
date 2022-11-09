@@ -127,7 +127,8 @@ function InProgressModal({ props, closeModal }) {
 
   const saveFormData = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    saveModalData()
+    if(workingFor !== ""){
+      saveModalData()
       .then((resp) => {
         closeModal(false);
         notifyMoveSuccess();
@@ -144,6 +145,11 @@ function InProgressModal({ props, closeModal }) {
         notifyMoveError();
         setbtnLoader(false)
       })
+    }else{
+
+      toast.error("Please Select Client!")
+    }
+ 
   }
 
   const onFormDataChange = (

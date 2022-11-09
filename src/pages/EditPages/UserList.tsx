@@ -5,10 +5,12 @@ import UserAddModal from '../../components/Modal/AddUser';
 import {API_BASE_URL} from '../../config/serverApiConfig'
 import { Toaster,toast } from 'react-hot-toast';
 import DeleteUser from '../../components/Modal/DeletedUser';
+import EditUserModal from '../../components/Modal/EditUserModal';
 
 function UserList(){
     const [AddModal, setAddModal] = useState(false)
     const [deleteModal,setDeleteModal]=useState(false)
+    const [EditModal,setEditModal]=useState(false)
     const [fields,setDeleteField]=useState({
         _id:"",
         emailAddress:"",
@@ -18,6 +20,7 @@ function UserList(){
         emailAddress:"",
         password:"",
         _id:"",
+        username:""
 }])
    
         const getAllUsers = async () => {
@@ -84,7 +87,7 @@ function UserList(){
             <div className="row">
                 <div className="col-6 text-start d-flex align-item-center">
                  {el.emailAddress?
-                            <p className="A0012">Email:‎ {el.emailAddress} ‎ -‎ Password:‎ ........</p>
+                            <p className="A0012">{el.username ? el.username.toUpperCase() + " -": null}  Email:‎ {el.emailAddress} ‎ -‎ Password:‎ ........</p>
                             :
                             <div className='d-flex justify-content-start'>
                             <div className="load"></div>
@@ -92,16 +95,27 @@ function UserList(){
                  }
                    
                 </div>
-                <div className="col-6 d-flex justify-content-end">
+                <div className="col-4 d-flex justify-content-end">
 
                             <button
-                                className="btn btn-delete"   
-                                onClick={(e)=>{setDeleteModal(true);setDeleteField(el)}}
+                                className="btn btn-delete"  
+                                style={{background:"#3F76E2",color:"#Ffff",border:"0px"}} 
+                                onClick={(e)=>{setEditModal(true);}}
                             >
-                                <img src={require("../../images/Deletebucket.svg").default} />
-                               Delete User
+                                <img src={require("../../images/Edit.svg").default} />
+                                Edit Details
                             </button>
                         </div>
+                        <div className="col-2 d-flex justify-content-end pl-0">
+
+<button
+    className="btn btn-delete "   
+    onClick={(e)=>{setDeleteModal(true);setDeleteField(el)}}
+>
+    <img src={require("../../images/Deletebucket.svg").default} />
+   Delete User
+</button>
+</div>
             </div>
         </div>
     </li>
@@ -109,6 +123,12 @@ function UserList(){
 </div>
          ))
        
+        }
+        {
+            EditModal ?
+            <EditUserModal  closeModal={setEditModal}    />
+            :
+            null
         }
                         {
 deleteModal?

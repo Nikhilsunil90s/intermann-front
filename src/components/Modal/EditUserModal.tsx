@@ -3,7 +3,7 @@ import '../../CSS/AddSector.css'
 import {API_BASE_URL} from "../../config/serverApiConfig"
 import { Toaster,toast } from 'react-hot-toast';
 
-function UserAddModal({ closeModal }) {
+function EditUserModal({ closeModal }) {
   const [emailAddress, setEmailAddress] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -59,7 +59,7 @@ console.log(res,"res")
           <div className="modal-content" style={{width:"900px"}}>
             <div className="modal-header">
               <h5 className="modal-title Add-ModalUserStyle" id="exampleModalLabel">
-              Add New user
+              Edit user
               </h5>
               <button
                 type="button"
@@ -72,7 +72,7 @@ console.log(res,"res")
               ></button>
             </div>
             <div className="modal-body d-flex  text-start mt-1">
-            <div className="col-12">
+            {/* <div className="col-12">
               <div className="row">
               <div className="col-4">
               <label className="form-label fontStylingLabel mb-0 fs-6">User Name</label>
@@ -150,7 +150,9 @@ console.log(res,"res")
                     </div>
                 </div>
             </div>
-                </div>
+                </div> */}
+      <p className="Add-ModalUserStyle"> Work-In-Progress</p>
+
             </div>
           </div>
       
@@ -160,4 +162,4 @@ console.log(res,"res")
     </>
   );
 }
-export default UserAddModal;
+export default EditUserModal;

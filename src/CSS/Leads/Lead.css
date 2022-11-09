@@ -1,0 +1,336 @@
+.BtnLeads {
+  background: #032339;
+  border-radius: 100px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.105991px;
+  text-transform: uppercase;
+  color: #ffffff;
+  padding: 10px 25px;
+}
+.leadsTab .rts___tabs.hide___rts___tabs___scroll {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.leadsTab .rts___btn {
+  color: #888888 !important;
+}
+.placeHolderLead .css-14el2xx-placeholder {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  text-transform: capitalize;
+  color: #92929d;
+}
+
+.ApplyFilter {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+}
+.leadCardUser {
+  font-family: "Poppins" !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 15px !important;
+  line-height: 23px !important;
+  color: #000000 !important;
+}
+.leadSpan {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #000000;
+}
+.CardDetails {
+  background: #f3f3f3;
+  border-radius: 100px;
+}
+.CardDetails p {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  color: #000000;
+}
+.leadBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #cde7f9;
+  max-width: 24%;
+  height: 60px;
+}
+.leadBoxX {
+  background: #cde7f9;
+  max-width: 32.833333%;
+  height: 60px;
+  margin-left: 5px;
+}
+.leadBox p {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #032339;
+}
+.leadBoxX h5 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #032339;
+}
+.leadBoxX p {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #032339;
+  margin-bottom: 0px;
+}
+.BlueLink {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #3f76e2;
+  margin-bottom: 0px;
+}
+.lead_Created {
+  background: #cde7f9;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-bottom: 3px;
+}
+.lead_Created p {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #032339;
+  padding: 10px;
+}
+.leadBottom {
+  background-color: #f5f6f8;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding-bottom:20px;
+}
+.PrECONTACTED p{
+  margin-top: 12px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 19px;
+
+  color: #032339;
+}
+.PrECONTACTED span{
+    margin-top: 10px;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px; 
+    color: #032339;
+  }
+  .PrECONTACTEDInput p{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 9px;
+line-height: 15px;
+color: #B4B4B7;
+  } 
+  .NotesAgency p{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 19px;
+margin-top: 13px;
+color: #032339;
+  }
+  .Monthly {
+    position: fixed !important;
+    width: 260px !important;
+    left: 30% !important;
+    top: 29% !important;
+}
+  .NotesAgency span{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    
+    color: #032339;
+  }
+  .PrECONTACTED{
+    margin-top: 4px;
+    border-right: 1px solid #ffff;
+  }
+
+  .OverFlowLink{
+  border-radius: 4px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  }
+  .OverFlowLink::-webkit-scrollbar {
+    width: 2px;         
+    height: 3px;      /* width of the entire scrollbar */
+  }
+  .OverFlowLink::-webkit-scrollbar-track {
+    background: #e7e7e7;        /* color of the tracking area */
+  }
+  .OverFlowLink::-webkit-scrollbar-thumb {
+    background-color: #FE8700;    /* color of the scroll thumb */
+    border-radius: 10px;       /* roundness of the scroll thumb */  /* creates padding around scroll thumb */
+  }
+  
+  .Box {
+  width: 500px;
+  margin: 50px auto 0;
+  text-align: center
+}
+
+.AddToCrm{
+  background: #CDE7F9;
+  border-radius: 20px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 9px;
+  line-height: 14px;
+  display: flex;
+  /* align-items: flex-end; */
+  text-transform: uppercase;
+  color: #032339;
+  /* padding: 38px; */
+  width: 88px;
+  justify-content: center;
+  height: 27px;
+  align-items: center;
+}
+/*Styling Selectbox*/
+.Monthlydropdown {
+  
+    border: 1px solid  #EAEAEA !important;
+    z-index: 55;
+    position: absolute;
+    background: #ffff;
+    width: 115px;
+    height: 100px;
+    left: -39px;
+    top: 23px;
+    border-radius: 5px;
+
+}
+.rdrDateRangePickerWrapper{
+  position:absolute;
+  z-index: 5777;
+  right: 0;
+  border:1px solid #000000;
+  top:70px
+}
+.dateSort{
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  text-transform: capitalize;
+  color: #92929d;
+  border-radius: 25px !important;
+  min-height: 45px !important;
+  padding-left:10px;
+  width: 100%;
+  border: 1px solid #92929D;
+}
+
+.PrECONTACTEDInput input[type='radio']:checked:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #ffa500;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+.ColorInput input[type='radio']:checked:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #ffa500;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+.eventPos{
+  position: relative;
+  top: -33px;
+  right: 15px;
+}
+.LeadMothlyDropDown:hover{
+  background: #FFF7EE;
+  border-radius: 22px;
+  justify-content: center !important;
+
+}
+.LeadMothlyDropDown:hover p{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  color: #FE8700;
+}
+.LeadMothlyDropDown p{
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 24px;
+color: #8F8F8F;
+padding: 0px 8px;
+}
+.SelectJobAccording{
+  font-family: 'Poppins';
+font-style: italic;
+font-weight: 400;
+font-size: 10px;
+line-height: 15px;
+letter-spacing: -1px;
+
+color: #000000;
+}

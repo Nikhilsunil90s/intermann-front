@@ -32,6 +32,8 @@ function PDFBoxCandidate({props,value}){
       const [Assurance, setAssurance] = useState() as any;
       const [ID_CARD, setID_CARD] = useState() as any;
       const [Reges, setReges] = useState() as any;
+      const [factures_payes, setfactures_payes] =useState() as any;
+      const [factures_impayes, setfactures_impayes] =useState() as any;
       const [Fiche_mise_à_disposition, setFiche_mise_à_disposition] =useState() as any;
         const [tabItems] = useState([
       {
@@ -102,19 +104,7 @@ function PDFBoxCandidate({props,value}){
         // })
       }
       useEffect(() => {
-        props.candidatDocuments.map((el) => {
-          {tabItems.map((tab)=>{
-              if(el.folderName === tab.value ){
-                if(WarningLabel.includes(tab.text)){
-                  WarningText =  WarningLabel.filter((el)=> (el !== tab.text))
-              }else{
-                WarningLabel.push(tab.text)
-              }
-            }
-          }
-            
-          )}
-        })
+      
       const FolderName = tabItems.filter((el, i) => i == activeTab);
     if(UploadName == "" ){
       FolderName.map((el) => {
@@ -135,22 +125,8 @@ function PDFBoxCandidate({props,value}){
 
       useEffect(()=>{
         fetchCandidat(props._id)
-        if(profile){
-          profile.candidatDocuments.map((el) => {
-            {tabItems.map((tab)=>{
-              if(el.folderName === tab.value ){
-                if(WarningLabel.includes(tab.text)){
-                  WarningText =  WarningLabel.filter((el)=> (el !== tab.text))
-                }else{
-                  WarningLabel.push(tab.text)
-                }
-              }
-            }
-              
-            )}
-          })
-        }
-     
+ 
+       
       },[DeleteStatus])
       
 const onTabClick = (e, index: any) => {
@@ -194,9 +170,64 @@ const onTabClick = (e, index: any) => {
 
       const dataHandle=(el)=>{
         setProfile(el)
+        
         setDocumentList(el.candidatDocuments?.filter((el) => el.folderName == UploadName))
         setListLink(el?.candidatLinks.filter((el) => el.folder == UploadName))
+        // el.candidatDocuments.map((el)=>
+        // {
+        //   if(el.folderName.includes("CONTRACT")){
+
+        //   }else{
+        //     setCONTRACT_EMPLOYE_INTERMANN("CONTRACT EMPLOYE INTERMANN")
+
+        //   }
+        //   if(el.folderName.includes("BULETIN_/_ID_CARD")){
+
+        //   }else{
+        //     setID_CARD("ID CARD")
+
+        //   }
+        //   if(el.folderName.includes("Fiche_Medicale")){
+
+        //   }else{
+        //     setFiche_Medicale("FICHE MEDICALE")
+
+        //   }
+        //   if(el.folderName.includes("Assurance")){
+
+        //   }else{
+        //     setAssurance("ASSURANCE")
+
+        //   }
+        //   if(el.folderName.includes("Reges")){
+
+        //   }else{
+        //     setReges("REGES")
+
+        //   }
+        //   if(el.folderName.includes("Fiche_mise_à_disposition")){
+            
+        //   }else{
+        //     setFiche_mise_à_disposition("FICHE MISE A DISPOSITION")
+
+        //   }
+        //   if(el.folderName.includes("factures_payes")){
+
+        //   }
+        //   else{
+        //     setfactures_payes("FACTURES PAYES")
+
+        //   }
+        //   if(el.folderName.includes("factures_impayes")){
+
+        //   }else{
+        //     setfactures_impayes("FACTURES IMPAYES")
+
+        //   }
+        // }
+        // )
         value(el)
+      
         setDeleteStatus(false)
       }
       const FilesUploads=(file)=>{
@@ -620,7 +651,6 @@ fontSize: "14px",}} /></div>
              <div className="col-4"><button name="DriveLinkSubmit" onClick={(e)=>{onDriveLinkChange(e)}} className="LinkAsDocument">add this link as document</button></div>
              </div>
               </div>
-                
                   {/* <div className="col-12 Social-Card mt-1">
                     <div className="row alertMessage align-items-center py-1">      
                 <Tabs
@@ -632,18 +662,90 @@ fontSize: "14px",}} /></div>
                   className="alertMessage"
                   activeTab
                 >
-                   {WarningText.map((el) => (
+                {CONTRACT_EMPLOYE_INTERMANN ?
+              
+
                         <Tab className="redColorStyling">
-                       ⚠️ {el}
+                       ⚠️ {CONTRACT_EMPLOYE_INTERMANN}
                           </Tab>
 
-                   ))
-                          }
-               
+:
+null
+                }
+                {ID_CARD ?
+                  
+                  <Tab className="redColorStyling">
+                 ⚠️ {ID_CARD}
+                    </Tab>
+                    :null
+
+          }
+                 {Fiche_Medicale ?
+              
+
+                        <Tab className="redColorStyling">
+                       ⚠️ {Fiche_Medicale}
+                          </Tab>
+
+                          :
+                          null
+                } {Assurance ?
+                 
+  
+                          <Tab className="redColorStyling">
+                         ⚠️ {Assurance}
+                            </Tab>
+                            :
+                            null
+  
+                  }  {Reges ?
+                    
+                              <Tab className="redColorStyling">
+                             ⚠️ {Reges}
+                                </Tab>
+                                :null
+      
+                      }
+                {Fiche_mise_à_disposition ?
+                       
+                      
+        
+                       <Tab className="redColorStyling">
+                      ⚠️ {Fiche_mise_à_disposition}
+                         </Tab>
+:
+null
+               }
+                 {factures_payes ?
+              
+             
+
+              <Tab className="redColorStyling">
+             ⚠️ {factures_payes}
+                </Tab>
+:
+null
+      }
+                {factures_impayes ?
+                       
+                      
+        
+                       <Tab className="redColorStyling">
+                      ⚠️ {factures_impayes}
+                         </Tab>
+:
+null
+               }
+              
+
+
+
+
+
                  </Tabs>
               
                      </div>
-                     </div> */}
+                     </div>  */}
                 
                             
                  

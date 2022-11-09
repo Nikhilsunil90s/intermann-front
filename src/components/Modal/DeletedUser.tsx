@@ -39,15 +39,37 @@ function DeleteUser({props, closeModal} ) {
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header text-center">
-            <h5 className="modal-title" id="exampleModalLabel">Delete User</h5>
+            <h5 className="modal-title" id="exampleModalLabel" style={{
+                            fontFamily: 'Poppins',
+                            fontStyle: "normal",
+                            fontWeight: "500",
+                            fontSize: "18px",
+                            lineHeight: "24px",
+                            color: "#000000",
+                      
+                        }}>Delete User</h5>
             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => { closeModal(false) }}></button>
           </div>
-          <div className="modal-body text-center">
-          <h2>{props.emailAddress}</h2>
+          <div className="modal-body d-flex justify-content-center align-items-center" style={{height:"90px"}}>
+          <h2 className=''  style={{
+                            fontFamily: 'Poppins',
+                            fontStyle: "normal",
+                            fontWeight: "600",
+                            fontSize: "22px",
+                            lineHeight: "24px",
+                            color: "#000000",
+                      
+                        }}>{props.emailAddress}</h2>
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => { closeModal(false) }}>Cancel</button>
-            <button type="button" className="btn btn-primary" disabled={btnDisabled} onClick={()=>deleteUser()}>Proceed</button>
+            <button type="button" className="btn" data-bs-dismiss="modal"  style={{backgroundColor: "transparent",
+    borderRadius:"22px",
+
+    color:'#3F76E2',border:"1px solid #3F76E2"}} onClick={() => { closeModal(false) }}>Cancel</button>
+            <button type="button" className="btn" style={{backgroundColor: "#3F76E2",
+    borderRadius:"22px",
+    border:"0px",
+    color:'#fff'}} disabled={btnDisabled} onClick={()=>deleteUser()}>Proceed</button>
           </div>
         </div>
       </div>

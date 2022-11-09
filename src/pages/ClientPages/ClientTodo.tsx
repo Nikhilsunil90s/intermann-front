@@ -1143,7 +1143,7 @@ setTimeout(()=>{
                               <Select
                                 name="ClientLicencePermis"
                                 closeMenuOnSelect={true}
-                                placeholder="‎ ‎ ‎ Select Licence Permis"
+                                placeholder="‎ ‎ ‎ Select Importance"
                                 className="basic-multi-select"
                                 classNamePrefix="select"
                                 onChange={importanceHandel}
@@ -1182,7 +1182,7 @@ setTimeout(()=>{
                                 name="ClientLicencePermis"
                                 closeMenuOnSelect={true}
                                 isMulti={true}
-                                placeholder="‎ ‎ ‎ Select Licence Permis"
+                                placeholder="‎ ‎ ‎ Filter by other options"
                                 className="basic-multi-select"
                                 classNamePrefix="select"
                                 onChange={HandelOthers}
