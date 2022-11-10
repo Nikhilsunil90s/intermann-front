@@ -109,7 +109,7 @@ const ToDoProfileCard = (props: any,Clients) => {
    <div className="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 fontStylinForcards">
    <p style={{width:"100%"}}  className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.candidatName.toLocaleUpperCase()}><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
        <div className="text-dark mb-0">{props.data.candidatAge ?  <p className="age00 mb-0"> <b>Age : {props.data.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</div>
-       <div >  <p className="text-dark d-flex mb-0"> <b>{props.data.candidatMotivation == 0 ? candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation :  candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation}</b>
+       <div >  <p className="text-dark d-flex mb-0"> <b>{props.data.candidatMotivation ?props.data.candidatMotivation  == 0 ? candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation :  candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation : "✘No Motivation!"}</b>
        </p>
        </div>
       
@@ -159,7 +159,7 @@ const ToDoProfileCard = (props: any,Clients) => {
                     <p className="todoCardbody-p " style={{marginBottom:"8px"}}>Facebook URL : <b>{props.data.candidatFBURL ? <a href={props.data.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile</a> : "✘ No Facebook Profile!"}</b></p>
                     <p className="preCard-Body-p">Email :  <b> {props.data.candidatEmail ? props.data.candidatEmail.length > 20 ? props.data.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.data.candidatEmail.toLocaleUpperCase() : "✘ No Email Provided!"}</b></p>
                       <p className="todoCardbodyBlue py-1" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
-                        Ready for work : {date >= start && date <= end  ? " 📆" +props.data.candidatStartDate  + "  To  " + props.data.candidatEndDate :   "⚠️" + props.data.candidatStartDate +"  To  " + props.data.candidatEndDate} 
+                        Ready for work : {props.data.candidatStartDate !== undefined ? date >= start && date <= end  ? " 📆" +props.data.candidatStartDate  + "  To  " + props.data.candidatEndDate :   "⚠️" + props.data.candidatStartDate +"  To  " + props.data.candidatEndDate : "✘No Dates!"}
                     </p>
                 
                     </div>

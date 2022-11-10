@@ -280,7 +280,7 @@ className="SelectBtn"
                   </div>
                   <div>
                     <div className="d-flex mb-0">
-                    <p>Motivation : <b>{candidatMotivationIcons[profile.candidatMotivation].icon + " " + candidatMotivationIcons[profile.candidatMotivation].motivation}</b> </p>
+                    <p>Motivation : <b>{profile.candidatMotivation ?candidatMotivationIcons[profile.candidatMotivation].icon + " " + candidatMotivationIcons[profile.candidatMotivation].motivation : "No Motivation!"}</b> </p>
                     </div>
                   </div>
                   <p>Secteur : {profile.candidatActivitySector ? profile.candidatActivitySector.toLocaleUpperCase() : "No Sector!"}</p>
@@ -351,7 +351,7 @@ null
                     <div className="d-flex ">
                       <p className="blue-text">Ready for work :</p>
                       <span className="" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
-                      {date >= start && date <= end  ?" 📆" + profile.candidatStartDate  + "  To  " + profile.candidatEndDate :   "⚠️" + profile.candidatStartDate +"  To  " + profile.candidatEndDate} 
+                      {profile.candidatStartDate ? date >= start && date <= end  ?" 📆" + profile.candidatStartDate  + "  To  " + profile.candidatEndDate :   "⚠️" + profile.candidatStartDate +"  To  " + profile.candidatEndDate : "✘ No Dates!"} 
                       
                 
                       </span>

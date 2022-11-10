@@ -76,7 +76,7 @@ const ArchivedProfileCard = (props: any) => {
                     <div className="col-7 ArchivedCard pt-1 px-1" >
                     <p style={{width:"100%"}} className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.props.candidatName.toLocaleUpperCase()}><b>{props.props.candidatName.length > 15 ? props.props.candidatName.slice(0, 16).toLocaleUpperCase() + "..." : props.props.candidatName.toLocaleUpperCase()}</b></p>
                     <div className="text-dark mb-0">{props.props.candidatAge ?  <p className="age00 ml-0 mb-0"><b>Age :  {props.props.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</div>
-                        <div >  <p className="text-dark d-flex"> <b>{props.props.candidatMotivation == 0 ? candidatMotivationIcons[props.props.candidatMotivation ].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation :  candidatMotivationIcons[props.props.candidatMotivation].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation}</b>
+                        <div >  <p className="text-dark d-flex"> <b>{props.props.candidatMotivation ?props.props.candidatMotivation == 0 ? candidatMotivationIcons[props.props.candidatMotivation ].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation :  candidatMotivationIcons[props.props.candidatMotivation].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation : "✘No Motivation!"}</b>
                         </p>
                         </div>
                         
@@ -118,7 +118,7 @@ const ArchivedProfileCard = (props: any) => {
                     <p className='ArchivedCardChildFonts mb-0'>Facebook URL:  <b>{props.props.candidatFBURL ? <a href={props.props.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "✘ No Facebook Profile!"}</b></p>
                     <p className='ArchivedCardChildFonts mb-0'>Email: <b>{props.props.candidatEmail ? props.props.candidatEmail.length > 20 ? props.props.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.props.candidatEmail.toLocaleUpperCase() : "✘ No Email Provided!"}</b> </p>
                     <p className="todoCardbodyBlue py-1" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
-                        Ready for work : {date >= start && date <= end  ? " 📆" +props.props.candidatStartDate  + "  To  " + props.props.candidatEndDate :   "⚠️" + props.props.candidatStartDate +"  To  " + props.props.candidatEndDate} 
+                        Ready for work : {props.props.candidatStartDate  !== undefined ?  date >= start && date <= end  ? " 📆" +props.props.candidatStartDate  + "  To  " + props.props.candidatEndDate :   "⚠️" + props.props.candidatStartDate +"  To  " + props.props.candidatEndDate : "✘No Dates!"} 
                     </p>
                 
                     </div>

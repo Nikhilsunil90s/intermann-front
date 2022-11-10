@@ -162,9 +162,9 @@ useEffect(()=>{
            {
             LeadsCheck ?
             Leads.length > 0 ?
-            Leads.map((el)=>(
+            Leads.map((el,i)=>(
 
-              <LeadList  props={el}  Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} />
+              <LeadList  props={el} length={i} key={i} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} />
 
             ))
             :

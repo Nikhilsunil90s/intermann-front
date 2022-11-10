@@ -6,10 +6,12 @@ import NotesEditModal from "../Modal/EditNotes";
 import {API_BASE_URL} from "../../config/serverApiConfig"
 import toast, { Toaster } from "react-hot-toast";
 let NewCdate;
-function LeadList({props,Update,Load,Lead}){
+function LeadList({props,Update,Load,Lead,length}){
   const [NoteModal,setNotesModal] =useState(false)
   const [NoteEditModal,setNoteEditsModal] =useState(false)
   const [NoteDeleteModal,setNotesDeleteModal] =useState(false)
+  const [preContect,setPreCont]=useState(props.leadPreContacted)
+  console.log(length)
 
   const [LeadeCreateDate,setLeadeCreateDate]=useState()as any
   var today =props.createdAt.slice(0,10);
@@ -23,6 +25,126 @@ useEffect(()=>{
 },[])
 
 
+
+const AddToCRM=(date)=>{
+  fetch(API_BASE_URL + `addLeadToCRM`,
+  {
+  method: "POST",
+  headers: {
+      "Accept": 'application/json',
+      'Content-Type': 'application/json',
+      "Authorization": "Bearer " + localStorage.getItem('token')
+  },
+  body: JSON.stringify(date),
+}
+  )
+  .then((res)=>res.json())
+  .then(res=>{
+    if(res.status){
+      toast.success(res.message)
+      Lead([])
+       Update(true)
+setTimeout(()=>{
+  Load(true)
+},2000)
+    }else{
+      toast.error(res.message)
+    }
+  })
+  .catch(err => err)
+}
+ 
+
+const PreContact=(id,status)=>{
+  fetch(API_BASE_URL + `changePreContactedStatus/?leadId=${id}&status=${status}`,
+  {
+    method: "GET",
+    headers: {
+      "Accept": 'application/json',
+      "Authorization": "Bearer " + localStorage.getItem('token')
+    }
+  }
+  )
+  .then((res)=>res.json())
+  .then(res=>{
+    if(res.status){
+      toast.success(res.message)
+    }else{
+      toast.error(res.message)
+    }
+  })
+  .catch(err => err)
+}
+const ContAgency=(id,status)=>{
+  fetch(API_BASE_URL + `changeLeadContactedStatus/?leadId=${id}&status=${status}`,
+  {
+    method: "GET",
+    headers: {
+      "Accept": 'application/json',
+      "Authorization": "Bearer " + localStorage.getItem('token')
+    }
+  }
+  )
+  .then((res)=>res.json())
+  .then(res=>{
+    if(res.status){
+      toast.success(res.message)
+    }else{
+      toast.error(res.message)
+    }
+  })
+  .catch(err => err)
+}
+const QUALIFIED=(id,status)=>{
+  fetch(API_BASE_URL + `changeQualifiedValue/?leadId=${id}&value=${status}`,
+  {
+    method: "GET",
+    headers: {
+      "Accept": 'application/json',
+      "Authorization": "Bearer " + localStorage.getItem('token')
+    }
+  }
+  )
+  .then((res)=>res.json())
+  .then(res=>{
+    if(res.status){
+      toast.success(res.message)
+    }else{
+      toast.error(res.message)
+    }
+  })
+  .catch(err => err)
+}
+
+const OnChangeRadio=(e,id)=>{
+     if(e.target.name=== `preContact${length}`){
+      
+      PreContact(id,e.target.value)
+     }
+     if(e.target.name=== `CAgency${length}`){
+      
+      ContAgency(id,e.target.value)
+     }
+     if(e.target.name=== `QUALIFIED${length}`){
+      
+       QUALIFIED(id,e.target.value)
+     }
+     if(e.target.name === `Added_to_CRM${length}`){
+       
+     }
+}
+
+const AddToCrm=()=>{
+  let data={
+    leadId :props._id, 
+    candidatName:props.leadCandidatName,
+     candidatEmail:props.email ? props.email :"", 
+     candidatPhone:props.phoneNumber ? props.phoneNumber :"",
+      leadNotes:props.leadNotes ? props.leadNotes : "", 
+      agencyNotes:""
+  }
+AddToCRM(data)
+}
      
 const   DeleteLeads=async(Id)=>{
   let data={
@@ -56,11 +178,13 @@ setTimeout(()=>{
    .catch(err => err)
  }
  
+
+
 console.log(LeadeCreateDate)
     return(<>
     <Toaster  position="top-right"   containerStyle={{zIndex:"30443330099555"}}   />
     <div className="row px-1 mt-1" style={{width:"135%"}}>
-     <div className="col-12 lead_Created"><div className="row"><div className="col-7"><p className="mb-0 "><img  src={require("../../images/calendar.png")} style={{width:"12px",marginRight:"4px"}} />Lead Created on {LeadeCreateDate}</p></div><div className="col-5 d-flex justify-content-end align-items-center"><button className="AddToCrm mb-0">add to crm</button><button className="deleteAd mx-1" onClick={()=>DeleteLeads(props._id)} ><img   src={require("../../images/Deletebucket.svg").default}  /></button></div>
+     <div className="col-12 lead_Created"><div className="row"><div className="col-7"><p className="mb-0 "><img  src={require("../../images/calendar.png")} style={{width:"12px",marginRight:"4px"}} />Lead Created on {LeadeCreateDate}</p></div><div className="col-5 d-flex justify-content-end align-items-center"><button className="AddToCrm mb-0" onClick={()=>AddToCrm()}>add to crm</button><button className="deleteAd mx-1" onClick={()=>DeleteLeads(props._id)} ><img   src={require("../../images/Deletebucket.svg").default}  /></button></div>
 
      </div></div>
      <div className="col-12">
@@ -76,12 +200,13 @@ console.log(LeadeCreateDate)
              <div className="col-2 leadBox">
                 <p className="mb-0">{props.leadCandidatName ? props.leadCandidatName.toLocaleUpperCase()  : "✘✘!"}</p>
              </div>
-             <div className="col-3 leadBox">
-                <p className="mb-0">{props.phoneNumber ? props.phoneNumber : "✘✘!"}</p>
-             </div>
              <div className="col-3 leadBox d-grid">
+                <p className="mb-0">{props.phoneNumber ? props.phoneNumber : "✘✘!"}</p>
+                <a href={`https://wa.me/${props.phoneNumber}`} target="_blank" className="BlueLink">Send What’s app</a>
+             </div>
+             <div className="col-3 leadBox ">
                 <p className="mb-0">{props.email ? props.email : "✘✘!"}</p>
-                <span className="BlueLink">Send What’s app</span>
+              
              </div>
             </div>
             </div>
@@ -99,20 +224,20 @@ console.log(LeadeCreateDate)
             <div className="col-4 d-grid PrECONTACTED">
               <p className="mb-0 ">PrECONTACTED</p>
               <span>(BY Dana)</span>
-              <div className="row PrECONTACTEDInput mt-1">
-                <div className="col-3 pr-0 d-flex justify-content-center align-items-center " ><input type={"radio"} /><p className="my-0" style={{paddingLeft:"2px"}}>No</p></div>
-                <div className="col-4 px-0 d-flex justify-content-center align-items-center"> <input type={"radio"} /><p className="my-0" style={{paddingLeft:"2px"}}>Interested</p></div>
-                <div className="col-5 px-0 d-flex justify-content-center align-items-center"> <input type={"radio"} /><p className="my-0" style={{paddingLeft:"2px"}}>Not Interested</p></div>
+              <div className="row PrECONTACTEDInput mt-1" >
+                <div className="col-3 pr-0 d-flex justify-content-center align-items-center " ><input type={"radio"}  name={`preContact${length}`} value={"No"} onChange={(e)=>OnChangeRadio(e,props._id)} defaultChecked={props.leadPreContacted === "No" ? true : false } /><p className="my-0" style={{paddingLeft:"2px"}}>No</p></div>
+                <div className="col-4 px-0 d-flex justify-content-center align-items-center"> <input type={"radio"}   name={`preContact${length}`} value={"Interested"} onChange={(e)=>OnChangeRadio(e,props._id)} defaultChecked={props.leadPreContacted === "Interested" ? true : false } /><p className="my-0" style={{paddingLeft:"2px"}}>Interested</p></div>
+                <div className="col-5 px-0 d-flex justify-content-center align-items-center"> <input type={"radio"}  name={`preContact${length}`} value={"Not Interested"} onChange={(e)=>OnChangeRadio(e,props._id)}  defaultChecked={props.leadPreContacted === "Not Interested" ? true : false } /><p className="my-0" style={{paddingLeft:"2px"}}>Not Interested</p></div>
               </div>
             </div>
             <div className="col-4 d-grid PrECONTACTED">
               <p className="mb-0 ">Contacted by Agency</p>
               <span>(BY Benjamin)</span>
               <div className="row PrECONTACTEDInput mt-1">
-                <div className="col-2 pr-0 d-flex justify-content-center align-items-center " ><input type={"radio"} /><p className="my-0" style={{paddingLeft:"2px"}}>No</p></div>
-                <div className="col-2 px-0 d-flex justify-content-end align-items-center"> <input type={"radio"} /><p className="my-0" style={{paddingLeft:"2px"}}>Yes</p></div>
-                <div className="col-3 px-0 d-flex justify-content-end align-items-center"> <input type={"radio"} /><p className="my-0" style={{paddingLeft:"2px"}}>Recall</p></div>
-                <div className="col-5 px-0 d-flex justify-content-center align-items-center"> <input type={"radio"} /><p className="my-0" style={{paddingLeft:"2px"}}>Phone Closed</p></div>
+                <div className="col-2 pr-0 d-flex justify-content-center align-items-center " ><input type={"radio"} name={`CAgency${length}`} defaultChecked={props.leadContactedByAgency== "No" ? true : false} onChange={(e)=>OnChangeRadio(e,props._id)} value="No"/><p className="my-0" style={{paddingLeft:"2px"}}>No</p></div>
+                <div className="col-2 px-0 d-flex justify-content-end align-items-center"> <input type={"radio"} name={`CAgency${length}`} defaultChecked={props.leadContactedByAgency== "Yes" ? true : false} onChange={(e)=>OnChangeRadio(e,props._id)} value="Yes"/><p className="my-0" style={{paddingLeft:"2px"}}>Yes</p></div>
+                <div className="col-3 px-0 d-flex justify-content-end align-items-center"> <input type={"radio"} name={`CAgency${length}`} defaultChecked={props.leadContactedByAgency== "Recall" ? true : false} onChange={(e)=>OnChangeRadio(e,props._id)} value="Recall"/><p className="my-0" style={{paddingLeft:"2px"}}>Recall</p></div>
+                <div className="col-5 px-0 d-flex justify-content-center align-items-center"> <input type={"radio"} name={`CAgency${length}`} defaultChecked={props.leadContactedByAgency== "Phone Closed" ? true : false} onChange={(e)=>OnChangeRadio(e,props._id)} value="Phone Closed"/><p className="my-0" style={{paddingLeft:"2px"}}>Phone Closed</p></div>
               </div>
             </div>
             <div className="col-4 d-grid PrECONTACTED ">
@@ -122,19 +247,18 @@ console.log(LeadeCreateDate)
                     }}>
               <p className="mb-0 ">Added to CRM</p>
               <div className="row PrECONTACTEDInput mt-1 " style={{height:"74%"}}>
-                <div className="col-4 pr-0  d-flex justify-content-center align-items-center " ><input type={"radio"} name="Added_to_CRM" value="no" className="yesNoRadio" /><p className="my-0" style={{paddingLeft:"2px"}}>No</p></div>
-                <div className="col-8  d-flex justify-content-start align-items-center"> <input type={"radio"} name="Added_to_CRM"  value="yes" className="yesNoRadio" /><p className="my-0" style={{paddingLeft:"2px"}}>Yes</p></div>
+                <div className="col-4 pr-0  d-flex justify-content-center align-items-center " ><input type={"radio"}  name={`Added_to_CRM${length}`} onChange={(e)=>OnChangeRadio(e,props._id)}  className="yesNoRadio"  defaultChecked={props.leadAddedToCRM === false ? true : false}/><p className="my-0" style={{paddingLeft:"2px"}}>No</p></div>
+                <div className="col-8  d-flex justify-content-start align-items-center"> <input type={"radio"} name={`Added_to_CRM${length}`}  onChange={(e)=>OnChangeRadio(e,props._id)}  className="yesNoRadio" defaultChecked={props.leadAddedToCRM === true ? true : false} /><p className="my-0" style={{paddingLeft:"2px"}}>Yes</p></div>
                             </div>
             </div>
             <div className="col-6 pr-2">
               <p className="mb-0 ">QUALIFIED</p>
               <div className="row PrECONTACTEDInput mt-2">
-                <div className="col-4 pr-0 d-flex justify-content-start align-items-center " ><input type={"radio"} /><p className="my-0" style={{paddingLeft:"2px"}}>?</p></div>
-                <div className="col-4 d-flex justify-content-start align-items-center"> <input type={"radio"} /><p className="my-0" style={{paddingLeft:"2px"}}>😟</p></div>
-                <div className="col-4 d-flex justify-content-start align-items-center"> <input type={"radio"} /><p className="my-0" style={{paddingLeft:"2px"}}>😊</p></div>
-                <div className="col-4 d-flex justify-content-start align-items-center" style={{marginTop:"5px"}}> <input type={"radio"} /><p className="my-0" style={{paddingLeft:"2px"}}>🙁</p></div>
-                <div className="col-4 d-flex justify-content-start align-items-center" style={{marginTop:"5px"}}> <input type={"radio"} /><p className="my-0" style={{paddingLeft:"2px"}}>🥰</p></div>
-                <div className="col-4 d-flex justify-content-start align-items-center" style={{marginTop:"5px"}}> <input type={"radio"} /><p className="my-0" style={{paddingLeft:"2px"}}>😍</p></div>
+                <div className="col-4 pr-0 d-flex justify-content-start align-items-center " ><input type={"radio"} name={`QUALIFIED${length}`} onChange={(e)=>OnChangeRadio(e,props._id)} defaultChecked={props.leadQualified === 0  ? true : false} value={"0"} /><p className="my-0" style={{paddingLeft:"2px"}}>?</p></div>
+                <div className="col-4 d-flex justify-content-start align-items-center"> <input type={"radio"} name={`QUALIFIED${length}`} onChange={(e)=>OnChangeRadio(e,props._id)} defaultChecked={props.leadQualified === 1 ? true : false} value={"1"} /><p className="my-0" style={{paddingLeft:"2px"}}>😟</p></div>
+                <div className="col-4 d-flex justify-content-start align-items-center"> <input type={"radio"} name={`QUALIFIED${length}`} onChange={(e)=>OnChangeRadio(e,props._id)} defaultChecked={props.leadQualified === 2 ? true : false} value={"2"} /><p className="my-0" style={{paddingLeft:"2px"}}>😊</p></div>
+                <div className="col-4 d-flex justify-content-start align-items-center" style={{marginTop:"5px"}}> <input type={"radio"} name={`QUALIFIED${length}`} onChange={(e)=>OnChangeRadio(e,props._id)} defaultChecked={props.leadQualified === 3 ? true : false} value={"3"} /><p className="my-0" style={{paddingLeft:"2px"}}>🥰</p></div>
+                <div className="col-4 d-flex justify-content-start align-items-center" style={{marginTop:"5px"}}> <input type={"radio"} name={`QUALIFIED${length}`} onChange={(e)=>OnChangeRadio(e,props._id)} defaultChecked={props.leadQualified === 4 ? true : false} value={"4"} /><p className="my-0" style={{paddingLeft:"2px"}}>😍</p></div>
 
                        </div>
             </div>

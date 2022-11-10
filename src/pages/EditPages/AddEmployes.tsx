@@ -317,7 +317,7 @@ useEffect(() => {
       console.log(e.target.name, e.target.value);
       changeSectorSelection(e.target.value);
     }
-    if (e.target.name === "candidatName") {
+     if (e.target.name === "candidatName") {
       console.log(e.target.value)
       checkCandidatName(e.target.value.toLocaleUpperCase())
         .then(resData => {
@@ -386,8 +386,18 @@ useEffect(() => {
         return
       }
     }
-
+   if(e.target.name === "candidatStartDate"){
+    var tempDate = new Date(e.target.value);
+            var formattedDate = [ tempDate.getDate(), tempDate.getMonth() + 1,tempDate.getFullYear()].join('-');
+          setData((prev) => ({ ...prev, ['candidatStartDate']:formattedDate}));
+   }
+   else if(e.target.name === "candidatEndDate"){
+    var tempDate = new Date(e.target.value);
+    var formattedDate = [ tempDate.getDate(),tempDate.getMonth() + 1, tempDate.getFullYear()].join('-');
+  setData((prev) => ({ ...prev, ['candidatEndDate']:formattedDate}));
+  }else{
     setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  }
   }
 
   useEffect(() => {
@@ -464,14 +474,21 @@ useEffect(() => {
     // setData((prev) => ({ ...prev, ['candidatExperienceDetails']: [] }));
     if (data.candidatName == "") {
       notifyNameError()
+
+    setdsBtn(false)
+
       return false
     }
     if (data.candidatStartDate == "") {
       notifyDateError()
+    setdsBtn(false)
+
       return false;
     }
     if (data.candidatAddress == "") {
       notifyAddressError()
+    setdsBtn(false)
+
       return false;
     }
     if (data.candidatEndDate == "") {

@@ -326,7 +326,7 @@ className="SelectBtn"
                   </div>
                   <div>
                     <div className="d-flex mb-0">
-                    <p>Motivation : <b>{candidatMotivationIcons[profile.candidatMotivation ].icon + " " + candidatMotivationIcons[profile.candidatMotivation ].motivation}</b> </p>
+                    <p>Motivation : <b>{profile.candidatMotivation !== undefined? candidatMotivationIcons[profile.candidatMotivation ].icon + " " + candidatMotivationIcons[profile.candidatMotivation ].motivation : "No Motivation!"}</b> </p>
                     </div>
                   </div>
                   <p>Secteur : {profile.candidatActivitySector ? profile.candidatActivitySector.toLocaleUpperCase() : "No Secteur!"}</p>
@@ -410,7 +410,7 @@ className="SelectBtn"
                     <div className="d-flex ">
                       <p className="EmbauchFull-CardMoreSpan"  style={{color: "#3F76E2"}} >Ready for work :</p>
                       <span className="EmbauchFull-CardMoreSpan"  style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
-                      {date >= start && date <= end  ?" 📆" + profile.candidatStartDate  + "  To  " + profile.candidatEndDate :   "⚠️" + profile.candidatStartDate +"  To  " + profile.candidatEndDate} 
+                      { profile.candidatStartDate ? date >= start && date <= end  ?" 📆" + profile.candidatStartDate  + "  To  " + profile.candidatEndDate :   "⚠️" + profile.candidatStartDate +"  To  " + profile.candidatEndDate : "✘ No Dates!"} 
                       </span>
                     </div>
                     <div className="d-flex">

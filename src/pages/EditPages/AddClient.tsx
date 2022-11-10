@@ -493,9 +493,20 @@ const onFormDataChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaEl
         console.log(e.target.name, e.target.value);
         changeSectorSelection(e.target.value);
     }
-   
+   if(e.target.name === "jobStartDate"){
+    var tempDate = new Date(e.target.value);
+    var formattedDate = [ tempDate.getDate(), tempDate.getMonth() + 1,tempDate.getFullYear()].join('-');
+    setData((prev) => ({ ...prev, ['jobStartDate']:formattedDate}));
 
+   } else if(e.target.name === "jobEndDate"){
+    var tempDate = new Date(e.target.value);
+    var formattedDate = [ tempDate.getDate(), tempDate.getMonth() + 1,tempDate.getFullYear()].join('-');
+    setData((prev) => ({ ...prev, ['jobEndDate']:formattedDate}));
+
+   }else{
     setData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+   }
+
 }
 
 const saveClientData = async () => {
@@ -593,6 +604,8 @@ const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
    
     if (data.clientCompanyName == "") {
         notifyNameError()
+    setDisableButton(false);
+
         return false
     }
     if (data.jobStartDate == "") {

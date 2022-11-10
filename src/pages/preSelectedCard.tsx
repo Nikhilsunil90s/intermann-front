@@ -117,11 +117,11 @@ const PreSelectedCard = (props: any) => {
                   {" "}
                   <p className="text-dark d-flex">
                     <b>
-                      {candidatMotivationIcons[props.data.candidatMotivation]
+                      {props.data.candidatMotivation !==undefined ?  candidatMotivationIcons[props.data.candidatMotivation]
                         .icon +
                         " " +
                         candidatMotivationIcons[props.data.candidatMotivation]
-                          .motivation}
+                          .motivation :"No Motivation!"}
                     </b>
                   </p>
                 </div>
@@ -165,11 +165,14 @@ const PreSelectedCard = (props: any) => {
                 <div>
                   <p className="text-dark d-flex">
                     <b>
-                      {candidatMotivationIcons[props.data.candidatMotivation]
+                      {props.data.candidatMotivation ? candidatMotivationIcons[props.data.candidatMotivation]
                         .icon +
                         " " +
                         candidatMotivationIcons[props.data.candidatMotivation]
-                          .motivation}
+                          .motivation
+                        :
+                        "No Motivation!"
+                        }
                     </b>
                   </p>
                 </div>
@@ -289,7 +292,7 @@ const PreSelectedCard = (props: any) => {
           >
             Ready for work :
             <b>
-              {date >= start && date <= end
+              {props.data.candidatStartDate !== undefined ? date >= start && date <= end
                 ? " 📆" +
                   props.data.candidatStartDate +
                   "  To  " +
@@ -297,7 +300,10 @@ const PreSelectedCard = (props: any) => {
                 : "⚠️" +
                   props.data.candidatStartDate +
                   "  To  " +
-                  props.data.candidatEndDate}{" "}
+                  props.data.candidatEndDate
+                :
+                "✘ No Dates!"
+                }{" "}
             </b>
           </p>
         </div>

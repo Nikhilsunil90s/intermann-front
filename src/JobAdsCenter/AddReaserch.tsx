@@ -226,6 +226,7 @@ name:"Contry"
     }),
   };
   const [clients, setClients] = useState([]);
+  const [btnDS,setBtnDS]=useState(false)
   const [onEditorStateChange, setOnEditorStateChange] = useState()as any
   const [data,setData]=useState(
     {
@@ -299,6 +300,7 @@ setData({...data,clients:ClF})
   }
 
   const OnSubmit=()=>{
+    setBtnDS(true)
      fetch(API_BASE_URL + "addAd",{
       method: "POST",
       headers: {
@@ -312,10 +314,12 @@ setData({...data,clients:ClF})
      .then(res=>{if(res.status){
      toast.success(res.message)
      setTimeout(()=>{
+      setBtnDS(false)
       window.location.reload()
      },2000)
      }else{
       toast.success(res.message)
+      setBtnDS(false)
      }
       
      })
@@ -426,7 +430,7 @@ placeholder="Link a client to this ad"
 </div>
                     </div>
                     <div className="col-12 d-flex justify-content-end mt-2">
-                            <button className="BtnLeads" onClick={(e)=>OnSubmit()}>
+                            <button className="BtnLeads" onClick={(e)=>OnSubmit()} disabled={btnDS}>
                             add this reaserch
                             </button>
                         

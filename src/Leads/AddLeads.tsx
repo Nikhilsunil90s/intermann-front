@@ -44,9 +44,10 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
 {value: 'Google Ads', label: 'Google Ads',name:"leadSource", color: '#FF8B00' },
 {value: 'Bing Ads', label: 'Bing Ads',name:"leadSource", color: '#FF8B00'  },
 {  value: 'Linkedin', label: 'Linkedin', name:"leadSource", color:  '#FF8B00', },
-{value: 'Sanpchat', label: 'Sanpchat',name:"leadSource", color: '#FF8B00' },
+{value: 'Snapchat', label: 'Snapchat',name:"leadSource", color: '#FF8B00' },
 ])
   const [selectJobInput,setJobInput]=useState()as any
+  const [btnDS,setBtnDS]=useState(false)
   const [data,setData]=useState({
     leadCountryMarket:"",
     leadCandidatName:"",
@@ -144,7 +145,19 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
  
 
   const onInputFormChange=(e)=>{
+    if(e.target.name=== "phoneNumber"){
+      let val =e.target.value
+    if(JSON.stringify(val).includes("+")){
+       setData({...data,[e.target.name]:e.target.value})
+    }else{
+      setData({...data,[e.target.name]:"+" + e.target.value})
+    }
+   
+    }else{
+
     setData({...data,[e.target.name]:e.target.value})
+
+    }
   }
   const onSelectChange=(e)=>{
     if(e.name === "leadCountryMarket"){
@@ -156,27 +169,50 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
   }
 
 const onSubmit=()=>{
-  fetch(API_BASE_URL + "addLead",{
-    method: "POST",
-    headers: {
-      "Accept": 'application/json',
-      'Content-Type': 'application/json',
-      "Authorization": "Bearer " + localStorage.getItem('token')
-    },
-    body:JSON.stringify(data)
-   })
-   .then(res=>res.json())
-   .then(res=>{if(res.status){
-   toast.success(res.message)
-   setTimeout(()=>{
-    window.location.reload()
-   },2000)
-   }else{
-    toast.success(res.message)
-   }
+  setBtnDS(true)
+  if(data.leadCandidatName === ""){
+    toast.error("Please Add Candidate Name!")
+  setBtnDS(false)
+
+  }else if(data.leadSource === ""){
+    toast.error("Please Add Source!")
+  setBtnDS(false)
+   
+  }
+  else if(data.leadCountryMarket === ""){
+    toast.error("Please Add Country market!")
+  setBtnDS(false)
+
+  }else if(data.leadPrice === ""){
+    toast.error("Please Add Euro!")
+  setBtnDS(false)
     
-   })
-   .catch(err=>err)
+  }
+  else{
+    fetch(API_BASE_URL + "addLead",{
+      method: "POST",
+      headers: {
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+      body:JSON.stringify(data)
+     })
+     .then(res=>res.json())
+     .then(res=>{if(res.status){
+     toast.success(res.message)
+     setTimeout(()=>{
+      window.location.reload()
+     },2000)
+     }else{
+      toast.error(res.message)
+      setBtnDS(false)
+     }
+      
+     })
+     .catch(err=>err)
+  }
+
 }
     return(<>
     <Toaster     containerStyle={{zIndex:"999999999999999999"}}  position="top-right"/>
@@ -203,20 +239,20 @@ const onSubmit=()=>{
                                 options={SelectContry}
                                 styles={colourStyles}
                               />
-                      <span className="text-small">Options are France; Suisse; Romania (select is enough) required*</span>
+                      <span className="text-small pl-1">Options are France; Suisse; Romania (select is enough) required*</span>
                     </div>
                     <div className="col-4">
                     <label className="Form-styling">Name </label>
                     <input
                         type="text"
                         style={{fontSize:"12px"}} className="form-control nameTransform"
-                        placeholder="Name"
+                        placeholder="Candidate Name"
                         id="validationCustom01"
                         name="leadCandidatName"
                         onChange={onInputFormChange}
-
+                         required
                       />
-                      <span className="text-small">Options are France; Suisse; Romania (select is enough) required*</span>
+                      <span className="text-small pl-1">Required*</span>
 
                     </div>
                     <div className="col-4">
@@ -244,7 +280,7 @@ const onSubmit=()=>{
                                 styles={colourStyles}
                               />
                        
-                      <span className="text-small">Options are Facebook; TikTok; SEO; Google Ads; Ejob; Jooble; Olx; Public21; Income Call; Undefined; Taboola; Outbrain; Other; Snapchat; SMS lead (select is enough) required*</span>
+                      <span className="text-small pl-1">Options are Facebook; TikTok; SEO; Google Ads; Ejob; Jooble; Olx; Public21; Income Call; Undefined; Taboola; Outbrain; Other; Snapchat; SMS lead (select is enough) required*</span>
                     </div>
                     <div className="col-4 mt-1">
                     <label className="Form-styling">Job Name </label>
@@ -288,9 +324,6 @@ const onSubmit=()=>{
                           </div>
                       </div>
                     </div>
-                  
-                      <span className="text-small pl-1">Select input or give the option to text input; required*</span>
-
                     </div>
                     <div className="col-4 mt-1">
                     <label className="Form-styling">Email </label>
@@ -315,6 +348,8 @@ const onSubmit=()=>{
                   onChange={onInputFormChange}
                   style={{fontSize:"12px"}}
                 />
+                      <span className="text-small pl-1">The price we paid for this lead, not required Exemple 12,30</span>
+
               </div>
                     <div className="col-12 d-grid mt-1">
                         <label className="Form-styling">Notes By Leads</label>
@@ -325,7 +360,7 @@ const onSubmit=()=>{
                         </textarea>
                     </div>
                     <div className="col-12 d-flex justify-content-end mt-2">
-                            <button className="BtnLeads" onClick={()=>onSubmit()}>
+                            <button className="BtnLeads" onClick={()=>onSubmit()} disabled={btnDS}>
                               SUBMIT NOW
                             </button>
                         
