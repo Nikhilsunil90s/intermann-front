@@ -1,22 +1,39 @@
-import React,{useEffect,useRef} from "react";
-
-function NotesDeleteModal({closeModal}){
-
-
-
-
+import React,{useEffect,useRef,useState} from "react";
+import { API_BASE_URL } from "../../config/serverApiConfig";
+import {toast} from "react-hot-toast"
+function NotesDeleteModal({props,closeModal,update,Load,Notes}){
+  const [btnDS,setBTNds]=useState(false)
+  const DeleteNotes=()=>{
+  let data={
+    leadId:props._id,
+  }
+  fetch(Notes == "Leads" ? API_BASE_URL +"deleteLeadNotes" :API_BASE_URL +`deleteAgencyNotes`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body:JSON.stringify(data)
+  })
+  .then((res)=>res.json())
+  .then(res=>{
+    if(res.status){
+      update(true)
+      setBTNds(false)
+      Load(true)
+      toast.success(res.message)
+      setTimeout(()=>{
+        closeModal(false)
+      })
+    }else{
+      setBTNds(false)    
+      toast.success(res.message)
     
-    const onchange=(val:any)=>{
-        if (val == 'ROUMAIN') {
-              window.open("https://www.intermann.ro/")
-             } 
-             if (val == 'FRANCAIS') {
-               window.open("https://www.intermann.fr/")
-               
-             }
     }
-
-
+  })
+  .catch(err=>err)
+  }
     const ref = useRef();
 
     useOnClickOutside(ref, () => closeModal(false));
@@ -81,7 +98,7 @@ function NotesDeleteModal({closeModal}){
                                   
                                         <div className="col-3 d-grid pr-1">
                                         
-<button className="btn" style={{
+<button className="btn" disabled={btnDS} onClick={()=>DeleteNotes()} style={{
                             fontFamily: 'Poppins',
                             fontStyle: "normal",
                             fontWeight: "700",
@@ -94,7 +111,7 @@ function NotesDeleteModal({closeModal}){
                         }}>Yes</button>
                                         </div> <div className="col-3 d-grid">
                                                                   
-<button className="btn  btn-bgbClient d-flex justify-content-center align-items-center" style={{
+<button onClick={()=>closeModal()} className="btn  btn-bgbClient d-flex justify-content-center align-items-center" style={{
                             fontFamily: 'Poppins',
                             fontStyle: "normal",
                             fontWeight: "700",

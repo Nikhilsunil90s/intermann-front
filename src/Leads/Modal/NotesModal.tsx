@@ -1,21 +1,8 @@
-import React,{useEffect,useRef} from "react";
-
-function NotesModal({closeModal}){
-
-
-
-
-    
-    const onchange=(val:any)=>{
-        if (val == 'ROUMAIN') {
-              window.open("https://www.intermann.ro/")
-             } 
-             if (val == 'FRANCAIS') {
-               window.open("https://www.intermann.fr/")
-               
-             }
-    }
-
+import React,{useEffect,useRef,useState} from "react";
+import toast from "react-hot-toast";
+import {API_BASE_URL} from "../../config/serverApiConfig"
+function NotesModal({closeModal,props,Notes,EditModal,deleteModal}){
+  const [btnDS,setBTNds]=useState(false)
 
     const ref = useRef();
 
@@ -47,6 +34,27 @@ function NotesModal({closeModal}){
         [ref, handler]
       );
     }
+
+    const DeleteNotes=()=>{
+      if(Notes =="Leads"){
+        if(props.leadNotes !== ""){
+          closeModal(false)
+          deleteModal(true)
+        }else{
+          setBTNds(false)
+          toast.error("Please Add Notes!")
+        }
+      }else{
+        if(props.agencyNotes !== ""){
+          closeModal(false)
+          deleteModal(true)
+        }else{
+          setBTNds(false)
+          toast.error("Please Add Notes!")
+        }
+      }
+    
+    }
  
 
     return(
@@ -58,7 +66,7 @@ function NotesModal({closeModal}){
                     <div className="col-12">
                         <div className="row">
                             <div className="col-8 px-0 clientArchivedModal-font">
-                    <h2 className="modal-title  py-1 pRight" id="staticBackdropLabel">Notes by Agency</h2>
+                    <h2 className="modal-title  py-1 pRight" id="staticBackdropLabel">{Notes == "Leads" ? "Notes by " + Notes : "Notes by Agency"}</h2>
                     </div>
                     <div className="col-4 text-end d-flex align-items-center">
                     <button type="button" className="btn-close" onClick={() => closeModal(false)} data-bs-dismiss="modal" aria-label="Close"></button>
@@ -77,16 +85,15 @@ function NotesModal({closeModal}){
                             color: "#000000",
                       
                         }}>
-                            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                            
-                            "
+                            {Notes === "Leads" ? props.leadNotes ? props.leadNotes : "✘✘No Notes!" : null}
+                            {Notes === "Agency" ? props.agencyNotes ? props.agencyNotes : "✘✘No Notes!" : null}
                        </p>   </div>
                             <div className="col-12 text-center">
                                 <div className="row justify-content-end py-1">
                                   
                                         <div className="col-4 d-grid">
                                         
-<button className="btn" style={{
+<button className="btn" disabled={btnDS} onClick={()=>DeleteNotes()} style={{
                             fontFamily: 'Poppins',
                             fontStyle: "normal",
                             fontWeight: "700",
@@ -98,8 +105,8 @@ function NotesModal({closeModal}){
 
                         }}><img src={require("../../images/Deletebucket.svg").default} /> Delete This Note</button>
                                         </div> <div className="col-4 d-grid">
-                                                                  
-<button className="btn  btn-bgbClient d-flex justify-content-center align-items-center" style={{
+                                    
+<button disabled={btnDS} className="btn  btn-bgbClient d-flex justify-content-center align-items-center" onClick={()=>{closeModal(false);EditModal(true)}} style={{
                             fontFamily: 'Poppins',
                             fontStyle: "normal",
                             fontWeight: "700",
@@ -107,7 +114,8 @@ function NotesModal({closeModal}){
                             lineHeight: "18px",
                             borderRadius:"22px"
 
-                        }}><img src={require("../../images/Edit.svg").default} />Edit this Note</button>
+                        }}><img src={require("../../images/Edit.svg").default}  />Edit this Note</button>
+                      
 
                                         </div>
                                       

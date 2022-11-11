@@ -19,6 +19,7 @@ function Sidebar(props: any) {
     await localStorage.removeItem("archive")
     await localStorage.removeItem("embauch")
     await localStorage.removeItem("profile")
+    await localStorage.removeItem("LoginUser")
     navigate('/')
     LogNotify()
   }

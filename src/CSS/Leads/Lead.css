@@ -114,6 +114,9 @@
   line-height: 15px;
   color: #3f76e2;
   margin-bottom: 0px;
+  background: transparent;
+  border: 0px;
+  text-align: start;
 }
 .lead_Created {
   background: #cde7f9;

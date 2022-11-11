@@ -1,26 +1,50 @@
-import React,{useEffect,useRef} from "react";
+import React,{useEffect,useRef, useState} from "react";
+import toast, { Toaster } from "react-hot-toast";
+import {API_BASE_URL} from "../../config/serverApiConfig"
 
-function NotesEditModal({closeModal}){
+function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal}){
 
-
-
-
-    
-    const onchange=(val:any)=>{
-        if (val == 'ROUMAIN') {
-              window.open("https://www.intermann.ro/")
-             } 
-             if (val == 'FRANCAIS') {
-               window.open("https://www.intermann.fr/")
-               
-             }
-    }
-
-
+  const [editNotes,setEditNotes]=useState("")
+  const [btnDS,setBTNds]=useState(false)
     const ref = useRef();
 
     useOnClickOutside(ref, () => closeModal(false));
+
+    const LeadsNotes=async()=>{
+      setBTNds(true)
+      let data={
+        leadId:props._id,
+        leadNotes:editNotes,
+      }
+     return await fetch(API_BASE_URL + "updateLeadNotes", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify(data),
+      })
+      .then((res)=>res.json())
+      .then(res=>res)
+      .catch(err=>err)
+    }
   
+    const AgencyNotes=async()=>{
+      setBTNds(true)
+     return await fetch(API_BASE_URL + `editAgencyNote/?leadId=${props._id}&notes=${editNotes}`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((res)=>res.json())
+      .then(res=>res)
+      .catch(err=>err)
+    }
+
     function useOnClickOutside(ref, handler) {
       useEffect(
         () => {
@@ -38,19 +62,74 @@ function NotesEditModal({closeModal}){
             document.removeEventListener("touchstart", listener);
           };
         },
-        // Add ref and handler to effect dependencies
-        // It's worth noting that because the passed-in handler is a new ...
-        // ... function on every render that will cause this effect ...
-        // ... callback/cleanup to run every render. It's not a big deal ...
-        // ... but to optimize you can wrap handler in useCallback before ...
-        // ... passing it into this hook.
         [ref, handler]
       );
+    }
+
+
+    const DeleteNotes=()=>{
+      if(Notes =="Leads"){
+        if(props.leadNotes !== ""){
+          closeModal(false)
+          deleteModal(true)
+        }else{
+          setBTNds(false)
+          toast.error("Please Add Notes!")
+        }
+      }else{
+        if(props.agencyNotes !== ""){
+          closeModal(false)
+          deleteModal(true)
+        }else{
+          setBTNds(false)
+          toast.error("Please Add Notes!")
+        }
+      }
+    
+    }
+
+    const EditNotes=()=>{
+      if(Notes == "Leads"){
+         LeadsNotes().then((res)=>{
+          if(res.status){
+            update(true)
+            setBTNds(false)
+            Load(true)
+            toast.success(res.message)
+            setTimeout(()=>{
+              closeModal(false)
+              
+            },2000)
+          }
+          else{
+             setBTNds(false)    
+            toast.success(res.message)
+          }
+         })
+      }else{
+        AgencyNotes().then((res)=>{
+          if(res.status){
+            update(true)
+            setBTNds(false)
+            Load(true)
+            toast.success(res.message)
+            setTimeout(()=>{
+              closeModal(false)
+              
+            },2000)
+          }
+          else{
+             setBTNds(false)    
+            toast.success(res.message)
+          }
+         })
+      }
     }
  
 
     return(
         <>
+        <Toaster   containerStyle={{zIndex:"30443330099555"}}    position="top-right"         />
   <div className="modal d-block" style={{ backgroundColor: "#00000052" }} id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div className="modal-dialog modal-lg" style={{width:"795px"}}>
                 <div className="modal-content">
@@ -58,7 +137,7 @@ function NotesEditModal({closeModal}){
                     <div className="col-12">
                         <div className="row">
                             <div className="col-8 px-0 clientArchivedModal-font">
-                    <h2 className="modal-title  py-1 pRight" id="staticBackdropLabel">Notes by Agency</h2>
+                    <h2 className="modal-title  py-1 pRight" id="staticBackdropLabel">{Notes == "Leads" ? "Notes by " + Notes : "Notes by Agency"}</h2>
                     </div>
                     <div className="col-4 text-end d-flex align-items-center">
                     <button type="button" className="btn-close" onClick={() => closeModal(false)} data-bs-dismiss="modal" aria-label="Close"></button>
@@ -67,7 +146,7 @@ function NotesEditModal({closeModal}){
                     </div>
                     </div>
                     <div className="modal-body text-start">
-                    <textarea  style={{fontSize:"12px",height:"40vh"}}  className="form-control nameTransform" placeholder="Notes">
+                    <textarea  style={{fontSize:"12px",height:"40vh"}}  className="form-control nameTransform" onChange={(e)=>setEditNotes(e.target.value)} defaultValue={Notes == "Leads" ? props.leadNotes ? props.leadNotes : "✘✘No Notes!" : Notes === "Agency" ? props.agencyNotes ? props.agencyNotes : "✘✘No Notes!" :"✘✘No Notes!"}>
 
 </textarea>
                             <div className="col-12 text-center mt-1">
@@ -75,7 +154,7 @@ function NotesEditModal({closeModal}){
                                   
                                         <div className="col-4 d-grid">
                                         
-<button className="btn" style={{
+<button className="btn" disabled={btnDS} onClick={()=>DeleteNotes()} style={{
                             fontFamily: 'Poppins',
                             fontStyle: "normal",
                             fontWeight: "700",
@@ -85,10 +164,10 @@ function NotesEditModal({closeModal}){
                             border:"2px solid #E21B1B",
                             borderRadius:"22px",marginTop:"5px"
 
-                        }}><img style={{paddingRight:"5px"}} src={require("../../images/Deletebucket.svg").default} /> Delete This Note</button>
+                        }}><img style={{paddingRight:"5px"}} src={require("../../images/Deletebucket.svg").default}  /> Delete This Note</button>
                                         </div> <div className="col-4 d-grid">
                                                                   
-<button className="btn  btn-bgbClient d-flex justify-content-center align-items-center" style={{
+<button className="btn  btn-bgbClient d-flex justify-content-center align-items-center" disabled={btnDS} onClick={()=>{EditNotes()}} style={{
                             fontFamily: 'Poppins',
                             fontStyle: "normal",
                             fontWeight: "700",
@@ -98,7 +177,7 @@ function NotesEditModal({closeModal}){
                             color:"#ffff"
                            ,backgroundColor:"#489767" 
 
-                        }}><img style={{paddingRight:"5px"}} src={require("../../images/diskette.svg").default} />   Update This Note</button>
+                        }}><img style={{paddingRight:"5px"}} src={require("../../images/diskette.svg").default}   />   Update This Note</button>
 
                                         </div>
                                       

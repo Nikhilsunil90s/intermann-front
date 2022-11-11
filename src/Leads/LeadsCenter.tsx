@@ -7,12 +7,14 @@ import Filters from "./LeadComponents/Filters";
 import LeadList from "./LeadComponents/LeadList";
 import Loader from "../components/Loader/loader"
 import Error from "../components/Loader/SearchBarError"
-
+import {useSelector} from "react-redux";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import {toast,Toaster} from "react-hot-toast";
 
 let TabName=""
 function LeadsCenter() {
+
+
   const [activeTab, setActiveTab] = React.useState(0) as any;
   const [monthModal,setMonthModal] =useState(false)
   const [LeadsCheck,setLeadScHeck] =useState(false)
@@ -33,8 +35,9 @@ function LeadsCenter() {
     },
   ]) as any;
 
+
   const  fetchLeads=async(market)=>{
-         setLeadScHeck(false)
+        //  setLeadScHeck(false)
          
         await fetch(API_BASE_URL + `allLeads/?market=${market}`,{
           method: "GET",
@@ -151,7 +154,7 @@ useEffect(()=>{
             style={{ background: "#ffff", borderRadius: "10px" }}
           >
             <p className="mb-0 ApplyFilter">
-              Applied filters showed <b> ‎ ‎“100 Lead Results”</b>
+              Applied filters showed <b> ‎ ‎“✘✘No Filters Applied!”</b>
             </p>
           </div>
           <div

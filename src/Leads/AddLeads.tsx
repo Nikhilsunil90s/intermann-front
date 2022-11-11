@@ -242,7 +242,7 @@ const onSubmit=()=>{
                       <span className="text-small pl-1">Options are France; Suisse; Romania (select is enough) required*</span>
                     </div>
                     <div className="col-4">
-                    <label className="Form-styling">Name </label>
+                    <label className="Form-styling">Candidate Name </label>
                     <input
                         type="text"
                         style={{fontSize:"12px"}} className="form-control nameTransform"

@@ -165,7 +165,7 @@ const PreSelectedCard = (props: any) => {
                 <div>
                   <p className="text-dark d-flex">
                     <b>
-                      {props.data.candidatMotivation ? candidatMotivationIcons[props.data.candidatMotivation]
+                      {props.data.candidatMotivation  !== undefined? candidatMotivationIcons[props.data.candidatMotivation]
                         .icon +
                         " " +
                         candidatMotivationIcons[props.data.candidatMotivation]
