@@ -1,7 +1,7 @@
 import React,{useEffect,useRef,useState} from "react";
 import toast from "react-hot-toast";
 import {API_BASE_URL} from "../../config/serverApiConfig"
-function NotesModal({closeModal,props,Notes,EditModal,deleteModal}){
+function NotesModal({closeModal,props,Notes,EditModal,deleteModal,setDelete}){
   const [btnDS,setBTNds]=useState(false)
 
     const ref = useRef();
@@ -36,6 +36,7 @@ function NotesModal({closeModal,props,Notes,EditModal,deleteModal}){
     }
 
     const DeleteNotes=()=>{
+      setDelete("")
       if(Notes =="Leads"){
         if(props.leadNotes !== ""){
           closeModal(false)

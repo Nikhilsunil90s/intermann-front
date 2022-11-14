@@ -68,7 +68,7 @@ const navigate = useNavigate();
                     </div>
                     <div className="col-7 EmbauchCard pt-1 px-0" >
                     <p style={{width:"100%"}}  className="text-dark mb-0"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={profile.candidatName.toLocaleUpperCase()}><b>{profile.candidatName.length > 20 ? profile.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : profile.candidatName.toLocaleUpperCase()}</b></p>
-                    <div className="text-dark EmbauchCard mb-0">{profile.candidatAge ?  <p className="age00 ml-0 mb-0"> <b>Age :  {profile.candidatAge}</b></p> : <p className="mb-0"><b>✘ Age Not Available!</b></p>}</div>
+                    <div className="text-dark EmbauchCard mb-0">{profile.candidatAge !=="" ?  <p className="age00 ml-0 mb-0"> <b  style={{marginLeft:"10px"}}>Age :  {profile.candidatAge}</b></p> : <p className="mb-0 age00"><b className="notAvailable">✘ Age Not Available!</b></p>}</div>
                         <div >  <p className="text-dark d-flex"> <b>{profile.candidatMotivation !== undefined ? candidatMotivationIcons[profile.candidatMotivation ].icon + " " + candidatMotivationIcons[profile.candidatMotivation ].motivation : "✘No Motivation!"}</b> 
                         </p>
                         </div> 
@@ -86,7 +86,7 @@ const navigate = useNavigate();
                     </div>
                     <div className="col-7 EmbauchCard pt-1 px-0" >
                     <p style={{width:"100%"}}  className="text-dark mb-0"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={profile.candidatName.toLocaleUpperCase()}><b>{profile.candidatName.length > 20 ? profile.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : profile.candidatName.toLocaleUpperCase()}</b></p>
-                    <div className="text-dark mb-0">{profile.candidatAge ?  <p className="age00 ml-0 mb-0"> <b>Age :  {profile.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</div>
+                    <div className="text-dark mb-0">{profile.candidatAge ?  <p className="age00 ml-0 mb-0"> <b style={{marginLeft:"10px "}}>Age :  {profile.candidatAge}</b></p> : <b className="notAvailable">✘ Age Not Available!</b>}</div>
                         <div >  <p className="text-dark d-flex"> <b>{profile.candidatMotivation !== undefined ? candidatMotivationIcons[profile.candidatMotivation ].icon + " " + candidatMotivationIcons[profile.candidatMotivation ].motivation : "✘No Motivation!"}</b> 
                         </p>
                         </div> 

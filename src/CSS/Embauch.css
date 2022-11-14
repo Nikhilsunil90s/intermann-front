@@ -123,7 +123,16 @@ hr.new5 {
   font-size: 6px !important;
   padding: 2px 0px 0px 0px !important;
 }
-
+.notAvailable{   
+font-family: "Poppins" !important;
+font-style: normal !important;
+font-weight: 600 !important;
+font-size: 12px !important;
+line-height: 19px !important;
+color: #000000 !important;
+margin-bottom: 0px;
+margin-left: 10px;
+}
 .btn-cardLeft {
   background-color: #a461d8;
   color: #ffff;

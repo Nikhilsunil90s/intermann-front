@@ -1,11 +1,13 @@
-import React,{useRef,useEffect} from "react";
+import React,{useRef,useEffect,useState} from "react";
 import MonthModal from "../Modal/NotesModal";
 
-function LeadCenterMiniCard({closeModal,modal}) {
+function LeadCenterMiniCard({closeModal,modal,props}) {
   
   const ref = useRef();
   useOnClickOutside(ref, () => closeModal(false));
-  
+  const userName=useState(props.emailAddress.substring(0, props.emailAddress.lastIndexOf("@")).toUpperCase())
+
+  // console.log(props.emailAddress.substring(0, props.emailAddress.lastIndexOf("@")),"email")
   function useOnClickOutside(ref, handler) {
     useEffect(
       () => {
@@ -29,12 +31,8 @@ function LeadCenterMiniCard({closeModal,modal}) {
 
   return (
     <>
-      <div className="col-12 mt-1">
-        <div className="row">
-          <div
-            className="col-4 card  mb-0"
-            style={{ padding: "5px 10px", borderRadius: "10px" }}
-          >
+      <div className="col-12 card ml-0 my-1 mr-0"  style={{ padding: "5px 10px", borderRadius: "10px",width:"295px" }}>
+      
             <div className="card-content">
               <div className="card-body">
                 <div
@@ -49,7 +47,7 @@ function LeadCenterMiniCard({closeModal,modal}) {
                       />
                     </div>
                     <div className="col-7 media-body d-grid">
-                      <p className="leadCardUser">User 1 (carmen)</p>
+                      <p className="leadCardUser">{props.username}</p>
                       <span className="leadSpan">Stats This Month</span>
                     </div>
                     <div className="col-3 media-body text-right px-0 cursor-pointer" >
@@ -79,17 +77,17 @@ function LeadCenterMiniCard({closeModal,modal}) {
                   <div className="row justify-content-between">
                     <div className="col-3 px-0 text-center">
                       <div className="CardDetails">
-                        <p className="mb-0">10 Calls</p>
+                        <p className="mb-0">{props.contactedLeads.count} Calls</p>
                       </div>
                     </div>
                     <div className="col-5 px-0 text-center">
                       <div className="CardDetails">
-                        <p className="mb-0">10 Qualified</p>
+                        <p className="mb-0">{props.qualifiedLeads.count} Qualified</p>
                       </div>
                     </div>
                     <div className="col-3 px-0 text-center">
                       <div className="CardDetails">
-                        <p className="mb-0">10 Calls</p>
+                        <p className="mb-0">{props.preContactedLeads.count} Calls</p>
                       </div>
                     </div>
                     <div
@@ -97,15 +95,14 @@ function LeadCenterMiniCard({closeModal,modal}) {
                       style={{ paddingTop: "7px" }}
                     >
                       <div className="CardDetails">
-                        <p className="mb-0">10 Added TO CRM</p>
+                        <p className="mb-0">{props.leadsAddedToCRM.count} Added TO CRM</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+   
       </div>
     </>
   );

@@ -1,38 +1,71 @@
 import React,{useEffect,useRef,useState} from "react";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import {toast} from "react-hot-toast"
-function NotesDeleteModal({props,closeModal,update,Load,Notes}){
+function NotesDeleteModal({props,closeModal,update,Load,Notes,LeadsDelete,setDelete}){
   const [btnDS,setBTNds]=useState(false)
   const DeleteNotes=()=>{
+
   let data={
     leadId:props._id,
   }
-  fetch(Notes == "Leads" ? API_BASE_URL +"deleteLeadNotes" :API_BASE_URL +`deleteAgencyNotes`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
-    },
-    body:JSON.stringify(data)
-  })
-  .then((res)=>res.json())
-  .then(res=>{
-    if(res.status){
-      update(true)
-      setBTNds(false)
-      Load(true)
-      toast.success(res.message)
-      setTimeout(()=>{
-        closeModal(false)
-      })
-    }else{
-      setBTNds(false)    
-      toast.success(res.message)
-    
-    }
-  })
-  .catch(err=>err)
+  if(LeadsDelete  === "Delete"){
+  // Load(false)
+ fetch(API_BASE_URL + `deleteLead`,{
+   method: "POST",
+   headers: {
+     "Accept": 'application/json',
+     'Content-Type': 'application/json',
+     "Authorization": "Bearer " + localStorage.getItem('token')
+   },
+   body:JSON.stringify(data)
+ })
+   .then(red => red.json())
+   .then(resData => {
+      if(resData.status){
+        toast.success(resData.message)
+        // Lead([])
+        update(true)
+        setDelete("")
+setTimeout(()=>{
+  Load(true)
+},2000)
+      }else{
+      //  Update(true)
+       toast.error(resData.message)
+
+      }
+   })
+   .catch(err => err)
+
+  }else{
+    fetch(Notes == "Leads" ? API_BASE_URL +"deleteLeadNotes" :API_BASE_URL +`deleteAgencyNotes`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body:JSON.stringify(data)
+    })
+    .then((res)=>res.json())
+    .then(res=>{
+      if(res.status){
+        update(true)
+        setBTNds(false)
+        Load(true)
+        toast.success(res.message)
+        setTimeout(()=>{
+          closeModal(false)
+        })
+      }else{
+        setBTNds(false)    
+        toast.success(res.message)
+      
+      }
+    })
+    .catch(err=>err)
+  }
+ 
   }
     const ref = useRef();
 
@@ -90,7 +123,7 @@ function NotesDeleteModal({props,closeModal,update,Load,Notes}){
                             lineHeight: "24px",
                             color:"#000"
 
-                        }}>Do you really want to delete this note?</p>
+                        }}>Do you really want to delete this{LeadsDelete  === "Delete" ?  " Lead?": " note?"}</p>
                         </div>
 
                             <div className="col-12 text-center mt-1">

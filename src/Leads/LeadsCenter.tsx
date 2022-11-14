@@ -10,6 +10,7 @@ import Error from "../components/Loader/SearchBarError"
 import {useSelector} from "react-redux";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import {toast,Toaster} from "react-hot-toast";
+import Carousel from "react-multi-carousel";
 
 let TabName=""
 function LeadsCenter() {
@@ -19,6 +20,7 @@ function LeadsCenter() {
   const [monthModal,setMonthModal] =useState(false)
   const [LeadsCheck,setLeadScHeck] =useState(false)
   const [Leads,setLeads]=useState([])
+  const [userCardList,setUserCardList]=useState([])
   const [UpdateFiled,setUpdateField]=useState(false)
   const [tabItems] = useState([
     {
@@ -62,16 +64,60 @@ function LeadsCenter() {
           })
           .catch(err => err)
         }
+
+        const  fetchUsers=async()=>{
+          //  setLeadScHeck(false)
+           
+          await fetch(API_BASE_URL + `allusers`,{
+            method: "GET",
+            headers: {
+              "Accept": 'application/json',
+              'Content-Type': 'application/json',
+              "Authorization": "Bearer " + localStorage.getItem('token')
+            },
+          })
+            .then(red => red.json())
+            .then(resData => {
+               if(resData.status){
+                setUpdateField(false)
+                setUserCardList([...resData.data])
+               }else{
+                setUserCardList([])
+                setUpdateField(false)
+  
+               }
+            })
+            .catch(err => err)
+          }
    
   
-
+          const responsive = {
+            superLargeDesktop: {
+              // the naming can be any, depends on you.
+              breakpoint: { max: 4000, min: 3000 },
+              items: 3,
+            },
+            desktop: {
+              breakpoint: { max: 3000, min: 1024 },
+              items: 3,
+            },
+            tablet: {
+              breakpoint: { max: 1024, min: 464 },
+              items: 2,
+            },
+            mobile: {
+              breakpoint: { max: 464, min: 0 },
+              items: 1,
+            },
+          };
+        
 
 useEffect(()=>{
+  fetchUsers()
   const FolderName = tabItems.filter((el, i) => i == activeTab);
   TabName =FolderName.map((el)=>(el.value))
   
   fetchLeads(TabName)
-
 },[UpdateFiled])
 
   const onTabClick = (e, index: any) => {
@@ -136,9 +182,18 @@ useEffect(()=>{
             </Tabs>
           </div>
           {/* Mini Card */}
-          <>
-            <LeadCenterMiniCard closeModal={setMonthModal}  modal={monthModal} />
-          </>
+          <div className="userLeads">
+     <Carousel responsive={responsive}>
+
+          {userCardList.map((el)=>(
+    <>
+    <LeadCenterMiniCard closeModal={setMonthModal} props={el} key={el._id}  modal={monthModal} />
+  </>
+          ))
+
+          }
+    </Carousel>
+    </div>
           {/* End Card */}
         
 
@@ -167,7 +222,7 @@ useEffect(()=>{
             Leads.length > 0 ?
             Leads.map((el,i)=>(
 
-              <LeadList  props={el} length={i} key={i} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} />
+              <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} />
 
             ))
             :

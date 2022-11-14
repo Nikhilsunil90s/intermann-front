@@ -13,6 +13,7 @@ function LeadList({props,Update,Load,Lead,length}){
   const [NoteEditModal,setNoteEditsModal] =useState(false)
   const [NoteDeleteModal,setNotesDeleteModal] =useState(false)
   const [LeadNotes,setLeadsNote]=useState("")
+  const [DeleteLeads,setDeleteLeads]=useState("")
 
   const [LeadeCreateDate,setLeadeCreateDate]=useState()as any
   var today =props.createdAt.slice(0,10);
@@ -67,6 +68,7 @@ const PreContact=(id,status)=>{
   .then((res)=>res.json())
   .then(res=>{
     if(res.status){
+      Update(true)
       toast.success(res.message)
     }else{
       toast.error(res.message)
@@ -87,6 +89,7 @@ const ContAgency=(id,status)=>{
   .then((res)=>res.json())
   .then(res=>{
     if(res.status){
+      Update(true)
       toast.success(res.message)
     }else{
       toast.error(res.message)
@@ -94,6 +97,30 @@ const ContAgency=(id,status)=>{
   })
   .catch(err => err)
 }
+
+const OnChangeAddToCrm=(id,status)=>{
+
+  fetch(API_BASE_URL + `changeCRMStatus/?userId=${LoginUserS._id}&leadId=${id}&status=${status}`,
+  {
+    method: "GET",
+    headers: {
+      "Accept": 'application/json',
+      "Authorization": "Bearer " + localStorage.getItem('token')
+    }
+  }
+  )
+  .then((res)=>res.json())
+  .then(res=>{
+    if(res.status){
+      Update(true)
+      toast.success(res.message)
+    }else{
+      toast.error(res.message)
+    }
+  })
+  .catch(err => err)
+}
+
 const QUALIFIED=(id,status)=>{
   fetch(API_BASE_URL + `changeQualifiedValue/?userId=${LoginUserS._id}&leadId=${id}&value=${status}`,
   {
@@ -107,6 +134,7 @@ const QUALIFIED=(id,status)=>{
   .then((res)=>res.json())
   .then(res=>{
     if(res.status){
+      Update(true)
       toast.success(res.message)
     }else{
       toast.error(res.message)
@@ -129,7 +157,7 @@ const OnChangeRadio=(e,id)=>{
        QUALIFIED(id,e.target.value)
      }
      if(e.target.name === `Added_to_CRM${length}`){
-       
+      OnChangeAddToCrm(id,e.target.value)
      }
 }
 
@@ -144,43 +172,11 @@ const AddToCrm=()=>{
   }
 AddToCRM(data)
 }
-     
-const   DeleteLeads=async(Id)=>{
-  let data={
-    leadId:Id
-  }
-  // Load(false)
- await fetch(API_BASE_URL + `deleteLead`,{
-   method: "POST",
-   headers: {
-     "Accept": 'application/json',
-     'Content-Type': 'application/json',
-     "Authorization": "Bearer " + localStorage.getItem('token')
-   },
-   body:JSON.stringify(data)
- })
-   .then(red => red.json())
-   .then(resData => {
-      if(resData.status){
-        toast.success(resData.message)
-        // Lead([])
-       Update(true)
-setTimeout(()=>{
-  Load(true)
-},2000)
-      }else{
-      //  Update(true)
-       toast.error(resData.message)
-
-      }
-   })
-   .catch(err => err)
- }
-
+  
     return(<>
     <Toaster  position="top-right"   containerStyle={{zIndex:"30443330099555"}}   />
     <div className="row px-1 mt-1" style={{width:"135%"}}>
-     <div className="col-12 lead_Created"><div className="row"><div className="col-7"><p className="mb-0 "><img  src={require("../../images/calendar.png")} style={{width:"12px",marginRight:"4px"}} />Lead Created on {LeadeCreateDate}</p></div><div className="col-5 d-flex justify-content-end align-items-center"><button className="AddToCrm mb-0" onClick={()=>AddToCrm()}>add to crm</button><button className="deleteAd mx-1" onClick={()=>DeleteLeads(props._id)} ><img   src={require("../../images/Deletebucket.svg").default}  /></button></div>
+     <div className="col-12 lead_Created"><div className="row"><div className="col-7"><p className="mb-0 "><img  src={require("../../images/calendar.png")} style={{width:"12px",marginRight:"4px"}} />Lead Created on {LeadeCreateDate}</p></div><div className="col-5 d-flex justify-content-end align-items-center"><button className="AddToCrm mb-0" onClick={()=>AddToCrm()}>add to crm</button><button className="deleteAd mx-1" onClick={()=>{setDeleteLeads("Delete");setNotesDeleteModal(true)}} ><img   src={require("../../images/Deletebucket.svg").default}  /></button></div>
 
      </div></div>
      <div className="col-12">
@@ -218,8 +214,8 @@ setTimeout(()=>{
         <div className="col-8">
           <div className="row">
             <div className="col-4 d-grid PrECONTACTED">
-              <p className="mb-0 ">PrECONTACTED</p>
-              <span>(BY Dana)</span>
+              <p className="mb-0 ">Precontacted</p>
+              <span>(BY {LoginUser.emailAddress.substring(0,LoginUserS.emailAddress.lastIndexOf("@")).toUpperCase()})</span>
               <div className="row PrECONTACTEDInput mt-1" >
                 <div className="col-3 pr-0 d-flex justify-content-center align-items-center " ><input type={"radio"} className="cursor-pointer"  name={`preContact${length}`} value={"No"} onChange={(e)=>OnChangeRadio(e,props._id)} defaultChecked={props.leadPreContacted === "No" ? true : false } /><p className="my-0" style={{paddingLeft:"2px"}}>No</p></div>
                 <div className="col-4 px-0 d-flex justify-content-center align-items-center"> <input type={"radio"} className="cursor-pointer"   name={`preContact${length}`} value={"Interested"} onChange={(e)=>OnChangeRadio(e,props._id)} defaultChecked={props.leadPreContacted === "Interested" ? true : false } /><p className="my-0" style={{paddingLeft:"2px"}}>Interested</p></div>
@@ -228,7 +224,7 @@ setTimeout(()=>{
             </div>
             <div className="col-4 d-grid PrECONTACTED">
               <p className="mb-0 ">Contacted by Agency</p>
-              <span>(BY Benjamin)</span>
+              <span>(BY {LoginUser.emailAddress.substring(0,LoginUserS.emailAddress.lastIndexOf("@")).toUpperCase()})</span>
               <div className="row PrECONTACTEDInput mt-1">
                 <div className="col-2 pr-0 d-flex justify-content-center align-items-center " ><input type={"radio"} className="cursor-pointer" name={`CAgency${length}`} defaultChecked={props.leadContactedByAgency== "No" ? true : false} onChange={(e)=>OnChangeRadio(e,props._id)} value="No"/><p className="my-0" style={{paddingLeft:"2px"}}>No</p></div>
                 <div className="col-2 px-0 d-flex justify-content-end align-items-center"> <input type={"radio"} className="cursor-pointer" name={`CAgency${length}`} defaultChecked={props.leadContactedByAgency== "Yes" ? true : false} onChange={(e)=>OnChangeRadio(e,props._id)} value="Yes"/><p className="my-0" style={{paddingLeft:"2px"}}>Yes</p></div>
@@ -243,8 +239,8 @@ setTimeout(()=>{
                     }}>
               <p className="mb-0 ">Added to CRM</p>
               <div className="row PrECONTACTEDInput mt-1 " style={{height:"74%"}}>
-                <div className="col-4 pr-0  d-flex justify-content-center align-items-center " ><input type={"radio"}  name={`Added_to_CRM${length}`} onChange={(e)=>OnChangeRadio(e,props._id)}  className="cursor-pointer yesNoRadio"  defaultChecked={props.leadAddedToCRM === false ? true : false}/><p className="my-0" style={{paddingLeft:"2px"}}>No</p></div>
-                <div className="col-8  d-flex justify-content-start align-items-center"> <input type={"radio"} name={`Added_to_CRM${length}`}  onChange={(e)=>OnChangeRadio(e,props._id)}  className="cursor-pointer yesNoRadio" defaultChecked={props.leadAddedToCRM === true ? true : false} /><p className="my-0" style={{paddingLeft:"2px"}}>Yes</p></div>
+                <div className="col-4 pr-0  d-flex justify-content-center align-items-center " ><input type={"radio"}  value="false" name={`Added_to_CRM${length}`} onChange={(e)=>OnChangeRadio(e,props._id)}  className="cursor-pointer yesNoRadio"  defaultChecked={props.leadAddedToCRM === false ? true : false}/><p className="my-0" style={{paddingLeft:"2px"}}>No</p></div>
+                <div className="col-8  d-flex justify-content-start align-items-center"> <input type={"radio"} value="true" name={`Added_to_CRM${length}`}  onChange={(e)=>OnChangeRadio(e,props._id)}  className="cursor-pointer yesNoRadio" defaultChecked={props.leadAddedToCRM === true ? true : false} /><p className="my-0" style={{paddingLeft:"2px"}}>Yes</p></div>
                             </div>
             </div>
             <div className="col-6 pr-2">
@@ -271,7 +267,7 @@ setTimeout(()=>{
      </div>
     </div>
     {NoteEditModal ?
-            <NotesEditModal closeModal={setNoteEditsModal} props={props} update={Update} Load={Load} deleteModal={setNotesDeleteModal} Notes={LeadNotes} />
+            <NotesEditModal closeModal={setNoteEditsModal} props={props} update={Update} Load={Load} deleteModal={setNotesDeleteModal} Notes={LeadNotes} setDelete={setDeleteLeads} />
 :
 null
 
@@ -279,12 +275,12 @@ null
       {
             NoteModal?
 
-            <NotesModal  closeModal={setNotesModal} props={props} EditModal={setNoteEditsModal}  deleteModal={setNotesDeleteModal} Notes={LeadNotes}  /> 
+            <NotesModal  closeModal={setNotesModal} props={props} EditModal={setNoteEditsModal}  deleteModal={setNotesDeleteModal} Notes={LeadNotes}  setDelete={setDeleteLeads} /> 
                        :
             null
           }
               {NoteDeleteModal ?
-                   <ConfirmDelete closeModal={setNotesDeleteModal} props={props}  update={Update}  Load={Load}  Notes={LeadNotes}   />
+                   <ConfirmDelete closeModal={setNotesDeleteModal} props={props}  update={Update}  Load={Load}  Notes={LeadNotes} LeadsDelete={DeleteLeads} setDelete={setDeleteLeads}  />
           
 :
 null

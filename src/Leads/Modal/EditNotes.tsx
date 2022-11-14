@@ -2,7 +2,7 @@ import React,{useEffect,useRef, useState} from "react";
 import toast, { Toaster } from "react-hot-toast";
 import {API_BASE_URL} from "../../config/serverApiConfig"
 
-function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal}){
+function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelete}){
 
   const [editNotes,setEditNotes]=useState("")
   const [btnDS,setBTNds]=useState(false)
@@ -31,14 +31,19 @@ function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal}){
     }
   
     const AgencyNotes=async()=>{
+      let data ={
+        leadId:props._id,
+        agencyNotes:editNotes
+      }
       setBTNds(true)
-     return await fetch(API_BASE_URL + `editAgencyNote/?leadId=${props._id}&notes=${editNotes}`, {
-        method: "GET",
+     return await fetch(API_BASE_URL + `editAgencyNotes`, {
+        method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
+        body:JSON.stringify(data)
       })
       .then((res)=>res.json())
       .then(res=>res)
@@ -68,6 +73,7 @@ function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal}){
 
 
     const DeleteNotes=()=>{
+      setDelete("")
       if(Notes =="Leads"){
         if(props.leadNotes !== ""){
           closeModal(false)
