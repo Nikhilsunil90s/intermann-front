@@ -1,5 +1,7 @@
 import React,{useState,useEffect,useRef} from "react";
 import Select, { StylesConfig } from "react-select";
+import { ColourOption } from "../../Selecteddata/data";
+import chroma from "chroma-js";
 // import { DateRangePicker } from 'react-date-range';
 // import 'react-date-range/dist/styles.css'; // main style file
 // import 'react-date-range/dist/theme/default.css'
@@ -20,6 +22,66 @@ function Filters (){
       key: 'selection'
     }
   ])
+  const colourStyles: StylesConfig<ColourOption, true> = {
+    control: (styles) => ({ ...styles, backgroundColor: "white" }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      const color = chroma(data.color);
+      return {
+        ...styles,
+        backgroundColor: isDisabled
+          ? undefined
+          : isSelected
+          ? data.color 
+          : isFocused
+          ? color.alpha(0.1).css()
+          : undefined,
+        color: isDisabled
+          ? "#ccc"
+          : isSelected
+          ? chroma.contrast(color, "white") > 2
+            ? "white"
+            : "black"
+          : data.color,
+        cursor: isDisabled ? "not-allowed" : "default",
+
+        ":active": {
+          ...styles[":active"],
+          backgroundColor: !isDisabled
+            ? isSelected
+              ? data.color
+              : color.alpha(0.3).css()
+            : undefined,
+        },
+      };
+    },
+    multiValue: (styles, { data }) => {
+      const color = chroma(data.color);
+      return {
+        ...styles,
+        backgroundColor: color.alpha(0.1).css(),
+      };
+    },
+    multiValueLabel: (styles, { data }) => ({
+      ...styles,
+      color: data.color,
+    }),
+    multiValueRemove: (styles, { data }) => ({
+      ...styles,
+      color: data.color,
+      ":hover": {
+        backgroundColor: data.color,
+        color: "white",
+      },
+    }),
+  };
+
+  const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSource", color:  '#FF8B00' },
+{  value: 'Facebook', label: 'Facebook', name:"leadSource", color:  '#FF8B00', },
+{value: 'Google Ads', label: 'Google Ads',name:"leadSource", color: '#FF8B00' },
+{value: 'Bing Ads', label: 'Bing Ads',name:"leadSource", color: '#FF8B00'  },
+{  value: 'Linkedin', label: 'Linkedin', name:"leadSource", color:  '#FF8B00', },
+{value: 'Snapchat', label: 'Snapchat',name:"leadSource", color: '#FF8B00' },
+])
 
   // open close
   const [open, setOpen] = useState(false)
@@ -64,7 +126,7 @@ function Filters (){
                   classNamePrefix="select"
                   // onChange={handleEmailChange}
                   // options={email}
-                  // styles={colourStyles}
+                  styles={colourStyles}
                 />
               </div>
               <div className="col-4">
@@ -78,8 +140,8 @@ function Filters (){
                   className="basic-multi-select placeHolderLead"
                   classNamePrefix="select"
                   // onChange={handleEmailChange}
-                  // options={email}
-                  // styles={colourStyles}
+                  options={fromPerson}
+                  styles={colourStyles}
                 />
               </div>
               <div className="col-4">
@@ -94,7 +156,7 @@ function Filters (){
                   classNamePrefix="select"
                   // onChange={handleEmailChange}
                   // options={email}
-                  // styles={colourStyles}
+                  styles={colourStyles}
                 />
               </div>
               <div className="col-4 mt-1">
@@ -109,7 +171,7 @@ function Filters (){
                   classNamePrefix="select"
                   // onChange={handleEmailChange}
                   // options={email}
-                  // styles={colourStyles}
+                  styles={colourStyles}
                 />
               </div>
               <div className="col-4 mt-1">
@@ -125,7 +187,7 @@ function Filters (){
 
                   // onChange={handleEmailChange}
                   // options={email}
-                  // styles={colourStyles}
+                  styles={colourStyles}
                 />
               </div>
               <div className="col-4 mt-1">
@@ -174,7 +236,7 @@ function Filters (){
                   classNamePrefix="select"
                   // onChange={handleEmailChange}
                   // options={email}
-                  // styles={colourStyles}
+                  styles={colourStyles}
                 />
               </div>
               <div className="col-4">
@@ -189,7 +251,7 @@ function Filters (){
                   classNamePrefix="select"
                   // onChange={handleEmailChange}
                   // options={email}
-                  // styles={colourStyles}
+                  styles={colourStyles}
                 />
               </div>
               <div className="col-4">
@@ -204,7 +266,7 @@ function Filters (){
                   classNamePrefix="select"
                   // onChange={handleEmailChange}
                   // options={email}
-                  // styles={colourStyles}
+                  styles={colourStyles}
                 />
               </div>
              

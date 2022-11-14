@@ -1,11 +1,10 @@
 import React,{useRef,useEffect,useState} from "react";
 import MonthModal from "../Modal/NotesModal";
 
-function LeadCenterMiniCard({closeModal,modal,props}) {
+function LeadCenterMiniCard({closeModal,modal,props,activeUser}) {
   
   const ref = useRef();
   useOnClickOutside(ref, () => closeModal(false));
-  const userName=useState(props.emailAddress.substring(0, props.emailAddress.lastIndexOf("@")).toUpperCase())
 
   // console.log(props.emailAddress.substring(0, props.emailAddress.lastIndexOf("@")),"email")
   function useOnClickOutside(ref, handler) {
@@ -77,7 +76,7 @@ function LeadCenterMiniCard({closeModal,modal,props}) {
                   <div className="row justify-content-between">
                     <div className="col-3 px-0 text-center">
                       <div className="CardDetails">
-                        <p className="mb-0">{props.contactedLeads.count} Calls</p>
+                        <p className="mb-0">{props?.contactedLeads.count} Calls</p>
                       </div>
                     </div>
                     <div className="col-5 px-0 text-center">
@@ -97,6 +96,9 @@ function LeadCenterMiniCard({closeModal,modal,props}) {
                       <div className="CardDetails">
                         <p className="mb-0">{props.leadsAddedToCRM.count} Added TO CRM</p>
                       </div>
+                    </div>
+                    <div className="col-6 d-flex justify-content-end align-items-end">
+                      <span className={props?.emailAddress === activeUser?.emailAddress ? "activeCard" : "deActive"}></span>
                     </div>
                   </div>
                 </div>

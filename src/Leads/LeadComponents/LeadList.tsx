@@ -6,7 +6,7 @@ import NotesEditModal from "../Modal/EditNotes";
 import {API_BASE_URL} from "../../config/serverApiConfig"
 import toast, { Toaster } from "react-hot-toast";
 let NewCdate;
-function LeadList({props,Update,Load,Lead,length}){
+function LeadList({props,Update,Load,Lead,length,activeUser}){
   const LoginUser=JSON.parse(localStorage.getItem("LoginUser"))
   const [LoginUserS,setLoginUser]=useState(LoginUser)
   const [NoteModal,setNotesModal] =useState(false)
@@ -18,6 +18,7 @@ function LeadList({props,Update,Load,Lead,length}){
   const [LeadeCreateDate,setLeadeCreateDate]=useState()as any
   var today =props.createdAt.slice(0,10);
 useEffect(()=>{
+  activeUser(LoginUser)
   if(today){
     let tempdate =new Date(today)
       let Month= tempdate.getMonth()+1

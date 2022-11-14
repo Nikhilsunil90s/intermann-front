@@ -343,7 +343,7 @@ const onSubmit=()=>{
                 </label>
                 <input
                   name="leadPrice"
-                  placeholder="Lead Price"
+                  placeholder="Num Only."
                   className="form-control nameTransform"
                   onChange={onInputFormChange}
                   style={{fontSize:"12px"}}

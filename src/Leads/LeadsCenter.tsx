@@ -7,7 +7,6 @@ import Filters from "./LeadComponents/Filters";
 import LeadList from "./LeadComponents/LeadList";
 import Loader from "../components/Loader/loader"
 import Error from "../components/Loader/SearchBarError"
-import {useSelector} from "react-redux";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import {toast,Toaster} from "react-hot-toast";
 import Carousel from "react-multi-carousel";
@@ -15,13 +14,15 @@ import Carousel from "react-multi-carousel";
 let TabName=""
 function LeadsCenter() {
 
-
+  const LoginUser=JSON.parse(localStorage.getItem("LoginUser"))
+  const [LoginUserS,setLoginUser]=useState(LoginUser)
   const [activeTab, setActiveTab] = React.useState(0) as any;
   const [monthModal,setMonthModal] =useState(false)
   const [LeadsCheck,setLeadScHeck] =useState(false)
   const [Leads,setLeads]=useState([])
   const [userCardList,setUserCardList]=useState([])
   const [UpdateFiled,setUpdateField]=useState(false)
+  const [currentUser,setCurrentUser]=useState()as any
   const [tabItems] = useState([
     {
       text: "FRANCE",
@@ -67,8 +68,8 @@ function LeadsCenter() {
 
         const  fetchUsers=async()=>{
           //  setLeadScHeck(false)
-           
-          await fetch(API_BASE_URL + `allusers`,{
+       
+      return    await fetch(API_BASE_URL + `allusers`,{
             method: "GET",
             headers: {
               "Accept": 'application/json',
@@ -77,20 +78,11 @@ function LeadsCenter() {
             },
           })
             .then(red => red.json())
-            .then(resData => {
-               if(resData.status){
-                setUpdateField(false)
-                setUserCardList([...resData.data])
-               }else{
-                setUserCardList([])
-                setUpdateField(false)
-  
-               }
-            })
+            .then(resData =>resData)
             .catch(err => err)
           }
-   
   
+          console.log(userCardList)
           const responsive = {
             superLargeDesktop: {
               // the naming can be any, depends on you.
@@ -113,7 +105,25 @@ function LeadsCenter() {
         
 
 useEffect(()=>{
-  fetchUsers()
+ 
+  fetchUsers().then((resData)=>{
+    {
+      if(resData.status){
+       setUpdateField(false)
+       if(resData.data.length > 0){
+         let Cuser=  resData.data.filter((el)=>el?.username === LoginUserS?.username)
+          let users=  resData.data.filter((el)=>el?.username !== LoginUserS?.username)
+          setUserCardList([...Cuser,...users])
+       }
+    
+      }else{
+       setUserCardList([])
+       setUpdateField(false)
+
+      }
+   }
+  })
+// console.log(currentUser.emailAddress)
   const FolderName = tabItems.filter((el, i) => i == activeTab);
   TabName =FolderName.map((el)=>(el.value))
   
@@ -183,16 +193,20 @@ useEffect(()=>{
           </div>
           {/* Mini Card */}
           <div className="userLeads">
+        {  userCardList.length > 0 ?
      <Carousel responsive={responsive}>
 
-          {userCardList.map((el)=>(
+          {
+           userCardList.map((el)=>(
     <>
-    <LeadCenterMiniCard closeModal={setMonthModal} props={el} key={el._id}  modal={monthModal} />
+    <LeadCenterMiniCard closeModal={setMonthModal} props={el} key={el._id}  modal={monthModal} activeUser={currentUser} />
   </>
           ))
-
           }
     </Carousel>
+    :
+    null
+        }
     </div>
           {/* End Card */}
         
@@ -222,7 +236,7 @@ useEffect(()=>{
             Leads.length > 0 ?
             Leads.map((el,i)=>(
 
-              <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} />
+              <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} activeUser={setCurrentUser} />
 
             ))
             :
