@@ -81,7 +81,7 @@ function NotesModal({closeModal,props,Notes,EditModal,deleteModal,setDelete}){
                             fontFamily: 'Poppins',
                             fontStyle: "normal",
                             fontWeight: "400",
-                            fontSize: "12px",
+                            fontSize: "15px",
                             lineHeight: "24px",
                             color: "#000000",
                       

@@ -27,7 +27,7 @@ useEffect(()=>{
   }
 },[])
 
-const AddToCRM=(date)=>{
+const AddToCRM=(data)=>{
   fetch(API_BASE_URL + `addLeadToCRM`,
   {
   method: "POST",
@@ -36,7 +36,7 @@ const AddToCRM=(date)=>{
       'Content-Type': 'application/json',
       "Authorization": "Bearer " + localStorage.getItem('token')
   },
-  body: JSON.stringify(date),
+  body: JSON.stringify(data),
 }
   )
   .then((res)=>res.json())
@@ -100,7 +100,6 @@ const ContAgency=(id,status)=>{
 }
 
 const OnChangeAddToCrm=(id,status)=>{
-
   fetch(API_BASE_URL + `changeCRMStatus/?userId=${LoginUserS._id}&leadId=${id}&status=${status}`,
   {
     method: "GET",
@@ -177,7 +176,7 @@ AddToCRM(data)
     return(<>
     <Toaster  position="top-right"   containerStyle={{zIndex:"30443330099555"}}   />
     <div className="row px-1 mt-1" style={{width:"135%"}}>
-     <div className="col-12 lead_Created"><div className="row"><div className="col-7"><p className="mb-0 "><img  src={require("../../images/calendar.png")} style={{width:"12px",marginRight:"4px"}} />Lead Created on {LeadeCreateDate}</p></div><div className="col-5 d-flex justify-content-end align-items-center"><button className="AddToCrm mb-0" onClick={()=>AddToCrm()}>add to crm</button><button className="deleteAd mx-1" onClick={()=>{setDeleteLeads("Delete");setNotesDeleteModal(true)}} ><img   src={require("../../images/Deletebucket.svg").default}  /></button></div>
+     <div className="col-12 lead_Created"><div className="row"><div className="col-7 d-flex align-items-center"><p className="mb-0 d-flex align-items-center"><img  src={require("../../images/calendar.png")} style={{width:"12px",marginRight:"4px"}} />Lead Created on {LeadeCreateDate}</p></div><div className="col-5 d-flex justify-content-end align-items-center"><button className="AddToCrm mb-0" onClick={()=>AddToCrm()}>add to crm</button><button className="deleteAd mx-1" onClick={()=>{setDeleteLeads("Delete");setNotesDeleteModal(true)}} ><img   src={require("../../images/Deletebucket.svg").default}  /></button></div>
 
      </div></div>
      <div className="col-12">
@@ -185,27 +184,27 @@ AddToCRM(data)
             <div className="col-8">
                 <div className="row justify-content-between">
              <div className="col-2 leadBox">
-                <p className="mb-0">{props.adName ? props.adName.toLocaleUpperCase() : "✘✘!"}</p>
+                <b className="mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.adName}>{props.adName ? props.adName.length > 10 ? props.adName.slice(0,10).toLocaleUpperCase() + ".." : props.adName.toLocaleUpperCase() : "✘✘!"}</b>
              </div>
              <div className="col-2 leadBox">
-                <p className="mb-0">{props.leadSource ? props.leadSource  : ""}</p>
+                <b className="mb-0">{props.leadSource ? props.leadSource  : ""}</b>
              </div>
-             <div className="col-2 leadBox">
-                <p className="mb-0">{props.leadCandidatName ? props.leadCandidatName.toLocaleUpperCase()  : "✘✘!"}</p>
+             <div className="col-2 leadBox" >
+                <b className="mb-0"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.leadCandidatName}>{props.leadCandidatName ? props.leadCandidatName.length > 8 ? props.leadCandidatName.slice(0,8).toLocaleUpperCase()+".." : props.leadCandidatName.toLocaleUpperCase() : "✘✘!"}</b>
              </div>
              <div className="col-3 leadBox d-grid">
-                <p className="mb-0">{props.phoneNumber ? props.phoneNumber : "✘✘!"}</p>
-                <a href={`https://wa.me/${props.phoneNumber}`} target="_blank" className="BlueLink">Send What’s app</a>
+                <b className="mb-0">{props.phoneNumber ? props.phoneNumber : "✘✘!"}</b>
+                <a href={`https://wa.me/${props.phoneNumber}`} target="_blank" className="BlueLink text-center">Send What’s app</a>
              </div>
              <div className="col-3 leadBox " style={{maxWidth:"23%"}}>
-                <p className="mb-0">{props.email ? props.email : "✘✘!"}</p>
+                <b className="mb-0"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.email}>{props.email ? props.email.length > 15 ? props.email.slice(0,14) + ".." : props.email : "✘✘!"}</b>
               
              </div>
             </div>
             </div>
             <div className="col-4 d-grid leadBoxX">
-                <h5 className="mb-0">Notes by Leads</h5>
-                <p>{props.leadNotes ? props.leadNotes : "✘✘No Notes!"}</p>
+                <b className="mb-0">Notes by Leads</b>
+                <p>{props.leadNotes ? props.leadNotes.length > 40 ? props.leadNotes.slice(0,40) + "..." : props.leadNotes : "✘✘No Notes!"}</p>
                 <button onClick={()=>{setLeadsNote("Leads");setNotesModal(true)}} className="BlueLink">Click Here to View More</button>
             </div>
         </div>
@@ -261,7 +260,7 @@ AddToCRM(data)
         </div>
         <div className="col-4 d-grid NotesAgency">
         <p className="mb-0">Notes by Agency</p>
-        <span className="mb-0">{props.agencyNotes !=="" ? props.agencyNotes : "✘✘No Notes!"}</span>
+        <span className="mb-0">{props.agencyNotes !=="" ? props.agencyNotes.length > 40 ? props.agencyNotes.slice(0,40) + "..." :  props.agencyNotes : "✘✘No Notes!"}</span>
         <button  onClick={()=>{setLeadsNote("Agency");props.agencyNotes !=="" ? setNotesModal(true) : setNoteEditsModal(true)}} className="BlueLink d-flex" style={{background:"transparent",border:"0px"}}>Click Here to View More</button>
         </div>
      </div>

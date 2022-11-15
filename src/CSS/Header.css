@@ -361,11 +361,10 @@ padding-top: 16px;
 }
 
 .HeaderModalContainer {
-    position: fixed !important;
+    position: absolute !important;
     width: 260px !important;
     height: 135px !important;
-    left: 732px !important;
-    top: 58px !important;
+    top: 48px !important;
 }
 .LoginModalContainer {
     position: fixed !important;
@@ -646,14 +645,13 @@ padding-top:0px ;
 
 @media  (min-width:1400px){
     .HeaderModalContainer {
-        position: fixed !important;
+        position: absolute !important;
         width: 273px !important;
         height: 135px !important;
-        left: 805px !important;
-        top: 58px !important;
+        top: 48px !important;
     }
     .LoginModalContainer{
-        position: fixed !important;
+        position: absolute !important;
         width: 273px !important;
         height: 135px !important;
         left: 1123px !important;
@@ -664,14 +662,13 @@ padding-top:0px ;
 }
 @media  (min-width:1600px){
     .HeaderModalContainer {
-        position: fixed !important;
+        position: absolute !important;
         width: 273px !important;
         height: 135px !important;
-        left: 908px !important;
-        top: 58px !important;
+        top: 48px !important;
     }
     .LoginModalContainer{
-        position: fixed !important;
+        position: absolute !important;
         width: 273px !important;
         height: 135px !important;
         left: 1295px !important;
@@ -683,10 +680,9 @@ padding-top:0px ;
 }
 @media  (min-width:1700px){
     .HeaderModalContainer {
-        position: fixed !important;
+        position: absolute !important;
         width: 273px !important;
         height: 135px !important;
-        left: 976px !important;
         top: 58px !important;
     }
 .LoginModalContainer{
@@ -701,14 +697,13 @@ padding-top:0px ;
 }
 @media  (min-width:1800px){
     .HeaderModalContainer {
-        position: fixed !important;
+        position: absolute !important;
         width: 273px !important;
         height: 135px !important;
-        left: 1101px !important;
         top: 58px !important;
     }
     .LoginModalContainer{
-        position: fixed !important;
+        position: absolute !important;
         width: 273px !important;
         height: 135px !important;
         left: 1101px !important;
@@ -717,14 +712,13 @@ padding-top:0px ;
 }
 @media  (min-width:1900px){
     .HeaderModalContainer {
-        position: fixed !important;
+        position: absolute !important;
         width: 273px !important;
         height: 135px !important;
-        left: 1513px !important;
-        top: 58px !important;
+        top: 48px !important;
     }
     .LoginModalContainer{
-        position: fixed !important;
+        position: absolute !important;
         width: 273px !important;
         height: 135px !important;
         left: 1621px !important;

@@ -153,6 +153,8 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
       setData({...data,[e.target.name]:"+" + e.target.value})
     }
    
+    }else if(e.target.name=== "leadPrice"){
+      setData({...data,[e.target.name]:e.target.value.replace(/[^\d]/g, '')})
     }else{
 
     setData({...data,[e.target.name]:e.target.value})
@@ -201,6 +203,7 @@ const onSubmit=()=>{
      .then(res=>res.json())
      .then(res=>{if(res.status){
      toast.success(res.message)
+     setBtnDS(false)
      setTimeout(()=>{
       window.location.reload()
      },2000)
@@ -360,7 +363,7 @@ const onSubmit=()=>{
                         </textarea>
                     </div>
                     <div className="col-12 d-flex justify-content-end mt-2">
-                            <button className="BtnLeads" onClick={()=>onSubmit()} disabled={btnDS}>
+                            <button className="BtnLeads" onClick={()=>onSubmit()} style={{background:btnDS ?  "#3d393935" : "#000"}} disabled={btnDS}>
                               SUBMIT NOW
                             </button>
                         

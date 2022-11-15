@@ -1,27 +1,33 @@
-import React,{useState,useEffect,useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Select, { StylesConfig } from "react-select";
 import { ColourOption } from "../../Selecteddata/data";
 import chroma from "chroma-js";
-// import { DateRangePicker } from 'react-date-range';
-// import 'react-date-range/dist/styles.css'; // main style file
-// import 'react-date-range/dist/theme/default.css'
-// import DateRangePicker from 'react-daterange-picker'
-import { DateRange } from 'react-date-range'
+import { API_BASE_URL } from "../../config/serverApiConfig";
+import { DateRange } from "react-date-range";
+import {toast} from "react-hot-toast"
+import format from "date-fns/format";
+import { addDays } from "date-fns";
 
-import format from 'date-fns/format'
-import { addDays } from 'date-fns'
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import { dataURLFileLoader } from "react-doc-viewer";
 
-import 'react-date-range/dist/styles.css'
-import 'react-date-range/dist/theme/default.css'
-
-function Filters (){
+function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply}) {
+  let CaNam = [] as any;
+  let Contact = [] as any;
+  let Email = [] as any;
   const [range, setRange] = useState([
     {
       startDate: new Date(),
       endDate: addDays(new Date(), 7),
-      key: 'selection'
-    }
-  ])
+      key: "selection",
+    },
+  ]);
+  const [jobNames, setJobName] = useState([]);
+  const [Data,setData]=useState()as any
+  const [CanName, setCanName] = useState([]);
+  const [ContactOp, setContactOp] = useState([]);
+  const [emailOp, setemailOp] = useState([]);
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: "white" }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -31,7 +37,7 @@ function Filters (){
         backgroundColor: isDisabled
           ? undefined
           : isSelected
-          ? data.color 
+          ? data.color
           : isFocused
           ? color.alpha(0.1).css()
           : undefined,
@@ -75,202 +81,606 @@ function Filters (){
     }),
   };
 
-  const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSource", color:  '#FF8B00' },
-{  value: 'Facebook', label: 'Facebook', name:"leadSource", color:  '#FF8B00', },
-{value: 'Google Ads', label: 'Google Ads',name:"leadSource", color: '#FF8B00' },
-{value: 'Bing Ads', label: 'Bing Ads',name:"leadSource", color: '#FF8B00'  },
-{  value: 'Linkedin', label: 'Linkedin', name:"leadSource", color:  '#FF8B00', },
-{value: 'Snapchat', label: 'Snapchat',name:"leadSource", color: '#FF8B00' },
-])
+  const [fromPerson,setfromPerson] = useState([
+  
+  ]);
+
+  const [QUALIFIED,setQUALIFIED] = useState([
+]);
+  const [CONTACTED,setCONTACTED] = useState([
+ ]);
+  const [Precontacted,setPrecontacted] = useState([]);
 
   // open close
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+  // get the target element to toggle
+  const refOne = useRef(null);
 
-  // get the target element to toggle 
-  const refOne = useRef(null)
+  const fetchJobName = async (market) => {
+    await fetch(API_BASE_URL + `allAds/?market=${market}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((red) => red.json())
+      .then((res) => {
+        if (res.status) {
+          if (res.total > 0) {
+            const JobFl = res.data.map((el) => {
+              return {
+                value: el.adNameFrench + "/" + el.adNameRomanian,
+                label:
+                  el.adNameFrench.toLocaleUpperCase() +
+                  "/" +
+                  el.adNameRomanian.toLocaleUpperCase(),
+                color: "#FF8B00",
+                name: "adName",
+              };
+            });
+
+            setJobName([...JobFl]);
+          } else {
+            setJobName([]);
+          }
+        } else {
+          setJobName([]);
+        }
+      })
+      .catch((err) => err);
+  };
 
   useEffect(() => {
     // event listeners
-    document.addEventListener("keydown", hideOnEscape, true)
-    document.addEventListener("click", hideOnClickOutside, true)
-  }, [])
+    fetchJobName(market);
+    LeadsCard.map((el) => {
+      if (el.leadCandidatName) {
+        CaNam.push({
+          value: el.leadCandidatName,
+          label: el.leadCandidatName.toUpperCase(),
+          name: "leadCandidatName",
+          color: "#FF8B00",
+        });
+      }
+      if (el.phoneNumber) {
+        Contact.push({
+          value: el.phoneNumber,
+          label: el.phoneNumber,
+          name: "phoneNumber",
+          color: "#FF8B00",
+        });
+      }
+      if (el.email) {
+        Email.push({
+          value: el.email,
+          label: el.email,
+          name: "email",
+          color: "#FF8B00",
+        });
+      }
+      setContactOp([...Contact]);
+      setCanName([...CaNam]);
+      setemailOp([...Email]);
+      if(fromPerson.length  === 0){
+        setfromPerson([  { value: "TikTok", label: "TikTok", name: "leadSource", color: "#FF8B00" },
+        {
+          value: "Facebook",
+          label: "Facebook",
+          name: "leadSource",
+          color: "#FF8B00",
+        },
+        {
+          value: "Google Ads",
+          label: "Google Ads",
+          name: "leadSource",
+          color: "#FF8B00",
+        },
+        {
+          value: "Bing Ads",
+          label: "Bing Ads",
+          name: "leadSource",
+          color: "#FF8B00",
+        },
+        {
+          value: "Linkedin",
+          label: "Linkedin",
+          name: "leadSource",
+          color: "#FF8B00",
+        },
+        {
+          value: "Snapchat",
+          label: "Snapchat",
+          name: "leadSource",
+          color: "#FF8B00",
+        },])
+      }
+   if(QUALIFIED.length === 0){
+    setQUALIFIED([  { value: "0", label: "?", name: "leadQualified", color: "#FF8B00" },
+    { value: "1", label: "😟", name: "leadQualified", color: "#FF8B00" },
+    { value: "2", label: "😊", name: "leadQualified", color: "#FF8B00" },
+    { value: "3", label: "🥰", name: "leadQualified", color: "#FF8B00" },
+    { value: "4", label: "😍", name: "leadQualified", color: "#FF8B00" },
+ ])
+   }
+   if(CONTACTED.length === 0){
+    setCONTACTED([{
+      value: "Phone Closed",
+      label: "Phone Closed",
+      name: "leadContactedByAgency",
+      color: "#FF8B00",
+    },
+    { value: "Recall", label: "Recall", name: "leadContactedByAgency", color: "#FF8B00" },
+    { value: "Yes", label: "Yes", name: "leadContactedByAgency", color: "#FF8B00" },
+    { value: "No", label: "No", name: "leadContactedByAgency", color: "#FF8B00" },
+  ])
+   }
+
+   if(Precontacted.length === 0){
+    setPrecontacted([  {
+      value: "Not Interested",
+      label: "Not Interested",
+      name: "leadPreContacted",
+      color: "#FF8B00",
+    },
+    {
+      value: "Interested",
+      label: "Interested",
+      name: "leadPreContacted",
+      color: "#FF8B00",
+    },
+    { value: "No", label: "No", name: "leadPreContacted", color: "#FF8B00" },
+    ])
+   }
+ 
+
+
+    });
+  }, [LeadsCard,market]);
+
+  useEffect(() => {
+    // event listeners
+
+    document.addEventListener("keydown", hideOnEscape, true);
+    document.addEventListener("click", hideOnClickOutside, true);
+  }, []);
 
   // hide dropdown on ESC press
   const hideOnEscape = (e) => {
     // console.log(e.key)
-    if( e.key === "Escape" ) {
-      setOpen(false)
+    if (e.key === "Escape") {
+      setOpen(false);
     }
-  }
+  };
 
   // Hide on outside click
   const hideOnClickOutside = (e) => {
     // console.log(refOne.current)
     // console.log(e.target)
-    if( refOne.current && !refOne.current.contains(e.target) ) {
-      setOpen(false)
+    if (refOne.current && !refOne.current.contains(e.target)) {
+      setOpen(false);
     }
+  };
+  const handleEmailChange = (e: any) => {
+    setData({...Data,[e.name]:e.value,leadCountryMarket:market})
+    
+  };
+
+
+  useEffect(()=>{
+    setfromPerson([])
+  setQUALIFIED([])
+  setCONTACTED([])
+  setPrecontacted([])
+  setJobName([])
+  setContactOp([])
+  setemailOp([])
+  setCanName([])
+  setData()
+  setFilterApply()
+  },[market])
+  const OnClickDataChange=(e)=>{
+ if(e.target.name=== "ApplyFil"){
+  if(Data !== undefined)
+    {
+    fetch(API_BASE_URL + "filterLeads",{
+      method: "POST",
+      headers: {
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+      body:JSON.stringify(Data)
+     })
+     .then(res=>res.json())
+     .then(res=>{if(res.status){
+      statusLeads(true)
+  toast.success("Filter Leads Found Successfully!")
+
+      setLeads([...res.data])
+      setFilterApply(res.total)
+     }else{
+      statusLeads(true)
+  toast.error("Sorry No Results found!")
+
+      setLeads([])
+     }
+     })
+     .catch(err=>err)
+  }else{
+  toast.error("Please Select Any Filter!")
+
   }
+ 
+ }else{
+  toast.success("Filters Reset Successfully!")
+  setData()
+  update(true)
+  statusLeads(false)
+  setfromPerson([])
+  setQUALIFIED([])
+  setCONTACTED([])
+  setPrecontacted([])
+  setLeads([])
+  setJobName([])
+  setContactOp([])
+  setemailOp([])
+  setCanName([])
+  setFilterApply()
 
-    return(<>
-    <div className="row">
-              <div className="col-4">
-                <label style={{ fontSize: "14px" }} className="Form-styling">
-                  FILTER BY QUALIFIED
-                </label>
-                <Select
-                  name="market"
-                  closeMenuOnSelect={true}
-                  placeholder="‎  ‎ ‎  ‎ FILTER BY QUALIFIED"
-                  className="basic-multi-select placeHolderLead"
-                  classNamePrefix="select"
-                  // onChange={handleEmailChange}
-                  // options={email}
-                  styles={colourStyles}
-                />
-              </div>
-              <div className="col-4">
-                <label style={{ fontSize: "14px" }} className="Form-styling">
-                  FILTER BY SOURCE
-                </label>
-                <Select
-                  name="market"
-                  closeMenuOnSelect={true}
-                  placeholder="‎  ‎ ‎  ‎ FILTER BY SOURCE"
-                  className="basic-multi-select placeHolderLead"
-                  classNamePrefix="select"
-                  // onChange={handleEmailChange}
-                  options={fromPerson}
-                  styles={colourStyles}
-                />
-              </div>
-              <div className="col-4">
-                <label style={{ fontSize: "14px" }} className="Form-styling">
-                  Filter CONTACTED BY AGENCY ONLY
-                </label>
-                <Select
-                  name="market"
-                  closeMenuOnSelect={true}
-                  placeholder="‎  ‎ ‎  ‎ FILTER CONTACTED BY AGENCY ONLY"
-                  className="basic-multi-select placeHolderLead"
-                  classNamePrefix="select"
-                  // onChange={handleEmailChange}
-                  // options={email}
-                  styles={colourStyles}
-                />
-              </div>
-              <div className="col-4 mt-1">
-                <label style={{ fontSize: "14px" }} className="Form-styling">
-                  FILTER PRECONTACTED ONLY
-                </label>
-                <Select
-                  name="market"
-                  closeMenuOnSelect={true}
-                  placeholder="‎  ‎ ‎  ‎ FILTER PRECONTACTED ONLY"
-                  className="basic-multi-select placeHolderLead"
-                  classNamePrefix="select"
-                  // onChange={handleEmailChange}
-                  // options={email}
-                  styles={colourStyles}
-                />
-              </div>
-              <div className="col-4 mt-1">
-                <label style={{ fontSize: "14px" }} className="Form-styling">
-                  FILTER BY JOB
-                </label>
-                <Select
-                  name="market"
-                  closeMenuOnSelect={true}
-                  placeholder="‎  ‎ ‎  ‎ FILTER BY JOB"
-                  className="basic-multi-select placeHolderLead"
-                  classNamePrefix="select"
+ }
 
-                  // onChange={handleEmailChange}
-                  // options={email}
-                  styles={colourStyles}
-                />
-              </div>
-              <div className="col-4 mt-1">
-                <label style={{ fontSize: "14px" }} className="Form-styling" >
-                  Sort by Date
-                </label>
-                <div className=""  >
-
-
-
-<input
-  value={`${format(range[0].startDate, "MM/dd/yyyy")} to ${format(range[0].endDate, "MM/dd/yyyy")}`}
-  readOnly
-  className="dateSort"
-  onClick={ () => setOpen(open => !open) }
-/>
-
-<div ref={refOne} className="rdrDateRangePickerWrapper">
-  {open && 
-    <DateRange
-      onChange={item => setRange([item.selection])}
-      editableDateInputs={true}
-      moveRangeOnFirstSelection={false}
-      ranges={range}
-      months={1}
-      direction="vertical"
-      className="calendarElement"
-    />
   }
-  
+  return (
+    <>
+      <div className="row">
+        <div className="col-4">
+          <label style={{ fontSize: "14px" }} className="Form-styling">
+            FILTER BY QUALIFIED
+          </label>
+          {
+            QUALIFIED.length > 0 ?
+            <Select
+            name="market"
+            closeMenuOnSelect={true}
+            placeholder="‎  ‎ ‎  ‎ FILTER BY QUALIFIED"
+            className="basic-multi-select placeHolderLead"
+            classNamePrefix="select"
+            onChange={handleEmailChange}
+            options={QUALIFIED}
+            styles={colourStyles}
+          />
+          :
+          <>                                <div className="spinner-grow text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-secondary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-success" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-danger" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-warning" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-dark" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div></>
+          }
+        
+        </div>
+        <div className="col-4">
+          <label style={{ fontSize: "14px" }} className="Form-styling">
+            FILTER BY SOURCE
+          </label>
+          {
+             fromPerson.length > 0 ?
+             <Select
+             name="market"
+             closeMenuOnSelect={true}
+             placeholder="‎  ‎ ‎  ‎ FILTER BY SOURCE"
+             className="basic-multi-select placeHolderLead"
+             classNamePrefix="select"
+              onChange={handleEmailChange}
+             options={fromPerson}
+             styles={colourStyles}
+           />
+           :
+           <>                                <div className="spinner-grow text-primary" role="status">
+           <span className="visually-hidden">Loading...</span>
+         </div>
+         <div className="spinner-grow text-secondary" role="status">
+           <span className="visually-hidden">Loading...</span>
+         </div>
+         <div className="spinner-grow text-success" role="status">
+           <span className="visually-hidden">Loading...</span>
+         </div>
+         <div className="spinner-grow text-danger" role="status">
+           <span className="visually-hidden">Loading...</span>
+         </div>
+         <div className="spinner-grow text-warning" role="status">
+           <span className="visually-hidden">Loading...</span>
+         </div>
+         <div className="spinner-grow text-dark" role="status">
+           <span className="visually-hidden">Loading...</span>
+         </div></>
+          }
+      
+        </div>
+        <div className="col-4">
+          <label style={{ fontSize: "14px" }} className="Form-styling">
+            Filter CONTACTED BY AGENCY ONLY
+          </label>
+          {
+             CONTACTED.length > 0 ?
+             <Select
+             name="market"
+             closeMenuOnSelect={true}
+             placeholder="‎  ‎ ‎  ‎ FILTER CONTACTED BY AGENCY ONLY"
+             className="basic-multi-select placeHolderLead"
+             classNamePrefix="select"
+              onChange={handleEmailChange}
+             options={CONTACTED}
+             styles={colourStyles}
+           />
+           :
+           <>                                <div className="spinner-grow text-primary" role="status">
+  <span className="visually-hidden">Loading...</span>
 </div>
-<div  onClick={ () => setOpen(open => !open) } className="d-flex justify-content-end eventPos">
-    <img src={require("../../images/event.svg").default}  />
-  </div>
+<div className="spinner-grow text-secondary" role="status">
+  <span className="visually-hidden">Loading...</span>
 </div>
-              </div>
-              <div className="col-4">
-                <label style={{ fontSize: "14px" }} className="Form-styling">
-                  Filter by Name
-                </label>
-                <Select
-                  name="market"
-                  closeMenuOnSelect={true}
-                  placeholder="‎  ‎ ‎  ‎ Filter by Name"
-                  className="basic-multi-select placeHolderLead"
-                  classNamePrefix="select"
-                  // onChange={handleEmailChange}
-                  // options={email}
-                  styles={colourStyles}
+<div className="spinner-grow text-success" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-danger" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-warning" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
+<div className="spinner-grow text-dark" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div></>
+          }
+      
+        </div>
+        <div className="col-4 mt-1">
+          <label style={{ fontSize: "14px" }} className="Form-styling">
+            FILTER PRECONTACTED ONLY
+          </label>
+          {
+             Precontacted.length > 0 ?
+             <Select
+             name="market"
+             closeMenuOnSelect={true}
+             placeholder="‎  ‎ ‎  ‎ FILTER PRECONTACTED ONLY"
+             className="basic-multi-select placeHolderLead"
+             classNamePrefix="select"
+              onChange={handleEmailChange}
+             options={Precontacted}
+             styles={colourStyles}
+           />
+           :
+           <>                                <div className="spinner-grow text-primary" role="status">
+           <span className="visually-hidden">Loading...</span>
+         </div>
+         <div className="spinner-grow text-secondary" role="status">
+           <span className="visually-hidden">Loading...</span>
+         </div>
+         <div className="spinner-grow text-success" role="status">
+           <span className="visually-hidden">Loading...</span>
+         </div>
+         <div className="spinner-grow text-danger" role="status">
+           <span className="visually-hidden">Loading...</span>
+         </div>
+         <div className="spinner-grow text-warning" role="status">
+           <span className="visually-hidden">Loading...</span>
+         </div>
+         <div className="spinner-grow text-dark" role="status">
+           <span className="visually-hidden">Loading...</span>
+         </div></>
+          }
+      
+        </div>
+        <div className="col-4 mt-1">
+          <label style={{ fontSize: "14px" }} className="Form-styling">
+            FILTER BY JOB
+          </label>
+          {
+            jobNames.length > 0 ?
+            <Select
+            name="market"
+            closeMenuOnSelect={true}
+            placeholder="‎  ‎ ‎  ‎ FILTER BY JOB"
+            className="basic-multi-select placeHolderLead"
+            classNamePrefix="select"
+             onChange={handleEmailChange}
+            options={jobNames}
+            styles={colourStyles}
+          />
+          :  <>                                <div className="spinner-grow text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-secondary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-success" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-danger" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-warning" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-dark" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div></>
+          }
+       
+        </div>
+        <div className="col-4 mt-1">
+          <label style={{ fontSize: "14px" }} className="Form-styling">
+            Sort by Date
+          </label>
+          <div className="">
+            <input
+              value={`${format(range[0].startDate, "MM/dd/yyyy")} to ${format(
+                range[0].endDate,
+                "MM/dd/yyyy"
+              )}`}
+              readOnly
+              className="dateSort"
+              onClick={() => setOpen((open) => !open)}
+            />
+
+            <div ref={refOne} className="rdrDateRangePickerWrapper">
+              {open && (
+                <DateRange
+                  onChange={(item) => setRange([item.selection])}
+                  editableDateInputs={true}
+                  moveRangeOnFirstSelection={false}
+                  ranges={range}
+                  months={1}
+                  direction="vertical"
+                  className="calendarElement"
                 />
-              </div>
-              <div className="col-4">
-                <label style={{ fontSize: "14px" }} className="Form-styling">
-                FILTER BY Phone Number
-                </label>
-                <Select
-                  name="market"
-                  closeMenuOnSelect={true}
-                  placeholder="‎  ‎ ‎  ‎ FILTER BY Phone Number"
-                  className="basic-multi-select placeHolderLead"
-                  classNamePrefix="select"
-                  // onChange={handleEmailChange}
-                  // options={email}
-                  styles={colourStyles}
-                />
-              </div>
-              <div className="col-4">
-                <label style={{ fontSize: "14px" }} className="Form-styling">
-                Filter by Email
-                </label>
-                <Select
-                  name="market"
-                  closeMenuOnSelect={true}
-                  placeholder="‎  ‎ ‎  ‎ Filter by Email"
-                  className="basic-multi-select placeHolderLead"
-                  classNamePrefix="select"
-                  // onChange={handleEmailChange}
-                  // options={email}
-                  styles={colourStyles}
-                />
-              </div>
-             
+              )}
             </div>
-    </>)
+            <div
+              onClick={() => setOpen((open) => !open)}
+              className="d-flex justify-content-end eventPos"
+            >
+              <img src={require("../../images/event.svg").default} />
+            </div>
+          </div>
+        </div>
+        <div className="col-4">
+          <label style={{ fontSize: "14px" }} className="Form-styling">
+            Filter by Candidate Name
+          </label>
+          {
+            CanName.length > 0 ?
+            <Select
+            name="market"
+            closeMenuOnSelect={true}
+            placeholder="‎  ‎ ‎  ‎ Filter by Candidate Name"
+            className="basic-multi-select placeHolderLead"
+            classNamePrefix="select"
+             onChange={handleEmailChange}
+            options={CanName}
+            styles={colourStyles}
+          />
+          :
+          <>                                <div className="spinner-grow text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-secondary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-success" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-danger" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-warning" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-dark" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div></>
+          }
+       
+        </div>
+        <div className="col-4">
+          <label style={{ fontSize: "14px" }} className="Form-styling">
+            FILTER BY Phone Number
+          </label>
+          {
+            ContactOp.length > 0 ?
+            <Select
+            name="market"
+            closeMenuOnSelect={true}
+            placeholder="‎  ‎ ‎  ‎ FILTER BY Phone Number"
+            className="basic-multi-select placeHolderLead"
+            classNamePrefix="select"
+             onChange={handleEmailChange}
+            options={ContactOp}
+            styles={colourStyles}
+          />
+          :
+          <>                                <div className="spinner-grow text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-secondary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-success" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-danger" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-warning" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-dark" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div></>
+          }
+       
+        </div>
+        <div className="col-4">
+          <label style={{ fontSize: "14px" }} className="Form-styling">
+            Filter by Email
+          </label>
+          {
+            emailOp.length > 0 ? 
+            <Select
+            name="market"
+            closeMenuOnSelect={true}
+            placeholder="‎  ‎ ‎  ‎ Filter by Email"
+            className="basic-multi-select placeHolderLead"
+            classNamePrefix="select"
+             onChange={handleEmailChange}
+            options={emailOp}
+            styles={colourStyles}
+          />
+          :  <>                                <div className="spinner-grow text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-secondary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-success" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-danger" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-warning" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-dark" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div></>
+          }
+       
+        </div>
+        <div className="col-12 mt-2">
+            <div className="row justify-content-end">
+              <div className="col-2">  <button className="ApplyFiltersBtn" name="ApplyFil" onClick={(e)=>OnClickDataChange(e)}>Apply</button></div>
+           {Data !== undefined ? <div className="col-2">  <button className="RESETfilters" onClick={(e)=>OnClickDataChange(e)}>RESET</button></div> : null}   
+           
+            </div>
+        </div>
+      </div>
+    </>
+  );
 }
 export default Filters;

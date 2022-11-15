@@ -246,6 +246,13 @@ else if(e.target.value == ""){
                     <div className="d-flex justify-content-center align-items-center ml-1" >
                       <img src={require("../images/Vector-9.svg").default} />
                     </div>
+                    {
+                ModalOpen ? 
+<HeaderSelect   closeModal={setModalOpen}   />
+           
+                : 
+                null
+               }
                     </div>
                     
 
@@ -310,13 +317,7 @@ else if(e.target.value == ""){
        :
    null
     }
-               {
-                ModalOpen ? 
-<HeaderSelect   closeModal={setModalOpen}   />
-           
-                : 
-                null
-               }
+             
         
 
     </>

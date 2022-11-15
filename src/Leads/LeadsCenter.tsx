@@ -23,6 +23,7 @@ function LeadsCenter() {
   const [userCardList,setUserCardList]=useState([])
   const [UpdateFiled,setUpdateField]=useState(false)
   const [currentUser,setCurrentUser]=useState()as any
+  const [FilterApply,setFilterApply]=useState()as any
   const [tabItems] = useState([
     {
       text: "FRANCE",
@@ -82,7 +83,6 @@ function LeadsCenter() {
             .catch(err => err)
           }
   
-          console.log(userCardList)
           const responsive = {
             superLargeDesktop: {
               // the naming can be any, depends on you.
@@ -136,7 +136,6 @@ useEffect(()=>{
     TabName =FolderName.map((el)=>(el.value))
     fetchLeads(TabName)
   };
-
   return (
     <>
     <Toaster     containerStyle={{zIndex:"999999999999999999"}}  position="top-right"/>
@@ -215,7 +214,11 @@ useEffect(()=>{
             className="col-12 mt-1 p-1"
             style={{ background: "#ffff", borderRadius: "10px" }}
           >
-            <Filters  />
+            {LeadList.length > 0 ?
+            <Filters  LeadsCard={Leads} market={TabName} setLeads={setLeads} statusLeads={setLeadScHeck} update={setUpdateField} setFilterApply={setFilterApply} />
+            :
+            null 
+}
           </div>
 
           <div
@@ -223,7 +226,7 @@ useEffect(()=>{
             style={{ background: "#ffff", borderRadius: "10px" }}
           >
             <p className="mb-0 ApplyFilter">
-              Applied filters showed <b> ‎ ‎“✘✘No Filters Applied!”</b>
+              Applied filters showed <b> {FilterApply === undefined ? "‎ ‎“✘✘No Filters Applied!”" : `“‎ ‎${FilterApply} ‎ ‎Lead Results”`}</b>
             </p>
           </div>
           <div

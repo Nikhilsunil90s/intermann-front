@@ -11,13 +11,29 @@
   color: #ffffff;
   padding: 10px 25px;
 }
+.BtnLeads:hover {
+  background: #032339;
+  border-radius: 100px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.105991px;
+  text-transform: uppercase;
+  color: #ffffff;
+  padding: 10px 25px;
+}
 .leadsTab .rts___tabs.hide___rts___tabs___scroll {
   background: transparent;
   border-radius: 10px;
 }
 
 .leadsTab .rts___btn {
-  color: #888888 !important;
+  color: #888888 ;
+}
+.rts___tab___selected {
+  color: #ffffff !important;
 }
 .placeHolderLead .css-14el2xx-placeholder {
   font-family: "Poppins";
@@ -72,13 +88,12 @@
   align-items: center;
   justify-content: center;
   background: #cde7f9;
-  max-width: 24%;
-  height: 60px;
+  height: 80px;
 }
 .leadBoxX {
   background: #cde7f9;
   max-width: 32.833333%;
-  height: 60px;
+  height: 80px;
   margin-left: 5px;
 }
 .leadBox p {
@@ -98,10 +113,10 @@
   color: #032339;
 }
 .leadBoxX p {
-  font-family: "Inter";
+  font-family: "Poppins";
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 15px;
   line-height: 15px;
   color: #032339;
   margin-bottom: 0px;
@@ -109,8 +124,8 @@
 .BlueLink {
   font-family: "Inter";
   font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
+  font-weight: 600;
+  font-size: 14px;
   line-height: 15px;
   color: #3f76e2;
   margin-bottom: 0px;
@@ -127,7 +142,7 @@
 .lead_Created p {
   font-family: "Poppins";
   font-style: normal;
-  font-weight: 400;
+  font-weight: 600;
   font-size: 12px;
   line-height: 15px;
   color: #032339;
@@ -144,7 +159,7 @@
   font-family: "Poppins";
   font-style: normal;
   font-weight: 400;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 19px;
 
   color: #032339;
@@ -154,15 +169,15 @@
     font-family: "Poppins";
     font-style: normal;
     font-weight: 400;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 15px; 
     color: #032339;
   }
   .PrECONTACTEDInput p{
     font-family: 'Poppins';
 font-style: normal;
-font-weight: 400;
-font-size: 9px;
+font-weight: 500;
+font-size: 13px;
 line-height: 15px;
 color: #B4B4B7;
   } 
@@ -170,7 +185,7 @@ color: #B4B4B7;
     font-family: 'Poppins';
 font-style: normal;
 font-weight: 400;
-font-size: 13px;
+font-size: 15px;
 line-height: 19px;
 margin-top: 13px;
 color: #032339;
@@ -185,7 +200,7 @@ color: #032339;
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
-    font-size: 12px;
+    font-size: 15px;
     line-height: 15px;
     
     color: #032339;
@@ -331,7 +346,7 @@ padding: 0px 8px;
   font-family: 'Poppins';
 font-style: italic;
 font-weight: 400;
-font-size: 10px;
+font-size: 12px;
 line-height: 15px;
 letter-spacing: -1px;
 
@@ -348,4 +363,56 @@ width: 300px !important;
 .deActive{
   border: 4px solid #ff0000;
   border-radius: 100px;
+}
+.ApplyFiltersBtn:hover{
+  background: #0e8d32;
+    border: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    color: #ffff;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    border:1px solid #000000
+}
+.ApplyFiltersBtn{
+  background: transparent;
+    border: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    color: #000000;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    border:1px solid #000000
+}
+.RESETfilters:hover{
+  background: #911010;
+    border: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    color: #ffff;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    border:1px solid #92929D
+}
+.RESETfilters{
+  background: transparent;
+    border: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    color: #000000;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    border:1px solid #000000
 }
