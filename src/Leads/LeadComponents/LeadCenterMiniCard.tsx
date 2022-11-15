@@ -1,10 +1,11 @@
 import React,{useRef,useEffect,useState} from "react";
 import MonthModal from "../Modal/NotesModal";
 
-function LeadCenterMiniCard({closeModal,modal,props,activeUser}) {
+function LeadCenterMiniCard({props,activeUser}) {
+  const [monthModal,setMonthModal] =useState(false)
   
   const ref = useRef();
-  useOnClickOutside(ref, () => closeModal(false));
+  useOnClickOutside(ref, () => setMonthModal(false));
 
   // console.log(props.emailAddress.substring(0, props.emailAddress.lastIndexOf("@")),"email")
   function useOnClickOutside(ref, handler) {
@@ -51,14 +52,14 @@ function LeadCenterMiniCard({closeModal,modal,props,activeUser}) {
                     </div>
                     <div className="col-3 media-body text-right px-0 cursor-pointer" >
                       <>
-                        <p className="NumberStylingARchived text-start"  onClick={(e)=>{closeModal(true)}}>
+                        <p className="NumberStylingARchived text-start"  onClick={(e)=>{setMonthModal(true)}}>
                           Monthly{" "}
                           <img
                             src={require("../../images/Vector-9.svg").default}
                           />
                         </p>
                       </>
-                      {modal ?
+                      {monthModal ?
                       <>
                       <div className="d-grid Monthlydropdown" ref={ref} style={{border:"1px solid #484848"}}>
                         <div className=" d-flex align-items-center justify-content-start LeadMothlyDropDown"><p className="mb-0 VoirLESite">Monthly</p></div>
@@ -79,14 +80,14 @@ function LeadCenterMiniCard({closeModal,modal,props,activeUser}) {
                         <p className="mb-0">{props?.contactedLeads.count} Calls</p>
                       </div>
                     </div>
-                    <div className="col-5 px-0 text-center">
+                    <div className="col-4 px-0 text-center">
                       <div className="CardDetails">
                         <p className="mb-0">{props.qualifiedLeads.count} Qualified</p>
                       </div>
                     </div>
-                    <div className="col-3 px-0 text-center">
+                    <div className="col-4 px-0 text-center">
                       <div className="CardDetails">
-                        <p className="mb-0">{props.preContactedLeads.count} Calls</p>
+                        <p className="mb-0">{props.preContactedLeads.count} PreCalls</p>
                       </div>
                     </div>
                     <div

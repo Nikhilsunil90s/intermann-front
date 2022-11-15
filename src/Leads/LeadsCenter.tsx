@@ -17,7 +17,6 @@ function LeadsCenter() {
   const LoginUser=JSON.parse(localStorage.getItem("LoginUser"))
   const [LoginUserS,setLoginUser]=useState(LoginUser)
   const [activeTab, setActiveTab] = React.useState(0) as any;
-  const [monthModal,setMonthModal] =useState(false)
   const [LeadsCheck,setLeadScHeck] =useState(false)
   const [Leads,setLeads]=useState([])
   const [userCardList,setUserCardList]=useState([])
@@ -198,7 +197,7 @@ useEffect(()=>{
           {
            userCardList.map((el)=>(
     <>
-    <LeadCenterMiniCard closeModal={setMonthModal} props={el} key={el._id}  modal={monthModal} activeUser={currentUser} />
+    <LeadCenterMiniCard  props={el} key={el._id} activeUser={currentUser} />
   </>
           ))
           }

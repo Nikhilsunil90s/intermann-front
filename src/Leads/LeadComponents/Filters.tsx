@@ -23,6 +23,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
       key: "selection",
     },
   ]);
+  const [dateCheck,setDateCheck]=useState(false)
   const [jobNames, setJobName] = useState([]);
   const [Data,setData]=useState()as any
   const [CanName, setCanName] = useState([]);
@@ -81,6 +82,21 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
     }),
   };
 
+  
+  useEffect(()=>{
+    setfromPerson([])
+  setQUALIFIED([])
+  setCONTACTED([])
+  setPrecontacted([])
+  setJobName([])
+  setContactOp([])
+  setemailOp([])
+  setCanName([])
+  setDateCheck(false)
+  setData()
+  setFilterApply()
+  },[market])
+  
   const [fromPerson,setfromPerson] = useState([
   
   ]);
@@ -238,6 +254,16 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
     });
   }, [LeadsCard,market]);
 
+  const dateChange =(date)=>{
+    setRange([date.selection])
+    console.log(date.selection)
+    setData({...Data,["startDate"]:format(date.selection.startDate, "yyyy-MM-dd") ,["endDate"]:format(
+      date.selection.endDate,
+      "yyyy-MM-dd"
+    )})
+  }
+
+
   useEffect(() => {
     // event listeners
 
@@ -261,26 +287,17 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
       setOpen(false);
     }
   };
-  const handleEmailChange = (e: any) => {
+  const FilterChange = (e: any) => {
     setData({...Data,[e.name]:e.value,leadCountryMarket:market})
     
   };
 
 
-  useEffect(()=>{
-    setfromPerson([])
-  setQUALIFIED([])
-  setCONTACTED([])
-  setPrecontacted([])
-  setJobName([])
-  setContactOp([])
-  setemailOp([])
-  setCanName([])
-  setData()
-  setFilterApply()
-  },[market])
+
   const OnClickDataChange=(e)=>{
+ 
  if(e.target.name=== "ApplyFil"){
+  console.log(Data)
   if(Data !== undefined)
     {
     fetch(API_BASE_URL + "filterLeads",{
@@ -296,9 +313,11 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
      .then(res=>{if(res.status){
       statusLeads(true)
   toast.success("Filter Leads Found Successfully!")
-
+  setData()
       setLeads([...res.data])
       setFilterApply(res.total)
+      setDateCheck(false)
+
      }else{
       statusLeads(true)
   toast.error("Sorry No Results found!")
@@ -322,6 +341,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
   setCONTACTED([])
   setPrecontacted([])
   setLeads([])
+  setDateCheck(false)
   setJobName([])
   setContactOp([])
   setemailOp([])
@@ -346,7 +366,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
             placeholder="‎  ‎ ‎  ‎ FILTER BY QUALIFIED"
             className="basic-multi-select placeHolderLead"
             classNamePrefix="select"
-            onChange={handleEmailChange}
+            onChange={FilterChange}
             options={QUALIFIED}
             styles={colourStyles}
           />
@@ -384,7 +404,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
              placeholder="‎  ‎ ‎  ‎ FILTER BY SOURCE"
              className="basic-multi-select placeHolderLead"
              classNamePrefix="select"
-              onChange={handleEmailChange}
+              onChange={FilterChange}
              options={fromPerson}
              styles={colourStyles}
            />
@@ -422,7 +442,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
              placeholder="‎  ‎ ‎  ‎ FILTER CONTACTED BY AGENCY ONLY"
              className="basic-multi-select placeHolderLead"
              classNamePrefix="select"
-              onChange={handleEmailChange}
+              onChange={FilterChange}
              options={CONTACTED}
              styles={colourStyles}
            />
@@ -460,7 +480,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
              placeholder="‎  ‎ ‎  ‎ FILTER PRECONTACTED ONLY"
              className="basic-multi-select placeHolderLead"
              classNamePrefix="select"
-              onChange={handleEmailChange}
+              onChange={FilterChange}
              options={Precontacted}
              styles={colourStyles}
            />
@@ -498,7 +518,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
             placeholder="‎  ‎ ‎  ‎ FILTER BY JOB"
             className="basic-multi-select placeHolderLead"
             classNamePrefix="select"
-             onChange={handleEmailChange}
+             onChange={FilterChange}
             options={jobNames}
             styles={colourStyles}
           />
@@ -529,9 +549,9 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
           </label>
           <div className="">
             <input
-              value={`${format(range[0].startDate, "MM/dd/yyyy")} to ${format(
+              value={`${format(range[0].startDate, "dd/MM/yyyy")} to ${format(
                 range[0].endDate,
-                "MM/dd/yyyy"
+                "dd/MM/yyyy"
               )}`}
               readOnly
               className="dateSort"
@@ -541,7 +561,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
             <div ref={refOne} className="rdrDateRangePickerWrapper">
               {open && (
                 <DateRange
-                  onChange={(item) => setRange([item.selection])}
+                  onChange={(item) => dateChange(item)}
                   editableDateInputs={true}
                   moveRangeOnFirstSelection={false}
                   ranges={range}
@@ -571,7 +591,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
             placeholder="‎  ‎ ‎  ‎ Filter by Candidate Name"
             className="basic-multi-select placeHolderLead"
             classNamePrefix="select"
-             onChange={handleEmailChange}
+             onChange={FilterChange}
             options={CanName}
             styles={colourStyles}
           />
@@ -609,7 +629,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
             placeholder="‎  ‎ ‎  ‎ FILTER BY Phone Number"
             className="basic-multi-select placeHolderLead"
             classNamePrefix="select"
-             onChange={handleEmailChange}
+             onChange={FilterChange}
             options={ContactOp}
             styles={colourStyles}
           />
@@ -647,7 +667,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
             placeholder="‎  ‎ ‎  ‎ Filter by Email"
             className="basic-multi-select placeHolderLead"
             classNamePrefix="select"
-             onChange={handleEmailChange}
+             onChange={FilterChange}
             options={emailOp}
             styles={colourStyles}
           />
