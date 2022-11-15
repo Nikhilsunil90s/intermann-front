@@ -349,6 +349,7 @@ const onSubmit=()=>{
                   placeholder="Num Only."
                   className="form-control nameTransform"
                   onChange={onInputFormChange}
+                  value={data.leadPrice}
                   style={{fontSize:"12px"}}
                 />
                       <span className="text-small pl-1">The price we paid for this lead, not required Exemple 12,30</span>

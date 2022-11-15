@@ -31,6 +31,15 @@ function Sidebar(props: any) {
   })
 
   const OnClickColorChange=(name:any)=>{  
+    if(name === "Download"){
+      navigate("/downloadCenter")
+    }
+    if(name === "Leads"){
+      navigate("/LeadsCenter")
+    }   if(name === "Center"){
+      navigate("/JobAdsCenter")
+    }
+
     setActiveTab(name)
   }
 
@@ -185,7 +194,7 @@ function Sidebar(props: any) {
                     </div>
                   </div>
                 </div>
-                <li style={{border:"none",borderBottom:"0px",borderLeft:"0px",padding:"12px ",paddingLeft:"23px" }} onClick={()=>OnClickColorChange("Download")}  className={activeTab === "Download" ? "sideBarBackGactive"  : "cursor-pointer sideBarBackG"} >
+                <li style={{border:"none",borderBottom:"0px",borderLeft:"0px",padding:"12px ",paddingLeft:"23px" }}   onClick={()=>OnClickColorChange("Download")} className={activeTab === "Download" ? "sideBarBackGactive"  : "cursor-pointer sideBarBackG"} >
                   <Link to="/downloadCenter" className="signOut" aria-current="page">
                     <span className="pe-2">
                       <img className="logoutImage" src={require("../images/telecharger.svg").default} />
@@ -196,8 +205,8 @@ function Sidebar(props: any) {
                     />
                   </Link>
                 </li>
-                <li style={{border:"none",borderBottom:"0px",borderLeft:"0px" ,padding:"12px",paddingLeft:"23px"}} onClick={()=>OnClickColorChange("Leads")}  className={activeTab === "Leads" ? "sideBarBackGactive"  : "cursor-pointer sideBarBackG"}  >
-                  <Link to="/LeadsCenter" className="signOut" aria-current="page">
+                <li style={{border:"none",borderBottom:"0px",borderLeft:"0px" ,padding:"12px",paddingLeft:"23px"}} onClick={()=>OnClickColorChange("Leads")} className={activeTab === "Leads" ? "sideBarBackGactive"  : "cursor-pointer sideBarBackG"}  >
+                  <Link to="/LeadsCenter" className="signOut" aria-current="page"   >
                     <span className="pe-2">
                       <img className="logoutImage" src={require("../images/Leads.svg").default} />
                     </span>
@@ -207,8 +216,8 @@ function Sidebar(props: any) {
                     />
                   </Link>
                 </li>
-                <li style={{border:"none",borderBottom:"0px",borderLeft:"0px" ,padding:"12px",paddingLeft:"23px"}} onClick={()=>OnClickColorChange("Center")}  className={activeTab === "Center" ? "sideBarBackGactive"  : " cursor-pointer sideBarBackG"}  >
-                  <Link to="/JobAdsCenter" className="signOut" aria-current="page">
+                <li style={{border:"none",borderBottom:"0px",borderLeft:"0px" ,padding:"12px",paddingLeft:"23px"}}  onClick={()=>OnClickColorChange("Center")} className={activeTab === "Center" ? "sideBarBackGactive"  : " cursor-pointer sideBarBackG"}  >
+                  <Link to="/JobAdsCenter" className="signOut" aria-current="page"  >
                     <span className="pe-2">
                       <img className="logoutImage" src={require("../images/CombinedShape.svg").default} />
                     </span>
