@@ -14,6 +14,10 @@ function LeadList({props,Update,Load,Lead,length,activeUser}){
   const [NoteDeleteModal,setNotesDeleteModal] =useState(false)
   const [LeadNotes,setLeadsNote]=useState("")
   const [DeleteLeads,setDeleteLeads]=useState("")
+  const [Precontacted,setPrecontacted]=useState("")
+  const [Agency,setAgency]=useState("")
+  const [Added,setAdded]=useState()as any
+  const [Qual,setQual]=useState()as any
 
   const [LeadeCreateDate,setLeadeCreateDate]=useState()as any
   var today =props.createdAt.slice(0,10);
@@ -145,19 +149,20 @@ const QUALIFIED=(id,status)=>{
 
 const OnChangeRadio=(e,id)=>{
      if(e.target.name=== `preContact${length}`){
-      
+      setPrecontacted(e.target.value)
       PreContact(id,e.target.value)
      }
      if(e.target.name=== `CAgency${length}`){
-      
+      setAgency(e.target.value)
       ContAgency(id,e.target.value)
      }
      if(e.target.name=== `QUALIFIED${length}`){
-      
+        setQual(e.target.value)
        QUALIFIED(id,e.target.value)
      }
      if(e.target.name === `Added_to_CRM${length}`){
       OnChangeAddToCrm(id,e.target.value)
+      setAdded(e.target.value)
      }
 }
 
@@ -175,93 +180,156 @@ AddToCRM(data)
   
     return(<>
     <Toaster  position="top-right"   containerStyle={{zIndex:"30443330099555"}}   />
-    <div className="row px-1 mt-1" style={{width:"135%"}}>
-     <div className="col-12 lead_Created"><div className="row"><div className="col-7 d-flex align-items-center"><p className="mb-0 d-flex align-items-center"><img  src={require("../../images/calendar.png")} style={{width:"12px",marginRight:"4px"}} />Lead Created on {LeadeCreateDate}</p></div><div className="col-5 d-flex justify-content-end align-items-center"><button className="AddToCrm mb-0" onClick={()=>AddToCrm()}>add to crm</button><button className="deleteAd mx-1" onClick={()=>{setDeleteLeads("Delete");setNotesDeleteModal(true)}} ><img   src={require("../../images/Deletebucket.svg").default}  /></button></div>
+    <div className="row px-1 mt-1" style={{width:"115%"}}>
+     <div className="col-12 lead_Created"><div className="row"><div className="col-7 d-flex align-items-center"><p className="mb-0 d-flex align-items-center"><img  src={require("../../images/calendar.png")} style={{width:"12px",marginRight:"4px"}} />Lead Created on {LeadeCreateDate}</p></div><div className="col-5 d-flex justify-content-end align-items-center"><button className="AddToCrm mb-0" onClick={()=>AddToCrm()}>+ add to crm</button><button className="deleteAd mx-1" onClick={()=>{setDeleteLeads("Delete");setNotesDeleteModal(true)}} ><img   src={require("../../images/Deletebucket.svg").default}  /></button></div>
 
      </div></div>
      <div className="col-12">
         <div className="row">
             <div className="col-8">
-                <div className="row justify-content-between">
+                <div className="row ">
              <div className="col-2 leadBox">
-                <b className="mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.adName}>{props.adName ? props.adName.length > 10 ? props.adName.slice(0,10).toLocaleUpperCase() + ".." : props.adName.toLocaleUpperCase() : "✘✘!"}</b>
+                <b className="mb-0" >Job Name</b>
              </div>
              <div className="col-2 leadBox">
-                <b className="mb-0">{props.leadSource ? props.leadSource  : ""}</b>
+                <b className="mb-0">Source</b>
              </div>
              <div className="col-2 leadBox" >
-                <b className="mb-0"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.leadCandidatName}>{props.leadCandidatName ? props.leadCandidatName.length > 8 ? props.leadCandidatName.slice(0,8).toLocaleUpperCase()+".." : props.leadCandidatName.toLocaleUpperCase() : "✘✘!"}</b>
+                <b className="mb-0" >User Name</b>
              </div>
              <div className="col-3 leadBox d-grid">
-                <b className="mb-0">{props.phoneNumber ? props.phoneNumber : "✘✘!"}</b>
-                <a href={`https://wa.me/${props.phoneNumber}`} target="_blank" className="BlueLink text-center">Send What’s app</a>
+                <b className="mb-0">Phone Number</b>
+               
              </div>
-             <div className="col-3 leadBox " style={{maxWidth:"23%"}}>
-                <b className="mb-0"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.email}>{props.email ? props.email.length > 15 ? props.email.slice(0,14) + ".." : props.email : "✘✘!"}</b>
+             <div className="col-3 leadBox">
+                <b className="mb-0"  data-bs-toggle="tooltip" data-bs-placement="bottom" >Email Address</b>
               
              </div>
             </div>
             </div>
             <div className="col-4 d-grid leadBoxX">
                 <b className="mb-0">Notes by Leads</b>
-                <p>{props.leadNotes ? props.leadNotes.length > 40 ? props.leadNotes.slice(0,40) + "..." : props.leadNotes : "✘✘No Notes!"}</p>
+              
+            </div>
+            <div className="col-8">
+                <div className="row justify-content-between">
+             <div className="col-2 leadBoxGray">
+                <b className="mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.adName}>{props.adName ? props.adName.length > 10 ? props.adName.slice(0,8).toLocaleUpperCase() + ".." : props.adName.toLocaleUpperCase() : "✘✘!"}</b>
+             </div>
+             <div className="col-2 leadBoxGray">
+                <b className="mb-0">{props.leadSource ? props.leadSource  : ""}</b>
+             </div>
+             <div className="col-2 leadBoxGray" >
+                <b className="mb-0"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.leadCandidatName}>{props.leadCandidatName ? props.leadCandidatName.length > 8 ? props.leadCandidatName.slice(0,6).toLocaleUpperCase()+".." : props.leadCandidatName.toLocaleUpperCase() : "✘✘!"}</b>
+             </div>
+             <div className="col-3 leadBoxGray d-grid">
+                <b className="mb-0">{props.phoneNumber ? props.phoneNumber : "✘✘!"}</b>
+                <a href={`https://wa.me/${props.phoneNumber}`} target="_blank" className="BlueLink text-center">Send What’s app</a>
+             </div>
+             <div className="col-3 leadBoxGray " >
+                <b className="mb-0"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.email}>{props.email ? props.email.length > 15 ? props.email.slice(0,14) + ".." : props.email : "✘✘!"}</b>
+              
+             </div>
+            </div>
+            </div>
+            <div className="col-4 d-grid leadBoxGray justify-content-start">
+                <p className="mb-0">{props.leadNotes ? props.leadNotes.length > 40 ? props.leadNotes.slice(0,70) + "..." : props.leadNotes : "✘✘No Notes!"}</p>
                 <button onClick={()=>{setLeadsNote("Leads");setNotesModal(true)}} className="BlueLink">Click Here to View More</button>
             </div>
         </div>
      </div>
      <div className="col-12 leadBottom">
      <div className="row">
-        <div className="col-8">
-          <div className="row">
+     
             <div className="col-4 d-grid PrECONTACTED">
-              <p className="mb-0 ">Precontacted</p>
+              <div className="row p-1">
+                <div className="col-12" style={{background:"#DBE8E2",
+                padding:"10px 15px",
+    borderRadius: "10px"}}>
+                <p className="mb-0 m-0">Precontacted</p>
               <span>(BY {LoginUser.emailAddress.substring(0,LoginUserS.emailAddress.lastIndexOf("@")).toUpperCase()})</span>
-              <div className="row PrECONTACTEDInput mt-1" >
-                <div className="col-3 pr-0 d-flex justify-content-center align-items-center " ><input type={"radio"} className="cursor-pointer"  name={`preContact${length}`} value={"No"} onChange={(e)=>OnChangeRadio(e,props._id)} defaultChecked={props.leadPreContacted === "No" ? true : false } /><p className="my-0" style={{paddingLeft:"2px"}}>No</p></div>
-                <div className="col-4 px-0 d-flex justify-content-center align-items-center"> <input type={"radio"} className="cursor-pointer"   name={`preContact${length}`} value={"Interested"} onChange={(e)=>OnChangeRadio(e,props._id)} defaultChecked={props.leadPreContacted === "Interested" ? true : false } /><p className="my-0" style={{paddingLeft:"2px"}}>Interested</p></div>
-                <div className="col-5 px-0 d-flex justify-content-center align-items-center"> <input type={"radio"} className="cursor-pointer"  name={`preContact${length}`} value={"Not Interested"} onChange={(e)=>OnChangeRadio(e,props._id)}  defaultChecked={props.leadPreContacted === "Not Interested" ? true : false } /><p className="my-0" style={{paddingLeft:"2px"}}>Not Interested</p></div>
+                </div>
+              </div>
+           
+              <div className="row PrECONTACTEDInput mb-1" >
+                <div className="col-3 pr-0 d-flex align-items-start " ><label   htmlFor={`pre1${length}`} className={`btn d-flex align-items-center ${Precontacted === "No" ? "offRedBtn" : props.leadPreContacted ==="No" ?  "offRedBtn" :  "offBtns"}`}><div className="d-flex justify-content-center align-item-center inputBorder"><input id={`pre1${length}`} name={`preContact${length}`} value={"No"} onClick={(e)=>OnChangeRadio(e,props._id)} type={"radio"} className="cursor-pointer d-flex"  defaultChecked={Precontacted == "No" ? true : props.leadPreContacted === "No" ? true : false } /></div>Not yet</label></div>
+                <div className="col-4 d-flex  align-items-start"><label htmlFor={`pre2${length}`} className={`btn d-flex align-items-center ${Precontacted === "Interested" ? "onGreenBtn" :  props.leadPreContacted=== "Interested" ? "onGreenBtn":"offBtns"}`}> <div className="d-flex justify-content-center align-item-center inputBorder"><input id={`pre2${length}`} type={"radio"} name={`preContact${length}`} value={"Interested"} onClick={(e)=>OnChangeRadio(e,props._id)} className="cursor-pointer d-flex"   defaultChecked={Precontacted == "Interested" ? true : props.leadPreContacted === "Interested" ? true : false } /></div>Interested</label></div>
+                <div className="col-5 d-flex  align-items-start"><label   htmlFor={`pre3${length}`} className={`btn d-flex align-items-center ${Precontacted === "Not Interested" ? "themeColor" :props.leadPreContacted=== "Not Interested" ? "themeColor":"offBtns"}`}><div className="d-flex justify-content-center align-item-center inputBorder"> <input id={`pre3${length}`} type={"radio"}  className="cursor-pointer d-flex" name={`preContact${length}`} value={"Not Interested"} onClick={(e)=>OnChangeRadio(e,props._id)} defaultChecked={Precontacted == "Not Interested" ? true : props.leadPreContacted === "Not Interested" ? true : false } /></div>Not Interested</label></div>
               </div>
             </div>
-            <div className="col-4 d-grid PrECONTACTED">
-              <p className="mb-0 ">Contacted by Agency</p>
+        
+        
+        <div className="col-8 d-grid PrECONTACTED">
+          <div className="row p-1"> 
+          <div className="col-12 " style={{background:"#DBE8E2",
+                padding:"10px 15px",
+    borderRadius: "10px"}}>             <p className="m-0 ">Contacted by Agency</p>
               <span>(BY {LoginUser.emailAddress.substring(0,LoginUserS.emailAddress.lastIndexOf("@")).toUpperCase()})</span>
-              <div className="row PrECONTACTEDInput mt-1">
-                <div className="col-2 pr-0 d-flex justify-content-center align-items-center " ><input type={"radio"} className="cursor-pointer" name={`CAgency${length}`} defaultChecked={props.leadContactedByAgency== "No" ? true : false} onChange={(e)=>OnChangeRadio(e,props._id)} value="No"/><p className="my-0" style={{paddingLeft:"2px"}}>No</p></div>
-                <div className="col-2 px-0 d-flex justify-content-end align-items-center"> <input type={"radio"} className="cursor-pointer" name={`CAgency${length}`} defaultChecked={props.leadContactedByAgency== "Yes" ? true : false} onChange={(e)=>OnChangeRadio(e,props._id)} value="Yes"/><p className="my-0" style={{paddingLeft:"2px"}}>Yes</p></div>
-                <div className="col-3 px-0 d-flex justify-content-end align-items-center"> <input type={"radio"} className="cursor-pointer" name={`CAgency${length}`} defaultChecked={props.leadContactedByAgency== "Recall" ? true : false} onChange={(e)=>OnChangeRadio(e,props._id)} value="Recall"/><p className="my-0" style={{paddingLeft:"2px"}}>Recall</p></div>
-                <div className="col-5 px-0 d-flex justify-content-center align-items-center"> <input type={"radio"} className="cursor-pointer" name={`CAgency${length}`} defaultChecked={props.leadContactedByAgency== "Phone Closed" ? true : false} onChange={(e)=>OnChangeRadio(e,props._id)} value="Phone Closed"/><p className="my-0" style={{paddingLeft:"2px"}}>Phone Closed</p></div>
               </div>
-            </div>
-            <div className="col-4 d-grid PrECONTACTED ">
-                <div className="row">
-                    <div className="col-6" style={{
-    borderRight: "1px solid #ffff"
-                    }}>
-              <p className="mb-0 ">Added to CRM</p>
-              <div className="row PrECONTACTEDInput mt-1 " style={{height:"74%"}}>
-                <div className="col-4 pr-0  d-flex justify-content-center align-items-center " ><input type={"radio"}  value="false" name={`Added_to_CRM${length}`} onChange={(e)=>OnChangeRadio(e,props._id)}  className="cursor-pointer yesNoRadio"  defaultChecked={props.leadAddedToCRM === false ? true : false}/><p className="my-0" style={{paddingLeft:"2px"}}>No</p></div>
-                <div className="col-8  d-flex justify-content-start align-items-center"> <input type={"radio"} value="true" name={`Added_to_CRM${length}`}  onChange={(e)=>OnChangeRadio(e,props._id)}  className="cursor-pointer yesNoRadio" defaultChecked={props.leadAddedToCRM === true ? true : false} /><p className="my-0" style={{paddingLeft:"2px"}}>Yes</p></div>
-                            </div>
-            </div>
-            <div className="col-6 pr-2">
-              <p className="mb-0 ">QUALIFIED</p>
-              <div className="row PrECONTACTEDInput mt-2">
-                <div className="col-4 pr-0 d-flex justify-content-start align-items-center " ><input type={"radio"} className="cursor-pointer" name={`QUALIFIED${length}`} onChange={(e)=>OnChangeRadio(e,props._id)} defaultChecked={props.leadQualified === 0  ? true : false} value={"0"} /><p className="my-0" style={{paddingLeft:"2px"}}>?</p></div>
-                <div className="col-4 d-flex justify-content-start align-items-center"> <input type={"radio"} className="cursor-pointer" name={`QUALIFIED${length}`} onChange={(e)=>OnChangeRadio(e,props._id)} defaultChecked={props.leadQualified === 1 ? true : false} value={"1"} /><p className="my-0" style={{paddingLeft:"2px"}}>😟</p></div>
-                <div className="col-4 d-flex justify-content-start align-items-center"> <input type={"radio"} className="cursor-pointer" name={`QUALIFIED${length}`} onChange={(e)=>OnChangeRadio(e,props._id)} defaultChecked={props.leadQualified === 2 ? true : false} value={"2"} /><p className="my-0" style={{paddingLeft:"2px"}}>😊</p></div>
-                <div className="col-4 d-flex justify-content-start align-items-center" style={{marginTop:"5px"}}> <input type={"radio"} className="cursor-pointer" name={`QUALIFIED${length}`} onChange={(e)=>OnChangeRadio(e,props._id)} defaultChecked={props.leadQualified === 3 ? true : false} value={"3"} /><p className="my-0" style={{paddingLeft:"2px"}}>🥰</p></div>
-                <div className="col-4 d-flex justify-content-start align-items-center" style={{marginTop:"5px"}}> <input type={"radio"} className="cursor-pointer" name={`QUALIFIED${length}`} onChange={(e)=>OnChangeRadio(e,props._id)} defaultChecked={props.leadQualified === 4 ? true : false} value={"4"} /><p className="my-0" style={{paddingLeft:"2px"}}>😍</p></div>
-
-                       </div>
-            </div>
-            </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-4 d-grid NotesAgency">
+              </div>
+                 <div className="row PrECONTACTEDInput mb-1">
+                <div className="col-2 pr-0 d-flex  align-items-center " ><label htmlFor={`1${length}`}  className={`btn d-flex align-items-center  ${Agency === "No" ?  "offRedBtn": props.leadContactedByAgency ==="No" ?  "offRedBtn" :  "offBtns"}`}   ><div className="d-flex justify-content-center align-item-center inputBorder"><input type={"radio"} id={`1${length}`}  name={`CAgency${length}`}  onClick={(e)=>OnChangeRadio(e,props._id)} value="No" className="cursor-pointer d-flex justify-content-center align-items-center" defaultChecked={props.leadContactedByAgency== "No" ? true : false} /></div>Not yet</label></div>
+                <div className="col-2  d-flex justify-content-end align-items-center"><label   htmlFor={`2${length}`} className={`btn d-flex align-items-center  ${Agency === "Yes" ?  "onGreenBtn" :props.leadContactedByAgency ==="Yes" ?  "onGreenBtn" :  "offBtns"}`}  > <div className="d-flex justify-content-center align-item-center inputBorder"><input type={"radio"} id={`2${length}`} name={`CAgency${length}`}  onClick={(e)=>OnChangeRadio(e,props._id)} value="Yes" className="cursor-pointer d-flex justify-content-center align-items-center" defaultChecked={props.leadContactedByAgency== "Yes" ? true : false}/></div>Yes</label></div>
+                <div className="col-3  d-flex justify-content-end align-items-center"> <label  htmlFor={`3${length}`} className={`btn d-flex align-items-center  ${Agency === "Recall" ?  "themeColor" : props.leadContactedByAgency ==="Recall" ?  "themeColor" :  "offBtns"}`} ><div className="d-flex justify-content-center align-item-center inputBorder"><input type={"radio"} id={`3${length}`} name={`CAgency${length}`}  onClick={(e)=>OnChangeRadio(e,props._id)} value="Recall" className="cursor-pointer d-flex justify-content-center align-items-center" defaultChecked={props.leadContactedByAgency== "Recall" ? true : false} /></div>Recall</label></div>
+                <div className="col-4  d-flex  align-items-center"> <label  htmlFor={`4${length}`}  className={`btn d-flex align-items-center  ${Agency === "Phone Closed" ?  "themeColor" :props.leadContactedByAgency ==="Phone Closed" ?  "themeColor" :  "offBtns"}`}  ><div className="d-flex justify-content-center align-item-center inputBorder" ><input type={"radio"} id={`4${length}`}  name={`CAgency${length}`}  onClick={(e)=>OnChangeRadio(e,props._id)} value="Phone Closed" className="cursor-pointer d-flex justify-content-center align-items-center" defaultChecked={props.leadContactedByAgency== "Phone Closed" ? true : false} /></div>Phone Closed</label></div>
+              </div>
+              </div>
+          
+        {/* <div className="col-4 d-grid NotesAgency">
         <p className="mb-0">Notes by Agency</p>
         <span className="mb-0">{props.agencyNotes !=="" ? props.agencyNotes.length > 40 ? props.agencyNotes.slice(0,40) + "..." :  props.agencyNotes : "✘✘No Notes!"}</span>
         <button  onClick={()=>{setLeadsNote("Agency");props.agencyNotes !=="" ? setNotesModal(true) : setNoteEditsModal(true)}} className="BlueLink d-flex" style={{background:"transparent",border:"0px"}}>Click Here to View More</button>
+        </div> */}
+        <div className="col-12 ">
+          <div className="row "style={{
+    borderTop: "1px solid #dcd9d9"
+                    }} >
+            <div className="col-3 py-1 px-0" style={{
+    borderRight: "1px solid #dcd9d9"
+                    }}>
+           <div className="row mx-1">
+                    <div className="col-12 addToCrmLabel">
+              <p className="mb-0 ">Added to CRM</p>
+                 </div>
+                 <div className="col-12  mt-1" >
+
+              <div className="row PrECONTACTEDInput " >
+                <div className="col-6 pr-0  d-flex justify-content-center align-items-center " ><label htmlFor={`Add1${length}`} className={`btn d-flex align-items-center  ${Added === false ? "offRedBtn"  : props.leadAddedToCRM === false ?  "offRedBtn" :  "offBtns"}`}  ><div className="d-flex justify-content-center align-item-center inputBorder"><input id={`Add1${length}`} type={"radio"}  value="false" name={`Added_to_CRM${length}`} onClick={(e)=>OnChangeRadio(e,props._id)} className="cursor-pointer yesNoRadio d-flex"  defaultChecked={Added === false ? true : props.leadAddedToCRM === false ? true : false}/></div>Not yet</label></div>
+                <div className="col-6  d-flex justify-content-start align-items-center"><label htmlFor={`Add2${length}`} className={`btn d-flex align-items-center  ${Added === true ? "offRedBtn"  : props.leadAddedToCRM === true ?  "onGreenBtn" :  "offBtns"}`} ><div className="d-flex justify-content-center align-item-center inputBorder"> <input id={`Add2${length}`} type={"radio"} value="true" name={`Added_to_CRM${length}`}  onClick={(e)=>OnChangeRadio(e,props._id)}   className="cursor-pointer yesNoRadio d-flex justify-content-center align-items-center" defaultChecked={Added === true ? true : props.leadAddedToCRM === true ? true : false} /></div>Yes</label></div>
+                            </div>
+            </div>
+            </div>
+            {/* <div className="col-6 pr-2">
+              
+            </div> */}
+            </div >
+            <div className="col-5" style={{
+    borderRight: "1px solid #dcd9d9"
+                    }}>
+              <div className="row p-1">
+                <div className="col-12 addToCrmLabel" style={{background:"#F6E5D3"}}>
+            <p className="mb-0 ">QUALIFIED</p>
+            </div> 
+            </div>
+              <div className="row PrECONTACTEDInput ">
+                <div className="col-2 pr-0 d-flex justify-content-start align-items-center " ><label className={`btn d-flex align-items-center  ${Qual === "0" ? "themeColor" : props.leadQualified ===0 ?  "themeColor" :  "offBtns"}`} htmlFor={`Qua0${length}`}> <div className="d-flex justify-content-center align-item-center inputBorder"> <input  name={`QUALIFIED${length}`} id={`Qua0${length}`} onClick={(e)=>OnChangeRadio(e,props._id)} value={"0"}  type={"radio"} className="cursor-pointer d-flex justify-content-center align-items-center" defaultChecked={Qual  === 0  ? true : props.leadQualified === 0  ? true : false}  /></div>?</label></div>
+                <div className="col-2 d-flex justify-content-start align-items-center"> <label  className={`btn d-flex align-items-center  ${Qual ==="1" ? "themeColor" :props.leadQualified ===1 ?  "themeColor" :  "offBtns"}`} htmlFor={`Qua1${length}`}> <div className="d-flex justify-content-center align-item-center inputBorder"> <input  name={`QUALIFIED${length}`} id={`Qua1${length}`} onClick={(e)=>OnChangeRadio(e,props._id)} value={"1"} type={"radio"} className="cursor-pointer d-flex justify-content-center align-items-center" defaultChecked={Qual  === 1  ? true : props.leadQualified === 1 ? true : false}  /></div>😟</label></div>
+                <div className="col-2 d-flex justify-content-start align-items-center"> <label  className={`btn d-flex align-items-center  ${Qual === "2" ? "onGreenBtn" :props.leadQualified ===2 ?  "onGreenBtn" :  "offBtns"}`} htmlFor={`Qua2${length}`}> <div className="d-flex justify-content-center align-item-center inputBorder"> <input  name={`QUALIFIED${length}`} id={`Qua2${length}`} onClick={(e)=>OnChangeRadio(e,props._id)} value={"2"} type={"radio"} className="cursor-pointer d-flex justify-content-center align-items-center" defaultChecked={Qual  === 2  ? true : props.leadQualified === 2 ? true : false}  /></div>🙁</label></div>
+                <div className="col-2 d-flex justify-content-start align-items-center"> <label  className={`btn d-flex align-items-center  ${Qual === "3" ? "onGreenBtn" :props.leadQualified ===3 ?  "onGreenBtn" :  "offBtns"}`} htmlFor={`Qua3${length}`}> <div className="d-flex justify-content-center align-item-center inputBorder"> <input  name={`QUALIFIED${length}`} id={`Qua3${length}`} onClick={(e)=>OnChangeRadio(e,props._id)} value={"3"} type={"radio"} className="cursor-pointer d-flex justify-content-center align-items-center" defaultChecked={Qual  === 3  ? true : props.leadQualified === 3 ? true : false}  /></div>😊</label></div>
+                <div className="col-2 d-flex justify-content-start align-items-center" style={{marginTop:"5px"}}> <label  className={`btn d-flex align-items-center  ${Qual === "4" ? "onGreenBtn" :props.leadQualified ==4 ?  "onGreenBtn" :  "offBtns"}`} htmlFor={`Qua4${length}`}> <div className="d-flex justify-content-center align-item-center inputBorder"> <input  name={`QUALIFIED${length}`} id={`Qua4${length}`} onClick={(e)=>OnChangeRadio(e,props._id)} value={"4"} type={"radio"} className="cursor-pointer d-flex justify-content-center align-items-center" defaultChecked={Qual  === 4  ? true : props.leadQualified === 4 ? true : false}  /></div>🥰</label></div>
+                <div className="col-2 d-flex justify-content-start align-items-center" style={{marginTop:"5px"}}> <label  className={`btn d-flex align-items-center  ${Qual === "5" ? "onGreenBtn" :props.leadQualified ===5 ?  "onGreenBtn" :  "offBtns"}`} htmlFor={`Qua5${length}`}> <div className="d-flex justify-content-center align-item-center inputBorder"> <input  name={`QUALIFIED${length}`} id={`Qua5${length}`} onClick={(e)=>OnChangeRadio(e,props._id)} value={"5"} type={"radio"} className="cursor-pointer d-flex justify-content-center align-items-center" defaultChecked={Qual  === 5  ? true : props.leadQualified === 5 ? true : false}  /></div>😍</label></div>
+
+       </div>
+            </div >
+            <div className="col-4 addToCrmLabel d-grid"  style={{background:"transparent"}}>
+            
+                <p className="mb-0 mt-1">Notes by Agency</p>
+        <span className="mb-0">{props.agencyNotes !=="" ? props.agencyNotes.length > 40 ? props.agencyNotes.slice(0,40) + "..." :  props.agencyNotes : "✘✘No Notes!"}</span>
+        <button  onClick={()=>{setLeadsNote("Agency");props.agencyNotes !=="" ? setNotesModal(true) : setNoteEditsModal(true)}} className="BlueLink d-flex" style={{background:"transparent",border:"0px"}}>Click Here to View More</button>
+                
+              
+            </div >
+          </div>
         </div>
      </div>
      </div>

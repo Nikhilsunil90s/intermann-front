@@ -197,7 +197,7 @@ useEffect(()=>{
           {
            userCardList.map((el)=>(
     <>
-    <LeadCenterMiniCard  props={el} key={el._id} activeUser={currentUser} />
+    <LeadCenterMiniCard  props={el} key={el._id} activeUser={currentUser} setUserCardList={setUserCardList} />
   </>
           ))
           }

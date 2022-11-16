@@ -89,12 +89,23 @@
   justify-content: center;
   background: #cde7f9;
   height: 80px;
+  border-right: 1px solid #fff;
+
 }
 .leadBoxX {
   background: #cde7f9;
-  max-width: 32.833333%;
   height: 80px;
-  margin-left: 5px;
+  justify-content: center;
+  align-items: center;
+}
+.leadBoxGray{
+  background-color: #F5F6F8;
+  border-right: 1px solid #dcd9d9;
+  border-bottom: 1px solid #dcd9d9;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .leadBox p {
   font-family: "Inter";
@@ -122,9 +133,9 @@
   margin-bottom: 0px;
 }
 .BlueLink {
-  font-family: "Inter";
+  font-family: "poppins";
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 14px;
   line-height: 15px;
   color: #3f76e2;
@@ -132,12 +143,13 @@
   background: transparent;
   border: 0px;
   text-align: start;
+  text-decoration-line: underline;
 }
 .lead_Created {
   background: #cde7f9;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin-bottom: 3px;
+  border-bottom:1px solid #fff ;
 }
 .lead_Created p {
   font-family: "Poppins";
@@ -152,7 +164,41 @@
   background-color: #f5f6f8;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  padding-bottom:20px;
+}
+.offRedBtn{
+  background: #E21B1B;
+  border-radius: 20px;
+  width: 100%;
+  justify-content: center;
+  padding: 5px;
+}
+.onGreenBtn{
+  background: #489767;
+  border-radius: 20px;
+  width: 100%;
+  justify-content: center;
+  padding: 5px;
+}
+.onGreenBtn{
+  font-family: 'poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FFFFFF !important;
+
+}
+.offRedBtn{
+  font-family: 'poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  /* identical to box height */
+  
+  
+  color: #FFFFFF !important;
+
 }
 .PrECONTACTED p{
   margin-top: 12px;
@@ -163,6 +209,19 @@
   line-height: 19px;
 
   color: #032339;
+}
+.offBtns{
+  border: 1px solid #d9d9d9e8;
+  border-radius: 20px;
+  width: 100%;
+  justify-content: center;
+  padding: 5px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15px;
+  color:#7a7a7a78;
 }
 .PrECONTACTED span{
     margin-top: 10px;
@@ -179,7 +238,7 @@ font-style: normal;
 font-weight: 500;
 font-size: 13px;
 line-height: 15px;
-color: #7a7a7a;
+color:#7a7a7a78;
   } 
   .NotesAgency p{
     font-family: 'Poppins';
@@ -206,10 +265,22 @@ color: #032339;
     color: #032339;
   }
   .PrECONTACTED{
-    margin-top: 4px;
-    border-right: 1px solid #ffff;
+    border-right: 1px solid #dcd9d9;
   }
+  .addToCrmLabel{
+    background:#F2D5D7;
+      border-radius:5px
+  }
+  .addToCrmLabel p{
+    font-family: 'poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 19px;
+padding: 5px 3px;
+color: #000;
 
+  }
   .OverFlowLink{
   border-radius: 4px;
   overflow-x: scroll;
@@ -235,7 +306,7 @@ color: #032339;
 }
 
 .AddToCrm{
-  background: #CDE7F9;
+  background: #000000;
   border-radius: 20px;
   font-family: 'Poppins';
   font-style: normal;
@@ -245,7 +316,7 @@ color: #032339;
   display: flex;
   /* align-items: flex-end; */
   text-transform: uppercase;
-  color: #032339;
+  color: #fff;
   /* padding: 38px; */
   width: 88px;
   justify-content: center;
@@ -301,6 +372,71 @@ color: #032339;
   visibility: visible;
   border: 2px solid white;
 }
+.offRedBtn input[type='radio']:checked:after {
+  width: 14px;
+  height: 14px;
+  border-radius: 15px;
+  top: 0px;
+  left: 0px;
+  position: relative;
+  background-color: #fff;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 3px solid rgb(234, 20, 20);
+}
+.onGreenBtn input[type='radio']:checked:after {
+  width: 11px;
+  height: 12px;
+  border-radius: 50px;
+  top: 0px;
+  left: 0px;
+  position: relative;
+  background-color: #fff;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 3px solid rgb(255, 255, 255);
+}
+.themeColor input[type='radio']:checked:after {
+  width: 11px;
+  height: 12px;
+  border-radius: 50px;
+  top: 0px;
+  left: 0px;
+  position: relative;
+  background-color: #fff;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 3px solid rgb(255, 255, 255);
+}
+.inputBorder{
+  border: 2px solid #ffff;
+  height: 18px;
+  width: 17px;
+  margin-right: 2px;
+  border-radius: 100px;
+}
+.themeColor{
+  background: #FE8700;
+  border-radius: 20px;
+  width: 100%;
+  justify-content: center;
+  padding: 5px;
+}
+
+.themeColor{
+  font-family: 'poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  /* identical to box height */
+  
+  
+  color: #FFFFFF !important;
+}
 .ColorInput input[type='radio']:checked:after {
   width: 15px;
   height: 15px;
@@ -322,7 +458,6 @@ color: #032339;
 .LeadMothlyDropDown:hover{
   background: #FFF7EE;
   border-radius: 22px;
-  justify-content: center !important;
 
 }
 .LeadMothlyDropDown:hover p{

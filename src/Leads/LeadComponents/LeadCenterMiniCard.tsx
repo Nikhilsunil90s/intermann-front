@@ -1,7 +1,7 @@
 import React,{useRef,useEffect,useState} from "react";
 import MonthModal from "../Modal/NotesModal";
-
-function LeadCenterMiniCard({props,activeUser}) {
+import { API_BASE_URL } from "../../config/serverApiConfig";
+function LeadCenterMiniCard({props,activeUser,setUserCardList}) {
   const [monthModal,setMonthModal] =useState(false)
   
   const ref = useRef();
@@ -29,6 +29,25 @@ function LeadCenterMiniCard({props,activeUser}) {
     );
   }
 
+  const  fetchLeads=async(acc)=>{
+    //  setLeadScHeck(false)
+     
+    await fetch(API_BASE_URL + `getUserStats/?duration=${acc}`,{
+      method: "GET",
+      headers: {
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+    })
+      .then(red => red.json())
+      .then(resData => {
+        if(resData.status){
+          setUserCardList([...resData.data])
+        }
+      })
+      .catch(err => err)
+    }
   return (
     <>
       <div className="col-12 card ml-0 my-1 mr-0"  style={{ padding: "5px 10px", borderRadius: "10px",width:"295px" }}>
@@ -62,9 +81,9 @@ function LeadCenterMiniCard({props,activeUser}) {
                       {monthModal ?
                       <>
                       <div className="d-grid Monthlydropdown" ref={ref} style={{border:"1px solid #484848"}}>
-                        <div className=" d-flex align-items-center justify-content-start LeadMothlyDropDown"><p className="mb-0 VoirLESite">Monthly</p></div>
-                        <div className="d-flex align-items-center justify-content-start LeadMothlyDropDown"><p className="mb-0 VoirLESite">Week</p></div>
-                        <div className="d-flex align-items-center justify-content-start LeadMothlyDropDown"><p className="mb-0 VoirLESite">Days</p></div>
+                        <div className=" d-flex align-items-center justify-content-start LeadMothlyDropDown"  onClick={()=>fetchLeads("monthly")}><p className="mb-0 VoirLESite">Monthly</p></div>
+                        <div className="d-flex align-items-center justify-content-start LeadMothlyDropDown" onClick={()=>fetchLeads("weekly")}><p className="mb-0 VoirLESite">Week</p></div>
+                        <div className="d-flex align-items-center justify-content-start LeadMothlyDropDown"  onClick={()=>fetchLeads("daily")}><p className="mb-0 VoirLESite">Days</p></div>
                       </div>
                       </>
                       :

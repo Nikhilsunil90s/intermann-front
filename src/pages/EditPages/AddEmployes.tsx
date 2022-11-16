@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useRef} from "react";
 import "../../CSS/Employes.css";
 import { Toaster, toast } from 'react-hot-toast';
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import Select, { GroupBase, StylesConfig } from "react-select";
 import chroma from 'chroma-js';
 import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../../Selecteddata/data';
+import format from "date-fns/format";
+import { Calendar } from "react-date-range";
+import { addDays } from "date-fns";
 
 const EmployeeDataFormat = {
   candidatName: "",
@@ -48,7 +51,7 @@ const EmployeeDataFormat = {
 
 export default function Employes() {
 
-  const [data, setData] = useState(EmployeeDataFormat);
+  const [data, setData] = useState(EmployeeDataFormat)as any;
   const [jobs, setJobs] = useState([{ jobName: "", associatedSector: "", _id: "" }]);
   const [activitySectors, setActivitySectors] = useState([]);
   const [languages, setLangauges] = useState([]);
@@ -66,13 +69,50 @@ export default function Employes() {
   const [displayRow, setDisplayRow] = useState(false);
   const [contactErr, setcontactErr] = useState([]);
 const [sectorOption,setSectorOptions]=useState([])
+const [open, setOpen] = useState(false);
+const [Startopen, setStartOpen] = useState(false);
+
   const [workExperience, setWorkExperience] = useState([{
     period: "",
     location: "",
     workDoneSample: ""
   }]);
-  
-  
+
+  const refOne = useRef(null);
+  const reftwo = useRef(null);
+  useEffect(() => {
+    // event listeners
+
+    document.addEventListener("keydown", hideOnEscape, true);
+    document.addEventListener("click", hideOnClickOutside, true);
+  }, []);
+
+  // hide dropdown on ESC press
+  const hideOnEscape = (e) => {
+    // console.log(e.key)
+    if (e.key === "Escape") {
+      setOpen(false);
+    }
+    if (e.key === "Escape") {
+      setStartOpen(false);
+    }
+  };
+  const hideOnClickOutside = (e) => {
+    // console.log(refOne.current)
+    // console.log(e.target)
+    if (refOne.current && !refOne.current.contains(e.target)) {
+      setOpen(false);
+    }
+    if (reftwo.current && !reftwo.current.contains(e.target)) {
+      setStartOpen(false);
+    }
+  };
+  const dateChange =(date)=>{
+    setData({...data,["candidatEndDate"]:format(date, "dd-MM-yyyy")})
+  }
+  const dateChangeStart =(date)=>{
+    setData({...data,["candidatStartDate"]:format(date, "dd-MM-yyyy")})
+  }
 
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
@@ -1031,29 +1071,73 @@ useEffect(() => {
                       <div className="col-12">
                         <div className="row">
                           <div className="col-6">
-                            <div className="p-1">
+                            <div className="p-1 dateStart" >
                               <label className="fw-bold Form-styling">FROM DATE / A PARTIR DE </label>
                               <input
-                                type="date"
-                                className="form-control"
-                                name="candidatStartDate"
-                                value={data.candidatStartDate}
-                                onChange={onFormDataChange}
+                               value={data.candidatStartDate === "" ? "dd/mm/yyyy" : data.candidatStartDate }
+                                readOnly
+                                style={{textTransform:"none"}}
+                                className="dateSort"
+                                onClick={() => setStartOpen((open) => !open)}
                                 
                               />
+                               <div ref={reftwo} className="rdrDateRangePickerWrapper ">
+              {Startopen && (
+                <Calendar
+                  onChange={(item) => dateChangeStart(item)}
+                  direction="vertical"
+                  className="calendarElement "
+                />
+              )}
+            </div>
+            <div
+              onClick={() => setStartOpen((open) => !open)}
+              className="d-flex justify-content-end eventPos"
+            >
+              <img src={require("../../images/event.svg").default} />
+            </div>
                             </div>
                           </div>
                           <div className="col-6">
                             <div className="p-1">
                               <label className="fw-bold Form-styling">UNTIL DATE / Jusqu’à </label>
-                              <input
-                                type="date"
+                              <div className="">
+            <input
+              value={data.candidatEndDate == "" ? "dd/mm/yyyy" : data.candidatEndDate}
+              readOnly
+              className="dateSort"
+              onClick={() => setOpen((open) => !open)}
+              style={{textTransform:"none"}}
+
+            />
+
+            <div ref={refOne} className="rdrDateRangePickerWrapper">
+              {open && (
+                <Calendar
+                  onChange={(item) => dateChange(item)}
+                  direction="vertical"
+                  className="calendarElement"
+                />
+              )}
+            </div>
+            <div
+              onClick={() => setOpen((open) => !open)}
+              className="d-flex justify-content-end eventPos"
+            >
+              <img src={require("../../images/event.svg").default} />
+            </div>
+          </div>
+                              {/* <input
+                           
                                 className="form-control"
                                 name="candidatEndDate"
-                                value={data.candidatEndDate}
+                                type="date"
+                                maxLength={10}
+                                  placeholder="dd/mm/yyyy"
+                                // placeholder={data.candidatEndDate  === "" ? "dd/mm/yyyy" : data.candidatEndDate}
                                 onChange={onFormDataChange}
                                 
-                              />
+                              /> */}
                               {/* <input type="text"  name="datefilter" value="" /> */}
                                 {/* <Calendar
         date={new Date()}
