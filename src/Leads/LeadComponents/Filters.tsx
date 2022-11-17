@@ -24,6 +24,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
     },
   ]);
   const [dateCheck,setDateCheck]=useState(false)
+  const [applyBtn,setApplyBtn]=useState(false)
   const [jobNames, setJobName] = useState([]);
   const [Data,setData]=useState()as any
   const [CanName, setCanName] = useState([]);
@@ -301,6 +302,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
   console.log(Data)
   if(Data !== undefined)
     {
+      setApplyBtn(true)
     fetch(API_BASE_URL + "filterLeads",{
       method: "POST",
       headers: {
@@ -313,8 +315,8 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
      .then(res=>res.json())
      .then(res=>{if(res.status){
       statusLeads(true)
+      setApplyBtn(false)
   toast.success("Filter Leads Found Successfully!")
-  setData()
       setLeads([...res.data])
       setFilterApply(res.total)
       setDateCheck(false)
@@ -322,6 +324,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
      }else{
       statusLeads(true)
   toast.error("Sorry No Results found!")
+  setApplyBtn(false)
 
       setLeads([])
      }
@@ -695,7 +698,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
         </div>
         <div className="col-12 mt-2">
             <div className="row justify-content-end">
-              <div className="col-2">  <button className="ApplyFiltersBtn" name="ApplyFil" onClick={(e)=>OnClickDataChange(e)}>Apply</button></div>
+              <div className="col-2">  <button className="ApplyFiltersBtn" name="ApplyFil" onClick={(e)=>OnClickDataChange(e)} disabled={applyBtn}>Apply</button></div>
            {Data !== undefined ? <div className="col-2">  <button className="RESETfilters" onClick={(e)=>OnClickDataChange(e)}>RESET</button></div> : null}   
            
             </div>

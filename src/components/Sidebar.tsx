@@ -48,7 +48,7 @@ function Sidebar(props: any) {
       <div className="container-fluid"  style={{ height: "100%",backgroundColor:"white",zIndex:9000000 }}>
         <div className="row" >
           
-          <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-3 col-xs-3 fixed pd-gutter pl-0" style={{ height: "100vh",backgroundColor:"white" }}>
+          <div className="col-xxl-3 col-xl-3 col-lg-3  col-md-3 col-xs-3 fixed pd-gutter pl-0" style={{ height: "100vh",backgroundColor:"white" ,maxWidth:"21%"}}>
             <div
               className="d-flex flex-column sideBarBackG flex-shrink-0"
             >
@@ -242,7 +242,7 @@ function Sidebar(props: any) {
               </ul>
             </div>
           </div>
-          <div className="col-xxl-9 col-lg-9 col-md-9 col-xs-9  scroll">
+          <div className="col-xxl-9 col-lg-9 col-md-9 col-xs-9  scroll" style={{maxWidth:"79%"}}>
           <Header />
             <section style={{ marginTop: "60px" }}>
               {props.children}
