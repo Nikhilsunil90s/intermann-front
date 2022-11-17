@@ -1,20 +1,17 @@
-import { Link, useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import {useNavigate} from "react-router-dom";
+import React, {useEffect,useState} from "react";
 import "../../CSS/Client/ProgressCardClient.css";
 import ArchivedClientModal from "../../components/Modal/ArchivedClientModal";
-import Switch from "react-switch";
 import Select from "react-select";
 import { ReactComponent as Empty } from "../../images/emptyStar.svg";
 import { ReactComponent as StarRating } from "../../images/RatingStar.svg";
-import toast, { Toaster } from "react-hot-toast";
 import moment from 'moment';
 
 function ClientContractCard(props: any) {
   const navigate = useNavigate();
 
   const candidatImportanceIcons = [{ icon: <><StarRating style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /></> }, { icon: <><StarRating style={{ marginRight: "3px", width: "70%" }} /><StarRating style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /></> }, { icon: <><StarRating style={{ marginRight: "3px", width: "70%" }} /> <StarRating style={{ marginRight: "3px", width: "70%" }} /> <StarRating style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /></> }, { icon: <><StarRating style={{ marginRight: "3px", width: "70%" }} /> <StarRating style={{ marginRight: "3px", width: "70%" }} /> <StarRating style={{ marginRight: "3px", width: "70%" }} /> <StarRating style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /></> }, { icon: <><StarRating style={{ marginRight: "3px", width: "70%" }} /><StarRating style={{ marginRight: "3px", width: "70%" }} /> <StarRating style={{ marginRight: "3px", width: "70%" }} /> <StarRating style={{ marginRight: "3px", width: "70%" }} /> <StarRating style={{ marginRight: "3px", width: "70%" }} /></> }];
-  const candidatMotivationIcons = [{ icon: "No", motivation: 'Motivation!' }, { icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
-  const [showInProgressModal, setShowInProgressModal] = useState(false);
+  const candidatMotivationIcons = [{ icon: "✘", motivation: '✘!' }, { icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
   const [showArchiveModal, setShowArchiveModal] = useState(false)
   const CardOption = [{
     value: "Edit Profile", label: "Edit Profile"
@@ -53,14 +50,47 @@ function ClientContractCard(props: any) {
     localStorage.setItem('archive', JSON.stringify(props.data));
     window.open("/clientSigned", "_blank")
   }
-  const datenow = moment().format('YYYY-MM-DD')
+
+  function padTo2DigitsCH(num) {
+    return num.toString().padStart(2, "0");
+  }
+  // console.log(props.data.jobStartDate.slice(0,4).includes("-"))
+
+  function formatDateCha(date) {
+    return [
+      padTo2DigitsCH(date.getDate()),
+      padTo2DigitsCH(date.getMonth() + 1),
+      date.getFullYear(),
+    ].join("/");
+  }
+  const datenow = moment().format("YYYY-MM-DD");
 
   let date = new Date(datenow);
 
   let start = new Date(props.data.jobStartDate);
   let end = new Date(props.data.jobEndDate);
+  const [startStatus]=useState(props.data.jobStartDate.slice(0,4).includes("-"))
+  const [endStatus]=useState(props.data.jobEndDate.slice(0,4).includes("-"))
+  const [startDate,setStartDate]=useState()as any
+  const [EndDate,setEndDate]=useState()as any
+ useEffect(()=>{
+  if(startStatus){
+    setStartDate(props.data.jobStartDate)
+  }else{
+    let data=formatDateCha(start)
+    setStartDate(data.replaceAll("/","-"))
+    
 
+  }
+  if(endStatus){
+    setEndDate(props.data.jobEndDate)
+  }else{
+    let data=formatDateCha(end)
+    setEndDate(data.replaceAll("/","-"))
+    
 
+  }
+ })
   return (
     <>
       <div className="card cardInPro p-0 HoveRESTClassCardS">
@@ -99,7 +129,7 @@ function ClientContractCard(props: any) {
           </div>
         </div>
         <div className="col-12 d-flex align-items-center textSignedClient my-1 ">
-          <p className=" mb-0 " style={{ color: date >= start && date <= end ? "#489767" : "#ca1313" }}>Recruiting  :    {date >= start && date <= end ? "From " + " 📆" + props.data.jobStartDate + "  To  " + " 📆" + props.data.jobEndDate : "⚠️ From  " + props.data.jobStartDate + "  To  " + props.data.jobEndDate} </p>
+          <p className=" mb-0 " style={{ color: date >= start && date <= end ? "#489767" : "#ca1313" }}>Recruiting  :    {date >= start && date <= end ? "From " + " 📆" + startDate + "  To  " + " 📆" + EndDate: "⚠️ From  " + startDate + "  To  " + EndDate} </p>
         </div>
         <div className="col-12 ">
           <div className="row pl-1">

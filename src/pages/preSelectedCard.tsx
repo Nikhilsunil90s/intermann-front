@@ -16,6 +16,10 @@ const PreSelectedCard = (props: any) => {
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const [ResetModalProfile, setResetModalProfile] = useState(false);
+  const [startStatus]=useState(props.props?.candidatStartDate !== undefined ? props.props.candidatStartDate.slice(0,4).includes("-") : null)
+  const [endStatus]=useState(props.props?.candidatEndDate !== undefined ?props.props.candidatEndDate.slice(0,4).includes("-") : null)
+ const [startDate,setStartDate]=useState()as any
+  const [EndDate,setEndDate]=useState()as any
 
   const candidatMotivationIcons = [
     { icon: "", motivation: "No Motivation!" },
@@ -65,12 +69,47 @@ const PreSelectedCard = (props: any) => {
     window.open("/clientSignedView", "_blank");
   };
 
+
+
+  function padTo2DigitsCH(num) {
+    return num.toString().padStart(2, "0");
+  }
+
+  // console.log(props.props.jobStartDate.slice(0,4).includes("-"))
+
+  function formatDateCha(date) {
+    return [
+      padTo2DigitsCH(date.getDate()),
+      padTo2DigitsCH(date.getMonth() + 1),
+      date.getFullYear(),
+    ].join("/");
+  }
   const datenow = moment().format("YYYY-MM-DD");
 
   let date = new Date(datenow);
 
   let start = new Date(props.data.candidatStartDate);
   let end = new Date(props.data.candidatEndDate);
+
+  useEffect(()=>{
+    if(startStatus){
+      setStartDate(props.data.candidatStartDate)
+    }else{
+      let data=formatDateCha(start)
+      setStartDate(data.replaceAll("/","-"))
+      
+  
+    }
+    if(endStatus){
+      setEndDate(props.data.candidatEndDate)
+    }else{
+      let data=formatDateCha(end)
+      setEndDate(data.replaceAll("/","-"))
+      
+  
+    }
+   })
+
 
   return (
     <>
@@ -294,13 +333,13 @@ const PreSelectedCard = (props: any) => {
             <b>
               {props.data.candidatStartDate !== undefined ? date >= start && date <= end
                 ? " 📆" +
-                  props.data.candidatStartDate +
+                  startDate +
                   "  To  " +
-                  props.data.candidatEndDate
+                  EndDate
                 : "⚠️" +
-                  props.data.candidatStartDate +
+                  startDate +
                   "  To  " +
-                  props.data.candidatEndDate
+                  EndDate
                 :
                 "✘ No Dates!"
                 }{" "}

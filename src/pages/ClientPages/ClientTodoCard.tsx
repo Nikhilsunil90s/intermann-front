@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "../../CSS/Client/ClientTodo.css";
-import "../../CSS/Animation.css" 
+import "../../CSS/Animation.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import InProgressClientModal from "../../components/Modal/InProgressClientModal";
@@ -13,7 +13,8 @@ import { ReactComponent as TurnoFF } from "../../images/FatX.svg";
 import { ReactComponent as TurnOn } from "../../images/base-switch_icon.svg";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast from "react-hot-toast";
-import moment from 'moment';
+import moment from "moment";
+import format from "date-fns/format";
 
 
 let id = "";
@@ -21,8 +22,26 @@ let id = "";
 const ClientToDoCard = (props: any) => {
   const navigate = useNavigate();
 
-  const notificationSwitch=()=>toast.success("Modification sauvegardée")
+  const notificationSwitch = () => toast.success("Modification sauvegardée");
 
+  function padTo2DigitsCH(num) {
+    return num.toString().padStart(2, "0");
+  }
+  // console.log(props.data.jobStartDate.slice(0,4).includes("-"))
+
+  function formatDateCha(date) {
+    return [
+      padTo2DigitsCH(date.getDate()),
+      padTo2DigitsCH(date.getMonth() + 1),
+      date.getFullYear(),
+    ].join("/");
+  }
+  const datenow = moment().format("YYYY-MM-DD");
+
+  let date = new Date(datenow);
+
+  let start = new Date(props.data.jobStartDate);
+  let end = new Date(props.data.jobEndDate);
 
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
@@ -34,6 +53,28 @@ const ClientToDoCard = (props: any) => {
   const [Contrat, setContrat] = useState(props.data.contractSigned) as any;
   const [Signature, setSignature] = useState(props.data.signatureSent) as any;
   const [Offre, setOffre] = useState(props.data.offerSent) as any;
+  const [startStatus]=useState(props.data.jobStartDate.slice(0,4).includes("-"))
+  const [endStatus]=useState(props.data.jobEndDate.slice(0,4).includes("-"))
+  const [startDate,setStartDate]=useState()as any
+  const [EndDate,setEndDate]=useState()as any
+ useEffect(()=>{
+  if(startStatus){
+    setStartDate(props.data.jobStartDate)
+  }else{
+    let data=formatDateCha(start)
+    setStartDate(data.replaceAll("/","-"))
+    
+
+  }
+  if(endStatus){
+    setEndDate(props.data.jobEndDate)
+  }else{
+    let data=formatDateCha(end)
+    setEndDate(data.replaceAll("/","-"))
+    
+
+  }
+ })
   const CardOption = [
     {
       value: "Edit Profile",
@@ -49,45 +90,45 @@ const ClientToDoCard = (props: any) => {
         setOffre(true);
         id = e.data._id;
         onChangeSwitches(id, Name, checked);
-        notificationSwitch()
+        notificationSwitch();
       }
       if (checked === false) {
         setOffre(false);
         onChangeSwitches(id, Name, checked);
-        notificationSwitch()
+        notificationSwitch();
       }
     }
     if (Name === "signatureSent") {
       if (checked === true) {
         setSignature(true);
         id = e.data._id;
-        notificationSwitch()
+        notificationSwitch();
         onChangeSwitches(id, Name, checked);
       }
       if (checked === false) {
         setSignature(false);
         onChangeSwitches(id, Name, checked);
-        notificationSwitch()
+        notificationSwitch();
       }
     }
     if (Name === "contractSigned") {
       if (checked === true) {
         setContrat(true);
         id = e.data._id;
-        notificationSwitch()
+        notificationSwitch();
         onChangeSwitches(id, Name, checked);
       }
       if (checked === false) {
         setContrat(false);
         onChangeSwitches(id, Name, checked);
-        notificationSwitch()
+        notificationSwitch();
       }
     }
     if (Name === "publicityStarted") {
       if (checked === true) {
         setPublic(true);
         id = e.data._id;
-        notificationSwitch()
+        notificationSwitch();
         onChangeSwitches(id, Name, checked);
       }
       if (checked === false) {
@@ -99,34 +140,34 @@ const ClientToDoCard = (props: any) => {
       if (checked === true) {
         setA1(true);
         id = e.data._id;
-        notificationSwitch()
+        notificationSwitch();
 
         onChangeSwitches(id, Name, checked);
       }
       if (checked === false) {
         setA1(false);
         onChangeSwitches(id, Name, checked);
-        notificationSwitch()
+        notificationSwitch();
       }
     }
     if (Name === "assuranceFaite") {
       if (checked === true) {
         setAssurance(true);
         id = e.data._id;
-        notificationSwitch()
+        notificationSwitch();
         onChangeSwitches(id, Name, checked);
       }
       if (checked === false) {
         setAssurance(false);
         onChangeSwitches(id, Name, checked);
-        notificationSwitch()
+        notificationSwitch();
       }
     }
     if (Name === "agenceDeVoyage") {
       if (checked === true) {
         setAgence(true);
         id = e.data._id;
-        notificationSwitch()
+        notificationSwitch();
         onChangeSwitches(id, Name, checked);
       }
       if (checked === false) {
@@ -138,13 +179,13 @@ const ClientToDoCard = (props: any) => {
       if (checked === true) {
         setChecked(true);
         id = e.data._id;
-        notificationSwitch()
+        notificationSwitch();
         onChangeSwitches(id, Name, checked);
       }
       if (checked === false) {
         setChecked(false);
         onChangeSwitches(id, Name, checked);
-        notificationSwitch()
+        notificationSwitch();
       }
     }
   };
@@ -233,7 +274,7 @@ const ClientToDoCard = (props: any) => {
     { icon: "😍", motivation: "Super Lovely" },
   ];
 
-  const Editdata ={state:props.data,path:"/clientTodo"}
+  const Editdata = { state: props.data, path: "/clientTodo" };
 
   const editClientProfile = () => {
     navigate("/clientToDoEdit", { state: Editdata });
@@ -241,8 +282,8 @@ const ClientToDoCard = (props: any) => {
 
   const viewFullProfile = () => {
     // navigate("/clientToDoProfile", { state: props.data });
-    localStorage.setItem('profile', JSON.stringify(props.data));
-    window.open("/clientToDoProfile", "_blank")
+    localStorage.setItem("profile", JSON.stringify(props.data));
+    window.open("/clientToDoProfile", "_blank");
   };
 
   const MoreOption = (e: any) => {
@@ -261,32 +302,42 @@ const ClientToDoCard = (props: any) => {
   // useEffect(() => {
   //     console.log(props.data)
   // })
-  const datenow=moment().format('YYYY-MM-DD')
-    
-       let date = new Date(datenow);
-  
-      let start = new Date(props.data.jobStartDate);
-      let end = new Date(props.data.jobEndDate);
-      
+
+
   return (
     <>
       <div className="card cardTODO pr-0 HoveRESTClassCard">
         <div className="d-flex cursor-pointer" onClick={viewFullProfile}>
           <div className="col-3 px-0 d-flex justify-content-center align-items-center">
             <img
-              src={props.data.clientPhoto ?  props.data.clientPhoto.url : require("../../images/ClientCardPhoto.svg").default}
-           className={props.data.clientPhoto ? "" :"cardTODO-img" }
-           style={props.data.clientPhoto ? {width:"75px",
-            height: "75px",
-            padding:" 0px",
-            border: "2px solid",
-            borderRadius: "100px"}: null}
-
+              src={
+                props.data.clientPhoto
+                  ? props.data.clientPhoto.url
+                  : require("../../images/ClientCardPhoto.svg").default
+              }
+              className={props.data.clientPhoto ? "" : "cardTODO-img"}
+              style={
+                props.data.clientPhoto
+                  ? {
+                      width: "75px",
+                      height: "75px",
+                      padding: " 0px",
+                      border: "2px solid",
+                      borderRadius: "100px",
+                    }
+                  : null
+              }
               alt="..."
             />
           </div>
           <div className="col-5 px-0 mt-1">
-            <p className="textClientCard" style={{ width: "130%" }} data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.clientCompanyName.toLocaleUpperCase()}>
+            <p
+              className="textClientCard"
+              style={{ width: "130%" }}
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title={props.data.clientCompanyName.toLocaleUpperCase()}
+            >
               <b>
                 {props.data.clientCompanyName
                   ? props.data.clientCompanyName.length > 20
@@ -300,11 +351,13 @@ const ClientToDoCard = (props: any) => {
             <p className="textClientCard" style={{ width: "130%" }}>
               Motivation :
               <b style={{ background: "transparent", zIndex: "9" }}>
-                {candidatMotivationIcons[props.data.clientMotivation].icon +" " +candidatMotivationIcons[props.data.clientMotivation].motivation}
+                {candidatMotivationIcons[props.data.clientMotivation].icon +
+                  " " +
+                  candidatMotivationIcons[props.data.clientMotivation]
+                    .motivation}
               </b>
             </p>
             <div>
-              
               <p
                 className="textClientCard"
                 style={{
@@ -330,7 +383,6 @@ const ClientToDoCard = (props: any) => {
               <p className="textClientCard">
                 Num of position :
                 <b>
-                  
                   {props.data.numberOfPosts
                     ? props.data.numberOfPosts
                     : "✘ No Posts!"}
@@ -348,7 +400,29 @@ const ClientToDoCard = (props: any) => {
         </div>
         <div className="col-12">
           <div className="row color-rowClientCard ">
-            <p style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>Recruiting  :  {date >= start && date <= end  ? " From " + " 📆" +props.data.jobStartDate  + "  To  " + " 📆" +props.data.jobEndDate :   "⚠️ From  " + props.data.jobStartDate +"  To  " + props.data.jobEndDate} 
+            <p
+              style={{
+                color: date >= start && date <= end ? "#3F76E2" : "#ca1313",
+              }}
+            >
+              Recruiting :{" "}
+              {date >= start && date <= end
+                ? " From " +
+                  " 📆" +
+                  startDate
+                   +
+                    "  To  " +
+                    " 📆" +
+                    EndDate
+
+                   
+                : "⚠️ From  " +
+                 
+                startDate
+                +
+                  "  To  " +
+                  EndDate
+                }
             </p>
           </div>
         </div>
@@ -377,7 +451,6 @@ const ClientToDoCard = (props: any) => {
               <p>
                 Langues :
                 <b>
-                  
                   {props.data.clientLanguages.length
                     ? props.data.clientLanguages.join(", ")
                     : "✘ No Langues!"}
@@ -404,7 +477,9 @@ const ClientToDoCard = (props: any) => {
               <p>
                 Salary by person :
                 <b>
-                  {props.data.netSalary ? props.data.netSalary + "€" || props.data.netSalary + " €" : "0€"}
+                  {props.data.netSalary
+                    ? props.data.netSalary + "€" || props.data.netSalary + " €"
+                    : "0€"}
                 </b>
               </p>
               <p>
@@ -448,10 +523,8 @@ const ClientToDoCard = (props: any) => {
           <div className="row color-rowClientCard p-1">
             <div className="col-4 px-0 d-flex  justify-content-start">
               <div className="d-flex align-items-center ">
-              
-                <p className="switch-fontCard mb-0">Offre envoyé ?</p>      
-              
-                
+                <p className="switch-fontCard mb-0">Offre envoyé ?</p>
+
                 <Switch
                   className="ml-left"
                   checked={Offre}
@@ -484,9 +557,9 @@ const ClientToDoCard = (props: any) => {
                     />
                   }
                 />
-                </div>
               </div>
-   
+            </div>
+
             <div className="col-5 px-0 d-flex  justify-content-start">
               <div className="d-flex align-items-center ">
                 <p className="switch-fontCard mb-0">
@@ -756,7 +829,7 @@ const ClientToDoCard = (props: any) => {
                     />
                   }
                 />
-           </div>
+              </div>
             </div>
           </div>
         </div>

@@ -63,7 +63,6 @@ function ToDoProfile() {
   const [UploadBtn,setSelectUpload]= useState(false)
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [PDFModal,setPDFModal]=useState(false)
-  const datenow=moment().format('YYYY-MM-DD')
   const [DocumentSignModal,setDocuSignModal]=useState(false)
   const [DocuLink,setDocuLink]=useState(false)
   const [ReAvance,setReAvance]=useState("")
@@ -75,15 +74,49 @@ function ToDoProfile() {
   const [Reges, setReges] = useState() as any;
   const [Fiche_mise_à_disposition, setFiche_mise_à_disposition] =
     useState() as any;
-
-  let date = new Date(datenow);
-
- let start = new Date(profile.candidatStartDate);
- let end = new Date(profile.candidatEndDate);
+    const [startStatus]=useState(profile.candidatStartDate !== undefined ? profile.candidatStartDate.slice(0,4).includes("-") : null)
+    const [endStatus]=useState(profile.candidatEndDate !== undefined ?profile.candidatEndDate.slice(0,4).includes("-") : null)
+   const [startDate,setStartDate]=useState()as any
+    const [EndDate,setEndDate]=useState()as any
   
-
-
-
+    function padTo2DigitsCH(num) {
+      return num.toString().padStart(2, "0");
+    }
+  
+    // console.log(props.data.jobStartDate.slice(0,4).includes("-"))
+  
+    function formatDateCha(date) {
+      return [
+        padTo2DigitsCH(date.getDate()),
+        padTo2DigitsCH(date.getMonth() + 1),
+        date.getFullYear(),
+      ].join("/");
+    }
+    const datenow = moment().format("YYYY-MM-DD");
+  
+    let date = new Date(datenow);
+  
+    let start = new Date(profile.candidatStartDate);
+    let end = new Date(profile.candidatEndDate);
+  
+    useEffect(()=>{
+      if(startStatus){
+        setStartDate(profile.candidatStartDate)
+      }else{
+        let data=formatDateCha(start)
+        setStartDate(data.replaceAll("/","-"))
+        
+    
+      }
+      if(endStatus){
+        setEndDate(profile.candidatEndDate)
+      }else{
+        let data=formatDateCha(end)
+        setEndDate(data.replaceAll("/","-"))
+        
+    
+      }
+     })
 
  useEffect(()=>{
       setProfile(state ? state : profileData)
@@ -522,7 +555,7 @@ className="SelectBtn"
                       <p className="blue-text">Ready for work :</p>
                       <span className="bluetextCardSee" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
                        {profile.candidatStartDate !== undefined ?
-                        date >= start && date <= end  ?" 📆" + profile.candidatStartDate   + "  To  " + profile.candidatEndDate :   "⚠️" + profile.candidatStartDate +"  To  " + profile.candidatEndDate
+                        date >= start && date <= end  ?" 📆" + startDate   + "  To  " +EndDate :   "⚠️" + startDate +"  To  " +EndDate
                         :
                        "✘No Dates! "
                        }

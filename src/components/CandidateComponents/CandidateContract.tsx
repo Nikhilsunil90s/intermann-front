@@ -18,19 +18,19 @@ function  CandidateContract({props,path}){
        
           let tempdate =new Date(props.candidatContract.contract_date)
           setMonth(tempdate.getMonth()+1)
-          let NewCdate=[tempdate.getFullYear() ,  GetMonth,tempdate.getDate()].join("-")
+          let NewCdate=[tempdate.getDate(),GetMonth,tempdate.getFullYear()].join("-")
         setcontract_date(NewCdate)
     
       let tempdate2 =new Date(props.candidatContract.debutMissionDate)
       setMonth2(tempdate2.getMonth()+1)
-        let NewMDate=  [tempdate2.getFullYear() ,GetMonth2,tempdate2.getDate()].join("-")
+        let NewMDate=  [tempdate2.getDate(),GetMonth2,tempdate2.getFullYear()].join("-")
         setdebutMissionDate(NewMDate)
     
     
     
      let tempdate3 =new Date(props.candidatContract.fin_mision)
       setMonth3(tempdate3.getMonth()+1)
-      let FormatNewDate=[tempdate3.getFullYear() ,GetMonth3,tempdate3.getDate()].join("-")
+      let FormatNewDate=[tempdate3.getDate(),GetMonth3,tempdate3.getFullYear()].join("-")
       setfin_mision(FormatNewDate)
     
     }},)
@@ -67,7 +67,7 @@ function  CandidateContract({props,path}){
                             </div>
                             <div className='col-4  d-grid text-start'>
                             <label className="PDFFormlabel">Contract_date</label>
-                            <input className='form-control inputStylingForView' type="date"  onClick={editCandidatProfile} value={props.candidatContract ?props.candidatContract.contract_date ? contract_date : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Contract_date" />
+                            <input className='form-control inputStylingForView' type="" readOnly  onClick={editCandidatProfile} value={props.candidatContract ?props.candidatContract.contract_date ? contract_date : "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Contract_date" />
 
                             </div>
                             <div className='col-4  d-grid text-start'>
@@ -128,7 +128,7 @@ function  CandidateContract({props,path}){
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Debut Mision (Date)</label>
-                            <input className='form-control inputStyling' type="date"  name='Debut Mision Date'  onClick={editCandidatProfile} value={props.candidatContract ? props.candidatContract.debutMissionDate ? debutMissionDate : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ Debut Mision Date" />
+                            <input className='form-control inputStyling' type=""  name='Debut Mision Date' readOnly  onClick={editCandidatProfile} value={props.candidatContract ? props.candidatContract.debutMissionDate ? debutMissionDate : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ Debut Mision Date" />
 
                             </div>
 
@@ -151,7 +151,7 @@ function  CandidateContract({props,path}){
                             </div>
                             <div className='col-4  d-grid '>
                             <label className="PDFFormlabel">Fin Mision</label>
-                            <input className='form-control inputStyling'  type="date" name='fin_mision'  onClick={editCandidatProfile} value={props.candidatContract ? props.fin_mision !="" ? fin_mision : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ indemnisation jour" />
+                            <input className='form-control inputStyling'  type="" readOnly name='fin_mision'  onClick={editCandidatProfile} value={props.candidatContract ? props.fin_mision !="" ? fin_mision  : "input Not Available!": "input Not Available!"}  placeholder="‎ ‎ ‎ indemnisation jour" />
 
                             </div>
 

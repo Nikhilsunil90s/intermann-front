@@ -34,7 +34,10 @@ function ClientProgressCard(props: any) {
     const [Offre, setOffre] = useState(props.data.offerSent) as any;
   const [showSignedModal, setShowSignedModal] = useState(false);
   const [DateInRange,setDateRange]=useState(false)as any
-
+  const [startStatus]=useState(props.data.jobStartDate.slice(0,4).includes("-"))
+      const [endStatus]=useState(props.data.jobEndDate.slice(0,4).includes("-"))
+      const [startDate,setStartDate]=useState()as any
+      const [EndDate,setEndDate]=useState()as any
   const CardOption=[{
     value:"Edit Profile",label:"Edit Profile"
     },
@@ -210,15 +213,43 @@ function ClientProgressCard(props: any) {
       };
      
 
-    const datenow=moment().format('YYYY-MM-DD')
+      function padTo2DigitsCH(num) {
+        return num.toString().padStart(2, "0");
+      }
+      // console.log(props.data.jobStartDate.slice(0,4).includes("-"))
     
-       let date = new Date(datenow);
-  
+      function formatDateCha(date) {
+        return [
+          padTo2DigitsCH(date.getDate()),
+          padTo2DigitsCH(date.getMonth() + 1),
+          date.getFullYear(),
+        ].join("/");
+      }
+      const datenow = moment().format("YYYY-MM-DD");
+    
+      let date = new Date(datenow);
+    
       let start = new Date(props.data.jobStartDate);
       let end = new Date(props.data.jobEndDate);
-      
-  
-
+    
+     useEffect(()=>{
+      if(startStatus){
+        setStartDate(props.data.jobStartDate)
+      }else{
+        let data=formatDateCha(start)
+        setStartDate(data.replaceAll("/","-"))
+        
+    
+      }
+      if(endStatus){
+        setEndDate(props.data.jobEndDate)
+      }else{
+        let data=formatDateCha(end)
+        setEndDate(data.replaceAll("/","-"))
+        
+    
+      }
+     })
     return (
         <>
             <div className="card cardInPro p-0 HoveRESTClassCardIn">
@@ -257,7 +288,7 @@ function ClientProgressCard(props: any) {
                     </div>
                 </div>
                 <div className="col-12 d-flex align-items-center colorRecruting my-1 ">
-                <p className="in-Recruting mb-0 " style={{ color: date >= start && date < end  ? "#A461D8" : "#ca1313"}}>Recruiting  :    {date >= start && date < end  ? "From " + " 📆" +props.data.jobStartDate  + "  To  " + " 📆" +props.data.jobEndDate :   "⚠️ From  " + props.data.jobStartDate +"  To  " + props.data.jobEndDate} </p>
+                <p className="in-Recruting mb-0 " style={{ color: date >= start && date < end  ? "#A461D8" : "#ca1313"}}>Recruiting  :    {date >= start && date < end  ? "From " + " 📆" + startDate+ "  To  " + " 📆" + EndDate:   "⚠️ From  " + startDate+"  To  " + EndDate} </p>
                 </div>
 <div className="col-12 ">
     <div className="row pl-1">

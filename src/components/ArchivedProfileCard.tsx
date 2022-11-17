@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { Link } from "react-router-dom";
 import "../CSS/Canceled.css";
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +12,10 @@ const ArchivedProfileCard = (props: any) => {
     const [hideProfile,setHideProfile]=useState(false)
     const [ResetModalProfile,setResetModalProfile]=useState(false)
     const [candidatMotivationIcons,setMotivation] = useState([{ icon: "", motivation: 'No Motivation!' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }]);
-
+    const [startStatus]=useState(props.props.candidatStartDate !== undefined ? props.props.candidatStartDate.slice(0,4).includes("-") : null)
+    const [endStatus]=useState(props.props.candidatEndDate !== undefined ?props.props.candidatEndDate.slice(0,4).includes("-") : null)
+   const [startDate,setStartDate]=useState()as any
+    const [EndDate,setEndDate]=useState()as any
 
     let data={profileData:props.props,path:"/archivedprofile"}
     const editCandidatProfile = () => {
@@ -45,13 +48,45 @@ const ArchivedProfileCard = (props: any) => {
       }
 
 
-      const datenow=moment().format('YYYY-MM-DD')
+      function padTo2DigitsCH(num) {
+        return num.toString().padStart(2, "0");
+      }
+    
+      // console.log(props.props.jobStartDate.slice(0,4).includes("-"))
+    
+      function formatDateCha(date) {
+        return [
+          padTo2DigitsCH(date.getDate()),
+          padTo2DigitsCH(date.getMonth() + 1),
+          date.getFullYear(),
+        ].join("/");
+      }
+      const datenow = moment().format("YYYY-MM-DD");
+    
       let date = new Date(datenow);
-
+    
       let start = new Date(props.props.candidatStartDate);
       let end = new Date(props.props.candidatEndDate);
-   
-
+    
+      useEffect(()=>{
+        if(startStatus){
+          setStartDate(props.props.candidatStartDate)
+        }else{
+          let data=formatDateCha(start)
+          setStartDate(data.replaceAll("/","-"))
+          
+      
+        }
+        if(endStatus){
+          setEndDate(props.props.candidatEndDate)
+        }else{
+          let data=formatDateCha(end)
+          setEndDate(data.replaceAll("/","-"))
+          
+      
+        }
+       })
+  
     return (
         <>
             <div className="card card-color mt-1 mb-0 HoveRESTClassCardA">
@@ -118,7 +153,7 @@ const ArchivedProfileCard = (props: any) => {
                     <p className='ArchivedCardChildFonts mb-0'>Facebook URL:  <b>{props.props.candidatFBURL ? <a href={props.props.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "✘ No Facebook Profile!"}</b></p>
                     <p className='ArchivedCardChildFonts mb-0'>Email: <b>{props.props.candidatEmail ? props.props.candidatEmail.length > 20 ? props.props.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.props.candidatEmail.toLocaleUpperCase() : "✘ No Email Provided!"}</b> </p>
                     <p className="todoCardbodyBlue py-1" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
-                        Ready for work : {props.props.candidatStartDate  !== undefined ?  date >= start && date <= end  ? " 📆" +props.props.candidatStartDate  + "  To  " + props.props.candidatEndDate :   "⚠️" + props.props.candidatStartDate +"  To  " + props.props.candidatEndDate : "✘No Dates!"} 
+                        Ready for work : {props.props.candidatStartDate  !== undefined ?  date >= start && date <= end  ? " 📆" +startDate  + "  To  " + EndDate :   "⚠️" + startDate +"  To  " + EndDate : "✘No Dates!"} 
                     </p>
                 
                     </div>

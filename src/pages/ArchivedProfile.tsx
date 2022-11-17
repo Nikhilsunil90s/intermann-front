@@ -52,11 +52,48 @@ const ArchivedProfile = () => {
 
     const datenow=moment().format('YYYY-MM-DD')
   const [DocumentSignModal,setDocuSignModal]=useState(false)
-    
-    let date = new Date(datenow);
+  const [startStatus]=useState(profile.candidatStartDate !== undefined ? profile.candidatStartDate.slice(0,4).includes("-") : null)
+  const [endStatus]=useState(profile.candidatEndDate !== undefined ?profile.candidatEndDate.slice(0,4).includes("-") : null)
+ const [startDate,setStartDate]=useState()as any
+  const [EndDate,setEndDate]=useState()as any
+
+  function padTo2DigitsCH(num) {
+    return num.toString().padStart(2, "0");
+  }
+
+  // console.log(props.data.jobStartDate.slice(0,4).includes("-"))
+
+  function formatDateCha(date) {
+    return [
+      padTo2DigitsCH(date.getDate()),
+      padTo2DigitsCH(date.getMonth() + 1),
+      date.getFullYear(),
+    ].join("/");
+  }
+
+  let date = new Date(datenow);
+
+  let start = new Date(profile.candidatStartDate);
+  let end = new Date(profile.candidatEndDate);
+
+  useEffect(()=>{
+    if(startStatus){
+      setStartDate(profile.candidatStartDate)
+    }else{
+      let data=formatDateCha(start)
+      setStartDate(data.replaceAll("/","-"))
+      
   
-   let start = new Date(profile.candidatStartDate);
-   let end = new Date(profile.candidatEndDate);
+    }
+    if(endStatus){
+      setEndDate(profile.candidatEndDate)
+    }else{
+      let data=formatDateCha(end)
+      setEndDate(data.replaceAll("/","-"))
+      
+  
+    }
+   })
 
    
     let data={profileData:profile,path:"/archivedprofile"}
@@ -353,7 +390,7 @@ className="SelectBtn"
                     <div className="d-flex ">
                       <p className="blue-text">Ready for work :</p>
                       <span className="" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
-                      {profile.candidatStartDate  !== undefined? date >= start && date <= end  ?" 📆" + profile.candidatStartDate  + "  To  " + profile.candidatEndDate :   "⚠️" + profile.candidatStartDate +"  To  " + profile.candidatEndDate : "✘No Dates!"} 
+                      {profile.candidatStartDate  !== undefined? date >= start && date <= end  ?" 📆" + startDate  + "  To  " + EndDate :   "⚠️" + startDate +"  To  " + EndDate : "✘No Dates!"} 
                       </span>
                     </div>
                     <div className="d-flex">

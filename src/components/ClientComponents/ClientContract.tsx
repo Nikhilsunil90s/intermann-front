@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import format from 'date-fns/format'
 
 function ClientContract ({props,path}){
 console.log(props)
 const navigate = useNavigate()
 const [clientContract,setclientContract]=useState(props.clientContract)
 
+
+const dateDu = new Date(clientContract.debut_date)
+const FinM = new Date(clientContract.date_fin_mission)
 const Editdata = { state: props, path:path };
 const editClientProfile = () => {
     navigate("/clientToDoEdit", { state: Editdata });
@@ -119,10 +123,11 @@ const editClientProfile = () => {
                         $ date du debut de mission
                       </label>
                       <input
-                        type="date"
+                        type=""
+                        readOnly
                         className="form-control inputStyling"
                         name="serie_id"
-                        value={clientContract ? clientContract.debut_date : ""}
+                        value={clientContract.debut_date !== "" ? format(dateDu, "dd/MM/yyyy"): ""}
                         onClick={editClientProfile}
                         placeholder="‎ ‎ ‎ $ date du debut de mission"
                       />
@@ -132,11 +137,12 @@ const editClientProfile = () => {
                         $ date de fin de mission
                       </label>
                       <input
-                        type="date"
+                        type=""
+                        readOnly
                         className="form-control inputStyling"
                         name="candidatAddress"
                         value={
-                          clientContract ? clientContract.date_fin_mission : ""
+                          clientContract.date_fin_mission !== "" ? format(FinM,"dd/MM/yyyy") : ""
                         }
                         onClick={editClientProfile}
                         placeholder="‎ ‎ ‎ $ date de fin de mission"

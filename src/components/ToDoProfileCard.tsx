@@ -14,7 +14,11 @@ const ToDoProfileCard = (props: any,Clients) => {
     const navigate = useNavigate();
     const [showInProgressModal, setShowInProgressModal] = useState(false);
     const [showArchiveModal, setShowArchiveModal] = useState(false)
-   
+    const [startStatus]=useState(props.data.candidatStartDate !== undefined ? props.data.candidatStartDate.slice(0,4).includes("-") : null)
+    const [endStatus]=useState(props.data.candidatEndDate !== undefined ?props.data.candidatEndDate.slice(0,4).includes("-") : null)
+    const [startDate,setStartDate]=useState()as any
+    const [EndDate,setEndDate]=useState()as any
+  
     const CardOptions=[{
    value:"Edit Profile",label:"Edit Profile"
    },
@@ -51,14 +55,44 @@ const ToDoProfileCard = (props: any,Clients) => {
     }
  
 
-    const datenow=moment().format('YYYY-MM-DD')
+    function padTo2DigitsCH(num) {
+        return num.toString().padStart(2, "0");
+      }
     
-    let date = new Date(datenow);
-
-   let start = new Date(props.data.candidatStartDate);
-   let end = new Date(props.data.candidatEndDate);
-
-
+      // console.log(props.data.jobStartDate.slice(0,4).includes("-"))
+    
+      function formatDateCha(date) {
+        return [
+          padTo2DigitsCH(date.getDate()),
+          padTo2DigitsCH(date.getMonth() + 1),
+          date.getFullYear(),
+        ].join("/");
+      }
+      const datenow = moment().format("YYYY-MM-DD");
+    
+      let date = new Date(datenow);
+    
+      let start = new Date(props.data.candidatStartDate);
+      let end = new Date(props.data.candidatEndDate);
+    
+      useEffect(()=>{
+        if(startStatus){
+          setStartDate(props.data.candidatStartDate)
+        }else{
+          let data=formatDateCha(start)
+          setStartDate(data.replaceAll("/","-"))
+          
+      
+        }
+        if(endStatus){
+          setEndDate(props.data.candidatEndDate)
+        }else{
+          let data=formatDateCha(end)
+          setEndDate(data.replaceAll("/","-"))
+          
+      
+        }
+       })
 
     const MoreOption=(e:any)=>{
       if(e.value=="Edit Profile"){
@@ -159,7 +193,7 @@ const ToDoProfileCard = (props: any,Clients) => {
                     <p className="todoCardbody-p " style={{marginBottom:"8px"}}>Facebook URL : <b>{props.data.candidatFBURL ? <a href={props.data.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile</a> : "✘ No Facebook Profile!"}</b></p>
                     <p className="preCard-Body-p">Email :  <b> {props.data.candidatEmail ? props.data.candidatEmail.length > 20 ? props.data.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : props.data.candidatEmail.toLocaleUpperCase() : "✘ No Email Provided!"}</b></p>
                       <p className="todoCardbodyBlue py-1" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
-                        Ready for work : {props.data.candidatStartDate !== undefined ? date >= start && date <= end  ? " 📆" +props.data.candidatStartDate  + "  To  " + props.data.candidatEndDate :   "⚠️" + props.data.candidatStartDate +"  To  " + props.data.candidatEndDate : "✘No Dates!"}
+                        Ready for work : {props.data.candidatStartDate !== undefined ? date >= start && date <= end  ? " 📆" +startDate  + "  To  " +EndDate:   "⚠️" + startDate +"  To  " +EndDate: "✘No Dates!"}
                     </p>
                 
                     </div>

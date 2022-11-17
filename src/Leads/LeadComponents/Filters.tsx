@@ -290,10 +290,18 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
     }
   };
   const FilterChange = (e: any) => {
+ 
     setData({...Data,[e.name]:e.value,leadCountryMarket:market})
     
   };
-
+  const JobFilterChange = (e: any) => {
+    let  Jb=[]
+    e.map((el)=>{
+      Jb.push(el.value)
+    })
+    setData({...Data,"adName":Jb.toString(),leadCountryMarket:market})
+    
+  };
 
 
   const OnClickDataChange=(e)=>{
@@ -522,7 +530,8 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
             placeholder="‎  ‎ ‎  ‎ FILTER BY JOB"
             className="basic-multi-select placeHolderLead"
             classNamePrefix="select"
-             onChange={FilterChange}
+             onChange={JobFilterChange}
+             isMulti
             options={jobNames}
             styles={colourStyles}
           />

@@ -87,13 +87,47 @@ function ClientSee() {
     useState() as any;
     const [DocumentSignModal,setDocuSignModal]=useState(false)
 
-  const datenow = moment().format("YYYY-MM-DD");
-
-  let date = new Date(datenow);
-
-  let start = new Date(profile.jobStartDate);
-  let end = new Date(profile.jobEndDate);
-
+    function padTo2DigitsCH(num) {
+      return num.toString().padStart(2, "0");
+    }
+    const [startStatus]=useState(profile.jobStartDate.slice(0,4).includes("-"))
+    const [endStatus]=useState(profile.jobEndDate.slice(0,4).includes("-"))
+    const [startDate,setStartDate]=useState()as any
+    const [EndDate,setEndDate]=useState()as any
+    // console.log(props.data.jobStartDate.slice(0,4).includes("-"))
+  
+    function formatDateCha(date) {
+      return [
+        padTo2DigitsCH(date.getDate()),
+        padTo2DigitsCH(date.getMonth() + 1),
+        date.getFullYear(),
+      ].join("/");
+    }
+    const datenow = moment().format("YYYY-MM-DD");
+  
+    let date = new Date(datenow);
+  
+    let start = new Date(profile.jobStartDate);
+    let end = new Date(profile.jobEndDate);
+  
+    useEffect(()=>{
+      if(startStatus){
+        setStartDate(profile.jobStartDate)
+      }else{
+        let data=formatDateCha(start)
+        setStartDate(data.replaceAll("/","-"))
+        
+    
+      }
+      if(endStatus){
+        setEndDate(profile.jobEndDate)
+      }else{
+        let data=formatDateCha(end)
+        setEndDate(data.replaceAll("/","-"))
+        
+    
+      }
+     })
   useEffect(() => {
     setProfile(state ? state : ProfileData);
   }, [state]);
@@ -1190,11 +1224,11 @@ function ClientSee() {
                         }}
                       >
                         {date >= start && date <= end
-                          ?" 📆" + profile.jobStartDate + "  To  " + profile.jobEndDate
+                          ?" 📆" + startDate + "  To  " + EndDate
                           : "⚠️" +
-                            profile.jobStartDate +
+                            startDate +
                             "  To  " +
-                            profile.jobEndDate}
+                            EndDate}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">

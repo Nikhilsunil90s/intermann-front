@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import "../../CSS/AddClient.css";
 import Select, { StylesConfig } from "react-select";
 import Switch from "react-switch";
@@ -15,7 +15,8 @@ import chroma from "chroma-js";
 import $ from "jquery";
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
-
+import format from "date-fns/format";
+import { Calendar } from "react-date-range";
 let Amountarr = "";
 let Hours = "";
 declare global {
@@ -216,7 +217,9 @@ const [matched, setMatched] = useState(false);
   const [taxHoursID,setHoursId]=useState("")
   const [disableSalary , setDisableSalary]=useState(false)
   const [checkBooleanValue , setcheckBooleanValue]=useState(Boolean)as any
-  const [SalaryCheck , setSalarycheck]=useState(SalaryTotalcheck)as any
+  const [Startopen, setStartOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+
   const [salary,setSalary_hours] =useState({
     hours:"",
     salaryPerHour:""
@@ -226,7 +229,35 @@ const [matched, setMatched] = useState(false);
     ratePerHour:""
   })as any
 
-  
+  const refOne = useRef(null);
+  const reftwo = useRef(null);
+  useEffect(() => {
+    // event listeners
+
+    document.addEventListener("keydown", hideOnEscape, true);
+    document.addEventListener("click", hideOnClickOutside, true);
+  }, []);
+
+  // hide dropdown on ESC press
+  const hideOnEscape = (e) => {
+    // console.log(e.key)
+    if (e.key === "Escape") {
+      setOpen(false);
+    }
+    if (e.key === "Escape") {
+      setStartOpen(false);
+    }
+  };
+  const hideOnClickOutside = (e) => {
+    // console.log(refOne.current)
+    // console.log(e.target)
+    if (refOne.current && !refOne.current.contains(e.target)) {
+      setOpen(false);
+    }
+    if (reftwo.current && !reftwo.current.contains(e.target)) {
+      setStartOpen(false);
+    }
+  };
 useEffect(()=>{
   // setData({...data,rate_hours:Tauxarr})
   // setData({...data,salary_hours:ClientDataFormat.salary_hours})
@@ -345,6 +376,16 @@ useEffect(()=>{
       
     }
   };
+
+
+  const dateChangeStart =(date)=>{
+    setData({...data,["jobStartDate"]:format(date, "dd-MM-yyyy")})
+    setStartOpen(false)
+  }
+  const dateChange =(date)=>{
+    setData({...data,["jobEndDate"]:format(date, "dd-MM-yyyy")})
+    setOpen(false)
+  }
 
   const TauxHandleChange = (e: any) => {
     if (e.target.id === "1") {
@@ -1157,7 +1198,30 @@ console.log(Language, "language")
                         <label className="fromDate">
                           From date / A PARTIR DE
                         </label>
-                        <input type="date" className="form-control" name='jobStartDate' value={data.jobStartDate} onChange={onFormDataChange} />
+                        {/* <input type="date" className="form-control" name='jobStartDate' value={data.jobStartDate} onChange={onFormDataChange} /> */}
+                        <input
+                               value={data.jobStartDate === "" ? "dd/mm/yyyy" : data.jobStartDate }
+                                readOnly
+                                style={{textTransform:"none"}}
+                                className="dateSort"
+                                onClick={() => setStartOpen((open) => !open)}
+                                
+                              />
+                               <div ref={reftwo} className="rdrDateRangePickerWrapper ">
+              {Startopen && (
+                <Calendar
+                  onChange={(item) => dateChangeStart(item)}
+                  direction="vertical"
+                  className="calendarElement "
+                />
+              )}
+            </div>
+            <div
+              onClick={() => setStartOpen((open) => !open)}
+              className="d-flex justify-content-end eventPos"
+            >
+              <img src={require("../../images/event.svg").default} />
+            </div>
                       </div>
                     </div>
                     <div className="col-6">
@@ -1165,7 +1229,33 @@ console.log(Language, "language")
                         <label className="fromDate">
                           UNTIL DATE / Jusqu’à
                         </label>
-                        <input type="date" className="form-control" name='jobEndDate' value={data.jobEndDate} onChange={onFormDataChange} />
+                        {/* <input type="date" className="form-control" name='jobEndDate' value={data.jobEndDate} onChange={onFormDataChange} /> */}
+                        <div className="">
+            <input
+              value={data.jobEndDate == "" ? "dd/mm/yyyy" : data.jobEndDate}
+              readOnly
+              className="dateSort"
+              onClick={() => setOpen((open) => !open)}
+              style={{textTransform:"none"}}
+
+            />
+
+            <div ref={refOne} className="rdrDateRangePickerWrapper">
+              {open && (
+                <Calendar
+                  onChange={(item) => dateChange(item)}
+                  direction="vertical"
+                  className="calendarElement"
+                />
+              )}
+            </div>
+            <div
+              onClick={() => setOpen((open) => !open)}
+              className="d-flex justify-content-end eventPos"
+            >
+              <img src={require("../../images/event.svg").default} />
+            </div>
+          </div>
                       </div>
                     </div>
                   </div>

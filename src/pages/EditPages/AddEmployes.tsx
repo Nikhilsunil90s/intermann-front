@@ -109,9 +109,13 @@ const [Startopen, setStartOpen] = useState(false);
   };
   const dateChange =(date)=>{
     setData({...data,["candidatEndDate"]:format(date, "dd-MM-yyyy")})
+    setStartOpen(false)
+
   }
   const dateChangeStart =(date)=>{
     setData({...data,["candidatStartDate"]:format(date, "dd-MM-yyyy")})
+    setOpen(false)
+
   }
 
   const colourStyles: StylesConfig<ColourOption, true> = {

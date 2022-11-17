@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import "../CSS/Embauch.css";
 import ArchivedModal from "./Modal/ArchivedModal";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,11 @@ const navigate = useNavigate();
 
     const [showArchiveModal, setShowArchiveModal] = useState(false)
     const [ResetModalProfile,setResetModalProfile]=useState(false)
-
+    const [startStatus]=useState(props.props.candidatStartDate !== undefined ? props.props.candidatStartDate.slice(0,4).includes("-") : null)
+    const [endStatus]=useState(props.props.candidatEndDate !== undefined ?props.props.candidatEndDate.slice(0,4).includes("-") : null)
+    const [startDate,setStartDate]=useState()as any
+    const [EndDate,setEndDate]=useState()as any
+  
     const CardOptions=[{
         value:"Edit Profile",label:"Edit Profile"
         },
@@ -46,12 +50,44 @@ const navigate = useNavigate();
 
     }
 
-    const datenow=moment().format('YYYY-MM-DD')
+    function padTo2DigitsCH(num) {
+        return num.toString().padStart(2, "0");
+      }
     
-    let date = new Date(datenow);
-
-   let start = new Date(profile.candidatStartDate);
-   let end = new Date(profile.candidatEndDate);
+      // console.log(props.props.jobStartDate.slice(0,4).includes("-"))
+    
+      function formatDateCha(date) {
+        return [
+          padTo2DigitsCH(date.getDate()),
+          padTo2DigitsCH(date.getMonth() + 1),
+          date.getFullYear(),
+        ].join("/");
+      }
+      const datenow = moment().format("YYYY-MM-DD");
+    
+      let date = new Date(datenow);
+    
+      let start = new Date(props.props.candidatStartDate);
+      let end = new Date(props.props.candidatEndDate);
+    
+      useEffect(()=>{
+        if(startStatus){
+          setStartDate(props.props.candidatStartDate)
+        }else{
+          let data=formatDateCha(start)
+          setStartDate(data.replaceAll("/","-"))
+          
+      
+        }
+        if(endStatus){
+          setEndDate(props.props.candidatEndDate)
+        }else{
+          let data=formatDateCha(end)
+          setEndDate(data.replaceAll("/","-"))
+          
+      
+        }
+       })
 
     return (
         <>
@@ -118,7 +154,7 @@ const navigate = useNavigate();
                     <p className="mb-0">Facebook URL:  <b>{profile.candidatFBURL ? <a href={profile.candidatFBURL} target="_blank" className="fbURL">View Facebook Profile.</a> : "✘ No Facebook Profile!"}</b></p>
                     <p className="preCard-Body-p">Email :  <b> {profile.candidatEmail ? profile.candidatEmail.length > 20 ? profile.candidatEmail.slice(0, 22).toLocaleUpperCase() + "..." : profile.candidatEmail.toLocaleUpperCase() : "✘ No Email Provided!"}</b></p>
                     <h6 className="todoCardbodyBlue mb-0 my-1" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
-                        Ready for work : {profile.candidatStartDate !== undefined  ? date >= start && date <= end  ?" 📆" + profile.candidatStartDate  + "  To  " + profile.candidatEndDate :   "⚠️" + profile.candidatStartDate +"  To  " + profile.candidatEndDate : "✘No Dates! "} 
+                        Ready for work : {profile.candidatStartDate !== undefined  ? date >= start && date <= end  ?" 📆" + startDate  + "  To  " + EndDate :   "⚠️" + startDate+"  To  " + EndDate : "✘No Dates! "} 
                     </h6>
                     </div>
                  
