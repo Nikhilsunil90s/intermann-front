@@ -162,11 +162,12 @@ export default function  DownloadCenter(){
     setStatus(false)
     fetchCandidatContracts().then((res)=>{
         if(res.status){
-            setStatus(true)
             setCandidateContracts([...res.data])
+        
             setdeleteCanContract(false)
             if(activeTab === 0){
                 setAllProfiles([...res.data])
+                setStatus(true)
             }
         }
         else{
@@ -181,12 +182,13 @@ export default function  DownloadCenter(){
     })
         fetchClientsContracts().then((res)=>{
             if(res.status){
-                setStatus(true)
                 setClientContracts([...res.data])
                 setdeleteCanContract(false)
 
                 if(activeTab === 1 ){
                     setAllProfiles([...res.data])
+                setStatus(true)
+
                 }
             }else{
               setStatus(true)
@@ -198,13 +200,14 @@ export default function  DownloadCenter(){
     })
       fetchCandidatRepresentance().then((res)=>{
         if(res.status){
-          setStatus(true)
+         
           setRepresentance([...res.data])
           console.log(...res.data)
           setdeleteCanContract(false)
 
           if(activeTab === 3 ){
               setAllProfiles([...res.data])
+              setStatus(true)
           }
       }else{
         setStatus(true)
@@ -219,13 +222,14 @@ export default function  DownloadCenter(){
       })
       fetchCandidatAvance().then((res)=>{
         if(res.status){
-          setStatus(true)
           setAvance([...res.data])
           console.log(...res.data)
           setdeleteCanContract(false)
 
           if(activeTab === 2 ){
               setAllProfiles([...res.data])
+          setStatus(true)
+
           }
       }else{
         setStatus(true)

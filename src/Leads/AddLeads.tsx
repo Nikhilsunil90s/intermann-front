@@ -125,8 +125,8 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
             if(res.total > 0){
             const JobFl=  res.data.map((el)=>{
               
-                               
-            return {value:el.adNameFrench+  "/" + el.adNameRomanian , label: el.adNameFrench.toLocaleUpperCase()+ "/" + el.adNameRomanian.toLocaleUpperCase() ,  color: "#FF8B00",name:"adName"}
+                console.log(el._id,"id")               
+            return {value:el.adNameFrench+  "/" + el.adNameRomanian , label: el._id.slice(el._id.length - 5).toUpperCase() + "-" + el.adNameFrench.toLocaleUpperCase()+ "/" + el.adNameRomanian.toLocaleUpperCase() ,  color: "#FF8B00",name:"adName"}
                 
               
               }
