@@ -214,9 +214,10 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
    if(QUALIFIED.length === 0){
     setQUALIFIED([  { value: "0", label: "?", name: "leadQualified", color: "#FF8B00" },
     { value: "1", label: "😟", name: "leadQualified", color: "#FF8B00" },
-    { value: "2", label: "😊", name: "leadQualified", color: "#FF8B00" },
-    { value: "3", label: "🥰", name: "leadQualified", color: "#FF8B00" },
-    { value: "4", label: "😍", name: "leadQualified", color: "#FF8B00" },
+    { value: "2", label: "🙁", name: "leadQualified", color: "#FF8B00" },
+    { value: "3", label: "😊", name: "leadQualified", color: "#FF8B00" },
+    { value: "4", label: "🥰", name: "leadQualified", color: "#FF8B00" },
+    { value: "5", label: "😍", name: "leadQualified", color: "#FF8B00" },
  ])
    }
    if(CONTACTED.length === 0){
