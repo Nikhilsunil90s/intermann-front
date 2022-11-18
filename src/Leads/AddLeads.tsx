@@ -123,10 +123,8 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
       .then(res => {
           if(res.status){
             if(res.total > 0){
-            const JobFl=  res.data.map((el)=>{
-              
-                console.log(el._id,"id")               
-            return {value:el.adNameFrench+  "/" + el.adNameRomanian , label: el._id.slice(el._id.length - 5).toUpperCase() + "-" + el.adNameFrench.toLocaleUpperCase()+ "/" + el.adNameRomanian.toLocaleUpperCase() ,  color: "#FF8B00",name:"adName"}
+            const JobFl=  res.data.map((el)=>{           
+            return {value:{adId:el._id,adName:el.adNameFrench+  "/" + el.adNameRomanian }, label: el._id.slice(el._id.length - 5).toUpperCase() + "-" + el.adNameFrench.toLocaleUpperCase()+ "/" + el.adNameRomanian.toLocaleUpperCase() ,  color: "#FF8B00",name:"adName"}
                 
               
               }
@@ -154,7 +152,7 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
     }
    
     }else if(e.target.name=== "leadPrice"){
-      setData({...data,[e.target.name]:e.target.value.replace(/[^\d]/g, '')})
+      setData({...data,[e.target.name]:e.target.value})
     }else{
 
     setData({...data,[e.target.name]:e.target.value})
@@ -345,6 +343,7 @@ const onSubmit=()=>{
                 Lead Price in euro
                 </label>
                 <input
+                type={"number"}
                   name="leadPrice"
                   placeholder="Num Only."
                   className="form-control nameTransform"

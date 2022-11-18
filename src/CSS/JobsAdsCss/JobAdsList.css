@@ -119,7 +119,20 @@ color: #FFFFFF;
     .css-26l3qy-menu {
       z-index: 33311131 !important;
     }
-    
+    .jobCardContentScroll{
+        overflow-y: scroll;
+        height: 350px;
+    }
+    .jobCardContentScroll::-webkit-scrollbar {
+        width: 2px;               /* width of the entire scrollbar */
+      }
+      .jobCardContentScroll::-webkit-scrollbar-track {
+        background: transparent;        /* color of the tracking area */
+      }
+      .jobCardContentScroll::-webkit-scrollbar-thumb {
+        background-color: transparent;    /* color of the scroll thumb */
+        border-radius: 10px;       /* roundness of the scroll thumb */  /* creates padding around scroll thumb */
+      }
 @media (min-width:1200px){
     .EditJobAd{
         background: #032339;

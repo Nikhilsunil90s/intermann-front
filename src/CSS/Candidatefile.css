@@ -29,7 +29,8 @@ body::-webkit-scrollbar {
     border-radius: 10px;       /* roundness of the scroll thumb */  /* creates padding around scroll thumb */
   }
 
-  
+ 
+
 .cardScrollBar::-webkit-scrollbar {
     width: 5px;               /* width of the entire scrollbar */
   }
