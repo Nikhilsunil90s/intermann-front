@@ -124,7 +124,7 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
           if(res.status){
             if(res.total > 0){
             const JobFl=  res.data.map((el)=>{           
-            return {value:{adId:el._id,adName:el.adNameFrench+  "/" + el.adNameRomanian }, label: el._id.slice(el._id.length - 5).toUpperCase() + "-" + el.adNameFrench.toLocaleUpperCase()+ "/" + el.adNameRomanian.toLocaleUpperCase() ,  color: "#FF8B00",name:"adName"}
+            return {value:{adId:el._id,adName:el.adNameFrench+  "/" + el.adNameRomanian }, label: el._id.slice(el._id.length - 5).toUpperCase() + "-" + el.adNameFrench.toLocaleUpperCase()+ "/" + el.adNameRomanian.toLocaleUpperCase() ,  color: "#FF8B00",name:"ad"}
                 
               
               }
@@ -263,10 +263,10 @@ const onSubmit=()=>{
                         type="text"
                         style={{fontSize:"12px"}} className="form-control nameTransform"
                         placeholder="Phone Number"
-                        id="validationCustom01"
-                        name="phone_Number"
+                        id="phone_Number"
+                        name="phoneNumber"
                         onChange={onInputFormChange}
-
+                        
                       />
                     </div>
                     <div className="col-4 mt-1">
@@ -309,7 +309,7 @@ const onSubmit=()=>{
                               :
                               selectJobInput === true ?
 <Select
-                                name="adName"
+                                name="ad"
                                 closeMenuOnSelect={true}
                                 placeholder="‎ ‎ ‎ ‎ ‎  ‎ Job Name"
                                 className="basic-multi-select"
@@ -320,7 +320,7 @@ const onSubmit=()=>{
                                 id="Job_Name"
                               />
                               :
-                              <input type={"text"} name="adName"  id="Job_Name" style={{fontSize:"12px"}} 
+                              <input type={"text"} name="ad"  id="Job_Name" style={{fontSize:"12px"}} 
                         onChange={onInputFormChange}
                         className="form-control nameTransform" placeholder="Job Name" />
                             }

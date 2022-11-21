@@ -70,7 +70,7 @@ const [btnDS,setbtnDS]=useState(false)
         <div className="col-4 bgW cursor-poniter"  style={{background:bg === "Active" ? "#fff" : "#F3F3F3"}}  data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.adNameFrench.toLocaleUpperCase()+ "/" + props.adNameRomanian.toLocaleUpperCase()}> {props.adNameFrench !== "" ? props.adNameFrench.toLocaleUpperCase() : "no"}/{props.adNameRomanian !== "" ?  props.adNameRomanian.length > 5 ?  props.adNameRomanian.slice(0,4).toLocaleUpperCase() + ".." : props.adNameRomanian.toLocaleUpperCase(): "no"}</div>
         <div className="col-4 bgW"  style={{background:bg === "Active" ? "#fff" : "#F3F3F3"}}> x leads aquired</div>
         <div className="col-7 bgWH " style={{background:bg === "Active" ? "#fff" : "#F3F3F3"}} >Importance:{props.adImportance === 0 ? "⭐" :props.adImportance === 1 ? "⭐⭐" : props.adImportance === 2 ? "⭐⭐⭐"  : props.adImportance === 3 ? "⭐⭐⭐⭐":  "⭐⭐⭐⭐⭐" } </div> 
-        <div className="col-4 bgWH " style={{background:bg === "Active" ? "#fff" : "#F3F3F3"}} >Price by lead : x€</div>
+        <div className="col-4 bgWH " style={{background:bg === "Active" ? "#fff" : "#F3F3F3"}} >Price by lead : {props.leadPriceForAd ? props.leadPriceForAd : "0"}€</div>
         <div className="col-12 mt-1 jobCardContentScroll" ><p className="mb-0 CardcontantText d-grid">{parse(Text)}</p></div>
 <div className="col-12 mt-1">
     <div className="row">

@@ -5,7 +5,7 @@ import "../CSS/JobsAdsCss/JobAdsList.css"
 import JobsCard from "./Components/JobsCard";
 import {API_BASE_URL} from ".././config/serverApiConfig"
 import {toast,Toaster} from "react-hot-toast";
-import Loader from "../../src/components/Loader/loader"
+import ProfilesLoader from "../../src/components/Loader/ProfilesLoader"
 import Warning from "../components/Loader/SearchBarError"
 let TabName=""
 let active=[]
@@ -192,7 +192,7 @@ return    await fetch(API_BASE_URL + `allAds/?market=${TabName}`,{
             <p className="mb-0 d-flex align-items-center ErrorSearchBox"><Warning /> NO ACTIVE RESULTS FOUND ✘✘!</p>
          </div>
 :
-<div className="col-12 mt-2 d-flex justify-content-center" >  <Loader /> </div>
+<div className="col-12 mt-2 d-flex justify-content-center" >    <ProfilesLoader  width ={250} height={200} fontSize={"26px"} fontWeight={"600"}  Title={"Please Wait!"}/> </div>
 
 
           }
@@ -231,7 +231,7 @@ return    await fetch(API_BASE_URL + `allAds/?market=${TabName}`,{
             <p className="mb-0 d-flex align-items-center ErrorSearchBox"><Warning />NO INACTIVE RESULTS FOUND ✘✘!</p>
          </div>
            :
-           <div className="col-12 mt-2 d-flex justify-content-center" >  <Loader /> </div>
+           <div className="col-12 mt-2 d-flex justify-content-center" >   <ProfilesLoader  width ={250} height={200} fontSize={"26px"} fontWeight={"600"}  Title={"Please Wait!"}/>  </div>
             }
             </div></div>
 
