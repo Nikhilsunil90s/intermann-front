@@ -174,7 +174,7 @@ return    await fetch(API_BASE_URL + `allAds/?market=${TabName}`,{
               </div>
               <div className="col-4 d-flex justify-content-end align-items-center">
                <p className="mb-0 activeJobs">{
-              jobCardActive.length} active job ads  Results found</p>
+              jobCardActive.length} active job ads  Results found!</p>
               </div>
             </div>
           </div>
@@ -208,7 +208,7 @@ return    await fetch(API_BASE_URL + `allAds/?market=${TabName}`,{
                 </div>
               </div>
               <div className="col-4 d-flex justify-content-end align-items-center">
-               <p className="mb-0 activeJobs">{jobCardInActive.length} inactive job ads  Results found</p>
+               <p className="mb-0 activeJobs">{jobCardInActive.length} inactive job ads  Results found!</p>
               </div>
             </div>
           </div>
