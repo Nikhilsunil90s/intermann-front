@@ -290,16 +290,24 @@ hr.new5 {
  .cardColorRow{
     background-color: #E4F4FF;
     padding: 3px;
+    height: 50px;
 }
 .Licence{
-    font-weight: 400;
-    font-size: 10px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
     padding: 5px;
+    line-height: 15px;
 }
+
 .NoLicence{
-    font-weight: 400;
-    font-size: 10px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
     padding: 5px;
+    line-height: 15px;
 }
 
 .pd-00X1{
@@ -318,24 +326,6 @@ hr.new5 {
     position: relative;
     cursor: pointer;
   }
-  
-  .form-group .Licence:before {
-    content:'';
-    -webkit-appearance: none;
-    background-color: black;
-  
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
-    padding: 6px;
-    display: inline-block;
-    position: relative;
-    vertical-align: middle;
-    cursor: pointer;
-    margin-right: 5px;
-    border-radius:50px
-      
-  }
-
-  
   .form-group input:checked + label:after {
     content: '';
     display: block;
@@ -348,24 +338,7 @@ hr.new5 {
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
   }
-  .form-group .NoLicence:before {
-    content:'';
-    -webkit-appearance: none;
-    background-image: url("../images/cross.svg");
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
-    display: inline-block;
-    position: relative;
-    vertical-align: middle;
-    cursor: pointer;
-    margin-right: 5px;
-    border-radius:50px;
-    height: 13px !important;
-    vertical-align: middle;
-    cursor: pointer;
-    width: 13px;
-    margin-right: 5px;
-    border-radius: 50px;
-  }
+
   .selectOption{
     background: #FFFFFF;
     border: 1px solid #CCCCCC;
@@ -375,6 +348,19 @@ hr.new5 {
   .rounded001{
     border-radius: 10px;
     margin-bottom: 20px;
+}
+.TopTodoTitle{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 30px;
+/* or 133% */
+
+display: flex;
+align-items: center;
+
+color: #000000;
 }
   .firstoption{
     font-family: 'Poppins';

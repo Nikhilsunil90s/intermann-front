@@ -122,7 +122,7 @@ const ToDoProfileCard = (props: any,Clients) => {
                         
                                 </div>
                                    <div className="col-xxl-7 col-xl-7 col-lg-7 col-md-7 col-sm-7 fontStylinForcards">
-                                   <p style={{width:"100%"}}  className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.candidatName.toLocaleUpperCase()}><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
+                                   <p style={{width:"100%"}}  className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.candidatName.toLocaleUpperCase()}><b className="TopTodoTitle">{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
                                        <p className="text-dark mb-0">{props.data.candidatAge ?  <p className="age00 mb-0"> <b>Age : {props.data.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</p>
                                        <div >  <p className="text-dark d-flex mb-0"> <b>{props.data.candidatMotivation == 0 ? candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation :  candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation}</b>
                                        </p>
@@ -141,9 +141,9 @@ const ToDoProfileCard = (props: any,Clients) => {
                     />
                      </div>
    <div className="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 fontStylinForcards">
-   <p style={{width:"100%"}}  className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.candidatName.toLocaleUpperCase()}><b>{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
-       <div className="text-dark mb-0">{props.data.candidatAge ?  <p className="age00 mb-0"> <b>Age : {props.data.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</div>
-       <div >  <p className="text-dark d-flex mb-0"> <b>{props.data.candidatMotivation ?props.data.candidatMotivation  == 0 ? candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation :  candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation : "✘No Motivation!"}</b>
+   <p style={{width:"100%"}}  className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.candidatName.toLocaleUpperCase()}><b className="TopTodoTitle">{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
+       <div className="text-dark mb-0">{props.data.candidatAge ?  <p className="age00 mb-0"> <b className="TopTodoTitle">Age : {props.data.candidatAge}</b></p> : <b className="TopTodoTitle">✘ Age Not Available!</b>}</div>
+       <div >  <p className="text-dark d-flex mb-0"> <b>{props.data.candidatMotivation ?props.data.candidatMotivation  == 0 ? candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation :  candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation : "✘ No Motivation!"}</b>
        </p>
        </div>
       
@@ -158,21 +158,21 @@ const ToDoProfileCard = (props: any,Clients) => {
                         <div className="row cardColorRow">
 
                       
-                        <div className="col-6 pd-00X1">
+                        <div className="col-6 d-flex align-items-center">
                         <Link to='#'>
                             <button className="todo p-0"><img src={require("../images/briefcase.svg").default} /></button>
                         </Link>
                         </div>
-                        <div className="col-6 d-flex justify-content-end mb-0 pd-00X1 px-0 form-group">
+                        <div className="col-6 d-flex justify-content-end mb-0 px-0 form-group" >
                         {
                                     props.data.candidatLicensePermis ?
                                         <div className="d-flex  justify-content-center align-items-center">
-                                            <input type="checkbox" name="candidatLicensePermis" id="css" defaultChecked={props.data.candidatLicensePermis} />
-                                            <label htmlFor="css" className="Licence">Have Licence</label>
+                                             <img style={{width:"16px"}} src={require("../images/HaveLicence.svg").default} />
+                                            <label htmlFor="css" className="Licence mb-0">Have Licence</label>
                                         </div> :
                                        <div className="d-flex  justify-content-center align-items-center">
-                                       <input type="checkbox" name="candidatLicensePermis" id="css" defaultChecked={props.data.candidatLicensePermis} />
-                                       <label htmlFor="css" className="NoLicence">No Licence</label>
+                                        <img style={{width:"16px"}} src={require("../images/noLicence.svg").default} />
+                                       <label htmlFor="css" className="NoLicence mb-0">No Licence</label>
                                    </div>
                                 }
                         </div>

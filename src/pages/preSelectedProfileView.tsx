@@ -318,12 +318,12 @@ className="SelectBtn"
                   </div>
                   <div>
                     <div className="d-flex mb-0">
-                    <p>Motivation : <b>{profile.candidatMotivation ?candidatMotivationIcons[profile.candidatMotivation].icon + " " + candidatMotivationIcons[profile.candidatMotivation].motivation : "No Motivation!"}</b> </p>
+                    <p>Motivation : <b>{profile.candidatMotivation ?candidatMotivationIcons[profile.candidatMotivation].icon + " " + candidatMotivationIcons[profile.candidatMotivation].motivation : "✘✘!"}</b> </p>
                     </div>
                   </div>
-                  <p>Secteur : {profile.candidatActivitySector ? profile.candidatActivitySector.toLocaleUpperCase() : "No Sector!"}</p>
+                  <p>Secteur : {profile.candidatActivitySector ? profile.candidatActivitySector.toLocaleUpperCase() : "✘✘No Sector!"}</p>
                   <p className="" style={{ width: "150%" }}>
-                    Métier/Job :{profile.candidatJob ? profile.candidatJob.toLocaleUpperCase() : "No Jobs!"}
+                    Métier/Job :{profile.candidatJob ? profile.candidatJob.toLocaleUpperCase() : "✘✘No Jobs!"}
                   </p>
                 </div>
                 <div className="col-4 px-0 text-end end-class">
@@ -349,7 +349,7 @@ className="SelectBtn"
             {Data?.candidatPreSelectedFor.map((el,i)=>(
                el.clientId?
                <>
-            <p>Selected  For  client : {el.clientId.clientCompanyName}</p>
+            <p>Selected  For  client : {el.clientId.clientCompanyName.toLocaleUpperCase()}</p>
  
 
   <div className="col-8 pt-1 px-1"  >
@@ -379,12 +379,10 @@ null
                 >
                   <div className="pre-CardMore force-overflow">
                     <div className="row">
-                      <div className="col-3 pr-0" style={{maxWidth:"22%"}}>
-                      <p>Langues : </p>
+                    <div className="d-flex align-items-center"  > 
+                      <p>Langues  </p>
+                      <span className="Todo-CardMore-span">:  {profile.candidatLanguages.length  ? profile.candidatLanguages.join(", ") : "✘✘No Language!"}</span>
                       </div>
-                    <div className="col-9 px-0">
-                    <span className="Todo-CardMore-span"> {profile.candidatLanguages.length != 0 ? profile.candidatLanguages.join(", ") : "✘ No Langues!"}</span>
-                    </div>
                     </div>
                     <div className="d-flex ">
                       <p className="blue-text">Ready for work :</p>
@@ -409,12 +407,12 @@ null
                    
                     <div className="d-flex">
                       <p>Skills/note: </p>
-                      <span>{profile.candidatSkills ? profile.candidatSkills : "✘ No Skills!"}</span>
+                      <span>{profile.candidatSkills ? profile.candidatSkills : "✘✘No Skills!"}</span>
                     </div>
                     <div className="d-flex">
                       <p className="text-dark">Trouvé sur  : </p>
                       <span className="text-dark">
-                      {profile.candidatJob ? profile.candidatJob : "✘ No Trouvé!"}
+                      {profile.candidatJob ? profile.candidatJob : "✘✘No Trouvé!"}
                       </span>
                     </div>
                    
@@ -497,11 +495,11 @@ null
                   }
                <div className="text-start px-1">
                   <p className="Span-Styling mt-2 mb-1 px-3">
-                  {profile.candidatAlternatePhone ?" Phone 2 :" + profile.candidatAlternatePhone : null}
+                  {profile.candidatAlternatePhone ? " Phone 2 :" + profile.candidatAlternatePhone : null}
                   </p>
                   </div>
                  {
-                    profile.candidatAlternatePhone != "" ?
+                    profile.candidatAlternatePhone ?
                     <a
                     href={`https://wa.me/${profile.candidatAlternatePhone}`}
                     target="_blank"
@@ -569,11 +567,11 @@ null
               <div className="row">
                 <div className="col-12 d-flex AnneesStyle">
                  <p className="">Années d’expériance :</p>
-                 <span> {profile.candidatYearsExperience ? profile.candidatYearsExperience : "✘ No "}years </span>
+                 <span> {profile.candidatYearsExperience ? profile.candidatYearsExperience + "years" : "✘✘!"} </span>
                 </div>
                 <div className="col-12 d-flex AddressEnteredBy">
                  <p className="">Adresse : </p>
-                 <span> {profile.candidatAddress ? profile.candidatAddress : "✘ No Address!"}</span>
+                 <span> {profile.candidatAddress ? profile.candidatAddress : "✘✘No Address!"}</span>
                 </div><div className="col-12 d-flex AddressEnteredBy">
                  <p className="">Ajouté par/Added by :</p>
                  <span> {profile.enteredBy}</span>

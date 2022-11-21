@@ -126,12 +126,22 @@ hr.new5 {
 .notAvailable{   
 font-family: "Poppins" !important;
 font-style: normal !important;
-font-weight: 600 !important;
-font-size: 12px !important;
-line-height: 19px !important;
+font-weight: 500 !important;
+font-size: 17px !important;
+line-height: 27px !important;
 color: #000000 !important;
 margin-bottom: 0px;
 margin-left: 10px;
+}
+.workAt{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 21px;
+  display: flex;
+  align-items: center;
+  color: #000000;
 }
 .btn-cardLeft {
   background-color: #a461d8;
@@ -258,7 +268,7 @@ margin-left: 10px;
   font-family: "Poppins";
   font-style: normal;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 20px;
   letter-spacing: -0.105991px;
   text-transform: uppercase;
@@ -668,7 +678,7 @@ margin-right: 5px;
   }
   .EmbaucheCardBtn img {
     margin-right: 5px;
-    width: 20px;
+    width: 25px;
   }
   .EmbauchFull-CardMore p {
     font-family: 'Poppins';

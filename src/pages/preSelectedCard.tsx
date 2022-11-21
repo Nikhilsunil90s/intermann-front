@@ -22,7 +22,7 @@ const PreSelectedCard = (props: any) => {
   const [EndDate,setEndDate]=useState()as any
 
   const candidatMotivationIcons = [
-    { icon: "", motivation: "No Motivation!" },
+    { icon: "", motivation: "✘No Motivation!" },
     { icon: "😟", motivation: "Disappointed" },
     { icon: "🙁", motivation: "Not Really" },
     { icon: "😊", motivation: "Like" },
@@ -118,7 +118,7 @@ const PreSelectedCard = (props: any) => {
           {props.data.candidatPhoto &&
           props.data.candidatPhoto?.url !== undefined ? (
             <>
-              {" "}
+              
               <div
                 className="col-xxl-4 col-xl-4 col-lg-4 col-md-4 d-flex justify-content-center"
                 style={{ paddingLeft: "5px" }}
@@ -130,37 +130,24 @@ const PreSelectedCard = (props: any) => {
                 />
               </div>
               <div className="col-xxl-8 col-xl-8 col-md-8 col-lg-8 fontStylinForPrecards">
-                <p
-                  style={{ width: "100%" }}
-                  className="text-dark"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="bottom"
-                  title={props.data.candidatName.toLocaleUpperCase()}
-                >
-                  <b>
-                    {props.data.candidatName.length > 20
-                      ? props.data.candidatName
-                          .slice(0, 21)
-                          .toLocaleUpperCase() + "..."
-                      : props.data.candidatName.toLocaleUpperCase()}
-                  </b>
-                </p>
+              <p style={{width:"100%"}}  className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.candidatName.toLocaleUpperCase()}><b className="TopTodoTitle">{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
+
                 <p className="text-dark">
-                  <b>
+                  <b className="">
                     {props.data.candidatAge
                       ? "Age :" + props.data.candidatAge
                       : "Age Not Available!"}
                   </b>
                 </p>
                 <div>
-                  {" "}
+                  
                   <p className="text-dark d-flex">
                     <b>
                       {props.data.candidatMotivation !==undefined ?  candidatMotivationIcons[props.data.candidatMotivation]
                         .icon +
                         " " +
                         candidatMotivationIcons[props.data.candidatMotivation]
-                          .motivation :"No Motivation!"}
+                          .motivation :"✘No Motivation!"}
                     </b>
                   </p>
                 </div>
@@ -210,7 +197,7 @@ const PreSelectedCard = (props: any) => {
                         candidatMotivationIcons[props.data.candidatMotivation]
                           .motivation
                         :
-                        "No Motivation!"
+                        "✘No Motivation!"
                         }
                     </b>
                   </p>
@@ -224,61 +211,44 @@ const PreSelectedCard = (props: any) => {
             <div className="col-6 pd-00X11">
               <Link to="#">
                 <button className="preStylingO11 p-0">
-                  <img src={require("../images/preselectedCard.svg").default} />{" "}
+                  <img src={require("../images/preselectedCard.svg").default} />
                   PRE SELECTED
                 </button>
               </Link>
             </div>
             <div className="col-6 d-flex justify-content-end mb-0 pd-00P1 form-group">
-              {props.data.candidatLicensePermis ? (
-                <div className="d-flex  justify-content-center align-items-center">
-                  <input
-                    type="checkbox"
-                    name="candidatLicensePermis"
-                    id="css"
-                    defaultChecked={props.data.candidatLicensePermis}
-                  />
-                  <label htmlFor="css" className="Licence">
-                    Have Licence
-                  </label>
-                </div>
-              ) : (
-                <div className="d-flex  justify-content-center align-items-center">
-                  <input
-                    type="checkbox"
-                    name="candidatLicensePermis"
-                    id="css"
-                    defaultChecked={props.data.candidatLicensePermis}
-                  />
-                  <label htmlFor="css" className="NoLicence">
-                    No Licence
-                  </label>
-                </div>
-              )}
+              {props.data.candidatLicensePermis ?  <div className="d-flex  justify-content-center align-items-center">
+                                             <img style={{width:"16px"}} src={require("../images/HaveLicence.svg").default} />
+                                            <label htmlFor="css" className="Licence mb-0">Have Licence</label>
+                                        </div> :
+                                       <div className="d-flex  justify-content-center align-items-center">
+                                        <img style={{width:"16px"}} src={require("../images/noLicence.svg").default} />
+                                       <label htmlFor="css" className="NoLicence mb-0">No Licence</label>
+                                   </div>}
             </div>
           </div>
         </div>
         <div className="card-todoBody py-1" style={{ paddingLeft: "5px" }}>
           <p className="preCard-Body  ">
-            Secteur :{" "}
+            Secteur :
             {props.data.candidatActivitySector
               ? props.data.candidatActivitySector.toLocaleUpperCase()
               : "✘ No Sector!"}
           </p>
           <p className="preCard-Body ">
-            Job :{" "}
+            Job :
             {props.data.candidatJob
               ? props.data.candidatJob.toLocaleUpperCase()
               : "✘ No Job!"}
           </p>
           <p className="preCard-Body-p">
-            Candidats Age :{" "}
+            Candidats Age :
             <b>
               {props.data.candidatAge ? props.data.candidatAge : "✘ No Age!"}
             </b>
           </p>
           <p className="preCard-Body-p">
-            Langues :{" "}
+            Langues :
             <b>
               {props.data.candidatLanguages.length > 0
                 ? props.data.candidatLanguages.length > 3
@@ -288,15 +258,15 @@ const PreSelectedCard = (props: any) => {
             </b>
           </p>
           <p className="preCard-Body-p">
-            Phone Number :{" "}
+            Phone Number :
             <b>
               {props.data.candidatPhone
                 ? props.data.candidatPhone
-                : "✘ No Phone!"}{" "}
+                : "✘ No Phone!"}
             </b>
           </p>
           <p className="preCard-Body-p">
-            Facebook URL :{" "}
+            Facebook URL :
             <b>
               {props.data.candidatFBURL ? (
                 <a
@@ -312,9 +282,9 @@ const PreSelectedCard = (props: any) => {
             </b>
           </p>
           <p className="preCard-Body-p">
-            Email :{" "}
+            Email :
             <b>
-              {" "}
+              
               {props.data.candidatEmail
                 ? props.data.candidatEmail.length > 20
                   ? props.data.candidatEmail.slice(0, 22).toLocaleUpperCase() +
@@ -342,14 +312,14 @@ const PreSelectedCard = (props: any) => {
                   EndDate
                 :
                 "✘ No Dates!"
-                }{" "}
+                }
             </b>
           </p>
         </div>
         <div className="col-12">
           <div className="row preSelectedCommentBox ">
             <div className="col-12 preCards-Body ">
-              Preselected for client :{" "}
+              Preselected for client :
               {props.data.candidatPreSelectedFor ? (
                 props.data.candidatPreSelectedFor.length > 2 ? (
                   <div className="mb-0 ">
@@ -362,13 +332,13 @@ const PreSelectedCard = (props: any) => {
                           title={el.clientId.clientCompanyName.toLocaleUpperCase()}
                           onClick={() => showCustomerProfile(el.clientId)}
                         >
-                          {el.clientId.clientCompanyName}
+                          {el.clientId.clientCompanyName.toLocaleUpperCase()}
                         </p>
                       );
                     })}
                   </div>
                 ) : (
-                  <div className="mb-0">
+                  <div className="mb-0"      style={{fontSize:"15px"}}>
                 
                     {props.data.candidatPreSelectedFor.map((el,i) => (
                       <p
@@ -378,8 +348,9 @@ const PreSelectedCard = (props: any) => {
                         data-bs-placement="bottom"
                         title={"Click On This For Full Profile View!"}
                         onClick={() => showCustomerProfile(el.clientId)}
+                   
                       >
-                        {el.clientId.clientCompanyName}
+                        {el.clientId.clientCompanyName.toLocaleUpperCase()}
                       </p>
                     ))}
                   </div>

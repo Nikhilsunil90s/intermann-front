@@ -91,7 +91,7 @@ const ArchivedProfileCard = (props: any) => {
         <>
             <div className="card card-color mt-1 mb-0 HoveRESTClassCardA">
                 <div className="card-upper cursor-pointer" onClick={()=>viewFullProfile()}>
-                    <div className="col-4">
+                    <div className="col-4 d-flex align-items-center justify-content-center">
                     {
                            props.props.candidatPhoto && props.props.candidatPhoto?.url !== undefined ?
                         <img
@@ -109,34 +109,34 @@ const ArchivedProfileCard = (props: any) => {
                     }
                     </div>
                     <div className="col-7 ArchivedCard pt-1 px-1" >
-                    <p style={{width:"100%"}} className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.props.candidatName.toLocaleUpperCase()}><b>{props.props.candidatName.length > 15 ? props.props.candidatName.slice(0, 16).toLocaleUpperCase() + "..." : props.props.candidatName.toLocaleUpperCase()}</b></p>
-                    <div className="text-dark mb-0">{props.props.candidatAge ?  <p className="age00 ml-0 mb-0"><b>Age :  {props.props.candidatAge}</b></p> : <b>✘ Age Not Available!</b>}</div>
-                        <div >  <p className="text-dark d-flex"> <b>{props.props.candidatMotivation ?props.props.candidatMotivation == 0 ? candidatMotivationIcons[props.props.candidatMotivation ].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation :  candidatMotivationIcons[props.props.candidatMotivation].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation : "✘No Motivation!"}</b>
+                    <p style={{width:"100%"}} className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.props.candidatName.toLocaleUpperCase()}>{props.props.candidatName.length > 15 ? props.props.candidatName.slice(0, 16).toLocaleUpperCase() + "..." : props.props.candidatName.toLocaleUpperCase()}</p>
+                    <div className="text-dark mb-0">{props.props.candidatAge ?  <p className="age00 ml-0 mb-0">Age :  {props.props.candidatAge}</p> : <b>✘ Age Not Available!</b>}</div>
+                        <div >  <p className="text-dark d-flex" style={{fontWeight:"600"}}>{props.props.candidatMotivation ?props.props.candidatMotivation == 0 ? candidatMotivationIcons[props.props.candidatMotivation ].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation :  candidatMotivationIcons[props.props.candidatMotivation].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation : "✘No Motivation!"}
                         </p>
                         </div>
                         
                     </div>
                 </div>
                 <div className="col-12 ">
-                        <div className="row cardColorRowArchived">
+                        <div className="row cardColorRowArchived" style={{height:"49px"}}>
 
                       
-                        <div className="col-6 ">
+                        <div className="col-6 d-flex align-items-center">
                         <Link to='#'>
-                            <button className="ArchivedCardBtn p-0"><img src={require("../images/ArchivedBtn.svg").default} /></button>
+                            <button className="ArchivedCardBtn p-0"><img className='m-0' src={require("../images/ArchivedBtn.svg").default} /></button>
                         </Link>
                         </div>
-                        <div className="col-6 d-flex justify-content-end mb-0 pd-00X1 form-group">
+                        <div className="col-6 d-flex justify-content-end mb-0 form-group">
                         {
                                     props.props.candidatLicensePermis ?
-                                        <div className="d-flex  justify-content-center align-items-center">
-                                            <input type="checkbox" name="candidatLicensePermis" id="css" defaultChecked={props.props.candidatLicensePermis} />
-                                            <label htmlFor="css" className="Licence mb-0">Have Licence</label>
-                                        </div> :
-                                       <div className="d-flex  justify-content-center align-items-center">
-                                       <input type="checkbox" name="candidatLicensePermis" id="css" defaultChecked={props.props.candidatLicensePermis} />
-                                       <label htmlFor="css" className="NoLicence mb-0">No Licence</label>
-                                   </div>
+                                    <div className="d-flex  justify-content-center align-items-center">
+                                    <img style={{width:"16px"}} src={require("../images/HaveLicence.svg").default} />
+                                   <label htmlFor="css" className="Licence mb-0">Have Licence</label>
+                               </div> :
+                              <div className="d-flex  justify-content-center align-items-center">
+                               <img style={{width:"16px"}} src={require("../images/noLicence.svg").default} />
+                              <label htmlFor="css" className="NoLicence mb-0">No Licence</label>
+                          </div>
                                 }
                         </div>
                     </div>
