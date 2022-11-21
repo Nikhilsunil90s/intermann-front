@@ -53,7 +53,7 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
     leadCandidatName:"",
     phoneNumber:"",
     leadSource:"",
-    adName:"",
+    ad:"",
     email:"",
     leadPrice:"",
     leadNotes:""
@@ -239,6 +239,7 @@ const onSubmit=()=>{
                                 onChange={onSelectChange}
                                 options={SelectContry}
                                 styles={colourStyles}
+                                id="Country_Market"
                               />
                       <span className="text-small pl-1">Options are France; Suisse; Romania (select is enough) required*</span>
                     </div>
@@ -248,7 +249,7 @@ const onSubmit=()=>{
                         type="text"
                         style={{fontSize:"12px"}} className="form-control nameTransform"
                         placeholder="Candidate Name"
-                        id="validationCustom01"
+                        id="Candidate_Name"
                         name="leadCandidatName"
                         onChange={onInputFormChange}
                          required
@@ -263,7 +264,7 @@ const onSubmit=()=>{
                         style={{fontSize:"12px"}} className="form-control nameTransform"
                         placeholder="Phone Number"
                         id="validationCustom01"
-                        name="phoneNumber"
+                        name="phone_Number"
                         onChange={onInputFormChange}
 
                       />
@@ -279,6 +280,7 @@ const onSubmit=()=>{
                                 onChange={onSelectChange}
                                 options={fromPerson}
                                 styles={colourStyles}
+                                id="Source"
                               />
                        
                       <span className="text-small pl-1">Options are Facebook; TikTok; SEO; Google Ads; Ejob; Jooble; Olx; Public21; Income Call; Undefined; Taboola; Outbrain; Other; Snapchat; SMS lead (select is enough) required*</span>
@@ -315,9 +317,10 @@ const onSubmit=()=>{
                                 onChange={onSelectChange}
                                 options={jobNames}
                                 styles={colourStyles}
+                                id="Job_Name"
                               />
                               :
-                              <input type={"text"} name="adName"  style={{fontSize:"12px"}} 
+                              <input type={"text"} name="adName"  id="Job_Name" style={{fontSize:"12px"}} 
                         onChange={onInputFormChange}
                         className="form-control nameTransform" placeholder="Job Name" />
                             }
@@ -332,7 +335,7 @@ const onSubmit=()=>{
                         type="text"
                         style={{fontSize:"12px"}} className="form-control nameTransform"
                         placeholder="Email"
-                        id="validationCustom01"
+                        id="email"
                         name="email"
                         onChange={onInputFormChange}
                       
@@ -350,6 +353,7 @@ const onSubmit=()=>{
                   onChange={onInputFormChange}
                   value={data.leadPrice}
                   style={{fontSize:"12px"}}
+                  id="Lead_Price"
                 />
                       <span className="text-small pl-1">The price we paid for this lead, not required Exemple 12,30</span>
 
@@ -358,8 +362,8 @@ const onSubmit=()=>{
                         <label className="Form-styling">Notes By Leads</label>
                         <textarea name="leadNotes"  style={{fontSize:"12px"}}
                         onChange={onInputFormChange}
-                        className="form-control nameTransform" placeholder="Notes">
-
+                        className="form-control nameTransform" placeholder="Notes" id="Notes_Leads">
+                      
                         </textarea>
                     </div>
                     <div className="col-12 d-flex justify-content-end mt-2">
