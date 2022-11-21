@@ -227,6 +227,15 @@ body {
 }
 
 @media (min-width: 768px){
+    .LoginModalContainer {
+
+        position: absolute !important;
+        width: 260px;
+        height: 135px;
+        left: 56% !important;
+        top: 59px !important;
+    
+    }
 .HeaderModalSelect {
     height: 37px;
     width: 37px;
@@ -366,13 +375,7 @@ padding-top: 16px;
     height: 135px !important;
     top: 48px !important;
 }
-.LoginModalContainer {
-    position: fixed !important;
-    width: 260px !important;
-    height: 135px !important;
-    left: 1006px !important;
-    top: 58px !important;
-}
+
 
 
 .hoverbtnS:hover{
@@ -507,7 +510,15 @@ color: #E07700;
 }
 }
 @media (min-width:1200px){
+    .LoginModalContainer {
 
+        position: absolute !important;
+        width: 260px;
+        height: 135px;
+        left: 59% !important;
+        top: 59px !important;
+    
+    }
     .searcInputbOx{
         font-family: 'Poppins';
     font-style: normal;
@@ -650,15 +661,16 @@ padding-top:0px ;
         height: 135px !important;
         top: 48px !important;
     }
-    .LoginModalContainer{
+
+    .LoginModalContainer {
+
         position: absolute !important;
-        width: 273px !important;
-        height: 135px !important;
-        left: 1123px !important;
-        top: 58px !important;
+        width: 260px;
+        height: 135px;
+        left: 60% !important;
+        top: 59px !important;
+    
     }
-    
-    
 }
 @media  (min-width:1600px){
     .HeaderModalContainer {
@@ -667,16 +679,15 @@ padding-top:0px ;
         height: 135px !important;
         top: 48px !important;
     }
-    .LoginModalContainer{
-        position: absolute !important;
-        width: 273px !important;
-        height: 135px !important;
-        left: 1295px !important;
-        top: 58px !important;
-    }
+    .LoginModalContainer {
 
+        position: absolute !important;
+        width: 260px;
+        height: 135px;
+        left: 61% !important;
+        top: 59px !important;
     
-    
+    }
 }
 @media  (min-width:1700px){
     .HeaderModalContainer {
@@ -685,14 +696,15 @@ padding-top:0px ;
         height: 135px !important;
         top: 58px !important;
     }
-.LoginModalContainer{
-    position: fixed !important;
-    width: 273px !important;
-    height: 135px !important;
-    left: 1410px !important;
-    top: 58px !important;
-}
+    .LoginModalContainer {
+
+        position: absolute !important;
+        width: 260px;
+        height: 135px;
+        left: 68% !important;
+        top: 59px !important;
     
+    }
     
 }
 @media  (min-width:1800px){
@@ -702,13 +714,7 @@ padding-top:0px ;
         height: 135px !important;
         top: 58px !important;
     }
-    .LoginModalContainer{
-        position: absolute !important;
-        width: 273px !important;
-        height: 135px !important;
-        left: 1101px !important;
-        top: 58px !important;  
-    }
+
 }
 @media  (min-width:1900px){
     .HeaderModalContainer {
@@ -717,11 +723,5 @@ padding-top:0px ;
         height: 135px !important;
         top: 48px !important;
     }
-    .LoginModalContainer{
-        position: absolute !important;
-        width: 273px !important;
-        height: 135px !important;
-        left: 1621px !important;
-        top: 58px !important;
-    }
+ 
 }

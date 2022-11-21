@@ -355,6 +355,7 @@ setAddData({...addData,clients:ClF})
                                 options={SelectContry}
                                 styles={colourStyles}
                                 defaultInputValue={profile.adCountryMarket}
+                                id="market_Contry"
                               />
                       <span className="text-small">Options are France; Suisse; Romania (select is enough) required*</span>
                     </div>
@@ -364,10 +365,11 @@ setAddData({...addData,clients:ClF})
                         type="text"
                         style={{fontSize:"12px"}} className="form-control nameTransform"
                         placeholder="Job Name in french"
-                        id="validationCustom01"
+                        id="JobName"
                         name="JobFrench"
                         onChange={onInputChange}
                         defaultValue={profile.adNameFrench}
+
 
                       />
                       <span className="text-small">Options are France; Suisse; Romania (select is enough) required*</span>
@@ -379,7 +381,7 @@ setAddData({...addData,clients:ClF})
                         type="text"
                         style={{fontSize:"12px"}} className="form-control nameTransform"
                         placeholder="Job Name in Romanian"
-                        id="validationCustom01"
+                        id="JobRoman"
                         name="JobINRomanian"
                         onChange={onInputChange}
                         defaultValue={profile.adNameRomanian}
@@ -400,6 +402,7 @@ setAddData({...addData,clients:ClF})
                                 onChange={SelectOnChange}
                                 options={importanceOptions}
                                 styles={colourStyles}
+                                id="Importance"
                               />
                     </div>
                     <div className="col-4 mt-1">
@@ -413,6 +416,7 @@ styles={colourStyles}
 className="inProgress"
 isMulti
 placeholder="Link a client to this ad"
+id="Clients"
 />
 
 :

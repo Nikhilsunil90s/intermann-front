@@ -349,6 +349,7 @@ setData({...data,clients:ClF})
                                 onChange={SelectOnChange}
                                 options={SelectContry}
                                 styles={colourStyles}
+                                id="market_Contry"
                               />
                       <span className="text-small">Options are France; Suisse; Romania (select is enough) required*</span>
                     </div>
@@ -358,10 +359,10 @@ setData({...data,clients:ClF})
                         type="text"
                         style={{fontSize:"12px"}} className="form-control nameTransform"
                         placeholder="Job Name in french"
-                        id="validationCustom01"
+                        id="JobName"
                         name="JobFrench"
                         onChange={onInputChange}
-
+                        
                       />
                       <span className="text-small">Options are France; Suisse; Romania (select is enough) required*</span>
 
@@ -372,7 +373,7 @@ setData({...data,clients:ClF})
                         type="text"
                         style={{fontSize:"12px"}} className="form-control nameTransform"
                         placeholder="Job Name in Romanian"
-                        id="validationCustom01"
+                        id="JobRoman"
                         name="JobINRomanian"
                         onChange={onInputChange}
                         
@@ -391,6 +392,7 @@ setData({...data,clients:ClF})
                                 onChange={SelectOnChange}
                                 options={importanceOptions}
                                 styles={colourStyles}
+                                id="importance"
                               />
                     </div>
                     <div className="col-4 mt-1">
@@ -404,6 +406,7 @@ styles={colourStyles}
 className="inProgress"
 isMulti
 placeholder="Link a client to this ad"
+id="Clients"
 />
 
 :
