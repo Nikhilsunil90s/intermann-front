@@ -23,7 +23,11 @@ import DOCUSIGNModalCandidate from '../../components/Modal/DOCUSIGNModalCandidat
 import PDFBoxClient from "../../components/PDFboxBothSide/PdfBoxClient";
 import PreModalClient from "../../components/Modal/preSelectedModalForClient";
 import ClientContract from "../../components/ClientComponents/ClientContract"
- 
+import JobAdsCard from '../../components/ClientComponents/ClientJobAds'  
+import Carousel from "react-multi-carousel";
+import ProfilesLoader from "../../components/Loader/ProfilesLoader"
+import Warning from "../../components/Loader/SearchBarError"
+
 let id = "";
 function ClientProgressView() {
   const profileData = JSON.parse(localStorage.getItem("embauch"));
@@ -76,7 +80,8 @@ function ClientProgressView() {
    const [fiche_de_mise_a_disposition, setfiche_de_mise_a_disposition] =
     useState() as any;
   const [DocumentSignModal,setDocuSignModal]=useState(false)
-
+  const [JobAdsCards,setJobAdsCards] =useState([])
+  const [JobAdsCardsStatus,setJobAdsCardsStatus] =useState(false)
 
   const candidatImportanceIcons = [
     {
@@ -137,7 +142,7 @@ function ClientProgressView() {
   ];
 
   const candidatMotivationIcons = [
-    { icon: "", motivation: "No Motivation!" },
+    { icon: "", motivation: "✘✘!" },
     { icon: "😟", motivation: "Disappointed" },
     { icon: "🙁", motivation: "Not Really" },
     { icon: "😊", motivation: "Like" },
@@ -268,6 +273,7 @@ function ClientProgressView() {
   }, [state]);
   useEffect(() => {
     setProfile(state ? state : profileData);
+    jobAdsCards(profile._id)
   }, [state]);
 
   function padTo2DigitsCH(num) {
@@ -550,8 +556,56 @@ function ClientProgressView() {
       .catch((err) => err);
   };
 
+  const jobAdsCards = async (Id) => {
+    setJobAdsCardsStatus(false)
 
+    await fetch(
+      `${API_BASE_URL}getClientAds/?clientId=${Id}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    )
+      .then((reD) => reD.json())
+      .then((result) => 
+      {
+       if(result.status){
+        setJobAdsCards([...result.data])
+        setJobAdsCardsStatus(true)
+       }else{
+        setJobAdsCards([])
+        setJobAdsCardsStatus(true)
+
+       }
+      }
+      )
+      .catch((err) => err);
+  };
   
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 3,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
+
   return (
     <>
       <Toaster
@@ -1250,27 +1304,36 @@ function ClientProgressView() {
                 </div>
               </div>
             </div>
+          
+              <div className="col-12 my-1 clientAdJobs">
+                <div className="row p-1">
+{
+JobAdsCardsStatus ?  
+JobAdsCards.length > 0 ?
+                <Carousel responsive={responsive}>
+                  {
+                        
+                    JobAdsCards.map((el)=>(
+                      <div className="col-12">
 
-            {/* <div className="col-12 pt-4">
-                <div className="row">
-                  <div className="col-5 pdf-btn">
-                    <img src={require("../../images/doc.svg").default} />
-                    <span>Add document about this client </span>
+                      <JobAdsCard    bg="progress"   props={el}     />
+                      </div>
+                    ))
+                  }
+                  </Carousel>
+                  :
+                  <div className="col-12 d-flex justify-content-center">
+                  <p className="mb-0 d-flex align-items-center ErrorSearchBox"><Warning /> NO JOBS ADS FOUND ✘✘!</p>
                   </div>
+
+:
+<div className="col-12 d-flex justify-content-center">
+<ProfilesLoader  width ={250} height={200} fontSize={"26px"} fontWeight={"600"}  Title={"Please Wait!"}/> 
+</div>
+}
                 </div>
-              </div> */}
-            {/* <div className="col-12"> */}
-            {/* <div className="row">
-                  <div className="col-6 mb-3">
-                    <p className="poppins">
-                      Par exemple : Contrat signé; Offre signé....
-                    </p>
-                    <span className="poppins">
-                      PDF; Word; PNG; Excel etc ......
-                    </span>
-                  </div>
-                </div>
-              </div> */}
+              </div>
+          
             <div className="col-12 Social-CardClient my-1 p-1">
               <div className="row">
                 <div className="col-6">
@@ -1301,7 +1364,7 @@ function ClientProgressView() {
                           ? candidatImportanceIcons[
                               profile.clientImportance - 1
                             ]?.icon
-                          : "No Importance!"}
+                          : "✘✘!"}
                       </b>
                     </p>
                     <p className="mb-0 pt-1" style={{ width: "130%" }}>

@@ -23,7 +23,10 @@ import DOCUSIGNModalCandidate from '../../components/Modal/DOCUSIGNModalCandidat
 import SalaryAdsEdit from "../../components/Modal/SignedSalary&AdsEdit"
 import PDFBoxClient from "../../components/PDFboxBothSide/PdfBoxClient";
 import ClientContract from "../../components/ClientComponents/ClientContract"
-
+import JobAdsCard from '../../components/ClientComponents/ClientJobAds'  
+import Carousel from "react-multi-carousel";
+import ProfilesLoader from "../../components/Loader/ProfilesLoader"
+import Warning from "../../components/Loader/SearchBarError"
 
 let id = "";
 let DetailsEdit;
@@ -90,7 +93,6 @@ function Signed() {
     const [DeleteEmp,setDeleteEmp]=useState([])
     const [Archived,setArchived]=useState(  profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived")):null )
     const [preSelect,setPreselected]=useState( profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Pre-Selected")):null )
-    const [DriveLink,setDriveLink]=useState("")
     const [salaryModal,setsalaryModal]=useState("")
     const [salaryEditModal,setsalaryEditModal]=useState(false)
     const [DocumentSignModal,setDocuSignModal]=useState(false)
@@ -98,7 +100,9 @@ function Signed() {
     const [endStatus]=useState(profile.jobEndDate.slice(0,4).includes("-"))
     const [startDate,setStartDate]=useState()as any
     const [EndDate,setEndDate]=useState()as any
-
+    const [JobAdsCards,setJobAdsCards] =useState([])
+    const [JobAdsCardsStatus,setJobAdsCardsStatus] =useState(false)
+  
 
   useEffect(() => {
     profile.clientDocuments.map((el) => {
@@ -203,6 +207,7 @@ function Signed() {
 
   useEffect(() => {
     setProfile(state ? state : profileData);
+    jobAdsCards(profile._id)
   }, [state]);
 
 
@@ -592,6 +597,59 @@ let Editdata ={state:profile,path:"/clientSigned"}
     setsalaryEditModal(true)
    }
   } 
+
+  
+  const jobAdsCards = async (Id) => {
+    setJobAdsCardsStatus(false)
+
+    await fetch(
+      `${API_BASE_URL}getClientAds/?clientId=${Id}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    )
+      .then((reD) => reD.json())
+      .then((result) => 
+      {
+       if(result.status){
+        setJobAdsCards([...result.data])
+        setJobAdsCardsStatus(true)
+       }else{
+        setJobAdsCards([])
+        setJobAdsCardsStatus(true)
+
+       }
+      }
+      )
+      .catch((err) => err);
+  };
+  
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 3,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
+
+
   return (
     <>
       <Toaster
@@ -1459,26 +1517,35 @@ let Editdata ={state:profile,path:"/clientSigned"}
               </div>
             </div>
 
-            {/* <div className="col-12 pt-4">
-                <div className="row">
-                  <div className="col-5 pdf-btn">
-                    <img src={require("../../images/doc.svg").default} />
-                    <span>Add document about this client </span>
+<div className="col-12 my-1 inPAdsBOX">
+                <div className="row p-1">
+{
+JobAdsCardsStatus ?  
+JobAdsCards.length > 0 ?
+                <Carousel responsive={responsive}>
+                  {
+                        
+                    JobAdsCards.map((el)=>(
+                      <div className="col-12">
+
+                      <JobAdsCard    bg="Signed"   props={el}     />
+                      </div>
+                    ))
+                  }
+                  </Carousel>
+                  :
+                  <div className="col-12 d-flex justify-content-center">
+                  <p className="mb-0 d-flex align-items-center ErrorSearchBox"><Warning /> NO JOBS ADS FOUND ✘✘!</p>
                   </div>
+
+:
+<div className="col-12 d-flex justify-content-center">
+<ProfilesLoader  width ={250} height={200} fontSize={"26px"} fontWeight={"600"}  Title={"Please Wait!"}/> 
+</div>
+}
                 </div>
-              </div> */}
-            {/* <div className="col-12"> */}
-            {/* <div className="row">
-                  <div className="col-6 mb-3">
-                    <p className="poppins">
-                      Par exemple : Contrat signé; Offre signé....
-                    </p>
-                    <span className="poppins">
-                      PDF; Word; PNG; Excel etc ......
-                    </span>
-                  </div>
-                </div>
-              </div> */}
+              </div>
+
             <div className="col-12 Social-CardClient my-1 p-1">
               <div className="row">
                 <div className="col-6">

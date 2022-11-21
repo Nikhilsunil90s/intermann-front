@@ -329,7 +329,46 @@ color: #FE8700;
   overflow-y: scroll;
 }
 
+.clientAdJobs{
+  background: #F4E7FF;
+border: 2px solid #A461D8;
+box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
+border-radius: 10px;
+}
 
+.jobCardBoxClient .bgW {
+  background: #ffff;
+  border-radius: 10px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  justify-content: center;
+  max-width: 31%;
+  margin-right: 5px;
+  padding: 5px;
+}
+.jobCardBoxClient .bgWH {
+  background: #ffff;
+  border-radius: 10px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  max-width: 48%;
+  padding: 4px 1px;
+  margin-right: 5px;
+  margin-top: 6px;
+}
 .stable img {
   padding-right: 10px;
 }
