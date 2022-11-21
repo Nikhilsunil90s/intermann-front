@@ -178,12 +178,11 @@ return    await fetch(API_BASE_URL + `allAds/?market=${TabName}`,{
               </div>
             </div>
           </div>
-          <div className="col-12">
-            <div className="row">
+      
             {activeStatus ?
             jobCardActive.length > 0 ?
               jobCardActive.map((el)=>(
-                <div className="col-4 my-1 mr-1" style={{maxWidth:"32%"}} key={el._id}>
+                <div className="col-4 " style={{maxWidth:"32%",marginRight:"10px",marginTop:"10px"}} key={el._id}>
                 <JobsCard  props={el}  bg="Active"  setUpdateField={setUpdateField}      />
                 </div>
               ))
@@ -196,7 +195,7 @@ return    await fetch(API_BASE_URL + `allAds/?market=${TabName}`,{
 
 
           }
-        </div></div>
+       
           <div
             className="col-12 mt-2"
             style={{ background: "#ffff", borderRadius: "10px" }}
@@ -217,7 +216,7 @@ return    await fetch(API_BASE_URL + `allAds/?market=${TabName}`,{
           {InactiveStatus ?
           jobCardInActive.length > 0 ?
               jobCardInActive.map((el)=>(
-          <div className="col-4 my-1 mr-1" style={{maxWidth:"32%"}} key={el._id}>
+          <div className="col-4 my-1" style={{maxWidth:"32%"}} key={el._id}>
 
             <JobsCard  props={el} bg={"Inactive"}  setUpdateField={setUpdateField}     />
           </div>
