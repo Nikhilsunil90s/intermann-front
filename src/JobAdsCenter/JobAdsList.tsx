@@ -84,6 +84,8 @@ useEffect(()=>{
         setJobCardActive([])
         setJobCardInActive([])
        setUpdateField(false)
+      setCheckLoad(false)
+
 
       }
    }

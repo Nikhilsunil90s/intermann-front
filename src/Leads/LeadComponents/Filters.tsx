@@ -230,7 +230,8 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
     },
     { value: "Recall", label: "Recall", name: "leadContactedByAgency", color: "#FF8B00" },
     { value: "Yes", label: "Yes", name: "leadContactedByAgency", color: "#FF8B00" },
-    { value: "No", label: "No", name: "leadContactedByAgency", color: "#FF8B00" },
+    { value: "Not Interested", label: "Not Interested", name: "leadContactedByAgency", color: "#FF8B00" },
+    { value: "No", label: "Not Yet", name: "leadContactedByAgency", color: "#FF8B00" },
   ])
    }
 
@@ -247,7 +248,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
       name: "leadPreContacted",
       color: "#FF8B00",
     },
-    { value: "No", label: "No", name: "leadPreContacted", color: "#FF8B00" },
+    { value: "No", label: "Not Yet", name: "leadPreContacted", color: "#FF8B00" },
     ])
    }
  
