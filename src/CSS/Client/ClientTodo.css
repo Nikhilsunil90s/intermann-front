@@ -220,8 +220,8 @@ color: #252726;
         font-family: 'Poppins';
 font-style: normal;
 font-weight: 400;
-font-size: 12px;
-line-height: 24px;
+font-size: 16px;
+    line-height: 31px;
 display: flex;
 align-items: center;
 color: #000000;
@@ -241,23 +241,23 @@ margin-bottom: 0px;
     }
     .color-rowClientCard p{
         font-family: 'Poppins';
-font-style: normal;
-font-weight: 600;
-font-size: 12px;
-line-height: 18px;
-display: flex;
-align-items: center;
-color: #3F76E2;
-margin-bottom: 0px;
-padding: 10px 15px;
-
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 27px;
+        display: flex;
+        align-items: center;
+        color: #3F76E2;
+        margin-bottom: 0px;
+        padding: 10px 15px;
+        margin-top: 0px;
     }
     .fontStylingCardDetails p{
         font-family: 'Poppins' !important;
 font-style: normal ;
 font-weight: 400;
-font-size: 12px ;
-line-height: 16px ;
+font-size: 15px;
+line-height: 24px;
 color: #000000 ;
 margin-bottom: 5px;
 
@@ -266,8 +266,8 @@ margin-bottom: 5px;
         font-family: 'Poppins';
 font-style: normal;
 font-weight: 700 !important;
-font-size: 12px !important;
-line-height: 16px !important;
+font-size: 15px !important;
+line-height: 20px !important;
 display: flex;
 align-items: center;
 color: #000000;
@@ -335,4 +335,114 @@ margin-inline: 5px;
         display: none !important;
     }
 
+    @media (min-width:782px) {
+        .fontStylingCardP {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 700 !important;
+            font-size: 15px !important;
+            line-height: 20px !important;
+            display: flex;
+            align-items: center;
+            color: #000000;
+            margin-bottom: 0px;
+            margin-top: 5px;
+        }
+    }
+ 
+    @media (min-width:1200px) {
+        .fontStylingCardP {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 700 !important;
+            font-size: 13px !important;
+            line-height: 20px !important;
+            display: flex;
+            align-items: center;
+            color: #000000;
+            margin-bottom: 0px;
+            margin-top: 5px;
+        }
+        .fontStylingCardDetails p {
+            font-family: 'Poppins' !important;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 13px;
+            line-height: 24px;
+            color: #000000;
+            margin-bottom: 5px;
+        }
+        .color-rowClientCard p {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 13px;
+            line-height: 27px;
+            display: flex;
+            align-items: center;
+            color: #3F76E2;
+            margin-bottom: 0px;
+            padding: 10px 15px;
+            margin-top: 0px;
+        }
+    }
+ 
+    @media (min-width:1400px) {
+        .switch-fontCard {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 500 !important;
+            font-size: 12px !important;
+            line-height: 16px !important;
+            display: flex;
+            align-items: center;
+            padding: 9px 0px !important;
+            color: #000000 !important;
+        }
+        .fontStylingCardP {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 700 !important;
+            font-size: 16px !important;
+            line-height: 20px !important;
+            display: flex;
+            align-items: center;
+            color: #000000;
+            margin-bottom: 0px;
+            margin-top: 5px;
+        }
+        .textClientCard {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 19px;
+            line-height: 31px;
+            display: flex;
+            align-items: center;
+            color: #000000;
+            margin-bottom: 0px;
+        }
+        .color-rowClientCard p {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 17px;
+            line-height: 27px;
+            display: flex;
+            align-items: center;
+            color: #3F76E2;
+            margin-bottom: 0px;
+            padding: 10px 15px;
+            margin-top: 0px;
+        }
+        .fontStylingCardDetails p {
+            font-family: 'Poppins' !important;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            color: #000000;
+            margin-bottom: 5px;
+        }
+    }
  

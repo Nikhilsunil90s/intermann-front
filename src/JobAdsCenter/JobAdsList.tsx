@@ -17,6 +17,7 @@ function JobAdsList (){
     const [UpdateFiled,setUpdateField]=useState(false)
     const [activeStatus,setActiveStatus]=useState(false)
     const [InactiveStatus,setInActiveStatus]=useState(false)
+    const [checkLoad,setCheckLoad]=useState(false)
     const [tabItems] = useState([
         {
           text: "FRANCE",
@@ -57,6 +58,7 @@ useEffect(()=>{
         setJobCardActive([])
         setJobCardInActive([])
         setInActiveStatus(true)
+        setCheckLoad(true)
         //  let Cuser=  resData.data.filter((el)=>el?.username)
         //   let users=  resData.data.filter((el)=>el?.username )
         resData.data.map((el)=>{
@@ -84,6 +86,11 @@ useEffect(()=>{
        setUpdateField(false)
 
       }
+   }
+   if(checkLoad){
+     if(jobCardActive.length > 0 || jobCardInActive.length > 0){
+      setCheckLoad(false)
+     }
    }
   })
   const FolderName = tabItems.filter((el, i) => i == activeTab);

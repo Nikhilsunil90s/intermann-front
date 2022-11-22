@@ -270,16 +270,16 @@ function ClientProgressCard(props: any) {
                     </div>
                     <div className="col-6 px-0 mt-1">
                     <p className="textClientCard" style={{width:"150%"}} data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.clientCompanyName.toLocaleUpperCase()}><b>{props.data.clientCompanyName ? props.data.clientCompanyName.length > 20 ? props.data.clientCompanyName.toLocaleUpperCase().slice(0,29)+ "..." : props.data.clientCompanyName.toLocaleUpperCase(): "✘ No CompanyName!"}</b></p>
-                    <div >  <p  className="textClientCard" style={{height:"30px", background:"transparent"}}>Importance:
-                             <b className="d-flex" style={{width:"37%",marginLeft:"3px",height:"43px"}}>{candidatImportanceIcons[props.data.clientImportance - 1]?.icon ? candidatImportanceIcons[props.data.clientImportance - 1]?.icon : "✘✘!" }</b>
+                    <div >  <p  className="textClientCard" style={{height:"30px", background:"transparent"}}>Importance :
+                             <b className="d-flex align-items-center" style={{width:"37%",marginLeft:"3px",height:"43px"}}>{candidatImportanceIcons[props.data.clientImportance - 1]?.icon ? candidatImportanceIcons[props.data.clientImportance - 1]?.icon : "✘✘!" }</b>
 
                         </p>
                         </div>
                         <div >  <p  className="textClientCard" style={{width:"130%"}}>Motivation :
-                             <b style={{background:"transparent" , zIndex:"9"}}>{candidatMotivationIcons[props.data.clientMotivation]?.icon ?candidatMotivationIcons[props.data.clientMotivation]?.icon + candidatMotivationIcons[props.data.clientMotivation]?.motivation : "✘✘!"}</b>
+                             <b style={{background:"transparent" , zIndex:"9",marginLeft:"3px"}}>{candidatMotivationIcons[props.data.clientMotivation]?.icon ?candidatMotivationIcons[props.data.clientMotivation]?.icon + candidatMotivationIcons[props.data.clientMotivation]?.motivation : "✘✘!"}</b>
                         </p>
                         </div>
-                        <div ><p  className="textClientCard">Num of position : <b>  {props.data.numberOfPosts ? props.data.numberOfPosts : "✘ No Posts!"}</b> </p></div>
+                        <div ><p  className="textClientCard">Num of position : <b style={{marginLeft:"3px"}}>  {props.data.numberOfPosts ? props.data.numberOfPosts : "✘ No Posts!"}</b> </p></div>
                  
 
                     </div>
@@ -294,8 +294,8 @@ function ClientProgressCard(props: any) {
     <div className="row pl-1">
                 <div className="col-5 fontStylingCardDetails px-0 py-1">
                 <p className="fontStylingCardP">Secteur : {props.data.clientActivitySector ? props.data.clientActivitySector.length > 14 ?  props.data.clientActivitySector.toLocaleUpperCase().slice(0,14)  + "..." : props.data.clientActivitySector.toLocaleUpperCase() : "No Sector!"} </p>
-                    <p className="fontStylingCardP">Job : {props.data.clientJob ? props.data.clientJob.length > 15 ? props.data.clientJob.toLocaleUpperCase().slice(0,14) + "...": props.data.clientJob.toLocaleUpperCase() : "No Job!"}</p>
-                    <p>Langues : <b> {props.data.clientLanguages.length ? props.data.clientLanguages.join(", ") : "✘ No Langues!"}</b> </p>
+                    <p className="fontStylingCardP" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.clientJob.length ? props.data.clientJob : "✘ No clientJob!"}>Job : {props.data.clientJob ? props.data.clientJob.length > 15 ? props.data.clientJob.toLocaleUpperCase().slice(0,14) + "...": props.data.clientJob.toLocaleUpperCase() : "No Job!"}</p>
+                    <p  data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.clientLanguages.length ? props.data.clientLanguages.join(", ") : "✘ No Langues!"}>Langues : <b> {props.data.clientLanguages.length ? props.data.clientLanguages.length > 2 ? props.data.clientLanguages.join(", ").slice(0,18) : props.data.clientLanguages.join(", ") : "✘ No Langues!"}</b> </p>
                     <p>Phone :<b>{props.data.clientPhone.length ? props.data.clientPhone : "✘ No Phone Number!"}</b> </p>
                     <p>Estimated CA :   <b>{props.data.jobTotalBudget ? props.data.jobTotalBudget + " €" : "N/A"}</b> </p>                
 
@@ -311,7 +311,7 @@ function ClientProgressCard(props: any) {
                 </div>
                     <div className="Ads-box p-1">
                         <div className="">
-                            <p  className="AdsFont mb-0">Ads Spent on this client:  {props.data.jobTotalBudget != 0 ? props.data.jobTotalBudget + " €" : "N/A"}  </p>
+                            <p  className="AdsFont mb-0">Ads Spent on this client:  {props.data.jobTotalBudget  ? props.data.jobTotalBudget + " €" : "N/A"}  </p>
                             <p className="AdsFont mb-0">Num of position found :  {props.data.numberOfPosts ? props.data.numberOfPosts :"✘ No Posts!"}/5
 
                             </p>

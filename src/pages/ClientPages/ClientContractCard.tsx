@@ -135,8 +135,8 @@ function ClientContractCard(props: any) {
           <div className="row pl-1">
             <div className="col-5 fontStylingCardDetails px-0 py-1">
               <p className="fontStylingCardP">Secteur : {props.data.clientActivitySector ? props.data.clientActivitySector.length > 14 ? props.data.clientActivitySector.toLocaleUpperCase().slice(0, 14) + "..." : props.data.clientActivitySector.toLocaleUpperCase() : "No Sector!"} </p>
-              <p className="fontStylingCardP">Job :  {props.data.clientJob ? props.data.clientJob.length > 20 ? props.data.clientJob.toLocaleUpperCase().slice(0, 15) + "..." : props.data.clientJob.toLocaleUpperCase() : "No Job!"}</p>
-              <p>Langues : <b> {props.data.clientLanguages.length ? props.data.clientLanguages.join(", ") : "✘ No Langues!"}</b> </p>
+              <p className="fontStylingCardP"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.clientJob.length ? props.data.clientJob : "✘ No clientJob!"}>Job :  {props.data.clientJob ? props.data.clientJob.length > 20 ? props.data.clientJob.toLocaleUpperCase().slice(0, 15) + "..." : props.data.clientJob.toLocaleUpperCase() : "No Job!"}</p>
+              <p  data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.clientLanguages.length ? props.data.clientLanguages.join(", ") : "✘ No Langues!"}>Langues : <b> {props.data.clientLanguages.length ? props.data.clientLanguages.length > 2 ? props.data.clientLanguages.join(", ").slice(0,18) : props.data.clientLanguages.join(", ") : "✘ No Langues!"}</b> </p>
               <p>Phone :<b>{props.data.clientPhone.length ? props.data.clientPhone : "✘ No Phone Number!"}</b> </p>
               <p>Estimated CA :   <b>{props.data.jobTotalBudget ? props.data.jobTotalBudget + " €" : "N/A"}</b> </p>
 
@@ -158,7 +158,7 @@ function ClientContractCard(props: any) {
             {
               props.data.employeesWorkingUnder != null && props.data.employeesWorkingUnder != [] && props.data.employeesWorkingUnder.length > 0 ?
                 <>
-                  <p className="AdsFont mb-0">Ads Spent on this client:  {props.data.jobTotalBudget != 0 ? props.data.jobTotalBudget + " €" : "N/A"}  </p>
+                  <p className="AdsFont mb-0">Ads Spent on this client:  {props.data.jobTotalBudget  ? props.data.jobTotalBudget + " €" : "N/A"}  </p>
                   <p className="AdsFont mb-0">Employees working for this client :
                   </p>
                 </>
@@ -181,10 +181,10 @@ function ClientContractCard(props: any) {
                               src={require("../../images/menSigned.svg").default}
                               style={{ width: "15%" }}
                             />
-                            <p style={{ fontSize: "8px", marginLeft: "5px" }} className="mb-0 " data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.candidatName.toLocaleUpperCase()} >
+                            <p style={{ fontSize: "10px", marginLeft: "5px" }} className="mb-0 " data-bs-toggle="tooltip" data-bs-placement="bottom" title={el.candidatName.toLocaleUpperCase()} >
 
 
-                              {el.candidatName.toLocaleUpperCase()}
+                              {el.candidatName.length > 15 ?  el.candidatName.slice(0,15).toLocaleUpperCase() + ".." : el.candidatName.toLocaleUpperCase() }
                             </p>
                           </div>
                           :
@@ -195,10 +195,10 @@ function ClientContractCard(props: any) {
                                 src={require("../../images/menSigned.svg").default}
                                 style={{ width: "15%" }}
                               />
-                              <p style={{ fontSize: "8px", marginLeft: "5px", color: "#fd9e02" }} className="mb-0 " data-bs-toggle="tooltip" data-bs-placement="bottom" title={`Pre-Selected ${el.candidatName.toLocaleUpperCase()} `} >
+                              <p style={{ fontSize: "10px", marginLeft: "5px", color: "#fd9e02" }} className="mb-0 " data-bs-toggle="tooltip" data-bs-placement="bottom" title={`Pre-Selected ${el.candidatName.toLocaleUpperCase()} `} >
 
 
-                                {el.candidatName.toLocaleUpperCase()}
+                                {el.candidatName.length > 15 ?  el.candidatName.slice(0,15).toLocaleUpperCase() + ".." : el.candidatName.toLocaleUpperCase() }
                               </p>
                             </div>
                             :
@@ -209,8 +209,8 @@ function ClientContractCard(props: any) {
                                   src={require("../../images/menSigned.svg").default}
                                   style={{ width: "15%" }}
                                 />
-                                <p style={{ fontSize: "8px", marginLeft: "5px", color: "red" }} className="mb-0 " data-bs-toggle="tooltip" data-bs-placement="bottom" title={`Archived ${el.candidatName.toLocaleUpperCase()}`} >
-                                  {el.candidatName.toLocaleUpperCase()}
+                                <p style={{ fontSize: "10px", marginLeft: "5px", color: "red" }} className="mb-0 " data-bs-toggle="tooltip" data-bs-placement="bottom" title={`Archived ${el.candidatName.toLocaleUpperCase()}`} >
+                                  {el.candidatName.length > 15 ?  el.candidatName.slice(0,15).toLocaleUpperCase() + ".." : el.candidatName.toLocaleUpperCase() }
                                 </p>
                               </div>
  

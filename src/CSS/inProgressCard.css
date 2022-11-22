@@ -959,5 +959,80 @@ color: #373A3C;
 background-color: #fe8700;
 padding: 5px 10px !important
 }
+.SignedClientBtn {
+  background: #E4FFEF;
+  border-radius: 25px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 9px;
+  text-transform: uppercase;
+  color: #489767;
+  border: 0px;
+  padding: 11px 6px;
+}
+}
+@media (min-width:1400px){
+  .A-Recruting {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    color: #E21B1B;
+    padding: 10px 0px;
+}
+  .AdsFont{
+    font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+  text-transform: capitalize;
+  color: #333333;
+  margin-bottom: 8px !important;
+  
+  }
+  .progressCardBtnClient img {
+    width: 23px !important;
+}
+.progressCardBtnClient {
+  background: #F4E7FF;
+  border-radius: 25px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 25px;
+  text-transform: uppercase;
+  color: #A461D8;
+  border: 0px;
+  padding: 5px 5px;
+}
+.in-Recruting {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 26px;
+  display: flex;
+  align-items: center;
+  padding: 10px 0px;
+}
+.textSignedClient {
+  background: #E4FFEF;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 29px;
+  display: flex;
+  align-items: center;
+  color: #489767;
+  padding: 10px;
+}
 
 }

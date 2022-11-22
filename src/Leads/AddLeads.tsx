@@ -153,11 +153,15 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
    
     }else if(e.target.name=== "leadPrice"){
       setData({...data,[e.target.name]:e.target.value})
+    }else if(e.target.name === "ad"){
+
+    setData({...data,[e.target.name]:{adId:null,adName:e.target.value}})
+
     }else{
 
-    setData({...data,[e.target.name]:e.target.value})
-
-    }
+      setData({...data,[e.target.name]:e.target.value})
+  
+      }
   }
   const onSelectChange=(e)=>{
     if(e.name === "leadCountryMarket"){

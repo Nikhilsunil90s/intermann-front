@@ -140,8 +140,8 @@ if(endStatus){
     <div className="row pl-1">
                 <div className="col-5 fontStylingCardDetails px-0 py-1">
                 <p className="fontStylingCardP">Secteur : {props.data.clientActivitySector ? props.data.clientActivitySector.length > 14 ? props.data.clientActivitySector.toLocaleUpperCase().slice(0, 14) + "..." :props.data.clientActivitySector.toLocaleUpperCase() : "No Sector!"} </p>
-                    <p className="fontStylingCardP">Job :  {props.data.clientJob ? props.data.clientJob.length > 20 ?  props.data.clientJob.toLocaleUpperCase().slice(0,15) + "..." : props.data.clientJob.toLocaleUpperCase() : "No Job!"}</p>
-                    <p>Langues : <b> {props.data.clientLanguages.length ? props.data.clientLanguages.join(", ") : "✘ No Langues!"}</b> </p>
+                    <p className="fontStylingCardP"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.clientJob.length ? props.data.clientJob: "✘ No clientJob!"}>Job :  {props.data.clientJob ? props.data.clientJob.length > 20 ?  props.data.clientJob.toLocaleUpperCase().slice(0,15) + "..." : props.data.clientJob.toLocaleUpperCase() : "No Job!"}</p>
+                    <p  data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.clientLanguages.length ? props.data.clientLanguages.join(", ") : "✘ No Langues!"}>Langues : <b> {props.data.clientLanguages.length ? props.data.clientLanguages.length > 2 ? props.data.clientLanguages.join(", ").slice(0,18) : props.data.clientLanguages.join(", ") : "✘ No Langues!"}</b> </p>
                     <p>Phone :<b>{props.data.clientPhone.length ? props.data.clientPhone : "✘ No Phone Number!"}</b> </p>
                     <p>Estimated CA :   <b>{props.data.jobTotalBudget ? props.data.jobTotalBudget + " €" : "N/A"}</b> </p>                
 
@@ -156,7 +156,7 @@ if(endStatus){
                 </div>
                 <div className="">
             <div className="colorARecruting p-1">
-                    <p className="AdsFont">Ads Spent on this client: {props.data.jobTotalBudget ? props.data.jobTotalBudget : "✘ No Ads!"}€  </p>
+                    <p className="AdsFont">Ads Spent on this client: {props.data.jobTotalBudget ? props.data.jobTotalBudget +"€" : "✘ No Ads!"}  </p>
                     <div className="AdsFont">Reason archived :<ReadMoreReact text={props.data.clientArchived.reason ? props.data.clientArchived.reason : "✘ No Reason!"}
             min={0}
             ideal={50}
