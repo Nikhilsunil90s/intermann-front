@@ -9,6 +9,7 @@ import { FileUploader } from "react-drag-drop-files";
 import { ProgressBar } from "react-bootstrap";
 import Share from "../../components/Loader/Share"
 import ProfileLoader from "../../components/Loader/ProfilesLoader";
+import '../../CSS/CanEmpl.css' 
 
 let RenameData=[]
 let UploadName ="";
@@ -636,20 +637,10 @@ const onTabClick = (e, index: any) => {
               style={{ padding: "13px 26px" }}
             >
               <div className="row">
-             <div className="col-3 px-0" style={{fontFamily: 'Poppins',
-fontStyle: "normal",
-fontWeight: "500",
-fontSize: "14px",
-lineHeight: "21px",
-color: "#000000",
-display:"flex",
-alignItems:"center"}}><p className="mb-0">ORADD AN EXTERNAL LINK 
+             <div className="col-3 px-0 d-flex align-items-center" ><p className="mb-0 DriveLinkPDFbox" >ORADD AN EXTERNAL LINK 
 (GOOGLE DRIVE) :</p></div>
-             <div className="col-5 px-0"><input name="inputDrive" placeholder="WWW.XXXXXX.COM" onChange={onDriveLinkChange} style={{background:"#D3D6DB",borderRadius:"20px",width:"100%",height:"100%",border:"0px",paddingLeft:"10px",paddingRight:"10px",fontFamily: 'Poppins',
-fontStyle: "normal",
-fontWeight: "500",
-fontSize: "14px",}} /></div>
-             <div className="col-4"><button name="DriveLinkSubmit" onClick={(e)=>{onDriveLinkChange(e)}} className="LinkAsDocument">add this link as document</button></div>
+             <div className="col-6 px-0 d-flex align-items-center"><input name="inputDrive" placeholder="WWW.XXXXXX.COM" onChange={onDriveLinkChange} className="inputBoxDriveLink"/></div>
+             <div className="col-3"><button name="DriveLinkSubmit" onClick={(e)=>{onDriveLinkChange(e)}} className="LinkAsDocument">add this link as document</button></div>
              </div>
               </div>
                   {/* <div className="col-12 Social-Card mt-1">

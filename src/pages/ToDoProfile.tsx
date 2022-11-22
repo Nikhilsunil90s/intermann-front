@@ -546,8 +546,8 @@ className="SelectBtn"
                   <div className="Todo-CardMore force-overflow">
                   <div className="row ">
                       <div className="d-flex align-items-center"  > 
-                      <p>Langues : </p>
-                      <span className="Todo-CardMore-span">  {profile.candidatLanguages.length  ? profile.candidatLanguages.join(", ") : "✘✘No Language!"}</span>
+                      <p>Langues  </p>
+                      <span className="Todo-CardMore-span">:  {profile.candidatLanguages.length  ? profile.candidatLanguages.join(", ") : "✘✘No Language!"}</span>
                       </div>
                     </div>
                     <div className="d-flex align-items-center">
@@ -561,26 +561,26 @@ className="SelectBtn"
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
-                      <p>Permis :</p>
+                      <p>Permis </p>
                       <span className="Todo-CardMore-span">
-                        {profile.candidatLicensePermis ? `✔ Yes` : "✘ No"}
+                      : {profile.candidatLicensePermis ? `✔ Yes` : "✘ No"}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
-                      <p>Voyage en voiture :</p>
+                      <p>Voyage en voiture </p>
                       <span className="Todo-CardMore-span">
-                        {profile.candidatConduireEnFrance ? "✔ Yes" : "✘ No"}
+                      :  {profile.candidatConduireEnFrance ? "✔ Yes" : "✘ No"}
                       </span>
                     </div>
                    
                     <div className="d-flex align-items-center">
-                    <div className="d-flex"> <p>Skills/note: </p> <span className="Todo-CardMore-span">{profile.candidatSkills ? profile.candidatSkills : "✘✘No Skills!"}</span></div>
+                    <div className="d-flex"> <p>Skills/note </p> <span className="Todo-CardMore-span">: {profile.candidatSkills ? profile.candidatSkills : "✘✘No Skills!"}</span></div>
                      
                     </div>
                     <div className="d-flex align-items-center">
-                      <p className="text-dark">Trouvé sur  : </p>
+                      <p className="text-dark">Trouvé sur   </p>
                       <span className="text-dark Todo-CardMore-span">
-                        {profile.candidatJob ? profile.candidatJob : "✘✘No Trouvé!"}
+                      :  {profile.candidatJob ? profile.candidatJob : "✘✘No Trouvé!"}
                       </span>
                     </div>
                    
@@ -634,11 +634,11 @@ className="SelectBtn"
                  <span> {profile.candidatYearsExperience ? profile.candidatYearsExperience +"years" : "✘✘!"} </span>
                 </div>
                 <div className="col-12 d-flex AddressEnteredBy">
-                 <p className="">Adresse : </p>
-                 <span> {profile.candidatAddress ? profile.candidatAddress : "✘✘No Address!"}</span>
+                 <p className="">Adresse  </p>
+                 <span> :  {profile.candidatAddress ? profile.candidatAddress : "✘✘No Address!"}</span>
                 </div><div className="col-12 d-flex AddressEnteredBy">
-                 <p className="">Ajouté par/Added by :</p>
-                 <span> {profile.enteredBy}</span>
+                 <p className="">Ajouté par/Added by</p>
+                 <span>: {profile.enteredBy}</span>
                   
                   </div>
                   <div className="col-12">

@@ -344,7 +344,7 @@ className="SelectBtn"
                   </div>
                   <div>
                     <div className="d-flex mb-0">
-                    <p>Motivation : {profile.candidatMotivation !== undefined ? candidatMotivationIcons[profile.candidatMotivation].icon + " " + candidatMotivationIcons[profile.candidatMotivation ].motivation : "No Motivation!"} </p>
+                    <p>Motivation : <b>{profile.candidatMotivation !== undefined ? candidatMotivationIcons[profile.candidatMotivation].icon + " " + candidatMotivationIcons[profile.candidatMotivation ].motivation : "No Motivation!"} </b></p>
                     </div>
                   </div>
                   <p>Secteur : {profile.candidatActivitySector ? profile.candidatActivitySector.toLocaleUpperCase() : "No Secteur!"}</p>
@@ -381,39 +381,39 @@ className="SelectBtn"
                 >
                   <div className="Archived-CardMore force-overflow">
                   <div className="row ">
-                      <div className="col-3 pr-0"  style={{maxWidth:"22%"}}> 
-                      <p>Langues : </p>
-                      </div><div className="col-9 px-0">
-                      <span> {profile.candidatLanguages.length  ? profile.candidatLanguages.join(", ") : "✘ No Language!"}</span>
+                      <div className="d-flex pr-0"> 
+                      <p>Langues  </p>
+                  
+                      <span>: {profile.candidatLanguages.length  ? profile.candidatLanguages.join(", ") : "✘✘No Language!"}</span>
                       </div>
                     </div>
                     <div className="d-flex ">
-                      <p className="blue-text">Ready for work :</p>
-                      <span className="" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>
+                      <p className="blue-text">Ready for work </p>
+                      <span className="" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>: 
                       {profile.candidatStartDate  !== undefined? date >= start && date <= end  ?" 📆" + startDate  + "  To  " + EndDate :   "⚠️" + startDate +"  To  " + EndDate : "✘No Dates!"} 
                       </span>
                     </div>
                     <div className="d-flex">
-                      <p>Permis :</p>
+                      <p>Permis </p>
                       <span>
-                        {profile.candidatLicensePermis ? `✔ Yes` : "✘ No"}
+                      :  {profile.candidatLicensePermis ? `✔ Yes` : "✘ No"}
                       </span>
                     </div>
                     <div className="d-flex">
-                      <p>Voyage en voiture :</p>
+                      <p>Voyage en voiture </p>
                       <span>
-                        {profile.candidatConduireEnFrance ? `✔ Yes` : "✘ No"}
+                      : {profile.candidatConduireEnFrance ? `✔ Yes` : "✘ No"}
                       </span>
                     </div>
                    
                     <div className="d-flex">
-                      <p>Skills/note: </p>
-                      <span>{profile.candidatSkills ? profile.candidatSkills :"✘ No Skills!"}</span>
+                      <p>Skills/note </p>
+                      <span>: {profile.candidatSkills ? profile.candidatSkills :"✘ No Skills!"}</span>
                     </div>
                     <div className="d-flex">
-                      <p className="text-dark">Trouvé sur  : </p>
+                      <p className="text-dark">Trouvé sur  </p>
                       <span className="text-dark">
-                        {profile.candidatJob ? profile.candidatJob :"✘ No Trouvé sur!"}
+                      :  {profile.candidatJob ? profile.candidatJob :"✘ No Trouvé sur!"}
                       </span>
                     </div>
                    
@@ -564,12 +564,12 @@ null
             <div className="col-12 mt-2 p-1 Archived-Card">
               <div className="row">
                 <div className="col-12 d-flex AnneesStyle">
-                 <p className="">Années d’expériance :</p>
-                 <span> {profile.candidatYearsExperience ? profile.candidatYearsExperience : "✘ No "}years </span>
+                 <p className="">Années d’expériance </p>
+                 <span>: {profile.candidatYearsExperience ? profile.candidatYearsExperience : "✘ No "}years </span>
                 </div>
                <div className="col-12 d-flex AddressEnteredBy">
-                 <p className="">Ajouté par/Added by :</p>
-                 <span> {profile.enteredBy ?profile.enteredBy :"✘ No Added by!"}</span>
+                 <p className="">Ajouté par/Added by </p>
+                 <span>: {profile.enteredBy ?profile.enteredBy :"✘ No Added by!"}</span>
                   
                   </div>
                   <div className="col-12">

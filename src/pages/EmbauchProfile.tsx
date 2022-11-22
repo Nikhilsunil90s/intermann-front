@@ -397,13 +397,13 @@ className="SelectBtn"
                  <> <div className="col-8">
                   <div className="row">
                     <div className="col-12 ">
-                   <div className="row"><div className="col-2 px-0"><b className="workFont"><p className="">WORK FOR </p></b></div> <div className="col-9 px-0"> <b><span className="workFont">: {profile.candidatCurrentWork[0].workingFor}</span></b></div></div>
+                   <div className="row"><div className="d-flex px-0"><b className="workFont"><p className="d-flex">WORK FOR  <span className="workFont">: {profile.candidatCurrentWork[0].workingFor}</span></p></b></div></div>
                   </div>
                   <div className="col-12 px-0 d-flex justify-content-start">
                     <div className="workFont"><b className="d-flex"><p>Since </p>: <span>{profile.candidatCurrentWork[0].workingSince ? profile.candidatCurrentWork[0].workingSince : "✘No Since!"}</span></b></div>
                   </div>
                   <div className="col-12 px-0 d-flex justify-content-start">
-                    <div className="workFont"><b className="d-flex"><p>Salary  </p>: <span>{profile.candidatCurrentWork[0].salary + "✘No "}</span>€</b></div>
+                    <div className="workFont"><b className="d-flex"><p>Salary  </p>: <span>{profile.candidatCurrentWork[0].salary ? profile.candidatCurrentWork[0].salary :  "0"}</span>€</b></div>
                   </div>
                   </div>
                   
@@ -438,10 +438,10 @@ className="SelectBtn"
                 >
                   <div className="EmbauchFull-CardMore force-overflow">
                     <div className="row ">
-                      <div className="col-3 pr-0"  style={{maxWidth:"22%"}}> 
-                      <p>Langues : </p>
-                      </div><div className="col-9 px-0">
-                      <span> {profile.candidatLanguages.length ? profile.candidatLanguages.join(", ") : "✘ No Language!"}</span>
+                      <div className="d-flex" > 
+                      <p>Langues  </p>
+                      
+                      <span>: {profile.candidatLanguages.length ? profile.candidatLanguages.join(", ") : "✘ No Language!"}</span>
                       </div>
                     </div>
                     <div className="d-flex ">
@@ -451,26 +451,26 @@ className="SelectBtn"
                       </span>
                     </div>
                     <div className="d-flex">
-                      <p>Permis :</p>
+                      <p>Permis </p>
                       <span>
-                        {profile.candidatLicensePermis ? `✔ Yes` : "✘ No"}
+                      : {profile.candidatLicensePermis ? `✔ Yes` : "✘ No"}
                       </span>
                     </div>
                     <div className="d-flex">
-                      <p>Voyage en voiture :</p>
+                      <p>Voyage en voiture </p>
                       <span>
-                        {profile.candidatConduireEnFrance ? `✔ Yes` : "✘ No"}
+                      :  {profile.candidatConduireEnFrance ? `✔ Yes` : "✘ No"}
                       </span>
                     </div>
                    
                     <div className="d-flex">
-                      <p>Skills/note: </p>
-                      <span>{profile.candidatSkills ? profile.candidatSkills :"✘ No Skills!"}</span>
+                      <p>Skills/note </p>
+                      <span>: {profile.candidatSkills ? profile.candidatSkills :"✘✘ No Skills!"}</span>
                     </div>
                     <div className="d-flex">
-                      <p className="text-dark">Trouvé sur  : </p>
+                      <p className="text-dark">Trouvé sur  </p>
                       <span className="text-dark">
-                        {profile.candidatJob ? profile.candidatJob : "✘ No Trouvé sur!"}
+                      : {profile.candidatJob ? profile.candidatJob : "✘✘ No Trouvé sur!"}
                       </span>
                     </div>
                    
@@ -623,15 +623,15 @@ null
             <div className="col-12 mt-1 p-1 Social-Card">
               <div className="row">
                 <div className="col-12 d-flex AnneesStyle">
-                 <p className="">Années d’expériance :</p>
-                 <span> {profile.candidatYearsExperience ? profile.candidatYearsExperience : "✘ No "}years </span>
+                 <p className="">Années d’expériance </p>
+                 <span>: {profile.candidatYearsExperience ? profile.candidatYearsExperience : "✘✘!"}years </span>
                 </div>
                 <div className="col-12 d-flex AddressEnteredBy">
-                 <p className="">Adresse : </p>
-                 <span> {profile.candidatAddress ? profile.candidatAddress :"✘ No Adresse!"}</span>
+                 <p className="">Adresse </p>
+                 <span>: {profile.candidatAddress ? profile.candidatAddress :"✘✘  No Adresse!"}</span>
                 </div><div className="col-12 d-flex AddressEnteredBy">
-                 <p className="">Ajouté par/Added by :</p>
-                 <span> {profile.enteredBy}</span>
+                 <p className="">Ajouté par/Added by </p>
+                 <span>: {profile.enteredBy}</span>
                   
                   </div>
                   <div className="col-12">
