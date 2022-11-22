@@ -10,7 +10,7 @@ import PreSelectedModal from "../components/Modal/preSelectedModal"
 import { API_BASE_URL } from '../config/serverApiConfig';
 import moment from "moment";
 
-const ToDoProfileCard = (props: any,Clients) => {
+const ToDoProfileCard = (props: any,) => {
     const navigate = useNavigate();
     const [showInProgressModal, setShowInProgressModal] = useState(false);
     const [showArchiveModal, setShowArchiveModal] = useState(false)

@@ -239,7 +239,7 @@ const onSubmit=()=>{
                                 onChange={onSelectChange}
                                 options={SelectContry}
                                 styles={colourStyles}
-                                id="Country_Market"
+                                inputId="leadCountryMarket"
                               />
                       <span className="text-small pl-1">Options are France; Suisse; Romania (select is enough) required*</span>
                     </div>
@@ -280,7 +280,7 @@ const onSubmit=()=>{
                                 onChange={onSelectChange}
                                 options={fromPerson}
                                 styles={colourStyles}
-                                id="Source"
+                              inputId="leadSource"
                               />
                        
                       <span className="text-small pl-1">Options are Facebook; TikTok; SEO; Google Ads; Ejob; Jooble; Olx; Public21; Income Call; Undefined; Taboola; Outbrain; Other; Snapchat; SMS lead (select is enough) required*</span>
@@ -317,7 +317,7 @@ const onSubmit=()=>{
                                 onChange={onSelectChange}
                                 options={jobNames}
                                 styles={colourStyles}
-                                id="Job_Name"
+                                inputId="ad"
                               />
                               :
                               <input type={"text"} name="ad"  id="Job_Name" style={{fontSize:"12px"}} 
