@@ -129,7 +129,7 @@ function ArchivedViewPage() {
     },
   ];
   const candidatMotivationIcons = [
-    { icon: "", motivation: "No Motivation!" },
+    { icon: "", motivation: "✘✘!" },
     { icon: "😟", motivation: "Disappointed" },
     { icon: "🙁", motivation: "Not Really" },
     { icon: "😊", motivation: "Like" },
@@ -655,7 +655,7 @@ function ArchivedViewPage() {
                   <div className="Todo-ClinetCardMore force-overflow">
                     <div className="d-flex">
                       <div className="d-flex">
-                        <p className="CompanyAddres">Company Adress</p>
+                        <p className="">Company Adress</p>
 
                         <span className="Todo-ClinetCardMore-span">
                           :
@@ -685,33 +685,33 @@ function ArchivedViewPage() {
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
-                      <p>Langues : </p>
+                      <p>Langues </p>
                       <span className="Todo-ClinetCardMore-span">
-                       
+                      :   
                         {profile.clientLanguages.length
                           ? profile.clientLanguages.join(", ")
                           : " ✘ No Langues!"}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
-                      <p>Voyage en voiture :</p>
+                      <p>Voyage en voiture </p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.candidatConduireEnFrance ? `✔ Yes` : "✘ No"}
+                      :   {profile.candidatConduireEnFrance ? `✔ Yes` : "✘ No"}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
-                      <p>Permis / Licence Drive :</p>
+                      <p>Permis / Licence Drive </p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.clientPermis ? `✔ Yes` : "✘ No"}
+                      :    {profile.clientPermis ? `✔ Yes` : "✘ No"}
                       </span>
                     </div>
                     <div className="d-flex">
-                      <p className="ClientN">Client Note:</p>
+                      <p className="ClientN">Client Note</p>
                       <span
                         className="Todo-ClinetCardMore-span"
-                        style={{ textDecoration: "none", width: "390px" }}
+                        style={{ textDecoration: "none"}}
                       >
-                        {profile.clientRequiredSkills != ""
+                       :  {profile.clientRequiredSkills != ""
                           ? profile.clientRequiredSkills
                           : "✘ Not Available!"}
                       </span>
@@ -813,7 +813,7 @@ function ArchivedViewPage() {
                           ? candidatImportanceIcons[
                               profile.clientImportance - 1
                             ]?.icon
-                          : "No Importance!"}
+                          : "✘✘!"}
                       </b>
                     </p>
                     <p className="mb-0 pt-1" style={{ width: "130%" }}>
@@ -839,7 +839,7 @@ function ArchivedViewPage() {
                         className="ClientFontMotivationsStylingS"
                         style={{ marginBottom: "0px" }}
                       >
-                        {profile.enteredBy}
+                        {profile.enteredBy ? profile.enteredBy :"✘✘!"}
                       </span>
                     </div>
                     <div>

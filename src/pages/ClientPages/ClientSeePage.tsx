@@ -469,7 +469,7 @@ function ClientSee() {
   ];
 
   const candidatMotivationIcons = [
-    { icon: "", motivation: "No Motivation!" },
+    { icon: "", motivation: "✘✘!" },
     { icon: "😟", motivation: "Disappointed" },
     { icon: "🙁", motivation: "Not Really" },
     { icon: "😊", motivation: "Like" },
@@ -1202,10 +1202,8 @@ function ClientSee() {
                   <div className="Todo-ClinetCardMore force-overflow">
                     <div className="d-flex">
                       <div className="d-flex">
-                        <p className="CompanyAddres">Company Adress</p>
-
+                        <p className="CompanyAddres">Company Adress :</p>
                         <span className="Todo-ClinetCardMore-span">
-                          :
                           {profile.clientAddress
                             ? profile.clientAddress
                             : "✘ No Address!"}
@@ -1232,33 +1230,33 @@ function ClientSee() {
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
-                      <p>Langues : </p>
+                      <p>Langues  </p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.clientLanguages.length
+                      :  {profile.clientLanguages.length
                           ? profile.clientLanguages.join(", ")
                           : " ✘ No Langues!"}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
-                      <p>Voyage en voiture :</p>
+                      <p>Voyage en voiture </p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.candidatConduireEnFrance ? `✔ Yes` : "✘ No"}
+                      :   {profile.candidatConduireEnFrance ? `✔ Yes` : "✘ No"}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
-                      <p>Permis / Licence Drive :</p>
+                      <p>Permis / Licence Drive </p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.clientPermis ? `✔ Yes` : "✘ No"}
+                      : {profile.clientPermis ? `✔ Yes` : "✘ No"}
                       </span>
                     </div>
 
                     <div className="d-flex">
-                      <p style={{ width: "121px" }}>Client Note:</p>
+                      <p >Client Note</p>
                       <span
                         className="Todo-ClinetCardMore-span"
                         style={{ textDecoration: "none", width: "390px" }}
                       >
-                        {profile.clientRequiredSkills != ""
+                       :  {profile.clientRequiredSkills != ""
                           ? profile.clientRequiredSkills
                           : "✘ Not Available!"}
                       </span>
@@ -1268,9 +1266,9 @@ function ClientSee() {
                       <span className="Todo-ClinetCardMore-span">
                         :
                         {profile.jobTotalBudget != null
-                          ? profile.jobTotalBudget
-                          : "No Budget"}
-                        €
+                          ? profile.jobTotalBudget +"€"
+                          : "✘No Budget!"}
+                        
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
@@ -1283,18 +1281,18 @@ function ClientSee() {
                             )
                             ? profile.salary_hours
                                 .map((el) => {
-                                  return el.salaryPerHour;
+                                  return el.salaryPerHour + "€";
                                 })
                                 .slice(0, 1)
-                            :  "✘ No Salary"
-                          : "✘ No Salary"}
-                        €
+                            :  "✘ No Salary!"
+                          : "✘ No Salary!"}
+                        
                       </span>
                     </div>
                     <div className="d-flex ">
-                      <p className="text-dark">Salaire net du salarié : </p>
+                      <p className="text-dark">Salaire net du salarié  </p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.salary_hours.length !== 0
+                      :     {profile.salary_hours.length !== 0
                           ? profile.salary_hours.map((el) => (
                               <div className="d-flex">
                                 {el.hours ? el.hours : "0"}H =
@@ -1309,9 +1307,9 @@ function ClientSee() {
                       </span>
                     </div>
                     <div className="d-flex ">
-                      <p className="text-dark">Taux horraire :</p>
+                      <p className="text-dark">Taux horraire </p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.rate_hours.length !== 0
+                      :    {profile.rate_hours.length !== 0
                           ? profile.rate_hours.map((el) => (
                               <div className="d-flex">
                                 {el.hours ? el.hours : "0"}H =
@@ -1513,7 +1511,7 @@ function ClientSee() {
                             " " +
                             candidatMotivationIcons[profile.clientMotivation]
                               ?.motivation
-                          : "No Motivation!"}
+                          : "✘✘!"}
                       </b>
                     </p>
 
@@ -1543,7 +1541,7 @@ function ClientSee() {
                           ? candidatImportanceIcons[
                               profile.clientImportance - 1
                             ]?.icon
-                          : "No Importance!"}
+                          : "✘✘!"}
                       </b>
                     </p>
 
@@ -1555,7 +1553,7 @@ function ClientSee() {
                         className="ClientFontMotivationsStylingS"
                         style={{ marginBottom: "0px" }}
                       >
-                        {profile.enteredBy}
+                        {profile.enteredBy ? profile.enteredBy : "✘✘!"}
                       </span>
                     </div>
                     <div>

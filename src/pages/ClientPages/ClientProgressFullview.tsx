@@ -1182,7 +1182,7 @@ function ClientProgressView() {
                       </div>
                     </div>
                     <div className="d-flex align-items-center ">
-                      <p className="blue-text">Ready for work :</p>
+                      <p className="blue-text">Ready for work </p>
                       <span
                         className="bluetextCardSee"
                         style={{
@@ -1191,7 +1191,7 @@ function ClientProgressView() {
                               ? "#3F76E2"
                               : "#ca1313",
                         }}
-                      >
+                      >: 
                         {date >= start && date <= end
                           ? " 📆" + startDate + "  To  " + EndDate
                           : "⚠️" +
@@ -1201,33 +1201,33 @@ function ClientProgressView() {
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
-                      <p>Langues : </p>
+                      <p>Langues  </p>
                       <span className="Todo-ClinetCardMore-span">
-                        {" "}
+                      : 
                         {profile.clientLanguages.length
                           ? profile.clientLanguages.join(", ")
                           : " ✘ No Langues!"}{" "}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
-                      <p>Voyage en voiture :</p>
+                      <p>Voyage en voiture </p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.candidatConduireEnFrance ? `✔ Yes` : "✘ No"}
+                      : {profile.candidatConduireEnFrance ? `✔ Yes` : "✘ No"}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
-                      <p>Permis / Licence Drive :</p>
+                      <p>Permis / Licence Drive </p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.clientPermis ? `✔ Yes` : "✘ No"}
+                      : {profile.clientPermis ? `✔ Yes` : "✘ No"}
                       </span>
                     </div>
                     <div className="d-flex">
-                      <p style={{ width: "121px" }}>Client Note:</p>
+                      <p >Client Note</p>
                       <span
                         className="Todo-ClinetCardMore-span"
                         style={{ textDecoration: "none", width: "390px" }}
                       >
-                        {profile.clientRequiredSkills != ""
+                    :    {profile.clientRequiredSkills != ""
                           ? profile.clientRequiredSkills
                           : "✘ Not Available!"}
                       </span>
@@ -1237,9 +1237,9 @@ function ClientProgressView() {
                       <span className="Todo-ClinetCardMore-span">
                         :{" "}
                         {profile.jobTotalBudget != null
-                          ? profile.jobTotalBudget
-                          : "No Budget"}{" "}
-                        €
+                          ? profile.jobTotalBudget +"€"
+                          : "✘ No Budget"}{" "}
+                        
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
@@ -1252,18 +1252,18 @@ function ClientProgressView() {
                             )
                             ? profile.salary_hours
                                 .map((el) => {
-                                  return el.salaryPerHour;
+                                  return el.salaryPerHour +"€";
                                 })
                                 .slice(0, 1)
-                            : "✘ No Salary"
-                          :  "✘ No Salary"}{" "}
-                        €
+                            : "✘ No Salary!"
+                          :  "✘ No Salary!"}{" "}
+                        
                       </span>
                     </div>
                     <div className="d-flex ">
-                      <p className="text-dark">Salaire net du salarié : </p>
+                      <p className="text-dark">Salaire net du salarié  </p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.salary_hours.length !== 0
+                      :  {profile.salary_hours.length !== 0
                           ? profile.salary_hours.map((el) => (
                               <div className="d-flex" key={el}>
                                 {el.hours ? el.hours : "0"}H ={" "}
@@ -1278,9 +1278,9 @@ function ClientProgressView() {
                       </span>
                     </div>
                     <div className="d-flex ">
-                      <p className="text-dark">Taux horraire :</p>
+                      <p className="text-dark">Taux horraire </p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.rate_hours.length !== 0
+                      :   {profile.rate_hours.length !== 0
                           ? profile.rate_hours.map((el) => (
                               <div className="d-flex" key={el}>
                                 {el.hours ? el.hours : "0"}H ={" "}
@@ -1300,7 +1300,7 @@ function ClientProgressView() {
             <div className="col-12 inPAdsBOX">
               <div className="row">
                 <div className="col-6 pt-2 pb-1">
-                  <p>Ads Spent on this client : <b>{profile.jobTotalBudget ? profile.jobTotalBudget : "✘ No Ads!"}</b></p>
+                  <p>Ads Spent on this client  <b>: {profile.jobTotalBudget ? profile.jobTotalBudget : "✘ No Ads!"}</b></p>
                 </div>
               </div>
             </div>

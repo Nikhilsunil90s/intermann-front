@@ -247,7 +247,7 @@ AddToCRM(data)
                 padding:"10px 15px",
     borderRadius: "10px"}}>
                 <p className="mb-0 m-0">Precontacted</p>
-              <span>(BY {LoginUser.emailAddress.substring(0,LoginUserS.emailAddress.lastIndexOf("@")).toUpperCase()})</span>
+              <span>(BY DANA)</span>
                 </div>
               </div>
            
@@ -264,7 +264,8 @@ AddToCRM(data)
           <div className="col-12 " style={{background:"#DBE8E2",
                 padding:"10px 15px",
     borderRadius: "10px"}}>             <p className="m-0 ">Contacted by Agency</p>
-              <span>(BY {LoginUser.emailAddress.substring(0,LoginUserS.emailAddress.lastIndexOf("@")).toUpperCase()})</span>
+              {/* <span>(BY {LoginUser.emailAddress.substring(0,LoginUserS.emailAddress.lastIndexOf("@")).toUpperCase()})</span> */}
+              <span>(BY DANA)</span>
               </div>
               </div>
                  <div className="row PrECONTACTEDInput justify-content-around mb-1">

@@ -1,69 +1,33 @@
 import React,{useEffect,useRef,useState} from "react";
-import { API_BASE_URL } from "../../config/serverApiConfig";
+import { API_BASE_URL } from "../../../config/serverApiConfig";
 import {toast} from "react-hot-toast"
-function NotesDeleteModal({props,closeModal,update,Load,Notes,LeadsDelete,setDelete}){
+function NotesDeleteModal({props,closeModal,updateFields}){
   const [btnDS,setBTNds]=useState(false)
+  console.log(props,"props")
   const DeleteNotes=()=>{
-
-  let data={
-    leadId:props._id,
-  }
-  if(LeadsDelete  === "Delete"){
-  // Load(false)
- fetch(API_BASE_URL + `deleteLead`,{
-   method: "POST",
-   headers: {
-     "Accept": 'application/json',
-     'Content-Type': 'application/json',
-     "Authorization": "Bearer " + localStorage.getItem('token')
-   },
-   body:JSON.stringify(data)
- })
-   .then(red => red.json())
-   .then(resData => {
-      if(resData.status){
-        toast.success(resData.message)
-        // Lead([])
-        update(true)
-        setDelete("")
-setTimeout(()=>{
-  Load(true)
-},2000)
-      }else{
-      //  Update(true)
-       toast.error(resData.message)
-
-      }
-   })
-   .catch(err => err)
-
-  }else{
-    fetch(Notes == "Leads" ? API_BASE_URL +"deleteLeadNotes" :API_BASE_URL +`deleteAgencyNotes`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body:JSON.stringify(data)
-    })
-    .then((res)=>res.json())
-    .then(res=>{
-      if(res.status){
-        update(true)
-        setBTNds(false)
-        Load(true)
-        toast.success(res.message)
-          closeModal(false)
-      
-      }else{
-        setBTNds(false)    
-        toast.success(res.message)
-      
-      }
-    })
-    .catch(err=>err)
-  }
+     fetch(API_BASE_URL + `deleteAd/?adId=${props._id}`,{
+        method: "GET",
+        headers: {
+          "Accept": 'application/json',
+          'Content-Type': 'application/json',
+          "Authorization": "Bearer " + localStorage.getItem('token')
+        },
+      })
+        .then(red => red.json())
+        .then(resData =>{
+          if(resData.status){
+            updateFields(true)
+               closeModal(false)
+               setBTNds(false)
+              toast.success(resData.message)
+          }else{
+              toast.success(resData.message)
+             
+               setBTNds(false)
+               
+          }
+        })
+        .catch(err => err)
  
   }
     const ref = useRef();
@@ -101,7 +65,7 @@ setTimeout(()=>{
     return(
         <>
   <div className="modal d-block" style={{ backgroundColor: "#00000052" }} id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div className="modal-dialog modal-lg" style={{width:"505px",marginTop:"100px"}}>
+            <div className="modal-dialog modal-lg" style={{width:"700px",marginTop:"100px"}}>
                 <div className="modal-content">
                     <div className="col-12">
                         <div className="row justify-content-end">
@@ -118,11 +82,11 @@ setTimeout(()=>{
                             fontFamily: 'Poppins',
                             fontStyle: "normal",
                             fontWeight: "500",
-                            fontSize: "18px",
+                            fontSize: "19px",
                             lineHeight: "24px",
                             color:"#000"
 
-                        }}>Do you really want to delete this{LeadsDelete  === "Delete" ?  " Lead?": " note?"}</p>
+                        }}>Do you really want to delete this {props.adNameFrench !=="" ? props.adNameFrench.toLocaleUpperCase() : "" }/ {props.adNameRomanian !=="" ? props.adNameRomanian.toLocaleUpperCase() : ""} Ad/Research ?</p>
                         </div>
 
                             <div className="col-12 text-center mt-1">
@@ -135,12 +99,12 @@ setTimeout(()=>{
                             fontStyle: "normal",
                             fontWeight: "700",
                             fontSize: "13px",
-                            lineHeight: "20px",
+                            lineHeight: "29px",
                             color: "#E21B1B",
                             border:"2px solid #E21B1B",
                             borderRadius:"22px",marginTop:"5px"
 
-                        }}>Yes</button>
+                        }}><img style={{marginRight:"5px"}}  src={require("../../../images/Deletebucket.svg").default}  />Yes</button>
                                         </div> <div className="col-3 d-grid">
                                                                   
 <button onClick={()=>closeModal()} className="btn  btn-bgbClient d-flex justify-content-center align-items-center" style={{

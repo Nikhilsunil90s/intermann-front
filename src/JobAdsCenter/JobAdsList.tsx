@@ -100,7 +100,7 @@ useEffect(()=>{
  
     fetchUsers(TabName)
 
-  },[UpdateFiled])
+  },[UpdateFiled,checkLoad])
 
 
 const  fetchUsers=async(TabName)=>{
@@ -225,7 +225,7 @@ return    await fetch(API_BASE_URL + `allAds/?market=${TabName}`,{
           {InactiveStatus ?
           jobCardInActive.length > 0 ?
               jobCardInActive.map((el)=>(
-          <div className="col-4 my-1" style={{maxWidth:"32%"}} key={el._id}>
+          <div className="col-4 my-1" style={{maxWidth:"32%" ,marginRight:"10px",marginTop:"10px"}} key={el._id}>
 
             <JobsCard  props={el} bg={"Inactive"}  setUpdateField={setUpdateField}     />
           </div>

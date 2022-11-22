@@ -1215,14 +1215,14 @@ let Editdata ={state:profile,path:"/clientSigned"}
                     <div className="d-flex">
                       <div className="col-12 px-0">
                         <div className="row">
-                          <div className="col-4">
-                            <p className="CompanyAddres">Company Adress</p>
-                          </div>
-                          <div className="col-8">
+                          <div className="d-flex">
+                            <p className="">Company Adress</p>
+                          
+                          
                             <span className="Todo-ClinetCardMore-span">
-                              :
+                              :  
                               {profile.clientAddress
-                                ? profile.clientAddress
+                                ?  profile.clientAddress
                                 : "✘ No Address!"}
                             </span>
                           </div>
@@ -1269,10 +1269,10 @@ let Editdata ={state:profile,path:"/clientSigned"}
                       </span>
                     </div>
                     <div className="d-flex">
-                      <p style={{ width: "121px" }}>Client Note:</p>
+                      <p >Client Note:</p>
                       <span
                         className="Todo-ClinetCardMore-span"
-                        style={{ textDecoration: "none", width: "390px" }}
+                        style={{ textDecoration: "none", width: "77%" }}
                       >
                         {profile.clientRequiredSkills != ""
                           ? profile.clientRequiredSkills
@@ -1307,9 +1307,9 @@ let Editdata ={state:profile,path:"/clientSigned"}
                       </span>
                     </div>
                     <div className="d-flex ">
-                      <p className="text-dark">Salaire net du salarié : </p>
+                      <p className="text-dark">Salaire net du salarié  </p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.salary_hours.length !== 0
+                      :  {profile.salary_hours.length !== 0
                           ? profile.salary_hours.map((el,i) => (
                               <div className="d-flex" key={i}>
                                 {el.hours ? el.hours : "0"}H ={" "}
@@ -1324,9 +1324,9 @@ let Editdata ={state:profile,path:"/clientSigned"}
                       </span>
                     </div>
                     <div className="d-flex ">
-                      <p className="text-dark">Taux horraire :</p>
+                      <p className="text-dark">Taux horraire </p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.rate_hours.length !== 0
+                      : {profile.rate_hours.length !== 0
                           ? profile.rate_hours.map((el,i) => (
                               <div className="d-flex" key={i}>
                                 {el.hours ? el.hours : "0"}H ={" "}
@@ -1576,7 +1576,7 @@ JobAdsCards.length > 0 ?
                           ? candidatImportanceIcons[
                               profile.clientImportance - 1
                             ]?.icon
-                          : "No Importance!"}
+                          : "✘✘!"}
                       </b>
                     </p>
                     <p className="mb-0 pt-1" style={{ width: "130%" }}>
