@@ -14,6 +14,7 @@ export default function  DownloadCenter(){
   const [AllProfiles,setAllProfiles]=useState([])
   const [Status,setStatus]=useState(false)
   const [deleteCanContract,setdeleteCanContract]=useState(false)
+  const [btnDS,setBtnDS]=useState(false)
   const [tabItems] = useState([
     {
       text: "Contrat Employés",
@@ -86,6 +87,7 @@ export default function  DownloadCenter(){
   };
 
   const deleteClientsContracts = async (id:any,CId) => {
+    setBtnDS(true)
     return await fetch(API_BASE_URL + `deleteClientContract/?clientId=${id}&contractId=${CId}`, {
       method: "GET",
       headers: {
@@ -97,13 +99,16 @@ export default function  DownloadCenter(){
       .then((respData) => {
         toast.success("Contrat Client Removed Successfully!")
         setdeleteCanContract(true)
+        setBtnDS(false)
       })
       .catch((err) => {
         toast.error("Contrat Client Not Removed!")
+        setBtnDS(false)
         
       });
   };
   const deleteCandiateContracts = async (id:any,CId) => {
+    setBtnDS(true)
     return await fetch(API_BASE_URL + `deleteCandidatContract/?candidatId=${id}&contractId=${CId}`, {
       method: "GET",
       headers: {
@@ -114,15 +119,19 @@ export default function  DownloadCenter(){
       .then((resp) => resp.json())
       .then((respData) => {
         toast.success("Contrat Employé Removed Successfully!")
+        setBtnDS(false)
         setdeleteCanContract(true)
       })
       .catch((err) => 
       {
         toast.error("Contrat Employé Not Removed!")
+        setBtnDS(false)
+
       });
   };
 
   const deleteRepresentance = async (id:any) => {
+    setBtnDS(true)
     return await fetch(API_BASE_URL + `deleteRepresentence/?representenceId=${id}`, {
       method: "GET",
       headers: {
@@ -134,13 +143,16 @@ export default function  DownloadCenter(){
       .then((respData) => {
         toast.success("Représentance Removed Successfully!")
         setdeleteCanContract(true)
+        setBtnDS(false)
       })
       .catch((err) => 
       {
         toast.error("Représentance Not Removed!")
+        setBtnDS(false)
       });
   };
   const deleteAvance = async (id:any) => {
+    setBtnDS(true)
     return await fetch(API_BASE_URL + `deleteAvance/?avanceId=${id}`, {
       method: "GET",
       headers: {
@@ -152,26 +164,34 @@ export default function  DownloadCenter(){
       .then((respData) => {
         toast.success("Avance Removed Successfully!")
         setdeleteCanContract(true)
+        setBtnDS(false)
       })
       .catch((err) => 
       {
         toast.error("Avance Not Removed!")
+        setBtnDS(false)
       });
   };
   useEffect(()=>{
-    setStatus(false)
     fetchCandidatContracts().then((res)=>{
         if(res.status){
             setCandidateContracts([...res.data])
-        
+            setTimeout(()=>{
+              setStatus(true)
+
+            },2000)
             setdeleteCanContract(false)
             if(activeTab === 0){
                 setAllProfiles([...res.data])
-                setStatus(true)
+                setTimeout(()=>{
+                  setStatus(true)
+                },2000)
             }
         }
         else{
-          setStatus(true)
+          setTimeout(()=>{
+            setStatus(true)
+          },2000)
           if(activeTab === 0){
             setAllProfiles([])
             setCandidateContracts([])
@@ -187,11 +207,15 @@ export default function  DownloadCenter(){
 
                 if(activeTab === 1 ){
                     setAllProfiles([...res.data])
-                setStatus(true)
+                    setTimeout(()=>{
+                      setStatus(true)
+                    },2000)
 
                 }
             }else{
-              setStatus(true)
+              setTimeout(()=>{
+                setStatus(true)
+              },2000)
               if(activeTab === 1 ){
                 setAllProfiles([])
                 setClientContracts([])
@@ -207,10 +231,14 @@ export default function  DownloadCenter(){
 
           if(activeTab === 3 ){
               setAllProfiles([...res.data])
-              setStatus(true)
+              setTimeout(()=>{
+                setStatus(true)
+              },2000)
           }
       }else{
-        setStatus(true)
+        setTimeout(()=>{
+          setStatus(true)
+        },2000)
         if(activeTab === 3 ){
           setAllProfiles([])
           setRepresentance([])
@@ -228,11 +256,15 @@ export default function  DownloadCenter(){
 
           if(activeTab === 2 ){
               setAllProfiles([...res.data])
-          setStatus(true)
+              setTimeout(()=>{
+                setStatus(true)
+              },2000)
 
           }
       }else{
-        setStatus(true)
+        setTimeout(()=>{
+          setStatus(true)
+        },2000)
         if(activeTab === 2 ){
           setAllProfiles([])
           setAvance([])
@@ -295,7 +327,7 @@ console.log(representance,"res")
                     {
                         
                         Status  ?
-                        AllProfiles.length > 0 && activeTab === 0 || AllProfiles.length > 0 && activeTab === 1 ||  AllProfiles.length > 0 && activeTab === 3 || AllProfiles.length > 0 && activeTab === 2 ?
+                        AllProfiles.length > 0 ?
                         AllProfiles.map((el,i)=>(
                             <div className="col-12 mt-1" style={{background:"#fe87001f",borderRadius:"10px"}} key={i}>
                             <div className="row p-1 align-items-center">
@@ -304,9 +336,9 @@ console.log(representance,"res")
                                 </div>
                                 <div className="col-2 px-0 ">
                                     <div className="row d-flex justify-content-evenly">
-                                        <div className="col-6 px-0 RoundDiv cursor-pointer" id="delete" onClick={(e)=>el.candidatName ? deleteCandiateContracts(el.candidatId,el._id) : el.clientId ?  deleteClientsContracts(el.clientId,el._id)  : el.signed_representence_url?  deleteRepresentance(el._id) : deleteAvance(el._id) }>
+                                        <button className="col-6 px-0 RoundDiv cursor-pointer" id="delete" style={{border:"0px"}} disabled={btnDS} onClick={(e)=>el.candidatName ? deleteCandiateContracts(el.candidatId,el._id) : el.clientId ?  deleteClientsContracts(el.clientId,el._id)  : el.signed_representence_url?  deleteRepresentance(el._id) : deleteAvance(el._id) }>
                                     <img src={require("../images/Deletebucket.svg").default} />
-                                    </div>
+                                    </button>
                                   
                                     <div className="col-6 px-0 RoundDiv cursor-pointer" id="view" onClick={(e)=>window.open(el.signed_contract_url ?  el.signed_contract_url  : el.signed_representence_url ? el.signed_representence_url : el.signed_avance_url)}>
                                 <img

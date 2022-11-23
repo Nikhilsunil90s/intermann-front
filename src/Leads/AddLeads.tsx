@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import Select, { StylesConfig } from "react-select";
 import {Link} from "react-router-dom"
 import { ColourOption } from "../Selecteddata/data";
@@ -8,6 +8,7 @@ import { ReactComponent as Switzer } from "../images/switzerland.svg";
 import { ReactComponent as Romania } from "../images/romania.svg";
 import {API_BASE_URL} from "../config/serverApiConfig"
 import {toast ,Toaster} from "react-hot-toast"
+import $ from "jquery"
 function AddLeads(){
   const [SelectContry]=useState([{
     value:"France",
@@ -36,6 +37,23 @@ name:"leadCountryMarket"
   }
 
 ])as any
+
+useEffect(()=>{
+  $('div.market').each(function(i){
+    $(this).attr('id' , 'market' + (i+1));  
+});
+})
+
+useEffect(()=>{
+  $('div.source').each(function(i){
+    $(this).attr('id' , 'source' + (i+1));  
+});
+})
+useEffect(()=>{
+  $('div.Lead').each(function(i){
+    $(this).attr('id' , 'Lead' + (i+1)); 
+});
+})
 
 const [jobNames,setJobName]=useState([])
 
@@ -219,6 +237,9 @@ const onSubmit=()=>{
   }
 
 }
+const check=(chek:any)=>{
+  console.log(chek,"check")
+}
     return(<>
     <Toaster     containerStyle={{zIndex:"999999999999999999"}}  position="top-right"/>
      <div className="container-fluid">
@@ -232,7 +253,7 @@ const onSubmit=()=>{
                 <div className="col-12 mt-2 p-1" style={{background:"#ffff",borderRadius:"10px"}}>
                  <div className="row">
                     <div className="col-4">
-                        <label className="Form-styling" >Country market </label>
+                        <label className="Form-styling">Country market </label>
                       
                         <Select
                                 name="leadCountryMarket"
@@ -243,7 +264,7 @@ const onSubmit=()=>{
                                 onChange={onSelectChange}
                                 options={SelectContry}
                                 styles={colourStyles}
-                                inputId="leadCountryMarket"
+                                
                               />
                       <span className="text-small pl-1">Options are France; Suisse; Romania (select is enough) required*</span>
                     </div>
@@ -279,7 +300,7 @@ const onSubmit=()=>{
                                 name="leadSource"
                                 closeMenuOnSelect={true}
                                 placeholder="‎ ‎ ‎ ‎ ‎  ‎ e.g. Facebook, TikTok. SEO..."
-                                className="basic-multi-select"
+                                className="basic-multi-select source"
                                 classNamePrefix="select"
                                 onChange={onSelectChange}
                                 options={fromPerson}
@@ -316,7 +337,7 @@ const onSubmit=()=>{
                                 name="ad"
                                 closeMenuOnSelect={true}
                                 placeholder="‎ ‎ ‎ ‎ ‎  ‎ Job Name"
-                                className="basic-multi-select"
+                                className="basic-multi-select Lead"
                                 classNamePrefix="select"
                                 onChange={onSelectChange}
                                 options={jobNames}

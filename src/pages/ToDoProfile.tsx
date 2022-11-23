@@ -405,7 +405,7 @@ className="SelectBtn"
                 <div className="col-xxl-7 col-xl-7 col-lg-7 col-md-7 col-sm-7 card-TodoProfile">
                   <div className="d-flex">
                     <p>
-                      Name : {profile.candidatName.toLocaleUpperCase()}|{profile.candidatAge}
+                      Name : {profile.candidatName.toLocaleUpperCase()}|{profile.candidatAge ?  profile.candidatAge : "0" }
                     </p>
                     <span className="card-xlSpan">(Age)</span>
                   </div>

@@ -46,7 +46,6 @@ function JobAdsList (){
     
       
 useEffect(()=>{
- if(TabName !== "" && jobCardActive.length === 0 && jobCardInActive.length === 0 )
   fetchUsers(TabName).then((resData)=>{
     {
       if(resData.status){
@@ -89,18 +88,15 @@ useEffect(()=>{
 
       }
    }
-   if(checkLoad){
-     if(jobCardActive.length > 0 || jobCardInActive.length > 0){
-      setCheckLoad(false)
-     }
-   }
+  
+  
   })
   const FolderName = tabItems.filter((el, i) => i == activeTab);
   TabName =FolderName.map((el)=>(el.value))
  
     fetchUsers(TabName)
 
-  },[UpdateFiled,checkLoad])
+  },[UpdateFiled])
 
 
 const  fetchUsers=async(TabName)=>{

@@ -9,6 +9,7 @@ import chroma from 'chroma-js';
 import { ColourOption } from "../Selecteddata/data";
 import ErrorLoader from '../components/Loader/SearchBarError'
 import Error404Loader from '../components/Loader/404Error'
+import id from "date-fns/esm/locale/id/index.js";
 
 declare namespace JSX {
   interface IntrinsicElements {
@@ -67,10 +68,11 @@ const notifyMoveError = () => toast.error("Not Moved..");
   const [cardTotallength,setTotalLength]=useState(0)
   const [sectorName,setSectorName]=useState("")
   const [JobName,setJobName]=useState([])as any
+  const [AllProfilesForSelect,setAllProfilesForSelects]=useState([])
   let HaveName =null ;
   let MotivationCount=null;
   const loadMoreHandle = (i) => {
-    let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 30;
+    let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 40;
     if (bottom) {
       if(cardTotallength > page && selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0 && emailArr.length == 0 && contactArr.length == 0 && FilterJob.length == 0 && LanguageFilter.length == 0 && sectorName === "" && JobName.length == 0 && HaveName == null && MotivationCount == null){
         setPage(page + 20);
@@ -289,7 +291,7 @@ setTimeout(()=>{
        .catch((err) => err);
    }
   const fetchProfiles = async () => {
-    return await fetch(API_BASE_URL + "allToDoCandidats", {
+     await fetch(API_BASE_URL + "allToDoCandidats", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -298,7 +300,9 @@ setTimeout(()=>{
       },
     })
       .then((resD) => resD.json())
-      .then((reD) => reD)
+      .then((reD) => {
+        setAllProfilesForSelects([...reD])
+      })
       .catch((err) => err);
   };
 
@@ -399,22 +403,25 @@ setTimeout(()=>{
       },1000)
 
     }
+    if(AllProfilesForSelect.length === 0){
+          fetchProfiles()
+          console.log(AllProfilesForSelect,"fjdf")
+  }
+    if(AllProfilesForSelect.length > 0  && nameOptions.length === 0){
     if (nameOptions.length == 0) {
-      fetchProfiles().then((profilesResult) => {
-        let nameops = profilesResult.map((pro) => {
+     
+        let nameops = AllProfilesForSelect.map((pro) => {
           return { value: pro.candidatName, label: pro.candidatName.toLocaleUpperCase(), color: '#FF8B00' }
         })
         setNameOptions([{value:"Select Name",label:"Select Name",color:"#ff8b00"},...nameops])
-      }).catch(err => {
-        console.log(err)
-      })
-    }
+     
+      }
+    
     if (email.length == 0) {
       let emailops=[]as any
-      fetchProfiles().then((profileResult) => {
-        profileResult.filter((item) => {
+        AllProfilesForSelect.filter((item) => {
           if(cardTotallength === 0){
-            setTotalLength(profileResult.length)
+            setTotalLength(AllProfilesForSelect.length)
           }
           if(item.candidatEmail){
          emailops.push({ value: item.candidatEmail, label: item.candidatEmail.toLocaleUpperCase(), color: '#FF8B00' })
@@ -423,12 +430,11 @@ setTimeout(()=>{
          setEmail([  {
           value: "Select email", label: "Select Email", color: '#FF8B00'
         },...emailops])
-      })
+    
       }
       if (ContactOptions.length == 0) {
         let ContactOp =[]as any
-        fetchProfiles().then((profileResult) => {
-          profileResult.filter((item) => {
+        AllProfilesForSelect.filter((item) => {
             if(item.candidatPhone){
               ContactOp.push({ value: item.candidatPhone, label: item.candidatPhone, color: '#FF8B00' })
             }
@@ -436,8 +442,9 @@ setTimeout(()=>{
            setContactOptions([  {
             value: "Select Contact", label: "Select Contact", color: '#FF8B00'
           },...ContactOp])
-        })
+      
         }
+      }
   } )
 
 
