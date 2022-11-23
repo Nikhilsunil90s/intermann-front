@@ -39,8 +39,8 @@ name:"leadCountryMarket"
 ])as any
 
 useEffect(()=>{
-  $('div.market').each(function(i){
-    $(this).attr('id' , 'market' + (i+1));  
+  $('span.css-1f43avz-a11yText-A11yText').each(function(i){
+    $(this).attr('id' , 'market' );  
 });
 })
 
@@ -237,9 +237,7 @@ const onSubmit=()=>{
   }
 
 }
-const check=(chek:any)=>{
-  console.log(chek,"check")
-}
+
     return(<>
     <Toaster     containerStyle={{zIndex:"999999999999999999"}}  position="top-right"/>
      <div className="container-fluid">
