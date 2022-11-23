@@ -120,8 +120,8 @@ function ClientContractCard(props: any) {
               <b style={{ background: "transparent", zIndex: "9" }}>{candidatMotivationIcons[props.data.clientMotivation]?.icon + " " + candidatMotivationIcons[props.data.clientMotivation]?.motivation}</b>
             </p>
             </div>
-            <div ><p className="textClientCard">Num of position : <b>  {props.data.numberOfPosts ? props.data.numberOfPosts : "✘ No Posts!"}</b> </p></div>
-
+            <div className="d-flex" style={{width:"130%"}}><p  className="textClientCard">Num of position : <b style={{marginLeft:"3px"}}>  {props.data.numberOfPosts ? props.data.numberOfPosts : "✘ No Posts!"}</b> </p></div>
+                 
 
           </div>
           <div className="col-4 px-0 d-flex justify-content-center align-items-center">

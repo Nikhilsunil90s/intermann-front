@@ -46,7 +46,7 @@ function JobAdsList (){
     
       
 useEffect(()=>{
- 
+ if(TabName !== "" && jobCardActive.length === 0 && jobCardInActive.length === 0 )
   fetchUsers(TabName).then((resData)=>{
     {
       if(resData.status){
