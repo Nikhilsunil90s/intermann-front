@@ -1298,12 +1298,12 @@ let Editdata ={state:profile,path:"/clientSigned"}
                             )
                             ? profile.salary_hours
                                 .map((el,i) => {
-                                  return el.salaryPerHour;
+                                  return el.salaryPerHour + "€";
                                 })
                                 .slice(0, 1)
-                            : "✘ No Salary"
-                          : "✘ No Salary"}{" "}
-                        €
+                            : "✘ No Salary!"
+                          : "✘ No Salary!"}{" "}
+                        
                       </span>
                     </div>
                     <div className="d-flex ">
@@ -1467,7 +1467,7 @@ let Editdata ={state:profile,path:"/clientSigned"}
                         }
 {Archived ?
                    Archived.map((el,i)=>(
-<>      <div className="col-3 d-flex align-items-center" key={i}>
+<>      <div className="col-3 pr-0 mb-1 d-flex align-items-center" key={i}>
 <img
   style={{ width: "20%" }}
   className="pr-1"

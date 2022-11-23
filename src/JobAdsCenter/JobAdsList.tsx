@@ -17,7 +17,7 @@ function JobAdsList (){
     const [UpdateFiled,setUpdateField]=useState(false)
     const [activeStatus,setActiveStatus]=useState(false)
     const [InactiveStatus,setInActiveStatus]=useState(false)
-    const [checkLoad,setCheckLoad]=useState(false)
+    const [checkLoad,setCheckLoad]=useState(true)
     const [tabItems] = useState([
         {
           text: "FRANCE",
@@ -46,6 +46,7 @@ function JobAdsList (){
     
       
 useEffect(()=>{
+  if(checkLoad === true && jobCardActive.length === 0 && jobCardInActive.length === 0 || UpdateFiled === true){
   fetchUsers(TabName).then((resData)=>{
     {
       if(resData.status){
@@ -57,7 +58,7 @@ useEffect(()=>{
         setJobCardActive([])
         setJobCardInActive([])
         setInActiveStatus(true)
-        setCheckLoad(true)
+        
         //  let Cuser=  resData.data.filter((el)=>el?.username)
         //   let users=  resData.data.filter((el)=>el?.username )
         resData.data.map((el)=>{
@@ -65,13 +66,18 @@ useEffect(()=>{
             
             active.push(el)
             setJobCardActive([...active])
+            if(jobCardActive.length > 0){
+              setCheckLoad(false)
+            }
            
           }else
           if(el.adStatus === "Inactive"){
            
             Inactive.push(el)
             setJobCardInActive([...Inactive]) 
-
+            if(jobCardInActive.length > 0){
+              setCheckLoad(false)
+            }
           }
 
       
@@ -83,14 +89,14 @@ useEffect(()=>{
         setJobCardActive([])
         setJobCardInActive([])
        setUpdateField(false)
-      setCheckLoad(false)
+       setCheckLoad(false)
 
 
       }
    }
   
   
-  })
+  })}
   const FolderName = tabItems.filter((el, i) => i == activeTab);
   TabName =FolderName.map((el)=>(el.value))
  

@@ -39,7 +39,7 @@ name:"leadCountryMarket"
 ])as any
 
 useEffect(()=>{
-  $('span.css-1f43avz-a11yText-A11yText').each(function(i){
+  $('div.market').each(function(i){
     $(this).attr('id' , 'market' );  
 });
 })
@@ -50,8 +50,8 @@ useEffect(()=>{
 });
 })
 useEffect(()=>{
-  $('div.Lead').each(function(i){
-    $(this).attr('id' , 'Lead' + (i+1)); 
+  $('div.lead').each(function(i){
+    $(this).attr('id' , 'lead' + (i+1)); 
 });
 })
 
@@ -257,7 +257,7 @@ const onSubmit=()=>{
                                 name="leadCountryMarket"
                                 closeMenuOnSelect={true}
                                 placeholder="‎ ‎ ‎ ‎ ‎  ‎ Select contry market"
-                                className="basic-multi-select"
+                                className="basic-multi-select market"
                                 classNamePrefix="select"
                                 onChange={onSelectChange}
                                 options={SelectContry}
@@ -335,7 +335,7 @@ const onSubmit=()=>{
                                 name="ad"
                                 closeMenuOnSelect={true}
                                 placeholder="‎ ‎ ‎ ‎ ‎  ‎ Job Name"
-                                className="basic-multi-select Lead"
+                                className="basic-multi-select lead"
                                 classNamePrefix="select"
                                 onChange={onSelectChange}
                                 options={jobNames}

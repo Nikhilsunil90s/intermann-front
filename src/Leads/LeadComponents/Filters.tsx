@@ -11,6 +11,7 @@ import { addDays } from "date-fns";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { dataURLFileLoader } from "react-doc-viewer";
+import { isNonNullExpression } from "typescript";
 
 function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply}) {
   let CaNam = [] as any;
@@ -151,6 +152,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
   useEffect(() => {
     // event listeners
     fetchJobName(market);
+   if(LeadsCard.length > 0) {
     LeadsCard.map((el) => {
       if (el.leadCandidatName) {
         CaNam.push({
@@ -176,9 +178,16 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
           color: "#FF8B00",
         });
       }
-      setContactOp([...Contact]);
-      setCanName([...CaNam]);
-      setemailOp([...Email]);
+      setContactOp([{ value: "No", label: "Select Contact", name: "phoneNumber", color: "#FF8B00" },...Contact]);
+      setCanName([{ value: "No", label: "Select Candidate", name: "leadCandidatName", color: "#FF8B00" },...CaNam]);
+      setemailOp([{ value: "No", label: "Select Email", name:"email", color: "#FF8B00" },...Email]);
+    })}else{
+      setContactOp([{ value: "No", label: "No Contact", name: "phoneNumber", color: "#FF8B00" }]);
+      setCanName([{ value: "No", label: "No Candidate", name: "leadCandidatName", color: "#FF8B00" }]);
+      setemailOp([{ value: "No", label: "No Email", name:"email", color: "#FF8B00" }]);
+    }
+
+
       if(fromPerson.length  === 0){
         setfromPerson([  { value: "TikTok", label: "TikTok", name: "leadSource", color: "#FF8B00" },
         {
@@ -251,10 +260,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
     { value: "No", label: "Not Yet", name: "leadPreContacted", color: "#FF8B00" },
     ])
    }
- 
 
-
-    });
   }, [LeadsCard,market]);
 
   const dateChange =(date)=>{

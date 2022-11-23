@@ -10,9 +10,12 @@ import moment from 'moment';
 function ClientContractCard(props: any) {
   const navigate = useNavigate();
 
+  // const [archivedEMP,setArchivedEMP]=useState(props.data.employeesWorkingUnder != null && props.data.employeesWorkingUnder != [] && props.data.employeesWorkingUnder.length > 0 ?   props.data.employeesWorkingUnder.map((el,i) => ( el.)))
   const candidatImportanceIcons = [{ icon: <><StarRating style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /></> }, { icon: <><StarRating style={{ marginRight: "3px", width: "70%" }} /><StarRating style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /></> }, { icon: <><StarRating style={{ marginRight: "3px", width: "70%" }} /> <StarRating style={{ marginRight: "3px", width: "70%" }} /> <StarRating style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /></> }, { icon: <><StarRating style={{ marginRight: "3px", width: "70%" }} /> <StarRating style={{ marginRight: "3px", width: "70%" }} /> <StarRating style={{ marginRight: "3px", width: "70%" }} /> <StarRating style={{ marginRight: "3px", width: "70%" }} /> <Empty style={{ marginRight: "3px", width: "70%" }} /></> }, { icon: <><StarRating style={{ marginRight: "3px", width: "70%" }} /><StarRating style={{ marginRight: "3px", width: "70%" }} /> <StarRating style={{ marginRight: "3px", width: "70%" }} /> <StarRating style={{ marginRight: "3px", width: "70%" }} /> <StarRating style={{ marginRight: "3px", width: "70%" }} /></> }];
   const candidatMotivationIcons = [{ icon: "✘", motivation: '✘!' }, { icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
   const [showArchiveModal, setShowArchiveModal] = useState(false)
+  const [Archived,setArchived]=useState(  props.data.employeesWorkingUnder ?   props.data.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived")):null )
+  const [preSelect,setPreselected]=useState( props.data.employeesWorkingUnder ?   props.data.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Pre-Selected")):null )
   const CardOption = [{
     value: "Edit Profile", label: "Edit Profile"
   },
@@ -169,12 +172,19 @@ function ClientContractCard(props: any) {
               <div className="row">
 
 
-                {
-                  props.data.employeesWorkingUnder != null && props.data.employeesWorkingUnder != [] && props.data.employeesWorkingUnder.length > 0 ?
-                    props.data.employeesWorkingUnder.map((el,i) => (
+              {props.data.employeesWorkingUnder !== null &&
+                props.data.employeesWorkingUnder.length > 0 ? 
+                  props.data.employeesWorkingUnder.map((el,i) => (
+                
+                  
 
-                      <div className="col-4 pr-0" key={i}>
-                        {el.candidatStatus !== "Archived" && el.candidatStatus !== "Pre-Selected" || el.candidatStatus !== "Archived" && el.candidatStatus !== "Pre-Selected" ?
+                      <>
+                           {  el.candidatStatus == "Archived" ||  el.candidatStatus == "Pre-Selected" ?
+                         
+                         null
+ :       
+ <>             
+ <div className="col-4 pr-0" key={i} style={{marginBottom:"5px"}}>
                           <div className="d-flex align-items-center cursor-pointer" onClick={(e) => viewFullProfile(el)}>
 
                             <img
@@ -187,36 +197,19 @@ function ClientContractCard(props: any) {
                               {el.candidatName.length > 15 ?  el.candidatName.slice(0,15).toLocaleUpperCase() + ".." : el.candidatName.toLocaleUpperCase() }
                             </p>
                           </div>
-                          :
+</div>
+</>
+}
+</> 
+ /* :
                           el.candidatStatus == "Pre-Selected" ?
-                            <div className="d-flex align-items-center cursor-pointer" >
-
-                              <img
-                                src={require("../../images/menSigned.svg").default}
-                                style={{ width: "15%" }}
-                              />
-                              <p style={{ fontSize: "10px", marginLeft: "5px", color: "#fd9e02" }} className="mb-0 " data-bs-toggle="tooltip" data-bs-placement="bottom" title={`Pre-Selected ${el.candidatName.toLocaleUpperCase()} `} >
-
-
-                                {el.candidatName.length > 15 ?  el.candidatName.slice(0,15).toLocaleUpperCase() + ".." : el.candidatName.toLocaleUpperCase() }
-                              </p>
-                            </div>
+                          
                             :
                             
-                              <div className="d-flex align-items-center cursor-pointer" >
-
-                                <img
-                                  src={require("../../images/menSigned.svg").default}
-                                  style={{ width: "15%" }}
-                                />
-                                <p style={{ fontSize: "10px", marginLeft: "5px", color: "red" }} className="mb-0 " data-bs-toggle="tooltip" data-bs-placement="bottom" title={`Archived ${el.candidatName.toLocaleUpperCase()}`} >
-                                  {el.candidatName.length > 15 ?  el.candidatName.slice(0,15).toLocaleUpperCase() + ".." : el.candidatName.toLocaleUpperCase() }
-                                </p>
-                              </div>
+                    
  
                     }
-                      </div>
-
+                      </div> */
                     ))
 
                     :
@@ -244,9 +237,52 @@ function ClientContractCard(props: any) {
                     </div>
 
                 }
+{
+  preSelect ? 
+preSelect.map((el,i)=>(
+  <>             
+  <div className="col-4 pr-0" key={i} style={{marginBottom:"5px"}}>
+  <div className="d-flex align-items-center cursor-pointer" >
+
+                            <img
+                              src={require("../../images/menSigned.svg").default}
+                              style={{ width: "15%" }}
+                            />
+                            <p style={{ fontSize: "10px", marginLeft: "5px", color: "#fd9e02" }} className="mb-0 " data-bs-toggle="tooltip" data-bs-placement="bottom" title={`Pre-Selected ${el.candidatName.toLocaleUpperCase()} `} >
 
 
+                              {el.candidatName.length > 15 ?  el.candidatName.slice(0,15).toLocaleUpperCase() + ".." : el.candidatName.toLocaleUpperCase() }
+                            </p>
+                          </div>
+                          </div>
+                          </>
+))
+  :
+  null
+}
 
+{
+  Archived ? 
+Archived.map((el,i)=>(
+  <>             
+ <div className="col-4 pr-0" key={i} style={{marginBottom:"5px"}}> 
+  <div className="d-flex align-items-center cursor-pointer" >
+
+  <img
+    src={require("../../images/menSigned.svg").default}
+    style={{ width: "15%" }}
+  />
+  <p style={{ fontSize: "10px", marginLeft: "5px", color: "red" }} className="mb-0 " data-bs-toggle="tooltip" data-bs-placement="bottom" title={`Archived ${el.candidatName.toLocaleUpperCase()}`} >
+    {el.candidatName.length > 15 ?  el.candidatName.slice(0,15).toLocaleUpperCase() + ".." : el.candidatName.toLocaleUpperCase() }
+  </p>
+</div>
+</div>
+
+</>
+))
+  :
+  null
+}
               </div>
             </div>
           </div>

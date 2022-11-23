@@ -1386,7 +1386,7 @@ JobAdsCards.length > 0 ?
                         className="ClientFontMotivationsStylingS"
                         style={{ marginBottom: "0px" }}
                       >
-                        {profile.enteredBy}
+                        {profile.enteredBy ? profile.enteredBy : "✘✘!"}
                       </span>
                     </div>
                     <div>
