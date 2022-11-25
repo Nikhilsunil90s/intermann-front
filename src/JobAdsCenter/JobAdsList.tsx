@@ -19,7 +19,8 @@ function JobAdsList (){
     const [UpdateFiled,setUpdateField]=useState(false)
     const [activeStatus,setActiveStatus]=useState(false)
     const [InactiveStatus,setInActiveStatus]=useState(false)
-    const [checkLoad,setCheckLoad]=useState(true)
+    const [AllJobs,setAllJobs]=useState([])
+    
     const [tabItems] = useState([
         {
           text: "FRANCE",
@@ -39,6 +40,8 @@ function JobAdsList (){
         setActiveTab(index);
          active=[]
          Inactive=[]
+         setJobCardActive([])
+         setJobCardInActive([])
         const FolderName = tabItems.filter((el, i) => i == index);
         TabName =FolderName.map((el)=>(el.value))
         setUpdateField(true)
@@ -48,30 +51,19 @@ function JobAdsList (){
     
       
 useEffect(()=>{
-  if(checkLoad === true && jobCardActive.length === 0 && jobCardInActive.length === 0 || UpdateFiled === true){
+  
   fetchUsers(TabName).then((resData)=>{
+ 
     {
       if(resData.status){
        setUpdateField(false)
+       setAllJobs([...resData.data])
        if(resData.data.length > 0){
         active=[]
         Inactive=[]
         setActiveStatus(true)
-        setJobCardActive([])
-        setJobCardInActive([])
         setInActiveStatus(true)
-        
-        //  let Cuser=  resData.data.filter((el)=>el?.username)
-        //   let users=  resData.data.filter((el)=>el?.username )
-       let Active= resData.data.filter((el)=>(
-          el.adStatus === "Active"
-           ))
-           let InActive = resData.data.filter((el)=>(
-            el.adStatus !== "Active"
-
-           ))
-           setJobCardActive([...Active])
-           setJobCardInActive([...InActive])
+        setUpdateField(false)
    
        }
     
@@ -79,21 +71,35 @@ useEffect(()=>{
         setJobCardActive([])
         setJobCardInActive([])
        setUpdateField(false)
-       setCheckLoad(false)
+
 
 
       }
    }
   
   
-  })}
+  })
   const FolderName = tabItems.filter((el, i) => i == activeTab);
   TabName =FolderName.map((el)=>(el.value))
  
     fetchUsers(TabName)
 
-  },[UpdateFiled,jobCardActive])
+  },[UpdateFiled])
 
+  useEffect(()=>{
+    if(AllJobs.length > 0 && jobCardActive.length === 0 && jobCardInActive.length ===0){
+      let Active= AllJobs.filter((el)=>(
+        el.adStatus === "Active"
+         ))
+         let InActive = AllJobs.filter((el)=>(
+          el.adStatus !== "Active"
+  
+         ))
+         setJobCardActive([...Active])
+         setJobCardInActive([...InActive])
+    }
+ 
+  },[AllJobs])
 
 const  fetchUsers=async(TabName)=>{
 return    await fetch(API_BASE_URL + `allAds/?market=${TabName}`,{
