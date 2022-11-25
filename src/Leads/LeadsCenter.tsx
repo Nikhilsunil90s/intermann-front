@@ -10,6 +10,7 @@ import Error from "../components/Loader/SearchBarError"
 import { API_BASE_URL } from "../config/serverApiConfig";
 import {toast,Toaster} from "react-hot-toast";
 import Carousel from "react-multi-carousel";
+import ProfilesLoader from "../../src/components/Loader/ProfilesLoader"
 
 let TabName=""
 function LeadsCenter() {
@@ -203,7 +204,8 @@ useEffect(()=>{
           }
     </Carousel>
     :
-    null
+    <div className="col-12 mt-2 d-flex justify-content-center" >    <ProfilesLoader  width ={250} height={200} fontSize={"26px"} fontWeight={"600"}  Title={"Please Wait!"}/> </div>
+
         }
     </div>
           {/* End Card */}

@@ -10,6 +10,7 @@ import { ProgressBar } from "react-bootstrap";
 import Share from "../../components/Loader/Share"
 import ProfileLoader from "../../components/Loader/ProfilesLoader";
 import '../../CSS/CanEmpl.css' 
+import { motion } from "framer-motion";
 
 let RenameData=[]
 let UploadName ="";
@@ -426,7 +427,17 @@ const onTabClick = (e, index: any) => {
                       documentList.length > 0  ?
                         documentList.map((doc, index) =>
                         doc.originalName ?
-                          <div className="col-6 mx-0">
+                        <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ rotate:0, scale:1 }}
+                        transition={{
+                          type: "spring",
+                          stiffness:60,
+                          damping: 15
+                        }}
+                        className="col-6 mx-0"
+                      >
+                         
                             <div className="row CardClassDownload mt-1 mx-0">
                               <div className="col-4 d-flex align-items-center ">
                                 <p className="download-font mb-0">{doc.originalName}</p>
@@ -459,7 +470,7 @@ const onTabClick = (e, index: any) => {
                                 />
                               </div>
                             </div>
-                          </div>
+                          </motion.div>
                           :
                           null
                         ) :
@@ -516,7 +527,16 @@ const onTabClick = (e, index: any) => {
                       ListLink.map((Link, index) => (
                         ListLink.length > 0 ?
                        
-                          <div className="col-6 mx-0">
+                        <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ rotate:0, scale:1 }}
+                        transition={{
+                          type: "spring",
+                          stiffness:60,
+                          damping: 15
+                        }}
+                        className="col-6 mx-0"
+                      >
                             <div className="row CardClassDownload mt-1 mx-0">
                             <div
                               className="col-4 d-flex align-items-center cursor-pointer"
@@ -572,7 +592,7 @@ const onTabClick = (e, index: any) => {
                               />
                             </div>
                           </div>
-                        </div>
+                        </motion.div>
                         
                       
                       :

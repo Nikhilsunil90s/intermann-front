@@ -1,6 +1,8 @@
 import React,{useRef,useEffect,useState} from "react";
 import MonthModal from "../Modal/NotesModal";
 import { API_BASE_URL } from "../../config/serverApiConfig";
+import { motion } from "framer-motion";
+
 function LeadCenterMiniCard({props,activeUser,setUserCardList}) {
   const [monthModal,setMonthModal] =useState(false)
   
@@ -50,7 +52,20 @@ function LeadCenterMiniCard({props,activeUser,setUserCardList}) {
     }
   return (
     <>
-      <div className="col-12 card ml-0 my-1 mr-0"  style={{ padding: "5px 10px", borderRadius: "10px",width:"295px" }}>
+          <motion.div
+  initial={{ scale: 0 }}
+  animate={{ rotate: 0, scale:1}}
+  transition={{
+    type: "spring",
+    stiffness: 120,
+    damping: 70
+  }}
+ whileTap={{ scale: 0.8 }} 
+  className="col-12 card ml-0 my-1 mr-0"  style={{ padding: "5px 10px", borderRadius: "10px",width:"295px" }}
+
+>
+        
+      
       
             <div className="card-content">
               <div className="card-body">
@@ -125,7 +140,7 @@ function LeadCenterMiniCard({props,activeUser,setUserCardList}) {
               </div>
             </div>
    
-      </div>
+      </motion.div>
     </>
   );
 }

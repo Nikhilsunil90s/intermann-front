@@ -13,6 +13,7 @@ import Loader from "../../components/Loader/loader";
 import { ReactComponent as TurnoFF } from "../../images/FatX.svg";
 import { ReactComponent as TurnOn } from "../../images/base-switch_icon.svg";
 import ErrorLoader from '../../components/Loader/SearchBarError'
+import { motion } from "framer-motion";
 
 
 declare namespace JSX {
@@ -1367,9 +1368,20 @@ setTimeout(()=>{
                   {  status? 
                    filterData.length > 0 ? 
                       filterData.map((profile, index) => (
-                        <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left" key={profile._id}>
+                        <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ rotate:0, scale:1}}
+                        transition={{
+                          type: "spring",
+                          stiffness: 180,
+                          damping: 20
+                        }}
+                        className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left" key={profile._id}
+              
+                      >
+                       
                           <ClientToDoCard data={profile}  />
-                        </div>
+                        </motion.div>
                       ))
                      
                      

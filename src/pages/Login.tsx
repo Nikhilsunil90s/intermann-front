@@ -4,6 +4,7 @@ import { connect, useDispatch, useSelector, Connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUserAction, logout } from "../redux/actions/userActions";
 import { Toaster, toast } from "react-hot-toast";
+import { motion } from "framer-motion";
 
 function Login() {
   const navigate = useNavigate();
@@ -270,11 +271,14 @@ function useOnClickOutside(ref, handler) {
                       </div>
                       <br />
                       <div className="d-flex">
-                        <button
-                          type="submit"
-                          className="sign-in-btn mx-auto btn"
-                          disabled={LoginLoad}
-                        >
+                        
+                  <motion.button
+  
+  type="submit"
+  className="sign-in-btn mx-auto btn"
+  disabled={LoginLoad} whileTap={{ scale: 0.8 }} 
+>
+                   
                           <div className="col-12">
                             <div className="row">
                               <div className="col-2 d-flex justify-content-start align-items-center">
@@ -289,7 +293,8 @@ function useOnClickOutside(ref, handler) {
                             </div>
                           </div>
                    
-                        </button>
+                          </motion.button>
+
                       </div>
                     </div>
                   </form>

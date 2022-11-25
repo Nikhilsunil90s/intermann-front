@@ -11,6 +11,7 @@ import ProfileLoader from "../components/Loader/ProfilesLoader"
 import set from "date-fns/set";
 import ErrorLoader from '../components/Loader/SearchBarError'
 import Error404Loader from '../components/Loader/404Error'
+import { motion } from "framer-motion";
 
 
 declare global {
@@ -1138,9 +1139,21 @@ setTimeout(()=>{
                   {status ? 
                     filterData.length > 0 ? 
                       filterData.map((profile, index) => (
-                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 mt-1  pr-0" key={index}>
+                        <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ rotate:0, scale:1 }}
+                        transition={{
+                          type: "spring",
+                          stiffness:60,
+                          damping: 15
+                        }}
+                        className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 mt-1  pr-0" key={index}
+               
+                      >
+                       
                           <EmbaucheProfileCard path={false} props={profile}  NottifySuccess={notifyMoveSuccess} NottifyErr={notifyMoveError}  />
-                        </div>
+                          </motion.div>
+
                       ))
              
                      : 

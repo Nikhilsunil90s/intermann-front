@@ -9,7 +9,7 @@ import chroma from 'chroma-js';
 import {ReactComponent as RatingStar} from "../../images/RatingStar.svg"
 import {ReactComponent as Empty} from "../../images/emptyStar.svg"
 import Switch from "react-switch";
-import  ProfileLoader from "../../components/Loader/ProfilesLoader"
+import { motion } from "framer-motion";
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 import toast, { Toaster } from 'react-hot-toast';
@@ -1089,9 +1089,19 @@ setStatus(false)
                 filterData.length > 0 ?
                  
                     filterData.map((profile, index) => (
-                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left" key={index}>
+                      <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ rotate:0, scale:1}}
+                      transition={{
+                        type: "spring",
+                        stiffness: 180,
+                        damping: 20
+                      }}
+                      className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left" key={index}
+            
+                    >
                         <ClientContractCard data={profile} />
-                      </div>
+                      </motion.div>
                     ))
                     :
 

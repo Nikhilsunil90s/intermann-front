@@ -136,7 +136,7 @@ const PreSelectedCard = (props: any) => {
                   <b className="">
                     {props.data.candidatAge
                       ? "Age :" + props.data.candidatAge
-                      : "Age Not Available!"}
+                      : "Age : ✘!"}
                   </b>
                 </p>
                 <div>

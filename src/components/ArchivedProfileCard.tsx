@@ -110,7 +110,7 @@ const ArchivedProfileCard = (props: any) => {
                     </div>
                     <div className="col-7 ArchivedCard pt-1 px-1" >
                     <p style={{width:"100%"}} className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.props.candidatName.toLocaleUpperCase()}>{props.props.candidatName.length > 15 ? props.props.candidatName.slice(0, 16).toLocaleUpperCase() + "..." : props.props.candidatName.toLocaleUpperCase()}</p>
-                    <div className="text-dark mb-0">{props.props.candidatAge ?  <p className="age00 ml-0 mb-0">Age :  {props.props.candidatAge}</p> : <b>✘ Age Not Available!</b>}</div>
+                    <div className="text-dark mb-0">{props.props.candidatAge ?  <p className="age00 ml-0 mb-0">Age :  {props.props.candidatAge}</p> : <b>Age : ✘!</b>}</div>
                         <div >  <p className="text-dark d-flex" style={{fontWeight:"600"}}>{props.props.candidatMotivation ?props.props.candidatMotivation == 0 ? candidatMotivationIcons[props.props.candidatMotivation ].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation :  candidatMotivationIcons[props.props.candidatMotivation].icon +" "+ candidatMotivationIcons[props.props.candidatMotivation].motivation : "✘No Motivation!"}
                         </p>
                         </div>

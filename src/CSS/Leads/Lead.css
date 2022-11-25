@@ -633,3 +633,37 @@ width: 300px !important;
     font-size: 16px;
     border:1px solid #000000
 }
+.AddLeadsFormSelect:hover p {
+  background: transparent;
+  border-radius: 100px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: -0.105991px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+.AddLeadsFormSelect:hover {
+  background: #f09c3dda;
+  border-radius: 15px;
+
+}
+.AddLeadsFormSelect {
+  background: #ffffff;
+  border-radius: 15px;
+  height: 200px;
+}
+.AddLeadsFormSelect p {
+  background: transparent;
+  border-radius: 100px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: -0.105991px;
+  text-transform: uppercase;
+  color: #000000;
+}

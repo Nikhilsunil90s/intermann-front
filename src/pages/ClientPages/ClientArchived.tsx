@@ -14,6 +14,7 @@ import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 import toast, { Toaster } from 'react-hot-toast';
 import ErrorLoader from "../../components/Loader/SearchBarError"
+import { motion } from "framer-motion";
 
 
 declare global {
@@ -1133,9 +1134,19 @@ setStatus(false)
                   filterData.length > 0 ? 
    
                       filterData.map((profile, index) => (
-                        <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left" key={profile._id}>
+                        <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ rotate:0, scale:1}}
+                        transition={{
+                          type: "spring",
+                          stiffness: 180,
+                          damping: 20
+                        }}
+                        className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left" key={profile._id}
+              
+                      >
                           <ClientCardArchived  data={profile}  />
-                        </div>
+                        </motion.div>
                       ))
                      : 
                      

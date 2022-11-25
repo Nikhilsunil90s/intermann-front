@@ -122,7 +122,7 @@ const navigate = useNavigate();
                     </div>
                     <div className="col-7 EmbauchCard pt-1 px-0" >
                     <p style={{width:"100%"}}  className="text-dark mb-0"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={profile.candidatName.toLocaleUpperCase()}><b className="TopTodoTitle">{profile.candidatName.length > 20 ? profile.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : profile.candidatName.toLocaleUpperCase()}</b></p>
-                    <div className="text-dark mb-0">{profile.candidatAge ?  <p className=" ml-0 mb-0"> <b className="TopTodoTitle" style={{marginLeft:"10px "}}>Age :  {profile.candidatAge}</b></p> : <p className=" mb-0"> <b className="TopTodoTitle">✘ Age Not Available!</b></p>}</div>
+                    <div className="text-dark mb-0">{profile.candidatAge ?  <p className=" ml-0 mb-0"> <b className="TopTodoTitle" style={{marginLeft:"10px "}}>Age :  {profile.candidatAge}</b></p> : <p className=" mb-0"> <b className="TopTodoTitle" >Age : ✘!</b></p>}</div>
                     <div >  <p className="text-dark d-flex mb-0"> <b>{profile.candidatMotivation ?profile.candidatMotivation  == 0 ? candidatMotivationIcons[profile.candidatMotivation].icon +" "+ candidatMotivationIcons[profile.candidatMotivation].motivation :  candidatMotivationIcons[profile.candidatMotivation].icon +" "+ candidatMotivationIcons[profile.candidatMotivation].motivation : "✘No Motivation!"}</b>
        </p>
        </div>

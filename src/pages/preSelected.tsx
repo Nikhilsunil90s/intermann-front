@@ -12,6 +12,7 @@ import chroma from 'chroma-js';
 import ProfileLoader from "../components/Loader/ProfilesLoader"
 import ErrorLoader from '../components/Loader/SearchBarError'
 import Error404Loader from '../components/Loader/404Error'
+import { motion } from "framer-motion";
 
 
 
@@ -1580,9 +1581,20 @@ styles={colourStyles}
                   {status ? 
                     filterData.length > 0 ? 
                       filterData.map((profile, index) => (
-                        <div className="col-md-6 col-xxl-4  col-xl-4 col-lg-4 pd-left" key={index}>
+                        <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ rotate:0, scale:1 }}
+                        transition={{
+                          type: "spring",
+                          stiffness:60,
+                          damping: 15
+                        }}
+                        className="col-md-6 col-xxl-4  col-xl-4 col-lg-4 pd-left" key={index}
+             
+                      >
+                   
                           <PreSelectedCard data={profile}  />
-                        </div>
+                        </motion.div>
                       ))
                      : 
                       <div className="col-12">

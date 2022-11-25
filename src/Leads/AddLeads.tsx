@@ -9,7 +9,22 @@ import { ReactComponent as Romania } from "../images/romania.svg";
 import {API_BASE_URL} from "../config/serverApiConfig"
 import {toast ,Toaster} from "react-hot-toast"
 import $ from "jquery"
+import { FileUploader } from "react-drag-drop-files";
+import { ProgressBar } from "react-bootstrap";
+import axios from 'axios'
+import ProfileLoader from "../components/Loader/ProfilesLoader";
+import { motion } from "framer-motion";
+
+
 function AddLeads(){
+  const axiosInstance = axios.create({
+    baseURL: API_BASE_URL,
+  })
+  const [CustomForm,setCustomForm]=useState(false)
+  const [CvsUploadForm,setCvsUploadForm]=useState(false)
+  const [SelectFormSide,setSelectFormSide] = useState(true)
+  const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
+  const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
   const [SelectContry]=useState([{
     value:"France",
     label:(<> <France
@@ -66,6 +81,7 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
 ])
   const [selectJobInput,setJobInput]=useState()as any
   const [btnDS,setBtnDS]=useState(false)
+  const [progress, setProgress] = useState<any>(0);
   const [data,setData]=useState({
     leadCountryMarket:"",
     leadCandidatName:"",
@@ -76,6 +92,36 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
     leadPrice:"",
     leadNotes:""
   })
+  const FilesUploads=(file)=>{
+    const fileUploaded = file;
+    let formdata = new FormData();
+    formdata.append('document', fileUploaded)
+      axiosInstance.post("uploadCandidatDocuments", formdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": "Bearer " + localStorage.getItem('token')
+        },
+        onUploadProgress: data => {
+          //Set the progress value to show the progress bar
+          setProgress(Math.round((100 * data.loaded) / data.total))
+        },
+      })
+      .then(resData => {
+        if (resData.data.status) {
+          setProgress(0); 
+          notifyDocumentUploadSuccess();
+        } else {
+      
+        }
+      })
+      .catch(err => {
+        console.log(err)
+    
+  
+      })
+    return;
+  }
+  
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: "white" }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -248,155 +294,329 @@ const onSubmit=()=>{
                     <h3 className="pl-1 mb-0">ADD LEAD FEATURE</h3>
                     </Link >
                 </div>
-                <div className="col-12 mt-2 p-1" style={{background:"#ffff",borderRadius:"10px"}}>
-                 <div className="row">
-                    <div className="col-4">
-                        <label className="Form-styling">Country market </label>
-                      
-                        <Select
-                                name="leadCountryMarket"
-                                closeMenuOnSelect={true}
-                                placeholder="‎ ‎ ‎ ‎ ‎  ‎ Select contry market"
-                                className="basic-multi-select market"
-                                classNamePrefix="select"
-                                onChange={onSelectChange}
-                                options={SelectContry}
-                                styles={colourStyles}
-                                
-                              />
-                      <span className="text-small pl-1">Options are France; Suisse; Romania (select is enough) required*</span>
-                    </div>
-                    <div className="col-4">
-                    <label className="Form-styling">Candidate Name </label>
-                    <input
-                        type="text"
-                        style={{fontSize:"12px"}} className="form-control nameTransform"
-                        placeholder="Candidate Name"
-                        id="Candidate_Name"
-                        name="leadCandidatName"
-                        onChange={onInputFormChange}
-                         required
-                      />
-                      <span className="text-small pl-1">Required*</span>
+               {
+                SelectFormSide ? 
+        
+   <div className="col-12 mt-2  d-flex justify-content-center align-items-center" style={{borderRadius:"10px",height:"68vh" ,width:"100vw"}} >
 
-                    </div>
-                    <div className="col-4">
-                    <label className="Form-styling">Phone Number </label>
-                    <input
-                        type="text"
-                        style={{fontSize:"12px"}} className="form-control nameTransform"
-                        placeholder="Phone Number"
-                        id="phone_Number"
-                        name="phoneNumber"
-                        onChange={onInputFormChange}
-                        
-                      />
-                    </div>
-                    <div className="col-4 mt-1">
-                        <label className="Form-styling">Source </label>
-                        <Select
-                                name="leadSource"
-                                closeMenuOnSelect={true}
-                                placeholder="‎ ‎ ‎ ‎ ‎  ‎ e.g. Facebook, TikTok. SEO..."
-                                className="basic-multi-select source"
-                                classNamePrefix="select"
-                                onChange={onSelectChange}
-                                options={fromPerson}
-                                styles={colourStyles}
-                              inputId="leadSource"
-                              />
+    <div className="row justify-content-evenly" style={{width:"100vw"}}>
+    <motion.div
+  initial={{ scale: 0 }}
+  animate={{ rotate: 360, scale:1}}
+  transition={{
+    type: "spring",
+    stiffness: 50,
+    damping: 15
+  }}
+  className="col-4"
+  whileHover={{ scale: 1.4 }} whileTap={{ scale: 0.8 }} 
+>
+    <div className="cursor-pointer d-flex align-items-center justify-content-center AddLeadsFormSelect" onClick={()=>{setSelectFormSide(false); setCustomForm(true)}}  >
+      <p className="mb-0 align-items-center">Add Lead Custom Form <img  src={require("../images/nextFwd.png")}  style={{width:"25px",marginLeft:"5px"}}  /></p>
+</div>
+</motion.div>
+
+<motion.div
+  initial={{ scale: 0 }}
+  animate={{ rotate:-360, scale:1 }}
+  transition={{
+    type: "spring",
+    stiffness:50,
+    damping: 15
+  }}
+  className="col-4"
+  whileHover={{ scale: 1.4 }} whileTap={{ scale: 0.8 }} 
+>
+<div className=" cursor-pointer d-flex align-items-center justify-content-center AddLeadsFormSelect" onClick={()=>{setSelectFormSide(false);setCvsUploadForm(true)}}  >
+<p className="mb-0 align-items-center">Add Leads With CVS  <img  src={require("../images/nextFwd.png")}  style={{width:"25px",marginLeft:"5px"}}  /></p>
+
+</div>
+</motion.div>
+
+</div>
+    </div>
+ 
+                    :
+
+                null
+               }
+                {
+                  CustomForm ?
+                  <div className="col-12 mt-2 p-1" style={{background:"#ffff",borderRadius:"10px"}}>
+                  <div className="row">
+                     <div className="col-4">
+                         <label className="Form-styling">Country market </label>
                        
-                      <span className="text-small pl-1">Options are Facebook; TikTok; SEO; Google Ads; Ejob; Jooble; Olx; Public21; Income Call; Undefined; Taboola; Outbrain; Other; Snapchat; SMS lead (select is enough) required*</span>
-                    </div>
-                    <div className="col-4 mt-1">
-                    <label className="Form-styling">Job Name </label>
-                    <div className="col-12">
-                      <div className="row">
-                        <div className="col-6">
-                          <div className="row">
-                            <div className="col-2 pl-0 d-flex align-items-center ColorInput">
-                        <input type={"radio"} name="jobName" value="true" className="yesNoRadio" onClick={()=>setJobInput(true)} /></div>  <div className="col-10 px-0"><span className="SelectJobAccording">Select job according to job center(active or inactive ads)</span></div>
-                        </div> </div>
-                      
-                        <div className="col-6">
-                        <div className="row">
-                            <div className="col-2 pl-0 d-flex align-items-center ColorInput">
-                        <input type={"radio"} name="jobName" value="false" className="yesNoRadio" onClick={()=>setJobInput(false)} /></div><div className="col-10 px-0"><span className="SelectJobAccording">Custom free text input(Text input no limitation) </span></div>
-                         </div>
+                         <Select
+                                 name="leadCountryMarket"
+                                 closeMenuOnSelect={true}
+                                 placeholder="‎ ‎ ‎ ‎ ‎  ‎ Select contry market"
+                                 className="basic-multi-select market"
+                                 classNamePrefix="select"
+                                 onChange={onSelectChange}
+                                 options={SelectContry}
+                                 styles={colourStyles}
+                                 
+                               />
+                       <span className="text-small pl-1">Options are France; Suisse; Romania (select is enough) required*</span>
+                     </div>
+                     <div className="col-4">
+                     <label className="Form-styling">Candidate Name </label>
+                     <input
+                         type="text"
+                         style={{fontSize:"12px"}} className="form-control nameTransform"
+                         placeholder="Candidate Name"
+                         id="Candidate_Name"
+                         name="leadCandidatName"
+                         onChange={onInputFormChange}
+                          required
+                       />
+                       <span className="text-small pl-1">Required*</span>
+ 
+                     </div>
+                     <div className="col-4">
+                     <label className="Form-styling">Phone Number </label>
+                     <input
+                         type="text"
+                         style={{fontSize:"12px"}} className="form-control nameTransform"
+                         placeholder="Phone Number"
+                         id="phone_Number"
+                         name="phoneNumber"
+                         onChange={onInputFormChange}
                          
-                          </div>
-                          <div className="col-12">
-                            {
-                              selectJobInput === undefined ?
-                              <input type={"text"}   style={{fontSize:"12px"}} className="form-control nameTransform"  placeholder={selectJobInput === undefined ? "Please Select Job Options." : null}  disabled/> 
-                              :
-                              selectJobInput === true ?
-<Select
-                                name="ad"
-                                closeMenuOnSelect={true}
-                                placeholder="‎ ‎ ‎ ‎ ‎  ‎ Job Name"
-                                className="basic-multi-select lead"
-                                classNamePrefix="select"
-                                onChange={onSelectChange}
-                                options={jobNames}
-                                styles={colourStyles}
-                                inputId="ad"
-                              />
-                              :
-                              <input type={"text"} name="ad"  id="Job_Name" style={{fontSize:"12px"}} 
-                        onChange={onInputFormChange}
-                        className="form-control nameTransform" placeholder="Job Name" />
-                            }
-                          
-                          </div>
-                      </div>
-                    </div>
-                    </div>
-                    <div className="col-4 mt-1">
-                    <label className="Form-styling">Email </label>
-                    <input
-                        type="text"
-                        style={{fontSize:"12px"}} className="form-control nameTransform"
-                        placeholder="Email"
-                        id="email"
-                        name="email"
-                        onChange={onInputFormChange}
-                      
-                      />
-                    </div>
-                    <div className="col-4 mt-1">
-                <label style={{ fontSize: "14px" }} className="Form-styling">
-                Lead Price in euro
-                </label>
-                <input
-                type={"number"}
-                  name="leadPrice"
-                  placeholder="Num Only."
-                  className="form-control nameTransform"
-                  onChange={onInputFormChange}
-                  value={data.leadPrice}
-                  style={{fontSize:"12px"}}
-                  id="Lead_Price"
-                />
-                      <span className="text-small pl-1">The price we paid for this lead, not required Exemple 12,30</span>
-
-              </div>
-                    <div className="col-12 d-grid mt-1">
-                        <label className="Form-styling">Notes By Leads</label>
-                        <textarea name="leadNotes"  style={{fontSize:"12px"}}
-                        onChange={onInputFormChange}
-                        className="form-control nameTransform" placeholder="Notes" id="Notes_Leads">
-                      
-                        </textarea>
-                    </div>
-                    <div className="col-12 d-flex justify-content-end mt-2">
-                            <button className="BtnLeads" onClick={()=>onSubmit()} style={{background:btnDS ?  "#3d393935" : "#000"}} disabled={btnDS}>
-                              SUBMIT NOW
-                            </button>
+                       />
+                     </div>
+                     <div className="col-4 mt-1">
+                         <label className="Form-styling">Source </label>
+                         <Select
+                                 name="leadSource"
+                                 closeMenuOnSelect={true}
+                                 placeholder="‎ ‎ ‎ ‎ ‎  ‎ e.g. Facebook, TikTok. SEO..."
+                                 className="basic-multi-select source"
+                                 classNamePrefix="select"
+                                 onChange={onSelectChange}
+                                 options={fromPerson}
+                                 styles={colourStyles}
+                               inputId="leadSource"
+                               />
                         
+                       <span className="text-small pl-1">Options are Facebook; TikTok; SEO; Google Ads; Ejob; Jooble; Olx; Public21; Income Call; Undefined; Taboola; Outbrain; Other; Snapchat; SMS lead (select is enough) required*</span>
+                     </div>
+                     <div className="col-4 mt-1">
+                     <label className="Form-styling">Job Name </label>
+                     <div className="col-12">
+                       <div className="row">
+                         <div className="col-6">
+                           <div className="row">
+                             <div className="col-2 pl-0 d-flex align-items-center ColorInput">
+                         <input type={"radio"} name="jobName" value="true" className="yesNoRadio" onClick={()=>setJobInput(true)} /></div>  <div className="col-10 px-0"><span className="SelectJobAccording">Select job according to job center(active or inactive ads)</span></div>
+                         </div> </div>
+                       
+                         <div className="col-6">
+                         <div className="row">
+                             <div className="col-2 pl-0 d-flex align-items-center ColorInput">
+                         <input type={"radio"} name="jobName" value="false" className="yesNoRadio" onClick={()=>setJobInput(false)} /></div><div className="col-10 px-0"><span className="SelectJobAccording">Custom free text input(Text input no limitation) </span></div>
+                          </div>
+                          
+                           </div>
+                           <div className="col-12">
+                             {
+                               selectJobInput === undefined ?
+                               <input type={"text"}   style={{fontSize:"12px"}} className="form-control nameTransform"  placeholder={selectJobInput === undefined ? "Please Select Job Options." : null}  disabled/> 
+                               :
+                               selectJobInput === true ?
+ <Select
+                                 name="ad"
+                                 closeMenuOnSelect={true}
+                                 placeholder="‎ ‎ ‎ ‎ ‎  ‎ Job Name"
+                                 className="basic-multi-select lead"
+                                 classNamePrefix="select"
+                                 onChange={onSelectChange}
+                                 options={jobNames}
+                                 styles={colourStyles}
+                                 inputId="ad"
+                               />
+                               :
+                               <input type={"text"} name="ad"  id="Job_Name" style={{fontSize:"12px"}} 
+                         onChange={onInputFormChange}
+                         className="form-control nameTransform" placeholder="Job Name" />
+                             }
+                           
+                           </div>
+                       </div>
+                     </div>
+                     </div>
+                     <div className="col-4 mt-1">
+                     <label className="Form-styling">Email </label>
+                     <input
+                         type="text"
+                         style={{fontSize:"12px"}} className="form-control nameTransform"
+                         placeholder="Email"
+                         id="email"
+                         name="email"
+                         onChange={onInputFormChange}
+                       
+                       />
+                     </div>
+                     <div className="col-4 mt-1">
+                 <label style={{ fontSize: "14px" }} className="Form-styling">
+                 Lead Price in euro
+                 </label>
+                 <input
+                 type={"number"}
+                   name="leadPrice"
+                   placeholder="Num Only."
+                   className="form-control nameTransform"
+                   onChange={onInputFormChange}
+                   value={data.leadPrice}
+                   style={{fontSize:"12px"}}
+                   id="Lead_Price"
+                 />
+                       <span className="text-small pl-1">The price we paid for this lead, not required Exemple 12,30</span>
+ 
+               </div>
+                     <div className="col-12 d-grid mt-1">
+                         <label className="Form-styling">Notes By Leads</label>
+                         <textarea name="leadNotes"  style={{fontSize:"12px"}}
+                         onChange={onInputFormChange}
+                         className="form-control nameTransform" placeholder="Notes" id="Notes_Leads">
+                       
+                         </textarea>
+                     </div>
+                     <div className="col-12 d-flex justify-content-end mt-2">
+                             <button className="BtnLeads" onClick={()=>onSubmit()} style={{background:btnDS ?  "#3d393935" : "#000"}} disabled={btnDS}>
+                               SUBMIT NOW
+                             </button>
+                         
+                     </div>
+                  </div>
+                     </div>
+                  :
+                  null
+                }
+
+                {
+                  CvsUploadForm ?
+                 
+                  <div className="col-12 my-2 p-1" style={{background:"#ffff",borderRadius:"10px",height:"79vh" ,width:"100vw"}}>
+                  <div className="row d-grid justify-content-center">
+                    <div className="col-12 ">
+                      <div className="row justify-content-center">
+                     <div className="col-7">
+                         <label className="Form-styling">Country market </label>
+                       
+                         <Select
+                                 name="leadCountryMarket"
+                                 closeMenuOnSelect={true}
+                                 placeholder="‎ ‎ ‎ ‎ ‎  ‎ Select contry market"
+                                 className="basic-multi-select market"
+                                 classNamePrefix="select"
+                                 onChange={onSelectChange}
+                                 options={SelectContry}
+                                 styles={colourStyles}
+                                 
+                               />
+                       <span className="text-small pl-1">Options are France; Suisse; Romania (select is enough) required*</span>
+                     </div>
                     </div>
-                 </div>
                     </div>
+                    <div className="col-12 ">
+                      <div className="row justify-content-center">
+                     <div className="col-7 mt-1">
+                     <label className="Form-styling">Job Name </label>
+                     <div className="col-12">
+                       <div className="row">
+                         <div className="col-6">
+                           <div className="row">
+                             <div className="col-2 pl-0 d-flex align-items-center ColorInput">
+                         <input type={"radio"} name="jobName" value="true" className="yesNoRadio" onClick={()=>setJobInput(true)} /></div>  <div className="col-10 px-0"><span className="SelectJobAccording">Select job according to job center(active or inactive ads)</span></div>
+                         </div> </div>
+                       
+                         <div className="col-6">
+                         <div className="row">
+                             <div className="col-2 pl-0 d-flex align-items-center ColorInput">
+                         <input type={"radio"} name="jobName" value="false" className="yesNoRadio" onClick={()=>setJobInput(false)} /></div><div className="col-10 px-0"><span className="SelectJobAccording">Custom free text input(Text input no limitation) </span></div>
+                          </div>
+                          
+                           </div>
+                           <div className="col-12">
+                             {
+                               selectJobInput === undefined ?
+                               <input type={"text"}   style={{fontSize:"12px"}} className="form-control nameTransform"  placeholder={selectJobInput === undefined ? "Please Select Job Options." : null}  disabled/> 
+                               :
+                               selectJobInput === true ?
+ <Select
+                                 name="ad"
+                                 closeMenuOnSelect={true}
+                                 placeholder="‎ ‎ ‎ ‎ ‎  ‎ Job Name"
+                                 className="basic-multi-select lead"
+                                 classNamePrefix="select"
+                                 onChange={onSelectChange}
+                                 options={jobNames}
+                                 styles={colourStyles}
+                                 inputId="ad"
+                               />
+                               :
+                               <input type={"text"} name="ad"  id="Job_Name" style={{fontSize:"12px"}} 
+                         onChange={onInputFormChange}
+                         className="form-control nameTransform" placeholder="Job Name" />
+                             }
+                           
+                           </div>
+                       </div>
+                     </div>
+                     </div>
+                     </div>
+                     </div>
+                     <div className="col-12">
+                     <div className="row justify-content-center pt-0 pb-1" style={{ marginRight: '1px' }}>
+                 
+    {progress > 0 && progress < 100  ?
+                        <div className="col-7 mx-0">
+                        <div className="row CardClassDownload p-0 mt-1 mx-0">
+                          <div className="col-4 pr-0 d-flex align-items-center ">
+                        <ProfileLoader width={"90"} height={"56px"} fontSize={"12px"} fontWeight={600} Title={"Uploading!"}/>
+                          </div>
+                          <div className="col-8 text-center  mb-0" style={{marginTop:"21px"}}>
+                              <ProgressBar className="mb-0" now={progress} label={`${progress}%`} />
+                          </div>
+                        
+                        </div>
+                      </div>
+                        :
+                      
+                 null 
+                  
+
+                          }
+                         <div className="col-12 d-flex justify-content-center mt-3" >
+                <FileUploader 
+                handleChange={FilesUploads}
+                name="candidatDocuments"
+                label={`Upload CVS file Now`}
+                />
+         
+            </div>
+                                        
+              
+                  </div>
+
+                      </div>
+                     <div className="col-12 d-flex justify-content-center mt-2">
+                             <button className="BtnLeads"style={{background:btnDS ?  "#3d393935" : "#000"}} disabled={btnDS}>
+                               SUBMIT NOW
+                             </button>
+                         
+                     </div>
+                  </div>
+                     </div>
+
+                      
+                  :
+                  null
+                }
+              
+               
         </div>
     </div>
     </>)

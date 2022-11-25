@@ -142,7 +142,7 @@ const ToDoProfileCard = (props: any,) => {
                      </div>
    <div className="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 fontStylinForcards">
    <p style={{width:"100%"}}  className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.candidatName.toLocaleUpperCase()}><b className="TopTodoTitle">{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
-       <div className="text-dark mb-0">{props.data.candidatAge ?  <p className="age00 mb-0"> <b className="TopTodoTitle">Age : {props.data.candidatAge}</b></p> : <b className="TopTodoTitle">✘ Age Not Available!</b>}</div>
+       <div className="text-dark mb-0">{props.data.candidatAge ?  <p className="age00 mb-0"> <b className="TopTodoTitle">Age : {props.data.candidatAge}</b></p> : <b className="TopTodoTitle">Age : ✘!</b>}</div>
        <div >  <p className="text-dark d-flex mb-0"> <b>{props.data.candidatMotivation ?props.data.candidatMotivation  == 0 ? candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation :  candidatMotivationIcons[props.data.candidatMotivation].icon +" "+ candidatMotivationIcons[props.data.candidatMotivation].motivation : "✘ No Motivation!"}</b>
        </p>
        </div>

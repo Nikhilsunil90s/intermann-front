@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import "../CSS/Dashboard.css";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import { Toaster } from "react-hot-toast";
+import { motion } from "framer-motion";
+
 function Dashboard() {
   const [toDoCandidatCount, setToDoCandidatCount] = useState(0);
   const [inProgressCandidatCount, setInProgressCandidatCount] = useState(0);
@@ -93,8 +95,19 @@ function Dashboard() {
           <div className=" container-fluid">
             <section id="minimal-statistics">
               <div className="row">
- 
-                <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 ">
+              <motion.div
+  initial={{ scale: 0 }}
+  animate={{ rotate: 360, scale:1}}
+  transition={{
+    type: "spring",
+    stiffness: 120,
+    damping: 70
+  }}
+  whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }} 
+  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
+
+>
+         
                 <Link to="/clientTodo">
                   <div
                     className="card HoveRESTClassCardDash"
@@ -132,10 +145,22 @@ function Dashboard() {
                     </div>
                   </div>
                   </Link>
-                </div>
+              
+</motion.div>
              
                
-                <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer">
+<motion.div
+  initial={{ scale: 0 }}
+  animate={{ rotate:0, scale:1}}
+  transition={{
+    type: "spring",
+    stiffness: 120,
+    damping: 70
+  }}
+  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
+  whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }} 
+>
+     
                   <Link to="/clientProgress">
                   <div
                     className="card HoveRESTClassCardDash"
@@ -162,9 +187,20 @@ function Dashboard() {
                     </div>
                   </div>
                   </Link>
-                </div>
+</motion.div>
+       
                
-                <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4">
+<motion.div
+  initial={{ scale: 0 }}
+  animate={{ rotate: 360, scale:1}}
+  transition={{
+    type: "spring",
+    stiffness: 120,
+    damping: 70
+  }}
+  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
+  whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.8 }} 
+>
                 <Link to="/clientContract">
                   <div
                     className="card HoveRESTClassCardDash"
@@ -191,10 +227,21 @@ function Dashboard() {
                     </div>
                   </div>
                   </Link>
-                </div>
+                  </motion.div>
+
   
-              
-                <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4">
+                         
+<motion.div
+  initial={{ scale: 0 }}
+  animate={{ rotate: 360, scale:1}}
+  transition={{
+    type: "spring",
+    stiffness: 120,
+    damping: 70
+  }}
+  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
+  whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }} 
+>
                 <Link to="/archived">
                   <div
                     className="card HoveRESTClassCardArchived"
@@ -221,7 +268,8 @@ function Dashboard() {
                     </div>
                   </div>
                   </Link>
-                </div>
+                  </motion.div>
+
 
                 
   
@@ -243,7 +291,17 @@ function Dashboard() {
             <section id="minimal-statistics">
               <div className="row">
               
-                <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 ">
+              <motion.div
+  initial={{ scale: 0 }}
+  animate={{ rotate: 360, scale:1}}
+  transition={{
+    type: "spring",
+    stiffness: 120,
+    damping: 70
+  }}
+  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
+  whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }} 
+>
                 <Link to="/todolist">
                   <div
                     className="card HoveRESTClassCardDash mb-0"
@@ -281,9 +339,18 @@ function Dashboard() {
                     </div>
                   </div>
                   </Link>
-                </div>
-                
-                <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4">
+                  </motion.div>
+                  <motion.div
+  initial={{ scale: 0 }}
+  animate={{ rotate:0, scale:1}}
+  transition={{
+    type: "spring",
+    stiffness: 120,
+    damping: 70
+  }}
+  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
+  whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }} 
+>
                   <Link to="/preSelected">
                   <div
                     className="card HoveRESTClassCardDash"
@@ -310,9 +377,19 @@ function Dashboard() {
                     </div>
                   </div>
                   </Link>
-                </div>
-               
-                <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4" >
+                  </motion.div>
+
+                  <motion.div
+  initial={{ scale: 0 }}
+  animate={{ rotate: 360, scale:1}}
+  transition={{
+    type: "spring",
+    stiffness: 120,
+    damping: 70
+  }}
+  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
+  whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.8 }} 
+>
                 <Link to="/embauchlist">
                   <div
                     className="card HoveRESTClassCardDash"
@@ -339,10 +416,20 @@ function Dashboard() {
                     </div>
                   </div>
                   </Link> 
-                </div>
+                  </motion.div>
+
  
-             
-                <div className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4">
+                  <motion.div
+  initial={{ scale: 0 }}
+  animate={{ rotate: 360, scale:1}}
+  transition={{
+    type: "spring",
+    stiffness: 120,
+    damping: 70
+  }}
+  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
+  whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }} 
+>
                 <Link to="/archivedlist">
                   <div
                     className="card HoveRESTClassCardArchived"
@@ -369,7 +456,8 @@ function Dashboard() {
                     </div>
                   </div>
                   </Link>
-                </div>
+                  </motion.div>
+
                
               </div>
             </section>

@@ -10,6 +10,7 @@ import ProfileLoader from "../components/Loader/ProfilesLoader"
 import toast,{Toaster} from 'react-hot-toast'
 import ErrorLoader from '../components/Loader/SearchBarError'
 import Error404Loader from '../components/Loader/404Error'
+import { motion } from "framer-motion";
 
 
 declare namespace JSX {
@@ -56,7 +57,7 @@ function ArchivedList() {
 
    
   const loadMoreHandle = (i) => {
-    let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
+    let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 40;
     if (bottom) {
       if(cardTotallength > page && selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0   && FilterJob.length == 0 && LanguageFilter.length == 0  && sectorName == "" && JobName.length === 0){
         setPage(page + 20);
@@ -905,10 +906,20 @@ SelectedClient=[]
                   {status ? 
                     filterData.length > 0 ? 
                       filterData.map((profile, index) => (
-                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-1 pd-left" key={profile._id}>
+                        <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ rotate:0, scale:1 }}
+                        transition={{
+                          type: "spring",
+                          stiffness:60,
+                          damping: 15
+                        }}
+                        className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-1 pd-left" key={profile._id}
+           
+                      >
+                      
                           <ArchivedProfileCard  props={profile}  />
-                        </div>
-                      ))
+                        </  motion.div>                      ))
                      : 
                       <div className="col-12">
                         <div className="row d-flex justify-content-center">

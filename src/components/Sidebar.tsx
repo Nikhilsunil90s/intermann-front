@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from 'react-hot-toast';
 import { logout } from '../redux/actions/userActions';
 import $ from 'jquery'
+import { motion } from "framer-motion";
+
 function Sidebar(props: any) {
   const [activeTab,setActiveTab]=useState("")
   const dispatch = useDispatch();
@@ -57,7 +59,14 @@ function Sidebar(props: any) {
                 className="d-flex bottom-radius logoSet justify-content-center align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none"
               >
                 <span>
-                  <img src={require("../images/logo-header.svg").default} className="filter-logo" />
+                  <motion.img            initial={{ scale: 0 }}
+    animate={{ rotate: 360, scale: 1 }}
+    transition={{
+      type: "spring",
+      stiffness: 260,
+      damping: 90
+    }}
+         src={require("../images/logo-header.svg").default} className="filter-logo" />
                 </span>
                 <img src={require("../images/LogoName.svg").default} className="filter-text" />
               </Link>
