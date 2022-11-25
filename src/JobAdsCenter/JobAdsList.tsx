@@ -104,7 +104,7 @@ useEffect(()=>{
  
     fetchUsers(TabName)
 
-  },[UpdateFiled])
+  },[UpdateFiled,jobCardActive])
 
 
 const  fetchUsers=async(TabName)=>{
