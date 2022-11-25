@@ -7,6 +7,8 @@ import {API_BASE_URL} from ".././config/serverApiConfig"
 import {toast,Toaster} from "react-hot-toast";
 import ProfilesLoader from "../../src/components/Loader/ProfilesLoader"
 import Warning from "../components/Loader/SearchBarError"
+import { motion } from "framer-motion";
+
 let TabName=""
 let active=[]
 let Inactive=[]
@@ -193,9 +195,19 @@ return    await fetch(API_BASE_URL + `allAds/?market=${TabName}`,{
             {activeStatus ?
             jobCardActive.length > 0 ?
               jobCardActive.map((el)=>(
-                <div className="col-4 " style={{maxWidth:"32%",marginRight:"10px",marginTop:"10px"}} key={el._id}>
+                <motion.div
+                initial={{ scale: 0 }}
+                animate={{ rotate:0, scale:1 }}
+                transition={{
+                  type: "spring",
+                  stiffness:60,
+                  damping: 15
+                }}
+                className="col-4 " style={{maxWidth:"32%",marginRight:"10px",marginTop:"10px"}} key={el._id}
+          
+              >
                 <JobsCard  props={el}  bg="Active"  setUpdateField={setUpdateField}      />
-                </div>
+                </motion.div>
               ))
             :
             <div className="col-12 my-2 d-flex justify-content-center" >
@@ -227,10 +239,20 @@ return    await fetch(API_BASE_URL + `allAds/?market=${TabName}`,{
           {InactiveStatus ?
           jobCardInActive.length > 0 ?
               jobCardInActive.map((el)=>(
-          <div className="col-4 my-1" style={{maxWidth:"32%" ,marginRight:"10px",marginTop:"10px"}} key={el._id}>
-
+        
+   <motion.div
+                initial={{ scale: 0 }}
+                animate={{ rotate:0, scale:1 }}
+                transition={{
+                  type: "spring",
+                  stiffness:60,
+                  damping: 15
+                }}
+                className="col-4 my-1" style={{maxWidth:"32%" ,marginRight:"10px",marginTop:"10px"}} key={el._id}
+       
+              >
             <JobsCard  props={el} bg={"Inactive"}  setUpdateField={setUpdateField}     />
-          </div>
+            </motion.div>
           
          
            

@@ -60,7 +60,6 @@ function LeadCenterMiniCard({props,activeUser,setUserCardList}) {
     stiffness: 120,
     damping: 70
   }}
- whileTap={{ scale: 0.8 }} 
   className="col-12 card ml-0 my-1 mr-0"  style={{ padding: "5px 10px", borderRadius: "10px",width:"295px" }}
 
 >

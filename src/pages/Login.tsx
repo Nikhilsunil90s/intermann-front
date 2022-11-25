@@ -276,7 +276,7 @@ function useOnClickOutside(ref, handler) {
   
   type="submit"
   className="sign-in-btn mx-auto btn"
-  disabled={LoginLoad} whileTap={{ scale: 0.8 }} 
+  disabled={LoginLoad} whileTap={{ scale: 0.9 }} 
 >
                    
                           <div className="col-12">

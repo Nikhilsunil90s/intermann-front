@@ -1609,7 +1609,6 @@ styles={colourStyles}
     damping: 15
   }}
   className="col-md-6 col-xxl-4   col-xl-4 col-lg-4 col-sm-6 pl-0" key={index}
-whileTap={{ scale: 0.9 }} 
 >
                     
                       <ToDoProfileCard data={profile}

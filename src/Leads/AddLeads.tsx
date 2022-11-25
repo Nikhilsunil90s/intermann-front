@@ -328,7 +328,7 @@ const onSubmit=()=>{
   whileHover={{ scale: 1.4 }} whileTap={{ scale: 0.8 }} 
 >
 <div className=" cursor-pointer d-flex align-items-center justify-content-center AddLeadsFormSelect" onClick={()=>{setSelectFormSide(false);setCvsUploadForm(true)}}  >
-<p className="mb-0 align-items-center">Add Leads With CVS  <img  src={require("../images/nextFwd.png")}  style={{width:"25px",marginLeft:"5px"}}  /></p>
+<p className="mb-0 align-items-center">CVS  <img  src={require("../images/nextFwd.png")}  style={{width:"25px",marginLeft:"5px"}}  /></p>
 
 </div>
 </motion.div>
