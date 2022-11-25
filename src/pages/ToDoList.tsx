@@ -1619,11 +1619,20 @@ styles={colourStyles}
                    
                   ))
                   :
-                  <div className="col-12">
+                  <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ rotate:0, scale:1 }}
+                  transition={{
+                    type: "spring",
+                    stiffness:60,
+                    damping: 15
+                  }}
+                  className="col-12"
+                >
                   <div className="row d-flex justify-content-center">  
  <>{LoaderTime ?  <Error404Loader /> : <> <Loader />{LoaderFun()}</>}</>
     </div>
-                  </div>
+                  </motion.div>
                 :
                 <div className="col-12 d-flex justify-content-center align-items-center">
                 <ErrorLoader />

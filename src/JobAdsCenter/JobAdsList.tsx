@@ -63,27 +63,15 @@ useEffect(()=>{
         
         //  let Cuser=  resData.data.filter((el)=>el?.username)
         //   let users=  resData.data.filter((el)=>el?.username )
-        resData.data.map((el)=>{
-          if(el.adStatus === "Active") {
-            
-            active.push(el)
-            setJobCardActive([...active])
-            if(jobCardActive.length > 0){
-              setCheckLoad(false)
-            }
-           
-          }else
-          if(el.adStatus === "Inactive"){
-           
-            Inactive.push(el)
-            setJobCardInActive([...Inactive]) 
-            if(jobCardInActive.length > 0){
-              setCheckLoad(false)
-            }
-          }
+       let Active= resData.data.filter((el)=>(
+          el.adStatus === "Active"
+           ))
+           let InActive = resData.data.filter((el)=>(
+            el.adStatus !== "Active"
 
-      
-        })
+           ))
+           setJobCardActive([...Active])
+           setJobCardInActive([...InActive])
    
        }
     
