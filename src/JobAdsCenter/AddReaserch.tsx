@@ -11,7 +11,7 @@ import { ReactComponent as Romania } from "../images/romania.svg";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import { ColourOption } from "../Selecteddata/data";
 import ProfileLoader from "../components/Loader/ProfilesLoader" 
-import { EditorState, convertToRaw } from "draft-js";
+import {convertToRaw } from "draft-js";
 import chroma from "chroma-js";
 import draftToHtml from "draftjs-to-html";
 import {toast ,Toaster} from "react-hot-toast"

@@ -24,6 +24,7 @@ function LeadsCenter() {
   const [UpdateFiled,setUpdateField]=useState(false)
   const [currentUser,setCurrentUser]=useState()as any
   const [FilterApply,setFilterApply]=useState()as any
+  let [page, setPage] = useState(0);
   const [tabItems] = useState([
     {
       text: "FRANCE",
@@ -39,11 +40,25 @@ function LeadsCenter() {
     },
   ]) as any;
 
+  const loadMoreHandle = (i) => {
+    let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 40;
+    if (bottom) {
+   {
+        setPage(page + 20);
+        fetchLeads(TabName,page);
+      
+      
+       
+    }
+  }
+}
 
-  const  fetchLeads=async(market)=>{
+
+
+  const  fetchLeads=async(market:any,page:any)=>{
         //  setLeadScHeck(false)
          
-        await fetch(API_BASE_URL + `allLeads/?market=${market}`,{
+        await fetch(API_BASE_URL + `allLeads/?market=${market}&skip=${page}`,{
           method: "GET",
           headers: {
             "Accept": 'application/json',
@@ -102,7 +117,6 @@ function LeadsCenter() {
               items: 1,
             },
           };
-        
 
 useEffect(()=>{
  
@@ -127,14 +141,14 @@ useEffect(()=>{
   const FolderName = tabItems.filter((el, i) => i == activeTab);
   TabName =FolderName.map((el)=>(el.value))
   
-  fetchLeads(TabName)
+  fetchLeads(TabName,page)
 },[UpdateFiled])
 
   const onTabClick = (e, index: any) => {
     setActiveTab(index);
     const FolderName = tabItems.filter((el, i) => i == index);
     TabName =FolderName.map((el)=>(el.value))
-    fetchLeads(TabName)
+    fetchLeads(TabName,page)
   };
   return (
     <>
@@ -232,8 +246,8 @@ useEffect(()=>{
           </div>
           <div
             className="col-12 p-1 my-1 OverFlowLink"
-            style={{ background: "#ffff", borderRadius: "10px" }}
-        
+            style={{ background: "#ffff", borderRadius: "10px" ,overflowY: 'auto', height: '100vh' }}
+            onScroll={loadMoreHandle} 
         >
            {
             LeadsCheck ?

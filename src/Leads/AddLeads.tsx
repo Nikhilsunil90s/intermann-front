@@ -21,10 +21,9 @@ function AddLeads(){
     baseURL: API_BASE_URL,
   })
   const [CustomForm,setCustomForm]=useState(false)
-  const [CvsUploadForm,setCvsUploadForm]=useState(false)
+  const [CsvUploadForm,setCsvUploadForm]=useState(false)
   const [SelectFormSide,setSelectFormSide] = useState(true)
   const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
-  const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
   const [SelectContry]=useState([{
     value:"France",
     label:(<> <France
@@ -92,11 +91,22 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
     leadPrice:"",
     leadNotes:""
   })
+  const [fileUploaded,setFileUploadFile] = useState(null)
+  const [JobName,setJobNameAd]=useState({
+    ad:""
+  })
   const FilesUploads=(file)=>{
-    const fileUploaded = file;
+    setFileUploadFile(file)
+  }
+  
+  const onCSVFile=()=>{
+    setBtnDS(true)
+    if(data.leadCountryMarket.length > 0 && JobName.ad.length > 0){
     let formdata = new FormData();
-    formdata.append('document', fileUploaded)
-      axiosInstance.post("uploadCandidatDocuments", formdata, {
+    formdata.append('leadscsv', fileUploaded)
+    formdata.append('jobName',JobName.ad)
+    formdata.append('countryName', data.leadCountryMarket)
+      axiosInstance.post("addLeadsViaCSV", formdata, {
         headers: {
           "Content-Type": "multipart/form-data",
           "Authorization": "Bearer " + localStorage.getItem('token')
@@ -110,6 +120,8 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
         if (resData.data.status) {
           setProgress(0); 
           notifyDocumentUploadSuccess();
+          setBtnDS(false)
+
         } else {
       
         }
@@ -120,8 +132,13 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
   
       })
     return;
+    }else{
+    setBtnDS(false)
+
+      toast.error("Please Select Country Market and JobName!")
+    }
   }
-  
+
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: "white" }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -218,7 +235,7 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
     }else if(e.target.name=== "leadPrice"){
       setData({...data,[e.target.name]:e.target.value})
     }else if(e.target.name === "ad"){
-
+      setJobNameAd({...jobNames,ad:e.target.value})
     setData({...data,[e.target.name]:{adId:null,adName:e.target.value}})
 
     }else{
@@ -327,8 +344,8 @@ const onSubmit=()=>{
   className="col-4"
   whileHover={{ scale: 1.4 }} whileTap={{ scale: 0.8 }} 
 >
-<div className=" cursor-pointer d-flex align-items-center justify-content-center AddLeadsFormSelect" onClick={()=>{setSelectFormSide(false);setCvsUploadForm(true)}}  >
-<p className="mb-0 align-items-center">CVS  <img  src={require("../images/nextFwd.png")}  style={{width:"25px",marginLeft:"5px"}}  /></p>
+<div className=" cursor-pointer d-flex align-items-center justify-content-center AddLeadsFormSelect" onClick={()=>{setSelectFormSide(false);setCsvUploadForm(true)}}  >
+<p className="mb-0 align-items-center">CSV  <img  src={require("../images/nextFwd.png")}  style={{width:"25px",marginLeft:"5px"}}  /></p>
 
 </div>
 </motion.div>
@@ -496,7 +513,7 @@ const onSubmit=()=>{
                 }
 
                 {
-                  CvsUploadForm ?
+                  CsvUploadForm ?
                  
                   <div className="col-12 my-2 p-1" style={{background:"#ffff",borderRadius:"10px",height:"79vh" ,width:"100vw"}}>
                   <div className="row d-grid justify-content-center">
@@ -593,7 +610,7 @@ const onSubmit=()=>{
                 <FileUploader 
                 handleChange={FilesUploads}
                 name="candidatDocuments"
-                label={`Upload CVS file Now`}
+                label={`Upload CSV file Now`}
                 />
          
             </div>
@@ -603,7 +620,7 @@ const onSubmit=()=>{
 
                       </div>
                      <div className="col-12 d-flex justify-content-center mt-2">
-                             <button className="BtnLeads"style={{background:btnDS ?  "#3d393935" : "#000"}} disabled={btnDS}>
+                             <button className="BtnLeads"style={{background:btnDS ?  "#3d393935" : "#000"}} onClick={()=>onCSVFile()} disabled={btnDS}>
                                SUBMIT NOW
                              </button>
                          

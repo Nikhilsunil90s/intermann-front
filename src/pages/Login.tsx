@@ -49,6 +49,7 @@ function Login() {
       notifyLogin();
     setLoginLoad(false)
       localStorage.setItem("token", state.login.token);
+      localStorage.setItem("LoginUser",JSON.stringify(state.login.user))
       navigate("/dashboard");
     } else if (state?.login?.error !== undefined) {
     setLoginLoad(false)
