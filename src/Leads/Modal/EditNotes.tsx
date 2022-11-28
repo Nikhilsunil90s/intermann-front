@@ -135,7 +135,7 @@ function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelet
 
     return(
         <>
-        <Toaster   containerStyle={{zIndex:"30443330099555"}}    position="top-right"         />
+        {/* <Toaster   containerStyle={{zIndex:"30443330099555"}}    position="top-right"         /> */}
   <div className="modal d-block" style={{ backgroundColor: "#00000052" }} id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div className="modal-dialog modal-lg" style={{width:"795px"}}>
                 <div className="modal-content">

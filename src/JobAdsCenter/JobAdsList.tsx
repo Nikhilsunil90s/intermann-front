@@ -87,21 +87,33 @@ useEffect(()=>{
 
   useEffect(()=>{
     if(AllJobs.length > 0 && jobCardActive.length === 0 && jobCardInActive.length ===0){
-      let Active= AllJobs.filter((el)=>(
+      active= AllJobs.filter((el)=>(
         el.adStatus === "Active"
          ))
-         let InActive = AllJobs.filter((el)=>(
+        Inactive = AllJobs.filter((el)=>(
           el.adStatus !== "Active"
   
          ))
-         setJobCardActive([...Active])
-         setJobCardInActive([...InActive])
+         setJobCardActive([...active])
+         setJobCardInActive([...Inactive])
          setActiveStatus(true)
          setInActiveStatus(true)
-    }else{
+    }else if(active.length > 0){
       setActiveStatus(true)
+    }else if(Inactive.length > 0){
       setInActiveStatus(true)
+    }else {
+      if(AllJobs.length === 0 && active.length === 0 || AllJobs.length === 0 && Inactive.length === 0){
+       
+       setTimeout(()=>{
+        setInActiveStatus(true)
+        setActiveStatus(true)
+       },3000) 
+  
+      }
+     
     }
+
   },[AllJobs])
 
 const  fetchUsers=async(TabName)=>{

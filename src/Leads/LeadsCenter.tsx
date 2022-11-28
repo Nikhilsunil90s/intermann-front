@@ -24,6 +24,7 @@ function LeadsCenter() {
   const [UpdateFiled,setUpdateField]=useState(false)
   const [currentUser,setCurrentUser]=useState()as any
   const [FilterApply,setFilterApply]=useState()as any
+  const [ch,setch]=useState(false)
   let [page, setPage] = useState(0);
   const [tabItems] = useState([
     {
@@ -40,18 +41,13 @@ function LeadsCenter() {
     },
   ]) as any;
 
-  const loadMoreHandle = (i) => {
-    let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 40;
-    if (bottom) {
-   {
-        setPage(page + 20);
-        fetchLeads(TabName,page);
-      
-      
-       
+  const loadMoreHandle = () => {
+     setTimeout(()=>{
+    setch(true)  
+     },1000)
+
+
     }
-  }
-}
 
 
 
@@ -230,6 +226,7 @@ useEffect(()=>{
             style={{ background: "#ffff", borderRadius: "10px" }}
           >
             {LeadList.length > 0 ?
+            
             <Filters  LeadsCard={Leads} market={TabName} setLeads={setLeads} statusLeads={setLeadScHeck} update={setUpdateField} setFilterApply={setFilterApply} />
             :
             null 
@@ -252,11 +249,19 @@ useEffect(()=>{
            {
             LeadsCheck ?
             Leads.length > 0 ?
-            Leads.map((el,i)=>(
-              <LazyLoad  threshold={0.75} onContentVisible={() => {console.log('loaded!')}}>
-              <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} activeUser={setCurrentUser} />
+          
+                <>
+               { Leads.map((el,i)=>(
+                  <LazyLoad threshold={0.96}>
+                  <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} activeUser={setCurrentUser} />
+
               </LazyLoad>
             ))
+               }
+            </>
+          
+              
+          
             :
             <div className="row ">
               <div className="col-12 d-flex justify-content-center">

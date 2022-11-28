@@ -123,7 +123,7 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
           setBtnDS(false)
 
         } else {
-      
+          setBtnDS(false);
         }
       })
       .catch(err => {
@@ -345,7 +345,7 @@ const onSubmit=()=>{
   whileHover={{ scale: 1.4 }} whileTap={{ scale: 0.8 }} 
 >
 <div className=" cursor-pointer d-flex align-items-center justify-content-center AddLeadsFormSelect" onClick={()=>{setSelectFormSide(false);setCsvUploadForm(true)}}  >
-<p className="mb-0 align-items-center">CSV  <img  src={require("../images/nextFwd.png")}  style={{width:"25px",marginLeft:"5px"}}  /></p>
+<p className="mb-0 align-items-center">Upload CSV<img  src={require("../images/nextFwd.png")}  style={{width:"25px",marginLeft:"5px"}}  /></p>
 
 </div>
 </motion.div>

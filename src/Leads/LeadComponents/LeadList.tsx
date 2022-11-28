@@ -179,8 +179,8 @@ AddToCRM(data)
 }
   
     return(<>
-    <Toaster  position="top-right"   containerStyle={{zIndex:"30443330099555"}}   />
-    <div className="row px-1 mt-1" style={{width:"115%"}}>
+    {/* <Toaster  position="top-right"   containerStyle={{zIndex:"30443330099555"}}   /> */}
+<div className="row px-1 mt-1" style={{width:"115%"}}>
      <div className="col-12 lead_Created"><div className="row"><div className="col-7 d-flex align-items-center"><p className="mb-0 d-flex align-items-center"><img  src={require("../../images/calendar.png")} style={{width:"12px",marginRight:"4px"}} />Lead Created on {LeadeCreateDate}</p></div><div className="col-5 d-flex justify-content-end align-items-center" style={{height:"50px"}}><button className="AddToCrm mb-0" onClick={()=>AddToCrm()} style={{height:"37px",width:"135px"}}>+ add to crm</button><button className="deleteAd mx-1" onClick={()=>{setDeleteLeads("Delete");setNotesDeleteModal(true)}} ><img   src={require("../../images/Deletebucket.svg").default}  /></button></div>
 
      </div></div>
@@ -234,7 +234,7 @@ AddToCRM(data)
             </div>
             <div className="col-4 d-grid leadBoxGray justify-content-start">
                 <p className="mb-0">{props.leadNotes ? props.leadNotes.length > 40 ? props.leadNotes.slice(0,70) + "..." : props.leadNotes : "✘✘No Notes!"}</p>
-                <button onClick={()=>{setLeadsNote("Leads");setNotesModal(true)}} className="BlueLink">Click Here to View More</button>
+                <button onClick={()=>{setLeadsNote("Leads");props.leadNotes !== "" ? setNotesModal(true) : setNoteEditsModal(true)}} className="BlueLink">Click Here to View More</button>
             </div>
         </div>
      </div>

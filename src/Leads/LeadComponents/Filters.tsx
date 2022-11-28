@@ -314,7 +314,6 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
   const OnClickDataChange=(e)=>{
  
  if(e.target.name=== "ApplyFil"){
-  console.log(Data)
   if(Data !== undefined)
     {
       setApplyBtn(true)
@@ -330,16 +329,18 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
      .then(res=>res.json())
      .then(res=>{if(res.status){
       statusLeads(true)
-      setApplyBtn(false)
+      setApplyBtn(false)   
+      setFilterApply(res.total)
   toast.success("Filter Leads Found Successfully!")
       setLeads([...res.data])
-      setFilterApply(res.total)
+   
       setDateCheck(false)
 
      }else{
       statusLeads(true)
   toast.error("Sorry No Results found!")
   setApplyBtn(false)
+  setFilterApply(res.total)
 
       setLeads([])
      }
