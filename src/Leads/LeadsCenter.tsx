@@ -11,7 +11,7 @@ import { API_BASE_URL } from "../config/serverApiConfig";
 import {toast,Toaster} from "react-hot-toast";
 import Carousel from "react-multi-carousel";
 import ProfilesLoader from "../../src/components/Loader/ProfilesLoader"
-
+import LazyLoad from 'react-lazy-load';
 let TabName=""
 function LeadsCenter() {
 
@@ -58,7 +58,7 @@ function LeadsCenter() {
   const  fetchLeads=async(market:any,page:any)=>{
         //  setLeadScHeck(false)
          
-        await fetch(API_BASE_URL + `allLeads/?market=${market}&skip=${page}`,{
+        await fetch(API_BASE_URL + `allLeads/?market=${market}`,{
           method: "GET",
           headers: {
             "Accept": 'application/json',
@@ -246,16 +246,16 @@ useEffect(()=>{
           </div>
           <div
             className="col-12 p-1 my-1 OverFlowLink"
-            style={{ background: "#ffff", borderRadius: "10px" ,overflowY: 'auto', height: '100vh' }}
-            onScroll={loadMoreHandle} 
+            style={{ background: "#ffff", borderRadius: "10px"}}
+      
         >
            {
             LeadsCheck ?
             Leads.length > 0 ?
             Leads.map((el,i)=>(
-
+              <LazyLoad  threshold={0.75} onContentVisible={() => {console.log('loaded!')}}>
               <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} activeUser={setCurrentUser} />
-
+              </LazyLoad>
             ))
             :
             <div className="row ">
