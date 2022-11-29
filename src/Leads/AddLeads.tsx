@@ -101,7 +101,6 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
   
   const onCSVFile=()=>{
     setBtnDS(true)
-    if(data.leadCountryMarket.length > 0 && JobName.ad.length > 0){
     let formdata = new FormData();
     formdata.append('leadscsv', fileUploaded)
     formdata.append('jobName',JobName.ad)
@@ -132,11 +131,7 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
   
       })
     return;
-    }else{
-    setBtnDS(false)
-
-      toast.error("Please Select Country Market and JobName!")
-    }
+    
   }
 
   const colourStyles: StylesConfig<ColourOption, true> = {

@@ -58,7 +58,6 @@ setTimeout(()=>{
   })
   .catch(err => err)
 }
- 
 
 const PreContact=(id,status)=>{
   fetch(API_BASE_URL + `changePreContactedStatus/?userId=${LoginUserS._id}&leadId=${id}&status=${status}`,

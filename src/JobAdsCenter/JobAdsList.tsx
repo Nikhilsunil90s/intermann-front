@@ -54,7 +54,7 @@ function JobAdsList (){
     
       
 useEffect(()=>{
-  if(AllJobs.length === 0 ){
+  if(AllJobs.length === 0 && TabName !== ""){
   fetchUsers(TabName).then((resData)=>{
  
     {
@@ -78,12 +78,14 @@ useEffect(()=>{
   
   
   })
+
+  }
   const FolderName = tabItems.filter((el, i) => i == activeTab);
   TabName =FolderName.map((el)=>(el.value))
  
     fetchUsers(TabName)
-  }
-  },[UpdateFiled])
+  },[UpdateFiled,TabName])
+  console.log(AllJobs,"Alljob")
 
   useEffect(()=>{
     if(AllJobs.length > 0 && jobCardActive.length === 0 && jobCardInActive.length ===0){
@@ -114,7 +116,7 @@ useEffect(()=>{
      
     }
 
-  },[AllJobs])
+  },[AllJobs,jobCardActive])
 
 const  fetchUsers=async(TabName)=>{
 return    await fetch(API_BASE_URL + `allAds/?market=${TabName}`,{

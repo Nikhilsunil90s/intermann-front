@@ -312,7 +312,7 @@ function ClientProgressCard(props: any) {
                     <div className="Ads-box p-1">
                         <div className="">
                             <p  className="AdsFont mb-0">Ads Spent on this client:  {props.data.jobTotalBudget  ? props.data.jobTotalBudget + " €" : "N/A"}  </p>
-                            <p className="AdsFont mb-0">Num of position found :  {props.data.numberOfPosts ? props.data.numberOfPosts :"✘ No Posts!"}/5
+                            <p className="AdsFont mb-0">Num of position found :  {props.data.numberOfPosts ? props.data.numberOfPosts :"0"}/5
 
                             </p>
                             <div className="col-12">

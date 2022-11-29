@@ -1212,23 +1212,20 @@ let Editdata ={state:profile,path:"/clientSigned"}
                   style={{ maxWidth: "49%" }}
                 >
                   <div className="Todo-ClinetCardMore force-overflow">
-                    <div className="d-flex">
-                      <div className="col-12 px-0">
-                        <div className="row">
+                    
+                    
                           <div className="d-flex">
-                            <p className="">Company Adress</p>
+                            <p className="">Company Adress  </p>
                           
                           
-                            <span className="Todo-ClinetCardMore-span">
-                              :  
-                              {profile.clientAddress
-                                ?  profile.clientAddress
+                            <span className="Todo-ClinetCardMore-span" style={{width :"69%"}}>
+                                :  
+                                {profile.clientAddress
+                                ? "  "+ profile.clientAddress
                                 : "✘ No Address!"}
-                            </span>
-                          </div>
-                        </div>
+                      </span>
                       </div>
-                    </div>
+              
                     <div className="d-flex align-items-center ">
                       <p className="blue-text">Research for work :</p>
                       <span
@@ -1252,7 +1249,7 @@ let Editdata ={state:profile,path:"/clientSigned"}
                       <p>Langues : </p>
                       <span className="Todo-ClinetCardMore-span">
                         {profile.clientLanguages.length
-                          ? profile.clientLanguages.join(", ")
+                          ?  "  " + profile.clientLanguages.join(", ")
                           : " ✘ No Langues!"}
                       </span>
                     </div>
@@ -1275,7 +1272,7 @@ let Editdata ={state:profile,path:"/clientSigned"}
                         style={{ textDecoration: "none", width: "77%" }}
                       >
                         {profile.clientRequiredSkills != ""
-                          ? profile.clientRequiredSkills
+                          ? "  " + profile.clientRequiredSkills
                           : "✘ Not Available!"}
                       </span>
                     </div>
