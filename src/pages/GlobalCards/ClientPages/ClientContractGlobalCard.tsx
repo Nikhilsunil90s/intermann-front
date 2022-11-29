@@ -11,34 +11,44 @@ import { ReactComponent as TurnOn } from "../../../images/base-switch_icon.svg";
 import { API_BASE_URL } from "../../../config/serverApiConfig";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
-import { ProgressBar } from "react-bootstrap";
-import ProfileLoader from "../../../components/Loader/ProfilesLoader";
-import RenameDoc from "../../../components/Modal/RenameDoc_Modal";
+import RenameDoc from "../../../components/Modal/RenameDoc_ModalClient";
 import PreModalClient from "../../../components/Modal/preSelectedModalForClient";
-import { Tabs, Tab } from "react-tabs-scrollable";
-import ArchivedModal from "../../../components/Modal/ArchivedModal";
+import PDFModalClient from "../../../components/Modal/PDFGenerateclientModal";
+import moment from "moment";
 import ErrorLoader from "../../../components/Loader/SearchBarError";
+import { Tabs, Tab } from "react-tabs-scrollable";
+import "react-tabs-scrollable/dist/rts.css";
+import ArchivedModal from "../../../components/Modal/ArchivedModal";
+import DOCUSIGNModalCandidate from '../../../components/Modal/DOCUSIGNModalCandidate'
+import SalaryAdsEdit from "../../../components/Modal/SignedSalary&AdsEdit"
+import PDFBoxClient from "../../../components/PDFboxBothSide/PdfBoxClient";
+import ClientContract from "../../../components/ClientComponents/ClientContract"
+import JobAdsCard from '../../../components/ClientComponents/ClientJobAds'  
+import Carousel from "react-multi-carousel";
+import ProfilesLoader from "../../../components/Loader/ProfilesLoader"
+import Warning from "../../../components/Loader/SearchBarError"
+import format from 'date-fns/format'
 
-
-let RenameData = [];
 let id = "";
-let UploadName = "";
-let clDoc;
-let UploadTextBtn = "";
+let DetailsEdit;
+let DetailsAds;
 function Signed() {
+  const { state } = useLocation();
 
   const profileData = JSON.parse(localStorage.getItem("profile"));
+  useEffect(()=>{
+    setProfile(state ? state :profileData)
+    jobAdsCards(profileData._id)
+  },[state])
   // const profileD = JSON.parse(localStorage.getItem("embauch"));
-
  const [GetClientbyID,setGetClient]=useState(profileData._id)
   const [Loader,setLoader]=useState(false)
 useEffect(()=>{
-  GetClient(GetClientbyID).then(res=>
+  GetClient(profileData._id).then(res=>
     {
     if(res.data.length>0){
-      setLoader(true)
       res.data.map((el)=>{
-        
+        // setProfile(el)
         setEMPunderWorking(el.employeesWorkingUnder)
       })
 
@@ -51,7 +61,7 @@ useEffect(()=>{
 },[])
 
 const GetClient = async (IdFromURL) => {
-  return await fetch(API_BASE_URL + `getClientById/?clientId=${IdFromURL}`, {
+  return await fetch(API_BASE_URL + `getClientById/?clientId=${profileData._id}`, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -66,10 +76,9 @@ const GetClient = async (IdFromURL) => {
 
   const [profile, setProfile] = useState<any>(profileData);
   const navigate = useNavigate();
-
-
+  const [stateid] = useState(state) as any;
   const [showArchiveModal, setShowArchiveModal] = useState(false);
-  const [EMPunderWorking,setEMPunderWorking]=useState(profile.employeesWorkingUnder)as any
+  const [EMPunderWorking, setEMPunderWorking] = useState([]) as any;
   const [UploadBtn, setSelectUpload] = useState(false);
   const hiddenImageInput = React.useRef(null);
   const [SISPI, setChecked] = useState(profile.sispiDeclared);
@@ -88,12 +97,14 @@ const GetClient = async (IdFromURL) => {
     profile.clientPhoto && profile.clientPhoto?.url !== undefined
       ? profile.clientPhoto?.url
       : ""
-  )as any;
+  );
   const hiddenFileInput = React.useRef(null);
-  const [RenameDocStatus, setRenameDocStatus] = useState(false);
-  const [recommendations, setRecommendations] = useState([]);
+  const [UpdatedWarning, setUpdatedWarning] = useState(false);
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
   const [PreSelectedData, setPreSelected] = useState([]);
+  const [PDFModal, setPDFModal] = useState(false);
+  const [clientContract, setClientContract] = useState() as any;
+  const [activeTab, setActiveTab] = React.useState(1) as any;
   const [contrat_client, setcontrat_client] = useState() as any;
   const [contrat_employes, setcontrat_employes] = useState() as any;
   const [carte_d, setcarte_d] = useState() as any;
@@ -113,173 +124,24 @@ const GetClient = async (IdFromURL) => {
   const [rapport_activite, setrapport_activite] = useState() as any;
   const [reges, setreges] = useState() as any;
   const [fiche_medicale, setfiche_medicale] = useState() as any;
-  const [activeTab, setActiveTab] = React.useState(1) as any;
   const [offre_envoye_et_nonsigne, setoffre_envoye_et_nonsigne] =
-  useState() as any;
+    useState() as any;
   const [fiche_de_mise_a_disposition, setfiche_de_mise_a_disposition] =
-  useState() as any;
-  const [Archived,setArchived]=useState(  profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived")):null )
-  const [deleteModal,setDeleteModal]=useState(false)
-  const [DeleteEmp,setDeleteEmp]=useState([])
-  const [tabItems, setTabitems] = useState([
-    {
-     text: "CONTRAT CLIENT",
-     value: "contrat_client",
-   },
-   { text: "CONTRAT EMPLOYES", value: "contrat_employes" },
-   {
-     text: "ID Card EMPLOYES",
-     value: "id_card_employer",
-   },
-   {
-     text: "A1",
-     value: "al",
-   },
-   {
-     text: "CONTRATS ASSURANCES EMPLOYES",
-     value: "contrats_assurances_employes",
-   },
-   {
-     text: "SISPI",
-     value: "sispi",
-   },
-   {
-     text: "DOCUMENT DE REPRESENTATION",
-     value: "document_de_represntation",
-   },
-   {
-     text: "OFFRE SIGNEE",
-     value: "offre_signee",
-   },
-   {
-     text: "ATTESTATIONS SOCIETE INTERMANN",
-     value: "attestations_societe_intermann",
-   },
-   {
-     text: "CVS",
-     value: "cvs",
-   },
-   {
-     text: "AUTRES DOCUMENTS",
-     value: "autres_documents",
-   },
-   {
-     text: "FACTURES",
-     value: "factures",
-   },
-   {
-     text: "RAPPORT ACTIVITE",
-     value: "rapport_activite",
-   },
-   {
-     text: "OFFRE ENVOYE ET NONSIGNE",
-     value: "offre_envoye_et_nonsigne",
-   },  {
-     text: "FICHE MEDICALE",
-     value: "fiche_medicale",
-   },
-   {
-     text: "REGES",
-     value: "reges",
-   },
-   {
-     text: "FICHE DE MISE A DISPOSITION",
-     value: "fiche_de_mise_a_disposition",
-   },
- ]) as any;
-//  useEffect(()=>{ 
-//   setProfile(profileData ? profileData :
-//     [])
-//     if(profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived"))){
-      
-    
-//   setArchived(profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived")):null)
-// }
-// },[profileData])
-
-console.log(profile,"prof")
-  const candidatImportanceIcons = [
-    {
-      icon: (
-        <>
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />
-          <Empty style={{ marginRight: "3px", width: "100%" }} />
-          <Empty style={{ marginRight: "3px", width: "100%" }} />
-          <Empty style={{ marginRight: "3px", width: "100%" }} />
-          <Empty style={{ marginRight: "3px", width: "100%" }} />
-        </>
-      ),
-    },
-    {
-      icon: (
-        <>
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />
-          <Empty style={{ marginRight: "3px", width: "100%" }} />
-          <Empty style={{ marginRight: "3px", width: "100%" }} />
-          <Empty style={{ marginRight: "3px", width: "100%" }} />
-        </>
-      ),
-    },
-    {
-      icon: (
-        <>
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />
-          <Empty style={{ marginRight: "3px", width: "100%" }} />
-          <Empty style={{ marginRight: "3px", width: "100%" }} />
-        </>
-      ),
-    },
-    {
-      icon: (
-        <>
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />
-          <Empty style={{ marginRight: "3px", width: "100%" }} />
-        </>
-      ),
-    },
-    {
-      icon: (
-        <>
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />
-          <StarRating style={{ marginRight: "3px", width: "100%" }} />
-        </>
-      ),
-    },
-  ];
-
- 
-  const onTabClick = (e, index: any) => {
-    setActiveTab(index);
-    const FolderName = tabItems.filter((el, i) => i == index);
-
-    FolderName.map((el) => {
-      UploadName = el.value;
-      UploadTextBtn = el.text;
-    });
-
-    clDoc = profile.clientDocuments.filter((el) => el.folderName == UploadName);
-    setDocumentList([...clDoc]);
-  };
-  useEffect(() => {
-    const FolderName = tabItems.filter((el, i) => i == activeTab);
-
-    FolderName.map((el) => {
-      UploadName = el.value;
-      UploadTextBtn = el.text;
-    });
-
-    clDoc = profile.clientDocuments.filter((el) => el.folderName == UploadName);
-    setDocumentList([...clDoc]);
-  }, []);
+    useState() as any;
+    const [deleteModal,setDeleteModal]=useState(false)
+    const [DeleteEmp,setDeleteEmp]=useState([])
+    const [Archived,setArchived]=useState(  EMPunderWorking ?   EMPunderWorking.filter((el) => (el.candidatStatus == "Archived")):null )
+    const [preSelect,setPreselected]=useState( EMPunderWorking ?   EMPunderWorking.filter((el) => (el.candidatStatus == "Pre-Selected")):null )
+    const [salaryModal,setsalaryModal]=useState("")
+    const [salaryEditModal,setsalaryEditModal]=useState(false)
+    const [DocumentSignModal,setDocuSignModal]=useState(false)
+    const [startStatus]=useState(profile.jobStartDate.slice(0,4).includes("-"))
+    const [endStatus]=useState(profile.jobEndDate.slice(0,4).includes("-"))
+    const [startDate,setStartDate]=useState()as any
+    const [EndDate,setEndDate]=useState()as any
+    const [JobAdsCards,setJobAdsCards] =useState([])
+    const [JobAdsCardsStatus,setJobAdsCardsStatus] =useState(false)
+  
 
   useEffect(() => {
     profile.clientDocuments.map((el) => {
@@ -379,9 +241,69 @@ console.log(profile,"prof")
         setfiche_de_mise_a_disposition([el]);
       }
     });
-  },[profile.clientDocuments,documentList]);
+  },[UpdatedWarning]);
 
 
+
+
+
+  const candidatImportanceIcons = [
+    {
+      icon: (
+        <>
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <Empty style={{ marginRight: "3px", width: "100%" }} />
+          <Empty style={{ marginRight: "3px", width: "100%" }} />
+          <Empty style={{ marginRight: "3px", width: "100%" }} />
+          <Empty style={{ marginRight: "3px", width: "100%" }} />
+        </>
+      ),
+    },
+    {
+      icon: (
+        <>
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <Empty style={{ marginRight: "3px", width: "100%" }} />
+          <Empty style={{ marginRight: "3px", width: "100%" }} />
+          <Empty style={{ marginRight: "3px", width: "100%" }} />
+        </>
+      ),
+    },
+    {
+      icon: (
+        <>
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <Empty style={{ marginRight: "3px", width: "100%" }} />
+          <Empty style={{ marginRight: "3px", width: "100%" }} />
+        </>
+      ),
+    },
+    {
+      icon: (
+        <>
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <Empty style={{ marginRight: "3px", width: "100%" }} />
+        </>
+      ),
+    },
+    {
+      icon: (
+        <>
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+          <StarRating style={{ marginRight: "3px", width: "100%" }} />
+        </>
+      ),
+    },
+  ];
 
   const candidatMotivationIcons = [
     { icon: "", motivation: "No Motivation!" },
@@ -399,8 +321,7 @@ console.log(profile,"prof")
     }
   };
 
-
- let Editdata ={state:profile,path:"/clientSigned"}
+let Editdata ={state:profile,path:"/clientSigned"}
 
   const editClientProfile = () => {
     navigate("/ClientContractEditprofile", { state:Editdata });
@@ -412,7 +333,7 @@ console.log(profile,"prof")
     baseURL: API_BASE_URL,
   });
   // NOTIFY //
-  const notificationSwitch=()=>toast.success("Modification sauvegardée")
+  const notificationSwitch = () => toast.success("Modification sauvegardée");
   const notifyDocumentUploadError = () =>
     toast.error("Document Upload Failed! Please Try Again in few minutes.");
   const notifyDocumentDeleteError = () =>
@@ -425,93 +346,72 @@ console.log(profile,"prof")
 
   //END //
 
-  const renameDocument = (docId: any, docName: any, originalName: any) => {
-    // setRenameDoc(true);
 
-    RenameData = [docId, docName, profile._id, originalName];
-    // renameCandidatDocument(docId, docName, profile._id).then(resData => {
-    //   console.log(resData)
-    //   setRenameDoc(false);
-    // }).catch(err => {
-    //   console.log(err)
-    // })
-  };
-
-
+  
   const fileChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
     >
   ) => {
-    if (e.target.name === "clientDocuments") {
+    if (e.target.name === "clientPhoto") {
+      console.log(e.target.files, "e.target.files");
+      console.log(e.target.files[0], "e.target.files[]");
       const fileUploaded = e.target.files[0];
-      setCandidatDocument(fileUploaded);
       let formdata = new FormData();
       formdata.append("clientId", profile._id);
-      formdata.append("document", fileUploaded);
+      formdata.append("image", fileUploaded);
       axiosInstance
-        .post("uploadClientDocuments", formdata, {
+        .post("uploadClientImage", formdata, {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
-          onUploadProgress: (data) => {
-            //Set the progress value to show the progress bar
-            setProgress(Math.round((100 * data.loaded) / data.total));
-          },
         })
-        .then((resData) => {
-          if (resData.data.status) {
-            setDocUploaded(true);
-            setProgress(0);
+        .then((datares) => {
+          if (datares.data.status) {
+            //  setClientImage(datares.data.filename)
             notifyDocumentUploadSuccess();
+
+            setTimeout(() => {
+              window.location.href = "/clientSigned";
+            }, 2000);
           } else {
-              setDocUploaded(false);
+            notifyDocumentUploadError();
           }
         })
         .catch((err) => {
           console.log(err);
-          setDocUploaded(false);
         });
       return;
     }
+   
   };
 
   useEffect(() => {
-    fetchCandidat(profile._id)
+    fetchCandidat(state ? stateid._id : profileData._id)
       .then((resData) => {
         if (resData.status == true) {
-        
           resData.data.map((el) => {
-            setProfile(el)
-            clDoc = el.clientDocuments.filter(
-              (el) => el.folderName == UploadName
-            );
-            setDocumentList([...clDoc]);
+            setProfile(el);
+            setClientContract(el.clientContract)
+            setClientImage(el.clientPhoto ? el.clientPhoto.url : "")
           });
-        
 
-          setClientImage(
-            profile.clientPhoto && profile.clientPhoto?.url !== undefined
-              ? profile.clientPhoto?.url
-              : ""
-          )
+      
           setDocUploaded(false);
         } else {
-          setDocumentList([...documentList]);
           setDocUploaded(false);
         }
       })
+
       .catch((err) => {
         console.log(err);
       });
-     
+
+  
   }, [docUploaded]);
 
 
-  const ViewDownloadFiles = (documentName: any) => {
-    window.open(documentName);
-  };
 
   const fetchCandidat = async (clientId: any) => {
     return await fetch(API_BASE_URL + `getClientById/?clientId=${clientId}`, {
@@ -530,63 +430,6 @@ console.log(profile,"prof")
     hiddenFileInput.current.click();
   };
 
-  // const removeRecommendation = (rId: any) => {
-
-  //   console.log(recommendations);
-  //   let filteredRecommendations = recommendations.filter((recomm) => {
-  //     return recomm._id !== rId;
-  //   })
-  //   console.log(filteredRecommendations)
-  //   setRecommendations([...filteredRecommendations])
-  //   setLoader(true);
-  // }
-
-  const deleteDocument = async (docId: any, docName: any) => {
-    await deleteCandidatDocument(docId, docName, profile._id)
-      .then((resData) => {
-        if (resData.status) {
-          notifyDocumentDeleteSuccess();
-          setDocumentList([
-            ...documentList.filter((doc) => {
-              return doc.documentName !== docName;
-            }),
-          ]);
-   } else {
-          notifyDocumentDeleteError();
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const deleteCandidatDocument = async (
-    docId: any,
-    docName: any,
-    clientId: any
-  ) => {
-    let headers = {
-      Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
-    };
-    return await fetch(
-      API_BASE_URL +
-        `deleteClientDocument/?documentId=${docId}&documentName=${docName}&clientId=${clientId}`,
-      {
-        method: "GET",
-        headers: headers,
-      }
-    )
-      .then((reD) => reD.json())
-      .then((resD) => resD)
-      .catch((err) => err);
-  };
-
-  //END //
-
-  // useEffect(()=>{
-  //     GetClient(IdFromURL)
-  // })
 
 
   const viewFullProfile = (data) => {
@@ -604,14 +447,12 @@ console.log(profile,"prof")
         setOffre(true);
         id = e._id;
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setOffre(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "signatureSent") {
@@ -620,14 +461,12 @@ console.log(profile,"prof")
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setSignature(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "contractSigned") {
@@ -636,14 +475,12 @@ console.log(profile,"prof")
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setContrat(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "publicityStarted") {
@@ -652,14 +489,12 @@ console.log(profile,"prof")
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setPublic(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "A1selected") {
@@ -668,14 +503,12 @@ console.log(profile,"prof")
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setA1(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "assuranceFaite") {
@@ -684,14 +517,12 @@ console.log(profile,"prof")
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setAssurance(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "agenceDeVoyage") {
@@ -700,14 +531,12 @@ console.log(profile,"prof")
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setAgence(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "sispiDeclared") {
@@ -716,19 +545,15 @@ console.log(profile,"prof")
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setChecked(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
   };
-
-
   const onChangeSwitches = async (id, AName, val) => {
     await fetch(
       `${API_BASE_URL}switchClientAttributes/?clientId=${id}&attribute=${AName}&value=${val}`,
@@ -745,9 +570,131 @@ console.log(profile,"prof")
       .then((result) => result)
       .catch((err) => err);
   };
+
+  function padTo2DigitsCH(num) {
+    return num.toString().padStart(2, "0");
+  }
+
+  // console.log(props.data.jobStartDate.slice(0,4).includes("-"))
+
+  function formatDateCha(date) {
+    return [
+      padTo2DigitsCH(date.getDate()),
+      padTo2DigitsCH(date.getMonth() + 1),
+      date.getFullYear(),
+    ].join("/");
+  }
+  const datenow = moment().format("YYYY-MM-DD");
+
+  let date = new Date(datenow);
+
+  let start = new Date(profile.jobStartDate);
+  let end = new Date(profile.jobEndDate);
+
+  useEffect(()=>{
+    if(startStatus){
+      setStartDate(profile.jobStartDate)
+    }else{
+      let data=formatDateCha(start)
+      setStartDate(data.replaceAll("/","-"))
+      
+  
+    }
+    if(endStatus){
+      setEndDate(profile.jobEndDate)
+    }else{
+      let data=formatDateCha(end)
+      setEndDate(data.replaceAll("/","-"))
+      
+  
+    }
+   })
+
+  const EditSalaryAds=(e:any,CanId:any,currentWorkId:any,CurrentSalary:any)=>{
+   
+ 
+   if(e === "Salary"){
+    DetailsEdit={
+      Canid:CanId,
+      currentWorkId:currentWorkId ? currentWorkId.toString() : "",
+      CurrentSalary:CurrentSalary ? CurrentSalary.toString() : ""
+
+    }
+    setsalaryModal("Salary") 
+    setsalaryEditModal(true)
+   }
+   if(e === "Ads"){
+    DetailsAds={
+      clientId:profile._id, 
+      currentBudget:profile.jobTotalBudget ? profile.jobTotalBudget : "0",
+    }
+    setsalaryModal("Ads Spent") 
+    setsalaryEditModal(true)
+   }
+  } 
+
+  
+  const jobAdsCards = async (Id) => {
+    setJobAdsCardsStatus(false)
+
+    await fetch(
+      `${API_BASE_URL}getClientAds/?clientId=${Id}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    )
+      .then((reD) => reD.json())
+      .then((result) => 
+      {
+       if(result.status){
+        setJobAdsCards([...result.data])
+        setJobAdsCardsStatus(true)
+       }else{
+        setJobAdsCards([])
+        setJobAdsCardsStatus(true)
+
+       }
+      }
+      )
+      .catch((err) => err);
+  };
+  
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 3,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
+
+
+  const dateDu = new Date(clientContract?.debut_date !== "" ? clientContract?.debut_date : "")
+  const FinM = new Date(clientContract?.date_fin_mission !== "" ? clientContract?.date_fin_mission : "")
+ 
   return (
     <>
-    <Toaster position="top-right" containerStyle={{zIndex:"9999999999999999999999"}}  />
+      <Toaster
+        position="top-right"
+        containerStyle={{ zIndex: "9999999999999999999999" }}
+      />
+
       <div className="containet-fluid">
         <div className="row px-1">
           <div className="col-12 top-pd mt-1">
@@ -757,10 +704,11 @@ console.log(profile,"prof")
             <div className="row">
               <div className="col-8">
                 <div className="stable">
-                  <Link to="/clientProgress">
+                  <Link to="/clientContract">
                     <button type="button" className="btn FontStyle-TODOSEE">
                       <img src={require("../../../images/return.svg").default} />
-                      Client File : {profile.clientCompanyName.toLocaleUpperCase()}
+                      Client File :{" "}
+                      {profile.clientCompanyName.toLocaleUpperCase()}
                     </button>
                   </Link>
                 </div>
@@ -780,14 +728,18 @@ console.log(profile,"prof")
             <div className="col-12 my-1 py-1 ClientSEE-TopDetails">
               <div className="row">
                 <div className="col-2 pr-0 text-center">
-                  <div className="">
-               
-               
+                  {ClientImage !== "" ? (
                     <img
-                      src={ClientImage ? ClientImage : require("../../../images/fullClientSee.svg").default}
+                      src={ClientImage}
                       className="imgSigned-upload-Download"
                     />
-                  </div>
+                  ) : (
+                    <img
+                      src={require("../../../images/fullClientSee.svg").default}
+                      className="imgSigned-upload-Download"
+                    />
+                  )}
+
                   {/* <Select
                           closeMenuOnSelect={true}
   // onChange={handleChange}
@@ -816,8 +768,8 @@ console.log(profile,"prof")
                   <input
                     type="file"
                     ref={hiddenImageInput}
-                    // onChange={fileChange}
-                    name="candidatPhoto"
+                    onChange={fileChange}
+                    name="clientPhoto"
                     style={{ display: "none" }}
                   />
                 </div>
@@ -833,12 +785,28 @@ console.log(profile,"prof")
                     </p>
                     <span className="card-xlSpan">(Age)</span>
                   </div>
-                  <p>Number of Positions : {profile.numberOfPosts ? profile.numberOfPosts : "No Posts!"}</p>
+                  <p>
+                    Number of Positions :{" "}
+                    {profile.numberOfPosts
+                      ? profile.numberOfPosts
+                      : "No Posts!"}
+                  </p>
 
-                  <p>Secteur : {profile.clientActivitySector !=="" ? profile.clientActivitySector  :"No Secteur!"}</p>
-                  <p>Métier/Job : {profile.clientJob !=="" ? profile.clientJob :"No Job!"}</ p>
+                  <p>
+                    Secteur :{" "}
+                    {profile.clientActivitySector
+                      ? profile.clientActivitySector
+                      : "No Sector"}
+                  </p>
+                  <p>
+                    Métier/Job :{" "}
+                    {profile.clientJob ? profile.clientJob : "No Job!"}
+                  </p>
                   <p style={{ width: "120%" }}>
-                    Contact Name : {profile.clientReferenceName ? profile.clientReferenceName.toLocaleUpperCase():"No Name!"}
+                    Contact Name :{" "}
+                    {profile.clientReferenceName
+                      ? profile.clientReferenceName.toLocaleUpperCase()
+                      : "No Contact Name!"}
                   </p>
                 </div>
                 {/* <div className="col-4 text-end end-class d-grid justify-content-center align-items-center"> */}
@@ -1183,7 +1151,6 @@ console.log(profile,"prof")
                 >
                   <div className="d-flex">
                     <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                     
                       {profile.clientEmail
                         ? " Mail :" + profile.clientEmail
                         : null}
@@ -1192,7 +1159,8 @@ console.log(profile,"prof")
                   {profile.clientEmail ? (
                     <button className="btn-TODOgmail">
                       <a
-                        href="https://accounts.google.com/"
+                         href={`mailto:${profile.clientEmail}`}
+
                         className="text-dark fw-bold"
                         target="_blank"
                       >
@@ -1205,18 +1173,19 @@ console.log(profile,"prof")
                         Send Email
                       </a>
                     </button>
-                  ) :null}
+                  ) : null}
 
                   <div className="d-flex">
                     <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                     
-                      {profile.clientEmail ? "Contact :" + profile.clientEmail : null}
+                      {profile.clientReferenceEmail
+                        ? "Contact :" + profile.clientReferenceEmail
+                        : null}
                     </p>
                   </div>
 
-                  {profile.clientEmail ? (
+                  {profile.clientReferenceEmail ? (
                     <a
-                      href={profile.clientEmail}
+                    href={`mailto:${profile.clientReferenceEmail}`}
                       target="_blank"
                       className="btn  fw-bold btn-TODOgmail"
                     >
@@ -1225,14 +1194,13 @@ console.log(profile,"prof")
                       </span>
                       Send Email
                     </a>
-                  ) :null}
+                  ) : null}
 
                   <div className="d-flex">
                     <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                     
                       {profile.clientPhone
-                        ?  "Company Phone :" + profile.clientPhone
-                        :null}
+                        ? "Company Phone :" + profile.clientPhone
+                        : null}
                     </p>
                   </div>
                   {profile.clientPhone ? (
@@ -1250,17 +1218,16 @@ console.log(profile,"prof")
                         Send What’s App
                       </button>
                     </a>
-                  ) :null}
+                  ) : null}
 
                   <div className="d-flex">
                     <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                     
                       {profile.clientReferenceNumber
-                        ? " Contact Phone :" + profile.clientReferenceNumber
+                        ? "Contact Phone :" + profile.clientReferenceNumber
                         : null}
                     </p>
                   </div>
-                  {profile.clientReferenceNumber ? (
+                  {profile.clientReferenceNumber != "" ? (
                     <a
                       href={`https://wa.me/${profile.clientReferenceNumber}`}
                       target="_blank"
@@ -1275,7 +1242,7 @@ console.log(profile,"prof")
                         Send What’s App
                       </button>
                     </a>
-                  ) :null}
+                  ) : null}
                 </div>
                 <div
                   className="col-xxl-8 col-xl-8 col-lg-8 col-md-7 Social-Card p-1 detailsCardClientSee scrollbar Social-btnS"
@@ -1283,52 +1250,67 @@ console.log(profile,"prof")
                   style={{ maxWidth: "49%" }}
                 >
                   <div className="Todo-ClinetCardMore force-overflow">
-                    <div className="d-flex">
-                      <div className="d-flex" style={{ width: "500px" }}>
-                        <p className="CompanyAddres">Company Adress</p>
-
-                        <span className="Todo-ClinetCardMore-span">
-                          :
-                          {profile.clientAddress
-                            ? profile.clientAddress
-                            : "✘ No Address!"}
-                        </span>
+                    
+                    
+                          <div className="d-flex">
+                            <p className="">Company Adress  </p>
+                          
+                          
+                            <span className="Todo-ClinetCardMore-span" style={{width :"69%"}}>
+                                :  
+                                {profile.clientAddress
+                                ? "  "+ profile.clientAddress
+                                : "✘ No Address!"}
+                      </span>
                       </div>
-                    </div>
+              
                     <div className="d-flex align-items-center ">
                       <p className="blue-text">Research for work :</p>
-                      <span className="bluetextCardSee">
-                        {profile.jobStartDate != ""
-                          ?" 📆" + profile.jobStartDate
-                          : "___"}
-                        To
-                        {profile.jobEndDate != "" ? profile.jobEndDate : "___"}
+                      <span
+                        className="bluetextCardSee"
+                        style={{
+                          color:
+                            date >= start && date <= end
+                              ? "#3F76E2"
+                              : "#ca1313",
+                        }}
+                      >
+                        {date >= start && date <= end
+                          ? " 📆" + startDate + "  To  " + EndDate
+                          : "⚠️" +
+                            startDate +
+                            "  To  " +
+                            EndDate}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
                       <p>Langues : </p>
                       <span className="Todo-ClinetCardMore-span">
-                        
                         {profile.clientLanguages.length
-                          ? profile.clientLanguages.join(", ")
+                          ?  "  " + profile.clientLanguages.join(", ")
                           : " ✘ No Langues!"}
                       </span>
                     </div>
                     <div className="d-flex align-items-center">
                       <p>Voyage en voiture :</p>
                       <span className="Todo-ClinetCardMore-span">
-                        {profile.candidatConduireEnFrance ? "✔ Yes" : "✘ No"}
+                        {profile.candidatConduireEnFrance ? `✔ Yes` : "✘ No"}
                       </span>
                     </div>
-
+                    <div className="d-flex align-items-center">
+                      <p>Permis / Licence Drive :</p>
+                      <span className="Todo-ClinetCardMore-span">
+                        {profile.clientPermis ? `✔ Yes` : "✘ No"}
+                      </span>
+                    </div>
                     <div className="d-flex">
-                      <p style={{ width: "121px" }}>Client Note:</p>
+                      <p >Client Note:</p>
                       <span
                         className="Todo-ClinetCardMore-span"
-                        style={{ textDecoration: "none", width: "390px" }}
+                        style={{ textDecoration: "none", width: "77%" }}
                       >
                         {profile.clientRequiredSkills != ""
-                          ? profile.clientRequiredSkills
+                          ? "  " + profile.clientRequiredSkills
                           : "✘ Not Available!"}
                       </span>
                     </div>
@@ -1344,103 +1326,127 @@ console.log(profile,"prof")
                     <div className="d-flex align-items-center">
                       <p className="text-dark">Salary by person </p>
                       <span className="Todo-ClinetCardMore-span">
-                        :
-                        {profile.salary_hours
-                          ? profile.salary_hours.salaryPerHour + "€"
-                          : "✘ No Salary"}
+                        :{" "}
+                        {profile.salary_hours.length > 0
+                          ? profile.salary_hours.includes(
+                              profile.salary_hours.salaryPerHour
+                            )
+                            ? profile.salary_hours
+                                .map((el,i) => {
+                                  return el.salaryPerHour + "€";
+                                })
+                                .slice(0, 1)
+                            : "✘ No Salary!"
+                          : "✘ No Salary!"}{" "}
+                        
                       </span>
                     </div>
-                    <div className="d-flex align-items-center">
-                      <p className="text-dark">Salaire net du salarié </p>
+                    <div className="d-flex ">
+                      <p className="text-dark">Salaire net du salarié  </p>
                       <span className="Todo-ClinetCardMore-span">
-                        :
-                        {profile.salary_hours
-                          ? profile.salary_hours.hours *
-                              profile.salary_hours.salaryPerHour +
-                            "€"
-                          : "✘ No Hours!"}
+                      :  {profile.salary_hours.length !== 0
+                          ? profile.salary_hours.map((el,i) => (
+                              <div className="d-flex" key={i}>
+                                {el.hours ? el.hours : "0"}H ={" "}
+                                <span>
+                                  {el.salaryPerHour
+                                    ? el.salaryPerHour + "€"
+                                    : "0€"}
+                                </span>
+                              </div>
+                            ))
+                          : "✘ No Salaire!"}
                       </span>
                     </div>
-                    <div className="d-flex align-items-center">
-                      <p className="text-dark">Taux horraire</p>
+                    <div className="d-flex ">
+                      <p className="text-dark">Taux horraire </p>
                       <span className="Todo-ClinetCardMore-span">
-                        :
-                        {profile.rate_hours
-                          ? profile.rate_hours.hours *
-                              profile.rate_hours.ratePerHour +
-                            "€"
-                          : "✘ No Hours!"}
+                      : {profile.rate_hours.length !== 0
+                          ? profile.rate_hours.map((el,i) => (
+                              <div className="d-flex" key={i}>
+                                {el.hours ? el.hours : "0"}H ={" "}
+                                <span>
+                                  {el.ratePerHour ? el.ratePerHour + "€" : "0€"}
+                                </span>
+                              </div>
+                            ))
+                          : "✘ No horraire!"}
                       </span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          
-      
-           <div className="col-12 inPAdsBOX py-1">
-           <div className="row">
-             <div className="col-6 pt-2">
-               <p className="EmpWorking">
-                 Employees working for this client :
-               </p>
-             </div>
-             {profile.employeesWorkingUnder !== null &&
-                profile.employeesWorkingUnder.length > 0 ? 
-                  profile.employeesWorkingUnder.map((el) => (
-                    <div className="col-12 pb-1">
-                      <div className="row">
-                     { el.candidatName && el.candidatStatus !== "Archived" ?
-                          <>                          <div className="col-8 d-flex align-items-center">
-                          <img
-                            style={{ width: "7%" }}
-                            className="pr-1"
-                            src={require("../../../images/menSigned.svg").default}
-                          />
-                          {el.candidatName && el.candidatStatus !== "Archived" ? el.candidatName : null }
-                          <span className="pl-1">Since :</span>
-                          {el.candidatName && el.candidatStatus !== "Archived" ? el.candidatCurrentWork.map((el) => el.workingSince ? el.workingSince :"✘ No Working Since!") : null}
-                          <span className="pl-1">Salary :</span>
-                          {el.candidatName && el.candidatStatus !== "Archived" ?  el.candidatCurrentWork.map((el) => el.salary ? el.salary : "0€") : null}
-                        </div>
-                      
-                        <div className="col-4 d-flex">
-                          <button
-                            className="seeFullCandidat"
-                            onClick={(e) => viewFullProfile(el)}
-                          >
-                            <img
-                              src={require("../../../images/seeCan.svg").default}
-                            />
-                            See profile
-                          </button>
-                          <div className="col-1 px-0">
-                        <button
-                                className="btn"   
-                                onClick={(e)=>{setDeleteModal(true);setDeleteEmp(el)}}
-                            >
-                                <img src={require("../../../images/Deletebucket.svg").default} />
-                            </button>
-                          </div>
-                        </div>
 
-                        </>
-                        
-:
-<>                    
+            <div className="col-12 inPAdsBOX py-1">
+              <div className="row">
+                <div className="col-6 pt-2">
+                  <p className="EmpWorking">
+                    Employees working for this client :
+                  </p>
+                </div>
+                {
+                EMPunderWorking?.length > 0 ? 
+                EMPunderWorking?.map((el,i) => (
+                <>    
+                     {  el.candidatStatus == "Archived" ||  el.candidatStatus == "Pre-Selected" ?
+                         
+                        null
+:                    
+<>
+  <div className="col-12 pb-1" key={i}>
+<div className="row">   
+                   <div className="col-8 d-flex align-items-center">
+<img
+  style={{ width: "7%" }}
+  className="pr-1"
+  src={require("../../../images/menSigned.svg").default}
+/>
+{ el.candidatStatus == "Archived" ||  el.candidatStatus == "Pre-Selected" ? null : el.candidatName }
+<span className="pl-1">Since :</span>
+{el.candidatName && el.candidatStatus == "Archived" ||el.candidatName && el.candidatStatus == "Pre-Selected" ? null : el.candidatCurrentWork.map((el) => el.workingSince ? el.workingSince :"✘ No Working Since!")}
+<span className="pl-1">Salary :</span>
+{el.candidatName && el.candidatStatus == "Archived" || el.candidatName && el.candidatStatus == "Pre-Selected" ? null : el.candidatCurrentWork.map((el) => el.salary ? el.salary +"€" : "0€")}
+</div>
 
+<div className="col-4 d-flex">
+<button
+  className="seeFullCandidat"
+  onClick={(e) => viewFullProfile(el)}
+>
+  <img
+    src={require("../../../images/seeCan.svg").default}
+  />
+  See profile
+</button>
+<button
+      className="btn py-0" 
+      id="Salary"  
+      onClick={(e)=>EditSalaryAds("Salary",el._id,el.candidatCurrentWork.map((el) => el._id),el.candidatCurrentWork.map((el) => el.salary ? el.salary : "0"))}
+  >
+      <img style={{width:"20px"}} src={require("../../../images/editpen.svg").default} />
+  </button>
+<div className="col-1 px-0">
+<button
+      className="btn"   
+      onClick={(e)=>{setDeleteModal(true);setDeleteEmp(el)}}
+  >
+      <img src={require("../../../images/Deletebucket.svg").default} />
+  </button>
+</div>
+</div>
 
-
-</>}
-                          </div>
-                    </div>
-                  ))
+</div>
+</div>
+</>
+}
+</>      ))
                   
                  : (
                   // <div className="col-12 pb-1 d-flex">
                   //   <img
                   //     className="pr-1"
-                  //     src={require("../../images/menSigned.svg").default}
+                  //     src={require("../../../images/menSigned.svg").default}
                   //   />
                   //   No Candidat! <span className="pl-1">Since :</span> Since No!
                   //   <span className="pl-1">Salary :</span> No Salary!
@@ -1465,20 +1471,58 @@ console.log(profile,"prof")
 
 <div className="col-12 pb-1">
                       <div className="row">
+                        {
+                          preSelect ?
+                          preSelect.map((el,i)=>(
+                            <>      <div className="col-4 d-flex align-items-center mb-1" key={i}>
+                            <img
+                              style={{ width: "15%" }}
+                              className="pr-1"
+                              src={require("../../../images/menSigned.svg").default}
+                            /><p className="mb-0" style={{color:"#fd9e02"}}>
+                            {el.candidatName.toLocaleUpperCase()}</p>
+   
+                            </div>
+                            <div className="col-8 text-end">
+                            <b     style={{
+                        fontFamily: "Poppins",
+                        fontStyle: "normal",
+                        fontWeight: "700",
+                        fontSize: "10px",
+                        lineHeight: "24px",
+                        color: "#000000",
+                      }}>"⚠️This Candidat is Preselected But Don't Work for the Company yet!"</b>
+                            </div>
+                            
+                            </>
+                            ))
+                             :
+                             null
+                            
+                        }
 {Archived ?
-                   Archived.map((el)=>(
-<>      <div className="col-8 d-flex align-items-center">
+                   Archived.map((el,i)=>(
+<>      <div className="col-3 pr-0 mb-1 d-flex align-items-center" key={i}>
 <img
-  style={{ width: "7%" }}
+  style={{ width: "20%" }}
   className="pr-1"
   src={require("../../../images/menSigned.svg").default}
 /><p className="mb-0" style={{color:"red"}}>
-{el.candidatName}</p>
-<span style={{color:"red"}} className="pl-1">Since :</span>
-<p className="mb-0" style={{color:"red"}}>{el.candidatCurrentWork.map((el) => el.workingSince ? el.workingSince :"✘ No Working Since!")}</p>
-<span style={{color:"red"}} className="pl-1">Salary :</span>
-<p className="mb-0" style={{color:"red"}}>{el.candidatCurrentWork.map((el) => el.salary ? el.salary : "0€")}</p>
-</div></>
+{el.candidatName.toLocaleUpperCase()}</p>
+
+</div>
+
+<div className="col-9 text-end">
+                            <b     style={{
+                        fontFamily: "Poppins",
+                        fontStyle: "normal",
+                        fontWeight: "700",
+                        fontSize: "10px",
+                        lineHeight: "24px",
+                        color: "#000000",
+                      }}>"⚠️This candidat previously worked for this company but have been archived, please reset to todo if something changed"</b>
+                            </div>
+</>
 ))
  :
  null
@@ -1488,38 +1532,55 @@ console.log(profile,"prof")
                       </div>
          
 
-             <p className="mb-0">
-               Ads Spent on this client :
-               {profile.jobTotalBudget
-                 ? profile.jobTotalBudget
-                 : "✘ No Budget!"}
-             </p>
-           </div>
-         </div>
-         
-        
-        
+                {profile.employeesWorkingUnder !== null &&
+                profile.employeesWorkingUnder.length > 0 ? (
+                 <div className="col-12"> <div className="row"><div className="col-8"><p className="mb-0">
+                    Ads Spent on this client :
+                    {profile.jobTotalBudget
+                      ? profile.jobTotalBudget + "€"
+                      : "✘ No Budget!"}
+               
+                  </p>
+               </div><div className="col-4 text-center"> <button
+      className="btn py-0"
+      name="Ads"
+      onClick={(e)=>EditSalaryAds("Ads",null,null,null)}   
+  >
+      <img style={{width:"20px"}} src={require("../../../images/editpen.svg").default} />
+  </button>  </div> </div>  </div>
+                ) : null}
+              </div>
+            </div>
 
-            {/* <div className="col-12 pt-4">
-                <div className="row">
-                  <div className="col-5 pdf-btn">
-                    <img src={require("../../../images/doc.svg").default} />
-                    <span>Add document about this client </span>
+<div className="col-12 my-1 inPAdsBOX">
+                <div className="row p-1">
+{
+JobAdsCardsStatus ?  
+JobAdsCards.length > 0 ?
+                <Carousel responsive={responsive}>
+                  {
+                        
+                    JobAdsCards.map((el)=>(
+                      <div className="col-12">
+
+                      <JobAdsCard    bg="Signed"   props={el}     />
+                      </div>
+                    ))
+                  }
+                  </Carousel>
+                  :
+                  <div className="col-12 d-flex justify-content-center">
+                  <p className="mb-0 d-flex align-items-center ErrorSearchBox"><Warning /> NO JOBS ADS FOUND ✘✘!</p>
                   </div>
+
+:
+<div className="col-12 d-flex justify-content-center">
+<ProfilesLoader  width ={250} height={200} fontSize={"26px"} fontWeight={"600"}  Title={"Please Wait!"}/> 
+</div>
+}
                 </div>
-              </div> */}
-            {/* <div className="col-12"> */}
-            {/* <div className="row">
-                  <div className="col-6 mb-3">
-                    <p className="poppins">
-                      Par exemple : Contrat signé; Offre signé....
-                    </p>
-                    <span className="poppins">
-                      PDF; Word; PNG; Excel etc ......
-                    </span>
-                  </div>
-                </div>
-              </div> */}
+              </div>
+
             <div className="col-12 Social-CardClient my-1 p-1">
               <div className="row">
                 <div className="col-6">
@@ -1550,23 +1611,17 @@ console.log(profile,"prof")
                           ? candidatImportanceIcons[
                               profile.clientImportance - 1
                             ]?.icon
-                          : "No Importance"}
+                          : "✘✘!"}
                       </b>
                     </p>
                     <p className="mb-0 pt-1" style={{ width: "130%" }}>
                       Motivation :
                       <b style={{ background: "transparent", zIndex: "9999" }}>
                         {candidatMotivationIcons[profile.clientMotivation]
-                          ?.icon +
-                        " " +
-                        candidatMotivationIcons[profile.clientMotivation]
-                          ?.motivation
-                          ? candidatMotivationIcons[profile.clientMotivation]
-                              ?.icon +
-                            " " +
-                            candidatMotivationIcons[profile.clientMotivation]
-                              ?.motivation
-                          : "No Motivation!"}
+                          .icon +
+                          " " +
+                          candidatMotivationIcons[profile.clientMotivation]
+                            .motivation}
                       </b>
                     </p>
 
@@ -1623,13 +1678,18 @@ console.log(profile,"prof")
                 </div>
 
                 <div className="col-3 text-center">
-                  <button type="button" className="btn btn-contractClient">
+                  <a
+                    href="https://www.canva.com/design/DAFA2NwkHSw/p4I45NInV69YG9HKrS3TGw/edit"
+                    target="_blank"
+                    type="button"
+                    className=" btn-contractClient"
+                  >
                     <img
                       src={require("../../../images/doc.svg").default}
                       style={{ paddingRight: "5px" }}
                     />
                     Créer offre
-                  </button>
+                  </a>
                   <p className="btn-Down text-center">
                     Créer une offre avec Canva
                   </p>
@@ -1650,288 +1710,496 @@ console.log(profile,"prof")
                       closeModal={setShowArchiveModal}
                       path={"/clientToDoProfile"}
                     />
-                  ) : null}                {
-                    deleteModal ? 
-                    <ArchivedModal
-                    props={DeleteEmp}
-                    closeModal={setDeleteModal}
-                    path={"/clientSigned"}
-                    
-                  />
-                    :
-                    null
-                  }
+                  ) : null}
                   <p className="btn-Down text-center">Si plus d’actualité</p>
                 </div>
                 <div className="col-3">
-                  <button type="button" className="btn btn-grilleClient">
+                  <a
+                    href="https://docs.google.com/spreadsheets/d/14xzXy9FD5V7ASYfYZg1kPmHSGvPqr4APfIWP_S9r_tI/edit#gid=0"
+                    target="_blank"
+                    type="button"
+                    className="btn btn-grilleClient"
+                  >
                     <img
                       src={require("../../../images/salary.svg").default}
                       style={{ paddingRight: "5px" }}
                     />
                     Grille de prix
-                  </button>
+                  </a>
                   <p className="btn-Down text-center">
                     Accès réstreint à Jeremy & Pat
                   </p>
                 </div>
                 <div className="col-3">
-                  <button type="button" className="btn  btn-careerClient">
+                  <a
+                    href="https://drive.google.com/drive/folders/1MqR9nDBLtpl_xMCmVGmcy5g0T3noPhgZ"
+                    target="_blank"
+                    type="button"
+                    className="btn btn-careerClient"
+                  >
                     <img
                       src={require("../../../images/doc.svg").default}
                       style={{ paddingRight: "5px" }}
                     />
                     Créer contrat
-                  </button>
+                  </a>
                   <p className="btn-Down text-center">
                     Créer un contrat avec Drive
                   </p>
                 </div>
-              </div>
-            </div>
-             <div className="col-12 Social-CardClient my-1">
-              <div className="row px-1 pt-1 pb-0">
-                <div className="col-4 pr-0">
-                  <p className="DocShareLink mb-0">
-                   
-                    Share this link with the client : <br />
-                    Patager ce lien avec le client:
+                <div className="col-4 ml-1 text-center">
+                  <button
+                    type="button"
+                    className="btn btn-careerClient"
+                    onClick={(e) => setPDFModal(true)}
+                  >
+                    <span>
+                      <img
+                        style={{ paddingRight: "10px" }}
+                        src={require("../../../images/doc.svg").default}
+                      />
+                    </span>
+                    Générér un contrat
+                  </button>
+                  <p style={{ width: "106%" }} className="btn-Down text-center">
+                    Créer un contrat avec le logiciel CRM
                   </p>
                 </div>
-                <div className="col-8 pl-0">
-                  <div className="DocShareLinkBackground p-1">
-                    <Link
-                      className="LinkStyling"
-                      to={`/documentbox/${profile.clientCompanyName}/${profile._id}`}
-                      target="_blank"
-                    >
-                      {API_BASE_URL +
-                        `documentbox/${profile.clientCompanyName.replaceAll(
-                          " ",
-                          "%20"
-                        )}/` +
-                        profile._id}
-                    </Link>
-                  </div>
-                </div>
-                <div className="col-12 mt-2">
-                  <Tabs
-                    activeTab={activeTab}
-                    onTabClick={onTabClick}
-                    rightBtnIcon={">"}
-                    hideNavBtns={false}
-                    leftBtnIcon={"<"}
-                    showTabsScroll={false}
-                    tabsScrollAmount={5}
-                  >
-                    {/* generating an array to loop through it  */}
-                    {tabItems.map((el, i) => (
-                      <Tab key={i}>{el.text}</Tab>
-                    ))}
-                  </Tabs>
-                </div>
-                <div className="row py-1" style={{ marginRight: "1px" }}>
-                  {documentList.length > 0 ? (
-                    documentList.map((doc, index) => (
-                      <div className="col-6 mx-0">
-                        <div className="row CardClassDownload mt-1 mx-0">
-                          <div
-                            className="col-4 d-flex align-items-center cursor-pointer"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="bottom"
-                            title={doc.originalName}
-                          >
-                            <p className="download-font mb-0">
-                              {doc.originalName.length > 20
-                                ? doc.originalName.slice(0, 21) + "..."
-                                : doc.originalName}
-                            </p>
-                          </div>
-                          <div className="col-6 text-center">
-                            {/* {progress > 0 && progress < 100  ?
-                                  <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
-                                  :
-                                  <button className="btnDownload">
-                                    <img src={require("../images/dowBtn.svg").default} />
-                                    {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
-                                  </button>
-                                } */}
-                            <button
-                              className="btnDownload"
-                              onClick={() =>
-                                ViewDownloadFiles(doc.url)
-                              }
-                            >
-                              <img
-                                src={require("../../../images/dowBtn.svg").default}
-                              />
-                              {doc.originalName.length > 10
-                                ? doc.originalName.slice(0, 11) + "..."
-                                : doc.originalName}
-                            </button>
-                          </div>
-                          <div className="col-2  d-flex align-item-end justify-content-end">
-                            <img
-                              src={require("../../../images/editSvg.svg").default}
-                              style={{
-                                width: "20px",
-                                marginRight: "5px",
-                                cursor: "pointer",
-                              }}
-                              // onClick={() => renameDocument(doc._id, doc.documentName)}
-                              onClick={() => {
-                                setRenameDocStatus(true);
-                                renameDocument(
-                                  doc._id,
-                                  doc.documentName,
-                                  doc.originalName
-                                );
-                              }}
-                            />
-                            <img
-                              src={
-                                require("../../../images/Primaryfill.svg").default
-                              }
-                              style={{ width: "20px", cursor: "pointer" }}
-                              onClick={() =>
-                                deleteDocument(doc._id, doc.documentName)
-                              }
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    ))
-                  ) : progress > 0 &&
-                    progress < 100 &&
-                    documentList.length == 0 ? (
-                    <>
-                      <div className="col-6 mx-0">
-                        <div className="row CardClassDownload p-0 mt-1 mx-0">
-                          <div className="col-4 pr-0 d-flex align-items-center ">
-                            <ProfileLoader
-                              width={"90"}
-                              height={"56px"}
-                              fontSize={"12px"}
-                              fontWeight={600}
-                              Title={"Uploading!"}
-                            />
-                          </div>
-                          <div
-                            className="col-6 text-center  mb-0"
-                            style={{ marginTop: "21px" }}
-                          >
-                            <ProgressBar
-                              className="mb-0"
-                              now={progress}
-                              label={`${progress}%`}
-                            />
-                          </div>
-                          <div className="col-2  d-flex align-item-end justify-content-end">
-                            <img
-                              src={require("../../../images/editSvg.svg").default}
-                              style={{
-                                width: "20px",
-                                marginRight: "5px",
-                                cursor: "pointer",
-                              }}
-                              // onClick={() => renameDocument(doc._id, doc.documentName)}
-                            />
-                            <img
-                              src={
-                                require("../../../images/Primaryfill.svg").default
-                              }
-                              style={{ width: "20px", cursor: "pointer" }}
-                              // onClick={() => deleteDocument(doc._id, doc.documentName)}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    <div className="d-grid  justify-content-center align-items-center mb-0">
-                     
-                      <div className="d-flex justify-content-center">
-                       
-                        <img
-                          src={require("../../../images/docupload.svg").default}
-                        />{" "}
-                      </div>
-                      <p
-                        style={{
-                          fontFamily: "Poppins",
-                          fontStyle: "normal",
-                          fontWeight: "500",
-                          fontSize: "16px",
-                          lineHeight: "24px",
-                          color: "#92929D",
-                        }}
-                      >
-                       {UploadTextBtn} file not Uploaded Yet
-                      </p>
-                    </div>
-                  )}
-                  {progress > 0 && progress < 100 && documentList.length > 0 ? (
-                    <div className="col-6 mx-0">
-                      <div className="row CardClassDownload p-0 mt-1 mx-0">
-                        <div className="col-4 pr-0 d-flex align-items-center ">
-                          <ProfileLoader
-                            width={"90"}
-                            height={"56px"}
-                            fontSize={"12px"}
-                            fontWeight={600}
-                            Title={"Uploading!"}
-                          />
-                        </div>
-                        <div
-                          className="col-6 text-center  mb-0"
-                          style={{ marginTop: "21px" }}
-                        >
-                          <ProgressBar
-                            className="mb-0"
-                            now={progress}
-                            label={`${progress}%`}
-                          />
-                        </div>
-                        <div className="col-2  d-flex align-item-end justify-content-end">
-                          <img
-                            src={require("../../../images/editSvg.svg").default}
-                            style={{
-                              width: "20px",
-                              marginRight: "5px",
-                              cursor: "pointer",
-                            }}
-                          />
-                          <img
-                            src={
-                              require("../../../images/Primaryfill.svg").default
-                            }
-                            style={{ width: "20px", cursor: "pointer" }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ) : null}
-                  <div className="col-12 d-flex justify-content-center mt-2">
-                    <button
-                      className="uploadBtnForClient p-1"
-                      onClick={handleFileUpload}
-                    >
-                      <img src={require("../../../images/resume.svg").default} />
-                      Upload {UploadTextBtn} file Now
-                      <input
-                        type="file"
-                        ref={hiddenFileInput}
-                        onChange={fileChange}
-                        name="clientDocuments"
-                        style={{ display: "none" }}
-                      />
-                    </button>
-                  </div>
-                
-             
-                </div>
               </div>
             </div>
+            <div className="col-12 Social-CardClient mt-1 ">
+              {clientContract ? (
+                <div className="row p-1">
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ numero contrat
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="numero_contract"
+                    value={
+                      clientContract ? clientContract.numero_contract : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ numero contrat"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ initial Société client
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    value={
+                      clientContract
+                        ? clientContract.initial_client_company
+                        : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ initial Société client"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">$ siret </label>
+                  <input
+                    className="form-control inputStyling"
+                    value={clientContract ? clientContract.siret : ""}
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎$ siret"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">$ numero TVA</label>
+                  <input
+                    className="form-control inputStyling"
+                    name="candidatJob "
+                    value={clientContract ? clientContract.numero_tva : ""}
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ numero TVA"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">$ nom gérant</label>
+                  <input
+                    className="form-control inputStyling"
+                    name="cmp_candidat"
+                    value={clientContract ? clientContract.nom_gerant : ""}
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ nom gérant"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ telephone gerant
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="contract_date"
+                    value={
+                      clientContract ? clientContract.telephone_gerant : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ telephone gerant"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ metier en Roumain
+                  </label>
+                  <input
+                    className="inputStyling wHCompany form-control"
+                    name="company_contact_name"
+                    value={
+                      clientContract ? clientContract.metier_en_roumain : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ metier en Roumain"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ metier en Français
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="$ metier en Français"
+                    value={
+                      clientContract
+                        ? clientContract.metier_en_francais
+                        : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ metier en Français"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ date du debut de mission
+                  </label>
+                  <input
+                    type=""
+                    readOnly
+                    className="form-control inputStyling"
+                    name="serie_id"
+                    value={clientContract?.debut_date !== "" ? format(dateDu, "dd/MM/yyyy"): ""}
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ date du debut de mission"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ date de fin de mission
+                  </label>
+                  <input
+                    type=""
+                    readOnly
+                    className="form-control inputStyling"
+                    name="candidatAddress"
+                    value={
+                      clientContract?.date_fin_mission !== "" ? format(FinM,"dd/MM/yyyy") : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ date de fin de mission"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ prix en euro / heure selon contract
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="company_siret"
+                    value={
+                      clientContract ? clientContract.prix_per_heure : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ prix en euro / heure selon contract"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ SALAIRE EN EURO
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="SALAIRE EN EURO"
+                    value={
+                      clientContract ? clientContract.salaire_euro : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ SALAIRE EN EURO"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ nombre d'heure négocie dans le contrat
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="candidatAddress"
+                    value={
+                      clientContract ? clientContract.nombre_heure : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ nombre d'heure négocie dans le contrat"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ numero de tel du travailleur 1
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="company_siret"
+                    value={
+                      clientContract ? clientContract.worker_number_1 : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ Nom Du Travailleur 1
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="worker_name_1"
+                    value={
+                      clientContract ? clientContract.worker_name_1 : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ nom du travailleur 2
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="serie_id"
+                    value={
+                      clientContract ? clientContract.worker_number_2 : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ nom du travailleur 2 "
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ numero de tel du travailleur 2
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="candidatAddress"
+                    value={
+                      clientContract ? clientContract.worker_name_2 : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ numero de tel du travailleur 2"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ nom du travailleur3
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="company_siret"
+                    value={
+                      clientContract ? clientContract.worker_number_3 : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ nom du travailleur3"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ numero de tel du travailleur 3
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="serie_id"
+                    value={
+                      clientContract ? clientContract.worker_name_3 : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ numero de tel du travailleur 3"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ nom du travailleur 4
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="candidatAddress"
+                    value={
+                      clientContract ? clientContract.worker_number_4 : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ nom du travailleur 4"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ numero de tel du travailleur 4
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="company_siret"
+                    value={
+                      clientContract ? clientContract.worker_name_4 : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ numero de tel du travailleur 4"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ nom du travailleur 5
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="serie_id"
+                    value={
+                      clientContract ? clientContract.worker_number_5 : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎$ nom du travailleur 5"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ numero de tel du travailleur 5
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="candidatAddress"
+                    value={
+                      clientContract ? clientContract.worker_name_5 : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ numero de tel du travailleur 5"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ nom du travailleur 6
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="company_siret"
+                    value={
+                      clientContract ? clientContract.worker_number_6 : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎$ nom du travailleur 6"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ numero de tel du travailleur 6
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="serie_id"
+                    value={
+                      clientContract ? clientContract.worker_name_6 : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ numero de tel du travailleur 6"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ nom du travailleur 7
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="candidatAddress"
+                    value={
+                      clientContract ? clientContract.worker_number_7 : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎$ nom du travailleur 7"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ numero de tel du travailleur 7
+                  </label>
+                  <input
+                    className="form-control inputStyling"
+                    name="company_siret"
+                    value={
+                      clientContract ? clientContract.worker_name_7 : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎ $ numero de tel du travailleur 7"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ nom du travailleur 8
+                  </label>
+                  <input
+                    className="inputStyling form-control"
+                    name="companyAddress"
+                    value={
+                      clientContract ? clientContract.worker_number_8 : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎$ nom du travailleur 8"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ numero de tel du travailleur 8
+                  </label>
+                  <input
+                    className="inputStyling form-control"
+                    name="companyAddress"
+                    value={
+                      clientContract ? clientContract.worker_name_8 : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎$ numero de tel du travailleur 8"
+                  />
+                </div>
+                <div className="col-4  d-grid ">
+                  <label className="ClientPDFFormlabel">
+                    $ Poste du Gerant
+                  </label>
+                  <input
+                    className="inputStyling form-control"
+                    name="poste_du_gerant"
+                    value={
+                      clientContract ? clientContract.poste_du_gerant : ""
+                    }
+                    onClick={editClientProfile}
+                    placeholder="‎ ‎ ‎$ Poste du Gerant"
+                  />
+                </div>
+              </div>
+                
+              ) : (
+                <div className="col-12 d-flex justify-content-center align-items-center py-2">
+                  <ErrorLoader />
+                  <p className="mb-0 ErrorSearchBox">
+                  ✘ No Contract Available for this Signed Client! Please add a
+                    New Contract ✘
+                  </p>
+                </div>
+              )}
+            </div>
+           
+          {/* PDF Upload */}
+          <div>
+              <PDFBoxClient   props={profile} value={setProfile} updated={setUpdatedWarning} />
+            </div>
+{/* PDF Upload End */}
             <div
               className="col-12 Social-CardClient mb-1 "
               style={{ padding: "13px 26px" }}
@@ -1943,46 +2211,26 @@ console.log(profile,"prof")
                   leftBtnIcon={"<"}
                   showTabsScroll={false}
                   tabsScrollAmount={5}
+                  activeTab
                   className="alertMessage"
                 >
-                 
-                  {reges ? null : (
-                    <Tab className="redColorStyling">
-                     
-                      ⚠️ REGES IS MISSING / MANQUANT
-                    </Tab>
-                  )}
+                
                   {contrat_client ? null : (
-                    <Tab className="redColorStyling">
-                     
-                      ⚠️ CONTRAT CLIENT IS MISSING / MANQUANT
-                    </Tab>
+                    <Tab className="redColorStyling"> ⚠️ CONTRAT CLIENT IS MISSING / MANQUANT</Tab>
                   )}
                   {contrat_employes ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ CONTRATS EMPLOYES IS MISSING / MANQUANT
-                    </Tab>
+                    <Tab className="redColorStyling">⚠️ CONTRATS EMPLOYES IS MISSING / MANQUANT</Tab>
                   )}
                   {id_card_employer ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ Id Card Employes IS MISSING / MANQUANT
-                    </Tab>
+                    <Tab className="redColorStyling">⚠️ Id Card Employes IS MISSING / MANQUANT</Tab>
                   )}
-                  {al ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ A1 IS MISSING / MANQUANT
-                    </Tab>
-                  )}
+                  {al ? null : <Tab className="redColorStyling">⚠️ A1 IS MISSING / MANQUANT</Tab>}
                   {contrats_assurances_employes ? null : (
                     <Tab className="redColorStyling">
                       ⚠️ CONTRATS ASSURANCES EMPLOYES IS MISSING / MANQUANT
                     </Tab>
                   )}
-                  {sispi ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ SISPI IS MISSING / MANQUANT
-                    </Tab>
-                  )}
+                  {sispi ? null : <Tab className="redColorStyling">⚠️ SISPI IS MISSING / MANQUANT</Tab>}
                   {document_de_represntation ? null : (
                     <Tab className="redColorStyling">
                       ⚠️ DOCUMENT DE REPRESENTANCE / REPRESENTATION IS MISSING /
@@ -1990,9 +2238,7 @@ console.log(profile,"prof")
                     </Tab>
                   )}
                   {offre_signee ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ OFFRE SIGNEE / QUOTES IS MISSING / MANQUANT
-                    </Tab>
+                    <Tab className="redColorStyling">⚠️ OFFRE SIGNEE / QUOTES IS MISSING / MANQUANT</Tab>
                   )}
                   {attestations_societe_intermann ? null : (
                     <Tab className="redColorStyling">
@@ -2000,25 +2246,15 @@ console.log(profile,"prof")
                       MANQUANT
                     </Tab>
                   )}
-                  {cvs ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ CVS IS MISSING / MANQUANT
-                    </Tab>
-                  )}
+                  {cvs ? null : <Tab className="redColorStyling">⚠️ CVS IS MISSING / MANQUANT</Tab>}
                   {autres_documents ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ AUTRES DOCUMENTS / OTHER IS MISSING / MANQUANT
-                    </Tab>
+                    <Tab className="redColorStyling">⚠️ AUTRES DOCUMENTS / OTHER IS MISSING / MANQUANT</Tab>
                   )}
                   {factures ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ FACTURES IS MISSING / MANQUANT
-                    </Tab>
+                    <Tab className="redColorStyling">⚠️ FACTURES IS MISSING / MANQUANT</Tab>
                   )}
                   {rapport_activite ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ RAPPORT ACTIVITE IS MISSING / MANQUANT
-                    </Tab>
+                    <Tab className="redColorStyling">⚠️ RAPPORT ACTIVITE IS MISSING / MANQUANT</Tab>
                   )}
                   {offre_envoye_et_nonsigne ? null : (
                     <Tab className="redColorStyling">
@@ -2030,27 +2266,55 @@ console.log(profile,"prof")
                       ⚠️ FICHE MEDICALE IS MISSING / MANQUANT
                     </Tab>
                   )}
+                    {reges ? null : (
+                    <Tab className="redColorStyling"> ⚠️ REGES IS MISSING / MANQUANT</Tab>
+                  )}
+                    {fiche_de_mise_a_disposition ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ FICHE DE MISE A DISPOSITION / MANQUANT
+                    </Tab>
+                  )}
                 </Tabs>
               </div>
             </div>
-            
-               </div>
+          </div>
         </div>
-        {
-                            RenameDocStatus? 
-                            <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus} status={null}/>
-                            :
-                            null
-                          }
-                {showPreSelectedModal?
-                  <PreModalClient 
-                   props={PreSelectedData}
-                   closepreModal={setShowInPreSelectedModal}
-                   clientProps={profile}
-                  />
-                  :
-                  null
+        {PDFModal ? (
+                    <PDFModalClient props={profile} closeModal={setPDFModal}  LinkModal={setDocuSignModal} path="/clientSigned" />
+                  ) : null}
+                  
+                   {
+        DocumentSignModal ? 
+        <DOCUSIGNModalCandidate props={profile} closeModal={setDocuSignModal} />
 
+        :
+        null
+
+      }
+
+    {
+      salaryEditModal ?
+      <SalaryAdsEdit  name={salaryModal} closeModal={setsalaryEditModal}  details={salaryModal === "Salary" ? DetailsEdit : DetailsAds}/>
+      :
+      false
+    }
+                  {showPreSelectedModal ? (
+                    <PreModalClient
+                      props={PreSelectedData}
+                      closepreModal={setShowInPreSelectedModal}
+                      clientProps={profile}
+                    />
+                  ) : null}
+                  {
+                    deleteModal ? 
+                    <ArchivedModal
+                    props={DeleteEmp}
+                    closeModal={setDeleteModal}
+                    path={"/clientSigned"}
+                    
+                  />
+                    :
+                    null
                   }
       </div>
     </>
