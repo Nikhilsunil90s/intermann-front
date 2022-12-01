@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 import format from 'date-fns/format'
 
 function ClientContract ({props,path}){
-console.log(props)
 const navigate = useNavigate()
 const [clientContract,setclientContract]=useState(props.clientContract)
 
@@ -23,7 +22,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="numero_contract"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.numero_contract : ""
                         }
                         onClick={editClientProfile}
@@ -36,7 +36,8 @@ const editClientProfile = () => {
                       </label>
                       <input
                         className="form-control inputStyling"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract
                             ? clientContract.initial_client_company
                             : ""
@@ -49,7 +50,8 @@ const editClientProfile = () => {
                       <label className="ClientPDFFormlabel">$ siret </label>
                       <input
                         className="form-control inputStyling"
-                        value={clientContract ? clientContract.siret : ""}
+                       readOnly
+                        defaultValue={clientContract ? clientContract.siret : ""}
                         onClick={editClientProfile}
                         placeholder="‎ ‎ ‎$ siret"
                       />
@@ -59,7 +61,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="candidatJob "
-                        value={clientContract ? clientContract.numero_tva : ""}
+                       readOnly
+                        defaultValue={clientContract ? clientContract.numero_tva : ""}
                         onClick={editClientProfile}
                         placeholder="‎ ‎ ‎ $ numero TVA"
                       />
@@ -69,7 +72,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="cmp_candidat"
-                        value={clientContract ? clientContract.nom_gerant : ""}
+                       readOnly
+                        defaultValue={clientContract ? clientContract.nom_gerant : ""}
                         onClick={editClientProfile}
                         placeholder="‎ ‎ ‎ $ nom gérant"
                       />
@@ -81,7 +85,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="contract_date"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.telephone_gerant : ""
                         }
                         onClick={editClientProfile}
@@ -95,7 +100,8 @@ const editClientProfile = () => {
                       <input
                         className="inputStyling wHCompany form-control"
                         name="company_contact_name"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.metier_en_roumain : ""
                         }
                         onClick={editClientProfile}
@@ -109,7 +115,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="$ metier en Français"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract
                             ? clientContract.metier_en_francais
                             : ""
@@ -127,7 +134,7 @@ const editClientProfile = () => {
                         readOnly
                         className="form-control inputStyling"
                         name="serie_id"
-                        value={clientContract.debut_date !== "" ? format(dateDu, "dd/MM/yyyy"): ""}
+                         defaultValue={clientContract.debut_date !== "" ? format(dateDu, "dd/MM/yyyy"): ""}
                         onClick={editClientProfile}
                         placeholder="‎ ‎ ‎ $ date du debut de mission"
                       />
@@ -141,7 +148,8 @@ const editClientProfile = () => {
                         readOnly
                         className="form-control inputStyling"
                         name="candidatAddress"
-                        value={
+                   
+                        defaultValue={
                           clientContract.date_fin_mission !== "" ? format(FinM,"dd/MM/yyyy") : ""
                         }
                         onClick={editClientProfile}
@@ -155,7 +163,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="company_siret"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.prix_per_heure : ""
                         }
                         onClick={editClientProfile}
@@ -169,7 +178,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="SALAIRE EN EURO"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.salaire_euro : ""
                         }
                         onClick={editClientProfile}
@@ -183,7 +193,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="candidatAddress"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.nombre_heure : ""
                         }
                         onClick={editClientProfile}
@@ -197,7 +208,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="company_siret"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.worker_number_1 : ""
                         }
                         onClick={editClientProfile}
@@ -211,7 +223,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="worker_name_1"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.worker_name_1 : ""
                         }
                         onClick={editClientProfile}
@@ -225,7 +238,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="serie_id"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.worker_number_2 : ""
                         }
                         onClick={editClientProfile}
@@ -239,7 +253,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="candidatAddress"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.worker_name_2 : ""
                         }
                         onClick={editClientProfile}
@@ -253,7 +268,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="company_siret"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.worker_number_3 : ""
                         }
                         onClick={editClientProfile}
@@ -267,7 +283,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="serie_id"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.worker_name_3 : ""
                         }
                         onClick={editClientProfile}
@@ -281,7 +298,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="candidatAddress"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.worker_number_4 : ""
                         }
                         onClick={editClientProfile}
@@ -295,7 +313,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="company_siret"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.worker_name_4 : ""
                         }
                         onClick={editClientProfile}
@@ -309,7 +328,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="serie_id"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.worker_number_5 : ""
                         }
                         onClick={editClientProfile}
@@ -323,7 +343,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="candidatAddress"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.worker_name_5 : ""
                         }
                         onClick={editClientProfile}
@@ -337,7 +358,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="company_siret"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.worker_number_6 : ""
                         }
                         onClick={editClientProfile}
@@ -351,7 +373,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="serie_id"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.worker_name_6 : ""
                         }
                         onClick={editClientProfile}
@@ -365,7 +388,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="candidatAddress"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.worker_number_7 : ""
                         }
                         onClick={editClientProfile}
@@ -379,7 +403,8 @@ const editClientProfile = () => {
                       <input
                         className="form-control inputStyling"
                         name="company_siret"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.worker_name_7 : ""
                         }
                         onClick={editClientProfile}
@@ -393,7 +418,8 @@ const editClientProfile = () => {
                       <input
                         className="inputStyling form-control"
                         name="companyAddress"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.worker_number_8 : ""
                         }
                         onClick={editClientProfile}
@@ -407,7 +433,8 @@ const editClientProfile = () => {
                       <input
                         className="inputStyling form-control"
                         name="companyAddress"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.worker_name_8 : ""
                         }
                         onClick={editClientProfile}
@@ -421,7 +448,8 @@ const editClientProfile = () => {
                       <input
                         className="inputStyling form-control"
                         name="poste_du_gerant"
-                        value={
+                       readOnly
+                        defaultValue={
                           clientContract ? clientContract.poste_du_gerant : ""
                         }
                         onClick={editClientProfile}

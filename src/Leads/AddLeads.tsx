@@ -14,12 +14,14 @@ import { ProgressBar } from "react-bootstrap";
 import axios from 'axios'
 import ProfileLoader from "../components/Loader/ProfilesLoader";
 import { motion } from "framer-motion";
-
+import CSVModal from "./Modal/CSVModal";
 
 function AddLeads(){
   const axiosInstance = axios.create({
     baseURL: API_BASE_URL,
   })
+  const [confirmModal,setConfirmModal]=useState(false)
+  const [ConfirmModalMessage,setConfirmModalMessage]=useState("")as any
   const [CustomForm,setCustomForm]=useState(false)
   const [CsvUploadForm,setCsvUploadForm]=useState(false)
   const [SelectFormSide,setSelectFormSide] = useState(true)
@@ -118,16 +120,20 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
       .then(resData => {
         if (resData.data.status) {
           setProgress(0); 
+          setConfirmModalMessage(resData.data.message)
+          setConfirmModal(true)
           notifyDocumentUploadSuccess();
           setBtnDS(false)
 
         } else {
           setBtnDS(false);
+          setConfirmModal(true)
+          setConfirmModalMessage("")
         }
       })
       .catch(err => {
         console.log(err)
-    
+        setBtnDS(false);
   
       })
     return;
@@ -295,7 +301,6 @@ const onSubmit=()=>{
   }
 
 }
-
     return(<>
     <Toaster     containerStyle={{zIndex:"999999999999999999"}}  position="top-right"/>
      <div className="container-fluid">
@@ -627,7 +632,12 @@ const onSubmit=()=>{
                   :
                   null
                 }
-              
+              {
+                confirmModal ?
+                <CSVModal  props={ConfirmModalMessage} closeModal={setConfirmModal}  />
+                :
+                null
+              }
                
         </div>
     </div>

@@ -359,7 +359,7 @@ function PDFBoxClient({props,value,updated}){
     
     return(
         <>
-          <div className="col-12 Social-CardClient my-1">
+          <div className="col-12 Social-CardClient my-1" key={props._id}>
               <div className="row px-1 pt-1 pb-0">
                 <div className="col-4 d-flex align-items-center  px-0">
               <div className="d-flex">  <p className="DocShareLink mb-0">
@@ -403,7 +403,7 @@ function PDFBoxClient({props,value,updated}){
                       <>
                       {
                        doc.documentName ?
-                       <div className="col-6 mx-0">
+                       <div className="col-6 mx-0" key={index}>
                          <div className="row CardClassDownload mt-1 mx-0">
                            <div
                              className="col-4 d-flex align-items-center cursor-pointer"
@@ -551,7 +551,7 @@ function PDFBoxClient({props,value,updated}){
                     {
                       LinkList.map((Link, index) => (
                       LinkList.length > 0 ? 
-                          <div className="col-6 mx-0">
+                          <div className="col-6 mx-0" key={index}>
                           <div className="row CardClassDownload mt-1 mx-0">
                             <div
                               className="col-4 d-flex align-items-center cursor-pointer"

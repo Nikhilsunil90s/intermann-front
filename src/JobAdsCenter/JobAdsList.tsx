@@ -110,7 +110,7 @@ useEffect(()=>{
        setTimeout(()=>{
         setInActiveStatus(true)
         setActiveStatus(true)
-       },3000) 
+       },4000) 
   
       }
      

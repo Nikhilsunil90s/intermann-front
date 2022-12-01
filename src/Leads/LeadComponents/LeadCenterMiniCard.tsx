@@ -3,9 +3,9 @@ import MonthModal from "../Modal/NotesModal";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import { motion } from "framer-motion";
 
-function LeadCenterMiniCard({props,activeUser,setUserCardList}) {
+function LeadCenterMiniCard({props,activeUser,setUserCardList,allUsers}) {
   const [monthModal,setMonthModal] =useState(false)
-  
+  const [MWDuser,setMWDuser]=useState([])as any
   const ref = useRef();
   useOnClickOutside(ref, () => setMonthModal(false));
 
@@ -34,7 +34,7 @@ function LeadCenterMiniCard({props,activeUser,setUserCardList}) {
   const  fetchLeads=async(acc)=>{
     //  setLeadScHeck(false)
      
-    await fetch(API_BASE_URL + `getUserStats/?duration=${acc}`,{
+    await fetch(API_BASE_URL + `getUserStats/?userId=${props._id}&duration=${acc}`,{
       method: "GET",
       headers: {
         "Accept": 'application/json',
@@ -45,7 +45,7 @@ function LeadCenterMiniCard({props,activeUser,setUserCardList}) {
       .then(red => red.json())
       .then(resData => {
         if(resData.status){
-          setUserCardList([...resData.data])
+          setMWDuser([...resData.data])
         }
       })
       .catch(err => err)
@@ -96,8 +96,8 @@ function LeadCenterMiniCard({props,activeUser,setUserCardList}) {
                       <>
                       <div className="d-grid Monthlydropdown" ref={ref} style={{border:"1px solid #484848"}}>
                         <div className=" d-flex align-items-center justify-content-start LeadMothlyDropDown"  onClick={()=>fetchLeads("monthly")}><p className="mb-0 VoirLESite">Monthly</p></div>
-                        <div className="d-flex align-items-center justify-content-start LeadMothlyDropDown" onClick={()=>fetchLeads("weekly")}><p className="mb-0 VoirLESite">Week</p></div>
-                        <div className="d-flex align-items-center justify-content-start LeadMothlyDropDown"  onClick={()=>fetchLeads("daily")}><p className="mb-0 VoirLESite">Days</p></div>
+                        <div className="d-flex align-items-center justify-content-start LeadMothlyDropDown" onClick={()=>fetchLeads("weekly")}><p className="mb-0 VoirLESite">Weekly</p></div>
+                        <div className="d-flex align-items-center justify-content-start LeadMothlyDropDown"  onClick={()=>fetchLeads("daily")}><p className="mb-0 VoirLESite">Daily</p></div>
                       </div>
                       </>
                       :
@@ -110,17 +110,17 @@ function LeadCenterMiniCard({props,activeUser,setUserCardList}) {
                   <div className="row justify-content-between">
                     <div className="col-3 px-0 text-center">
                       <div className="CardDetails">
-                        <p className="mb-0">{props?.contactedLeads.count} Calls</p>
+                        <p className="mb-0">{MWDuser.contactedLeads ?   MWDuser.contactedLeads :  props?.contactedLeads.count} Calls</p>
                       </div>
                     </div>
                     <div className="col-4 px-0 text-center">
                       <div className="CardDetails">
-                        <p className="mb-0">{props.qualifiedLeads.count} Qualified</p>
+                        <p className="mb-0">{MWDuser.qualifiedLeads ?   MWDuser.qualifiedLeads : props.qualifiedLeads.count} Qualified</p>
                       </div>
                     </div>
                     <div className="col-4 px-0 text-center">
                       <div className="CardDetails">
-                        <p className="mb-0">{props.preContactedLeads.count} PreCalls</p>
+                        <p className="mb-0">{MWDuser.preContactedLeads ?   MWDuser.preContactedLeads : props.preContactedLeads.count} PreCalls</p>
                       </div>
                     </div>
                     <div
@@ -128,11 +128,11 @@ function LeadCenterMiniCard({props,activeUser,setUserCardList}) {
                       style={{ paddingTop: "7px" }}
                     >
                       <div className="CardDetails">
-                        <p className="mb-0">{props.leadsAddedToCRM.count} Added TO CRM</p>
+                        <p className="mb-0">{ MWDuser.leadsAddedToCRM ?   MWDuser.leadsAddedToCRM : props.leadsAddedToCRM.count} Added TO CRM</p>
                       </div>
                     </div>
                     <div className="col-6 d-flex justify-content-end align-items-end">
-                      <span className={props?.emailAddress === activeUser?.emailAddress ? "activeCard" : "deActive"}></span>
+                      <span className={ props?.emailAddress === activeUser?.emailAddress ? "activeCard" : "deActive"}></span>
                     </div>
                   </div>
                 </div>

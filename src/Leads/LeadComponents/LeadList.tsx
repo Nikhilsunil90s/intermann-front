@@ -6,7 +6,7 @@ import NotesEditModal from "../Modal/EditNotes";
 import {API_BASE_URL} from "../../config/serverApiConfig"
 import toast, { Toaster } from "react-hot-toast";
 let NewCdate;
-function LeadList({props,Update,Load,Lead,length,activeUser}){
+function LeadList({props,Update,Load,Lead,length,activeUser,TabName}){
   const LoginUser=JSON.parse(localStorage.getItem("LoginUser"))
   const [LoginUserS,setLoginUser]=useState(LoginUser)
   const [NoteModal,setNotesModal] =useState(false)
@@ -165,6 +165,41 @@ const OnChangeRadio=(e,id)=>{
      }
 }
 
+let data={
+  leadId:props._id,
+}
+
+
+const LeadDelete=()=>{
+  fetch(API_BASE_URL + `deleteLead`,{
+    method: "POST",
+    headers: {
+      "Accept": 'application/json',
+      'Content-Type': 'application/json',
+      "Authorization": "Bearer " + localStorage.getItem('token')
+    },
+    body:JSON.stringify(data)
+  })
+    .then(red => red.json())
+    .then(resData => {
+       if(resData.status){
+        
+         Load(true)
+         toast.success(resData.message)
+         // Lead([])
+      
+ setTimeout(()=>{
+  
+ },2000)
+       }else{
+       //  Update(true)
+        toast.error(resData.message)
+ 
+       }
+    })
+    .catch(err => err)
+}
+
 const AddToCrm=()=>{
   let data={
     leadId :props._id, 
@@ -222,7 +257,7 @@ AddToCRM(data)
                 <b className="mb-0"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.leadCandidatName}>{props.leadCandidatName ? props.leadCandidatName.length > 8 ? props.leadCandidatName.slice(0,7).toLocaleUpperCase()+".." : props.leadCandidatName.toLocaleUpperCase() : "✘✘!"}</b>
              </div>
              <div className="col-3 leadBoxGray d-grid">
-                <b className="mb-0">{props.phoneNumber ? props.phoneNumber : "✘✘!"}</b>
+                <b className="mb-0">{props.phoneNumber ? props.phoneNumber.replace("`","") : "✘✘!"}</b>
                 <a href={`https://wa.me/${props.phoneNumber}`} target="_blank" className="BlueLink text-center">Send What’s app</a>
              </div>
              <div className="col-3 leadBoxGray " >
