@@ -214,7 +214,7 @@ AddToCRM(data)
   
     return(<>
     {/* <Toaster  position="top-right"   containerStyle={{zIndex:"30443330099555"}}   /> */}
-<div className="row px-1 mt-1" style={{width:"115%"}}>
+<div className="row px-1 mt-1" style={{width:"102%"}}>
      <div className="col-12 lead_Created"><div className="row"><div className="col-7 d-flex align-items-center"><p className="mb-0 d-flex align-items-center"><img  src={require("../../images/calendar.png")} style={{width:"12px",marginRight:"4px"}} />Lead Created on {LeadeCreateDate}</p></div><div className="col-5 d-flex justify-content-end align-items-center" style={{height:"50px"}}><button className="AddToCrm mb-0" onClick={()=>AddToCrm()} style={{height:"37px",width:"135px"}}>+ add to crm</button><button className="deleteAd mx-1" onClick={()=>{setDeleteLeads("Delete");setNotesDeleteModal(true)}} ><img   src={require("../../images/Deletebucket.svg").default}  /></button></div>
 
      </div></div>
@@ -277,7 +277,7 @@ AddToCRM(data)
      
             <div className="col-4 d-grid PrECONTACTED">
               <div className="row p-1">
-                <div className="col-12" style={{background:"#DBE8E2",
+                <div className="col-12" style={{background:`${props.leadPreContacted ===  "No" ? `#d42424` : props.leadPreContacted ===  "Not Interested" ? `#d42424` :  `#489767` }`,
                 padding:"10px 15px",
     borderRadius: "10px"}}>
                 <p className="mb-0 m-0">Precontacted</p>
@@ -295,7 +295,7 @@ AddToCRM(data)
         
         <div className="col-8 d-grid PrECONTACTED">
           <div className="row p-1"> 
-          <div className="col-12 " style={{background:"#DBE8E2",
+          <div className="col-12 " style={{background:`${props.leadContactedByAgency ===  "No" ? `#d42424` : props.leadContactedByAgency ===  "Not Interested" ? `#d42424` : props.leadContactedByAgency ===  "Yes" ? `#489767` : props.leadContactedByAgency ===  "Recall" ? `#FE8700` :  props.leadContactedByAgency ===  "Phone Closed" ? `#FE8700` : ``}`,
                 padding:"10px 15px",
     borderRadius: "10px"}}>             <p className="m-0 ">Contacted by Agency</p>
               {/* <span>(BY {LoginUser.emailAddress.substring(0,LoginUserS.emailAddress.lastIndexOf("@")).toUpperCase()})</span> */}
@@ -304,10 +304,10 @@ AddToCRM(data)
               </div>
                  <div className="row PrECONTACTEDInput justify-content-around mb-1">
                 <div className="col-2 pr-0 d-flex  align-items-center " ><label htmlFor={`1${length}`}  className={`btn d-flex align-items-center  ${Agency === "No" ?  "offRedBtnAgency": props.leadContactedByAgency ==="No" ?  "offRedBtnAgency" :  "offBtns"}`}   ><div className="d-flex justify-content-center align-item-center inputBorder"><input type={"radio"} id={`1${length}`}  name={`CAgency${length}`}  onClick={(e)=>OnChangeRadio(e,props._id)} value="No" className="cursor-pointer d-flex justify-content-center align-items-center" defaultChecked={props.leadContactedByAgency== "No" ? true : false} /></div>Not yet</label></div>
+                <div className="col-3  d-flex  align-items-center " ><label htmlFor={`5${length}`}  className={`btn d-flex align-items-center  ${Agency === "Not Interested" ?  "offRedBtnAgency": props.leadContactedByAgency ==="Not Interested" ?  "offRedBtnAgency" :  "offBtns"}`}   ><div className="d-flex justify-content-center align-item-center inputBorder"><input type={"radio"} id={`5${length}`}  name={`CAgency${length}`}  onClick={(e)=>OnChangeRadio(e,props._id)} value="Not Interested" className="cursor-pointer d-flex justify-content-center align-items-center" defaultChecked={props.leadContactedByAgency== "Not Interested" ? true : false} /></div>Not Interested</label></div>
                 <div className="col-2  d-flex justify-content-end align-items-center"><label   htmlFor={`2${length}`} className={`btn d-flex align-items-center  ${Agency === "Yes" ?  "onGreenBtnContact" :props.leadContactedByAgency ==="Yes" ?  "onGreenBtnContact" :  "offBtns"}`}  > <div className="d-flex justify-content-center align-item-center inputBorder"><input type={"radio"} id={`2${length}`} name={`CAgency${length}`}  onClick={(e)=>OnChangeRadio(e,props._id)} value="Yes" className="cursor-pointer d-flex justify-content-center align-items-center" defaultChecked={props.leadContactedByAgency== "Yes" ? true : false}/></div>Yes</label></div>
                 <div className="col-2  d-flex justify-content-end align-items-center"> <label  htmlFor={`3${length}`} className={`btn d-flex align-items-center  ${Agency === "Recall" ?  "themeColorAgency" : props.leadContactedByAgency ==="Recall" ?  "themeColorAgency" :  "offBtns"}`} ><div className="d-flex justify-content-center align-item-center inputBorder"><input type={"radio"} id={`3${length}`} name={`CAgency${length}`}  onClick={(e)=>OnChangeRadio(e,props._id)} value="Recall" className="cursor-pointer d-flex justify-content-center align-items-center" defaultChecked={props.leadContactedByAgency== "Recall" ? true : false} /></div>Recall</label></div>
                 <div className="col-3  d-flex  align-items-center"> <label  htmlFor={`4${length}`}  className={`btn d-flex align-items-center  ${Agency === "Phone Closed" ?  "themeColorAgency" :props.leadContactedByAgency ==="Phone Closed" ?  "themeColorAgency" :  "offBtns"}`}  ><div className="d-flex justify-content-center align-item-center inputBorder" ><input type={"radio"} id={`4${length}`}  name={`CAgency${length}`}  onClick={(e)=>OnChangeRadio(e,props._id)} value="Phone Closed" className="cursor-pointer d-flex justify-content-center align-items-center" defaultChecked={props.leadContactedByAgency== "Phone Closed" ? true : false} /></div>Phone Closed</label></div>
-                <div className="col-3  d-flex  align-items-center " ><label htmlFor={`5${length}`}  className={`btn d-flex align-items-center  ${Agency === "Not Interested" ?  "offRedBtnAgency": props.leadContactedByAgency ==="Not Interested" ?  "offRedBtnAgency" :  "offBtns"}`}   ><div className="d-flex justify-content-center align-item-center inputBorder"><input type={"radio"} id={`5${length}`}  name={`CAgency${length}`}  onClick={(e)=>OnChangeRadio(e,props._id)} value="Not Interested" className="cursor-pointer d-flex justify-content-center align-items-center" defaultChecked={props.leadContactedByAgency== "Not Interested" ? true : false} /></div>Not Interested</label></div>
 
               </div>
               </div>
@@ -325,7 +325,7 @@ AddToCRM(data)
     borderRight: "1px solid #dcd9d9"
                     }}>
            <div className="row mx-1">
-                    <div className="col-12 addToCrmLabel">
+                    <div className="col-12 addToCrmLabel" style={{background:`${props.leadAddedToCRM  == true ? `#489767` : `#d42424`}`}}>
               <p className="mb-0 ">Added to CRM</p>
                  </div>
                  <div className="col-12  mt-1" >
@@ -344,7 +344,7 @@ AddToCRM(data)
     borderRight: "1px solid #dcd9d9"
                     }}>
               <div className="row p-1">
-                <div className="col-12 addToCrmLabel" style={{background:"#F6E5D3"}}>
+                <div className="col-12 addToCrmLabel" style={{background:`${props.leadQualified === 0 ? `#FE8700`  : props.leadQualified === 1 ? `#FE8700` : `#489767` }`}}>
             <p className="mb-0 ">QUALIFIED</p>
             </div> 
             </div>
