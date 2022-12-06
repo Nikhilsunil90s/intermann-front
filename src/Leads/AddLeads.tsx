@@ -306,10 +306,25 @@ const onSubmit=()=>{
      <div className="container-fluid">
         <div className="row">
         <div className="col-12 mt-2" style={{background:"#ffff",borderRadius:"10px"}}>
+          <div className="row">
+            <div className="col-6">
                     <Link to='/LeadsCenter' className="downLoadCenter p-1 d-flex">
                     <img src={require("../images/return.svg").default} />
                     <h3 className="pl-1 mb-0">ADD LEAD FEATURE</h3>
                     </Link >
+                </div>
+                <div className="col-6 d-flex align-items-center justify-content-end ">
+                  {
+                    SelectFormSide ?
+                    null :
+                    CustomForm ? 
+                  <button className="glow-on-hover"  onClick={()=>{setCustomForm(false);setCsvUploadForm(true)}}><img className="filter-green" src={require("../images/switchIcon.svg").default} /> Switch To CSV</button>
+                    :
+                  <button className="glow-on-hover" onClick={()=>{setCsvUploadForm(false) ;setCustomForm(true)}}><img className="filter-green" src={require("../images/switchIcon.svg").default} /> Switch To Lead Form</button>
+
+                  }
+                </div>
+                </div>
                 </div>
                {
                 SelectFormSide ? 
@@ -359,7 +374,14 @@ const onSubmit=()=>{
                }
                 {
                   CustomForm ?
-                  <div className="col-12 mt-2 p-1" style={{background:"#ffff",borderRadius:"10px"}}>
+                  <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ rotate: 0, scale:1}}
+                  transition={{
+                    type: "spring",
+                    stiffness: 30,
+                    damping: 15
+                  }} className="col-12 mt-2 p-1" style={{background:"#ffff",borderRadius:"10px"}}>
                   <div className="row">
                      <div className="col-4">
                          <label className="Form-styling">Country market </label>
@@ -507,7 +529,7 @@ const onSubmit=()=>{
                          
                      </div>
                   </div>
-                     </div>
+                     </motion.div>
                   :
                   null
                 }
@@ -515,7 +537,14 @@ const onSubmit=()=>{
                 {
                   CsvUploadForm ?
                  
-                  <div className="col-12 my-2 p-1" style={{background:"#ffff",borderRadius:"10px",height:"79vh" ,width:"100vw"}}>
+                  <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ rotate: 0, scale:1}}
+                  transition={{
+                    type: "spring",
+                    stiffness: 30,
+                    damping: 15
+                  }} className="col-12 my-2 p-1" style={{background:"#ffff",borderRadius:"10px",height:"79vh" ,width:"100vw"}}>
                   <div className="row d-grid justify-content-center">
                     <div className="col-12 ">
                       <div className="row justify-content-center">
@@ -626,7 +655,7 @@ const onSubmit=()=>{
                          
                      </div>
                   </div>
-                     </div>
+                     </motion.div>
 
                       
                   :

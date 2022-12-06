@@ -716,7 +716,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
         <div className="col-12 mt-2">
             <div className="row justify-content-end">
               <div className="col-2">  <button className="ApplyFiltersBtn" name="ApplyFil" onClick={(e)=>OnClickDataChange(e)} disabled={applyBtn}>Apply</button></div>
-           {Data !== undefined ? <div className="col-2">  <button className="RESETfilters" onClick={(e)=>OnClickDataChange(e)}>RESET</button></div> : null}   
+           {Data !== undefined ? <div className="col-2">  <button className="RESETfilters" onClick={(e)=>OnClickDataChange(e)}>Reset</button></div> : null}   
            
             </div>
         </div>
