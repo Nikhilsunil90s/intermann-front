@@ -13,7 +13,7 @@ import "react-date-range/dist/theme/default.css";
 import { dataURLFileLoader } from "react-doc-viewer";
 import { isNonNullExpression } from "typescript";
 
-function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setPrecontected,setcontected}) {
+function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setprecontacted,setcontacted}) {
   let CaNam = [] as any;
   let Contact = [] as any;
   let Email = [] as any;
@@ -85,19 +85,21 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setPrecontecte
   };
 
   
-  useEffect(()=>{
-    setfromPerson([])
-  setQUALIFIED([])
-  setCONTACTED([])
-  setPrecontacted([])
-  setJobName([])
-  setContactOp([])
-  setemailOp([])
-  setCanName([])
-  setDateCheck(false)
-  setData()
-  setPrecontected()
-  },[market])
+
+  
+  // useEffect(()=>{
+  //   setfromPerson([])
+  // setQUALIFIED([])
+  // setCONTACTED([])
+  // setPrecontacted([])
+  // setJobName([])
+  // setContactOp([])
+  // setemailOp([])
+  // setCanName([])
+  // setDateCheck(false)
+  // setData()
+
+  // },[market])
   
   const [fromPerson,setfromPerson] = useState([
   
@@ -330,8 +332,8 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setPrecontecte
      .then(res=>{if(res.status){
       statusLeads(true)
       setApplyBtn(false)   
-      setcontected(res.notContactedCount)
-      setPrecontected(res.notPreContactedCount)
+      setprecontacted(res.notPreContactedCount)
+              setcontacted(res.notContactedCount)
   toast.success("Filter Leads Found Successfully!")
       setLeads([...res.data])
    
@@ -341,8 +343,8 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setPrecontecte
       statusLeads(true)
   toast.error("Sorry No Results found!")
   setApplyBtn(false)
-  setPrecontected(res.notContactedCount)
-  setcontected(res.notContactedCount)
+  setprecontacted(res.notPreContactedCount)
+  setcontacted(res.notContactedCount)
 
       setLeads([])
      }
@@ -368,7 +370,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setPrecontecte
   setContactOp([])
   setemailOp([])
   setCanName([])
-  setPrecontected()
+ 
 
  }
 

@@ -225,7 +225,7 @@ useEffect(()=>{
           >
             {LeadList.length > 0 ?
             
-            <Filters  LeadsCard={Leads} market={TabName} setLeads={setLeads} statusLeads={setLeadScHeck} update={setUpdateField} setPrecontected={setpreContected} setcontected={setcontected} />
+            <Filters  LeadsCard={Leads} market={TabName} setLeads={setLeads} statusLeads={setLeadScHeck} update={setUpdateField} setprecontacted={setpreContected} setcontacted={setcontected} />
             :
             null 
 }
@@ -241,8 +241,8 @@ useEffect(()=>{
             <p className="mb-2 ApplyFilter">
             <b> ‎✔   ‎There is {contected} leads not yet contacted by Agency</b>
             </p>
-            <p className="mb-2 ApplyFilter">
-            <b> ‎ ✔  ‎There is {preContected} leads not yet precontacted by Dana</b>
+            <p className="mb-0 ApplyFilter">
+            <b> ‎ ✔  ‎There is {preContected} leads not yet precontacted by <span style={{color:"#f8ba00"}}>{LoginUserS?.username}</span></b>
             </p>
           </div>
           <div
@@ -257,7 +257,7 @@ useEffect(()=>{
                 <>
                { Leads.map((el,i)=>(
                   <LazyLoad threshold={0.96}>
-                  <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} activeUser={setCurrentUser}  TabName={TabName}/>
+                  <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} activeUser={setCurrentUser}  TabName={TabName}  />
 
               </LazyLoad>
             ))

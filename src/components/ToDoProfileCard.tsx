@@ -206,7 +206,7 @@ const ToDoProfileCard = (props: any,) => {
                  <Select
                     placeholder="More options"
                     options={CardOptions}
-                    className="CardOptions AllMoreOp"
+                    className="CardOptions AllMoreOp cursor-pointer"
                     onChange={MoreOption}
                     isSearchable={false}
                  />
