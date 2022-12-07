@@ -23,7 +23,8 @@ function LeadsCenter() {
   const [userCardList,setUserCardList]=useState([])
   const [UpdateFiled,setUpdateField]=useState(false)
   const [currentUser,setCurrentUser]=useState()as any
-  const [FilterApply,setFilterApply]=useState()as any
+  const [preContected,setpreContected]=useState(0)as any
+  const [contected,setcontected]=useState(0)as any
   const [ch,setch]=useState(false)
   let [page, setPage] = useState(0);
   const [tabItems] = useState([
@@ -40,14 +41,6 @@ function LeadsCenter() {
       value: "Romania",
     },
   ]) as any;
-
-  const loadMoreHandle = () => {
-     setTimeout(()=>{
-    setch(true)  
-     },1000)
-
-
-    }
 
 
 
@@ -68,6 +61,8 @@ function LeadsCenter() {
               setLeadScHeck(true)
               setUpdateField(false)
               setLeads([...resData.data])
+              setpreContected(resData.notPreContactedCount)
+              setcontected(resData.notContactedCount)
              }else{
               setLeads([])
               setLeadScHeck(true)
@@ -77,6 +72,8 @@ function LeadsCenter() {
           })
           .catch(err => err)
         }
+
+        console.log(preContected,contected)
 
         const  fetchUsers=async()=>{
           //  setLeadScHeck(false)
@@ -124,6 +121,7 @@ useEffect(()=>{
          let Cuser=  resData.data.filter((el)=>el?.username === LoginUserS?.username)
           let users=  resData.data.filter((el)=>el?.username !== LoginUserS?.username)
           setUserCardList([...Cuser,...users])
+
        }
     
       }else{
@@ -227,7 +225,7 @@ useEffect(()=>{
           >
             {LeadList.length > 0 ?
             
-            <Filters  LeadsCard={Leads} market={TabName} setLeads={setLeads} statusLeads={setLeadScHeck} update={setUpdateField} setFilterApply={setFilterApply} />
+            <Filters  LeadsCard={Leads} market={TabName} setLeads={setLeads} statusLeads={setLeadScHeck} update={setUpdateField} setPrecontected={setpreContected} setcontected={setcontected} />
             :
             null 
 }
@@ -237,8 +235,14 @@ useEffect(()=>{
             className="col-12 mt-1 p-1"
             style={{ background: "#ffff", borderRadius: "10px" }}
           >
-            <p className="mb-0 ApplyFilter">
-              Applied filters showed <b> {FilterApply === undefined ? "‎ ‎“✘✘No Filters Applied!”" : `“‎ ‎${FilterApply} ‎ ‎Lead Results”`}</b>
+            <p className="mb-2 ApplyFilter">
+            <b> ‎ ✔  ‎There is {Leads.length} ‎ ‎leads total</b>
+            </p>
+            <p className="mb-2 ApplyFilter">
+            <b> ‎✔   ‎There is {contected} leads not yet contacted by Agency</b>
+            </p>
+            <p className="mb-2 ApplyFilter">
+            <b> ‎ ✔  ‎There is {preContected} leads not yet precontacted by Dana</b>
             </p>
           </div>
           <div

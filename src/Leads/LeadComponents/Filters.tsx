@@ -13,7 +13,7 @@ import "react-date-range/dist/theme/default.css";
 import { dataURLFileLoader } from "react-doc-viewer";
 import { isNonNullExpression } from "typescript";
 
-function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply}) {
+function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setPrecontected,setcontected}) {
   let CaNam = [] as any;
   let Contact = [] as any;
   let Email = [] as any;
@@ -96,7 +96,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
   setCanName([])
   setDateCheck(false)
   setData()
-  setFilterApply()
+  setPrecontected()
   },[market])
   
   const [fromPerson,setfromPerson] = useState([
@@ -330,7 +330,8 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
      .then(res=>{if(res.status){
       statusLeads(true)
       setApplyBtn(false)   
-      setFilterApply(res.total)
+      setcontected(res.notContactedCount)
+      setPrecontected(res.notPreContactedCount)
   toast.success("Filter Leads Found Successfully!")
       setLeads([...res.data])
    
@@ -340,7 +341,8 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
       statusLeads(true)
   toast.error("Sorry No Results found!")
   setApplyBtn(false)
-  setFilterApply(res.total)
+  setPrecontected(res.notContactedCount)
+  setcontected(res.notContactedCount)
 
       setLeads([])
      }
@@ -366,7 +368,7 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setFilterApply
   setContactOp([])
   setemailOp([])
   setCanName([])
-  setFilterApply()
+  setPrecontected()
 
  }
 
