@@ -14,7 +14,7 @@ function LeadList({props,Update,Load,Lead,length,activeUser,TabName}){
   const [NoteDeleteModal,setNotesDeleteModal] =useState(false)
   const [LeadNotes,setLeadsNote]=useState("")
   const [DeleteLeads,setDeleteLeads]=useState("")
-  const [Precontacted,setPrecontacted]=useState("")
+  const [Precontacted,setPrecontacted]=useState(props.leadPreContacted)
   const [Agency,setAgency]=useState("")
   const [Added,setAdded]=useState(props.leadAddedToCRM)as any
   const [Qual,setQual]=useState()as any
@@ -286,7 +286,7 @@ AddToCRM(data)
               </div>
            
               <div className="row PrECONTACTEDInput mb-1" >
-                <div className="col-4 pr-0 d-flex align-items-start " ><label   htmlFor={`pre1${length}`} className={`btn d-flex align-items-center ${Precontacted === "Not Yet" ? "offRedBtn" : props.leadPreContacted ==="Not Yet" ?  "offRedBtn" :  "offBtns"}`}><div className="d-flex justify-content-center align-item-center inputBorder"><input id={`pre1${length}`} name={`preContact${length}`} value={"Not Yet"} onClick={(e)=>OnChangeRadio(e,props._id)} type={"radio"} className="cursor-pointer d-flex"  defaultChecked={Precontacted == "Not Yet" ? true : props.leadPreContacted === "Not Yet" ? true : false } /></div>Not yet</label></div>
+                <div className="col-4 pr-0 d-flex align-items-start " ><label   htmlFor={`pre1${length}`} className={`btn d-flex align-items-center ${Precontacted === "Not Yet" || Precontacted === "No"  ? "offRedBtn" : props.leadPreContacted ==="Not Yet" || props.leadPreContacted ==="No" ?  "offRedBtn" :  "offBtns"}`}><div className="d-flex justify-content-center align-item-center inputBorder"><input id={`pre1${length}`} name={`preContact${length}`} value={"Not Yet"} onClick={(e)=>OnChangeRadio(e,props._id)} type={"radio"} className="cursor-pointer d-flex"  defaultChecked={Precontacted == "Not Yet" || Precontacted == "No" ? true : props.leadPreContacted === "Not Yet" || props.leadPreContacted === "No" ? true : false } /></div>Not yet</label></div>
                 <div className="col-4 d-flex  align-items-start"><label htmlFor={`pre2${length}`} className={`btn d-flex align-items-center ${Precontacted === "Interested" ? "onGreenBtn" :  props.leadPreContacted=== "Interested" ? "onGreenBtn":"offBtns"}`}> <div className="d-flex justify-content-center align-item-center inputBorder"><input id={`pre2${length}`} type={"radio"} name={`preContact${length}`} value={"Interested"} onClick={(e)=>OnChangeRadio(e,props._id)} className="cursor-pointer d-flex"   defaultChecked={Precontacted == "Interested" ? true : props.leadPreContacted === "Interested" ? true : false } /></div>Interested</label></div>
                 <div className="col-4 d-flex  align-items-start"><label   htmlFor={`pre3${length}`} className={`btn d-flex align-items-center ${Precontacted === "Not Interested" ? "offRedBtn" :props.leadPreContacted=== "Not Interested" ? "offRedBtn":"offBtns"}`}><div className="d-flex justify-content-center align-item-center inputBorder"> <input id={`pre3${length}`} type={"radio"}  className="cursor-pointer d-flex" name={`preContact${length}`} value={"Not Interested"} onClick={(e)=>OnChangeRadio(e,props._id)} defaultChecked={Precontacted == "Not Interested" ? true : props.leadPreContacted === "Not Interested" ? true : false } /></div>Not Interested</label></div>
               </div>
