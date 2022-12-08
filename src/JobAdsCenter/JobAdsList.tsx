@@ -258,6 +258,8 @@ return    await fetch(API_BASE_URL + `allAds/?market=${TabName}`,{
                   type: "spring",
                   stiffness:60,
                   damping: 15
+                  ,
+                  
                 }}
                 className="col-4 my-1" style={{maxWidth:"32%" ,marginRight:"10px",marginTop:"10px"}} key={el._id}
        

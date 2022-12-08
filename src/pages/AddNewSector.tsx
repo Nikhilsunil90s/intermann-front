@@ -7,6 +7,7 @@ import "../CSS/AddSector.css";
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import { Link,useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 function AddSector() {
   const [jobModalData, setJobModalData] = useState("");
@@ -56,7 +57,7 @@ function AddSector() {
     <>
       <div className="container ">
         <div className="row">
-          <div className="col-12 mt-3">
+          <div className="col-12 my-3">
             <div className="row">
               <div className="col-12 bg-light">
                 <div className="row  py-1" >
@@ -78,7 +79,15 @@ function AddSector() {
                   <div className="col-12" style={{backgroundColor:"#ffffffb0"}}>
                     {sectorsList.length > 0 ? (
                       sectorsList.map((sector) => (
-                        <div className="row">
+                        <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.7, delay: 0.3 }}
+                        variants={{
+                          visible: { opacity: 1, y: 0 },
+                          hidden: { opacity: 0, y: -50 }
+                        }} className="row">
                           <ul style={{ listStyle: "none" }}>
                             <li className="pt-2">
                               <div className="col-12 pd-lr">
@@ -133,7 +142,7 @@ function AddSector() {
                               </div>
                             </li>
                           </ul>
-                        </div>
+                        </motion.div>
                       ))
                     ) : (
                       <>

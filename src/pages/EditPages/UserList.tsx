@@ -6,6 +6,7 @@ import {API_BASE_URL} from '../../config/serverApiConfig'
 import { Toaster,toast } from 'react-hot-toast';
 import DeleteUser from '../../components/Modal/DeletedUser';
 import EditUserModal from '../../components/Modal/EditUserModal';
+import { motion } from "framer-motion";
 
 function UserList(){
     const [AddModal, setAddModal] = useState(false)
@@ -80,12 +81,20 @@ function UserList(){
 
 {
                         allUsers.map((el)=>(
-                            <div className="row">
+                            <motion.div
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.7, delay: 0.3 }}
+                            variants={{
+                              visible: { opacity: 1, x: 0 },
+                              hidden: { opacity: 0, x: -50 }
+                            }}  className="row">
 <ul style={{ listStyle: "none" }}>
     <li className="Radius-Border">
         <div className="col-12 pd-Userlr">
             <div className="row">
-                <div className="col-6 text-start d-flex align-item-center">
+                <div className="col-8 text-start d-flex align-item-center">
                  {el.emailAddress?
                             <p className="A0012">{el.username ? el.username.toUpperCase() + " -": null}  Email:‎ {el.emailAddress} ‎ -‎ Password:‎ ........</p>
                             :
@@ -95,7 +104,7 @@ function UserList(){
                  }
                    
                 </div>
-                <div className="col-4 d-flex justify-content-end">
+                <div className="col-2 d-flex justify-content-end">
 
                             <button
                                 className="btn btn-delete"  
@@ -120,7 +129,7 @@ function UserList(){
         </div>
     </li>
     </ul>
-</div>
+</motion.div>
          ))
        
         }

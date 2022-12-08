@@ -72,7 +72,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
   let HaveName =null ;
   let MotivationCount=null;
   const loadMoreHandle = (i) => {
-    let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 40;
+    let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 50;
     if (bottom) {
       if(cardTotallength > page && selectedSector.length === 0 && selectedJob.length === 0 && selectedLanguages.length === 0 && SelectedName.length === 0 && MotivationArr.length === 0 && LicencePermisArr.length === 0 && DateArr.length === 0 && emailArr.length == 0 && contactArr.length == 0 && FilterJob.length == 0 && LanguageFilter.length == 0 && sectorName === "" && JobName.length == 0 && HaveName == null && MotivationCount == null){
         setPage(page + 20);

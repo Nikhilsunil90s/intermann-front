@@ -1373,8 +1373,8 @@ setTimeout(()=>{
                         animate={{ rotate:0, scale:1}}
                         transition={{
                           type: "spring",
-                          stiffness: 180,
-                          damping: 20
+                          stiffness: 190,
+                          damping: 50
                         }}
                         className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left" key={profile._id}
               

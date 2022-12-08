@@ -150,13 +150,14 @@ function Dashboard() {
              
                
 <motion.div
-  initial={{ scale: 0 }}
-  animate={{ rotate:0, scale:1}}
-  transition={{
-    type: "spring",
-    stiffness: 120,
-    damping: 70
-  }}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true }}
+    transition={{ duration: 0.7, delay: 0.2 }}
+    variants={{
+      visible: { opacity: 1, y: 0 },
+      hidden: { opacity: 0, y: -50 }
+    }}  
   className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
   whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }} 
 >
@@ -341,13 +342,14 @@ function Dashboard() {
                   </Link>
                   </motion.div>
                   <motion.div
-  initial={{ scale: 0 }}
-  animate={{ rotate:0, scale:1}}
-  transition={{
-    type: "spring",
-    stiffness: 120,
-    damping: 70
-  }}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true }}
+    transition={{ duration: 0.7, delay: 0.2 }}
+    variants={{
+      visible: { opacity: 1, y: 0 },
+      hidden: { opacity: 0, y: -50 }
+    }}  
   className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
   whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }} 
 >

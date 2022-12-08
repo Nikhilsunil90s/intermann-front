@@ -4,7 +4,7 @@ export default  function Loader(){
  
     return(
 <>
-<lottie-player src="https://assets7.lottiefiles.com/private_files/lf30_ove8ptvr.json"    speed="1"  style={{width: "300px", height: "300px",background:"transparent"}}  loop  autoplay></lottie-player>
+<lottie-player src="https://assets10.lottiefiles.com/packages/lf20_raiw2hpe.json"    speed="1"  style={{width: "300px", height: "300px",background:"transparent"}}  loop  autoplay></lottie-player>
 </>
     )
 }

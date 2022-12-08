@@ -12,6 +12,8 @@ import {toast,Toaster} from "react-hot-toast";
 import Carousel from "react-multi-carousel";
 import ProfilesLoader from "../../src/components/Loader/ProfilesLoader"
 import LazyLoad from 'react-lazy-load';
+import { motion } from "framer-motion";
+
 let TabName=""
 function LeadsCenter() {
 
@@ -257,8 +259,9 @@ useEffect(()=>{
                 <>
                { Leads.map((el,i)=>(
                   <LazyLoad threshold={0.96}>
+              
                   <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} activeUser={setCurrentUser}  TabName={TabName}  />
-
+                 
               </LazyLoad>
             ))
                }

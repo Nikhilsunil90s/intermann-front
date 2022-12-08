@@ -61,7 +61,7 @@ function Sidebar(props: any) {
                           initial="hidden"
                           whileInView="visible"
                           viewport={{ once: true }}
-                          transition={{ duration: 0.7, delay: 0.3 }}
+                          transition={{ duration: 0.7, delay: 0.2 }}
                           variants={{
                             visible: { opacity: 1, x: 0 },
                             hidden: { opacity: 0, x: -50 }
@@ -83,15 +83,31 @@ function Sidebar(props: any) {
                             visible: { opacity: 1, x: 0 },
                             hidden: { opacity: 0, x: -50 }
                           }} className="nav nav-pills flex-column sideBarBackG mb-auto text-className">
-                <li className="nav-item active mt-1 sideBarBackG">
+                <motion.li
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.7, delay: 0.5 }}
+                          variants={{
+                            visible: { opacity: 1, x: 0 },
+                            hidden: { opacity: 0, x: -50 }
+                          }} className="nav-item active mt-1 sideBarBackG">
                   <Link to="/dashboard" className="nav-link link-dark  pd013" aria-current="page">
                     <span className="pe-2">
                       <img src={require("../images/Shape.svg").default} />
                     </span>
                     Resume
                   </Link>
-                </li>
-                <div className="accordion accordion-flush pt-1" id="accordionFlushExample">
+                </motion.li>
+                <motion.div
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.7, delay: 0.6 }}
+                          variants={{
+                            visible: { opacity: 1, x: 0 },
+                            hidden: { opacity: 0, x: -50 }
+                          }} className="accordion accordion-flush pt-1" id="accordionFlushExample">
                   <div className="accordion-item">
                     <h2 className="accordion-header" id="flush-headingTwo">
                       <button className="accordion-button sideBarBackG sideBarBackG collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="#flush-collapseTwo">
@@ -213,8 +229,16 @@ function Sidebar(props: any) {
                       </div>
                     </div>
                   </div>
-                </div>
-                <li style={{border:"none",borderBottom:"0px",borderLeft:"0px",padding:"12px ",paddingLeft:"23px" }}   onClick={()=>OnClickColorChange("Download")} className={activeTab === "Download" ? "sideBarBackGactive"  : "cursor-pointer sideBarBackG"} >
+                </motion.div>
+                <motion.li
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.7, delay: 0.8 }}
+                          variants={{
+                            visible: { opacity: 1, x: 0 },
+                            hidden: { opacity: 0, x: -50 }
+                          }} style={{border:"none",borderBottom:"0px",borderLeft:"0px",padding:"12px ",paddingLeft:"23px" }}   onClick={()=>OnClickColorChange("Download")} className={activeTab === "Download" ? "sideBarBackGactive"  : "cursor-pointer sideBarBackG"} >
                   <Link to="/downloadCenter" className="signOut" aria-current="page">
                     <span className="pe-2">
                       <img className="logoutImage" src={require("../images/telecharger.svg").default} />
@@ -224,8 +248,16 @@ function Sidebar(props: any) {
                       position="top-right"
                     />
                   </Link>
-                </li>
-                <li style={{border:"none",borderBottom:"0px",borderLeft:"0px" ,padding:"12px",paddingLeft:"23px"}} onClick={()=>OnClickColorChange("Leads")} className={activeTab === "Leads" ? "sideBarBackGactive"  : "cursor-pointer sideBarBackG"}  >
+                </motion.li>
+                <motion.li
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.7, delay: 0.9 }}
+                          variants={{
+                            visible: { opacity: 1, x: 0 },
+                            hidden: { opacity: 0, x: -50 }
+                          }} style={{border:"none",borderBottom:"0px",borderLeft:"0px" ,padding:"12px",paddingLeft:"23px"}} onClick={()=>OnClickColorChange("Leads")} className={activeTab === "Leads" ? "sideBarBackGactive"  : "cursor-pointer sideBarBackG"}  >
                   <Link to="/LeadsCenter" className="signOut" aria-current="page"   >
                     <span className="pe-2">
                       <img className="logoutImage" src={require("../images/Leads.svg").default} />
@@ -235,8 +267,16 @@ function Sidebar(props: any) {
                       position="top-right"
                     />
                   </Link>
-                </li>
-                <li style={{border:"none",borderBottom:"0px",borderLeft:"0px" ,padding:"12px",paddingLeft:"23px"}}  onClick={()=>OnClickColorChange("Center")} className={activeTab === "Center" ? "sideBarBackGactive"  : " cursor-pointer sideBarBackG"}  >
+                </motion.li>
+                <motion.li
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.7, delay: 0.10 }}
+                          variants={{
+                            visible: { opacity: 1, x: 0 },
+                            hidden: { opacity: 0, x: -50 }
+                          }} style={{border:"none",borderBottom:"0px",borderLeft:"0px" ,padding:"12px",paddingLeft:"23px"}}  onClick={()=>OnClickColorChange("Center")} className={activeTab === "Center" ? "sideBarBackGactive"  : " cursor-pointer sideBarBackG"}  >
                   <Link to="/JobAdsCenter" className="signOut" aria-current="page"  >
                     <span className="pe-2">
                       <img className="logoutImage" src={require("../images/CombinedShape.svg").default} />
@@ -246,9 +286,17 @@ function Sidebar(props: any) {
                       position="top-right"
                     />
                   </Link>
-                </li>
-                <li style={{ borderTop: '1px solid #ffff',borderBottom:"0px",borderLeft:"0px" }} className="list-group-item sideBarBackG" onClick={(e) => LogOut()}>
-                  <Link to="/" className="signOut" aria-current="page">
+                </motion.li>
+                <motion.li
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.7, delay: 0.11 }}
+                          variants={{
+                            visible: { opacity: 1, x: 0 },
+                            hidden: { opacity: 0, x: -50 }
+                          }} style={{ borderTop: '1px solid #ffff',borderBottom:"0px",borderLeft:"0px" }} className="list-group-item sideBarBackG cursor-pointer" onClick={(e) => LogOut()}>
+                  <Link to="/" className="signOut " aria-current="page">
                     <span className="pe-2">
                       <img className="logoutImage" src={require("../images/logout.svg").default} />
                     </span>
@@ -257,7 +305,7 @@ function Sidebar(props: any) {
                       position="top-right"
                     />
                   </Link>
-                </li>
+                </motion.li>
 
               </motion.ul>
             </div>
