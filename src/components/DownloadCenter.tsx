@@ -5,6 +5,9 @@ import { API_BASE_URL } from "../config/serverApiConfig";
 import Loader from "./Loader/loader";
 import Error from "./Loader/SearchBarError";
 import {Toaster,toast} from "react-hot-toast";
+import { motion } from "framer-motion";
+
+
 export default function  DownloadCenter(){
   const [activeTab, setActiveTab] = React.useState(0) as any;
   const [candidateContracts,setCandidateContracts]=useState([])
@@ -329,7 +332,15 @@ console.log(representance,"res")
                         Status  ?
                         AllProfiles.length > 0 ?
                         AllProfiles.map((el,i)=>(
-                            <div className="col-12 mt-1" style={{background:"#fe87001f",borderRadius:"10px"}} key={i}>
+                          <motion.div
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.7, delay: 0.3 }}
+                          variants={{
+                            visible: { opacity: 1, x: 0 },
+                            hidden: { opacity: 0, x: -50 }
+                          }} className="col-12 mt-1" style={{background:"#fe87001f",borderRadius:"10px"}} key={i}>
                             <div className="row p-1 align-items-center">
                                 <div className="col-10 px-0">
                                   <p className="ContractListFont mb-0">{el.candidatName ? el.candidatName : el.initial_client_company ? el.initial_client_company  : el.candidat_name} {el.amount_avance ? `- Amount : ${el.amount_avance +" €"}` :null} - Generated : <b>{el.contract_generated_on ? el.contract_generated_on : el.contract_generated_on ? el.contract_generated_on : el.generated_on} </b> Signed : <b>{el.contract_signed_on ? el.contract_signed_on : el.contract_signed_on ?   el.contract_signed_on : el.signed_on}</b></p>
@@ -348,7 +359,7 @@ console.log(representance,"res")
                                     </div>
                                     </div>
                             </div>
-                        </div>
+                        </motion.div>
                         ))
                          
                         :

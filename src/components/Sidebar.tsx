@@ -56,22 +56,33 @@ function Sidebar(props: any) {
             >
               <Link
                 to="/dashboard"
-                className="d-flex bottom-radius logoSet justify-content-center align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none"
               >
-                <span>
-                  <motion.img            initial={{ scale: 0 }}
-    animate={{ rotate: 360, scale: 1 }}
-    transition={{
-      type: "spring",
-      stiffness: 260,
-      damping: 90
-    }}
+                    <motion.div
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.7, delay: 0.3 }}
+                          variants={{
+                            visible: { opacity: 1, x: 0 },
+                            hidden: { opacity: 0, x: -50 }
+                          }}  className="d-flex bottom-radius logoSet justify-content-center align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none"
+                          >                <span>
+                  <img
          src={require("../images/logo-header.svg").default} className="filter-logo" />
                 </span>
                 <img src={require("../images/LogoName.svg").default} className="filter-text" />
+                </motion.div>
               </Link>
           
-              <ul className="nav nav-pills flex-column sideBarBackG mb-auto text-className">
+              <motion.ul
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.7, delay: 0.3 }}
+                          variants={{
+                            visible: { opacity: 1, x: 0 },
+                            hidden: { opacity: 0, x: -50 }
+                          }} className="nav nav-pills flex-column sideBarBackG mb-auto text-className">
                 <li className="nav-item active mt-1 sideBarBackG">
                   <Link to="/dashboard" className="nav-link link-dark  pd013" aria-current="page">
                     <span className="pe-2">
@@ -248,7 +259,7 @@ function Sidebar(props: any) {
                   </Link>
                 </li>
 
-              </ul>
+              </motion.ul>
             </div>
           </div>
           <div className="col-xxl-9 col-lg-9 col-md-9 col-xs-9  scroll" style={{maxWidth:"79%"}}>

@@ -27,6 +27,9 @@ import JobAdsCard from '../../components/ClientComponents/ClientJobAds'
 import Carousel from "react-multi-carousel";
 import ProfilesLoader from "../../components/Loader/ProfilesLoader"
 import Warning from "../../components/Loader/SearchBarError"
+import DetailBox from "../../components/ClientComponents/ViewPageDetailBox"
+import SocialButton from "../../components/ClientComponents/SocialButtons";
+import { motion } from "framer-motion";
 
 let id = "";
 let DetailsEdit;
@@ -39,7 +42,6 @@ function Signed() {
   const navigate = useNavigate();
   const [stateid] = useState(state) as any;
   const [showArchiveModal, setShowArchiveModal] = useState(false);
-  const [EMPunderWorking, setEMPunderWorking] = useState([]) as any;
   const [UploadBtn, setSelectUpload] = useState(false);
   const hiddenImageInput = React.useRef(null);
   const [SISPI, setChecked] = useState(profile.sispiDeclared);
@@ -50,10 +52,7 @@ function Signed() {
   const [Contrat, setContrat] = useState(profile.contractSigned);
   const [Signature, setSignature] = useState(profile.signatureSent);
   const [Offre, setOffre] = useState(profile.offerSent);
-  const [candidatDocument, setCandidatDocument] = useState("");
-  const [progress, setProgress] = useState<any>(0);
   const [docUploaded, setDocUploaded] = useState(false);
-  const [documentList, setDocumentList] = useState([]);
   const [ClientImage, setClientImage] = useState(
     profile.clientPhoto && profile.clientPhoto?.url !== undefined
       ? profile.clientPhoto?.url
@@ -687,7 +686,14 @@ let Editdata ={state:profile,path:"/clientSigned"}
             </div>
           </div>
           <div className="px-0">
-            <div className="col-12 my-1 py-1 ClientSEE-TopDetails">
+          <motion.div
+  initial={{ scale: 0 }}
+  animate={{ rotate:0, scale:1}}
+  transition={{
+    type: "spring",
+    stiffness: 120,
+    damping: 50
+  }}   className="col-12 my-1 py-1 ClientSEE-TopDetails">
               <div className="row">
                 <div className="col-2 pr-0 text-center">
                   {ClientImage !== "" ? (
@@ -790,7 +796,7 @@ let Editdata ={state:profile,path:"/clientSigned"}
                   {/* </div> */}
                 </div>
               </div>
-            </div>
+            </motion.div>
             <div className="col-12 Social-CardClient mt-2 ">
               <div className="row p-1">
                 <div className="col-2 d-flex px-0 justify-content-start">
@@ -1107,236 +1113,36 @@ let Editdata ={state:profile,path:"/clientSigned"}
             </div>
             <div className="col-12 pt-1 py-0 mb-1">
               <div className="row justify-content-between">
-                <div
+                   <motion.div
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  transition={{ duration: 0.7, delay: 0.7 }}
+  variants={{
+    visible: { opacity: 1, x: 0 },
+    hidden: { opacity: 0, x: 50 }
+  }}
                   className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-1 Social-cardDiv"
                   style={{ maxWidth: "49%" }}
                 >
-                  <div className="d-flex">
-                    <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                      {profile.clientEmail
-                        ? " Mail :" + profile.clientEmail
-                        : null}
-                    </p>
-                  </div>
-                  {profile.clientEmail ? (
-                    <button className="btn-TODOgmail">
-                      <a
-                         href={`mailto:${profile.clientEmail}`}
-
-                        className="text-dark fw-bold"
-                        target="_blank"
-                      >
-                        <span className="padding-email">
-                          <img
-                            style={{ width: "8%" }}
-                            src={require("../../images/gmail.svg").default}
-                          />
-                        </span>
-                        Send Email
-                      </a>
-                    </button>
-                  ) : null}
-
-                  <div className="d-flex">
-                    <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                      {profile.clientReferenceEmail
-                        ? "Contact :" + profile.clientReferenceEmail
-                        : null}
-                    </p>
-                  </div>
-
-                  {profile.clientReferenceEmail ? (
-                    <a
-                    href={`mailto:${profile.clientReferenceEmail}`}
-                      target="_blank"
-                      className="btn  fw-bold btn-TODOgmail"
-                    >
-                      <span className="padding-email">
-                        <img src={require("../../images/gmail.svg").default} />
-                      </span>
-                      Send Email
-                    </a>
-                  ) : null}
-
-                  <div className="d-flex">
-                    <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                      {profile.clientPhone
-                        ? "Company Phone :" + profile.clientPhone
-                        : null}
-                    </p>
-                  </div>
-                  {profile.clientPhone ? (
-                    <a
-                      href={`https://wa.me/${profile.clientPhone}`}
-                      target="_blank"
-                    >
-                      <button className="btn-whatsapp my-1">
-                        <span className="padding-email">
-                          <img
-                            style={{ width: "8%" }}
-                            src={require("../../images/whatsapp.svg").default}
-                          />
-                        </span>
-                        Send What’s App
-                      </button>
-                    </a>
-                  ) : null}
-
-                  <div className="d-flex">
-                    <p className="Span-StylingClient text-start pt-2 pb-1 my-1">
-                      {profile.clientReferenceNumber
-                        ? "Contact Phone :" + profile.clientReferenceNumber
-                        : null}
-                    </p>
-                  </div>
-                  {profile.clientReferenceNumber != "" ? (
-                    <a
-                      href={`https://wa.me/${profile.clientReferenceNumber}`}
-                      target="_blank"
-                    >
-                      <button className="btn-whatsapp my-1">
-                        <span className="padding-email">
-                          <img
-                            style={{ width: "8%" }}
-                            src={require("../../images/whatsapp.svg").default}
-                          />
-                        </span>
-                        Send What’s App
-                      </button>
-                    </a>
-                  ) : null}
-                </div>
-                <div
+                <SocialButton  props={profile}  />
+                </motion.div>
+                <motion.div
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  transition={{ duration: 0.7, delay: 0.7 }}
+  variants={{
+    visible: { opacity: 1, x: 0 },
+    hidden: { opacity: 0, x: -50 }
+  }}
                   className="col-xxl-8 col-xl-8 col-lg-8 col-md-7 Social-Card p-1 detailsCardClientSee scrollbar Social-btnS"
                   id="style-3"
                   style={{ maxWidth: "49%" }}
                 >
-                  <div className="Todo-ClinetCardMore force-overflow">
-                    
-                    
-                          <div className="d-flex">
-                            <p className="">Company Adress  </p>
-                          
-                          
-                            <span className="Todo-ClinetCardMore-span" style={{width :"69%"}}>
-                                :  
-                                {profile.clientAddress
-                                ? "  "+ profile.clientAddress
-                                : "✘ No Address!"}
-                      </span>
-                      </div>
-              
-                    <div className="d-flex align-items-center ">
-                      <p className="blue-text">Research for work :</p>
-                      <span
-                        className="bluetextCardSee"
-                        style={{
-                          color:
-                            date >= start && date <= end
-                              ? "#3F76E2"
-                              : "#ca1313",
-                        }}
-                      >
-                        {date >= start && date <= end
-                          ? " 📆" + startDate + "  To  " + EndDate
-                          : "⚠️" +
-                            startDate +
-                            "  To  " +
-                            EndDate}
-                      </span>
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <p>Langues : </p>
-                      <span className="Todo-ClinetCardMore-span">
-                        {profile.clientLanguages.length
-                          ?  "  " + profile.clientLanguages.join(", ")
-                          : " ✘ No Langues!"}
-                      </span>
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <p>Voyage en voiture :</p>
-                      <span className="Todo-ClinetCardMore-span">
-                        {profile.candidatConduireEnFrance ? `✔ Yes` : "✘ No"}
-                      </span>
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <p>Permis / Licence Drive :</p>
-                      <span className="Todo-ClinetCardMore-span">
-                        {profile.clientPermis ? `✔ Yes` : "✘ No"}
-                      </span>
-                    </div>
-                    <div className="d-flex">
-                      <p >Client Note:</p>
-                      <span
-                        className="Todo-ClinetCardMore-span"
-                        style={{ textDecoration: "none", width: "77%" }}
-                      >
-                        {profile.clientRequiredSkills != ""
-                          ? "  " + profile.clientRequiredSkills
-                          : "✘ Not Available!"}
-                      </span>
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <p className="text-dark">Potential Turnover CA</p>
-                      <span className="Todo-ClinetCardMore-span">
-                        :
-                        {profile.jobTotalBudget != null
-                          ? profile.jobTotalBudget + "€"
-                          : "No Budget"}
-                      </span>
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <p className="text-dark">Salary by person </p>
-                      <span className="Todo-ClinetCardMore-span">
-                        :{" "}
-                        {profile.salary_hours.length > 0
-                          ? profile.salary_hours.includes(
-                              profile.salary_hours.salaryPerHour
-                            )
-                            ? profile.salary_hours
-                                .map((el,i) => {
-                                  return el.salaryPerHour + "€";
-                                })
-                                .slice(0, 1)
-                            : "✘ No Salary!"
-                          : "✘ No Salary!"}{" "}
-                        
-                      </span>
-                    </div>
-                    <div className="d-flex ">
-                      <p className="text-dark">Salaire net du salarié  </p>
-                      <span className="Todo-ClinetCardMore-span">
-                      :  {profile.salary_hours.length !== 0
-                          ? profile.salary_hours.map((el,i) => (
-                              <div className="d-flex" key={i}>
-                                {el.hours ? el.hours : "0"}H ={" "}
-                                <span>
-                                  {el.salaryPerHour
-                                    ? el.salaryPerHour + "€"
-                                    : "0€"}
-                                </span>
-                              </div>
-                            ))
-                          : "✘ No Salaire!"}
-                      </span>
-                    </div>
-                    <div className="d-flex ">
-                      <p className="text-dark">Taux horraire </p>
-                      <span className="Todo-ClinetCardMore-span">
-                      : {profile.rate_hours.length !== 0
-                          ? profile.rate_hours.map((el,i) => (
-                              <div className="d-flex" key={i}>
-                                {el.hours ? el.hours : "0"}H ={" "}
-                                <span>
-                                  {el.ratePerHour ? el.ratePerHour + "€" : "0€"}
-                                </span>
-                              </div>
-                            ))
-                          : "✘ No horraire!"}
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                 {/* Details */}
+                 <DetailBox props={profile} startDate={startDate} EndDate={EndDate} />
+                 </motion.div>
               </div>
             </div>
 

@@ -18,6 +18,9 @@ import AvanceModal from "../components/Modal/AvanceModalCandidate";
 import PDFBoxCandidate from "../components/PDFboxBothSide/PDFBoxCandidate";
 import CandidateContract from "../components/CandidateComponents/CandidateContract";
 import DocumLink from "../components/Modal/CandidateRepresentModal/LinkModal"
+import ViewPageDetailsBox from '../components/CandidateComponents/ViewPageDetailsBox'
+import SocialButtons from '../components/CandidateComponents/ViewPageSocialButtons'
+import { motion } from "framer-motion";
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -299,7 +302,15 @@ useEffect(() => {
             </div>
           </div>
            
-             <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pb-0 mt-2">
+          <motion.div
+  initial={{ scale: 0 }}
+  animate={{ rotate:0, scale:1}}
+  transition={{
+    type: "spring",
+    stiffness: 120,
+    damping: 50
+  }}
+  className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pb-0 mt-2">
               <div className="row bg-ArchiveDetails mt-0">
                 <div className="col-xxl-2 col-xl-2 col-md-2 col-sm-2 text-center">
                 {candidatImage !== "" ?
@@ -364,7 +375,7 @@ className="SelectBtn"
                  
                 </div>
               </div>
-            </div>
+            </motion.div>
             <div className="col-12 mt-2">
               <div className="row boxArchivedProfile">
                 <div className="whyFont"><p>WHY THIS CANDIDATES HAVE BEEN ARCHIVED: <span> {profile?.candidatArchived?.reason}</span></p></div>
@@ -373,153 +384,38 @@ className="SelectBtn"
             
              <div className="col-12 mt-2 ">
               <div className="row justify-content-between">
-              
-                <div
+              {/* detailBox */}
+              <motion.div
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  transition={{ duration: 0.7, delay: 0.5 }}
+  variants={{
+    visible: { opacity: 1, x: 0 },
+    hidden: { opacity: 0, x: 50 }
+  }}
                   className="col-7 Archived-Card px-1  scrollbar heightWidth"
                   id="style-3"
                   style={{ maxWidth: "56%", marginRight: "10px" }}
                 >
-                  <div className="Archived-CardMore force-overflow">
-                  <div className="row ">
-                      <div className="d-flex pr-0"> 
-                      <p>Langues  </p>
-                  
-                      <span>: {profile.candidatLanguages.length  ? profile.candidatLanguages.join(", ") : "✘✘No Language!"}</span>
-                      </div>
-                    </div>
-                    <div className="d-flex ">
-                      <p className="blue-text">Ready for work </p>
-                      <span className="" style={{ color: date >= start && date <= end  ? "#3F76E2" : "#ca1313"}}>: 
-                      {profile.candidatStartDate  !== undefined? date >= start && date <= end  ?" 📆" + startDate  + "  To  " + EndDate :   "⚠️" + startDate +"  To  " + EndDate : "✘No Dates!"} 
-                      </span>
-                    </div>
-                    <div className="d-flex">
-                      <p>Permis </p>
-                      <span>
-                      :  {profile.candidatLicensePermis ? `✔ Yes` : "✘ No"}
-                      </span>
-                    </div>
-                    <div className="d-flex">
-                      <p>Voyage en voiture </p>
-                      <span>
-                      : {profile.candidatConduireEnFrance ? `✔ Yes` : "✘ No"}
-                      </span>
-                    </div>
-                   
-                    <div className="d-flex">
-                      <p>Skills/note </p>
-                      <span>: {profile.candidatSkills ? profile.candidatSkills :"✘ No Skills!"}</span>
-                    </div>
-                    <div className="d-flex">
-                      <p className="text-dark">Trouvé sur  </p>
-                      <span className="text-dark">
-                      :  {profile.candidatJob ? profile.candidatJob :"✘ No Trouvé sur!"}
-                      </span>
-                    </div>
-                   
-                  </div>
-                </div>
-                <div
+             <ViewPageDetailsBox  props={profile} startDate={startDate}    EndDate={EndDate}    />
+                </motion.div>
+              {/* detailBox */}
+
+              <motion.div
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  transition={{ duration: 0.7, delay: 0.5 }}
+  variants={{
+    visible: { opacity: 1, x: 0 },
+    hidden: { opacity: 0, x: -50 }
+  }}
                   className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-1 heightWidth"
                   style={{ maxWidth: "49%" }}
                 >
-                  <div className="text-start px-1">
-                  <p className="Span-Styling pt-2 my-1">
-                  {profile.candidatEmail ? "Mail :" + profile.candidatEmail : null}
-                  </p>
-                  </div>
-                  {
-                    profile.candidatEmail ?       <button className=" btn-gmail my-1">
-                    <a
-                     href={`mailto:${profile.candidatEmail}`}
-                      className="text-dark fw-bold"
-                      target="_blank"
-                    >
-                      <span className="padding-email">
-                        <img  src={require("../images/gmail.svg").default} />
-                      </span>
-                      Send Email
-                    </a>
-                  </button> : 
-                    null
-                  }
-                <div className="text-start px-1">
-                  <p className="Span-Styling my-2 px-3">{profile.candidatFBURL ? "Facebook : " + profile.candidatFBURL : null}</p>
-                  </div>
-                  {
-profile.candidatFBURL ?
-<a
-href={profile.candidatFBURL}
-target="_blank"
-className="btn btn-Facebookpresee my-1"
->
-<span className="padding-email">
-  <img
-    style={{ width: "4%" }}
-    src={require("../images/facebook.svg").default}
-  />
-</span>
-See Profile
-</a>  :
-null
-
-                  }
-            
-            <div className="text-start px-1">
-                  <p className="Span-Styling my-2 px-3">
-                    {profile.candidatPhone ?  " Phone :" + profile.candidatPhone : null}
-                  </p>
-                  </div>
-                  {
-                  profile.candidatPhone ?
-
-                      <a
-                      href={`https://wa.me/${profile.candidatPhone}`}
-                      target="_blank"
-                    >
-                    <button className="btn-whatsapp mt-1 mb-1">
-                  
-                      <span className="padding-email">
-                        <img
-                          style={{ width: "8%" }}
-                          src={require("../images/whatsapp.svg").default}
-                        />
-                      </span>
-                      Send What’s App
-                  </button>
-                  </a>
-
-                  :
-            
-                null
-                  }
-               <div className="text-start px-1">
-                  <p className="Span-Styling mt-2 mb-1 px-3">
-                   {profile.candidatAlternatePhone !== "" || profile.cadidatAlternatePhone !== undefined ? "Phone 2 :" + profile.candidatAlternatePhone : null}
-                  </p>
-                  </div>
-                 {
-                    profile.candidatAlternatePhone ?
-                    <a
-                    href={`https://wa.me/${profile.candidatAlternatePhone}`}
-                    target="_blank"
-                  >
-                  <button className="btn-whatsapp">
-               
-                    <span className="padding-email">
-                      <img
-                        style={{ width: "8%" }}
-                        src={require("../images/whatsapp.svg").default}
-                      />
-                    </span>
-                    Send What’s App
-                </button>
-                </a>
-                  :
-              null
-                 }
-
-                </div>
+                 <SocialButtons   props={profile}    />
+                </motion.div>
               </div>
             </div>
             <div className="col-12  p-2 Archived-Card mt-2">
