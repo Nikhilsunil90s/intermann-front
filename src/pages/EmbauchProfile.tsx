@@ -525,11 +525,11 @@ className="SelectBtn"
               <div className="row">
                 <div className="col-12 d-flex AnneesStyle">
                  <p className="">Années d’expériance </p>
-                 <span>: {profile.candidatYearsExperience ? profile.candidatYearsExperience : "✘✘!"}years </span>
+                 <span>: {profile.candidatYearsExperience ? profile.candidatYearsExperience : "0"}years </span>
                 </div>
                 <div className="col-12 d-flex AddressEnteredBy">
                  <p className="">Adresse </p>
-                 <span>: {profile.candidatAddress ? profile.candidatAddress :"✘✘  No Adresse!"}</span>
+                 <span className="text-capitalize">: {profile.candidatAddress ? profile.candidatAddress :"✘✘  No Adresse!"}</span>
                 </div><div className="col-12 d-flex AddressEnteredBy">
                  <p className="">Ajouté par/Added by </p>
                  <span>: {profile.enteredBy}</span>

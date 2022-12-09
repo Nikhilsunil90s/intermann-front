@@ -209,7 +209,7 @@ function Sidebar(props: any) {
                     </h2>
                     <div id="flush-collapseOne" className="accordion-collapse collapse " aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                       <div className="">
-                        <ul style={{paddingLeft:"0px",width:"100%"}} >  <li className="sideBarBackG">
+                        <ul style={{paddingLeft:"0px",width:"100%"}} >  <li className={activeTab === "New Sector" ? "sideBarBackGactive"  : "sideBarBackG"} onClick={(e)=>OnClickColorChange("New Sector")}>
                     <Link to="/addNewSector" className="nav-link link-dark fontStylingBar" aria-current="page">
                       <span className="pe-2">
                         <img src={require("../images/addsector.svg").default} />
@@ -217,7 +217,7 @@ function Sidebar(props: any) {
                       Add New Sector
                     </Link>
                   </li>
-                  <li className="sideBarBackG">
+                  <li className={activeTab === "User List" ? "sideBarBackGactive"  : "sideBarBackG"}  onClick={(e)=>OnClickColorChange("User List")}>
                     <Link to="/userList" className="nav-link link-dark fontStylingBar" aria-current="page">
                       <span className="pe-2">
                         <img src={require("../images/adduser.svg").default} />

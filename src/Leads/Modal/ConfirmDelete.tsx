@@ -1,6 +1,7 @@
 import React,{useEffect,useRef,useState} from "react";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import {toast} from "react-hot-toast"
+import { motion } from "framer-motion";
 function NotesDeleteModal({props,closeModal,update,Load,Notes,LeadsDelete,setDelete}){
   const [btnDS,setBTNds]=useState(false)
   const DeleteNotes=()=>{
@@ -103,8 +104,15 @@ setTimeout(()=>{
 
     return(
         <>
-  <div className="modal d-block" style={{ backgroundColor: "#00000052" }} id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div className="modal-dialog modal-lg" style={{width:"505px",marginTop:"100px"}}>
+   <div className="modal d-block" style={{ backgroundColor: "#00000052" }} id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+   <motion.div   
+    initial={{ scale: 0 }}
+                        animate={{ rotate:0, scale:1}}
+                        transition={{
+                          type: "spring",
+                          stiffness: 190,
+                          damping: 50
+                        }}  className="modal-dialog modal-lg" style={{width:"505px",marginTop:"100px"}}>
                 <div className="modal-content">
                     <div className="col-12">
                         <div className="row justify-content-end">
@@ -168,7 +176,7 @@ setTimeout(()=>{
                     </div>
                
                 </div>
-            </div>
+            </motion.div>
         </div>
         </>
     )

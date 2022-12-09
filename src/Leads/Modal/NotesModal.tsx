@@ -1,6 +1,6 @@
 import React,{useEffect,useRef,useState} from "react";
 import toast from "react-hot-toast";
-import {API_BASE_URL} from "../../config/serverApiConfig"
+import { motion } from "framer-motion";
 function NotesModal({closeModal,props,Notes,EditModal,deleteModal,setDelete}){
   const [btnDS,setBTNds]=useState(false)
 
@@ -61,7 +61,14 @@ function NotesModal({closeModal,props,Notes,EditModal,deleteModal,setDelete}){
     return(
         <>
   <div className="modal d-block" style={{ backgroundColor: "#00000052" }} id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div className="modal-dialog modal-lg" style={{width:"795px"}}>
+  <motion.div   
+    initial={{ scale: 0 }}
+                        animate={{ rotate:0, scale:1}}
+                        transition={{
+                          type: "spring",
+                          stiffness: 190,
+                          damping: 50
+                        }}   className="modal-dialog modal-lg" style={{width:"795px"}}>
                 <div className="modal-content">
                     <div className="modal-header p-0">
                     <div className="col-12">
@@ -130,7 +137,7 @@ function NotesModal({closeModal,props,Notes,EditModal,deleteModal,setDelete}){
                     </div>
                
                 </div>
-            </div>
+            </motion.div>
         </div>
         </>
     )

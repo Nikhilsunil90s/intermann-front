@@ -113,7 +113,7 @@ function SectorModal() {
   }
 
   return (<>
-    <div className="modal fade" id="sectorModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div className="modal fade mt-12" id="sectorModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">

@@ -463,7 +463,7 @@ null
                 </div>
                 <div className="col-12 d-flex AddressEnteredBy">
                  <p className="">Adresse : </p>
-                 <span> {profile.candidatAddress ? profile.candidatAddress : "✘✘No Address!"}</span>
+                 <span className="text-capitalize">  {profile.candidatAddress ? profile.candidatAddress : "✘✘No Address!"}</span>
                 </div><div className="col-12 d-flex AddressEnteredBy">
                  <p className="">Ajouté par/Added by :</p>
                  <span> {profile.enteredBy}</span>
