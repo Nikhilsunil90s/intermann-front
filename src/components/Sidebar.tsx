@@ -91,7 +91,7 @@ function Sidebar(props: any) {
                           variants={{
                             visible: { opacity: 1, x: 0 },
                             hidden: { opacity: 0, x: -50 }
-                          }} className="nav-item active mt-1 sideBarBackG">
+                          }} className="nav-item active mt-1 sideBarBackG" onClick={()=>{setActiveTab("")}}>
                   <Link to="/dashboard" className="nav-link link-dark  pd013" aria-current="page">
                     <span className="pe-2">
                       <img src={require("../images/Shape.svg").default} />

@@ -6,6 +6,7 @@ import chroma from 'chroma-js';
 import { Toaster, toast } from "react-hot-toast";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import ProfileLoader from "../../components/Loader/ProfilesLoader" 
+import { motion } from "framer-motion";
 
 function PreModal({props,closepreModal}) {
   const notifyCandidatMovedSuccess = () => toast.success("Candidat Pre-Selected Successfully!");
@@ -181,7 +182,16 @@ useEffect(() => {
     <>
     
 
-      <div
+    <motion.div
+                          
+                           initial={{ scale: 0 }}
+                           animate={{ rotate: 0, scale: 1 }}
+                           transition={{
+                             type: "spring",
+                             stiffness: 160,
+                             damping: 20
+                           }}
+                    
         className="modal d-block"
         style={{ backgroundColor: "#00000052" }}
         id="exampleModal"
@@ -236,7 +246,7 @@ useEffect(() => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

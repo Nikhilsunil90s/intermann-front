@@ -258,11 +258,11 @@ useEffect(()=>{
           
                 <>
                { Leads.map((el,i)=>(
-                  <LazyLoad threshold={0.96}>
+               
               
                   <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} activeUser={setCurrentUser}  TabName={TabName}  />
                  
-              </LazyLoad>
+            
             ))
                }
             </>
