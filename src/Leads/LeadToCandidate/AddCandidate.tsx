@@ -9,48 +9,56 @@ import format from "date-fns/format";
 import { Calendar } from "react-date-range";
 import { addDays } from "date-fns";
 
-const EmployeeDataFormat = {
-  candidatName: "",
-  candidatEmail: "",
-  candidatPhone: "",
-  candidatAddress: "",
-  candidatActivitySector:"",
-  candidatJob: "",
-  candidatFBURL: "",
-  candidatAlternatePhone: "",
-  candidatSkills: "",
-  candidatAge: 0,
-  candidatMotivation: 0,
-  candidatLanguages: [],
-  candidatLicensePermis: false,
-  candidatConduireEnFrance: false,
-  candidatStartDate: "",
-  candidatComingFrom: [],
-  candidatEndDate: "",
-  candidatYearsExperience: "",
-  candidatFetes: [],
-  candidatPhoto: "",
-  candidatExperienceDetails: [{
-    period: "",
-    location: "",
-    workDoneSample: ""
-  }],
-  candidatCurrentWork: [
-    {
-      workingFor: "",
-      workingSince: "",
-      salary: ""
-    }
-  ],
-  enteredBy: "",
-  candiatStatus: "To-Do",
-  candidateArchived: {
-    reason: ""
-  }
-}
 
 export default function Employes() {
-
+ 
+    const profileData = JSON.parse(localStorage.getItem("archive"));
+    const [leadProfile,setLeadProfile]=useState(profileData)as any
+    const EmployeeDataFormat = {
+      candidatName: "",
+      candidatEmail: "",
+      candidatPhone: "",
+      candidatAddress: "",
+      candidatActivitySector:"",
+      candidatJob: "",
+      candidatFBURL: "",
+      candidatAlternatePhone: "",
+      candidatSkills: "",
+      candidatAge: 0,
+      candidatMotivation: 0,
+      candidatLanguages: [],
+      candidatLicensePermis: false,
+      candidatConduireEnFrance: false,
+      candidatStartDate: "",
+      candidatComingFrom: [],
+      candidatEndDate: "",
+      candidatYearsExperience: "",
+      candidatFetes: [],
+      candidatPhoto: "",
+      candidatExperienceDetails: [{
+        period: "",
+        location: "",
+        workDoneSample: ""
+      }],
+      candidatCurrentWork: [
+        {
+          workingFor: "",
+          workingSince: "",
+          salary: ""
+        }
+      ],
+      enteredBy: "",
+      candiatStatus: "To-Do",
+      candidateArchived: {
+        reason: ""
+      }
+    }
+    useEffect(()=>{
+ 
+      setLeadProfile(profileData)
+         setData({...data,candidatName:leadProfile.candidatName,candidatEmail:leadProfile.candidatEmail,candidatSkills:leadProfile.leadNotes,candidatPhone:"+" + leadProfile.candidatPhone.replace(/\D/g,"")})
+    },[])
+    
   const [data, setData] = useState(EmployeeDataFormat)as any;
   const [jobs, setJobs] = useState([{ jobName: "", associatedSector: "", _id: "" }]);
   const [activitySectors, setActivitySectors] = useState([]);

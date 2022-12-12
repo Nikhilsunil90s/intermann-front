@@ -50,6 +50,7 @@ import DownloadCenter from "./components/DownloadCenter";
 import DocumentRepresentPDFVIEW from "../src/pages/DocumentRepresentPDFVIEW"
 import RepresentanceSign from '../src/components/CandidateComponents/DocSignRepresentance'
 import LeadsCenter from "./Leads/LeadsCenter";
+import AddCandidate from './Leads/LeadToCandidate/AddCandidate'
 import AddLeads from "./Leads/AddLeads"
 import JobAdsList from "./JobAdsCenter/JobAdsList";
 import AddReaserch from "./JobAdsCenter/AddReaserch";
@@ -355,6 +356,15 @@ function App() {
             element={
               <Sidebar>
                 <PrivateRoute Component={LeadsCenter} />
+              </Sidebar>
+            }
+          />
+          
+          <Route
+            path={"/AddLeadToCandidate"}
+            element={
+              <Sidebar>
+                <PrivateRoute Component={AddCandidate} />
               </Sidebar>
             }
           />

@@ -241,7 +241,7 @@ useEffect(()=>{
             <b> ‎✔   ‎There is {contected} leads not yet contacted by Agency</b>
             </p>
             <p className="mb-0 ApplyFilter">
-            <b> ‎ ✔  ‎There is {preContected} leads not yet precontacted<span style={{color:"#f8ba00"}}>{LoginUserS?.username}</span></b>
+            <b> ‎ ✔  ‎There is {preContected} leads not yet precontacted</b>
             </p>
           </div>
           <div
