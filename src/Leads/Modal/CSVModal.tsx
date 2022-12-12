@@ -1,7 +1,7 @@
 import React,{useEffect,useRef,useState} from "react";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import {toast} from "react-hot-toast"
-function CSVModal({props,closeModal,}){
+function CSVModal({props,closeModal,status}){
     const ref = useRef();
 
     useOnClickOutside(ref, () => closeModal(false));
@@ -58,7 +58,7 @@ function CSVModal({props,closeModal,}){
                             lineHeight: "24px",
                             color:"#000"
 
-                        }}><div className="col-12 d-flex justify-content-center mb-1"><img style={{width:"57px"}} src={props !== ""  ? require(`../../images/checkmark.svg`).default :  require(`../../images/cancelicon.svg`).default} /></div>{props !== "" ? "Leads from the CSV has been successfully added!" : "Leads Add from CSV Failed!"}</p>
+                        }}><div className="col-12 d-flex justify-content-center mb-1"><img style={{width:"57px"}} src={status ? require(`../../images/checkmark.svg`).default :  require(`../../images/cancelicon.svg`).default} /></div>{props}</p>
                         </div>
 
                            

@@ -25,7 +25,8 @@ function AddLeads(){
   const [CustomForm,setCustomForm]=useState(false)
   const [CsvUploadForm,setCsvUploadForm]=useState(false)
   const [SelectFormSide,setSelectFormSide] = useState(true)
-  const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
+  const [statusCSV,setCSVstatus]=useState(false)
+ const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
   const [SelectContry]=useState([{
     value:"France",
     label:(<> <France
@@ -124,11 +125,12 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
           setConfirmModal(true)
           notifyDocumentUploadSuccess();
           setBtnDS(false)
-
+          setCSVstatus(true)
         } else {
           setBtnDS(false);
           setConfirmModal(true)
-          setConfirmModalMessage("")
+          setConfirmModalMessage(resData.data.message)
+          setCSVstatus(false)
         }
       })
       .catch(err => {
@@ -663,7 +665,7 @@ const onSubmit=()=>{
                 }
               {
                 confirmModal ?
-                <CSVModal  props={ConfirmModalMessage} closeModal={setConfirmModal}  />
+                <CSVModal  props={ConfirmModalMessage} closeModal={setConfirmModal} status={statusCSV} />
                 :
                 null
               }

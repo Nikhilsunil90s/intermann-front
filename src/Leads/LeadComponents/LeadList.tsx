@@ -256,7 +256,7 @@ AddToCRM(data)
              <div className="col-2 leadBoxGray" >
                 <b className="mb-0"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.leadCandidatName}>{props.leadCandidatName ? props.leadCandidatName.length > 8 ? props.leadCandidatName.slice(0,7).toLocaleUpperCase()+".." : props.leadCandidatName.toLocaleUpperCase() : "✘✘!"}</b>
              </div>
-             <div className="col-3 leadBoxGray d-grid">
+             <div className="col-3 leadBoxGray d-grid" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.phoneNumber ? props.phoneNumber.replace("`","") : "✘✘!"}>
                 <b className="mb-0">{props.phoneNumber ? props.phoneNumber.replace("`","") : "✘✘!"}</b>
                 <a href={`https://wa.me/${props.phoneNumber}`} target="_blank" className="BlueLink text-center">Send What’s app</a>
              </div>
@@ -281,7 +281,7 @@ AddToCRM(data)
                 padding:"10px 15px",
     borderRadius: "10px"}}>
                 <p className="mb-0 m-0">Precontacted</p>
-              <span>(BY DANA)</span>
+              
                 </div>
               </div>
            
@@ -299,7 +299,7 @@ AddToCRM(data)
                 padding:"10px 15px",
     borderRadius: "10px"}}>             <p className="m-0 ">Contacted by Agency</p>
               {/* <span>(BY {LoginUser.emailAddress.substring(0,LoginUserS.emailAddress.lastIndexOf("@")).toUpperCase()})</span> */}
-              <span>(BY DANA)</span>
+              
               </div>
               </div>
                  <div className="row PrECONTACTEDInput justify-content-around mb-1">
