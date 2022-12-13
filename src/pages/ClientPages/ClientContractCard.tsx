@@ -159,7 +159,7 @@ function ClientContractCard(props: any) {
 
           <div className="">
             {
-              props.data.employeesWorkingUnder != null && props.data.employeesWorkingUnder != [] && props.data.employeesWorkingUnder.length > 0 ?
+              props.data.employeesWorkingUnder != null  && props.data.employeesWorkingUnder.length > 0 ?
                 <>
                   <p className="AdsFont mb-0">Ads Spent on this client:  {props.data.jobTotalBudget  ? props.data.jobTotalBudget + " €" : "N/A"}  </p>
                   <p className="AdsFont mb-0">Employees working for this client :

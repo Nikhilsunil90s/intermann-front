@@ -85,7 +85,6 @@ useEffect(()=>{
  
     fetchUsers(TabName)
   },[UpdateFiled,TabName])
-  console.log(AllJobs,"Alljob")
 
   useEffect(()=>{
     if(AllJobs.length > 0 && jobCardActive.length === 0 && jobCardInActive.length ===0){
@@ -119,7 +118,7 @@ useEffect(()=>{
   },[AllJobs,jobCardActive])
 
 const  fetchUsers=async(TabName)=>{
-return    await fetch(API_BASE_URL + `allAds/?market=${TabName}`,{
+return    await fetch(API_BASE_URL + `allAds/?market=${TabName.toUpperCase()}`,{
     method: "GET",
     headers: {
       "Accept": 'application/json',

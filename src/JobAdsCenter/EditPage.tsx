@@ -11,7 +11,7 @@ import { ReactComponent as Romania } from "../images/romania.svg";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import { ColourOption } from "../Selecteddata/data";
 import ProfileLoader from "../components/Loader/ProfilesLoader" 
-import { EditorState, convertToRaw } from "draft-js";
+import { EditorState, convertToRaw ,  ContentState,convertFromHTML} from "draft-js";
 import chroma from "chroma-js";
 import draftToHtml from "draftjs-to-html";
 import {toast ,Toaster} from "react-hot-toast"
@@ -235,7 +235,7 @@ name:"Contry"
   const [onEditorStateChange, setOnEditorStateChange] = useState()as any
   const [addData,setAddData]=useState(
     {
-      adCountryMarket :profile.adCountryMarket, // string
+      adCountryMarket :profile.adCountryMarket.toUpperCase(), // string
       adNameFrench :profile.adNameFrench, // string
       adNameRomanian :profile.adNameRomanian, // string
       adImportance :profile.adImportance , // number 
@@ -244,6 +244,12 @@ name:"Contry"
       adId:profile._id
     }
   )
+
+  const [editorState, setEditorState] = useState(EditorState.createWithContent(
+    ContentState.createFromBlockArray(
+      convertFromHTML(profile.adDescription)
+    )
+  ),)as any;
 
   useEffect(() => {
     if (clients.length == 0) {
@@ -426,7 +432,7 @@ id="Clients"
                
              
                     <div className="col-12 d-grid mt-1">
-                        <label className="Form-styling">text area for job descrption</label>
+                        <label className="Form-styling">job descrption</label>
                         <div className="mb-1 " style={{border: "1px solid #e5e5e5",borderRadius:"10px"}}>
                         
                         {
@@ -437,7 +443,7 @@ id="Clients"
                           :
 
                         <Editor
-  // editorState={profile.adDescription}
+                        defaultEditorState={editorState}
   toolbarClassName="toolbarClassName"
   wrapperClassName="wrapperClassName"
   editorClassName="editorClassName"

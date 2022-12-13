@@ -4,7 +4,7 @@ import { ColourOption } from "../../Selecteddata/data";
 import chroma from "chroma-js";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import { DateRange } from "react-date-range";
-import {toast} from "react-hot-toast"
+import { toast } from "react-hot-toast";
 import format from "date-fns/format";
 import { addDays } from "date-fns";
 
@@ -13,7 +13,15 @@ import "react-date-range/dist/theme/default.css";
 import { dataURLFileLoader } from "react-doc-viewer";
 import { isNonNullExpression } from "typescript";
 
-function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setprecontacted,setcontacted}) {
+function Filters({
+  LeadsCard,
+  market,
+  setLeads,
+  statusLeads,
+  update,
+  setprecontacted,
+  setcontacted,
+}) {
   let CaNam = [] as any;
   let Contact = [] as any;
   let Email = [] as any;
@@ -24,10 +32,10 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setprecontacte
       key: "selection",
     },
   ]);
-  const [dateCheck,setDateCheck]=useState(false)
-  const [applyBtn,setApplyBtn]=useState(false)
+  const [dateCheck, setDateCheck] = useState(false);
+  const [applyBtn, setApplyBtn] = useState(false);
   const [jobNames, setJobName] = useState([]);
-  const [Data,setData]=useState()as any
+  const [Data, setData] = useState() as any;
   const [CanName, setCanName] = useState([]);
   const [ContactOp, setContactOp] = useState([]);
   const [emailOp, setemailOp] = useState([]);
@@ -84,9 +92,6 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setprecontacte
     }),
   };
 
-  
-
-  
   // useEffect(()=>{
   //   setfromPerson([])
   // setQUALIFIED([])
@@ -100,16 +105,12 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setprecontacte
   // setData()
 
   // },[market])
-  
-  const [fromPerson,setfromPerson] = useState([
-  
-  ]);
 
-  const [QUALIFIED,setQUALIFIED] = useState([
-]);
-  const [CONTACTED,setCONTACTED] = useState([
- ]);
-  const [Precontacted,setPrecontacted] = useState([]);
+  const [fromPerson, setfromPerson] = useState([]);
+
+  const [QUALIFIED, setQUALIFIED] = useState([]);
+  const [CONTACTED, setCONTACTED] = useState([]);
+  const [Precontacted, setPrecontacted] = useState([]);
 
   // open close
   const [open, setOpen] = useState(false);
@@ -154,44 +155,90 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setprecontacte
   useEffect(() => {
     // event listeners
     fetchJobName(market);
-   if(LeadsCard.length > 0) {
-    LeadsCard.map((el) => {
-      if (el.leadCandidatName) {
-        CaNam.push({
-          value: el.leadCandidatName,
-          label: el.leadCandidatName.toUpperCase(),
-          name: "leadCandidatName",
-          color: "#FF8B00",
-        });
-      }
-      if (el.phoneNumber) {
-        Contact.push({
-          value: el.phoneNumber,
-          label: el.phoneNumber,
+    if (LeadsCard.length > 0) {
+      LeadsCard.map((el) => {
+        if (el.leadCandidatName) {
+          CaNam.push({
+            value: el.leadCandidatName,
+            label: el.leadCandidatName.toUpperCase(),
+            name: "leadCandidatName",
+            color: "#FF8B00",
+          });
+        }
+        if (el.phoneNumber) {
+          Contact.push({
+            value: el.phoneNumber,
+            label: el.phoneNumber,
+            name: "phoneNumber",
+            color: "#FF8B00",
+          });
+        }
+        if (el.email) {
+          Email.push({
+            value: el.email,
+            label: el.email,
+            name: "email",
+            color: "#FF8B00",
+          });
+        }
+        setContactOp([
+          {
+            value: "No",
+            label: "Select Contact",
+            name: "phoneNumber",
+            color: "#FF8B00",
+          },
+          ...Contact,
+        ]);
+        setCanName([
+          {
+            value: "No",
+            label: "Select Candidate",
+            name: "leadCandidatName",
+            color: "#FF8B00",
+          },
+          ...CaNam,
+        ]);
+        setemailOp([
+          {
+            value: "No",
+            label: "Select Email",
+            name: "email",
+            color: "#FF8B00",
+          },
+          ...Email,
+        ]);
+      });
+    } else {
+      setContactOp([
+        {
+          value: "No",
+          label: "No Contact",
           name: "phoneNumber",
           color: "#FF8B00",
-        });
-      }
-      if (el.email) {
-        Email.push({
-          value: el.email,
-          label: el.email,
-          name: "email",
+        },
+      ]);
+      setCanName([
+        {
+          value: "No",
+          label: "No Candidate",
+          name: "leadCandidatName",
           color: "#FF8B00",
-        });
-      }
-      setContactOp([{ value: "No", label: "Select Contact", name: "phoneNumber", color: "#FF8B00" },...Contact]);
-      setCanName([{ value: "No", label: "Select Candidate", name: "leadCandidatName", color: "#FF8B00" },...CaNam]);
-      setemailOp([{ value: "No", label: "Select Email", name:"email", color: "#FF8B00" },...Email]);
-    })}else{
-      setContactOp([{ value: "No", label: "No Contact", name: "phoneNumber", color: "#FF8B00" }]);
-      setCanName([{ value: "No", label: "No Candidate", name: "leadCandidatName", color: "#FF8B00" }]);
-      setemailOp([{ value: "No", label: "No Email", name:"email", color: "#FF8B00" }]);
+        },
+      ]);
+      setemailOp([
+        { value: "No", label: "No Email", name: "email", color: "#FF8B00" },
+      ]);
     }
 
-
-      if(fromPerson.length  === 0){
-        setfromPerson([  { value: "TikTok", label: "TikTok", name: "leadSource", color: "#FF8B00" },
+    if (fromPerson.length === 0) {
+      setfromPerson([
+        {
+          value: "TikTok",
+          label: "TikTok",
+          name: "leadSource",
+          color: "#FF8B00",
+        },
         {
           value: "Facebook",
           label: "Facebook",
@@ -221,59 +268,118 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setprecontacte
           label: "Snapchat",
           name: "leadSource",
           color: "#FF8B00",
-        },])
-      }
-   if(QUALIFIED.length === 0){
-    setQUALIFIED([  { value: "0", label: "?", name: "leadQualified", color: "#FF8B00" },
-    { value: "1", label: "😟", name: "leadQualified", color: "#FF8B00" },
-    { value: "2", label: "🙁", name: "leadQualified", color: "#FF8B00" },
-    { value: "3", label: "😊", name: "leadQualified", color: "#FF8B00" },
-    { value: "4", label: "🥰", name: "leadQualified", color: "#FF8B00" },
-    { value: "5", label: "😍", name: "leadQualified", color: "#FF8B00" },
- ])
-   }
-   if(CONTACTED.length === 0){
-    setCONTACTED([{
-      value: "Phone Closed",
-      label: "Phone Closed",
-      name: "leadContactedByAgency",
-      color: "#FF8B00",
-    },
-    { value: "Recall", label: "Recall", name: "leadContactedByAgency", color: "#FF8B00" },
-    { value: "Yes", label: "Yes", name: "leadContactedByAgency", color: "#FF8B00" },
-    { value: "Not Interested", label: "Not Interested", name: "leadContactedByAgency", color: "#FF8B00" },
-    { value: "No", label: "Not Yet", name: "leadContactedByAgency", color: "#FF8B00" },
-  ])
-   }
+        },
+        {
+          value: "SEO website",
+          label: "SEO website",
+          name: "leadSource",
+          color: "#FF8B00",
+        },
+        {
+          value: "Jooble",
+          label: "Jooble",
+          name: "leadSource",
+          color: "#FF8B00",
+        },
+        { value: "OLX", label: "OLX", name: "leadSource", color: "#FF8B00" },
+        {
+          value: "PUBLIC24",
+          label: "PUBLIC24",
+          name: "leadSource",
+          color: "#FF8B00",
+        },
+        {
+          value: "EJobs",
+          label: "EJobs",
+          name: "leadSource",
+          color: "#FF8B00",
+        },
+        {
+          value: "BestJobs",
+          label: "BestJobs",
+          name: "leadSource",
+          color: "#FF8B00",
+        },
+      ]);
+    }
+    if (QUALIFIED.length === 0) {
+      setQUALIFIED([
+        { value: "0", label: "?", name: "leadQualified", color: "#FF8B00" },
+        { value: "1", label: "😟", name: "leadQualified", color: "#FF8B00" },
+        { value: "2", label: "🙁", name: "leadQualified", color: "#FF8B00" },
+        { value: "3", label: "😊", name: "leadQualified", color: "#FF8B00" },
+        { value: "4", label: "🥰", name: "leadQualified", color: "#FF8B00" },
+        { value: "5", label: "😍", name: "leadQualified", color: "#FF8B00" },
+      ]);
+    }
+    if (CONTACTED.length === 0) {
+      setCONTACTED([
+        {
+          value: "Phone Closed",
+          label: "Phone Closed",
+          name: "leadContactedByAgency",
+          color: "#FF8B00",
+        },
+        {
+          value: "Recall",
+          label: "Recall",
+          name: "leadContactedByAgency",
+          color: "#FF8B00",
+        },
+        {
+          value: "Yes",
+          label: "Yes",
+          name: "leadContactedByAgency",
+          color: "#FF8B00",
+        },
+        {
+          value: "Not Interested",
+          label: "Not Interested",
+          name: "leadContactedByAgency",
+          color: "#FF8B00",
+        },
+        {
+          value: "No",
+          label: "Not Yet",
+          name: "leadContactedByAgency",
+          color: "#FF8B00",
+        },
+      ]);
+    }
 
-   if(Precontacted.length === 0){
-    setPrecontacted([  {
-      value: "Not Interested",
-      label: "Not Interested",
-      name: "leadPreContacted",
-      color: "#FF8B00",
-    },
-    {
-      value: "Interested",
-      label: "Interested",
-      name: "leadPreContacted",
-      color: "#FF8B00",
-    },
-    { value: "No", label: "Not Yet", name: "leadPreContacted", color: "#FF8B00" },
-    ])
-   }
+    if (Precontacted.length === 0) {
+      setPrecontacted([
+        {
+          value: "Not Interested",
+          label: "Not Interested",
+          name: "leadPreContacted",
+          color: "#FF8B00",
+        },
+        {
+          value: "Interested",
+          label: "Interested",
+          name: "leadPreContacted",
+          color: "#FF8B00",
+        },
+        {
+          value: "No",
+          label: "Not Yet",
+          name: "leadPreContacted",
+          color: "#FF8B00",
+        },
+      ]);
+    }
+  }, [LeadsCard, market]);
 
-  }, [LeadsCard,market]);
-
-  const dateChange =(date)=>{
-    setRange([date.selection])
-    console.log(date.selection)
-    setData({...Data,["startDate"]:format(date.selection.startDate, "yyyy-MM-dd") ,["endDate"]:format(
-      date.selection.endDate,
-      "yyyy-MM-dd"
-    )})
-  }
-
+  const dateChange = (date) => {
+    setRange([date.selection]);
+    console.log(date.selection);
+    setData({
+      ...Data,
+      ["startDate"]: format(date.selection.startDate, "yyyy-MM-dd"),
+      ["endDate"]: format(date.selection.endDate, "yyyy-MM-dd"),
+    });
+  };
 
   useEffect(() => {
     // event listeners
@@ -299,82 +405,71 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setprecontacte
     }
   };
   const FilterChange = (e: any) => {
- 
-    setData({...Data,[e.name]:e.value,leadCountryMarket:market})
-    
+    setData({ ...Data, [e.name]: e.value, leadCountryMarket: market });
   };
   const JobFilterChange = (e: any) => {
-    let  Jb=[]
-    e.map((el)=>{
-      Jb.push(el.value)
-    })
-    setData({...Data,"adName":Jb.toString(),leadCountryMarket:market})
-    
+    let Jb = [];
+    e.map((el) => {
+      Jb.push(el.value);
+    });
+    setData({ ...Data, adName: Jb.toString(), leadCountryMarket: market });
   };
 
+  const OnClickDataChange = (e) => {
+    if (e.target.name === "ApplyFil") {
+      if (Data !== undefined) {
+        setApplyBtn(true);
+        fetch(API_BASE_URL + "filterLeads", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+          body: JSON.stringify(Data),
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            if (res.status) {
+              statusLeads(true);
+              setApplyBtn(false);
+              setprecontacted(res.notPreContactedCount);
+              setcontacted(res.notContactedCount);
+              toast.success("Filter Leads Found Successfully!");
+              setLeads([...res.data]);
 
-  const OnClickDataChange=(e)=>{
- 
- if(e.target.name=== "ApplyFil"){
-  if(Data !== undefined)
-    {
-      setApplyBtn(true)
-    fetch(API_BASE_URL + "filterLeads",{
-      method: "POST",
-      headers: {
-        "Accept": 'application/json',
-        'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
-      },
-      body:JSON.stringify(Data)
-     })
-     .then(res=>res.json())
-     .then(res=>{if(res.status){
-      statusLeads(true)
-      setApplyBtn(false)   
-      setprecontacted(res.notPreContactedCount)
-              setcontacted(res.notContactedCount)
-  toast.success("Filter Leads Found Successfully!")
-      setLeads([...res.data])
-   
-      setDateCheck(false)
+              setDateCheck(false);
+            } else {
+              statusLeads(true);
+              toast.error("Sorry No Results found!");
+              setApplyBtn(false);
+              setprecontacted(res.notPreContactedCount);
+              setcontacted(res.notContactedCount);
 
-     }else{
-      statusLeads(true)
-  toast.error("Sorry No Results found!")
-  setApplyBtn(false)
-  setprecontacted(res.notPreContactedCount)
-  setcontacted(res.notContactedCount)
-
-      setLeads([])
-     }
-     })
-     .catch(err=>err)
-  }else{
-  toast.error("Please Select Any Filter!")
-
-  }
- 
- }else{
-  toast.success("Filters Reset Successfully!")
-  setData()
-  update(true)
-  statusLeads(false)
-  setfromPerson([])
-  setQUALIFIED([])
-  setCONTACTED([])
-  setPrecontacted([])
-  setLeads([])
-  setDateCheck(false)
-  setJobName([])
-  setContactOp([])
-  setemailOp([])
-  setCanName([])
- 
-
- }
-
-  }
+              setLeads([]);
+            }
+          })
+          .catch((err) => err);
+      } else {
+        toast.error("Please Select Any Filter!");
+      }
+    } else {
+      toast.success("Filters Reset Successfully!");
+      setData();
+      update(true);
+      statusLeads(false);
+      setfromPerson([]);
+      setQUALIFIED([]);
+      setCONTACTED([]);
+      setPrecontacted([]);
+      setLeads([]);
+      setDateCheck(false);
+      setJobName([]);
+      setContactOp([]);
+      setemailOp([]);
+      setCanName([]);
+    }
+  };
   return (
     <>
       <div className="row">
@@ -382,191 +477,197 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setprecontacte
           <label style={{ fontSize: "14px" }} className="Form-styling">
             FILTER BY QUALIFIED
           </label>
-          {
-            QUALIFIED.length > 0 ?
+          {QUALIFIED.length > 0 ? (
             <Select
-            name="market"
-            closeMenuOnSelect={true}
-            placeholder="‎  ‎ ‎  ‎ FILTER BY QUALIFIED"
-            className="basic-multi-select placeHolderLead"
-            classNamePrefix="select"
-            onChange={FilterChange}
-            options={QUALIFIED}
-            styles={colourStyles}
-          />
-          :
-          <>                                <div className="spinner-grow text-primary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-secondary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-success" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-danger" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-warning" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-dark" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div></>
-          }
-        
+              name="market"
+              closeMenuOnSelect={true}
+              placeholder="‎  ‎ ‎  ‎ FILTER BY QUALIFIED"
+              className="basic-multi-select placeHolderLead"
+              classNamePrefix="select"
+              onChange={FilterChange}
+              options={QUALIFIED}
+              styles={colourStyles}
+            />
+          ) : (
+            <>
+              {" "}
+              <div className="spinner-grow text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-secondary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-success" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-danger" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-warning" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-dark" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </>
+          )}
         </div>
         <div className="col-4">
           <label style={{ fontSize: "14px" }} className="Form-styling">
             FILTER BY SOURCE
           </label>
-          {
-             fromPerson.length > 0 ?
-             <Select
-             name="market"
-             closeMenuOnSelect={true}
-             placeholder="‎  ‎ ‎  ‎ FILTER BY SOURCE"
-             className="basic-multi-select placeHolderLead"
-             classNamePrefix="select"
+          {fromPerson.length > 0 ? (
+            <Select
+              name="market"
+              closeMenuOnSelect={true}
+              placeholder="‎  ‎ ‎  ‎ FILTER BY SOURCE"
+              className="basic-multi-select placeHolderLead"
+              classNamePrefix="select"
               onChange={FilterChange}
-             options={fromPerson}
-             styles={colourStyles}
-           />
-           :
-           <>                                <div className="spinner-grow text-primary" role="status">
-           <span className="visually-hidden">Loading...</span>
-         </div>
-         <div className="spinner-grow text-secondary" role="status">
-           <span className="visually-hidden">Loading...</span>
-         </div>
-         <div className="spinner-grow text-success" role="status">
-           <span className="visually-hidden">Loading...</span>
-         </div>
-         <div className="spinner-grow text-danger" role="status">
-           <span className="visually-hidden">Loading...</span>
-         </div>
-         <div className="spinner-grow text-warning" role="status">
-           <span className="visually-hidden">Loading...</span>
-         </div>
-         <div className="spinner-grow text-dark" role="status">
-           <span className="visually-hidden">Loading...</span>
-         </div></>
-          }
-      
+              options={fromPerson}
+              styles={colourStyles}
+            />
+          ) : (
+            <>
+              {" "}
+              <div className="spinner-grow text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-secondary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-success" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-danger" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-warning" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-dark" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </>
+          )}
         </div>
         <div className="col-4">
           <label style={{ fontSize: "14px" }} className="Form-styling">
             Filter CONTACTED BY AGENCY ONLY
           </label>
-          {
-             CONTACTED.length > 0 ?
-             <Select
-             name="market"
-             closeMenuOnSelect={true}
-             placeholder="‎  ‎ ‎  ‎ FILTER CONTACTED BY AGENCY ONLY"
-             className="basic-multi-select placeHolderLead"
-             classNamePrefix="select"
+          {CONTACTED.length > 0 ? (
+            <Select
+              name="market"
+              closeMenuOnSelect={true}
+              placeholder="‎  ‎ ‎  ‎ FILTER CONTACTED BY AGENCY ONLY"
+              className="basic-multi-select placeHolderLead"
+              classNamePrefix="select"
               onChange={FilterChange}
-             options={CONTACTED}
-             styles={colourStyles}
-           />
-           :
-           <>                                <div className="spinner-grow text-primary" role="status">
-  <span className="visually-hidden">Loading...</span>
-</div>
-<div className="spinner-grow text-secondary" role="status">
-  <span className="visually-hidden">Loading...</span>
-</div>
-<div className="spinner-grow text-success" role="status">
-  <span className="visually-hidden">Loading...</span>
-</div>
-<div className="spinner-grow text-danger" role="status">
-  <span className="visually-hidden">Loading...</span>
-</div>
-<div className="spinner-grow text-warning" role="status">
-  <span className="visually-hidden">Loading...</span>
-</div>
-<div className="spinner-grow text-dark" role="status">
-  <span className="visually-hidden">Loading...</span>
-</div></>
-          }
-      
+              options={CONTACTED}
+              styles={colourStyles}
+            />
+          ) : (
+            <>
+              {" "}
+              <div className="spinner-grow text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-secondary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-success" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-danger" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-warning" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-dark" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </>
+          )}
         </div>
         <div className="col-4 mt-1">
           <label style={{ fontSize: "14px" }} className="Form-styling">
             FILTER PRECONTACTED ONLY
           </label>
-          {
-             Precontacted.length > 0 ?
-             <Select
-             name="market"
-             closeMenuOnSelect={true}
-             placeholder="‎  ‎ ‎  ‎ FILTER PRECONTACTED ONLY"
-             className="basic-multi-select placeHolderLead"
-             classNamePrefix="select"
+          {Precontacted.length > 0 ? (
+            <Select
+              name="market"
+              closeMenuOnSelect={true}
+              placeholder="‎  ‎ ‎  ‎ FILTER PRECONTACTED ONLY"
+              className="basic-multi-select placeHolderLead"
+              classNamePrefix="select"
               onChange={FilterChange}
-             options={Precontacted}
-             styles={colourStyles}
-           />
-           :
-           <>                                <div className="spinner-grow text-primary" role="status">
-           <span className="visually-hidden">Loading...</span>
-         </div>
-         <div className="spinner-grow text-secondary" role="status">
-           <span className="visually-hidden">Loading...</span>
-         </div>
-         <div className="spinner-grow text-success" role="status">
-           <span className="visually-hidden">Loading...</span>
-         </div>
-         <div className="spinner-grow text-danger" role="status">
-           <span className="visually-hidden">Loading...</span>
-         </div>
-         <div className="spinner-grow text-warning" role="status">
-           <span className="visually-hidden">Loading...</span>
-         </div>
-         <div className="spinner-grow text-dark" role="status">
-           <span className="visually-hidden">Loading...</span>
-         </div></>
-          }
-      
+              options={Precontacted}
+              styles={colourStyles}
+            />
+          ) : (
+            <>
+              {" "}
+              <div className="spinner-grow text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-secondary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-success" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-danger" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-warning" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-dark" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </>
+          )}
         </div>
         <div className="col-4 mt-1">
           <label style={{ fontSize: "14px" }} className="Form-styling">
             FILTER BY JOB
           </label>
-          {
-            jobNames.length > 0 ?
+          {jobNames.length > 0 ? (
             <Select
-            name="market"
-            closeMenuOnSelect={true}
-            placeholder="‎  ‎ ‎  ‎ FILTER BY JOB"
-            className="basic-multi-select placeHolderLead"
-            classNamePrefix="select"
-             onChange={JobFilterChange}
-             isMulti
-            options={jobNames}
-            styles={colourStyles}
-          />
-          :  <>                                <div className="spinner-grow text-primary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-secondary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-success" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-danger" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-warning" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-dark" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div></>
-          }
-       
+              name="market"
+              closeMenuOnSelect={true}
+              placeholder="‎  ‎ ‎  ‎ FILTER BY JOB"
+              className="basic-multi-select placeHolderLead"
+              classNamePrefix="select"
+              onChange={JobFilterChange}
+              isMulti
+              options={jobNames}
+              styles={colourStyles}
+            />
+          ) : (
+            <>
+              {" "}
+              <div className="spinner-grow text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-secondary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-success" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-danger" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-warning" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-dark" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </>
+          )}
         </div>
         <div className="col-4 mt-1">
           <label style={{ fontSize: "14px" }} className="Form-styling">
@@ -608,121 +709,144 @@ function Filters({ LeadsCard, market ,setLeads,statusLeads,update,setprecontacte
           <label style={{ fontSize: "14px" }} className="Form-styling">
             Filter by Candidate Name
           </label>
-          {
-            CanName.length > 0 ?
+          {CanName.length > 0 ? (
             <Select
-            name="market"
-            closeMenuOnSelect={true}
-            placeholder="‎  ‎ ‎  ‎ Filter by Candidate Name"
-            className="basic-multi-select placeHolderLead"
-            classNamePrefix="select"
-             onChange={FilterChange}
-            options={CanName}
-            styles={colourStyles}
-          />
-          :
-          <>                                <div className="spinner-grow text-primary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-secondary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-success" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-danger" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-warning" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-dark" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div></>
-          }
-       
+              name="market"
+              closeMenuOnSelect={true}
+              placeholder="‎  ‎ ‎  ‎ Filter by Candidate Name"
+              className="basic-multi-select placeHolderLead"
+              classNamePrefix="select"
+              onChange={FilterChange}
+              options={CanName}
+              styles={colourStyles}
+            />
+          ) : (
+            <>
+              {" "}
+              <div className="spinner-grow text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-secondary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-success" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-danger" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-warning" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-dark" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </>
+          )}
         </div>
         <div className="col-4">
           <label style={{ fontSize: "14px" }} className="Form-styling">
             FILTER BY Phone Number
           </label>
-          {
-            ContactOp.length > 0 ?
+          {ContactOp.length > 0 ? (
             <Select
-            name="market"
-            closeMenuOnSelect={true}
-            placeholder="‎  ‎ ‎  ‎ FILTER BY Phone Number"
-            className="basic-multi-select placeHolderLead"
-            classNamePrefix="select"
-             onChange={FilterChange}
-            options={ContactOp}
-            styles={colourStyles}
-          />
-          :
-          <>                                <div className="spinner-grow text-primary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-secondary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-success" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-danger" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-warning" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-dark" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div></>
-          }
-       
+              name="market"
+              closeMenuOnSelect={true}
+              placeholder="‎  ‎ ‎  ‎ FILTER BY Phone Number"
+              className="basic-multi-select placeHolderLead"
+              classNamePrefix="select"
+              onChange={FilterChange}
+              options={ContactOp}
+              styles={colourStyles}
+            />
+          ) : (
+            <>
+              {" "}
+              <div className="spinner-grow text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-secondary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-success" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-danger" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-warning" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-dark" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </>
+          )}
         </div>
         <div className="col-4">
           <label style={{ fontSize: "14px" }} className="Form-styling">
             Filter by Email
           </label>
-          {
-            emailOp.length > 0 ? 
+          {emailOp.length > 0 ? (
             <Select
-            name="market"
-            closeMenuOnSelect={true}
-            placeholder="‎  ‎ ‎  ‎ Filter by Email"
-            className="basic-multi-select placeHolderLead"
-            classNamePrefix="select"
-             onChange={FilterChange}
-            options={emailOp}
-            styles={colourStyles}
-          />
-          :  <>                                <div className="spinner-grow text-primary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-secondary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-success" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-danger" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-warning" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="spinner-grow text-dark" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div></>
-          }
-       
+              name="market"
+              closeMenuOnSelect={true}
+              placeholder="‎  ‎ ‎  ‎ Filter by Email"
+              className="basic-multi-select placeHolderLead"
+              classNamePrefix="select"
+              onChange={FilterChange}
+              options={emailOp}
+              styles={colourStyles}
+            />
+          ) : (
+            <>
+              {" "}
+              <div className="spinner-grow text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-secondary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-success" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-danger" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-warning" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div className="spinner-grow text-dark" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </>
+          )}
         </div>
         <div className="col-12 mt-2">
-            <div className="row justify-content-end">
-              <div className="col-2">  <button className="ApplyFiltersBtn" name="ApplyFil" onClick={(e)=>OnClickDataChange(e)} disabled={applyBtn}>Apply</button></div>
-           {Data !== undefined ? <div className="col-2">  <button className="RESETfilters" onClick={(e)=>OnClickDataChange(e)}>Reset</button></div> : null}   
-           
+          <div className="row justify-content-end">
+            <div className="col-2">
+              {" "}
+              <button
+                className="ApplyFiltersBtn"
+                name="ApplyFil"
+                onClick={(e) => OnClickDataChange(e)}
+                disabled={applyBtn}
+              >
+                Apply
+              </button>
             </div>
+            {Data !== undefined ? (
+              <div className="col-2">
+                {" "}
+                <button
+                  className="RESETfilters"
+                  onClick={(e) => OnClickDataChange(e)}
+                >
+                  Reset
+                </button>
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
     </>

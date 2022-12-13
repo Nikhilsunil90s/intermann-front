@@ -80,6 +80,7 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
 {value: 'Bing Ads', label: 'Bing Ads',name:"leadSource", color: '#FF8B00'  },
 {  value: 'Linkedin', label: 'Linkedin', name:"leadSource", color:  '#FF8B00', },
 {value: 'Snapchat', label: 'Snapchat',name:"leadSource", color: '#FF8B00' },
+{value: 'SEO website', label: 'SEO website',name:"leadSource", color: '#FF8B00' },{value: 'Jooble', label: 'Jooble',name:"leadSource", color: '#FF8B00' },{value: 'OLX', label: 'OLX',name:"leadSource", color: '#FF8B00' },{value: 'PUBLIC24', label: 'PUBLIC24',name:"leadSource", color: '#FF8B00' },{value: 'EJobs', label: 'EJobs',name:"leadSource", color: '#FF8B00' },{value: 'BestJobs', label: 'BestJobs',name:"leadSource", color: '#FF8B00' },
 ])
   const [selectJobInput,setJobInput]=useState()as any
   const [btnDS,setBtnDS]=useState(false)
@@ -107,7 +108,7 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
     let formdata = new FormData();
     formdata.append('leadscsv', fileUploaded)
     formdata.append('jobName',JobName.ad)
-    formdata.append('countryName', data.leadCountryMarket)
+    formdata.append('countryName', data.leadCountryMarket.toUpperCase())
       axiosInstance.post("addLeadsViaCSV", formdata, {
         headers: {
           "Content-Type": "multipart/form-data",

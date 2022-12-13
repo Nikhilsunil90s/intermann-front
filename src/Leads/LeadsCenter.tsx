@@ -26,23 +26,72 @@ function LeadsCenter() {
   const [currentUser,setCurrentUser]=useState()as any
   const [preContected,setpreContected]=useState(0)as any
   const [contected,setcontected]=useState(0)as any
-  const [ch,setch]=useState(false)
+  const [skipLeads,setSkipLeads]=useState([])as any
   let [page, setPage] = useState(0);
   const [tabItems] = useState([
     {
       text: "FRANCE",
-      value: "France",
+      value: "FRANCE",
     },
     {
       text: "SUISSE",
-      value: "Suisse",
+      value: "SUISSE",
     },
     {
       text: "ROMANIA",
-      value: "Romania",
+      value: "ROMANIA",
     },
   ]) as any;
 
+useEffect(()=>{
+  fetchAllLeads(TabName).then((res
+  )=>{
+    if(res.status){
+      setUpdateField(false)
+      setSkipLeads(...skipLeads,[...res.data])   
+      setpreContected(res.notPreContactedCount)
+      setcontected(res.notContactedCount)
+     }else{
+      setSkipLeads([])
+      setUpdateField(false)
+
+     }
+
+  })
+},[UpdateFiled,page])
+
+// const handleScroll =()=>{
+//   if(Leads.length <= page){
+//     if(window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight){
+//       setPage((prev)=>prev + 20)
+//       setLeadScHeck(false)
+  
+//     }
+//   }
+
+// }
+// useEffect(()=>{
+//   window.addEventListener("scroll",handleScroll)
+
+// },[])
+
+console.log(page)
+
+  const  fetchAllLeads=async(market:any)=>{
+    //  setLeadScHeck(false)
+     
+  return  await fetch(API_BASE_URL + `viewallleads/?market=${market}&skip=${page}`,{
+      method: "GET",
+      headers: {
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      },
+    })
+      .then(red => red.json())
+      .then(resData => resData)
+      .catch(err => err)
+    }
 
 
   const  fetchLeads=async(market:any,page:any)=>{
@@ -251,10 +300,10 @@ useEffect(()=>{
         >
            {
             LeadsCheck ?
-            Leads.length > 0 ?
+              Leads.length > 0 ?
           
                 <>
-               { Leads.map((el,i)=>(
+               {  Leads.map((el,i)=>(
                
               
                   <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} activeUser={setCurrentUser}  TabName={TabName}  />

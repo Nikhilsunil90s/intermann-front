@@ -270,7 +270,7 @@ name:"Contry"
 
   const SelectOnChange=(e)=>{
  if(e.name === "Contry"){
-  setData({...data,adCountryMarket:e.value})
+  setData({...data,adCountryMarket:e.value.toUpperCase()})
  }
  else if (e.name === "importance"){
   setData({...data,adImportance:e.value})

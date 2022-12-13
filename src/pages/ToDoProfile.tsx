@@ -40,7 +40,6 @@ const axiosInstance = axios.create({
 
 function ToDoProfile() {
   const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
-  const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
   const profileData = JSON.parse(localStorage.getItem("profile"));
 
   const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
