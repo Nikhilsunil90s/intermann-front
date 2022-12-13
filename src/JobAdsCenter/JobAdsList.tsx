@@ -24,15 +24,15 @@ function JobAdsList (){
     const [tabItems] = useState([
         {
           text: "FRANCE",
-          value: "France",
+          value: "FRANCE",
         },
         {
           text: "SUISSE",
-          value: "Suisse",
+          value: "SUISSE",
         },
         {
           text: "ROMANIA",
-          value: "Romania",
+          value: "ROMANIA",
         }
       ]) as any;
     
@@ -118,7 +118,7 @@ useEffect(()=>{
   },[AllJobs,jobCardActive])
 
 const  fetchUsers=async(TabName)=>{
-return    await fetch(API_BASE_URL + `allAds/?market=${TabName.toUpperCase()}`,{
+return    await fetch(API_BASE_URL + `allAds/?market=${TabName}`,{
     method: "GET",
     headers: {
       "Accept": 'application/json',
