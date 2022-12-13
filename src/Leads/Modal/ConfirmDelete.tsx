@@ -2,7 +2,7 @@ import React,{useEffect,useRef,useState} from "react";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import {toast} from "react-hot-toast"
 import { motion } from "framer-motion";
-function NotesDeleteModal({props,closeModal,update,Load,Notes,LeadsDelete,setDelete}){
+function NotesDeleteModal({props,closeModal,update,Load,Notes,LeadsDelete,setDelete,setSkipLead,page}){
   const [btnDS,setBTNds]=useState(false)
   const DeleteNotes=()=>{
 
@@ -25,6 +25,8 @@ function NotesDeleteModal({props,closeModal,update,Load,Notes,LeadsDelete,setDel
       if(resData.status){
         update(true)
         Load(true)
+        setSkipLead(0) 
+        page(0)
         toast.success(resData.message)
         // Lead([])
         closeModal(false)
@@ -55,6 +57,8 @@ setTimeout(()=>{
       if(res.status){
         update(true)
         setBTNds(false)
+        setSkipLead(0) 
+        page(0)
         closeModal(false)
         Load(true)
         toast.success(res.message)

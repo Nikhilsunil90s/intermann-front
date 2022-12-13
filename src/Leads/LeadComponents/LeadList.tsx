@@ -388,7 +388,7 @@ const AddToCrm=(props:any)=>{
      </div>
     </div>
     {NoteEditModal ?
-            <NotesEditModal closeModal={setNoteEditsModal} props={props} update={Update} Load={Load} deleteModal={setNotesDeleteModal} Notes={LeadNotes} setDelete={setDeleteLeads} />
+            <NotesEditModal closeModal={setNoteEditsModal} props={props} update={Update} Load={Load} deleteModal={setNotesDeleteModal} Notes={LeadNotes} setDelete={setDeleteLeads} setSkipLead={setSkipLeads} page={page} />
 :
 null
 
@@ -396,12 +396,12 @@ null
       {
             NoteModal?
 
-            <NotesModal  closeModal={setNotesModal} props={props} EditModal={setNoteEditsModal}  deleteModal={setNotesDeleteModal} Notes={LeadNotes}  setDelete={setDeleteLeads} /> 
+            <NotesModal  closeModal={setNotesModal} props={props} EditModal={setNoteEditsModal}  deleteModal={setNotesDeleteModal} Notes={LeadNotes}  setDelete={setDeleteLeads}  /> 
                        :
             null
           }
               {NoteDeleteModal ?
-                   <ConfirmDelete closeModal={setNotesDeleteModal} props={props}  update={Update}  Load={Load}  Notes={LeadNotes} LeadsDelete={DeleteLeads} setDelete={setDeleteLeads}  />
+                   <ConfirmDelete closeModal={setNotesDeleteModal} props={props}  update={Update}  Load={Load}  Notes={LeadNotes} LeadsDelete={DeleteLeads} setDelete={setDeleteLeads} setSkipLead={setSkipLeads} page={page}  />
           
 :
 null

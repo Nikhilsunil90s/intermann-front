@@ -79,7 +79,7 @@ useEffect(()=>{
   }
   fetchData(TabName,page)
 
-},[page])
+},[page,UpdateFiled])
 
 
   const  fetchData=async(market:any,page)=>{
@@ -181,7 +181,7 @@ useEffect(()=>{
           };
 
 useEffect(()=>{
- 
+
   fetchUsers().then((resData)=>{
     {
       if(resData.status){
@@ -203,7 +203,7 @@ useEffect(()=>{
 // console.log(currentUser.emailAddress)
   const FolderName = tabItems.filter((el, i) => i == activeTab);
   TabName =FolderName.map((el)=>(el.value))
-  
+  fetchData(TabName,page)
   fetchLeads(TabName,page)
 },[UpdateFiled])
 

@@ -3,7 +3,7 @@ import toast, { Toaster } from "react-hot-toast";
 import {API_BASE_URL} from "../../config/serverApiConfig"
 import { motion } from "framer-motion";
 
-function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelete}){
+function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelete,setSkipLead,page}){
   const [editNotes,setEditNotes]=useState("")
   const [btnDS,setBTNds]=useState(false)
     const ref = useRef();
@@ -101,6 +101,8 @@ function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelet
             update(true)
             setBTNds(false)
             Load(true)
+            page(0)
+            setSkipLead([])
             toast.success(res.message)
             setTimeout(()=>{
               closeModal(false)
@@ -118,6 +120,8 @@ function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelet
             update(true)
             setBTNds(false)
             Load(true)
+            page(0)
+            setSkipLead([])
             toast.success(res.message)
             setTimeout(()=>{
               closeModal(false)
