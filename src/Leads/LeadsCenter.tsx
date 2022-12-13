@@ -12,6 +12,7 @@ import {toast,Toaster} from "react-hot-toast";
 import Carousel from "react-multi-carousel";
 import ProfilesLoader from "../../src/components/Loader/ProfilesLoader"
 import { motion } from "framer-motion";
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 let TabName=""
 function LeadsCenter() {
@@ -27,6 +28,8 @@ function LeadsCenter() {
   const [preContected,setpreContected]=useState(0)as any
   const [contected,setcontected]=useState(0)as any
   const [skipLeads,setSkipLeads]=useState([])as any
+  const [FilterState,setFilterState]=useState(true)
+  const [hash,setHash]=useState(true)
   let [page, setPage] = useState(0);
   const [tabItems] = useState([
     {
@@ -43,44 +46,46 @@ function LeadsCenter() {
     },
   ]) as any;
 
-useEffect(()=>{
-  fetchAllLeads(TabName).then((res
-  )=>{
-    if(res.status){
-      setUpdateField(false)
-      setSkipLeads(...skipLeads,[...res.data])   
-      setpreContected(res.notPreContactedCount)
-      setcontected(res.notContactedCount)
-     }else{
-      setSkipLeads([])
-      setUpdateField(false)
 
-     }
-
-  })
-},[UpdateFiled,page])
 
 // const handleScroll =()=>{
-//   if(Leads.length <= page){
 //     if(window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight){
 //       setPage((prev)=>prev + 20)
 //       setLeadScHeck(false)
-  
-//     }
+//       fetchAllLeads(TabName,page).then((res
+//         )=>{
+//           if(res.status){
+//             setLeadScHeck(true)
+//             setUpdateField(false)
+//             setSkipLeads([...skipLeads,...res.data])   
+//             setpreContected(res.notPreContactedCount)
+//             setcontected(res.notContactedCount)
+//            }else{
+//             setSkipLeads([])
+//             setLeadScHeck(true)
+//             setUpdateField(false)
+      
+//            }
+      
+//         })
+    
 //   }
 
 // }
-// useEffect(()=>{
-//   window.addEventListener("scroll",handleScroll)
+useEffect(()=>{
 
-// },[])
+  if(page >= Leads.length){
+    setHash(false)
+  }
+  fetchData(TabName,page)
 
-console.log(page)
+},[page])
 
-  const  fetchAllLeads=async(market:any)=>{
+
+  const  fetchData=async(market:any,page)=>{
     //  setLeadScHeck(false)
      
-  return  await fetch(API_BASE_URL + `viewallleads/?market=${market}&skip=${page}`,{
+    await fetch(API_BASE_URL + `viewallleads/?market=${market}&skip=${page}`,{
       method: "GET",
       headers: {
         "Accept": 'application/json',
@@ -89,7 +94,25 @@ console.log(page)
       },
     })
       .then(red => red.json())
-      .then(resData => resData)
+      .then(resData => {
+        if(resData.status){
+          setLeadScHeck(true)
+          setUpdateField(false)
+          setSkipLeads([...skipLeads,...resData.data])   
+          setHash(true)
+          setpreContected(resData.notPreContactedCount)
+          setcontected(resData.notContactedCount)
+         }else if(page >= Leads.length){
+           setSkipLeads([...skipLeads])
+         }
+         else{
+          setSkipLeads([])
+          setLeadScHeck(true)
+          setUpdateField(false)
+          setHash(false)
+         }
+      
+      })
       .catch(err => err)
     }
 
@@ -108,14 +131,12 @@ console.log(page)
           .then(red => red.json())
           .then(resData => {
              if(resData.status){
-              setLeadScHeck(true)
               setUpdateField(false)
               setLeads([...resData.data])
               setpreContected(resData.notPreContactedCount)
               setcontected(resData.notContactedCount)
              }else{
               setLeads([])
-              setLeadScHeck(true)
               setUpdateField(false)
 
              }
@@ -188,8 +209,10 @@ useEffect(()=>{
 
   const onTabClick = (e, index: any) => {
     setActiveTab(index);
+    setPage(0)
     const FolderName = tabItems.filter((el, i) => i == index);
     TabName =FolderName.map((el)=>(el.value))
+    fetchData(TabName,page)
     fetchLeads(TabName,page)
   };
   return (
@@ -273,7 +296,7 @@ useEffect(()=>{
           >
             {LeadList.length > 0 ?
             
-            <Filters  LeadsCard={Leads} market={TabName} setLeads={setLeads} statusLeads={setLeadScHeck} update={setUpdateField} setprecontacted={setpreContected} setcontacted={setcontected} />
+            <Filters  LeadsCard={Leads} market={TabName} setLeads={setLeads} statusLeads={setLeadScHeck} update={setUpdateField} setprecontacted={setpreContected} setcontacted={setcontected} setFilterState={setFilterState} page={setPage} setSkipLeads={setSkipLeads} />
             :
             null 
 }
@@ -300,17 +323,26 @@ useEffect(()=>{
         >
            {
             LeadsCheck ?
-              Leads.length > 0 ?
+            FilterState ?
+            skipLeads.length > 0 ?
           
                 <>
-               {  Leads.map((el,i)=>(
+                <InfiniteScroll
+  dataLength={skipLeads.length} //This is important field to render the next data
+  next={()=>{setPage((prev)=>prev + 20);}}
+  hasMore={hash}
+  loader={<div className="col-12 d-flex justify-content-center my-3"><Loader   /></div>}
+>
+{ skipLeads.map((el,i)=>(
                
               
-                  <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} activeUser={setCurrentUser}  TabName={TabName}  />
-                 
-            
-            ))
-               }
+               <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} activeUser={setCurrentUser}  TabName={TabName}  setFilterState={setFilterState}  page={setPage} setSkipLeads={setSkipLeads} />
+              
+         
+         ))
+            }
+</InfiniteScroll>
+              
             </>
           
               
@@ -322,11 +354,33 @@ useEffect(()=>{
             </div>
             </div>
             :
+            Leads.length > 0 ?
+          
+            <>
+
+{ Leads.map((el,i)=>(
+           
+          
+           <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} activeUser={setCurrentUser}  TabName={TabName} setFilterState={setFilterState} page={setPage} setSkipLeads={setSkipLeads} />
+          
+     
+     ))
+        }          
+        </>
+        :
+        <div className="row ">
+        <div className="col-12 d-flex justify-content-center">
+      <p className="mb-0 d-flex align-items-center ErrorSearchBox"><Error    />✘✘ No Leads Available Yet! Please Add a New Lead!</p>
+      </div>
+      </div>
+            :
             <div className="row ">
             <div className="col-12 d-flex justify-content-center">
             <Loader   />
             </div>
             </div>
+            
+            
            }
   
           </div>

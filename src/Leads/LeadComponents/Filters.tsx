@@ -21,6 +21,9 @@ function Filters({
   update,
   setprecontacted,
   setcontacted,
+  setFilterState,
+  page,
+  setSkipLeads
 }) {
   let CaNam = [] as any;
   let Contact = [] as any;
@@ -436,16 +439,16 @@ function Filters({
               setprecontacted(res.notPreContactedCount);
               setcontacted(res.notContactedCount);
               toast.success("Filter Leads Found Successfully!");
+             setFilterState(false)
               setLeads([...res.data]);
-
               setDateCheck(false);
             } else {
               statusLeads(true);
               toast.error("Sorry No Results found!");
               setApplyBtn(false);
               setprecontacted(res.notPreContactedCount);
+             setFilterState(false)
               setcontacted(res.notContactedCount);
-
               setLeads([]);
             }
           })
@@ -457,7 +460,7 @@ function Filters({
       toast.success("Filters Reset Successfully!");
       setData();
       update(true);
-      statusLeads(false);
+      statusLeads(true);
       setfromPerson([]);
       setQUALIFIED([]);
       setCONTACTED([]);
@@ -468,6 +471,8 @@ function Filters({
       setContactOp([]);
       setemailOp([]);
       setCanName([]);
+      setFilterState(true)
+
     }
   };
   return (
