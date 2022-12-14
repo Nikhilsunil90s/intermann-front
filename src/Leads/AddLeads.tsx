@@ -28,7 +28,7 @@ function AddLeads(){
   const [statusCSV,setCSVstatus]=useState(false)
  const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
   const [SelectContry]=useState([{
-    value:"France",
+    value:"FRANCE",
     label:(<> <France
       style={{ paddingRight: "5px" }}
     /> France </>)
@@ -36,7 +36,7 @@ function AddLeads(){
 color: "#FF8B00",
 name:"leadCountryMarket"
   },{
-    value:"Suisse",
+    value:"SUISSE",
     label:(<> <Switzer
       style={{ paddingRight: "5px" }}
     /> Suisse </>)
@@ -44,7 +44,7 @@ name:"leadCountryMarket"
 color: "#FF8B00",
 name:"leadCountryMarket"
   },{
-    value:"Romania",
+    value:"ROMANIA",
     label:(<> <Romania
       style={{ paddingRight: "5px" }}
     /> Romania </>),
