@@ -23,7 +23,9 @@ function Filters({
   setcontacted,
   setFilterState,
   page,
-  setSkipLeads
+  setSkipLeads,
+  setLength,
+  length
 }) {
   let CaNam = [] as any;
   let Contact = [] as any;
@@ -42,6 +44,7 @@ function Filters({
   const [CanName, setCanName] = useState([]);
   const [ContactOp, setContactOp] = useState([]);
   const [emailOp, setemailOp] = useState([]);
+  // const [length ,setLengt]=useState([])
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: "white" }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -108,6 +111,49 @@ function Filters({
   // setData()
 
   // },[market])
+
+  useEffect(()=>{
+
+    if(Data !== undefined &&  length.length === 0){
+      setApplyBtn(true);
+      fetch(API_BASE_URL + "filterLeads", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify(Data),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.status) {
+            
+            setApplyBtn(false);
+            setprecontacted(res.notPreContactedCount);
+            setcontacted(res.notContactedCount);
+    
+           setFilterState(false)
+            setLeads([...res.data]);
+            setLength([...res.data])
+         
+            setDateCheck(false);
+          } else {
+            
+
+            setApplyBtn(false);
+            setprecontacted(res.notPreContactedCount);
+           setFilterState(false)
+            setcontacted(res.notContactedCount);
+            setLeads([]);
+            setLength([])
+          
+
+          }
+        })
+        .catch((err) => err);
+    }
+  },[length])
 
   const [fromPerson, setfromPerson] = useState([]);
 
@@ -442,6 +488,11 @@ function Filters({
              setFilterState(false)
               setLeads([...res.data]);
               setDateCheck(false);
+              setTimeout(()=>{
+                setLength([])
+               
+
+              },2000)
             } else {
               statusLeads(true);
               toast.error("Sorry No Results found!");

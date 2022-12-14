@@ -9,7 +9,7 @@ import {useNavigate} from 'react-router-dom'
 
 
 let NewCdate;
-function LeadList({props,Update,Load,Lead,length,activeUser,TabName,setFilterState,page,setSkipLeads}){
+function LeadList({props,Update,Load,Lead,length,activeUser,TabName,setFilterState,page,setSkipLeads,setLength}){
   const LoginUser=JSON.parse(localStorage.getItem("LoginUser"))
   const navigate =useNavigate()
   const [LoginUserS,setLoginUser]=useState(LoginUser)
@@ -52,9 +52,10 @@ const AddToCRM=(data)=>{
     if(res.status){
       toast.success(res.message)
       Lead([])
-       Update(true)
+      
+       setLength([])
 setTimeout(()=>{
-  Load(true)
+  
 },2000)
     }else{
       toast.error(res.message)
@@ -76,9 +77,10 @@ const PreContact=(id,status)=>{
   .then((res)=>res.json())
   .then(res=>{
     if(res.status){
-      Update(true)
-      setFilterState(true)
-       page(0) 
+     
+      setLength([])
+      setFilterState(false)
+      
       toast.success(res.message)
     }else{
       toast.error(res.message)
@@ -100,9 +102,10 @@ const ContAgency=(id,status)=>{
   .then((res)=>res.json())
   .then(res=>{
     if(res.status){
-      Update(true)
-      setFilterState(true)
-       page(0) 
+     
+      setLength([])
+      setFilterState(false)
+      
       toast.success(res.message)
     }else{
       toast.error(res.message)
@@ -124,9 +127,10 @@ const OnChangeAddToCrm=(id,status)=>{
   .then((res)=>res.json())
   .then(res=>{
     if(res.status){
-      Update(true)
-      setFilterState(true)
-      page(0) 
+     
+      setLength([])
+      setFilterState(false)
+     
       toast.success(res.message)
     }else{
       toast.error(res.message)
@@ -148,9 +152,10 @@ const QUALIFIED=(id,status)=>{
   .then((res)=>res.json())
   .then(res=>{
     if(res.status){
-      Update(true)
-      setFilterState(true)
-       page(0) 
+     
+      setLength([])
+      setFilterState(false)
+      
       toast.success(res.message)
     }else{
       toast.error(res.message)
@@ -197,7 +202,7 @@ const LeadDelete=()=>{
     .then(resData => {
        if(resData.status){
         
-         Load(true)
+         
          toast.success(resData.message)
          // Lead([])
       
@@ -205,7 +210,7 @@ const LeadDelete=()=>{
   
  },2000)
        }else{
-       //  Update(true)
+       // 
         toast.error(resData.message)
  
        }

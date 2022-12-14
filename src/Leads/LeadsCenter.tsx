@@ -28,6 +28,7 @@ function LeadsCenter() {
   const [preContected,setpreContected]=useState(0)as any
   const [contected,setcontected]=useState(0)as any
   const [skipLeads,setSkipLeads]=useState([])as any
+  const [length ,setLength]=useState([])
   const [FilterState,setFilterState]=useState(true)
   const [hash,setHash]=useState(true)
   let [page, setPage] = useState(0);
@@ -79,7 +80,7 @@ useEffect(()=>{
   }
   fetchData(TabName,page)
 
-},[page,UpdateFiled])
+},[page])
 
 
   const  fetchData=async(market:any,page)=>{
@@ -203,7 +204,7 @@ useEffect(()=>{
 // console.log(currentUser.emailAddress)
   const FolderName = tabItems.filter((el, i) => i == activeTab);
   TabName =FolderName.map((el)=>(el.value))
-  fetchData(TabName,page)
+
   fetchLeads(TabName,page)
 },[UpdateFiled])
 
@@ -296,7 +297,7 @@ useEffect(()=>{
           >
             {LeadList.length > 0 ?
             
-            <Filters  LeadsCard={Leads} market={TabName} setLeads={setLeads} statusLeads={setLeadScHeck} update={setUpdateField} setprecontacted={setpreContected} setcontacted={setcontected} setFilterState={setFilterState} page={setPage} setSkipLeads={setSkipLeads} />
+            <Filters  LeadsCard={Leads} market={TabName} setLeads={setLeads} statusLeads={setLeadScHeck} update={setUpdateField} setprecontacted={setpreContected} setcontacted={setcontected} setFilterState={setFilterState} page={setPage} setSkipLeads={setSkipLeads} setLength={setLength} length={length} />
             :
             null 
 }
@@ -336,7 +337,7 @@ useEffect(()=>{
 { skipLeads.map((el,i)=>(
                
               
-               <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} activeUser={setCurrentUser}  TabName={TabName}  setFilterState={setFilterState}  page={setPage} setSkipLeads={setSkipLeads} />
+               <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} activeUser={setCurrentUser}  TabName={TabName}  setFilterState={setFilterState}  page={setPage} setSkipLeads={setSkipLeads} setLength={setLength} />
               
          
          ))
@@ -361,7 +362,7 @@ useEffect(()=>{
 { Leads.map((el,i)=>(
            
           
-           <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} activeUser={setCurrentUser}  TabName={TabName} setFilterState={setFilterState} page={setPage} setSkipLeads={setSkipLeads} />
+           <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} activeUser={setCurrentUser}  TabName={TabName} setFilterState={setFilterState} page={setPage} setSkipLeads={setSkipLeads} setLength={setLength} />
           
      
      ))
