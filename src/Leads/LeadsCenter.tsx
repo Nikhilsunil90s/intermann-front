@@ -208,6 +208,26 @@ useEffect(()=>{
   fetchLeads(TabName,page)
 },[UpdateFiled])
 
+useEffect(()=>{
+  fetchUsers().then((resData)=>{
+    {
+      if(resData.status){
+       setUpdateField(false)
+       if(resData.data.length > 0){
+         let Cuser=  resData.data.filter((el)=>el?.username === LoginUserS?.username)
+          let users=  resData.data.filter((el)=>el?.username !== LoginUserS?.username)
+          setUserCardList([...Cuser,...users])
+
+       }
+    
+      }else{
+       setUserCardList([])
+       setUpdateField(false)
+
+      }
+   }
+  })
+},[length])
   const onTabClick = (e, index: any) => {
     setActiveTab(index);
     setPage(0)
