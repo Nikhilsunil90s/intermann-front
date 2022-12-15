@@ -96,9 +96,7 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
     leadNotes:""
   })
   const [fileUploaded,setFileUploadFile] = useState(null)
-  const [JobName,setJobNameAd]=useState({
-    ad:""
-  })
+  const [JobName,setJobNameAd]=useState("")as any
   const FilesUploads=(file)=>{
     setFileUploadFile(file)
   }
@@ -107,7 +105,7 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
     setBtnDS(true)
     let formdata = new FormData();
     formdata.append('leadscsv', fileUploaded)
-    formdata.append('jobName',JobName.ad)
+    formdata.append('jobName',JSON.stringify(JobName))
     formdata.append('countryName', data.leadCountryMarket.toUpperCase())
       axiosInstance.post("addLeadsViaCSV", formdata, {
         headers: {
@@ -215,7 +213,8 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
               }
     )
     
-      setJobName([...JobFl])        }else{
+      setJobName([...JobFl])        
+    }else{
         setJobName([])
       }
           }else{
@@ -239,7 +238,7 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
     }else if(e.target.name=== "leadPrice"){
       setData({...data,[e.target.name]:e.target.value})
     }else if(e.target.name === "ad"){
-      setJobNameAd({...jobNames,ad:e.target.value})
+      setJobNameAd({adId:null,adName:e.target.value})
     setData({...data,[e.target.name]:{adId:null,adName:e.target.value}})
 
     }else{
@@ -254,6 +253,11 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
        setData({...data,[e.name]:e.value})
     }else{
       setData({...data,[e.name]:e.value})
+    }
+    if(e.name === "ad"){
+      console.log(e.value)
+      setJobNameAd(e.value)
+      setData({...data,['ad']:e.value})
     }
   }
 

@@ -79,7 +79,7 @@
   font-family: "Poppins";
   font-style: normal;
   font-weight: 600;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 16px;
   color: #000000;
 }
@@ -676,13 +676,14 @@ width: 300px !important;
 .LeadsLoad .spinner-border {
   width: 13rem;
   height: 13rem;
-  border: 1.50em solid currentColor;
+  border: 1.5em solid currentColor;
   border-right-color: transparent;
   border-radius: 50%;
   -webkit-animation: spinner-border .75s linear infinite;
   animation: spinner-border .75s linear infinite;
   color: #FE8700 !important;
 }
+
 
 .is-visible {
   opacity: 1;

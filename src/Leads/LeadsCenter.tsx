@@ -495,11 +495,6 @@ function LeadsCenter() {
               setLeads([...resData.data])
               setpreContected(resData.notPreContactedCount)
               setcontected(resData.notContactedCount)
-          
-                $(function() {
-                  setTimeout(function() { $("#hideDivLeads").fadeOut(1500);}, 3000)
-                  
-                  })
             
              }else{
               setLeads([])
@@ -507,10 +502,7 @@ function LeadsCenter() {
               setUpdateField(false)
               setpreContected(resData.notPreContactedCount)
               setcontected(resData.notContactedCount)
-              $(function() {
-                setTimeout(function() { $("#hideDivLeads").fadeOut(1500);}, 3000)
-                
-                })
+          
 
              }
           })
@@ -716,8 +708,8 @@ useEffect(()=>{
             </div>
             </div>
             :
-            <div className="row " >
-            <div className="col-12 my-2 d-flex justify-content-center LeadsLoad">
+            <div className="row my-2 " >
+            <div className="d-flex  justify-content-center  LeadsLoad">
             <div className="spinner-border text-warning" role="status">
   <span className="visually-hidden">Loading...</span>
 </div>
