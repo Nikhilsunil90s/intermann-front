@@ -533,6 +533,8 @@ console.log(page)
               setLeads([])
               setLeadScHeck(true)
               setUpdateField(false)
+              setpreContected(resData.notPreContactedCount)
+              setcontected(resData.notContactedCount)
 
              }
           })
