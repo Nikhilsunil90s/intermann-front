@@ -933,6 +933,8 @@ function Filters({
   update,
   setprecontacted,
   setcontacted,
+  setFilter,
+  filter
 }) {
   let CaNam = [] as any;
   let Contact = [] as any;
@@ -1064,6 +1066,38 @@ function Filters({
       .catch((err) => err);
   };
 
+  useEffect(()=>{
+
+    if(Data !== undefined && filter === true){
+      setApplyBtn(true);
+      fetch(API_BASE_URL + "filterLeads", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify(Data),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.status) {
+            setApplyBtn(false);
+            setprecontacted(res.notPreContactedCount);
+            setcontacted(res.notContactedCount);
+            setLeads([...res.data]);
+            setFilter(false)
+          } else {
+            setApplyBtn(false);
+            setprecontacted(res.notPreContactedCount);
+            setcontacted(res.notContactedCount);
+            setLeads([]);
+            setFilter(false)
+          }
+        })
+        .catch((err) => err);
+    }
+  },[filter])
   useEffect(() => {
     // event listeners
     fetchJobName(market);
@@ -1349,7 +1383,7 @@ function Filters({
               setcontacted(res.notContactedCount);
               toast.success("Filter Leads Found Successfully!");
               setLeads([...res.data]);
-
+              
               setDateCheck(false);
             } else {
               statusLeads(true);

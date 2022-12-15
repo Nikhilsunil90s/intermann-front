@@ -442,6 +442,7 @@ function LeadsCenter() {
   const [preContected,setpreContected]=useState(0)as any
   const [contected,setcontected]=useState(0)as any
   const [skipLeads,setSkipLeads]=useState([])as any
+  const [filter,setFilter]=useState(false);
   let [page, setPage] = useState(0);
   const [tabItems] = useState([
     {
@@ -688,7 +689,7 @@ useEffect(()=>{
           >
             {LeadList.length > 0 ?
             
-            <Filters  LeadsCard={Leads} market={TabName} setLeads={setLeads} statusLeads={setLeadScHeck} update={setUpdateField} setprecontacted={setpreContected} setcontacted={setcontected} />
+            <Filters  LeadsCard={Leads} market={TabName} setLeads={setLeads} statusLeads={setLeadScHeck} update={setUpdateField} setprecontacted={setpreContected} setcontacted={setcontected} setFilter={setFilter} filter={filter} />
             :
             null 
 }
@@ -721,7 +722,7 @@ useEffect(()=>{
                {  Leads.map((el,i)=>(
                
               
-                  <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} activeUser={setCurrentUser}  TabName={TabName}  />
+                  <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} activeUser={setCurrentUser}  TabName={TabName}  setFilter={setFilter}   />
                  
             
             ))

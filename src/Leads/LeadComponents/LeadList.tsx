@@ -7,7 +7,7 @@ import {API_BASE_URL} from "../../config/serverApiConfig"
 import toast, { Toaster } from "react-hot-toast";
 import {useNavigate} from 'react-router-dom'
 let NewCdate;
-function LeadList({props,Update,Load,Lead,length,activeUser,TabName}){
+function LeadList({props,Update,Load,Lead,length,activeUser,TabName, setFilter}){
   const LoginUser=JSON.parse(localStorage.getItem("LoginUser"))
   const navigate =useNavigate()
   const [LoginUserS,setLoginUser]=useState(LoginUser)
@@ -50,10 +50,12 @@ const AddToCRM=(data)=>{
     if(res.status){
       toast.success(res.message)
       Lead([])
-       Update(true)
+      //  Update(true)
+      
 setTimeout(()=>{
   Load(true)
-},2000)
+  setFilter(true)
+},3000)
     }else{
       toast.error(res.message)
     }
@@ -74,7 +76,12 @@ const PreContact=(id,status)=>{
   .then((res)=>res.json())
   .then(res=>{
     if(res.status){
-      Update(true)
+      // Update(true)
+      setTimeout(()=>{
+        setFilter(true)
+
+      },3000)
+     
       toast.success(res.message)
     }else{
       toast.error(res.message)
@@ -95,7 +102,11 @@ const ContAgency=(id,status)=>{
   .then((res)=>res.json())
   .then(res=>{
     if(res.status){
-      Update(true)
+      // Update(true)
+      setTimeout(()=>{
+        setFilter(true)
+
+      },3000)
       toast.success(res.message)
     }else{
       toast.error(res.message)
@@ -117,7 +128,11 @@ const OnChangeAddToCrm=(id,status)=>{
   .then((res)=>res.json())
   .then(res=>{
     if(res.status){
-      Update(true)
+      // Update(true)
+      setTimeout(()=>{
+        setFilter(true)
+
+      },3000)
       toast.success(res.message)
     }else{
       toast.error(res.message)
@@ -139,7 +154,11 @@ const QUALIFIED=(id,status)=>{
   .then((res)=>res.json())
   .then(res=>{
     if(res.status){
-      Update(true)
+      // Update(true)
+      setTimeout(()=>{
+        setFilter(true)
+
+      },3000)
       toast.success(res.message)
     }else{
       toast.error(res.message)
@@ -195,6 +214,7 @@ const LeadDelete=()=>{
  },2000)
        }else{
        //  Update(true)
+      
         toast.error(resData.message)
  
        }
