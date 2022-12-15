@@ -6,10 +6,8 @@ import NotesEditModal from "../Modal/EditNotes";
 import {API_BASE_URL} from "../../config/serverApiConfig"
 import toast, { Toaster } from "react-hot-toast";
 import {useNavigate} from 'react-router-dom'
-
-
 let NewCdate;
-function LeadList({props,Update,Load,Lead,length,activeUser,TabName,setFilterState,page,setSkipLeads,setLength}){
+function LeadList({props,Update,Load,Lead,length,activeUser,TabName}){
   const LoginUser=JSON.parse(localStorage.getItem("LoginUser"))
   const navigate =useNavigate()
   const [LoginUserS,setLoginUser]=useState(LoginUser)
@@ -52,10 +50,9 @@ const AddToCRM=(data)=>{
     if(res.status){
       toast.success(res.message)
       Lead([])
-      
-       setLength([])
+       Update(true)
 setTimeout(()=>{
-  
+  Load(true)
 },2000)
     }else{
       toast.error(res.message)
@@ -77,14 +74,10 @@ const PreContact=(id,status)=>{
   .then((res)=>res.json())
   .then(res=>{
     if(res.status){
-     
-      setLength([])
-      setFilterState(false)
-      
+      Update(true)
       toast.success(res.message)
     }else{
       toast.error(res.message)
-      
     }
   })
   .catch(err => err)
@@ -102,10 +95,7 @@ const ContAgency=(id,status)=>{
   .then((res)=>res.json())
   .then(res=>{
     if(res.status){
-     
-      setLength([])
-      setFilterState(false)
-      
+      Update(true)
       toast.success(res.message)
     }else{
       toast.error(res.message)
@@ -127,10 +117,7 @@ const OnChangeAddToCrm=(id,status)=>{
   .then((res)=>res.json())
   .then(res=>{
     if(res.status){
-     
-      setLength([])
-      setFilterState(false)
-     
+      Update(true)
       toast.success(res.message)
     }else{
       toast.error(res.message)
@@ -152,10 +139,7 @@ const QUALIFIED=(id,status)=>{
   .then((res)=>res.json())
   .then(res=>{
     if(res.status){
-     
-      setLength([])
-      setFilterState(false)
-      
+      Update(true)
       toast.success(res.message)
     }else{
       toast.error(res.message)
@@ -202,7 +186,7 @@ const LeadDelete=()=>{
     .then(resData => {
        if(resData.status){
         
-         
+         Load(true)
          toast.success(resData.message)
          // Lead([])
       
@@ -210,7 +194,7 @@ const LeadDelete=()=>{
   
  },2000)
        }else{
-       // 
+       //  Update(true)
         toast.error(resData.message)
  
        }
@@ -393,7 +377,7 @@ const AddToCrm=(props:any)=>{
      </div>
     </div>
     {NoteEditModal ?
-            <NotesEditModal closeModal={setNoteEditsModal} props={props} update={Update} Load={Load} deleteModal={setNotesDeleteModal} Notes={LeadNotes} setDelete={setDeleteLeads} setSkipLead={setSkipLeads} page={page} />
+            <NotesEditModal closeModal={setNoteEditsModal} props={props} update={Update} Load={Load} deleteModal={setNotesDeleteModal} Notes={LeadNotes} setDelete={setDeleteLeads}  />
 :
 null
 
@@ -406,7 +390,7 @@ null
             null
           }
               {NoteDeleteModal ?
-                   <ConfirmDelete closeModal={setNotesDeleteModal} props={props}  update={Update}  Load={Load}  Notes={LeadNotes} LeadsDelete={DeleteLeads} setDelete={setDeleteLeads} setSkipLead={setSkipLeads} page={page}  />
+                   <ConfirmDelete closeModal={setNotesDeleteModal} props={props}  update={Update}  Load={Load}  Notes={LeadNotes} LeadsDelete={DeleteLeads} setDelete={setDeleteLeads} />
           
 :
 null
