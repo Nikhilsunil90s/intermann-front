@@ -410,7 +410,7 @@ null
             null
           }
               {NoteDeleteModal ?
-                   <ConfirmDelete closeModal={setNotesDeleteModal} props={props}  update={Update}  Load={Load}  Notes={LeadNotes} LeadsDelete={DeleteLeads} setDelete={setDeleteLeads} />
+                   <ConfirmDelete closeModal={setNotesDeleteModal} props={props}  update={Update}  Load={Load}  Notes={LeadNotes} LeadsDelete={DeleteLeads} setDelete={setDeleteLeads} setFilter={setFilter} />
           
 :
 null

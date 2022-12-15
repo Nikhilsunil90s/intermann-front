@@ -423,11 +423,10 @@ import LeadList from "./LeadComponents/LeadList";
 import Loader from "../components/Loader/loader"
 import Error from "../components/Loader/SearchBarError"
 import { API_BASE_URL } from "../config/serverApiConfig";
-import {toast,Toaster} from "react-hot-toast";
+import {Toaster} from "react-hot-toast";
 import Carousel from "react-multi-carousel";
 import ProfilesLoader from "../../src/components/Loader/ProfilesLoader"
-import { motion } from "framer-motion";
-
+import $ from "jquery"
 let TabName=""
 function LeadsCenter() {
 
@@ -443,6 +442,7 @@ function LeadsCenter() {
   const [contected,setcontected]=useState(0)as any
   const [skipLeads,setSkipLeads]=useState([])as any
   const [filter,setFilter]=useState(false);
+  const [FirstLoad,setFirstLoad]=useState(false)
   let [page, setPage] = useState(0);
   const [tabItems] = useState([
     {
@@ -459,22 +459,7 @@ function LeadsCenter() {
     },
   ]) as any;
 
-useEffect(()=>{
-  fetchAllLeads(TabName).then((res
-  )=>{
-    if(res.status){
-      setUpdateField(false)
-      setSkipLeads(...skipLeads,[...res.data])   
-      setpreContected(res.notPreContactedCount)
-      setcontected(res.notContactedCount)
-     }else{
-      setSkipLeads([])
-      setUpdateField(false)
 
-     }
-
-  })
-},[UpdateFiled,page])
 
 // const handleScroll =()=>{
 //   if(Leads.length <= page){
@@ -490,25 +475,6 @@ useEffect(()=>{
 //   window.addEventListener("scroll",handleScroll)
 
 // },[])
-
-console.log(page)
-
-  const  fetchAllLeads=async(market:any)=>{
-    //  setLeadScHeck(false)
-     
-  return  await fetch(API_BASE_URL + `viewallleads/?market=${market}&skip=${page}`,{
-      method: "GET",
-      headers: {
-        "Accept": 'application/json',
-        'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
-      },
-    })
-      .then(red => red.json())
-      .then(resData => resData)
-      .catch(err => err)
-    }
-
 
   const  fetchLeads=async(market:any,page:any)=>{
         //  setLeadScHeck(false)
@@ -529,12 +495,22 @@ console.log(page)
               setLeads([...resData.data])
               setpreContected(resData.notPreContactedCount)
               setcontected(resData.notContactedCount)
+          
+                $(function() {
+                  setTimeout(function() { $("#hideDivLeads").fadeOut(1500);}, 3000)
+                  
+                  })
+            
              }else{
               setLeads([])
               setLeadScHeck(true)
               setUpdateField(false)
               setpreContected(resData.notPreContactedCount)
               setcontected(resData.notContactedCount)
+              $(function() {
+                setTimeout(function() { $("#hideDivLeads").fadeOut(1500);}, 3000)
+                
+                })
 
              }
           })
@@ -722,10 +698,10 @@ useEffect(()=>{
           
                 <>
                {  Leads.map((el,i)=>(
-               
-              
+                <>
+          
                   <LeadList  props={el} length={i} key={el._id} Update={setUpdateField} Load={setLeadScHeck} Lead={setLeads} activeUser={setCurrentUser}  TabName={TabName}  setFilter={setFilter}   />
-                 
+                </> 
             
             ))
                }
@@ -734,15 +710,17 @@ useEffect(()=>{
               
           
             :
-            <div className="row ">
+            <div className="row">
               <div className="col-12 d-flex justify-content-center">
             <p className="mb-0 d-flex align-items-center ErrorSearchBox"><Error    />✘✘ No Leads Available Yet! Please Add a New Lead!</p>
             </div>
             </div>
             :
-            <div className="row ">
-            <div className="col-12 d-flex justify-content-center">
-            <Loader   />
+            <div className="row " >
+            <div className="col-12 my-2 d-flex justify-content-center LeadsLoad">
+            <div className="spinner-border text-warning" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div>
             </div>
             </div>
            }
