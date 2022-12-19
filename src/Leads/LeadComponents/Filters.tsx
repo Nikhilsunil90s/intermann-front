@@ -1773,7 +1773,8 @@ function Filters({
             <div className="col-2">
               {" "}
               <button
-                className="ApplyFiltersBtn"
+                className="glow-on-hover mr-2"
+                style={{width:"100%",height:"40px"}}
                 name="ApplyFil"
                 onClick={(e) => OnClickDataChange(e)}
                 disabled={applyBtn}

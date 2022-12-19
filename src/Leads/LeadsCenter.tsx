@@ -670,13 +670,13 @@ useEffect(()=>{
             style={{ background: "#ffff", borderRadius: "10px" }}
           >
             <p className="mb-2 ApplyFilter">
-            <b> ‎ ✔  ‎There is {Leads.length} ‎ ‎leads total</b>
+            <b> ‎ ✔  ‎There are {Leads.length} ‎ ‎leads total</b>
             </p>
             <p className="mb-2 ApplyFilter">
-            <b> ‎✔   ‎There is {contected} leads not yet contacted by Agency</b>
+            <b> ‎✔   ‎There are {contected} leads not yet contacted by Agency</b>
             </p>
             <p className="mb-0 ApplyFilter">
-            <b> ‎ ✔  ‎There is {preContected} leads not yet precontacted</b>
+            <b> ‎ ✔  ‎There are {preContected} leads not yet precontacted</b>
             </p>
           </div>
           <div
