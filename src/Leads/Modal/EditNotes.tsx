@@ -4,6 +4,7 @@ import {API_BASE_URL} from "../../config/serverApiConfig"
 import { motion } from "framer-motion";
 
 function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelete}){
+
   const [editNotes,setEditNotes]=useState("")
   const [btnDS,setBTNds]=useState(false)
     const ref = useRef();
@@ -101,7 +102,6 @@ function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelet
             update(true)
             setBTNds(false)
             Load(true)
-       
             toast.success(res.message)
             setTimeout(()=>{
               closeModal(false)
@@ -119,7 +119,6 @@ function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelet
             update(true)
             setBTNds(false)
             Load(true)
-       
             toast.success(res.message)
             setTimeout(()=>{
               closeModal(false)
@@ -134,6 +133,7 @@ function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelet
       }
     }
  
+
 
     return(
         <>

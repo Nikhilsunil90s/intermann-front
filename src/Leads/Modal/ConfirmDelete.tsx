@@ -23,21 +23,13 @@ function NotesDeleteModal({props,closeModal,update,Load,Notes,LeadsDelete,setDel
    .then(red => red.json())
    .then(resData => {
       if(resData.status){
-        update(true)
-        Load(true) 
-       
         toast.success(resData.message)
         // Lead([])
-        closeModal(false)
+        update(true)
+        setDelete("")
 setTimeout(()=>{
- 
-  setDelete("")
-
+  Load(true)
 },2000)
-setTimeout(()=>{
-  setFilter(true)
-
-},4000)
       }else{
       //  Update(true)
        toast.error(resData.message)
@@ -61,15 +53,9 @@ setTimeout(()=>{
       if(res.status){
         update(true)
         setBTNds(false)
-      
-        setTimeout(()=>{
-          setFilter(true)
-      
-        },3000)
-        closeModal(false)
         Load(true)
         toast.success(res.message)
-        
+          closeModal(false)
       
       }else{
         setBTNds(false)    
