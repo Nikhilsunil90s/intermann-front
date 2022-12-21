@@ -378,3 +378,26 @@ border: 0px;
 padding: 15px 35px;
 }
 
+.style-4{
+    height: 106px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.style-4::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+.style-4::-webkit-scrollbar
+{
+	width: 4px;
+	background-color: #F5F5F5;
+}
+
+.style-4::-webkit-scrollbar-thumb
+{
+	background-color: #da902d;
+	border: 2px solid #da902d;
+}
+

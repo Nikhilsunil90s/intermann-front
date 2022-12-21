@@ -169,7 +169,7 @@ function ClientContractCard(props: any) {
                 null
             }
             <div className="col-12">
-              <div className="row">
+              <div className={`row ${props.data.employeesWorkingUnder.length > 8 ? "style-4" : ""}`}  id="">
 
 
               {props.data.employeesWorkingUnder !== null &&

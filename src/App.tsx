@@ -30,7 +30,7 @@ import RenameSector from "./pages/EditPages/RenameSector";
 import ClientTodoEdit from "./pages/EditPages/ClientEdit_Page";
 import ClientinProgressEdit from "./pages/EditPages/Client_EditinProgress";
 import Preselected from "./pages/preSelected";
-import PrivateRoute from "./ProctetedRoute/ProctedRoute";
+import PrivateRoute from "./ProctetedRoute/ProtectedRoute";
 import ClientArchivedView from "./pages/ClientPages/ClientArchivedView";
 import PreSelectedView from "./pages/preSelectedProfileView";
 import PreSelectedEdit from "./pages/EditPages/PreSelectedEdit";
