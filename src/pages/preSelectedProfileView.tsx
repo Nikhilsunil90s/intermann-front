@@ -67,7 +67,7 @@ function PreSelectedView() {
  const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
  const notifyDocumentDeleteSuccess = () => toast.success("Document Removed Successfully!");
 
-  let data={profileData:profile ,path:"/preSelectedView"}
+  let data={profileData:profile ,path:"/preSelected/preSelectedView"}
 
   const showCustomerProfile =(data)=>{
     localStorage.setItem("profile", JSON.stringify(data));
@@ -145,7 +145,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
             notifyDocumentUploadSuccess()
             // setCandidatImage(datares.data.filename)
             setTimeout(()=>{
-              window.location.href = "/preSelectedView"
+              window.location.href = "/preSelected/preSelectedView"
             },2000)
             
           } else {
@@ -168,7 +168,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
     hiddenImageInput.current.click();
   }
   const editCandidatProfile = () => {
-    navigate("/editPreSelected", { state: data });
+    navigate("/preSelected/editPreSelected", { state: data });
   };
   const handleFileUpload = () => {
     hiddenFileInput.current.click();
@@ -612,7 +612,7 @@ null
                   JSON.stringify(profile).includes(JSON.stringify(profile.candidatContract)) ?
                   <>
 
-<CandidateContract  props={profile} path={"/editPreSelected"}   />
+<CandidateContract  props={profile} path={"/preSelected/editPreSelected"}   />
 
                       
                             </>

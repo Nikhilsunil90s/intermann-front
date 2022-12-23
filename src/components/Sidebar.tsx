@@ -10,7 +10,7 @@ import $ from 'jquery'
 import { motion } from "framer-motion";
 
 function Sidebar(props: any) {
-  const [activeTab,setActiveTab]=useState("")
+  const [activeTab,setActiveTab]=useState(window.location.href)
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const LogNotify = () => toast.success("Log-Out!");
@@ -120,7 +120,7 @@ function Sidebar(props: any) {
                     <div id="flush-collapseTwo" className="accordion-collapse collapse " aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                       <div className="">
                         <ul style={{paddingLeft:"0px",width:"100%"}} className="hello">
-                            <li onClick={(e)=>OnClickColorChange("todoClient")} className={activeTab === "todoClient" ? "sideBarBackGactive"  : "sideBarBackG"}>
+                            <li  className={window.location.href.includes("clientTodo") ? "sideBarBackGactive"  : "sideBarBackG"}>
                           <Link to="/clientTodo" className="nav-link link-dark  fontStylingBar">
                           <span className="pe-2">
                         <img src={require("../images/list-text.svg").default} />
@@ -128,7 +128,7 @@ function Sidebar(props: any) {
                             To do / Non traité / Attente
                           </Link>
                         </li>
-                          <li onClick={(e)=>OnClickColorChange("Clientinprogress")}  className={activeTab === "Clientinprogress" ? "sideBarBackGactive"  : "sideBarBackG"}>
+                          <li   className={window.location.href.includes("clientProgress") ? "sideBarBackGactive"  : "sideBarBackG"}>
                             <Link to="/clientProgress" className="nav-link link-dark  fontStylingBar">
                             <span className="pe-2">
                         <img src={require("../images/analytics.svg").default} />
@@ -136,14 +136,14 @@ function Sidebar(props: any) {
                               En cours de recherche
                             </Link>
                           </li>
-                          <li onClick={(e)=>OnClickColorChange("contract")}  className={activeTab === "contract" ? "sideBarBackGactive"  : "sideBarBackG"}>
+                          <li   className={window.location.href.includes("clientContract") ? "sideBarBackGactive"  : "sideBarBackG"}>
                             <Link to="/clientContract" className="nav-link link-dark  fontStylingBar">
                             <span className="pe-2">
                         <img src={require("../images/contractList.svg").default} />
                       </span>
                               Terminé / Contrat en cours
                             </Link>
-                          </li> <li onClick={(e)=>OnClickColorChange("Clientarchive")} className={activeTab === "Clientarchive" ? "sideBarBackGactive"  : "sideBarBackG"}>
+                          </li> <li  className={window.location.href.includes("archived") ? "sideBarBackGactive"  : "sideBarBackG"}>
                             <Link to="/archived" className="nav-link link-dark fontStylingBar"> <span className="pe-2">
                         <img src={require("../images/archivedList.svg").default} />
                       </span>Annulé / Archivé
@@ -164,7 +164,7 @@ function Sidebar(props: any) {
                     <div id="flush-collapseThree" className="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                       <div className="">
                         <ul style={{paddingLeft:"0px",width:"100%"}}>
-                          <li onClick={(e)=>OnClickColorChange("todo")}  className={activeTab === "todo" ? "sideBarBackGactive"  : "sideBarBackG"}>
+                          <li className={window.location.href.includes("todolist") ? "sideBarBackGactive"  : "sideBarBackG"}>
                             <Link to="/todolist" className="nav-link link-dark fontStylingBar">
                             <span className="pe-2">
                         <img src={require("../images/list-text.svg").default} />
@@ -172,7 +172,7 @@ function Sidebar(props: any) {
                               En sommeil
                             </Link>
                           </li>
-                          <li onClick={(e)=>OnClickColorChange("preSelected")} className={activeTab === "preSelected" ? "sideBarBackGactive"  : "sideBarBackG"}>
+                          <li  className={window.location.href.includes("preSelected") ? "sideBarBackGactive"  : "sideBarBackG"}>
                             <Link to="/preSelected" className="nav-link link-dark fontStylingBar">
                             <span className="pe-2">
                         <img src={require("../images/todoList.svg").default} />
@@ -180,14 +180,14 @@ function Sidebar(props: any) {
                       Preselected
                             </Link>
                           </li>
-                          <li onClick={(e)=>OnClickColorChange("progress")}  className={activeTab === "progress" ? "sideBarBackGactive"  : "sideBarBackG"}>
+                          <li   className={window.location.href.includes("embauchlist") ? "sideBarBackGactive"  : "sideBarBackG"}>
                             <Link to="/embauchlist" className="nav-link link-dark fontStylingBar">
                             <span className="pe-2">
                         <img src={require("../images/contractList.svg").default} />
                       </span>Embauché
                            
                             </Link>
-                          </li> <li onClick={(e)=>OnClickColorChange("archive")}  className={activeTab === "archive" ? "sideBarBackGactive"  : "sideBarBackG"}>
+                          </li> <li  className={window.location.href.includes("archivedlist") ? "sideBarBackGactive"  : "sideBarBackG"}>
                             <Link to="/archivedlist" className="nav-link link-dark fontStylingBar">
                             <span className="pe-2">
                         <img src={require("../images/archivedList.svg").default} />
@@ -209,7 +209,7 @@ function Sidebar(props: any) {
                     </h2>
                     <div id="flush-collapseOne" className="accordion-collapse collapse " aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                       <div className="">
-                        <ul style={{paddingLeft:"0px",width:"100%"}} >  <li className={activeTab === "New Sector" ? "sideBarBackGactive"  : "sideBarBackG"} onClick={(e)=>OnClickColorChange("New Sector")}>
+                        <ul style={{paddingLeft:"0px",width:"100%"}} >  <li className={window.location.href.includes("addNewSector") ? "sideBarBackGactive"  : "sideBarBackG"}>
                     <Link to="/addNewSector" className="nav-link link-dark fontStylingBar" aria-current="page">
                       <span className="pe-2">
                         <img src={require("../images/addsector.svg").default} />
@@ -217,7 +217,7 @@ function Sidebar(props: any) {
                       Add New Sector
                     </Link>
                   </li>
-                  <li className={activeTab === "User List" ? "sideBarBackGactive"  : "sideBarBackG"}  onClick={(e)=>OnClickColorChange("User List")}>
+                  <li className={window.location.href.includes("userList") ? "sideBarBackGactive"  : "sideBarBackG"}  onClick={(e)=>OnClickColorChange("User List")}>
                     <Link to="/userList" className="nav-link link-dark fontStylingBar" aria-current="page">
                       <span className="pe-2">
                         <img src={require("../images/adduser.svg").default} />
@@ -238,7 +238,7 @@ function Sidebar(props: any) {
                           variants={{
                             visible: { opacity: 1, x: 0 },
                             hidden: { opacity: 0, x: -50 }
-                          }} style={{border:"none",borderBottom:"0px",borderLeft:"0px",padding:"12px ",paddingLeft:"23px" }}   onClick={()=>OnClickColorChange("Download")} className={activeTab === "Download" ? "sideBarBackGactive"  : "cursor-pointer sideBarBackG"} >
+                          }} style={{border:"none",borderBottom:"0px",borderLeft:"0px",padding:"12px ",paddingLeft:"23px" }}    onClick={()=>OnClickColorChange("Download")}   className={window.location.href.includes("downloadCenter") ? "sideBarBackGactive"  : "cursor-pointer sideBarBackG"} >
                   <Link to="/downloadCenter" className="signOut" aria-current="page">
                     <span className="pe-2">
                       <img className="logoutImage" src={require("../images/telecharger.svg").default} />
@@ -257,7 +257,7 @@ function Sidebar(props: any) {
                           variants={{
                             visible: { opacity: 1, x: 0 },
                             hidden: { opacity: 0, x: -50 }
-                          }} style={{border:"none",borderBottom:"0px",borderLeft:"0px" ,padding:"12px",paddingLeft:"23px"}} onClick={()=>OnClickColorChange("Leads")} className={activeTab === "Leads" ? "sideBarBackGactive"  : "cursor-pointer sideBarBackG"}  >
+                          }} style={{border:"none",borderBottom:"0px",borderLeft:"0px" ,padding:"12px",paddingLeft:"23px"}} onClick={()=>OnClickColorChange("Leads")} className={window.location.href.includes("LeadsCenter")  ? "sideBarBackGactive"  : "cursor-pointer sideBarBackG"}  >
                   <Link to="/LeadsCenter" className="signOut" aria-current="page"   >
                     <span className="pe-2">
                       <img className="logoutImage" src={require("../images/Leads.svg").default} />
@@ -276,7 +276,7 @@ function Sidebar(props: any) {
                           variants={{
                             visible: { opacity: 1, x: 0 },
                             hidden: { opacity: 0, x: -50 }
-                          }} style={{border:"none",borderBottom:"0px",borderLeft:"0px" ,padding:"12px",paddingLeft:"23px"}}  onClick={()=>OnClickColorChange("Center")} className={activeTab === "Center" ? "sideBarBackGactive"  : " cursor-pointer sideBarBackG"}  >
+                          }} style={{border:"none",borderBottom:"0px",borderLeft:"0px" ,padding:"12px",paddingLeft:"23px"}}  onClick={()=>OnClickColorChange("Center")}  className={window.location.href.includes("JobAdsCenter")  ? "sideBarBackGactive"  : " cursor-pointer sideBarBackG"}  >
                   <Link to="/JobAdsCenter" className="signOut" aria-current="page"  >
                     <span className="pe-2">
                       <img className="logoutImage" src={require("../images/CombinedShape.svg").default} />

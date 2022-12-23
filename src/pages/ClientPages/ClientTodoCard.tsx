@@ -277,13 +277,13 @@ const ClientToDoCard = (props: any) => {
   const Editdata = { state: props.data, path: "/clientTodo" };
 
   const editClientProfile = () => {
-    navigate("/clientToDoEdit", { state: Editdata });
+    navigate("/clientTodo/clientToDoEdit", { state: Editdata });
   };
 
   const viewFullProfile = () => {
     // navigate("/clientToDoProfile", { state: props.data });
     localStorage.setItem("profile", JSON.stringify(props.data));
-    window.open("/clientToDoProfile", "_blank");
+    window.open("/clientTodo/clientToDoProfile", "_blank");
   };
 
   const MoreOption = (e: any) => {

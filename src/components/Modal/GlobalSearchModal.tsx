@@ -55,7 +55,7 @@ export default function SearchModal({props,closeModal,value,ReloadSearch,Text,In
          
          if(data.candidatStatus =="To-Do"){
           localStorage.setItem('profile', JSON.stringify(data));
-          window.open("/todoprofile")
+          window.open("/todolist/todoprofile")
           
             Text("")
           setTimeout(()=>{
@@ -66,7 +66,7 @@ export default function SearchModal({props,closeModal,value,ReloadSearch,Text,In
          if(data.candidatStatus =="In-Progress"){
           localStorage.setItem('embauch', JSON.stringify(data));
           
-          window.open("/embauchprofile")
+          window.open("/embauchlist/embauchprofile")
           
        
           
@@ -80,7 +80,7 @@ export default function SearchModal({props,closeModal,value,ReloadSearch,Text,In
         if(data.candidatStatus =="Archived"){
         localStorage.setItem("archive", JSON.stringify(data))
           
-        window.open("/archivedprofile")
+        window.open("/archivedlist/archivedprofile")
           
      
           
@@ -94,7 +94,7 @@ export default function SearchModal({props,closeModal,value,ReloadSearch,Text,In
         if(data.candidatStatus == "Pre-Selected"){
         localStorage.setItem("profile", JSON.stringify(data));
           
-        window.open("/preSelectedView")
+        window.open("/preSelected/preSelectedView")
           
      
           
@@ -117,7 +117,7 @@ export default function SearchModal({props,closeModal,value,ReloadSearch,Text,In
         
           Text("")
           localStorage.setItem('profile', JSON.stringify(data));
-          window.open("/clientToDoProfile")
+          window.open("/clientTodo/clientToDoProfile")
      
           setTimeout(()=>{
           closeModal(false)
@@ -131,7 +131,7 @@ export default function SearchModal({props,closeModal,value,ReloadSearch,Text,In
         
           Text("")
         localStorage.setItem('embauch', JSON.stringify(data));
-          window.open("/clientInProgressProfile")
+          window.open("/clientProgress/clientInProgressProfile")
           setTimeout(()=>{
           closeModal(false)
         
@@ -144,7 +144,7 @@ export default function SearchModal({props,closeModal,value,ReloadSearch,Text,In
         
           Text("")
     localStorage.setItem('archive', JSON.stringify(data));
-          window.open("/archivedClientSeeprofile")
+          window.open("/archived/archivedClientSeeprofile")
        
           setTimeout(()=>{
           closeModal(false)
@@ -158,7 +158,7 @@ export default function SearchModal({props,closeModal,value,ReloadSearch,Text,In
         
           Text("")
     localStorage.setItem('archive', JSON.stringify(data));
-          window.open("/clientSigned")
+          window.open("/clientContract/clientSigned")
           setTimeout(()=>{
           closeModal(false)
         

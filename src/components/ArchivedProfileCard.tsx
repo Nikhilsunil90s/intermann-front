@@ -17,14 +17,14 @@ const ArchivedProfileCard = (props: any) => {
    const [startDate,setStartDate]=useState()as any
     const [EndDate,setEndDate]=useState()as any
 
-    let data={profileData:props.props,path:"/archivedprofile"}
+    let data={profileData:props.props,path:"/archivedlist/archivedprofile"}
     const editCandidatProfile = () => {
-      navigate("/editArchived", { state: data });
+      navigate("/archivedlist/editArchived", { state: data });
     };
     const viewFullProfile = () => {
         // navigate("/archivedprofile", { state: props.props })
         localStorage.setItem("archive", JSON.stringify(props.props))
-        window.open("/archivedprofile","_blank")
+        window.open("/archivedlist/archivedprofile","_blank")
     }
     const CardOptions=[{
         value:"Edit Profile",label:"Edit Profile"

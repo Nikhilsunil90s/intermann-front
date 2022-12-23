@@ -364,7 +364,7 @@ function ClientProgressView() {
             notifyDocumentUploadSuccess();
 
             setTimeout(() => {
-              window.location.href = "/clientInProgressProfile";
+              window.location.href = "/clientProgress/clientInProgressProfile";
             }, 2000);
           } else {
             notifyDocumentUploadError();
@@ -417,10 +417,10 @@ function ClientProgressView() {
   };
   
   //END //
-  let Editdata = { state: profile, path: "/clientInProgressProfile" };
+  let Editdata = { state: profile, path: "/clientProgress/clientInProgressProfile" };
 
   const editClientProfile = () => {
-    navigate("/clientInProgressEdit", { state: Editdata });
+    navigate("/clientProgress/clientInProgressEdit", { state: Editdata });
   };
 
   const handleImageUpload = () => {
@@ -1273,7 +1273,7 @@ JobAdsCards.length > 0 ?
                     <ArchivedClientModal
                       props={profile}
                       closeModal={setShowArchiveModal}
-                      path={"/clientToDoProfile"}
+                      path={"/clientTodo/clientToDoProfile"}
                     />
                   ) : null}
                   <p className="btn-Down text-center">Si plus d’actualité</p>
@@ -1355,7 +1355,7 @@ JobAdsCards.length > 0 ?
                   />
                 ) : null}
                 {PDFModal ? (
-                  <PDFModalClient props={profile} closeModal={setPDFModal}  LinkModal={setDocuSignModal} path="/clientInProgressProfile" />
+                  <PDFModalClient props={profile} closeModal={setPDFModal}  LinkModal={setDocuSignModal} path="/clientProgress/clientInProgressProfile" />
                 ) : null}
                  {
         DocumentSignModal ? 
@@ -1370,7 +1370,7 @@ JobAdsCards.length > 0 ?
           </div>
           <div className="col-12 Social-CardClient mt-1 ">
             {clientContract ? (
-                <ClientContract  props={profile} path="/clientInProgressEdit"     />
+                <ClientContract  props={profile} path="/clientProgress/clientInProgressEdit"     />
 
              
             ) : (

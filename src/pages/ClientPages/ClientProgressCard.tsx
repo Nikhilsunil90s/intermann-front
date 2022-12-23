@@ -47,16 +47,16 @@ function ClientProgressCard(props: any) {
     }
  ]as any
 
- let Editdata={state:props.data ,path:"/clientInProgressProfile"}
+ let Editdata={state:props.data ,path:"/clientProgress/clientInProgressProfile"}
 
     const editClientProfile = () => {
-        navigate("/clientInProgressEdit", { state: Editdata });
+        navigate("/clientProgress/clientInProgressEdit", { state: Editdata });
     }
 
     const viewFullProfile = () => {
         // navigate("/clientInProgressProfile", { state: props.data });
         localStorage.setItem('embauch', JSON.stringify(props.data));
-        window.open("/clientInProgressProfile", "_blank")
+        window.open("/clientProgress/clientInProgressProfile", "_blank")
     }
 
 

@@ -149,7 +149,7 @@ useEffect(()=>{
     }
   };
   const editClientProfile = () => {
-    navigate("/ClientContractEditprofile", { state: profile });
+    navigate("/clientContract/ClientContractEditprofile", { state: profile });
   };
 
   // DOC Upload //\
@@ -345,7 +345,7 @@ useEffect(()=>{
 
   const viewFullProfile = (data) => {
     localStorage.setItem("embauch", JSON.stringify(data));
-    window.open("/embauchprofile", "_blank");
+    window.open("/embauchlist/embauchprofile", "_blank");
   };
 
   const handleImageUpload = () => {
@@ -1381,7 +1381,7 @@ useEffect(()=>{
                     <ArchivedClientModal
                       props={profile}
                       closeModal={setShowArchiveModal}
-                      path={"/clientToDoProfile"}
+                      path={"/clientTodo/clientToDoProfile"}
                     />
                   ) : null}
                   <p className="btn-Down text-center">Si plus d’actualité</p>

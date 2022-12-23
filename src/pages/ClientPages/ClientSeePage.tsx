@@ -359,7 +359,7 @@ function ClientSee() {
             notifyDocumentUploadSuccess();
 
             setTimeout(() => {
-              window.location.href = "/clientToDoProfile";
+              window.location.href = "/clientTodo/clientToDoProfile";
             }, 2000);
           } else {
             notifyDocumentUploadError();
@@ -407,10 +407,10 @@ function ClientSee() {
   }
 
 
-  const Editdata = { state: profile, path: "/clientToDoProfile" };
+  const Editdata = { state: profile, path: "/clientTodo/clientToDoProfile" };
 
   const editClientProfile = () => {
-    navigate("/clientToDoEdit", { state: Editdata });
+    navigate("/clientTodo/clientToDoEdit", { state: Editdata });
   };
   const candidatImportanceIcons = [
     {
@@ -1434,7 +1434,7 @@ function ClientSee() {
                     <ArchivedClientModal
                       props={profile}
                       closeModal={setShowArchiveModal}
-                      path={"/clientToDoProfile"}
+                      path={"/clientTodo/clientToDoProfile"}
                     />
                   ) : null}
                   <p className="btn-Down text-center">Si plus d’actualité</p>
@@ -1518,7 +1518,7 @@ function ClientSee() {
             <div className="col-12 Social-CardClient mt-1 ">
               {clientContract ? (
                 <>
-                <ClientContract  props={profile} path="/clientToDoProfile"     />
+                <ClientContract  props={profile} path="/clientTodo/clientToDoProfile"     />
                 </>
               ) : (
                 <div className="col-12 d-flex justify-content-center align-items-center py-2">
@@ -1544,7 +1544,7 @@ function ClientSee() {
                     />
                   ) : null}
                   {PDFModal ? (
-                    <PDFModalClient props={profile} closeModal={setPDFModal}  LinkModal={setDocuSignModal} path="/clientToDoProfile" />
+                    <PDFModalClient props={profile} closeModal={setPDFModal}  LinkModal={setDocuSignModal} path="/clientTodo/clientToDoProfile" />
                   ) : null}
                    {
         DocumentSignModal ? 

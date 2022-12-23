@@ -41,13 +41,13 @@ const PreSelectedCard = (props: any) => {
   ];
 
   const editCandidatProfile = () => {
-    navigate("/editPreSelected", { state: state });
+    navigate("/preSelected/editPreSelected", { state: state });
   };
 
   const viewFullProfile = () => {
     // navigate("/preSelectedView", { state: props.data });
     localStorage.setItem("profile", JSON.stringify(props.data));
-    window.open("/preSelectedView", "_blank");
+    window.open("/preSelected/preSelectedView", "_blank");
   };
 
   const MoreOption = (e) => {

@@ -562,7 +562,7 @@ function ClientSignedEdit() {
                 console.log(respdata);
                 notifyPhotoUploadSuccess()
                 setTimeout(() => {
-                    window.location.href = "/clientToDoEdit"
+                    window.location.href = "/clientTodo/clientToDoEdit"
                 }, 1500)
             }).catch(err => {
                 notifyPhotoUploadError()

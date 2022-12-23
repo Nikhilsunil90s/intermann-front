@@ -560,7 +560,7 @@ if(checked == false){
 
      
             setTimeout(()=>{
-              window.location.href = "/editArchived"
+              window.location.href = "/archivedlist/editArchived"
             },2000)
           } else {
             notifyDocumentUploadError()

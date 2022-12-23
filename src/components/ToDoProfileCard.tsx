@@ -42,7 +42,7 @@ const ToDoProfileCard = (props: any,) => {
 
    
     const editCandidatProfile = () => {
-        navigate("/editToDo", { state: state});
+        navigate("/todolist/editToDo", { state: state});
     }
 
 
@@ -51,7 +51,7 @@ const ToDoProfileCard = (props: any,) => {
      
         // navigate("/todoprofile", { state: props.data });
         localStorage.setItem('profile', JSON.stringify(props.data));
-        window.open("/todoprofile", "_blank")
+        window.open("/todolist/todoprofile", "_blank")
     }
  
 

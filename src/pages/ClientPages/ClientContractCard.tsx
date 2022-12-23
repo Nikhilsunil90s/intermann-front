@@ -27,14 +27,14 @@ function ClientContractCard(props: any) {
 
   const viewFullProfile = (data) => {
     localStorage.setItem("embauch", JSON.stringify(data));
-    window.open("/embauchprofile", "_blank");
+    window.open("/embauchlist/embauchprofile", "_blank");
   };
 
   const Editdata = { state: props.data, path: "/clientContract" }
 
 
   const editClientProfile = () => {
-    navigate("/ClientContractEditprofile", { state: Editdata });
+    navigate("/clientContract/ClientContractEditprofile", { state: Editdata });
 
   }
   const MoreOption = (e: any) => {
@@ -51,7 +51,7 @@ function ClientContractCard(props: any) {
   const SeeFullProfile = () => {
     // navigate("/clientSigned", { state: props.data});
     localStorage.setItem('archive', JSON.stringify(props.data));
-    window.open("/clientSigned", "_blank")
+    window.open("/clientContract/clientSigned", "_blank")
   }
 
   function padTo2DigitsCH(num) {

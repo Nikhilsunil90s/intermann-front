@@ -605,7 +605,7 @@ if(checked == false){
 
      
             setTimeout(()=>{
-              window.location.href = "/preSelectedView"
+              window.location.href = "/preSelected/preSelectedView"
             },2000)
           } else {
             notifyDocumentUploadError()
@@ -704,7 +704,7 @@ const jobChange = async (jobval) => {
             <div className="col-12 ">
               <div className="row EditTopHeaderColor">
                 <div className="col-6  d-flex align-items-center">
-                <Link to="/preSelectedView">
+                <Link to="/preSelected/preSelectedView">
                     <button
                       type="button"
                       className="btn d-flex align-items-center p-0"

@@ -405,7 +405,6 @@ setTimeout(()=>{
     }
     if(AllProfilesForSelect.length === 0){
           fetchProfiles()
-          console.log(AllProfilesForSelect,"fjdf")
   }
     if(AllProfilesForSelect.length > 0  && nameOptions.length === 0){
     if (nameOptions.length == 0) {

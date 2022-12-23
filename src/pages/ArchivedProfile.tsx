@@ -99,9 +99,9 @@ const ArchivedProfile = () => {
    })
 
    
-    let data={profileData:profile,path:"/archivedprofile"}
+    let data={profileData:profile,path:"/archivedlist/archivedprofile"}
     const editCandidatProfile = () => {
-      navigate("/editArchived", { state: data });
+      navigate("/archivedlist/editArchived", { state: data });
     };
 
     useEffect(()=>{
@@ -236,7 +236,7 @@ useEffect(() => {
               notifyDocumentUploadSuccess()
               // setCandidatImage(datares.data.filename)
               setTimeout(()=>{
-                window.location.href = "/archivedprofile"
+                window.location.href = "/archivedlist/archivedprofile"
               },2000)
             
             } else {
@@ -558,7 +558,7 @@ className="SelectBtn"
                 {
                   PDFModal ?
                   
-                  <PDFGenerate props={profile}  LinkModal={setDocuSignModal}  closeModal={setPDFModal} path="/archivedprofile"/>
+                  <PDFGenerate props={profile}  LinkModal={setDocuSignModal}  closeModal={setPDFModal} path="/archivedlist/archivedprofile"/>
                   : 
                   null
                 }
@@ -606,7 +606,7 @@ className="SelectBtn"
                             {
                   JSON.stringify(profile).includes(JSON.stringify(profile.candidatContract)) ?
                   <>
-                  <CandidateContract  props={profile} path={"/editArchived"}   />
+                  <CandidateContract  props={profile} path={"/archivedlist/editArchived"}   />
                          
                             </>
                                    : 

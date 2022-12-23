@@ -28,7 +28,6 @@ function PDFBoxClient({props,value,updated}){
   const [docUploaded, setDocUploaded] = useState(false);
   const [DeleteStatus, setDeleteStatus] = useState(false);
   const [DriveLink,setDriveLink]=useState("")
-
   const [tabItems] = useState([
     {
       text: "CONTRAT CLIENT",
@@ -707,6 +706,83 @@ fontSize: "14px",}} /></div>
              <div className="col-4"><button name="DriveLinkSubmit" onClick={(e)=>{onDriveLinkChange(e)}} className="LinkAsDocument">add this link as document</button></div>
              </div>
               </div>
+              {/* <div
+              className="col-12 Social-CardClient mb-1 "
+              style={{ padding: "13px 26px" }}
+            > */}
+              {/* <div className="row alertMessage align-items-center py-1">
+                <Tabs
+                  rightBtnIcon={">"}
+                  hideNavBtns={false}
+                  leftBtnIcon={"<"}
+                  showTabsScroll={false}
+                  tabsScrollAmount={5}
+                  activeTab
+                  className="alertMessage"
+                >
+                
+                  {PdfChecker.map((el)=>el.folderName.toString() === "contrat_client") ? null : (
+                    <Tab className="redColorStyling"> ⚠️ CONTRAT CLIENT IS MISSING / MANQUANT</Tab>
+                  )}
+                  {PdfChecker.map((el)=>el.folderName.toString() === "contrat_employes") ? null : (
+                    <Tab className="redColorStyling">⚠️ CONTRATS EMPLOYES IS MISSING / MANQUANT</Tab>
+                  )}
+                  {PdfChecker.map((el)=>el.folderName.toString() === "id_card_employer")  ? null : (
+                    <Tab className="redColorStyling">⚠️ Id Card Employes IS MISSING / MANQUANT</Tab>
+                  )}
+                  {PdfChecker.map((el)=>el.folderName.toString() === "al") ? null : <Tab className="redColorStyling">⚠️ A1 IS MISSING / MANQUANT</Tab>}
+                  {PdfChecker.map((el)=>el.folderName.toString() === "contrats_assurances_employes") ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ CONTRATS ASSURANCES EMPLOYES IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {PdfChecker.map((el)=>el.folderName.toString() === "sispi") ? null : <Tab className="redColorStyling">⚠️ SISPI IS MISSING / MANQUANT</Tab>}
+                  {PdfChecker.map((el)=>el.folderName.toString() === "document_de_represntation") ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ DOCUMENT DE REPRESENTANCE / REPRESENTATION IS MISSING /
+                      MANQUANT
+                    </Tab>
+                  )}
+                  {PdfChecker.map((el)=>el.folderName.toString() === "offre_signee") ? null : (
+                    <Tab className="redColorStyling">⚠️ OFFRE SIGNEE / QUOTES IS MISSING / MANQUANT</Tab>
+                  )}
+                  {PdfChecker.map((el)=>el.folderName.toString() === "attestations_societe_intermann") ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ ATTESTATIONS SOCIETE INTERMANN WORK S.R.L IS MISSING /
+                      MANQUANT
+                    </Tab>
+                  )}
+                  {PdfChecker.map((el)=>el.folderName.toString() === "cvs") ? null : <Tab className="redColorStyling">⚠️ CVS IS MISSING / MANQUANT</Tab>}
+                  {PdfChecker.map((el)=>el.folderName.toString() === "autres_documents") ? null : (
+                    <Tab className="redColorStyling">⚠️ AUTRES DOCUMENTS / OTHER IS MISSING / MANQUANT</Tab>
+                  )}
+                  {PdfChecker.map((el)=>el.folderName.toString() === "factures_payes") ? null : (
+                    <Tab className="redColorStyling">⚠️ FACTURES IS MISSING / MANQUANT</Tab>
+                  )}
+                  {PdfChecker.map((el)=>el.folderName.toString() === "rapport_activite") ? null : (
+                    <Tab className="redColorStyling">⚠️ RAPPORT ACTIVITE IS MISSING / MANQUANT</Tab>
+                  )}
+                  {PdfChecker.map((el)=> el.folderName.toString() === "offre_envoye_et_nonsigne") ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ OFFRE ENVOYE ET NON SIGNE IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                  {PdfChecker.map((el)=>el.folderName.toString() === "fiche_medicale") ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ FICHE MEDICALE IS MISSING / MANQUANT
+                    </Tab>
+                  )}
+                    {PdfChecker.map((el)=>el.folderName.toString() === "reges") ? null : (
+                    <Tab className="redColorStyling"> ⚠️ REGES IS MISSING / MANQUANT</Tab>
+                  )}
+                    {PdfChecker.map((el)=>el.folderName.toString() === "fiche_de_mise_a_disposition") ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ FICHE DE MISE A DISPOSITION / MANQUANT
+                    </Tab>
+                  )}
+                </Tabs>
+              </div>
+            </div> */}
         </>
     )
 }export default PDFBoxClient;

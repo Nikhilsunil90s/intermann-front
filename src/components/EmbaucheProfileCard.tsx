@@ -31,11 +31,11 @@ const navigate = useNavigate();
     const candidatMotivationIcons = [{ icon: "", motivation: 'No Motivation!' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
     const viewFullProfile=()=>{
      localStorage.setItem('embauch', JSON.stringify(props.props));
-     window.open("/embauchprofile" ,"_blank")
+     window.open("/embauchlist/embauchprofile" ,"_blank")
     }
     let data = {profileData:props.props,path:"/embauchlist"}
     const editCandidatProfile = () => {
-      navigate("/editInProgress", { state: data});
+      navigate("/embauchlist/editInProgress", { state: data});
     };
     const MoreOption=(e:any)=>{
       if(e.value=="Edit Profile"){

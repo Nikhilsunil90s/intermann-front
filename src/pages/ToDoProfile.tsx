@@ -146,7 +146,7 @@ const fetchProfilesClients = async () => {
 };
 
 
-  let data={profileData:profile ,path:"/todoprofile"}
+  let data={profileData:profile ,path:"/todolist/todoprofile"}
 
  const deleteCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
   let headers = {
@@ -183,7 +183,7 @@ const fetchRecommendations = async (candidatSector: string) => {
     .catch(err => err)
 }
   const editCandidatProfile = () => {
-    navigate("/editToDo", { state: data });
+    navigate("/todolist/editToDo", { state: data });
   };
   const handleImageUpload = () => {
     hiddenImageInput.current.click();
@@ -231,7 +231,7 @@ const fetchRecommendations = async (candidatSector: string) => {
 
      
             setTimeout(()=>{
-              window.location.href = "/todoprofile"
+              window.location.href = "/todolist/todoprofile"
             },2000)
           } else {
             notifyDocumentUploadError()
@@ -725,7 +725,7 @@ className="SelectBtn"
                 {
                   PDFModal ?
                   
-                  <PDFGenerate props={profile}   LinkModal={setDocuSignModal}  closeModal={setPDFModal} path="/todoprofile" />
+                  <PDFGenerate props={profile}   LinkModal={setDocuSignModal}  closeModal={setPDFModal} path="/todolist/todoprofile" />
                   : 
                   null
                 }

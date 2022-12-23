@@ -11,7 +11,7 @@ const dateDu = new Date(clientContract.debut_date)
 const FinM = new Date(clientContract.date_fin_mission)
 const Editdata = { state: props, path:path };
 const editClientProfile = () => {
-    navigate("/clientToDoEdit", { state: Editdata });
+    navigate("/clientTodo/clientToDoEdit", { state: Editdata });
   };
     return(<>
  <div className="row p-1">

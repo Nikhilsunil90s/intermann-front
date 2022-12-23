@@ -597,7 +597,7 @@ const onSubmitRates=(e)=>{
                 console.log(respdata);
                 notifyPhotoUploadSuccess()
                 setTimeout(() => {
-                    window.location.href = "/archivedClientEditprofile"
+                    window.location.href = "/archived/archivedClientEditprofile"
                 }, 1500)
             }).catch(err => {
                 notifyPhotoUploadError()

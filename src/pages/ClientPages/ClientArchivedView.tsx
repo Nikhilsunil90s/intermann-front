@@ -201,9 +201,9 @@ function ArchivedViewPage() {
     hiddenImageInput.current.click();
   };
 
-  let EditData ={state:profile,path:"/archivedClientSeeprofile"}
+  let EditData ={state:profile,path:"/archived/archivedClientSeeprofile"}
   const editClientProfile = () => {
-    navigate("/archivedClientEditprofile", { state: EditData });
+    navigate("/archived/archivedClientEditprofile", { state: EditData });
   };
 
   // DOC Upload //\
@@ -355,7 +355,7 @@ function ArchivedViewPage() {
             notifyDocumentUploadSuccess();
 
             setTimeout(() => {
-              window.location.href = "/archivedClientSeeprofile";
+              window.location.href = "/archived/archivedClientSeeprofile";
             }, 2000);
           } else {
             notifyDocumentUploadError();
@@ -726,7 +726,7 @@ function ArchivedViewPage() {
             <div className="col-12 Social-CardClient mt-1 ">
               {clientContract ? (
                 <>
-                <ClientContract  props={profile} path="/archivedClientEditprofile"     />
+                <ClientContract  props={profile} path="/archived/archivedClientEditprofile"     />
                 </>
               ) : (
                 <div className="col-12 d-flex justify-content-center align-items-center py-2">
@@ -747,7 +747,7 @@ function ArchivedViewPage() {
                     />
                   ) : null}
                   {PDFModal ? (
-                    <PDFModalClient props={profile} closeModal={setPDFModal} LinkModal={setDocuSignModal} path="/archivedClientSeeprofile" />
+                    <PDFModalClient props={profile} closeModal={setPDFModal} LinkModal={setDocuSignModal} path="/archived/archivedClientSeeprofile" />
                   ) : null}
                    {
         DocumentSignModal ? 

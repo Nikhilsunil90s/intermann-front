@@ -72,7 +72,7 @@ function App() {
           />
           {/* <Route path="/todolist" element={<Sidebar><ListTodo /></Sidebar>} /> */}
           <Route
-            path={"/todoprofile"}
+            path={"/todolist/todoprofile"}
             element={
               <Sidebar>
                 <PrivateRoute Component={ToDoProfile} />{" "}
@@ -89,7 +89,7 @@ function App() {
             }
           />
           <Route
-            path={"/embauchprofile"}
+            path={"/embauchlist/embauchprofile"}
             element={
               <Sidebar>
                 <PrivateRoute Component={ProgressCard} />{" "}
@@ -107,7 +107,7 @@ function App() {
             }
           />
           <Route
-            path={"/archivedprofile"}
+            path={"/archivedlist/archivedprofile"}
             element={
               <Sidebar>
                
@@ -146,7 +146,7 @@ function App() {
           />
 
           <Route
-            path={"/editTodo"}
+            path={"/todolist/editTodo"}
             element={
               <Sidebar>
                
@@ -155,7 +155,7 @@ function App() {
             }
           />
           <Route
-            path={"/editInProgress"}
+            path={"/embauchlist/editInProgress"}
             element={
               <Sidebar>
                
@@ -164,7 +164,7 @@ function App() {
             }
           />
           <Route
-            path={"/editArchived"}
+            path={"/archivedlist/editArchived"}
             element={
               <Sidebar>
                
@@ -173,7 +173,7 @@ function App() {
             }
           />
           <Route
-            path={"/editPreSelected"}
+            path={"/preSelected/editPreSelected"}
             element={
               <Sidebar>
                 <PrivateRoute Component={PreSelectedEdit} />
@@ -237,7 +237,7 @@ function App() {
           />
 
           <Route
-            path={"/clientToDoProfile"}
+            path={"/clientTodo/clientToDoProfile"}
             element={
               <Sidebar>
                 <PrivateRoute Component={ClientView} />
@@ -245,7 +245,7 @@ function App() {
             }
           />
           <Route
-            path={"/clientInProgressProfile"}
+            path={"/clientProgress/clientInProgressProfile"}
             element={
               <Sidebar>
                 <PrivateRoute Component={ClientProgressView} />
@@ -254,7 +254,7 @@ function App() {
           />
 
           <Route
-            path={"/clientSigned"}
+            path={"/clientContract/clientSigned"}
             element={
               <Sidebar>
                 <PrivateRoute Component={Signed} />
@@ -271,7 +271,7 @@ function App() {
           />
 
           <Route
-            path={"/clientToDoEdit"}
+            path={"/clientTodo/clientToDoEdit"}
             element={
               <Sidebar>
                 <PrivateRoute Component={ClientTodoEdit} />
@@ -279,7 +279,7 @@ function App() {
             }
           />
           <Route
-            path={"/clientInProgressEdit"}
+            path={"/clientProgress/clientInProgressEdit"}
             element={
               <Sidebar>
                 <PrivateRoute Component={ClientinProgressEdit} />
@@ -297,7 +297,7 @@ function App() {
             }
           />
           <Route
-            path={"/preSelectedView"}
+            path={"/preSelected/preSelectedView"}
             element={
               <Sidebar>
                 <PrivateRoute Component={PreSelectedView} />
@@ -306,7 +306,7 @@ function App() {
           />
 
           <Route
-            path={"/archivedClientSeeprofile"}
+            path={"/archived/archivedClientSeeprofile"}
             element={
               <Sidebar>
                 <PrivateRoute Component={ClientArchivedView} />
@@ -314,7 +314,7 @@ function App() {
             }
           />
           <Route
-            path={"/archivedClientEditprofile"}
+            path={"/archived/archivedClientEditprofile"}
             element={
               <Sidebar>
                 <PrivateRoute Component={ClientArchivedEdit} />
@@ -323,7 +323,7 @@ function App() {
           />
 
           <Route
-            path={"/ClientContractEditprofile"}
+            path={"/clientContract/ClientContractEditprofile"}
             element={
               <Sidebar>
                 <PrivateRoute Component={ClientSignedEdit} />

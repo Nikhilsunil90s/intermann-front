@@ -108,9 +108,9 @@ function ProgressCard() {
 },[state])
 
 
-  let data = {profileData:profile,path:"/embauchprofile"}
+  let data = {profileData:profile,path:"/embauchlist/embauchprofile"}
     const editCandidatProfile = () => {
-      navigate("/editInProgress", { state: data });
+      navigate("/embauchlist/editInProgress", { state: data });
     };
 
     
@@ -266,7 +266,7 @@ function ProgressCard() {
             notifyDocumentUploadSuccess()
             // setCandidatImage(datares.data.filename)
             setTimeout(()=>{
-              window.location.href = "/embauchprofile"
+              window.location.href = "/embauchlist/embauchprofile"
             },2000)
           } else {
             notifyDocumentUploadError()
@@ -574,7 +574,7 @@ className="SelectBtn"
                          {
                   PDFModal ?
                   
-                  <PDFGenerate props={profile}  LinkModal={setDocuSignModal} closeModal={setPDFModal} path="/embauchprofile"/>
+                  <PDFGenerate props={profile}  LinkModal={setDocuSignModal} closeModal={setPDFModal} path="/embauchlist/embauchprofile"/>
                   : 
                   null
                 }  {
@@ -681,7 +681,7 @@ className="SelectBtn"
               {
                   JSON.stringify(profile).includes(JSON.stringify(profile.candidatContract))  && profile.candidatContract !== null ?
                   <>
-                  <CandidateContract  props={profile} path={"/editInProgress"}   />
+                  <CandidateContract  props={profile} path={"/embauchlist/editInProgress"}   />
                          
                             </>
                                    : 

@@ -30,12 +30,12 @@ const [endStatus]=useState(props.data.jobEndDate.slice(0,4).includes("-"))
 
 
      const editClientProfile = () => {
-        navigate("/archivedClientEditprofile", { state: props.data });
+        navigate("/archived/archivedClientEditprofile", { state: props.data });
       };
     const viewFullProfile = () => {
         // navigate("/archivedClientSeeprofile", { state: props.data });
         localStorage.setItem('archive', JSON.stringify(props.data));
-        window.open("/archivedClientSeeprofile", "_blank")
+        window.open("/archived/archivedClientSeeprofile", "_blank")
     }
 
      const MoreOption=(e:any)=>{

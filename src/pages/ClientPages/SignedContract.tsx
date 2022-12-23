@@ -285,10 +285,10 @@ function Signed() {
     }
   };
 
-let Editdata ={state:profile,path:"/clientSigned"}
+let Editdata ={state:profile,path:"/clientContract/clientSigned"}
 
   const editClientProfile = () => {
-    navigate("/ClientContractEditprofile", { state:Editdata });
+    navigate("/clientContract/ClientContractEditprofile", { state:Editdata });
   };
 
   // DOC Upload //\
@@ -337,7 +337,7 @@ let Editdata ={state:profile,path:"/clientSigned"}
             notifyDocumentUploadSuccess();
 
             setTimeout(() => {
-              window.location.href = "/clientSigned";
+              window.location.href = "/clientContract/clientSigned";
             }, 2000);
           } else {
             notifyDocumentUploadError();
@@ -398,7 +398,7 @@ let Editdata ={state:profile,path:"/clientSigned"}
 
   const viewFullProfile = (data) => {
     localStorage.setItem("embauch", JSON.stringify(data));
-    window.open("/embauchprofile", "_blank");
+    window.open("/embauchlist/embauchprofile", "_blank");
   };
 
   const handleImageUpload = () => {
@@ -1476,7 +1476,7 @@ JobAdsCards.length > 0 ?
                     <ArchivedClientModal
                       props={profile}
                       closeModal={setShowArchiveModal}
-                      path={"/clientToDoProfile"}
+                      path={"/clientTodo/clientToDoProfile"}
                     />
                   ) : null}
                   <p className="btn-Down text-center">Si plus d’actualité</p>
@@ -1537,7 +1537,7 @@ JobAdsCards.length > 0 ?
             </div>
             <div className="col-12 Social-CardClient mt-1 ">
               {clientContract ? (
-                <ClientContract  props={profile} path="/ClientContractEditprofile"     />
+                <ClientContract  props={profile} path="/clientContract/ClientContractEditprofile"     />
               ) : (
                 <div className="col-12 d-flex justify-content-center align-items-center py-2">
                   <ErrorLoader />
@@ -1634,7 +1634,7 @@ JobAdsCards.length > 0 ?
           </div>
         </div>
         {PDFModal ? (
-                    <PDFModalClient props={profile} closeModal={setPDFModal}  LinkModal={setDocuSignModal} path="/clientSigned" />
+                    <PDFModalClient props={profile} closeModal={setPDFModal}  LinkModal={setDocuSignModal} path="/clientContract/clientSigned" />
                   ) : null}
                   
                    {
@@ -1664,7 +1664,7 @@ JobAdsCards.length > 0 ?
                     <ArchivedModal
                     props={DeleteEmp}
                     closeModal={setDeleteModal}
-                    path={"/clientSigned"}
+                    path={"/clientContract/clientSigned"}
                     
                   />
                     :
