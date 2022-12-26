@@ -118,7 +118,7 @@ useEffect(()=>{
   },[AllJobs,jobCardActive])
 
 const  fetchUsers=async(TabName)=>{
-return    await fetch(API_BASE_URL + `allAds/?market=${TabName}`,{
+return   await fetch(API_BASE_URL + `allAds/?market=${TabName}`,{
     method: "GET",
     headers: {
       "Accept": 'application/json',

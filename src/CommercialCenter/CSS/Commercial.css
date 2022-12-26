@@ -1,0 +1,182 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap");
+
+.headerCommercial {
+  background: #ffffff;
+  box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
+  border-radius: 10px;
+  padding: 20px;
+}
+.headerCommercial p {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 41px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #252726;
+}
+.headerCommercial span {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  color: #373a3c;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.btnAddLeads {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 165px;
+  height: 39px;
+  background: #3f76e2;
+  border-radius: 100px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  border: 0px;
+}
+
+.leadClientCard {
+  background: #f9f9f9;
+  box-shadow: 0px 4px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+.colorBoxLead {
+  background: #e7e7e7;
+  border-radius: 10px 0px 0px 0px;
+  padding: 10px 8px;
+  border-right: 1px solid #ffffff;
+}
+.colorBoxLead p {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 21px;
+  /* identical to box height */
+
+  color: #032339;
+}
+.grayboxLeads {
+  background: #e7e7e7;
+  padding: 10px 4px 10px 11px;
+  border-right: 1px solid #ffffff;
+}
+.grayboxLeads p {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 21px;
+  /* identical to box height */
+
+  color: #032339;
+}
+.BoxHeight {
+  background: #f9f9f9;
+  padding: 10px 15px 10px 16px;
+  display: flex;
+}
+.BoxHeight span {
+  background: #efefef;
+  display: flex;
+  padding: 5px 5px;
+  width: 100%;
+  border-radius: 20px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+
+  color: #032339;
+}
+.LeadsTopHeading{
+    font-family: 'Roboto';
+font-style: normal;
+font-weight: 700;
+font-size: 28px;
+line-height: 33px;
+/* identical to box height */
+
+display: flex;
+align-items: center;
+
+color: #000000;
+}
+
+.clientLeads{
+    border-color: hsl(0, 0%, 80%);
+}
+
+
+/* radio Btn */
+
+
+.inputLeadsClient[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+    position: absolute;
+    left: -9999px;
+}
+.inputLeadsClient[type="radio"]:checked + label,
+.inputLeadsClient[type="radio"]:not(:checked) + label
+{
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: #666;
+}
+.inputLeadsClient[type="radio"]:checked + label:before,
+.inputLeadsClient[type="radio"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ddd;
+    border-radius: 100%;
+    background: #fff;
+    border: 1px solid #ef9904;
+
+}
+.inputLeadsClient[type="radio"]:checked + label:after,
+.inputLeadsClient[type="radio"]:not(:checked) + label:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #ef9904;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+.inputLeadsClient[type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+.inputLeadsClient[type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}

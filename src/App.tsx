@@ -55,6 +55,8 @@ import AddLeads from "./Leads/AddLeads"
 import JobAdsList from "./JobAdsCenter/JobAdsList";
 import AddReaserch from "./JobAdsCenter/AddReaserch";
 import EditPage from "./JobAdsCenter/EditPage"
+import AddLeadsCom from './CommercialCenter/pages/AddLeads'
+import MainCenter from "./CommercialCenter/pages/MainCenter";
 function App() {
   return (
     <Provider store={configureStore}>
@@ -405,6 +407,32 @@ function App() {
           />
 
           {/* End Job Ads */}
+
+          {/* commercialCenter */}
+
+          <Route
+            path={"commercialCenter/AddLeads"}
+            element={
+              <Sidebar>
+                <PrivateRoute Component={AddLeadsCom} />
+              </Sidebar>
+            }
+          />
+           <Route
+            path={"/commercialCenter"}
+            element={
+              <Sidebar>
+                <PrivateRoute Component={MainCenter} />
+              </Sidebar>
+            }
+          />
+
+
+
+
+
+
+          {/* end commercialCenter */}
           {/* Global Search Routes  */}
         
            <Route 

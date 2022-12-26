@@ -41,7 +41,9 @@ function Sidebar(props: any) {
     }   if(name === "Center"){
       navigate("/JobAdsCenter")
     }
-
+    if(name === "Com"){
+      navigate("/commercialCenter")
+    }
     setActiveTab(name)
   }
 
@@ -282,6 +284,25 @@ function Sidebar(props: any) {
                       <img className="logoutImage" src={require("../images/CombinedShape.svg").default} />
                     </span>
                     Job Ads Center
+                    <Toaster
+                      position="top-right"
+                    />
+                  </Link>
+                </motion.li>
+                <motion.li
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.7, delay: 0.10 }}
+                          variants={{
+                            visible: { opacity: 1, x: 0 },
+                            hidden: { opacity: 0, x: -50 }
+                          }} style={{border:"none",borderBottom:"0px",borderLeft:"0px" ,padding:"12px",paddingLeft:"23px"}}  onClick={()=>OnClickColorChange("Com")}  className={window.location.href.includes("commercialCenter")  ? "sideBarBackGactive"  : " cursor-pointer sideBarBackG"}  >
+                  <Link to="/commercialCenter" className="signOut" aria-current="page"  >
+                    <span className="pe-2">
+                      <img className="logoutImage" src={require("../images/CombinedShape.svg").default} />
+                    </span>
+                    Commercial Center
                     <Toaster
                       position="top-right"
                     />
