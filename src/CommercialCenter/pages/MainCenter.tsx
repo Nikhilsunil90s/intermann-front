@@ -4,14 +4,15 @@ import Header from "../components/Header";
 import LeadCard from "../components/LeadsCard";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import { motion } from "framer-motion";
+import Warning from '../../components/Loader/SearchBarError' 
 
 function MainCenter(){
 
     const [Leads,setLeads]=useState([])
-
+    const [update,setUpdate]=useState(false)
+    const [loader,setLoader]=useState(false)
   const  fetchLeads=async()=>{
     //  setLeadScHeck(false)
-     
     await fetch(API_BASE_URL + `getAllCommercialLeads`,{
       method: "GET",
       headers: {
@@ -24,12 +25,12 @@ function MainCenter(){
       .then(resData => {
          if(resData.status){
             setLeads([...resData.data])
-        console.log(resData)
-        
+            setUpdate(false)
+            setLoader(true)
          }else{
-         
+            setUpdate(false)
             setLeads([])
-      
+            setLoader(true)
 
          }
       })
@@ -38,41 +39,59 @@ function MainCenter(){
 
     useEffect(()=>{
         fetchLeads()
-    },[])
+    },[update])
     return(<>
      <section className="" style={{marginTop:"90px"}}>
         <div className="px-1">
         <Header   />
-
+      
         </div>
-        <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ rotate: 0, scale:1}}
-                  transition={{
-                    type: "spring",
-                    stiffness: 30,
-                    damping: 15
-                  }} className="container-fluid">
+        <div
+                className="container-fluid">
         <div className="row px-1">
-            <div className="col-12 p-1 my-1" style={{background:"#ffff",borderRadius:"22px"}}>
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ rotate: 0, scale:1}}
+              transition={{
+                type: "spring",
+                stiffness: 30,
+                damping: 15
+              }} 
+               className="col-12 p-1 my-1" style={{background:"#ffff",borderRadius:"22px"}}>
             <Filter   />
-            </div>
-            <div className="col-12 py-1 px-2 my-1" style={{background:"#ffff",borderRadius:"22px",overflowX:"scroll"}}>
+            </motion.div>
+            <div className="col-12 py-1 px-2 my-1" style={{background:"#ffff",borderRadius:"22px"}}>
+              <div className="row">
+              <div className="col-8">
                 <p className="LeadsTopHeading">Leads à traiter</p>
+                </div>
+                <div className="col-4 d-flex align-items-center justify-content-end">
+                <p className="TotalLeads">Il y a {Leads.length} leads en tout , et nouveaux leads non contacté</p>
+                </div>
+                </div>
                 {
+                  loader ?
                     Leads.length > 0 ?
                      Leads.map((el,i)=>(
-                      <LeadCard props={el} key={i} length={i}  />
+                      <LeadCard props={el} key={i} length={i} update={setUpdate} />
 
                      ))
                      :
                      <>
-                     <p>Please Wait!!</p>
+                      <div className="col-12 my-2 d-flex align-items-center justify-content-center">
+                      <Warning  /> 
+                     <p 
+                     className="TotalLeads mb-0" style={{fontSize:"15px"}}>No Leads!!</p>
+                     </div>
                      </>
+                      :
+                      <div className="col-12 my-2 d-flex align-items-center justify-content-center">
+                      <span className="Leads002"></span>
+                      </div>
                 }
             </div>
         </div>
-    </motion.div>
+    </div>
     </section>
     </>)
 }

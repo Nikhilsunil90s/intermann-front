@@ -2,6 +2,7 @@ import React,{useState} from "react";
 import Header from "../components/Header";
 import { motion } from "framer-motion";
 import { API_BASE_URL } from "../../config/serverApiConfig";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function AddLeads (){
 
@@ -13,12 +14,14 @@ export default function AddLeads (){
         companyNote:"",
         agencyNote:"",
     })
+    const [btn,setBtn]=useState(false)
 
     const onInputFormChange=(e)=>{
         setData({...data,[e.target.name]:e.target.value})
       }
 
       const SubmitForm=async(e)=>{
+        setBtn(true)
         e.preventDefault()
          await fetch(API_BASE_URL + "addCommercialLead",{
             method: "POST",
@@ -31,14 +34,17 @@ export default function AddLeads (){
            })
            .then(res=>res.json())
            .then(res=>{if(res.status){
-        //    toast.success(res.message)
-        //    setBtnDS(false)
+            setBtn(false)
+            toast.success(res.message)
            setTimeout(()=>{
             window.location.reload()
            },2000)
            }else{
             // toast.error(res.message)
             // setBtnDS(false)
+            toast.error(res.message)
+            setBtn(false)
+
            }
             
            })
@@ -48,6 +54,7 @@ export default function AddLeads (){
     
       
     return(<>
+    <Toaster  position="top-right"  containerStyle={{zIndex:"99999999999999"}} />
     <section className="px-1" style={{marginTop:"90px"}}>
     <Header   />
     <div className="container-fliud">
@@ -126,7 +133,7 @@ export default function AddLeads (){
                          </textarea>
                      </div>
                      <div className="col-12 d-flex justify-content-end mt-2">
-                             <button type="submit" className="btnAddLeads" >
+                             <button type="submit" className="btnAddLeads" style={{background:btn ? "#383839" : "",color:btn ? "#ffff" : ""}} disabled={btn} >
                              Ajouter le lead
                              </button>
                          

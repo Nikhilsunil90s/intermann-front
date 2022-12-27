@@ -300,7 +300,7 @@ function Sidebar(props: any) {
                           }} style={{border:"none",borderBottom:"0px",borderLeft:"0px" ,padding:"12px",paddingLeft:"23px"}}  onClick={()=>OnClickColorChange("Com")}  className={window.location.href.includes("commercialCenter")  ? "sideBarBackGactive"  : " cursor-pointer sideBarBackG"}  >
                   <Link to="/commercialCenter" className="signOut" aria-current="page"  >
                     <span className="pe-2">
-                      <img className="logoutImage" src={require("../images/CombinedShape.svg").default} />
+                      <img className="logoutImage" src={require("../images/comIcon.svg").default} />
                     </span>
                     Commercial Center
                     <Toaster

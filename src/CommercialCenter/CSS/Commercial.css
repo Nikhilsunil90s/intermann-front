@@ -61,12 +61,14 @@
   border-radius: 10px 0px 0px 0px;
   padding: 10px 8px;
   border-right: 1px solid #ffffff;
+  height: 50px;
+
 }
 .colorBoxLead p {
   font-family: "Poppins";
   font-style: normal;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 21px;
   /* identical to box height */
 
@@ -76,12 +78,13 @@
   background: #e7e7e7;
   padding: 10px 4px 10px 11px;
   border-right: 1px solid #ffffff;
+  height: 50px;
 }
 .grayboxLeads p {
   font-family: "Poppins";
   font-style: normal;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 21px;
   /* identical to box height */
 
@@ -97,11 +100,12 @@
   display: flex;
   padding: 5px 5px;
   width: 100%;
+  height: 35px;
   border-radius: 20px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 15px;
 
   color: #032339;
@@ -125,7 +129,61 @@ color: #000000;
 }
 
 
+
+
 /* radio Btn */
+
+
+
+
+.check-box {
+  transform: scale(2);
+}
+
+.check-box input[type="checkbox"] {
+  position: relative;
+  appearance: none;
+  width: 26px;
+  height: 8px;
+  background: #ccc;
+  border-radius: 50px;
+  box-shadow: inset 0 0 5px rgb(0 0 0 / 20%);
+  cursor: pointer;
+  transition: 0.4s;
+}
+.ToggleLabel{
+  font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 14px;
+display: flex;
+align-items: flex-end;
+padding-left: 5px;
+color: rgba(0, 0, 0, 0.87);
+}
+.check-box input:checked[type="checkbox"] {
+    background: #60aeee;
+}
+
+.check-box input[type="checkbox"]::after {
+  position: absolute;
+  content: "";
+  width: 12px;
+  height: 12px;
+  top: -2px;
+  left: 0;
+  background: #2C98F0;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgb(0 0 0 / 20%);
+  transform: scale(1.1);
+  transition: 0.4s;
+
+}
+
+.check-box input:checked[type="checkbox"]::after {
+    left: 54%;
+}
 
 
 .inputLeadsClient[type="radio"]:checked,
@@ -179,4 +237,44 @@ color: #000000;
     opacity: 1;
     -webkit-transform: scale(1);
     transform: scale(1);
+}
+.TotalLeads{
+  font-family: 'Roboto';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 14px;
+/* identical to box height */
+
+display: flex;
+align-items: center;
+}
+
+
+/* Loader */
+
+
+.Leads002 {
+  width: 150px;
+  height: 150px;
+  background: #fff;
+  border-radius: 50%;
+  position: relative;
+  animation: roll 1s ease-in-out infinite alternate;
+}
+.Leads002:after{
+  content:"";
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  border: 8px solid ;
+  border-color: #ff3d00 transparent;
+}
+@keyframes roll {
+  0% {
+    transform: translateX(-150%) rotate(0deg) ;
+  }
+  100% {
+    transform:  translateX(150%) rotate(360deg);
+  }
 }
