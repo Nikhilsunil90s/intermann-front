@@ -213,3 +213,26 @@ color: #000000;
 .sideBarBackGactive a{
     color: #FE8700 ;
 }
+
+/* Mini SideBar */
+
+.ulStyleSideBar{
+    list-style: none;
+}
+.ulStyleSideBar li{
+padding: 10px;
+}
+.activeDiv{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F6F7F9;
+    border-radius: 5px;
+
+}
+.FilterMinibar{
+    filter:  invert(50%) sepia(97%) saturate(1413%) hue-rotate(0deg) brightness(101%) contrast(106%);
+
+}

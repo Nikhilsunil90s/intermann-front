@@ -9,7 +9,7 @@ import Profiles from "../components/Loader/SearchEmp"
 
 let FilDataCName
 let FilDataCNName
-const Header = () => {
+const Header = (props) => {
   const [ModalOpen,setModalOpen]=useState(false)
   const [value,setValue]=useState("")
   const [SearchOpen,setSearchOpen]=useState(false)
@@ -213,7 +213,7 @@ else if(e.target.value == ""){
     <>
 
                 <div className="col-12 px-0 position" >
-                  <div className="row m-0 mainRow">
+                  <div className="row m-0 mainRow" style={{width:props.onHover ?  "" : "95%"}}>
                     <div className="col-xxl-5 col-xl-5 col-lg-5 col-md-5">
                    <div className="row">
                   <div className="d-flex">
