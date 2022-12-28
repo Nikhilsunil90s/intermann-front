@@ -63,197 +63,13 @@ function LeadCard(props) {
     }),
   };
 
-  const [premier, setpremier] = useState([
-    //   {
-    //   value: "Patrick R",
-    //   label:<>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name={`premier${props.length}`}  />
-    //   <label htmlFor="test1 mb-0">Patrick R</label>
-    // </p></>,
-    //   name:`premier${props.length}`,
-    //   color: "#FF8B00",
-    // },
-    // {
-    //   value: "Jeremy R",
-    //   label: <>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name={`premier${props.length}`}   />
-    //   <label htmlFor="test1 mb-0">Jeremy R</label>
-    // </p></>,
-    //   name: `premier${props.length}`,
-    //   color: "#FF8B00",
-    // },
-    // {
-    //   value: "Morgan R",
-    //   label: <>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name={`premier${props.length}`}   />
-    //   <label htmlFor="test1 mb-0">Morgan R</label>
-    // </p></>,
-    //   name: `premier${props.length}`,
-    //   color: "#FF8B00",
-    // },
-    // {
-    //   value: "Patrick B",
-    //   label:<>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name={`premier${props.length}`}   />
-    //   <label htmlFor="test1 mb-0">Patrick B</label>
-    // </p></> ,
-    //   name: `premier${props.length}`,
-    //   color: "#FF8B00",
-    // },
-    // {
-    //   value: "Personne",
-    //   label: <>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name={`premier${props.length}`}   />
-    //   <label htmlFor="test1 mb-0">Personne</label>
-    // </p></>,
-    //   name: `premier${props.length}`,
-    //   color: "#FF8B00",
-    // },
-  ]) as any;
+  const [premier, setpremier] = useState([]) as any;
 
-  const [deuxième, setDeuxieme] = useState([
-    //   {
-    //   value: "Patrick R",
-    //   label:<>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name={`deuxième${props.length}`}  />
-    //   <label htmlFor="test1 mb-0">Patrick R</label>
-    // </p></>,
-    //   name: `deuxième${props.length}`,
-    //   color: "#FF8B00",
-    // },
-    // {
-    //   value: "Jeremy R",
-    //   label: <>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name={`deuxième${props.length}`}  />
-    //   <label htmlFor="test1 mb-0">Jeremy R</label>
-    // </p></>,
-    //   name: `deuxième${props.length}`,
-    //   color: "#FF8B00",
-    // },
-    // {
-    //   value: "Morgan R",
-    //   label: <>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name={`deuxième${props.length}`}  />
-    //   <label htmlFor="test1 mb-0">Morgan R</label>
-    // </p></>,
-    //   name: `deuxième${props.length}`,
-    //   color: "#FF8B00",
-    // },
-    // {
-    //   value: "Patrick B",
-    //   label:<>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name={`deuxième${props.length}`}  />
-    //   <label htmlFor="test1 mb-0">Patrick B</label>
-    // </p></> ,
-    //   name: `deuxième${props.length}`,
-    //   color: "#FF8B00",
-    // },
-    // {
-    //   value: "Personne",
-    //   label: <>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name={`deuxième${props.length}`}  />
-    //   <label htmlFor="test1 mb-0">Personne</label>
-    // </p></>,
-    //   name:  `deuxième${props.length}`,
-    //   color: "#FF8B00",
-    // },
-  ]) as any;
+  const [deuxième, setDeuxieme] = useState([]) as any;
 
-  const [appelé, setAppele] = useState([
-    //    {
-    //   value: "Patrick R",
-    //   label:<>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name="radio-group"  />
-    //   <label htmlFor="test1 mb-0">Patrick R</label>
-    // </p></>,
-    //   name:  `appelé${props.length}`,
-    //   color: "#FF8B00",
-    // },
-    // {
-    //   value: "Jeremy R",
-    //   label: <>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name="radio-group"  />
-    //   <label htmlFor="test1 mb-0">Jeremy R</label>
-    // </p></>,
-    //   name:  `appelé${props.length}`,
-    //   color: "#FF8B00",
-    // },
-    // {
-    //   value: "Morgan R",
-    //   label: <>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name="radio-group"  />
-    //   <label htmlFor="test1 mb-0">Morgan R</label>
-    // </p></>,
-    //   name:  `appelé${props.length}`,
-    //   color: "#FF8B00",
-    // },
-    // {
-    //   value: "Patrick B",
-    //   label:<>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name="radio-group"  />
-    //   <label htmlFor="test1 mb-0">Patrick B</label>
-    // </p></> ,
-    //   name:  `appelé${props.length}`,
-    //   color: "#FF8B00",
-    // },
-    // {
-    //   value: "Personne",
-    //   label: <>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name="radio-group"  />
-    //   <label htmlFor="test1 mb-0">Personne</label>
-    // </p></>,
-    //   name: `appelé${props.length}`,
-    //   color: "#FF8B00",
-    // },
-  ]) as any;
+  const [appelé, setAppele] = useState([]) as any;
 
-  const [responsable, setResponsable] = useState([
-    //   {
-    //   value: "Patrick R",
-    //   label:<>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name="radio-group"  />
-    //   <label htmlFor="test1 mb-0">Patrick R</label>
-    // </p></>,
-    //   name: `responsable${props.length}`,
-    //   color: "#FF8B00",
-    // },
-    // {
-    //   value: "Jeremy R",
-    //   label: <>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name="radio-group"  />
-    //   <label htmlFor="test1 mb-0">Jeremy R</label>
-    // </p></>,
-    //   name: `responsable${props.length}`,
-    //   color: "#FF8B00",
-    // },
-    // {
-    //   value: "Morgan R" ,
-    //   label: <>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name="radio-group"  />
-    //   <label htmlFor="test1 mb-0">Morgan R</label>
-    // </p></>,
-    //   name: `responsable${props.length}`,
-    //   color: "#FF8B00",
-    // },
-    // {
-    //   value: "Patrick B",
-    //   label:<>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name="radio-group"  />
-    //   <label htmlFor="test1 mb-0">Patrick B</label>
-    // </p></> ,
-    //   name: `responsable${props.length}`,
-    //   color: "#FF8B00",
-    // },
-    // {
-    //   value: "Personne",
-    //   label: <>  <p className="mb-0">
-    //   <input type="radio" className="inputLeadsClient" id="test1" name="radio-group"  />
-    //   <label htmlFor="test1 mb-0">Personne</label>
-    // </p></>,
-    //   name: `responsable${props.length}`,
-    //   color: "#FF8B00",
-    // },
-  ]) as any;
+  const [responsable, setResponsable] = useState([]) as any;
 
   const [userS, setUserS] = useState([]);
 
@@ -272,85 +88,6 @@ function LeadCard(props) {
       .then((resData) => resData)
       .catch((err) => err);
   };
-
-  useEffect(() => {
-    if (responsable.length == 0) {
-      let resp = [];
-      let premier = [];
-      let deuxième = [];
-      let appelé = [];
-      userS.map((el) => {
-        resp.push({
-          value: el._id,
-          name: `responsable${props.length}`,
-          label: (
-            <>
-              {" "}
-              <p className="mb-0">
-            
-                <label htmlFor="test1 mb-0">
-                  {el.username.toLocaleUpperCase()}
-                </label>
-              </p>
-            </>
-          ),
-          color: "#FF8B00",
-        });
-        premier.push({
-          value: el._id,
-          name: `premier${props.length}`,
-          label: (
-            <>
-              {" "}
-              <p className="mb-0">
-             
-                <label htmlFor="test1 mb-0">
-                  {el.username.toLocaleUpperCase()}
-                </label>
-              </p>
-            </>
-          ),
-          color: "#FF8B00",
-        });
-        deuxième.push({
-          value: el._id,
-          name: `deuxième${props.length}`,
-          label: (
-            <>
-              {" "}
-              <p className="mb-0">
-             
-                <label htmlFor="test1 mb-0">
-                  {el.username.toLocaleUpperCase()}
-                </label>
-              </p>
-            </>
-          ),
-          color: "#FF8B00",
-        });
-        appelé.push({
-          value: el._id,
-          name: `appelé${props.length}`,
-          label: (
-            <>
-              {" "}
-              <p className="mb-0">
-              
-                <label htmlFor="test1 mb-0">
-                  {el.username.toLocaleUpperCase()}
-                </label>
-              </p>
-            </>
-          ),
-          color: "#FF8B00",
-        });
-      });
-      setDeuxieme([...deuxième]);
-      setAppele([...appelé]);
-      setResponsable([...resp]);
-      setpremier([...premier]);
-    }
-  }, [responsable]);
 
   const [status, setStatus] = useState() as any;
 
@@ -373,12 +110,630 @@ function LeadCard(props) {
         }
       });
     }
+    setResponsable([
+      {
+        value: "BENJAMIN B",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name="radio-group"
+                checked={
+                  props.props.companyResponsable == "BENJAMIN B"
+                    ? true
+                    : false
+                }
+              />
+              <label htmlFor="test1 mb-0">BENJAMIN B</label>
+            </p>
+          </>
+        ),
+        name: `responsable${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "JEREMY R",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name="radio-group"
+                checked={
+                  props.props.companyResponsable == "JEREMY R" ? true : false
+                }
+              />
+              <label htmlFor="test1 mb-0">JEREMY R</label>
+            </p>
+          </>
+        ),
+        name: `responsable${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "PATRICK R",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name="radio-group"
+                checked={
+                  props.props.companyResponsable == "PATRICK R" ? true : false
+                }
+              />
+              <label htmlFor="test1 mb-0">PATRICK R</label>
+            </p>
+          </>
+        ),
+        name: `responsable${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "ADRIAN T",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name="radio-group"
+                checked={
+                  props.props.companyResponsable == "ADRIAN T" ? true : false
+                }
+              />
+              <label htmlFor="test1 mb-0">ADRIAN T</label>
+            </p>
+          </>
+        ),
+        name: `responsable${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "MORGAN R",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name="radio-group"
+                checked={
+                  props.props.companyResponsable == "MORGAN R" ? true : false
+                }
+              />
+              <label htmlFor="test1 mb-0">MORGAN R</label>
+            </p>
+          </>
+        ),
+        name: `responsable${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "PATRICK B",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name="radio-group"
+                checked={
+                  props.props.companyResponsable == "PATRICK B" ? true : false
+                }
+              />
+              <label htmlFor="test1 mb-0">PATRICK B</label>
+            </p>
+          </>
+        ),
+        name: `responsable${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "PERSONNE",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className={props.props.companyResponsable === "PERSONNE" ? "persoon" : `inputLeadsClient`}
+                id="test1"
+                name="radio-group"
+                checked={
+                  props.props.companyResponsable == "PERSONNE" ? true : false
+                }
+              />
+              <label htmlFor="test1 mb-0">PERSONNE</label>
+            </p>
+          </>
+        ),
+        name: `responsable${props.length}`,
+        color: "#ff0000",
+      },
+    ]);
+    setAppele([
+      {
+        value: "BENJAMIN B",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name="radio-group"
+                checked={
+                  props.props.contactedAfterOfferSentBy == "BENJAMIN B" ? true : false
+                }
+              />
+              <label htmlFor="test1 mb-0">BENJAMIN B</label>
+            </p>
+          </>
+        ),
+        name: `appelé${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "JEREMY R",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name="radio-group"
+                checked={
+                  props.props.contactedAfterOfferSentBy == "JEREMY R" ? true : false
+                }
+              />
+              <label htmlFor="test1 mb-0">JEREMY R</label>
+            </p>
+          </>
+        ),
+        name: `appelé${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "PATRICK R",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name="radio-group"
+                checked={
+                  props.props.contactedAfterOfferSentBy == "PATRICK R" ? true : false
+                }
+              />
+              <label htmlFor="test1 mb-0">PATRICK R</label>
+            </p>
+          </>
+        ),
+        name: `appelé${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "ADRIAN T",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name="radio-group"
+                checked={
+                  props.props.contactedAfterOfferSentBy == "ADRIAN T" ? true : false
+                }
+              />
+              <label htmlFor="test1 mb-0">ADRIAN T</label>
+            </p>
+          </>
+        ),
+        name: `appelé${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "MORGAN R",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name="radio-group"
+                checked={
+                  props.props.contactedAfterOfferSentBy == "MORGAN R" ? true : false
+                }
+              />
+              <label htmlFor="test1 mb-0">MORGAN R</label>
+            </p>
+          </>
+        ),
+        name: `appelé${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "PATRICK B",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name="radio-group"
+                checked={
+                  props.props.contactedAfterOfferSentBy == "PATRICK B" ? true : false
+                }
+              />
+              <label htmlFor="test1 mb-0">PATRICK B</label>
+            </p>
+          </>
+        ),
+        name: `appelé${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "PERSONNE",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className={props.props.companyResponsable === "PERSONNE" ? "persoon" : `inputLeadsClient`}
+                id="test1"
+                name="radio-group"
+                checked={
+                  props.props.contactedAfterOfferSentBy == "PERSONNE" ? true : false
+                }
+              />
+              <label htmlFor="test1 mb-0">PERSONNE</label>
+            </p>
+          </>
+        ),
+        name: `appelé${props.length}`,
+        color: "#ff0000",
+      },
+    ]);
+    setDeuxieme([
+      {
+        value: "BENJAMIN B",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name={`deuxième${props.length}`}
+                checked={props.props.contactedSecondTimeBy == "BENJAMIN B" ? true : false}
+              />
+              <label htmlFor="test1 mb-0">BENJAMIN B</label>
+            </p>
+          </>
+        ),
+        name: `deuxième${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "JEREMY R",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name={`deuxième${props.length}`}
+                checked={props.props.contactedSecondTimeBy == "JEREMY R" ? true : false}
+              />
+              <label htmlFor="test1 mb-0">JEREMY R</label>
+            </p>
+          </>
+        ),
+        name: `deuxième${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "PATRICK R",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name={`deuxième${props.length}`}
+                checked={props.props.contactedSecondTimeBy == "PATRICK R" ? true : false}
+              />
+              <label htmlFor="test1 mb-0">PATRICK R</label>
+            </p>
+          </>
+        ),
+        name: `deuxième${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "ADRIAN T",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name={`deuxième${props.length}`}
+                checked={props.props.contactedSecondTimeBy == "ADRIAN T" ? true : false}
+
+              />
+              <label htmlFor="test1 mb-0">ADRIAN T</label>
+            </p>
+          </>
+        ),
+        name: `deuxième${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "MORGAN R",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name={`deuxième${props.length}`}
+                checked={props.props.contactedSecondTimeBy == "MORGAN R" ? true : false}
+
+              />
+              <label htmlFor="test1 mb-0">MORGAN R</label>
+            </p>
+          </>
+        ),
+        name: `deuxième${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "PATRICK B",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name={`deuxième${props.length}`}
+                checked={props.props.contactedSecondTimeBy == "PATRICK B" ? true : false}
+
+              />
+              <label htmlFor="test1 mb-0">PATRICK B</label>
+            </p>
+          </>
+        ),
+        name: `deuxième${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "PERSONNE",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className={props.props.companyResponsable === "PERSONNE" ? "persoon" : `inputLeadsClient`}
+                id="test1"
+                name={`deuxième${props.length}`}
+                checked={props.props.contactedSecondTimeBy == "PERSONNE" ? true : false}
+
+              />
+              <label htmlFor="test1 mb-0">PERSONNE</label>
+            </p>
+          </>
+        ),
+        name: `deuxième${props.length}`,
+        color: "#ff0000",
+      },
+    ]);
+    setpremier([
+      {
+        value: "BENJAMIN B",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name={`premier${props.length}`}
+                checked={
+                  props.props.contactedFirstTimeBy == "BENJAMIN B"
+                    ? true
+                    : false
+                }
+              />
+              <label htmlFor="test1 mb-0">BENJAMIN B</label>
+            </p>
+          </>
+        ),
+        name: `premier${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "JEREMY R",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name={`premier${props.length}`}
+                checked={
+                  props.props.contactedFirstTimeBy == "JEREMY R" ? true : false
+                }
+              />
+              <label htmlFor="test1 mb-0">JEREMY R</label>
+            </p>
+          </>
+        ),
+        name: `premier${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "PATRICK R",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name={`premier${props.length}`}
+                checked={
+                  props.props.contactedFirstTimeBy == "PATRICK R" ? true : false
+                }
+              />
+              <label htmlFor="test1 mb-0">PATRICK R</label>
+            </p>
+          </>
+        ),
+        name: `premier${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "ADRIAN T",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name={`premier${props.length}`}
+                checked={
+                  props.props.contactedFirstTimeBy == "ADRIAN T" ? true : false
+                }
+              />
+              <label htmlFor="test1 mb-0">ADRIAN T</label>
+            </p>
+          </>
+        ),
+        name: `premier${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "MORGAN R",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name={`premier${props.length}`}
+                checked={
+                  props.props.contactedFirstTimeBy == "MORGAN R" ? true : false
+                }
+              />
+              <label htmlFor="test1 mb-0">MORGAN R</label>
+            </p>
+          </>
+        ),
+        name: `premier${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "PATRICK B",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className="inputLeadsClient"
+                id="test1"
+                name={`premier${props.length}`}
+                checked={
+                  props.props.contactedFirstTimeBy == "PATRICK B" ? true : false
+                }
+              />
+              <label htmlFor="test1 mb-0">PATRICK B</label>
+            </p>
+          </>
+        ),
+        name: `premier${props.length}`,
+        color: "#FF8B00",
+      },
+      {
+        value: "PERSONNE",
+        label: (
+          <>
+            
+            <p className="mb-0">
+              <input
+                type="radio"
+                className={props.props.companyResponsable === "PERSONNE" ? "persoon" : `inputLeadsClient`}
+                id="test1"
+                name={`premier${props.length}`}
+                checked={
+                  props.props.contactedFirstTimeBy == "PERSONNE" ? true : false
+                }
+              />
+              <label htmlFor="test1 mb-0">PERSONNE</label>
+            </p>
+          </>
+        ),
+        name: `premier${props.length}`,
+        color: "#ff0000",
+      },
+    ]);
     setStatus([
       {
         value: "Non determine",
         label: (
           <>
-            {" "}
+            
             <p className="mb-0">
               <input
                 type="radio"
@@ -400,7 +755,7 @@ function LeadCard(props) {
         value: "Le client negocie",
         label: (
           <>
-            {" "}
+            
             <p className="mb-0">
               <input
                 type="radio"
@@ -422,7 +777,7 @@ function LeadCard(props) {
         value: "Offre Accepte",
         label: (
           <>
-            {" "}
+            
             <p className="mb-0">
               <input
                 type="radio"
@@ -444,7 +799,7 @@ function LeadCard(props) {
         value: "Le client reflechit",
         label: (
           <>
-            {" "}
+            
             <p className="mb-0">
               <input
                 type="radio"
@@ -468,7 +823,7 @@ function LeadCard(props) {
         value: "Le client ne reponds pas",
         label: (
           <>
-            {" "}
+            
             <p className="mb-0">
               <input
                 type="radio"
@@ -492,7 +847,7 @@ function LeadCard(props) {
         value: "Pas interese",
         label: (
           <>
-            {" "}
+            
             <p className="mb-0">
               <input
                 type="radio"
@@ -508,7 +863,7 @@ function LeadCard(props) {
           </>
         ),
         name: "status",
-        color: "#FF8B00",
+        color: "#ff0000",
       },
     ]);
   }, [props.props]);
@@ -649,7 +1004,7 @@ function LeadCard(props) {
                   src={require("../../images/calendar.png")}
                   style={{ width: "12px", marginRight: "4px" }}
                 />
-                Lead Created on {formatDateCha(date)}
+               Lead ajouté le {formatDateCha(date)}
               </p>
             </div>
             <div
@@ -669,13 +1024,18 @@ function LeadCard(props) {
           <div className="row">
             <div className="col-3 d-grid px-0">
               <div className="colorBoxLead d-flex justify-content-start align-items-center">
-                <p className="mb-0">Société</p>
+                <p className="mb-0">Société 👇</p>
               </div>
               <div className="BoxHeight">
                 <span>
-                  <div className="col-9 d-flex align-items-center">
-                    {" "}
-                    {props.props.companyName ? props.props.companyName : "✘✘!"}
+                  <div
+                    className="col-9 d-flex align-items-center cursor-pointer"
+                    onClick={() => CurrentModal("Name")}
+                  >
+                    
+                    {props.props.companyName
+                      ? props.props.companyName.toLocaleUpperCase()
+                      : "Pas de note de l'agence sur ce lead"}
                   </div>
                   <div
                     className="col-4 d-flex align-items-center justify-content-center cursor-pointer"
@@ -688,17 +1048,20 @@ function LeadCard(props) {
             </div>
             <div className="col-3  d-grid px-0">
               <div className="grayboxLeads d-flex justify-content-start align-items-center">
-                <p className="mb-0">Téléphone(s)</p>
+                <p className="mb-0">Téléphone(s) 👇</p>
               </div>
               <div className="BoxHeight">
                 <span>
-                  <div className="col-9 d-flex align-items-center">
-                    {" "}
+                  <div
+                    className="col-9 d-flex align-items-center cursor-pointer"
+                    onClick={() => CurrentModal("Num1")}
+                  >
+                    
                     {props.props.phoneNumber1
-                      ? props.props.phoneNumber1.includes("+") ?
-                      props.props.phoneNumber1 :
-                      "+" +props.props.phoneNumber1 
-                      : "✘✘!"}
+                      ? props.props.phoneNumber1.includes("+")
+                        ? props.props.phoneNumber1
+                        : "+" + props.props.phoneNumber1
+                      : "Pas de note de l'agence sur ce lead"}
                   </div>
                   <div
                     className="col-4 d-flex align-items-center justify-content-center cursor-pointer"
@@ -710,14 +1073,16 @@ function LeadCard(props) {
               </div>
               <div className="BoxHeight ">
                 <span>
-                  <div className="col-9 d-flex align-items-center">
-                    {" "}
+                  <div
+                    className="col-9 d-flex align-items-center cursor-pointer"
+                    onClick={() => CurrentModal("Num2")}
+                  >
+                    
                     {props.props.phoneNumber2
-                      ? props.props.phoneNumber2.includes("+") ?
-                      props.props.phoneNumber2
-                      :
-                    "+" + props.props.phoneNumber2
-                      : "✘✘!"}
+                      ? props.props.phoneNumber2.includes("+")
+                        ? props.props.phoneNumber2
+                        : "+" + props.props.phoneNumber2
+                      : "Pas de note de l'agence sur ce lead"}
                   </div>
                   <div
                     className="col-4 d-flex align-items-center justify-content-center cursor-pointer"
@@ -730,16 +1095,21 @@ function LeadCard(props) {
             </div>
             <div className="col-3  d-grid px-0">
               <div className="grayboxLeads d-flex justify-content-start align-items-center">
-                <p className="mb-0">Email Address</p>
+                <p className="mb-0">Email Adress 👇</p>
               </div>
               <div className="BoxHeight">
                 <span>
-                  <div className="col-9 d-flex align-items-center">
-                    {" "}
-                    {props.props.email ? props.props.email : "✘✘!"}
+                  <div
+                    className="col-9 d-flex align-items-center cursor-pointer"
+                    onClick={() => CurrentModal("email")}
+                  >
+                    
+                    {props.props.email
+                      ? props.props.email
+                      : "Pas de note de l'agence sur ce lead"}
                   </div>
                   <div
-                    className="col-4 d-flex align-items-center justify-content-center cursor-pointer"
+                    className="col-4 d-flex align-items-center justify-content-center  cursor-pointer"
                     onClick={() => CurrentModal("email")}
                   >
                     <img src={require("../../images/pen.svg").default} />
@@ -752,17 +1122,20 @@ function LeadCard(props) {
                 className="grayboxLeads d-flex justify-content-start align-items-center"
                 style={{ borderTopRightRadius: "10px" }}
               >
-                <p className="mb-0">Note Client</p>
+                <p className="mb-0">Client 👇</p>
               </div>
               <div className="BoxHeight">
                 <span style={{ height: "70px" }}>
-                  <div className="col-9 d-flex align-items-center">
-                    {" "}
+                  <div
+                    className="col-9 d-flex align-items-center text-capitalize cursor-pointer"
+                    onClick={() => CurrentModal("CNote")}
+                  >
+                    
                     {props.props.companyNote.length > 40
                       ? props.props.companyNote.slice(0, 40) + "..."
                       : props.props.companyNote
                       ? props.props.companyNote
-                      : "✘✘!"}
+                      : "Pas de note de l'agence sur ce lead"}
                   </div>
                   <div className="col-4 d-grid align-items-center justify-content-center">
                     <div className="cursor-pointer">
@@ -786,18 +1159,21 @@ function LeadCard(props) {
             </div>
 
             <div className="col-3 d-grid px-0">
-              <div className="grayboxLeads d-flex justify-content-start align-items-center">
-                <p className="mb-0">Nos notes Internes</p>
+              <div className="grayboxLeads d-flex justify-content-start align-items-center ">
+                <p className="mb-0">Notes Internes 👇</p>
               </div>
               <div className="BoxHeight">
                 <span style={{ height: "70px" }}>
-                  <div className="col-9 d-flex align-items-center">
-                    {" "}
+                  <div
+                    className="col-9 d-flex align-items-center text-capitalize cursor-pointer"
+                    onClick={() => CurrentModal("ANote")}
+                  >
+                    
                     {props.props.agencyNote.length > 40
                       ? props.props.agencyNote.slice(0, 40) + "..."
                       : props.props.agencyNote
                       ? props.props.agencyNote
-                      : "✘✘!"}
+                      : "Pas de note de l'agence sur ce lead"}
                   </div>
                   <div className="col-4 d-grid align-items-center justify-content-center">
                     <div
@@ -821,7 +1197,7 @@ function LeadCard(props) {
             </div>
             <div className="col-3 d-grid px-0">
               <div className="grayboxLeads d-flex justify-content-start align-items-center">
-                <p className="mb-0 ">Offre envoyé?</p>
+                <p className="mb-0 ">Offre envoyé? 👇</p>
               </div>
               <div className="BoxHeight align-items-center justify-content-center">
                 <div className="check-box d-flex align-items-center ">
@@ -844,7 +1220,7 @@ function LeadCard(props) {
             </div>
             <div className="col-3 d-grid px-0">
               <div className="grayboxLeads d-flex justify-content-start align-items-center">
-                <p className="mb-0">A rappeler?</p>
+                <p className="mb-0">A rappeler? 👇</p>
               </div>
               <div className="BoxHeight align-items-center justify-content-center">
                 <div className="check-box d-flex align-items-center ">
@@ -867,7 +1243,7 @@ function LeadCard(props) {
             </div>
             <div className="col-3 d-grid px-0">
               <div className="grayboxLeads d-flex justify-content-start align-items-center">
-                <p className="mb-0">Client Intéréssé?</p>
+                <p className="mb-0">Client Intéréssé? 👇</p>
               </div>
               <div className="BoxHeight align-items-center justify-content-center">
                 <div className="check-box d-flex align-items-center ">
@@ -883,7 +1259,9 @@ function LeadCard(props) {
                     className="ToggleLabel mb-0 cursor-pointer"
                     htmlFor={`Intéréssé${props.length}`}
                   >
-                    {props.props.companyInterested == false ? "Non" : "Oui"}
+                    {props.props.companyInterested == false
+                      ? "Pas déterminé"
+                      : "Oui"}
                   </label>
                 </div>
               </div>
@@ -909,26 +1287,50 @@ function LeadCard(props) {
                       controlShouldRenderValue={true}
                       closeMenuOnSelect={true}
                       placeholder="‎  ‎ ‎  ‎"
-                      className="basic-multi-select placeHolderLead clientLeads"
+                      className="basic-multi-select placeHolderLead clientLeads CommercialCenter"
                       classNamePrefix="select"
                       inputId={props.length}
                       onChange={onReactSelect}
-                      defaultValue={{
-                        value: props.props.contactedFirstTimeBy?.username,
+                      value={{
+                        value: props.props.contactedFirstTimeBy,
                         label: (
                           <>
-                            {" "}
+                            
                             <p className="mb-0">
                               <input
                                 type="radio"
-                                className="inputLeadsClient"
+                                className={props.props.contactedFirstTimeBy ?  props.props.contactedFirstTimeBy === "PERSONNE" ? "persoon" : `inputLeadsClient` : "persoon" }
                                 id="test1"
-                                name={`premier${props.length}`}
+                                name={`premie${props.length}`}
                                 checked
                               />
                               <label htmlFor="test1 mb-0">
-                                {props.props.contactedFirstTimeBy?.username
-                                  ? props.props.contactedFirstTimeBy?.username
+                                {props.props.contactedFirstTimeBy
+                                  ? props.props.contactedFirstTimeBy
+                                  : "Personne"}
+                              </label>
+                            </p>
+                          </>
+                        ) as any,
+
+                        color: "#FF8B00",
+                      }}
+                      defaultValue={{
+                        value: props.props.contactedFirstTimeBy,
+                        label: (
+                          <>
+                            
+                            <p className="mb-0">
+                              <input
+                                type="radio"
+                                className={props.props.contactedFirstTimeBy  ? props.props.contactedFirstTimeBy === "PERSONNE" ? "persoon" : `inputLeadsClient` : "persoon" }
+                                id="test1"
+                                name={`premie${props.length}`}
+                                checked
+                              />
+                              <label htmlFor="test1 mb-0">
+                                {props.props.contactedFirstTimeBy
+                                  ? props.props.contactedFirstTimeBy
                                   : "Personne"}
                               </label>
                             </p>
@@ -955,29 +1357,53 @@ function LeadCard(props) {
                     <Select
                       name="market"
                       placeholder="‎  ‎ ‎  ‎ "
-                      className="basic-multi-select placeHolderLead clientLeads"
+                      className="basic-multi-select placeHolderLead clientLeads CommercialCenter"
                       classNamePrefix="select"
                       //   defaultMenuIsOpen={true}
                       onChange={onReactSelect}
                       options={deuxième}
                       styles={colourStyles}
                       inputId={props.length}
-                      defaultValue={{
-                        value: props.props.contactedSecondTimeBy?._id,
+                      value={{
+                        value: props.props.contactedSecondTimeBy,
                         label: (
                           <>
-                            {" "}
+                            
                             <p className="mb-0">
                               <input
                                 type="radio"
-                                className="inputLeadsClient"
+                                className={props.props.contactedSecondTimeBy  ? props.props.contactedSecondTimeBy === "PERSONNE" ? "persoon" : `inputLeadsClient` : "persoon"}
                                 id="test1"
                                 name={`deux${props.length}`}
                                 checked
                               />
                               <label htmlFor="test1 mb-0">
-                                {props.props.contactedSecondTimeBy?.username
-                                  ? props.props.contactedSecondTimeBy?.username
+                                {props.props.contactedSecondTimeBy
+                                  ? props.props.contactedSecondTimeBy
+                                  : "Personne"}
+                              </label>
+                            </p>
+                          </>
+                        ) as any,
+
+                        color: "#FF8B00",
+                      }}
+                      defaultValue={{
+                        value: props.props.contactedSecondTimeBy,
+                        label: (
+                          <>
+                            
+                            <p className="mb-0">
+                              <input
+                                type="radio"
+                                className={props.props.contactedSecondTimeBy  ? props.props.contactedSecondTimeBy === "PERSONNE" ? "persoon" : `inputLeadsClient` : "persoon"}
+                                id="test1"
+                                name={`deux${props.length}`}
+                                checked
+                              />
+                              <label htmlFor="test1 mb-0">
+                                {props.props.contactedSecondTimeBy
+                                  ? props.props.contactedSecondTimeBy
                                   : "Personne"}
                               </label>
                             </p>
@@ -1004,29 +1430,62 @@ function LeadCard(props) {
                       name="market"
                       closeMenuOnSelect={true}
                       placeholder="‎  ‎ ‎  ‎ "
-                      className="basic-multi-select placeHolderLead clientLeads"
+                      className="basic-multi-select placeHolderLead clientLeads CommercialCenter"
                       classNamePrefix="select"
                       inputId={props.length}
                       //   onChange={FilterChange}
                       onChange={onReactSelect}
                       options={appelé}
                       styles={colourStyles}
-
-                      
-                      defaultValue={{
-                        value: props.props.contactedAfterOfferSentBy?.username ? props.props.contactedAfterOfferSentBy?.username : "Personne",
+                    
+                      value={{
+                        value: props.props.contactedAfterOfferSentBy
+                          ? props.props.contactedAfterOfferSentBy
+                          : "Personne",
                         label: (
                           <>
-                            {" "}
+                            
                             <p className="mb-0">
                               <input
                                 type="radio"
-                                className="inputLeadsClient"
+                                className={props.props.contactedAfterOfferSentBy ? props.props.contactedAfterOfferSentBy === "PERSONNE" ? "persoon" : `inputLeadsClient` :"persoon" }
                                 id="test1"
-                                name={`appelé${props.length}`}
+                                name={`appel${props.length}`}
                                 checked
                               />
-                              <label htmlFor="test1 mb-0">{props.props.contactedAfterOfferSentBy?.username ? props.props.contactedAfterOfferSentBy?.username : "Personne"}</label>
+                              <label htmlFor="test1 mb-0">
+                                {props.props.contactedAfterOfferSentBy
+                                  ? props.props.contactedAfterOfferSentBy
+                                      
+                                  : "Personne"}
+                              </label>
+                            </p>
+                          </>
+                        ) as any,
+
+                        color: "#FF8B00",
+                      }}
+                      defaultValue={{
+                        value: props.props.contactedAfterOfferSentBy
+                          ? props.props.contactedAfterOfferSentBy
+                          : "Personne",
+                        label: (
+                          <>
+                            
+                            <p className="mb-0">
+                              <input
+                                type="radio"
+                                className={props.props.contactedAfterOfferSentBy ? props.props.contactedAfterOfferSentBy === "PERSONNE" ? "persoon" : `inputLeadsClient` :"persoon" }
+                                id="test1"
+                                name={`appel${props.length}`}
+                                checked
+                              />
+                              <label htmlFor="test1 mb-0">
+                                {props.props.contactedAfterOfferSentBy
+                                  ? props.props.contactedAfterOfferSentBy
+                                      
+                                  : "Personne"}
+                              </label>
                             </p>
                           </>
                         ) as any,
@@ -1042,7 +1501,7 @@ function LeadCard(props) {
                     style={{ width: "100%", height: "50px" }}
                   >
                     <p className="mb-0 align-items-center  d-flex">
-                      Qui est le responsable actuel de ce client ?{" "}
+                      Qui est le responsable actuel de ce client ?
                     </p>
                   </div>
                   <div className="p-1">
@@ -1050,27 +1509,59 @@ function LeadCard(props) {
                       name="market"
                       closeMenuOnSelect={true}
                       placeholder="‎  ‎ ‎  ‎ "
-                      className="basic-multi-select placeHolderLead clientLeads"
+                      className="basic-multi-select placeHolderLead clientLeads CommercialCenter"
                       classNamePrefix="select"
                       //   onChange={FilterChange}
                       onChange={onReactSelect}
                       options={responsable}
                       inputId={props.length}
                       styles={colourStyles}
-                      defaultValue={{
-                        value:props.props.companyResponsable?.username ? props.props.companyResponsable?.username : "Personne",
+                      value={{
+                        value: props.props.companyResponsable
+                          ? props.props.companyResponsable
+                          : "Personne",
                         label: (
                           <>
-                            {" "}
+                            
                             <p className="mb-0">
                               <input
                                 type="radio"
-                                className="inputLeadsClient"
+                                className={props.props.companyResponsable ? props.props.companyResponsable === "PERSONNE" ? "persoon" : `inputLeadsClient` : "persoon"}
                                 id="test1"
-                                name={`responsable${props.length}`}
+                                name={`responsab${props.length}`}
                                 checked
                               />
-                              <label htmlFor="test1 mb-0">{props.props.companyResponsable?.username ? props.props.companyResponsable?.username : "Personne"}</label>
+                              <label htmlFor="test1 mb-0">
+                                {props.props.companyResponsable
+                                  ? props.props.companyResponsable
+                                  : "Personne"}
+                              </label>
+                            </p>
+                          </>
+                        ) as any,
+
+                        color: "#FF8B00",
+                      }}
+                      defaultValue={{
+                        value: props.props.companyResponsable
+                          ? props.props.companyResponsable
+                          : "Personne",
+                        label: (
+                          <>
+                            
+                            <p className="mb-0">
+                              <input
+                                type="radio"
+                                className={props.props.companyResponsable ? props.props.companyResponsable === "PERSONNE" ? "persoon" : `inputLeadsClient` : "persoon"}
+                                id="test1"
+                                name={`responsabl${props.length}`}
+                                checked
+                              />
+                              <label htmlFor="test1 mb-0">
+                                {props.props.companyResponsable
+                                  ? props.props.companyResponsable
+                                  : "Personne"}
+                              </label>
                             </p>
                           </>
                         ) as any,
@@ -1094,7 +1585,7 @@ function LeadCard(props) {
                   name="market"
                   closeMenuOnSelect={true}
                   placeholder="‎  ‎ ‎  ‎ "
-                  className="basic-multi-select placeHolderLead clientLeads"
+                  className="basic-multi-select placeHolderLead clientLeads CommercialCenter"
                   classNamePrefix="select"
                   inputId={props.length}
                   onChange={onReactSelect}
@@ -1104,7 +1595,7 @@ function LeadCard(props) {
                     value: props.props.clientStatus,
                     label: (
                       <>
-                        {" "}
+                        
                         <p className="mb-0">
                           <input
                             type="radio"

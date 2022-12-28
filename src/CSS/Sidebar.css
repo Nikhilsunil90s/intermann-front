@@ -236,3 +236,17 @@ padding: 10px;
     filter:  invert(50%) sepia(97%) saturate(1413%) hue-rotate(0deg) brightness(101%) contrast(106%);
 
 }
+.sidebarScroll{
+    overflow-y: scroll;
+    margin-bottom: 20px;
+}
+.sidebarScroll::-webkit-scrollbar {
+    width: 4px;               /* width of the entire scrollbar */
+  }
+  .sidebarScroll::-webkit-scrollbar-track {
+    background: #e7e7e7;        /* color of the tracking area */
+  }
+  .sidebarScroll::-webkit-scrollbar-thumb {
+    background-color: orange;    /* color of the scroll thumb */
+    border-radius: 10px;       /* roundness of the scroll thumb */  /* creates padding around scroll thumb */
+  }

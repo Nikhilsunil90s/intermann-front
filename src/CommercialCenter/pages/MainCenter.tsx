@@ -11,6 +11,7 @@ function MainCenter(){
     const [Leads,setLeads]=useState([])
     const [update,setUpdate]=useState(false)
     const [loader,setLoader]=useState(false)
+    const [Currentleads,setCurrentLeads]=useState(0)as any
   const  fetchLeads=async()=>{
     //  setLeadScHeck(false)
     await fetch(API_BASE_URL + `getAllCommercialLeads`,{
@@ -25,6 +26,7 @@ function MainCenter(){
       .then(resData => {
          if(resData.status){
             setLeads([...resData.data])
+            setCurrentLeads(resData.notContactedCount)
             setUpdate(false)
             setLoader(true)
          }else{
@@ -66,7 +68,7 @@ function MainCenter(){
                 <p className="LeadsTopHeading">Leads à traiter</p>
                 </div>
                 <div className="col-4 d-flex align-items-center justify-content-end">
-                <p className="TotalLeads">Il y a {Leads.length} leads en tout , et nouveaux leads non contacté</p>
+                <p className="TotalLeads">Il y a {Leads.length} leads en tout , et {Currentleads} nouveaux leads non contacté</p>
                 </div>
                 </div>
                 {

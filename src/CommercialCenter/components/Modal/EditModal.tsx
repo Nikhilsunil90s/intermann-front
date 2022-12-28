@@ -172,30 +172,7 @@ function EditModal(props: any) {
 
               <div className="col-12 text-center mt-1">
                 <div className="row justify-content-end">
-                  <div className="col-4 d-grid">
-                    <button
-                      className="btn"
-                      style={{
-                        fontFamily: "Poppins",
-                        fontStyle: "normal",
-                        fontWeight: "700",
-                        fontSize: "13px",
-                        lineHeight: "20px",
-                        color: "#E21B1B",
-                        border: "2px solid #E21B1B",
-                        borderRadius: "22px",
-                        marginTop: "5px",
-                      }}
-                    >
-                      <img
-                        style={{ paddingRight: "5px" }}
-                        src={
-                          require("../../../images/Deletebucket.svg").default
-                        }
-                      />{" "}
-                      Delete
-                    </button>
-                  </div>{" "}
+            
                   <div className="col-4 d-grid">
                     <button
                       className="btn  btn-bgbClient d-flex justify-content-center align-items-center"
