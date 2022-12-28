@@ -695,7 +695,9 @@ function LeadCard(props) {
                   <div className="col-9 d-flex align-items-center">
                     {" "}
                     {props.props.phoneNumber1
-                      ? props.props.phoneNumber1
+                      ? props.props.phoneNumber1.includes("+") ?
+                      props.props.phoneNumber1 :
+                      "+" +props.props.phoneNumber1 
                       : "✘✘!"}
                   </div>
                   <div
@@ -711,7 +713,10 @@ function LeadCard(props) {
                   <div className="col-9 d-flex align-items-center">
                     {" "}
                     {props.props.phoneNumber2
-                      ? props.props.phoneNumber2
+                      ? props.props.phoneNumber2.includes("+") ?
+                      props.props.phoneNumber2
+                      :
+                    "+" + props.props.phoneNumber2
                       : "✘✘!"}
                   </div>
                   <div

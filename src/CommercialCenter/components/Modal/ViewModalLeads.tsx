@@ -40,32 +40,7 @@ function ViewModal(props){
                             {props.Notes === "Nos notes Internes" ? props.props.agencyNote ? props.props.agencyNote : "✘✘No Notes!" : null}
                             {props.Notes === "Note Client" ? props.props.companyNote ? props.props.companyNote : "✘✘No Notes!" : null}
                        </p>   </div>
-                            <div className="col-12 text-center">
-                                <div className="row justify-content-end py-1">
-                                  
-                                        <div className="col-4 d-grid">
-                                        
-<button className="btn"  style={{
-                            fontFamily: 'Poppins',
-                            fontStyle: "normal",
-                            fontWeight: "700",
-                            fontSize: "13px",
-                            lineHeight: "20px",
-                            color: "#dba400",
-                            border:"2px solid #000000",
-                            borderRadius:"22px",marginTop:"5px"
-
-                        }}>Close Modal</button>
-                                        </div>
-                                  
-                                    
-                                
-
-
-                                </div>
-                         
-                    </div>
-               
+                  
                 </div>
             </motion.div>
         </div>

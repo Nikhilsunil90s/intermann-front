@@ -187,7 +187,7 @@ color: rgba(0, 0, 0, 0.87);
 
 
 .inputLeadsClient[type="radio"]:checked,
-[type="radio"]:not(:checked) {
+.inputLeadsClient[type="radio"]:not(:checked) {
     position: absolute;
     left: -9999px;
 }
