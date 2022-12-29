@@ -8,6 +8,7 @@ import EditModal from "./Modal/EditModal";
 import ViewModal from "./Modal/ViewModalLeads";
 import toast, { Toaster } from "react-hot-toast";
 import DeleteLeadModal from "./Modal/DeleteLeadsModal";
+import Filter from "./Filter";
 
 function LeadCard(props) {
   const colourStyles: StylesConfig<ColourOption, true> = {
@@ -71,24 +72,6 @@ function LeadCard(props) {
 
   const [responsable, setResponsable] = useState([]) as any;
 
-  const [userS, setUserS] = useState([]);
-
-  const fetchUsers = async () => {
-    //  setLeadScHeck(false)
-
-    return await fetch(API_BASE_URL + `allusers`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    })
-      .then((red) => red.json())
-      .then((resData) => resData)
-      .catch((err) => err);
-  };
-
   const [status, setStatus] = useState() as any;
 
   function padTo2DigitsCH(num) {
@@ -96,20 +79,6 @@ function LeadCard(props) {
   }
 
   useEffect(() => {
-    if (userS.length === 0) {
-      fetchUsers().then((resData) => {
-        {
-          if (resData.status) {
-            if (resData.data.length > 0) {
-              setUserS([...resData.data]);
-              console.log(resData.data);
-            }
-          } else {
-            setUserS([]);
-          }
-        }
-      });
-    }
     setResponsable([
       {
         value: "BENJAMIN B",
@@ -868,6 +837,8 @@ function LeadCard(props) {
     ]);
   }, [props.props]);
 
+ 
+
   const [statusModal, setStatusModal] = useState("");
   const [Modal, setModal] = useState(false);
   const [ModalView, setModalView] = useState(false);
@@ -984,7 +955,7 @@ function LeadCard(props) {
   };
 
   let date = new Date(props.props.createdAt);
-
+ 
   return (
     <>
       <Toaster

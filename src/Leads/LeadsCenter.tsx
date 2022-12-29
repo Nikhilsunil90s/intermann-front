@@ -460,22 +460,6 @@ function LeadsCenter() {
   ]) as any;
 
 
-
-// const handleScroll =()=>{
-//   if(Leads.length <= page){
-//     if(window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight){
-//       setPage((prev)=>prev + 20)
-//       setLeadScHeck(false)
-  
-//     }
-//   }
-
-// }
-// useEffect(()=>{
-//   window.addEventListener("scroll",handleScroll)
-
-// },[])
-
   const  fetchLeads=async(market:any,page:any)=>{
         //  setLeadScHeck(false)
          

@@ -11,6 +11,7 @@ function MainCenter(){
     const [Leads,setLeads]=useState([])
     const [update,setUpdate]=useState(false)
     const [loader,setLoader]=useState(false)
+    const [leads,setleads]=useState([])
     const [Currentleads,setCurrentLeads]=useState(0)as any
   const  fetchLeads=async()=>{
     //  setLeadScHeck(false)
@@ -26,13 +27,16 @@ function MainCenter(){
       .then(resData => {
          if(resData.status){
             setLeads([...resData.data])
+            setleads([...resData.data])
             setCurrentLeads(resData.notContactedCount)
             setUpdate(false)
             setLoader(true)
          }else{
             setUpdate(false)
             setLeads([])
+            setleads([])
             setLoader(true)
+            setCurrentLeads(resData.notContactedCount)
 
          }
       })
@@ -60,7 +64,7 @@ function MainCenter(){
                 damping: 15
               }} 
                className="col-12 p-1 my-1" style={{background:"#ffff",borderRadius:"22px"}}>
-            <Filter   />
+            <Filter  leadsSet={setLeads} leads={leads} setUpdate={setUpdate} setCurrentLeads={setCurrentLeads}/>
             </motion.div>
             <div className="col-12 py-1 px-2 my-1" style={{background:"#ffff",borderRadius:"22px"}}>
               <div className="row">
