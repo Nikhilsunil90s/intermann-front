@@ -737,7 +737,7 @@ function LeadCard(props) {
             <p className="mb-0">
               <input
                 type="radio"
-                className="inputLeadsClient"
+                className={props.props.clientStatus == "Non determine" ? "persoon" : "inputLeadsClient"}
                 id="test1"
                 name="radio-group"
                 defaultChecked={
@@ -749,7 +749,7 @@ function LeadCard(props) {
           </>
         ),
         name: "status",
-        color: "#FF8B00",
+        color: "#ff0000",
       },
       {
         value: "Le client negocie",
@@ -1029,13 +1029,13 @@ function LeadCard(props) {
               <div className="BoxHeight">
                 <span>
                   <div
-                    className="col-9 d-flex align-items-center cursor-pointer"
+                    className="col-9 d-flex align-items-center cursor-pointer leadsChipColor"
                     onClick={() => CurrentModal("Name")}
                   >
                     
                     {props.props.companyName
                       ? props.props.companyName.toLocaleUpperCase()
-                      : "Pas de note de l'agence sur ce lead"}
+                      : "Pas Société de sur ce lead"}
                   </div>
                   <div
                     className="col-4 d-flex align-items-center justify-content-center cursor-pointer"
@@ -1047,13 +1047,13 @@ function LeadCard(props) {
               </div>
             </div>
             <div className="col-3  d-grid px-0">
-              <div className="grayboxLeads d-flex justify-content-start align-items-center">
+              <div className="grayboxLeads d-flex justify-content-start align-items-center ">
                 <p className="mb-0">Téléphone(s) 👇</p>
               </div>
               <div className="BoxHeight">
                 <span>
                   <div
-                    className="col-9 d-flex align-items-center cursor-pointer"
+                    className="col-9 d-flex align-items-center cursor-pointer leadsChipColor"
                     onClick={() => CurrentModal("Num1")}
                   >
                     
@@ -1061,7 +1061,7 @@ function LeadCard(props) {
                       ? props.props.phoneNumber1.includes("+")
                         ? props.props.phoneNumber1
                         : "+" + props.props.phoneNumber1
-                      : "Pas de note de l'agence sur ce lead"}
+                      : "Pas Téléphone de sur ce lead"}
                   </div>
                   <div
                     className="col-4 d-flex align-items-center justify-content-center cursor-pointer"
@@ -1074,7 +1074,7 @@ function LeadCard(props) {
               <div className="BoxHeight ">
                 <span>
                   <div
-                    className="col-9 d-flex align-items-center cursor-pointer"
+                    className="col-9 d-flex align-items-center cursor-pointer leadsChipColor"
                     onClick={() => CurrentModal("Num2")}
                   >
                     
@@ -1082,7 +1082,7 @@ function LeadCard(props) {
                       ? props.props.phoneNumber2.includes("+")
                         ? props.props.phoneNumber2
                         : "+" + props.props.phoneNumber2
-                      : "Pas de note de l'agence sur ce lead"}
+                      : "Pas Téléphone 2 de sur ce lead"}
                   </div>
                   <div
                     className="col-4 d-flex align-items-center justify-content-center cursor-pointer"
@@ -1100,13 +1100,13 @@ function LeadCard(props) {
               <div className="BoxHeight">
                 <span>
                   <div
-                    className="col-9 d-flex align-items-center cursor-pointer"
+                    className="col-9 d-flex align-items-center cursor-pointer leadsChipColor"
                     onClick={() => CurrentModal("email")}
                   >
                     
                     {props.props.email
                       ? props.props.email
-                      : "Pas de note de l'agence sur ce lead"}
+                      : "Pas Email de  sur ce lead"}
                   </div>
                   <div
                     className="col-4 d-flex align-items-center justify-content-center  cursor-pointer"
@@ -1122,12 +1122,12 @@ function LeadCard(props) {
                 className="grayboxLeads d-flex justify-content-start align-items-center"
                 style={{ borderTopRightRadius: "10px" }}
               >
-                <p className="mb-0">Client 👇</p>
+                <p className="mb-0">Notes Client 👇</p>
               </div>
               <div className="BoxHeight">
                 <span style={{ height: "70px" }}>
                   <div
-                    className="col-9 d-flex align-items-center text-capitalize cursor-pointer"
+                    className="col-9 d-flex align-items-center text-capitalize cursor-pointer leadsChipColor"
                     onClick={() => CurrentModal("CNote")}
                   >
                     
@@ -1135,7 +1135,7 @@ function LeadCard(props) {
                       ? props.props.companyNote.slice(0, 40) + "..."
                       : props.props.companyNote
                       ? props.props.companyNote
-                      : "Pas de note de l'agence sur ce lead"}
+                      : "Pas Notes Client de sur ce lead"}
                   </div>
                   <div className="col-4 d-grid align-items-center justify-content-center">
                     <div className="cursor-pointer">
@@ -1165,7 +1165,7 @@ function LeadCard(props) {
               <div className="BoxHeight">
                 <span style={{ height: "70px" }}>
                   <div
-                    className="col-9 d-flex align-items-center text-capitalize cursor-pointer"
+                    className="col-9 d-flex align-items-center text-capitalize cursor-pointer leadsChipColor"
                     onClick={() => CurrentModal("ANote")}
                   >
                     
@@ -1173,7 +1173,7 @@ function LeadCard(props) {
                       ? props.props.agencyNote.slice(0, 40) + "..."
                       : props.props.agencyNote
                       ? props.props.agencyNote
-                      : "Pas de note de l'agence sur ce lead"}
+                      : "Pas Notes Internes de sur ce lead"}
                   </div>
                   <div className="col-4 d-grid align-items-center justify-content-center">
                     <div
@@ -1599,7 +1599,7 @@ function LeadCard(props) {
                         <p className="mb-0">
                           <input
                             type="radio"
-                            className="inputLeadsClient"
+                            className={props.props.clientStatus == "Non determine" ? "persoon" : "inputLeadsClient"}
                             id="test1"
                             name={`status${props.length}`}
                             defaultChecked={true}

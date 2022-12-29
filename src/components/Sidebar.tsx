@@ -464,7 +464,7 @@ function Sidebar(props: any) {
         </motion.div>
         }
           
-          <div className="col-xxl-9 col-lg-9 col-md-9 col-xs-9  scroll"  onMouseEnter={()=>setOnHover(false)} style={{ maxWidth:onHover ? "79%" : "93%"}}>
+          <div className="col-xxl-9 col-lg-9 col-md-9 col-xs-9  scroll"  onMouseEnter={()=>setOnHover(true)} style={{ maxWidth:onHover ? "79%" : "93%"}}>
           <Header onHover={onHover} />
             <section style={{ marginTop: "60px" }}>
               {props.children}

@@ -173,7 +173,7 @@ color: rgba(0, 0, 0, 0.87);
   height: 12px;
   top: -2px;
   left: 0;
-  background: #2C98F0;
+  background: #ed0202;
   border-radius: 50%;
   box-shadow: 0 0 5px rgb(0 0 0 / 20%);
   transform: scale(1.1);
@@ -183,6 +183,7 @@ color: rgba(0, 0, 0, 0.87);
 
 .check-box input:checked[type="checkbox"]::after {
     left: 54%;
+    background: #2C98F0;
 }
 
 
@@ -337,6 +338,15 @@ color: rgba(0, 0, 0, 0.87);
   }
 }
 @media (min-width:1200px){
+  .leadsChipColor{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 15px;
+    color: #032339;
+}
+  
   .colorBoxLead p {
     color: #032339;
     font-family: Poppins;
@@ -348,10 +358,10 @@ color: rgba(0, 0, 0, 0.87);
   }
   .grayboxLeads p {
     font-family: Poppins;
-    font-size: 13px;
+    font-size: 12px;
     font-style: normal;
     font-weight: 600;
-    line-height: 21px;
+    line-height: 16px;
     /* identical to box height */
   
     color: #032339;
@@ -363,9 +373,9 @@ color: rgba(0, 0, 0, 0.87);
     font-size: 13px;
     font-style: normal;
     font-weight: 700;
-    line-height: 14px;
-}
-}
+    line-height: 17px;
+}}
+
 @media (min-width:1400px){
   .colorBoxLead p {
     color: #032339;
@@ -383,11 +393,12 @@ color: rgba(0, 0, 0, 0.87);
     font-size: 19px;
     font-style: normal;
     font-weight: 700;
-    line-height: 14px;
+    line-height: 26px;
+    margin-bottom: 0px;
 }
   .grayboxLeads p {
     font-family: Poppins;
-    font-size: 18px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 600;
     line-height: 21px;
@@ -395,4 +406,12 @@ color: rgba(0, 0, 0, 0.87);
   
     color: #032339;
   }
+  .leadsChipColor{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #032339;
+}
 }
