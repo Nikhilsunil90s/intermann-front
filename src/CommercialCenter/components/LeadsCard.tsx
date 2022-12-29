@@ -1611,6 +1611,10 @@ function LeadCard(props) {
             </div>
           </div>
         </div>
+        
+      </div>
+      <div className="row pr-2">
+      <hr   />
       </div>
     </>
   );
