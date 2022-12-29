@@ -1006,7 +1006,7 @@ function LeadCard(props) {
                     
                     {props.props.companyName
                       ? props.props.companyName.toLocaleUpperCase()
-                      : "Pas Société de sur ce lead"}
+                      : "Pas de Société sur ce lead"}
                   </div>
                   <div
                     className="col-4 d-flex align-items-center justify-content-center cursor-pointer"
@@ -1032,7 +1032,7 @@ function LeadCard(props) {
                       ? props.props.phoneNumber1.includes("+")
                         ? props.props.phoneNumber1
                         : "+" + props.props.phoneNumber1
-                      : "Pas Téléphone de sur ce lead"}
+                      : "Pas de Téléphone sur ce lead"}
                   </div>
                   <div
                     className="col-4 d-flex align-items-center justify-content-center cursor-pointer"
@@ -1053,7 +1053,7 @@ function LeadCard(props) {
                       ? props.props.phoneNumber2.includes("+")
                         ? props.props.phoneNumber2
                         : "+" + props.props.phoneNumber2
-                      : "Pas Téléphone 2 de sur ce lead"}
+                      : "Pas de Téléphone 2 sur ce lead"}
                   </div>
                   <div
                     className="col-4 d-flex align-items-center justify-content-center cursor-pointer"
@@ -1077,7 +1077,7 @@ function LeadCard(props) {
                     
                     {props.props.email
                       ? props.props.email
-                      : "Pas Email de  sur ce lead"}
+                      : "Pas de Email sur ce lead"}
                   </div>
                   <div
                     className="col-4 d-flex align-items-center justify-content-center  cursor-pointer"
@@ -1106,7 +1106,7 @@ function LeadCard(props) {
                       ? props.props.companyNote.slice(0, 40) + "..."
                       : props.props.companyNote
                       ? props.props.companyNote
-                      : "Pas Notes Client de sur ce lead"}
+                      : "Pas de Notes Client sur ce lead"}
                   </div>
                   <div className="col-4 d-grid align-items-center justify-content-center">
                     <div className="cursor-pointer">
@@ -1144,7 +1144,7 @@ function LeadCard(props) {
                       ? props.props.agencyNote.slice(0, 40) + "..."
                       : props.props.agencyNote
                       ? props.props.agencyNote
-                      : "Pas Notes Internes de sur ce lead"}
+                      : "Pas de Notes Internes sur ce lead"}
                   </div>
                   <div className="col-4 d-grid align-items-center justify-content-center">
                     <div

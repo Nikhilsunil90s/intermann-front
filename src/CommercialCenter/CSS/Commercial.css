@@ -358,6 +358,14 @@ color: rgba(0, 0, 0, 0.87);
   }
 } 
 
+.fontsizeModal{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 29px;
+  color: #032339;
+}
 @media (min-width:1200px){
   .leadsChipColor{
     font-family: 'Poppins';

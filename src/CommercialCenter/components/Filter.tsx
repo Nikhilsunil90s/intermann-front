@@ -152,14 +152,14 @@ function Filter (props){
         rappeler :[{
         
           value :true,
-          label:"True",
+          label:"Oui",
           color:"#FF8B00",
            name:"rappeler"
       },
       {
         
         value :false,
-        label:"False",
+        label:"Non",
         color:"#FF8B00",
         name:"rappeler"
       
@@ -168,14 +168,14 @@ function Filter (props){
     Offre:[
       {
         value :true,
-        label:"True",
+        label:"Oui",
         color:"#FF8B00",
          name:"offerSent"
     },
     {
       
       value :false,
-      label:"False",
+      label:"Non",
       color:"#FF8B00",
       name:"offerSent"
     
@@ -185,14 +185,14 @@ function Filter (props){
   Client:[
     {
       value :true,
-      label:"True",
+      label:"Oui",
       color:"#FF8B00",
        name:"companyInterested"
   },
   {
     
     value :false,
-    label:"False",
+    label:"Pas déterminé",
     color:"#FF8B00",
     name:"companyInterested"
   
@@ -249,7 +249,7 @@ if(props.leads.length > 0){
             setBTNds(false)
              props.leadsSet([...res.data])
              props.setCurrentLeads(res.notContactedCount)
-             toast.success(`${res.data.length} Results Found!`)
+            //  toast.success(`${res.data.length} Results Found!`)
           }else if(res.status === false){
             setBTNds(false)
            props.leadsSet([])
@@ -265,7 +265,7 @@ if(props.leads.length > 0){
         setResponsable([])
         setCompanyName()
         setbool()
-        toast.success(`Filter Reset Successfully !`)
+        // toast.success(`Filter Reset Successfully !`)
         props.setUpdate(true)
       }
     }
@@ -426,7 +426,7 @@ if(props.leads.length > 0){
                 onClick={(e) => ApplyFilter(e)}
                 disabled={btnDS}
               >
-                Apply
+                Appliquer filtre
               </button>
             </div>
             {data !== undefined ? (

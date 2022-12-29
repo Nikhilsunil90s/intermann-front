@@ -107,30 +107,30 @@ function EditModal(props: any) {
                 </div>
               </div>
             </div>
-            <div className="modal-body text-start">
+            <div className="modal-body text-start ">
               {props.Status == "Name" ? (
-                <label>Company Name </label>
+                <label className="topTitle">Company Name </label>
               ) : props.Status === "Num1" ? (
-                <label>Téléphone 1</label>
+                <label className="topTitle">Téléphone 1</label>
               ) : props.Status === "Num2" ? (
-                <label>Téléphone 2</label>
+                <label className="topTitle">Téléphone 2</label>
               ) : props.Status === "CNote" ? (
-                <label>Client Note</label>
+                <label className="topTitle">Note fournis par le client</label>
               ) : props.Status === "email" ? (
-                <label>Email</label>
+                <label className="topTitle">Email</label>
               ) : (
-                <label>Nos notes Internes</label>
+                <label className="topTitle"> Notes de l'agence Intermann sur le client</label>
               )}
               {props.Status == "Name" ? (
                 <input
-                  className="form-control"
+                  className="form-control fontsizeModal"
                   name="newName"
                   defaultValue={props.props.companyName}
                   onChange={onFormChange}
                 />
               ) : props.Status === "Num1" ? (
                 <input
-                  className="form-control"
+                  className="form-control fontsizeModal"
                   type={"number"}
                   name="phoneNumber1"
                   defaultValue={props.props.phoneNumber1}
@@ -138,7 +138,7 @@ function EditModal(props: any) {
                 />
               ) : props.Status === "Num2" ? (
                 <input
-                  className="form-control"
+                  className="form-control fontsizeModal"
                   type={"number"}
                   name="phoneNumber2"
                   defaultValue={props.props.phoneNumber2}
@@ -146,7 +146,7 @@ function EditModal(props: any) {
                 />
               ) : props.Status === "email" ? (
                 <input
-                  className="form-control"
+                  className="form-control fontsizeModal"
                   type={"email"}
                   defaultValue={props.props.email}
                   name="newEmail"
@@ -154,17 +154,17 @@ function EditModal(props: any) {
                 />
               ) : props.Status === "CNote" ? (
                 <textarea
-                  style={{ fontSize: "12px", height: "40vh" }}
+                  style={{  height: "40vh" }}
                   defaultValue={props.props.companyNote}
-                  className="form-control nameTransform"
+                  className="form-control fontsizeModal nameTransform"
                   name="note"
                   onChange={onFormChange}
                 ></textarea>
               ) : (
                 <textarea
-                  style={{ fontSize: "12px", height: "40vh" }}
+                  style={{  height: "40vh" }}
                   defaultValue={props.props.agencyNote}
-                  className="form-control nameTransform"
+                  className="form-control fontsizeModal nameTransform"
                   name="note"
                   onChange={onFormChange}
                 ></textarea>
