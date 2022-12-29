@@ -178,7 +178,7 @@ function Filter (){
         </div>
         <div className="col-4 mt-1">
           <label style={{ fontSize: "14px" }} className="Form-styling">
-          Assigner a quel resposable ?
+          Assigner a quel responsable ?
           </label>
           {/* {Precontacted.length > 0 ? ( */}
             <Select
