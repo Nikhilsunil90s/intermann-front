@@ -52,6 +52,7 @@
     "react-switch": "^7.0.0",
     "react-tabs-scrollable": "^1.0.9",
     "react-telephone-input": "^5.0.0",
+    "react-tooltip": "^5.3.2",
     "reactjs-pdf-reader": "^1.0.12",
     "read-more-react": "^1.0.10",
     "redux": "^4.2.0",

@@ -5,6 +5,10 @@ import LeadCard from "../components/LeadsCard";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import { motion } from "framer-motion";
 import Warning from '../../components/Loader/SearchBarError' 
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import {CommercialCenter} from "../../redux/slice/CommercialCenterSlice";
+
 
 function MainCenter(){
 
@@ -13,6 +17,9 @@ function MainCenter(){
     const [loader,setLoader]=useState(false)
     const [leads,setleads]=useState([])
     const [Currentleads,setCurrentLeads]=useState(0)as any
+
+    // const dispatch =useDispatch()
+    // const {state} = useSelector((state:any)=> state.CommercialCenterSlice)as any
   const  fetchLeads=async()=>{
     //  setLeadScHeck(false)
     await fetch(API_BASE_URL + `getAllCommercialLeads`,{
@@ -42,8 +49,9 @@ function MainCenter(){
       })
       .catch(err => err)
     }
-
+// console.log(state,"state")
     useEffect(()=>{
+      // dispatch<any>(CommercialCenter())
         fetchLeads()
     },[update])
     return(<>
