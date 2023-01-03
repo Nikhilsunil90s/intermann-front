@@ -929,8 +929,8 @@ function Filters({
   setprecontacted,
   setcontacted,
   setFilter,
-  filter
-}) {
+  filter,
+  setFilterActive,}) {
   let CaNam = [] as any;
   let Contact = [] as any;
   let Email = [] as any;
@@ -1065,6 +1065,7 @@ function Filters({
 
     if(Data !== undefined && filter === true){
       setApplyBtn(true);
+      setFilterActive(true)
       fetch(API_BASE_URL + "filterLeads", {
         method: "POST",
         headers: {
@@ -1081,10 +1082,12 @@ function Filters({
             setprecontacted(res.notPreContactedCount);
             setcontacted(res.notContactedCount);
             setLeads([...res.data]);
+      setFilterActive(true)
             setFilter(false)
           } else {
             setApplyBtn(false);
             setprecontacted(res.notPreContactedCount);
+            setFilterActive(true)
             setcontacted(res.notContactedCount);
             setLeads([]);
             setFilter(false)
@@ -1360,6 +1363,7 @@ function Filters({
     if (e.target.name === "ApplyFil") {
       if (Data !== undefined) {
         setApplyBtn(true);
+      setFilterActive(true)
         fetch(API_BASE_URL + "filterLeads", {
           method: "POST",
           headers: {
@@ -1373,6 +1377,8 @@ function Filters({
           .then((res) => {
             if (res.status) {
               statusLeads(true);
+      setFilterActive(true)
+
               setApplyBtn(false);
               setprecontacted(res.notPreContactedCount);
               setcontacted(res.notContactedCount);
@@ -1382,6 +1388,8 @@ function Filters({
               setDateCheck(false);
             } else {
               statusLeads(true);
+      setFilterActive(true)
+
               toast.error("Sorry No Results found!");
               setApplyBtn(false);
               setprecontacted(res.notPreContactedCount);
@@ -1398,6 +1406,7 @@ function Filters({
       toast.success("Filters Reset Successfully!");
       setData();
       update(true);
+      setFilterActive(false)
       statusLeads(false);
       setfromPerson([]);
       setQUALIFIED([]);

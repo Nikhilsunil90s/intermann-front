@@ -312,32 +312,40 @@ color: rgba(0, 0, 0, 0.87);
 }
 /* Loader */
 
-
 .Leads002 {
-  width: 150px;
-  height: 150px;
-  background: #fff;
+  width: 148px;
+  height: 148px;
   border-radius: 50%;
   position: relative;
-  animation: roll 1s ease-in-out infinite alternate;
+  animation: rotate 1s linear infinite
 }
-.Leads002:after{
-  content:"";
+.Leads002::before , .Leads002::after {
+  content: "";
+  box-sizing: border-box;
   position: absolute;
-  inset: 5px;
+  inset: 0px;
   border-radius: 50%;
-  border: 8px solid ;
-  border-color: #ff3d00 transparent;
+  border: 9px solid #FFF;
+  animation: prixClipFix 2s linear infinite ;
 }
-@keyframes roll {
-  0% {
-    transform: translateX(-150%) rotate(0deg) ;
-  }
-  100% {
-    transform:  translateX(150%) rotate(360deg);
-  }
+.Leads002::after{
+  border-color: #FF3D00;
+  animation: prixClipFix 2s linear infinite , rotate 0.5s linear infinite reverse;
+  inset: 8px;
 }
 
+@keyframes rotate {
+  0%   {transform: rotate(0deg)}
+  100%   {transform: rotate(360deg)}
+}
+
+@keyframes prixClipFix {
+    0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+    25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+    50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+    75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
+    100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+}
 .filterLeadsLoader {
   width: 48px;
   height: 48px;

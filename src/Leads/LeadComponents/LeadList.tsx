@@ -281,8 +281,8 @@ const AddToCrm=(props:any)=>{
              <div className="col-2 leadBoxGray" >
                 <b className="mb-0"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.leadCandidatName}>{props.leadCandidatName ? props.leadCandidatName.length > 8 ? props.leadCandidatName.slice(0,7).toLocaleUpperCase()+".." : props.leadCandidatName.toLocaleUpperCase() : "✘✘!"}</b>
              </div>
-             <div className="col-3 leadBoxGray d-grid" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.phoneNumber ? props.phoneNumber.replace("`","") : "✘✘!"}>
-                <b className="mb-0">{props.phoneNumber ? props.phoneNumber.replace("`","") : "✘✘!"}</b>
+             <div className="col-3 leadBoxGray d-grid" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.phoneNumber ? props.phoneNumber.includes("+")  ? props.phoneNumber.replace("`","") : "+" + props.phoneNumber : "✘✘!"}>
+                <b className="mb-0">{props.phoneNumber ? props.phoneNumber.includes("+")  ? props.phoneNumber.replace("`","") : "+" + props.phoneNumber : "✘✘!"}</b>
                 <a href={`https://wa.me/${props.phoneNumber}`} target="_blank" className="BlueLink text-center">Send What’s app</a>
              </div>
              <div className="col-3 leadBoxGray " >
