@@ -50,6 +50,25 @@ export default function  DownloadCenter(){
       .catch((err) => err);
   };
 
+  const fetchContract = async (path) => {
+    setBtnDS(true)
+    return await fetch(API_BASE_URL + path, {
+      method: "GET",
+    })
+      .then((resp) => resp.json())
+      .then((respData) => {
+        if(respData.status){ 
+          setBtnDS(false)
+          window.open(API_BASE_URL +  respData.filepath.replace("/app/",""))
+        }else{
+          toast.error("Something Went Wrong, Please Try Again!")
+        }
+      }
+        
+        )
+      .catch((err) => err);
+  };
+
   
   const fetchCandidatRepresentance = async () => {
     return await fetch(API_BASE_URL + `getSignedRepresentences`, {
@@ -351,11 +370,14 @@ console.log(representance,"res")
                                     <img src={require("../images/Deletebucket.svg").default} />
                                     </button>
                                   
-                                    <div className="col-6 px-0 RoundDiv cursor-pointer" id="view" onClick={(e)=>window.open(el.signed_contract_url ?  el.signed_contract_url  : el.signed_representence_url ? el.signed_representence_url : el.signed_avance_url)}>
+                                    <button disabled={btnDS} className="col-6 px-0 RoundDiv cursor-pointer" id="view" style={{border:"none"}} onClick={(e)=>
+                                      // window.open(el.signed_contract_url ?  el.signed_contract_url  : el.signed_representence_url ? el.signed_representence_url : el.signed_avance_url)
+                                      fetchContract( el.candidatName ? `getSignedCandidatContract/?contractId=${el._id}` : el.clientId ?  `getSignedClientContract/?contractId=${el._id}`  : el.signed_representence_url?  `getSignedRepresentence/?id=${el._id}` :  `getSignedAvance/?id=${el._id}` )
+                                    }>
                                 <img
                                       src={require("../images/dowBtn.svg").default}
                                     />
-                                    </div>
+                                    </button>
                                     </div>
                                     </div>
                             </div>

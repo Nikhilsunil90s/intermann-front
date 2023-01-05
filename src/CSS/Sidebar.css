@@ -214,6 +214,9 @@ color: #000000;
     color: #FE8700 ;
 }
 
+.overX{
+    overflow-x: hidden;
+}
 /* Mini SideBar */
 
 .ulStyleSideBar{

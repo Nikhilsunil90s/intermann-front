@@ -37,8 +37,6 @@
     "react-draft-wysiwyg": "^1.15.0",
     "react-drag-drop-files": "^2.3.7",
     "react-hot-toast": "^2.2.0",
-    "react-infinite-scroll-component": "^6.1.0",
-    "react-infinite-scroll-hook": "^4.0.4",
     "react-moment": "^1.1.2",
     "react-multi-carousel": "^2.8.1",
     "react-phone-input-2": "^2.15.1",
