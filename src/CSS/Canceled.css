@@ -459,6 +459,15 @@ color: #FE8700;
         background: #ffff;
         border-radius: 100%;
     }
+    .RoundDivS{
+        max-width: 37px;
+        height: 37px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.584);
+        border-radius: 100%;
+    }
 
   .tabsClass  .rts___tabs.hide___rts___tabs___scroll {
         background: transparent !important;

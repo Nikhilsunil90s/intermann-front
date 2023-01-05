@@ -17,7 +17,10 @@ export default function  DownloadCenter(){
   const [AllProfiles,setAllProfiles]=useState([])
   const [Status,setStatus]=useState(false)
   const [deleteCanContract,setdeleteCanContract]=useState(false)
-  const [btnDS,setBtnDS]=useState(false)
+  const [btnDS,setBtnDS]=useState({
+    active:false,
+    activeId:""
+  })
   const [tabItems] = useState([
     {
       text: "Contrat Employés",
@@ -50,15 +53,15 @@ export default function  DownloadCenter(){
       .catch((err) => err);
   };
 
-  const fetchContract = async (path) => {
-    setBtnDS(true)
+  const fetchContract = async (path,id) => {
+    setBtnDS({...btnDS,active:true,activeId:id})
     return await fetch(API_BASE_URL + path, {
       method: "GET",
     })
       .then((resp) => resp.json())
       .then((respData) => {
         if(respData.status){ 
-          setBtnDS(false)
+          setBtnDS({...btnDS,active:false,activeId:""})
           window.open(API_BASE_URL +  respData.filepath.replace("/app/",""))
         }else{
           toast.error("Something Went Wrong, Please Try Again!")
@@ -109,7 +112,7 @@ export default function  DownloadCenter(){
   };
 
   const deleteClientsContracts = async (id:any,CId) => {
-    setBtnDS(true)
+    setBtnDS({...btnDS,active:true})
     return await fetch(API_BASE_URL + `deleteClientContract/?clientId=${id}&contractId=${CId}`, {
       method: "GET",
       headers: {
@@ -121,16 +124,19 @@ export default function  DownloadCenter(){
       .then((respData) => {
         toast.success("Contrat Client Removed Successfully!")
         setdeleteCanContract(true)
-        setBtnDS(false)
+    setBtnDS({...btnDS,active:false})
+        
       })
       .catch((err) => {
         toast.error("Contrat Client Not Removed!")
-        setBtnDS(false)
+    setBtnDS({...btnDS,active:false})
+        
         
       });
   };
   const deleteCandiateContracts = async (id:any,CId) => {
-    setBtnDS(true)
+    setBtnDS({...btnDS,active:true})
+
     return await fetch(API_BASE_URL + `deleteCandidatContract/?candidatId=${id}&contractId=${CId}`, {
       method: "GET",
       headers: {
@@ -141,19 +147,21 @@ export default function  DownloadCenter(){
       .then((resp) => resp.json())
       .then((respData) => {
         toast.success("Contrat Employé Removed Successfully!")
-        setBtnDS(false)
+    setBtnDS({...btnDS,active:false})
+        
         setdeleteCanContract(true)
       })
       .catch((err) => 
       {
         toast.error("Contrat Employé Not Removed!")
-        setBtnDS(false)
+    setBtnDS({...btnDS,active:false})
+        
 
       });
   };
 
   const deleteRepresentance = async (id:any) => {
-    setBtnDS(true)
+    setBtnDS({...btnDS,active:true})
     return await fetch(API_BASE_URL + `deleteRepresentence/?representenceId=${id}`, {
       method: "GET",
       headers: {
@@ -165,16 +173,18 @@ export default function  DownloadCenter(){
       .then((respData) => {
         toast.success("Représentance Removed Successfully!")
         setdeleteCanContract(true)
-        setBtnDS(false)
+    setBtnDS({...btnDS,active:false})
+        
       })
       .catch((err) => 
       {
         toast.error("Représentance Not Removed!")
-        setBtnDS(false)
+    setBtnDS({...btnDS,active:false})
+        
       });
   };
   const deleteAvance = async (id:any) => {
-    setBtnDS(true)
+    setBtnDS({...btnDS,active:true})
     return await fetch(API_BASE_URL + `deleteAvance/?avanceId=${id}`, {
       method: "GET",
       headers: {
@@ -186,12 +196,14 @@ export default function  DownloadCenter(){
       .then((respData) => {
         toast.success("Avance Removed Successfully!")
         setdeleteCanContract(true)
-        setBtnDS(false)
+    setBtnDS({...btnDS,active:false})
+        
       })
       .catch((err) => 
       {
         toast.error("Avance Not Removed!")
-        setBtnDS(false)
+    setBtnDS({...btnDS,active:false})
+        
       });
   };
   useEffect(()=>{
@@ -366,17 +378,30 @@ console.log(representance,"res")
                                 </div>
                                 <div className="col-2 px-0 ">
                                     <div className="row d-flex justify-content-evenly">
-                                        <button className="col-6 px-0 RoundDiv cursor-pointer" id="delete" style={{border:"0px"}} disabled={btnDS} onClick={(e)=>el.candidatName ? deleteCandiateContracts(el.candidatId,el._id) : el.clientId ?  deleteClientsContracts(el.clientId,el._id)  : el.signed_representence_url?  deleteRepresentance(el._id) : deleteAvance(el._id) }>
+                                        <button className="col-6 px-0 RoundDiv cursor-pointer" id="delete" style={{border:"0px"}} disabled={btnDS.active} onClick={(e)=>el.candidatName ? deleteCandiateContracts(el.candidatId,el._id) : el.clientId ?  deleteClientsContracts(el.clientId,el._id)  : el.signed_representence_url?  deleteRepresentance(el._id) : deleteAvance(el._id) }>
                                     <img src={require("../images/Deletebucket.svg").default} />
                                     </button>
-                                  
-                                    <button disabled={btnDS} className="col-6 px-0 RoundDiv cursor-pointer" id="view" style={{border:"none"}} onClick={(e)=>
+                                
+                                    <button  disabled={btnDS.active} className={`col-6 px-0 RoundDiv cursor-pointer `}  key={i} style={{border:"none"}} onClick={(e)=>
                                       // window.open(el.signed_contract_url ?  el.signed_contract_url  : el.signed_representence_url ? el.signed_representence_url : el.signed_avance_url)
-                                      fetchContract( el.candidatName ? `getSignedCandidatContract/?contractId=${el._id}` : el.clientId ?  `getSignedClientContract/?contractId=${el._id}`  : el.signed_representence_url?  `getSignedRepresentence/?id=${el._id}` :  `getSignedAvance/?id=${el._id}` )
+                                      fetchContract( el.candidatName ? `getSignedCandidatContract/?contractId=${el._id}` : el.clientId ?  `getSignedClientContract/?contractId=${el._id}`  : el.signed_representence_url?  `getSignedRepresentence/?id=${el._id}` :  `getSignedAvance/?id=${el._id}`,el._id )
                                     }>
-                                <img
-                                      src={require("../images/dowBtn.svg").default}
-                                    />
+                                    {
+                        btnDS.active  ? btnDS.activeId === el._id ?              
+
+<div className="d-flex justify-content-center align-items-center">
+<span  className="filterLeadsLoader"  />
+</div>
+:
+<img
+src={require("../images/dowBtn.svg").default}
+/>
+:
+<img
+src={require("../images/dowBtn.svg").default}
+/>
+                                    }  
+                             
                                     </button>
                                     </div>
                                     </div>
