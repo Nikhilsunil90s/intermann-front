@@ -109,7 +109,7 @@ export default function DownloadCenter() {
   };
 
   const deleteClientsContracts = async (id: any, CId) => {
-    setBtnDS({ ...btnDS, active: true, deleteId: id });
+    setBtnDS({ ...btnDS, active: true, deleteId: CId });
     return await fetch(
       API_BASE_URL + `deleteClientContract/?clientId=${id}&contractId=${CId}`,
       {
@@ -149,7 +149,6 @@ export default function DownloadCenter() {
       .then((respData) => {
         toast.success("Contrat Employé Removed Successfully!");
         setBtnDS({ ...btnDS, active: false, deleteId: "" });
-
         setdeleteCanContract(true);
       })
       .catch((err) => {
@@ -390,11 +389,11 @@ export default function DownloadCenter() {
                               ? el.candidatName
                               : el.initial_client_company
                               ? el.initial_client_company
-                              : el.candidat_name}{" "}
+                              : el.candidat_name}
                             {el.amount_avance
                               ? `- Amount : ${el.amount_avance + " €"}`
-                              : null}{" "}
-                            - Generated :{" "}
+                              : null}
+                            - Generated :
                             <b>
                               {el.contract_generated_on
                                 ? el.contract_generated_on.slice(3, 5) > "12"
@@ -404,9 +403,9 @@ export default function DownloadCenter() {
                                     "-" +
                                     el.contract_generated_on.slice(6, 10)
                                   : el.contract_generated_on
-                                : el.generated_on}{" "}
-                            </b>{" "}
-                            Signed :{" "}
+                                : el.generated_on}
+                            </b>
+                            Signed :
                             <b>
                               {el.contract_signed_on
                                 ? el.contract_signed_on
