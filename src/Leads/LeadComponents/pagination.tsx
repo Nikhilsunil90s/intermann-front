@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Tabs, Tab } from "react-tabs-scrollable";
 const PaginationFun = (props: any) => {
   const [num] = useState([
     { page: 1, currentPage: 0 },
@@ -26,8 +26,27 @@ const PaginationFun = (props: any) => {
     { page: 22, currentPage: 1050 },
     { page: 23, currentPage: 1100 },
     { page: 24, currentPage: 1150 },
+    { page: 25, currentPage: 1200 },
+    { page: 26, currentPage: 1250 },
+    { page: 27, currentPage: 1300 },
+    { page: 28, currentPage: 1350 },
+    { page: 29, currentPage: 1400 },
+    { page: 30, currentPage: 1450 },
+    { page: 31, currentPage: 1500 },
+    { page: 32, currentPage: 1550 },
+    { page: 33, currentPage: 1600 },
+    { page: 34, currentPage: 1650 },
+    { page: 35, currentPage: 1700 },
+    { page: 36, currentPage: 1750 },
+    { page: 37, currentPage: 1800 },
+    { page: 38, currentPage: 1850 },
+    { page: 39, currentPage: 1900 },
+    { page: 40, currentPage: 2000 },
+    { page: 41, currentPage: 2050 },
+    { page: 42, currentPage: 2100 },
     
   ]);
+  const [activeTab, setActiveTab] = React.useState(0) as any;
 
   console.log(props.DS)
   const HandleChange = (e, page) => {
@@ -36,52 +55,66 @@ const PaginationFun = (props: any) => {
     props.setcurrentPage(page);
     props.fetchSkipLeads(props.tabName, page);
   };
-
+  // const HandleChange = (e, page) => {
+  
+  //   props.setcurrentPage(page);
+  //   props.fetchSkipLeads(props.tabName, page);
+  // };
+  const onTabClick = (e, index: any) => {
+    setActiveTab(index);
+    props.setPage(index + 1);
+    // props.fetchSkipLeads(props.tabName,index);
+    
+  };
   return (
     <>
-      <div className="row">
+      <div className="row justify-content-end">
         {
             props.comp == "top" ?
-            <>            <div className="col-3">
+            <>            <div className="col-7">
           <p className="ApplyFilter mb-0">
             <b>Page - {props.page}</b>
           </p>
         </div>
-        <div className="col-9 d-flex justify-content-end">
-          <nav aria-label="...">
+        
+        <div className="col-5">
+        <Tabs
+               activeTab={activeTab}
+               onTabClick={(e,index)=>onTabClick(e,index)}
+               rightBtnIcon={">"}
+               hideNavBtns={false}
+               leftBtnIcon={"<"}
+               showTabsScroll={false}
+               tabsScrollAmount={5}
+               
+            >
+          {/* <nav aria-label="...">
             <ul className="pagination">
-              <li className="page-item disabled">
-                <span className="page-link">Previous</span>
-              </li>
+             */}
         {
             props.DS ?
 
             
                 num.map((el:any,i)=>(
-                    <li
-                    className="page-item disabled "
-                 
-                  >
-                 
-                    <span
-                      style={{
-                        background: props.page === el.page ? "#00000092" : "#ffffff",
-                        color: props.page === el.page ? "#fff" : "#000",
-                      }}
-                      className="page-link"
-                    >
+                  <Tab key={i}  className="disabled " >
+                    
                       {el.page}
-                    </span>
-                  </li>
+                                        </Tab>
                 ))
               
             :
 
-            
                 num.map((el:any,i)=>(
-                    <li
+            
+               
+                  <span onClick={()=>HandleChange(el.page,el.currentPage)}  style={{
+                    background: props.page === el.page ? "#000" : "#fff",
+                    color: props.page === el.page ? "#fff" : "#000",
+                  }}>
+              
+                    {/* <button
                     className={`page-item cursor-pointer`} 
-                    onClick={(e) => HandleChange(el.page, el.currentPage)}
+                    // onClick={(e) => HandleChange(el.page, el.currentPage)}
                     
                   >
                  
@@ -91,31 +124,32 @@ const PaginationFun = (props: any) => {
                         color: props.page === el.page ? "#fff" : "#000",
                       }}
                       className="page-link"
-                    >
+                    > */}
+                
                       {el.page}
-                    </span>
-                  </li>
+                   
+                    {/* </span>
+                  </button> */}
+               
+                  </span>
+        
                 ))
               
         }
             
             
 
-              <li className="page-item cursor-pointer disabled">
-                <a className="page-link" href="#">
-                  Next
-                </a>
-              </li>
-            </ul>
-          </nav>
+            
+            {/* </ul>
+          </nav> */}
+          </Tabs>
         </div>   
         </>
 
             :
             <>        
-          <div className="col-12 d-flex justify-content-end">
-            <nav aria-label="...">
-              <ul className="pagination">
+          <div className="col-5">
+     
                 {
                     props.LeadsCheck  ?
 
@@ -124,66 +158,49 @@ const PaginationFun = (props: any) => {
   
                       props.DS ?
   <>
-     <li className="page-item disabled">
-                    <span className="page-link">Previous</span>
-  
-                  </li>
+     <Tabs
+               activeTab={activeTab}
+               onTabClick={onTabClick}
+               rightBtnIcon={">"}
+               hideNavBtns={false}
+               leftBtnIcon={"<"}
+               showTabsScroll={false}
+               tabsScrollAmount={5}
+            >
               {
                       num.map((el:any,i)=>(
-                          <li
-                          className="page-item disabled "
-                       
-                        >
-                       
-                          <span
-                            style={{
-                              background: props.page === el.page ? "#00000092" : "#ffffff",
-                              color: props.page === el.page ? "#fff" : "#000",
-                            }}
-                            className="page-link"
-                          >
+                    <Tab  key={i}    className="disabled ">
                             {el.page}
-                          </span>
-                        </li>
+                            </Tab>
                       ))
                         }
-                        <li className="page-item cursor-pointer disabled">
-                        <a className="page-link" href="#">
-                          Next
-                        </a>
-                      </li>
+                   </Tabs>
                       </>
                   :
       
                   
                   <>
-     <li className="page-item disabled">
-                    <span className="page-link">Previous</span>
-  
-                  </li>{  num.map((el:any,i)=>(
-                          <li
-                          className={`page-item cursor-pointer`} 
-                          onClick={(e) => HandleChange(el.page, el.currentPage)}
-                          
-                        >
-                       
-                          <span
-                            style={{
-                              background: props.page === el.page ? "#000" : "#fff",
-                              color: props.page === el.page ? "#fff" : "#000",
-                            }}
-                            className="page-link"
-                          >
+                     <Tabs
+               activeTab={activeTab}
+               onTabClick={onTabClick}
+               rightBtnIcon={">"}
+               hideNavBtns={false}
+               leftBtnIcon={"<"}
+               showTabsScroll={false}
+               tabsScrollAmount={5}
+            >
+   {
+   
+   num.map((el:any,i)=>(
+    <span onClick={()=>HandleChange(el.page,el.currentPage)}  style={{
+      background: props.page === el.page ? "#000" : "#fff",
+      color: props.page === el.page ? "#fff" : "#000",
+    }}>
                             {el.page}
-                          </span>
-                        </li>
+                            </span>
                       ))
                         }
-                         <li className="page-item cursor-pointer disabled">
-                        <a className="page-link" href="#">
-                          Next
-                        </a>
-                      </li>
+                        </Tabs>
                       </>
 
                 
@@ -196,8 +213,7 @@ const PaginationFun = (props: any) => {
                     null
                 }
               
-              </ul>
-            </nav>
+          
           </div>
           </>
 

@@ -722,6 +722,7 @@ function LeadsCenter() {
               filterActive ?
                null
                :
+               
            <Pagination setPage={setPage} setcurrentPage={setcurrentPage} fetchSkipLeads={fetchSkipLeads} page={page}  tabName={TabName} comp="top"  DS={DsBtn} LeadsCheck={LeadsCheck} />
             }
            
@@ -745,7 +746,7 @@ function LeadsCenter() {
                   ))}
                 </>
               ) : (
-                <div className="row">
+                <div className="row my-4">
                   <div className="col-12 d-flex justify-content-center">
                     <p className="mb-0 d-flex align-items-center ErrorSearchBox">
                       <Error />
@@ -764,7 +765,8 @@ function LeadsCenter() {
               </div>
             )}
                {
-              filterActive ?
+              filterActive  ||   Leads.length == 0 ? 
+            
                null
                :
                <div className="mt-2">
