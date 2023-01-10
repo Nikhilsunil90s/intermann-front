@@ -408,10 +408,18 @@ export default function DownloadCenter() {
                             Signed :
                             <b>
                               {el.contract_signed_on
-                                ? el.contract_signed_on
-                                : el.contract_signed_on
-                                ? el.contract_signed_on
-                                : el.signed_on}
+                                ? 
+                                el.contract_signed_on.slice(3, 5) > "12"
+                                ? el.contract_signed_on.slice(3, 5) +
+                                  "-" +
+                                  el.contract_signed_on.slice(0, 2) +
+                                  "-" +
+                                  el.contract_signed_on.slice(6, 10)
+                                : el.contract_signed_on ?
+                                el.contract_signed_on 
+                                : el.signed_on
+                              :el.signed_on
+                              }
                             </b>
                           </p>
                         </div>
