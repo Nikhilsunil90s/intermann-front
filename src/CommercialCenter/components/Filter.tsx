@@ -5,72 +5,73 @@ import Select, { StylesConfig } from "react-select";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast from "react-hot-toast";
 
-function Filter (props){
-    const colourStyles: StylesConfig<ColourOption, true> = {
-        control: (styles) => ({ ...styles, backgroundColor: "white" }),
-        option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-          const color = chroma(data.color);
-          return {
-            ...styles,
-            backgroundColor: isDisabled
-              ? undefined
-              : isSelected
-              ? data.color
-              : isFocused
-              ? color.alpha(0.1).css()
-              : undefined,
-            color: isDisabled
-              ? "#ccc"
-              : isSelected
-              ? chroma.contrast(color, "white") > 2
-                ? "white"
-                : "black"
-              : data.color,
-            cursor: isDisabled ? "not-allowed" : "default",
-    
-            ":active": {
-              ...styles[":active"],
-              backgroundColor: !isDisabled
-                ? isSelected
-                  ? data.color
-                  : color.alpha(0.3).css()
-                : undefined,
-            },
-          };
-        },
-        multiValue: (styles, { data }) => {
-          const color = chroma(data.color);
-          return {
-            ...styles,
-            backgroundColor: color.alpha(0.1).css(),
-          };
-        },
-        multiValueLabel: (styles, { data }) => ({
-          ...styles,
-          color: data.color,
-        }),
-        multiValueRemove: (styles, { data }) => ({
-          ...styles,
-          color: data.color,
-          ":hover": {
-            backgroundColor: data.color,
-            color: "white",
-          },
-        }),
-      };
+function Filter(props) {
+  const colourStyles: StylesConfig<ColourOption, true> = {
+    control: (styles) => ({ ...styles, backgroundColor: "white" }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      const color = chroma(data.color);
+      return {
+        ...styles,
+        backgroundColor: isDisabled
+          ? undefined
+          : isSelected
+          ? data.color
+          : isFocused
+          ? color.alpha(0.1).css()
+          : undefined,
+        color: isDisabled
+          ? "#ccc"
+          : isSelected
+          ? chroma.contrast(color, "white") > 2
+            ? "white"
+            : "black"
+          : data.color,
+        cursor: isDisabled ? "not-allowed" : "default",
 
-      const [companyName,setCompanyName]=useState()as any
-      useEffect(()=>{
-        if(responsable.length == 0){
-        setResponsable([    {
+        ":active": {
+          ...styles[":active"],
+          backgroundColor: !isDisabled
+            ? isSelected
+              ? data.color
+              : color.alpha(0.3).css()
+            : undefined,
+        },
+      };
+    },
+    multiValue: (styles, { data }) => {
+      const color = chroma(data.color);
+      return {
+        ...styles,
+        backgroundColor: color.alpha(0.1).css(),
+      };
+    },
+    multiValueLabel: (styles, { data }) => ({
+      ...styles,
+      color: data.color,
+    }),
+    multiValueRemove: (styles, { data }) => ({
+      ...styles,
+      color: data.color,
+      ":hover": {
+        backgroundColor: data.color,
+        color: "white",
+      },
+    }),
+  };
+
+  const [companyName, setCompanyName] = useState() as any;
+  useEffect(() => {
+    if (responsable.length == 0) {
+      setResponsable([
+        {
           value: "BENJAMIN B",
-          label:"BENJAMIN B",
+          label: "BENJAMIN B",
           name: `companyResponsable`,
           color: "#FF8B00",
         },
         {
           value: "JEREMY R",
-          label:"JEREMY R",
+          label: "JEREMY R",
           name: `companyResponsable`,
           color: "#FF8B00",
         },
@@ -94,7 +95,7 @@ function Filter (props){
         },
         {
           value: "PATRICK B",
-          label:"PATRICK B",
+          label: "PATRICK B",
           name: `companyResponsable`,
           color: "#FF8B00",
         },
@@ -103,233 +104,235 @@ function Filter (props){
           label: "PERSONNE",
           name: `companyResponsable`,
           color: "#FF8B00",
-        },])
-      }
-      setStatus([
-        {
-          value: "Non determine",
-          label:"Non déterminé",
-          name: "clientStatus",
-          color: "#FF8B00",
         },
-        {
-          value: "Le client negocie",
-          label:
-                "Le client négocie"
-           
-          ,
-          name: "clientStatus",
-          color: "#FF8B00",
-        },
-        {
-          value: "Offre Accepte",
-          label:
-               "Offre Accepté"
-          ,
-          name: "clientStatus",
-          color: "#FF8B00",
-        },
-        {
-          value: "Le client reflechit",
-          label:"Le client réfléchit",
-          name: "clientStatus",
-          color: "#FF8B00",
-        },
-        {
-          value: "Le client ne reponds pas",
-          label: "Le client ne réponds pas",
-          name: "clientStatus",
-          color: "#FF8B00",
-        },
-        {
-          value: "Pas interese",
-          label: "Pas intéréssé",
-          name: "clientStatus",
-          color: "#FF8B00",
-        },
-      ])
-      setbool({
-        rappeler :[{
-        
-          value :true,
-          label:"Oui",
-          color:"#FF8B00",
-           name:"rappeler"
+      ]);
+    }
+    setStatus([
+      {
+        value: "Non determine",
+        label: "Non déterminé",
+        name: "clientStatus",
+        color: "#FF8B00",
       },
       {
-        
-        value :false,
-        label:"Non",
-        color:"#FF8B00",
-        name:"rappeler"
-      
-    }]
-  ,
-    Offre:[
+        value: "Le client negocie",
+        label: "Le client négocie",
+
+        name: "clientStatus",
+        color: "#FF8B00",
+      },
       {
-        value :true,
-        label:"Oui",
-        color:"#FF8B00",
-         name:"offerSent"
-    },
-    {
-      
-      value :false,
-      label:"Non",
-      color:"#FF8B00",
-      name:"offerSent"
-    
-  
-    }]
-  ,
-  Client:[
-    {
-      value :true,
-      label:"Oui",
-      color:"#FF8B00",
-       name:"companyInterested"
-  },
-  {
-    
-    value :false,
-    label:"Pas déterminé",
-    color:"#FF8B00",
-    name:"companyInterested"
-  
-
-  }]
-      })
-      },[companyName])
-      useEffect(()=>{
-  let Name = []
-if(props.leads.length > 0){
-  props.leads.map((el)=>{
-    Name.push({ value: el.companyName,
-    label:el.companyName,
-    name: `companyName`,
-    color: "#FF8B00",})
-  })
-       setCompanyName([...Name])
-}
-      },[props.leads,companyName])
-
-      useEffect(()=>{
-   if(props.CurrentFilter.filterApplied === true && data !== undefined){
-
-        FilterData().then((res)=>{
-          if(res.status){
-            setBTNds(false)
-             props.leadsSet([...res.data])
-             props.setCurrentLeads(res.notContactedCount)
-              props.setCurrentFilter({...props.CurrentFilter,filterApplied:false,FilterData:data})
-            //  toast.success(`${res.data.length} Results Found!`)
-          }else if(res.status === false){
-            setBTNds(false)
-           props.leadsSet([])
-           props.setCurrentLeads(res.notContactedCount) 
-           props.setCurrentFilter({...props.CurrentFilter,filterApplied:false,FilterData:data})
-          }
-        })
-        .catch((err)=>err)
-      }
-      },[props.CurrentFilter])
-      const [responsable, setResponsable] = useState([
-    
-      ]) as any;
- 
-      const [status,setStatus] =useState([
-   
-      ])
-      const [bool,setbool]=useState( )as any
-
-
-
-
- const [data,setData]=useState()as any
- const [btnDS,setBTNds]=useState(false)
-    const FilterData = async () => {
-      return await fetch(API_BASE_URL + `filterCommercialLeads`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+        value: "Offre Accepte",
+        label: "Offre Accepté",
+        name: "clientStatus",
+        color: "#FF8B00",
+      },
+      {
+        value: "Le client reflechit",
+        label: "Le client réfléchit",
+        name: "clientStatus",
+        color: "#FF8B00",
+      },
+      {
+        value: "Le client ne reponds pas",
+        label: "Le client ne réponds pas",
+        name: "clientStatus",
+        color: "#FF8B00",
+      },
+      {
+        value: "Pas interese",
+        label: "Pas intéréssé",
+        name: "clientStatus",
+        color: "#FF8B00",
+      },
+    ]);
+    setbool({
+      rappeler: [
+        {
+          value: true,
+          label: "Oui",
+          color: "#FF8B00",
+          name: "rappeler",
         },
-        body:JSON.stringify(data)
-      })
-        .then((red) => red.json())
-        .then((resData) => resData)
-        .catch((err) => err);
-    };
+        {
+          value: false,
+          label: "Non",
+          color: "#FF8B00",
+          name: "rappeler",
+        },
+      ],
+      Offre: [
+        {
+          value: true,
+          label: "Oui",
+          color: "#FF8B00",
+          name: "offerSent",
+        },
+        {
+          value: false,
+          label: "Non",
+          color: "#FF8B00",
+          name: "offerSent",
+        },
+      ],
+      Client: [
+        {
+          value: true,
+          label: "Oui",
+          color: "#FF8B00",
+          name: "companyInterested",
+        },
+        {
+          value: false,
+          label: "Pas déterminé",
+          color: "#FF8B00",
+          name: "companyInterested",
+        },
+      ],
+    });
+  }, [companyName]);
+  useEffect(() => {
+    let Name = [];
+    if (props.leads.length > 0) {
+      props.leads.map((el) => {
+        Name.push({
+          value: el.companyName,
+          label: el.companyName,
+          name: `companyName`,
+          color: "#FF8B00",
+        });
+      });
+      setCompanyName([...Name]);
+    }
+  }, [props.leads, companyName]);
 
-    const ApplyFilter=(e)=>{
-      setBTNds(true)
-      if(e.target.name === "apply"){
-        FilterData().then((res)=>{
-          if(res.status){
-            setBTNds(false)
-             props.leadsSet([...res.data])
-             props.setCurrentLeads(res.notContactedCount)
-             props.setCurrentFilter({...props.CurrentFilter,filterApplied:false,FilterData:data})
-
+  useEffect(() => {
+    if (props.CurrentFilter.filterApplied === true && data !== undefined) {
+      FilterData()
+        .then((res) => {
+          if (res.status) {
+            setBTNds(false);
+            props.leadsSet([...res.data]);
+            props.setCurrentLeads(res.notContactedCount);
+            props.setCurrentFilter({
+              ...props.CurrentFilter,
+              filterApplied: false,
+              FilterData: data,
+            });
             //  toast.success(`${res.data.length} Results Found!`)
-          }else if(res.status === false){
-            setBTNds(false)
-           props.leadsSet([])
-           props.setCurrentLeads(res.notContactedCount)
-                     props.setCurrentFilter({...props.CurrentFilter,filterApplied:false,FilterData:data})
-
+          } else if (res.status === false) {
+            setBTNds(false);
+            props.leadsSet([]);
+            props.setCurrentLeads(res.notContactedCount);
+            props.setCurrentFilter({
+              ...props.CurrentFilter,
+              filterApplied: false,
+              FilterData: data,
+            });
           }
         })
-        .catch((err)=>err)
-      }else{
-        setData()
-        setBTNds(false)
-        setStatus([])
-        setResponsable([])
-        setCompanyName()
-        setbool()  
-        // toast.success(`Filter Reset Successfully !`)
-        props.setUpdate(true)
-      }
+        .catch((err) => err);
     }
-     
-    const OnReactSelect=(e)=>{
-        setData({...data,[e.name]:e.value})
+  }, [props.CurrentFilter]);
+  const [responsable, setResponsable] = useState([]) as any;
+
+  const [status, setStatus] = useState([]);
+  const [bool, setbool] = useState() as any;
+
+  const [data, setData] = useState() as any;
+  const [btnDS, setBTNds] = useState(false);
+  const FilterData = async () => {
+    return await fetch(API_BASE_URL + `filterCommercialLeads`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify(data),
+    })
+      .then((red) => red.json())
+      .then((resData) => resData)
+      .catch((err) => err);
+  };
+
+  const ApplyFilter = (e) => {
+    setBTNds(true);
+    if (e.target.name === "apply") {
+      FilterData()
+        .then((res) => {
+          if (res.status) {
+            setBTNds(false);
+            props.leadsSet([...res.data]);
+            props.setCurrentLeads(res.notContactedCount);
+            props.setCurrentFilter({
+              ...props.CurrentFilter,
+              filterApplied: false,
+              FilterData: data,
+            });
+
+            //  toast.success(`${res.data.length} Results Found!`)
+          } else if (res.status === false) {
+            setBTNds(false);
+            props.leadsSet([]);
+            props.setCurrentLeads(res.notContactedCount);
+            props.setCurrentFilter({
+              ...props.CurrentFilter,
+              filterApplied: false,
+              FilterData: data,
+            });
+          }
+        })
+        .catch((err) => err);
+    } else {
+      props.setCurrentFilter({
+        filterApplied: false,
+        FilterData:[],
+      });
+      setData();
+      setBTNds(false);
+      setStatus([]);
+      setResponsable([]);
+      setCompanyName();
+      setbool();
+      // toast.success(`Filter Reset Successfully !`)
+      props.setUpdate(true);
     }
+  };
 
+  const OnReactSelect = (e) => {
+    setData({ ...data, [e.name]: e.value });
+  };
 
-    return (<>
+  return (
+    <>
       <div className="row">
         <div className="col-4">
           <label style={{ fontSize: "14px" }} className="Form-styling">
-          Offre envoyé ?
+            Offre envoyé ?
           </label>
-          {
-            bool ? 
+          {bool ? (
             <Select
-            name="market"
-            closeMenuOnSelect={true}
-            placeholder="‎  ‎ ‎  ‎ Offre envoyé ?"
-            className="basic-multi-select placeHolderLead"
-            classNamePrefix="select"
-            onChange={OnReactSelect}
-            options={bool?.Offre}
-            styles={colourStyles}
-          />
-            :
+              name="market"
+              closeMenuOnSelect={true}
+              placeholder="‎  ‎ ‎  ‎ Offre envoyé ?"
+              className="basic-multi-select placeHolderLead"
+              classNamePrefix="select"
+              onChange={OnReactSelect}
+              options={bool?.Offre}
+              styles={colourStyles}
+            />
+          ) : (
             <div className="d-flex justify-content-center align-items-center">
-            <span  className="filterLeadsLoader"  />
-</div>
-          }
-          
-       
+              <span className="filterLeadsLoader" />
+            </div>
+          )}
         </div>
         <div className="col-4">
           <label style={{ fontSize: "14px" }} className="Form-styling">
-          A rappeler ?
+            A rappeler ?
           </label>
-          {bool ?
+          {bool ? (
             <Select
               name="market"
               closeMenuOnSelect={true}
@@ -340,66 +343,60 @@ if(props.leads.length > 0){
               options={bool?.rappeler}
               styles={colourStyles}
             />
-       :
-       <div className="d-flex justify-content-center align-items-center">
-            <span  className="filterLeadsLoader"  />
-</div> 
-          }
+          ) : (
+            <div className="d-flex justify-content-center align-items-center">
+              <span className="filterLeadsLoader" />
+            </div>
+          )}
         </div>
         <div className="col-4">
           <label style={{ fontSize: "14px" }} className="Form-styling">
-          Client interéssé ?
+            Client interéssé ?
           </label>
-          {
-            bool ? 
+          {bool ? (
             <Select
-            name="market"
-            closeMenuOnSelect={true}
-            placeholder="‎  ‎ ‎  ‎ Client interéssé ?"
-            className="basic-multi-select placeHolderLead"
-            classNamePrefix="select"
-            onChange={OnReactSelect}
-            options={bool?.Client}
-            styles={colourStyles}
-          />
-            :
+              name="market"
+              closeMenuOnSelect={true}
+              placeholder="‎  ‎ ‎  ‎ Client interéssé ?"
+              className="basic-multi-select placeHolderLead"
+              classNamePrefix="select"
+              onChange={OnReactSelect}
+              options={bool?.Client}
+              styles={colourStyles}
+            />
+          ) : (
             <div className="d-flex justify-content-center align-items-center">
-            <span  className="filterLeadsLoader"  />
-</div>
-          }
-           
-      
+              <span className="filterLeadsLoader" />
+            </div>
+          )}
         </div>
         <div className="col-4 mt-1">
           <label style={{ fontSize: "14px" }} className="Form-styling">
-          Assigner a quel responsable ?
+            Assigner a quel responsable ?
           </label>
-          {
-            responsable.length > 0  ?
+          {responsable.length > 0 ? (
             <Select
-            name="market"
-            closeMenuOnSelect={true}
-            placeholder="‎  ‎ ‎  ‎ Assigner a quel resposable ?"
-            className="basic-multi-select placeHolderLead"
-            classNamePrefix="select"
-            onChange={OnReactSelect}
-            options={responsable}
-            styles={colourStyles}
-          />
-          :
-          <div className="d-flex justify-content-center align-items-center">
-            <span  className="filterLeadsLoader"  />
-</div>
-          }
-        
-        
+              name="market"
+              closeMenuOnSelect={true}
+              placeholder="‎  ‎ ‎  ‎ Assigner a quel resposable ?"
+              className="basic-multi-select placeHolderLead"
+              classNamePrefix="select"
+              onChange={OnReactSelect}
+              options={responsable}
+              styles={colourStyles}
+            />
+          ) : (
+            <div className="d-flex justify-content-center align-items-center">
+              <span className="filterLeadsLoader" />
+            </div>
+          )}
         </div>
         <div className="col-4 mt-1">
           <label style={{ fontSize: "14px" }} className="Form-styling">
             Nom de la société ?
           </label>
-          {companyName ? 
-          <Select
+          {companyName ? (
+            <Select
               name="market"
               closeMenuOnSelect={true}
               placeholder="‎  ‎ ‎  ‎ Assigner a quel resposable ?"
@@ -409,35 +406,32 @@ if(props.leads.length > 0){
               options={companyName}
               styles={colourStyles}
             />
-            :
+          ) : (
             <div className="d-flex justify-content-center align-items-center">
-            <span  className="filterLeadsLoader"  />
-</div>
-          }
+              <span className="filterLeadsLoader" />
+            </div>
+          )}
         </div>
         <div className="col-4 mt-1">
           <label style={{ fontSize: "14px" }} className="Form-styling">
-          Search by Status
+            Search by Status
           </label>
-          {
-            status.length > 0 ?
+          {status.length > 0 ? (
             <Select
-            name="market"
-            closeMenuOnSelect={true}
-            placeholder="‎  ‎ ‎  ‎ Assigner a quel resposable ?"
-            className="basic-multi-select placeHolderLead"
-            classNamePrefix="select"
-            onChange={OnReactSelect}
-            options={status}
-            styles={colourStyles}
-          />
-            :
+              name="market"
+              closeMenuOnSelect={true}
+              placeholder="‎  ‎ ‎  ‎ Assigner a quel resposable ?"
+              className="basic-multi-select placeHolderLead"
+              classNamePrefix="select"
+              onChange={OnReactSelect}
+              options={status}
+              styles={colourStyles}
+            />
+          ) : (
             <div className="d-flex justify-content-center align-items-center">
-            <span  className="filterLeadsLoader"  />
-</div>
-          }
-         
-      
+              <span className="filterLeadsLoader" />
+            </div>
+          )}
         </div>
         <div className="col-12 mt-2">
           <div className="row justify-content-end">
@@ -445,7 +439,7 @@ if(props.leads.length > 0){
               {" "}
               <button
                 className="glow-on-hover mr-2"
-                style={{width:"100%",height:"40px"}}
+                style={{ width: "100%", height: "40px" }}
                 name="apply"
                 onClick={(e) => ApplyFilter(e)}
                 disabled={btnDS}
@@ -467,6 +461,7 @@ if(props.leads.length > 0){
           </div>
         </div>
       </div>
-    </>)
+    </>
+  );
 }
 export default Filter;

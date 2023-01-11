@@ -863,10 +863,13 @@ function LeadCard(props) {
       .then((res) => {
         if (res.status) {
           toast.success(res.message);
-          if(props.CurrentFilter.FilterData.length > 0){
+          if(props.CurrentFilter.FilterData.length !== 0){
             props.setCurrentFilter({...props.CurrentFilter,filterApplied:true})
-          }
+          }else{
+            props.setCurrentFilter({...props.CurrentFilter,filterApplied:false})
           props.update(true);
+            
+          }
         } else {
           toast.success(res.message);
        
@@ -889,11 +892,15 @@ function LeadCard(props) {
       .then((res) => {
         if (res.status) {
           toast.success(res.message);
-        if(props.CurrentFilter.FilterData.length > 0){
-          props.setCurrentFilter({...props.CurrentFilter,filterApplied:true})
-        }
-       
+          if(props.CurrentFilter.FilterData.length !== 0){
+            props.setCurrentFilter({...props.CurrentFilter,filterApplied:true})
+          }else{
+            props.setCurrentFilter({...props.CurrentFilter,filterApplied:false})
           props.update(true);
+            
+          }
+       
+        
          
   
         } else {
@@ -965,7 +972,9 @@ function LeadCard(props) {
   };
 
   let date = new Date(props.props.createdAt);
- 
+ const switchCheckk=(e)=>{
+console.log(e,"check")
+ }
   return (
     <>
     
@@ -1183,8 +1192,10 @@ function LeadCard(props) {
                     type="checkbox"
                     defaultChecked={props.props.offerSent}
                     id={`offer${props.length}`}
-                    onChange={(e) =>
-                      switchCheck("Offre", props.props._id, e.target.defaultChecked)
+                    onChange={(e) =>{
+                      switchCheck("Offre", props.props._id, e.target.checked)
+                 
+                  }
                     }
                   />
                   <label
@@ -1206,7 +1217,7 @@ function LeadCard(props) {
                     type="checkbox"
                     id={`rappeler${props.length}`}
                     onChange={(e) =>
-                      switchCheck("rappel", props.props._id, e.target.defaultChecked)
+                      switchCheck("rappel", props.props._id, e.target.checked)
                     }
                     defaultChecked={props.props.rappeler}
                   />
@@ -1229,7 +1240,7 @@ function LeadCard(props) {
                     type="checkbox"
                     id={`Intéréssé${props.length}`}
                     onChange={(e) =>
-                      switchCheck("", props.props._id, e.target.defaultChecked)
+                      switchCheck("", props.props._id, e.target.checked)
                     }
                     defaultChecked={props.props.companyInterested}
                   />
