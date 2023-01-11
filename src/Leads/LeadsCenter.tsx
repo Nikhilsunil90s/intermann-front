@@ -428,6 +428,7 @@ function LeadsCenter() {
   const [currentUser, setCurrentUser] = useState() as any;
   const [preContected, setpreContected] = useState(0) as any;
   const [contected, setcontected] = useState(0) as any;
+  const [data,setData]=useState()as any
   const [skipLeads, setSkipLeads] = useState([]) as any;
   const [filter, setFilter] = useState(false);
   const [currentPage, setcurrentPage] = useState(0);
@@ -574,9 +575,10 @@ function LeadsCenter() {
     // console.log(currentUser.emailAddress)
     const FolderName = tabItems.filter((el, i) => i == activeTab);
     TabName = FolderName.map((el) => el.value);
-
-    fetchLeads(TabName, page);
-    fetchSkipLeads(TabName, currentPage)
+if(filter == false){
+  fetchLeads(TabName, page);
+  fetchSkipLeads(TabName, currentPage)
+}
   }, [UpdateFiled]);
 
   const onTabClick = (e, index: any) => {
@@ -692,7 +694,7 @@ function LeadsCenter() {
                 setFilter={setFilter}
                 filter={filter}
                 setFilterActive={setFilterActive}
-               
+                setDatA={setData}
               />
             ) : null}
           </div>
@@ -741,6 +743,7 @@ function LeadsCenter() {
                         activeUser={setCurrentUser}
                         TabName={TabName}
                         setFilter={setFilter}
+                        DAta={data}
                       />
                     </>
                   ))}

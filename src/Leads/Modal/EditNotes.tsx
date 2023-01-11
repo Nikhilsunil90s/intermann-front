@@ -3,7 +3,7 @@ import toast, { Toaster } from "react-hot-toast";
 import {API_BASE_URL} from "../../config/serverApiConfig"
 import { motion } from "framer-motion";
 
-function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelete}){
+function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelete,setFilter,DAta}){
 
   const [editNotes,setEditNotes]=useState("")
   const [btnDS,setBTNds]=useState(false)
@@ -99,7 +99,9 @@ function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelet
       if(Notes == "Leads"){
          LeadsNotes().then((res)=>{
           if(res.status){
-            update(true)
+            if(DAta === undefined){
+              update(true)
+            }
             setBTNds(false)
             Load(true)
             toast.success(res.message)
@@ -107,23 +109,38 @@ function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelet
               closeModal(false)
               
             },2000)
+            if(DAta !== undefined){
+              setTimeout(()=>{
+                setFilter(true)
+        
+              },2000)
           }
           else{
              setBTNds(false)    
             toast.success(res.message)
           }
-         })
+         }})
       }else{
         AgencyNotes().then((res)=>{
           if(res.status){
-            update(true)
+            if(DAta === undefined){
+              update(true)
+            }
             setBTNds(false)
-            Load(true)
+          
+            
             toast.success(res.message)
             setTimeout(()=>{
               closeModal(false)
               
             },2000)
+            if(DAta !== undefined){
+              setTimeout(()=>{
+                setFilter(true)
+        
+              },2000)
+            }
+        
           }
           else{
              setBTNds(false)    

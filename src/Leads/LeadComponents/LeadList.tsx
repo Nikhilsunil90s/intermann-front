@@ -7,7 +7,7 @@ import {API_BASE_URL} from "../../config/serverApiConfig"
 import toast, { Toaster } from "react-hot-toast";
 import {useNavigate} from 'react-router-dom'
 let NewCdate;
-function LeadList({props,Update,Load,Lead,length,activeUser,TabName, setFilter}){
+function LeadList({props,Update,Load,Lead,length,activeUser,TabName, setFilter,DAta}){
   const LoginUser=JSON.parse(localStorage.getItem("LoginUser"))
   const navigate =useNavigate()
   const [LoginUserS,setLoginUser]=useState(LoginUser)
@@ -397,7 +397,7 @@ const AddToCrm=(props:any)=>{
      </div>
     </div>
     {NoteEditModal ?
-            <NotesEditModal closeModal={setNoteEditsModal} props={props} update={Update} Load={Load} deleteModal={setNotesDeleteModal} Notes={LeadNotes} setDelete={setDeleteLeads}  />
+            <NotesEditModal closeModal={setNoteEditsModal} props={props} update={Update} Load={Load} deleteModal={setNotesDeleteModal} Notes={LeadNotes} setDelete={setDeleteLeads} setFilter={setFilter} DAta={DAta}  />
 :
 null
 
@@ -405,7 +405,7 @@ null
       {
             NoteModal?
 
-            <NotesModal  closeModal={setNotesModal} props={props} EditModal={setNoteEditsModal}  deleteModal={setNotesDeleteModal} Notes={LeadNotes}  setDelete={setDeleteLeads}  /> 
+            <NotesModal  closeModal={setNotesModal} props={props} EditModal={setNoteEditsModal}  deleteModal={setNotesDeleteModal} Notes={LeadNotes}  setDelete={setDeleteLeads}    /> 
                        :
             null
           }

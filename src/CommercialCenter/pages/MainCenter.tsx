@@ -5,6 +5,7 @@ import LeadCard from "../components/LeadsCard";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import { motion } from "framer-motion";
 import Warning from '../../components/Loader/SearchBarError' 
+import { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {CommercialCenter} from "../../redux/slice/CommercialCenterSlice";
@@ -17,6 +18,10 @@ function MainCenter(){
     const [loader,setLoader]=useState(false)
     const [leads,setleads]=useState([])
     const [Currentleads,setCurrentLeads]=useState(0)as any
+    const [CurrentFilter,setCurrentFilter]=useState({
+      filterApplied:false,
+      FilterData:[]
+    })as any
 
     // const dispatch =useDispatch()
     // const {state} = useSelector((state:any)=> state.CommercialCenterSlice)as any
@@ -52,9 +57,15 @@ function MainCenter(){
 // console.log(state,"state")
     useEffect(()=>{
       // dispatch<any>(CommercialCenter())
+      if(CurrentFilter.filterApplied == false){
         fetchLeads()
+      }
     },[update])
     return(<>
+      <Toaster
+        containerStyle={{ zIndex: "999999999999999999999999999999" }}
+        position={"top-right"}
+      />
      <section className="" style={{marginTop:"90px"}}>
         <div className="px-1">
         <Header   />
@@ -72,7 +83,7 @@ function MainCenter(){
                 damping: 15
               }} 
                className="col-12 p-1 my-1" style={{background:"#ffff",borderRadius:"22px"}}>
-            <Filter  leadsSet={setLeads} leads={leads} setUpdate={setUpdate} setCurrentLeads={setCurrentLeads}/>
+            <Filter  leadsSet={setLeads} leads={leads} setUpdate={setUpdate} setCurrentLeads={setCurrentLeads} setCurrentFilter={setCurrentFilter} CurrentFilter={CurrentFilter} />
             </motion.div>
             <div className="col-12 py-1 px-2 my-1" style={{background: "#ffb055", borderRadius:" 9px"}}>
               <div className="row">
@@ -87,7 +98,7 @@ function MainCenter(){
                   loader ?
                     Leads.length > 0 ?
                      Leads.map((el,i)=>(
-                      <LeadCard props={el} key={i} length={i} update={setUpdate} />
+                      <LeadCard props={el} key={i} length={i} update={setUpdate} setCurrentFilter={setCurrentFilter} CurrentFilter={CurrentFilter} />
 
                      ))
                      :

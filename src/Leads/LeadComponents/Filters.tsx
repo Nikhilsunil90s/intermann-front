@@ -931,7 +931,7 @@ function Filters({
   setcontacted,
   setFilter,
   filter,
-  setFilterActive,}) {
+  setFilterActive,setDatA}) {
   let CaNam = [] as any;
   let Contact = [] as any;
   let Email = [] as any;
@@ -1083,7 +1083,7 @@ function Filters({
             setprecontacted(res.notPreContactedCount);
             setcontacted(res.notContactedCount);
             setLeads([...res.data]);
-      setFilterActive(true)
+            setFilterActive(true)
             setFilter(false)
           } else {
             setApplyBtn(false);
@@ -1379,7 +1379,7 @@ function Filters({
             if (res.status) {
               statusLeads(true);
       setFilterActive(true)
-
+      setDatA(Data)
               setApplyBtn(false);
               setprecontacted(res.notPreContactedCount);
               setcontacted(res.notContactedCount);
@@ -1390,7 +1390,7 @@ function Filters({
             } else {
               statusLeads(true);
       setFilterActive(true)
-
+      setDatA(Data)
               toast.error("Sorry No Results found!");
               setApplyBtn(false);
               setprecontacted(res.notPreContactedCount);
@@ -1406,6 +1406,7 @@ function Filters({
     } else {
       toast.success("Filters Reset Successfully!");
       setData();
+      setDatA()
       update(true);
       setFilterActive(false)
       statusLeads(false);

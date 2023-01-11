@@ -91,7 +91,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name="radio-group"
-                checked={
+                defaultChecked={
                   props.props.companyResponsable == "BENJAMIN B"
                     ? true
                     : false
@@ -115,7 +115,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name="radio-group"
-                checked={
+                defaultChecked={
                   props.props.companyResponsable == "JEREMY R" ? true : false
                 }
               />
@@ -137,7 +137,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name="radio-group"
-                checked={
+                defaultChecked={
                   props.props.companyResponsable == "PATRICK R" ? true : false
                 }
               />
@@ -159,7 +159,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name="radio-group"
-                checked={
+                defaultChecked={
                   props.props.companyResponsable == "ADRIAN T" ? true : false
                 }
               />
@@ -181,7 +181,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name="radio-group"
-                checked={
+                defaultChecked={
                   props.props.companyResponsable == "MORGAN R" ? true : false
                 }
               />
@@ -203,7 +203,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name="radio-group"
-                checked={
+                defaultChecked={
                   props.props.companyResponsable == "PATRICK B" ? true : false
                 }
               />
@@ -225,7 +225,7 @@ function LeadCard(props) {
                 className={props.props.companyResponsable === "PERSONNE" ? "persoon" : `inputLeadsClient`}
                 id="test1"
                 name="radio-group"
-                checked={
+                defaultChecked={
                   props.props.companyResponsable == "PERSONNE" ? true : false
                 }
               />
@@ -249,7 +249,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name="radio-group"
-                checked={
+                defaultChecked={
                   props.props.contactedAfterOfferSentBy == "BENJAMIN B" ? true : false
                 }
               />
@@ -271,7 +271,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name="radio-group"
-                checked={
+                defaultChecked={
                   props.props.contactedAfterOfferSentBy == "JEREMY R" ? true : false
                 }
               />
@@ -293,7 +293,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name="radio-group"
-                checked={
+                defaultChecked={
                   props.props.contactedAfterOfferSentBy == "PATRICK R" ? true : false
                 }
               />
@@ -315,7 +315,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name="radio-group"
-                checked={
+                defaultChecked={
                   props.props.contactedAfterOfferSentBy == "ADRIAN T" ? true : false
                 }
               />
@@ -337,7 +337,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name="radio-group"
-                checked={
+                defaultChecked={
                   props.props.contactedAfterOfferSentBy == "MORGAN R" ? true : false
                 }
               />
@@ -359,7 +359,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name="radio-group"
-                checked={
+                defaultChecked={
                   props.props.contactedAfterOfferSentBy == "PATRICK B" ? true : false
                 }
               />
@@ -381,7 +381,7 @@ function LeadCard(props) {
                 className={props.props.companyResponsable === "PERSONNE" ? "persoon" : `inputLeadsClient`}
                 id="test1"
                 name="radio-group"
-                checked={
+                defaultChecked={
                   props.props.contactedAfterOfferSentBy == "PERSONNE" ? true : false
                 }
               />
@@ -405,7 +405,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name={`deuxième${props.length}`}
-                checked={props.props.contactedSecondTimeBy == "BENJAMIN B" ? true : false}
+                defaultChecked={props.props.contactedSecondTimeBy == "BENJAMIN B" ? true : false}
               />
               <label htmlFor="test1 mb-0">BENJAMIN B</label>
             </p>
@@ -425,7 +425,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name={`deuxième${props.length}`}
-                checked={props.props.contactedSecondTimeBy == "JEREMY R" ? true : false}
+                defaultChecked={props.props.contactedSecondTimeBy == "JEREMY R" ? true : false}
               />
               <label htmlFor="test1 mb-0">JEREMY R</label>
             </p>
@@ -445,7 +445,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name={`deuxième${props.length}`}
-                checked={props.props.contactedSecondTimeBy == "PATRICK R" ? true : false}
+                defaultChecked={props.props.contactedSecondTimeBy == "PATRICK R" ? true : false}
               />
               <label htmlFor="test1 mb-0">PATRICK R</label>
             </p>
@@ -465,7 +465,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name={`deuxième${props.length}`}
-                checked={props.props.contactedSecondTimeBy == "ADRIAN T" ? true : false}
+                defaultChecked={props.props.contactedSecondTimeBy == "ADRIAN T" ? true : false}
 
               />
               <label htmlFor="test1 mb-0">ADRIAN T</label>
@@ -486,7 +486,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name={`deuxième${props.length}`}
-                checked={props.props.contactedSecondTimeBy == "MORGAN R" ? true : false}
+                defaultChecked={props.props.contactedSecondTimeBy == "MORGAN R" ? true : false}
 
               />
               <label htmlFor="test1 mb-0">MORGAN R</label>
@@ -507,7 +507,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name={`deuxième${props.length}`}
-                checked={props.props.contactedSecondTimeBy == "PATRICK B" ? true : false}
+                defaultChecked={props.props.contactedSecondTimeBy == "PATRICK B" ? true : false}
 
               />
               <label htmlFor="test1 mb-0">PATRICK B</label>
@@ -528,7 +528,7 @@ function LeadCard(props) {
                 className={props.props.companyResponsable === "PERSONNE" ? "persoon" : `inputLeadsClient`}
                 id="test1"
                 name={`deuxième${props.length}`}
-                checked={props.props.contactedSecondTimeBy == "PERSONNE" ? true : false}
+                defaultChecked={props.props.contactedSecondTimeBy == "PERSONNE" ? true : false}
 
               />
               <label htmlFor="test1 mb-0">PERSONNE</label>
@@ -551,7 +551,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name={`premier${props.length}`}
-                checked={
+                defaultChecked={
                   props.props.contactedFirstTimeBy == "BENJAMIN B"
                     ? true
                     : false
@@ -575,7 +575,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name={`premier${props.length}`}
-                checked={
+                defaultChecked={
                   props.props.contactedFirstTimeBy == "JEREMY R" ? true : false
                 }
               />
@@ -597,7 +597,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name={`premier${props.length}`}
-                checked={
+                defaultChecked={
                   props.props.contactedFirstTimeBy == "PATRICK R" ? true : false
                 }
               />
@@ -619,7 +619,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name={`premier${props.length}`}
-                checked={
+                defaultChecked={
                   props.props.contactedFirstTimeBy == "ADRIAN T" ? true : false
                 }
               />
@@ -641,7 +641,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name={`premier${props.length}`}
-                checked={
+                defaultChecked={
                   props.props.contactedFirstTimeBy == "MORGAN R" ? true : false
                 }
               />
@@ -663,7 +663,7 @@ function LeadCard(props) {
                 className="inputLeadsClient"
                 id="test1"
                 name={`premier${props.length}`}
-                checked={
+                defaultChecked={
                   props.props.contactedFirstTimeBy == "PATRICK B" ? true : false
                 }
               />
@@ -685,7 +685,7 @@ function LeadCard(props) {
                 className={props.props.companyResponsable === "PERSONNE" ? "persoon" : `inputLeadsClient`}
                 id="test1"
                 name={`premier${props.length}`}
-                checked={
+                defaultChecked={
                   props.props.contactedFirstTimeBy == "PERSONNE" ? true : false
                 }
               />
@@ -835,7 +835,7 @@ function LeadCard(props) {
         color: "#ff0000",
       },
     ]);
-  }, [props.props]);
+  }, );
 
  
 
@@ -863,9 +863,13 @@ function LeadCard(props) {
       .then((res) => {
         if (res.status) {
           toast.success(res.message);
+          if(props.CurrentFilter.FilterData.length > 0){
+            props.setCurrentFilter({...props.CurrentFilter,filterApplied:true})
+          }
           props.update(true);
         } else {
           toast.success(res.message);
+       
         }
       })
       .catch((err) => err);
@@ -885,7 +889,13 @@ function LeadCard(props) {
       .then((res) => {
         if (res.status) {
           toast.success(res.message);
+        if(props.CurrentFilter.FilterData.length > 0){
+          props.setCurrentFilter({...props.CurrentFilter,filterApplied:true})
+        }
+       
           props.update(true);
+         
+  
         } else {
           toast.success(res.message);
         }
@@ -958,10 +968,7 @@ function LeadCard(props) {
  
   return (
     <>
-      <Toaster
-        containerStyle={{ zIndex: "999999999999999999999999999999" }}
-        position={"top-right"}
-      />
+    
       <div
         className="row leadClientCard my-1"
         style={{ width: "102%" }}
@@ -1177,7 +1184,7 @@ function LeadCard(props) {
                     defaultChecked={props.props.offerSent}
                     id={`offer${props.length}`}
                     onChange={(e) =>
-                      switchCheck("Offre", props.props._id, e.target.checked)
+                      switchCheck("Offre", props.props._id, e.target.defaultChecked)
                     }
                   />
                   <label
@@ -1199,7 +1206,7 @@ function LeadCard(props) {
                     type="checkbox"
                     id={`rappeler${props.length}`}
                     onChange={(e) =>
-                      switchCheck("rappel", props.props._id, e.target.checked)
+                      switchCheck("rappel", props.props._id, e.target.defaultChecked)
                     }
                     defaultChecked={props.props.rappeler}
                   />
@@ -1222,7 +1229,7 @@ function LeadCard(props) {
                     type="checkbox"
                     id={`Intéréssé${props.length}`}
                     onChange={(e) =>
-                      switchCheck("", props.props._id, e.target.checked)
+                      switchCheck("", props.props._id, e.target.defaultChecked)
                     }
                     defaultChecked={props.props.companyInterested}
                   />
@@ -1273,7 +1280,7 @@ function LeadCard(props) {
                                 className={props.props.contactedFirstTimeBy ?  props.props.contactedFirstTimeBy === "PERSONNE" ? "persoon" : `inputLeadsClient` : "persoon" }
                                 id="test1"
                                 name={`premie${props.length}`}
-                                checked
+                                defaultChecked
                               />
                               <label htmlFor="test1 mb-0">
                                 {props.props.contactedFirstTimeBy
@@ -1297,7 +1304,7 @@ function LeadCard(props) {
                                 className={props.props.contactedFirstTimeBy  ? props.props.contactedFirstTimeBy === "PERSONNE" ? "persoon" : `inputLeadsClient` : "persoon" }
                                 id="test1"
                                 name={`premie${props.length}`}
-                                checked
+                                defaultChecked
                               />
                               <label htmlFor="test1 mb-0">
                                 {props.props.contactedFirstTimeBy
@@ -1346,7 +1353,7 @@ function LeadCard(props) {
                                 className={props.props.contactedSecondTimeBy  ? props.props.contactedSecondTimeBy === "PERSONNE" ? "persoon" : `inputLeadsClient` : "persoon"}
                                 id="test1"
                                 name={`deux${props.length}`}
-                                checked
+                                defaultChecked
                               />
                               <label htmlFor="test1 mb-0">
                                 {props.props.contactedSecondTimeBy
@@ -1370,7 +1377,7 @@ function LeadCard(props) {
                                 className={props.props.contactedSecondTimeBy  ? props.props.contactedSecondTimeBy === "PERSONNE" ? "persoon" : `inputLeadsClient` : "persoon"}
                                 id="test1"
                                 name={`deux${props.length}`}
-                                checked
+                                defaultChecked
                               />
                               <label htmlFor="test1 mb-0">
                                 {props.props.contactedSecondTimeBy
@@ -1422,7 +1429,7 @@ function LeadCard(props) {
                                 className={props.props.contactedAfterOfferSentBy ? props.props.contactedAfterOfferSentBy === "PERSONNE" ? "persoon" : `inputLeadsClient` :"persoon" }
                                 id="test1"
                                 name={`appel${props.length}`}
-                                checked
+                                defaultChecked
                               />
                               <label htmlFor="test1 mb-0">
                                 {props.props.contactedAfterOfferSentBy
@@ -1449,7 +1456,7 @@ function LeadCard(props) {
                                 className={props.props.contactedAfterOfferSentBy ? props.props.contactedAfterOfferSentBy === "PERSONNE" ? "persoon" : `inputLeadsClient` :"persoon" }
                                 id="test1"
                                 name={`appel${props.length}`}
-                                checked
+                                defaultChecked
                               />
                               <label htmlFor="test1 mb-0">
                                 {props.props.contactedAfterOfferSentBy
@@ -1500,7 +1507,7 @@ function LeadCard(props) {
                                 className={props.props.companyResponsable ? props.props.companyResponsable === "PERSONNE" ? "persoon" : `inputLeadsClient` : "persoon"}
                                 id="test1"
                                 name={`responsab${props.length}`}
-                                checked
+                                defaultChecked
                               />
                               <label htmlFor="test1 mb-0">
                                 {props.props.companyResponsable
@@ -1526,7 +1533,7 @@ function LeadCard(props) {
                                 className={props.props.companyResponsable ? props.props.companyResponsable === "PERSONNE" ? "persoon" : `inputLeadsClient` : "persoon"}
                                 id="test1"
                                 name={`responsabl${props.length}`}
-                                checked
+                                defaultChecked
                               />
                               <label htmlFor="test1 mb-0">
                                 {props.props.companyResponsable
@@ -1592,6 +1599,8 @@ function LeadCard(props) {
                   Status={statusModal}
                   closeModal={setModal}
                   update={props.update}
+                  setCurrentFilter={props.setCurrentFilter}
+                  CurrentFilter={props.CurrentFilter}
                 />
               ) : null}
               {ModalView ? (
@@ -1599,6 +1608,7 @@ function LeadCard(props) {
                   props={props.props}
                   Notes={statusModal}
                   closeModal={setModalView}
+                 
                 />
               ) : null}
               {DeleteModal ? (

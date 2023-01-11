@@ -212,6 +212,27 @@ if(props.leads.length > 0){
        setCompanyName([...Name])
 }
       },[props.leads,companyName])
+
+      useEffect(()=>{
+   if(props.CurrentFilter.filterApplied === true && data !== undefined){
+
+        FilterData().then((res)=>{
+          if(res.status){
+            setBTNds(false)
+             props.leadsSet([...res.data])
+             props.setCurrentLeads(res.notContactedCount)
+              props.setCurrentFilter({...props.CurrentFilter,filterApplied:false,FilterData:data})
+            //  toast.success(`${res.data.length} Results Found!`)
+          }else if(res.status === false){
+            setBTNds(false)
+           props.leadsSet([])
+           props.setCurrentLeads(res.notContactedCount) 
+           props.setCurrentFilter({...props.CurrentFilter,filterApplied:false,FilterData:data})
+          }
+        })
+        .catch((err)=>err)
+      }
+      },[props.CurrentFilter])
       const [responsable, setResponsable] = useState([
     
       ]) as any;
@@ -249,11 +270,14 @@ if(props.leads.length > 0){
             setBTNds(false)
              props.leadsSet([...res.data])
              props.setCurrentLeads(res.notContactedCount)
+             props.setCurrentFilter({...props.CurrentFilter,filterApplied:false,FilterData:data})
+
             //  toast.success(`${res.data.length} Results Found!`)
           }else if(res.status === false){
             setBTNds(false)
            props.leadsSet([])
            props.setCurrentLeads(res.notContactedCount)
+                     props.setCurrentFilter({...props.CurrentFilter,filterApplied:false,FilterData:data})
 
           }
         })
@@ -264,7 +288,7 @@ if(props.leads.length > 0){
         setStatus([])
         setResponsable([])
         setCompanyName()
-        setbool()
+        setbool()  
         // toast.success(`Filter Reset Successfully !`)
         props.setUpdate(true)
       }

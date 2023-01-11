@@ -10,7 +10,6 @@ function EditModal(props: any) {
   const onFormChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-
   const onFormSubmit = async () => {
     await fetch(
       props.Status === "Name"
@@ -39,12 +38,21 @@ function EditModal(props: any) {
       .then((res) => {
         if (res.status) {
           toast.success(res.message);
-          props.update(true);
-          setTimeout(() => {
+          if(props.CurrentFilter.FilterData.length !== 0){
+            props.setCurrentFilter({...props.CurrentFilter,filterApplied:true})
+          }else{
+            props.setCurrentFilter({...props.CurrentFilter,filterApplied:false})
+            props.update(true);
+          }
+        
+       
+          setTimeout(()=>{
             props.closeModal(false);
-          }, 1000);
+          },1000)
+    
         } else {
           toast.success(res.message);
+          props.closeModal(false);
         }
       })
       .catch((err) => err);
