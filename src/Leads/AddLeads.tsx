@@ -551,7 +551,7 @@ const onSubmit=()=>{
                     type: "spring",
                     stiffness: 30,
                     damping: 15
-                  }} className="col-12 my-2 p-1" style={{background:"#ffff",borderRadius:"10px",height:"79vh" ,width:"100vw"}}>
+                  }} className="col-12 my-2 p-1" style={{background:"#ffff",borderRadius:"10px" ,width:"100vw"}}>
                   <div className="row d-grid justify-content-center">
                     <div className="col-12 ">
                       <div className="row justify-content-center">
@@ -655,11 +655,27 @@ const onSubmit=()=>{
                   </div>
 
                       </div>
-                     <div className="col-12 d-flex justify-content-center mt-2">
+                     <div className="col-12 d-flex justify-content-center mt-2 p-1">
+                     {btnDS ?
+
+<button className="BtnLeads d-flex align-items-center "  style={{color:btnDS ?"#000" : "#fff", background:btnDS ?  "#979797" : "#000"}}  disabled={btnDS}>
+<span  className="PleaseWaitLeads mx-2"></span>
+If there are too many entries in CSV, this could take several minutes to finish the upload. Please Wait...
+</button>
+
+:
+
                              <button className="BtnLeads"style={{background:btnDS ?  "#3d393935" : "#000"}} onClick={()=>onCSVFile()} disabled={btnDS}>
                                SUBMIT NOW
                              </button>
-                         
+}
+                         {/* {
+                          btnDS  ?
+
+
+                          :
+                          null
+                         } */}
                      </div>
                   </div>
                      </motion.div>
