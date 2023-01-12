@@ -491,15 +491,15 @@ export default function DownloadCenter() {
                                     <span className="filterLeadsLoader" />
                                   </div>
                                 ) : (
-                                  <img
-                                    src={
-                                      require("../images/dowBtn.svg").default
-                                    }
-                                  />
+                                  <span
+                                  // src={require("../images/dowBtn.svg").default}
+                                  className="downloadBtn0012X"
+                                />
                                 )
                               ) : (
-                                <img
-                                  src={require("../images/dowBtn.svg").default}
+                                <span
+                                  // src={require("../images/dowBtn.svg").default}
+                                  className="downloadBtn0012X"
                                 />
                               )}
                             </button>

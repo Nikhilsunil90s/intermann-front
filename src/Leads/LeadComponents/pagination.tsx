@@ -44,6 +44,18 @@ const PaginationFun = (props: any) => {
     { page: 40, currentPage: 2000 },
     { page: 41, currentPage: 2050 },
     { page: 42, currentPage: 2100 },
+    { page: 43, currentPage: 2150 },
+    { page: 44, currentPage: 2200 },
+    { page: 45, currentPage: 2250 },
+    { page: 46, currentPage: 2300 },
+    { page: 47, currentPage: 2350 },
+    { page: 48, currentPage: 2400 },
+    { page: 49, currentPage: 2450 },
+    { page: 50, currentPage: 2500 },
+    { page: 51, currentPage: 2550 },
+    { page: 52, currentPage: 2600 },
+    { page: 53, currentPage: 2650 },
+    { page: 54, currentPage: 2700 },
     
   ]);
   const [activeTab, setActiveTab] = React.useState(0) as any;

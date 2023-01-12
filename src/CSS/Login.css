@@ -126,6 +126,55 @@ color: #6F7187;
     text-align: right;  
     color: #032339;
 }
+
+  .formLogin {
+    width: 74px;
+    height: 55px;
+    position: relative;
+    border: 5px solid rgb(255, 161, 67);
+    border-radius: 8px;
+  }
+  .formLogin::before {
+    content: '';
+    position: absolute;
+    border: 5px solid rgb(255, 161, 67);
+    width: 37px;
+    height: 28px;
+    border-radius: 50% 50% 0 0;
+    left: 50%;
+    top: 0;
+    transform: translate(-50% , -100%)
+  
+  }
+  .formLogin::after {
+    content: '';
+    position: absolute;
+    transform: translate(-50% , -50%);
+    left: 50%;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgb(255, 161, 67);
+    box-shadow: 16px 0 #fff, -16px 0 #fff;
+    animation: flash 0.5s ease-out infinite alternate;
+  }
+  
+  @keyframes flash {
+    0% {
+      background-color: rgba(255, 255, 255, 0.25);
+      box-shadow: 16px 0 rgba(255, 255, 255, 0.25), -16px 0 rgb(255, 161, 67);
+    }
+    50% {
+      background-color: rgb(255, 161, 67);
+      box-shadow: 16px 0 rgba(255, 255, 255, 0.25), -16px 0 rgba(255, 255, 255, 0.25);
+    }
+    100% {
+      background-color: rgba(255, 255, 255, 0.25);
+      box-shadow: 16px 0 rgb(255, 161, 67), -16px 0 rgba(255, 255, 255, 0.25);
+    }
+  }
+      
 .loaderLogin {
     border: 16px solid #f3f3f3;
     border-radius: 50%;

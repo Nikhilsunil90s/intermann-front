@@ -203,7 +203,14 @@ function useOnClickOutside(ref, handler) {
                       </p>
                     </div>
                     <div className="mx-auto ">
-                      <div className="text-start">
+                      {
+                        LoginLoad?
+                        <div className="col-12  d-flex align-items-center justify-content-center mt-5 mb-2">
+<span  className="formLogin" />
+</div>
+                        :
+<>
+                        <div className="text-start">
                         <label htmlFor="Email "  className="fw-bold">E-mail</label>
                         <div className="d-flex input-box" style={{height:"50px"}}>
                           <span
@@ -270,6 +277,9 @@ function useOnClickOutside(ref, handler) {
                           </div>
                         </div>
                       </div>
+                      </>
+                      }
+                     
                       <br />
                       <div className="d-flex">
                         

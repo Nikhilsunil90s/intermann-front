@@ -473,6 +473,48 @@ color: #FE8700;
         background: transparent !important;
         border-radius: 10px;
     }
+
+
+    .downloadBtn0012X {
+        width: 48px;
+        height: 5px;
+        background: #032339;
+        margin-top: 40px;
+        display: inline-block;
+        position: relative;
+      }
+      .downloadBtn0012X::after {
+        content: '';  
+        left: 50%;
+        bottom: 0;
+        transform: translate(-50%, 0);
+        position: absolute;
+        border: 9px solid transparent;
+        border-top-color: #032339;
+        box-sizing: border-box;
+        animation: bump 0.4s ease-in-out infinite alternate;
+      }
+      .downloadBtn0012X::before {
+        content: '';  
+        left: 50%;
+        bottom: 18px;
+        transform: translate(-50%, 0);
+        position: absolute;
+        width: 6px;
+        height: 13px;
+        background: #032339;
+        box-sizing: border-box;
+        animation: bump 0.4s ease-in-out infinite alternate;
+      }
+      
+      @keyframes bump {
+        0% {
+          transform: translate(-50%, 5px);
+        }
+        100% {
+          transform: translate(-50%, -5px);
+        }
+      }
 @media (min-device-width:320px) and (max-device-width:768px){
     .somilActiveTab{
         

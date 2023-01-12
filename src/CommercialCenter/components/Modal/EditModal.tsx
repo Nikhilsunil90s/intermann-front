@@ -69,16 +69,10 @@ function EditModal(props: any) {
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ rotate: 0, scale: 1 }}
-          transition={{
-            type: "spring",
-            stiffness: 190,
-            damping: 50,
-          }}
+        <div
+       
           className="modal-dialog modal-lg"
-          style={{ width: "795px" }}
+          style={{ width: "795px" ,top:"15%"}}
         >
           <div className="modal-content">
             <div className="modal-header p-0">
@@ -209,7 +203,7 @@ function EditModal(props: any) {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </>
   );

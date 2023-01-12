@@ -62,14 +62,8 @@ function DeleteLeadModal(props){
     return(
         <>
    <div className="modal d-block" style={{ backgroundColor: "#00000052" }} id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-   <motion.div   
-    initial={{ scale: 0 }}
-                        animate={{ rotate:0, scale:1}}
-                        transition={{
-                          type: "spring",
-                          stiffness: 190,
-                          damping: 50
-                        }}  className="modal-dialog modal-lg" style={{width:"505px",marginTop:"100px"}}>
+   <div   
+    className="modal-dialog modal-lg" style={{width:"505px",marginTop:"100px",top:"15%"}}>
                 <div className="modal-content">
                     <div className="col-12">
                         <div className="row justify-content-end">
@@ -133,7 +127,7 @@ function DeleteLeadModal(props){
                     </div>
                
                 </div>
-            </motion.div>
+            </div>
         </div>
         </>
     )
