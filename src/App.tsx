@@ -57,6 +57,7 @@ import AddReaserch from "./JobAdsCenter/AddReaserch";
 import EditPage from "./JobAdsCenter/EditPage"
 import AddLeadsCom from './CommercialCenter/pages/AddLeads'
 import MainCenter from "./CommercialCenter/pages/MainCenter";
+import AddInvoice from "./BILLING-CENTER/Pages/AddInvoice";
 function App() {
   return (
     <Provider store={configureStore}>
@@ -516,6 +517,17 @@ function App() {
             
             }
           />
+          {/* End */}
+          {/* Billing Center */}
+          <Route
+            path={"/billing-Center/AddInvoice"}
+            element={
+            
+                <AddInvoice />
+            
+            }
+          />
+
           {/* End */}
           <Route path="/Error404" element={<Error404 />} />
           <Route path="/Error500" element={<Error500 />} />

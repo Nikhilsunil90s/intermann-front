@@ -393,8 +393,8 @@ export default function DownloadCenter() {
                             {el.amount_avance
                               ? `- Amount : ${el.amount_avance + " €"}`
                               : null}
-                            - Generated :
-                            <b>
+                            - Generated  <b>:</b>
+                            <b style={{marginRight:"12px",marginLeft:"3px"}}>
                               {el.contract_generated_on
                                 ? el.contract_generated_on.slice(3, 5) > "12"
                                   ? el.contract_generated_on.slice(3, 5) +
@@ -405,8 +405,8 @@ export default function DownloadCenter() {
                                   : el.contract_generated_on
                                 : el.generated_on}
                             </b>
-                            Signed :
-                            <b>
+                            Signed <b>:</b>
+                            <b style={{marginRight:"12px",marginLeft:"3px"}}>
                               {el.contract_signed_on
                                 ? 
                                 el.contract_signed_on.slice(3, 5) > "12"

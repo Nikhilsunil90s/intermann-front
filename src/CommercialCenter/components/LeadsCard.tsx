@@ -835,7 +835,7 @@ function LeadCard(props) {
         color: "#ff0000",
       },
     ]);
-  }, );
+  }, []);
 
  
 

@@ -725,7 +725,7 @@ if(filter == false){
                null
                :
                
-           <Pagination setPage={setPage} setcurrentPage={setcurrentPage} fetchSkipLeads={fetchSkipLeads} page={page}  tabName={TabName} comp="top"  DS={DsBtn} LeadsCheck={LeadsCheck} />
+           <Pagination setPage={setPage} setcurrentPage={setcurrentPage} fetchSkipLeads={fetchSkipLeads} page={page}  tabName={TabName} comp="top"  DS={DsBtn} LeadsCheck={LeadsCheck}  Leads={skipLeads} />
             }
            
             {LeadsCheck ? (
@@ -773,7 +773,7 @@ if(filter == false){
                null
                :
                <div className="mt-2">
-           <Pagination setPage={setPage} setcurrentPage={setcurrentPage} fetchSkipLeads={fetchSkipLeads} page={page}  tabName={TabName} comp="bottom"  DS={DsBtn} LeadsCheck={LeadsCheck}/>
+           <Pagination setPage={setPage} setcurrentPage={setcurrentPage} fetchSkipLeads={fetchSkipLeads} page={page}  tabName={TabName} comp="bottom"  DS={DsBtn} LeadsCheck={LeadsCheck} Leads={skipLeads} />
            </div>
             }
           </div>

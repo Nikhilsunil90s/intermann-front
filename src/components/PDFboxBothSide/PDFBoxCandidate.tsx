@@ -384,14 +384,14 @@ const onTabClick = (e, index: any) => {
         <>
           <div className="col-12 Social-Card mt-1">
              <div className="row px-1 pt-1 pb-0">
-             <div className="col-3 d-flex align-items-center  px-0">
+             <div className="col-2 d-flex align-items-center  px-0">
               <div className="d-flex">  <p className="DocShareLink mb-0">
                    Share this link with the client <br />
                     Patager ce lien avec le client
                   </p></div>
                 </div>
-                <div className="col-1 d-flex justify-content-center align-items-center " style={{paddingLeft:"5px"}}> <Share width={25} /><b className="pl-1"> :</b></div>
-                <div className="col-8 DocShareLinkBackground p-1 pl-0">
+                <div className="col-1 d-flex justify-content-center align-items-center " style={{paddingLeft:"5px"}}> <Share width={25} /><b className="pl-1 fw-bold" > :</b></div>
+                <div className="col-9 DocShareLinkBackground p-1 pl-0">
                 <Link
                     className="LinkStyling"
                     to={`/candidateDocumentbox/${props?.candidatName}/${props?._id}`}
