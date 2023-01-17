@@ -58,6 +58,7 @@ import EditPage from "./JobAdsCenter/EditPage"
 import AddLeadsCom from './CommercialCenter/pages/AddLeads'
 import MainCenter from "./CommercialCenter/pages/MainCenter";
 import AddInvoice from "./BILLING-CENTER/Pages/AddInvoice";
+import BillingCenter from "./BILLING-CENTER/Pages/billing-Center";
 function App() {
   return (
     <Provider store={configureStore}>
@@ -524,6 +525,14 @@ function App() {
             element={
             
                 <AddInvoice />
+            
+            }
+          />
+           <Route
+            path={"/billing-Center"}
+            element={
+            
+             <Sidebar >  <BillingCenter /></Sidebar>
             
             }
           />

@@ -16,6 +16,7 @@ let Prix = 0;
 let Qua = 0;
 function AddInvoice() {
   const navigate=useNavigate()
+  console.log(toTalamount === 0 ? "0.00" : toTalamount)
   const ref = useRef() as any;
   const refOne = useRef(null);
   const reftwo = useRef(null);
@@ -46,7 +47,7 @@ function AddInvoice() {
     details: [],
   });
   const onClickLineAdd = () => {
-    if (Row.quantity === "" && Row.price == "" && Row.description) {
+    if (Row.quantity === "" || Row.price == "" || Row.description == "") {
       if (totalA.length > 0) {
         setDisplayRow(true);
       }
@@ -162,11 +163,13 @@ function AddInvoice() {
       <Toaster
         position="top-right"
         containerStyle={{
-          zIndex: "99909999999999999999999999999999555555555555",
+          zIndex: "999999999999999999999999999999909999999999999999999999999999555555555555",
         }}
       />
       <div className="container-fluid">
         <div className="row">
+          <div className="col-12" style={{position:"sticky",top:"0px",height:"18vh",   zIndex: "555555555",}}>
+          <div className="row">
           <div
             className="col-2 logoSet sideBarBackG d-flex align-items-center justify-content-center"
             style={{ padding: "20px" }}
@@ -193,7 +196,9 @@ function AddInvoice() {
               Codul Fiscal
             </span>
           </div>
-          <div className="p-2 ">
+          </div>
+          </div>
+          <div className="p-2 scrollbarBox"  style={{height:"70vh",position:"fixed",overflowY:"scroll",marginTop:"100px",marginBottom:"60px"}}>
             <div className="col-12 bgAddInvoice p-1">
               <div className="row">
                 <div className="col-6">
@@ -297,11 +302,11 @@ function AddInvoice() {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="p-2">
+       
+            <div className="mt-2">
             <div className="col-12">
               <div className="row">
-                <div className="col-6 borderClass">
+                <div className="col-5 borderClass">
                   <div className="row">
                     <div className="col-2 d-flex justify-content-center ">
                       <p className="x1102">DE</p>
@@ -364,7 +369,7 @@ function AddInvoice() {
                   </div>
                 </div>
                 <div
-                  className="col-2 borderClass text-center "
+                  className="col-3 borderClass text-center "
                   style={{ borderRight: "none" }}
                 >
                   <p className="x1103 fw-bolder">Total Ã payer</p>
@@ -372,16 +377,18 @@ function AddInvoice() {
                     <input
                       readOnly={true}
                       className="x1103Totalpayer"
-                      value={toTalamount}
+                      type={"number"}
+                      value={toTalamount === 0 ? "0.00" : toTalamount.toFixed(2)}
                     />
                     <span className="totalSign">{CurrencyValue.label.includes("Lei") ? "Lei" : CurrencyValue.label.includes("$") ?  "$" : CurrencyValue.label.includes("€") ? "€" :""}</span>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="p-2">
+            </div>
+       <div className="mt-2">
             <p className="DECEMBRE">FACTURE DECEMBRE</p>
+            </div>
             <table className="table table-borderedX12S">
               <thead style={{ background: "transparent" }}>
                 <tr className="">
@@ -466,7 +473,7 @@ function AddInvoice() {
                           <div className="px-1 d-flex align-items-center justify-content-center">
                             <input
                               className="InputInvoice"
-                              value={el.montant}
+                              value={el.montant.toFixed(2)}
                               onChange={onChangeDetailsFill}
                               style={{
                                 background: "#d8d8d8",
@@ -547,10 +554,7 @@ Antonica Ionut"
                           onChange={onChangeDetailsFill}
                           placeholder="2.322,60"
                           value={
-                            isNaN(Prix * Row.quantity)
-                              ? ""
-                              : Prix * Row.quantity
-                          }
+                            (Row.quantity * Row.price).toFixed(2) }
                           name="montant"
                         />
                       </div>
@@ -613,13 +617,7 @@ Antonica Ionut"
                             onChange={onChangeDetailsFill}
                             placeholder="2.322,60"
                             value={
-                              isNaN(
-                                parseFloat(Row.price) * parseFloat(Row.quantity)
-                              )
-                                ? ""
-                                : parseFloat(Row.price) *
-                                  parseFloat(Row.quantity)
-                            }
+                           (Row.quantity * Row.price).toFixed(2) }
                             name="montant"
                           />
                         </div>
@@ -668,7 +666,7 @@ Antonica Ionut"
                   <td style={{ padding: "0px" }}>
                     <div className="px-1 d-flex align-items-center justify-content-center">
                       <p className="mb-0">
-                        {toTalamount} {CurrencyValue.label.includes("Lei") ? "Lei" : CurrencyValue.label.includes("$") ?  "$" : CurrencyValue.label.includes("€") ? "€" :""}
+                        {toTalamount === 0 ? "0.00" : toTalamount.toFixed(2)} {CurrencyValue.label.includes("Lei") ? "Lei" : CurrencyValue.label.includes("$") ?  "$" : CurrencyValue.label.includes("€") ? "€" :""}
 
                        
                       </p>
@@ -693,9 +691,9 @@ Antonica Ionut"
               </button>
             </div>
           </div>
-          <div className="col-12 mt-4 p-1 bg-white">
-            <div className="row">
-              <div className="col-8 d-flex">
+          <div className="col-12 mt-4 p-1  bg-white" style={{position:"fixed",bottom:"0px",height:"12vh"}}>
+            <div className="row  align-items-center"  >
+              <div className="col-8 d-flex ">
               <Select
               name="market"
               closeMenuOnSelect={true}
@@ -703,6 +701,11 @@ Antonica Ionut"
               className="basic-multi-select placeHolderLead billingCenter"
               classNamePrefix="select"
               // menuIsOpen={true}
+              defaultValue={{
+                value :"Euro",
+                label:"€  Euro",
+                color:"#1372b5", 
+                }}
               onChange={OnReactSelect}
               options={currency}
               styles={colourStyles}
