@@ -1,0 +1,247 @@
+.TopHeaderAddInvoice h3 {
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 31px;
+  line-height: 31px;
+  color: #000000;
+}
+.TopHeaderAddInvoice p {
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 21px;
+
+  color: #000000;
+}
+.TopHeaderAddInvoice span {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 15px;
+
+  color: #000000;
+}
+.bgAddInvoice {
+  background: #032339;
+  border-radius: 6px;
+}
+
+.bgAddInvoice .fact {
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 22px;
+  color: #ffffff;
+}
+.bgAddInvoice .fact007 {
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #ffffff;
+}
+.bgAddInvoice input {
+  background: #ffffff;
+  border-radius: 20px;
+  outline-offset: unset;
+  outline: none;
+  border: transparent;
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 14px;
+  padding: 10px;
+  text-transform: uppercase;
+
+  color: #032339;
+}
+.InputInvoice {
+  background: #ffffff;
+  border-radius: 20px;
+  outline-offset: unset;
+  outline: none;
+  border: transparent;
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 14px;
+  padding: 10px;
+  width: 100%;
+  color: #032339;
+  border: 2px solid #dee2e6;
+}
+.InputInvoice input:focus-visible {
+  border: none;
+  outline: none;
+  border: transparent;
+}
+.table-borderedX12S {
+  border: 1px solid black !important;
+}
+.table-borderedX12S th {
+  border: 2.2000000000000028px solid #bdbdbd94 !important;
+}
+.table-borderedX12S td {
+  border: 2.2000000000000028px solid #bdbdbd94 !important;
+}
+.table-borderedX12S th {
+  vertical-align: top !important;
+  border-bottom: 2px solid #dee2e6 !important;
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 9px;
+
+  color: #000000;
+}
+.table-borderedX12S tr {
+  background-color: #e3e3e336;
+}
+.table-borderedX12S tr td div {
+  width: 100%;
+  background-color: #e3e3e336;
+  height: 53px;
+}
+.table-borderedX12S tr td div p {
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 9px;
+
+  color: #000000;
+}
+.bgAddInvoice input:focus-visible {
+  border: none;
+  outline: none;
+  border: transparent;
+}
+.DECEMBRE {
+  font-family: "Arial";
+  font-style: italic;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 9px;
+  color: #000000;
+}
+
+.x1102 {
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 28px;
+
+  color: #000000;
+}
+
+.x1103 {
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 25px;
+
+  color: #000000;
+}
+
+.borderClass {
+  border-bottom: 2.2000000000000028px solid #bdbdbd94;
+  border-right: 2.2000000000000028px solid #bdbdbd94;
+}
+.x1102Textarea {
+  background: #ffffff;
+  border-radius: 20px;
+  outline-offset: unset;
+  outline: none;
+  border: transparent;
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 14px;
+  padding: 10px;
+  width: 100%;
+  color: #032339;
+  border: 2px solid #dee2e6;
+  height: 60px;
+}
+.x1102input {
+  background: #ffffff;
+  border-radius: 20px;
+  outline-offset: unset;
+  outline: none;
+  border: transparent;
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 14px;
+  padding: 10px;
+  width: 100%;
+  color: #032339;
+  border: 2px solid #dee2e6;
+}
+.x1103Totalpayer {
+  height: 106px;
+  border: 0px;
+  background: transparent;
+  outline-offset: unset;
+  outline: none;
+  border: transparent;
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 59px;
+  line-height: 14px;
+  padding: 10px;
+  width: 185px;
+  color: #f6871f;
+}
+.totalSign {
+  display: flex;
+  align-items: center;
+  position: relative;
+  right: 10px;
+  font-size: 59px;
+  background: transparent;
+  color: #f6871f;
+}
+.AddLine {
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #ffffff;
+  background: #000000;
+  background: #032339;
+  border-radius: 100px;
+  padding: 10px 47px 10px 50px;
+  gap: 10px;
+  border: none;
+}
+
+.oR {
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 21px;
+  color: #000;
+}
+
+.billingCenter .css-26l3qy-menu{
+  top: -320%;
+}
+.billingCenter  {
+  width: 250px;
+}
