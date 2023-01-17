@@ -374,7 +374,7 @@ function AddInvoice() {
                       className="x1103Totalpayer"
                       value={toTalamount}
                     />
-                    <span className="totalSign">{CurrencyValue.label.includes("Lei") ? "Lei" : CurrencyValue.label.includes("$") ?  "$" : CurrencyValue.label}</span>
+                    <span className="totalSign">{CurrencyValue.label.includes("Lei") ? "Lei" : CurrencyValue.label.includes("$") ?  "$" : CurrencyValue.label.includes("€") ? "€" :""}</span>
                   </div>
                 </div>
               </div>
@@ -392,10 +392,10 @@ function AddInvoice() {
                     quantity / CANTITATE
                   </th>
                   <th className="text-center" scope="col">
-                    price / PREȚ ({CurrencyValue.label.includes("Lei") ? "Lei" : CurrencyValue.label.includes("$") ?  "$" : CurrencyValue.label})
+                    price / PREȚ ({CurrencyValue.label.includes("Lei") ? "Lei" : CurrencyValue.label.includes("$") ?  "$" : CurrencyValue.label.includes("€") ? "€" :""})
                   </th>
                   <th className="text-center" scope="col">
-                    MONTANT ({CurrencyValue.label.includes("Lei") ? "Lei" : CurrencyValue.label.includes("$") ?  "$" : CurrencyValue.label})
+                    MONTANT ({CurrencyValue.label.includes("Lei") ? "Lei" : CurrencyValue.label.includes("$") ?  "$" : CurrencyValue.label.includes("€") ? "€" :""})
                   </th>
                   {totalA.length > 0 ? (
                     <th className="text-center" scope="col">
@@ -668,7 +668,7 @@ Antonica Ionut"
                   <td style={{ padding: "0px" }}>
                     <div className="px-1 d-flex align-items-center justify-content-center">
                       <p className="mb-0">
-                        {toTalamount} {CurrencyValue.label.includes("Lei") ? "Lei" : CurrencyValue.label.includes("$") ?  "$" : CurrencyValue.label}
+                        {toTalamount} {CurrencyValue.label.includes("Lei") ? "Lei" : CurrencyValue.label.includes("$") ?  "$" : CurrencyValue.label.includes("€") ? "€" :""}
 
                        
                       </p>
