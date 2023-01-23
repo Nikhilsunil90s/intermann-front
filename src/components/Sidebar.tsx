@@ -884,7 +884,7 @@ function Sidebar(props: any) {
                     />
                   </div>
                 </li>
-                <li className=" d-flex align-items-center justify-content-center">
+                <li className=" d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right" title="Client Section">
                   {window.location.href.includes("clientTodo") ||
                   window.location.href.includes("clientProgress") ||
                   window.location.href.includes("clientContract") ||
@@ -908,7 +908,7 @@ function Sidebar(props: any) {
                   )}
                   {/* <div className="btnSideBarCollapse cursor-pointer" onClick={()=>setOnClickBarOpen(true)}>▶</div> */}
                 </li>
-                <li className=" d-flex align-items-center justify-content-center">
+                <li className=" d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right" title="Candidats Section">
                   {window.location.href.includes("todolist") ||
                   window.location.href.includes("preSelected") ||
                   window.location.href.includes("embauchlist") ||
@@ -931,7 +931,7 @@ function Sidebar(props: any) {
                     </div>
                   )}
                 </li>
-                <li className=" d-flex align-items-center justify-content-center">
+                <li className=" d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right" title="Manage">
                   {window.location.href.includes("addNewSector") ||
                   window.location.href.includes("userList") ? (
                     <div className="activeDiv">
@@ -953,7 +953,7 @@ function Sidebar(props: any) {
                     </div>
                   )}
                 </li>
-                <li className=" d-flex align-items-center justify-content-center">
+                <li className=" d-flex align-items-center justify-content-center"  data-bs-toggle="tooltip" data-bs-placement="right" title="Download Center">
                   {window.location.href.includes("downloadCenter") ? (
                     <div className={"activeDiv "}>
                       <img
@@ -973,7 +973,7 @@ function Sidebar(props: any) {
                     </div>
                   )}
                 </li>
-                <li className=" d-flex align-items-center justify-content-center">
+                <li className=" d-flex align-items-center justify-content-center"  data-bs-toggle="tooltip" data-bs-placement="right" title="Leads Center">
                   {window.location.href.includes("LeadsCenter") ? (
                     <div
                       className={
@@ -999,7 +999,7 @@ function Sidebar(props: any) {
                     </div>
                   )}
                 </li>
-                <li className=" d-flex align-items-center justify-content-center">
+                <li className=" d-flex align-items-center justify-content-center"  data-bs-toggle="tooltip" data-bs-placement="right" title="Job Ads Center">
                   {window.location.href.includes("JobAdsCenter") ? (
                     <div className={"activeDiv"}>
                       <img
@@ -1019,7 +1019,7 @@ function Sidebar(props: any) {
                     </div>
                   )}
                 </li>
-                <li className=" d-flex align-items-center justify-content-center">
+                <li className=" d-flex align-items-center justify-content-center"  data-bs-toggle="tooltip" data-bs-placement="right" title="Commercial Center">
                   {window.location.href.includes("commercialCenter") ? (
                     <div className={"activeDiv "}>
                       <img
