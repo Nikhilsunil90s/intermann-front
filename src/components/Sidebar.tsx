@@ -8,18 +8,23 @@ import { Toaster, toast } from "react-hot-toast";
 import { logout } from "../redux/actions/userActions";
 import $ from "jquery";
 import { motion } from "framer-motion";
+import { API_BASE_URL } from "../config/serverApiConfig";
+import { useSelector } from "react-redux";
 
+let CurrentUser = "";
 function Sidebar(props: any) {
   const [activeTab, setActiveTab] = useState(window.location.href);
   const [onHover, setOnHover] = useState({
     miniBar: false,
     SideBar: false,
   });
+  const state = useSelector((state: any) => state.loginReducer);
+  const LoginUser = JSON.parse(localStorage.getItem("LoginUser"));
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const LogNotify = () => toast.success("Log-Out!");
   const [onClickBarOpenClose, setOnClickBarOpen] = useState(false);
-
+  console.log(LoginUser.username);
   const LogOut = async () => {
     await dispatch(logout());
     await localStorage.removeItem("token");
@@ -30,6 +35,8 @@ function Sidebar(props: any) {
     navigate("/");
     LogNotify();
   };
+
+  // console.log(state?.login?.user)
   useEffect(() => {
     $(document).on("click", "li", function () {
       $(this).addClass("active").siblings().removeClass("active");
@@ -55,6 +62,55 @@ function Sidebar(props: any) {
     }
     setActiveTab(name);
   };
+
+  useEffect(() => {
+    if (
+      window.location.href.includes("clientTodo") ||
+      window.location.href.includes("clientProgress") ||
+      window.location.href.includes("clientContract") ||
+      window.location.href.includes("archived")
+    ) {
+      setOnClickBarOpen(true);
+    }
+    if (
+      window.location.href.includes("todolist") ||
+      window.location.href.includes("preSelected") ||
+      window.location.href.includes("embauchlist") ||
+      window.location.href.includes("archivedlist")
+    ) {
+      setOnClickBarOpen(true);
+    }
+  });
+
+  // const fetchUsers = async () => {
+  //   //  setLeadScHeck(false)
+
+  //   return await fetch(API_BASE_URL + `allusers`, {
+  //     method: "GET",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //       Authorization: "Bearer " + localStorage.getItem("token"),
+  //     },
+  //   })
+  //     .then((red) => red.json())
+  //     .then((resData) => resData)
+  //     .catch((err) => err);
+  // };
+
+  // useEffect(()=>{
+  //   fetchUsers().then((resData) => {
+  //     {
+  //       if (resData.status) {
+  //         if (resData.data.length > 0) {
+  //           CurrentUser = resData.data.filter(
+  //             // (el) => el?.username === LoginUserS?.username
+  //           );
+  //         }
+  //       }
+  //     }
+  //   });
+  // })
 
   return (
     <>
@@ -84,7 +140,7 @@ function Sidebar(props: any) {
                     src={require("../images/close.png")}
                     className="closeClick"
                   />
-                </div>{" "}
+                </div>
                 <Link to="/dashboard">
                   <motion.div
                     initial="hidden"
@@ -97,7 +153,6 @@ function Sidebar(props: any) {
                     }}
                     className="d-flex bottom-radius logoSet justify-content-center align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none"
                   >
-                    {" "}
                     <span>
                       <img
                         src={require("../images/logo-header.svg").default}
@@ -273,7 +328,7 @@ function Sidebar(props: any) {
                                 </span>
                                 Terminé / Contrat en cours
                               </Link>
-                            </li>{" "}
+                            </li>
                             <li
                               className={
                                 window.location.href.includes("archived")
@@ -285,7 +340,6 @@ function Sidebar(props: any) {
                                 to="/archived"
                                 className="nav-link link-dark fontStylingBar"
                               >
-                                {" "}
                                 <span className="pe-2">
                                   <img
                                     className={
@@ -416,7 +470,7 @@ function Sidebar(props: any) {
                                 </span>
                                 Embauché
                               </Link>
-                            </li>{" "}
+                            </li>
                             <li
                               className={
                                 window.location.href.includes("archivedlist")
@@ -476,7 +530,6 @@ function Sidebar(props: any) {
                       >
                         <div className="">
                           <ul style={{ paddingLeft: "0px", width: "100%" }}>
-                            {" "}
                             <li
                               className={
                                 window.location.href.includes("addNewSector")
@@ -707,45 +760,49 @@ function Sidebar(props: any) {
                       <Toaster position="top-right" />
                     </Link>
                   </motion.li>
-                  <motion.li
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.7, delay: 0.1 }}
-                    variants={{
-                      visible: { opacity: 1, x: 0 },
-                      hidden: { opacity: 0, x: -50 },
-                    }}
-                    style={{
-                      border: "none",
-                      borderBottom: "0px",
-                      borderLeft: "0px",
-                      padding: "12px",
-                      paddingLeft: "23px",
-                    }}
-                    onClick={() => OnClickColorChange("bill")}
-                    className={
-                      window.location.href.includes("billing")
-                        ? "sideBarBackGactive"
-                        : " cursor-pointer sideBarBackG"
-                    }
-                  >
-                    <Link
-                      to="/billing-center"
-                      className="signOut"
-                      aria-current="page"
+
+                  {LoginUser.username == "TestOne" ? (
+                    <motion.li
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.7, delay: 0.1 }}
+                      variants={{
+                        visible: { opacity: 1, x: 0 },
+                        hidden: { opacity: 0, x: -50 },
+                      }}
+                      style={{
+                        border: "none",
+                        borderBottom: "0px",
+                        borderLeft: "0px",
+                        padding: "12px",
+                        paddingLeft: "23px",
+                      }}
+                      onClick={() => OnClickColorChange("bill")}
+                      className={
+                        window.location.href.includes("billing")
+                          ? "sideBarBackGactive"
+                          : " cursor-pointer sideBarBackG"
+                      }
                     >
-                      <span className="pe-2">
-                        <img
-                          // className={window.location.href.includes("billing") ? "FilterMinibar logoutImage"  : "logoutImage"}
-                          width={"24px"}
-                          src={require("../images/dollar.png")}
-                        />
-                      </span>
-                      Billing Center
-                      <Toaster position="top-right" />
-                    </Link>
-                  </motion.li>
+                      <Link
+                        to="/billing-center"
+                        className="signOut"
+                        aria-current="page"
+                      >
+                        <span className="pe-2">
+                          <img
+                            // className={window.location.href.includes("billing") ? "FilterMinibar logoutImage"  : "logoutImage"}
+                            width={"24px"}
+                            src={require("../images/dollar.png")}
+                          />
+                        </span>
+                        Billing Center
+                        <Toaster position="top-right" />
+                      </Link>
+                    </motion.li>
+                  ) : null}
+
                   <motion.li
                     initial="hidden"
                     whileInView="visible"
@@ -841,10 +898,12 @@ function Sidebar(props: any) {
                     </div>
                   ) : (
                     <div>
-                      <img
-                        style={{ height: "25px", width: "35px" }}
-                        src={require("../images/CombinedShape.svg").default}
-                      />
+                      <Link to={"/clientTodo"}>
+                        <img
+                          style={{ height: "25px", width: "35px" }}
+                          src={require("../images/CombinedShape.svg").default}
+                        />
+                      </Link>
                     </div>
                   )}
                   {/* <div className="btnSideBarCollapse cursor-pointer" onClick={()=>setOnClickBarOpen(true)}>▶</div> */}
@@ -863,10 +922,12 @@ function Sidebar(props: any) {
                     </div>
                   ) : (
                     <div>
-                      <img
-                        style={{ height: "25px", width: "35px" }}
-                        src={require("../images/employeeicon.svg").default}
-                      />
+                      <Link to={"/todolist"}>
+                        <img
+                          style={{ height: "25px", width: "35px" }}
+                          src={require("../images/employeeicon.svg").default}
+                        />
+                      </Link>
                     </div>
                   )}
                 </li>
@@ -874,6 +935,7 @@ function Sidebar(props: any) {
                   {window.location.href.includes("addNewSector") ||
                   window.location.href.includes("userList") ? (
                     <div className="activeDiv">
+                     
                       <img
                         style={{ height: "25px", width: "35px" }}
                         className="FilterMinibar"
@@ -882,10 +944,12 @@ function Sidebar(props: any) {
                     </div>
                   ) : (
                     <div className="">
+                        <Link to={"/addNewSector"}>
                       <img
                         style={{ height: "25px", width: "35px" }}
                         src={require("../images/settings.svg").default}
                       />
+                      </Link>
                     </div>
                   )}
                 </li>
@@ -900,10 +964,12 @@ function Sidebar(props: any) {
                     </div>
                   ) : (
                     <div className={""}>
+                           <Link to={"/downloadCenter"}>
                       <img
                         style={{ height: "25px", width: "35px" }}
                         src={require("../images/telecharger.svg").default}
                       />
+                  </Link>
                     </div>
                   )}
                 </li>
@@ -924,10 +990,12 @@ function Sidebar(props: any) {
                     </div>
                   ) : (
                     <div>
+                       <Link to={"/LeadsCenter"}>
                       <img
                         style={{ height: "25px", width: "35px" }}
                         src={require("../images/Leads.svg").default}
                       />
+                      </Link>
                     </div>
                   )}
                 </li>
@@ -942,10 +1010,12 @@ function Sidebar(props: any) {
                     </div>
                   ) : (
                     <div className={""}>
+                        <Link to={"/JobAdsCenter"}>
                       <img
                         style={{ height: "25px", width: "35px" }}
                         src={require("../images/CombinedShape.svg").default}
                       />
+                      </Link>
                     </div>
                   )}
                 </li>
@@ -960,39 +1030,48 @@ function Sidebar(props: any) {
                     </div>
                   ) : (
                     <div className={""}>
+                      <Link to={"/commercialCenter"}>
                       <img
                         style={{ height: "25px", width: "35px" }}
                         className=""
                         src={require("../images/comIcon.svg").default}
                       />
+                      </Link>
                     </div>
                   )}
                 </li>
-                <li className=" d-flex align-items-center justify-content-center">
-                  {window.location.href.includes("billing") ? (
-                    <div className={"activeDiv "}>
-                      <img
-                        style={{ height: "26px", width: "26px" }}
-                        className=""
-                        src={require("../images/dollar.png")}
-                      />
-                    </div>
-                  ) : (
-                    <div className={""}>
-                      <img
-                        style={{ height: "26px", width: "26px" }}
-                        className=""
-                        src={require("../images/dollar.png")}
-                      />
-                    </div>
-                  )}
-                </li>
+                {LoginUser.username === "TestOne" ? (
+                  <li className=" d-flex align-items-center justify-content-center">
+                    {window.location.href.includes("billing") ? (
+                      <div className={"activeDiv "}>
+                        <img
+                          style={{ height: "26px", width: "26px" }}
+                          className=""
+                          src={require("../images/dollar.png")}
+                        />
+                      </div>
+                    ) : (
+                      <div className={""}>
+                         <Link to={"/billing-center"}>
+                        <img
+                          style={{ height: "26px", width: "26px" }}
+                          className=""
+                          src={require("../images/dollar.png")}
+                        />
+                        </Link>
+                      </div>
+                    )}
+                  </li>
+                ) : null}
+
                 <li className="mt-2 mb-4 d-flex align-items-center justify-content-center">
-                  <div className={window.location.href.includes("/") ? "" : ""}>
+                  <div onClick={()=>LogOut()} className={window.location.href.includes("/") ? "" : ""}>
+                  <Link to={"/"}>
                     <img
                       style={{ height: "25px", width: "35px" }}
                       src={require("../images/logout.svg").default}
                     />
+                    </Link>
                   </div>
                 </li>
               </ul>

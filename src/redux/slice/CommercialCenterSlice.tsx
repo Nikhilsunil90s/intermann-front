@@ -38,6 +38,8 @@ export default CommercialCenterSlice.reducer
 
 // thunk //
 
+
+
 export  const CommercialCenter = () =>{
      async function FetchDataWithThunk(dispatch:any){
 
