@@ -203,7 +203,7 @@
   font-size: 45px;
   line-height: 14px;
   padding: 10px;
-  width:100%;
+  width: 100%;
   color: #f6871f;
 }
 .totalSign {
@@ -282,4 +282,379 @@
 .btnHeaderInvoice:hover {
   color: rgb(255, 255, 255);
   background-color: #000;
+}
+
+.ActiveTabs_22s {
+  background: #032339;
+  border-radius: 100px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: -0.105991px;
+  text-transform: uppercase;
+  width: 100px;
+  height: 40px;
+  color: #ffffff;
+}
+.ActiveTabs_22 {
+  background: #03233900;
+  border-radius: 100px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: -0.105991px;
+  text-transform: uppercase;
+  color: #000000;
+  border: 0px;
+  width: 100px;
+  height: 40px;
+}
+
+.billingTable thead th {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  text-transform: uppercase;
+  color: #888888;
+  background: #f9f9f9;
+  border-right: 1px solid #fff;
+}
+
+
+.InputContainer {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.InputContainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 15px;
+  width: 15px;
+background: #FFFFFF;
+border: 1px solid #DADAE4;
+border-radius: 3px;
+}
+
+/* On mouse-over, add a grey background color */
+.InputContainer:hover input ~ .checkmark {
+  background-color: rgb(255, 255, 255);
+}
+
+/* When the checkbox is checked, add a blue background */
+.InputContainer input:checked ~ .checkmark {
+  background-color: #000000;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.InputContainer input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.InputContainer .checkmark:after {
+  left: 4px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid rgb(248, 248, 248);
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+.billingTable tbody tr:hover{
+  background:#E7F5FF;
+}
+.billingTable tbody tr:hover td:nth-child(7) div div:nth-child(4){
+border-right: none !important;
+}
+.billingTable tbody tr:hover td:nth-child(7) div:nth-child(1){
+  border-right: none !important;
+  }
+.billingTable tbody tr:hover td div{
+  border-right: 1px solid #fff !important;
+}
+.billingTable tbody tr:hover th div{
+  border-right: 1px solid #fff !important;
+}
+.billingTable tbody tr:hover .dsBtnPaid{
+background: #489767;
+color: #fff;
+
+}
+.billingTable tbody tr:hover .dsBtnUnPaid{
+  background: #E21B1B;
+  color: #fff;
+  }
+.Billing_Footer{
+  background: #EEEEEE;
+border-radius: 0px 0px 10px 10px;
+height: 45px;
+}
+
+
+.billingLoader {
+  border: 2px solid #FFF;
+  width: 148px;
+  height: 148px;
+  background: #FF3D00;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotation 2s linear infinite;
+}
+.billingLoader::after {
+  content: '';  
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 62px solid;
+  border-color: transparent #FFF;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
+@media (min-width: 1200px) {
+  .billingTable thead th:nth-child(3) {
+    width: 200px;
+  }
+  .billingTable thead th:nth-child(7) {
+    width: 320px;
+  }
+  .billingTable thead th:nth-child(4){
+    width: 361px;
+  }
+  .billingTable thead th {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    text-transform: uppercase;
+    color: #888888;
+    background: #f9f9f9;
+    border-right: 1px solid #fff;
+    padding: 15px 10px;
+  }
+  .billingTable td,
+  .billingTable tbody th {
+    padding: 3px;
+  }
+  .billingTable tbody td p {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    /* identical to box height, or 155% */
+
+    color: #333333;
+  }
+  .colorFont{
+    color: #489767 !important;
+    ;
+  }
+  .colorFontx200d{
+    color: #E21B1B !important;
+    ;
+    ;
+  }
+  .billingTable tbody td .buttonPaid {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    background: #489767;
+    border-radius: 20px;
+    color: #333333;
+    padding: 12px 3px;
+    display: flex;
+    color: #fff;
+    text-transform: uppercase;
+    justify-content: center;
+    width: 100%;
+    border: none;
+  }
+  .billingTable tbody td div,
+  .billingTable tbody th div {
+    height: 58px;
+    display: flex;
+    justify-content: unset;
+    padding:0px 10px;
+    width: 100%;
+  }
+
+  .billingTable thead th:nth-child(1) div {
+    display: flex;
+    justify-content: center;
+  }
+  .dsBtnPaid{
+    background: #ECECEC;
+border-radius: 20px;
+width: 100%;
+padding: 10px 5px;
+border: none;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 18px;
+text-transform: uppercase;
+color: #ADADAD;
+width: 130px;
+}
+.dsBtnUnPaid{
+  background: #ECECEC;
+  border-radius: 20px;
+  width: 100%;
+  padding: 10px 5px;
+  border: none;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  text-transform: uppercase;
+  color: #ADADAD;
+  width: 130px; 
+}
+.buttonUnPaid{
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  background: #E21B1B;;
+  border-radius: 20px;
+  color: #333333;
+  padding: 12px 3px;
+  display: flex;
+  color: #fff;
+  text-transform: uppercase;
+  justify-content: center;
+  width: 100%;
+  border: none;
+}
+}
+
+@media (min-width: 1400px) {
+  .billingTable thead th:nth-child(3) {
+    width: 300px;
+  }
+  .billingTable thead th:nth-child(7) {
+    width: 430px;
+  }
+  .billingTable tbody td p {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height, or 155% */
+
+    color: #333333;
+  }
+  .billingTable thead th {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    text-transform: uppercase;
+    color: #888888;
+    background: #f9f9f9;
+    border-right: 1px solid #fff;
+    padding: 15px 10px;
+  }
+  .billingTable tbody td .buttonPaid {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    background: #489767;
+    border-radius: 20px;
+    color: #333333;
+    padding: 12px 3px;
+    display: flex;
+    color: #fff;
+    text-transform: uppercase;
+    justify-content: center;
+    width: 100%;
+    border: none;
+  }
+.buttonUnPaid{
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  background: #E21B1B;;
+  border-radius: 20px;
+  color: #333333;
+  padding: 12px 3px;
+  display: flex;
+  color: #fff;
+  text-transform: uppercase;
+  justify-content: center;
+  width: 100%;
+  border: none;
+}
+  .dsBtnPaid{
+    background: #ECECEC;
+border-radius: 20px;
+width: 100%;
+padding: 10px 5px;
+border: none;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 18px;
+text-transform: uppercase;
+color: #ADADAD;
+width: 130px;
+}
 }

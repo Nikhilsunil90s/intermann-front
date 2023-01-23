@@ -253,3 +253,24 @@ padding: 10px;
     background-color: orange;    /* color of the scroll thumb */
     border-radius: 10px;       /* roundness of the scroll thumb */  /* creates padding around scroll thumb */
   }
+.btnSideBarCollapse{
+    top: 96px;
+    position: absolute;
+    right: -14px;
+    /* left: 81px; */
+    z-index: 9999999999999999999993343234234234324424;
+    background: #032339;
+    height: 53px;
+    width: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0px 185px 185px 0px;
+    color: #fff;
+}
+.closeClick{
+    width: 22px;
+    position: absolute;
+    right: 15px;
+    top: 8px;
+}

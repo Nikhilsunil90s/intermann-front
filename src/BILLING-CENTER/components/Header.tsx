@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Header(props:any){
+    const [activeTab,setActiveTab]=useState("All")
 console.log(props)
     return(<>
 {
@@ -12,14 +14,23 @@ console.log(props)
 <p className="mb-0">BILLING CENTER</p>
             </div>
             <div className="col-4 d-flex justify-content-end">
-         <button className="btn btnHeaderInvoice">Create New Invoice</button>
+              
+          <Link className="btnHeaderInvoice" to={"/billing-Center/AddInvoice"}>Create New Invoice    </Link>
+      
             </div>
         </div>
     </div>
 
     :
     <div className="container-fluid bg-white mt-1 headerBoxInBilling">
-        <div className="row p-1 ">
+        <div className="row p-1 justify-content-center align-items-center">
+            <div className="col-8 d-flex justify-content-center">
+                
+                  <button onClick={()=>setActiveTab("All")} className={`mx-1 ${activeTab == "All" ?  "ActiveTabs_22s" : "ActiveTabs_22" }`}>All</button>
+                 <button  onClick={()=>setActiveTab("Paid")}  className={`mx-1 ${activeTab == "Paid" ?  "ActiveTabs_22s" : "ActiveTabs_22" }`}>Paid</button>
+                <button  onClick={()=>setActiveTab("Unpaid")}  className={`mx-1 ${activeTab == "Unpaid" ?  "ActiveTabs_22s" : "ActiveTabs_22" }`}>Unpaid</button>
+          
+            </div>
             
         </div>
     </div>
