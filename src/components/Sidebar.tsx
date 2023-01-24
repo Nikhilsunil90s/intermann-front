@@ -23,7 +23,7 @@ function Sidebar(props: any) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const LogNotify = () => toast.success("Log-Out!");
-  const [onClickBarOpenClose, setOnClickBarOpen] = useState(false);
+  const [onClickBarOpenClose, setOnClickBarOpen] = useState(true);
   console.log(LoginUser.username);
   const LogOut = async () => {
     await dispatch(logout());
@@ -63,24 +63,24 @@ function Sidebar(props: any) {
     setActiveTab(name);
   };
 
-  useEffect(() => {
-    if (
-      window.location.href.includes("clientTodo") ||
-      window.location.href.includes("clientProgress") ||
-      window.location.href.includes("clientContract") ||
-      window.location.href.includes("archived")
-    ) {
-      setOnClickBarOpen(true);
-    }
-    if (
-      window.location.href.includes("todolist") ||
-      window.location.href.includes("preSelected") ||
-      window.location.href.includes("embauchlist") ||
-      window.location.href.includes("archivedlist")
-    ) {
-      setOnClickBarOpen(true);
-    }
-  });
+  // useEffect(() => {
+  //   if (
+  //     window.location.href.includes("clientTodo") ||
+  //     window.location.href.includes("clientProgress") ||
+  //     window.location.href.includes("clientContract") ||
+  //     window.location.href.includes("archived")
+  //   ) {
+  //     setOnClickBarOpen(true);
+  //   }
+  //   if (
+  //     window.location.href.includes("todolist") ||
+  //     window.location.href.includes("preSelected") ||
+  //     window.location.href.includes("embauchlist") ||
+  //     window.location.href.includes("archivedlist")
+  //   ) {
+  //     setOnClickBarOpen(true);
+  //   }
+  // });
 
   // const fetchUsers = async () => {
   //   //  setLeadScHeck(false)
