@@ -8,6 +8,58 @@ import ProfileLoader from "../../components/Loader/ProfilesLoader"
 
 let Data 
 function OfferSigned() {
+    const [SignLoad,setSingLoad]=useState(false)
+    const {state}=useLocation()
+    const SignPad =useRef(undefined)
+      const [contractID]=useState(state)as any
+    const [SignError,setSignError]=useState(false)
+      const clear=()=>{
+        SignPad.current.clear();
+    }
+const Checkking=(e)=>{
+  setSignError(e.isTrusted)
+}
+    const SignSave=()=>{
+  if(SignPad.current.isEmpty()){
+    
+  }
+  if( SignPad.current.toDataURL()){
+    SignPad.current.toDataURL()
+  }
+
+    Data={
+        contractId:contractID.id,
+        signature:SignPad.current.toDataURL(),
+        filePath:contractID.filePath,
+        public_id:contractID.public_id
+
+    }
+
+    }
+        const SaveSignFun=()=>{
+        SignSave()
+        if(SignError){
+          if(contractID.user === "Client"){
+          // SignClient().then((res)=>{
+          //        if(res){
+          //          toast.success("Signatures Added Successfully!")
+          //          setSingLoad(false)
+          //          setTimeout(()=>{
+          //            window.location.href="/documentSigned/thankYou"
+          //          },2000)
+          //        }
+          //    })
+          //    .catch(err=>{
+          //        console.log(err)
+          //        toast.error("Signatures Not Added !")
+          //    })
+            }
+        }else{
+            toast.error("Trebuie să semnezi ! / You must sign / Veuillez signer !")
+        }
+      
+    }
+// }
 //     const [SignLoad,setSingLoad]=useState(false)
 //     const {state}=useLocation()
 //     const SignPad =useRef(undefined)
@@ -174,7 +226,7 @@ Declar că am citit contractul și îl accept în întregime.Adresa dvs. IP va f
                            <div className="col-12">  <div className="col-12" >
                         
     <button 
-    // onClick={()=>{clear()}} 
+    onClick={()=>{clear()}} 
     className="clearbtn" 
                         >X Clear</button>
 
@@ -193,15 +245,15 @@ Declar că am citit contractul și îl accept în întregime.Adresa dvs. IP va f
                          
                  </div>
          <button className='col-12 cursor-pointer d-flex p-2 align-items-center justify-content-center  bg-ContractPage  semneaza' 
-        //  onClick={()=>{SignSave();SaveSignFun()}} disabled={SignLoad} 
+         onClick={()=>{SignSave();SaveSignFun()}} disabled={SignLoad} 
          >
        
-         {/* {SignLoad ? 
+         {SignLoad ? 
           <div className="col-12 d-flex justify-content-center px-1">    <ProfileLoader  width ={150} height={100} fontSize={"12px"} fontWeight={"600"}  Title={null}/>   </div>
-: */}
-📨 acepta si semneaza
-accept and sign
-  {/* }    */}
+:
+
+"📨 acepta si semneaza accept and sign"
+   }  
          </button>
                 
                              

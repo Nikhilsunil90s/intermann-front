@@ -59,7 +59,7 @@ function  ViewOffer(){
             })
   
  
-      GetRoute("63da395881a2b57141df3f34").then((resData) => {
+      GetRoute(id).then((resData) => {
         if (resData.status == true) {
           // setProfile(resData.data)
           setUrl(resData.filepath.replace("/app/",""))
@@ -82,7 +82,7 @@ function  ViewOffer(){
         ContractData.filePath=pdfUrl
         ContractData.id=ClientEmp === "Candidate" ? profile.candidatContract._id : Clientprofile?.clientContract?._id
    
-        navigate("/ContractSigend",{state:ContractSignData})
+        navigate("/ViewOffer/OfferSigned",{state:ContractSignData})
       }
 
 return (
@@ -126,11 +126,11 @@ return (
       {pdfUrl ?
       <>
       <div className='iFrameView'>
-<iframe  src={pdfUrl} style={{width:"90vw",height:"61vh"}} /> 
+<iframe  src={API_BASE_URL +pdfUrl} style={{width:"90vw",height:"61vh"}} /> 
 </div>
 <div className='PdfViewMobileRes'>
 
-<PDFreader  props={pdfUrl}  />
+<PDFreader  props={API_BASE_URL + pdfUrl}  />
 </div>
 </>
 :

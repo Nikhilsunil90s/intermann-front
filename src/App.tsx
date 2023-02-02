@@ -441,7 +441,7 @@ function App() {
             }
           />
              <Route
-            path={"/ViewOffer"}
+            path={"/ViewOffer/:id"}
             element={
             
                 <ViewOffer />

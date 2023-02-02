@@ -363,6 +363,10 @@
     transform: rotate(360deg);
   }
 }
+.leadsGenOffer:hover{
+  background: transparent;
+  color: #3f76e2;
+}
 .leadsGenOffer{
   font-family: "Roboto";
   font-style: normal;
@@ -373,7 +377,6 @@
   align-items: center;
   text-transform: uppercase;
   color: #ffff;
-  background: transparent;
   padding: 10px;
   border: 2px solid #3f76e2;
   border-radius: 49px;
@@ -383,6 +386,11 @@
   justify-content: center;
   background: #3f76e2;
   margin-left: 20px;
+}
+.leadsAddToCRM:hover {
+background: #3f76e2;
+color: #fff;
+
 }
 .leadsAddToCRM {
   font-family: "Roboto";
