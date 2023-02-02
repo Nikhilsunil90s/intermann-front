@@ -217,19 +217,19 @@ else if(e.target.value == ""){
                     <div className="col-xxl-5 col-xl-5 col-lg-5 col-md-5">
                    <div className="row">
                   <div className="d-flex">
-                     <Link
+                     <a
                       className="nav-link  p-0"
                       aria-current="page"
-                      to="/addCustomer"
+                      onClick={()=>window.open("/addCustomer")}
                       style={{backgroundColor:"none",marginRight:"10px"}}
                     >
                       <button className="btn btn-1">Add customer</button>
-                    </Link>
+                    </a>
            
                 
-                 <Link className="nav-link p-0" to="/addCandidate">
+                 <a className="nav-link p-0" onClick={()=>window.open("/addCandidate")}>
                       <button className="btn btn-2"> Add Candidate</button>
-                    </Link>
+                    </a>
                     </div>
                  </div>
                 </div>

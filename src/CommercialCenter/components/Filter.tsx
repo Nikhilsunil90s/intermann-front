@@ -190,7 +190,7 @@ function Filter(props) {
         },
       ],
     });
-  }, [companyName]);
+  }, [props.leads]);
   useEffect(() => {
     let Name = [];
     if (props.leads.length > 0) {
@@ -204,7 +204,7 @@ function Filter(props) {
       });
       setCompanyName([...Name]);
     }
-  }, [props.leads, companyName]);
+  }, [props.leads]);
 
   useEffect(() => {
     if (props.CurrentFilter.filterApplied === true && data !== undefined) {

@@ -60,6 +60,9 @@ function Sidebar(props: any) {
     if (name === "bill") {
       navigate("/billing-center");
     }
+    if (name === "offer") {
+      navigate("/offerCenter");
+    }
     setActiveTab(name);
   };
 
@@ -114,6 +117,7 @@ function Sidebar(props: any) {
 
   return (
     <>
+     <Toaster position="top-right" />
       <div
         className="container-fluid"
         style={{ height: "100%", backgroundColor: "white", zIndex: 9000000 }}
@@ -631,7 +635,7 @@ function Sidebar(props: any) {
                         />
                       </span>
                       Download Center
-                      <Toaster position="top-right" />
+                     
                     </Link>
                   </motion.li>
                   <motion.li
@@ -673,7 +677,7 @@ function Sidebar(props: any) {
                         />
                       </span>
                       Leads Center
-                      <Toaster position="top-right" />
+                     
                     </Link>
                   </motion.li>
                   <motion.li
@@ -715,7 +719,7 @@ function Sidebar(props: any) {
                         />
                       </span>
                       Job Ads Center
-                      <Toaster position="top-right" />
+                     
                     </Link>
                   </motion.li>
                   <motion.li
@@ -757,7 +761,7 @@ function Sidebar(props: any) {
                         />
                       </span>
                       Commercial Center
-                      <Toaster position="top-right" />
+                     
                     </Link>
                   </motion.li>
 
@@ -794,15 +798,56 @@ function Sidebar(props: any) {
                           <img
                             // className={window.location.href.includes("billing") ? "FilterMinibar logoutImage"  : "logoutImage"}
                             width={"24px"}
-                            src={require("../images/dollar.png")}
+                            src={require("../images/billingCenter.svg").default}
                           />
                         </span>
                         Billing Center
-                        <Toaster position="top-right" />
+                       
                       </Link>
                     </motion.li>
                   ) : null}
-
+<motion.li
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.7, delay: 0.1 }}
+                    variants={{
+                      visible: { opacity: 1, x: 0 },
+                      hidden: { opacity: 0, x: -50 },
+                    }}
+                    style={{
+                      border: "none",
+                      borderBottom: "0px",
+                      borderLeft: "0px",
+                      padding: "12px",
+                      paddingLeft: "23px",
+                    }}
+                    onClick={() => OnClickColorChange("offer")}
+                    className={
+                      window.location.href.includes("offerCenter")
+                        ? "sideBarBackGactive"
+                        : " cursor-pointer sideBarBackG"
+                    }
+                  >
+                    <Link
+                      to="/offerCenter"
+                      className="signOut"
+                      aria-current="page"
+                    >
+                      <span className="pe-2">
+                        <img
+                          className={
+                            window.location.href.includes("offerCenter")
+                              ? "FilterMinibar logoutImage"
+                              : "logoutImage"
+                          }
+                          src={require("../images/discount.svg").default}
+                        />
+                      </span>
+                      Offer Center
+                     
+                    </Link>
+                  </motion.li>
                   <motion.li
                     initial="hidden"
                     whileInView="visible"
@@ -828,7 +873,7 @@ function Sidebar(props: any) {
                         />
                       </span>
                       Sign Out
-                      <Toaster position="top-right" />
+                     
                     </Link>
                   </motion.li>
                 </motion.ul>
@@ -1047,7 +1092,7 @@ function Sidebar(props: any) {
                         <img
                           style={{ height: "26px", width: "26px" }}
                           className=""
-                          src={require("../images/dollar.png")}
+                          src={require("../images/billingCenter.svg").default}
                         />
                       </div>
                     ) : (
@@ -1056,15 +1101,35 @@ function Sidebar(props: any) {
                         <img
                           style={{ height: "26px", width: "26px" }}
                           className=""
-                          src={require("../images/dollar.png")}
+                          src={require("../images/billingCenter.svg").default}
                         />
                         </Link>
                       </div>
                     )}
                   </li>
                 ) : null}
-
-                <li className="mt-2 mb-4 d-flex align-items-center justify-content-center">
+    <li className=" d-flex align-items-center justify-content-center"  data-bs-toggle="tooltip" data-bs-placement="right" title="Commercial Center">
+                  {window.location.href.includes("offerCenter") ? (
+                    <div className={"activeDiv "}>
+                      <img
+                        style={{ height: "25px", width: "35px" }}
+                        className="FilterMinibar"
+                        src={require("../images/discount.svg").default}
+                      />
+                    </div>
+                  ) : (
+                    <div className={""}>
+                      <Link to={"/offerCenter"}>
+                      <img
+                        style={{ height: "25px", width: "35px" }}
+                        className=""
+                        src={require("../images/discount.svg").default}
+                      />
+                      </Link>
+                    </div>
+                  )}
+                </li>
+                <li className="mt-2 mb-5 d-flex align-items-center justify-content-center">
                   <div onClick={()=>LogOut()} className={window.location.href.includes("/") ? "" : ""}>
                   <Link to={"/"}>
                     <img

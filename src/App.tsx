@@ -59,6 +59,9 @@ import AddLeadsCom from './CommercialCenter/pages/AddLeads'
 import MainCenter from "./CommercialCenter/pages/MainCenter";
 import AddInvoice from "./BILLING-CENTER/Pages/AddInvoice";
 import BillingCenter from "./BILLING-CENTER/Pages/billing-Center";
+import MainCenterOffer from "./Offer_Center/MainCenter";
+import OfferSigned from "./Offer_Center/components/LastStepOfSign"
+import ViewOffer from "./Offer_Center/components/DocumentSign";
 function App() {
   return (
     <Provider store={configureStore}>
@@ -429,7 +432,30 @@ function App() {
             }
           />
 
-
+<Route
+            path={"/ViewOffer/OfferSigned"}
+            element={
+            
+                <OfferSigned />
+            
+            }
+          />
+             <Route
+            path={"/ViewOffer"}
+            element={
+            
+                <ViewOffer />
+            
+            }
+          />
+              <Route
+            path={"/ViewOffer/OfferSigned/thank_You"}
+            element={
+            
+                <ThankYouPage />
+            
+            }
+          />
 
 
 
@@ -538,6 +564,18 @@ function App() {
           />
 
           {/* End */}
+          {/* Offer - Center */}
+          <Route
+            path={"/offerCenter"}
+            element={
+            
+             <Sidebar > <MainCenterOffer   /></Sidebar>
+            
+            }
+          />
+          
+          {/* End */}
+
           <Route path="/Error404" element={<Error404 />} />
           <Route path="/Error500" element={<Error500 />} />
 

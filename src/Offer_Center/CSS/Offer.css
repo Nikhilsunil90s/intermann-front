@@ -1,0 +1,253 @@
+.Offer_Header113 {
+  background: #ffffff;
+  box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
+  border-radius: 10px;
+}
+.Offer_Header p {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 32px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #252726;
+}
+.Offer_Header span {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 35px;
+  display: flex;
+  align-items: center;
+
+  color: #373a3c;
+}
+
+.GenOffer {
+  background: #032339;
+  border-radius: 100px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: -0.105991px;
+  text-transform: uppercase;
+  color: #ffffff;
+  width: 208px;
+  height: 44px;
+}
+.AddManually {
+  background: #fe8700;
+  border-radius: 100px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: -0.105991px;
+  text-transform: uppercase;
+  color: #ffffff;
+  width: 208px;
+  height: 44px;
+  border: 0px;
+}
+
+.mainOfferFilter label {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: flex-end;
+  text-transform: capitalize;
+  color: #373a3c;
+}
+.mainOfferFilter {
+  background: #ffffff;
+  box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
+  border-radius: 10px;
+}
+.mainOfferFilter input {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  text-transform: capitalize;
+  color: #92929d;
+  border: 1px solid #eaeaea;
+}
+
+.OfferCenterRow {
+  background: rgba(254, 135, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px 10px;
+}
+.OfferCenterRow p {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  /* identical to box height */
+
+  text-transform: capitalize;
+
+  color: #fe8700;
+}
+.OfferCenterRow p b {
+  margin: 0px 5px;
+}
+.SignedMark {
+  background: #489767;
+  border-radius: 20px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 9px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+.colorTopTab {
+  background: #e8e8e8;
+  border-radius: 5px 5px 0px 0px;
+}
+.transBtn {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  /* identical to box height */
+
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  border: 0px;
+  background: transparent;
+  color: #373a3c;
+}
+.activeBtnOffer {
+  background: #032339;
+  border-radius: 100px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 21px;
+  /* identical to box height */
+  width: 100%;
+  height: 43px;
+
+  letter-spacing: -0.105991px;
+  text-transform: uppercase;
+
+  color: #ffffff;
+}
+
+.dateRangePick {
+  position: absolute;
+  z-index: 5826;
+  right: 0;
+  border: 1px solid #000000;
+  top: 83px;
+}
+.dateRangePick .rdrStartEdge,
+.dateRangePick .rdrInRange,
+.dateRangePick .rdrEndEdge {
+  color: #000000 !important;
+}
+
+.AddThisOffer {
+  background: #3f76e2;
+  border-radius: 100px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.AddThisOffer:hover {
+  background-color: black;
+  color: #ffffff !important;
+}
+.LinkItClient {
+  border-radius: 8px;
+  border: 1px solid #032339;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 9px;
+  text-transform: uppercase;
+  color: #032339;
+  background-color: transparent;
+}
+
+@media (min-width:1200px){
+  .OfferCenterRow p {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 21px;
+    /* identical to box height */
+  
+    text-transform: capitalize;
+  
+    color: #fe8700;
+  }
+  .LinkItClient {
+    border-radius: 8px;
+    border: 1px solid #032339;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 9px;
+    text-transform: uppercase;
+    color: #032339;
+    background-color: transparent;
+  }
+  
+}
+@media (min-width:1400px){
+  .OfferCenterRow p {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    /* identical to box height */
+  
+    text-transform: capitalize;
+  
+    color: #fe8700;
+  }
+  .LinkItClient {
+    border-radius: 8px;
+    border: 1px solid #032339;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 9px;
+    text-transform: uppercase;
+    color: #032339;
+    background-color: transparent;
+  }
+  
+}

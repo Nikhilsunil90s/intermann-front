@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { GetRoute } from "../Functions/FunctionsApi";
+import { GetRoute } from "../../components/ApisFunction/FunctionsApi";
 
 
 let id = [] as any;
@@ -65,8 +65,8 @@ function Card(props: any) {
         </td>
         <td className="">
           <div className="">
-            <p className="mb-0 d-flex align-items-center">
-              {props.props.factureTo}
+            <p className="mb-0 d-flex align-items-center" data-bs-toggle="tooltip" data-bs-html="true" title={props.props.factureTo}>
+              {props.props.factureTo.length > 60 ? props.props.factureTo.slice(0,60) +   "..." :  props.props.factureTo}
             </p>
           </div>
         </td>

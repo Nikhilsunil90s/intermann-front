@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import Header from "../components/Header";
-import { GetRoute } from "../Functions/FunctionsApi";
+import { GetRoute } from "../../components/ApisFunction/FunctionsApi";
 import Error404Loader from "../../components/Loader/404Error";
 let id = []as any
 function BillingCenter() {

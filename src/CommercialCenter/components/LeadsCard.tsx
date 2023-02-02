@@ -9,6 +9,7 @@ import ViewModal from "./Modal/ViewModalLeads";
 import toast, { Toaster } from "react-hot-toast";
 import DeleteLeadModal from "./Modal/DeleteLeadsModal";
 import Filter from "./Filter";
+import OfferModal from "./Modal/OfferModal";
 
 function LeadCard(props) {
   const colourStyles: StylesConfig<ColourOption, true> = {
@@ -74,6 +75,8 @@ function LeadCard(props) {
 
   const [status, setStatus] = useState() as any;
 
+  const [GenOffer, setGenOffer] = useState(false);
+
   function padTo2DigitsCH(num) {
     return num.toString().padStart(2, "0");
   }
@@ -84,7 +87,6 @@ function LeadCard(props) {
         value: "BENJAMIN B",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -92,9 +94,7 @@ function LeadCard(props) {
                 id="test1"
                 name="radio-group"
                 defaultChecked={
-                  props.props.companyResponsable == "BENJAMIN B"
-                    ? true
-                    : false
+                  props.props.companyResponsable == "BENJAMIN B" ? true : false
                 }
               />
               <label htmlFor="test1 mb-0">BENJAMIN B</label>
@@ -108,7 +108,6 @@ function LeadCard(props) {
         value: "JEREMY R",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -130,7 +129,6 @@ function LeadCard(props) {
         value: "PATRICK R",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -152,7 +150,6 @@ function LeadCard(props) {
         value: "ADRIAN T",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -174,7 +171,6 @@ function LeadCard(props) {
         value: "MORGAN R",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -196,7 +192,6 @@ function LeadCard(props) {
         value: "PATRICK B",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -218,11 +213,14 @@ function LeadCard(props) {
         value: "PERSONNE",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
-                className={props.props.companyResponsable === "PERSONNE" ? "persoon" : `inputLeadsClient`}
+                className={
+                  props.props.companyResponsable === "PERSONNE"
+                    ? "persoon"
+                    : `inputLeadsClient`
+                }
                 id="test1"
                 name="radio-group"
                 defaultChecked={
@@ -242,7 +240,6 @@ function LeadCard(props) {
         value: "BENJAMIN B",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -250,7 +247,9 @@ function LeadCard(props) {
                 id="test1"
                 name="radio-group"
                 defaultChecked={
-                  props.props.contactedAfterOfferSentBy == "BENJAMIN B" ? true : false
+                  props.props.contactedAfterOfferSentBy == "BENJAMIN B"
+                    ? true
+                    : false
                 }
               />
               <label htmlFor="test1 mb-0">BENJAMIN B</label>
@@ -264,7 +263,6 @@ function LeadCard(props) {
         value: "JEREMY R",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -272,7 +270,9 @@ function LeadCard(props) {
                 id="test1"
                 name="radio-group"
                 defaultChecked={
-                  props.props.contactedAfterOfferSentBy == "JEREMY R" ? true : false
+                  props.props.contactedAfterOfferSentBy == "JEREMY R"
+                    ? true
+                    : false
                 }
               />
               <label htmlFor="test1 mb-0">JEREMY R</label>
@@ -286,7 +286,6 @@ function LeadCard(props) {
         value: "PATRICK R",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -294,7 +293,9 @@ function LeadCard(props) {
                 id="test1"
                 name="radio-group"
                 defaultChecked={
-                  props.props.contactedAfterOfferSentBy == "PATRICK R" ? true : false
+                  props.props.contactedAfterOfferSentBy == "PATRICK R"
+                    ? true
+                    : false
                 }
               />
               <label htmlFor="test1 mb-0">PATRICK R</label>
@@ -308,7 +309,6 @@ function LeadCard(props) {
         value: "ADRIAN T",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -316,7 +316,9 @@ function LeadCard(props) {
                 id="test1"
                 name="radio-group"
                 defaultChecked={
-                  props.props.contactedAfterOfferSentBy == "ADRIAN T" ? true : false
+                  props.props.contactedAfterOfferSentBy == "ADRIAN T"
+                    ? true
+                    : false
                 }
               />
               <label htmlFor="test1 mb-0">ADRIAN T</label>
@@ -330,7 +332,6 @@ function LeadCard(props) {
         value: "MORGAN R",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -338,7 +339,9 @@ function LeadCard(props) {
                 id="test1"
                 name="radio-group"
                 defaultChecked={
-                  props.props.contactedAfterOfferSentBy == "MORGAN R" ? true : false
+                  props.props.contactedAfterOfferSentBy == "MORGAN R"
+                    ? true
+                    : false
                 }
               />
               <label htmlFor="test1 mb-0">MORGAN R</label>
@@ -352,7 +355,6 @@ function LeadCard(props) {
         value: "PATRICK B",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -360,7 +362,9 @@ function LeadCard(props) {
                 id="test1"
                 name="radio-group"
                 defaultChecked={
-                  props.props.contactedAfterOfferSentBy == "PATRICK B" ? true : false
+                  props.props.contactedAfterOfferSentBy == "PATRICK B"
+                    ? true
+                    : false
                 }
               />
               <label htmlFor="test1 mb-0">PATRICK B</label>
@@ -374,15 +378,20 @@ function LeadCard(props) {
         value: "PERSONNE",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
-                className={props.props.companyResponsable === "PERSONNE" ? "persoon" : `inputLeadsClient`}
+                className={
+                  props.props.companyResponsable === "PERSONNE"
+                    ? "persoon"
+                    : `inputLeadsClient`
+                }
                 id="test1"
                 name="radio-group"
                 defaultChecked={
-                  props.props.contactedAfterOfferSentBy == "PERSONNE" ? true : false
+                  props.props.contactedAfterOfferSentBy == "PERSONNE"
+                    ? true
+                    : false
                 }
               />
               <label htmlFor="test1 mb-0">PERSONNE</label>
@@ -398,14 +407,17 @@ function LeadCard(props) {
         value: "BENJAMIN B",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
                 className="inputLeadsClient"
                 id="test1"
                 name={`deuxième${props.length}`}
-                defaultChecked={props.props.contactedSecondTimeBy == "BENJAMIN B" ? true : false}
+                defaultChecked={
+                  props.props.contactedSecondTimeBy == "BENJAMIN B"
+                    ? true
+                    : false
+                }
               />
               <label htmlFor="test1 mb-0">BENJAMIN B</label>
             </p>
@@ -418,14 +430,15 @@ function LeadCard(props) {
         value: "JEREMY R",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
                 className="inputLeadsClient"
                 id="test1"
                 name={`deuxième${props.length}`}
-                defaultChecked={props.props.contactedSecondTimeBy == "JEREMY R" ? true : false}
+                defaultChecked={
+                  props.props.contactedSecondTimeBy == "JEREMY R" ? true : false
+                }
               />
               <label htmlFor="test1 mb-0">JEREMY R</label>
             </p>
@@ -438,14 +451,17 @@ function LeadCard(props) {
         value: "PATRICK R",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
                 className="inputLeadsClient"
                 id="test1"
                 name={`deuxième${props.length}`}
-                defaultChecked={props.props.contactedSecondTimeBy == "PATRICK R" ? true : false}
+                defaultChecked={
+                  props.props.contactedSecondTimeBy == "PATRICK R"
+                    ? true
+                    : false
+                }
               />
               <label htmlFor="test1 mb-0">PATRICK R</label>
             </p>
@@ -458,15 +474,15 @@ function LeadCard(props) {
         value: "ADRIAN T",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
                 className="inputLeadsClient"
                 id="test1"
                 name={`deuxième${props.length}`}
-                defaultChecked={props.props.contactedSecondTimeBy == "ADRIAN T" ? true : false}
-
+                defaultChecked={
+                  props.props.contactedSecondTimeBy == "ADRIAN T" ? true : false
+                }
               />
               <label htmlFor="test1 mb-0">ADRIAN T</label>
             </p>
@@ -479,15 +495,15 @@ function LeadCard(props) {
         value: "MORGAN R",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
                 className="inputLeadsClient"
                 id="test1"
                 name={`deuxième${props.length}`}
-                defaultChecked={props.props.contactedSecondTimeBy == "MORGAN R" ? true : false}
-
+                defaultChecked={
+                  props.props.contactedSecondTimeBy == "MORGAN R" ? true : false
+                }
               />
               <label htmlFor="test1 mb-0">MORGAN R</label>
             </p>
@@ -500,15 +516,17 @@ function LeadCard(props) {
         value: "PATRICK B",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
                 className="inputLeadsClient"
                 id="test1"
                 name={`deuxième${props.length}`}
-                defaultChecked={props.props.contactedSecondTimeBy == "PATRICK B" ? true : false}
-
+                defaultChecked={
+                  props.props.contactedSecondTimeBy == "PATRICK B"
+                    ? true
+                    : false
+                }
               />
               <label htmlFor="test1 mb-0">PATRICK B</label>
             </p>
@@ -521,15 +539,19 @@ function LeadCard(props) {
         value: "PERSONNE",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
-                className={props.props.companyResponsable === "PERSONNE" ? "persoon" : `inputLeadsClient`}
+                className={
+                  props.props.companyResponsable === "PERSONNE"
+                    ? "persoon"
+                    : `inputLeadsClient`
+                }
                 id="test1"
                 name={`deuxième${props.length}`}
-                defaultChecked={props.props.contactedSecondTimeBy == "PERSONNE" ? true : false}
-
+                defaultChecked={
+                  props.props.contactedSecondTimeBy == "PERSONNE" ? true : false
+                }
               />
               <label htmlFor="test1 mb-0">PERSONNE</label>
             </p>
@@ -544,7 +566,6 @@ function LeadCard(props) {
         value: "BENJAMIN B",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -568,7 +589,6 @@ function LeadCard(props) {
         value: "JEREMY R",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -590,7 +610,6 @@ function LeadCard(props) {
         value: "PATRICK R",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -612,7 +631,6 @@ function LeadCard(props) {
         value: "ADRIAN T",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -634,7 +652,6 @@ function LeadCard(props) {
         value: "MORGAN R",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -656,7 +673,6 @@ function LeadCard(props) {
         value: "PATRICK B",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -678,11 +694,14 @@ function LeadCard(props) {
         value: "PERSONNE",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
-                className={props.props.companyResponsable === "PERSONNE" ? "persoon" : `inputLeadsClient`}
+                className={
+                  props.props.companyResponsable === "PERSONNE"
+                    ? "persoon"
+                    : `inputLeadsClient`
+                }
                 id="test1"
                 name={`premier${props.length}`}
                 defaultChecked={
@@ -702,11 +721,14 @@ function LeadCard(props) {
         value: "Non determine",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
-                className={props.props.clientStatus == "Non determine" ? "persoon" : "inputLeadsClient"}
+                className={
+                  props.props.clientStatus == "Non determine"
+                    ? "persoon"
+                    : "inputLeadsClient"
+                }
                 id="test1"
                 name="radio-group"
                 defaultChecked={
@@ -724,7 +746,6 @@ function LeadCard(props) {
         value: "Le client negocie",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -746,7 +767,6 @@ function LeadCard(props) {
         value: "Offre Accepte",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -768,7 +788,6 @@ function LeadCard(props) {
         value: "Le client reflechit",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -792,7 +811,6 @@ function LeadCard(props) {
         value: "Le client ne reponds pas",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -816,7 +834,6 @@ function LeadCard(props) {
         value: "Pas interese",
         label: (
           <>
-            
             <p className="mb-0">
               <input
                 type="radio"
@@ -836,8 +853,6 @@ function LeadCard(props) {
       },
     ]);
   }, []);
-
- 
 
   const [statusModal, setStatusModal] = useState("");
   const [Modal, setModal] = useState(false);
@@ -863,16 +878,20 @@ function LeadCard(props) {
       .then((res) => {
         if (res.status) {
           toast.success(res.message);
-          if(props.CurrentFilter.FilterData.length !== 0){
-            props.setCurrentFilter({...props.CurrentFilter,filterApplied:true})
-          }else{
-            props.setCurrentFilter({...props.CurrentFilter,filterApplied:false})
-          props.update(true);
-            
+          if (props.CurrentFilter.FilterData.length !== 0) {
+            props.setCurrentFilter({
+              ...props.CurrentFilter,
+              filterApplied: true,
+            });
+          } else {
+            props.setCurrentFilter({
+              ...props.CurrentFilter,
+              filterApplied: false,
+            });
+            props.update(true);
           }
         } else {
           toast.success(res.message);
-       
         }
       })
       .catch((err) => err);
@@ -892,17 +911,18 @@ function LeadCard(props) {
       .then((res) => {
         if (res.status) {
           toast.success(res.message);
-          if(props.CurrentFilter.FilterData.length !== 0){
-            props.setCurrentFilter({...props.CurrentFilter,filterApplied:true})
-          }else{
-            props.setCurrentFilter({...props.CurrentFilter,filterApplied:false})
-          props.update(true);
-            
+          if (props.CurrentFilter.FilterData.length !== 0) {
+            props.setCurrentFilter({
+              ...props.CurrentFilter,
+              filterApplied: true,
+            });
+          } else {
+            props.setCurrentFilter({
+              ...props.CurrentFilter,
+              filterApplied: false,
+            });
+            props.update(true);
           }
-       
-        
-         
-  
         } else {
           toast.success(res.message);
         }
@@ -972,12 +992,12 @@ function LeadCard(props) {
   };
 
   let date = new Date(props.props.createdAt);
- const switchCheckk=(e)=>{
-console.log(e,"check")
- }
+  const switchCheckk = (e) => {
+    console.log(e, "check");
+  };
+
   return (
     <>
-    
       <div
         className="row leadClientCard my-1"
         style={{ width: "102%" }}
@@ -985,17 +1005,28 @@ console.log(e,"check")
       >
         <div className="col-12 ">
           <div className="row">
-            <div className="col-7 d-flex align-items-center">
+            <div className="col-4 d-flex align-items-center">
               <p className="mb-0 d-flex align-items-center">
                 <img
                   src={require("../../images/calendar.png")}
                   style={{ width: "12px", marginRight: "4px" }}
                 />
-               Lead ajouté le {formatDateCha(date)}
+                Lead ajouté le {formatDateCha(date)}
               </p>
             </div>
+            <div className="col-6 d-flex justify-content-end align-items-center">
+              <button className="leadsAddToCRM mx-1">Voir les offres</button>
+              <button className="leadsAddToCRM">Add to CRM</button>
+              <button
+                className="leadsGenOffer"
+                onClick={() => setGenOffer(true)}
+              >
+                GENERATE OFFER
+              </button>
+            </div>
+
             <div
-              className="col-5 d-flex justify-content-end align-items-center"
+              className="col-2 d-flex justify-content-end align-items-center"
               style={{ height: "50px" }}
             >
               <button
@@ -1019,7 +1050,6 @@ console.log(e,"check")
                     className="col-9 d-flex align-items-center cursor-pointer leadsChipColor"
                     onClick={() => CurrentModal("Name")}
                   >
-                    
                     {props.props.companyName
                       ? props.props.companyName.toLocaleUpperCase()
                       : "Pas de Société sur ce lead"}
@@ -1043,7 +1073,6 @@ console.log(e,"check")
                     className="col-9 d-flex align-items-center cursor-pointer leadsChipColor"
                     onClick={() => CurrentModal("Num1")}
                   >
-                    
                     {props.props.phoneNumber1
                       ? props.props.phoneNumber1.includes("+")
                         ? props.props.phoneNumber1
@@ -1064,7 +1093,6 @@ console.log(e,"check")
                     className="col-9 d-flex align-items-center cursor-pointer leadsChipColor"
                     onClick={() => CurrentModal("Num2")}
                   >
-                    
                     {props.props.phoneNumber2
                       ? props.props.phoneNumber2.includes("+")
                         ? props.props.phoneNumber2
@@ -1090,7 +1118,6 @@ console.log(e,"check")
                     className="col-9 d-flex align-items-center cursor-pointer leadsChipColor"
                     onClick={() => CurrentModal("email")}
                   >
-                    
                     {props.props.email
                       ? props.props.email
                       : "Pas de Email sur ce lead"}
@@ -1117,7 +1144,6 @@ console.log(e,"check")
                     className="col-9 d-flex align-items-center text-capitalize cursor-pointer leadsChipColor"
                     onClick={() => CurrentModal("CNote")}
                   >
-                    
                     {props.props.companyNote.length > 40
                       ? props.props.companyNote.slice(0, 40) + "..."
                       : props.props.companyNote
@@ -1155,7 +1181,6 @@ console.log(e,"check")
                     className="col-9 d-flex align-items-center text-capitalize cursor-pointer leadsChipColor"
                     onClick={() => CurrentModal("ANote")}
                   >
-                    
                     {props.props.agencyNote.length > 40
                       ? props.props.agencyNote.slice(0, 40) + "..."
                       : props.props.agencyNote
@@ -1192,11 +1217,9 @@ console.log(e,"check")
                     type="checkbox"
                     defaultChecked={props.props.offerSent}
                     id={`offer${props.length}`}
-                    onChange={(e) =>{
-                      switchCheck("Offre", props.props._id, e.target.checked)
-                 
-                  }
-                    }
+                    onChange={(e) => {
+                      switchCheck("Offre", props.props._id, e.target.checked);
+                    }}
                   />
                   <label
                     className="ToggleLabel mb-0 cursor-pointer"
@@ -1284,11 +1307,17 @@ console.log(e,"check")
                         value: props.props.contactedFirstTimeBy,
                         label: (
                           <>
-                            
                             <p className="mb-0">
                               <input
                                 type="radio"
-                                className={props.props.contactedFirstTimeBy ?  props.props.contactedFirstTimeBy === "PERSONNE" ? "persoon" : `inputLeadsClient` : "persoon" }
+                                className={
+                                  props.props.contactedFirstTimeBy
+                                    ? props.props.contactedFirstTimeBy ===
+                                      "PERSONNE"
+                                      ? "persoon"
+                                      : `inputLeadsClient`
+                                    : "persoon"
+                                }
                                 id="test1"
                                 name={`premie${props.length}`}
                                 defaultChecked
@@ -1308,11 +1337,17 @@ console.log(e,"check")
                         value: props.props.contactedFirstTimeBy,
                         label: (
                           <>
-                            
                             <p className="mb-0">
                               <input
                                 type="radio"
-                                className={props.props.contactedFirstTimeBy  ? props.props.contactedFirstTimeBy === "PERSONNE" ? "persoon" : `inputLeadsClient` : "persoon" }
+                                className={
+                                  props.props.contactedFirstTimeBy
+                                    ? props.props.contactedFirstTimeBy ===
+                                      "PERSONNE"
+                                      ? "persoon"
+                                      : `inputLeadsClient`
+                                    : "persoon"
+                                }
                                 id="test1"
                                 name={`premie${props.length}`}
                                 defaultChecked
@@ -1357,11 +1392,17 @@ console.log(e,"check")
                         value: props.props.contactedSecondTimeBy,
                         label: (
                           <>
-                            
                             <p className="mb-0">
                               <input
                                 type="radio"
-                                className={props.props.contactedSecondTimeBy  ? props.props.contactedSecondTimeBy === "PERSONNE" ? "persoon" : `inputLeadsClient` : "persoon"}
+                                className={
+                                  props.props.contactedSecondTimeBy
+                                    ? props.props.contactedSecondTimeBy ===
+                                      "PERSONNE"
+                                      ? "persoon"
+                                      : `inputLeadsClient`
+                                    : "persoon"
+                                }
                                 id="test1"
                                 name={`deux${props.length}`}
                                 defaultChecked
@@ -1381,11 +1422,17 @@ console.log(e,"check")
                         value: props.props.contactedSecondTimeBy,
                         label: (
                           <>
-                            
                             <p className="mb-0">
                               <input
                                 type="radio"
-                                className={props.props.contactedSecondTimeBy  ? props.props.contactedSecondTimeBy === "PERSONNE" ? "persoon" : `inputLeadsClient` : "persoon"}
+                                className={
+                                  props.props.contactedSecondTimeBy
+                                    ? props.props.contactedSecondTimeBy ===
+                                      "PERSONNE"
+                                      ? "persoon"
+                                      : `inputLeadsClient`
+                                    : "persoon"
+                                }
                                 id="test1"
                                 name={`deux${props.length}`}
                                 defaultChecked
@@ -1426,18 +1473,23 @@ console.log(e,"check")
                       onChange={onReactSelect}
                       options={appelé}
                       styles={colourStyles}
-                    
                       value={{
                         value: props.props.contactedAfterOfferSentBy
                           ? props.props.contactedAfterOfferSentBy
                           : "Personne",
                         label: (
                           <>
-                            
                             <p className="mb-0">
                               <input
                                 type="radio"
-                                className={props.props.contactedAfterOfferSentBy ? props.props.contactedAfterOfferSentBy === "PERSONNE" ? "persoon" : `inputLeadsClient` :"persoon" }
+                                className={
+                                  props.props.contactedAfterOfferSentBy
+                                    ? props.props.contactedAfterOfferSentBy ===
+                                      "PERSONNE"
+                                      ? "persoon"
+                                      : `inputLeadsClient`
+                                    : "persoon"
+                                }
                                 id="test1"
                                 name={`appel${props.length}`}
                                 defaultChecked
@@ -1445,7 +1497,6 @@ console.log(e,"check")
                               <label htmlFor="test1 mb-0">
                                 {props.props.contactedAfterOfferSentBy
                                   ? props.props.contactedAfterOfferSentBy
-                                      
                                   : "Personne"}
                               </label>
                             </p>
@@ -1460,11 +1511,17 @@ console.log(e,"check")
                           : "Personne",
                         label: (
                           <>
-                            
                             <p className="mb-0">
                               <input
                                 type="radio"
-                                className={props.props.contactedAfterOfferSentBy ? props.props.contactedAfterOfferSentBy === "PERSONNE" ? "persoon" : `inputLeadsClient` :"persoon" }
+                                className={
+                                  props.props.contactedAfterOfferSentBy
+                                    ? props.props.contactedAfterOfferSentBy ===
+                                      "PERSONNE"
+                                      ? "persoon"
+                                      : `inputLeadsClient`
+                                    : "persoon"
+                                }
                                 id="test1"
                                 name={`appel${props.length}`}
                                 defaultChecked
@@ -1472,7 +1529,6 @@ console.log(e,"check")
                               <label htmlFor="test1 mb-0">
                                 {props.props.contactedAfterOfferSentBy
                                   ? props.props.contactedAfterOfferSentBy
-                                      
                                   : "Personne"}
                               </label>
                             </p>
@@ -1511,11 +1567,17 @@ console.log(e,"check")
                           : "Personne",
                         label: (
                           <>
-                            
                             <p className="mb-0">
                               <input
                                 type="radio"
-                                className={props.props.companyResponsable ? props.props.companyResponsable === "PERSONNE" ? "persoon" : `inputLeadsClient` : "persoon"}
+                                className={
+                                  props.props.companyResponsable
+                                    ? props.props.companyResponsable ===
+                                      "PERSONNE"
+                                      ? "persoon"
+                                      : `inputLeadsClient`
+                                    : "persoon"
+                                }
                                 id="test1"
                                 name={`responsab${props.length}`}
                                 defaultChecked
@@ -1537,11 +1599,17 @@ console.log(e,"check")
                           : "Personne",
                         label: (
                           <>
-                            
                             <p className="mb-0">
                               <input
                                 type="radio"
-                                className={props.props.companyResponsable ? props.props.companyResponsable === "PERSONNE" ? "persoon" : `inputLeadsClient` : "persoon"}
+                                className={
+                                  props.props.companyResponsable
+                                    ? props.props.companyResponsable ===
+                                      "PERSONNE"
+                                      ? "persoon"
+                                      : `inputLeadsClient`
+                                    : "persoon"
+                                }
                                 id="test1"
                                 name={`responsabl${props.length}`}
                                 defaultChecked
@@ -1584,11 +1652,14 @@ console.log(e,"check")
                     value: props.props.clientStatus,
                     label: (
                       <>
-                        
                         <p className="mb-0">
                           <input
                             type="radio"
-                            className={props.props.clientStatus == "Non determine" ? "persoon" : "inputLeadsClient"}
+                            className={
+                              props.props.clientStatus == "Non determine"
+                                ? "persoon"
+                                : "inputLeadsClient"
+                            }
                             id="test1"
                             name={`status${props.length}`}
                             defaultChecked={true}
@@ -1619,7 +1690,6 @@ console.log(e,"check")
                   props={props.props}
                   Notes={statusModal}
                   closeModal={setModalView}
-                 
                 />
               ) : null}
               {DeleteModal ? (
@@ -1629,13 +1699,15 @@ console.log(e,"check")
                   update={props.update}
                 />
               ) : null}
+              {GenOffer ? (
+                <OfferModal closeModal={setGenOffer} props={props.props} />
+              ) : null}
             </div>
           </div>
         </div>
-        
       </div>
       <div className="row pr-2">
-      <hr   />
+        <hr />
       </div>
     </>
   );

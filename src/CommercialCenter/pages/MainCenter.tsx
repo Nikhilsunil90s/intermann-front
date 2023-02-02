@@ -9,7 +9,7 @@ import { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {CommercialCenter} from "../../redux/slice/CommercialCenterSlice";
-
+import OfferModal from "../components/Modal/OfferModal";
 
 function MainCenter(){
 
@@ -22,6 +22,7 @@ function MainCenter(){
       filterApplied:false,
       FilterData:[]
     })as any
+
 
     // const dispatch =useDispatch()
     // const {state} = useSelector((state:any)=> state.CommercialCenterSlice)as any
@@ -61,6 +62,10 @@ function MainCenter(){
         fetchLeads()
       }
     },[update])
+
+
+
+
     return(<>
       <Toaster
         containerStyle={{ zIndex: "999999999999999999999999999999" }}
@@ -114,6 +119,9 @@ function MainCenter(){
                       <span className="Leads002"></span>
                       </div>
                 }
+                
+            
+   {/*  */}
             </div>
         </div>
     </div>
