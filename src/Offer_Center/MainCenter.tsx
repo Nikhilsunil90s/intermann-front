@@ -46,7 +46,7 @@ function MainCenter(){
                 </div>
                 
                 </div>   
-            <div className="col-12 py-1 px-2 bg-white p-1 " style={{    borderRadius: "0px 0px 10px 10px"}}>
+            <div className="col-12 bg-white" style={{    borderRadius: "0px 0px 10px 10px" ,padding:"10px 24px"}}>
               <Card   />
 
                 </div>

@@ -448,14 +448,7 @@ function App() {
             
             }
           />
-              <Route
-            path={"/ViewOffer/OfferSigned/thank_You"}
-            element={
-            
-                <ThankYouPage />
-            
-            }
-          />
+       
 
 
 

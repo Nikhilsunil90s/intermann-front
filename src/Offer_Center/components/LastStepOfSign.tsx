@@ -11,11 +11,13 @@ function OfferSigned() {
     const [SignLoad,setSingLoad]=useState(false)
     const {state}=useLocation()
     const SignPad =useRef(undefined)
-      const [contractID]=useState(state)as any
-    const [SignError,setSignError]=useState(false)
+      const [statE]=useState(state)as any
+    const [SignError,setSignError]=useState(false)as any
       const clear=()=>{
         SignPad.current.clear();
     }
+
+    console.log(state)
 const Checkking=(e)=>{
   setSignError(e.isTrusted)
 }
@@ -28,36 +30,48 @@ const Checkking=(e)=>{
   }
 
     Data={
-        contractId:contractID.id,
+      offerId:statE.offerId,
         signature:SignPad.current.toDataURL(),
-        filePath:contractID.filePath,
-        public_id:contractID.public_id
-
     }
 
     }
         const SaveSignFun=()=>{
         SignSave()
         if(SignError){
-          if(contractID.user === "Client"){
-          // SignClient().then((res)=>{
-          //        if(res){
-          //          toast.success("Signatures Added Successfully!")
-          //          setSingLoad(false)
-          //          setTimeout(()=>{
-          //            window.location.href="/documentSigned/thankYou"
-          //          },2000)
-          //        }
-          //    })
-          //    .catch(err=>{
-          //        console.log(err)
-          //        toast.error("Signatures Not Added !")
-          //    })
+          if(Data.offerID === statE.offerID){
+            signOffer().then((res)=>{
+                 if(res){
+                   toast.success("Signatures Added Successfully!")
+                   setSingLoad(false)
+                   setTimeout(()=>{
+                     window.location.href="/documentSigned/thankYou"
+                   },2000)
+                 }
+             })
+             .catch(err=>{
+                 console.log(err)
+                 toast.error("Signatures Not Added !")
+             })
             }
         }else{
             toast.error("Trebuie să semnezi ! / You must sign / Veuillez signer !")
         }
       
+    }
+        const signOffer =async() => {
+      setSingLoad(true)
+      return await  fetch(API_BASE_URL + "sign-offer", {
+            method: "POST",
+            headers: {
+                "Accept": 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + localStorage.getItem('token')
+            },
+            body: JSON.stringify(Data),
+        })
+            .then(resp => resp.json())
+            .then((reD) => reD)
+            .catch(err => err)
     }
 // }
 //     const [SignLoad,setSingLoad]=useState(false)
@@ -89,7 +103,7 @@ const Checkking=(e)=>{
 //     const clear=()=>{
 //         SignPad.current.clear();
 //     }
-// const Checkking=(e)=>{
+// const Checkking()()=(e)=>{
 //   setSignError(e.isTrusted)
 
 // }
@@ -209,10 +223,11 @@ Declar că am citit contractul și îl accept în întregime.Adresa dvs. IP va f
                                     <div className="col-12 " style={{background:"#E7E7E7",border:"2px solid #000000"}}>
                                   
                                   <SignatureCanvas penColor='black'
-                                    // ref={SignPad}
-                                //   onEnd={SignSave()}
+                                    ref={SignPad}
+                                  onEnd={Checkking}
+                                  
     canvasProps={{ className: 'sigCanvas',velocityFilterWeight:200,height:350}} 
-    // onEnd={Checkking}
+   
     
     />  
                                   

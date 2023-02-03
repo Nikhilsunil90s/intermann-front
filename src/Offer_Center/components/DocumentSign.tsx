@@ -9,19 +9,11 @@ import PDFreader from '../../components/AddClientRating/PDFreader';
 import $ from "jquery"
 import CountDown from "../../../src/components/Loader/CountDown"
 // import { GetRoute } from '../../components/ApisFunction/FunctionsApi';
-let ContractData={
-  id:"",
-  filePath:"",
-  public_id:"",
-  user:""
-}
+
 function  ViewOffer(){
-    const [ContractSignData,setContractSignData]=useState(ContractData)as any
     const [pdfTimeOut,setpdfTimeOut]=useState(false)
     const { id } = useParams();
-    const { ClientEmp } = useParams();
     const [profile, setProfile] = useState([])as any;
-    const [Clientprofile, setClientProfile] = useState()as any;
     const [pdfUrl,setUrl]=useState()as any
     
   const navigate = useNavigate()
@@ -76,13 +68,11 @@ function  ViewOffer(){
         },[id,profile]);
         console.log(pdfUrl)
 
-
+ let Data={
+  offerId:id
+ }
       const SignDocu =(e)=>{
-        ContractData.user=ClientEmp
-        ContractData.filePath=pdfUrl
-        ContractData.id=ClientEmp === "Candidate" ? profile.candidatContract._id : Clientprofile?.clientContract?._id
-   
-        navigate("/ViewOffer/OfferSigned",{state:ContractSignData})
+        navigate("/ViewOffer/OfferSigned",{state:Data})
       }
 
 return (
