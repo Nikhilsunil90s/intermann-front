@@ -76,6 +76,7 @@ function OfferModal(props) {
         var dl = document.createElement('a');
         dl.setAttribute('href', FilePath);
         dl.setAttribute('download', 'pdfname.pdf');
+        dl.setAttribute('target', '_blank');
         document.body.appendChild(dl);
         dl.click();
         document.body.removeChild(dl);

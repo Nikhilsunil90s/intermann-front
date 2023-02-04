@@ -51,6 +51,8 @@ const Checkking=(e)=>{
              .catch(err=>{
                  console.log(err)
                  toast.error("Signatures Not Added !")
+                 setSingLoad(false)
+
              })
             }
         }else{

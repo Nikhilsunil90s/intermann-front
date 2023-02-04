@@ -1018,7 +1018,7 @@ function LeadCard(props) {
               <button className="leadsAddToCRM mx-1">Voir les offres</button>
               <button className="leadsAddToCRM">Add to CRM</button>
               <button
-                className="leadsGenOffer"
+                className="leadsAddToCRM mx-1" 
                 onClick={() => setGenOffer(true)}
               >
                 GENERATE OFFER

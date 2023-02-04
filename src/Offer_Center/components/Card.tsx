@@ -1,22 +1,29 @@
 import React from "react";
 
-function Card() {
+function Card(props:any) {
   return (
     <>
-      <div className="row OfferCenterRow mb-1">
+      <div className="row OfferCenterRow mb-1" key={props.props._id}>
         <div className="col-7 d-flex align-items-center pl-0">
           <p className="mb-0 d-flex justify-content-center">
-            société : <b className="d-flex align-items-center"> sabir - </b>
-            métier : <b className="d-flex align-items-center"> ahmad -</b>{" "}
-            Forfait : <b className="d-flex align-items-center">43 H -</b>{" "}
-            salaire : <b className="d-flex align-items-center">3000 €</b> - Generated :  <b className="d-flex align-items-center">23/09/2022</b>{" "}
+            société : <b className="d-flex align-items-center"  data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.props.company_name}> {props.props.company_name.length > 12 ?props.props.company_name.slice(0,11) +"..." :  props.props.company_name} - </b>
+            métier : <b className="d-flex align-items-center" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.props.metier}> {props.props.metier.length > 9 ? props.props.metier.slice(0,9) +"..." : props.props.metier ? props.props.metier  : "no"} -</b>{" "}
+            Forfait : <b className="d-flex align-items-center">{props.props.heure_fait ? props.props.heure_fait : "0H"} -</b>{" "}
+            salaire : <b className="d-flex align-items-center">{props.props.total_salaire ?  props.props.total_salaire  : "0€"}</b> - Generated :  <b className="d-flex align-items-center">{props.props.offer_made_date}</b>{" "}
           </p>
         </div>
         <div className="col-5">
           <div className="row">
             <div className="col-8 d-flex justify-content-end pl-0">
               <button className="btn LinkItClient mr-1">Link it to Client</button>
-              <button className="btn SignedMark">Mark as signed</button>
+              {
+                props.props.offer_signed ?
+null
+                :
+
+                <button className="btn SignedMark">Mark as signed</button>
+
+              }
             </div>
             <div className="col-4">
               <div className=" d-flex align-items-center justify-content-center">
