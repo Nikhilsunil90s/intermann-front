@@ -1015,7 +1015,11 @@ function LeadCard(props) {
               </p>
             </div>
             <div className="col-6 d-flex justify-content-end align-items-center">
-              <button className="leadsAddToCRM mx-1">Voir les offres</button>
+          {props.props.offerSent ?  
+            <button className="leadsAddToCRM mx-1">Voir les offres</button>
+         :
+         null 
+}
               <button className="leadsAddToCRM">Add to CRM</button>
               <button
                 className="leadsAddToCRM mx-1" 
@@ -1211,7 +1215,7 @@ function LeadCard(props) {
               <div className="grayboxLeads d-flex justify-content-start align-items-center">
                 <p className="mb-0 ">Offre envoyé? 👇</p>
               </div>
-              <div className="BoxHeight align-items-center justify-content-center">
+              <div className="BoxHeight d-grid align-items-center justify-content-center">
                 <div className="check-box d-flex align-items-center ">
                   <input
                     type="checkbox"
@@ -1228,6 +1232,15 @@ function LeadCard(props) {
                     {props.props.offerSent == false ? "Non" : "Oui"}
                   </label>
                 </div>
+                {
+                  props.props.offerSent == false ? 
+                  null
+                  :
+                  <div className="cursor-pointer" style={{height:"11px"}}>
+                  <p className="mb-0 offerVoir">Voir offre</p>
+                  </div>
+                }
+             
               </div>
             </div>
             <div className="col-3 d-grid px-0">

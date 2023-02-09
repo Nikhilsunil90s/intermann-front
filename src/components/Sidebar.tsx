@@ -35,6 +35,13 @@ function Sidebar(props: any) {
     navigate("/");
     LogNotify();
   };
+  useEffect(()=>{
+    const EXPIRE_TIME = 24*60*60*1000;
+  
+      setTimeout(function() {
+        LogOut()
+      }, EXPIRE_TIME);
+    },[])
 
   // console.log(state?.login?.user)
   useEffect(() => {
@@ -117,7 +124,7 @@ function Sidebar(props: any) {
 
   return (
     <>
-     <Toaster position="top-right" />
+      <Toaster position="top-right" />
       <div
         className="container-fluid"
         style={{ height: "100%", backgroundColor: "white", zIndex: 9000000 }}
@@ -635,7 +642,6 @@ function Sidebar(props: any) {
                         />
                       </span>
                       Download Center
-                     
                     </Link>
                   </motion.li>
                   <motion.li
@@ -677,7 +683,6 @@ function Sidebar(props: any) {
                         />
                       </span>
                       Leads Center
-                     
                     </Link>
                   </motion.li>
                   <motion.li
@@ -719,7 +724,6 @@ function Sidebar(props: any) {
                         />
                       </span>
                       Job Ads Center
-                     
                     </Link>
                   </motion.li>
                   <motion.li
@@ -761,7 +765,6 @@ function Sidebar(props: any) {
                         />
                       </span>
                       Commercial Center
-                     
                     </Link>
                   </motion.li>
 
@@ -796,17 +799,20 @@ function Sidebar(props: any) {
                       >
                         <span className="pe-2">
                           <img
-                            // className={window.location.href.includes("billing") ? "FilterMinibar logoutImage"  : "logoutImage"}
                             width={"24px"}
                             src={require("../images/billingCenter.svg").default}
+                            className={`${
+                              window.location.href.includes("billing")
+                                ? "FilterMinibar"
+                                : ""
+                            }`}
                           />
                         </span>
                         Billing Center
-                       
                       </Link>
                     </motion.li>
                   ) : null}
-<motion.li
+                  <motion.li
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
@@ -845,7 +851,6 @@ function Sidebar(props: any) {
                         />
                       </span>
                       Offer Center
-                     
                     </Link>
                   </motion.li>
                   <motion.li
@@ -873,7 +878,6 @@ function Sidebar(props: any) {
                         />
                       </span>
                       Sign Out
-                     
                     </Link>
                   </motion.li>
                 </motion.ul>
@@ -929,7 +933,12 @@ function Sidebar(props: any) {
                     />
                   </div>
                 </li>
-                <li className=" d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right" title="Client Section">
+                <li
+                  className=" d-flex align-items-center justify-content-center"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  title="Client Section"
+                >
                   {window.location.href.includes("clientTodo") ||
                   window.location.href.includes("clientProgress") ||
                   window.location.href.includes("clientContract") ||
@@ -953,7 +962,12 @@ function Sidebar(props: any) {
                   )}
                   {/* <div className="btnSideBarCollapse cursor-pointer" onClick={()=>setOnClickBarOpen(true)}>▶</div> */}
                 </li>
-                <li className=" d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right" title="Candidats Section">
+                <li
+                  className=" d-flex align-items-center justify-content-center"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  title="Candidats Section"
+                >
                   {window.location.href.includes("todolist") ||
                   window.location.href.includes("preSelected") ||
                   window.location.href.includes("embauchlist") ||
@@ -976,11 +990,15 @@ function Sidebar(props: any) {
                     </div>
                   )}
                 </li>
-                <li className=" d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right" title="Manage">
+                <li
+                  className=" d-flex align-items-center justify-content-center"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  title="Manage"
+                >
                   {window.location.href.includes("addNewSector") ||
                   window.location.href.includes("userList") ? (
                     <div className="activeDiv">
-                     
                       <img
                         style={{ height: "25px", width: "35px" }}
                         className="FilterMinibar"
@@ -989,16 +1007,21 @@ function Sidebar(props: any) {
                     </div>
                   ) : (
                     <div className="">
-                        <Link to={"/addNewSector"}>
-                      <img
-                        style={{ height: "25px", width: "35px" }}
-                        src={require("../images/settings.svg").default}
-                      />
+                      <Link to={"/addNewSector"}>
+                        <img
+                          style={{ height: "25px", width: "35px" }}
+                          src={require("../images/settings.svg").default}
+                        />
                       </Link>
                     </div>
                   )}
                 </li>
-                <li className=" d-flex align-items-center justify-content-center"  data-bs-toggle="tooltip" data-bs-placement="right" title="Download Center">
+                <li
+                  className=" d-flex align-items-center justify-content-center"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  title="Download Center"
+                >
                   {window.location.href.includes("downloadCenter") ? (
                     <div className={"activeDiv "}>
                       <img
@@ -1009,16 +1032,21 @@ function Sidebar(props: any) {
                     </div>
                   ) : (
                     <div className={""}>
-                           <Link to={"/downloadCenter"}>
-                      <img
-                        style={{ height: "25px", width: "35px" }}
-                        src={require("../images/telecharger.svg").default}
-                      />
-                  </Link>
+                      <Link to={"/downloadCenter"}>
+                        <img
+                          style={{ height: "25px", width: "35px" }}
+                          src={require("../images/telecharger.svg").default}
+                        />
+                      </Link>
                     </div>
                   )}
                 </li>
-                <li className=" d-flex align-items-center justify-content-center"  data-bs-toggle="tooltip" data-bs-placement="right" title="Leads Center">
+                <li
+                  className=" d-flex align-items-center justify-content-center"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  title="Leads Center"
+                >
                   {window.location.href.includes("LeadsCenter") ? (
                     <div
                       className={
@@ -1035,16 +1063,21 @@ function Sidebar(props: any) {
                     </div>
                   ) : (
                     <div>
-                       <Link to={"/LeadsCenter"}>
-                      <img
-                        style={{ height: "25px", width: "35px" }}
-                        src={require("../images/Leads.svg").default}
-                      />
+                      <Link to={"/LeadsCenter"}>
+                        <img
+                          style={{ height: "25px", width: "35px" }}
+                          src={require("../images/Leads.svg").default}
+                        />
                       </Link>
                     </div>
                   )}
                 </li>
-                <li className=" d-flex align-items-center justify-content-center"  data-bs-toggle="tooltip" data-bs-placement="right" title="Job Ads Center">
+                <li
+                  className=" d-flex align-items-center justify-content-center"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  title="Job Ads Center"
+                >
                   {window.location.href.includes("JobAdsCenter") ? (
                     <div className={"activeDiv"}>
                       <img
@@ -1055,16 +1088,21 @@ function Sidebar(props: any) {
                     </div>
                   ) : (
                     <div className={""}>
-                        <Link to={"/JobAdsCenter"}>
-                      <img
-                        style={{ height: "25px", width: "35px" }}
-                        src={require("../images/CombinedShape.svg").default}
-                      />
+                      <Link to={"/JobAdsCenter"}>
+                        <img
+                          style={{ height: "25px", width: "35px" }}
+                          src={require("../images/CombinedShape.svg").default}
+                        />
                       </Link>
                     </div>
                   )}
                 </li>
-                <li className=" d-flex align-items-center justify-content-center"  data-bs-toggle="tooltip" data-bs-placement="right" title="Commercial Center">
+                <li
+                  className=" d-flex align-items-center justify-content-center"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  title="Commercial Center"
+                >
                   {window.location.href.includes("commercialCenter") ? (
                     <div className={"activeDiv "}>
                       <img
@@ -1076,11 +1114,11 @@ function Sidebar(props: any) {
                   ) : (
                     <div className={""}>
                       <Link to={"/commercialCenter"}>
-                      <img
-                        style={{ height: "25px", width: "35px" }}
-                        className=""
-                        src={require("../images/comIcon.svg").default}
-                      />
+                        <img
+                          style={{ height: "25px", width: "35px" }}
+                          className=""
+                          src={require("../images/comIcon.svg").default}
+                        />
                       </Link>
                     </div>
                   )}
@@ -1091,24 +1129,29 @@ function Sidebar(props: any) {
                       <div className={"activeDiv "}>
                         <img
                           style={{ height: "26px", width: "26px" }}
-                          className=""
+                          className="FilterMinibar"
                           src={require("../images/billingCenter.svg").default}
                         />
                       </div>
                     ) : (
                       <div className={""}>
-                         <Link to={"/billing-center"}>
-                        <img
-                          style={{ height: "26px", width: "26px" }}
-                          className=""
-                          src={require("../images/billingCenter.svg").default}
-                        />
+                        <Link to={"/billing-center"}>
+                          <img
+                            style={{ height: "26px", width: "26px" }}
+                            className=""
+                            src={require("../images/billingCenter.svg").default}
+                          />
                         </Link>
                       </div>
                     )}
                   </li>
                 ) : null}
-    <li className=" d-flex align-items-center justify-content-center"  data-bs-toggle="tooltip" data-bs-placement="right" title="Commercial Center">
+                <li
+                  className=" d-flex align-items-center justify-content-center"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  title="Commercial Center"
+                >
                   {window.location.href.includes("offerCenter") ? (
                     <div className={"activeDiv "}>
                       <img
@@ -1120,22 +1163,25 @@ function Sidebar(props: any) {
                   ) : (
                     <div className={""}>
                       <Link to={"/offerCenter"}>
-                      <img
-                        style={{ height: "25px", width: "35px" }}
-                        className=""
-                        src={require("../images/discount.svg").default}
-                      />
+                        <img
+                          style={{ height: "25px", width: "35px" }}
+                          className=""
+                          src={require("../images/discount.svg").default}
+                        />
                       </Link>
                     </div>
                   )}
                 </li>
                 <li className="mt-2 mb-5 d-flex align-items-center justify-content-center">
-                  <div onClick={()=>LogOut()} className={window.location.href.includes("/") ? "" : ""}>
-                  <Link to={"/"}>
-                    <img
-                      style={{ height: "25px", width: "35px" }}
-                      src={require("../images/logout.svg").default}
-                    />
+                  <div
+                    onClick={() => LogOut()}
+                    className={window.location.href.includes("/") ? "" : ""}
+                  >
+                    <Link to={"/"}>
+                      <img
+                        style={{ height: "25px", width: "35px" }}
+                        src={require("../images/logout.svg").default}
+                      />
                     </Link>
                   </div>
                 </li>

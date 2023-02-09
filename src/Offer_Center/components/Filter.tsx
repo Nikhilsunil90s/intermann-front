@@ -64,14 +64,14 @@ function Filter() {
           <div className="col-4">    <label style={{ fontSize: "14px" }} className="Form-styling">
             Sort by Date
           </label>
-          <div className="">
+          <div className="cursor-pointer">
             <input
               value={`${format(range[0].startDate, "dd/MM/yyyy")} to ${format(
                 range[0].endDate,
                 "dd/MM/yyyy"
               )}`}
               readOnly
-              className="dateSort"
+              className="dateSort cursor-pointer"
               onClick={() => setOpen((open) => !open)}
             />
 

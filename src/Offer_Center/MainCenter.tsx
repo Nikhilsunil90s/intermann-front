@@ -64,7 +64,7 @@ function MainCenter() {
   };
   return (
     <>
-      <div className="container-fluid mt-4" style={{ height: "100vh" }}>
+      <div className="container-fluid mt-4 mb-2">
         <div className="row">
           <div>
             <Header setUploadPdfModal={setUploadPdfModal} />
@@ -105,7 +105,7 @@ function MainCenter() {
               {btnDS ?
 
               
-              cards.length > 0 ? cards.map((el) => <Card props={el} />) :    <div className="col-12 my-2 d-flex align-items-center justify-content-center">
+              cards.length > 0 ? cards.map((el) => <Card props={el}  />) :    <div className="col-12 my-2 d-flex align-items-center justify-content-center">
                       <span className="Leads002"></span>
                       </div>
                       
@@ -116,6 +116,7 @@ function MainCenter() {
                     }
 
             </div>
+        
             {uploadPdfModal.AddToCrm ? (
               <UploadFile
                 uploadPdfModal={uploadPdfModal}

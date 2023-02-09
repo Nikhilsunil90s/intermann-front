@@ -419,6 +419,19 @@ color: #fff;
   line-height: 29px;
   color: #032339;
 }
+.offerVoir{
+  font-family: 'Roboto';
+font-style: normal;
+font-weight: 700;
+font-size: 12px;
+line-height: 14px;
+/* identical to box height */
+display: flex;
+align-items: center;
+text-decoration-line: underline;
+text-transform: uppercase;
+color: #3F76E2;
+}
 @media (min-width: 1200px) {
   .leadsChipColor {
     font-family: "Poppins";
