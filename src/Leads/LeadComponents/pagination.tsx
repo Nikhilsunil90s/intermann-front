@@ -6,7 +6,7 @@ const PaginationFun = (props: any) => {
     const totalPage= Math.ceil(props?.Leads?.length/50);
     let totalNumber=[]
     let currentPage=0;
-    for(let i=0;i<=totalPage;i++){
+    for(let i=1;i<=totalPage;i++){
      totalNumber.push({page:i,currentPage})
      currentPage+=50;
     }
@@ -20,7 +20,6 @@ useEffect(()=>{
 
   console.log(props.DS)
   const HandleChange = (e, page) => {
-    console.log(e);
     props.setPage(e);
     props.setcurrentPage(page);
     props.fetchSkipLeads(props.tabName, page);
