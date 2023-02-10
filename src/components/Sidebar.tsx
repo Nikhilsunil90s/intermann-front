@@ -8,10 +8,8 @@ import { Toaster, toast } from "react-hot-toast";
 import { logout } from "../redux/actions/userActions";
 import $ from "jquery";
 import { motion } from "framer-motion";
-import { API_BASE_URL } from "../config/serverApiConfig";
 import { useSelector } from "react-redux";
 
-let CurrentUser = "";
 function Sidebar(props: any) {
   const [activeTab, setActiveTab] = useState(window.location.href);
   const [onHover, setOnHover] = useState({

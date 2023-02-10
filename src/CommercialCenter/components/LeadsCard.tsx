@@ -1117,10 +1117,11 @@ function LeadCard(props) {
                 <p className="mb-0">Email Adress 👇</p>
               </div>
               <div className="BoxHeight">
-                <span>
+                <span   className="" style={{height:"auto",wordBreak:"break-all"}}>
                   <div
-                    className="col-9 d-flex align-items-center cursor-pointer leadsChipColor"
+                    className="col-9 d-flex align-items-center cursor-pointer leadsChipColor text-break "
                     onClick={() => CurrentModal("email")}
+                 
                   >
                     {props.props.email
                       ? props.props.email
