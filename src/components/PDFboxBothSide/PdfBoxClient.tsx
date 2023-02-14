@@ -293,7 +293,7 @@ function PDFBoxClient({props,value,updated}){
         let headers = {
           "Accept": 'application/json',
           'Content-Type': 'application/json',
-          "Authorization": "Bearer " + localStorage.getItem('token')
+          "Authorization": "Bearer " + Cookies.get('token')
         }
         return await fetch(API_BASE_URL + "addClientLink", {
           method: "POST",
@@ -313,7 +313,7 @@ function PDFBoxClient({props,value,updated}){
            let headers = {
              "Accept": 'application/json',
              'Content-Type': 'application/json',
-             "Authorization": "Bearer " + localStorage.getItem('token')
+             "Authorization": "Bearer " + Cookies.get('token')
            }
           fetch(API_BASE_URL + "removeClientLink", {
              method: "POST",

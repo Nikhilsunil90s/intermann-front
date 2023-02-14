@@ -18,7 +18,7 @@ function NotesDeleteModal({props,closeModal,update,Load,Notes,LeadsDelete,setDel
    headers: {
      "Accept": 'application/json',
      'Content-Type': 'application/json',
-     "Authorization": "Bearer " + localStorage.getItem('token')
+     "Authorization": "Bearer " + Cookies.get('token')
    },
    body:JSON.stringify(data)
  })

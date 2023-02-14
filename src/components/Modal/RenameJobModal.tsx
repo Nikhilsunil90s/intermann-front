@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { API_BASE_URL } from '../../config/serverApiConfig';
 import { toast } from "react-hot-toast";
+import Cookies from "js-cookie"
 
 function RenameJobModal({ sector, closeModal,jobName }) {
     const [newJobName, setNewJobName] = useState("");
@@ -25,7 +26,7 @@ console.log(jobName,"jobName")
             headers: {
                 "Accept": 'application/json',
                 'Content-Type': 'application/json',
-                "Authorization": "Bearer " + localStorage.getItem('token')
+                "Authorization": "Bearer " + Cookies.get("token")
             },
             body: JSON.stringify({
                 currentJobName: jobName,

@@ -5,7 +5,7 @@ import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../
 import chroma from 'chroma-js';
 import { Toaster, toast } from "react-hot-toast";
 import { API_BASE_URL } from "../../config/serverApiConfig";
-
+import Cookies from "js-cookie"
 
 let LinkData={};
 function RenameDoc({props,closepreModal,reload}) {
@@ -49,7 +49,7 @@ function RenameDoc({props,closepreModal,reload}) {
       headers: {
         "Accept": 'application/json',
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
       body: JSON.stringify(LinkData)
     })
@@ -77,7 +77,7 @@ function RenameDoc({props,closepreModal,reload}) {
   }else{
     let headers = {
       "Accept": 'application/json',
-      "Authorization": "Bearer " + localStorage.getItem('token')
+      "Authorization": "Bearer " + Cookies.get('token')
     }
      fetch(API_BASE_URL + `renameClientDocument/?documentId=${props[0]}&newName=${NewName}&clientId=${props[2]}`, {
       method: "GET",

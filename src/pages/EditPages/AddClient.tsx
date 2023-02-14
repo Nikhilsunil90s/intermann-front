@@ -4,6 +4,7 @@ import Select, { StylesConfig } from "react-select";
 import Switch from "react-switch";
 import RatingCmp from "../../components/AddClientRating/Rating";
 import { Toaster, toast } from 'react-hot-toast';
+import Cookies from "js-cookie"
 import { API_BASE_URL } from '../../config/serverApiConfig';
 import {
   NumberOfPost,
@@ -489,7 +490,7 @@ const fetchAllJobs = async (sector: string) => {
         headers: {
             "Accept": 'application/json',
             'Content-Type': 'application/json',
-            "Authorization": "Bearer " + localStorage.getItem('token')
+            "Authorization": "Bearer " + Cookies.get('token')
         }
     }).then(resD => resD.json())
         .then(reD => reD)
@@ -502,7 +503,7 @@ const fetchActivitySectors = async () => {
         headers: {
             "Accept": 'application/json',
             'Content-Type': 'application/json',
-            "Authorization": "Bearer " + localStorage.getItem('token')
+            "Authorization": "Bearer " + Cookies.get('token')
         }
     })
         .then(resp => resp.json())
@@ -516,7 +517,7 @@ const fetchActivitySectors = async () => {
 //         headers: {
 //             "Accept": 'application/json',
 //             'Content-Type': 'application/json',
-//             "Authorization": "Bearer " + localStorage.getItem('token')
+//             "Authorization": "Bearer " + Cookies.get('token')
 //         }
 //     }).then(resD => resD.json())
 //         .then(reD => reD)
@@ -556,7 +557,7 @@ const saveClientData = async () => {
         headers: {
             "Accept": 'application/json',
             'Content-Type': 'application/json',
-            "Authorization": "Bearer " + localStorage.getItem('token')
+            "Authorization": "Bearer " + Cookies.get('token')
         },
         body: JSON.stringify(data),
     })

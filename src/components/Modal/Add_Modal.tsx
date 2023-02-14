@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
-
+import Cookies from "js-cookie"
 import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../../config/serverApiConfig';
 
@@ -27,7 +27,7 @@ function AddJobModal({ props, closeModal ,path}) {
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
     })
       .then(resp => resp.json())

@@ -14,6 +14,7 @@ import Select, {StylesConfig } from "react-select";
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 import ErrorLoader from '../../components/Loader/SearchBarError'
+import  Cookies from "js-cookie"
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -272,7 +273,7 @@ if(checked == false){
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       }
     })
       .then(resp => resp.json())
@@ -286,7 +287,7 @@ if(checked == false){
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       }
     }).then(resD => resD.json())
       .then(reD =>{ 
@@ -498,7 +499,7 @@ if(checked == false){
     console.log(updatedData)
     let headers = {
       "Accept": 'application/json',
-      "Authorization": "Bearer " + localStorage.getItem('token')
+      "Authorization": "Bearer " + Cookies.get('token')
     }
     return await fetch(API_BASE_URL + "editPreSelectedCandidat", {
       method: "POST",
@@ -596,7 +597,7 @@ if(checked == false){
       axiosInstance.post("uploadCandidatImage", formdata, {
         headers: {
           "Content-Type": "multipart/form-data",
-          "Authorization": "Bearer " + localStorage.getItem('token')
+          "Authorization": "Bearer " + Cookies.get('token')
         }
       })
         .then(datares => {
@@ -640,7 +641,7 @@ if(checked == false){
       method: "GET",
       headers: {
         "Accept": 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
     })
       .then(resp => resp.json())

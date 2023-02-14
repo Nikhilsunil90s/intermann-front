@@ -14,6 +14,7 @@ import Select, {StylesConfig } from "react-select";
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 import ErrorLoader from '../../components/Loader/SearchBarError'
+import Cookies from "js-cookie"
 
 
 const axiosInstance = axios.create({
@@ -285,7 +286,7 @@ function EditArchive() {
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       }
     })
       .then(resp => resp.json())
@@ -299,7 +300,7 @@ function EditArchive() {
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       }
     }).then(resD => resD.json())
       .then(reD => {
@@ -349,7 +350,7 @@ function EditArchive() {
       method: "POST",
       headers: {
         "Accept": 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
       body: updatedData
     })
@@ -549,7 +550,7 @@ if(checked == false){
       axiosInstance.post("uploadCandidatImage", formdata, {
         headers: {
           "Content-Type": "multipart/form-data",
-          "Authorization": "Bearer " + localStorage.getItem('token')
+          "Authorization": "Bearer " + Cookies.get('token')
         }
       })
         .then(datares => {
@@ -575,7 +576,7 @@ if(checked == false){
       method: "GET",
       headers: {
         "Accept": 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
     })
       .then(resp => resp.json())

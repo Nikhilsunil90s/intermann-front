@@ -8,6 +8,7 @@ import {toast,Toaster} from "react-hot-toast";
 import ProfilesLoader from "../../src/components/Loader/ProfilesLoader"
 import Warning from "../components/Loader/SearchBarError"
 import { motion } from "framer-motion";
+import Cookies from "js-cookie"
 
 let TabName=""
 let active=[]
@@ -123,7 +124,7 @@ return   await fetch(API_BASE_URL + `allAds/?market=${TabName}`,{
     headers: {
       "Accept": 'application/json',
       'Content-Type': 'application/json',
-      "Authorization": "Bearer " + localStorage.getItem('token')
+      "Authorization": "Bearer " + Cookies.get('token')
     },
   })
     .then(red => red.json())

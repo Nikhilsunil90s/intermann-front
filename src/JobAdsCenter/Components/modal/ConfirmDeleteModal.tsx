@@ -2,6 +2,8 @@ import React,{useEffect,useRef,useState} from "react";
 import { API_BASE_URL } from "../../../config/serverApiConfig";
 import {toast} from "react-hot-toast"
 import { motion } from "framer-motion";
+import Cookies from "js-cookie"
+
 
 function NotesDeleteModal({props,closeModal,updateFields}){
   const [btnDS,setBTNds]=useState(false)
@@ -12,7 +14,7 @@ function NotesDeleteModal({props,closeModal,updateFields}){
         headers: {
           "Accept": 'application/json',
           'Content-Type': 'application/json',
-          "Authorization": "Bearer " + localStorage.getItem('token')
+          "Authorization": "Bearer " + Cookies.get('token')
         },
       })
         .then(red => red.json())

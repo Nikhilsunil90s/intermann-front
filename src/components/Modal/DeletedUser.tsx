@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
 import {API_BASE_URL} from '../../config/serverApiConfig'
+import Cookies from "js-cookie"
 
 function DeleteUser({props, closeModal} ) {
   const [btnDisabled,setDisabled]=useState(false)
@@ -14,7 +15,7 @@ function DeleteUser({props, closeModal} ) {
            headers: {
                "Accept": 'application/json',
                'Content-Type': 'application/json',
-               "Authorization": "Bearer " + localStorage.getItem('token')
+               "Authorization": "Bearer " +  Cookies.get('token')
            },
            body: JSON.stringify({
              userid

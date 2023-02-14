@@ -8,6 +8,7 @@ import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../
 import format from "date-fns/format";
 import { Calendar } from "react-date-range";
 import { addDays } from "date-fns";
+import Cookies from "js-cookie"
 
 
 export default function Employes() {
@@ -273,7 +274,7 @@ useEffect(() => {
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       }
     }).then(resD => resD.json())
       .then(reD => reD)
@@ -286,7 +287,7 @@ useEffect(() => {
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       }
     })
       .then(resp => resp.json())
@@ -300,7 +301,7 @@ useEffect(() => {
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
     })
       .then(resp => resp.json())
@@ -314,7 +315,7 @@ useEffect(() => {
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
     })
       .then(resp => resp.json())
@@ -329,7 +330,7 @@ useEffect(() => {
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
       body: JSON.stringify(data),
     })

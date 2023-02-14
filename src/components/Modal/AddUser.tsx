@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import '../../CSS/AddSector.css'
 import {API_BASE_URL} from "../../config/serverApiConfig"
 import { Toaster,toast } from 'react-hot-toast';
-
+import Cookies from "js-cookie"
 function UserAddModal({ closeModal }) {
   const [emailAddress, setEmailAddress] = useState("");
   const [userName, setUserName] = useState("");
@@ -28,7 +28,7 @@ function UserAddModal({ closeModal }) {
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
       body: JSON.stringify({...data}),
     })

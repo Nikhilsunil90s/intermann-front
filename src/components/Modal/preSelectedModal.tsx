@@ -95,7 +95,7 @@ useEffect(() => {
       headers: {
         "Accept": 'application/json',
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
       body: JSON.stringify(preSelectedData)
     })

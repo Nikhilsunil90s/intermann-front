@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import Cookies from "js-cookie"
 
 function SignedClientModal({ props, closeModal }) {
     const [btnDisabled, setbtnDisabled] = useState(false);
@@ -18,7 +19,7 @@ function SignedClientModal({ props, closeModal }) {
             headers: {
                 "Accept": 'application/json',
                 'Content-Type': 'application/json',
-                "Authorization": "Bearer " + localStorage.getItem('token')
+                "Authorization": "Bearer " + Cookies.get('token')
             },
             body: JSON.stringify(data),
         })

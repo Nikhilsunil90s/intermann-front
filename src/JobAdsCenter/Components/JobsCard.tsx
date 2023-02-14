@@ -4,6 +4,8 @@ import parse from 'html-react-parser';
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import {toast ,Toaster} from "react-hot-toast"
 import DeleteModal from '../../JobAdsCenter/Components/modal/ConfirmDeleteModal'
+import Cookies from "js-cookie"
+
 export default function JobsCard({bg,props,setUpdateField}){
   const navigate = useNavigate()
  let Text =props.adDescription ;
@@ -18,7 +20,7 @@ const [deleteModal ,setModal]=useState(false)
             headers: {
               "Accept": 'application/json',
               'Content-Type': 'application/json',
-              "Authorization": "Bearer " + localStorage.getItem('token')
+              "Authorization": "Bearer " + Cookies.get('token')
             },
           })
             .then(red => red.json())
@@ -41,7 +43,7 @@ const [deleteModal ,setModal]=useState(false)
             headers: {
               "Accept": 'application/json',
               'Content-Type': 'application/json',
-              "Authorization": "Bearer " + localStorage.getItem('token')
+              "Authorization": "Bearer " + Cookies.get('token')
             },
           })
             .then(red => red.json())

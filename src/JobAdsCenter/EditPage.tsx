@@ -16,6 +16,7 @@ import chroma from "chroma-js";
 import draftToHtml from "draftjs-to-html";
 import {toast ,Toaster} from "react-hot-toast"
 import parse from 'html-react-parser';
+import Cookies from "js-cookie"
 
 let CName=[]
 export default function EditReaserch(){
@@ -303,7 +304,7 @@ setAddData({...addData,clients:ClF})
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
     })
       .then(red => red.json())
@@ -318,7 +319,7 @@ setAddData({...addData,clients:ClF})
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
       body:JSON.stringify(addData)
      })

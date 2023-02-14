@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import "../../CSS/Client/ArchivedCardClient.css"
+import Cookies from "js-cookie"
+
 function SalaryAdsEdit({name,closeModal,details}) {
     const [ResetLoader, setResetLoader] = useState(false);
     const [newSalary, setNewSalary] = useState("");
@@ -33,7 +35,7 @@ function SalaryAdsEdit({name,closeModal,details}) {
             headers: {
                 "Accept": 'application/json',
                 'Content-Type': 'application/json',
-                "Authorization": "Bearer " + localStorage.getItem('token')
+                "Authorization": "Bearer " + Cookies.get('token')
             },
             body: JSON.stringify(data),
         })
@@ -56,7 +58,7 @@ function SalaryAdsEdit({name,closeModal,details}) {
             headers: {
                 "Accept": 'application/json',
                 'Content-Type': 'application/json',
-                "Authorization": "Bearer " + localStorage.getItem('token')
+                "Authorization": "Bearer " + Cookies.get('token')
             },
             body: JSON.stringify(data),
         })

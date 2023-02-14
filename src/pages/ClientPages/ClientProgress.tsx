@@ -318,7 +318,7 @@ setTimeout(()=>{      setImportanceOptions([
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " +Cookies.get('token')
       }
     })
       .then((resD) => resD.json())
@@ -332,7 +332,7 @@ setTimeout(()=>{      setImportanceOptions([
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " +Cookies.get('token')
       }
     })
       .then(resp => resp.json())
@@ -353,7 +353,7 @@ setTimeout(()=>{      setImportanceOptions([
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " +Cookies.get('token')
       }
     }).then(resD => resD.json())
       .then(reD => reD)

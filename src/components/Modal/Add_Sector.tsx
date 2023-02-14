@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import {  toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../../config/serverApiConfig';
-
+import Cookies from "js-cookie"
 function SectorModal() {
 
   const notifySectorAddSuccess = () => toast("Sector Added Successfully!", {
@@ -29,7 +29,7 @@ function SectorModal() {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       }
     })
       .then(result => result.json())
@@ -85,7 +85,7 @@ function SectorModal() {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
       body: JSON.stringify({
         sectorName: sector,

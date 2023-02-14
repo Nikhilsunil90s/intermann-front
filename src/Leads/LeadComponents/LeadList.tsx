@@ -6,6 +6,7 @@ import NotesEditModal from "../Modal/EditNotes";
 import {API_BASE_URL} from "../../config/serverApiConfig"
 import toast, { Toaster } from "react-hot-toast";
 import {useNavigate} from 'react-router-dom'
+import Cookies from "js-cookie"
 let NewCdate;
 function LeadList({props,Update,Load,Lead,length,activeUser,TabName, setFilter,DAta}){
   const LoginUser=JSON.parse(localStorage.getItem("LoginUser"))
@@ -40,7 +41,7 @@ const AddToCRM=(data)=>{
   headers: {
       "Accept": 'application/json',
       'Content-Type': 'application/json',
-      "Authorization": "Bearer " + localStorage.getItem('token')
+      "Authorization": "Bearer " + Cookies.get('token')
   },
   body: JSON.stringify(data),
 }
@@ -69,7 +70,7 @@ const PreContact=(id,status)=>{
     method: "GET",
     headers: {
       "Accept": 'application/json',
-      "Authorization": "Bearer " + localStorage.getItem('token')
+      "Authorization": "Bearer " + Cookies.get('token')
     }
   }
   )
@@ -95,7 +96,7 @@ const ContAgency=(id,status)=>{
     method: "GET",
     headers: {
       "Accept": 'application/json',
-      "Authorization": "Bearer " + localStorage.getItem('token')
+      "Authorization": "Bearer " + Cookies.get('token')
     }
   }
   )
@@ -121,7 +122,7 @@ const OnChangeAddToCrm=(id,status)=>{
     method: "GET",
     headers: {
       "Accept": 'application/json',
-      "Authorization": "Bearer " + localStorage.getItem('token')
+      "Authorization": "Bearer " + Cookies.get('token')
     }
   }
   )
@@ -147,7 +148,7 @@ const QUALIFIED=(id,status)=>{
     method: "GET",
     headers: {
       "Accept": 'application/json',
-      "Authorization": "Bearer " + localStorage.getItem('token')
+      "Authorization": "Bearer " + Cookies.get('token')
     }
   }
   )
@@ -197,7 +198,7 @@ const LeadDelete=()=>{
     headers: {
       "Accept": 'application/json',
       'Content-Type': 'application/json',
-      "Authorization": "Bearer " + localStorage.getItem('token')
+      "Authorization": "Bearer " + Cookies.get('token')
     },
     body:JSON.stringify(data)
   })

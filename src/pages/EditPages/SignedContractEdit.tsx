@@ -15,6 +15,7 @@ import $ from "jquery";
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 import ErrorLoader from "../../components/Loader/SearchBarError";
+import Cookies from "js-cookie"
 
 const ClientDataFormat = {
     clientCompanyName: "",
@@ -401,7 +402,7 @@ function ClientSignedEdit() {
             method: "POST",
             headers: {
                 "Accept": 'application/json',
-                "Authorization": "Bearer " + localStorage.getItem('token')
+                "Authorization": "Bearer " + Cookies.get('token')
             },
             body: imagedata
         })
@@ -415,7 +416,7 @@ function ClientSignedEdit() {
             method: "GET",
             headers: {
                 "Accept": 'application/json',
-                "Authorization": "Bearer " + localStorage.getItem('token')
+                "Authorization": "Bearer " + Cookies.get('token')
             },
         })
             .then(resp => resp.json())
@@ -430,7 +431,7 @@ function ClientSignedEdit() {
             headers: {
                 "Accept": 'application/json',
                 'Content-Type': 'application/json',
-                "Authorization": "Bearer " + localStorage.getItem('token')
+                "Authorization": "Bearer " + Cookies.get('token')
             }
         })
             .then(resp => resp.json())
@@ -478,7 +479,7 @@ function ClientSignedEdit() {
             headers: {
                 "Accept": 'application/json',
                 'Content-Type': 'application/json',
-                "Authorization": "Bearer " + localStorage.getItem('token')
+                "Authorization": "Bearer " + Cookies.get('token')
             }
         }).then(resD => resD.json())
             .then(reD => reD)
@@ -528,7 +529,7 @@ function ClientSignedEdit() {
         console.log(updatedData)
         let headers = {
             "Accept": 'application/json',
-            "Authorization": "Bearer " + localStorage.getItem('token')
+            "Authorization": "Bearer " + Cookies.get('token')
         }
         return await fetch(API_BASE_URL + "editToDoClient", {
             method: "POST",

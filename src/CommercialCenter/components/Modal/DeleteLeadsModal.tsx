@@ -2,6 +2,7 @@ import React,{useEffect,useRef,useState} from "react";
 import { API_BASE_URL } from "../../../config/serverApiConfig";
 import {toast} from "react-hot-toast"
 import { motion } from "framer-motion";
+import Cookies from "js-cookie"
 function DeleteLeadModal(props){
   const [btnDS,setBTNds]=useState(false)
  
@@ -11,7 +12,7 @@ function DeleteLeadModal(props){
       method: "GET",
       headers: {
         "Accept": 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       }
     }
     )

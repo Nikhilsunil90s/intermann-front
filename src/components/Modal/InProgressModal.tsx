@@ -6,7 +6,7 @@ import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../
 import chroma from 'chroma-js';
 import { useNavigate } from "react-router-dom";
 import ProfileLoader from "../../components/Loader/ProfilesLoader" 
-
+import Cookies from "js-cookie"
 let CName=[]
 function InProgressModal({ props, closeModal }) {
   const navigate = useNavigate();
@@ -83,7 +83,7 @@ function InProgressModal({ props, closeModal }) {
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
     })
       .then(red => red.json())
@@ -116,7 +116,7 @@ function InProgressModal({ props, closeModal }) {
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
       body: JSON.stringify(data),
     })

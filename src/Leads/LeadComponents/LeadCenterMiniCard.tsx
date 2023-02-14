@@ -2,7 +2,7 @@ import React,{useRef,useEffect,useState} from "react";
 import MonthModal from "../Modal/NotesModal";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import { motion } from "framer-motion";
-
+import Cookies from "js-cookie"
 function LeadCenterMiniCard({props,activeUser,setUserCardList,allUsers}) {
   const [monthModal,setMonthModal] =useState(false)
   const [MWDuser,setMWDuser]=useState([])as any
@@ -39,7 +39,7 @@ function LeadCenterMiniCard({props,activeUser,setUserCardList,allUsers}) {
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
     })
       .then(red => red.json())

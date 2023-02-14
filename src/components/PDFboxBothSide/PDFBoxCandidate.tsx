@@ -11,6 +11,7 @@ import Share from "../../components/Loader/Share"
 import ProfileLoader from "../../components/Loader/ProfilesLoader";
 import '../../CSS/CanEmpl.css' 
 import { motion } from "framer-motion";
+import Cookies from "js-cookie"
 
 let RenameData=[]
 let UploadName ="";
@@ -155,7 +156,7 @@ const onTabClick = (e, index: any) => {
           method: "GET",
           headers: {
             "Accept": 'application/json',
-            "Authorization": "Bearer " + localStorage.getItem('token')
+            "Authorization": "Bearer " + Cookies.get('token')
           },
         })
           .then(resp => resp.json())
@@ -241,7 +242,7 @@ const onTabClick = (e, index: any) => {
           axiosInstance.post("uploadCandidatDocuments", formdata, {
             headers: {
               "Content-Type": "multipart/form-data",
-              "Authorization": "Bearer " + localStorage.getItem('token')
+              "Authorization": "Bearer " + Cookies.get('token')
             },
             onUploadProgress: data => {
               //Set the progress value to show the progress bar
@@ -270,7 +271,7 @@ const onTabClick = (e, index: any) => {
       const deleteCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
         let headers = {
           "Accept": 'application/json',
-          "Authorization": "Bearer " + localStorage.getItem('token')
+          "Authorization": "Bearer " + Cookies.get('token')
         }
         return await fetch(API_BASE_URL + `deleteDocument/?documentId=${docId}&documentName=${docName}&candidatId=${candidatId}`, {
           method: "GET",
@@ -315,7 +316,7 @@ const onTabClick = (e, index: any) => {
     let headers = {
       "Accept": 'application/json',
       'Content-Type': 'application/json',
-      "Authorization": "Bearer " + localStorage.getItem('token')
+      "Authorization": "Bearer " + Cookies.get('token')
     }
     return await fetch(API_BASE_URL + "addCandidatLink", {
       method: "POST",
@@ -367,7 +368,7 @@ const onTabClick = (e, index: any) => {
        let headers = {
          "Accept": 'application/json',
          'Content-Type': 'application/json',
-         "Authorization": "Bearer " + localStorage.getItem('token')
+         "Authorization": "Bearer " + Cookies.get('token')
        }
       fetch(API_BASE_URL + "removeCandidatLink", {
          method: "POST",

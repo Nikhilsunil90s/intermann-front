@@ -7,6 +7,7 @@ import { Toaster,toast } from 'react-hot-toast';
 import DeleteUser from '../../components/Modal/DeletedUser';
 import EditUserModal from '../../components/Modal/EditUserModal';
 import { motion } from "framer-motion";
+import Cookies from "js-cookie"
 
 function UserList(){
     const [AddModal, setAddModal] = useState(false)
@@ -30,7 +31,7 @@ function UserList(){
            headers: {
                "Accept": 'application/json',
                'Content-Type': 'application/json',
-               "Authorization": "Bearer " + localStorage.getItem('token')
+               "Authorization": "Bearer " + Cookies.get('token')
            },
         }).then((result) => result.json())
       .then((respD) =>{setAllusers([...respD.data])})

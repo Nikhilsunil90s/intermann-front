@@ -152,7 +152,7 @@ const fetchProfilesClients = async () => {
  const deleteCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
   let headers = {
     "Accept": 'application/json',
-    "Authorization": "Bearer " + localStorage.getItem('token')
+    "Authorization": "Bearer " + Cookies.get('token')
   }
   return await fetch(API_BASE_URL + `deleteDocument/?documentId=${docId}&documentName=${docName}&candidatId=${candidatId}`, {
     method: "GET",
@@ -176,7 +176,7 @@ const fetchRecommendations = async (candidatSector: string) => {
     method: "GET",
     headers: {
       "Accept": 'application/json',
-      "Authorization": "Bearer " + localStorage.getItem('token')
+      "Authorization": "Bearer " + Cookies.get('token')
     },
   })
     .then(resp => resp.json())
@@ -222,7 +222,7 @@ const fetchRecommendations = async (candidatSector: string) => {
       axiosInstance.post("uploadCandidatImage", formdata, {
         headers: {
           "Content-Type": "multipart/form-data",
-          "Authorization": "Bearer " + localStorage.getItem('token')
+          "Authorization": "Bearer " + Cookies.get('token')
         }
       })
         .then(datares => {
@@ -270,7 +270,7 @@ const fetchRecommendations = async (candidatSector: string) => {
       method: "GET",
       headers: {
         "Accept": 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
     })
       .then(resp => resp.json())

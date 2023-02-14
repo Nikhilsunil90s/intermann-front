@@ -4,6 +4,7 @@ import SignatureCanvas from 'react-signature-canvas'
 import { Toaster,toast } from 'react-hot-toast';
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import { useLocation } from "react-router";
+import Cookies from "js-cookie"
 import ProfileLoader from "../../components/Loader/ProfilesLoader" 
 
 let Data 
@@ -81,7 +82,7 @@ const Checkking=(e)=>{
             headers: {
                 "Accept": 'application/json',
                 'Content-Type': 'application/json',
-                "Authorization": "Bearer " + localStorage.getItem('token')
+                "Authorization": "Bearer " + Cookies.get('token')
             },
             body: JSON.stringify(Data),
         })

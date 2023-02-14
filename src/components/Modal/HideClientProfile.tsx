@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import "../../CSS/Client/ArchivedCardClient.css"
+import Cookies from "js-cookie"
+
 function HideClientProfile({ props, closeModal, path }) {
 
     const navigate = useNavigate();
@@ -22,7 +24,7 @@ function HideClientProfile({ props, closeModal, path }) {
             headers: {
                 "Accept": 'application/json',
                 'Content-Type': 'application/json',
-                "Authorization": "Bearer " + localStorage.getItem('token')
+                "Authorization": "Bearer " +  Cookies.get('token')
             },
             body: JSON.stringify(data),
         })

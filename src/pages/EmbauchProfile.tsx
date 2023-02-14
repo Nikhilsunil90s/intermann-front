@@ -21,6 +21,7 @@ import DocumLink from "../components/Modal/CandidateRepresentModal/LinkModal"
 import ViewPageDetailsBox from '../components/CandidateComponents/ViewPageDetailsBox'
 import SocialButtons from "../components/CandidateComponents/ViewPageSocialButtons";
 import { motion } from "framer-motion";
+import Cookies from "js-cookie"
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -223,7 +224,7 @@ function ProgressCard() {
       method: "GET",
       headers: {
         "Accept": 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " +Cookies.get('token')
       },
     })
       .then(resp => resp.json())
@@ -235,7 +236,7 @@ function ProgressCard() {
       method: "GET",
       headers: {
         "Accept": 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " +Cookies.get('token')
       }
     })
       .then(resD => resD.json())
@@ -258,7 +259,7 @@ function ProgressCard() {
       axiosInstance.post("uploadCandidatImage", formdata, {
         headers: {
           "Content-Type": "multipart/form-data",
-          "Authorization": "Bearer " + localStorage.getItem('token')
+          "Authorization": "Bearer " +Cookies.get('token')
         }
       })
         .then(datares => {

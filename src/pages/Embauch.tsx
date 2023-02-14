@@ -164,7 +164,7 @@ const LoaderFun=()=>{
       method: "GET",
       headers: {
         "Accept": 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
     })
       .then(resp => resp.json())
@@ -474,7 +474,7 @@ setTimeout(()=>{
            method: "GET",
            headers: {
              "Accept": 'application/json',
-             "Authorization": "Bearer " + localStorage.getItem('token')
+             "Authorization": "Bearer " + Cookies.get('token')
            },
          })
            .then(resp => resp.json())

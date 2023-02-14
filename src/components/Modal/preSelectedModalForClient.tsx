@@ -5,6 +5,7 @@ import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../
 import chroma from 'chroma-js';
 import { Toaster, toast } from "react-hot-toast";
 import { API_BASE_URL } from "../../config/serverApiConfig";
+import Cookies from "js-cookie"
 
 function PreModal({props,closepreModal,clientProps}) {
   const notifyCandidatMovedSuccess = () => toast.success("Candidat Pre-Selected Successfully!");
@@ -29,7 +30,7 @@ function PreModal({props,closepreModal,clientProps}) {
       headers: {
         "Accept": 'application/json',
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
       body: JSON.stringify(preSelectedData)
     })

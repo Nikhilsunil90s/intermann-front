@@ -21,6 +21,7 @@ export const   GetRouteWithoutAuth =async(path)=>{
     headers:{
       "Accept": 'application/json',
       'Content-Type': 'application/json',
+      "Authorization": "Bearer " + Cookies.get("token")
     } ,
    })
    .then(res=>res.json())

@@ -34,7 +34,7 @@ console.log(props,"props")
     setLoader(true)
    let headers = {
      "Accept": 'application/json',
-     "Authorization": "Bearer " + localStorage.getItem('token')
+     "Authorization": "Bearer " +  Cookies.get('token')
    }
    return await fetch(API_BASE_URL + `getCandidatAvance/?candidatId=${props._id}`, {
      method: "GET",

@@ -15,6 +15,7 @@ import RatingCmp from '../../components/AddClientRating/Rating'
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 import ErrorLoader from "../../components/Loader/SearchBarError";
+import Cookies from "js-cookie"
 
 const ClientDataFormat = {
     clientCompanyName: "",
@@ -137,7 +138,7 @@ function ClientInProgressEdit() {
       method: "GET",
       headers: {
         "Accept": 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
     })
       .then(resp => resp.json())
@@ -293,7 +294,7 @@ function ClientInProgressEdit() {
             headers: {
                 "Accept": 'application/json',
                 'Content-Type': 'application/json',
-                "Authorization": "Bearer " + localStorage.getItem('token')
+                "Authorization": "Bearer " + Cookies.get('token')
             }
         })
             .then(resp => resp.json())
@@ -307,7 +308,7 @@ function ClientInProgressEdit() {
             headers: {
                 "Accept": 'application/json',
                 'Content-Type': 'application/json',
-                "Authorization": "Bearer " + localStorage.getItem('token')
+                "Authorization": "Bearer " + Cookies.get('token')
             }
         }).then(resD => resD.json())
             .then(reD => reD)
@@ -555,7 +556,7 @@ const onSubmitRates=(e)=>{
         console.log(updatedData)
         let headers = {
             "Accept": 'application/json',
-            "Authorization": "Bearer " + localStorage.getItem('token')
+            "Authorization": "Bearer " + Cookies.get('token')
         }
         return await fetch(API_BASE_URL + "editInProgressClient", {
             method: "POST",

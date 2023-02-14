@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {CommercialCenter} from "../../redux/slice/CommercialCenterSlice";
 import OfferModal from "../components/Modal/OfferModal";
-
+import Cookies from "js-cookie"
 function MainCenter(){
 
     const [Leads,setLeads]=useState([])
@@ -33,7 +33,7 @@ function MainCenter(){
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " +Cookies.get('token')
       },
     })
       .then(red => red.json())

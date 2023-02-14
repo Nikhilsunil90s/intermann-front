@@ -24,6 +24,7 @@ import DocumLink from "../components/Modal/CandidateRepresentModal/LinkModal"
 import ViewPageDetailsBox from '../components/CandidateComponents/ViewPageDetailsBox'
 import SocialButtons from '../components/CandidateComponents/ViewPageSocialButtons'
 import { motion } from "framer-motion";
+import Cookies from "js-cookie"
 
 
 const axiosInstance = axios.create({
@@ -137,7 +138,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
       axiosInstance.post("uploadCandidatImage", formdata, {
         headers: {
           "Content-Type": "multipart/form-data",
-          "Authorization": "Bearer " + localStorage.getItem('token')
+          "Authorization": "Bearer " + Cookies.get('token')
         }
       })
         .then(datares => {
@@ -185,7 +186,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
   const deleteCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
     let headers = {
       "Accept": 'application/json',
-      "Authorization": "Bearer " + localStorage.getItem('token')
+      "Authorization": "Bearer " + Cookies.get('token')
     }
     return await fetch(API_BASE_URL + `deleteDocument/?documentId=${docId}&documentName=${docName}&candidatId=${candidatId}`, {
       method: "GET",
@@ -233,7 +234,7 @@ const notifyMoveError = () => toast.error("Not Moved..");
       method: "GET",
       headers: {
         "Accept": 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
     })
       .then(resp => resp.json())

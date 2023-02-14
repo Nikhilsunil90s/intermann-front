@@ -17,6 +17,7 @@ import { motion } from "framer-motion";
 import CSVModal from "./Modal/CSVModal";
 import Cookies from 'js-cookie'
 
+
 function AddLeads(){
   const axiosInstance = axios.create({
     baseURL: API_BASE_URL,
@@ -111,7 +112,7 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
       axiosInstance.post("addLeadsViaCSV", formdata, {
         headers: {
           "Content-Type": "multipart/form-data",
-          "Authorization": "Bearer " + localStorage.getItem('token')
+          "Authorization": "Bearer " + Cookies.get('token')
         },
         onUploadProgress: data => {
           //Set the progress value to show the progress bar
@@ -288,7 +289,7 @@ const onSubmit=()=>{
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
       body:JSON.stringify(data)
      })

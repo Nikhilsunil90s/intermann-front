@@ -5,6 +5,7 @@ import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../
 import chroma from 'chroma-js';
 import { Toaster, toast } from "react-hot-toast";
 import { API_BASE_URL } from "../../config/serverApiConfig";
+import Cookies from "js-cookie"
 
 let LinkData={};
 function RenameDoc({props,closepreModal,status}) {
@@ -46,7 +47,7 @@ function RenameDoc({props,closepreModal,status}) {
       headers: {
         "Accept": 'application/json',
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get('token')
       },
       body: JSON.stringify(LinkData)
     })
@@ -60,7 +61,7 @@ function RenameDoc({props,closepreModal,status}) {
     setBtnDisabled(true)
     let headers = {
       "Accept": 'application/json',
-      "Authorization": "Bearer " + localStorage.getItem('token')
+      "Authorization": "Bearer " + Cookies.get('token')
     }
     if(props[2] ==="LinkEdit"){
       changeLinkName(LinkData).then((res)=>{
