@@ -5,6 +5,7 @@ import ErrorLoader from "../components/Loader/SearchBarError";
 import { FileUploader } from "react-drag-drop-files";
 import axios from "axios";
 import {toast,Toaster} from "react-hot-toast"
+import Cookies from 'js-cookie'
 
 
 function GdocumentCandidatePage() {
@@ -154,7 +155,7 @@ function GdocumentCandidatePage() {
       .post("uploadClientDocuments", formdata, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
         onUploadProgress: (data) => {
           setDocUploaded(true);

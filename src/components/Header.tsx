@@ -6,6 +6,7 @@ import { API_BASE_URL } from "../config/serverApiConfig";
 import SearchModal from "./Modal/GlobalSearchModal";
 import ErrorBar from '../../src/components/Loader/SearchBarError'
 import Profiles from "../components/Loader/SearchEmp"
+import Cookies from 'js-cookie'
 
 let FilDataCName
 let FilDataCNName
@@ -61,7 +62,7 @@ const Header = (props) => {
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get("token"),
       },
     })
       .then(resp => resp.json())
@@ -95,7 +96,7 @@ const Header = (props) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((resD) => resD.json())

@@ -7,6 +7,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import ProfileLoader from "../../components/Loader/ProfilesLoader" 
 import { motion } from "framer-motion";
+import Cookies from 'js-cookie'
 
 function PreModal({props,closepreModal}) {
   const notifyCandidatMovedSuccess = () => toast.success("Candidat Pre-Selected Successfully!");
@@ -39,7 +40,7 @@ const fetchProfilesClients = async () => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + Cookies.get("token"),
     },
   })
     .then((resD) => resD.json())

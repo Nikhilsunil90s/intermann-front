@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast, { Toaster } from "react-hot-toast";
+import Cookies from 'js-cookie'
 
 function ArchivedModal({ props, closeModal,path }) {
   const [reasonToArchive, setReasonToArchive] = useState([]);
@@ -35,7 +36,7 @@ function ArchivedModal({ props, closeModal,path }) {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
       body: JSON.stringify(data),
     })

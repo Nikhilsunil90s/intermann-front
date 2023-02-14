@@ -9,7 +9,7 @@ import { logout } from "../redux/actions/userActions";
 import $ from "jquery";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
-
+import Cookies from "js-cookie";
 function Sidebar(props: any) {
   const [activeTab, setActiveTab] = useState(window.location.href);
   const [onHover, setOnHover] = useState({
@@ -22,9 +22,10 @@ function Sidebar(props: any) {
   const navigate = useNavigate();
   const LogNotify = () => toast.success("Log-Out!");
   const [onClickBarOpenClose, setOnClickBarOpen] = useState(true);
-  console.log(LoginUser.username);
+
   const LogOut = async () => {
     await dispatch(logout());
+    await Cookies.remove("token");
     await localStorage.removeItem("token");
     await localStorage.removeItem("archive");
     await localStorage.removeItem("embauch");
@@ -33,13 +34,17 @@ function Sidebar(props: any) {
     navigate("/");
     LogNotify();
   };
-  useEffect(()=>{
-    const EXPIRE_TIME = 24*60*60*1000;
-  
-      setTimeout(function() {
-        LogOut()
-      }, EXPIRE_TIME);
-    },[])
+  let login = Cookies.get("token");
+  let token = localStorage.getItem("token")
+
+  useEffect(() => {
+    if(token){
+      LogOut()
+    }
+    if (!login) {
+      LogOut();
+    }
+  }, [login]);
 
   // console.log(state?.login?.user)
   useEffect(() => {

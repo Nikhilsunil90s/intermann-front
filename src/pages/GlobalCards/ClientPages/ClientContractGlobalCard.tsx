@@ -28,6 +28,7 @@ import Carousel from "react-multi-carousel";
 import ProfilesLoader from "../../../components/Loader/ProfilesLoader"
 import Warning from "../../../components/Loader/SearchBarError"
 import format from 'date-fns/format'
+import Cookies from 'js-cookie'
 
 let id = "";
 let DetailsEdit;
@@ -65,7 +66,7 @@ const GetClient = async (IdFromURL) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " +  Cookies.get("token"),
     },
   })
     .then((resp) => resp.json())
@@ -364,7 +365,7 @@ let Editdata ={state:profile,path:"/clientContract/clientSigned"}
         .post("uploadClientImage", formdata, {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " +  Cookies.get("token"),
           },
         })
         .then((datares) => {
@@ -418,7 +419,7 @@ let Editdata ={state:profile,path:"/clientContract/clientSigned"}
       method: "GET",
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " +  Cookies.get("token"),
       },
     })
       .then((resp) => resp.json())
@@ -562,7 +563,7 @@ let Editdata ={state:profile,path:"/clientContract/clientSigned"}
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " +  Cookies.get("token"),
         },
       }
     )
@@ -644,7 +645,7 @@ let Editdata ={state:profile,path:"/clientContract/clientSigned"}
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " +  Cookies.get("token"),
         },
       }
     )

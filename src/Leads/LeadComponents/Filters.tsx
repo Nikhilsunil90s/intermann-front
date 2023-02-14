@@ -121,7 +121,7 @@
 //         headers: {
 //           Accept: "application/json",
 //           "Content-Type": "application/json",
-//           Authorization: "Bearer " + localStorage.getItem("token"),
+//           Authorization: "Bearer " + Cookies.get("token"),
 //         },
 //         body: JSON.stringify(Data),
 //       })
@@ -171,7 +171,7 @@
 //       method: "GET",
 //       headers: {
 //         Accept: "application/json",
-//         Authorization: "Bearer " + localStorage.getItem("token"),
+//         Authorization: "Bearer " + Cookies.get("token"),
 //       },
 //     })
 //       .then((red) => red.json())
@@ -473,7 +473,7 @@
 //           headers: {
 //             Accept: "application/json",
 //             "Content-Type": "application/json",
-//             Authorization: "Bearer " + localStorage.getItem("token"),
+//             Authorization: "Bearer " + Cookies.get("token"),
 //           },
 //           body: JSON.stringify(Data),
 //         })
@@ -921,6 +921,8 @@ import format from "date-fns/format";
 import { addDays } from "date-fns";
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css';
+import Cookies from 'js-cookie'
+
 function Filters({
   LeadsCard,
   market,
@@ -931,6 +933,7 @@ function Filters({
   setcontacted,
   setFilter,
   filter,
+  setTotal,
   setFilterActive,setDatA}) {
   let CaNam = [] as any;
   let Contact = [] as any;
@@ -1032,7 +1035,7 @@ function Filters({
       method: "GET",
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((red) => red.json())
@@ -1072,7 +1075,7 @@ function Filters({
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
         body: JSON.stringify(Data),
       })
@@ -1083,6 +1086,7 @@ function Filters({
             setprecontacted(res.notPreContactedCount);
             setcontacted(res.notContactedCount);
             setLeads([...res.data]);
+            setTotal(res.data.length)
             setFilterActive(true)
             setFilter(false)
           } else {
@@ -1090,6 +1094,7 @@ function Filters({
             setprecontacted(res.notPreContactedCount);
             setFilterActive(true)
             setcontacted(res.notContactedCount);
+            setTotal(0)
             setLeads([]);
             setFilter(false)
           }
@@ -1370,7 +1375,7 @@ function Filters({
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + Cookies.get("token"),
           },
           body: JSON.stringify(Data),
         })
@@ -1380,6 +1385,7 @@ function Filters({
               statusLeads(true);
       setFilterActive(true)
       setDatA(Data)
+      setTotal(res.data.length)
               setApplyBtn(false);
               setprecontacted(res.notPreContactedCount);
               setcontacted(res.notContactedCount);
@@ -1391,6 +1397,7 @@ function Filters({
               statusLeads(true);
       setFilterActive(true)
       setDatA(Data)
+      setTotal(0)
               toast.error("Sorry No Results found!");
               setApplyBtn(false);
               setprecontacted(res.notPreContactedCount);

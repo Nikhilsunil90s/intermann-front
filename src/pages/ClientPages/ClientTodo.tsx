@@ -14,6 +14,7 @@ import { ReactComponent as TurnoFF } from "../../images/FatX.svg";
 import { ReactComponent as TurnOn } from "../../images/base-switch_icon.svg";
 import ErrorLoader from '../../components/Loader/SearchBarError'
 import { motion } from "framer-motion";
+import Cookies from 'js-cookie'
 
 
 declare namespace JSX {
@@ -100,7 +101,7 @@ const fetchProfileS = async (page) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + Cookies.get("token"),
     },
   })
     .then((resD) => resD.json())
@@ -269,7 +270,7 @@ setTimeout(()=>{
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((resp) => resp.json())
@@ -290,7 +291,7 @@ setTimeout(()=>{
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((resD) => resD.json())
@@ -363,7 +364,7 @@ setTimeout(()=>{
       method: "GET",
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((resD) => resD.json())
@@ -477,7 +478,7 @@ setTimeout(()=>{
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + Cookies.get("token"),
           },
         }
       )
@@ -508,7 +509,7 @@ setTimeout(()=>{
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + Cookies.get("token"),
           },
         }
       )
@@ -538,7 +539,7 @@ setTimeout(()=>{
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + Cookies.get("token"),
           },
         }
       )
@@ -565,7 +566,7 @@ setTimeout(()=>{
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + Cookies.get("token"),
           },
         }
       )
@@ -590,7 +591,7 @@ setTimeout(()=>{
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + Cookies.get("token"),
           },
         }
       )
@@ -618,7 +619,7 @@ setTimeout(()=>{
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + Cookies.get("token"),
           },
         }
       )
@@ -643,7 +644,7 @@ setTimeout(()=>{
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + Cookies.get("token"),
           },
         }
       )
@@ -917,7 +918,7 @@ setTimeout(()=>{
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       }
     )

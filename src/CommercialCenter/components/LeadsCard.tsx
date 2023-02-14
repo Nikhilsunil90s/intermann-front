@@ -10,6 +10,7 @@ import toast, { Toaster } from "react-hot-toast";
 import DeleteLeadModal from "./Modal/DeleteLeadsModal";
 import Filter from "./Filter";
 import OfferModal from "./Modal/OfferModal";
+import Cookies from 'js-cookie'
 
 function LeadCard(props) {
   const colourStyles: StylesConfig<ColourOption, true> = {
@@ -870,7 +871,7 @@ function LeadCard(props) {
         method: "GET",
         headers: {
           Accept: "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       }
     )
@@ -903,7 +904,7 @@ function LeadCard(props) {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
       body: JSON.stringify(data),
     })

@@ -13,9 +13,7 @@ import ProfileLoader from "../components/Loader/ProfilesLoader"
 import ErrorLoader from '../components/Loader/SearchBarError'
 import Error404Loader from '../components/Loader/404Error'
 import { motion } from "framer-motion";
-
-
-
+import Cookies from 'js-cookie'
 
 declare namespace JSX {
     interface IntrinsicElements {
@@ -159,7 +157,7 @@ function Preselected(){
                headers: {
                  Accept: "application/json",
                  "Content-Type": "application/json",
-                 Authorization: "Bearer " + localStorage.getItem("token"),
+                 Authorization: "Bearer " + Cookies.get("token"),
                },
              })
                .then(reD => reD.json())
@@ -193,7 +191,7 @@ function Preselected(){
               headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: "Bearer " + Cookies.get("token"),
               },
             })
               .then((reD) => reD.json())
@@ -214,7 +212,7 @@ function Preselected(){
                headers: {
                  Accept: "application/json",
                  "Content-Type": "application/json",
-                 Authorization: "Bearer " + localStorage.getItem("token"),
+                 Authorization: "Bearer " + Cookies.get("token"),
                },
              })
                .then(reD => reD.json())
@@ -240,7 +238,7 @@ function Preselected(){
               headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: "Bearer " + Cookies.get("token"),
               },
             })
               .then((resp) => resp.json())
@@ -259,7 +257,7 @@ function Preselected(){
               headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: "Bearer " + Cookies.get("token"),
               },
             })
               .then((resD) => resD.json())
@@ -273,7 +271,7 @@ function Preselected(){
               headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: "Bearer " + Cookies.get("token"),
               },
             })
               .then((resD) => resD.json())
@@ -286,7 +284,7 @@ function Preselected(){
               headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: "Bearer " + Cookies.get("token"),
               },
             })
               .then((resD) => resD.json())
@@ -431,7 +429,7 @@ function Preselected(){
               headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: "Bearer " + Cookies.get("token"),
               },
               body: JSON.stringify({ jobName: jobName }),
             })
@@ -662,7 +660,7 @@ function Preselected(){
                   headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token"),
+                    Authorization: "Bearer " + Cookies.get("token"),
                   },
                 })
                   .then((reD) => reD.json())
@@ -689,7 +687,7 @@ function Preselected(){
                   headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token"),
+                    Authorization: "Bearer " + Cookies.get("token"),
                   },
                 })
                   .then((reD) => reD.json())
@@ -718,7 +716,7 @@ function Preselected(){
                   headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token"),
+                    Authorization: "Bearer " + Cookies.get("token"),
                   },
                 })
                   .then((reD) => reD.json())
@@ -749,7 +747,7 @@ function Preselected(){
                   headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token"),
+                    Authorization: "Bearer " + Cookies.get("token"),
                   },
                 }
               )
@@ -775,7 +773,7 @@ function Preselected(){
                   headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token"),
+                    Authorization: "Bearer " + Cookies.get("token"),
                   },
                 }
               )
@@ -808,7 +806,7 @@ function Preselected(){
                   headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token"),
+                    Authorization: "Bearer " + Cookies.get("token"),
                   },
                 }
               )
@@ -841,7 +839,7 @@ function Preselected(){
                   headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token"),
+                    Authorization: "Bearer " + Cookies.get("token"),
                   },
                 }
               )
@@ -872,7 +870,7 @@ function Preselected(){
                   headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token"),
+                    Authorization: "Bearer " + Cookies.get("token"),
                   },
                 }
               )
@@ -907,7 +905,7 @@ function Preselected(){
                   headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token"),
+                    Authorization: "Bearer " + Cookies.get("token"),
                   },
                 }
               )
@@ -937,7 +935,7 @@ function Preselected(){
                   headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token"),
+                    Authorization: "Bearer " + Cookies.get("token"),
                   },
                 }
               )

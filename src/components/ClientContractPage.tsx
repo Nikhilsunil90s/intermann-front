@@ -7,6 +7,7 @@ import axios from "axios";
 import {toast,Toaster} from "react-hot-toast"
 import ProfileLoader from "../components/Loader/ProfilesLoader";
 import { ProgressBar } from "react-bootstrap";
+import Cookies from 'js-cookie'
 
 let clDoc;
 function ClientContractPage() {
@@ -253,7 +254,7 @@ function ClientContractPage() {
       .post("uploadClientDocuments", formdata, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
         onUploadProgress: (data) => {
           setDocUploaded(true);

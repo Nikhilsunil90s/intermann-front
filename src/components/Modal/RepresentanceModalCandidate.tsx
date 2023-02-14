@@ -2,6 +2,7 @@ import React,{useEffect, useState}from "react";
 import LoaderLoad from "../../components/Loader/loader"
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import {toast} from "react-hot-toast"
+import Cookies from 'js-cookie'
 
 function Representance ({props,closeModal,rePid,LinkModal,setReAvance}){
  
@@ -116,7 +117,7 @@ if(e.target.name == "Generate"){
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + Cookies.get("token"),
     },
     body: JSON.stringify(RepresentFormat),
   })
@@ -140,7 +141,7 @@ if(e.target.name == "Generate"){
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
       body: JSON.stringify(RepresentFormat),
     })

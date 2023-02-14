@@ -16,6 +16,8 @@ import ProfileLoader from "../../../components/Loader/ProfilesLoader";
 import RenameDoc from "../../../components/Modal/RenameDoc_Modal";
 import PreModalClient from "../../../components/Modal/preSelectedModalForClient";
 import ErrorLoader from '../../../components/Loader/SearchBarError' 
+import Cookies from 'js-cookie'
+
 let RenameData = [];
 let id = "";
 function Signed() {
@@ -199,7 +201,7 @@ useEffect(()=>{
         .post("uploadClientDocuments", formdata, {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + Cookies.get("token"),
           },
           onUploadProgress: (data) => {
             //Set the progress value to show the progress bar
@@ -259,7 +261,7 @@ useEffect(()=>{
       method: "GET",
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((resp) => resp.json())
@@ -308,7 +310,7 @@ useEffect(()=>{
   ) => {
     let headers = {
       Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + Cookies.get("token"),
     };
     return await fetch(
       API_BASE_URL +
@@ -335,7 +337,7 @@ useEffect(()=>{
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((resp) => resp.json())
@@ -490,7 +492,7 @@ useEffect(()=>{
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       }
     )

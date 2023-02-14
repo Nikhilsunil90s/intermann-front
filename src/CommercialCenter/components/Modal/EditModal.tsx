@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { API_BASE_URL } from "../../../config/serverApiConfig";
 import { Toaster, toast } from "react-hot-toast";
+import Cookies from 'js-cookie'
 
 function EditModal(props: any) {
   const [data, setData] = useState({
@@ -29,7 +30,7 @@ function EditModal(props: any) {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
         body: JSON.stringify(data),
       }

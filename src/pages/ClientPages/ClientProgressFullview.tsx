@@ -30,6 +30,7 @@ import Warning from "../../components/Loader/SearchBarError"
 import DetailBox from "../../components/ClientComponents/ViewPageDetailBox"
 import SocialButton from "../../components/ClientComponents/SocialButtons";
 import { motion } from "framer-motion";
+import Cookies from 'js-cookie'
 
 let id = "";
 function ClientProgressView() {
@@ -355,7 +356,7 @@ function ClientProgressView() {
         .post("uploadClientImage", formdata, {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + Cookies.get("token"),
           },
         })
         .then((datares) => {
@@ -404,7 +405,7 @@ function ClientProgressView() {
       method: "GET",
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((resp) => resp.json())
@@ -550,7 +551,7 @@ function ClientProgressView() {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       }
     )
@@ -569,7 +570,7 @@ function ClientProgressView() {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       }
     )

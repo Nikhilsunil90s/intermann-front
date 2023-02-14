@@ -2,6 +2,7 @@ import React,{useEffect,useRef, useState} from "react";
 import toast, { Toaster } from "react-hot-toast";
 import {API_BASE_URL} from "../../config/serverApiConfig"
 import { motion } from "framer-motion";
+import Cookies from 'js-cookie'
 
 function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelete,setFilter,DAta}){
 
@@ -22,7 +23,7 @@ function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelet
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " +  Cookies.get("token"),
         },
         body: JSON.stringify(data),
       })
@@ -42,7 +43,7 @@ function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelet
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " +  Cookies.get("token"),
         },
         body:JSON.stringify(data)
       })

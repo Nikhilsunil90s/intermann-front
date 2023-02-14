@@ -415,6 +415,7 @@ import { Toaster } from "react-hot-toast";
 import Carousel from "react-multi-carousel";
 import ProfilesLoader from "../../src/components/Loader/ProfilesLoader";
 import $ from "jquery";
+import Cookies from 'js-cookie'
 import Pagination from "./LeadComponents/pagination";
 let TabName = "";
 function LeadsCenter() {
@@ -435,7 +436,7 @@ function LeadsCenter() {
   const [filterActive,setFilterActive]=useState(false)
   let [page, setPage] = useState(1)as any;
   const [DsBtn,setDsBtn]=useState(false)
-
+  const [total,setTotal]=useState(0)as any
   const [tabItems] = useState([
     {
       text: "FRANCE",
@@ -460,7 +461,7 @@ function LeadsCenter() {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " +  Cookies.get("token"),
       },
     })
       .then((red) => red.json())
@@ -494,7 +495,7 @@ function LeadsCenter() {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " +  Cookies.get("token"),
       },
     })
       .then((red) => red.json())
@@ -503,12 +504,14 @@ function LeadsCenter() {
           setLeadScHeck(true);
           setUpdateField(false);
           setSkipLeads([...resData.data]);
+          setTotal(resData.data.length)
           setpreContected(resData.notPreContactedCount);
           setcontected(resData.notContactedCount);
         } else {
           setSkipLeads([]);
           setLeadScHeck(true);
           setUpdateField(false);
+          setTotal(resData.data.length)
           setpreContected(resData.notPreContactedCount);
           setcontected(resData.notContactedCount);
         }
@@ -524,7 +527,7 @@ function LeadsCenter() {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " +  Cookies.get("token"),
       },
     })
       .then((red) => red.json())
@@ -695,6 +698,7 @@ if(filter == false){
                 filter={filter}
                 setFilterActive={setFilterActive}
                 setDatA={setData}
+                setTotal={setTotal}
               />
             ) : null}
           </div>
@@ -704,7 +708,7 @@ if(filter == false){
             style={{ background: "#ffff", borderRadius: "10px" }}
           >
             <p className="mb-2 ApplyFilter">
-              <b> ‎ ✔ ‎There are {skipLeads.length} ‎ ‎leads total</b>
+              <b> ‎ ✔ ‎There are {total} ‎ ‎leads total</b>
             </p>
             <p className="mb-2 ApplyFilter">
               <b>
@@ -744,6 +748,7 @@ if(filter == false){
                         TabName={TabName}
                         setFilter={setFilter}
                         DAta={data}
+                      
                       />
                     </>
                   ))}

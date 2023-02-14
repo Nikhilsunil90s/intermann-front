@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import { Link,useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import Cookies from 'js-cookie'
 
 function AddSector() {
   const [jobModalData, setJobModalData] = useState("");
@@ -34,7 +35,7 @@ function AddSector() {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((result) => result.json())

@@ -4,6 +4,7 @@ import "../CSS/Dashboard.css";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import { Toaster } from "react-hot-toast";
 import { motion } from "framer-motion";
+import Cookies from 'js-cookie'
 
 function Dashboard() {
   const [toDoCandidatCount, setToDoCandidatCount] = useState(0);
@@ -23,7 +24,7 @@ function Dashboard() {
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get("token")
       },
     })
       .then(resd => resd.json())
@@ -39,7 +40,7 @@ function Dashboard() {
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
+        "Authorization": "Bearer " + Cookies.get("token")
       },
     })
       .then(resd => resd.json())

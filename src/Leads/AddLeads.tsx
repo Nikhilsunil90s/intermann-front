@@ -15,6 +15,7 @@ import axios from 'axios'
 import ProfileLoader from "../components/Loader/ProfilesLoader";
 import { motion } from "framer-motion";
 import CSVModal from "./Modal/CSVModal";
+import Cookies from 'js-cookie'
 
 function AddLeads(){
   const axiosInstance = axios.create({
@@ -199,7 +200,7 @@ const [fromPerson]=useState ([ {value: 'TikTok', label: 'TikTok',name:"leadSourc
       method: "GET",
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then(red => red.json())

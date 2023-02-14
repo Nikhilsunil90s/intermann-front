@@ -6,6 +6,7 @@ import Loader from "../../components/Loader/loader";
 import { useNavigate ,useLocation} from 'react-router';
 import DOCUSIGNModalCandidate from '../Modal/DOCUSIGNModalCandidate'
 import ProfileLoader from '../Loader/ProfilesLoader' 
+import Cookies from 'js-cookie'
 
 interface State {
   profileData: any,
@@ -129,7 +130,7 @@ function PdfModal({props,closeModal,LinkModal,path} ){
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " +  Cookies.get("token"),
         },
         body: JSON.stringify(data),
       })
@@ -148,7 +149,7 @@ function PdfModal({props,closeModal,LinkModal,path} ){
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("token"),
+              Authorization: "Bearer " +  Cookies.get("token"),
             },
             body: JSON.stringify(data),
           })

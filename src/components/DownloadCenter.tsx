@@ -6,6 +6,7 @@ import Loader from "./Loader/loader";
 import Error from "./Loader/SearchBarError";
 import { Toaster, toast } from "react-hot-toast";
 import { motion } from "framer-motion";
+import Cookies from 'js-cookie'
 
 export default function DownloadCenter() {
   const [activeTab, setActiveTab] = React.useState(0) as any;
@@ -45,7 +46,7 @@ export default function DownloadCenter() {
       method: "GET",
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((resp) => resp.json())
@@ -75,7 +76,7 @@ export default function DownloadCenter() {
       method: "GET",
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((resp) => resp.json())
@@ -88,7 +89,7 @@ export default function DownloadCenter() {
       method: "GET",
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((resp) => resp.json())
@@ -100,7 +101,7 @@ export default function DownloadCenter() {
       method: "GET",
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((resp) => resp.json())
@@ -116,7 +117,7 @@ export default function DownloadCenter() {
         method: "GET",
         headers: {
           Accept: "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       }
     )
@@ -141,7 +142,7 @@ export default function DownloadCenter() {
         method: "GET",
         headers: {
           Accept: "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       }
     )
@@ -165,7 +166,7 @@ export default function DownloadCenter() {
         method: "GET",
         headers: {
           Accept: "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       }
     )
@@ -186,7 +187,7 @@ export default function DownloadCenter() {
       method: "GET",
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((resp) => resp.json())

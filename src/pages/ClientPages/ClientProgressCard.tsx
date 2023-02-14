@@ -13,6 +13,8 @@ import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast, { Toaster } from "react-hot-toast";
 import SignedClientModal from "../../components/Modal/SignContractModal";
 import moment from 'moment';
+import Cookies from 'js-cookie'
+
 let id=""
 function ClientProgressCard(props: any) {
 
@@ -203,7 +205,7 @@ function ClientProgressCard(props: any) {
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("token"),
+              Authorization: "Bearer " + Cookies.get("token"),
             },
           }
         )

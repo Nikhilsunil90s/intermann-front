@@ -23,6 +23,7 @@ import ClientContract from "../../components/ClientComponents/ClientContract"
 import DetailBox from "../../components/ClientComponents/ViewPageDetailBox"
 import SocialButton from "../../components/ClientComponents/SocialButtons";
 import { motion } from "framer-motion";
+import Cookies from 'js-cookie'
 
 
 function ArchivedViewPage() {
@@ -346,7 +347,7 @@ function ArchivedViewPage() {
         .post("uploadClientImage", formdata, {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + Cookies.get("token"),
           },
         })
         .then((datares) => {
@@ -405,7 +406,7 @@ function ArchivedViewPage() {
       method: "GET",
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((resp) => resp.json())

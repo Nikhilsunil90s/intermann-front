@@ -14,6 +14,7 @@ import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 import toast, { Toaster } from 'react-hot-toast';
 import ErrorLoader from "../../components/Loader/SearchBarError"
+import Cookies from 'js-cookie'
 
 declare global {
   namespace JSX {
@@ -108,7 +109,7 @@ const fetchProfileS = async (page) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + Cookies.get("token"),
     },
   })
     .then((resD) => resD.json())
@@ -327,7 +328,7 @@ setTimeout(()=>{
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((resD) => resD.json())
@@ -340,7 +341,7 @@ setTimeout(()=>{
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((resp) => resp.json())
@@ -370,7 +371,7 @@ setTimeout(()=>{
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + Cookies.get("token"),
           },
         }
       )
@@ -403,7 +404,7 @@ setStatus(false)
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("token"),
+              Authorization: "Bearer " + Cookies.get("token"),
             },
           }
         )
@@ -437,7 +438,7 @@ setStatus(false)
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("token"),
+              Authorization: "Bearer " + Cookies.get("token"),
             },
           }
         )
@@ -469,7 +470,7 @@ setStatus(false)
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + Cookies.get("token"),
           },
         }
       )
@@ -499,7 +500,7 @@ setStatus(false)
            headers: {
              Accept: "application/json",
              "Content-Type": "application/json",
-             Authorization: "Bearer " + localStorage.getItem("token"),
+             Authorization: "Bearer " + Cookies.get("token"),
            },
          }
        )
@@ -527,7 +528,7 @@ setStatus(false)
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + Cookies.get("token"),
           },
         }
       )
@@ -552,7 +553,7 @@ setStatus(false)
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + Cookies.get("token"),
           },
         }
       )
@@ -577,7 +578,7 @@ setStatus(false)
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + Cookies.get("token"),
           },
         }
       )

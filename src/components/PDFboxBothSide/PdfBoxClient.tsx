@@ -10,7 +10,7 @@ import axios from "axios";
 import ProfileLoader from "../Loader/ProfilesLoader";
 import { ProgressBar } from "react-bootstrap";
 import RenameDoc from "../Modal/RenameDoc_ModalClient";
-
+import Cookies from 'js-cookie'
 
 let RenameData = [];
 let UploadName = "";
@@ -123,7 +123,7 @@ function PDFBoxClient({props,value,updated}){
       method: "GET",
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((resp) => resp.json())
@@ -166,7 +166,7 @@ function PDFBoxClient({props,value,updated}){
       .post("uploadClientDocuments", formdata, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
         onUploadProgress: (data) => {
           //Set the progress value to show the progress bar
@@ -241,7 +241,7 @@ function PDFBoxClient({props,value,updated}){
       ) => {
         let headers = {
           Accept: "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + Cookies.get("token"),
         };
         return await fetch(
           API_BASE_URL +

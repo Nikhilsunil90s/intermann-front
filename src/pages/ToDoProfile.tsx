@@ -28,6 +28,7 @@ import { Tabs, Tab } from "react-tabs-scrollable";
 import ViewPageDetailsBox from '../components/CandidateComponents/ViewPageDetailsBox'
 import SocialButtons from '../components/CandidateComponents/ViewPageSocialButtons'
 import { motion } from "framer-motion";
+import Cookies from 'js-cookie'
 
 interface State {
   profileData: any,
@@ -137,7 +138,7 @@ const fetchProfilesClients = async () => {
     method: "GET",
     headers: {
       Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " +  Cookies.get("token"),
     },
   })
     .then((resD) => resD.json())

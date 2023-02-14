@@ -15,6 +15,7 @@ import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast from "react-hot-toast";
 import moment from "moment";
 import format from "date-fns/format";
+import Cookies from 'js-cookie'
 
 
 let id = "";
@@ -198,7 +199,7 @@ const ClientToDoCard = (props: any) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       }
     )

@@ -2,6 +2,8 @@ import React,{useEffect,useRef,useState} from "react";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import {toast} from "react-hot-toast"
 import { motion } from "framer-motion";
+import Cookies from 'js-cookie'
+
 function NotesDeleteModal({props,closeModal,update,Load,Notes,LeadsDelete,setDelete,setFilter}){
   const [btnDS,setBTNds]=useState(false)
   const DeleteNotes=()=>{
@@ -44,7 +46,7 @@ setTimeout(()=>{
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
       body:JSON.stringify(data)
     })

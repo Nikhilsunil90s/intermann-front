@@ -30,6 +30,7 @@ import ClientContract from "../../components/ClientComponents/ClientContract"
 import DetailBox from "../../components/ClientComponents/ViewPageDetailBox"
 import SocialButton from "../../components/ClientComponents/SocialButtons";
 import { motion } from "framer-motion";
+import Cookies from 'js-cookie'
 
 let id = "";
 function ClientSee() {
@@ -323,7 +324,7 @@ function ClientSee() {
         method: "GET",
         headers: {
           Accept: "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       }
     )
@@ -350,7 +351,7 @@ function ClientSee() {
         .post("uploadClientImage", formdata, {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + Cookies.get("token"),
           },
         })
         .then((datares) => {
@@ -398,7 +399,7 @@ function ClientSee() {
       method: "GET",
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((resp) => resp.json())
@@ -620,7 +621,7 @@ function ClientSee() {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       }
     )

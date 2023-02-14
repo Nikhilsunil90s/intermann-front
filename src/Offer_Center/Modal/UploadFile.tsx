@@ -6,6 +6,7 @@ import axios from 'axios'
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import Switch from "react-switch";
 import Select from "react-select";
+import Cookies from 'js-cookie'
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 import { useNavigate } from "react-router";
@@ -36,7 +37,7 @@ function  UploadFile(props){
           axiosInstance.post("", formdata, {
             headers: {
               "Content-Type": "multipart/form-data",
-              "Authorization": "Bearer " + localStorage.getItem('token')
+              "Authorization": "Bearer " +  Cookies.get("token")
             },
             onUploadProgress: data => {
               //Set the progress value to show the progress bar

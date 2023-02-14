@@ -1,10 +1,10 @@
 import React from "react";
 import { API_BASE_URL } from "../../config/serverApiConfig";
-
+import Cookies from 'js-cookie'
 const header ={
   "Accept": 'application/json',
   'Content-Type': 'application/json',
-  "Authorization": "Bearer " + localStorage.getItem('token')
+  "Authorization": "Bearer " + Cookies.get("token")
 }
 export const   GetRoute =async(path)=>{
   return   await fetch(API_BASE_URL +path,{

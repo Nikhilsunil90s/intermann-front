@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { loginUserAction, logout } from "../redux/actions/userActions";
 import { Toaster, toast } from "react-hot-toast";
 import { motion } from "framer-motion";
+import Cookies from 'js-cookie'
 
 function Login() {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ function Login() {
     if (state?.login?.status) {
       notifyLogin();
     setLoginLoad(false)
-      localStorage.setItem("token", state.login.token);
+    Cookies.set("token", state.login.token,{expires:1});
       localStorage.setItem("LoginUser",JSON.stringify(state.login.user))
       navigate("/dashboard");
     } else if (state?.login?.error !== undefined) {
@@ -35,7 +36,7 @@ function Login() {
     }
   }, [state]);
   useEffect(() => {
-    let login = localStorage.getItem("token");
+    let login = Cookies.get("token");
     if (login) {
       navigate("/dashboard");
     }
@@ -48,7 +49,7 @@ function Login() {
     if (state?.login?.status) {
       notifyLogin();
     setLoginLoad(false)
-      localStorage.setItem("token", state.login.token);
+      Cookies.set("token", state.login.token);
       localStorage.setItem("LoginUser",JSON.stringify(state.login.user))
       navigate("/dashboard");
     } else if (state?.login?.error !== undefined) {

@@ -2,6 +2,7 @@ import React ,{useState,useEffect} from "react";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import {toast} from "react-hot-toast"
 import LoaderS from "../../components/Loader/loader"
+import Cookies from 'js-cookie'
 
 function AvanceModal ({props,closeModal,LinkModal,rePid,setReAvance}){
 console.log(props,"props")
@@ -62,7 +63,7 @@ console.log(props,"props")
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " +  Cookies.get("token"),
           },
           body: JSON.stringify(data),
         })
@@ -89,7 +90,7 @@ console.log(props,"props")
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + Cookies.get("token"),
           },
           body: JSON.stringify(data),
         })
