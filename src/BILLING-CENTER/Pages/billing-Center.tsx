@@ -18,7 +18,7 @@ function BillingCenter() {
       }else if(res.status == 401){
        setError(false)
       }
-      console.log(res);
+      // console.log(res);
     })
     .catch(err=>{
       setError(false)

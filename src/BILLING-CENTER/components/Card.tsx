@@ -73,7 +73,7 @@ function Card(props: any) {
         <td className="">
           <div className="">
             <p className="mb-0 d-flex align-items-center">
-              {props.props.factureCreateDate} / {props.props.factureDueDate}
+              {props.props.factureCreateDate ? props.props.factureCreateDate : "NO DATE" } / {props.props.factureDueDate ?  props.props.factureDueDate  : "NO DATE" }
             </p>
           </div>
         </td>

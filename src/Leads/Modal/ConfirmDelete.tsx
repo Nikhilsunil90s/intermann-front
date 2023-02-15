@@ -31,6 +31,7 @@ function NotesDeleteModal({props,closeModal,update,Load,Notes,LeadsDelete,setDel
         setDelete("")
 setTimeout(()=>{
   Load(true)
+  closeModal(false)
 },2000)
       }else{
       //  Update(true)

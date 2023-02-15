@@ -81,7 +81,7 @@ function UserList(){
 
 
 {
-                        allUsers.map((el)=>(
+                        allUsers.map((el,i)=>(
                             <motion.div
                             initial="hidden"
                             whileInView="visible"
@@ -90,7 +90,9 @@ function UserList(){
                             variants={{
                               visible: { opacity: 1, x: 0 },
                               hidden: { opacity: 0, x: -50 }
-                            }}  className="row">
+                            }}
+                            key={i}
+                            className="row">
 <ul style={{ listStyle: "none" }}>
     <li className="Radius-Border">
         <div className="col-12 pd-Userlr">

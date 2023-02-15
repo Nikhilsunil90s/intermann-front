@@ -12,7 +12,7 @@ export function* loginSaga(action: any) {
   try {
     let response = yield call(loginUserService, action.user);
     response = JSON.parse(response);
-    console.log(response);
+    // console.log(response);
 
     yield put({ type: types.LOGIN_USER_SUCCESS, response: response });
   } catch (error: any) {

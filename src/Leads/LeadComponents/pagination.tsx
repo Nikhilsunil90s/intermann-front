@@ -18,7 +18,7 @@ useEffect(()=>{
 
   const [activeTab, setActiveTab] = React.useState(0) as any;
 
-  console.log(props.DS)
+  // console.log(props.DS)
   const HandleChange = (e, page) => {
     props.setPage(e);
     props.setcurrentPage(page);
@@ -72,7 +72,7 @@ useEffect(()=>{
                 numberOfpage.map((el:any,i)=>(
             
                
-                  <span onClick={()=>HandleChange(el.page,el.currentPage)}  style={{
+                  <span key={i} onClick={()=>HandleChange(el.page,el.currentPage)}  style={{
                     background: props.page === el.page ? "#000" : "#fff",
                     color: props.page === el.page ? "#fff" : "#000",
                   }}>
@@ -157,12 +157,12 @@ useEffect(()=>{
    {
    
    numberOfpage.map((el:any,i)=>(
-    <span onClick={()=>HandleChange(el.page,el.currentPage)}  style={{
+    <div onClick={()=>HandleChange(el.page,el.currentPage)}  style={{
       background: props.page === el.page ? "#000" : "#fff",
       color: props.page === el.page ? "#fff" : "#000",
     }}>
                             {el.page}
-                            </span>
+                            </div>
                       ))
                         }
                         </Tabs>

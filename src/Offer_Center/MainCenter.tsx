@@ -5,6 +5,7 @@ import Filter from "./components/Filter";
 import Header from "./components/Header";
 import "./CSS/Offer.css";
 import UploadFile from "./Modal/UploadFile";
+import Error404Loader from "../components/Loader/404Error";
 
 function MainCenter() {
   const [uploadPdfModal, setUploadPdfModal] = useState({
@@ -13,18 +14,25 @@ function MainCenter() {
   });
   const[btnDS,setBtnDs]=useState(false)
   const [cards, setCards] = useState([]);
+  const [Status,setStatus]=useState({
+   status:false,
+   error:false
+  })
 
   useEffect(()=>{
     GetRoute(`get-offers/?offerType=${"unsigned"}`).then((res) => {
         if (res.status) {
           setCards([...res.data]);
           setBtnDs(true)
+          setStatus({...Status,status:true})
         } else {
           setCards([]);
           setBtnDs(true)
+          setStatus({...Status,error:true})
 
         }
-      });
+      })
+      .catch((err)=>err);
   },[])
   const activeTab = (e) => {
     setBtnDs(false)
@@ -37,11 +45,12 @@ function MainCenter() {
         if (res.status) {
           setCards([...res.data]);
           setBtnDs(true)
+          setStatus({...Status,status:true})
 
         } else {
           setCards([]);
           setBtnDs(true)
-
+          setStatus({...Status,error:true})
         }
       });
     } else {
@@ -53,10 +62,12 @@ function MainCenter() {
         if (res.status) {
           setCards([...res.data]);
           setBtnDs(true)
+          setStatus({...Status,status:true})
 
         } else {
           setCards([]);
           setBtnDs(true)
+          setStatus({...Status,error:true})
 
         }
       });
@@ -102,10 +113,15 @@ function MainCenter() {
                 padding: "10px 24px",
               }}
             >
-              {btnDS ?
+              {Status.status ?
+               Status.error ?
+               <div className="col-12 d-flex justify-content-center">
+               < Error404Loader  props={"38%"}    />    
+                </div>
 
+               :
               
-              cards.length > 0 ? cards.map((el) => <Card props={el}  />) :    <div className="col-12 my-2 d-flex align-items-center justify-content-center">
+              cards.length > 0 ? cards.map((el,i) => <Card props={el} key={i}  />) :    <div className="col-12 my-2 d-flex align-items-center justify-content-center">
                       <span className="Leads002"></span>
                       </div>
                       

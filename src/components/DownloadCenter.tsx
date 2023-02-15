@@ -249,7 +249,7 @@ export default function DownloadCenter() {
     fetchCandidatRepresentance().then((res) => {
       if (res.status) {
         setRepresentance([...res.data]);
-        console.log(...res.data);
+        // console.log(...res.data);
         setdeleteCanContract(false);
 
         if (activeTab === 3) {
@@ -271,7 +271,7 @@ export default function DownloadCenter() {
     fetchCandidatAvance().then((res) => {
       if (res.status) {
         setAvance([...res.data]);
-        console.log(...res.data);
+        // console.log(...res.data);
         setdeleteCanContract(false);
 
         if (activeTab === 2) {

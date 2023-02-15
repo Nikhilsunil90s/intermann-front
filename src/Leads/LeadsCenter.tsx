@@ -740,7 +740,7 @@ if(filter == false){
                       <LeadList
                         props={el}
                         length={i}
-                        key={el._id}
+                        key={i}
                         Update={setUpdateField}
                         Load={setLeadScHeck}
                         Lead={setLeads}
