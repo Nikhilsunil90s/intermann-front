@@ -437,6 +437,8 @@ function LeadsCenter() {
   let [page, setPage] = useState(1)as any;
   const [DsBtn,setDsBtn]=useState(false)
   const [total,setTotal]=useState(0)as any
+  const [wait,setWait]=useState(false)
+  const [rest,setrest]=useState(false)
   const [tabItems] = useState([
     {
       text: "FRANCE",
@@ -489,7 +491,7 @@ function LeadsCenter() {
 
   const fetchLeads = async (market: any, page: any) => {
     //  setLeadScHeck(false)
-
+    setWait(false)
     await fetch(API_BASE_URL + `allLeads2/?market=${market}`, {
       method: "GET",
       headers: {
@@ -505,11 +507,15 @@ function LeadsCenter() {
           setUpdateField(false);
           setSkipLeads([...resData.data]);
           setTotal(resData.data.length)
+          setWait(true)
+          setrest(false)
           setpreContected(resData.notPreContactedCount);
           setcontected(resData.notContactedCount);
         } else {
           setSkipLeads([]);
+          setWait(true)
           setLeadScHeck(true);
+          setrest(false)
           setUpdateField(false);
           setTotal(resData.data.length)
           setpreContected(resData.notPreContactedCount);
@@ -578,11 +584,17 @@ function LeadsCenter() {
     // console.log(currentUser.emailAddress)
     const FolderName = tabItems.filter((el, i) => i == activeTab);
     TabName = FolderName.map((el) => el.value);
-if(filter == false){
+// if(filter == false){
+//   fetchLeads(TabName, page);
+//   fetchSkipLeads(TabName, currentPage)
+// }
+  }, [UpdateFiled]);
+  useEffect(()=>{
+    if(filter == false){
   fetchLeads(TabName, page);
   fetchSkipLeads(TabName, currentPage)
 }
-  }, [UpdateFiled]);
+  },[rest])
 
   const onTabClick = (e, index: any) => {
     setActiveTab(index);
@@ -695,6 +707,8 @@ if(filter == false){
                 setprecontacted={setpreContected}
                 setcontacted={setcontected}
                 setFilter={setFilter}
+                setWait={setWait}
+                setrest={setrest}
                 filter={filter}
                 setFilterActive={setFilterActive}
                 setDatA={setData}
@@ -707,6 +721,8 @@ if(filter == false){
             className="col-12 mt-1 p-1"
             style={{ background: "#ffff", borderRadius: "10px" }}
           >
+            {wait ?
+            <>
             <p className="mb-2 ApplyFilter">
               <b> ‎ ✔ ‎There are {total} ‎ ‎leads total</b>
             </p>
@@ -719,6 +735,16 @@ if(filter == false){
             <p className="mb-0 ApplyFilter">
               <b> ‎ ✔ ‎There are {preContected} leads not yet precontacted</b>
             </p>
+            </>
+            :
+            <>
+            {" "}
+            <div className="d-flex LeadsLoad">
+                  <div className="spinner-border text-warning" role="status" style={{height:"140px",width:"140px"}}>
+                    <span className="visually-hidden" >Loading...</span>
+                  </div>
+                </div>
+          </>}
           </div>
           <div
             className="col-12 p-1 my-1 OverFlowLink"

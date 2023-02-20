@@ -932,8 +932,10 @@ function Filters({
   setprecontacted,
   setcontacted,
   setFilter,
+  setrest,
   filter,
   setTotal,
+  setWait,
   setFilterActive,setDatA}) {
   let CaNam = [] as any;
   let Contact = [] as any;
@@ -1370,6 +1372,7 @@ function Filters({
       if (Data !== undefined) {
         setApplyBtn(true);
       setFilterActive(true)
+      setWait(false)
         fetch(API_BASE_URL + "filterLeads", {
           method: "POST",
           headers: {
@@ -1385,18 +1388,21 @@ function Filters({
               statusLeads(true);
       setFilterActive(true)
       setDatA(Data)
+     setWait(true)
       setTotal(res.data.length)
+      setLeads([...res.data]);
               setApplyBtn(false);
               setprecontacted(res.notPreContactedCount);
               setcontacted(res.notContactedCount);
               toast.success("Filter Leads Found Successfully!");
-              setLeads([...res.data]);
+            
               
               setDateCheck(false);
             } else {
               statusLeads(true);
       setFilterActive(true)
       setDatA(Data)
+     setWait(true)
       setTotal(0)
               toast.error("Sorry No Results found!");
               setApplyBtn(false);
@@ -1414,6 +1420,7 @@ function Filters({
       toast.success("Filters Reset Successfully!");
       setData();
       setDatA()
+      setrest(true)
       update(true);
       setFilterActive(false)
       statusLeads(false);
@@ -1427,6 +1434,7 @@ function Filters({
       setContactOp([]);
       setemailOp([]);
       setCanName([]);
+
     }
   };
   return (
