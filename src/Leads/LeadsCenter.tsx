@@ -724,22 +724,22 @@ function LeadsCenter() {
             {wait ?
             <>
             <p className="mb-2 ApplyFilter">
-              <b> ‎ ✔ ‎There are {total} ‎ ‎leads total</b>
+              <b> ‎ ✔ ‎There are {total} ‎ ‎leads Total</b>
             </p>
             <p className="mb-2 ApplyFilter">
               <b>
                 {" "}
-                ‎✔ ‎There are {contected} leads not yet contacted by Agency
+                ‎✔ ‎There are {contected} leads Not Yet contacted by Agency
               </b>
             </p>
             <p className="mb-0 ApplyFilter">
-              <b> ‎ ✔ ‎There are {preContected} leads not yet precontacted</b>
+              <b> ‎ ✔ ‎There are {preContected} leads Not Yet precontacted</b>
             </p>
             </>
             :
             <>
             {" "}
-            <div className="d-flex LeadsLoad">
+            <div className="d-flex LeadsLoad justify-content-center">
                   <div className="spinner-border text-warning" role="status" style={{height:"140px",width:"140px"}}>
                     <span className="visually-hidden" >Loading...</span>
                   </div>
@@ -774,7 +774,7 @@ function LeadsCenter() {
                         TabName={TabName}
                         setFilter={setFilter}
                         DAta={data}
-                      
+                        setrest={setrest}
                       />
                     </>
                   ))}

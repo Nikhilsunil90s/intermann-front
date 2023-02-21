@@ -4,7 +4,7 @@ import {toast} from "react-hot-toast"
 import { motion } from "framer-motion";
 import Cookies from 'js-cookie'
 
-function NotesDeleteModal({props,closeModal,update,Load,Notes,LeadsDelete,setDelete,setFilter}){
+function NotesDeleteModal({props,closeModal,update,Load,Notes,LeadsDelete,setDelete,setFilter,setrest }){
   const [btnDS,setBTNds]=useState(false)
   const DeleteNotes=()=>{
 
@@ -27,6 +27,7 @@ function NotesDeleteModal({props,closeModal,update,Load,Notes,LeadsDelete,setDel
       if(resData.status){
         toast.success(resData.message)
         // Lead([])
+        setrest(true)
         update(true)
         setDelete("")
 setTimeout(()=>{
@@ -56,6 +57,7 @@ setTimeout(()=>{
       if(res.status){
         update(true)
         setBTNds(false)
+        setrest(true)
         Load(true)
         toast.success(res.message)
           closeModal(false)

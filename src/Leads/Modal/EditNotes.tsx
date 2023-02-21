@@ -4,7 +4,7 @@ import {API_BASE_URL} from "../../config/serverApiConfig"
 import { motion } from "framer-motion";
 import Cookies from 'js-cookie'
 
-function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelete,setFilter,DAta}){
+function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelete,setFilter,DAta,setrest}){
 
   const [editNotes,setEditNotes]=useState("")
   const [btnDS,setBTNds]=useState(false)
@@ -80,6 +80,8 @@ function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelet
         if(props.leadNotes !== ""){
           closeModal(false)
           deleteModal(true)
+         
+
         }else{
           setBTNds(false)
           toast.error("Please Add Notes!")
@@ -105,6 +107,8 @@ function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelet
             }
             setBTNds(false)
             Load(true)
+              setrest(true)
+
             toast.success(res.message)
             setTimeout(()=>{
               closeModal(false)
@@ -128,6 +132,7 @@ function NotesEditModal({closeModal,props,Notes,update,Load,deleteModal,setDelet
               update(true)
             }
             setBTNds(false)
+            setrest(true)
           
             
             toast.success(res.message)

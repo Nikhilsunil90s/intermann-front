@@ -1,7 +1,7 @@
 import React,{useEffect,useRef,useState} from "react";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
-function NotesModal({closeModal,props,Notes,EditModal,deleteModal,setDelete,}){
+function NotesModal({closeModal,props,Notes,EditModal,deleteModal,setDelete}){
   const [btnDS,setBTNds]=useState(false)
 
     const ref = useRef();
