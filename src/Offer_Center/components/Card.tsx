@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { GetRouteWithoutAuth } from "../../components/ApisFunction/FunctionsApi";
+import { API_BASE_URL } from "../../config/serverApiConfig";
 import LinkItModal from "../Modal/LinkItModal";
 
 function Card(props: any) {
@@ -14,7 +15,7 @@ function Card(props: any) {
 
     GetRouteWithoutAuth(`get-offer/?offerId=${props.props._id}`).then((res) => {
       if (res.status) {
-        window.open(res.filepath.replace("/app/", ""));
+        window.open(API_BASE_URL+ res.filepath.replace("/app/", ""));
         setDsBtn({
           id: "",
           DSBTN: false,

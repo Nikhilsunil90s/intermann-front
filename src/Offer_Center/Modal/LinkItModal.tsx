@@ -16,7 +16,7 @@ function LinkItModal(props) {
             if (el.clientEmail) {
               cl.push({
                 value: el._id,
-                label: el.clientCompanyName,
+                label: el.clientCompanyName.toUpperCase(),
                 name: "client",
                 color: "#FF8B00",
               });
