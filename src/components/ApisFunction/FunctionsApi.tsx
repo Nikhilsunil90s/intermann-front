@@ -9,7 +9,11 @@ const header ={
 export const   GetRoute =async(path)=>{
   return   await fetch(API_BASE_URL +path,{
     method: "GET",
-    headers:header ,
+    headers:{
+      "Accept": 'application/json',
+      'Content-Type': 'application/json',
+      "Authorization": "Bearer " + Cookies.get("token")
+    }  ,
    })
    .then(res=>res.json())
    .then(res=>res)
