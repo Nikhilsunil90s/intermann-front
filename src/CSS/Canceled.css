@@ -497,11 +497,11 @@ color: #FE8700;
       .downloadBtn0012X::before {
         content: '';  
         left: 50%;
-        bottom: 18px;
+        bottom: 17px;
         transform: translate(-50%, 0);
         position: absolute;
         width: 6px;
-        height: 13px;
+        height: 10px;
         background: #032339;
         box-sizing: border-box;
         animation: bump 0.4s ease-in-out infinite alternate;

@@ -747,7 +747,7 @@ function LeadsCenter() {
           </>}
           </div>
           <div
-            className="col-12 p-1 my-1 OverFlowLink"
+            className="col-12 p-1 my-1 "
             style={{ background: "#ffff", borderRadius: "10px" }}
           >
             {
