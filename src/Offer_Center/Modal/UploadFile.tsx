@@ -61,6 +61,7 @@ function  UploadFile(props){
             if (resData.status) {
           setDisabled(false)
             toast.success("File Uploaded Successfully!")
+            props.setUploadPdfModal({...props.uploadPdfModal,Manually:false})
             //     setDeleteStatus(true)
             //   setProgress(0); 
             //   notifyDocumentUploadSuccess();
