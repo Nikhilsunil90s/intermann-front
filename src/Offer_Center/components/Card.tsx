@@ -83,11 +83,11 @@ function Card(props: any) {
               data-bs-placement="bottom"
               title={props.props.metier}
             >
-              {props.props.metier.length > 9
+              {props.props.metier ? props.props.metier.length > 9
                 ? props.props.metier.slice(0, 9) + "..."
                 : props.props.metier
                 ? props.props.metier
-                : "✘✘!  "}
+                : "✘✘!  ":"✘✘!"}
               
             </b>
             - Forfait :
@@ -162,7 +162,7 @@ function Card(props: any) {
                   </button>
                 )}
                 {LinkToclient ? (
-                  <LinkItModal closeModel={setLinkToclient} />
+                  <LinkItModal closeModel={setLinkToclient} props={props.props} />
                 ) : null}
               </div>
             </div>

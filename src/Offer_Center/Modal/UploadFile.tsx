@@ -10,31 +10,44 @@ import Cookies from 'js-cookie'
 import {ReactComponent as TurnoFF} from "../../images/FatX.svg";
 import {ReactComponent as TurnOn} from "../../images/base-switch_icon.svg";
 import { useNavigate } from "react-router";
+import toast from "react-hot-toast";
 function  UploadFile(props){
   const navigate =useNavigate()
     const axiosInstance = axios.create({
         baseURL: API_BASE_URL,
       })
+    
     const [Startopen, setStartOpen] = useState(false);
     const [data,setData]=useState({
-        startDate:""
+      company_name:"",
+        offer_made_on:"",
+        offer_signed:false,
+        file:""
     })as any
+    const [disabled,setDisabled]=useState(false)
     const [open, setOpen] = useState(false);
     const reftwo = useRef(null);
     const dateChangeStart =(date)=>{
-        setData({...data,["startDate"]:format(date, "dd-MM-yyyy")})
+        setData({...data,["offer_made_on"]:format(date, "dd-MM-yyyy")})
         setOpen(false)
         setStartOpen(false)
     
       }
 
-      const FilesUploads=(file)=>{
-        const fileUploaded = file;
+      const SubmitFile=()=>{
+        if(data.company_name === ""){
+          toast.error("please insert company name !")
+        }else if(data.file === ""){
+          toast.error("please upload offer file!")
+        }else{
+          setDisabled(true)
           let formdata = new FormData();
-          formdata.append('candidatId', props?._id)
-          formdata.append('document', fileUploaded)
+          formdata.append('company_name', data.company_name)
+          formdata.append('offer_made_on', data.offer_made_on)
+          formdata.append('offer_signed', data.offer_signed)
+          formdata.append('offerdocument', data.file)
         //   formdata.append('folderName', UploadName)
-          axiosInstance.post("", formdata, {
+          axiosInstance.post(API_BASE_URL+ "upload-offer", formdata, {
             headers: {
               "Content-Type": "multipart/form-data",
               "Authorization": "Bearer " +  Cookies.get("token")
@@ -45,11 +58,15 @@ function  UploadFile(props){
             },
           })
           .then(resData => {
-            if (resData.data.status) {
+            if (resData.status) {
+          setDisabled(false)
+            toast.success("File Uploaded Successfully!")
             //     setDeleteStatus(true)
             //   setProgress(0); 
             //   notifyDocumentUploadSuccess();
             } else {
+              setDisabled(false)
+              toast.error("File Uploaded Unsuccessfully!")
           
             }
           })
@@ -59,10 +76,19 @@ function  UploadFile(props){
       
           })
         return;
+        }
+       
+      }
+
+      const FilesUploads=(file)=>{
+        const fileUploaded = file;
+       setData({...data,file:fileUploaded})
       }
       const SwitchChange = (checked: any, e: any, Name: any) => {
-
-
+        setData({...data,offer_signed:checked})
+      }
+      const FormDataChange=(e)=>{
+        setData({...data,company_name:e.target.value})
       }
 return(<>
         
@@ -114,7 +140,7 @@ return(<>
               </div>  
 
                     }
-                    <div className="modal-body text-start">
+                    <div className="modal-body text-start" style={{height:"445px",overflow:"scroll"}}>
                         <div className="col-12 ">
                         {
                       props.uploadPdfModal.Manually ?
@@ -139,7 +165,7 @@ return(<>
                             lineHeight: "24px",
                             color: "#000000",
                       
-                        }} placeholder="Company name" className="form-control fontsizeModal"/>
+                        }} onChange={FormDataChange} placeholder="Company name" className="form-control fontsizeModal"/>
                                 </div>
                             </div>
                             <div className="col-6">
@@ -153,7 +179,7 @@ return(<>
                       
                         }}>When this offer have been made ?</label>
                                      <input
-                               value={data.startDate === "" ? "dd/mm/yyyy" : data.startDate }
+                               value={data.offer_made_on === "" ? "dd/mm/yyyy" : data.offer_made_on }
                                 readOnly
                                 style={{textTransform:"none"}}
                                 className="dateSort"
@@ -230,7 +256,7 @@ return(<>
               
 </p>
 <Switch
-                  checked={true}
+                  checked={data.offer_signed}
                   id="signatureSent"
                   className="ml-left"
                   onChange={(checked, e, id) =>
@@ -264,7 +290,7 @@ return(<>
                  
                                 </div>
                                 <div className="col-12 my-1">
-                      <button  className="btn AddThisOffer">Add this offer</button>
+                      <button disabled={disabled} onClick={SubmitFile}  className="btn AddThisOffer">Add this offer</button>
                     </div>
                             </div>
 
