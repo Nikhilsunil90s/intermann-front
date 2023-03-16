@@ -153,13 +153,22 @@ function Card(props: any) {
                     />
                   </div>
                 ) : (
+                  props.props.offer_mode === "manual" ? 
                   <button
                     className={`col-6 px-0 RoundDiv cursor-pointe`}
                     style={{ border: "0px", margin: "0px 6px 0px 26px" }}
-                    onClick={() => DownLoadOffer(props.props._id)}
+                    onClick={() => window.open(props.props.offerDocument.url)}
                   >
                     <img src={require("../../images/dowBtn.svg").default} />
                   </button>
+                  :
+                  <button
+                  className={`col-6 px-0 RoundDiv cursor-pointe`}
+                  style={{ border: "0px", margin: "0px 6px 0px 26px" }}
+                  onClick={() => DownLoadOffer(props.props._id)}
+                >
+                  <img src={require("../../images/dowBtn.svg").default} />
+                </button>
                 )}
                 {LinkToclient ? (
                   <LinkItModal closeModel={setLinkToclient} props={props.props} />
