@@ -6,10 +6,6 @@ import { API_BASE_URL } from "../../config/serverApiConfig";
 import { motion } from "framer-motion";
 import Warning from '../../components/Loader/SearchBarError' 
 import { Toaster } from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import {CommercialCenter} from "../../redux/slice/CommercialCenterSlice";
-import OfferModal from "../components/Modal/OfferModal";
 import Cookies from "js-cookie"
 function MainCenter(){
 
@@ -22,7 +18,6 @@ function MainCenter(){
       filterApplied:false,
       FilterData:[]
     })as any
-
 
     // const dispatch =useDispatch()
     // const {state} = useSelector((state:any)=> state.CommercialCenterSlice)as any
@@ -103,7 +98,7 @@ function MainCenter(){
                   loader ?
                     Leads.length > 0 ?
                      Leads.map((el,i)=>(
-                      <LeadCard props={el} key={i} length={i} update={setUpdate} setCurrentFilter={setCurrentFilter} CurrentFilter={CurrentFilter} />
+                      <LeadCard props={el} key={i} length={i} update={setUpdate} setCurrentFilter={setCurrentFilter} CurrentFilter={CurrentFilter} Leads={Leads} setLeads={setLeads} />
 
                      ))
                      :
@@ -121,7 +116,7 @@ function MainCenter(){
                 }
                 
             
-   {/*  */}
+ 
             </div>
         </div>
     </div>

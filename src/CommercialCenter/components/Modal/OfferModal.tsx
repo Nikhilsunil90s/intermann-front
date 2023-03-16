@@ -8,6 +8,7 @@ function OfferModal(props) {
   let FilePath = "";
   let MailTo;
   let link;
+  console.log(props,"props")
   const [genOfferData, setDataGenOffer] = useState({
     company_name: props.props.companyName,
     company_email: props.props.email,
@@ -18,6 +19,7 @@ function OfferModal(props) {
     tax_heure_fait: "", // will come with euaro sign
     supplymentry_tax: "", // will come with euro sign
     total_salaire: "", // will come with euro sign
+    commercialLeadId:props.props._id
   });
   const [response, setResponse] = useState(true);
   const [filePath, setFilePath] = useState("");

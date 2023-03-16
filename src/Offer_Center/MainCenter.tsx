@@ -6,6 +6,8 @@ import Header from "./components/Header";
 import "./CSS/Offer.css";
 import UploadFile from "./Modal/UploadFile";
 import Error404Loader from "../components/Loader/404Error";
+import { Toaster } from "react-hot-toast";
+import Error from "../components/Loader/SearchBarError";
 
 function MainCenter() {
   const [uploadPdfModal, setUploadPdfModal] = useState({
@@ -75,6 +77,10 @@ function MainCenter() {
   };
   return (
     <>
+     <Toaster
+        position="top-right"
+        containerStyle={{ zIndex: "999999999999999999" }}
+      />
       <div className="container-fluid mt-4 mb-2">
         <div className="row">
           <div>
@@ -121,9 +127,14 @@ function MainCenter() {
 
                :
               
-              cards.length > 0 ? cards.map((el,i) => <Card props={el} key={i}  />) :    <div className="col-12 my-2 d-flex align-items-center justify-content-center">
-                      <span className="Leads002"></span>
+              cards.length > 0 ? cards.map((el,i) => <Card props={el} key={i} cards={cards} setCards={setCards} />) :   
+               <div className="col-12 my-2 d-flex align-items-center justify-content-center">
+                      {/* <span className="Leads002"></span> */}
+                      <p className="mb-0 d-flex align-items-center ErrorSearchBox">
+                      <Error /> Offer's not available ✘✘!</p>
                       </div>
+
+
                       
                     :
                     <div className="col-12 my-2 d-flex align-items-center justify-content-center">

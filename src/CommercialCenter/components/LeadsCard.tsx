@@ -11,6 +11,8 @@ import DeleteLeadModal from "./Modal/DeleteLeadsModal";
 import Filter from "./Filter";
 import OfferModal from "./Modal/OfferModal";
 import Cookies from 'js-cookie'
+import VoirOfferModal from "../components/Modal/VoirOfferModal"
+
 
 function LeadCard(props) {
   const colourStyles: StylesConfig<ColourOption, true> = {
@@ -77,6 +79,8 @@ function LeadCard(props) {
   const [status, setStatus] = useState() as any;
 
   const [GenOffer, setGenOffer] = useState(false);
+  const [voir_offer,setVoirOffer]=useState(false)as any
+
 
   function padTo2DigitsCH(num) {
     return num.toString().padStart(2, "0");
@@ -1017,7 +1021,7 @@ function LeadCard(props) {
             </div>
             <div className="col-6 d-flex justify-content-end align-items-center">
           {props.props.offerSent ?  
-            <button className="leadsAddToCRM mx-1">Voir les offres</button>
+            <button className="leadsAddToCRM mx-1" onClick={()=>setVoirOffer(true)}>Voir les offres</button>
          :
          null 
 }
@@ -1238,7 +1242,7 @@ function LeadCard(props) {
                   props.props.offerSent == false ? 
                   null
                   :
-                  <div className="cursor-pointer" style={{height:"11px"}}>
+                  <div className="cursor-pointer" style={{height:"11px"}}  onClick={()=>setVoirOffer(true)}>
                   <p className="mb-0 offerVoir">Voir offre</p>
                   </div>
                 }
@@ -1717,6 +1721,14 @@ function LeadCard(props) {
               {GenOffer ? (
                 <OfferModal closeModal={setGenOffer} props={props.props} />
               ) : null}
+                {
+     voir_offer ?
+
+    <VoirOfferModal  props={props.props}  closeModal={setVoirOffer}  />
+
+    :
+    null
+   }
             </div>
           </div>
         </div>
