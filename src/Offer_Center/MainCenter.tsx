@@ -14,7 +14,8 @@ function MainCenter() {
     AddToCrm: false,
     Manually: false,
   });
-  const[btnDS,setBtnDs]=useState(false)
+  const [btnDS,setBtnDs]=useState(false)
+  const [dataUpdate,setDataUpdate]=useState(false)
   const [cards, setCards] = useState([]);
   const [Status,setStatus]=useState({
    status:false,
@@ -35,7 +36,7 @@ function MainCenter() {
         }
       })
       .catch((err)=>err);
-  },[])
+  },[dataUpdate])
   const activeTab = (e) => {
     setBtnDs(false)
     if (e.target.id === "sIGNEES") {
@@ -127,7 +128,7 @@ function MainCenter() {
 
                :
               
-              cards.length > 0 ? cards.map((el,i) => <Card props={el} key={i} cards={cards} setCards={setCards} />) :   
+              cards.length > 0 ? cards.map((el,i) => <Card props={el} key={i} cards={cards} setCards={setCards}  />) :   
                <div className="col-12 my-2 d-flex align-items-center justify-content-center">
                       {/* <span className="Leads002"></span> */}
                       <p className="mb-0 d-flex align-items-center ErrorSearchBox">
@@ -149,6 +150,7 @@ function MainCenter() {
                 uploadPdfModal={uploadPdfModal}
                 setUploadPdfModal={setUploadPdfModal}
                 AddToCrm={"addToCrm"}
+
               />
             ) : null}
             {uploadPdfModal.Manually ? (
@@ -156,6 +158,7 @@ function MainCenter() {
                 uploadPdfModal={uploadPdfModal}
                 setUploadPdfModal={setUploadPdfModal}
                 AddToCrm={"Manually"}
+                setDataUpdate={setDataUpdate}
               />
             ) : null}
           </div>
