@@ -61,8 +61,8 @@ function Card(props: any) {
 
   return (
     <>
-      <div className="row OfferCenterRow mb-1" key={props.props._id}>
-        <div className="col-7 d-flex align-items-center pl-0">
+      <div className="row OfferCenterRow mb-1" key={props.props._id} style={{margin:props.voir =="voir" ? "10px" : ""}}>
+        <div className={` ${props.voir =="voir" ? "col-9" :"col-7"} d-flex align-items-center pl-0`}>
           <p className="mb-0 d-flex justify-content-center">
             société :
             <b
@@ -104,20 +104,28 @@ function Card(props: any) {
             </b>
           </p>
         </div>
-        <div className="col-5">
+        <div className={`${props.voir =="voir" ? "col-3" :"col-5"}`}>
           <div className="row">
-            <div className="col-8 d-flex justify-content-end pl-0">
-              <button
-                className="btn LinkItClient mr-1"
-                onClick={() => setLinkToclient(true)}
-              >
-                Link it to Client
-              </button>
-              {props.props.offer_signed ? null : (
-                <button className="btn SignedMark">Mark as signed</button>
-              )}
-            </div>
-            <div className="col-4">
+            {props.voir =="voir" ? 
+
+            null 
+            :
+             <div className="col-8 d-flex justify-content-end pl-0">
+             <button
+               className="btn LinkItClient mr-1"
+               onClick={() => setLinkToclient(true)}
+             >
+               Link it to Client
+             </button>
+             {props.props.offer_signed ? null : (
+               <button className="btn SignedMark">Mark as signed</button>
+             )}
+           </div>
+           
+
+          }
+           
+            <div className={`${props.voir =="voir" ? "col-12" :"col-4"}`}>
               <div className=" d-flex align-items-center justify-content-center">
                 {deleteDsBtn.id === props.props._id ? (
                   <div className="d-flex justify-content-center align-items-center ml-1">

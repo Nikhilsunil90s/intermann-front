@@ -1,7 +1,27 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 import { motion } from "framer-motion";
+import { GetRoute } from "../../../components/ApisFunction/FunctionsApi";
+import Card from "../../../Offer_Center/components/Card";
+import Error from "../../../components/Loader/SearchBarError";
 
 function VoirOfferModal(props){
+   const [totalOffer,setTotalOffer]=useState([])as any
+   const [status,setStatus]=useState(false)
+   useEffect(()=>{
+    setStatus(false)
+   GetRoute(`get-associated-offers/?leadId=${props.props._id} `).then((res)=>{
+    if(res.status){
+        setStatus(true)
+        setTotalOffer([...res.data])
+
+
+    }else{
+        setStatus(true)
+        setTotalOffer([])
+    }
+   })
+   },[])
+
     return(<>
       <div className="modal d-block" style={{ backgroundColor: "#00000052" }} id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div   
@@ -19,7 +39,7 @@ function VoirOfferModal(props){
                     </div>
                     </div>
                     </div>
-                    <div className="modal-body scrollbarModal text-start" >
+                    <div className="modal-body scrollbarModal text-start" style={{height:"70vh"}}>
                      
                        <p className="mb-0" style={{
                             fontFamily: 'Poppins',
@@ -31,7 +51,24 @@ function VoirOfferModal(props){
                             wordBreak:"break-all"
                       
                         }}>
-                        {}
+                        {status ?
+                        totalOffer.length > 0  ?
+totalOffer.map((el:any,i)=>(
+<Card props={el} key={i} cards={totalOffer} setCards={setTotalOffer} voir={"voir"} />
+
+))
+
+:
+<div className="col-12 my-2 d-flex align-items-center justify-content-center">
+{/* <span className="Leads002"></span> */}
+<p className="mb-0 d-flex align-items-center ErrorSearchBox">
+<Error /> Offer's not available ✘✘!</p>
+</div>
+                       :
+                       <div className="col-12 my-2 d-flex align-items-center justify-content-center" style={{height:"50vh"}}>
+                    <span className="Leads002"></span>
+                    </div> 
+                        }
                               </p>  
                                </div>
                   
