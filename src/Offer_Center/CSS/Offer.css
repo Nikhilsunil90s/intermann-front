@@ -196,6 +196,9 @@
   color: #032339;
   background-color: transparent;
 }
+.clientLinkSelect .css-26l3qy-menu {
+  top: -701% !important;
+}
 
 @media (min-width:1200px){
   .OfferCenterRow p {

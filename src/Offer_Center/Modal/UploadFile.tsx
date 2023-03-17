@@ -108,7 +108,7 @@ function UploadFile(props) {
       >
         <div
           className="modal-dialog modal-lg"
-          style={{ width: "735px", marginTop: "29px" }}
+          style={{ width: "810px", marginTop: "29px" }}
         >
           <div className="modal-content">
             {props.uploadPdfModal.Manually ? (
@@ -190,7 +190,7 @@ function UploadFile(props) {
             )}
             <div
               className="modal-body text-start"
-              style={{ height: "445px", overflow: "scroll" }}
+              style={{ height: "579px",  }}
             >
               <div className="col-12 ">
                 {props.uploadPdfModal.Manually ? (
@@ -284,6 +284,7 @@ function UploadFile(props) {
                             lineHeight: "24px",
                             color: "#92929D",
                           }}
+                          className="mb-0"
                         >
                           Upload Pdf file
                         </p>
@@ -298,7 +299,7 @@ function UploadFile(props) {
                         />
                       </div>
                     </div>
-                    <div className="col-12 my-2 d-flex align-items-center">
+                    <div className="col-12 my-1 d-flex align-items-center">
                       <p
                         className="mb-0 "
                         style={{

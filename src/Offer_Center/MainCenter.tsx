@@ -15,6 +15,7 @@ function MainCenter() {
     Manually: false,
   });
   const [btnDS,setBtnDs]=useState(false)
+  const [currentTab,setCurrentTab]=useState("unsigned")
   const [dataUpdate,setDataUpdate]=useState(false)
   const [cards, setCards] = useState([]);
   const [Status,setStatus]=useState({
@@ -40,6 +41,8 @@ function MainCenter() {
   const activeTab = (e) => {
     setBtnDs(false)
     if (e.target.id === "sIGNEES") {
+      setStatus({...Status,status:false})
+      setCurrentTab("sIGNEES")
       document.getElementById("sIGNEES").classList.add("activeBtnOffer");
       document.getElementById("sIGNEES").classList.remove("transBtn");
       document.getElementById("envoyees").classList.remove("activeBtnOffer");
@@ -57,6 +60,8 @@ function MainCenter() {
         }
       });
     } else {
+      setStatus({...Status,status:false})
+      setCurrentTab("envoyees")
       document.getElementById("sIGNEES").classList.remove("activeBtnOffer");
       document.getElementById("sIGNEES").classList.add("transBtn");
       document.getElementById("envoyees").classList.add("activeBtnOffer");
@@ -132,7 +137,7 @@ function MainCenter() {
                <div className="col-12 my-2 d-flex align-items-center justify-content-center">
                       {/* <span className="Leads002"></span> */}
                       <p className="mb-0 d-flex align-items-center ErrorSearchBox">
-                      <Error /> Offer's not available ✘✘!</p>
+                      <Error />{currentTab == "envoyees" ? "✘✘ No Offers Sent Yet!" : "✘✘ No Signed Offers!" }  </p>
                       </div>
 
 

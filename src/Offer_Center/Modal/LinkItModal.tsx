@@ -381,7 +381,7 @@ function LinkItModal(props) {
                           name="candidatName"
                           closeMenuOnSelect={true}
                           placeholder="‎ ‎ ‎ ‎ ‎ ‎Select client in CRM Database"
-                          className="basic-multi-select"
+                          className="basic-multi-select clientLinkSelect"
                           classNamePrefix="select"
                           //   onChange={handleNameChange}
                           options={client}

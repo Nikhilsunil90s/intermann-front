@@ -34,10 +34,10 @@ function Card(props: any) {
     });
   };
 
-  const DeleteOffer = (id) => {
+  const DeleteOffer = (path,id) => {
     setDeleteDsBtn({ ...dsBtn, ["DSBTN"]: true });
     setDeleteDsBtn({ ...dsBtn, ["id"]: id });
-    GetRoute(`delete-offer/?offerId=${props.props._id}`).then(
+    GetRoute(path).then(
       (res) => {
         if (res.status) {
           toast.success(res.message);
@@ -138,7 +138,7 @@ function Card(props: any) {
                   <button
                     className={`col-6 px-0 RoundDiv cursor-pointer`}
                     style={{ border: "0px" }}
-                    onClick={() => DeleteOffer(props.props._id)}
+                    onClick={() => DeleteOffer( props.props.offer_mode === "manual" ?  `delete-manual-offer/?doc_id=${props.props._id}&public_id=${props.props.offerDocument.file_public_id}` : `delete-offer/?offerId=${props.props._id}` , props.props._id)}
                   >
                     <img
                       src={require("../../images/Deletebucket.svg").default}

@@ -59,12 +59,13 @@ function OfferModal(props) {
     }
   };
 
-  const SendGenOffer = async () => {
+  const GenOffer = async () => {
     setResponse(false);
     PostRoute(genOfferData, "generate-offer")
       .then((res) => {
         setResponse(true);
         if (res.status) {
+          props.setUpdate(true)
           FilePath = res.filepath;
 
           MailTo = `mailto:${
@@ -401,7 +402,7 @@ function OfferModal(props) {
                       <button
                         className="leadsAddToCRM"
                         style={{ width: "350px" }}
-                        onClick={() => SendGenOffer()}
+                        onClick={() => GenOffer()}
                       >
                         Download PDF and send by email
                       </button>

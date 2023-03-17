@@ -1225,7 +1225,8 @@ function LeadCard(props) {
                 <div className="check-box d-flex align-items-center ">
                   <input
                     type="checkbox"
-                    defaultChecked={props.props.offerSent}
+                 
+                    checked={props.props.offerSent}
                     id={`offer${props.length}`}
                     onChange={(e) => {
                       switchCheck("Offre", props.props._id, e.target.checked);
@@ -1719,7 +1720,7 @@ function LeadCard(props) {
                 />
               ) : null}
               {GenOffer ? (
-                <OfferModal closeModal={setGenOffer} props={props.props} />
+                <OfferModal closeModal={setGenOffer} props={props.props} setUpdate={props.update} />
               ) : null}
                 {
      voir_offer ?

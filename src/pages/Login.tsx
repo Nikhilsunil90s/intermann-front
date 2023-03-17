@@ -199,7 +199,7 @@ function useOnClickOutside(ref, handler) {
 
                       <p className="lost-If">
                         If you lost your login account please mail
-                        contact@textone.fr Login should be your @intermann.ro
+                        contact@textone.fr <br />Login should be your @intermann.ro
                         adress
                       </p>
                     </div>
