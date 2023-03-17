@@ -108,7 +108,7 @@ function UploadFile(props) {
       >
         <div
           className="modal-dialog modal-lg"
-          style={{ width: "810px", marginTop: "29px" }}
+          style={{ width: "810px", marginTop: "17px" }}
         >
           <div className="modal-content">
             {props.uploadPdfModal.Manually ? (
@@ -190,7 +190,7 @@ function UploadFile(props) {
             )}
             <div
               className="modal-body text-start"
-              style={{ height: "579px",  }}
+              style={ {height:props.uploadPdfModal.Manually ? "579px" :"229px" } }
             >
               <div className="col-12 ">
                 {props.uploadPdfModal.Manually ? (
@@ -359,7 +359,7 @@ function UploadFile(props) {
                   </div>
                 ) : (
                   <p
-                    className="py-2 px-4"
+                    className="py-2 px-4 text-center"
                     style={{
                       fontFamily: "Poppins",
                       fontStyle: "normal",
@@ -368,6 +368,7 @@ function UploadFile(props) {
                       lineHeight: "24px",
                       color: "#000000",
                     }}
+                  
                   >
                     Vous devez vous rendre sur le Commercial Center et rajouter
                     un lead manuellement et ensuite cliquer sur Generate Offer

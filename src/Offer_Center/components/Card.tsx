@@ -59,6 +59,12 @@ function Card(props: any) {
     .catch(err=>err)
   };
 
+  const MoveToSigned=(id)=>{
+    const newArr=  props.cards.filter((el: any) => el._id !== props.props._id)
+    props.setCards([...newArr])
+
+  }
+
   return (
     <>
       <div className="row OfferCenterRow mb-1" key={props.props._id} style={{margin:props.voir =="voir" ? "10px" : ""}}>
@@ -118,7 +124,7 @@ function Card(props: any) {
                Link it to Client
              </button>
              {props.props.offer_signed ? null : (
-               <button className="btn SignedMark">Mark as signed</button>
+               <button onClick={MoveToSigned} className="btn SignedMark">Mark as signed</button>
              )}
            </div>
            

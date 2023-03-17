@@ -62,7 +62,7 @@ totalOffer.map((el:any,i)=>(
 <div className="col-12 my-2 d-flex align-items-center justify-content-center">
 {/* <span className="Leads002"></span> */}
 <p className="mb-0 d-flex align-items-center ErrorSearchBox">
-<Error /> Offer's not available ✘✘!</p>
+<Error /> No Offers Available ✘✘!</p>
 </div>
                        :
                        <div className="col-12 my-2 d-flex align-items-center justify-content-center" style={{height:"50vh"}}>
