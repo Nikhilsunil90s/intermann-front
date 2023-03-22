@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { GetRouteWithoutAuth,GetRoute } from "../../components/ApisFunction/FunctionsApi";
+import { GetRouteWithoutAuth,GetRoute, PostRoute } from "../../components/ApisFunction/FunctionsApi";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import LinkItModal from "../Modal/LinkItModal";
 
@@ -59,9 +59,21 @@ function Card(props: any) {
     .catch(err=>err)
   };
 
-  const MoveToSigned=(id)=>{
-    const newArr=  props.cards.filter((el: any) => el._id !== props.props._id)
-    props.setCards([...newArr])
+  const MoveToSigned=(id)=>{ 
+    let data = {
+      offerId:id
+    }
+    PostRoute(data,"mark-offer-as-signed").then((res)=>{
+      if(res.status){
+        toast.success(res.message)
+        const newArr=  props.cards.filter((el: any) => el._id !== props.props._id)
+        props.setCards([...newArr])
+      }else{
+        toast.error(res.message)
+      }
+    })
+    .catch((err)=>err)
+ 
 
   }
 
@@ -124,7 +136,7 @@ function Card(props: any) {
                Link it to Client
              </button>
              {props.props.offer_signed ? null : (
-               <button onClick={MoveToSigned} className="btn SignedMark">Mark as signed</button>
+               <button onClick={()=>MoveToSigned(props.props._id)} className="btn SignedMark">Mark as signed</button>
              )}
            </div>
            

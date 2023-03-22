@@ -8,7 +8,9 @@ import UploadFile from "./Modal/UploadFile";
 import Error404Loader from "../components/Loader/404Error";
 import { Toaster } from "react-hot-toast";
 import Error from "../components/Loader/SearchBarError";
-
+import Filters from "../Leads/LeadComponents/Filters";
+let name=[]as any
+let job=[]as any
 function MainCenter() {
   const [uploadPdfModal, setUploadPdfModal] = useState({
     AddToCrm: false,
@@ -22,17 +24,21 @@ function MainCenter() {
    status:false,
    error:false
   })
+  const [filters,setFilters]=useState([])as any
 
   useEffect(()=>{
-    GetRoute(`get-offers/?offerType=${"unsigned"}`).then((res) => {
+    GetRoute(`get-offers/?offerType=${currentTab}`).then((res) => {
         if (res.status) {
           setCards([...res.data]);
-          setBtnDs(true)
+          setBtnDs(false)
           setStatus({...Status,status:true})
+          setDataUpdate(false)
         } else {
           setCards([]);
-          setBtnDs(true)
+          setBtnDs(false)
           setStatus({...Status,error:true})
+          setDataUpdate(false)
+
 
         }
       })
@@ -42,7 +48,7 @@ function MainCenter() {
     setBtnDs(false)
     if (e.target.id === "sIGNEES") {
       setStatus({...Status,status:false})
-      setCurrentTab("sIGNEES")
+      setCurrentTab("signed")
       document.getElementById("sIGNEES").classList.add("activeBtnOffer");
       document.getElementById("sIGNEES").classList.remove("transBtn");
       document.getElementById("envoyees").classList.remove("activeBtnOffer");
@@ -50,18 +56,26 @@ function MainCenter() {
       GetRoute(`get-offers/?offerType=${"signed"}`).then((res) => {
         if (res.status) {
           setCards([...res.data]);
+          name=[]
+          job=[]
+          setFilters([])
           setBtnDs(true)
           setStatus({...Status,status:true})
 
         } else {
           setCards([]);
+          name=[]
+          job=[]
+          setFilters({
+            name:[]
+          })
           setBtnDs(true)
           setStatus({...Status,error:true})
         }
       });
     } else {
       setStatus({...Status,status:false})
-      setCurrentTab("envoyees")
+      setCurrentTab("unsigned")
       document.getElementById("sIGNEES").classList.remove("activeBtnOffer");
       document.getElementById("sIGNEES").classList.add("transBtn");
       document.getElementById("envoyees").classList.add("activeBtnOffer");
@@ -69,11 +83,19 @@ function MainCenter() {
       GetRoute(`get-offers/?offerType=${"unsigned"}`).then((res) => {
         if (res.status) {
           setCards([...res.data]);
+          name=[]
+          job=[]
+          setFilters([])
           setBtnDs(true)
           setStatus({...Status,status:true})
 
         } else {
           setCards([]);
+          name=[]
+          job=[]
+          setFilters({
+            name:[]
+          })
           setBtnDs(true)
           setStatus({...Status,error:true})
 
@@ -81,6 +103,34 @@ function MainCenter() {
       });
     }
   };
+
+  useEffect(()=>{
+    
+   if(cards.length > 0 && filters.length === 0){
+    cards.map((el:any)=>{
+      if(el.company_name){
+         name.push({
+          value: el.company_name ,
+          label:el.company_name.toLocaleUpperCase() ,
+          color: "#FF8B00",
+          name: "company_name",
+        });
+      }
+      if(el?.metier){
+        job.push({
+          value: el.metier ,
+          label:el.metier.toLocaleUpperCase() ,
+          color: "#FF8B00",
+          name: "metier",
+        });
+      }
+   
+      
+    })
+   setFilters({...filters,name:[...name],job:[...job]})
+   } 
+  })
+
   return (
     <>
      <Toaster
@@ -93,7 +143,7 @@ function MainCenter() {
             <Header setUploadPdfModal={setUploadPdfModal} />
           </div>
           <div>
-            <Filter />
+            <Filter filterOP={filters} setStatus={setStatus} Status={Status} setDataUpdate={setDataUpdate} currentTab={currentTab}  setCards={setCards} />
           </div>
           <div>
             <div className="col-12 colorTopTab p-1">
@@ -137,7 +187,7 @@ function MainCenter() {
                <div className="col-12 my-2 d-flex align-items-center justify-content-center">
                       {/* <span className="Leads002"></span> */}
                       <p className="mb-0 d-flex align-items-center ErrorSearchBox">
-                      <Error />{currentTab == "envoyees" ? "✘✘ No Offers Sent Yet!" : "✘✘ No Signed Offers!" }  </p>
+                      <Error />{currentTab == "unsigned" ? "✘✘ No Offers Sent Yet!" : "✘✘ No Signed Offers!" }  </p>
                       </div>
 
 
