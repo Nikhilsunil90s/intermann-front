@@ -110,8 +110,8 @@ function MainCenter() {
     cards.map((el:any)=>{
       if(el.company_name){
          name.push({
-          value: el.company_name ,
-          label:el.company_name.toLocaleUpperCase() ,
+          value: el.company_name,
+          label:el.company_name.toUpperCase() ,
           color: "#FF8B00",
           name: "company_name",
         });
@@ -119,7 +119,7 @@ function MainCenter() {
       if(el?.metier){
         job.push({
           value: el.metier ,
-          label:el.metier.toLocaleUpperCase() ,
+          label:el.metier.toUpperCase() ,
           color: "#FF8B00",
           name: "metier",
         });

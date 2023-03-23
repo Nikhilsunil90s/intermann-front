@@ -29,7 +29,7 @@ function Filter(props: any) {
       setOpen(false);
     }
   };
-  console.log(range, "date");
+  
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: "white" }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -112,8 +112,8 @@ function Filter(props: any) {
     console.log([date.selection])
     setData({
       ...data,
-      ["start_date"]: format(date.selection.startDate, "dd-MM-yyyy"),
-      ["end_date"]: format(date.selection.endDate, "dd-MM-yyyy"),
+      ["start_date"]: format(date.selection.startDate, "yyyy-MM-dd"),
+      ["end_date"]: format(date.selection.endDate, "yyyy-MM-dd"),
       offer_signed: props.currentTab === "unsigned" ? false : true,
     });
   };
@@ -175,7 +175,7 @@ function Filter(props: any) {
               />
             ) : (
               <>
-                {" "}
+                
                 <div className="spinner-grow text-primary" role="status">
                   <span className="visually-hidden">Loading...</span>
                 </div>
@@ -198,7 +198,7 @@ function Filter(props: any) {
             )}
           </div>
           <div className="col-4">
-            {" "}
+            
             <label style={{ fontSize: "14px" }} className="Form-styling">
               Sort by Date
             </label>
@@ -248,7 +248,7 @@ function Filter(props: any) {
             </div>
           </div>
           <div className="col-4">
-            {" "}
+            
             <label>filtrer par Métier/job name</label>
             {props.filterOP?.job?.length > 0 ? (
               <Select
@@ -272,7 +272,7 @@ function Filter(props: any) {
               />
             ) : (
               <>
-                {" "}
+                
                 <div className="spinner-grow text-primary" role="status">
                   <span className="visually-hidden">Loading...</span>
                 </div>
@@ -300,7 +300,7 @@ function Filter(props: any) {
             <div className="col-12 mt-2">
               <div className="row justify-content-end">
                 <div className="col-2">
-                  {" "}
+                  
                   <button
                     className="glow-on-hover mr-2"
                     style={{ width: "100%", height: "40px" }}
@@ -313,7 +313,7 @@ function Filter(props: any) {
                 </div>
                 {data !== undefined ? (
                   <div className="col-2">
-                    {" "}
+                    
                     <button
                       className="RESETfilters"
                       onClick={(e) => ApplyAnResetFilter(e)}
