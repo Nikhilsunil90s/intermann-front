@@ -401,7 +401,7 @@ function Preselected(){
             fetchProfiles().then((profileResult) => {
               profileResult.data.filter((item) => {
                 if(item.candidatEmail){
-               emailops.push({ value: item.candidatEmail, label: item.candidatEmail.toLocaleUpperCase(), color: '#FF8B00' })
+               emailops.push({ value: item.candidatEmail, label: item.candidatEmail.toLocaleLowerCase(), color: '#FF8B00' })
                 }
             })
                setEmail([  {

@@ -123,9 +123,15 @@ export default function DownloadCenter() {
     )
       .then((resp) => resp.json())
       .then((respData) => {
-        toast.success("Contrat Client Removed Successfully!");
-        setdeleteCanContract(true);
-        setBtnDS({ ...btnDS, active: false, deleteId: "" });
+        if(respData.status){
+       let newData=   ClientContracts.filter((el:any)=> el.clientId  !== id)
+       
+       setAllProfiles([...newData])
+          toast.success("Contrat Client Removed Successfully!");
+          setdeleteCanContract(true);
+          setBtnDS({ ...btnDS, active: false, deleteId: "" });
+     
+        }
       })
       .catch((err) => {
         toast.error("Contrat Client Not Removed!");
@@ -148,9 +154,13 @@ export default function DownloadCenter() {
     )
       .then((resp) => resp.json())
       .then((respData) => {
+        if(respData.status){
+          let newArr = candidateContracts.filter((el)=> el.candidatId !== id)
+          setAllProfiles([...newArr])
         toast.success("Contrat Employé Removed Successfully!");
         setBtnDS({ ...btnDS, active: false, deleteId: "" });
         setdeleteCanContract(true);
+        }
       })
       .catch((err) => {
         toast.error("Contrat Employé Not Removed!");
@@ -172,10 +182,13 @@ export default function DownloadCenter() {
     )
       .then((resp) => resp.json())
       .then((respData) => {
+        if(respData.status){
+          let newArr = representance.filter((el)=> el._id !== id)
+          setAllProfiles([...newArr])
         toast.success("Représentance Removed Successfully!");
         setdeleteCanContract(true);
         setBtnDS({ ...btnDS, active: false, deleteId: "" });
-      })
+   } })
       .catch((err) => {
         toast.error("Représentance Not Removed!");
         setBtnDS({ ...btnDS, active: false, deleteId: "" });
@@ -192,10 +205,13 @@ export default function DownloadCenter() {
     })
       .then((resp) => resp.json())
       .then((respData) => {
+        if(respData.status){
+          let newArr = Avance.filter((el)=> el._id !== id)
+          setAllProfiles([...newArr])
         toast.success("Avance Removed Successfully!");
         setdeleteCanContract(true);
         setBtnDS({ ...btnDS, active: false, deleteId: "" });
-      })
+   } })
       .catch((err) => {
         toast.error("Avance Not Removed!");
         setBtnDS({ ...btnDS, active: false, deleteId: "" });

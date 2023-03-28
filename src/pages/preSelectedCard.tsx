@@ -287,10 +287,10 @@ const PreSelectedCard = (props: any) => {
               
               {props.data.candidatEmail
                 ? props.data.candidatEmail.length > 20
-                  ? props.data.candidatEmail.slice(0, 22).toLocaleUpperCase() +
+                  ? props.data.candidatEmail.slice(0, 22)+
                     "..."
-                  : props.data.candidatEmail.toLocaleUpperCase()
-                : "✘ No Email Provided!"}
+                  : props.data.candidatEmail
+                                  : "✘ No Email Provided!"}
             </b>
           </p>
           <p
@@ -350,7 +350,7 @@ const PreSelectedCard = (props: any) => {
                         onClick={() => showCustomerProfile(el.clientId)}
                    
                       >
-                        {el.clientId.clientCompanyName.toLocaleUpperCase()}
+                        {el.clientId.clientCompanyName ?el.clientId.clientCompanyName.toLocaleUpperCase() : ""}
                       </p>
                     ))}
                   </div>

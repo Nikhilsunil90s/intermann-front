@@ -567,7 +567,7 @@ if(checked == false){
           if (response.status) {
             notifyCandidatEditSuccess()
             setTimeout(() => {
-              navigate(path);
+              navigate("/preSelected/preSelectedView");
             }, 2000)
           }else{
 

@@ -2189,6 +2189,17 @@ padding: 10px 25px;
 }
 }
 @media (min-width:1400px){
+  .btn-careerClient{
+    background: #032339;
+    border-radius: 100px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    padding: 15px 33px;
+    color: #FFFFFF;
+  }
   .footerDocSign .btn{
     font-family: 'Poppins';
     font-style: normal;

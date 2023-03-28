@@ -56,78 +56,126 @@ function GdocumentCandidatePage() {
     window.open(documentName);
   };
 
+
   useEffect(() => {
     // documentList.map((el) => {
-        profile?.candidatLinks?.map((Link)=>{
-        profile?.candidatDocuments?.map((el) => {
+        profile?.candidatDocuments?.map((el)=>{
+   
             if (
               JSON.stringify(el.folderName ? el.folderName : null).includes(
                 JSON.stringify("Reges") 
-              ) ||  JSON.stringify(Link.folder ? Link.folder : null).includes(
-                JSON.stringify("Reges"))
+              )
             ) {
-              setReges([el,Link]);
+              setReges([el]);
             }
             if (
-              JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("CONTRACT")) ||  JSON.stringify(Link.folder ? Link.folder : null).includes(JSON.stringify("CONTRACT"))
-              )
+              JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("CONTRACT")))            
              {
-              setCONTRACT_EMPLOYE_INTERMANN([el,Link]);
+              setCONTRACT_EMPLOYE_INTERMANN([el]);
             }
             if (
-              JSON.stringify(el.folderName ? el.folderName : null).includes(
-                JSON.stringify("BULETIN_/_ID_CARD")
-              )  ||  JSON.stringify(Link.folder ? Link.folder : null).includes(
-                JSON.stringify("BULETIN_/_ID_CARD"))
-            ) {
-              setID_CARD([el,Link]);
+            el.folderName =="BULETIN_/_ID_CARD"
+              )     {
+               console.log(el,"el")
+              setID_CARD([el]);
             }
             if (
               JSON.stringify(el.folderName ? el.folderName : null).includes(
                 JSON.stringify("Fiche_Medicale")
-              ) || JSON.stringify(Link.folder ? Link.folder : null).includes(
-                JSON.stringify("Fiche_Medicale")
-            )) {
-              setFiche_Medicale([el,Link]);
+              ) 
+            ) {
+              setFiche_Medicale([el]);
             }
             if (
               JSON.stringify(el.folderName ? el.folderName : null).includes(
                 JSON.stringify("Assurance")
-              ) ||   JSON.stringify(Link.folder ? Link.folder : null).includes(
-                JSON.stringify("Assurance")
-              )
+              ) 
+          
             ) {
-              setAssurance([el,Link]);
+              setAssurance([el]);
             }
             if (
               JSON.stringify(el.folderName ? el.folderName : null).includes(
                 JSON.stringify("Fiche_mise_à_disposition")
-              ) || JSON.stringify(Link.folder ? Link.folder : null).includes(
-                JSON.stringify("Fiche_mise_à_disposition")
+              
               )
             ) {
-              setFiche_mise_à_disposition([el,Link]);
+              setFiche_mise_à_disposition([el]);
             }
             if (
               JSON.stringify(el.folderName ? el.folderName : null).includes(
                 JSON.stringify("factures_payes")
-              ) ||  JSON.stringify(Link.folder? Link.folder : null).includes(
-                JSON.stringify("factures_payes")
-              )
+              ) 
             ) {
-              setfactures_payes([el,Link]);
+              setfactures_payes([el]);
             } if (
               JSON.stringify(el.folderName ? el.folderName : null).includes(
                 JSON.stringify("factures_impayes") 
-              ) ||  JSON.stringify(Link.folder ? Link.folder : null).includes(
+              ) 
+            ) {
+              setfactures_impayes([el]);
+            }
+    
+  })
+  },[profile]);
+
+
+  useEffect(() => {
+      
+        profile?.candidatLinks?.map((Link) => {
+            if (
+              JSON.stringify(Link.folder ? Link.folder : null).includes(
+                JSON.stringify("Reges"))
+            ) {
+              setReges([Link]);
+            }
+            if (
+               JSON.stringify(Link.folder ? Link.folder : null).includes(JSON.stringify("CONTRACT"))
+              )
+             {
+              setCONTRACT_EMPLOYE_INTERMANN([Link]);
+            }
+            if (
+              Link.folder =="BULETIN_/_ID_CARD"
+              )     {
+               
+              setID_CARD([Link]);
+            }
+            if (
+              JSON.stringify(Link.folder ? Link.folder : null).includes(
+                JSON.stringify("Fiche_Medicale")
+            )) {
+              setFiche_Medicale([Link]);
+            }
+            if (   JSON.stringify(Link.folder ? Link.folder : null).includes(
+                JSON.stringify("Assurance")
+              )
+            ) {
+              setAssurance([Link]);
+            }
+            if (
+             JSON.stringify(Link.folder ? Link.folder : null).includes(
+                JSON.stringify("Fiche_mise_à_disposition")
+              )
+            ) {
+              setFiche_mise_à_disposition([Link]);
+            }
+            if (
+             JSON.stringify(Link.folder? Link.folder : null).includes(
+                JSON.stringify("factures_payes")
+              )
+            ) {
+              setfactures_payes([Link]);
+            } if (
+                JSON.stringify(Link.folder ? Link.folder : null).includes(
                 JSON.stringify("factures_impayes")
               )
             ) {
-              setfactures_impayes([el,Link]);
+              setfactures_impayes([Link]);
             }
-    });
+
   })
-  },[documentList]);
+  },[profile]);
 
 
 

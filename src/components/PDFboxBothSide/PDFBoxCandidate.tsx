@@ -312,7 +312,7 @@ const onTabClick = (e, index: any) => {
   }as any
   
    const LinktoDrive = async (updatedData: any) => {
-    console.log(updatedData)
+    // console.log(updatedData)
     let headers = {
       "Accept": 'application/json',
       'Content-Type': 'application/json',
@@ -345,7 +345,7 @@ const onTabClick = (e, index: any) => {
      
       
   
-      console.log(isValidUrl(DriveLink));
+      // console.log(isValidUrl(DriveLink));
     }
   }
       // const urlPattern = new RegExp(DriveLink);
@@ -380,7 +380,6 @@ const onTabClick = (e, index: any) => {
          .catch(err => toast.error("Link Not Removed! Please Try Again in few minutes."))
      };
 
-     console.log(WarningText,"text")
     return(
         <>
           <div className="col-12 Social-Card mt-1">

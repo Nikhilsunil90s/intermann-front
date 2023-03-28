@@ -140,7 +140,6 @@ function ClientTodoEdit() {
   },[Tauxarr,SalaryTotal]) 
 
   const switchHandle=(checked,id,e)=>{
-console.log(id,"checked")
 setFormTouched(true)
 if(e=="Permis"){
 if(checked === true){
@@ -521,7 +520,8 @@ const onInputChange=(val)=>{
         hiddenFileInput.current.click();
     }
     const handleSectorChange = (e: any) => {
-setJobOptions([])
+       setFormTouched(true)
+       setJobOptions([])
           if (e.value === "Select Un Secteur") {
           setJobs([]);
           setSelectedSector("");
@@ -530,6 +530,14 @@ setJobOptions([])
         } else if (e.value !== '') {
           let sectorField = e.value;
           setSelectedSector(sectorField);
+          fetchAllJobs(e.value)
+          .then((data) => {
+            // console.log(data);
+            setJobs([...data.data]);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         //   setJobOptions([]);
         }
     }
@@ -539,17 +547,17 @@ setJobOptions([])
             HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
         >
     ) => {
-        console.log(e.target.name, e.target.value)
+        // console.log(e.target.name, e.target.value)
         setFormTouched(true);
         if (e.target.name === 'clientPhoto') {
-            console.log("Check photo")
+            // console.log("Check photo")
             const fileUploaded = e.target.files[0];
             setClientImage(fileUploaded);
             let formdata = new FormData();
             formdata.append('clientId', profile._id);
             formdata.append('image', fileUploaded);
             uploadImage(formdata).then((respdata) => {
-                console.log(respdata);
+                // console.log(respdata);
                 notifyPhotoUploadSuccess()
                 setTimeout(() => {
                     window.location.href = "/clientTodo/clientToDoEdit"
@@ -570,11 +578,11 @@ setJobOptions([])
         if (e.target.name === 'clientLanguages') {
             if (e.target?.checked) {
                 addLanguages(e.target.value);
-                console.log(selectedLanguages)
+                // console.log(selectedLanguages)
                 return
             } else {
                 removeLanguages(e.target.value);
-                console.log(selectedLanguages)
+                // console.log(selectedLanguages)
                 return
             }
         }
@@ -636,7 +644,7 @@ setJobOptions([])
               rate_hours :data.rate_hours.length > 0 ? data.rate_hours : profile.rate_hours,
               clientPermis: data.clientPermis == true ? true : profile.clientPermis,
                 clientId: profile._id,
-                clientName: data.clientCompanyName !== "" ? data.clientCompanyName : profile.clientCompanyName,
+                clientCompanyName: data.clientCompanyName !== "" ? data.clientCompanyName : profile.clientCompanyName,
                 numberOfPosts: data.numberOfPosts !== "" ? data.numberOfPosts : profile.numberOfPosts,
                 clientMotivation: data.clientMotivation !== 0 ? data.clientMotivation : profile.clientMotivation,
                 clientImportance: data.clientImportance !== 0 ? data.clientImportance : profile.clientImportance,
@@ -684,7 +692,7 @@ setJobOptions([])
                 worker_name_7 :   data.worker_name_7 !== "" ? data.worker_name_7 : profile.clientContract ? profile.clientContract.worker_name_7 !== "" ? profile.clientContract.worker_name_7 : "" : "",
                 worker_number_8 :  data.worker_number_8 !== "" ? data.worker_number_8 : profile.clientContract ? profile.clientContract.worker_number_8 !== "" ? profile.clientContract.worker_number_8 : "" : "",
                 worker_name_8 :   data.worker_name_8 !== "" ? data.worker_name_8 : profile.clientContract ? profile.clientContract.worker_name_8 !== "" ? profile.clientContract.worker_name_8 : "" : "",
-                contractId: profile.clientContract ? profile.clientContract.contractId !== "" ? profile.clientContract.contractId : null : null,
+                contractId: profile.clientContract ? profile.clientContract._id !== "" ? profile.clientContract._id : null : null,
                 poste_du_gerant: data.poste_du_gerant !== "" ? data.poste_du_gerant : profile.clientContract ? profile.clientContract.poste_du_gerant !== "" ? profile.clientContract.poste_du_gerant : "" : "",
             }
             console.log(updatedData)
@@ -754,13 +762,13 @@ setJobOptions([])
     const jobChange = async (jobval) => {
         // console.log(jobval)
         setFormTouched(true)
-        let JobArr=[]as any
-        jobval.map((el)=>{
+        // let JobArr=[]as any
+        // jobval.map((el)=>{
          
-         JobArr.push(el.value)
+        //  JobArr.push(el.value)
       
-        })
-        changeJobSelection(JobArr)
+        // })
+        changeJobSelection(jobval.value)
       }
       const handleChangeLanguage = (selectedOption) => {
         let arr = []
@@ -911,11 +919,10 @@ className="SelectBtn"
                       name="jobName"
                       id="clientJob"
                       closeMenuOnSelect={true}
-                      isMulti
                       placeholder="‎ ‎ ‎ Select"
                       className="basic-multi-select"
                       classNamePrefix="select"
-                      defaultValue={{label:profile.clientJob,value:profile.clientJob,color:"#FE8700"}}
+                      defaultValue={selectedSector ? null :{label:profile.clientJob,value:profile.clientJob,color:"#FE8700"}}
                       // defaultInputValue={{label:profile.clientJob,value:profile.clientJob,color:"#FE8700"}}
                       onChange={jobChange}
                       options={jobOptions}

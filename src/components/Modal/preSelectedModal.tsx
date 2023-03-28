@@ -20,15 +20,14 @@ function PreModal({props,closepreModal}) {
   const [btnLoader, setbtnLoader] = useState(false);
   const [btnDisabled,setbtnDisabled]=useState(false)
 
-useEffect(()=>{
-  if(clientDataOptions.length == 0){
+  if(clientDataOptions.length == 0 && Client.length > 0){
   setClientOption( Client ? Client.map((client) => {
     return { label: client.clientCompanyName.toLocaleUpperCase() + ` (${client.jobStatus})`, value: client._id, color: '#FF8B00' }
   }) :  props.clients ? props.clients.map((client) => {
     return { label: client.clientCompanyName.toLocaleUpperCase() + ` (${client.jobStatus})`, value: client._id, color: '#FF8B00' }
   }): [{ label: 'No Clients In this Sector', value: "", color: '#FF8B00' }])
 }
-},[clientDataOptions])
+
 
 
 

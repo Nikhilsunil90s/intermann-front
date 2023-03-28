@@ -709,10 +709,11 @@ function ArchivedViewPage() {
                     type="button"
                     className="btn btn-careerClient"
                     onClick={(e) => setPDFModal(true)}
+                    style={{height:"63px"}}
                   >
                     <span>
                       <img
-                        style={{ paddingRight: "10px" }}
+                        style={{ paddingRight: "10px" ,}}
                         src={require("../../images/doc.svg").default}
                       />
                     </span>
