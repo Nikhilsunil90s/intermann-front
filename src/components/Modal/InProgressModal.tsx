@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import Select,{StylesConfig} from "react-select";
+import Select, { StylesConfig } from "react-select";
 import { API_BASE_URL } from "../../config/serverApiConfig";
-import { ColourOption, colourOptions, colourOptionsFetes, fromPerson } from '../../Selecteddata/data';
-import chroma from 'chroma-js';
+import {
+  ColourOption,
+} from "../../Selecteddata/data";
+import chroma from "chroma-js";
 import { useNavigate } from "react-router-dom";
-import ProfileLoader from "../../components/Loader/ProfilesLoader" 
-import Cookies from "js-cookie"
-let CName=[]
+import ProfileLoader from "../../components/Loader/ProfilesLoader";
+import Cookies from "js-cookie";
+let CName = [];
 function InProgressModal({ props, closeModal }) {
   const navigate = useNavigate();
-  const [workingFor, setWorkingFor] = useState("")
-  const [workingSince, setWorking] = useState("")
-  const [salary, setSalary] = useState("")
+  const [workingFor, setWorkingFor] = useState("");
+  const [workingSince, setWorking] = useState("");
+  const [salary, setSalary] = useState("");
   const [clients, setClients] = useState([]);
-  const [candidatId, setCandidateID] = useState(props._id)
+  const [candidatId, setCandidateID] = useState(props._id);
   const [btnLoader, setbtnLoader] = useState(false);
 
-
   const colourStyles: StylesConfig<ColourOption, true> = {
-    control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+    control: (styles) => ({ ...styles, backgroundColor: "white" }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
       const color = chroma(data.color);
       return {
@@ -27,21 +28,21 @@ function InProgressModal({ props, closeModal }) {
         backgroundColor: isDisabled
           ? undefined
           : isSelected
-            ? data.color
-            : isFocused
-              ? color.alpha(0.1).css()
-              : undefined,
+          ? data.color
+          : isFocused
+          ? color.alpha(0.1).css()
+          : undefined,
         color: isDisabled
-          ? '#ccc'
+          ? "#ccc"
           : isSelected
-            ? chroma.contrast(color, 'white') > 2
-              ? 'white'
-              : 'black'
-            : data.color,
-        cursor: isDisabled ? 'not-allowed' : 'default',
+          ? chroma.contrast(color, "white") > 2
+            ? "white"
+            : "black"
+          : data.color,
+        cursor: isDisabled ? "not-allowed" : "default",
 
-        ':active': {
-          ...styles[':active'],
+        ":active": {
+          ...styles[":active"],
           backgroundColor: !isDisabled
             ? isSelected
               ? data.color
@@ -64,16 +65,20 @@ function InProgressModal({ props, closeModal }) {
     multiValueRemove: (styles, { data }) => ({
       ...styles,
       color: data.color,
-      ':hover': {
+      ":hover": {
         backgroundColor: data.color,
-        color: 'white',
+        color: "white",
       },
     }),
   };
   let data = {
-    workingFor, workingSince, salary, candidatId
-  }
-  const notifyMoveSuccess = () => toast.success("Moved to In-Progress Successfully!");
+    workingFor,
+    workingSince,
+    salary,
+    candidatId,
+  };
+  const notifyMoveSuccess = () =>
+    toast.success("Moved to In-Progress Successfully!");
 
   const notifyMoveError = () => toast.error("Not Moved To In-Progress");
 
@@ -81,94 +86,93 @@ function InProgressModal({ props, closeModal }) {
     return fetch(API_BASE_URL + "getClients", {
       method: "GET",
       headers: {
-        "Accept": 'application/json',
-        'Content-Type': 'application/json',
-        "Authorization": "Bearer " + Cookies.get('token')
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
-      .then(red => red.json())
-      .then(d => d)
-      .catch(err => err)
-  }
+      .then((red) => red.json())
+      .then((d) => d)
+      .catch((err) => err);
+  };
 
   useEffect(() => {
     if (clients.length == 0) {
       fetchClients()
-        .then(result => {
+        .then((result) => {
           if (result.status) {
-         
-        CName=    result.data.map((el)=>{
-         return { value:el.clientCompanyName,label:el.clientCompanyName + `-(${el.jobStatus})`,color:  '#FF8B00',name:"clientName"}            })
-    }
-    setClients([...CName])
+            CName = result.data.map((el) => {
+              return {
+                value: el.clientCompanyName,
+                label: el.clientCompanyName + `-(${el.jobStatus})`,
+                color: "#FF8B00",
+                name: "clientName",
+              };
+            });
+          }
+          setClients([...CName]);
         })
-     
-        .catch(err => {
-          console.log(err)
-        })
+
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  })
+  });
 
   const saveModalData = async () => {
-    setbtnLoader(true)
+    setbtnLoader(true);
     return await fetch(API_BASE_URL + "moveToInProgress", {
       method: "POST",
       headers: {
-        "Accept": 'application/json',
-        'Content-Type': 'application/json',
-        "Authorization": "Bearer " + Cookies.get('token')
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + Cookies.get("token"),
       },
       body: JSON.stringify(data),
     })
-      .then(resp => resp.json())
-      .then(reD => reD)
-      .catch(err => err)
-  }
+      .then((resp) => resp.json())
+      .then((reD) => reD)
+      .catch((err) => err);
+  };
 
   const saveFormData = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if(workingFor !== ""){
+    if (workingFor !== "") {
       saveModalData()
-      .then((resp) => {
-        closeModal(false);
-        notifyMoveSuccess();
-        setTimeout(function () {
-          // window.location.href = "/todolist";
-          navigate("/dashboard");
-        },
-          2000
-        );
-        setbtnLoader(false)
-      })
-      .catch(err => {
-        console.log(err)
-        notifyMoveError();
-        setbtnLoader(false)
-      })
-    }else{
-
-      toast.error("Please Select Client!")
+        .then((resp) => {
+          closeModal(false);
+          notifyMoveSuccess();
+          setTimeout(function () {
+            // window.location.href = "/todolist";
+            navigate("/dashboard");
+          }, 2000);
+          setbtnLoader(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          notifyMoveError();
+          setbtnLoader(false);
+        });
+    } else {
+      toast.error("Please Select Client!");
     }
- 
-  }
+  };
 
-  const onFormDataChange = (
-    e: any
-  ) => {
-
-    if (e.name === 'clientName') {
+  const onFormDataChange = (e: any) => {
+    if (e.name === "clientName") {
       setWorkingFor(e.value);
+    } else if (e.target.name === "date") {
+      setWorking(e.target.value);
+    } else if (e.target.name === "turnover") {
+      setSalary(e.target.value);
     }
-    else if (e.target.name === "date") {
-      setWorking(e.target.value)
-    }
-    else if (e.target.name === "turnover") {
-      setSalary(e.target.value)
-    }
-  }
+  };
   return (
     <>
-    <Toaster  containerStyle={{zIndex:"9999999999999999999999"}} position="top-right" />
+      <Toaster
+        containerStyle={{ zIndex: "9999999999999999999999" }}
+        position="top-right"
+      />
       <div
         className="modal d-block"
         style={{ backgroundColor: "#00000052" }}
@@ -179,11 +183,14 @@ function InProgressModal({ props, closeModal }) {
       >
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
-          <div className="modal-header">
-          <h2 className="modal-title modalStylingfontProgress" id="staticBackdropLabel">
-              Move {props.candidatName} to
-              <span className="col-spl">IN-PROGRESS</span>
-            </h2>
+            <div className="modal-header">
+              <h2
+                className="modal-title modalStylingfontProgress"
+                id="staticBackdropLabel"
+              >
+                Move {props.candidatName} to
+                <span className="col-spl">IN-PROGRESS</span>
+              </h2>
               <button
                 type="button"
                 className="btn-close"
@@ -194,7 +201,7 @@ function InProgressModal({ props, closeModal }) {
                 }}
               ></button>
             </div>
-          
+
             <form
               onSubmit={(e) => {
                 saveFormData(e);
@@ -203,14 +210,15 @@ function InProgressModal({ props, closeModal }) {
             >
               <div className="modal-body text-start">
                 <span className="Modal-body-Progress">
-                
                   Qui est le client qui a embauché {props.candidatName} ?
                 </span>
                 <div className="col-12 pt-1">
                   <div className="row">
                     <div className="col-6">
-                    <label className="Modal-label">Who is the client who hired this person</label>
-                {/* <select
+                      <label className="Modal-label">
+                        Who is the client who hired this person
+                      </label>
+                      {/* <select
                   className="form-select"
                   name="clientName"
                   onChange={onFormDataChange}
@@ -221,47 +229,52 @@ function InProgressModal({ props, closeModal }) {
                   <option value="2">Client Two</option>
                   <option value="3">Client Three</option>
                 </select> */}
-            {clients.length > 0 ?
-
-                <Select 
-                options={clients}
-                onChange={onFormDataChange}
-                styles={colourStyles}
-                className="inProgress"
-                placeholder="{Client_list}"
-                />
-  
-                :
-                <div className="col-12">    <ProfileLoader  width ={150} height={100} fontSize={"12px"} fontWeight={"600"}  Title={"Please Wait!"}/>     </div>}   
-                <div className="noteModal">
-                  <span className="">NOTE: </span>
-                  <span>
-                    
-                  Note  : This action will automaticclly move this client/lead to status 
-- <span className="col-spl">In Progress</span>, if this client/lead isn’t already with this status.
-                  </span>
-                  
-                </div>
+                      {clients.length > 0 ? (
+                        <Select
+                          options={clients}
+                          onChange={onFormDataChange}
+                          styles={colourStyles}
+                          className="inProgress"
+                          placeholder="{Client_list}"
+                        />
+                      ) : (
+                        <div className="col-12">
+                          {" "}
+                          <ProfileLoader
+                            width={150}
+                            height={100}
+                            fontSize={"12px"}
+                            fontWeight={"600"}
+                            Title={"Please Wait!"}
+                          />{" "}
+                        </div>
+                      )}
+                      <div className="noteModal">
+                        <span className="">NOTE: </span>
+                        <span>
+                          Note : This action will automaticclly move this
+                          client/lead to status -{" "}
+                          <span className="col-spl">In Progress</span>, if this
+                          client/lead isn’t already with this status.
+                        </span>
+                      </div>
                     </div>
                     <div className="col-6">
-                   
-                    <label className=" Modal-label-1">
-                      FROM DATE / A PARTIR DE:
-                    </label>
-                    <div className="input-group date" id="datepicker">
-                      <input
-                        type="date"
-                        name="date"
-                        onChange={onFormDataChange}
-                        className="form-control"
-                      />
-                    </div>
-                  
+                      <label className=" Modal-label-1">
+                        FROM DATE / A PARTIR DE:
+                      </label>
+                      <div className="input-group date" id="datepicker">
+                        <input
+                          type="date"
+                          name="date"
+                          onChange={onFormDataChange}
+                          className="form-control"
+                        />
                       </div>
+                    </div>
                   </div>
                 </div>
- 
-        
+
                 <div className="col-12 pt-2 d-grid">
                   <label className="salaire">
                     Salaire Net de {props.candidatName} / {props.candidatName}
@@ -284,13 +297,18 @@ function InProgressModal({ props, closeModal }) {
                       <span>.00</span>
                     </div>
                   </div>
-                  <p className="last-noteModal"><span >Note</span> : This action mean that {props.candidatName} have signed a contract with Intermann If you have any question please contact your manager or contact@textone.fr</p>
+                  <p className="last-noteModal">
+                    <span>Note</span> : This action mean that{" "}
+                    {props.candidatName} have signed a contract with Intermann
+                    If you have any question please contact your manager or
+                    contact@textone.fr
+                  </p>
                 </div>
                 <div className="col-12 text-center pt-3">
                   <div className="row justify-content-end">
                     <div className="col-8">
                       <button
-                      disabled={btnLoader}
+                        disabled={btnLoader}
                         style={{
                           borderRadius: "30px",
                           backgroundColor: "#A461D8",
@@ -303,11 +321,14 @@ function InProgressModal({ props, closeModal }) {
                           lineHeight: "24px",
                           color: "white",
                           border: "unset",
-                          display:"flex",
-                          justifyContent:"center",
-                                          }}
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
                       >
-                    {btnLoader ?   <div className="RESTloader " >Loading...</div>   : null}        Move {props.candidatName} To In-Progress Status
+                        {btnLoader ? (
+                          <div className="RESTloader ">Loading...</div>
+                        ) : null}{" "}
+                        Move {props.candidatName} To In-Progress Status
                       </button>
                     </div>
                   </div>

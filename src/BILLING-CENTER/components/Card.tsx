@@ -1,41 +1,41 @@
 import React, { useState, useEffect } from "react";
 import { GetRoute } from "../../components/ApisFunction/FunctionsApi";
 
-
 let id = [] as any;
 function Card(props: any) {
-  const [isMulti,setIsMulti]=useState([{
-    index:""
-  }])as any
+  const [isMulti, setIsMulti] = useState([
+    {
+      index: "",
+    },
+  ]) as any;
 
-  const onSelectRowActive = async (iD,i) => {
+  const onSelectRowActive = async (iD, i) => {
     if (id.includes(iD)) {
-    
       id = id.filter((el) => el !== iD);
-      setIsMulti({...isMulti,index:iD})
+      setIsMulti({ ...isMulti, index: iD });
       props.setActive(id);
     } else {
-      
       id.push(iD);
-      setIsMulti({...isMulti,index:iD})
+      setIsMulti({ ...isMulti, index: iD });
       props.setActive(id);
     }
   };
 
   return (
     <>
-
       <tr
         className="cursor-pointer"
         key={props.index}
         onClick={() => {
-          onSelectRowActive(props.props._id,props.index);
+          onSelectRowActive(props.props._id, props.index);
         }}
         style={{
-          background:
-            props.multiSelect  ? "#E7F5FF" : props?.onClickRowActive?.includes(props.props._id) ? "#E7F5FF":"",
+          background: props.multiSelect
+            ? "#E7F5FF"
+            : props?.onClickRowActive?.includes(props.props._id)
+            ? "#E7F5FF"
+            : "",
         }}
-     
       >
         <th scope="row">
           <div className="align-items-center">
@@ -65,15 +65,28 @@ function Card(props: any) {
         </td>
         <td className="">
           <div className="">
-            <p className="mb-0 d-flex align-items-center" data-bs-toggle="tooltip" data-bs-html="true" title={props.props.factureTo}>
-              {props.props.factureTo.length > 40 ? props.props.factureTo.slice(0,40) +   "..." :  props.props.factureTo}
+            <p
+              className="mb-0 d-flex align-items-center"
+              data-bs-toggle="tooltip"
+              data-bs-html="true"
+              title={props.props.factureTo}
+            >
+              {props.props.factureTo.length > 40
+                ? props.props.factureTo.slice(0, 40) + "..."
+                : props.props.factureTo}
             </p>
           </div>
         </td>
         <td className="">
           <div className="">
             <p className="mb-0 d-flex align-items-center">
-              {props.props.factureCreateDate ? props.props.factureCreateDate : "NO DATE" } / {props.props.factureDueDate ?  props.props.factureDueDate  : "NO DATE" }
+              {props.props.factureCreateDate
+                ? props.props.factureCreateDate
+                : "NO DATE"}{" "}
+              /{" "}
+              {props.props.factureDueDate
+                ? props.props.factureDueDate
+                : "NO DATE"}
             </p>
           </div>
         </td>
@@ -115,12 +128,12 @@ function Card(props: any) {
                 style={{
                   background:
                     props.multiSelect ||
-                    props?.onClickRowActive?.includes(props.props._id) 
+                    props?.onClickRowActive?.includes(props.props._id)
                       ? "#489767"
                       : "",
                   color:
                     props.multiSelect ||
-                    props?.onClickRowActive?.includes(props.props._id) 
+                    props?.onClickRowActive?.includes(props.props._id)
                       ? "#ffff"
                       : "",
                 }}
@@ -134,12 +147,12 @@ function Card(props: any) {
                 style={{
                   background:
                     props.multiSelect ||
-                     props?.onClickRowActive?.includes(props.props._id) 
+                    props?.onClickRowActive?.includes(props.props._id)
                       ? "#E21B1B"
                       : "",
                   color:
                     props.multiSelect ||
-                     props?.onClickRowActive?.includes(props.props._id) 
+                    props?.onClickRowActive?.includes(props.props._id)
                       ? "#ffff"
                       : "",
                 }}
@@ -153,7 +166,7 @@ function Card(props: any) {
                 className="border-white RoundDiv"
                 style={{ background: "#F3F4F6", width: "37px" }}
               >
-                <img src={require("../../images/penPng.svg").default} />
+                <img alt="..." src={require("../../images/penPng.svg").default} />
               </button>
             </div>
             <div className=" d-flex align-items-center ">
@@ -161,7 +174,7 @@ function Card(props: any) {
                 className="border-white RoundDiv"
                 style={{ background: "#F3F4F6", width: "37px" }}
               >
-                <img src={require("../../images/Deletebucket.svg").default} />
+                <img alt="..." src={require("../../images/Deletebucket.svg").default} />
               </button>
             </div>
           </div>

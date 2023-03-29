@@ -6,7 +6,7 @@ import Loader from "./Loader/loader";
 import Error from "./Loader/SearchBarError";
 import { Toaster, toast } from "react-hot-toast";
 import { motion } from "framer-motion";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 
 export default function DownloadCenter() {
   const [activeTab, setActiveTab] = React.useState(0) as any;
@@ -123,14 +123,13 @@ export default function DownloadCenter() {
     )
       .then((resp) => resp.json())
       .then((respData) => {
-        if(respData.status){
-       let newData=   ClientContracts.filter((el:any)=> el.clientId  !== id)
-       
-       setAllProfiles([...newData])
+        if (respData.status) {
+          let newData = ClientContracts.filter((el: any) => el.clientId !== id);
+
+          setAllProfiles([...newData]);
           toast.success("Contrat Client Removed Successfully!");
           setdeleteCanContract(true);
           setBtnDS({ ...btnDS, active: false, deleteId: "" });
-     
         }
       })
       .catch((err) => {
@@ -154,12 +153,12 @@ export default function DownloadCenter() {
     )
       .then((resp) => resp.json())
       .then((respData) => {
-        if(respData.status){
-          let newArr = candidateContracts.filter((el)=> el.candidatId !== id)
-          setAllProfiles([...newArr])
-        toast.success("Contrat Employé Removed Successfully!");
-        setBtnDS({ ...btnDS, active: false, deleteId: "" });
-        setdeleteCanContract(true);
+        if (respData.status) {
+          let newArr = candidateContracts.filter((el) => el.candidatId !== id);
+          setAllProfiles([...newArr]);
+          toast.success("Contrat Employé Removed Successfully!");
+          setBtnDS({ ...btnDS, active: false, deleteId: "" });
+          setdeleteCanContract(true);
         }
       })
       .catch((err) => {
@@ -182,13 +181,14 @@ export default function DownloadCenter() {
     )
       .then((resp) => resp.json())
       .then((respData) => {
-        if(respData.status){
-          let newArr = representance.filter((el)=> el._id !== id)
-          setAllProfiles([...newArr])
-        toast.success("Représentance Removed Successfully!");
-        setdeleteCanContract(true);
-        setBtnDS({ ...btnDS, active: false, deleteId: "" });
-   } })
+        if (respData.status) {
+          let newArr = representance.filter((el) => el._id !== id);
+          setAllProfiles([...newArr]);
+          toast.success("Représentance Removed Successfully!");
+          setdeleteCanContract(true);
+          setBtnDS({ ...btnDS, active: false, deleteId: "" });
+        }
+      })
       .catch((err) => {
         toast.error("Représentance Not Removed!");
         setBtnDS({ ...btnDS, active: false, deleteId: "" });
@@ -205,13 +205,14 @@ export default function DownloadCenter() {
     })
       .then((resp) => resp.json())
       .then((respData) => {
-        if(respData.status){
-          let newArr = Avance.filter((el)=> el._id !== id)
-          setAllProfiles([...newArr])
-        toast.success("Avance Removed Successfully!");
-        setdeleteCanContract(true);
-        setBtnDS({ ...btnDS, active: false, deleteId: "" });
-   } })
+        if (respData.status) {
+          let newArr = Avance.filter((el) => el._id !== id);
+          setAllProfiles([...newArr]);
+          toast.success("Avance Removed Successfully!");
+          setdeleteCanContract(true);
+          setBtnDS({ ...btnDS, active: false, deleteId: "" });
+        }
+      })
       .catch((err) => {
         toast.error("Avance Not Removed!");
         setBtnDS({ ...btnDS, active: false, deleteId: "" });
@@ -410,8 +411,10 @@ export default function DownloadCenter() {
                             {el.amount_avance
                               ? `- Amount : ${el.amount_avance + " €"}`
                               : null}
-                            - Generated  <b>:</b>
-                            <b style={{marginRight:"12px",marginLeft:"3px"}}>
+                            - Generated <b>:</b>
+                            <b
+                              style={{ marginRight: "12px", marginLeft: "3px" }}
+                            >
                               {el.contract_generated_on
                                 ? el.contract_generated_on.slice(3, 5) > "12"
                                   ? el.contract_generated_on.slice(3, 5) +
@@ -423,20 +426,20 @@ export default function DownloadCenter() {
                                 : el.generated_on}
                             </b>
                             Signed <b>:</b>
-                            <b style={{marginRight:"12px",marginLeft:"3px"}}>
+                            <b
+                              style={{ marginRight: "12px", marginLeft: "3px" }}
+                            >
                               {el.contract_signed_on
-                                ? 
-                                el.contract_signed_on.slice(3, 5) > "12"
-                                ? el.contract_signed_on.slice(3, 5) +
-                                  "-" +
-                                  el.contract_signed_on.slice(0, 2) +
-                                  "-" +
-                                  el.contract_signed_on.slice(6, 10)
-                                : el.contract_signed_on ?
-                                el.contract_signed_on 
-                                : el.signed_on
-                              :el.signed_on
-                              }
+                                ? el.contract_signed_on.slice(3, 5) > "12"
+                                  ? el.contract_signed_on.slice(3, 5) +
+                                    "-" +
+                                    el.contract_signed_on.slice(0, 2) +
+                                    "-" +
+                                    el.contract_signed_on.slice(6, 10)
+                                  : el.contract_signed_on
+                                  ? el.contract_signed_on
+                                  : el.signed_on
+                                : el.signed_on}
                             </b>
                           </p>
                         </div>
@@ -466,7 +469,7 @@ export default function DownloadCenter() {
                                     <span className="filterLeadsLoader" />
                                   </div>
                                 ) : (
-                                  <img
+                                  <img alt="..."
                                     src={
                                       require("../images/Deletebucket.svg")
                                         .default
@@ -474,7 +477,7 @@ export default function DownloadCenter() {
                                   />
                                 )
                               ) : (
-                                <img
+                                <img alt="..."
                                   src={
                                     require("../images/Deletebucket.svg")
                                       .default
@@ -509,9 +512,9 @@ export default function DownloadCenter() {
                                   </div>
                                 ) : (
                                   <span
-                                  // src={require("../images/dowBtn.svg").default}
-                                  className="downloadBtn0012X"
-                                />
+                                    // src={require("../images/dowBtn.svg").default}
+                                    className="downloadBtn0012X"
+                                  />
                                 )
                               ) : (
                                 <span

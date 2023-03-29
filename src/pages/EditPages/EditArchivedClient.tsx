@@ -5,7 +5,6 @@ import { useLocation } from "react-router-dom";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import $ from "jquery";
 import Select, { StylesConfig } from "react-select";
 import Switch from "react-switch";
 import { ColourOption, colourOptions } from "../../Selecteddata/data";
@@ -74,11 +73,8 @@ const ClientDataFormat = {
   contractId: "",
   poste_du_gerant: "",
 };
-let Amountarr = "";
-let Hours = "";
 
 const SalaryTotal = [] as any;
-const SalaryTotalcheck = [] as any;
 const TauxH = [];
 let arr = [] as any;
 let Tauxarr = [] as any;
@@ -109,9 +105,7 @@ function ClientArchivedEdit() {
   const [selectedLanguages, setSelectedLanguages] = useState(
     profile.clientLanguages
   );
-  const [clientImportance, setClientImportance] = useState(
-    profile.clientImportance
-  );
+  
   const [clientImage, setClientImage] = useState("");
   const hiddenFileInput = React.useRef(null);
   const [imgSource, setImgSource] = useState("");
@@ -135,7 +129,7 @@ function ClientArchivedEdit() {
   }) as any;
   const [taxHours, setHours] = useState("");
   const [taxHoursID, setHoursId] = useState("");
-  const [disableSalary, setDisableSalary] = useState(false);
+  const [disableSalary] = useState(false);
   const [checkBooleanValue, setcheckBooleanValue] = useState(Boolean) as any;
 
   useEffect(() => {
@@ -144,59 +138,6 @@ function ClientArchivedEdit() {
     ClientDataFormat.salary_hours = arr;
     ClientDataFormat.rate_hours = Tauxarr;
   }, [Tauxarr, SalaryTotal]);
-
-  const colourStyles: StylesConfig<ColourOption, true> = {
-    control: (styles) => ({ ...styles, backgroundColor: "white" }),
-    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-      const color = chroma(data.color);
-      return {
-        ...styles,
-        backgroundColor: isDisabled
-          ? undefined
-          : isSelected
-          ? data.color
-          : isFocused
-          ? color.alpha(0.1).css()
-          : undefined,
-        color: isDisabled
-          ? "#ccc"
-          : isSelected
-          ? chroma.contrast(color, "white") > 2
-            ? "white"
-            : "black"
-          : data.color,
-        cursor: isDisabled ? "not-allowed" : "default",
-
-        ":active": {
-          ...styles[":active"],
-          backgroundColor: !isDisabled
-            ? isSelected
-              ? data.color
-              : color.alpha(0.3).css()
-            : undefined,
-        },
-      };
-    },
-    multiValue: (styles, { data }) => {
-      const color = chroma(data.color);
-      return {
-        ...styles,
-        backgroundColor: color.alpha(0.1).css(),
-      };
-    },
-    multiValueLabel: (styles, { data }) => ({
-      ...styles,
-      color: data.color,
-    }),
-    multiValueRemove: (styles, { data }) => ({
-      ...styles,
-      color: data.color,
-      ":hover": {
-        backgroundColor: data.color,
-        color: "white",
-      },
-    }),
-  };
 
   const RemoveHandling = (e, showHour) => {
     let SalaryFData = [];
@@ -455,7 +396,7 @@ function ClientArchivedEdit() {
 
   const changeClientImportance = (value: any) => {
     setData((prev) => ({ ...prev, ["clientImportance"]: value }));
-    setClientImportance(value);
+  
   };
 
   const changeSectorSelection = async (sec: string) => {
@@ -1092,7 +1033,7 @@ function ClientArchivedEdit() {
                   <div className="stable">
                     <Link to={path}>
                       <button type="button" className="btn FontStyle-TODOSEE">
-                        <img src={require("../../images/return.svg").default} />
+                        <img alt="..." src={require("../../images/return.svg").default} />
                         Client File : {profile.clientCompanyName}
                       </button>
                     </Link>
@@ -1105,7 +1046,7 @@ function ClientArchivedEdit() {
                       type="button"
                       style={{ padding: "8px" }}
                     >
-                      <img
+                      <img alt="..."
                         style={{ width: "25%" }}
                         src={require("../../images/multiply.svg").default}
                       />
@@ -1120,7 +1061,7 @@ function ClientArchivedEdit() {
                     type="submit"
                     style={{ padding: "12px" }}
                   >
-                    <img
+                    <img alt="..."
                       src={require("../../images/ClientSave.svg").default}
                       style={{ marginRight: "5px" }}
                     />
@@ -1136,12 +1077,12 @@ function ClientArchivedEdit() {
                 <div className="row">
                   <div className="col-2  text-center">
                     {imgSource ? (
-                      <img
+                      <img alt="..."
                         src={imgSource}
                         className="imgArchived-upload-download"
                       />
                     ) : (
-                      <img
+                      <img alt="..."
                         src={require("../../images/fullClientSee.svg").default}
                         className="imgArchived-upload-download"
                       />
@@ -1154,7 +1095,7 @@ function ClientArchivedEdit() {
                       className="SelectBtn"
                       type="button"
                     >
-                      <img
+                      <img alt="..."
                         className=""
                         src={require("../../images/select.svg").default}
                       />
@@ -1202,7 +1143,7 @@ function ClientArchivedEdit() {
                     <div className="text-end ">
                       <div className="d-grid justify-content-end align-items-center">
                         <button className="ArchiveLargebtn pb-1 p-0">
-                          <img
+                          <img alt="..."
                             src={
                               require("../../images/ArchivedBtn.svg").default
                             }
@@ -2587,7 +2528,7 @@ function ClientArchivedEdit() {
                           type="button"
                           className="btn edit-btnCancel mr-1"
                         >
-                          <img
+                          <img alt="..."
                             style={{ width: "25%" }}
                             src={require("../../images/multiply.svg").default}
                           />
@@ -2597,7 +2538,7 @@ function ClientArchivedEdit() {
                         </button>
                       </Link>
                       <button className="btn editBtnSave mb-0" type="submit">
-                        <img
+                        <img alt="..."
                           style={{ marginRight: "5px" }}
                           src={require("../../images/savebtn.svg").default}
                         />

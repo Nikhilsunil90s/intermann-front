@@ -14,9 +14,7 @@ import { ReactComponent as TurnOn } from "../../images/base-switch_icon.svg";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast from "react-hot-toast";
 import moment from "moment";
-import format from "date-fns/format";
-import Cookies from 'js-cookie'
-
+import Cookies from "js-cookie";
 
 let id = "";
 
@@ -54,28 +52,26 @@ const ClientToDoCard = (props: any) => {
   const [Contrat, setContrat] = useState(props.data.contractSigned) as any;
   const [Signature, setSignature] = useState(props.data.signatureSent) as any;
   const [Offre, setOffre] = useState(props.data.offerSent) as any;
-  const [startStatus]=useState(props.data.jobStartDate.slice(0,4).includes("-"))
-  const [endStatus]=useState(props.data.jobEndDate.slice(0,4).includes("-"))
-  const [startDate,setStartDate]=useState()as any
-  const [EndDate,setEndDate]=useState()as any
- useEffect(()=>{
-  if(startStatus){
-    setStartDate(props.data.jobStartDate)
-  }else{
-    let data=formatDateCha(start)
-    setStartDate(data.replaceAll("/","-"))
-    
-
-  }
-  if(endStatus){
-    setEndDate(props.data.jobEndDate)
-  }else{
-    let data=formatDateCha(end)
-    setEndDate(data.replaceAll("/","-"))
-    
-
-  }
- })
+  const [startStatus] = useState(
+    props.data.jobStartDate.slice(0, 4).includes("-")
+  );
+  const [endStatus] = useState(props.data.jobEndDate.slice(0, 4).includes("-"));
+  const [startDate, setStartDate] = useState() as any;
+  const [EndDate, setEndDate] = useState() as any;
+  useEffect(() => {
+    if (startStatus) {
+      setStartDate(props.data.jobStartDate);
+    } else {
+      let data = formatDateCha(start);
+      setStartDate(data.replaceAll("/", "-"));
+    }
+    if (endStatus) {
+      setEndDate(props.data.jobEndDate);
+    } else {
+      let data = formatDateCha(end);
+      setEndDate(data.replaceAll("/", "-"));
+    }
+  });
   const CardOption = [
     {
       value: "Edit Profile",
@@ -304,7 +300,6 @@ const ClientToDoCard = (props: any) => {
   //     console.log(props.data)
   // })
 
-
   return (
     <>
       <div className="card cardTODO pr-0 HoveRESTClassCard">
@@ -380,10 +375,10 @@ const ClientToDoCard = (props: any) => {
                 </b>
               </p>
             </div>
-            <div className="d-flex" style={{width:"140%"}}>
+            <div className="d-flex" style={{ width: "140%" }}>
               <p className="textClientCard">
-                Num of position :  
-                <b  style={{ marginLeft: "5px" }}>
+                Num of position :
+                <b style={{ marginLeft: "5px" }}>
                   {props.data.numberOfPosts
                     ? props.data.numberOfPosts
                     : "✘ No Posts!"}
@@ -394,7 +389,7 @@ const ClientToDoCard = (props: any) => {
           <div className="col-4 text-end d-flex align-items-start justify-content-end">
             <Link to="#">
               <button className="todoClient mt-2">
-                <img src={require("../../images/briefcase.svg").default} />
+                <img  alt="..." src={require("../../images/briefcase.svg").default} />
               </button>
             </Link>
           </div>
@@ -408,22 +403,8 @@ const ClientToDoCard = (props: any) => {
             >
               Recruiting :{" "}
               {date >= start && date <= end
-                ? " From " +
-                  " 📆" +
-                  startDate
-                   +
-                    "  To  " +
-                    " 📆" +
-                    EndDate
-
-                   
-                : "⚠️ From  " +
-                 
-                startDate
-                +
-                  "  To  " +
-                  EndDate
-                }
+                ? " From " + " 📆" + startDate + "  To  " + " 📆" + EndDate
+                : "⚠️ From  " + startDate + "  To  " + EndDate}
             </p>
           </div>
         </div>
@@ -440,8 +421,17 @@ const ClientToDoCard = (props: any) => {
                     : props.data.clientActivitySector.toLocaleUpperCase()
                   : "✘ No Sector!"}
               </p>
-              <p className="fontStylingCardP" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.clientJob.length ? props.data.clientJob : "✘ No clientJob!"}>
-                Job : 
+              <p
+                className="fontStylingCardP"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title={
+                  props.data.clientJob.length
+                    ? props.data.clientJob
+                    : "✘ No clientJob!"
+                }
+              >
+                Job :
                 {props.data.clientJob
                   ? props.data.clientJob.length > 15
                     ? props.data.clientJob.toLocaleUpperCase().slice(0, 14) +
@@ -449,25 +439,33 @@ const ClientToDoCard = (props: any) => {
                     : props.data.clientJob.toLocaleUpperCase()
                   : "✘ No Job!"}
               </p>
-              <p  data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.clientLanguages.length ? props.data.clientLanguages : "✘ No Langues!"}>
+              <p
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title={
+                  props.data.clientLanguages.length
+                    ? props.data.clientLanguages
+                    : "✘ No Langues!"
+                }
+              >
                 Langues :
-                <b style={{marginLeft:"3px"}}>
-                     {props.data.clientLanguages.length
+                <b style={{ marginLeft: "3px" }}>
+                  {props.data.clientLanguages.length
                     ? props.data.clientLanguages.join(", ")
                     : "✘ No Langues!"}
                 </b>
               </p>
               <p>
                 Phone :
-                <b style={{marginLeft:"3px"}}>
+                <b style={{ marginLeft: "3px" }}>
                   {props.data.clientPhone.length
                     ? props.data.clientPhone
                     : "✘ No Phone Number!"}
                 </b>
               </p>
-              <p >
+              <p>
                 Estimated CA :
-                <b style={{marginLeft:"3px"}}>
+                <b style={{ marginLeft: "3px" }}>
                   {props.data.jobTotalBudget
                     ? props.data.jobTotalBudget + " €"
                     : "N/A"}
@@ -477,7 +475,7 @@ const ClientToDoCard = (props: any) => {
             <div className="col-7 fontStylingCardDetails px-0 pt-1">
               <p>
                 Salary by person :
-                <b style={{marginLeft:"3px"}}>
+                <b style={{ marginLeft: "3px" }}>
                   {props.data.netSalary
                     ? props.data.netSalary + "€" || props.data.netSalary + " €"
                     : "0€"}
@@ -485,7 +483,7 @@ const ClientToDoCard = (props: any) => {
               </p>
               <p>
                 E-Mail :
-                <b style={{marginLeft:"3px"}}>
+                <b style={{ marginLeft: "3px" }}>
                   {props.data.clientEmail
                     ? props.data.clientEmail.length > 20
                       ? props.data.clientEmail.slice(0, 19) + "..."
@@ -495,7 +493,7 @@ const ClientToDoCard = (props: any) => {
               </p>
               <p>
                 Client Phone :
-                <b style={{marginLeft:"3px"}}>
+                <b style={{ marginLeft: "3px" }}>
                   {props.data.clientPhone.length
                     ? props.data.clientPhone
                     : "✘ No Client Number!"}
@@ -503,7 +501,7 @@ const ClientToDoCard = (props: any) => {
               </p>
               <p>
                 Contact Name :
-                <b style={{marginLeft:"3px"}}>
+                <b style={{ marginLeft: "3px" }}>
                   {props.data.clientReferenceName
                     ? props.data.clientReferenceName
                     : "✘ No Name!"}
@@ -511,7 +509,7 @@ const ClientToDoCard = (props: any) => {
               </p>
               <p>
                 Contact phone :
-                <b style={{marginLeft:"3px"}}>
+                <b style={{ marginLeft: "3px" }}>
                   {props.data.clientReferenceNumber.length
                     ? props.data.clientReferenceNumber
                     : "✘ No Contact Number!"}

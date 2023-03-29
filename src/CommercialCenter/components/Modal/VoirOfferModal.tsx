@@ -1,5 +1,4 @@
 import React,{useEffect, useState} from "react";
-import { motion } from "framer-motion";
 import { GetRoute } from "../../../components/ApisFunction/FunctionsApi";
 import Card from "../../../Offer_Center/components/Card";
 import Error from "../../../components/Loader/SearchBarError";

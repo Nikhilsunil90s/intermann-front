@@ -134,7 +134,7 @@ function AddSector() {
                                             );
                                           }}
                                         >
-                                         <img src={require("../images/editResume.svg").default} /> Rename
+                                         <img alt="..." src={require("../images/editResume.svg").default} /> Rename
                                         </button>
                                       </div>
                                     </div>

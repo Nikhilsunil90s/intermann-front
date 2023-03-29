@@ -4,7 +4,7 @@ import {toast} from "react-hot-toast"
 import { motion } from "framer-motion";
 import Cookies from "js-cookie"
 function DeleteLeadModal(props){
-  const [btnDS,setBTNds]=useState(false)
+  const [btnDS]=useState(false)
  
   const DeleteNotes=async()=>{
     await fetch(API_BASE_URL+ `deleteCommercialLead/?id=${props.props._id}` ,

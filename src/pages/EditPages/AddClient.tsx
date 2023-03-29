@@ -1221,7 +1221,7 @@ console.log(Language, "language")
               onClick={() => setStartOpen((open) => !open)}
               className="d-flex justify-content-end eventPos"
             >
-              <img src={require("../../images/event.svg").default} />
+              <img alt="..." src={require("../../images/event.svg").default} />
             </div>
                       </div>
                     </div>
@@ -1254,7 +1254,7 @@ console.log(Language, "language")
               onClick={() => setOpen((open) => !open)}
               className="d-flex justify-content-end eventPos"
             >
-              <img src={require("../../images/event.svg").default} />
+              <img alt="..." src={require("../../images/event.svg").default} />
             </div>
           </div>
                       </div>

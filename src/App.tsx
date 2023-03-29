@@ -63,8 +63,7 @@ import MainCenterOffer from "./Offer_Center/MainCenter";
 import OfferSigned from "./Offer_Center/components/LastStepOfSign"
 import ViewOffer from "./Offer_Center/components/DocumentSign";
 import {Helmet} from "react-helmet";
-// import Favicon from "../src/images/logo-header.svg"
-import Favicon from "../src/images/logo-header.svg"
+import Favicon from "../src/images/Tablogo.svg"
 
 function App() {
   return (
@@ -72,7 +71,7 @@ function App() {
      <Helmet>
     <meta charSet="utf-8" />
     <title>Intermann CRM</title>
-     <link rel="icon" type="image/png" href={Favicon} sizes="16x16" />
+     <link rel="icon" type="image/png" href={Favicon} sizes="26x26" />
 </Helmet>
     <Provider store={configureStore}>
       <Router>

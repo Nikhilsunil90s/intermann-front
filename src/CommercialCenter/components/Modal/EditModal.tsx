@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import { API_BASE_URL } from "../../../config/serverApiConfig";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import Cookies from 'js-cookie'
 
 function EditModal(props: any) {
@@ -194,6 +193,7 @@ function EditModal(props: any) {
                       }}
                     >
                       <img
+                      alt="..."
                         style={{ paddingRight: "5px" }}
                         src={require("../../../images/diskette.svg").default}
                       />{" "}

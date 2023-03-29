@@ -3,8 +3,7 @@ import { ColourOption } from "../../Selecteddata/data";
 import chroma from "chroma-js";
 import Select, { StylesConfig } from "react-select";
 import { API_BASE_URL } from "../../config/serverApiConfig";
-import toast from "react-hot-toast";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 function Filter(props) {
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: "white" }),
@@ -247,7 +246,7 @@ function Filter(props) {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " +Cookies.get("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
       body: JSON.stringify(data),
     })
@@ -287,7 +286,7 @@ function Filter(props) {
     } else {
       props.setCurrentFilter({
         filterApplied: false,
-        FilterData:[],
+        FilterData: [],
       });
       setData();
       setBTNds(false);

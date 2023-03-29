@@ -245,12 +245,12 @@ if(checked === true){
     }
   }
     if(e=="Voyage"){
-      if(checked == true){
+      if(checked === true){
 
         setVoyage(true)
      setData({...data,candidatConduireEnFrance:true})
       }
-if(checked == false){
+if(checked === false){
  
   setVoyage(false)
   setData({...data,candidatConduireEnFrance:false})
@@ -446,11 +446,11 @@ if(checked == false){
         })
     }
 
-    if (data.candidatLanguages.length == 0) {
+    if (data.candidatLanguages.length === 0) {
       setData((prev) => ({ ...prev, ["candidatLanguages"]: selectedLanguages }));
     }
 
-    if (period == "") {
+    if (period === "") {
       profile.candidatExperienceDetails.map((detail) => {
         setPeriod(detail.period)
         setLocation(detail.location)
@@ -464,7 +464,7 @@ if(checked == false){
   const addWorkExperience = (e: any) => {
     e.preventDefault();
     console.log(period, location, workDoneSample);
-    if (period == "") {
+    if (period === "") {
       return
     }
 
@@ -525,8 +525,8 @@ if(checked == false){
         candidatLanguages: data.candidatLanguages.length > 0 ? data.candidatLanguages : profile.candidatLanguages,
         candidatStartDate: data.candidatStartDate != "" ? data.candidatStartDate : profile.candidatStartDate,
         candidatEndDate: data.candidatEndDate != "" ? data.candidatEndDate : profile.candidatEndDate,
-        candidatLicensePermis: Permis==true ? true : false,
-        candidatConduireEnFrance: Voyage == true ? true : false,
+        candidatLicensePermis: Permis == true ? true : false,
+        candidatConduireEnFrance: Voyage === true ? true : false,
         candidatSkills: data.candidatSkills != "" ? data.candidatSkills : profile.candidatSkills,
         candidatExperienceDetails: data.candidatExperienceDetails,
         candidatEmail: data.candidatEmail != "" ? data.candidatEmail : profile.candidatEmail,
@@ -710,7 +710,7 @@ const jobChange = async (jobval) => {
                       type="button"
                       className="btn d-flex align-items-center p-0"
                     >
-                      <img src={require("../../images/return.svg").default} />
+                      <img alt="..." src={require("../../images/return.svg").default} />
                       <h2 className="card-Leads mb-0 pl-1"> Edit File : {profile.candidatName}</h2>
                     </button>
                   </Link>
@@ -727,7 +727,7 @@ const jobChange = async (jobval) => {
 
               </Link>
               <button className="btn editBtnSave" type="submit">
-                <img  style={{ width: "16%",marginRight:"5px" }} src={require("../../images/savebtn.svg").default} />
+                <img alt="..."  style={{ width: "16%",marginRight:"5px" }} src={require("../../images/savebtn.svg").default} />
                 Save Profile
               </button>
               </div>
@@ -786,7 +786,7 @@ className="SelectBtn"
                   <div className="text-center d-grid justify-content-end align-items-center mt-2 pr-1">
                     <div className="text-end">
                     <button className="preLargebtn">
-                      <img src={require("../../images/preselectedCard.svg").default} />
+                      <img alt="..." src={require("../../images/preselectedCard.svg").default} />
                       PRE SELECTED
                     </button>
                     </div>
@@ -810,7 +810,7 @@ className="SelectBtn"
                         <option>Select Un Secteur</option>
 
                         {activitySectors.map((sector) =>
-                          <option defaultValue={sector.sectorName} selected={profile.candidatActivitySector == sector.sectorName}>{sector.sectorName}</option> // fetch from api
+                          <option defaultValue={sector.sectorName} selected={profile.candidatActivitySector === sector.sectorName}>{sector.sectorName}</option> // fetch from api
                         )}
                       </select> */}
                               <Select
@@ -839,7 +839,7 @@ className="SelectBtn"
                           <option>Select Un Job</option>
                           {
                             jobs.map((job) =>
-                              <option defaultValue={profile.candidatJob} selected={profile.candidatJob == job.jobName}>
+                              <option defaultValue={profile.candidatJob} selected={profile.candidatJob === job.jobName}>
                                 {job.jobName}
                               </option>
                             )
@@ -877,7 +877,7 @@ className="SelectBtn"
                                                      type="radio"
                                                      name="candidatMotivation"
                                                      value={1}
-                              defaultChecked={candidatMotivation == 1}
+                              defaultChecked={candidatMotivation === 1}
                                                      onChange={onFormDataChange}
                                                      id="r1"
                                                    />     <label htmlFor="r1" className="react " >
@@ -893,7 +893,7 @@ className="SelectBtn"
                                                      type="radio"
                                                      name="candidatMotivation"
                                                      value={2}
-                              defaultChecked={candidatMotivation == 2}
+                              defaultChecked={candidatMotivation === 2}
                                                      onChange={onFormDataChange}
                                                      id="r2"
                                                    /> <label htmlFor="r2" style={{marginInline:"10px"}} className="react text-start">
@@ -909,7 +909,7 @@ className="SelectBtn"
                                                      type="radio"
                                                      name="candidatMotivation"
                                                      value={3}
-                              defaultChecked={candidatMotivation == 3}
+                              defaultChecked={candidatMotivation === 3}
                                                      onChange={onFormDataChange}
                                                      id="r3"
                                                    />     <label htmlFor="r3" className="react">
@@ -923,7 +923,7 @@ className="SelectBtn"
                                                      type="radio"
                                                      name="candidatMotivation"
                                                      value={4}
-                              defaultChecked={candidatMotivation == 4}
+                              defaultChecked={candidatMotivation === 4}
                                                      onChange={onFormDataChange}
                                                      id="r4"
                                                    /><label htmlFor="r4" className="react">
@@ -937,7 +937,7 @@ className="SelectBtn"
                                                      type="radio"
                                                      name="candidatMotivation"
                                                      value={5}
-                              defaultChecked={candidatMotivation == 5}
+                              defaultChecked={candidatMotivation === 5}
                                                      onChange={onFormDataChange}
                                                      id="r5"
                                                    /> <label htmlFor="r5" className="react text-start">
@@ -1107,13 +1107,13 @@ className="SelectBtn"
                         workExperience.map((detail, index) =>
                           <tr>
                             <td>
-                              <input type="text" disabled={index < workExperience.length - 1 || inputDisabled} name="period" placeholder="Years" className="form-control" defaultValue={index == workExperience.length - 1 && index != 0 ? null : detail.period} onChange={onFormDataChange} />
+                              <input type="text" disabled={index < workExperience.length - 1 || inputDisabled} name="period" placeholder="Years" className="form-control" defaultValue={index === workExperience.length - 1 && index != 0 ? null : detail.period} onChange={onFormDataChange} />
                             </td>
                             <td>
-                              <input type="text" disabled={index < workExperience.length - 1 || inputDisabled} name="location" placeholder="Location" className="form-control" defaultValue={index == workExperience.length - 1 && index != 0 ? null : detail.location} onChange={onFormDataChange} />
+                              <input type="text" disabled={index < workExperience.length - 1 || inputDisabled} name="location" placeholder="Location" className="form-control" defaultValue={index === workExperience.length - 1 && index != 0 ? null : detail.location} onChange={onFormDataChange} />
                             </td>
                             <td>
-                              <input type="text" disabled={index < workExperience.length - 1 || inputDisabled} name="workDoneSample" placeholder="Work Done Sample" className="form-control" defaultValue={index == workExperience.length - 1 && index != 0 ? null : detail.workDoneSample} onChange={onFormDataChange} />
+                              <input type="text" disabled={index < workExperience.length - 1 || inputDisabled} name="workDoneSample" placeholder="Work Done Sample" className="form-control" defaultValue={index === workExperience.length - 1 && index != 0 ? null : detail.workDoneSample} onChange={onFormDataChange} />
                             </td>
                           </tr>
                         )
@@ -1315,7 +1315,7 @@ className="SelectBtn"
                         </button>
                       </Link>
                       <button className="btn editBtnSave mb-0" type="submit">
-                        <img style={{marginRight:"5px"}} src={require("../../images/savebtn.svg").default} />
+                        <img alt="..." style={{marginRight:"5px"}} src={require("../../images/savebtn.svg").default} />
                         Save Profile
                       </button>
                     </div>

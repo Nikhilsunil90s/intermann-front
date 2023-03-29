@@ -15,8 +15,8 @@ import { ProgressBar } from "react-bootstrap";
 import ProfileLoader from "../../../components/Loader/ProfilesLoader";
 import RenameDoc from "../../../components/Modal/RenameDoc_Modal";
 import PreModalClient from "../../../components/Modal/preSelectedModalForClient";
-import ErrorLoader from '../../../components/Loader/SearchBarError' 
-import Cookies from 'js-cookie'
+import ErrorLoader from "../../../components/Loader/SearchBarError";
+import Cookies from "js-cookie";
 
 let RenameData = [];
 let id = "";
@@ -26,32 +26,26 @@ function Signed() {
   const profileData = JSON.parse(localStorage.getItem("profile"));
   // const profileD = JSON.parse(localStorage.getItem("embauch"));
 
- const [GetClientbyID,setGetClient]=useState(profileData._id)
-  const [Loader,setLoader]=useState(false)
-useEffect(()=>{
-  GetClient(GetClientbyID).then(res=>
-    {
-    if(res.data.length>0){
-      setLoader(true)
-      res.data.map((el)=>{
-        
-        setEMPunderWorking(el.employeesWorkingUnder)
-      })
-
-    }
-    else if(res.data==[]) {
-      setLoader(false)
-    }
-    }
-  )
-},[])
-
+  const [GetClientbyID, setGetClient] = useState(profileData._id);
+  const [Loader, setLoader] = useState(false);
+  useEffect(() => {
+    GetClient(GetClientbyID).then((res) => {
+      if (res.data.length > 0) {
+        setLoader(true);
+        res.data.map((el) => {
+          setEMPunderWorking(el.employeesWorkingUnder);
+        });
+      } else if (res.data == []) {
+        setLoader(false);
+      }
+    });
+  }, []);
 
   const [profile, setProfile] = useState<any>(profileData);
   const navigate = useNavigate();
 
   const [showArchiveModal, setShowArchiveModal] = useState(false);
-  const [EMPunderWorking,setEMPunderWorking]=useState([])as any
+  const [EMPunderWorking, setEMPunderWorking] = useState([]) as any;
   const [UploadBtn, setSelectUpload] = useState(false);
   const hiddenImageInput = React.useRef(null);
   const [SISPI, setChecked] = useState(profile.sispiDeclared);
@@ -147,7 +141,7 @@ useEffect(()=>{
     if (val === "upload") {
       handleImageUpload();
     } else if (val === "Download") {
-      window.open(candidatImage.replace("http","https"));
+      window.open(candidatImage.replace("http", "https"));
     }
   };
   const editClientProfile = () => {
@@ -160,7 +154,7 @@ useEffect(()=>{
     baseURL: API_BASE_URL,
   });
   // NOTIFY //
-  const notificationSwitch=()=>toast.success("Modification sauvegardée")
+  const notificationSwitch = () => toast.success("Modification sauvegardée");
   const notifyDocumentUploadError = () =>
     toast.error("Document Upload Failed! Please Try Again in few minutes.");
   const notifyDocumentDeleteError = () =>
@@ -184,7 +178,6 @@ useEffect(()=>{
     //   console.log(err)
     // })
   };
-
 
   const fileChange = (
     e: React.ChangeEvent<
@@ -227,7 +220,7 @@ useEffect(()=>{
 
   useEffect(() => {
     fetchCandidat(profile._id)
-      .then((resData) => {;
+      .then((resData) => {
         setCandidatImage("");
         if (resData.status == true) {
           // setProfile(resData.data)
@@ -250,7 +243,6 @@ useEffect(()=>{
         console.log(err);
       });
   }, [docUploaded]);
-
 
   const ViewDownloadFiles = (documentName: any) => {
     window.open(documentName);
@@ -294,7 +286,7 @@ useEffect(()=>{
               return doc.documentName !== docName;
             }),
           ]);
-   } else {
+        } else {
           notifyDocumentDeleteError();
         }
       })
@@ -331,7 +323,6 @@ useEffect(()=>{
   //     GetClient(IdFromURL)
   // })
 
-
   const GetClient = async (IdFromURL) => {
     return await fetch(API_BASE_URL + `getClientById/?clientId=${IdFromURL}`, {
       headers: {
@@ -360,14 +351,12 @@ useEffect(()=>{
         setOffre(true);
         id = e._id;
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setOffre(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "signatureSent") {
@@ -376,14 +365,12 @@ useEffect(()=>{
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setSignature(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "contractSigned") {
@@ -392,14 +379,12 @@ useEffect(()=>{
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setContrat(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "publicityStarted") {
@@ -408,14 +393,12 @@ useEffect(()=>{
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setPublic(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "A1selected") {
@@ -424,14 +407,12 @@ useEffect(()=>{
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setA1(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "assuranceFaite") {
@@ -440,14 +421,12 @@ useEffect(()=>{
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setAssurance(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "agenceDeVoyage") {
@@ -456,14 +435,12 @@ useEffect(()=>{
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setAgence(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
     if (Name === "sispiDeclared") {
@@ -472,14 +449,12 @@ useEffect(()=>{
         id = e._id;
 
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
       if (checked === false) {
         setChecked(false);
         onChangeSwitches(id, Name, checked);
-         notificationSwitch()
-      
+        notificationSwitch();
       }
     }
   };
@@ -502,7 +477,10 @@ useEffect(()=>{
   };
   return (
     <>
-    <Toaster position="top-right" containerStyle={{zIndex:"9999999999999999999999"}}  />
+      <Toaster
+        position="top-right"
+        containerStyle={{ zIndex: "9999999999999999999999" }}
+      />
       <div className="containet-fluid">
         <div className="row px-1">
           <div className="col-12 top-pd mt-1">
@@ -514,7 +492,10 @@ useEffect(()=>{
                 <div className="stable">
                   <Link to="/clientProgress">
                     <button type="button" className="btn FontStyle-TODOSEE">
-                      <img src={require("../../../images/return.svg").default} />
+                      <img
+                        alt="..."
+                        src={require("../../../images/return.svg").default}
+                      />
                       Client File : {profile.clientCompanyName}
                     </button>
                   </Link>
@@ -525,7 +506,10 @@ useEffect(()=>{
                   className="btn btn-bgbClient"
                   onClick={() => editClientProfile()}
                 >
-                  <img src={require("../../../images/Edit.svg").default} />
+                  <img
+                    alt="..."
+                    src={require("../../../images/Edit.svg").default}
+                  />
                   Edit Profile
                 </button>
               </div>
@@ -537,6 +521,7 @@ useEffect(()=>{
                 <div className="col-2 pr-0 text-center">
                   <div className="">
                     <img
+                      alt="..."
                       src={require("../../../images/fullClientSee.svg").default}
                       className="imgSigned-upload-Download"
                     />
@@ -556,6 +541,7 @@ useEffect(()=>{
                     className="SelectBtn"
                   >
                     <img
+                      alt="..."
                       className=""
                       src={require("../../../images/select.svg").default}
                     />
@@ -586,12 +572,28 @@ useEffect(()=>{
                     </p>
                     <span className="card-xlSpan">(Age)</span>
                   </div>
-                  <p>Number of Positions : {profile.numberOfPosts ? profile.numberOfPosts  : "No Posts!"}</p>
+                  <p>
+                    Number of Positions :{" "}
+                    {profile.numberOfPosts
+                      ? profile.numberOfPosts
+                      : "No Posts!"}
+                  </p>
 
-                  <p>Secteur : {profile.clientActivitySector ? profile.clientActivitySector : "No Secteur!"}</p>
-                  <p>Métier/Job : {profile.clientJob ? profile.clientJob : "No Job!"}</p>
+                  <p>
+                    Secteur :{" "}
+                    {profile.clientActivitySector
+                      ? profile.clientActivitySector
+                      : "No Secteur!"}
+                  </p>
+                  <p>
+                    Métier/Job :{" "}
+                    {profile.clientJob ? profile.clientJob : "No Job!"}
+                  </p>
                   <p style={{ width: "120%" }}>
-                    Contact Name : {profile.clientReferenceName ? profile.clientReferenceName : "No Name!"}
+                    Contact Name :{" "}
+                    {profile.clientReferenceName
+                      ? profile.clientReferenceName
+                      : "No Name!"}
                   </p>
                 </div>
                 {/* <div className="col-4 text-end end-class d-grid justify-content-center align-items-center"> */}
@@ -599,7 +601,10 @@ useEffect(()=>{
                   <div className="text-end ">
                     <button className="SignedLargebtn">
                       <img
-                        src={require("../../../images/tickClientBtn.svg").default}
+                        alt="..."
+                        src={
+                          require("../../../images/tickClientBtn.svg").default
+                        }
                       />
                       SIGNED CONTRACT
                     </button>
@@ -951,6 +956,7 @@ useEffect(()=>{
                       >
                         <span className="padding-email">
                           <img
+                            alt="..."
                             style={{ width: "8%" }}
                             src={require("../../../images/gmail.svg").default}
                           />
@@ -962,6 +968,7 @@ useEffect(()=>{
                     <button className="btn-TODOgmail">
                       <span className="padding-email">
                         <img
+                          alt="..."
                           style={{ width: "8%" }}
                           src={require("../../../images/gmail.svg").default}
                         />
@@ -984,14 +991,20 @@ useEffect(()=>{
                       className="btn  fw-bold btn-TODOgmail"
                     >
                       <span className="padding-email">
-                        <img src={require("../../../images/gmail.svg").default} />
+                        <img
+                          alt="..."
+                          src={require("../../../images/gmail.svg").default}
+                        />
                       </span>
                       Send Email
                     </a>
                   ) : (
                     <button className="btn  fw-bold btn-TODOgmail">
                       <span className="padding-email">
-                        <img src={require("../../../images/gmail.svg").default} />
+                        <img
+                          alt="..."
+                          src={require("../../../images/gmail.svg").default}
+                        />
                       </span>
                       No Email !
                     </button>
@@ -1013,8 +1026,11 @@ useEffect(()=>{
                       <button className="btn-whatsapp my-1">
                         <span className="padding-email">
                           <img
+                            alt="..."
                             style={{ width: "8%" }}
-                            src={require("../../../images/whatsapp.svg").default}
+                            src={
+                              require("../../../images/whatsapp.svg").default
+                            }
                           />
                         </span>
                         Send What’s App
@@ -1024,6 +1040,7 @@ useEffect(()=>{
                     <button className="btn-whatsapp my-1">
                       <span className="padding-email">
                         <img
+                          alt="..."
                           style={{ width: "8%" }}
                           src={require("../../../images/whatsapp.svg").default}
                         />
@@ -1048,8 +1065,11 @@ useEffect(()=>{
                       <button className="btn-whatsapp my-1">
                         <span className="padding-email">
                           <img
+                            alt="..."
                             style={{ width: "8%" }}
-                            src={require("../../../images/whatsapp.svg").default}
+                            src={
+                              require("../../../images/whatsapp.svg").default
+                            }
                           />
                         </span>
                         Send What’s App
@@ -1059,6 +1079,7 @@ useEffect(()=>{
                     <button className="btn-whatsapp my-1">
                       <span className="padding-email">
                         <img
+                          alt="..."
                           style={{ width: "8%" }}
                           src={require("../../../images/whatsapp.svg").default}
                         />
@@ -1098,7 +1119,6 @@ useEffect(()=>{
                     <div className="d-flex align-items-center">
                       <p>Langues : </p>
                       <span className="Todo-ClinetCardMore-span">
-                        
                         {profile.clientLanguages.length
                           ? profile.clientLanguages.join(", ")
                           : "No Langues!"}
@@ -1166,79 +1186,70 @@ useEffect(()=>{
                 </div>
               </div>
             </div>
-          
-      
-           <div className="col-12 inPAdsBOX py-1">
-           <div className="row">
-             <div className="col-6 pt-2">
-               <p className="EmpWorking">
-                 Employees working for this client :
-               </p>
-             </div>
-             {
-           Loader ?
-            
-             
-               EMPunderWorking?.map((el) =>
-         
-               (
-                 <div className="col-12 pb-1">
-                   <div className="row">
-                     <div className="col-9 d-flex align-items-center">
-                       <img
-                         style={{ width: "7%" }}
-                         className="pr-1"
-                         src={require("../../../images/menSigned.svg").default}
-                       />
-                       {el.candidatName}
-                       <span className="pl-1">Since :</span>
-                       {el.candidatCurrentWork ?
-                       el.candidatCurrentWork.map(
-                         (el) => el.workingSince
-                       )
-                     :
-                     "No workingSince!"
-                     }
-                       <span className="pl-1">Salary :</span>
-                       {el.candidatCurrentWork.length >0 ?
-                       
-                       el.candidatCurrentWork.map((el) => el.salary)
-                     :"No salary!"
-                     }
-                     </div>
-                     <div className="col-3">
-                       <button
-                         className="seeFullCandidat"
-                         onClick={(e) => viewFullProfile(el)}
-                       >
-                         <img
-                           src={require("../../../images/seeCan.svg").default}
-                         />
-                         See profile
-                       </button>
-                     </div>
-                   </div>
-                 </div>
-               ))
-               : 
-               null
-         }
-             <p className="mb-0">
-               Ads Spent on this client :
-               {profile.jobTotalBudget
-                 ? profile.jobTotalBudget
-                 : "No Budget!"}
-             </p>
-           </div>
-         </div>
-         
-        
-        
+
+            <div className="col-12 inPAdsBOX py-1">
+              <div className="row">
+                <div className="col-6 pt-2">
+                  <p className="EmpWorking">
+                    Employees working for this client :
+                  </p>
+                </div>
+                {Loader
+                  ? EMPunderWorking?.map((el) => (
+                      <div className="col-12 pb-1">
+                        <div className="row">
+                          <div className="col-9 d-flex align-items-center">
+                            <img
+                              alt="..."
+                              style={{ width: "7%" }}
+                              className="pr-1"
+                              src={
+                                require("../../../images/menSigned.svg").default
+                              }
+                            />
+                            {el.candidatName}
+                            <span className="pl-1">Since :</span>
+                            {el.candidatCurrentWork
+                              ? el.candidatCurrentWork.map(
+                                  (el) => el.workingSince
+                                )
+                              : "No workingSince!"}
+                            <span className="pl-1">Salary :</span>
+                            {el.candidatCurrentWork.length > 0
+                              ? el.candidatCurrentWork.map((el) => el.salary)
+                              : "No salary!"}
+                          </div>
+                          <div className="col-3">
+                            <button
+                              className="seeFullCandidat"
+                              onClick={(e) => viewFullProfile(el)}
+                            >
+                              <img
+                                alt="..."
+                                src={
+                                  require("../../../images/seeCan.svg").default
+                                }
+                              />
+                              See profile
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  : null}
+                <p className="mb-0">
+                  Ads Spent on this client :
+                  {profile.jobTotalBudget
+                    ? profile.jobTotalBudget
+                    : "No Budget!"}
+                </p>
+              </div>
+            </div>
 
             {/* <div className="col-12 pt-4">
                 <div className="row">
                   <div className="col-5 pdf-btn">
-                    <img src={require("../../../images/doc.svg").default} />
+                    <img  alt="..." src={require("../../../images/doc.svg").default} />
                     <span>Add document about this client </span>
                   </div>
                 </div>
@@ -1292,11 +1303,11 @@ useEffect(()=>{
                       Motivation :
                       <b style={{ background: "transparent", zIndex: "9999" }}>
                         {candidatMotivationIcons[profile.clientMotivation]
-                              ?.icon +
-                            " " +
-                            candidatMotivationIcons[profile.clientMotivation]
-                              ?.motivation ?
-                              candidatMotivationIcons[profile.clientMotivation]
+                          ?.icon +
+                        " " +
+                        candidatMotivationIcons[profile.clientMotivation]
+                          ?.motivation
+                          ? candidatMotivationIcons[profile.clientMotivation]
                               ?.icon +
                             " " +
                             candidatMotivationIcons[profile.clientMotivation]
@@ -1326,6 +1337,7 @@ useEffect(()=>{
                 <div className="col-6 d-flex justify-content-end align-items-center">
                   <button className="pdf-btn" onClick={handleFileUpload}>
                     <img
+                      alt="..."
                       src={require("../../../images/doc.svg").default}
                       className="docImg"
                     />
@@ -1349,7 +1361,10 @@ useEffect(()=>{
                     className="btn btn-BlackEdit"
                     onClick={editClientProfile}
                   >
-                    <img src={require("../../../images/Edit.svg").default} />
+                    <img
+                      alt="..."
+                      src={require("../../../images/Edit.svg").default}
+                    />
                     Edit Profile
                   </button>
                   <p className="btn-Down text-center text-start">
@@ -1360,6 +1375,7 @@ useEffect(()=>{
                 <div className="col-3 text-center">
                   <button type="button" className="btn btn-contractClient">
                     <img
+                      alt="..."
                       src={require("../../../images/doc.svg").default}
                       style={{ paddingRight: "5px" }}
                     />
@@ -1391,6 +1407,7 @@ useEffect(()=>{
                 <div className="col-3">
                   <button type="button" className="btn btn-grilleClient">
                     <img
+                      alt="..."
                       src={require("../../../images/salary.svg").default}
                       style={{ paddingRight: "5px" }}
                     />
@@ -1403,6 +1420,7 @@ useEffect(()=>{
                 <div className="col-3">
                   <button type="button" className="btn  btn-careerClient">
                     <img
+                      alt="..."
                       src={require("../../../images/doc.svg").default}
                       style={{ paddingRight: "5px" }}
                     />
@@ -1416,130 +1434,203 @@ useEffect(()=>{
             </div>
             <div className="col-12 Social-CardClient my-1 ">
               <div className="row p-1">
-              <div className="row" style={{ marginRight: '1px' }}>
-                    {
-                      documentList.length > 0  ?
-                        documentList.map((doc, index) =>
-                          <div className="col-6 mx-0">
-                            <div className="row CardClassDownload mt-1 mx-0">
-                              <div className="col-4 d-flex align-items-center ">
-                                <p className="download-font mb-0">{doc.originalName}</p>
-                              </div>
-                              <div className="col-6 text-center">
-                                {/* {progress > 0 && progress < 100  ?
+                <div className="row" style={{ marginRight: "1px" }}>
+                  {documentList.length > 0 ? (
+                    documentList.map((doc, index) => (
+                      <div className="col-6 mx-0">
+                        <div className="row CardClassDownload mt-1 mx-0">
+                          <div className="col-4 d-flex align-items-center ">
+                            <p className="download-font mb-0">
+                              {doc.originalName}
+                            </p>
+                          </div>
+                          <div className="col-6 text-center">
+                            {/* {progress > 0 && progress < 100  ?
                                   <ProgressBar className="mt-1" now={progress} label={`${progress}%`} />
                                   :
                                   <button className="btnDownload">
-                                    <img src={require("../images/dowBtn.svg").default} />
+                                    <img  alt="..." src={require("../images/dowBtn.svg").default} />
                                     {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
                                   </button>
                                 } */}
-                                     <button className="btnDownload" onClick={()=>ViewDownloadFiles( doc.url)}>
-                                    <img src={require("../../../images/dowBtn.svg").default} />
-                                    {doc.originalName.length > 10 ? doc.originalName.slice(0, 11) + "..." : doc.originalName}
-                                  </button>
-                              </div>
-                              <div className="col-2  d-flex align-item-end justify-content-end">
-                                <img
-                                  src={require("../../../images/editSvg.svg").default}
-                                  style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
-                                  // onClick={() => renameDocument(doc._id, doc.documentName)}
-                                  onClick={()=>{setRenameDocStatus(true);renameDocument(doc._id, doc.documentName,doc.originalName)}}
-                                />
-                                <img
-                                  src={require("../../../images/Primaryfill.svg").default}
-                                  style={{ width: "20px", cursor: 'pointer' }}
-                                  onClick={() => deleteDocument(doc._id, doc.documentName)}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        ) :
-                        progress > 0 && progress < 100 && documentList.length == 0?
-                        <div className="col-6 mx-0">
-                        <div className="row CardClassDownload p-0 mt-1 mx-0">
-                          <div className="col-4 pr-0 d-flex align-items-center ">
-                        <ProfileLoader width={"90"} height={"56px"} fontSize={"12px"} fontWeight={600} Title={"Uploading!"}/>
-                          </div>
-                          <div className="col-6 text-center  mb-0" style={{marginTop:"21px"}}>
-                              <ProgressBar className="mb-0" now={progress} label={`${progress}%`} />
+                            <button
+                              className="btnDownload"
+                              onClick={() => ViewDownloadFiles(doc.url)}
+                            >
+                              <img
+                                alt="..."
+                                src={
+                                  require("../../../images/dowBtn.svg").default
+                                }
+                              />
+                              {doc.originalName.length > 10
+                                ? doc.originalName.slice(0, 11) + "..."
+                                : doc.originalName}
+                            </button>
                           </div>
                           <div className="col-2  d-flex align-item-end justify-content-end">
                             <img
-                              src={require("../../../images/editSvg.svg").default}
-                              style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
+                              alt="..."
+                              src={
+                                require("../../../images/editSvg.svg").default
+                              }
+                              style={{
+                                width: "20px",
+                                marginRight: "5px",
+                                cursor: "pointer",
+                              }}
                               // onClick={() => renameDocument(doc._id, doc.documentName)}
+                              onClick={() => {
+                                setRenameDocStatus(true);
+                                renameDocument(
+                                  doc._id,
+                                  doc.documentName,
+                                  doc.originalName
+                                );
+                              }}
                             />
                             <img
-                              src={require("../../../images/Primaryfill.svg").default}
-                              style={{ width: "20px", cursor: 'pointer' }}
-                              // onClick={() => deleteDocument(doc._id, doc.documentName)}
+                              alt="..."
+                              src={
+                                require("../../../images/Primaryfill.svg")
+                                  .default
+                              }
+                              style={{ width: "20px", cursor: "pointer" }}
+                              onClick={() =>
+                                deleteDocument(doc._id, doc.documentName)
+                              }
                             />
                           </div>
                         </div>
                       </div>
-                      : 
-                      <>
-                      <div className="col-12 d-flex justify-content-center"> 
-<p className="d-flex align-items-center mb-0" style={{
-                        fontFamily: "Poppins",
-                        fontStyle: "normal",
-                        fontWeight: "700",
-                        fontSize: "16px",
-                        lineHeight: "24px",
-                        color: "#000000",
-                      }}><ErrorLoader />No Documents Uploaded!</p>
-</div>
-</>
-                    }
-    {progress > 0 && progress < 100 && documentList.length > 0 ?
-                        <div className="col-6 mx-0">
-                        <div className="row CardClassDownload p-0 mt-1 mx-0">
-                          <div className="col-4 pr-0 d-flex align-items-center ">
-                        <ProfileLoader width={"90"} height={"56px"} fontSize={"12px"} fontWeight={600} Title={"Uploading!"}/>
-                          </div>
-                          <div className="col-6 text-center  mb-0" style={{marginTop:"21px"}}>
-                              <ProgressBar className="mb-0" now={progress} label={`${progress}%`} />
-                          </div>
-                          <div className="col-2  d-flex align-item-end justify-content-end">
-                            <img
-                              src={require("../../../images/editSvg.svg").default}
-                              style={{ width: "20px", marginRight: "5px", cursor: 'pointer' }}
-                            />
-                            <img
-                              src={require("../../../images/Primaryfill.svg").default}
-                              style={{ width: "20px", cursor: 'pointer' }}
-                            />
-                          </div>
+                    ))
+                  ) : progress > 0 &&
+                    progress < 100 &&
+                    documentList.length == 0 ? (
+                    <div className="col-6 mx-0">
+                      <div className="row CardClassDownload p-0 mt-1 mx-0">
+                        <div className="col-4 pr-0 d-flex align-items-center ">
+                          <ProfileLoader
+                            width={"90"}
+                            height={"56px"}
+                            fontSize={"12px"}
+                            fontWeight={600}
+                            Title={"Uploading!"}
+                          />
+                        </div>
+                        <div
+                          className="col-6 text-center  mb-0"
+                          style={{ marginTop: "21px" }}
+                        >
+                          <ProgressBar
+                            className="mb-0"
+                            now={progress}
+                            label={`${progress}%`}
+                          />
+                        </div>
+                        <div className="col-2  d-flex align-item-end justify-content-end">
+                          <img
+                            alt="..."
+                            src={require("../../../images/editSvg.svg").default}
+                            style={{
+                              width: "20px",
+                              marginRight: "5px",
+                              cursor: "pointer",
+                            }}
+                            // onClick={() => renameDocument(doc._id, doc.documentName)}
+                          />
+                          <img
+                            alt="..."
+                            src={
+                              require("../../../images/Primaryfill.svg").default
+                            }
+                            style={{ width: "20px", cursor: "pointer" }}
+                            // onClick={() => deleteDocument(doc._id, doc.documentName)}
+                          />
                         </div>
                       </div>
-                        :
-                      
-                 null 
-                  
-
-                          }
-                          {
-                            RenameDocStatus? 
-                            <RenameDoc  props={RenameData} closepreModal={setRenameDocStatus} status={null} />
-                            :
-                            null
-                          }
-                {showPreSelectedModal?
-                  <PreModalClient 
-                   props={PreSelectedData}
-                   closepreModal={setShowInPreSelectedModal}
-                   clientProps={profile}
-                  />
-                  :
-                  null
-
-                  }
-                  </div>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="col-12 d-flex justify-content-center">
+                        <p
+                          className="d-flex align-items-center mb-0"
+                          style={{
+                            fontFamily: "Poppins",
+                            fontStyle: "normal",
+                            fontWeight: "700",
+                            fontSize: "16px",
+                            lineHeight: "24px",
+                            color: "#000000",
+                          }}
+                        >
+                          <ErrorLoader />
+                          No Documents Uploaded!
+                        </p>
+                      </div>
+                    </>
+                  )}
+                  {progress > 0 && progress < 100 && documentList.length > 0 ? (
+                    <div className="col-6 mx-0">
+                      <div className="row CardClassDownload p-0 mt-1 mx-0">
+                        <div className="col-4 pr-0 d-flex align-items-center ">
+                          <ProfileLoader
+                            width={"90"}
+                            height={"56px"}
+                            fontSize={"12px"}
+                            fontWeight={600}
+                            Title={"Uploading!"}
+                          />
+                        </div>
+                        <div
+                          className="col-6 text-center  mb-0"
+                          style={{ marginTop: "21px" }}
+                        >
+                          <ProgressBar
+                            className="mb-0"
+                            now={progress}
+                            label={`${progress}%`}
+                          />
+                        </div>
+                        <div className="col-2  d-flex align-item-end justify-content-end">
+                          <img
+                            alt="..."
+                            src={require("../../../images/editSvg.svg").default}
+                            style={{
+                              width: "20px",
+                              marginRight: "5px",
+                              cursor: "pointer",
+                            }}
+                          />
+                          <img
+                            alt="..."
+                            src={
+                              require("../../../images/Primaryfill.svg").default
+                            }
+                            style={{ width: "20px", cursor: "pointer" }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
+                  {RenameDocStatus ? (
+                    <RenameDoc
+                      props={RenameData}
+                      closepreModal={setRenameDocStatus}
+                      status={null}
+                    />
+                  ) : null}
+                  {showPreSelectedModal ? (
+                    <PreModalClient
+                      props={PreSelectedData}
+                      closepreModal={setShowInPreSelectedModal}
+                      clientProps={profile}
+                    />
+                  ) : null}
                 </div>
               </div>
-            
-               </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

@@ -187,7 +187,7 @@ function ClientContractCard(props: any) {
  <div className="col-4 pr-0" key={i} style={{marginBottom:"5px"}}>
                           <div className="d-flex align-items-center cursor-pointer" onClick={(e) => viewFullProfile(el)}>
 
-                            <img
+                            <img alt="..."
                               src={require("../../images/menSigned.svg").default}
                               style={{ width: "15%" }}
                             />

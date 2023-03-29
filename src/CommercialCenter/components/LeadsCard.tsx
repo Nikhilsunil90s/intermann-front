@@ -3,16 +3,13 @@ import { ColourOption } from "../../Selecteddata/data";
 import chroma from "chroma-js";
 import Select, { StylesConfig } from "react-select";
 import { API_BASE_URL } from "../../config/serverApiConfig";
-import moment from "moment";
 import EditModal from "./Modal/EditModal";
 import ViewModal from "./Modal/ViewModalLeads";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import DeleteLeadModal from "./Modal/DeleteLeadsModal";
-import Filter from "./Filter";
 import OfferModal from "./Modal/OfferModal";
-import Cookies from 'js-cookie'
-import VoirOfferModal from "../components/Modal/VoirOfferModal"
-
+import Cookies from "js-cookie";
+import VoirOfferModal from "../components/Modal/VoirOfferModal";
 
 function LeadCard(props) {
   const colourStyles: StylesConfig<ColourOption, true> = {
@@ -79,8 +76,7 @@ function LeadCard(props) {
   const [status, setStatus] = useState() as any;
 
   const [GenOffer, setGenOffer] = useState(false);
-  const [voir_offer,setVoirOffer]=useState(false)as any
-
+  const [voir_offer, setVoirOffer] = useState(false) as any;
 
   function padTo2DigitsCH(num) {
     return num.toString().padStart(2, "0");
@@ -1020,14 +1016,17 @@ function LeadCard(props) {
               </p>
             </div>
             <div className="col-6 d-flex justify-content-end align-items-center">
-          {props.props.offerSent ?  
-            <button className="leadsAddToCRM mx-1" onClick={()=>setVoirOffer(true)}>Voir les offres</button>
-         :
-         null 
-}
+              {props.props.offerSent ? (
+                <button
+                  className="leadsAddToCRM mx-1"
+                  onClick={() => setVoirOffer(true)}
+                >
+                  Voir les offres
+                </button>
+              ) : null}
               <button className="leadsAddToCRM">Add to CRM</button>
               <button
-                className="leadsAddToCRM mx-1" 
+                className="leadsAddToCRM mx-1"
                 onClick={() => setGenOffer(true)}
               >
                 GENERATE OFFER
@@ -1122,11 +1121,13 @@ function LeadCard(props) {
                 <p className="mb-0">Email Adress 👇</p>
               </div>
               <div className="BoxHeight">
-                <span   className="" style={{height:"auto",wordBreak:"break-all"}}>
+                <span
+                  className=""
+                  style={{ height: "auto", wordBreak: "break-all" }}
+                >
                   <div
                     className="col-9 d-flex align-items-center cursor-pointer leadsChipColor text-break "
                     onClick={() => CurrentModal("email")}
-                 
                   >
                     {props.props.email
                       ? props.props.email
@@ -1225,7 +1226,6 @@ function LeadCard(props) {
                 <div className="check-box d-flex align-items-center ">
                   <input
                     type="checkbox"
-                 
                     checked={props.props.offerSent}
                     id={`offer${props.length}`}
                     onChange={(e) => {
@@ -1239,15 +1239,15 @@ function LeadCard(props) {
                     {props.props.offerSent == false ? "Non" : "Oui"}
                   </label>
                 </div>
-                {
-                  props.props.offerSent == false ? 
-                  null
-                  :
-                  <div className="cursor-pointer" style={{height:"11px"}}  onClick={()=>setVoirOffer(true)}>
-                  <p className="mb-0 offerVoir">Voir offre</p>
+                {props.props.offerSent == false ? null : (
+                  <div
+                    className="cursor-pointer"
+                    style={{ height: "11px" }}
+                    onClick={() => setVoirOffer(true)}
+                  >
+                    <p className="mb-0 offerVoir">Voir offre</p>
                   </div>
-                }
-             
+                )}
               </div>
             </div>
             <div className="col-3 d-grid px-0">
@@ -1720,16 +1720,15 @@ function LeadCard(props) {
                 />
               ) : null}
               {GenOffer ? (
-                <OfferModal closeModal={setGenOffer} props={props.props} setUpdate={props.update} />
+                <OfferModal
+                  closeModal={setGenOffer}
+                  props={props.props}
+                  setUpdate={props.update}
+                />
               ) : null}
-                {
-     voir_offer ?
-
-    <VoirOfferModal  props={props.props}  closeModal={setVoirOffer}  />
-
-    :
-    null
-   }
+              {voir_offer ? (
+                <VoirOfferModal props={props.props} closeModal={setVoirOffer} />
+              ) : null}
             </div>
           </div>
         </div>

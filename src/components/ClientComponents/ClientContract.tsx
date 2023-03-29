@@ -4,7 +4,7 @@ import format from 'date-fns/format'
 
 function ClientContract ({props,path}){
 const navigate = useNavigate()
-const [clientContract,setclientContract]=useState(props.clientContract)
+const [clientContract]=useState(props.clientContract)
 
 
 const dateDu = new Date(clientContract.debut_date)

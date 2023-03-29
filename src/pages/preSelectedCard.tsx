@@ -4,9 +4,8 @@ import ArchivedModal from "./../components/Modal/ArchivedModal";
 import InProgressModal from "../components/Modal/InProgressModal";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Select, { StylesConfig } from "react-select";
+import Select from "react-select";
 import ReadMoreReact from "read-more-react";
-import { API_BASE_URL } from "../config/serverApiConfig";
 import moment from "moment";
 import ResetProfile from "../components/Modal/RestProfileForArchived";
 
@@ -16,10 +15,18 @@ const PreSelectedCard = (props: any) => {
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const [ResetModalProfile, setResetModalProfile] = useState(false);
-  const [startStatus]=useState(props.props?.candidatStartDate !== undefined ? props.props.candidatStartDate.slice(0,4).includes("-") : null)
-  const [endStatus]=useState(props.props?.candidatEndDate !== undefined ?props.props.candidatEndDate.slice(0,4).includes("-") : null)
- const [startDate,setStartDate]=useState()as any
-  const [EndDate,setEndDate]=useState()as any
+  const [startStatus] = useState(
+    props.props?.candidatStartDate !== undefined
+      ? props.props.candidatStartDate.slice(0, 4).includes("-")
+      : null
+  );
+  const [endStatus] = useState(
+    props.props?.candidatEndDate !== undefined
+      ? props.props.candidatEndDate.slice(0, 4).includes("-")
+      : null
+  );
+  const [startDate, setStartDate] = useState() as any;
+  const [EndDate, setEndDate] = useState() as any;
 
   const candidatMotivationIcons = [
     { icon: "", motivation: "✘No Motivation!" },
@@ -36,10 +43,8 @@ const PreSelectedCard = (props: any) => {
     },
     { value: "Move to In Progress", label: "Move to In Progress" },
     { value: "Archive", label: "Archive" },
-    ,
     { value: "RESET-to-Todo", label: "RESET-to-Todo" },
   ];
-
   const editCandidatProfile = () => {
     navigate("/preSelected/editPreSelected", { state: state });
   };
@@ -69,8 +74,6 @@ const PreSelectedCard = (props: any) => {
     window.open("/clientSignedView", "_blank");
   };
 
-
-
   function padTo2DigitsCH(num) {
     return num.toString().padStart(2, "0");
   }
@@ -91,25 +94,20 @@ const PreSelectedCard = (props: any) => {
   let start = new Date(props.data.candidatStartDate);
   let end = new Date(props.data.candidatEndDate);
 
-  useEffect(()=>{
-    if(startStatus){
-      setStartDate(props.data.candidatStartDate)
-    }else{
-      let data=formatDateCha(start)
-      setStartDate(data.replaceAll("/","-"))
-      
-  
+  useEffect(() => {
+    if (startStatus) {
+      setStartDate(props.data.candidatStartDate);
+    } else {
+      let data = formatDateCha(start);
+      setStartDate(data.replaceAll("/", "-"));
     }
-    if(endStatus){
-      setEndDate(props.data.candidatEndDate)
-    }else{
-      let data=formatDateCha(end)
-      setEndDate(data.replaceAll("/","-"))
-      
-  
+    if (endStatus) {
+      setEndDate(props.data.candidatEndDate);
+    } else {
+      let data = formatDateCha(end);
+      setEndDate(data.replaceAll("/", "-"));
     }
-   })
-
+  });
 
   return (
     <>
@@ -118,7 +116,6 @@ const PreSelectedCard = (props: any) => {
           {props.data.candidatPhoto &&
           props.data.candidatPhoto?.url !== undefined ? (
             <>
-              
               <div
                 className="col-xxl-4 col-xl-4 col-lg-4 col-md-4 d-flex justify-content-center"
                 style={{ paddingLeft: "5px" }}
@@ -130,7 +127,21 @@ const PreSelectedCard = (props: any) => {
                 />
               </div>
               <div className="col-xxl-8 col-xl-8 col-md-8 col-lg-8 fontStylinForPrecards">
-              <p style={{width:"100%"}}  className="text-dark mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title={props.data.candidatName.toLocaleUpperCase()}><b className="TopTodoTitle">{props.data.candidatName.length > 20 ? props.data.candidatName.slice(0, 21).toLocaleUpperCase() + "..." : props.data.candidatName.toLocaleUpperCase()}</b></p>
+                <p
+                  style={{ width: "100%" }}
+                  className="text-dark mb-0"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  title={props.data.candidatName.toLocaleUpperCase()}
+                >
+                  <b className="TopTodoTitle">
+                    {props.data.candidatName.length > 20
+                      ? props.data.candidatName
+                          .slice(0, 21)
+                          .toLocaleUpperCase() + "..."
+                      : props.data.candidatName.toLocaleUpperCase()}
+                  </b>
+                </p>
 
                 <p className="text-dark">
                   <b className="">
@@ -140,14 +151,15 @@ const PreSelectedCard = (props: any) => {
                   </b>
                 </p>
                 <div>
-                  
                   <p className="text-dark d-flex">
                     <b>
-                      {props.data.candidatMotivation !==undefined ?  candidatMotivationIcons[props.data.candidatMotivation]
-                        .icon +
-                        " " +
-                        candidatMotivationIcons[props.data.candidatMotivation]
-                          .motivation :"✘No Motivation!"}
+                      {props.data.candidatMotivation !== undefined
+                        ? candidatMotivationIcons[props.data.candidatMotivation]
+                            .icon +
+                          " " +
+                          candidatMotivationIcons[props.data.candidatMotivation]
+                            .motivation
+                        : "✘No Motivation!"}
                     </b>
                   </p>
                 </div>
@@ -160,9 +172,9 @@ const PreSelectedCard = (props: any) => {
                 style={{ paddingLeft: "5px" }}
               >
                 <img
+                  alt="..."
                   src={require("../images/card-men.svg").default}
                   className="card-img-top"
-                  alt="..."
                 />
               </div>
               <div className="col-xxl-9 col-xl-8 col-md-8 col-lg-8 fontStylinForPrecards">
@@ -191,14 +203,13 @@ const PreSelectedCard = (props: any) => {
                 <div>
                   <p className="text-dark d-flex">
                     <b>
-                      {props.data.candidatMotivation  !== undefined? candidatMotivationIcons[props.data.candidatMotivation]
-                        .icon +
-                        " " +
-                        candidatMotivationIcons[props.data.candidatMotivation]
-                          .motivation
-                        :
-                        "✘No Motivation!"
-                        }
+                      {props.data.candidatMotivation !== undefined
+                        ? candidatMotivationIcons[props.data.candidatMotivation]
+                            .icon +
+                          " " +
+                          candidatMotivationIcons[props.data.candidatMotivation]
+                            .motivation
+                        : "✘No Motivation!"}
                     </b>
                   </p>
                 </div>
@@ -211,20 +222,38 @@ const PreSelectedCard = (props: any) => {
             <div className="col-6 pd-00X11">
               <Link to="#">
                 <button className="preStylingO11 p-0">
-                  <img src={require("../images/preselectedCard.svg").default} />
+                  <img
+                    alt="..."
+                    src={require("../images/preselectedCard.svg").default}
+                  />
                   PRE SELECTED
                 </button>
               </Link>
             </div>
             <div className="col-6 d-flex justify-content-end mb-0 pd-00P1 form-group">
-              {props.data.candidatLicensePermis ?  <div className="d-flex  justify-content-center align-items-center">
-                                             <img style={{width:"16px"}} src={require("../images/HaveLicence.svg").default} />
-                                            <label htmlFor="css" className="Licence mb-0">Have Licence</label>
-                                        </div> :
-                                       <div className="d-flex  justify-content-center align-items-center">
-                                        <img style={{width:"16px"}} src={require("../images/noLicence.svg").default} />
-                                       <label htmlFor="css" className="NoLicence mb-0">No Licence</label>
-                                   </div>}
+              {props.data.candidatLicensePermis ? (
+                <div className="d-flex  justify-content-center align-items-center">
+                  <img
+                    alt="..."
+                    style={{ width: "16px" }}
+                    src={require("../images/HaveLicence.svg").default}
+                  />
+                  <label htmlFor="css" className="Licence mb-0">
+                    Have Licence
+                  </label>
+                </div>
+              ) : (
+                <div className="d-flex  justify-content-center align-items-center">
+                  <img
+                    alt="..."
+                    style={{ width: "16px" }}
+                    src={require("../images/noLicence.svg").default}
+                  />
+                  <label htmlFor="css" className="NoLicence mb-0">
+                    No Licence
+                  </label>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -284,13 +313,11 @@ const PreSelectedCard = (props: any) => {
           <p className="preCard-Body-p">
             Email :
             <b>
-              
               {props.data.candidatEmail
                 ? props.data.candidatEmail.length > 20
-                  ? props.data.candidatEmail.slice(0, 22)+
-                    "..."
+                  ? props.data.candidatEmail.slice(0, 22) + "..."
                   : props.data.candidatEmail
-                                  : "✘ No Email Provided!"}
+                : "✘ No Email Provided!"}
             </b>
           </p>
           <p
@@ -301,18 +328,11 @@ const PreSelectedCard = (props: any) => {
           >
             Ready for work :
             <b>
-              {props.data.candidatStartDate !== undefined ? date >= start && date <= end
-                ? " 📆" +
-                  startDate +
-                  "  To  " +
-                  EndDate
-                : "⚠️" +
-                  startDate +
-                  "  To  " +
-                  EndDate
-                :
-                "✘ No Dates!"
-                }
+              {props.data.candidatStartDate !== undefined
+                ? date >= start && date <= end
+                  ? " 📆" + startDate + "  To  " + EndDate
+                  : "⚠️" + startDate + "  To  " + EndDate
+                : "✘ No Dates!"}
             </b>
           </p>
         </div>
@@ -338,19 +358,19 @@ const PreSelectedCard = (props: any) => {
                     })}
                   </div>
                 ) : (
-                  <div className="mb-0"      style={{fontSize:"15px"}}>
-                
-                    {props.data.candidatPreSelectedFor.map((el,i) => (
+                  <div className="mb-0" style={{ fontSize: "15px" }}>
+                    {props.data.candidatPreSelectedFor.map((el, i) => (
                       <p
-                      key={i}
+                        key={i}
                         className="mb-0 cursor-pointer"
                         data-bs-toggle="tooltip"
                         data-bs-placement="bottom"
                         title={"Click On This For Full Profile View!"}
                         onClick={() => showCustomerProfile(el.clientId)}
-                   
                       >
-                        {el.clientId.clientCompanyName ?el.clientId.clientCompanyName.toLocaleUpperCase() : ""}
+                        {el.clientId.clientCompanyName
+                          ? el.clientId.clientCompanyName.toLocaleUpperCase()
+                          : ""}
                       </p>
                     ))}
                   </div>

@@ -12,23 +12,17 @@ import Switch from "react-switch";
 import Loader from "../../components/Loader/loader";
 import { ReactComponent as TurnoFF } from "../../images/FatX.svg";
 import { ReactComponent as TurnOn } from "../../images/base-switch_icon.svg";
-import ErrorLoader from '../../components/Loader/SearchBarError'
+import ErrorLoader from "../../components/Loader/SearchBarError";
 import { motion } from "framer-motion";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 
-
-declare namespace JSX {
-  interface IntrinsicElements {
-    "lottie-player": any;
-  }
-}
 let SelectedName = [];
 let FilterJob = [];
 let MotivationArr = [];
 let OthersFilterArr = [];
 let Importance = [];
-let email=false;
-let phone=false;
+let email = false;
+let phone = false;
 function ClientToDoList() {
   const [loader, setLoader] = useState(true);
   const [sectors, setSectors] = useState([]);
@@ -37,98 +31,80 @@ function ClientToDoList() {
   const [nameOptions, setNameOptions] = useState([]);
   const [sectorOptions, setSectorOptions] = useState([]);
   const [jobOptions, setJobOptions] = useState([]);
-  const [EmailCheck, setEmailCheck] = useState(false);
-  const [PhoneNumberMissing, setMissing] = useState(Boolean);
   const [selectedSector, setSelectedSector] = useState("");
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [filterData, setFilterData] = useState([]);
   const [status, setStatus] = useState(Boolean);
   const [showMore, setShowMore] = useState(true);
-  const [filterLoader ,setFetchingLoader  ]=useState(false)
+  const [filterLoader, setFetchingLoader] = useState(false);
   let [page, setPage] = useState(0);
-  const [cardTotallength,setTotalLength]=useState(0)
-
-  // const [email, setEmail] = useState("");
-  // const [phone, setPhone] = useState("");
+  const [cardTotallength, setTotalLength] = useState(0);
   const [optionsOthersFilter, setOtherOptions] = useState([]);
   const [motivationOptions, setMotivationOptions] = useState([]);
   const [importanceOptions, setImportanceOptions] = useState([]) as any;
-  
- 
- 
-
 
   const loadMoreHandle = (i) => {
-    let bottom =i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
-  
+    let bottom =
+      i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 10;
+
     if (bottom) {
-      if(selectedSector.length === 0 &&
+      if (
+        selectedSector.length === 0 &&
         selectedJob.length === 0 &&
         selectedLanguages.length === 0 &&
         SelectedName.length == 0 &&
         MotivationArr.length == 0 &&
-        Importance.length == 0  &&
-        OthersFilterArr.length ==0 &&
-        email == false && 
-        phone == false )
-        
-        {
-          if(cardTotallength > page){
-            setPage(page + 20);
-            setFetchingLoader(true)
-            fetchProfileS(page);
-          }
-          else{
-            setFetchingLoader(false)
-          }
-      
-        
-
-    
+        Importance.length == 0 &&
+        OthersFilterArr.length == 0 &&
+        email == false &&
+        phone == false
+      ) {
+        if (cardTotallength > page) {
+          setPage(page + 20);
+          setFetchingLoader(true);
+          fetchProfileS(page);
+        } else {
+          setFetchingLoader(false);
+        }
       }
-      
-       
     }
-}
+  };
 
-useEffect(() => {
-  fetchProfileS(page);
-}, [page]);
+  useEffect(() => {
+    fetchProfileS(page);
+  }, [page]);
 
-const fetchProfileS = async (page) => {
-  return await fetch(API_BASE_URL + `viewToDoClients/?skip=${page}`, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + Cookies.get("token"),
-    },
-  })
-    .then((resD) => resD.json())
-    .then((reD) =>  {
-      if(cardTotallength > page && page !== 0){
-        setFetchingLoader(true)
-      let resultArr = [...reD]
-      if(resultArr.includes(filterData)){
-        return 
-      }else{
-        setFilterData([...filterData,...resultArr])
-      }
-    
-    }
-    if(page > cardTotallength){
-      setFetchingLoader(false)
-      return true
-    }
-    if(filterData.length === 0){
-      setFetchingLoader(false)
-      setFilterData([...reD])
-
-
-
-}})
-    .catch((err) => err);
-};
+  const fetchProfileS = async (page) => {
+    return await fetch(API_BASE_URL + `viewToDoClients/?skip=${page}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    })
+      .then((resD) => resD.json())
+      .then((reD) => {
+        if (cardTotallength > page && page !== 0) {
+          setFetchingLoader(true);
+          let resultArr = [...reD];
+          if (resultArr.includes(filterData)) {
+            return;
+          } else {
+            setFilterData([...filterData, ...resultArr]);
+          }
+        }
+        if (page > cardTotallength) {
+          setFetchingLoader(false);
+          return true;
+        }
+        if (filterData.length === 0) {
+          setFetchingLoader(false);
+          setFilterData([...reD]);
+        }
+      })
+      .catch((err) => err);
+  };
 
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: "white" }),
@@ -183,8 +159,6 @@ const fetchProfileS = async (page) => {
     }),
   };
 
-  
-
   const MissingHandler = (checked, e, id) => {
     setNameOptions([]);
     SelectedName = [];
@@ -203,23 +177,23 @@ const fetchProfileS = async (page) => {
     setSelectedSector("");
     if (id == "EmailMissing") {
       if (checked == true) {
-        email=true
-        filterFunction()
+        email = true;
+        filterFunction();
       }
-      if (checked== false) {
-        setEmailCheck(true);
-        email=false
-        filterFunction()
+      if (checked == false) {
+       
+        email = false;
+        filterFunction();
       }
     }
     if (id == "PhoneNumberMissing") {
       if (checked == true) {
-        phone=true;
-        filterFunction()
+        phone = true;
+        filterFunction();
       }
       if (checked == false) {
-         phone=false;
-        filterFunction()
+        phone = false;
+        filterFunction();
       }
     }
   };
@@ -228,7 +202,6 @@ const fetchProfileS = async (page) => {
     if (sectors.length == 0) {
       fetchAllSectors()
         .then((data) => {
-         
           setSectors([...data.data]);
         })
         .catch((err) => {
@@ -239,10 +212,8 @@ const fetchProfileS = async (page) => {
       return { value: ajob.jobName, label: ajob.jobName, color: "#FF8B00" };
     });
     setJobOptions([...jobResults]);
-   
   }, [jobs]);
   useEffect(() => {
-  
     let sectorops = sectors.map((asector) => {
       return {
         value: asector.sectorName,
@@ -250,15 +221,16 @@ const fetchProfileS = async (page) => {
         color: "#FF8B00",
       };
     });
-setTimeout(()=>{
-    setSectorOptions([
-      {
-        value: "Select Un Secteur",
-        label: "Select Un Secteur",
-        color: "#FF8B00",
-      },
-      ...sectorops,
-    ]);},1000)
+    setTimeout(() => {
+      setSectorOptions([
+        {
+          value: "Select Un Secteur",
+          label: "Select Un Secteur",
+          color: "#FF8B00",
+        },
+        ...sectorops,
+      ]);
+    }, 1000);
   }, [sectors]);
 
   useEffect(() => {
@@ -299,8 +271,8 @@ setTimeout(()=>{
       .catch((err) => err);
   };
   const handleNameChange = (e: any) => {
-    email=false;
-    phone=false;
+    email = false;
+    phone = false;
     SelectedName = [];
     Importance = [];
     MotivationArr = [];
@@ -321,26 +293,26 @@ setTimeout(()=>{
   const HandelOthers = (e) => {
     // setEmail("")
     // setPhone("")
-    email=false;
-    phone=false;
+    email = false;
+    phone = false;
     SelectedName = [];
     setSelectedSector("");
     Importance = [];
     MotivationArr = [];
     FilterJob = [];
-    let OthersF=[]
-    e.map((el)=>{
-      OthersF.push(el.value)
-    })
-    OthersFilterArr=OthersF
+    let OthersF = [];
+    e.map((el) => {
+      OthersF.push(el.value);
+    });
+    OthersFilterArr = OthersF;
     filterFunction();
   };
   const handleMotivationChange = (e: any) => {
     // setEmail("")
     // setPhone("")
     // console.log(e.target.value)
-    email=false;
-    phone=false;
+    email = false;
+    phone = false;
     MotivationArr = [];
     Importance = [];
     OthersFilterArr = [];
@@ -374,8 +346,8 @@ setTimeout(()=>{
   const importanceHandel = (e) => {
     // setEmail("")
     // setPhone("")
-    email=false;
-    phone=false;
+    email = false;
+    phone = false;
     SelectedName = [];
     setSelectedSector("");
     MotivationArr = [];
@@ -459,16 +431,14 @@ setTimeout(()=>{
       selectedLanguages.length === 0 &&
       SelectedName.length == 0 &&
       MotivationArr.length == 0 &&
-      Importance.length == 0  &&
-      OthersFilterArr.length ==0 &&
-      email == false && 
-      phone == false 
-   
+      Importance.length == 0 &&
+      OthersFilterArr.length == 0 &&
+      email == false &&
+      phone == false
     ) {
       setLoader(true);
       setStatus(true);
-      fetchProfileS(page)
-
+      fetchProfileS(page);
     }
     if (MotivationArr.length > 0) {
       fetch(
@@ -608,10 +578,10 @@ setTimeout(()=>{
         })
         .catch((err) => err);
     }
-    if(email === true){
-      EmailFetch()
+    if (email === true) {
+      EmailFetch();
     }
-    if(phone === true){
+    if (phone === true) {
       await fetch(
         `${API_BASE_URL}filterClientsByMissingEmailOrPhone/?field=phone&status=To-Do`,
         {
@@ -636,7 +606,7 @@ setTimeout(()=>{
         })
         .catch((err) => err);
     }
-    if(OthersFilterArr.length > 0){
+    if (OthersFilterArr.length > 0) {
       await fetch(
         `${API_BASE_URL}filterClientsByAttributes/?filters=${OthersFilterArr.toString()}&status=To-Do`,
         {
@@ -667,11 +637,10 @@ setTimeout(()=>{
     if (nameOptions.length == 0) {
       fetchProfiles()
         .then((profilesResult) => {
-          if(cardTotallength === 0){
-            setTotalLength(profilesResult.length)
+          if (cardTotallength === 0) {
+            setTotalLength(profilesResult.length);
           }
           let nameops = profilesResult.map((pro) => {
-           
             return {
               value: pro.clientCompanyName,
               label: pro.clientCompanyName.toLocaleUpperCase(),
@@ -688,215 +657,317 @@ setTimeout(()=>{
         });
     }
     if (optionsOthersFilter.length == 0) {
-    
-    
-    setTimeout(()=>{  setOtherOptions([
-        {
-          value: "Select Others",
-          label: "Select Others",
-          color: "#FF8B00",
-        },
-        {
-          value: "offerSent",
-          label: "Offre envoyé ?",
-          color: "#FF8B00",
-        },
-        {
-          value: "signatureSent",
-          label: "Signature digitale envoyé ?",
-          color: "#FF8B00",
-        },
-        {
-          value: "contractSigned",
-          label: "Client Signe ?",
-          color: "#FF8B00",
-        },
-        {
-          value: "publicityStarted",
-          label: "Publicité commencé ?",
-          color: "#FF8B00",
-        },
-        {
-          value: "A1selected",
-          label: "A1 ?",
-          color: "#FF8B00",
-        },
-        {
-          value: "assuranceFaite",
-          label: "Assurance faite ?",
-          color: "#FF8B00"
-        },
-        {
-          value: "agenceDeVoyage",
-          label: "Agence de voyage ok ?",
-          color: "#FF8B00",
-        },
-        {
-          value: "sispiDeclared",
-          label: "SISPI déclaré ?",
-          color: "#FF8B00",
-        },
-      ]);},1000)
+      setTimeout(() => {
+        setOtherOptions([
+          {
+            value: "Select Others",
+            label: "Select Others",
+            color: "#FF8B00",
+          },
+          {
+            value: "offerSent",
+            label: "Offre envoyé ?",
+            color: "#FF8B00",
+          },
+          {
+            value: "signatureSent",
+            label: "Signature digitale envoyé ?",
+            color: "#FF8B00",
+          },
+          {
+            value: "contractSigned",
+            label: "Client Signe ?",
+            color: "#FF8B00",
+          },
+          {
+            value: "publicityStarted",
+            label: "Publicité commencé ?",
+            color: "#FF8B00",
+          },
+          {
+            value: "A1selected",
+            label: "A1 ?",
+            color: "#FF8B00",
+          },
+          {
+            value: "assuranceFaite",
+            label: "Assurance faite ?",
+            color: "#FF8B00",
+          },
+          {
+            value: "agenceDeVoyage",
+            label: "Agence de voyage ok ?",
+            color: "#FF8B00",
+          },
+          {
+            value: "sispiDeclared",
+            label: "SISPI déclaré ?",
+            color: "#FF8B00",
+          },
+        ]);
+      }, 1000);
     }
     if (importanceOptions.length == 0) {
-   setTimeout(()=>{
-      setImportanceOptions([
-        {
-          value: "Select Importance",
-          label: "Select Importance",
-          color: "#FF8B00",
-        },
-        {
-          value: "1",
-          label: (
-            <>
-              <RatingStar
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <Empty
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <Empty
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <Empty
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <Empty
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />
-            </>
-          ),
-          color: "#FF8B00",
-        },
-        {
-          value: "2",
-          label: (
-            <>
-              <RatingStar
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <RatingStar
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <Empty
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <Empty
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <Empty
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />
-            </>
-          ),
-          color: "#FF8B00",
-        },
-        {
-          value: "3",
-          label: (
-            <>
-              <RatingStar
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <RatingStar
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <RatingStar
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <Empty
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <Empty
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />
-            </>
-          ),
-          color: "#FF8B00",
-        },
-        {
-          value: "4",
-          label: (
-            <>
-              <RatingStar
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <RatingStar
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <RatingStar
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <RatingStar
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <Empty
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />
-            </>
-          ),
-          color: "#FF8B00",
-        },
-        {
-          value: "5",
-          label: (
-            <>
-              <RatingStar
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <RatingStar
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <RatingStar
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <RatingStar
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />{" "}
-              <RatingStar
-                style={{ height: "25px", width: "25px", borderRadius: "30px" }}
-              />
-            </>
-          ),
-          color: "#FF8B00",
-        },
-      ]);},1000) 
+      setTimeout(() => {
+        setImportanceOptions([
+          {
+            value: "Select Importance",
+            label: "Select Importance",
+            color: "#FF8B00",
+          },
+          {
+            value: "1",
+            label: (
+              <>
+                <RatingStar
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <Empty
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <Empty
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <Empty
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <Empty
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />
+              </>
+            ),
+            color: "#FF8B00",
+          },
+          {
+            value: "2",
+            label: (
+              <>
+                <RatingStar
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <RatingStar
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <Empty
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <Empty
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <Empty
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />
+              </>
+            ),
+            color: "#FF8B00",
+          },
+          {
+            value: "3",
+            label: (
+              <>
+                <RatingStar
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <RatingStar
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <RatingStar
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <Empty
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <Empty
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />
+              </>
+            ),
+            color: "#FF8B00",
+          },
+          {
+            value: "4",
+            label: (
+              <>
+                <RatingStar
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <RatingStar
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <RatingStar
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <RatingStar
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <Empty
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />
+              </>
+            ),
+            color: "#FF8B00",
+          },
+          {
+            value: "5",
+            label: (
+              <>
+                <RatingStar
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <RatingStar
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <RatingStar
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <RatingStar
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />{" "}
+                <RatingStar
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "30px",
+                  }}
+                />
+              </>
+            ),
+            color: "#FF8B00",
+          },
+        ]);
+      }, 1000);
     }
     if (motivationOptions.length == 0) {
-    setTimeout(()=>{
-      setMotivationOptions([
-        {
-          value: "Select Motivations",
-          label: "Select Motivations",
-          color: "#FF8B00",
-        },
-        {
-          value: "1",
-          label: "😟",
-          color: "#FF8B00",
-        },
-        {
-          value: "2",
-          label: "🙁",
-          color: "#FF8B00",
-        },
-        {
-          value: "3",
-          label: "😊",
-          color: "#FF8B00",
-        },
-        {
-          value: "4",
-          label: "🥰",
-          color: "#FF8B00",
-        },
-        {
-          value: "5",
-          label: "😍",
-          color: "#FF8B00",
-        },
-      ]);},1000)
+      setTimeout(() => {
+        setMotivationOptions([
+          {
+            value: "Select Motivations",
+            label: "Select Motivations",
+            color: "#FF8B00",
+          },
+          {
+            value: "1",
+            label: "😟",
+            color: "#FF8B00",
+          },
+          {
+            value: "2",
+            label: "🙁",
+            color: "#FF8B00",
+          },
+          {
+            value: "3",
+            label: "😊",
+            color: "#FF8B00",
+          },
+          {
+            value: "4",
+            label: "🥰",
+            color: "#FF8B00",
+          },
+          {
+            value: "5",
+            label: "😍",
+            color: "#FF8B00",
+          },
+        ]);
+      }, 1000);
     }
   });
 
@@ -910,7 +981,7 @@ setTimeout(()=>{
     filterFunction();
   };
 
-  const EmailFetch=async()=>{
+  const EmailFetch = async () => {
     await fetch(
       `${API_BASE_URL}filterClientsByMissingEmailOrPhone/?field=email&status=To-Do`,
       {
@@ -934,7 +1005,7 @@ setTimeout(()=>{
         }
       })
       .catch((err) => err);
-  }
+  };
 
   const RestFilters = () => {
     setNameOptions([]);
@@ -942,27 +1013,26 @@ setTimeout(()=>{
     setMotivationOptions([]);
     setOtherOptions([]);
     setJobs([]);
-    setSelectedSector("")
+    setSelectedSector("");
     FilterJob = [];
     MotivationArr = [];
     OthersFilterArr = [];
-    Importance =[];
-    setPage(0)
-    OthersFilterArr =[];
+    Importance = [];
+    setPage(0);
+    OthersFilterArr = [];
     setImportanceOptions([]);
     setSectorOptions([]);
     setSectors([]);
     setSelectedJob([]);
     setSelectedSector("");
-    email=false;
-    phone=false;
-    toast.success("Filters Reset Successful!")
+    email = false;
+    phone = false;
+    toast.success("Filters Reset Successful!");
     fetchAllSectors();
-    fetchProfileS(page)
-    setTimeout(()=>{
+    fetchProfileS(page);
+    setTimeout(() => {
       filterFunction();
-    },1000)
- 
+    }, 1000);
   };
   return (
     <>
@@ -970,7 +1040,11 @@ setTimeout(()=>{
         position="top-right"
         containerStyle={{ zIndex: "9999999999999999999999" }}
       />
-      <div className="container-fluid cardScrollBar" style={{marginTop:"80px",height: '100vh',overflow:"auto"}} onScroll={loadMoreHandle}>
+      <div
+        className="container-fluid cardScrollBar"
+        style={{ marginTop: "80px", height: "100vh", overflow: "auto" }}
+        onScroll={loadMoreHandle}
+      >
         <div className="row pd ">
           <div className="col-12 text-center">
             <div className="row text-start">
@@ -1016,24 +1090,41 @@ setTimeout(()=>{
                         options={nameOptions}
                         styles={colourStyles}
                       />
-                    ) :    <>                                <div className="spinner-grow text-primary" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
-                  <div className="spinner-grow text-secondary" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
-                  <div className="spinner-grow text-success" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
-                  <div className="spinner-grow text-danger" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
-                  <div className="spinner-grow text-warning" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
-                  <div className="spinner-grow text-dark" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div></>}
+                    ) : (
+                      <>
+                        {" "}
+                        <div
+                          className="spinner-grow text-primary"
+                          role="status"
+                        >
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                        <div
+                          className="spinner-grow text-secondary"
+                          role="status"
+                        >
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                        <div
+                          className="spinner-grow text-success"
+                          role="status"
+                        >
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                        <div className="spinner-grow text-danger" role="status">
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                        <div
+                          className="spinner-grow text-warning"
+                          role="status"
+                        >
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                        <div className="spinner-grow text-dark" role="status">
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1052,26 +1143,41 @@ setTimeout(()=>{
                         options={sectorOptions}
                         styles={colourStyles}
                       />
-                    ) : 
-                       <>                                <div className="spinner-grow text-primary" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div>
-                          <div className="spinner-grow text-secondary" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div>
-                          <div className="spinner-grow text-success" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div>
-                          <div className="spinner-grow text-danger" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div>
-                          <div className="spinner-grow text-warning" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div>
-                          <div className="spinner-grow text-dark" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div></>
-                    }
+                    ) : (
+                      <>
+                        {" "}
+                        <div
+                          className="spinner-grow text-primary"
+                          role="status"
+                        >
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                        <div
+                          className="spinner-grow text-secondary"
+                          role="status"
+                        >
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                        <div
+                          className="spinner-grow text-success"
+                          role="status"
+                        >
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                        <div className="spinner-grow text-danger" role="status">
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                        <div
+                          className="spinner-grow text-warning"
+                          role="status"
+                        >
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                        <div className="spinner-grow text-dark" role="status">
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1095,7 +1201,7 @@ setTimeout(()=>{
                   )}
                 </div>
               </div>
-              {showMore ? 
+              {showMore ? (
                 <>
                   <div className="col-12 ">
                     <div className="row">
@@ -1103,7 +1209,7 @@ setTimeout(()=>{
                         <p className="FiltreName">Filtre by Motivation</p>
                         <div className="dropdown">
                           <div aria-labelledby="dropdownMenuButton1">
-                            {motivationOptions.length > 0 ? 
+                            {motivationOptions.length > 0 ? (
                               <Select
                                 name="ClientMotivation"
                                 closeMenuOnSelect={true}
@@ -1114,26 +1220,59 @@ setTimeout(()=>{
                                 options={motivationOptions}
                                 styles={colourStyles}
                               />
-                            : 
-                               <>                                <div className="spinner-grow text-primary" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div>
-                          <div className="spinner-grow text-secondary" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div>
-                          <div className="spinner-grow text-success" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div>
-                          <div className="spinner-grow text-danger" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div>
-                          <div className="spinner-grow text-warning" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div>
-                          <div className="spinner-grow text-dark" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div></>
-                            }
+                            ) : (
+                              <>
+                                {" "}
+                                <div
+                                  className="spinner-grow text-primary"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                                <div
+                                  className="spinner-grow text-secondary"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                                <div
+                                  className="spinner-grow text-success"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                                <div
+                                  className="spinner-grow text-danger"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                                <div
+                                  className="spinner-grow text-warning"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                                <div
+                                  className="spinner-grow text-dark"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                              </>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -1141,7 +1280,7 @@ setTimeout(()=>{
                         <p className="FiltreName">Filtre by Importance</p>
                         <div className="dropdown">
                           <div aria-labelledby="dropdownMenuButton1">
-                            {importanceOptions.length > 0 ? 
+                            {importanceOptions.length > 0 ? (
                               <Select
                                 name="ClientLicencePermis"
                                 closeMenuOnSelect={true}
@@ -1152,26 +1291,59 @@ setTimeout(()=>{
                                 options={importanceOptions}
                                 styles={colourStyles}
                               />
-                             : 
-                              <>                                <div className="spinner-grow text-primary" role="status">
-                              <span className="visually-hidden">Loading...</span>
-                            </div>
-                            <div className="spinner-grow text-secondary" role="status">
-                              <span className="visually-hidden">Loading...</span>
-                            </div>
-                            <div className="spinner-grow text-success" role="status">
-                              <span className="visually-hidden">Loading...</span>
-                            </div>
-                            <div className="spinner-grow text-danger" role="status">
-                              <span className="visually-hidden">Loading...</span>
-                            </div>
-                            <div className="spinner-grow text-warning" role="status">
-                              <span className="visually-hidden">Loading...</span>
-                            </div>
-                            <div className="spinner-grow text-dark" role="status">
-                              <span className="visually-hidden">Loading...</span>
-                            </div></>
-                            }
+                            ) : (
+                              <>
+                                {" "}
+                                <div
+                                  className="spinner-grow text-primary"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                                <div
+                                  className="spinner-grow text-secondary"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                                <div
+                                  className="spinner-grow text-success"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                                <div
+                                  className="spinner-grow text-danger"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                                <div
+                                  className="spinner-grow text-warning"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                                <div
+                                  className="spinner-grow text-dark"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                              </>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -1179,7 +1351,7 @@ setTimeout(()=>{
                         <p className="FiltreName">Filter by other options</p>
                         <div className="dropdown">
                           <div aria-labelledby="dropdownMenuButton1">
-                            {optionsOthersFilter.length > 0 ? 
+                            {optionsOthersFilter.length > 0 ? (
                               <Select
                                 name="ClientLicencePermis"
                                 closeMenuOnSelect={true}
@@ -1191,26 +1363,59 @@ setTimeout(()=>{
                                 options={optionsOthersFilter}
                                 styles={colourStyles}
                               />
-                             : 
-                               <>                                <div className="spinner-grow text-primary" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div>
-                          <div className="spinner-grow text-secondary" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div>
-                          <div className="spinner-grow text-success" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div>
-                          <div className="spinner-grow text-danger" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div>
-                          <div className="spinner-grow text-warning" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div>
-                          <div className="spinner-grow text-dark" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div></>
-                            }
+                            ) : (
+                              <>
+                                {" "}
+                                <div
+                                  className="spinner-grow text-primary"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                                <div
+                                  className="spinner-grow text-secondary"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                                <div
+                                  className="spinner-grow text-success"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                                <div
+                                  className="spinner-grow text-danger"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                                <div
+                                  className="spinner-grow text-warning"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                                <div
+                                  className="spinner-grow text-dark"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                              </>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -1298,8 +1503,7 @@ setTimeout(()=>{
                         Importance.length > 0 ||
                         OthersFilterArr.length > 0 ||
                         phone == true ||
-                        email ==true ? 
-                      
+                        email == true ? (
                           <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex align-items-center justify-content-end">
                             <p
                               className="filterStyling HoveRESTClass cursor-pointer mt-2"
@@ -1308,7 +1512,7 @@ setTimeout(()=>{
                               Reset Filters
                             </p>
                           </div>
-                         : null}
+                        ) : null}
                         <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 d-flex justify-content-end">
                           <p
                             className="filterStyling pt-2 cursor-pointer"
@@ -1316,6 +1520,7 @@ setTimeout(()=>{
                           >
                             Less Filters{" "}
                             <img
+                              alt="..."
                               src={require("../../images/downup.svg").default}
                             />
                           </p>
@@ -1324,7 +1529,7 @@ setTimeout(()=>{
                     </div>
                   </div>
                 </>
-               : 
+              ) : (
                 <div className="extraPadding">
                   <div className="col-12">
                     <div className="row justify-content-end">
@@ -1337,8 +1542,7 @@ setTimeout(()=>{
                       Importance.length > 0 ||
                       OthersFilterArr.length > 0 ||
                       phone == true ||
-                      email == true 
-                       ? 
+                      email == true ? (
                         <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-flex align-items-center justify-content-end">
                           <p
                             className="filterStyling HoveRESTClass cursor-pointer mt-2"
@@ -1347,65 +1551,69 @@ setTimeout(()=>{
                             Reset Filters
                           </p>
                         </div>
-                      : null}
+                      ) : null}
                       <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 d-flex justify-content-end">
                         <p
                           className="filterStyling pt-2 cursor-pointer"
                           onClick={() => setShowMore(true)}
                         >
                           More Filters{" "}
-                          <img src={require("../../images/down.svg").default} />
+                          <img
+                            alt="..."
+                            src={require("../../images/down.svg").default}
+                          />
                         </p>
                       </div>
                     </div>
                   </div>
                 </div>
-              }
+              )}
             </div>
           </div>
 
-          {loader ? 
-                <>
-                  {  status? 
-                   filterData.length > 0 ? 
-                      filterData.map((profile, index) => (
-                        <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ rotate:0, scale:1}}
-                        transition={{
-                          type: "spring",
-                          stiffness: 155,
-                          damping: 20
-                        }}
-                        className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left" key={profile._id}
-              
-                      >
-                       
-                          <ClientToDoCard data={profile}  />
-                        </motion.div>
-                      ))
-                     
-                     
-                     : <div className="col-12">
-                     <div className="row d-flex justify-content-center">
-                       <Loader />
-                     </div>
-                   </div> :
-<div className="col-12 d-flex justify-content-center align-items-center">
-<ErrorLoader />
-<p className="ErrorSearchBox mb-0">
-No Profiles in Client To-Do! Please Add New Client.
-</p>
-</div>
-                      }
+          {loader ? (
+            <>
+              {status ? (
+                filterData.length > 0 ? (
+                  filterData.map((profile, index) => (
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ rotate: 0, scale: 1 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 155,
+                        damping: 20,
+                      }}
+                      className="col-xxl-6 col-xl-6 col-lg-6 col-md-12  pd-left"
+                      key={profile._id}
+                    >
+                      <ClientToDoCard data={profile} />
+                    </motion.div>
+                  ))
+                ) : (
+                  <div className="col-12">
+                    <div className="row d-flex justify-content-center">
+                      <Loader />
+                    </div>
+                  </div>
+                )
+              ) : (
+                <div className="col-12 d-flex justify-content-center align-items-center">
+                  <ErrorLoader />
+                  <p className="ErrorSearchBox mb-0">
+                    No Profiles in Client To-Do! Please Add New Client.
+                  </p>
+                </div>
+              )}
             </>
-          : 
+          ) : (
             <div className="col-12">
               <div className="row d-flex justify-content-center">
                 <Loader />
               </div>
             </div>
-          }{filterLoader ? <Loader /> : null}
+          )}
+          {filterLoader ? <Loader /> : null}
         </div>
       </div>
     </>

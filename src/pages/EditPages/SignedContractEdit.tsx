@@ -75,9 +75,7 @@ const ClientDataFormat = {
   poste_du_gerant: "",
 };
 let Amountarr = "";
-let Hours = "";
 const SalaryTotal = [] as any;
-const SalaryTotalcheck = [] as any;
 const TauxH = [];
 let arr = [] as any;
 let Tauxarr = [] as any;
@@ -111,9 +109,7 @@ function ClientSignedEdit() {
   const [selectedLanguages, setSelectedLanguages] = useState(
     profile.clientLanguages
   );
-  const [clientImportance, setClientImportance] = useState(
-    profile.clientImportance
-  );
+ 
   const [clientImage, setClientImage] = useState("");
   const hiddenFileInput = React.useRef(null);
   const [imgSource, setImgSource] = useState("");
@@ -149,92 +145,19 @@ function ClientSignedEdit() {
     }
   };
 
-  const colourStyles: StylesConfig<ColourOption, true> = {
-    control: (styles) => ({ ...styles, backgroundColor: "white" }),
-    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-      const color = chroma(data.color);
-      return {
-        ...styles,
-        backgroundColor: isDisabled
-          ? undefined
-          : isSelected
-          ? data.color
-          : isFocused
-          ? color.alpha(0.1).css()
-          : undefined,
-        color: isDisabled
-          ? "#ccc"
-          : isSelected
-          ? chroma.contrast(color, "white") > 2
-            ? "white"
-            : "black"
-          : data.color,
-        cursor: isDisabled ? "not-allowed" : "default",
-
-        ":active": {
-          ...styles[":active"],
-          backgroundColor: !isDisabled
-            ? isSelected
-              ? data.color
-              : color.alpha(0.3).css()
-            : undefined,
-        },
-      };
-    },
-    multiValue: (styles, { data }) => {
-      const color = chroma(data.color);
-      return {
-        ...styles,
-        backgroundColor: color.alpha(0.1).css(),
-      };
-    },
-    multiValueLabel: (styles, { data }) => ({
-      ...styles,
-      color: data.color,
-    }),
-    multiValueRemove: (styles, { data }) => ({
-      ...styles,
-      color: data.color,
-      ":hover": {
-        backgroundColor: data.color,
-        color: "white",
-      },
-    }),
-  };
-
   const onSubmitRates = (e) => {
     setFormTouched(true);
     if (e.target.name === "salaryH") {
       if (salary.hours !== "" && salary.salary_hours !== "") {
         SalaryTotal.push(salary);
-        const FilterSalary = SalaryTotal.filter((el) => {
-          const duplicate = arr.includes(el);
-          if (duplicate == false) {
-            arr.push(el);
-            ClientDataFormat.salary_hours = arr;
-
-            toast.success("Salary Saved!");
-            return true;
-          }
-
-          return false;
-        });
+       
       }
     }
 
     if (e.target.name === "tauxH") {
       if (rateHours.hours !== "" && rateHours.rate_hours !== "") {
         TauxH.push(rateHours);
-        const FilterTaux = TauxH.filter((el) => {
-          const duplicate = Tauxarr.includes(el);
-          if (!duplicate) {
-            Tauxarr.push(el);
-
-            toast.success("Taux Horraire Saved!");
-            return true;
-          }
-          return false;
-        });
+       
       }
     }
   };
@@ -242,11 +165,11 @@ function ClientSignedEdit() {
   const RemoveHandling = (e, showHour) => {
     let SalaryFData = [];
     let TauxHour = [];
-    if (e.target.id == "salary") {
+    if (e.target.id === "salary") {
       SalaryFData = ClientDataFormat.salary_hours.filter((el) => {
         return el.hours !== showHour;
       });
-      if (SalaryFData.length != 0) {
+      if (SalaryFData.length !== 0) {
         arr = [];
         ClientDataFormat.salary_hours = [];
         SalaryFData.filter((el) => {
@@ -261,11 +184,11 @@ function ClientSignedEdit() {
         return false;
       }
     }
-    if (e.target.name == "TauxHours") {
+    if (e.target.name === "TauxHours") {
       TauxHour = ClientDataFormat.rate_hours.filter((el) => {
         return el.hours !== taxHours;
       });
-      if (TauxHour.length != 0) {
+      if (TauxHour.length !== 0) {
         ClientDataFormat.rate_hours = [];
         TauxHour.filter((el) => {
           setcheckBooleanValue(el.hours.includes(taxHours));
@@ -425,7 +348,7 @@ function ClientSignedEdit() {
 
   const switchHandle = (checked, id, e) => {
     setFormTouched(true);
-    if (e == "Permis") {
+    if (e === "Permis") {
       if (checked === true) {
         setPermis(true);
         setData({ ...data, clientPermis: true });
@@ -459,7 +382,6 @@ function ClientSignedEdit() {
 
   const changeClientImportance = (value: any) => {
     setData((prev) => ({ ...prev, ["clientImportance"]: value }));
-    setClientImportance(value);
   };
 
   const changeSectorSelection = async (sec: string) => {
@@ -511,9 +433,7 @@ function ClientSignedEdit() {
       .catch((err) => err);
   };
 
-  const handleFileUpload = () => {
-    hiddenFileInput.current.click();
-  };
+
 
   const onFormDataChange = (
     e: React.ChangeEvent<
@@ -588,56 +508,56 @@ function ClientSignedEdit() {
           data.rate_hours.length > 0 ? data.rate_hours : profile.rate_hours,
         clientId: profile._id,
         clientCompanyName:
-          data.clientCompanyName != ""
+          data.clientCompanyName !== ""
             ? data.clientCompanyName
             : profile.clientCompanyName,
         numberOfPosts:
-          data.numberOfPosts != "" ? data.numberOfPosts : profile.numberOfPosts,
+          data.numberOfPosts !== "" ? data.numberOfPosts : profile.numberOfPosts,
         clientMotivation:
-          data.clientMotivation != 0
+          data.clientMotivation !== 0
             ? data.clientMotivation
             : profile.clientMotivation,
         clientImportance:
-          data.clientImportance != 0
+          data.clientImportance !== 0
             ? data.clientImportance
             : profile.clientImportance,
         clientActivitySector:
-          selectedSector != "" ? selectedSector : profile.clientActivitySector,
-        clientJob: data.clientJob != "" ? data.clientJob : profile.clientJob,
+          selectedSector !== "" ? selectedSector : profile.clientActivitySector,
+        clientJob: data.clientJob !== "" ? data.clientJob : profile.clientJob,
         clientLanguages:
           data.clientLanguages.length > 0
             ? data.clientLanguages
             : profile.clientLanguages,
         jobStartDate:
-          data.jobStartDate != "" ? data.jobStartDate : profile.jobStartDate,
+          data.jobStartDate !== "" ? data.jobStartDate : profile.jobStartDate,
         jobEndDate:
-          data.jobEndDate != "" ? data.jobEndDate : profile.jobEndDate,
-        clientPermis: data.clientPermis == true ? true : false,
+          data.jobEndDate !== "" ? data.jobEndDate : profile.jobEndDate,
+        clientPermis: data.clientPermis === true ? true : false,
         clientRequiredSkills:
-          data.clientRequiredSkills != ""
+          data.clientRequiredSkills !== ""
             ? data.clientRequiredSkills
             : profile.clientRequiredSkills,
         clientEmail:
-          data.clientEmail != "" ? data.clientEmail : profile.clientEmail,
+          data.clientEmail !== "" ? data.clientEmail : profile.clientEmail,
         clientPhone:
-          data.clientPhone != "" ? data.clientPhone : profile.clientPhone,
+          data.clientPhone !== "" ? data.clientPhone : profile.clientPhone,
         jobTotalBudget:
-          data.jobTotalBudget != 0
+          data.jobTotalBudget !== 0
             ? data.jobTotalBudget
             : profile.jobTotalBudget,
-        netSalary: data.netSalary != 0 ? data.netSalary : profile.netSalary,
+        netSalary: data.netSalary !== 0 ? data.netSalary : profile.netSalary,
         clientAddress:
-          data.clientAddress != "" ? data.clientAddress : profile.clientAddress,
+          data.clientAddress !== "" ? data.clientAddress : profile.clientAddress,
         clientReferenceName:
-          data.clientReferenceName != ""
+          data.clientReferenceName !== ""
             ? data.clientReferenceName
             : profile.clientReferenceName,
         clientReferenceNumber:
-          data.clientReferenceNumber != ""
+          data.clientReferenceNumber !== ""
             ? data.clientReferenceNumber
             : profile.clientReferenceNumber,
         clientReferenceEmail:
-          data.clientReferenceEmail != ""
+          data.clientReferenceEmail !== ""
             ? data.clientReferenceEmail
             : profile.clientReferenceEmail,
         numero_contract:
@@ -940,7 +860,7 @@ function ClientSignedEdit() {
 
   const handleSectorChange = (e: any) => {
     // console.log(e.target.value)
-    setFormTouched(true)
+    setFormTouched(true);
     setJobOptions([]);
     console.log(e);
     if (e.value === "Select Un Secteur") {
@@ -1058,7 +978,7 @@ function ClientSignedEdit() {
                         <div className="col-12 d-flex justify-content-end text-end ">
                             <Link to="/clientTodo" style={{ textDecoration: "none" }}>
                                 <button className="btn bg-red">
-                                    <img
+                                    <img alt="..."
                                         style={{ width: "25%" }}
                                         src={require("../../images/multiply.svg").default}
                                     />
@@ -1067,7 +987,7 @@ function ClientSignedEdit() {
                             </Link>
 
                             <button className="btn btn-save" type="submit">
-                                <img src={require("../../images/check.svg").default} />
+                                <img alt="..." src={require("../../images/check.svg").default} />
                                 Save
                             </button>
                         </div>
@@ -1075,8 +995,8 @@ function ClientSignedEdit() {
                             <div className="col-12 p-3 bg-color-card">
                                 <div className="row">
                                     <div className="col-3 text-center">
-                                        <img
-                                            src={imgSource != "" ? API_BASE_URL + imgSource : require("../../images/menlogos.svg").default}
+                                        <img alt="..."
+                                            src={imgSource !== "" ? API_BASE_URL + imgSource : require("../../images/menlogos.svg").default}
                                             style={{ width: "90%" }}
                                         />
 
@@ -1136,7 +1056,7 @@ function ClientSignedEdit() {
                                                 <option>Select Un Secteur</option>
 
                                                 {activitySectors.map((sector) =>
-                                                    <option defaultValue={sector.sectorName} selected={profile.clientActivitySector == sector.sectorName}>{sector.sectorName}</option> // fetch from api
+                                                    <option defaultValue={sector.sectorName} selected={profile.clientActivitySector === sector.sectorName}>{sector.sectorName}</option> // fetch from api
                                                 )}
                                             </select>
                                         </div>
@@ -1226,7 +1146,7 @@ function ClientSignedEdit() {
                                                     <option>Select Un Job</option>
                                                     {
                                                         jobs.map((job) =>
-                                                            <option defaultValue={profile.clientJob} selected={profile.clientJob == job.jobName}>
+                                                            <option defaultValue={profile.clientJob} selected={profile.clientJob === job.jobName}>
                                                                 {job.jobName}
                                                             </option>
                                                         )
@@ -1278,7 +1198,7 @@ function ClientSignedEdit() {
                                                                 name="clientMotivation"
                                                                 value={1}
                                                                 onChange={onFormDataChange}
-                                                                defaultChecked={clientMotivation == 1}
+                                                                defaultChecked={clientMotivation === 1}
                                                             />
                                                             <span className="ps-1">1</span>
                                                         </div>
@@ -1289,7 +1209,7 @@ function ClientSignedEdit() {
                                                                 name="clientMotivation"
                                                                 value={2}
                                                                 onChange={onFormDataChange}
-                                                                defaultChecked={clientMotivation == 2}
+                                                                defaultChecked={clientMotivation === 2}
 
                                                             />
                                                             <span className="ps-1">2</span>
@@ -1301,7 +1221,7 @@ function ClientSignedEdit() {
                                                                 name="clientMotivation"
                                                                 value={3}
                                                                 onChange={onFormDataChange}
-                                                                defaultChecked={clientMotivation == 3}
+                                                                defaultChecked={clientMotivation === 3}
                                                             />
                                                             <span className="ps-1">3</span>
                                                         </div>
@@ -1312,7 +1232,7 @@ function ClientSignedEdit() {
                                                                 name="clientMotivation"
                                                                 value={4}
                                                                 onChange={onFormDataChange}
-                                                                defaultChecked={clientMotivation == 4}
+                                                                defaultChecked={clientMotivation === 4}
                                                             />
                                                             <span className="ps-1">4</span>
                                                         </div>
@@ -1323,7 +1243,7 @@ function ClientSignedEdit() {
                                                                 name="clientMotivation"
                                                                 value={5}
                                                                 onChange={onFormDataChange}
-                                                                defaultChecked={clientMotivation == 5}
+                                                                defaultChecked={clientMotivation === 5}
                                                             />
                                                             <span className="ps-1">5</span>
                                                         </div>
@@ -1337,7 +1257,7 @@ function ClientSignedEdit() {
                                                                     type="radio"
                                                                     value={1}
                                                                     name="clientImportance"
-                                                                    defaultChecked={clientImportance == 1}
+                                                                    defaultChecked={clientImportance === 1}
                                                                     onChange={onFormDataChange}
                                                                 />
                                                                 <span className="ps-1">1</span>
@@ -1348,7 +1268,7 @@ function ClientSignedEdit() {
                                                                     type="radio"
                                                                     name="clientImportance"
                                                                     value={2}
-                                                                    defaultChecked={clientImportance == 2}
+                                                                    defaultChecked={clientImportance === 2}
                                                                     onChange={onFormDataChange}
                                                                 />
                                                                 <span className="ps-1">2</span>
@@ -1359,7 +1279,7 @@ function ClientSignedEdit() {
                                                                     type="radio"
                                                                     name="clientImportance"
                                                                     value={3}
-                                                                    defaultChecked={clientImportance == 3}
+                                                                    defaultChecked={clientImportance === 3}
                                                                     onChange={onFormDataChange}
                                                                 />
                                                                 <span className="ps-1">3</span>
@@ -1370,7 +1290,7 @@ function ClientSignedEdit() {
                                                                     type="radio"
                                                                     name="clientImportance"
                                                                     value={4}
-                                                                    defaultChecked={clientImportance == 4}
+                                                                    defaultChecked={clientImportance === 4}
                                                                     onChange={onFormDataChange}
                                                                 />
                                                                 <span className="ps-1">4</span>
@@ -1381,7 +1301,7 @@ function ClientSignedEdit() {
                                                                     type="radio"
                                                                     name="clientImportance"
                                                                     value={5}
-                                                                    defaultChecked={clientImportance == 5}
+                                                                    defaultChecked={clientImportance === 5}
                                                                     onChange={onFormDataChange}
                                                                 />
                                                                 <span className="ps-1">5</span>
@@ -1542,7 +1462,7 @@ function ClientSignedEdit() {
                                         <div className="col-6 d-flex">
                                             <Link to="/clientToDo" style={{ textDecoration: "none" }}>
                                                 <button type="button" className="btn bg-red">
-                                                    <img
+                                                    <img alt="..."
                                                         style={{ width: "25%" }}
                                                         src={require("../../images/multiply.svg").default}
                                                     />
@@ -1550,7 +1470,7 @@ function ClientSignedEdit() {
                                                 </button>
                                             </Link>
                                             <button className="btn btn-save" type="submit">
-                                                <img src={require("../../images/check.svg").default} />
+                                                <img alt="..." src={require("../../images/check.svg").default} />
                                                 Save
                                             </button>
                                         </div>
@@ -1571,7 +1491,7 @@ function ClientSignedEdit() {
                   <div className="stable">
                     <Link to={path}>
                       <button type="button" className="btn FontStyle-TODOSEE">
-                        <img src={require("../../images/return.svg").default} />
+                        <img alt="..." src={require("../../images/return.svg").default} />
                         Client File : {profile.clientCompanyName}
                       </button>
                     </Link>
@@ -1583,7 +1503,7 @@ function ClientSignedEdit() {
                       className="btn bg-ClientCancel"
                       style={{ padding: "8px" }}
                     >
-                      <img
+                      <img alt="..."
                         style={{ width: "25%" }}
                         src={require("../../images/multiply.svg").default}
                       />
@@ -1598,7 +1518,7 @@ function ClientSignedEdit() {
                     type="submit"
                     style={{ padding: "12px" }}
                   >
-                    <img
+                    <img alt="..."
                       src={require("../../images/ClientSave.svg").default}
                       style={{ marginRight: "5px" }}
                     />
@@ -1613,12 +1533,12 @@ function ClientSignedEdit() {
                 <div className="row">
                   <div className="col-2  text-center">
                     {imgSource ? (
-                      <img
+                      <img alt="..."
                         src={imgSource}
                         className="imgSigned-upload-Download"
                       />
                     ) : (
-                      <img
+                      <img alt="..."
                         src={require("../../images/fullClientSee.svg").default}
                         className="imgSigned-upload-Download"
                       />
@@ -1631,7 +1551,7 @@ function ClientSignedEdit() {
                       className="SelectBtn"
                       type="button"
                     >
-                      <img
+                      <img alt="..."
                         className=""
                         src={require("../../images/select.svg").default}
                       />
@@ -1678,7 +1598,7 @@ function ClientSignedEdit() {
                   <div className="col-5 d-grid align-items-center">
                     <div className="text-end ">
                       <button className="SignedLargebtn">
-                        <img
+                        <img alt="..."
                           src={
                             require("../../images/tickClientBtn.svg").default
                           }
@@ -1797,7 +1717,7 @@ function ClientSignedEdit() {
                                     value={1}
                                     onChange={onFormDataChange}
                                     id="r1"
-                                    defaultChecked={clientMotivation == 1}
+                                    defaultChecked={clientMotivation === 1}
                                   />
                                   <label htmlFor="r1" className="react">
                                     <i data-icon="😟"></i>
@@ -1816,7 +1736,7 @@ function ClientSignedEdit() {
                                     value={2}
                                     onChange={onFormDataChange}
                                     id="r2"
-                                    defaultChecked={clientMotivation == 2}
+                                    defaultChecked={clientMotivation === 2}
                                   />
                                   <label htmlFor="r2" className="react">
                                     <i data-icon="🙁"></i>
@@ -1835,7 +1755,7 @@ function ClientSignedEdit() {
                                     value={3}
                                     onChange={onFormDataChange}
                                     id="r3"
-                                    defaultChecked={clientMotivation == 3}
+                                    defaultChecked={clientMotivation === 3}
                                   />
                                   <label htmlFor="r3" className="react">
                                     <i data-icon="😊"></i>
@@ -1854,7 +1774,7 @@ function ClientSignedEdit() {
                                     value={4}
                                     onChange={onFormDataChange}
                                     id="r4"
-                                    defaultChecked={clientMotivation == 4}
+                                    defaultChecked={clientMotivation === 4}
                                   />
                                   <label htmlFor="r4" className="react">
                                     <i data-icon="🥰"></i>
@@ -1873,7 +1793,7 @@ function ClientSignedEdit() {
                                     value={5}
                                     onChange={onFormDataChange}
                                     id="r5"
-                                    defaultChecked={clientMotivation == 5}
+                                    defaultChecked={clientMotivation === 5}
                                   />
                                   <label htmlFor="r5" className="react">
                                     <i data-icon="😍"></i>
@@ -2644,8 +2564,8 @@ function ClientSignedEdit() {
                                   HandleChangeH(e);
                                 }}
                                 style={{
-                                  backgroundColor: id == "1" ? " #F4E7FF" : "",
-                                  color: id == "1" ? "#A461D8" : "#979797",
+                                  backgroundColor: id === "1" ? " #F4E7FF" : "",
+                                  color: id === "1" ? "#A461D8" : "#979797",
                                 }}
                                 className="btn btnHPaid "
                               >
@@ -2660,8 +2580,8 @@ function ClientSignedEdit() {
                                   HandleChangeH(e);
                                 }}
                                 style={{
-                                  backgroundColor: id == "2" ? " #F4E7FF" : "",
-                                  color: id == "2" ? "#A461D8" : "#979797",
+                                  backgroundColor: id === "2" ? " #F4E7FF" : "",
+                                  color: id === "2" ? "#A461D8" : "#979797",
                                 }}
                                 className="btn btnHPaid "
                               >
@@ -2676,8 +2596,8 @@ function ClientSignedEdit() {
                                   HandleChangeH(e);
                                 }}
                                 style={{
-                                  backgroundColor: id == "3" ? " #F4E7FF" : "",
-                                  color: id == "3" ? "#A461D8" : "#979797",
+                                  backgroundColor: id === "3" ? " #F4E7FF" : "",
+                                  color: id === "3" ? "#A461D8" : "#979797",
                                 }}
                                 className="btn btnHPaid "
                               >
@@ -2692,8 +2612,8 @@ function ClientSignedEdit() {
                                   HandleChangeH(e);
                                 }}
                                 style={{
-                                  backgroundColor: id == "4" ? " #F4E7FF" : "",
-                                  color: id == "4" ? "#A461D8" : "#979797",
+                                  backgroundColor: id === "4" ? " #F4E7FF" : "",
+                                  color: id === "4" ? "#A461D8" : "#979797",
                                 }}
                                 className="btn btnHPaid "
                               >
@@ -2708,8 +2628,8 @@ function ClientSignedEdit() {
                                   HandleChangeH(e);
                                 }}
                                 style={{
-                                  backgroundColor: id == "5" ? " #F4E7FF" : "",
-                                  color: id == "5" ? "#A461D8" : "#979797",
+                                  backgroundColor: id === "5" ? " #F4E7FF" : "",
+                                  color: id === "5" ? "#A461D8" : "#979797",
                                 }}
                                 className="btn btnHPaid "
                               >
@@ -2724,8 +2644,8 @@ function ClientSignedEdit() {
                                   HandleChangeH(e);
                                 }}
                                 style={{
-                                  backgroundColor: id == "6" ? " #F4E7FF" : "",
-                                  color: id == "6" ? "#A461D8" : "#979797",
+                                  backgroundColor: id === "6" ? " #F4E7FF" : "",
+                                  color: id === "6" ? "#A461D8" : "#979797",
                                 }}
                                 className="btn btnHPaid "
                               >
@@ -2740,8 +2660,8 @@ function ClientSignedEdit() {
                                   HandleChangeH(e);
                                 }}
                                 style={{
-                                  backgroundColor: id == "7" ? " #F4E7FF" : "",
-                                  color: id == "7" ? "#A461D8" : "#979797",
+                                  backgroundColor: id === "7" ? " #F4E7FF" : "",
+                                  color: id === "7" ? "#A461D8" : "#979797",
                                 }}
                                 className="btn btnHPaid "
                               >
@@ -2756,8 +2676,8 @@ function ClientSignedEdit() {
                                   HandleChangeH(e);
                                 }}
                                 style={{
-                                  backgroundColor: id == "8" ? " #F4E7FF" : "",
-                                  color: id == "8" ? "#A461D8" : "#979797",
+                                  backgroundColor: id === "8" ? " #F4E7FF" : "",
+                                  color: id === "8" ? "#A461D8" : "#979797",
                                 }}
                                 className="btn btnHPaid "
                               >
@@ -2833,9 +2753,9 @@ function ClientSignedEdit() {
                                 }}
                                 style={{
                                   backgroundColor:
-                                    taxHoursID == "1" ? " #F4E7FF" : "",
+                                    taxHoursID === "1" ? " #F4E7FF" : "",
                                   color:
-                                    taxHoursID == "1" ? "#A461D8" : "#979797",
+                                    taxHoursID === "1" ? "#A461D8" : "#979797",
                                 }}
                                 className="btn btnHPaid "
                               >
@@ -2851,9 +2771,9 @@ function ClientSignedEdit() {
                                 }}
                                 style={{
                                   backgroundColor:
-                                    taxHoursID == "2" ? " #F4E7FF" : "",
+                                    taxHoursID === "2" ? " #F4E7FF" : "",
                                   color:
-                                    taxHoursID == "2" ? "#A461D8" : "#979797",
+                                    taxHoursID === "2" ? "#A461D8" : "#979797",
                                 }}
                                 className="btn btnHPaid "
                               >
@@ -2869,9 +2789,9 @@ function ClientSignedEdit() {
                                 }}
                                 style={{
                                   backgroundColor:
-                                    taxHoursID == "3" ? " #F4E7FF" : "",
+                                    taxHoursID === "3" ? " #F4E7FF" : "",
                                   color:
-                                    taxHoursID == "3" ? "#A461D8" : "#979797",
+                                    taxHoursID === "3" ? "#A461D8" : "#979797",
                                 }}
                                 className="btn btnHPaid "
                               >
@@ -2887,9 +2807,9 @@ function ClientSignedEdit() {
                                 }}
                                 style={{
                                   backgroundColor:
-                                    taxHoursID == "4" ? " #F4E7FF" : "",
+                                    taxHoursID === "4" ? " #F4E7FF" : "",
                                   color:
-                                    taxHoursID == "4" ? "#A461D8" : "#979797",
+                                    taxHoursID === "4" ? "#A461D8" : "#979797",
                                 }}
                                 className="btn btnHPaid "
                               >
@@ -2905,9 +2825,9 @@ function ClientSignedEdit() {
                                 }}
                                 style={{
                                   backgroundColor:
-                                    taxHoursID == "5" ? " #F4E7FF" : "",
+                                    taxHoursID === "5" ? " #F4E7FF" : "",
                                   color:
-                                    taxHoursID == "5" ? "#A461D8" : "#979797",
+                                    taxHoursID === "5" ? "#A461D8" : "#979797",
                                 }}
                                 className="btn btnHPaid "
                               >
@@ -2923,9 +2843,9 @@ function ClientSignedEdit() {
                                 }}
                                 style={{
                                   backgroundColor:
-                                    taxHoursID == "6" ? " #F4E7FF" : "",
+                                    taxHoursID === "6" ? " #F4E7FF" : "",
                                   color:
-                                    taxHoursID == "6" ? "#A461D8" : "#979797",
+                                    taxHoursID === "6" ? "#A461D8" : "#979797",
                                 }}
                                 className="btn btnHPaid "
                               >
@@ -2941,9 +2861,9 @@ function ClientSignedEdit() {
                                 }}
                                 style={{
                                   backgroundColor:
-                                    taxHoursID == "7" ? " #F4E7FF" : "",
+                                    taxHoursID === "7" ? " #F4E7FF" : "",
                                   color:
-                                    taxHoursID == "7" ? "#A461D8" : "#979797",
+                                    taxHoursID === "7" ? "#A461D8" : "#979797",
                                 }}
                                 className="btn btnHPaid "
                               >
@@ -2959,9 +2879,9 @@ function ClientSignedEdit() {
                                 }}
                                 style={{
                                   backgroundColor:
-                                    taxHoursID == "8" ? " #F4E7FF" : "",
+                                    taxHoursID === "8" ? " #F4E7FF" : "",
                                   color:
-                                    taxHoursID == "8" ? "#A461D8" : "#979797",
+                                    taxHoursID === "8" ? "#A461D8" : "#979797",
                                 }}
                                 className="btn btnHPaid "
                               >
@@ -3061,7 +2981,7 @@ function ClientSignedEdit() {
                           type="button"
                           className="btn edit-btnCancel mr-1"
                         >
-                          <img
+                          <img alt="..."
                             style={{ width: "25%" }}
                             src={require("../../images/multiply.svg").default}
                           />
@@ -3071,7 +2991,7 @@ function ClientSignedEdit() {
                         </button>
                       </Link>
                       <button className="btn editBtnSave mb-0" type="submit">
-                        <img
+                        <img alt="..."
                           style={{ marginRight: "5px" }}
                           src={require("../../images/savebtn.svg").default}
                         />

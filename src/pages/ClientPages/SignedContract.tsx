@@ -11,7 +11,6 @@ import { ReactComponent as TurnOn } from "../../images/base-switch_icon.svg";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
-import RenameDoc from "../../components/Modal/RenameDoc_ModalClient";
 import PreModalClient from "../../components/Modal/preSelectedModalForClient";
 import PDFModalClient from "../../components/Modal/PDFGenerateclientModal";
 import moment from "moment";
@@ -19,18 +18,18 @@ import ErrorLoader from "../../components/Loader/SearchBarError";
 import { Tabs, Tab } from "react-tabs-scrollable";
 import "react-tabs-scrollable/dist/rts.css";
 import ArchivedModal from "../../components/Modal/ArchivedModal";
-import DOCUSIGNModalCandidate from '../../components/Modal/DOCUSIGNModalCandidate'
-import SalaryAdsEdit from "../../components/Modal/SignedSalary&AdsEdit"
+import DOCUSIGNModalCandidate from "../../components/Modal/DOCUSIGNModalCandidate";
+import SalaryAdsEdit from "../../components/Modal/SignedSalary&AdsEdit";
 import PDFBoxClient from "../../components/PDFboxBothSide/PdfBoxClient";
-import ClientContract from "../../components/ClientComponents/ClientContract"
-import JobAdsCard from '../../components/ClientComponents/ClientJobAds'  
+import ClientContract from "../../components/ClientComponents/ClientContract";
+import JobAdsCard from "../../components/ClientComponents/ClientJobAds";
 import Carousel from "react-multi-carousel";
-import ProfilesLoader from "../../components/Loader/ProfilesLoader"
-import Warning from "../../components/Loader/SearchBarError"
-import DetailBox from "../../components/ClientComponents/ViewPageDetailBox"
+import ProfilesLoader from "../../components/Loader/ProfilesLoader";
+import Warning from "../../components/Loader/SearchBarError";
+import DetailBox from "../../components/ClientComponents/ViewPageDetailBox";
 import SocialButton from "../../components/ClientComponents/SocialButtons";
 import { motion } from "framer-motion";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 
 let id = "";
 let DetailsEdit;
@@ -89,34 +88,51 @@ function Signed() {
     useState() as any;
   const [fiche_de_mise_a_disposition, setfiche_de_mise_a_disposition] =
     useState() as any;
-    const [deleteModal,setDeleteModal]=useState(false)
-    const [DeleteEmp,setDeleteEmp]=useState([])
-    const [Archived,setArchived]=useState(  profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Archived")):null )
-    const [preSelect,setPreselected]=useState( profile.employeesWorkingUnder ?   profile.employeesWorkingUnder.filter((el) => (el.candidatStatus == "Pre-Selected")):null )
-    const [salaryModal,setsalaryModal]=useState("")
-    const [salaryEditModal,setsalaryEditModal]=useState(false)
-    const [DocumentSignModal,setDocuSignModal]=useState(false)
-    const [startStatus]=useState(profile.jobStartDate.slice(0,4).includes("-"))
-    const [endStatus]=useState(profile.jobEndDate.slice(0,4).includes("-"))
-    const [startDate,setStartDate]=useState()as any
-    const [EndDate,setEndDate]=useState()as any
-    const [JobAdsCards,setJobAdsCards] =useState([])
-    const [JobAdsCardsStatus,setJobAdsCardsStatus] =useState(false)
-  
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [DeleteEmp, setDeleteEmp] = useState([]);
+  const [Archived, setArchived] = useState(
+    profile.employeesWorkingUnder
+      ? profile.employeesWorkingUnder.filter(
+          (el) => el.candidatStatus == "Archived"
+        )
+      : null
+  );
+  const [preSelect, setPreselected] = useState(
+    profile.employeesWorkingUnder
+      ? profile.employeesWorkingUnder.filter(
+          (el) => el.candidatStatus == "Pre-Selected"
+        )
+      : null
+  );
+  const [salaryModal, setsalaryModal] = useState("");
+  const [salaryEditModal, setsalaryEditModal] = useState(false);
+  const [DocumentSignModal, setDocuSignModal] = useState(false);
+  const [startStatus] = useState(
+    profile.jobStartDate.slice(0, 4).includes("-")
+  );
+  const [endStatus] = useState(profile.jobEndDate.slice(0, 4).includes("-"));
+  const [startDate, setStartDate] = useState() as any;
+  const [EndDate, setEndDate] = useState() as any;
+  const [JobAdsCards, setJobAdsCards] = useState([]);
+  const [JobAdsCardsStatus, setJobAdsCardsStatus] = useState(false);
 
   useEffect(() => {
     profile.clientDocuments.map((el) => {
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("reges"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("reges")
+        )
       ) {
         setreges([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrat_client"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("contrat_client")
+        )
       ) {
-       setcontrat_client([el]);
-        }
-       
+        setcontrat_client([el]);
+      }
+
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(
           JSON.stringify("contrat_employes")
@@ -125,72 +141,101 @@ function Signed() {
         setcontrat_employes([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("carte_d'identite_employes"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("carte_d'identite_employes")
+        )
       ) {
         setcarte_d([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("id_card_employer"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("id_card_employer")
+        )
       ) {
         setid_card_employer([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("al"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("al")
+        )
       ) {
         setal([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrats_assurances_employes"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("contrats_assurances_employes")
+        )
       ) {
         setcontrats_assurances_employes([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("sispi"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("sispi")
+        )
       ) {
         setsispi([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("document_de_represntation"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("document_de_represntation")
+        )
       ) {
         setdocument_de_represntation([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("offre_signee"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("offre_signee")
+        )
       ) {
         setoffre_signee([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("attestations_societe_intermann"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("attestations_societe_intermann")
+        )
       ) {
         setattestations_societe_intermann([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("cvs"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("cvs")
+        )
       ) {
         setcvs([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("autres_documents"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("autres_documents")
+        )
       ) {
         setautres_documents([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("factures"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("factures")
+        )
       ) {
         setfactures([el]);
       }
 
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("rapport_activite"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("rapport_activite")
+        )
       ) {
         setrapport_activite([el]);
-      } if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("offre_envoye_et_nonsigne"))
+      }
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("offre_envoye_et_nonsigne")
+        )
       ) {
         setoffre_envoye_et_nonsigne([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("fiche_medicale"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("fiche_medicale")
+        )
       ) {
         setfiche_medicale([el]);
       }
@@ -202,15 +247,12 @@ function Signed() {
         setfiche_de_mise_a_disposition([el]);
       }
     });
-  },[UpdatedWarning]);
-
+  }, [UpdatedWarning]);
 
   useEffect(() => {
     setProfile(state ? state : profileData);
-    jobAdsCards(profile._id)
+    jobAdsCards(profile._id);
   }, [state]);
-
-
 
   const candidatImportanceIcons = [
     {
@@ -282,14 +324,14 @@ function Signed() {
     if (val === "upload") {
       handleImageUpload();
     } else if (val === "Download") {
-      window.open(ClientImage.replace("http","https"));
+      window.open(ClientImage.replace("http", "https"));
     }
   };
 
-let Editdata ={state:profile,path:"/clientContract/clientSigned"}
+  let Editdata = { state: profile, path: "/clientContract/clientSigned" };
 
   const editClientProfile = () => {
-    navigate("/clientContract/ClientContractEditprofile", { state:Editdata });
+    navigate("/clientContract/ClientContractEditprofile", { state: Editdata });
   };
 
   // DOC Upload //\
@@ -311,8 +353,6 @@ let Editdata ={state:profile,path:"/clientContract/clientSigned"}
 
   //END //
 
-
-  
   const fileChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
@@ -329,7 +369,7 @@ let Editdata ={state:profile,path:"/clientContract/clientSigned"}
         .post("uploadClientImage", formdata, {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: "Bearer " +Cookies.get("token"),
+            Authorization: "Bearer " + Cookies.get("token"),
           },
         })
         .then((datares) => {
@@ -349,7 +389,6 @@ let Editdata ={state:profile,path:"/clientContract/clientSigned"}
         });
       return;
     }
-   
   };
 
   useEffect(() => {
@@ -358,11 +397,10 @@ let Editdata ={state:profile,path:"/clientContract/clientSigned"}
         if (resData.status == true) {
           resData.data.map((el) => {
             setProfile(el);
-            setClientContract(el.clientContract)
-            setClientImage(el.clientPhoto ? el.clientPhoto.url : "")
+            setClientContract(el.clientContract);
+            setClientImage(el.clientPhoto ? el.clientPhoto.url : "");
           });
 
-      
           setDocUploaded(false);
         } else {
           setDocUploaded(false);
@@ -372,18 +410,14 @@ let Editdata ={state:profile,path:"/clientContract/clientSigned"}
       .catch((err) => {
         console.log(err);
       });
-
-  
   }, [docUploaded]);
-
-
 
   const fetchCandidat = async (clientId: any) => {
     return await fetch(API_BASE_URL + `getClientById/?clientId=${clientId}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer " +Cookies.get("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((resp) => resp.json())
@@ -394,8 +428,6 @@ let Editdata ={state:profile,path:"/clientContract/clientSigned"}
   const handleFileUpload = () => {
     hiddenFileInput.current.click();
   };
-
-
 
   const viewFullProfile = (data) => {
     localStorage.setItem("embauch", JSON.stringify(data));
@@ -527,7 +559,7 @@ let Editdata ={state:profile,path:"/clientContract/clientSigned"}
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "Bearer " +Cookies.get("token"),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       }
     )
@@ -556,79 +588,70 @@ let Editdata ={state:profile,path:"/clientContract/clientSigned"}
   let start = new Date(profile.jobStartDate);
   let end = new Date(profile.jobEndDate);
 
-  useEffect(()=>{
-    if(startStatus){
-      setStartDate(profile.jobStartDate)
-    }else{
-      let data=formatDateCha(start)
-      setStartDate(data.replaceAll("/","-"))
-      
-  
+  useEffect(() => {
+    if (startStatus) {
+      setStartDate(profile.jobStartDate);
+    } else {
+      let data = formatDateCha(start);
+      setStartDate(data.replaceAll("/", "-"));
     }
-    if(endStatus){
-      setEndDate(profile.jobEndDate)
-    }else{
-      let data=formatDateCha(end)
-      setEndDate(data.replaceAll("/","-"))
-      
-  
+    if (endStatus) {
+      setEndDate(profile.jobEndDate);
+    } else {
+      let data = formatDateCha(end);
+      setEndDate(data.replaceAll("/", "-"));
     }
-   })
+  });
 
-  const EditSalaryAds=(e:any,CanId:any,currentWorkId:any,CurrentSalary:any)=>{
-   
- 
-   if(e === "Salary"){
-    DetailsEdit={
-      Canid:CanId,
-      currentWorkId:currentWorkId ? currentWorkId.toString() : "",
-      CurrentSalary:CurrentSalary ? CurrentSalary.toString() : ""
-
+  const EditSalaryAds = (
+    e: any,
+    CanId: any,
+    currentWorkId: any,
+    CurrentSalary: any
+  ) => {
+    if (e === "Salary") {
+      DetailsEdit = {
+        Canid: CanId,
+        currentWorkId: currentWorkId ? currentWorkId.toString() : "",
+        CurrentSalary: CurrentSalary ? CurrentSalary.toString() : "",
+      };
+      setsalaryModal("Salary");
+      setsalaryEditModal(true);
     }
-    setsalaryModal("Salary") 
-    setsalaryEditModal(true)
-   }
-   if(e === "Ads"){
-    DetailsAds={
-      clientId:profile._id, 
-      currentBudget:profile.jobTotalBudget ? profile.jobTotalBudget : "0",
+    if (e === "Ads") {
+      DetailsAds = {
+        clientId: profile._id,
+        currentBudget: profile.jobTotalBudget ? profile.jobTotalBudget : "0",
+      };
+      setsalaryModal("Ads Spent");
+      setsalaryEditModal(true);
     }
-    setsalaryModal("Ads Spent") 
-    setsalaryEditModal(true)
-   }
-  } 
+  };
 
-  
   const jobAdsCards = async (Id) => {
-    setJobAdsCardsStatus(false)
+    setJobAdsCardsStatus(false);
 
-    await fetch(
-      `${API_BASE_URL}getClientAds/?clientId=${Id}`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " +Cookies.get("token"),
-        },
-      }
-    )
+    await fetch(`${API_BASE_URL}getClientAds/?clientId=${Id}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    })
       .then((reD) => reD.json())
-      .then((result) => 
-      {
-       if(result.status){
-        setJobAdsCards([...result.data])
-        setJobAdsCardsStatus(true)
-       }else{
-        setJobAdsCards([])
-        setJobAdsCardsStatus(true)
-
-       }
-      }
-      )
+      .then((result) => {
+        if (result.status) {
+          setJobAdsCards([...result.data]);
+          setJobAdsCardsStatus(true);
+        } else {
+          setJobAdsCards([]);
+          setJobAdsCardsStatus(true);
+        }
+      })
       .catch((err) => err);
   };
-  
+
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -649,7 +672,6 @@ let Editdata ={state:profile,path:"/clientContract/clientSigned"}
     },
   };
 
-
   return (
     <>
       <Toaster
@@ -668,7 +690,7 @@ let Editdata ={state:profile,path:"/clientContract/clientSigned"}
                 <div className="stable">
                   <Link to="/clientContract">
                     <button type="button" className="btn FontStyle-TODOSEE">
-                      <img src={require("../../images/return.svg").default} />
+                      <img alt="..." src={require("../../images/return.svg").default} />
                       Client File :{" "}
                       {profile.clientCompanyName.toLocaleUpperCase()}
                     </button>
@@ -680,21 +702,23 @@ let Editdata ={state:profile,path:"/clientContract/clientSigned"}
                   className="btn btn-bgbClient"
                   onClick={() => editClientProfile()}
                 >
-                  <img src={require("../../images/Edit.svg").default} />
+                  <img alt="..." src={require("../../images/Edit.svg").default} />
                   Edit Profile
                 </button>
               </div>
             </div>
           </div>
           <div className="px-0">
-          <motion.div
-  initial={{ scale: 0 }}
-  animate={{ rotate:0, scale:1}}
-  transition={{
-    type: "spring",
-    stiffness: 120,
-    damping: 50
-  }}   className="col-12 my-1 py-1 ClientSEE-TopDetails">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ rotate: 0, scale: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 120,
+                damping: 50,
+              }}
+              className="col-12 my-1 py-1 ClientSEE-TopDetails"
+            >
               <div className="row">
                 <div className="col-2 pr-0 text-center">
                   {ClientImage !== "" ? (
@@ -1114,36 +1138,40 @@ let Editdata ={state:profile,path:"/clientContract/clientSigned"}
             </div>
             <div className="col-12 pt-1 py-0 mb-1">
               <div className="row justify-content-between">
-                   <motion.div
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  transition={{ duration: 0.7, delay: 0.7 }}
-  variants={{
-    visible: { opacity: 1, x: 0 },
-    hidden: { opacity: 0, x: 50 }
-  }}
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.7 }}
+                  variants={{
+                    visible: { opacity: 1, x: 0 },
+                    hidden: { opacity: 0, x: 50 },
+                  }}
                   className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-1 Social-cardDiv"
                   style={{ maxWidth: "49%" }}
                 >
-                <SocialButton  props={profile}  />
+                  <SocialButton props={profile} />
                 </motion.div>
                 <motion.div
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  transition={{ duration: 0.7, delay: 0.7 }}
-  variants={{
-    visible: { opacity: 1, x: 0 },
-    hidden: { opacity: 0, x: -50 }
-  }}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.7 }}
+                  variants={{
+                    visible: { opacity: 1, x: 0 },
+                    hidden: { opacity: 0, x: -50 },
+                  }}
                   className="col-xxl-8 col-xl-8 col-lg-8 col-md-7 Social-Card p-1 detailsCardClientSee scrollbar Social-btnS"
                   id="style-3"
                   style={{ maxWidth: "49%" }}
                 >
-                 {/* Details */}
-                 <DetailBox props={profile} startDate={startDate} EndDate={EndDate} />
-                 </motion.div>
+                  {/* Details */}
+                  <DetailBox
+                    props={profile}
+                    startDate={startDate}
+                    EndDate={EndDate}
+                  />
+                </motion.div>
               </div>
             </div>
 
@@ -1155,63 +1183,109 @@ let Editdata ={state:profile,path:"/clientContract/clientSigned"}
                   </p>
                 </div>
                 {profile.employeesWorkingUnder !== null &&
-                profile.employeesWorkingUnder.length > 0 ? 
-                  profile.employeesWorkingUnder.map((el,i) => (
-                <>    
-                     {  el.candidatStatus == "Archived" ||  el.candidatStatus == "Pre-Selected" ?
-                         
-                        null
-:                    
-<>
-  <div className="col-12 pb-1" key={i}>
-<div className="row">   
-                   <div className="col-8 d-flex align-items-center">
-<img
-  style={{ width: "7%" }}
-  className="pr-1"
-  src={require("../../images/menSigned.svg").default}
-/>
-{ el.candidatStatus == "Archived" ||  el.candidatStatus == "Pre-Selected" ? null : el.candidatName }
-<span className="pl-1">Since :</span>
-{el.candidatName && el.candidatStatus == "Archived" ||el.candidatName && el.candidatStatus == "Pre-Selected" ? null : el.candidatCurrentWork.map((el) => el.workingSince ? el.workingSince :"✘ No Working Since!")}
-<span className="pl-1">Salary :</span>
-{el.candidatName && el.candidatStatus == "Archived" || el.candidatName && el.candidatStatus == "Pre-Selected" ? null : el.candidatCurrentWork.map((el) => el.salary ? el.salary +"€" : "0€")}
-</div>
+                profile.employeesWorkingUnder.length > 0 ? (
+                  profile.employeesWorkingUnder.map((el, i) => (
+                    <>
+                      {el.candidatStatus == "Archived" ||
+                      el.candidatStatus == "Pre-Selected" ? null : (
+                        <>
+                          <div className="col-12 pb-1" key={i}>
+                            <div className="row">
+                              <div className="col-8 d-flex align-items-center">
+                                <img
+                                  style={{ width: "7%" }}
+                                  className="pr-1"
+                                  src={
+                                    require("../../images/menSigned.svg")
+                                      .default
+                                  }
+                                />
+                                {el.candidatStatus == "Archived" ||
+                                el.candidatStatus == "Pre-Selected"
+                                  ? null
+                                  : el.candidatName}
+                                <span className="pl-1">Since :</span>
+                                {(el.candidatName &&
+                                  el.candidatStatus == "Archived") ||
+                                (el.candidatName &&
+                                  el.candidatStatus == "Pre-Selected")
+                                  ? null
+                                  : el.candidatCurrentWork.map((el) =>
+                                      el.workingSince
+                                        ? el.workingSince
+                                        : "✘ No Working Since!"
+                                    )}
+                                <span className="pl-1">Salary :</span>
+                                {(el.candidatName &&
+                                  el.candidatStatus == "Archived") ||
+                                (el.candidatName &&
+                                  el.candidatStatus == "Pre-Selected")
+                                  ? null
+                                  : el.candidatCurrentWork.map((el) =>
+                                      el.salary ? el.salary + "€" : "0€"
+                                    )}
+                              </div>
 
-<div className="col-4 d-flex">
-<button
-  className="seeFullCandidat"
-  onClick={(e) => viewFullProfile(el)}
->
-  <img
-    src={require("../../images/seeCan.svg").default}
-  />
-  See profile
-</button>
-<button
-      className="btn py-0" 
-      id="Salary"  
-      onClick={(e)=>EditSalaryAds("Salary",el._id,el.candidatCurrentWork.map((el) => el._id),el.candidatCurrentWork.map((el) => el.salary ? el.salary : "0"))}
-  >
-      <img style={{width:"20px"}} src={require("../../images/editpen.svg").default} />
-  </button>
-<div className="col-1 px-0">
-<button
-      className="btn"   
-      onClick={(e)=>{setDeleteModal(true);setDeleteEmp(el)}}
-  >
-      <img src={require("../../images/Deletebucket.svg").default} />
-  </button>
-</div>
-</div>
-
-</div>
-</div>
-</>
-}
-</>      ))
-                  
-                 : (
+                              <div className="col-4 d-flex">
+                                <button
+                                  className="seeFullCandidat"
+                                  onClick={(e) => viewFullProfile(el)}
+                                >
+                                  <img
+                                    src={
+                                      require("../../images/seeCan.svg").default
+                                    }
+                                  />
+                                  See profile
+                                </button>
+                                <button
+                                  className="btn py-0"
+                                  id="Salary"
+                                  onClick={(e) =>
+                                    EditSalaryAds(
+                                      "Salary",
+                                      el._id,
+                                      el.candidatCurrentWork.map(
+                                        (el) => el._id
+                                      ),
+                                      el.candidatCurrentWork.map((el) =>
+                                        el.salary ? el.salary : "0"
+                                      )
+                                    )
+                                  }
+                                >
+                                  <img
+                                    style={{ width: "20px" }}
+                                    src={
+                                      require("../../images/editpen.svg")
+                                        .default
+                                    }
+                                  />
+                                </button>
+                                <div className="col-1 px-0">
+                                  <button
+                                    className="btn"
+                                    onClick={(e) => {
+                                      setDeleteModal(true);
+                                      setDeleteEmp(el);
+                                    }}
+                                  >
+                                    <img
+                                      src={
+                                        require("../../images/Deletebucket.svg")
+                                          .default
+                                      }
+                                    />
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </>
+                  ))
+                ) : (
                   // <div className="col-12 pb-1 d-flex">
                   //   <img
                   //     className="pr-1"
@@ -1238,117 +1312,151 @@ let Editdata ={state:profile,path:"/clientContract/clientSigned"}
                   </div>
                 )}
 
-<div className="col-12 pb-1">
-                      <div className="row">
-                        {
-                          preSelect ?
-                          preSelect.map((el,i)=>(
-                            <>      <div className="col-4 d-flex align-items-center mb-1" key={i}>
-                            <img
-                              style={{ width: "15%" }}
-                              className="pr-1"
-                              src={require("../../images/menSigned.svg").default}
-                            /><p className="mb-0" style={{color:"#fd9e02"}}>
-                            {el.candidatName.toLocaleUpperCase()}</p>
-   
+                <div className="col-12 pb-1">
+                  <div className="row">
+                    {preSelect
+                      ? preSelect.map((el, i) => (
+                          <>
+                            {" "}
+                            <div
+                              className="col-4 d-flex align-items-center mb-1"
+                              key={i}
+                            >
+                              <img
+                                style={{ width: "15%" }}
+                                className="pr-1"
+                                src={
+                                  require("../../images/menSigned.svg").default
+                                }
+                              />
+                              <p className="mb-0" style={{ color: "#fd9e02" }}>
+                                {el.candidatName.toLocaleUpperCase()}
+                              </p>
                             </div>
                             <div className="col-8 text-end">
-                            <b     style={{
-                        fontFamily: "Poppins",
-                        fontStyle: "normal",
-                        fontWeight: "700",
-                        fontSize: "10px",
-                        lineHeight: "24px",
-                        color: "#000000",
-                      }}>"⚠️This Candidat is Preselected But Don't Work for the Company yet!"</b>
+                              <b
+                                style={{
+                                  fontFamily: "Poppins",
+                                  fontStyle: "normal",
+                                  fontWeight: "700",
+                                  fontSize: "10px",
+                                  lineHeight: "24px",
+                                  color: "#000000",
+                                }}
+                              >
+                                "⚠️This Candidat is Preselected But Don't Work
+                                for the Company yet!"
+                              </b>
                             </div>
-                            
-                            </>
-                            ))
-                             :
-                             null
-                            
-                        }
-{Archived ?
-                   Archived.map((el,i)=>(
-<>      <div className="col-3 pr-0 mb-1 d-flex align-items-center" key={i}>
-<img
-  style={{ width: "20%" }}
-  className="pr-1"
-  src={require("../../images/menSigned.svg").default}
-/><p className="mb-0" style={{color:"red"}}>
-{el.candidatName.toLocaleUpperCase()}</p>
-
-</div>
-
-<div className="col-9 text-end">
-                            <b     style={{
-                        fontFamily: "Poppins",
-                        fontStyle: "normal",
-                        fontWeight: "700",
-                        fontSize: "10px",
-                        lineHeight: "24px",
-                        color: "#000000",
-                      }}>"⚠️This candidat previously worked for this company but have been archived, please reset to todo if something changed"</b>
+                          </>
+                        ))
+                      : null}
+                    {Archived
+                      ? Archived.map((el, i) => (
+                          <>
+                            {" "}
+                            <div
+                              className="col-3 pr-0 mb-1 d-flex align-items-center"
+                              key={i}
+                            >
+                              <img
+                                style={{ width: "20%" }}
+                                className="pr-1"
+                                src={
+                                  require("../../images/menSigned.svg").default
+                                }
+                              />
+                              <p className="mb-0" style={{ color: "red" }}>
+                                {el.candidatName.toLocaleUpperCase()}
+                              </p>
                             </div>
-</>
-))
- :
- null
-
-                      }
-                      </div>
-                      </div>
-         
+                            <div className="col-9 text-end">
+                              <b
+                                style={{
+                                  fontFamily: "Poppins",
+                                  fontStyle: "normal",
+                                  fontWeight: "700",
+                                  fontSize: "10px",
+                                  lineHeight: "24px",
+                                  color: "#000000",
+                                }}
+                              >
+                                "⚠️This candidat previously worked for this
+                                company but have been archived, please reset to
+                                todo if something changed"
+                              </b>
+                            </div>
+                          </>
+                        ))
+                      : null}
+                  </div>
+                </div>
 
                 {profile.employeesWorkingUnder !== null &&
                 profile.employeesWorkingUnder.length > 0 ? (
-                 <div className="col-12"> <div className="row"><div className="col-8"><p className="mb-0">
-                    Ads Spent on this client :
-                    {profile.jobTotalBudget
-                      ? profile.jobTotalBudget + "€"
-                      : "✘ No Budget!"}
-               
-                  </p>
-               </div><div className="col-4 text-center"> <button
-      className="btn py-0"
-      name="Ads"
-      onClick={(e)=>EditSalaryAds("Ads",null,null,null)}   
-  >
-      <img style={{width:"20px"}} src={require("../../images/editpen.svg").default} />
-  </button>  </div> </div>  </div>
+                  <div className="col-12">
+                    {" "}
+                    <div className="row">
+                      <div className="col-8">
+                        <p className="mb-0">
+                          Ads Spent on this client :
+                          {profile.jobTotalBudget
+                            ? profile.jobTotalBudget + "€"
+                            : "✘ No Budget!"}
+                        </p>
+                      </div>
+                      <div className="col-4 text-center">
+                        {" "}
+                        <button
+                          className="btn py-0"
+                          name="Ads"
+                          onClick={(e) =>
+                            EditSalaryAds("Ads", null, null, null)
+                          }
+                        >
+                          <img
+                            style={{ width: "20px" }}
+                            src={require("../../images/editpen.svg").default}
+                          />
+                        </button>{" "}
+                      </div>{" "}
+                    </div>{" "}
+                  </div>
                 ) : null}
               </div>
             </div>
 
-<div className="col-12 my-1 inPAdsBOX">
-                <div className="row p-1">
-{
-JobAdsCardsStatus ?  
-JobAdsCards.length > 0 ?
-                <Carousel responsive={responsive}>
-                  {
-                        
-                    JobAdsCards.map((el)=>(
-                      <div className="col-12">
-
-                      <JobAdsCard    bg="Signed"   props={el}     />
-                      </div>
-                    ))
-                  }
-                  </Carousel>
-                  :
+            <div className="col-12 my-1 inPAdsBOX">
+              <div className="row p-1">
+                {JobAdsCardsStatus ? (
+                  JobAdsCards.length > 0 ? (
+                    <Carousel responsive={responsive}>
+                      {JobAdsCards.map((el) => (
+                        <div className="col-12">
+                          <JobAdsCard bg="Signed" props={el} />
+                        </div>
+                      ))}
+                    </Carousel>
+                  ) : (
+                    <div className="col-12 d-flex justify-content-center">
+                      <p className="mb-0 d-flex align-items-center ErrorSearchBox">
+                        <Warning /> NO JOBS ADS FOUND ✘✘!
+                      </p>
+                    </div>
+                  )
+                ) : (
                   <div className="col-12 d-flex justify-content-center">
-                  <p className="mb-0 d-flex align-items-center ErrorSearchBox"><Warning /> NO JOBS ADS FOUND ✘✘!</p>
+                    <ProfilesLoader
+                      width={250}
+                      height={200}
+                      fontSize={"26px"}
+                      fontWeight={"600"}
+                      Title={"Please Wait!"}
+                    />
                   </div>
-
-:
-<div className="col-12 d-flex justify-content-center">
-<ProfilesLoader  width ={250} height={200} fontSize={"26px"} fontWeight={"600"}  Title={"Please Wait!"}/> 
-</div>
-}
-                </div>
+                )}
               </div>
+            </div>
 
             <div className="col-12 Social-CardClient my-1 p-1">
               <div className="row">
@@ -1438,7 +1546,7 @@ JobAdsCards.length > 0 ?
                     className="btn btn-BlackEdit"
                     onClick={editClientProfile}
                   >
-                    <img src={require("../../images/Edit.svg").default} />
+                    <img alt="..." src={require("../../images/Edit.svg").default} />
                     Edit Profile
                   </button>
                   <p className="btn-Down text-center text-start">
@@ -1538,23 +1646,30 @@ JobAdsCards.length > 0 ?
             </div>
             <div className="col-12 Social-CardClient mt-1 ">
               {clientContract ? (
-                <ClientContract  props={profile} path="/clientContract/ClientContractEditprofile"     />
+                <ClientContract
+                  props={profile}
+                  path="/clientContract/ClientContractEditprofile"
+                />
               ) : (
                 <div className="col-12 d-flex justify-content-center align-items-center py-2">
                   <ErrorLoader />
                   <p className="mb-0 ErrorSearchBox">
-                  ✘ No Contract Available for this Signed Client! Please add a
+                    ✘ No Contract Available for this Signed Client! Please add a
                     New Contract ✘
                   </p>
                 </div>
               )}
             </div>
-           
-          {/* PDF Upload */}
-          <div>
-              <PDFBoxClient   props={profile} value={setProfile} updated={setUpdatedWarning} />
+
+            {/* PDF Upload */}
+            <div>
+              <PDFBoxClient
+                props={profile}
+                value={setProfile}
+                updated={setUpdatedWarning}
+              />
             </div>
-{/* PDF Upload End */}
+            {/* PDF Upload End */}
             <div
               className="col-12 Social-CardClient mb-1 "
               style={{ padding: "13px 26px" }}
@@ -1569,23 +1684,37 @@ JobAdsCards.length > 0 ?
                   activeTab
                   className="alertMessage"
                 >
-                
                   {contrat_client ? null : (
-                    <Tab className="redColorStyling"> ⚠️ CONTRAT CLIENT IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      {" "}
+                      ⚠️ CONTRAT CLIENT IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {contrat_employes ? null : (
-                    <Tab className="redColorStyling">⚠️ CONTRATS EMPLOYES IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ CONTRATS EMPLOYES IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {id_card_employer ? null : (
-                    <Tab className="redColorStyling">⚠️ Id Card Employes IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ Id Card Employes IS MISSING / MANQUANT
+                    </Tab>
                   )}
-                  {al ? null : <Tab className="redColorStyling">⚠️ A1 IS MISSING / MANQUANT</Tab>}
+                  {al ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ A1 IS MISSING / MANQUANT
+                    </Tab>
+                  )}
                   {contrats_assurances_employes ? null : (
                     <Tab className="redColorStyling">
                       ⚠️ CONTRATS ASSURANCES EMPLOYES IS MISSING / MANQUANT
                     </Tab>
                   )}
-                  {sispi ? null : <Tab className="redColorStyling">⚠️ SISPI IS MISSING / MANQUANT</Tab>}
+                  {sispi ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ SISPI IS MISSING / MANQUANT
+                    </Tab>
+                  )}
                   {document_de_represntation ? null : (
                     <Tab className="redColorStyling">
                       ⚠️ DOCUMENT DE REPRESENTANCE / REPRESENTATION IS MISSING /
@@ -1593,7 +1722,9 @@ JobAdsCards.length > 0 ?
                     </Tab>
                   )}
                   {offre_signee ? null : (
-                    <Tab className="redColorStyling">⚠️ OFFRE SIGNEE / QUOTES IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ OFFRE SIGNEE / QUOTES IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {attestations_societe_intermann ? null : (
                     <Tab className="redColorStyling">
@@ -1601,15 +1732,25 @@ JobAdsCards.length > 0 ?
                       MANQUANT
                     </Tab>
                   )}
-                  {cvs ? null : <Tab className="redColorStyling">⚠️ CVS IS MISSING / MANQUANT</Tab>}
+                  {cvs ? null : (
+                    <Tab className="redColorStyling">
+                      ⚠️ CVS IS MISSING / MANQUANT
+                    </Tab>
+                  )}
                   {autres_documents ? null : (
-                    <Tab className="redColorStyling">⚠️ AUTRES DOCUMENTS / OTHER IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ AUTRES DOCUMENTS / OTHER IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {factures ? null : (
-                    <Tab className="redColorStyling">⚠️ FACTURES IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ FACTURES IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {rapport_activite ? null : (
-                    <Tab className="redColorStyling">⚠️ RAPPORT ACTIVITE IS MISSING / MANQUANT</Tab>
+                    <Tab className="redColorStyling">
+                      ⚠️ RAPPORT ACTIVITE IS MISSING / MANQUANT
+                    </Tab>
                   )}
                   {offre_envoye_et_nonsigne ? null : (
                     <Tab className="redColorStyling">
@@ -1621,10 +1762,13 @@ JobAdsCards.length > 0 ?
                       ⚠️ FICHE MEDICALE IS MISSING / MANQUANT
                     </Tab>
                   )}
-                    {reges ? null : (
-                    <Tab className="redColorStyling"> ⚠️ REGES IS MISSING / MANQUANT</Tab>
+                  {reges ? null : (
+                    <Tab className="redColorStyling">
+                      {" "}
+                      ⚠️ REGES IS MISSING / MANQUANT
+                    </Tab>
                   )}
-                    {fiche_de_mise_a_disposition ? null : (
+                  {fiche_de_mise_a_disposition ? null : (
                     <Tab className="redColorStyling">
                       ⚠️ FICHE DE MISE A DISPOSITION / MANQUANT
                     </Tab>
@@ -1635,42 +1779,44 @@ JobAdsCards.length > 0 ?
           </div>
         </div>
         {PDFModal ? (
-                    <PDFModalClient props={profile} closeModal={setPDFModal}  LinkModal={setDocuSignModal} path="/clientContract/clientSigned" />
-                  ) : null}
-                  
-                   {
-        DocumentSignModal ? 
-        <DOCUSIGNModalCandidate props={profile} closeModal={setDocuSignModal} />
+          <PDFModalClient
+            props={profile}
+            closeModal={setPDFModal}
+            LinkModal={setDocuSignModal}
+            path="/clientContract/clientSigned"
+          />
+        ) : null}
 
-        :
-        null
+        {DocumentSignModal ? (
+          <DOCUSIGNModalCandidate
+            props={profile}
+            closeModal={setDocuSignModal}
+          />
+        ) : null}
 
-      }
-
-    {
-      salaryEditModal ?
-      <SalaryAdsEdit  name={salaryModal} closeModal={setsalaryEditModal}  details={salaryModal === "Salary" ? DetailsEdit : DetailsAds}/>
-      :
-      false
-    }
-                  {showPreSelectedModal ? (
-                    <PreModalClient
-                      props={PreSelectedData}
-                      closepreModal={setShowInPreSelectedModal}
-                      clientProps={profile}
-                    />
-                  ) : null}
-                  {
-                    deleteModal ? 
-                    <ArchivedModal
-                    props={DeleteEmp}
-                    closeModal={setDeleteModal}
-                    path={"/clientContract/clientSigned"}
-                    
-                  />
-                    :
-                    null
-                  }
+        {salaryEditModal ? (
+          <SalaryAdsEdit
+            name={salaryModal}
+            closeModal={setsalaryEditModal}
+            details={salaryModal === "Salary" ? DetailsEdit : DetailsAds}
+          />
+        ) : (
+          false
+        )}
+        {showPreSelectedModal ? (
+          <PreModalClient
+            props={PreSelectedData}
+            closepreModal={setShowInPreSelectedModal}
+            clientProps={profile}
+          />
+        ) : null}
+        {deleteModal ? (
+          <ArchivedModal
+            props={DeleteEmp}
+            closeModal={setDeleteModal}
+            path={"/clientContract/clientSigned"}
+          />
+        ) : null}
       </div>
     </>
   );

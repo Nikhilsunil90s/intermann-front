@@ -8,295 +8,282 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import PreModal from "../components/Modal/preSelectedModal";
 import ProfileLoader from "../components/Loader/ProfilesLoader";
-import { API_BASE_URL } from '../config/serverApiConfig';
-import { Toaster, toast } from 'react-hot-toast';
+import { API_BASE_URL } from "../config/serverApiConfig";
+import { Toaster, toast } from "react-hot-toast";
 import "react-multi-carousel/lib/styles.css";
 import axios from "axios";
-import ReadMoreReact from 'read-more-react';
-import UploadDow from '../components/Modal/SelectUploadDownload'
-import PDFGenerate from '../components/Modal/PDFGenerateModal'
-import moment from 'moment'
+import ReadMoreReact from "read-more-react";
+import UploadDow from "../components/Modal/SelectUploadDownload";
+import PDFGenerate from "../components/Modal/PDFGenerateModal";
 import ErrorLoader from "../components/Loader/SearchBarError";
-import DOCUSIGNModalCandidate from '../components/Modal/DOCUSIGNModalCandidate'
+import DOCUSIGNModalCandidate from "../components/Modal/DOCUSIGNModalCandidate";
 import PDFBoxCandidate from "../components/PDFboxBothSide/PDFBoxCandidate";
 import InProgressModal from "../components/Modal/InProgressModal";
 import Representance from "../components/Modal/RepresentanceModalCandidate";
 import AvanceModal from "../components/Modal/AvanceModalCandidate";
 import CandidateContract from "../components/CandidateComponents/CandidateContract";
-import DocumLink from "../components/Modal/CandidateRepresentModal/LinkModal"
+import DocumLink from "../components/Modal/CandidateRepresentModal/LinkModal";
 import { Tabs, Tab } from "react-tabs-scrollable";
-import ViewPageDetailsBox from '../components/CandidateComponents/ViewPageDetailsBox'
-import SocialButtons from '../components/CandidateComponents/ViewPageSocialButtons'
+import ViewPageDetailsBox from "../components/CandidateComponents/ViewPageDetailsBox";
+import SocialButtons from "../components/CandidateComponents/ViewPageSocialButtons";
 import { motion } from "framer-motion";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 
-interface State {
-  profileData: any,
-  path: any,
-  UserID:any
-}
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
-})
+});
 
 function ToDoProfile() {
-  const notifyDocumentUploadSuccess = () => toast.success("Document Uploaded Successfully!");
+  const notifyDocumentUploadSuccess = () =>
+    toast.success("Document Uploaded Successfully!");
   const profileData = JSON.parse(localStorage.getItem("profile"));
 
-  const notifyDocumentUploadError = () => toast.error("Document Upload Failed! Please Try Again in few minutes.")
-  const notifyDocumentDeleteError = () => toast.error("Document Not Removed! Please Try Again in few minutes.")
+  const notifyDocumentUploadError = () =>
+    toast.error("Document Upload Failed! Please Try Again in few minutes.");
 
   const navigate = useNavigate();
-  const { state} = useLocation();
+  const { state } = useLocation();
 
   const [profile, setProfile] = useState<any>(state ? state : profileData);
 
   const [showPreSelectedModal, setShowInPreSelectedModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
-  const candidatMotivationIcons = [{ icon: "", motivation: 'No Motivation!' },{ icon: "😟", motivation: 'Disappointed' }, { icon: "🙁", motivation: 'Not Really' }, { icon: "😊", motivation: 'Like' }, { icon: "🥰", motivation: 'Great' }, { icon: "😍", motivation: 'Super Lovely' }];
-  const hiddenFileInput = React.useRef(null);
+  const candidatMotivationIcons = [
+    { icon: "", motivation: "No Motivation!" },
+    { icon: "😟", motivation: "Disappointed" },
+    { icon: "🙁", motivation: "Not Really" },
+    { icon: "😊", motivation: "Like" },
+    { icon: "🥰", motivation: "Great" },
+    { icon: "😍", motivation: "Super Lovely" },
+  ];
+
   const [recommendations, setRecommendations] = useState([]);
-  const [candidatContactOne, setCandidatContactOne] = useState(profile.candidatPhone != "" ? profile.candidatPhone.split(" ").join("") : "");
   const [loader, setLoader] = useState(false);
   const hiddenImageInput = React.useRef(null);
-  const [representance,setRepresentance]=useState(false)
-  const [Avance,setAvance]=useState(false)
+  const [representance, setRepresentance] = useState(false);
+  const [Avance, setAvance] = useState(false);
   const [docUploaded, setDocUploaded] = useState(false);
-  const [candidatImage, setCandidatImage] = useState(profile.candidatPhoto && profile.candidatPhoto?.url !== undefined ? profile.candidatPhoto?.url : "");
-  const [UploadBtn,setSelectUpload]= useState(false)
+  const [candidatImage, setCandidatImage] = useState(
+    profile.candidatPhoto && profile.candidatPhoto?.url !== undefined
+      ? profile.candidatPhoto?.url
+      : ""
+  );
+  const [UploadBtn, setSelectUpload] = useState(false);
   const [showInProgressModal, setShowInProgressModal] = useState(false);
-  const [PDFModal,setPDFModal]=useState(false)
-  const [DocumentSignModal,setDocuSignModal]=useState(false)
-  const [DocuLink,setDocuLink]=useState(false)
-  const [ReAvance,setReAvance]=useState("")
-  const [repID,setRepId]=useState("")
-  const [CONTRACT_EMPLOYE_INTERMANN, setCONTRACT_EMPLOYE_INTERMANN] = useState() as any;
-  const [Fiche_Medicale, setFiche_Medicale] = useState() as any;
-  const [Assurance, setAssurance] = useState() as any;
-  const [ID_CARD, setID_CARD] = useState() as any;
-  const [Reges, setReges] = useState() as any;
-  const [Fiche_mise_à_disposition, setFiche_mise_à_disposition] =
-    useState() as any;
-    const [startStatus]=useState(profile.candidatStartDate !== undefined ? profile.candidatStartDate.slice(0,4).includes("-") : null)
-    const [endStatus]=useState(profile.candidatEndDate !== undefined ?profile.candidatEndDate.slice(0,4).includes("-") : null)
-   const [startDate,setStartDate]=useState()as any
-    const [EndDate,setEndDate]=useState()as any
-  
-    function padTo2DigitsCH(num) {
-      return num.toString().padStart(2, "0");
-    }
-  
-    // console.log(props.data.jobStartDate.slice(0,4).includes("-"))
-  
-    function formatDateCha(date) {
-      return [
-        padTo2DigitsCH(date.getDate()),
-        padTo2DigitsCH(date.getMonth() + 1),
-        date.getFullYear(),
-      ].join("/");
-    }
-    const datenow = moment().format("YYYY-MM-DD");
-  
-    let date = new Date(datenow);
-  
-    let start = new Date(profile.candidatStartDate);
-    let end = new Date(profile.candidatEndDate);
-  
-    useEffect(()=>{
-      if(startStatus){
-        setStartDate(profile.candidatStartDate)
-      }else{
-        let data=formatDateCha(start)
-        setStartDate(data.replaceAll("/","-"))
-        
-    
-      }
-      if(endStatus){
-        setEndDate(profile.candidatEndDate)
-      }else{
-        let data=formatDateCha(end)
-        setEndDate(data.replaceAll("/","-"))
-        
-    
-      }
-     })
+  const [PDFModal, setPDFModal] = useState(false);
+  const [DocumentSignModal, setDocuSignModal] = useState(false);
+  const [DocuLink, setDocuLink] = useState(false);
+  const [ReAvance, setReAvance] = useState("");
+  const [repID, setRepId] = useState("");
+  const [CONTRACT_EMPLOYE_INTERMANN] = useState() as any;
+  const [Fiche_Medicale] = useState() as any;
+  const [Assurance] = useState() as any;
+  const [ID_CARD] = useState() as any;
+  const [Reges] = useState() as any;
+  const [Fiche_mise_à_disposition] = useState() as any;
+  const [startStatus] = useState(
+    profile.candidatStartDate !== undefined
+      ? profile.candidatStartDate.slice(0, 4).includes("-")
+      : null
+  );
+  const [endStatus] = useState(
+    profile.candidatEndDate !== undefined
+      ? profile.candidatEndDate.slice(0, 4).includes("-")
+      : null
+  );
+  const [startDate, setStartDate] = useState() as any;
+  const [EndDate, setEndDate] = useState() as any;
 
- useEffect(()=>{
-      setProfile(state ? state : profileData)
-    
-      if(Client.length == 0){
-        fetchProfilesClients().then((res)=>setClients([...res]))
-      }
-},[state])
-
-
-const [Client,setClients]=useState([])as any
-
-
-const fetchProfilesClients = async () => {
-  return await fetch(API_BASE_URL + "allToDoClients", {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      Authorization: "Bearer " +  Cookies.get("token"),
-    },
-  })
-    .then((resD) => resD.json())
-    .then(res => res)
-    .catch((err) => err);
-};
-
-
-  let data={profileData:profile ,path:"/todolist/todoprofile"}
-
- const deleteCandidatDocument = async (docId: any, docName: any, candidatId: any) => {
-  let headers = {
-    "Accept": 'application/json',
-    "Authorization": "Bearer " + Cookies.get('token')
+  function padTo2DigitsCH(num) {
+    return num.toString().padStart(2, "0");
   }
-  return await fetch(API_BASE_URL + `deleteDocument/?documentId=${docId}&documentName=${docName}&candidatId=${candidatId}`, {
-    method: "GET",
-    headers: headers
-  })
-    .then(reD => reD.json())
-    .then(resD => resD)
-    .catch(err => err)
-}
 
- const removeRecommendation = (rId: any) => {
+  // console.log(props.data.jobStartDate.slice(0,4).includes("-"))
 
-  let filteredRecommendations = recommendations.filter((recomm) => {
-    return recomm._id !== rId;
-  })
-  setRecommendations([...filteredRecommendations])
-  setLoader(true);
-}
-const fetchRecommendations = async (candidatSector: string) => {
-  return await fetch(API_BASE_URL + `clientRecommendations/?candidatSector=${candidatSector}`, {
-    method: "GET",
-    headers: {
-      "Accept": 'application/json',
-      "Authorization": "Bearer " + Cookies.get('token')
-    },
-  })
-    .then(resp => resp.json())
-    .then(respData => respData)
-    .catch(err => err)
-}
+  function formatDateCha(date) {
+    return [
+      padTo2DigitsCH(date.getDate()),
+      padTo2DigitsCH(date.getMonth() + 1),
+      date.getFullYear(),
+    ].join("/");
+  }
+
+  let start = new Date(profile.candidatStartDate);
+  let end = new Date(profile.candidatEndDate);
+
+  useEffect(() => {
+    if (startStatus) {
+      setStartDate(profile.candidatStartDate);
+    } else {
+      let data = formatDateCha(start);
+      setStartDate(data.replaceAll("/", "-"));
+    }
+    if (endStatus) {
+      setEndDate(profile.candidatEndDate);
+    } else {
+      let data = formatDateCha(end);
+      setEndDate(data.replaceAll("/", "-"));
+    }
+  });
+
+  useEffect(() => {
+    setProfile(state ? state : profileData);
+
+    if (Client.length === 0) {
+      fetchProfilesClients().then((res) => setClients([...res]));
+    }
+  }, [state]);
+
+  const [Client, setClients] = useState([]) as any;
+
+  const fetchProfilesClients = async () => {
+    return await fetch(API_BASE_URL + "allToDoClients", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    })
+      .then((resD) => resD.json())
+      .then((res) => res)
+      .catch((err) => err);
+  };
+
+  let data = { profileData: profile, path: "/todolist/todoprofile" };
+
+  const removeRecommendation = (rId: any) => {
+    let filteredRecommendations = recommendations.filter((recomm) => {
+      return recomm._id !== rId;
+    });
+    setRecommendations([...filteredRecommendations]);
+    setLoader(true);
+  };
+  const fetchRecommendations = async (candidatSector: string) => {
+    return await fetch(
+      API_BASE_URL + `clientRecommendations/?candidatSector=${candidatSector}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    )
+      .then((resp) => resp.json())
+      .then((respData) => respData)
+      .catch((err) => err);
+  };
   const editCandidatProfile = () => {
     navigate("/todolist/editToDo", { state: data });
   };
   const handleImageUpload = () => {
     hiddenImageInput.current.click();
-  }
+  };
 
-  const handleFileUpload = () => {
-    hiddenFileInput.current.click();
-  }
-  
   const handleImageChange = (val) => {
-    if (val === 'upload') {
-      handleImageUpload()
-    } else if (val === 'Download') {
+    if (val === "upload") {
+      handleImageUpload();
+    } else if (val === "Download") {
       window.open(candidatImage);
     }
-  }
-
-
-   
-
-
+  };
 
   const fileChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
     >
   ) => {
-    if (e.target.name === 'candidatPhoto') {
-      console.log(e.target.files,"e.target.files")
-      console.log(e.target.files[0],"e.target.files[]")
-      const fileUploaded = e.target.files[0]
+    if (e.target.name === "candidatPhoto") {
+      console.log(e.target.files, "e.target.files");
+      console.log(e.target.files[0], "e.target.files[]");
+      const fileUploaded = e.target.files[0];
       let formdata = new FormData();
-      formdata.append('candidatId', profile._id)
-      formdata.append('image', fileUploaded)
-      axiosInstance.post("uploadCandidatImage", formdata, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "Authorization": "Bearer " + Cookies.get('token')
-        }
-      })
-        .then(datares => {
+      formdata.append("candidatId", profile._id);
+      formdata.append("image", fileUploaded);
+      axiosInstance
+        .post("uploadCandidatImage", formdata, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: "Bearer " + Cookies.get("token"),
+          },
+        })
+        .then((datares) => {
           if (datares.data.status) {
-     // setCandidatImage(datares.data.filename)
-     notifyDocumentUploadSuccess()
+            // setCandidatImage(datares.data.filename)
+            notifyDocumentUploadSuccess();
 
-     
-            setTimeout(()=>{
-              window.location.href = "/todolist/todoprofile"
-            },2000)
+            setTimeout(() => {
+              window.location.href = "/todolist/todoprofile";
+            }, 2000);
           } else {
-            notifyDocumentUploadError()
+            notifyDocumentUploadError();
           }
         })
-        .catch(err => { console.log(err) })
+        .catch((err) => {
+          console.log(err);
+        });
       return;
     }
-    if (e.target.name === 'candidatDocuments') {
- }
-}
+    if (e.target.name === "candidatDocuments") {
+    }
+  };
   useEffect(() => {
     setProfile((prev) => ({ ...prev, ["clients"]: [...recommendations] }));
     setLoader(false);
-  }, [recommendations])
+  }, [recommendations]);
 
   useEffect(() => {
-    fetchCandidat(profile._id).then(resData => {
-
-      setCandidatImage("")
-      if (resData.status) {
-        setProfile(resData.data)
-        setCandidatImage(resData.data.candidatPhoto !== undefined ? resData.data.candidatPhoto?.url : "")
-        setDocUploaded(false);
-      } else {
-        setDocUploaded(false);
-      }
-    })
-      .catch(err => {
-        console.log(err)
+    fetchCandidat(profile._id)
+      .then((resData) => {
+        setCandidatImage("");
+        if (resData.status) {
+          setProfile(resData.data);
+          setCandidatImage(
+            resData.data.candidatPhoto !== undefined
+              ? resData.data.candidatPhoto?.url
+              : ""
+          );
+          setDocUploaded(false);
+        } else {
+          setDocUploaded(false);
+        }
       })
-  }, [docUploaded])
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [docUploaded]);
   const fetchCandidat = async (candidatId: any) => {
-    return await fetch(API_BASE_URL + `getCandidatById/?candidatId=${candidatId}`, {
-      method: "GET",
-      headers: {
-        "Accept": 'application/json',
-        "Authorization": "Bearer " + Cookies.get('token')
-      },
-    })
-      .then(resp => resp.json())
-      .then(respData => respData)
-      .catch(err => err)
-  }
-
+    return await fetch(
+      API_BASE_URL + `getCandidatById/?candidatId=${candidatId}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    )
+      .then((resp) => resp.json())
+      .then((respData) => respData)
+      .catch((err) => err);
+  };
 
   useEffect(() => {
     setLoader(true);
     fetchRecommendations(profile.candidatActivitySector)
-      .then(respData => {
+      .then((respData) => {
         if (respData.status) {
           setRecommendations([...respData.data]);
           setLoader(true);
         } else {
-          setRecommendations([])
+          setRecommendations([]);
           setLoader(false);
-
         }
       })
-      .catch(err => {
-        console.log(err)
-      })
-
-  }, [state])
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [state]);
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -317,11 +304,12 @@ const fetchRecommendations = async (candidatSector: string) => {
     },
   };
 
- 
-
   return (
     <>
-      <Toaster position="top-right" containerStyle={{ zIndex: '99999999999' }} />
+      <Toaster
+        position="top-right"
+        containerStyle={{ zIndex: "99999999999" }}
+      />
       <div className="containet-fluid">
         <div className="row mx-0 paddingForLarge">
           {/* <div className="col-12 top-pd text-center">
@@ -330,11 +318,8 @@ const fetchRecommendations = async (candidatSector: string) => {
             </h1>
           </div> */}
 
-          <div
-            className="card mt-2 mb-0"
-            
-          >
-            <div className="row text-start topCandidateHeader" >
+          <div className="card mt-2 mb-0">
+            <div className="row text-start topCandidateHeader">
               <div className="col-6 d-flex align-items-center">
                 <div className="stable">
                   <Link to="/todolist">
@@ -342,7 +327,10 @@ const fetchRecommendations = async (candidatSector: string) => {
                       type="button"
                       className="btn d-flex align-items-center p-0"
                     >
-                      <img src={require("../images/return.svg").default} />
+                      <img
+                        alt="..."
+                        src={require("../images/return.svg").default}
+                      />
                       <h2 className="card-Leads mb-0"> Candidate Profile</h2>
                     </button>
                   </Link>
@@ -350,134 +338,173 @@ const fetchRecommendations = async (candidatSector: string) => {
               </div>
               <div className="col-6 d-flex align-items-center justify-content-end">
                 <button className="btn-bgblack" onClick={editCandidatProfile}>
-                  <img src={require("../images/Edit.svg").default} />
+                  <img alt="..." src={require("../images/Edit.svg").default} />
                   Edit Profile
                 </button>
               </div>
             </div>
           </div>
 
-   
-            <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-1">
+          <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-1">
             <motion.div
-  initial={{ scale: 0 }}
-  animate={{ rotate:0, scale:1}}
-  transition={{
-    type: "spring",
-    stiffness: 120,
-    damping: 50
-  }}  className="row bg-todoTodoDetails mt-0">
-                <div className="col-xxl-2 col-xl-2 col-md-2 col-sm-2 text-center ">
-                {candidatImage !== "" ?
-                
-                      <img
-                        // src={require("../images/menlogos.svg").default}
-                        src={candidatImage}
-                     className="img-uploadTodo-Download"
-                      />
-                  //   <ReactRoundedImage
-                  //   image={candidatImage}
-                  //   roundedColor="#b3e0ff"
-                  //   imageWidth="130"
-                  //   imageHeight="130"
-                  //   roundedSize="13"
-                  //   borderRadius="70"
-                  //   hoverColor="#1abeff"
-                  // />
-                      :
-
+              initial={{ scale: 0 }}
+              animate={{ rotate: 0, scale: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 120,
+                damping: 50,
+              }}
+              className="row bg-todoTodoDetails mt-0"
+            >
+              <div className="col-xxl-2 col-xl-2 col-md-2 col-sm-2 text-center ">
+                {
+                  candidatImage !== "" ? (
                     <img
-                      src={require("../images/menlogos.svg").default}
-                     className="img-uploadTodo-Download"
+                      alt="..."
+                      // src={require("../images/menlogos.svg").default}
+                      src={candidatImage}
+                      className="img-uploadTodo-Download"
                     />
-                    // 
-                  }
-               
-<button
- onClick={()=>{setSelectUpload(!UploadBtn);}}
-className="SelectBtn"
- ><img className="" src={require("../images/select.svg").default} />
- {
-  UploadBtn? 
-  <UploadDow closeModal={setSelectUpload}  FunModal={handleImageChange} />
-  :
-  null
- }
- </button>
-<input
-                    type="file"
-                    ref={hiddenImageInput}
-                    onChange={fileChange}
-                    name="candidatPhoto"
-                    style={{ display: 'none' }}
+                  ) : (
+                    //   <ReactRoundedImage
+                    //   image={candidatImage}
+                    //   roundedColor="#b3e0ff"
+                    //   imageWidth="130"
+                    //   imageHeight="130"
+                    //   roundedSize="13"
+                    //   borderRadius="70"
+                    //   hoverColor="#1abeff"
+                    // />
+                    <img
+                      alt="..."
+                      src={require("../images/menlogos.svg").default}
+                      className="img-uploadTodo-Download"
+                    />
+                  )
+                  //
+                }
+
+                <button
+                  onClick={() => {
+                    setSelectUpload(!UploadBtn);
+                  }}
+                  className="SelectBtn"
+                >
+                  <img
+                    alt="..."
+                    className=""
+                    src={require("../images/select.svg").default}
                   />
-                </div>
-                <div className="col-xxl-7 col-xl-7 col-lg-7 col-md-7 col-sm-7 card-TodoProfile">
-                  <div className="d-flex">
-                    <p>
-                      Name : {profile.candidatName.toLocaleUpperCase()}|{profile.candidatAge ?  profile.candidatAge : "0" }
-                    </p>
-                    <span className="card-xlSpan">(Age)</span>
-                  </div>
-                  <div>
-                    <div className="d-flex mb-0">
-                    <p>Motivation : <b>{profile.candidatMotivation ? candidatMotivationIcons[profile.candidatMotivation ].icon + " " + candidatMotivationIcons[profile.candidatMotivation ].motivation : "✘ No Motivation!"}</b> </p>
-                    </div>
-                  </div>
-                  <p>Secteur : {profile.candidatActivitySector ? profile.candidatActivitySector.toLocaleUpperCase() : "No Sector!"}</p>
-                  <p className="" style={{ width: "150%" }}>
-                    Métier/Job :{profile.candidatJob ? profile.candidatJob.toLocaleUpperCase() : "No Job!"}
+                  {UploadBtn ? (
+                    <UploadDow
+                      closeModal={setSelectUpload}
+                      FunModal={handleImageChange}
+                    />
+                  ) : null}
+                </button>
+                <input
+                  type="file"
+                  ref={hiddenImageInput}
+                  onChange={fileChange}
+                  name="candidatPhoto"
+                  style={{ display: "none" }}
+                />
+              </div>
+              <div className="col-xxl-7 col-xl-7 col-lg-7 col-md-7 col-sm-7 card-TodoProfile">
+                <div className="d-flex">
+                  <p>
+                    Name : {profile.candidatName.toLocaleUpperCase()}|
+                    {profile.candidatAge ? profile.candidatAge : "0"}
                   </p>
+                  <span className="card-xlSpan">(Age)</span>
                 </div>
-                <div className="col-3  text-end end-class" style={{paddingRight:"20px"}}>
-                  <div className="text-center d-grid justify-content-end align-items-center mt-2">
-                    <div className="text-center">
+                <div>
+                  <div className="d-flex mb-0">
+                    <p>
+                      Motivation :{" "}
+                      <b>
+                        {profile.candidatMotivation
+                          ? candidatMotivationIcons[profile.candidatMotivation]
+                              .icon +
+                            " " +
+                            candidatMotivationIcons[profile.candidatMotivation]
+                              .motivation
+                          : "✘ No Motivation!"}
+                      </b>{" "}
+                    </p>
+                  </div>
+                </div>
+                <p>
+                  Secteur :{" "}
+                  {profile.candidatActivitySector
+                    ? profile.candidatActivitySector.toLocaleUpperCase()
+                    : "No Sector!"}
+                </p>
+                <p className="" style={{ width: "150%" }}>
+                  Métier/Job :
+                  {profile.candidatJob
+                    ? profile.candidatJob.toLocaleUpperCase()
+                    : "No Job!"}
+                </p>
+              </div>
+              <div
+                className="col-3  text-end end-class"
+                style={{ paddingRight: "20px" }}
+              >
+                <div className="text-center d-grid justify-content-end align-items-center mt-2">
+                  <div className="text-center">
                     <button className="todoBtnStyle">
-                      <img style={{width:"8%"}} src={require("../images/briefcase2.svg").default} />
+                      <img
+                        alt="..."
+                        style={{ width: "8%" }}
+                        src={require("../images/briefcase2.svg").default}
+                      />
                     </button>
-                    </div>
-                    <p className="fw-boldEn text-center  pl-0 pt-1" style={{marginRight:"10px"}}>
+                  </div>
+                  <p
+                    className="fw-boldEn text-center  pl-0 pt-1"
+                    style={{ marginRight: "10px" }}
+                  >
                     En recherche de contrat
                   </p>
-                  </div>
-              
                 </div>
-              </motion.div>
-            
+              </div>
+            </motion.div>
 
             <div className="col-xxl-12 col-xl-12 col-lg-12 col-12-md  pt-1 px-0">
               <div className="row justify-content-between">
-              <motion.div
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  transition={{ duration: 0.7, delay: 0.5 }}
-  variants={{
-    visible: { opacity: 1, x: 0 },
-    hidden: { opacity: 0, x: 50 }
-  }}
-
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.5 }}
+                  variants={{
+                    visible: { opacity: 1, x: 0 },
+                    hidden: { opacity: 0, x: 50 },
+                  }}
                   className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-1 Social-btns"
                   style={{ maxWidth: "49%" }}
                 >
-              <SocialButtons  props={profile}         />
-                  
+                  <SocialButtons props={profile} />
                 </motion.div>
                 {/* Details Box */}
                 <motion.div
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  transition={{ duration: 0.7, delay: 0.5 }}
-  variants={{
-    visible: { opacity: 1, x: 0 },
-    hidden: { opacity: 0, x: -50 }
-  }}
-
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.5 }}
+                  variants={{
+                    visible: { opacity: 1, x: 0 },
+                    hidden: { opacity: 0, x: -50 },
+                  }}
                   className="col-xxl-8 col-xl-8 col-lg-8 col-md-7 Social-Card px-1 detailsCardClientSee scrollbar heightWidth Social-btnsTwo"
                   id="style-3"
                 >
-             <ViewPageDetailsBox  props={profile} startDate={startDate}    EndDate={EndDate}    />
+                  <ViewPageDetailsBox
+                    props={profile}
+                    startDate={startDate}
+                    EndDate={EndDate}
+                  />
                 </motion.div>
                 {/* End Box */}
               </div>
@@ -498,106 +525,173 @@ className="SelectBtn"
                   </tr>
                 </thead>
                 <tbody>
-                {
-                    profile.candidatExperienceDetails.length > 0 &&
-                      profile.candidatExperienceDetails[0].period != "" ?
-                      (profile.candidatExperienceDetails.map((detail) =>
-                        <tr key={detail}>
-                          <td>{detail.period}</td>
-                          <td>{detail.location}</td>
-                          <td>{detail.workDoneSample}</td>
-                        </tr>
-                      )
-                      ) : (
-                      
-                        <tr className="">
-                          <td colSpan={3} className="text-center">
-                            <b className="d-flex align-items-center justify-content-center my-1"><ErrorLoader />No Experience Details Available!</b>
-                            <button className="btn btn-sm text-light btn-dark" onClick={editCandidatProfile}>Edit Candidat To Add Experience Details!</button>
-                          </td>
-                        </tr>
-                      )
-                  }
+                  {profile.candidatExperienceDetails.length > 0 &&
+                  profile.candidatExperienceDetails[0].period !== "" ? (
+                    profile.candidatExperienceDetails.map((detail) => (
+                      <tr key={detail}>
+                        <td>{detail.period}</td>
+                        <td>{detail.location}</td>
+                        <td>{detail.workDoneSample}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr className="">
+                      <td colSpan={3} className="text-center">
+                        <b className="d-flex align-items-center justify-content-center my-1">
+                          <ErrorLoader />
+                          No Experience Details Available!
+                        </b>
+                        <button
+                          className="btn btn-sm text-light btn-dark"
+                          onClick={editCandidatProfile}
+                        >
+                          Edit Candidat To Add Experience Details!
+                        </button>
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
             <div className="col-12 mt-1 pd-00x12 Social-Card">
               <div className="row">
                 <div className="col-12 d-flex AnneesStyle">
-                 <p className="">Années d’expériance :</p>
-                 <span> {profile.candidatYearsExperience ? profile.candidatYearsExperience +"years" : "✘✘!"} </span>
+                  <p className="">Années d’expériance :</p>
+                  <span>
+                    {" "}
+                    {profile.candidatYearsExperience
+                      ? profile.candidatYearsExperience + "years"
+                      : "✘✘!"}{" "}
+                  </span>
                 </div>
                 <div className="col-12 d-flex AddressEnteredBy">
-                 <p className="">Adresse  </p>
-                 <span className="text-capitalize"> :  {profile.candidatAddress ? profile.candidatAddress : "✘✘No Address!"}</span>
-                </div><div className="col-12 d-flex AddressEnteredBy">
-                 <p className="">Ajouté par/Added by</p>
-                 <span>: {profile.enteredBy}</span>
-                  
-                  </div>
-                  <div className="col-12">
-                 <p className="noteThis mb-0">Note : Who entred this candidates/employe on the database</p>
-                  
-                  </div>
+                  <p className="">Adresse </p>
+                  <span className="text-capitalize">
+                    {" "}
+                    :{" "}
+                    {profile.candidatAddress
+                      ? profile.candidatAddress
+                      : "✘✘No Address!"}
+                  </span>
+                </div>
+                <div className="col-12 d-flex AddressEnteredBy">
+                  <p className="">Ajouté par/Added by</p>
+                  <span>: {profile.enteredBy}</span>
+                </div>
+                <div className="col-12">
+                  <p className="noteThis mb-0">
+                    Note : Who entred this candidates/employe on the database
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="mt-1" style={{ display: 'grid' }}>
+            <div className="mt-1" style={{ display: "grid" }}>
               <Carousel responsive={responsive}>
-                {
-                  recommendations && recommendations.length > 0 ?
-                    recommendations.map(recommendation => (
-                      <div className="row p-1  m-1 Social-Card client-Card" style={{height:"330px"}} key={recommendation}>
-                        <div className="col-3">
-                          <img 
-                            src={
-                              require("../images/Card-ImageStar.svg").default
-                            }
-                          />
-                        </div>
-                        <div className="col-9 d-flex align-items-center">
-                          <p className="mb-0 FontMatchedStyle" style={{ marginTop: '-15px' }}>
-                            <b>{recommendation.clientCompanyName.length > 20 ? recommendation.clientCompanyName.slice(0, 21).toLocaleUpperCase() + "..." : recommendation.clientCompanyName.toLocaleUpperCase()}</b>
-                          </p>
-                        </div>
-
-                          <p className="mb-0 FontStylingCardtext">
-                            Secteur : <b>{recommendation.clientActivitySector !== "" ? recommendation.clientActivitySector.toLocaleUpperCase() : "Sector Not Selected!"}</b>
-                          </p>
-                      
-
-                          <p className="mb-0 FontStylingCardtext">
-                            Job : <b>{recommendation.clientJob !== "" ? recommendation.clientJob.toLocaleUpperCase() : "Job Not Selected!"}</b>
-                          </p>
-                      
-                        <div className="col-12 mb-1">
-                          <p className="mb-0 FontStylingCardtext">Notes:</p>
-                          <div className="mb-0 FontStylingCardtext styledNotes">
-                          {recommendation.clientRequiredSkills !== "" ? <div style={{height:"100px"}}>  <ReadMoreReact text={recommendation.clientRequiredSkills}
-            min={0}
-            ideal={50}
-            max={150}
-            readMoreText={"....."}/></div>  : <p style={{height:"100px"}} className="mb-0 FontStylingCardtext">No Notes/Skills Available!</p>}
-                          </div>
-                        </div>
-                        <div className="col-6 text-center d-flex align-items-center justify-content-center px-0">
-                          <button className="btnMatched" onClick={() => setShowInPreSelectedModal(true)}>Matched</button>
-                        
-                        </div>
-                        <div className="col-6 text-center d-flex align-items-center px-0">
-                          <button className="btnNotMatched" onClick={() => removeRecommendation(recommendation._id)}>Not Matched</button>
-                        </div>
+                {recommendations && recommendations.length > 0 ? (
+                  recommendations.map((recommendation) => (
+                    <div
+                      className="row p-1  m-1 Social-Card client-Card"
+                      style={{ height: "330px" }}
+                      key={recommendation}
+                    >
+                      <div className="col-3">
+                        <img
+                          alt="..."
+                          src={require("../images/Card-ImageStar.svg").default}
+                        />
+                      </div>
+                      <div className="col-9 d-flex align-items-center">
+                        <p
+                          className="mb-0 FontMatchedStyle"
+                          style={{ marginTop: "-15px" }}
+                        >
+                          <b>
+                            {recommendation.clientCompanyName.length > 20
+                              ? recommendation.clientCompanyName
+                                  .slice(0, 21)
+                                  .toLocaleUpperCase() + "..."
+                              : recommendation.clientCompanyName.toLocaleUpperCase()}
+                          </b>
+                        </p>
                       </div>
 
+                      <p className="mb-0 FontStylingCardtext">
+                        Secteur :{" "}
+                        <b>
+                          {recommendation.clientActivitySector !== ""
+                            ? recommendation.clientActivitySector.toLocaleUpperCase()
+                            : "Sector Not Selected!"}
+                        </b>
+                      </p>
 
-                    ))
-                    :
-                    loader ?
-                      <div className="col-12 mx-auto">
-                        <ProfileLoader width={"300px"} height={"300px"} fontSize={"22px"} fontWeight={700} Title={"Loading.."}/>
-                      </div> : 
-                      <div className="Social-Card m-1 text-center">No More Client Recommendations!</div>
-            
-}
+                      <p className="mb-0 FontStylingCardtext">
+                        Job :{" "}
+                        <b>
+                          {recommendation.clientJob !== ""
+                            ? recommendation.clientJob.toLocaleUpperCase()
+                            : "Job Not Selected!"}
+                        </b>
+                      </p>
+
+                      <div className="col-12 mb-1">
+                        <p className="mb-0 FontStylingCardtext">Notes:</p>
+                        <div className="mb-0 FontStylingCardtext styledNotes">
+                          {recommendation.clientRequiredSkills !== "" ? (
+                            <div style={{ height: "100px" }}>
+                              {" "}
+                              <ReadMoreReact
+                                text={recommendation.clientRequiredSkills}
+                                min={0}
+                                ideal={50}
+                                max={150}
+                                readMoreText={"....."}
+                              />
+                            </div>
+                          ) : (
+                            <p
+                              style={{ height: "100px" }}
+                              className="mb-0 FontStylingCardtext"
+                            >
+                              No Notes/Skills Available!
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      <div className="col-6 text-center d-flex align-items-center justify-content-center px-0">
+                        <button
+                          className="btnMatched"
+                          onClick={() => setShowInPreSelectedModal(true)}
+                        >
+                          Matched
+                        </button>
+                      </div>
+                      <div className="col-6 text-center d-flex align-items-center px-0">
+                        <button
+                          className="btnNotMatched"
+                          onClick={() =>
+                            removeRecommendation(recommendation._id)
+                          }
+                        >
+                          Not Matched
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                ) : loader ? (
+                  <div className="col-12 mx-auto">
+                    <ProfileLoader
+                      width={"300px"}
+                      height={"300px"}
+                      fontSize={"22px"}
+                      fontWeight={700}
+                      Title={"Loading.."}
+                    />
+                  </div>
+                ) : (
+                  <div className="Social-Card m-1 text-center">
+                    No More Client Recommendations!
+                  </div>
+                )}
               </Carousel>
             </div>
             <div className="col-12 Social-Card mt-1">
@@ -611,37 +705,35 @@ className="SelectBtn"
                   }
                   <p className="italic-font">Si embauché</p>
                 </div> */}
-                  <div className="col-3 px-0 text-center">
+                <div className="col-3 px-0 text-center">
                   <button
                     type="button"
                     className="btn-EditProfile"
                     onClick={editCandidatProfile}
                   >
-                    <img src={require("../images/Edit.svg").default} />
+                    <img
+                      alt="..."
+                      src={require("../images/Edit.svg").default}
+                    />
                     Edit Profile
                   </button>
-              
                 </div>
                 <div className="col-3 px-0 text-center">
                   <button
-        type="button"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-        className=" btn-preSelected"
-        onClick={() => setShowInPreSelectedModal(true)}
-      >
-      Move to Preselected
-      </button>
-                  {showPreSelectedModal?
-                  <PreModal 
-                   props={profile}
-                   closepreModal={setShowInPreSelectedModal}
-                   
-                  />
-                  :
-                  null
-
-                  }
+                    type="button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                    className=" btn-preSelected"
+                    onClick={() => setShowInPreSelectedModal(true)}
+                  >
+                    Move to Preselected
+                  </button>
+                  {showPreSelectedModal ? (
+                    <PreModal
+                      props={profile}
+                      closepreModal={setShowInPreSelectedModal}
+                    />
+                  ) : null}
                   <p className="italic-fontStyle text-center">
                     Si vous le préselectionné pour un client en cours de
                     recherche
@@ -660,19 +752,20 @@ className="SelectBtn"
                       props={profile}
                       closeModal={setShowArchiveModal}
                       path={"/todolist"}
-                      
                     />
                   ) : null}
                 </div>
-              
                 <div className="col-3 px-0 text-center">
-                <a
+                  <a
                     type="button"
                     href="https://www.canva.com/design/DAFA1_f9AmA/ZBNOgKbj-tCDJa9QRj9kNA/edit"
                     target="_blank"
                     className="btn text-white btn-CVManual"
                   >
-                    <img src={require("../images/resume.svg").default} />
+                    <img
+                      alt="..."
+                      src={require("../images/resume.svg").default}
+                    />
                     Créer CV Manuel
                   </a>
                   <p className="italic-fontStyle text-center">
@@ -680,79 +773,94 @@ className="SelectBtn"
                   </p>
                 </div>
                 <div className="col-3 px-0 text-center">
-                <button
+                  <button
                     type="button"
                     className="btn text-white btn-CVManual"
                     onClick={() => setShowInProgressModal(true)}
                   >
                     Move to In Progress
                   </button>
-                 
                 </div>
                 <div className="col-4 px-0 text-start">
-                <button
+                  <button
                     type="button"
-                    onClick={()=>setPDFModal(true)}
+                    onClick={() => setPDFModal(true)}
                     className="btn text-white btn-pre-moveProgress"
                   >
-                    <img src={require("../images/resume.svg").default} />
+                    <img
+                      alt="..."
+                      src={require("../images/resume.svg").default}
+                    />
                     Générér un contrat
                   </button>
                   <p className="italic-fontStyle text-center">
-                  Pour Adrian, générer un contrat pour un candidat
+                    Pour Adrian, générer un contrat pour un candidat
                   </p>
                 </div>
                 <div className="col-4 px-0 text-start">
-                <button
+                  <button
                     type="button"
-                    onClick={()=>{setRepresentance(true)}}
+                    onClick={() => {
+                      setRepresentance(true);
+                    }}
                     className="btn text-white btn-pre-moveProgress"
                   >
-                    <img src={require("../images/resume.svg").default} />
+                    <img
+                      alt="..."
+                      src={require("../images/resume.svg").default}
+                    />
                     Générer représentance
                   </button>
-                 
-                </div> <div className="col-3 px-0 text-center">
-                <button
+                </div>{" "}
+                <div className="col-3 px-0 text-center">
+                  <button
                     type="button"
-                    onClick={()=>setAvance(true)}
+                    onClick={() => setAvance(true)}
                     className="btn text-white btn-pre-moveProgress"
                   >
-                    <img src={require("../images/resume.svg").default} />
+                    <img
+                      alt="..."
+                      src={require("../images/resume.svg").default}
+                    />
                     Générer Avance
                   </button>
-                
                 </div>
-                {
-                  PDFModal ?
-                  
-                  <PDFGenerate props={profile}   LinkModal={setDocuSignModal}  closeModal={setPDFModal} path="/todolist/todoprofile" />
-                  : 
-                  null
-                }
-                {
-                  representance ? 
-                 <Representance   props={profile}  closeModal={setRepresentance}  rePid={setRepId}  LinkModal={setDocuLink} setReAvance={setReAvance} />
-
-                  :
-                  null
-                }
-                {
-                  Avance ?
-                  <AvanceModal  props={profile} closeModal={setAvance} rePid={setRepId} LinkModal={setDocuLink}  setReAvance={setReAvance}/>
-                  :
-                  null
-                }
-                </div>
-                </div>
-              <div className="col-12 Social-Card mt-1">
-              <div className='row  p-1'>
-              {
-                  JSON.stringify(profile).includes(JSON.stringify(profile.candidatContract)) ?
+                {PDFModal ? (
+                  <PDFGenerate
+                    props={profile}
+                    LinkModal={setDocuSignModal}
+                    closeModal={setPDFModal}
+                    path="/todolist/todoprofile"
+                  />
+                ) : null}
+                {representance ? (
+                  <Representance
+                    props={profile}
+                    closeModal={setRepresentance}
+                    rePid={setRepId}
+                    LinkModal={setDocuLink}
+                    setReAvance={setReAvance}
+                  />
+                ) : null}
+                {Avance ? (
+                  <AvanceModal
+                    props={profile}
+                    closeModal={setAvance}
+                    rePid={setRepId}
+                    LinkModal={setDocuLink}
+                    setReAvance={setReAvance}
+                  />
+                ) : null}
+              </div>
+            </div>
+            <div className="col-12 Social-Card mt-1">
+              <div className="row  p-1">
+                {JSON.stringify(profile).includes(
+                  JSON.stringify(profile.candidatContract)
+                ) ? (
                   <>
-
-                  <CandidateContract  props={profile} path={"/editToDo"}   />
-                            {/* <div className='col-4  d-grid text-start'>
+                    <CandidateContract props={profile} path={"/editToDo"} />
+                    {/* <div className='col-4  d-grid text-start'>
                                 <label className="PDFFormlabel">Lieu_Mission</label>
                                 <input className='form-control inputStylingForView'  onClick={editCandidatProfile} value={profile.candidatContract ? profile.candidatContract.lieu_mission ? profile.candidatContract.lieu_mission: "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Lieu_Mission" />
                             </div>
@@ -870,89 +978,88 @@ className="SelectBtn"
                             <label className="PDFFormlabel">Company_Adress</label>
                             <textarea className='TextAreaPage form-control' onClick={editCandidatProfile} value={profile.candidatContract ?profile.candidatContract.companyAddress ? profile.candidatContract.companyAddress : "input Not Available!": "input Not Available!"} placeholder='‎ ‎ ‎Company_Adress'></textarea>
                             </div> */}
-                            </>
-                                   : 
-                                   <div className="col-12 d-flex justify-content-center align-items-center py-2">
-                                     <ErrorLoader  />
-                                     <p className="mb-0 ErrorSearchBox">
-                                     ✘ No Contract Available for this Candidat! Please add a New Contract ✘
-                                     </p>
-                                     </div>
-                                 }
-                  
-</div>
-              </div>
-              < >
-<PDFBoxCandidate  props={profile}  value={setProfile}   />
-
-</>
-                      
-              </div>
-              {DocuLink ?
-              <DocumLink   props={profile} closeModal={setDocuLink} id={repID} ReAvance={ReAvance}   />
-
-              :
-              null
-              }
-              {
-                            DocumentSignModal ? 
-                            <DOCUSIGNModalCandidate props={profile} closeModal={setDocuSignModal} />
-                  
-                            :
-                            null
-                  
-                          } 
-                           {showInProgressModal ?
-                            <InProgressModal props={profile} closeModal={setShowInProgressModal} /> : null 
-                          }
-                             <div className="col-12 Social-Card mt-1">
-                         <div className="row alertMessage align-items-center py-1">
-                <Tabs
-                  rightBtnIcon={">"}
-                  hideNavBtns={false}
-                  leftBtnIcon={"<"}
-                  showTabsScroll={false}
-                  tabsScrollAmount={5}
-                  className="alertMessage"
-                  activeTab
-                >
-                  {CONTRACT_EMPLOYE_INTERMANN ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ CONTRACT EMPLOYE INTERMANN IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                  {ID_CARD ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ ID CARD IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                  {Fiche_Medicale ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️FICHE MEDICALE IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                  {Assurance ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ ASSURANCE IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                  {Reges ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ REGES IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                  {Fiche_mise_à_disposition ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ FICHE MISE A DISPOSITION IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                 </Tabs>
-                
+                  </>
+                ) : (
+                  <div className="col-12 d-flex justify-content-center align-items-center py-2">
+                    <ErrorLoader />
+                    <p className="mb-0 ErrorSearchBox">
+                      ✘ No Contract Available for this Candidat! Please add a
+                      New Contract ✘
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
+            <>
+              <PDFBoxCandidate props={profile} value={setProfile} />
+            </>
+          </div>
+          {DocuLink ? (
+            <DocumLink
+              props={profile}
+              closeModal={setDocuLink}
+              id={repID}
+              ReAvance={ReAvance}
+            />
+          ) : null}
+          {DocumentSignModal ? (
+            <DOCUSIGNModalCandidate
+              props={profile}
+              closeModal={setDocuSignModal}
+            />
+          ) : null}
+          {showInProgressModal ? (
+            <InProgressModal
+              props={profile}
+              closeModal={setShowInProgressModal}
+            />
+          ) : null}
+          <div className="col-12 Social-Card mt-1">
+            <div className="row alertMessage align-items-center py-1">
+              <Tabs
+                rightBtnIcon={">"}
+                hideNavBtns={false}
+                leftBtnIcon={"<"}
+                showTabsScroll={false}
+                tabsScrollAmount={5}
+                className="alertMessage"
+                activeTab
+              >
+                {CONTRACT_EMPLOYE_INTERMANN ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ CONTRACT EMPLOYE INTERMANN IS MISSING / MANQUANT
+                  </Tab>
+                )}
+                {ID_CARD ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ ID CARD IS MISSING / MANQUANT
+                  </Tab>
+                )}
+                {Fiche_Medicale ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️FICHE MEDICALE IS MISSING / MANQUANT
+                  </Tab>
+                )}
+                {Assurance ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ ASSURANCE IS MISSING / MANQUANT
+                  </Tab>
+                )}
+                {Reges ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ REGES IS MISSING / MANQUANT
+                  </Tab>
+                )}
+                {Fiche_mise_à_disposition ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ FICHE MISE A DISPOSITION IS MISSING / MANQUANT
+                  </Tab>
+                )}
+              </Tabs>
             </div>
+          </div>
+        </div>
       </div>
-   
     </>
   );
 }

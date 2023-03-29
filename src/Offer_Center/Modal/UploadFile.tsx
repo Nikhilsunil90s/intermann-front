@@ -5,7 +5,6 @@ import { FileUploader } from "react-drag-drop-files";
 import axios from "axios";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import Switch from "react-switch";
-import Select from "react-select";
 import Cookies from "js-cookie";
 import { ReactComponent as TurnoFF } from "../../images/FatX.svg";
 import { ReactComponent as TurnOn } from "../../images/base-switch_icon.svg";
@@ -40,7 +39,7 @@ function UploadFile(props) {
       toast.error("please upload offer file!");
     } else {
       setDisabled(true);
-      props.setDataUpdate(true)
+      props.setDataUpdate(true);
       let formdata = new FormData();
       formdata.append("company_name", data.company_name);
       formdata.append("offer_made_on", data.offer_made_on);
@@ -66,14 +65,13 @@ function UploadFile(props) {
               ...props.uploadPdfModal,
               Manually: false,
             });
-          props.setDataUpdate(false)
+            props.setDataUpdate(false);
 
-            
             //     setDeleteStatus(true)
             //   setProgress(0);
             //   notifyDocumentUploadSuccess();
           } else {
-          props.setDataUpdate(false)
+            props.setDataUpdate(false);
             setDisabled(false);
             toast.error("File Uploaded Unsuccessfully!");
           }
@@ -190,7 +188,9 @@ function UploadFile(props) {
             )}
             <div
               className="modal-body text-start"
-              style={ {height:props.uploadPdfModal.Manually ? "579px" :"229px" } }
+              style={{
+                height: props.uploadPdfModal.Manually ? "579px" : "229px",
+              }}
             >
               <div className="col-12 ">
                 {props.uploadPdfModal.Manually ? (
@@ -261,7 +261,7 @@ function UploadFile(props) {
                         onClick={() => setStartOpen((open) => !open)}
                         className="d-flex justify-content-end eventPos cursor-pointer  "
                       >
-                        <img src={require("../../images/event.svg").default} />
+                        <img alt="..." src={require("../../images/event.svg").default} />
                       </div>
                     </div>
 
@@ -271,7 +271,7 @@ function UploadFile(props) {
                     >
                       <div className="col-12 d-grid  justify-content-center align-items-center mb-0">
                         <div className="d-flex justify-content-center">
-                          <img
+                          <img alt="..."
                             src={require("../../images/docupload.svg").default}
                           />
                         </div>
@@ -290,7 +290,7 @@ function UploadFile(props) {
                         </p>
                       </div>
                       <div className="col-12 d-flex justify-content-center mt-2">
-                        <img src={require("../../images/resume.svg").default} />
+                        <img alt="..." src={require("../../images/resume.svg").default} />
 
                         <FileUploader
                           handleChange={FilesUploads}
@@ -368,7 +368,6 @@ function UploadFile(props) {
                       lineHeight: "24px",
                       color: "#000000",
                     }}
-                  
                   >
                     Vous devez vous rendre sur le Commercial Center et rajouter
                     un lead manuellement et ensuite cliquer sur Generate Offer

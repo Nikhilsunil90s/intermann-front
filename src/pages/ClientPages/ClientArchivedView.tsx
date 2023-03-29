@@ -8,7 +8,7 @@ import { ReactComponent as Empty } from "../../images/emptyStar.svg";
 import { ReactComponent as StarRating } from "../../images/RatingStar.svg";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
-import DOCUSIGNModalCandidate from '../../components/Modal/DOCUSIGNModalCandidate'
+import DOCUSIGNModalCandidate from "../../components/Modal/DOCUSIGNModalCandidate";
 import PreModalClient from "../../components/Modal/preSelectedModalForClient";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import CLintHide from "../../components/Modal/HideClientProfile";
@@ -19,12 +19,11 @@ import ErrorLoader from "../../components/Loader/SearchBarError";
 import { Tabs, Tab } from "react-tabs-scrollable";
 import "react-tabs-scrollable/dist/rts.css";
 import PDFBoxClient from "../../components/PDFboxBothSide/PdfBoxClient";
-import ClientContract from "../../components/ClientComponents/ClientContract"
-import DetailBox from "../../components/ClientComponents/ViewPageDetailBox"
+import ClientContract from "../../components/ClientComponents/ClientContract";
+import DetailBox from "../../components/ClientComponents/ViewPageDetailBox";
 import SocialButton from "../../components/ClientComponents/SocialButtons";
 import { motion } from "framer-motion";
-import Cookies from 'js-cookie'
-
+import Cookies from "js-cookie";
 
 function ArchivedViewPage() {
   const profileData = JSON.parse(localStorage.getItem("archive"));
@@ -71,9 +70,9 @@ function ArchivedViewPage() {
   const [fiche_medicale, setfiche_medicale] = useState() as any;
   const [offre_envoye_et_nonsigne, setoffre_envoye_et_nonsigne] =
     useState() as any;
-    const [fiche_de_mise_a_disposition, setfiche_de_mise_a_disposition] =
+  const [fiche_de_mise_a_disposition, setfiche_de_mise_a_disposition] =
     useState() as any;
-    const [DriveLink,setDriveLink]=useState("")
+  const [DriveLink, setDriveLink] = useState("");
   const candidatImportanceIcons = [
     {
       icon: (
@@ -140,12 +139,14 @@ function ArchivedViewPage() {
     { icon: "😍", motivation: "Super Lovely" },
   ];
   const [clientContract, setClientContract] = useState() as any;
-  const [startStatus]=useState(profile.jobStartDate.slice(0,4).includes("-"))
-  const [endStatus]=useState(profile.jobEndDate.slice(0,4).includes("-"))
-  const [startDate,setStartDate]=useState()as any
-  const [EndDate,setEndDate]=useState()as any
+  const [startStatus] = useState(
+    profile.jobStartDate.slice(0, 4).includes("-")
+  );
+  const [endStatus] = useState(profile.jobEndDate.slice(0, 4).includes("-"));
+  const [startDate, setStartDate] = useState() as any;
+  const [EndDate, setEndDate] = useState() as any;
 
-  const [DocumentSignModal,setDocuSignModal]=useState(false)
+  const [DocumentSignModal, setDocuSignModal] = useState(false);
 
   function padTo2DigitsCH(num) {
     return num.toString().padStart(2, "0");
@@ -167,24 +168,20 @@ function ArchivedViewPage() {
   let start = new Date(profile.jobStartDate);
   let end = new Date(profile.jobEndDate);
 
-  useEffect(()=>{
-    if(startStatus){
-      setStartDate(profile.jobStartDate)
-    }else{
-      let data=formatDateCha(start)
-      setStartDate(data.replaceAll("/","-"))
-      
-  
+  useEffect(() => {
+    if (startStatus) {
+      setStartDate(profile.jobStartDate);
+    } else {
+      let data = formatDateCha(start);
+      setStartDate(data.replaceAll("/", "-"));
     }
-    if(endStatus){
-      setEndDate(profile.jobEndDate)
-    }else{
-      let data=formatDateCha(end)
-      setEndDate(data.replaceAll("/","-"))
-      
-  
+    if (endStatus) {
+      setEndDate(profile.jobEndDate);
+    } else {
+      let data = formatDateCha(end);
+      setEndDate(data.replaceAll("/", "-"));
     }
-   })
+  });
   useEffect(() => {
     setProfile(state ? state : profileData);
   }, [state]);
@@ -194,7 +191,7 @@ function ArchivedViewPage() {
       handleImageUpload();
     }
     if (val === "Download") {
-      window.open(ClientImage.replace("http","https"));
+      window.open(ClientImage.replace("http", "https"));
     }
   };
 
@@ -202,7 +199,7 @@ function ArchivedViewPage() {
     hiddenImageInput.current.click();
   };
 
-  let EditData ={state:profile,path:"/archived/archivedClientSeeprofile"}
+  let EditData = { state: profile, path: "/archived/archivedClientSeeprofile" };
   const editClientProfile = () => {
     navigate("/archived/archivedClientEditprofile", { state: EditData });
   };
@@ -228,11 +225,17 @@ function ArchivedViewPage() {
 
   useEffect(() => {
     profile.clientDocuments.map((el) => {
-      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("reges"))) {
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("reges")
+        )
+      ) {
         setreges([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrat_client"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("contrat_client")
+        )
       ) {
         setcontrat_client([el]);
       }
@@ -258,7 +261,11 @@ function ArchivedViewPage() {
       ) {
         setid_card_employer([el]);
       }
-      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("al"))) {
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("al")
+        )
+      ) {
         setal([el]);
       }
       if (
@@ -268,7 +275,11 @@ function ArchivedViewPage() {
       ) {
         setcontrats_assurances_employes([el]);
       }
-      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("sispi"))) {
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("sispi")
+        )
+      ) {
         setsispi([el]);
       }
       if (
@@ -279,7 +290,9 @@ function ArchivedViewPage() {
         setdocument_de_represntation([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("offre_signee"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("offre_signee")
+        )
       ) {
         setoffre_signee([el]);
       }
@@ -290,7 +303,11 @@ function ArchivedViewPage() {
       ) {
         setattestations_societe_intermann([el]);
       }
-      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("cvs"))) {
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("cvs")
+        )
+      ) {
         setcvs([el]);
       }
       if (
@@ -300,7 +317,11 @@ function ArchivedViewPage() {
       ) {
         setautres_documents([el]);
       }
-      if (JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("factures"))) {
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("factures")
+        )
+      ) {
         setfactures([el]);
       }
 
@@ -319,17 +340,21 @@ function ArchivedViewPage() {
         setoffre_envoye_et_nonsigne([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("fiche_medicale"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("fiche_medicale")
+        )
       ) {
         setfiche_medicale([el]);
-      }if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("fiche_de_mise_a_disposition"))
+      }
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("fiche_de_mise_a_disposition")
+        )
       ) {
         setfiche_medicale([el]);
       }
     });
   }, [UpdatedWarning]);
-
 
   const fileChange = (
     e: React.ChangeEvent<
@@ -375,9 +400,8 @@ function ArchivedViewPage() {
         if (resData.status == true) {
           resData.data.map((el) => {
             setProfile(el);
-          setClientImage(el.clientPhoto ? el.clientPhoto.url : "")
+            setClientImage(el.clientPhoto ? el.clientPhoto.url : "");
             setClientContract(el.clientContract);
-           
           });
 
           setDocUploaded(false);
@@ -392,13 +416,12 @@ function ArchivedViewPage() {
       });
   }, [docUploaded]);
 
-  const ViewDownloadFiles = (e,documentName: any) => {
-    if(e.target.name ==="btnDownloadLink"){
+  const ViewDownloadFiles = (e, documentName: any) => {
+    if (e.target.name === "btnDownloadLink") {
       window.open(documentName);
-        
-      }else{
-        window.open(documentName);
-      }
+    } else {
+      window.open(documentName);
+    }
   };
 
   const fetchCandidat = async (clientId: any) => {
@@ -418,7 +441,6 @@ function ArchivedViewPage() {
     hiddenFileInput.current.click();
   };
 
-
   return (
     <>
       <Toaster
@@ -433,7 +455,7 @@ function ArchivedViewPage() {
                 <div className="stable">
                   <Link to="/archived">
                     <button type="button" className="btn FontStyle-TODOSEE">
-                      <img src={require("../../images/return.svg").default} />
+                      <img alt="..." src={require("../../images/return.svg").default} />
                       Client File :
                       {profile.clientCompanyName.toLocaleUpperCase()}
                     </button>
@@ -446,31 +468,33 @@ function ArchivedViewPage() {
                   className="btn btn-bgbClient"
                   onClick={() => editClientProfile()}
                 >
-                  <img src={require("../../images/Edit.svg").default} />
+                  <img alt="..." src={require("../../images/Edit.svg").default} />
                   Edit Profile
                 </button>
               </div>
             </div>
           </div>
           <div className="px-0">
-          <motion.div
-  initial={{ scale: 0 }}
-  animate={{ rotate:0, scale:1}}
-  transition={{
-    type: "spring",
-    stiffness: 120,
-    damping: 50
-  }}   className="col-12 my-1 py-1 ClientSEE-TopDetails">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ rotate: 0, scale: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 120,
+                damping: 50,
+              }}
+              className="col-12 my-1 py-1 ClientSEE-TopDetails"
+            >
               <div className="row">
                 <div className="col-2 pr-0 text-center">
                   <div className="">
                     {ClientImage !== "" ? (
-                      <img
+                      <img alt="..."
                         src={ClientImage}
                         className="imgArchived-upload-download"
                       />
                     ) : (
-                      <img
+                      <img alt="..."
                         src={require("../../images/fullClientSee.svg").default}
                         className="imgArchived-upload-download"
                       />
@@ -483,7 +507,7 @@ function ArchivedViewPage() {
                     }}
                     className="SelectBtn"
                   >
-                    <img
+                    <img alt="..."
                       className=""
                       src={require("../../images/select.svg").default}
                     />
@@ -539,7 +563,7 @@ function ArchivedViewPage() {
                   <div className="text-end ">
                     <div className="d-grid justify-content-end align-items-center">
                       <button className="ArchiveLargebtn pb-1 p-0">
-                        <img
+                        <img alt="..."
                           src={require("../../images/ArchivedBtn.svg").default}
                         />
                       </button>
@@ -558,35 +582,38 @@ function ArchivedViewPage() {
 
             <div className="col-12 pt-1 py-0 mb-1">
               <div className="row justify-content-between">
-              <motion.div
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  transition={{ duration: 0.7, delay: 0.7 }}
-  variants={{
-    visible: { opacity: 1, x: 0 },
-    hidden: { opacity: 0, x: 50 }
-  }}
-       
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.7 }}
+                  variants={{
+                    visible: { opacity: 1, x: 0 },
+                    hidden: { opacity: 0, x: 50 },
+                  }}
                   className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-1 Social-cardDiv"
                   style={{ maxWidth: "49%" }}
                 >
-                 <SocialButton    props={profile}    />
+                  <SocialButton props={profile} />
                 </motion.div>
                 <motion.div
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  transition={{ duration: 0.7, delay: 0.7 }}
-  variants={{
-    visible: { opacity: 1, x: 0 },
-    hidden: { opacity: 0, x: -50 }
-  }}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.7 }}
+                  variants={{
+                    visible: { opacity: 1, x: 0 },
+                    hidden: { opacity: 0, x: -50 },
+                  }}
                   className="col-xxl-8 col-xl-8 col-lg-8 col-md-7 Social-Card p-1 detailsCardClientSee scrollbar Social-btnS"
                   id="style-3"
                   style={{ maxWidth: "49%" }}
                 >
-              <DetailBox props={profile} startDate={startDate} EndDate={EndDate} />
+                  <DetailBox
+                    props={profile}
+                    startDate={startDate}
+                    EndDate={EndDate}
+                  />
                 </motion.div>
               </div>
             </div>
@@ -595,7 +622,10 @@ function ArchivedViewPage() {
               <div className="row py-2">
                 <div className="col-6 ">
                   <p className="StylingArchivedAds mb-0">
-                    Ads Spent on this client : {profile.jobTotalBudget ? profile.jobTotalBudget :"✘ No Budget!"}
+                    Ads Spent on this client :{" "}
+                    {profile.jobTotalBudget
+                      ? profile.jobTotalBudget
+                      : "✘ No Budget!"}
                   </p>
                 </div>
                 <div className="col-12">
@@ -606,7 +636,7 @@ function ArchivedViewPage() {
                 </div>
               </div>
             </div>
-           <div className="col-12 Social-CardClient my-1 p-1">
+            <div className="col-12 Social-CardClient my-1 p-1">
               <div className="row">
                 <div className="col-6">
                   <div className="ClientFontMotivationsStyling">
@@ -630,15 +660,11 @@ function ArchivedViewPage() {
                     <p className="mb-0 pt-1" style={{ width: "130%" }}>
                       Motivation :
                       <b style={{ background: "transparent", zIndex: "9999" }}>
-                        { candidatMotivationIcons[
-                            profile.clientMotivation]?.icon +
-                            " " +
-                            candidatMotivationIcons[
-                           
-                                 profile.clientMotivation
-                                
-                            ]?.motivation
-                        }
+                        {candidatMotivationIcons[profile.clientMotivation]
+                          ?.icon +
+                          " " +
+                          candidatMotivationIcons[profile.clientMotivation]
+                            ?.motivation}
                       </b>
                     </p>
 
@@ -650,7 +676,7 @@ function ArchivedViewPage() {
                         className="ClientFontMotivationsStylingS"
                         style={{ marginBottom: "0px" }}
                       >
-                        {profile.enteredBy ? profile.enteredBy :"✘✘!"}
+                        {profile.enteredBy ? profile.enteredBy : "✘✘!"}
                       </span>
                     </div>
                     <div>
@@ -662,7 +688,7 @@ function ArchivedViewPage() {
                 </div>
                 <div className="col-6 d-flex  justify-content-end align-items-center">
                   <button className="pdf-btn" onClick={handleFileUpload}>
-                    <img
+                    <img alt="..."
                       src={require("../../images/doc.svg").default}
                       className="docImg"
                     />
@@ -685,7 +711,7 @@ function ArchivedViewPage() {
                     className="hideProfile"
                     onClick={() => setHideProfile(true)}
                   >
-                    <img src={require("../../images/visibility.svg").default} />
+                    <img alt="..." src={require("../../images/visibility.svg").default} />
                     Hide this profile
                   </button>
                   <p className="italic-fontStyle text-center">
@@ -697,7 +723,7 @@ function ArchivedViewPage() {
                     className="restProfile"
                     onClick={() => setREStProfile(true)}
                   >
-                    <img src={require("../../images/rest.svg").default} />
+                    <img alt="..." src={require("../../images/rest.svg").default} />
                     Reset this profile
                   </button>
                   <p className="italic-fontStyle text-center">
@@ -709,11 +735,11 @@ function ArchivedViewPage() {
                     type="button"
                     className="btn btn-careerClient"
                     onClick={(e) => setPDFModal(true)}
-                    style={{height:"63px"}}
+                    style={{ height: "63px" }}
                   >
                     <span>
-                      <img
-                        style={{ paddingRight: "10px" ,}}
+                      <img alt="..."
+                        style={{ paddingRight: "10px" }}
                         src={require("../../images/doc.svg").default}
                       />
                     </span>
@@ -728,56 +754,66 @@ function ArchivedViewPage() {
             <div className="col-12 Social-CardClient mt-1 ">
               {clientContract ? (
                 <>
-                <ClientContract  props={profile} path="/archived/archivedClientEditprofile"     />
+                  <ClientContract
+                    props={profile}
+                    path="/archived/archivedClientEditprofile"
+                  />
                 </>
               ) : (
                 <div className="col-12 d-flex justify-content-center align-items-center py-2">
                   <ErrorLoader />
                   <p className="mb-0 ErrorSearchBox">
-                  ✘ No Contract Available for this Archived Client! Please add a
-                    New Contract ✘
+                    ✘ No Contract Available for this Archived Client! Please add
+                    a New Contract ✘
                   </p>
                 </div>
               )}
             </div>
-                 
-                  {showPreSelectedModal ? (
-                    <PreModalClient
-                      props={PreSelectedData}
-                      closepreModal={setShowInPreSelectedModal}
-                      clientProps={profile}
-                    />
-                  ) : null}
-                  {PDFModal ? (
-                    <PDFModalClient props={profile} closeModal={setPDFModal} LinkModal={setDocuSignModal} path="/archived/archivedClientSeeprofile" />
-                  ) : null}
-                   {
-        DocumentSignModal ? 
-        <DOCUSIGNModalCandidate props={profile} closeModal={setDocuSignModal} />
 
-        :
-        null
-
-      }
-                  {HideProfile ? (
-                    <CLintHide
-                      props={profile}
-                      closeModal={setHideProfile}
-                      path={"/clientToDo"}
-                    />
-                  ) : null}
-                  {RESTprofile ? (
-                    <ClientREST
-                      props={profile}
-                      closeModal={setREStProfile}
-                      path={"/clientToDo"}
-                    />
-                  ) : null}
-                     {/* PDF Upload */}
+            {showPreSelectedModal ? (
+              <PreModalClient
+                props={PreSelectedData}
+                closepreModal={setShowInPreSelectedModal}
+                clientProps={profile}
+              />
+            ) : null}
+            {PDFModal ? (
+              <PDFModalClient
+                props={profile}
+                closeModal={setPDFModal}
+                LinkModal={setDocuSignModal}
+                path="/archived/archivedClientSeeprofile"
+              />
+            ) : null}
+            {DocumentSignModal ? (
+              <DOCUSIGNModalCandidate
+                props={profile}
+                closeModal={setDocuSignModal}
+              />
+            ) : null}
+            {HideProfile ? (
+              <CLintHide
+                props={profile}
+                closeModal={setHideProfile}
+                path={"/clientToDo"}
+              />
+            ) : null}
+            {RESTprofile ? (
+              <ClientREST
+                props={profile}
+                closeModal={setREStProfile}
+                path={"/clientToDo"}
+              />
+            ) : null}
+            {/* PDF Upload */}
             <div>
-              <PDFBoxClient   props={profile} value={setProfile} updated={setUpdatedWarning} />
+              <PDFBoxClient
+                props={profile}
+                value={setProfile}
+                updated={setUpdatedWarning}
+              />
             </div>
-{/* PDF Upload End */}
+            {/* PDF Upload End */}
             <div
               className="col-12 Social-CardClient mb-1 "
               style={{ padding: "13px 26px" }}
@@ -792,11 +828,8 @@ function ArchivedViewPage() {
                   className="alertMessage"
                   activeTab
                 >
-                 
-                 
                   {contrat_client ? null : (
                     <Tab className="redColorStyling">
-                     
                       ⚠️ CONTRAT CLIENT IS MISSING / MANQUANT
                     </Tab>
                   )}
@@ -872,13 +905,12 @@ function ArchivedViewPage() {
                       ⚠️ FICHE MEDICALE IS MISSING / MANQUANT
                     </Tab>
                   )}
-                   {reges ? null : (
+                  {reges ? null : (
                     <Tab className="redColorStyling">
-                     
                       ⚠️ REGES IS MISSING / MANQUANT
                     </Tab>
                   )}
-                    {fiche_de_mise_a_disposition ? null : (
+                  {fiche_de_mise_a_disposition ? null : (
                     <Tab className="redColorStyling">
                       ⚠️ FICHE DE MISE A DISPOSITION / MANQUANT
                     </Tab>

@@ -16,7 +16,6 @@ import { API_BASE_URL } from "../../config/serverApiConfig";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import ProfileLoader from "../../components/Loader/ProfilesLoader";
-import RenameDoc from "../../components/Modal/RenameDoc_ModalClient";
 import ReadMoreReact from "read-more-react";
 import PreModalClient from "../../components/Modal/preSelectedModalForClient";
 import moment from "moment";
@@ -24,13 +23,13 @@ import PDFModalClient from "../../components/Modal/PDFGenerateclientModal";
 import ErrorLoader from "../../components/Loader/SearchBarError";
 import { Tabs, Tab } from "react-tabs-scrollable";
 import "react-tabs-scrollable/dist/rts.css";
-import DOCUSIGNModalCandidate from '../../components/Modal/DOCUSIGNModalCandidate'
+import DOCUSIGNModalCandidate from "../../components/Modal/DOCUSIGNModalCandidate";
 import PDFBoxClient from "../../components/PDFboxBothSide/PdfBoxClient";
-import ClientContract from "../../components/ClientComponents/ClientContract"
-import DetailBox from "../../components/ClientComponents/ViewPageDetailBox"
+import ClientContract from "../../components/ClientComponents/ClientContract";
+import DetailBox from "../../components/ClientComponents/ViewPageDetailBox";
 import SocialButton from "../../components/ClientComponents/SocialButtons";
 import { motion } from "framer-motion";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 
 let id = "";
 function ClientSee() {
@@ -88,53 +87,50 @@ function ClientSee() {
     useState() as any;
   const [fiche_de_mise_a_disposition, setfiche_de_mise_a_disposition] =
     useState() as any;
-    const [DocumentSignModal,setDocuSignModal]=useState(false)
+  const [DocumentSignModal, setDocuSignModal] = useState(false);
 
-    function padTo2DigitsCH(num) {
-      return num.toString().padStart(2, "0");
+  function padTo2DigitsCH(num) {
+    return num.toString().padStart(2, "0");
+  }
+  const [startStatus] = useState(
+    profile.jobStartDate.slice(0, 4).includes("-")
+  );
+  const [endStatus] = useState(profile.jobEndDate.slice(0, 4).includes("-"));
+  const [startDate, setStartDate] = useState() as any;
+  const [EndDate, setEndDate] = useState() as any;
+  // console.log(props.data.jobStartDate.slice(0,4).includes("-"))
+
+  function formatDateCha(date) {
+    return [
+      padTo2DigitsCH(date.getDate()),
+      padTo2DigitsCH(date.getMonth() + 1),
+      date.getFullYear(),
+    ].join("/");
+  }
+  const datenow = moment().format("YYYY-MM-DD");
+
+  let date = new Date(datenow);
+
+  let start = new Date(profile.jobStartDate);
+  let end = new Date(profile.jobEndDate);
+
+  useEffect(() => {
+    if (startStatus) {
+      setStartDate(profile.jobStartDate);
+    } else {
+      let data = formatDateCha(start);
+      setStartDate(data.replaceAll("/", "-"));
     }
-    const [startStatus]=useState(profile.jobStartDate.slice(0,4).includes("-"))
-    const [endStatus]=useState(profile.jobEndDate.slice(0,4).includes("-"))
-    const [startDate,setStartDate]=useState()as any
-    const [EndDate,setEndDate]=useState()as any
-    // console.log(props.data.jobStartDate.slice(0,4).includes("-"))
-  
-    function formatDateCha(date) {
-      return [
-        padTo2DigitsCH(date.getDate()),
-        padTo2DigitsCH(date.getMonth() + 1),
-        date.getFullYear(),
-      ].join("/");
+    if (endStatus) {
+      setEndDate(profile.jobEndDate);
+    } else {
+      let data = formatDateCha(end);
+      setEndDate(data.replaceAll("/", "-"));
     }
-    const datenow = moment().format("YYYY-MM-DD");
-  
-    let date = new Date(datenow);
-  
-    let start = new Date(profile.jobStartDate);
-    let end = new Date(profile.jobEndDate);
-  
-    useEffect(()=>{
-      if(startStatus){
-        setStartDate(profile.jobStartDate)
-      }else{
-        let data=formatDateCha(start)
-        setStartDate(data.replaceAll("/","-"))
-        
-    
-      }
-      if(endStatus){
-        setEndDate(profile.jobEndDate)
-      }else{
-        let data=formatDateCha(end)
-        setEndDate(data.replaceAll("/","-"))
-        
-    
-      }
-     })
+  });
   useEffect(() => {
     setProfile(state ? state : ProfileData);
   }, [state]);
-
 
   useEffect(() => {
     profile.clientDocuments.map((el) => {
@@ -269,8 +265,6 @@ function ClientSee() {
     });
   }, [UpdatedWarning]);
 
-
-
   const notificationSwitch = () => toast.success("Modification sauvegardée");
 
   const notifyDocumentUploadError = () =>
@@ -379,10 +373,10 @@ function ClientSee() {
         if (resData.status == true) {
           resData.data.map((el) => {
             setProfile(el);
-            setClientImage(el.clientPhoto? el.clientPhoto.url : "")
+            setClientImage(el.clientPhoto ? el.clientPhoto.url : "");
             setClientContract(el.clientContract);
           });
-       setDocUploaded(false);
+          setDocUploaded(false);
         } else {
           setDocumentList([...documentList]);
           setDocUploaded(false);
@@ -405,8 +399,7 @@ function ClientSee() {
       .then((resp) => resp.json())
       .then((respData) => respData)
       .catch((err) => err);
-  }
-
+  };
 
   const Editdata = { state: profile, path: "/clientTodo/clientToDoProfile" };
 
@@ -634,14 +627,12 @@ function ClientSee() {
     if (val === "upload") {
       handleImageUpload();
     } else if (val === "Download") {
-      window.open(ClientImage.replace("http","https"));
+      window.open(ClientImage.replace("http", "https"));
     }
   };
   const handleImageUpload = () => {
     hiddenImageInput.current.click();
   };
-
-
 
   return (
     <>
@@ -649,7 +640,7 @@ function ClientSee() {
         position="top-right"
         containerStyle={{ zIndex: "9999999999999999999999" }}
       />
-      <div className="containet-fluid p-1" >
+      <div className="containet-fluid p-1">
         <div className="row">
           <div className="col-12 top-pd mt-1" key={profile._id}>
             {/* <h1 style={{ textDecoration: 'underline' }}>CLIENT FILE: {profile.clientCompanyName}</h1> */}
@@ -658,7 +649,7 @@ function ClientSee() {
                 <div className="stable">
                   <Link to="/clientTodo">
                     <button type="button" className="btn FontStyle-TODOSEE">
-                      <img src={require("../../images/return.svg").default} />
+                      <img alt="..." src={require("../../images/return.svg").default} />
                       Client File :
                       {profile.clientCompanyName.toLocaleUpperCase()}
                     </button>
@@ -670,31 +661,33 @@ function ClientSee() {
                   className="btn btn-bgbClient"
                   onClick={editClientProfile}
                 >
-                  <img src={require("../../images/Edit.svg").default} />
+                  <img alt="..." src={require("../../images/Edit.svg").default} />
                   Edit Profile
                 </button>
               </div>
             </div>
           </div>
           <div className="px-0">
-          <motion.div
-  initial={{ scale: 0 }}
-  animate={{ rotate:0, scale:1}}
-  transition={{
-    type: "spring",
-    stiffness: 120,
-    damping: 50
-  }}   className="col-12 my-1 py-1 ClientSEE-TopDetails">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ rotate: 0, scale: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 120,
+                damping: 50,
+              }}
+              className="col-12 my-1 py-1 ClientSEE-TopDetails"
+            >
               <div className="row">
                 <div className="col-2 pr-0 text-center">
                   <div className="">
                     {ClientImage !== "" ? (
-                      <img
+                      <img alt="..."
                         src={ClientImage}
                         className="img-uploadTodo-Download"
                       />
                     ) : (
-                      <img
+                      <img alt="..."
                         src={require("../../images/fullClientSee.svg").default}
                         className="img-uploadTodo-Download"
                       />
@@ -714,7 +707,7 @@ function ClientSee() {
                     }}
                     className="SelectBtn"
                   >
-                    <img
+                    <img alt="..."
                       className=""
                       src={require("../../images/select.svg").default}
                     />
@@ -775,7 +768,7 @@ function ClientSee() {
                 <div className="col-4 d-grid align-items-center">
                   <div className="text-end ">
                     <button className="ClientSEEBtnStyle">
-                      <img
+                      <img alt="..."
                         src={require("../../images/briefcase2.svg").default}
                       />
                     </button>
@@ -1106,37 +1099,38 @@ function ClientSee() {
             </div>
             <div className="col-12 pt-1 py-0 mb-1">
               <div className="row justify-content-between">
-              <motion.div
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  transition={{ duration: 0.7, delay: 0.7 }}
-  variants={{
-    visible: { opacity: 1, x: 0 },
-    hidden: { opacity: 0, x: 50 }
-  }}
-
-
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.7 }}
+                  variants={{
+                    visible: { opacity: 1, x: 0 },
+                    hidden: { opacity: 0, x: 50 },
+                  }}
                   className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-1 Social-cardDiv"
                   style={{ maxWidth: "49%" }}
                 >
-                 <SocialButton   props={profile}             />
+                  <SocialButton props={profile} />
                 </motion.div>
                 <motion.div
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  transition={{ duration: 0.7, delay: 0.7 }}
-  variants={{
-    visible: { opacity: 1, x: 0 },
-    hidden: { opacity: 0, x: -50 }
-  }}
-
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.7 }}
+                  variants={{
+                    visible: { opacity: 1, x: 0 },
+                    hidden: { opacity: 0, x: -50 },
+                  }}
                   className="col-xxl-8 col-xl-8 col-lg-8 col-md-7 Social-Card p-1 detailsCardClientSee scrollbar Social-btnS"
                   id="style-3"
                   style={{ maxWidth: "49%" }}
                 >
-                                  <DetailBox props={profile} startDate={startDate} EndDate={EndDate} />
+                  <DetailBox
+                    props={profile}
+                    startDate={startDate}
+                    EndDate={EndDate}
+                  />
                 </motion.div>
               </div>
             </div>
@@ -1147,7 +1141,7 @@ function ClientSee() {
                     <div className="col-12">
                       <div className="row p-1 justify-content-around">
                         <div className="col-3">
-                          <img
+                          <img alt="..."
                             src={
                               require("../../images/Card-ImageStar.svg").default
                             }
@@ -1192,9 +1186,10 @@ function ClientSee() {
                       <div
                         className="row p-1  m-1 Social-Card client-Card"
                         style={{ height: "330px" }}
-                         key={recommendation}>
+                        key={recommendation}
+                      >
                         <div className="col-3">
-                          <img
+                          <img alt="..."
                             src={
                               require("../../images/Card-ImageStar.svg").default
                             }
@@ -1380,7 +1375,7 @@ function ClientSee() {
                 </div>
                 {/* <div className="col-6 d-flex justify-content-end align-items-center">
                   <button className="pdf-btn"  onClick={handleFileUpload}>
-                    <img
+                    <img alt="..."
                       src={require("../../images/doc.svg").default}
                       className="docImg"
                     />
@@ -1398,7 +1393,7 @@ function ClientSee() {
                     className="btn btn-BlackEdit"
                     onClick={editClientProfile}
                   >
-                    <img
+                    <img alt="..."
                       style={{ paddingRight: "10px" }}
                       src={require("../../images/Edit.svg").default}
                     />
@@ -1413,7 +1408,7 @@ function ClientSee() {
                     type="button"
                     className="btn btn-contractClient"
                   >
-                    <img
+                    <img alt="..."
                       src={require("../../images/doc.svg").default}
                       style={{ paddingRight: "10px" }}
                     />
@@ -1447,7 +1442,7 @@ function ClientSee() {
                     type="button"
                     className="btn btn-grilleClient"
                   >
-                    <img
+                    <img alt="..."
                       src={require("../../images/salary.svg").default}
                       style={{ paddingRight: "10px" }}
                     />
@@ -1484,7 +1479,7 @@ function ClientSee() {
                     className="btn btn-careerClient"
                   >
                     <span>
-                      <img
+                      <img alt="..."
                         style={{ paddingRight: "10px" }}
                         src={require("../../images/doc.svg").default}
                       />
@@ -1502,7 +1497,7 @@ function ClientSee() {
                     onClick={(e) => setPDFModal(true)}
                   >
                     <span>
-                      <img
+                      <img alt="..."
                         style={{ paddingRight: "10px" }}
                         src={require("../../images/doc.svg").default}
                       />
@@ -1519,43 +1514,53 @@ function ClientSee() {
             <div className="col-12 Social-CardClient mt-1 ">
               {clientContract ? (
                 <>
-                <ClientContract  props={profile} path="/clientTodo/clientToDoProfile"     />
+                  <ClientContract
+                    props={profile}
+                    path="/clientTodo/clientToDoProfile"
+                  />
                 </>
               ) : (
                 <div className="col-12 d-flex justify-content-center align-items-center py-2">
                   <ErrorLoader />
                   <p className="mb-0 ErrorSearchBox">
-                  ✘ No Contract Available for this To-Do Client! Please add a
+                    ✘ No Contract Available for this To-Do Client! Please add a
                     New Contract ✘
                   </p>
                 </div>
               )}
             </div>
-{/* PDF Upload */}
+            {/* PDF Upload */}
             <div>
-              <PDFBoxClient   props={profile} value={setProfile} updated={setUpdatedWarning} />
+              <PDFBoxClient
+                props={profile}
+                value={setProfile}
+                updated={setUpdatedWarning}
+              />
             </div>
-{/* PDF Upload End */}
-            
-                  {showPreSelectedModal ? (
-                    <PreModalClient
-                      props={PreSelectedData}
-                      closepreModal={setShowInPreSelectedModal}
-                      clientProps={profile}
-                    />
-                  ) : null}
-                  {PDFModal ? (
-                    <PDFModalClient props={profile} closeModal={setPDFModal}  LinkModal={setDocuSignModal} path="/clientTodo/clientToDoProfile" />
-                  ) : null}
-                   {
-        DocumentSignModal ? 
-        <DOCUSIGNModalCandidate props={profile} closeModal={setDocuSignModal} />
+            {/* PDF Upload End */}
 
-        :
-        null
+            {showPreSelectedModal ? (
+              <PreModalClient
+                props={PreSelectedData}
+                closepreModal={setShowInPreSelectedModal}
+                clientProps={profile}
+              />
+            ) : null}
+            {PDFModal ? (
+              <PDFModalClient
+                props={profile}
+                closeModal={setPDFModal}
+                LinkModal={setDocuSignModal}
+                path="/clientTodo/clientToDoProfile"
+              />
+            ) : null}
+            {DocumentSignModal ? (
+              <DOCUSIGNModalCandidate
+                props={profile}
+                closeModal={setDocuSignModal}
+              />
+            ) : null}
 
-      }
-         
             <div
               className="col-12 Social-CardClient mb-1 "
               style={{ padding: "13px 26px" }}

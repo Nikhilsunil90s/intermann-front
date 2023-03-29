@@ -8,7 +8,6 @@ import ProfileLoader from "../../components/Loader/ProfilesLoader";
 import PDFreader from "../../components/AddClientRating/PDFreader";
 import $ from "jquery";
 import CountDown from "../../../src/components/Loader/CountDown";
-// import { GetRoute } from '../../components/ApisFunction/FunctionsApi';
 import Cookies from "js-cookie";
 
 function ViewOffer() {
@@ -98,13 +97,13 @@ function ViewOffer() {
         <div className="row">
           <div className="col-12 d-flex justify-content-center  bg-ContractPage p-2">
             <span>
-              <img
+              <img alt="..."
                 src={require("../../images/logo-header.svg").default}
                 className="filter-logo"
                 style={{ width: "150%" }}
               />
             </span>
-            <img
+            <img alt="..."
               src={require("../../images/LogoName.svg").default}
               className="filter-text LogoIntermann"
               style={{ paddingLeft: "30px" }}

@@ -752,7 +752,7 @@ const jobChange = async (jobval) => {
                       type="button"
                       className="btn d-flex align-items-center p-0"
                     >
-                      <img src={require("../../images/return.svg").default} />
+                      <img alt="..." src={require("../../images/return.svg").default} />
                       <h2 className="card-Leads mb-0 pl-1"> Edit File : {profile.candidatName}</h2>
                     </button>
                   </Link>
@@ -760,7 +760,7 @@ const jobChange = async (jobval) => {
                 <div className="col-6 d-flex justify-content-end align-items-center">
               <Link to={path} style={{ textDecoration: "none" }}>
                 <button type="button" className="btn  edit-btnCancel mr-1">
-                  <img
+                  <img alt="..."
                     style={{ width: "25%",marginRight:"5px" }}
                     src={require("../../images/multiply.svg").default}
                   />
@@ -768,7 +768,7 @@ const jobChange = async (jobval) => {
                 </button>
               </Link>
               <button className="btn editBtnSave" type="submit">
-                <img style={{ width: "16%",marginRight:"5px" }} src={require("../../images/savebtn.svg").default} />
+                <img alt="..." style={{ width: "16%",marginRight:"5px" }} src={require("../../images/savebtn.svg").default} />
                 Save Profile
               </button>
 </div>
@@ -779,12 +779,12 @@ const jobChange = async (jobval) => {
                 <div className="row">
                   <div className="col-2 text-center">
                   {candidatImage !== "" ?
-                      <img
+                      <img alt="..."
                         // src={require("../images/menlogos.svg").default}
                         src={candidatImage}
                      className="imgEmbauch-upload-Download"
                       /> :
-                    <img
+                    <img alt="..."
                     src={require("../../images/menlogos.svg").default}
                    className="imgEmbauch-upload-Download"
 
@@ -829,7 +829,7 @@ className="SelectBtn"
                   <div className="text-center d-grid justify-content-end align-items-center pr-1">
                     <div className="text-end">
                     <button className="InProLargebtn">
-                      <img src={require("../../images/thundermini.svg").default} />
+                      <img alt="..." src={require("../../images/thundermini.svg").default} />
                       IN PROGRESS
                     </button>
                     </div>
@@ -1409,7 +1409,7 @@ className="SelectBtn"
                       <Link to={path} style={{ textDecoration: "none" }}>
 
                         <button type="button" className="btn edit-btnCancel mr-1">
-                          <img
+                          <img alt="..."
                             style={{ width: "25%" }}
                             src={require("../../images/multiply.svg").default}
                           />
@@ -1417,7 +1417,7 @@ className="SelectBtn"
                         </button>
                       </Link>
                       <button className="btn editBtnSave mb-0" type="submit">
-                        <img style={{marginRight:"5px"}} src={require("../../images/savebtn.svg").default} />
+                        <img alt="..." style={{marginRight:"5px"}} src={require("../../images/savebtn.svg").default} />
                         Save Profile
                       </button>
                     </div>

@@ -8,15 +8,15 @@ import format from "date-fns/format";
 import { PostRoute } from "../../components/ApisFunction/FunctionsApi";
 import { motion } from "framer-motion";
 import Select from "react-select";
-import {currency,colourStyles} from "../Functions/ReactSelect"
+import { currency, colourStyles } from "../Functions/ReactSelect";
 
 let GlobalRow = [];
 let toTalamount = 0.0;
 let Prix = 0;
 let Qua = 0;
 function AddInvoice() {
-  const navigate=useNavigate()
-  console.log(toTalamount === 0 ? "0.00" : toTalamount)
+  const navigate = useNavigate();
+  console.log(toTalamount === 0 ? "0.00" : toTalamount);
   const ref = useRef() as any;
   const refOne = useRef(null);
   const reftwo = useRef(null);
@@ -25,12 +25,11 @@ function AddInvoice() {
   const [totalA, setA] = useState([]);
   const [displayRow, setDisplayRow] = useState(false);
   const [totalAmount, setTotalAmount] = useState(0.0) as any;
-  const [DS,setDS]=useState(false)
-  const [CurrencyValue,setCurrencyValue]=useState({
-    
-    value:"Euro",
-   label:"€"
-  })
+  const [DS, setDS] = useState(false);
+  const [CurrencyValue, setCurrencyValue] = useState({
+    value: "Euro",
+    label: "€",
+  });
   const [Row, setRow] = useState({
     description: "",
     quantity: "",
@@ -67,21 +66,21 @@ function AddInvoice() {
     }
   };
 
-  const deleteItem =async (name, items) => {
+  const deleteItem = async (name, items) => {
     if (name == "withoutMap") {
       setDisplayRow(false);
     } else {
-     await totalA.map((el, i) => {
+      await totalA.map((el, i) => {
         if (items == i) {
-          toTalamount =  toTalamount - el.montant;
+          toTalamount = toTalamount - el.montant;
         }
       });
       let newArray = totalA.filter((el, i) => items !== i);
       if (newArray.length === 0) {
         setDisplayRow(false);
       }
-      setTotalAmount(toTalamount)
-      GlobalRow=newArray
+      setTotalAmount(toTalamount);
+      GlobalRow = newArray;
       setA([...newArray]);
       setData({ ...data, details: newArray });
     }
@@ -92,18 +91,17 @@ function AddInvoice() {
   const onChangeFormFill = (e: any) => {
     if (e.target.name === "Submit") {
       console.log(data, "data");
-      setDS(true)
+      setDS(true);
       PostRoute(data, "saveInvoice").then((res) => {
         if (res.status) {
           toast.success(res.message);
-      setDS(false)
-          setTimeout(()=>{
-            navigate("/")
-          },2000)
+          setDS(false);
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
         } else {
           toast.error(res.message);
-      setDS(false)
-
+          setDS(false);
         }
       });
     } else {
@@ -154,51 +152,69 @@ function AddInvoice() {
     }
   };
 
-  const OnReactSelect=(e)=>{
-    setCurrencyValue({...CurrencyValue,value:e.value,label:e.label})
-    setData({...data,factureCurrency:e.value})
-  }
+  const OnReactSelect = (e) => {
+    setCurrencyValue({ ...CurrencyValue, value: e.value, label: e.label });
+    setData({ ...data, factureCurrency: e.value });
+  };
   return (
     <>
       <Toaster
         position="top-right"
         containerStyle={{
-          zIndex: "999999999999999999999999999999909999999999999999999999999999555555555555",
+          zIndex:
+            "999999999999999999999999999999909999999999999999999999999999555555555555",
         }}
       />
       <div className="container-fluid">
         <div className="row">
-          <div className="col-12" style={{position:"sticky",top:"0px",height:"18vh",   zIndex: "555555555",}}>
-          <div className="row">
           <div
-            className="col-2 logoSet sideBarBackG d-flex align-items-center justify-content-center"
-            style={{ padding: "20px" }}
+            className="col-12"
+            style={{
+              position: "sticky",
+              top: "0px",
+              height: "18vh",
+              zIndex: "555555555",
+            }}
           >
-            <span>
-              <img
-                src={require("../../images/logo-header.svg").default}
-                className="filter-logo"
-              />
-            </span>
-            <img
-              src={require("../../images/LogoName.svg").default}
-              className="filter-text"
-            />
+            <div className="row">
+              <div
+                className="col-2 logoSet sideBarBackG d-flex align-items-center justify-content-center"
+                style={{ padding: "20px" }}
+              >
+                <span>
+                  <img alt="..."
+                    src={require("../../images/logo-header.svg").default}
+                    className="filter-logo"
+                  />
+                </span>
+                <img alt="..."
+                  src={require("../../images/LogoName.svg").default}
+                  className="filter-text"
+                />
+              </div>
+              <div className="col-10 text-end bg-white pt-1 pr-3 TopHeaderAddInvoice">
+                <h3>Facture</h3>
+                <p className="mb-0">
+                  Jeremy Roggy +40 770 504 158 contact@intermann.ro
+                  https://www.intermann.fr/
+                </p>
+                <span>
+                  Valabila online cf art. 319, alin. 29, din Legea 227/2016
+                  privind Codul Fiscal
+                </span>
+              </div>
+            </div>
           </div>
-          <div className="col-10 text-end bg-white pt-1 pr-3 TopHeaderAddInvoice">
-            <h3>Facture</h3>
-            <p className="mb-0">
-              Jeremy Roggy +40 770 504 158 contact@intermann.ro
-              https://www.intermann.fr/
-            </p>
-            <span>
-              Valabila online cf art. 319, alin. 29, din Legea 227/2016 privind
-              Codul Fiscal
-            </span>
-          </div>
-          </div>
-          </div>
-          <div className="p-2 scrollbarBox"  style={{height:"70vh",position:"fixed",overflowY:"scroll",marginTop:"100px",marginBottom:"60px"}}>
+          <div
+            className="p-2 scrollbarBox"
+            style={{
+              height: "70vh",
+              position: "fixed",
+              overflowY: "scroll",
+              marginTop: "100px",
+              marginBottom: "60px",
+            }}
+          >
             <div className="col-12 bgAddInvoice p-1">
               <div className="row">
                 <div className="col-6">
@@ -302,92 +318,102 @@ function AddInvoice() {
                 </div>
               </div>
             </div>
-       
-            <div className="mt-2">
-            <div className="col-12">
-              <div className="row">
-                <div className="col-5 borderClass">
-                  <div className="row">
-                    <div className="col-2 d-flex justify-content-center ">
-                      <p className="x1102">DE</p>
-                    </div>
-                    <div className="col-10">
-                      <p className="mb-0 x1103">
-                        S.C. INTERMANN WORK S.R.L. str. Baba Novac nr. 5, bl. M1
-                        sc. B ap. 22 BUCURESTI
-                      </p>
-                      <p className="mb-0">Roumanie</p>
-                    </div>
-                    <div className="col-2 d-flex justify-content-end ">
-                      <p className="mb-0 x1103">VAT ID:</p>
-                    </div>
-                    <div className="col-10">
-                      <p className="mb-0 x1103">RO44515629</p>
-                    </div>
-                    <div className="col-2 d-flex justify-content-end ">
-                      <p className="mb-0 x1103">NOTE:</p>
-                    </div>
-                    <div className="col-10">
-                      <p className="mb-0 x1103 text-capitalize">
-                        Valabila online cf art. 319, alin. 29, din Legea
-                        227/2016 privind - codul Fiscal
-                      </p>
-                    </div>
-                    <div className="col-2 d-flex justify-content-end ">
-                      <p className="mb-0 x1103">CIF:</p>
-                    </div>
-                    <div className="col-10">
-                      <p className="mb-0 x1103">44515629</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-4 borderClass d-flex">
-                  <div className="row">
-                    <div className="col-2 d-flex justify-content-center ">
-                      <p className="x1102">Ã:</p>
-                    </div>
-                    <div className="col-10">
-                      <textarea
-                        typeof="text"
-                        className="x1102Textarea"
-                        onChange={onChangeFormFill}
-                        name="factureTo"
-                      />
-                    </div>
 
-                    <div className="col-2 d-flex justify-content-end ">
-                      <p className="mb-0 x1103">VAT:</p>
-                    </div>
-                    <div className="col-10">
-                      <input
-                        className="x1102input"
-                        type={"text"}
-                        name="factureVAT"
-                        onChange={onChangeFormFill}
-                      />
+            <div className="mt-2">
+              <div className="col-12">
+                <div className="row">
+                  <div className="col-5 borderClass">
+                    <div className="row">
+                      <div className="col-2 d-flex justify-content-center ">
+                        <p className="x1102">DE</p>
+                      </div>
+                      <div className="col-10">
+                        <p className="mb-0 x1103">
+                          S.C. INTERMANN WORK S.R.L. str. Baba Novac nr. 5, bl.
+                          M1 sc. B ap. 22 BUCURESTI
+                        </p>
+                        <p className="mb-0">Roumanie</p>
+                      </div>
+                      <div className="col-2 d-flex justify-content-end ">
+                        <p className="mb-0 x1103">VAT ID:</p>
+                      </div>
+                      <div className="col-10">
+                        <p className="mb-0 x1103">RO44515629</p>
+                      </div>
+                      <div className="col-2 d-flex justify-content-end ">
+                        <p className="mb-0 x1103">NOTE:</p>
+                      </div>
+                      <div className="col-10">
+                        <p className="mb-0 x1103 text-capitalize">
+                          Valabila online cf art. 319, alin. 29, din Legea
+                          227/2016 privind - codul Fiscal
+                        </p>
+                      </div>
+                      <div className="col-2 d-flex justify-content-end ">
+                        <p className="mb-0 x1103">CIF:</p>
+                      </div>
+                      <div className="col-10">
+                        <p className="mb-0 x1103">44515629</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div
-                  className="col-3 borderClass text-center "
-                  style={{ borderRight: "none" }}
-                >
-                  <p className="x1103 fw-bolder">Total Ã payer</p>
-                  <div className="d-flex">
-                    <input
-                      readOnly={true}
-                      className="x1103Totalpayer"
-                      type={"number"}
-                      value={toTalamount === 0 ? "0.00" : toTalamount.toFixed(2)}
-                    />
-                    <span className="totalSign">{CurrencyValue.label.includes("Lei") ? "Lei" : CurrencyValue.label.includes("$") ?  "$" : CurrencyValue.label.includes("€") ? "€" :""}</span>
+                  <div className="col-4 borderClass d-flex">
+                    <div className="row">
+                      <div className="col-2 d-flex justify-content-center ">
+                        <p className="x1102">Ã:</p>
+                      </div>
+                      <div className="col-10">
+                        <textarea
+                          typeof="text"
+                          className="x1102Textarea"
+                          onChange={onChangeFormFill}
+                          name="factureTo"
+                        />
+                      </div>
+
+                      <div className="col-2 d-flex justify-content-end ">
+                        <p className="mb-0 x1103">VAT:</p>
+                      </div>
+                      <div className="col-10">
+                        <input
+                          className="x1102input"
+                          type={"text"}
+                          name="factureVAT"
+                          onChange={onChangeFormFill}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="col-3 borderClass text-center "
+                    style={{ borderRight: "none" }}
+                  >
+                    <p className="x1103 fw-bolder">Total Ã payer</p>
+                    <div className="d-flex">
+                      <input
+                        readOnly={true}
+                        className="x1103Totalpayer"
+                        type={"number"}
+                        value={
+                          toTalamount === 0 ? "0.00" : toTalamount.toFixed(2)
+                        }
+                      />
+                      <span className="totalSign">
+                        {CurrencyValue.label.includes("Lei")
+                          ? "Lei"
+                          : CurrencyValue.label.includes("$")
+                          ? "$"
+                          : CurrencyValue.label.includes("€")
+                          ? "€"
+                          : ""}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            </div>
-       <div className="mt-2">
-            <p className="DECEMBRE">FACTURE DECEMBRE</p>
+            <div className="mt-2">
+              <p className="DECEMBRE">FACTURE DECEMBRE</p>
             </div>
             <table className="table table-borderedX12S">
               <thead style={{ background: "transparent" }}>
@@ -399,10 +425,26 @@ function AddInvoice() {
                     quantity / CANTITATE
                   </th>
                   <th className="text-center" scope="col">
-                    price / PREȚ ({CurrencyValue.label.includes("Lei") ? "Lei" : CurrencyValue.label.includes("$") ?  "$" : CurrencyValue.label.includes("€") ? "€" :""})
+                    price / PREȚ (
+                    {CurrencyValue.label.includes("Lei")
+                      ? "Lei"
+                      : CurrencyValue.label.includes("$")
+                      ? "$"
+                      : CurrencyValue.label.includes("€")
+                      ? "€"
+                      : ""}
+                    )
                   </th>
                   <th className="text-center" scope="col">
-                    MONTANT ({CurrencyValue.label.includes("Lei") ? "Lei" : CurrencyValue.label.includes("$") ?  "$" : CurrencyValue.label.includes("€") ? "€" :""})
+                    MONTANT (
+                    {CurrencyValue.label.includes("Lei")
+                      ? "Lei"
+                      : CurrencyValue.label.includes("$")
+                      ? "$"
+                      : CurrencyValue.label.includes("€")
+                      ? "€"
+                      : ""}
+                    )
                   </th>
                   {totalA.length > 0 ? (
                     <th className="text-center" scope="col">
@@ -500,7 +542,7 @@ function AddInvoice() {
                                 deleteItem("map", i);
                               }}
                             >
-                              <img
+                              <img alt="..."
                                 src={
                                   require("../../images/Deletebucket.svg")
                                     .default
@@ -553,8 +595,7 @@ Antonica Ionut"
                           className="InputInvoice"
                           onChange={onChangeDetailsFill}
                           placeholder="2.322,60"
-                          value={
-                            (Row.quantity * Row.price).toFixed(2) }
+                          value={(Row.quantity * Row.price).toFixed(2)}
                           name="montant"
                         />
                       </div>
@@ -616,8 +657,7 @@ Antonica Ionut"
                             type={"number"}
                             onChange={onChangeDetailsFill}
                             placeholder="2.322,60"
-                            value={
-                           (Row.quantity * Row.price).toFixed(2) }
+                            value={(Row.quantity * Row.price).toFixed(2)}
                             name="montant"
                           />
                         </div>
@@ -639,7 +679,7 @@ Antonica Ionut"
                               deleteItem("withoutMap", null);
                             }}
                           >
-                            <img
+                            <img alt="..."
                               src={
                                 require("../../images/Deletebucket.svg").default
                               }
@@ -666,9 +706,14 @@ Antonica Ionut"
                   <td style={{ padding: "0px" }}>
                     <div className="px-1 d-flex align-items-center justify-content-center">
                       <p className="mb-0">
-                        {toTalamount === 0 ? "0.00" : toTalamount.toFixed(2)} {CurrencyValue.label.includes("Lei") ? "Lei" : CurrencyValue.label.includes("$") ?  "$" : CurrencyValue.label.includes("€") ? "€" :""}
-
-                       
+                        {toTalamount === 0 ? "0.00" : toTalamount.toFixed(2)}{" "}
+                        {CurrencyValue.label.includes("Lei")
+                          ? "Lei"
+                          : CurrencyValue.label.includes("$")
+                          ? "$"
+                          : CurrencyValue.label.includes("€")
+                          ? "€"
+                          : ""}
                       </p>
                     </div>
                   </td>
@@ -676,7 +721,11 @@ Antonica Ionut"
               </tbody>
             </table>
             <div className="col-12 d-grid justify-content-center mt-5">
-              <button disabled={DS} onClick={(e) => onClickLineAdd()} className="AddLine">
+              <button
+                disabled={DS}
+                onClick={(e) => onClickLineAdd()}
+                className="AddLine"
+              >
                 ADD A LINE
               </button>
               <p className="text-center my-2 oR">OR</p>
@@ -691,32 +740,33 @@ Antonica Ionut"
               </button>
             </div>
           </div>
-          <div className="col-12 mt-4 p-1  bg-white" style={{position:"fixed",bottom:"0px",height:"12vh"}}>
-            <div className="row  align-items-center"  >
+          <div
+            className="col-12 mt-4 p-1  bg-white"
+            style={{ position: "fixed", bottom: "0px", height: "12vh" }}
+          >
+            <div className="row  align-items-center">
               <div className="col-8 d-flex ">
-              <Select
-              name="market"
-              closeMenuOnSelect={true}
-              placeholder="‎  ‎ ‎  ‎ Change Currency"
-              className="basic-multi-select placeHolderLead billingCenter"
-              classNamePrefix="select"
-              // menuIsOpen={true}
-              defaultValue={{
-                value :"Euro",
-                label:"€  Euro",
-                color:"#1372b5", 
-                }}
-              onChange={OnReactSelect}
-              options={currency}
-              styles={colourStyles}
-            />
-         
-
+                <Select
+                  name="market"
+                  closeMenuOnSelect={true}
+                  placeholder="‎  ‎ ‎  ‎ Change Currency"
+                  className="basic-multi-select placeHolderLead billingCenter"
+                  classNamePrefix="select"
+                  // menuIsOpen={true}
+                  defaultValue={{
+                    value: "Euro",
+                    label: "€  Euro",
+                    color: "#1372b5",
+                  }}
+                  onChange={OnReactSelect}
+                  options={currency}
+                  styles={colourStyles}
+                />
               </div>
               <div className="col-4 d-flex justify-content-end">
-                <img src={require("../../images/Editpen2.svg").default} />
+                <img alt="..." src={require("../../images/Editpen2.svg").default} />
 
-                <img
+                <img alt="..."
                   src={require("../../images/downloadBtn.svg").default}
                   className="mx-1"
                 />
@@ -724,7 +774,7 @@ Antonica Ionut"
                   className="RoundDiv"
                   style={{ background: "#F3F4F6", width: "37px" }}
                 >
-                  <img src={require("../../images/Deletebucket.svg").default} />
+                  <img alt="..." src={require("../../images/Deletebucket.svg").default} />
                 </div>
               </div>
             </div>

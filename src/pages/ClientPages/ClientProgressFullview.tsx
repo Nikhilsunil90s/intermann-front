@@ -19,18 +19,18 @@ import ErrorLoader from "../../components/Loader/SearchBarError";
 import moment from "moment";
 import { Tabs, Tab } from "react-tabs-scrollable";
 import "react-tabs-scrollable/dist/rts.css";
-import DOCUSIGNModalCandidate from '../../components/Modal/DOCUSIGNModalCandidate'
+import DOCUSIGNModalCandidate from "../../components/Modal/DOCUSIGNModalCandidate";
 import PDFBoxClient from "../../components/PDFboxBothSide/PdfBoxClient";
 import PreModalClient from "../../components/Modal/preSelectedModalForClient";
-import ClientContract from "../../components/ClientComponents/ClientContract"
-import JobAdsCard from '../../components/ClientComponents/ClientJobAds'  
+import ClientContract from "../../components/ClientComponents/ClientContract";
+import JobAdsCard from "../../components/ClientComponents/ClientJobAds";
 import Carousel from "react-multi-carousel";
-import ProfilesLoader from "../../components/Loader/ProfilesLoader"
-import Warning from "../../components/Loader/SearchBarError"
-import DetailBox from "../../components/ClientComponents/ViewPageDetailBox"
+import ProfilesLoader from "../../components/Loader/ProfilesLoader";
+import Warning from "../../components/Loader/SearchBarError";
+import DetailBox from "../../components/ClientComponents/ViewPageDetailBox";
 import SocialButton from "../../components/ClientComponents/SocialButtons";
 import { motion } from "framer-motion";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 
 let id = "";
 function ClientProgressView() {
@@ -81,11 +81,11 @@ function ClientProgressView() {
   const [fiche_medicale, setfiche_medicale] = useState() as any;
   const [offre_envoye_et_nonsigne, setoffre_envoye_et_nonsigne] =
     useState() as any;
-   const [fiche_de_mise_a_disposition, setfiche_de_mise_a_disposition] =
+  const [fiche_de_mise_a_disposition, setfiche_de_mise_a_disposition] =
     useState() as any;
-  const [DocumentSignModal,setDocuSignModal]=useState(false)
-  const [JobAdsCards,setJobAdsCards] =useState([])
-  const [JobAdsCardsStatus,setJobAdsCardsStatus] =useState(false)
+  const [DocumentSignModal, setDocuSignModal] = useState(false);
+  const [JobAdsCards, setJobAdsCards] = useState([]);
+  const [JobAdsCardsStatus, setJobAdsCardsStatus] = useState(false);
 
   const candidatImportanceIcons = [
     {
@@ -157,24 +157,27 @@ function ClientProgressView() {
     if (val === "upload") {
       handleImageUpload();
     } else if (val === "Download") {
-      window.open(imgSource.replace("http","https"));
+      window.open(imgSource.replace("http", "https"));
     }
   };
 
-  
   useEffect(() => {
     profile.clientDocuments.map((el) => {
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("reges"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("reges")
+        )
       ) {
         setreges([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrat_client"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("contrat_client")
+        )
       ) {
-       setcontrat_client([el]);
-        }
-       
+        setcontrat_client([el]);
+      }
+
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(
           JSON.stringify("contrat_employes")
@@ -183,72 +186,101 @@ function ClientProgressView() {
         setcontrat_employes([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("carte_d'identite_employes"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("carte_d'identite_employes")
+        )
       ) {
         setcarte_d([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("id_card_employer"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("id_card_employer")
+        )
       ) {
         setid_card_employer([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("al"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("al")
+        )
       ) {
         setal([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("contrats_assurances_employes"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("contrats_assurances_employes")
+        )
       ) {
         setcontrats_assurances_employes([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("sispi"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("sispi")
+        )
       ) {
         setsispi([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("document_de_represntation"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("document_de_represntation")
+        )
       ) {
         setdocument_de_represntation([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("offre_signee"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("offre_signee")
+        )
       ) {
         setoffre_signee([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("attestations_societe_intermann"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("attestations_societe_intermann")
+        )
       ) {
         setattestations_societe_intermann([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("cvs"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("cvs")
+        )
       ) {
         setcvs([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("autres_documents"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("autres_documents")
+        )
       ) {
         setautres_documents([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("factures"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("factures")
+        )
       ) {
         setfactures([el]);
       }
 
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("rapport_activite"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("rapport_activite")
+        )
       ) {
         setrapport_activite([el]);
-      } if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("offre_envoye_et_nonsigne"))
+      }
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("offre_envoye_et_nonsigne")
+        )
       ) {
         setoffre_envoye_et_nonsigne([el]);
       }
       if (
-        JSON.stringify(el.folderName ? el.folderName : null).includes(JSON.stringify("fiche_medicale"))
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("fiche_medicale")
+        )
       ) {
         setfiche_medicale([el]);
       }
@@ -260,14 +292,14 @@ function ClientProgressView() {
         setfiche_de_mise_a_disposition([el]);
       }
     });
-  },[UpdatedWarning]);
+  }, [UpdatedWarning]);
 
   useEffect(() => {
     fetchCandidat(profile._id)
       .then((resData) => {
         if (resData.status) {
           resData.data.map((el) => {
-            setImgSource(el.clientPhoto ?el.clientPhoto.url : "");
+            setImgSource(el.clientPhoto ? el.clientPhoto.url : "");
           });
         }
       })
@@ -277,16 +309,18 @@ function ClientProgressView() {
   }, [state]);
   useEffect(() => {
     setProfile(state ? state : profileData);
-    jobAdsCards(profile._id)
+    jobAdsCards(profile._id);
   }, [state]);
 
   function padTo2DigitsCH(num) {
     return num.toString().padStart(2, "0");
   }
-  const [startStatus]=useState(profile.jobStartDate.slice(0,4).includes("-"))
-  const [endStatus]=useState(profile.jobEndDate.slice(0,4).includes("-"))
-  const [startDate,setStartDate]=useState()as any
-  const [EndDate,setEndDate]=useState()as any
+  const [startStatus] = useState(
+    profile.jobStartDate.slice(0, 4).includes("-")
+  );
+  const [endStatus] = useState(profile.jobEndDate.slice(0, 4).includes("-"));
+  const [startDate, setStartDate] = useState() as any;
+  const [EndDate, setEndDate] = useState() as any;
   // console.log(props.data.jobStartDate.slice(0,4).includes("-"))
 
   function formatDateCha(date) {
@@ -303,24 +337,20 @@ function ClientProgressView() {
   let start = new Date(profile.jobStartDate);
   let end = new Date(profile.jobEndDate);
 
-  useEffect(()=>{
-    if(startStatus){
-      setStartDate(profile.jobStartDate)
-    }else{
-      let data=formatDateCha(start)
-      setStartDate(data.replaceAll("/","-"))
-      
-  
+  useEffect(() => {
+    if (startStatus) {
+      setStartDate(profile.jobStartDate);
+    } else {
+      let data = formatDateCha(start);
+      setStartDate(data.replaceAll("/", "-"));
     }
-    if(endStatus){
-      setEndDate(profile.jobEndDate)
-    }else{
-      let data=formatDateCha(end)
-      setEndDate(data.replaceAll("/","-"))
-      
-  
+    if (endStatus) {
+      setEndDate(profile.jobEndDate);
+    } else {
+      let data = formatDateCha(end);
+      setEndDate(data.replaceAll("/", "-"));
     }
-   })
+  });
   // DOC Upload //\
 
   const axiosInstance = axios.create({
@@ -386,7 +416,7 @@ function ClientProgressView() {
             setProfile(el);
             setClientContract(el.clientContract);
           });
-       setDocUploaded(false);
+          setDocUploaded(false);
         } else {
           setDocumentList([...documentList]);
           setDocUploaded(false);
@@ -396,9 +426,7 @@ function ClientProgressView() {
       .catch((err) => {
         console.log(err);
       });
-
   }, [docUploaded]);
-
 
   const fetchCandidat = async (clientId: any) => {
     return await fetch(API_BASE_URL + `getClientById/?clientId=${clientId}`, {
@@ -416,9 +444,12 @@ function ClientProgressView() {
   const handleFileUpload = () => {
     hiddenFileInput.current.click();
   };
-  
+
   //END //
-  let Editdata = { state: profile, path: "/clientProgress/clientInProgressProfile" };
+  let Editdata = {
+    state: profile,
+    path: "/clientProgress/clientInProgressProfile",
+  };
 
   const editClientProfile = () => {
     navigate("/clientProgress/clientInProgressEdit", { state: Editdata });
@@ -561,35 +592,29 @@ function ClientProgressView() {
   };
 
   const jobAdsCards = async (Id) => {
-    setJobAdsCardsStatus(false)
+    setJobAdsCardsStatus(false);
 
-    await fetch(
-      `${API_BASE_URL}getClientAds/?clientId=${Id}`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + Cookies.get("token"),
-        },
-      }
-    )
+    await fetch(`${API_BASE_URL}getClientAds/?clientId=${Id}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    })
       .then((reD) => reD.json())
-      .then((result) => 
-      {
-       if(result.status){
-        setJobAdsCards([...result.data])
-        setJobAdsCardsStatus(true)
-       }else{
-        setJobAdsCards([])
-        setJobAdsCardsStatus(true)
-
-       }
-      }
-      )
+      .then((result) => {
+        if (result.status) {
+          setJobAdsCards([...result.data]);
+          setJobAdsCardsStatus(true);
+        } else {
+          setJobAdsCards([]);
+          setJobAdsCardsStatus(true);
+        }
+      })
       .catch((err) => err);
   };
-  
+
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -627,7 +652,7 @@ function ClientProgressView() {
                 <div className="stable">
                   <Link to="/clientProgress">
                     <button type="button" className="btn FontStyle-TODOSEE">
-                      <img src={require("../../images/return.svg").default} />
+                      <img alt="..." src={require("../../images/return.svg").default} />
                       Client File :{" "}
                       {profile.clientCompanyName.toLocaleUpperCase()}
                     </button>
@@ -639,31 +664,33 @@ function ClientProgressView() {
                   className="btn btn-bgbClient"
                   onClick={() => editClientProfile()}
                 >
-                  <img src={require("../../images/Edit.svg").default} />
+                  <img alt="..." src={require("../../images/Edit.svg").default} />
                   Edit Profile
                 </button>
               </div>
             </div>
           </div>
           <div className="px-0">
-          <motion.div
-  initial={{ scale: 0 }}
-  animate={{ rotate:0, scale:1}}
-  transition={{
-    type: "spring",
-    stiffness: 120,
-    damping: 50
-  }}   className="col-12 my-1 py-1 ClientSEE-TopDetails">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ rotate: 0, scale: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 120,
+                damping: 50,
+              }}
+              className="col-12 my-1 py-1 ClientSEE-TopDetails"
+            >
               <div className="row">
                 <div className="col-2 pr-0 text-center">
                   <div className="">
                     {imgSource !== "" ? (
-                      <img
+                      <img alt="..."
                         src={imgSource}
                         className="imgEmbauch-upload-Download"
                       />
                     ) : (
-                      <img
+                      <img alt="..."
                         src={require("../../images/fullClientSee.svg").default}
                         className="imgEmbauch-upload-Download"
                       />
@@ -684,7 +711,7 @@ function ClientProgressView() {
                     className="SelectBtn"
                     type="button"
                   >
-                    <img
+                    <img alt="..."
                       className=""
                       src={require("../../images/select.svg").default}
                     />
@@ -743,7 +770,7 @@ function ClientProgressView() {
                 <div className="col-4 d-grid align-items-center">
                   <div className="text-end ">
                     <button className="InProLargebtn">
-                      <img
+                      <img alt="..."
                         src={require("../../images/thundermini.svg").default}
                       />
                       IN PROGRESS
@@ -1075,36 +1102,38 @@ function ClientProgressView() {
             </div>
             <div className="col-12 pt-1 py-0 mb-1">
               <div className="row justify-content-between">
-                          <motion.div
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  transition={{ duration: 0.7, delay: 0.7 }}
-  variants={{
-    visible: { opacity: 1, x: 0 },
-    hidden: { opacity: 0, x: 50 }
-  }}
-
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.7 }}
+                  variants={{
+                    visible: { opacity: 1, x: 0 },
+                    hidden: { opacity: 0, x: 50 },
+                  }}
                   className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-1 Social-cardDiv"
                   style={{ maxWidth: "49%" }}
                 >
-                <SocialButton  props={profile} />
+                  <SocialButton props={profile} />
                 </motion.div>
                 <motion.div
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  transition={{ duration: 0.7, delay: 0.7 }}
-  variants={{
-    visible: { opacity: 1, x: 0 },
-    hidden: { opacity: 0, x: -50 }
-  }}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.7 }}
+                  variants={{
+                    visible: { opacity: 1, x: 0 },
+                    hidden: { opacity: 0, x: -50 },
+                  }}
                   className="col-xxl-8 col-xl-8 col-lg-8 col-md-7 Social-Card p-1 detailsCardClientSee scrollbar Social-btnS"
                   id="style-3"
                   style={{ maxWidth: "49%" }}
                 >
-                                                  <DetailBox props={profile} startDate={startDate} EndDate={EndDate} />
-
+                  <DetailBox
+                    props={profile}
+                    startDate={startDate}
+                    EndDate={EndDate}
+                  />
                 </motion.div>
               </div>
             </div>
@@ -1112,40 +1141,51 @@ function ClientProgressView() {
             <div className="col-12 inPAdsBOX">
               <div className="row">
                 <div className="col-6 pt-2 pb-1">
-                  <p>Ads Spent on this client  <b>: {profile.jobTotalBudget ? profile.jobTotalBudget : "✘ No Ads!"}</b></p>
+                  <p>
+                    Ads Spent on this client{" "}
+                    <b>
+                      :{" "}
+                      {profile.jobTotalBudget
+                        ? profile.jobTotalBudget
+                        : "✘ No Ads!"}
+                    </b>
+                  </p>
                 </div>
               </div>
             </div>
-          
-              <div className="col-12 my-1 clientAdJobs">
-                <div className="row p-1">
-{
-JobAdsCardsStatus ?  
-JobAdsCards.length > 0 ?
-                <Carousel responsive={responsive}>
-                  {
-                        
-                    JobAdsCards.map((el)=>(
-                      <div className="col-12">
 
-                      <JobAdsCard    bg="progress"   props={el}     />
-                      </div>
-                    ))
-                  }
-                  </Carousel>
-                  :
+            <div className="col-12 my-1 clientAdJobs">
+              <div className="row p-1">
+                {JobAdsCardsStatus ? (
+                  JobAdsCards.length > 0 ? (
+                    <Carousel responsive={responsive}>
+                      {JobAdsCards.map((el) => (
+                        <div className="col-12">
+                          <JobAdsCard bg="progress" props={el} />
+                        </div>
+                      ))}
+                    </Carousel>
+                  ) : (
+                    <div className="col-12 d-flex justify-content-center">
+                      <p className="mb-0 d-flex align-items-center ErrorSearchBox">
+                        <Warning /> NO JOBS ADS FOUND ✘✘!
+                      </p>
+                    </div>
+                  )
+                ) : (
                   <div className="col-12 d-flex justify-content-center">
-                  <p className="mb-0 d-flex align-items-center ErrorSearchBox"><Warning /> NO JOBS ADS FOUND ✘✘!</p>
+                    <ProfilesLoader
+                      width={250}
+                      height={200}
+                      fontSize={"26px"}
+                      fontWeight={"600"}
+                      Title={"Please Wait!"}
+                    />
                   </div>
-
-:
-<div className="col-12 d-flex justify-content-center">
-<ProfilesLoader  width ={250} height={200} fontSize={"26px"} fontWeight={"600"}  Title={"Please Wait!"}/> 
-</div>
-}
-                </div>
+                )}
               </div>
-          
+            </div>
+
             <div className="col-12 Social-CardClient my-1 p-1">
               <div className="row">
                 <div className="col-6">
@@ -1210,7 +1250,7 @@ JobAdsCards.length > 0 ?
                 </div>
                 <div className="col-6 d-flex justify-content-end align-items-center">
                   <button className="pdf-btn" onClick={handleFileUpload}>
-                    <img
+                    <img alt="..."
                       src={require("../../images/doc.svg").default}
                       className="docImg"
                     />
@@ -1234,7 +1274,7 @@ JobAdsCards.length > 0 ?
                     className="btn btn-BlackEdit"
                     onClick={editClientProfile}
                   >
-                    <img src={require("../../images/Edit.svg").default} />
+                    <img alt="..." src={require("../../images/Edit.svg").default} />
                     Edit Profile
                   </button>
                   <p className="btn-Down text-center text-start">
@@ -1249,7 +1289,7 @@ JobAdsCards.length > 0 ?
                     type="button"
                     className=" btn-contractClient"
                   >
-                    <img
+                    <img alt="..."
                       src={require("../../images/doc.svg").default}
                       style={{ paddingRight: "5px" }}
                     />
@@ -1286,7 +1326,7 @@ JobAdsCards.length > 0 ?
                     type="button"
                     className="btn btn-grilleClient"
                   >
-                    <img
+                    <img alt="..."
                       src={require("../../images/salary.svg").default}
                       style={{ paddingRight: "5px" }}
                     />
@@ -1303,7 +1343,7 @@ JobAdsCards.length > 0 ?
                     type="button"
                     className="btn btn-careerClient"
                   >
-                    <img
+                    <img alt="..."
                       src={require("../../images/doc.svg").default}
                       style={{ paddingRight: "5px" }}
                     />
@@ -1321,7 +1361,7 @@ JobAdsCards.length > 0 ?
                       setShowSignedModal(true);
                     }}
                   >
-                    <img
+                    <img alt="..."
                       src={require("../../images/doc.svg").default}
                       style={{ paddingRight: "5px" }}
                     />{" "}
@@ -1338,7 +1378,7 @@ JobAdsCards.length > 0 ?
                     onClick={(e) => setPDFModal(true)}
                   >
                     <span>
-                      <img
+                      <img alt="..."
                         style={{ paddingRight: "10px" }}
                         src={require("../../images/doc.svg").default}
                       />
@@ -1356,153 +1396,161 @@ JobAdsCards.length > 0 ?
                   />
                 ) : null}
                 {PDFModal ? (
-                  <PDFModalClient props={profile} closeModal={setPDFModal}  LinkModal={setDocuSignModal} path="/clientProgress/clientInProgressProfile" />
+                  <PDFModalClient
+                    props={profile}
+                    closeModal={setPDFModal}
+                    LinkModal={setDocuSignModal}
+                    path="/clientProgress/clientInProgressProfile"
+                  />
                 ) : null}
-                 {
-        DocumentSignModal ? 
-        <DOCUSIGNModalCandidate props={profile} closeModal={setDocuSignModal} />
-
-        :
-        null
-
-      }
+                {DocumentSignModal ? (
+                  <DOCUSIGNModalCandidate
+                    props={profile}
+                    closeModal={setDocuSignModal}
+                  />
+                ) : null}
               </div>
             </div>
           </div>
           <div className="col-12 Social-CardClient mt-1 ">
             {clientContract ? (
-                <ClientContract  props={profile} path="/clientProgress/clientInProgressEdit"     />
-
-             
+              <ClientContract
+                props={profile}
+                path="/clientProgress/clientInProgressEdit"
+              />
             ) : (
               <div className="col-12 d-flex justify-content-center align-items-center py-2">
                 <ErrorLoader />
                 <p className="mb-0 ErrorSearchBox">
-                ✘ No Contract Available for this In-Progress Client! Please add
-                  a New Contract ✘
+                  ✘ No Contract Available for this In-Progress Client! Please
+                  add a New Contract ✘
                 </p>
               </div>
             )}
           </div>
-        
+
           {/* PDF Upload */}
-            <div>
-              <PDFBoxClient   props={profile} value={setProfile}  updated={setUpdatedWarning} />
-            </div>
-{/* PDF Upload End */}
+          <div>
+            <PDFBoxClient
+              props={profile}
+              value={setProfile}
+              updated={setUpdatedWarning}
+            />
+          </div>
+          {/* PDF Upload End */}
           <div
-              className="col-12 Social-CardClient mb-1 "
-              style={{ padding: "13px 26px" }}
-            >
-               <div className="row alertMessage align-items-center py-1">
-                <Tabs
-                  activeTab
-                  rightBtnIcon={">"}
-                  hideNavBtns={false}
-                  leftBtnIcon={"<"}
-                  showTabsScroll={false}
-                  tabsScrollAmount={5}
-                  className="alertMessage"
-                >
-                  {contrat_client ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ CONTRAT CLIENT IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                  {contrat_employes ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ CONTRATS EMPLOYES IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                  {id_card_employer ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ Id Card Employes IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                  {al ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ A1 IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                  {contrats_assurances_employes ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ CONTRATS ASSURANCES EMPLOYES IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                  {sispi ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ SISPI IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                  {document_de_represntation ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ DOCUMENT DE REPRESENTANCE / REPRESENTATION IS MISSING /
-                      MANQUANT
-                    </Tab>
-                  )}
-                  {offre_signee ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ OFFRE SIGNEE / QUOTES IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                  {attestations_societe_intermann ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ ATTESTATIONS SOCIETE INTERMANN WORK S.R.L IS MISSING /
-                      MANQUANT
-                    </Tab>
-                  )}
-                  {cvs ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ CVS IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                  {autres_documents ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ AUTRES DOCUMENTS / OTHER IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                  {factures ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ FACTURES IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                  {rapport_activite ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ RAPPORT ACTIVITE IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                  {offre_envoye_et_nonsigne ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ OFFRE ENVOYE ET NON SIGNE IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                  {fiche_medicale ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ FICHE MEDICALE IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                  {reges ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ REGES IS MISSING / MANQUANT
-                    </Tab>
-                  )}
-                  {fiche_de_mise_a_disposition ? null : (
-                    <Tab className="redColorStyling">
-                      ⚠️ FICHE DE MISE A DISPOSITION / MANQUANT
-                    </Tab>
-                  )}
-                </Tabs>
-              </div>
+            className="col-12 Social-CardClient mb-1 "
+            style={{ padding: "13px 26px" }}
+          >
+            <div className="row alertMessage align-items-center py-1">
+              <Tabs
+                activeTab
+                rightBtnIcon={">"}
+                hideNavBtns={false}
+                leftBtnIcon={"<"}
+                showTabsScroll={false}
+                tabsScrollAmount={5}
+                className="alertMessage"
+              >
+                {contrat_client ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ CONTRAT CLIENT IS MISSING / MANQUANT
+                  </Tab>
+                )}
+                {contrat_employes ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ CONTRATS EMPLOYES IS MISSING / MANQUANT
+                  </Tab>
+                )}
+                {id_card_employer ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ Id Card Employes IS MISSING / MANQUANT
+                  </Tab>
+                )}
+                {al ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ A1 IS MISSING / MANQUANT
+                  </Tab>
+                )}
+                {contrats_assurances_employes ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ CONTRATS ASSURANCES EMPLOYES IS MISSING / MANQUANT
+                  </Tab>
+                )}
+                {sispi ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ SISPI IS MISSING / MANQUANT
+                  </Tab>
+                )}
+                {document_de_represntation ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ DOCUMENT DE REPRESENTANCE / REPRESENTATION IS MISSING /
+                    MANQUANT
+                  </Tab>
+                )}
+                {offre_signee ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ OFFRE SIGNEE / QUOTES IS MISSING / MANQUANT
+                  </Tab>
+                )}
+                {attestations_societe_intermann ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ ATTESTATIONS SOCIETE INTERMANN WORK S.R.L IS MISSING /
+                    MANQUANT
+                  </Tab>
+                )}
+                {cvs ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ CVS IS MISSING / MANQUANT
+                  </Tab>
+                )}
+                {autres_documents ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ AUTRES DOCUMENTS / OTHER IS MISSING / MANQUANT
+                  </Tab>
+                )}
+                {factures ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ FACTURES IS MISSING / MANQUANT
+                  </Tab>
+                )}
+                {rapport_activite ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ RAPPORT ACTIVITE IS MISSING / MANQUANT
+                  </Tab>
+                )}
+                {offre_envoye_et_nonsigne ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ OFFRE ENVOYE ET NON SIGNE IS MISSING / MANQUANT
+                  </Tab>
+                )}
+                {fiche_medicale ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ FICHE MEDICALE IS MISSING / MANQUANT
+                  </Tab>
+                )}
+                {reges ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ REGES IS MISSING / MANQUANT
+                  </Tab>
+                )}
+                {fiche_de_mise_a_disposition ? null : (
+                  <Tab className="redColorStyling">
+                    ⚠️ FICHE DE MISE A DISPOSITION / MANQUANT
+                  </Tab>
+                )}
+              </Tabs>
             </div>
+          </div>
         </div>
 
-                {showPreSelectedModal ? (
-                  <PreModalClient
-                    props={PreSelectedData}
-                    closepreModal={setShowInPreSelectedModal}
-                    clientProps={profile}
-                  />
-                ) : null}
+        {showPreSelectedModal ? (
+          <PreModalClient
+            props={PreSelectedData}
+            closepreModal={setShowInPreSelectedModal}
+            clientProps={profile}
+          />
+        ) : null}
       </div>
     </>
   );

@@ -8,15 +8,13 @@ import { Toaster, toast } from "react-hot-toast";
 import { logout } from "../redux/actions/userActions";
 import $ from "jquery";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
 function Sidebar(props: any) {
-  const [activeTab, setActiveTab] = useState(window.location.href);
   const [onHover, setOnHover] = useState({
     miniBar: false,
     SideBar: false,
   });
-  const state = useSelector((state: any) => state.loginReducer);
+
   const LoginUser = JSON.parse(localStorage.getItem("LoginUser"));
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,11 +33,11 @@ function Sidebar(props: any) {
     LogNotify();
   };
   let login = Cookies.get("token");
-  let token = localStorage.getItem("token")
+  let token = localStorage.getItem("token");
 
   useEffect(() => {
-    if(token){
-      LogOut()
+    if (token) {
+      LogOut();
     }
     if (!login) {
       LogOut();
@@ -73,7 +71,7 @@ function Sidebar(props: any) {
     if (name === "offer") {
       navigate("/offerCenter");
     }
-    setActiveTab(name);
+  
   };
 
   // useEffect(() => {
@@ -150,7 +148,7 @@ function Sidebar(props: any) {
                     setOnHover({ ...onHover, miniBar: false });
                   }}
                 >
-                  <img
+                  <img alt="..." 
                     src={require("../images/close.png")}
                     className="closeClick"
                   />
@@ -168,12 +166,12 @@ function Sidebar(props: any) {
                     className="d-flex bottom-radius logoSet justify-content-center align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none"
                   >
                     <span>
-                      <img
+                      <img alt="..." 
                         src={require("../images/logo-header.svg").default}
                         className="filter-logo"
                       />
                     </span>
-                    <img
+                    <img alt="..." 
                       src={require("../images/LogoName.svg").default}
                       className="filter-text"
                     />
@@ -200,9 +198,7 @@ function Sidebar(props: any) {
                       hidden: { opacity: 0, x: -50 },
                     }}
                     className="nav-item active mt-1 sideBarBackG"
-                    onClick={() => {
-                      setActiveTab("");
-                    }}
+                  
                   >
                     <Link
                       to="/dashboard"
@@ -210,7 +206,7 @@ function Sidebar(props: any) {
                       aria-current="page"
                     >
                       <span className="pe-2">
-                        <img src={require("../images/Shape.svg").default} />
+                        <img   alt="..." src={require("../images/Shape.svg").default} />
                       </span>
                       Resume
                     </Link>
@@ -238,7 +234,7 @@ function Sidebar(props: any) {
                           aria-controls="#flush-collapseTwo"
                         >
                           <span className="pe-2">
-                            <img
+                            <img alt="..." 
                               src={
                                 require("../images/CombinedShape.svg").default
                               }
@@ -270,7 +266,7 @@ function Sidebar(props: any) {
                                 className="nav-link link-dark  fontStylingBar"
                               >
                                 <span className="pe-2">
-                                  <img
+                                  <img alt="..." 
                                     className={
                                       window.location.href.includes(
                                         "clientTodo"
@@ -298,7 +294,7 @@ function Sidebar(props: any) {
                                 className="nav-link link-dark  fontStylingBar"
                               >
                                 <span className="pe-2">
-                                  <img
+                                  <img alt="..." 
                                     className={
                                       window.location.href.includes(
                                         "clientProgress"
@@ -326,7 +322,7 @@ function Sidebar(props: any) {
                                 className="nav-link link-dark  fontStylingBar"
                               >
                                 <span className="pe-2">
-                                  <img
+                                  <img alt="..." 
                                     className={
                                       window.location.href.includes(
                                         "clientContract"
@@ -355,7 +351,7 @@ function Sidebar(props: any) {
                                 className="nav-link link-dark fontStylingBar"
                               >
                                 <span className="pe-2">
-                                  <img
+                                  <img alt="..." 
                                     className={
                                       window.location.href.includes("archived")
                                         ? "FilterMinibar"
@@ -385,7 +381,7 @@ function Sidebar(props: any) {
                           aria-controls="flush-collapseThree"
                         >
                           <span className="pe-2">
-                            <img
+                            <img alt="..." 
                               src={
                                 require("../images/employeeicon.svg").default
                               }
@@ -414,7 +410,7 @@ function Sidebar(props: any) {
                                 className="nav-link link-dark fontStylingBar"
                               >
                                 <span className="pe-2">
-                                  <img
+                                  <img alt="..." 
                                     className={
                                       window.location.href.includes("todolist")
                                         ? "FilterMinibar"
@@ -440,7 +436,7 @@ function Sidebar(props: any) {
                                 className="nav-link link-dark fontStylingBar"
                               >
                                 <span className="pe-2">
-                                  <img
+                                  <img alt="..." 
                                     className={
                                       window.location.href.includes(
                                         "preSelected"
@@ -468,7 +464,7 @@ function Sidebar(props: any) {
                                 className="nav-link link-dark fontStylingBar"
                               >
                                 <span className="pe-2">
-                                  <img
+                                  <img alt="..." 
                                     className={
                                       window.location.href.includes(
                                         "embauchlist"
@@ -497,7 +493,7 @@ function Sidebar(props: any) {
                                 className="nav-link link-dark fontStylingBar"
                               >
                                 <span className="pe-2">
-                                  <img
+                                  <img alt="..." 
                                     className={
                                       window.location.href.includes(
                                         "archivedlist"
@@ -529,7 +525,7 @@ function Sidebar(props: any) {
                           aria-controls="flush-collapseOne"
                         >
                           <span className="pe-2">
-                            <img
+                            <img alt="..." 
                               src={require("../images/settings.svg").default}
                             />
                           </span>
@@ -557,7 +553,7 @@ function Sidebar(props: any) {
                                 aria-current="page"
                               >
                                 <span className="pe-2">
-                                  <img
+                                  <img alt="..." 
                                     className={
                                       window.location.href.includes(
                                         "addNewSector"
@@ -587,7 +583,7 @@ function Sidebar(props: any) {
                                 aria-current="page"
                               >
                                 <span className="pe-2">
-                                  <img
+                                  <img alt="..." 
                                     className={
                                       window.location.href.includes("userList")
                                         ? "FilterMinibar"
@@ -635,7 +631,7 @@ function Sidebar(props: any) {
                       aria-current="page"
                     >
                       <span className="pe-2">
-                        <img
+                        <img alt="..." 
                           className={
                             window.location.href.includes("downloadCenter")
                               ? "FilterMinibar logoutImage"
@@ -676,7 +672,7 @@ function Sidebar(props: any) {
                       aria-current="page"
                     >
                       <span className="pe-2">
-                        <img
+                        <img alt="..." 
                           className={
                             window.location.href.includes("LeadsCenter")
                               ? "FilterMinibar logoutImage"
@@ -717,7 +713,7 @@ function Sidebar(props: any) {
                       aria-current="page"
                     >
                       <span className="pe-2">
-                        <img
+                        <img alt="..." 
                           className={
                             window.location.href.includes("JobAdsCenter")
                               ? "FilterMinibar logoutImage"
@@ -758,7 +754,7 @@ function Sidebar(props: any) {
                       aria-current="page"
                     >
                       <span className="pe-2">
-                        <img
+                        <img alt="..." 
                           className={
                             window.location.href.includes("commercialCenter")
                               ? "FilterMinibar logoutImage"
@@ -801,7 +797,7 @@ function Sidebar(props: any) {
                         aria-current="page"
                       >
                         <span className="pe-2">
-                          <img
+                          <img alt="..." 
                             width={"24px"}
                             src={require("../images/billingCenter.svg").default}
                             className={`${
@@ -844,7 +840,7 @@ function Sidebar(props: any) {
                       aria-current="page"
                     >
                       <span className="pe-2">
-                        <img
+                        <img alt="..." 
                           className={
                             window.location.href.includes("offerCenter")
                               ? "FilterMinibar logoutImage"
@@ -875,7 +871,7 @@ function Sidebar(props: any) {
                   >
                     <Link to="/" className="signOut " aria-current="page">
                       <span className="pe-2">
-                        <img
+                        <img alt="..." 
                           className="logoutImage"
                           src={require("../images/logout.svg").default}
                         />
@@ -908,7 +904,7 @@ function Sidebar(props: any) {
                     setOnHover({ ...onHover, miniBar: false })
                   }
                 >
-                  <img
+                  <img alt="..." 
                     src={require("../images/menu.png")}
                     className="filter-logo"
                     style={{ width: "38px" }}
@@ -920,7 +916,7 @@ function Sidebar(props: any) {
                   style={{ height: "70px", borderBottom: "1px solid #fff" }}
                   onMouseEnter={() => setOnHover({ ...onHover, miniBar: true })}
                 >
-                  <img
+                  <img alt="..." 
                     src={require("../images/logo-header.svg").default}
                     className="filter-logo"
                   />
@@ -930,7 +926,7 @@ function Sidebar(props: any) {
               <ul className="ulStyleSideBar p-0">
                 <li className=" d-flex align-items-center justify-content-center">
                   <div className="activeDiv">
-                    <img
+                    <img alt="..." 
                       style={{ height: "25px", width: "35px" }}
                       src={require("../images/Shape.svg").default}
                     />
@@ -947,7 +943,7 @@ function Sidebar(props: any) {
                   window.location.href.includes("clientContract") ||
                   window.location.href.includes("archived") ? (
                     <div className={"activeDiv"}>
-                      <img
+                      <img alt="..." 
                         style={{ height: "25px", width: "35px" }}
                         className="FilterMinibar"
                         src={require("../images/CombinedShape.svg").default}
@@ -956,7 +952,7 @@ function Sidebar(props: any) {
                   ) : (
                     <div>
                       <Link to={"/clientTodo"}>
-                        <img
+                        <img alt="..." 
                           style={{ height: "25px", width: "35px" }}
                           src={require("../images/CombinedShape.svg").default}
                         />
@@ -976,7 +972,7 @@ function Sidebar(props: any) {
                   window.location.href.includes("embauchlist") ||
                   window.location.href.includes("archivedlist") ? (
                     <div className={"activeDiv"}>
-                      <img
+                      <img alt="..." 
                         style={{ height: "25px", width: "35px" }}
                         className="FilterMinibar"
                         src={require("../images/employeeicon.svg").default}
@@ -985,7 +981,7 @@ function Sidebar(props: any) {
                   ) : (
                     <div>
                       <Link to={"/todolist"}>
-                        <img
+                        <img alt="..." 
                           style={{ height: "25px", width: "35px" }}
                           src={require("../images/employeeicon.svg").default}
                         />
@@ -1002,7 +998,7 @@ function Sidebar(props: any) {
                   {window.location.href.includes("addNewSector") ||
                   window.location.href.includes("userList") ? (
                     <div className="activeDiv">
-                      <img
+                      <img alt="..." 
                         style={{ height: "25px", width: "35px" }}
                         className="FilterMinibar"
                         src={require("../images/settings.svg").default}
@@ -1011,7 +1007,7 @@ function Sidebar(props: any) {
                   ) : (
                     <div className="">
                       <Link to={"/addNewSector"}>
-                        <img
+                        <img alt="..." 
                           style={{ height: "25px", width: "35px" }}
                           src={require("../images/settings.svg").default}
                         />
@@ -1027,7 +1023,7 @@ function Sidebar(props: any) {
                 >
                   {window.location.href.includes("downloadCenter") ? (
                     <div className={"activeDiv "}>
-                      <img
+                      <img alt="..." 
                         style={{ height: "25px", width: "35px" }}
                         className="FilterMinibar"
                         src={require("../images/telecharger.svg").default}
@@ -1036,7 +1032,7 @@ function Sidebar(props: any) {
                   ) : (
                     <div className={""}>
                       <Link to={"/downloadCenter"}>
-                        <img
+                        <img alt="..." 
                           style={{ height: "25px", width: "35px" }}
                           src={require("../images/telecharger.svg").default}
                         />
@@ -1058,7 +1054,7 @@ function Sidebar(props: any) {
                           : ""
                       }
                     >
-                      <img
+                      <img alt="..." 
                         style={{ height: "25px", width: "35px" }}
                         className="FilterMinibar"
                         src={require("../images/Leads.svg").default}
@@ -1067,7 +1063,7 @@ function Sidebar(props: any) {
                   ) : (
                     <div>
                       <Link to={"/LeadsCenter"}>
-                        <img
+                        <img alt="..." 
                           style={{ height: "25px", width: "35px" }}
                           src={require("../images/Leads.svg").default}
                         />
@@ -1083,7 +1079,7 @@ function Sidebar(props: any) {
                 >
                   {window.location.href.includes("JobAdsCenter") ? (
                     <div className={"activeDiv"}>
-                      <img
+                      <img alt="..." 
                         style={{ height: "25px", width: "35px" }}
                         className="FilterMinibar"
                         src={require("../images/CombinedShape.svg").default}
@@ -1092,7 +1088,7 @@ function Sidebar(props: any) {
                   ) : (
                     <div className={""}>
                       <Link to={"/JobAdsCenter"}>
-                        <img
+                        <img alt="..." 
                           style={{ height: "25px", width: "35px" }}
                           src={require("../images/CombinedShape.svg").default}
                         />
@@ -1108,7 +1104,7 @@ function Sidebar(props: any) {
                 >
                   {window.location.href.includes("commercialCenter") ? (
                     <div className={"activeDiv "}>
-                      <img
+                      <img alt="..." 
                         style={{ height: "25px", width: "35px" }}
                         className="FilterMinibar"
                         src={require("../images/comIcon.svg").default}
@@ -1117,7 +1113,7 @@ function Sidebar(props: any) {
                   ) : (
                     <div className={""}>
                       <Link to={"/commercialCenter"}>
-                        <img
+                        <img alt="..." 
                           style={{ height: "25px", width: "35px" }}
                           className=""
                           src={require("../images/comIcon.svg").default}
@@ -1130,7 +1126,7 @@ function Sidebar(props: any) {
                   <li className=" d-flex align-items-center justify-content-center">
                     {window.location.href.includes("billing") ? (
                       <div className={"activeDiv "}>
-                        <img
+                        <img alt="..." 
                           style={{ height: "26px", width: "26px" }}
                           className="FilterMinibar"
                           src={require("../images/billingCenter.svg").default}
@@ -1139,7 +1135,7 @@ function Sidebar(props: any) {
                     ) : (
                       <div className={""}>
                         <Link to={"/billing-center"}>
-                          <img
+                          <img alt="..." 
                             style={{ height: "26px", width: "26px" }}
                             className=""
                             src={require("../images/billingCenter.svg").default}
@@ -1157,7 +1153,7 @@ function Sidebar(props: any) {
                 >
                   {window.location.href.includes("offerCenter") ? (
                     <div className={"activeDiv "}>
-                      <img
+                      <img alt="..." 
                         style={{ height: "25px", width: "35px" }}
                         className="FilterMinibar"
                         src={require("../images/discount.svg").default}
@@ -1166,7 +1162,7 @@ function Sidebar(props: any) {
                   ) : (
                     <div className={""}>
                       <Link to={"/offerCenter"}>
-                        <img
+                        <img alt="..." 
                           style={{ height: "25px", width: "35px" }}
                           className=""
                           src={require("../images/discount.svg").default}
@@ -1181,7 +1177,7 @@ function Sidebar(props: any) {
                     className={window.location.href.includes("/") ? "" : ""}
                   >
                     <Link to={"/"}>
-                      <img
+                      <img alt="..." 
                         style={{ height: "25px", width: "35px" }}
                         src={require("../images/logout.svg").default}
                       />

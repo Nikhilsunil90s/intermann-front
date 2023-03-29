@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast, { Toaster } from "react-hot-toast";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 
-function ArchivedModal({ props, closeModal,path }) {
+function ArchivedModal({ props, closeModal, path }) {
   const [reasonToArchive, setReasonToArchive] = useState([]);
-  const [candidatId, setCandidatId] = useState(props._id);
+  const [candidatId] = useState(props._id);
   const [btnLoader, setbtnLoader] = useState(false);
 
   // Notification //
   const notifyMoveSuccess = () => toast.success("Moved Archived Successfully!");
   const notifyMoveError = () => toast.error("Not Moved..");
   // End  //
-  
+
   let data = {
     candidatId,
     reasonToArchive,
@@ -30,7 +30,7 @@ function ArchivedModal({ props, closeModal,path }) {
   };
 
   const ArchiveCandidat = async () => {
-    setbtnLoader(true)
+    setbtnLoader(true);
     return await fetch(API_BASE_URL + "moveToArchived", {
       method: "POST",
       headers: {
@@ -53,27 +53,28 @@ function ArchivedModal({ props, closeModal,path }) {
         console.log(resdata);
         closeModal(false);
         setTimeout(function () {
-       if(path=="/embauchlist"){
-        window.location.href = path;
-       }
-       else{
-        window.location.href = "/todolist";
-       }
-    
+          if (path == "/embauchlist") {
+            window.location.href = path;
+          } else {
+            window.location.href = "/todolist";
+          }
         }, 2000);
-        setbtnLoader(false)
+        setbtnLoader(false);
         notifyMoveSuccess();
       })
       .catch((err) => {
         console.log(err);
         notifyMoveError();
-        setbtnLoader(false)
+        setbtnLoader(false);
       });
   };
 
   return (
     <>
-    <Toaster containerStyle={{zIndex:"99999999999999999"}} position="top-right" />
+      <Toaster
+        containerStyle={{ zIndex: "99999999999999999" }}
+        position="top-right"
+      />
       <div
         className="modal d-block"
         style={{ backgroundColor: "#00000052" }}
@@ -85,16 +86,22 @@ function ArchivedModal({ props, closeModal,path }) {
       >
         <div className="modal-dialog modal-lg">
           <div className="modal-content padding-full">
-               <div className="modal-header">
-              <h5 className="modal-title modalStylingfontArchive" id="exampleModalLabel">
-              Move {props.candidatName} to <span className=""> Archived </span>
+            <div className="modal-header">
+              <h5
+                className="modal-title modalStylingfontArchive"
+                id="exampleModalLabel"
+              >
+                Move {props.candidatName} to{" "}
+                <span className=""> Archived </span>
               </h5>
               <button
                 type="button"
                 className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
-              onClick={()=>{closeModal(false)}}
+                onClick={() => {
+                  closeModal(false);
+                }}
               ></button>
             </div>
             <div className="modal-body text-start">
@@ -131,8 +138,8 @@ function ArchivedModal({ props, closeModal,path }) {
                   <div className="row justify-content-end">
                     <div className="col-7">
                       <button
-                      className="d-flex justify-content-center" 
-                      disabled={btnLoader}
+                        className="d-flex justify-content-center"
+                        disabled={btnLoader}
                         style={{
                           borderRadius: "25px",
                           backgroundColor: "#FF0000",
@@ -147,10 +154,13 @@ function ArchivedModal({ props, closeModal,path }) {
                           border: "unset",
                         }}
                       >
-                        {btnLoader ?   <div className="RESTloader " >Loading...</div>   : null}   Move {props.candidatName.toUpperCase()} to Status Archived.
+                        {btnLoader ? (
+                          <div className="RESTloader ">Loading...</div>
+                        ) : null}{" "}
+                        Move {props.candidatName.toUpperCase()} to Status
+                        Archived.
                       </button>
                     </div>
-
                   </div>
                 </div>
               </form>

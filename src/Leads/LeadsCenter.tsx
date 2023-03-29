@@ -18,7 +18,7 @@
 // function LeadsCenter() {
 
 //   const LoginUser=JSON.parse(localStorage.getItem("LoginUser"))
-//   const [LoginUserS,setLoginUser]=useState(LoginUser)
+//   const [LoginUser]=useState(LoginUser)
 //   const [activeTab, setActiveTab] = React.useState(0) as any;
 //   const [LeadsCheck,setLeadScHeck] =useState(false)
 //   const [Leads,setLeads]=useState([])
@@ -408,19 +408,17 @@ import { Tabs, Tab } from "react-tabs-scrollable";
 import LeadCenterMiniCard from "./LeadComponents/LeadCenterMiniCard";
 import Filters from "./LeadComponents/Filters";
 import LeadList from "./LeadComponents/LeadList";
-import Loader from "../components/Loader/loader";
 import Error from "../components/Loader/SearchBarError";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import { Toaster } from "react-hot-toast";
 import Carousel from "react-multi-carousel";
 import ProfilesLoader from "../../src/components/Loader/ProfilesLoader";
-import $ from "jquery";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 import Pagination from "./LeadComponents/pagination";
 let TabName = "";
 function LeadsCenter() {
   const LoginUser = JSON.parse(localStorage.getItem("LoginUser"));
-  const [LoginUserS, setLoginUser] = useState(LoginUser);
+  const [LoginUserS] = useState(LoginUser);
   const [activeTab, setActiveTab] = React.useState(0) as any;
   const [LeadsCheck, setLeadScHeck] = useState(false);
   const [Leads, setLeads] = useState([]) as any;
@@ -429,16 +427,16 @@ function LeadsCenter() {
   const [currentUser, setCurrentUser] = useState() as any;
   const [preContected, setpreContected] = useState(0) as any;
   const [contected, setcontected] = useState(0) as any;
-  const [data,setData]=useState()as any
+  const [data, setData] = useState() as any;
   const [skipLeads, setSkipLeads] = useState([]) as any;
   const [filter, setFilter] = useState(false);
   const [currentPage, setcurrentPage] = useState(0);
-  const [filterActive,setFilterActive]=useState(false)
-  let [page, setPage] = useState(1)as any;
-  const [DsBtn,setDsBtn]=useState(false)
-  const [total,setTotal]=useState(0)as any
-  const [wait,setWait]=useState(false)
-  const [rest,setrest]=useState(false)
+  const [filterActive, setFilterActive] = useState(false);
+  let [page, setPage] = useState(1) as any;
+  const [DsBtn, setDsBtn] = useState(false);
+  const [total, setTotal] = useState(0) as any;
+  const [wait, setWait] = useState(false);
+  const [rest, setrest] = useState(false);
   const [tabItems] = useState([
     {
       text: "FRANCE",
@@ -454,34 +452,30 @@ function LeadsCenter() {
     },
   ]) as any;
 
-
   const fetchSkipLeads = async (market: any, page: any) => {
     //  setLeadScHeck(false)
-    setDsBtn(true)
+    setDsBtn(true);
     await fetch(API_BASE_URL + `allLeads/?market=${market}&skip=${page}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " +  Cookies.get("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((red) => red.json())
       .then((resData) => {
         if (resData.status) {
           setLeadScHeck(true);
-    setDsBtn(false)
-    setUpdateField(false);
+          setDsBtn(false);
+          setUpdateField(false);
           setLeads([...resData.data]);
-   
         } else {
           setLeads([]);
           setLeadScHeck(true);
           setUpdateField(false);
-          setDsBtn(false)
-          setDsBtn(false)
-
- 
+          setDsBtn(false);
+          setDsBtn(false);
         }
       })
       .catch((err) => err);
@@ -491,13 +485,13 @@ function LeadsCenter() {
 
   const fetchLeads = async (market: any, page: any) => {
     //  setLeadScHeck(false)
-    setWait(false)
+    setWait(false);
     await fetch(API_BASE_URL + `allLeads2/?market=${market}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " +  Cookies.get("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((red) => red.json())
@@ -506,18 +500,18 @@ function LeadsCenter() {
           setLeadScHeck(true);
           setUpdateField(false);
           setSkipLeads([...resData.data]);
-          setTotal(resData.data.length)
-          setWait(true)
-          setrest(false)
+          setTotal(resData.data.length);
+          setWait(true);
+          setrest(false);
           setpreContected(resData.notPreContactedCount);
           setcontected(resData.notContactedCount);
         } else {
           setSkipLeads([]);
-          setWait(true)
+          setWait(true);
           setLeadScHeck(true);
-          setrest(false)
+          setrest(false);
           setUpdateField(false);
-          setTotal(resData.data.length)
+          setTotal(resData.data.length);
           setpreContected(resData.notPreContactedCount);
           setcontected(resData.notContactedCount);
         }
@@ -533,7 +527,7 @@ function LeadsCenter() {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " +  Cookies.get("token"),
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
       .then((red) => red.json())
@@ -584,25 +578,25 @@ function LeadsCenter() {
     // console.log(currentUser.emailAddress)
     const FolderName = tabItems.filter((el, i) => i == activeTab);
     TabName = FolderName.map((el) => el.value);
-// if(filter == false){
-//   fetchLeads(TabName, page);
-//   fetchSkipLeads(TabName, currentPage)
-// }
+    // if(filter == false){
+    //   fetchLeads(TabName, page);
+    //   fetchSkipLeads(TabName, currentPage)
+    // }
   }, [UpdateFiled]);
-  useEffect(()=>{
-    if(filter == false){
-  fetchLeads(TabName, page);
-  fetchSkipLeads(TabName, currentPage)
-}
-  },[rest])
+  useEffect(() => {
+    if (filter == false) {
+      fetchLeads(TabName, page);
+      fetchSkipLeads(TabName, currentPage);
+    }
+  }, [rest]);
 
   const onTabClick = (e, index: any) => {
     setActiveTab(index);
-    setPage(0)
-    setcurrentPage(0)
+    setPage(0);
+    setcurrentPage(0);
     const FolderName = tabItems.filter((el, i) => i == index);
     TabName = FolderName.map((el) => el.value);
-    fetchSkipLeads(TabName, 0)
+    fetchSkipLeads(TabName, 0);
     fetchLeads(TabName, page);
   };
   return (
@@ -721,43 +715,57 @@ function LeadsCenter() {
             className="col-12 mt-1 p-1"
             style={{ background: "#ffff", borderRadius: "10px" }}
           >
-            {wait ?
-            <>
-            <p className="mb-2 ApplyFilter">
-              <b> ‎ ✔ ‎There are {total} ‎ ‎leads Total</b>
-            </p>
-            <p className="mb-2 ApplyFilter">
-              <b>
+            {wait ? (
+              <>
+                <p className="mb-2 ApplyFilter">
+                  <b> ‎ ✔ ‎There are {total} ‎ ‎leads Total</b>
+                </p>
+                <p className="mb-2 ApplyFilter">
+                  <b>
+                    {" "}
+                    ‎✔ ‎There are {contected} leads Not Yet contacted by Agency
+                  </b>
+                </p>
+                <p className="mb-0 ApplyFilter">
+                  <b>
+                    {" "}
+                    ‎ ✔ ‎There are {preContected} leads Not Yet precontacted
+                  </b>
+                </p>
+              </>
+            ) : (
+              <>
                 {" "}
-                ‎✔ ‎There are {contected} leads Not Yet contacted by Agency
-              </b>
-            </p>
-            <p className="mb-0 ApplyFilter">
-              <b> ‎ ✔ ‎There are {preContected} leads Not Yet precontacted</b>
-            </p>
-            </>
-            :
-            <>
-            {" "}
-            <div className="d-flex LeadsLoad justify-content-center">
-                  <div className="spinner-border text-warning" role="status" style={{height:"140px",width:"140px"}}>
-                    <span className="visually-hidden" >Loading...</span>
+                <div className="d-flex LeadsLoad justify-content-center">
+                  <div
+                    className="spinner-border text-warning"
+                    role="status"
+                    style={{ height: "140px", width: "140px" }}
+                  >
+                    <span className="visually-hidden">Loading...</span>
                   </div>
                 </div>
-          </>}
+              </>
+            )}
           </div>
           <div
             className="col-12 p-1 my-1 "
             style={{ background: "#ffff", borderRadius: "10px" }}
           >
-            {
-              filterActive ?
-               null
-               :
-               
-           <Pagination setPage={setPage} setcurrentPage={setcurrentPage} fetchSkipLeads={fetchSkipLeads} page={page}  tabName={TabName} comp="top"  DS={DsBtn} LeadsCheck={LeadsCheck}  Leads={skipLeads} />
-            }
-           
+            {filterActive ? null : (
+              <Pagination
+                setPage={setPage}
+                setcurrentPage={setcurrentPage}
+                fetchSkipLeads={fetchSkipLeads}
+                page={page}
+                tabName={TabName}
+                comp="top"
+                DS={DsBtn}
+                LeadsCheck={LeadsCheck}
+                Leads={skipLeads}
+              />
+            )}
+
             {LeadsCheck ? (
               Leads.length > 0 ? (
                 <>
@@ -798,15 +806,21 @@ function LeadsCenter() {
                 </div>
               </div>
             )}
-               {
-              filterActive  ||   Leads.length == 0 ? 
-            
-               null
-               :
-               <div className="mt-2">
-           <Pagination setPage={setPage} setcurrentPage={setcurrentPage} fetchSkipLeads={fetchSkipLeads} page={page}  tabName={TabName} comp="bottom"  DS={DsBtn} LeadsCheck={LeadsCheck} Leads={skipLeads} />
-           </div>
-            }
+            {filterActive || Leads.length == 0 ? null : (
+              <div className="mt-2">
+                <Pagination
+                  setPage={setPage}
+                  setcurrentPage={setcurrentPage}
+                  fetchSkipLeads={fetchSkipLeads}
+                  page={page}
+                  tabName={TabName}
+                  comp="bottom"
+                  DS={DsBtn}
+                  LeadsCheck={LeadsCheck}
+                  Leads={skipLeads}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

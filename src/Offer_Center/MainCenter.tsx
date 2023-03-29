@@ -8,47 +8,43 @@ import UploadFile from "./Modal/UploadFile";
 import Error404Loader from "../components/Loader/404Error";
 import { Toaster } from "react-hot-toast";
 import Error from "../components/Loader/SearchBarError";
-import Filters from "../Leads/LeadComponents/Filters";
-let name=[]as any
-let job=[]as any
+let name = [] as any;
+let job = [] as any;
 function MainCenter() {
   const [uploadPdfModal, setUploadPdfModal] = useState({
     AddToCrm: false,
     Manually: false,
   });
-  const [btnDS,setBtnDs]=useState(false)
-  const [currentTab,setCurrentTab]=useState("unsigned")
-  const [dataUpdate,setDataUpdate]=useState(false)
+  const [currentTab, setCurrentTab] = useState("unsigned");
+  const [dataUpdate, setDataUpdate] = useState(false);
   const [cards, setCards] = useState([]);
-  const [Status,setStatus]=useState({
-   status:false,
-   error:false
-  })
-  const [filters,setFilters]=useState([])as any
+  const [Status, setStatus] = useState({
+    status: false,
+    error: false,
+  });
+  const [filters, setFilters] = useState([]) as any;
 
-  useEffect(()=>{
-    GetRoute(`get-offers/?offerType=${currentTab}`).then((res) => {
+  useEffect(() => {
+    GetRoute(`get-offers/?offerType=${currentTab}`)
+      .then((res) => {
         if (res.status) {
           setCards([...res.data]);
-          setBtnDs(false)
-          setStatus({...Status,status:true})
-          setDataUpdate(false)
+
+          setStatus({ ...Status, status: true });
+          setDataUpdate(false);
         } else {
           setCards([]);
-          setBtnDs(false)
-          setStatus({...Status,error:true})
-          setDataUpdate(false)
 
-
+          setStatus({ ...Status, error: true });
+          setDataUpdate(false);
         }
       })
-      .catch((err)=>err);
-  },[dataUpdate])
+      .catch((err) => err);
+  }, [dataUpdate]);
   const activeTab = (e) => {
-    setBtnDs(false)
     if (e.target.id === "sIGNEES") {
-      setStatus({...Status,status:false})
-      setCurrentTab("signed")
+      setStatus({ ...Status, status: false });
+      setCurrentTab("signed");
       document.getElementById("sIGNEES").classList.add("activeBtnOffer");
       document.getElementById("sIGNEES").classList.remove("transBtn");
       document.getElementById("envoyees").classList.remove("activeBtnOffer");
@@ -56,26 +52,25 @@ function MainCenter() {
       GetRoute(`get-offers/?offerType=${"signed"}`).then((res) => {
         if (res.status) {
           setCards([...res.data]);
-          name=[]
-          job=[]
-          setFilters([])
-          setBtnDs(true)
-          setStatus({...Status,status:true})
+          name = [];
+          job = [];
+          setFilters([]);
 
+          setStatus({ ...Status, status: true });
         } else {
           setCards([]);
-          name=[]
-          job=[]
+          name = [];
+          job = [];
           setFilters({
-            name:[]
-          })
-          setBtnDs(true)
-          setStatus({...Status,error:true})
+            name: [],
+          });
+
+          setStatus({ ...Status, error: true });
         }
       });
     } else {
-      setStatus({...Status,status:false})
-      setCurrentTab("unsigned")
+      setStatus({ ...Status, status: false });
+      setCurrentTab("unsigned");
       document.getElementById("sIGNEES").classList.remove("activeBtnOffer");
       document.getElementById("sIGNEES").classList.add("transBtn");
       document.getElementById("envoyees").classList.add("activeBtnOffer");
@@ -83,57 +78,52 @@ function MainCenter() {
       GetRoute(`get-offers/?offerType=${"unsigned"}`).then((res) => {
         if (res.status) {
           setCards([...res.data]);
-          name=[]
-          job=[]
-          setFilters([])
-          setBtnDs(true)
-          setStatus({...Status,status:true})
+          name = [];
+          job = [];
+          setFilters([]);
 
+          setStatus({ ...Status, status: true });
         } else {
           setCards([]);
-          name=[]
-          job=[]
+          name = [];
+          job = [];
           setFilters({
-            name:[]
-          })
-          setBtnDs(true)
-          setStatus({...Status,error:true})
+            name: [],
+          });
 
+          setStatus({ ...Status, error: true });
         }
       });
     }
   };
 
-  useEffect(()=>{
-    
-   if(cards.length > 0 && filters.length === 0){
-    cards.map((el:any)=>{
-      if(el.company_name){
-         name.push({
-          value: el.company_name,
-          label:el.company_name.toUpperCase() ,
-          color: "#FF8B00",
-          name: "company_name",
-        });
-      }
-      if(el?.metier){
-        job.push({
-          value: el.metier ,
-          label:el.metier.toUpperCase() ,
-          color: "#FF8B00",
-          name: "metier",
-        });
-      }
-   
-      
-    })
-   setFilters({...filters,name:[...name],job:[...job]})
-   } 
-  })
+  useEffect(() => {
+    if (cards.length > 0 && filters.length === 0) {
+      cards.map((el: any) => {
+        if (el.company_name) {
+          name.push({
+            value: el.company_name,
+            label: el.company_name.toUpperCase(),
+            color: "#FF8B00",
+            name: "company_name",
+          });
+        }
+        if (el?.metier) {
+          job.push({
+            value: el.metier,
+            label: el.metier.toUpperCase(),
+            color: "#FF8B00",
+            name: "metier",
+          });
+        }
+      });
+      setFilters({ ...filters, name: [...name], job: [...job] });
+    }
+  });
 
   return (
     <>
-     <Toaster
+      <Toaster
         position="top-right"
         containerStyle={{ zIndex: "999999999999999999" }}
       />
@@ -143,7 +133,14 @@ function MainCenter() {
             <Header setUploadPdfModal={setUploadPdfModal} />
           </div>
           <div>
-            <Filter filterOP={filters} setStatus={setStatus} Status={Status} setDataUpdate={setDataUpdate} currentTab={currentTab}  setCards={setCards} />
+            <Filter
+              filterOP={filters}
+              setStatus={setStatus}
+              Status={Status}
+              setDataUpdate={setDataUpdate}
+              currentTab={currentTab}
+              setCards={setCards}
+            />
           </div>
           <div>
             <div className="col-12 colorTopTab p-1">
@@ -175,37 +172,43 @@ function MainCenter() {
                 padding: "10px 24px",
               }}
             >
-              {Status.status ?
-               Status.error ?
-               <div className="col-12 d-flex justify-content-center">
-               < Error404Loader  props={"38%"}    />    
+              {Status.status ? (
+                Status.error ? (
+                  <div className="col-12 d-flex justify-content-center">
+                    <Error404Loader props={"38%"} />
+                  </div>
+                ) : cards.length > 0 ? (
+                  cards.map((el, i) => (
+                    <Card
+                      props={el}
+                      key={i}
+                      cards={cards}
+                      setCards={setCards}
+                    />
+                  ))
+                ) : (
+                  <div className="col-12 my-2 d-flex align-items-center justify-content-center">
+                    {/* <span className="Leads002"></span> */}
+                    <p className="mb-0 d-flex align-items-center ErrorSearchBox">
+                      <Error />
+                      {currentTab == "unsigned"
+                        ? "✘✘ No Offers Sent Yet!"
+                        : "✘✘ No Signed Offers!"}{" "}
+                    </p>
+                  </div>
+                )
+              ) : (
+                <div className="col-12 my-2 d-flex align-items-center justify-content-center">
+                  <span className="Leads002"></span>
                 </div>
-
-               :
-              
-              cards.length > 0 ? cards.map((el,i) => <Card props={el} key={i} cards={cards} setCards={setCards}  />) :   
-               <div className="col-12 my-2 d-flex align-items-center justify-content-center">
-                      {/* <span className="Leads002"></span> */}
-                      <p className="mb-0 d-flex align-items-center ErrorSearchBox">
-                      <Error />{currentTab == "unsigned" ? "✘✘ No Offers Sent Yet!" : "✘✘ No Signed Offers!" }  </p>
-                      </div>
-
-
-                      
-                    :
-                    <div className="col-12 my-2 d-flex align-items-center justify-content-center">
-                    <span className="Leads002"></span>
-                    </div> 
-                    }
-
+              )}
             </div>
-        
+
             {uploadPdfModal.AddToCrm ? (
               <UploadFile
                 uploadPdfModal={uploadPdfModal}
                 setUploadPdfModal={setUploadPdfModal}
                 AddToCrm={"addToCrm"}
-
               />
             ) : null}
             {uploadPdfModal.Manually ? (

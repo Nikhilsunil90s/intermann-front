@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { API_BASE_URL } from "../../../config/serverApiConfig";
 import { PostRoute } from "../../../components/ApisFunction/FunctionsApi";
-import { useNavigate } from "react-router";
-import Cookies from 'js-cookie'
-
 
 function OfferModal(props) {
   let FilePath = "";
   let MailTo;
-  let link;
   const [genOfferData, setDataGenOffer] = useState({
     company_name: props.props.companyName,
     company_email: props.props.email,
@@ -23,7 +18,6 @@ function OfferModal(props) {
     commercialLeadId:props.props._id
   });
   const [response, setResponse] = useState(true);
-  const [filePath, setFilePath] = useState("");
   const onChangeGenOfferset = (e) => {
     if (e.target.name === "salaire_35H") {
       setDataGenOffer({

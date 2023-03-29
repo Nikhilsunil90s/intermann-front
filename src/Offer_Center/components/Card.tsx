@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { GetRouteWithoutAuth,GetRoute, PostRoute } from "../../components/ApisFunction/FunctionsApi";
+import {
+  GetRouteWithoutAuth,
+  GetRoute,
+  PostRoute,
+} from "../../components/ApisFunction/FunctionsApi";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import LinkItModal from "../Modal/LinkItModal";
 
@@ -34,15 +38,17 @@ function Card(props: any) {
     });
   };
 
-  const DeleteOffer = (path,id) => {
+  const DeleteOffer = (path, id) => {
     setDeleteDsBtn({ ...dsBtn, ["DSBTN"]: true });
     setDeleteDsBtn({ ...dsBtn, ["id"]: id });
-    GetRoute(path).then(
-      (res) => {
+    GetRoute(path)
+      .then((res) => {
         if (res.status) {
           toast.success(res.message);
-       const newArr=  props.cards.filter((el: any) => el._id !== props.props._id)
-       props.setCards([...newArr])
+          const newArr = props.cards.filter(
+            (el: any) => el._id !== props.props._id
+          );
+          props.setCards([...newArr]);
           setDeleteDsBtn({
             id: "",
             DSBTN: false,
@@ -54,33 +60,41 @@ function Card(props: any) {
             DSBTN: false,
           });
         }
-      }
-    )
-    .catch(err=>err)
+      })
+      .catch((err) => err);
   };
 
-  const MoveToSigned=(id)=>{ 
+  const MoveToSigned = (id) => {
     let data = {
-      offerId:id
-    }
-    PostRoute(data,"mark-offer-as-signed").then((res)=>{
-      if(res.status){
-        toast.success(res.message)
-        const newArr=  props.cards.filter((el: any) => el._id !== props.props._id)
-        props.setCards([...newArr])
-      }else{
-        toast.error(res.message)
-      }
-    })
-    .catch((err)=>err)
- 
-
-  }
+      offerId: id,
+    };
+    PostRoute(data, "mark-offer-as-signed")
+      .then((res) => {
+        if (res.status) {
+          toast.success(res.message);
+          const newArr = props.cards.filter(
+            (el: any) => el._id !== props.props._id
+          );
+          props.setCards([...newArr]);
+        } else {
+          toast.error(res.message);
+        }
+      })
+      .catch((err) => err);
+  };
 
   return (
     <>
-      <div className="row OfferCenterRow mb-1" key={props.props._id} style={{margin:props.voir =="voir" ? "10px" : ""}}>
-        <div className={` ${props.voir =="voir" ? "col-9" :"col-7"} d-flex align-items-center pl-0`}>
+      <div
+        className="row OfferCenterRow mb-1"
+        key={props.props._id}
+        style={{ margin: props.voir == "voir" ? "10px" : "" }}
+      >
+        <div
+          className={` ${
+            props.voir == "voir" ? "col-9" : "col-7"
+          } d-flex align-items-center pl-0`}
+        >
           <p className="mb-0 d-flex justify-content-center">
             société :
             <b
@@ -92,7 +106,6 @@ function Card(props: any) {
               {props.props.company_name.length > 12
                 ? props.props.company_name.slice(0, 11) + "..."
                 : props.props.company_name}
-              
             </b>
             - métier :
             <b
@@ -101,16 +114,17 @@ function Card(props: any) {
               data-bs-placement="bottom"
               title={props.props.metier}
             >
-              {props.props.metier ? props.props.metier.length > 9
-                ? props.props.metier.slice(0, 9) + "..."
-                : props.props.metier
-                ? props.props.metier
-                : "✘✘!  ":"✘✘!"}
-              
+              {props.props.metier
+                ? props.props.metier.length > 9
+                  ? props.props.metier.slice(0, 9) + "..."
+                  : props.props.metier
+                  ? props.props.metier
+                  : "✘✘!  "
+                : "✘✘!"}
             </b>
             - Forfait :
             <b className="d-flex align-items-center">
-              {props.props.heure_fait ? props.props.heure_fait : "0H"} 
+              {props.props.heure_fait ? props.props.heure_fait : "0H"}
             </b>
             - salaire :
             <b className="d-flex align-items-center">
@@ -118,32 +132,32 @@ function Card(props: any) {
             </b>
             - Generated :
             <b className="d-flex align-items-center">
-              {props.props.offer_made_date.slice(0,10)}
+              {props.props.offer_made_date.slice(0, 10)}
             </b>
           </p>
         </div>
-        <div className={`${props.voir =="voir" ? "col-3" :"col-5"}`}>
+        <div className={`${props.voir == "voir" ? "col-3" : "col-5"}`}>
           <div className="row">
-            {props.voir =="voir" ? 
+            {props.voir == "voir" ? null : (
+              <div className="col-8 d-flex justify-content-end pl-0">
+                <button
+                  className="btn LinkItClient mr-1"
+                  onClick={() => setLinkToclient(true)}
+                >
+                  Link it to Client
+                </button>
+                {props.props.offer_signed ? null : (
+                  <button
+                    onClick={() => MoveToSigned(props.props._id)}
+                    className="btn SignedMark"
+                  >
+                    Mark as signed
+                  </button>
+                )}
+              </div>
+            )}
 
-            null 
-            :
-             <div className="col-8 d-flex justify-content-end pl-0">
-             <button
-               className="btn LinkItClient mr-1"
-               onClick={() => setLinkToclient(true)}
-             >
-               Link it to Client
-             </button>
-             {props.props.offer_signed ? null : (
-               <button onClick={()=>MoveToSigned(props.props._id)} className="btn SignedMark">Mark as signed</button>
-             )}
-           </div>
-           
-
-          }
-           
-            <div className={`${props.voir =="voir" ? "col-12" :"col-4"}`}>
+            <div className={`${props.voir == "voir" ? "col-12" : "col-4"}`}>
               <div className=" d-flex align-items-center justify-content-center">
                 {deleteDsBtn.id === props.props._id ? (
                   <div className="d-flex justify-content-center align-items-center ml-1">
@@ -156,7 +170,14 @@ function Card(props: any) {
                   <button
                     className={`col-6 px-0 RoundDiv cursor-pointer`}
                     style={{ border: "0px" }}
-                    onClick={() => DeleteOffer( props.props.offer_mode === "manual" ?  `delete-manual-offer/?doc_id=${props.props._id}&public_id=${props.props.offerDocument.file_public_id}` : `delete-offer/?offerId=${props.props._id}` , props.props._id)}
+                    onClick={() =>
+                      DeleteOffer(
+                        props.props.offer_mode === "manual"
+                          ? `delete-manual-offer/?doc_id=${props.props._id}&public_id=${props.props.offerDocument.file_public_id}`
+                          : `delete-offer/?offerId=${props.props._id}`,
+                        props.props._id
+                      )
+                    }
                   >
                     <img
                       src={require("../../images/Deletebucket.svg").default}
@@ -170,8 +191,7 @@ function Card(props: any) {
                       style={{ width: "38px", height: "38px" }}
                     />
                   </div>
-                ) : (
-                  props.props.offer_mode === "manual" ? 
+                ) : props.props.offer_mode === "manual" ? (
                   <button
                     className={`col-6 px-0 RoundDiv cursor-pointe`}
                     style={{ border: "0px", margin: "0px 6px 0px 26px" }}
@@ -179,17 +199,20 @@ function Card(props: any) {
                   >
                     <img src={require("../../images/dowBtn.svg").default} />
                   </button>
-                  :
+                ) : (
                   <button
-                  className={`col-6 px-0 RoundDiv cursor-pointe`}
-                  style={{ border: "0px", margin: "0px 6px 0px 26px" }}
-                  onClick={() => DownLoadOffer(props.props._id)}
-                >
-                  <img src={require("../../images/dowBtn.svg").default} />
-                </button>
+                    className={`col-6 px-0 RoundDiv cursor-pointe`}
+                    style={{ border: "0px", margin: "0px 6px 0px 26px" }}
+                    onClick={() => DownLoadOffer(props.props._id)}
+                  >
+                    <img src={require("../../images/dowBtn.svg").default} />
+                  </button>
                 )}
                 {LinkToclient ? (
-                  <LinkItModal closeModel={setLinkToclient} props={props.props} />
+                  <LinkItModal
+                    closeModel={setLinkToclient}
+                    props={props.props}
+                  />
                 ) : null}
               </div>
             </div>

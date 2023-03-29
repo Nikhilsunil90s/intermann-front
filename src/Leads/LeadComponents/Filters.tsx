@@ -128,18 +128,17 @@
 //         .then((res) => res.json())
 //         .then((res) => {
 //           if (res.status) {
-            
+
 //             setApplyBtn(false);
 //             setprecontacted(res.notPreContactedCount);
 //             setcontacted(res.notContactedCount);
-    
+
 //            setFilterState(false)
 //             setLeads([...res.data]);
 //             setLength([...res.data])
-         
+
 //             setDateCheck(false);
 //           } else {
-            
 
 //             setApplyBtn(false);
 //             setprecontacted(res.notPreContactedCount);
@@ -147,7 +146,6 @@
 //             setcontacted(res.notContactedCount);
 //             setLeads([]);
 //             setLength([])
-          
 
 //           }
 //         })
@@ -908,8 +906,6 @@
 // }
 // export default Filters;
 
-
-
 import React, { useState, useEffect, useRef } from "react";
 import Select, { StylesConfig } from "react-select";
 import { ColourOption } from "../../Selecteddata/data";
@@ -919,9 +915,9 @@ import { DateRange } from "react-date-range";
 import { toast } from "react-hot-toast";
 import format from "date-fns/format";
 import { addDays } from "date-fns";
-import 'react-date-range/dist/styles.css'; // main css file
-import 'react-date-range/dist/theme/default.css';
-import Cookies from 'js-cookie'
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css";
+import Cookies from "js-cookie";
 
 function Filters({
   LeadsCard,
@@ -936,7 +932,9 @@ function Filters({
   filter,
   setTotal,
   setWait,
-  setFilterActive,setDatA}) {
+  setFilterActive,
+  setDatA,
+}) {
   let CaNam = [] as any;
   let Contact = [] as any;
   let Email = [] as any;
@@ -947,7 +945,7 @@ function Filters({
       key: "selection",
     },
   ]);
-  const [dateCheck, setDateCheck] = useState(false);
+
   const [applyBtn, setApplyBtn] = useState(false);
   const [jobNames, setJobName] = useState([]);
   const [Data, setData] = useState() as any;
@@ -1067,11 +1065,10 @@ function Filters({
       .catch((err) => err);
   };
 
-  useEffect(()=>{
-
-    if(Data !== undefined && filter === true){
+  useEffect(() => {
+    if (Data !== undefined && filter === true) {
       setApplyBtn(true);
-      setFilterActive(true)
+      setFilterActive(true);
       fetch(API_BASE_URL + "filterLeads", {
         method: "POST",
         headers: {
@@ -1088,22 +1085,22 @@ function Filters({
             setprecontacted(res.notPreContactedCount);
             setcontacted(res.notContactedCount);
             setLeads([...res.data]);
-            setTotal(res.data.length)
-            setFilterActive(true)
-            setFilter(false)
+            setTotal(res.data.length);
+            setFilterActive(true);
+            setFilter(false);
           } else {
             setApplyBtn(false);
             setprecontacted(res.notPreContactedCount);
-            setFilterActive(true)
+            setFilterActive(true);
             setcontacted(res.notContactedCount);
-            setTotal(0)
+            setTotal(0);
             setLeads([]);
-            setFilter(false)
+            setFilter(false);
           }
         })
         .catch((err) => err);
     }
-  },[filter])
+  }, [filter]);
   useEffect(() => {
     // event listeners
     fetchJobName(market);
@@ -1371,8 +1368,8 @@ function Filters({
     if (e.target.name === "ApplyFil") {
       if (Data !== undefined) {
         setApplyBtn(true);
-      setFilterActive(true)
-      setWait(false)
+        setFilterActive(true);
+        setWait(false);
         fetch(API_BASE_URL + "filterLeads", {
           method: "POST",
           headers: {
@@ -1386,24 +1383,21 @@ function Filters({
           .then((res) => {
             if (res.status) {
               statusLeads(true);
-      setFilterActive(true)
-      setDatA(Data)
-     setWait(true)
-      setTotal(res.data.length)
-      setLeads([...res.data]);
+              setFilterActive(true);
+              setDatA(Data);
+              setWait(true);
+              setTotal(res.data.length);
+              setLeads([...res.data]);
               setApplyBtn(false);
               setprecontacted(res.notPreContactedCount);
               setcontacted(res.notContactedCount);
               toast.success("Filter Leads Found Successfully!");
-            
-              
-              setDateCheck(false);
             } else {
               statusLeads(true);
-      setFilterActive(true)
-      setDatA(Data)
-     setWait(true)
-      setTotal(0)
+              setFilterActive(true);
+              setDatA(Data);
+              setWait(true);
+              setTotal(0);
               toast.error("Sorry No Results found!");
               setApplyBtn(false);
               setprecontacted(res.notPreContactedCount);
@@ -1419,22 +1413,21 @@ function Filters({
     } else {
       toast.success("Filters Reset Successfully!");
       setData();
-      setDatA()
-      setrest(true)
+      setDatA();
+      setrest(true);
       update(true);
-      setFilterActive(false)
+      setFilterActive(false);
       statusLeads(false);
       setfromPerson([]);
       setQUALIFIED([]);
       setCONTACTED([]);
       setPrecontacted([]);
       setLeads([]);
-      setDateCheck(false);
+
       setJobName([]);
       setContactOp([]);
       setemailOp([]);
       setCanName([]);
-
     }
   };
   return (
@@ -1668,7 +1661,7 @@ function Filters({
               onClick={() => setOpen((open) => !open)}
               className="d-flex justify-content-end eventPos"
             >
-              <img src={require("../../images/event.svg").default} />
+              <img alt="..." src={require("../../images/event.svg").default} />
             </div>
           </div>
         </div>
@@ -1795,7 +1788,7 @@ function Filters({
               {" "}
               <button
                 className="glow-on-hover mr-2"
-                style={{width:"100%",height:"40px"}}
+                style={{ width: "100%", height: "40px" }}
                 name="ApplyFil"
                 onClick={(e) => OnClickDataChange(e)}
                 disabled={applyBtn}

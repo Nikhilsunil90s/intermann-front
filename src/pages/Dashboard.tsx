@@ -1,10 +1,10 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../CSS/Dashboard.css";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import { Toaster } from "react-hot-toast";
 import { motion } from "framer-motion";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 
 function Dashboard() {
   const [toDoCandidatCount, setToDoCandidatCount] = useState(0);
@@ -15,40 +15,39 @@ function Dashboard() {
   const [inProgressClientCount, setInProgressClientCount] = useState(0);
   const [signedClientCount, setSignedClientCount] = useState(0);
   const [archivedClientCount, setArchivedClientCount] = useState(0);
-  const [loader, setLoader] = useState( false);
-
+  const [loader, setLoader] = useState(false);
 
   const fetchCandidatCounts = async () => {
     return await fetch(API_BASE_URL + "getCounts", {
       method: "GET",
       headers: {
-        "Accept": 'application/json',
-        'Content-Type': 'application/json',
-        "Authorization": "Bearer " + Cookies.get("token")
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
-      .then(resd => resd.json())
-      .then(d => d)
-      .catch(err => {
-        console.log(err)
-      })
-  }
+      .then((resd) => resd.json())
+      .then((d) => d)
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const fetchClientCounts = async () => {
     return await fetch(API_BASE_URL + "getLeadsCount", {
       method: "GET",
       headers: {
-        "Accept": 'application/json',
-        'Content-Type': 'application/json',
-        "Authorization": "Bearer " + Cookies.get("token")
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     })
-      .then(resd => resd.json())
-      .then(d => d)
-      .catch(err => {
-        console.log(err)
-      })
-  }
+      .then((resd) => resd.json())
+      .then((d) => d)
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     window.scroll({
@@ -58,37 +57,49 @@ function Dashboard() {
     });
     fetchCandidatCounts()
       .then((data) => {
-        setToDoCandidatCount(data.toDoCount)
-        setInProgressCandidatCount(data.inProgressCount)
-        setArchivedCandidatCount(data.archivedCount)
-        setInPreselectedCount(data.preSelectedCount)
-        setLoader(true)
+        setToDoCandidatCount(data.toDoCount);
+        setInProgressCandidatCount(data.inProgressCount);
+        setArchivedCandidatCount(data.archivedCount);
+        setInPreselectedCount(data.preSelectedCount);
+        setLoader(true);
       })
-      .catch(err => err)
+      .catch((err) => err);
 
     fetchClientCounts()
       .then((resp) => {
-        setToDoClientCount(resp.toDoCount)
-        setInProgressClientCount(resp.inProgressCount)
-        setSignedClientCount(resp.signedCount)
-        setArchivedClientCount(resp.archivedCount)
-       
+        setToDoClientCount(resp.toDoCount);
+        setInProgressClientCount(resp.inProgressCount);
+        setSignedClientCount(resp.signedCount);
+        setArchivedClientCount(resp.archivedCount);
       })
-      .catch(err => {
-        console.log(err)
-      })
+      .catch((err) => {
+        console.log(err);
+      });
   });
 
   return (
     <>
-      <Toaster position="top-right" containerStyle={{zIndex:"999999999999999999"}}/>
+      <Toaster
+        position="top-right"
+        containerStyle={{ zIndex: "999999999999999999" }}
+      />
       <div className="container-fluid px-0">
-        
         <div className="row mx-0">
-          <div className="col-12  card-tops mt-2" style={{padding:"0px",marginBottom:"20px"}}>
-            <div className="card d-flex justify-content-center" style={{padding:"0px 15px",borderRadius:"10px",marginBottom:"0px",height:"77px"}}>
+          <div
+            className="col-12  card-tops mt-2"
+            style={{ padding: "0px", marginBottom: "20px" }}
+          >
+            <div
+              className="card d-flex justify-content-center"
+              style={{
+                padding: "0px 15px",
+                borderRadius: "10px",
+                marginBottom: "0px",
+                height: "77px",
+              }}
+            >
               {/* <div className="card-body "> */}
-                <h2 className="card-Leads mb-0">Stats Leads / Clients</h2>
+              <h2 className="card-Leads mb-0">Stats Leads / Clients</h2>
               {/* </div> */}
             </div>
           </div>
@@ -96,376 +107,456 @@ function Dashboard() {
           <div className=" container-fluid">
             <section id="minimal-statistics">
               <div className="row">
-              <motion.div
-  initial={{ scale: 0 }}
-  animate={{ rotate: 360, scale:1}}
-  transition={{
-    type: "spring",
-    stiffness: 120,
-    damping: 70
-  }}
-  whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }} 
-  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
-
->
-         
-                <Link to="/clientTodo">
-                  <div
-                    className="card HoveRESTClassCardDash"
-                    style={{ padding: "5px 10px", borderRadius: "10px" }}
-                  >
-                    <div className="card-content">
-                      <div className="card-body">
-                        <div className="row media d-flex">
-                          <div className="col-6 align-self-center">
-                            <img src={require("../images/Oval.svg").default} />
-                          </div>
-                          <div className="col-6 media-body text-right">
-                            {loader ? (
-                              <>
-                                <h3 className="pt-1 NumberStyling text-end">
-
-                                  {toDoClientCount}
-                                </h3>
-                              </>
-                            ) : (
-                              <>
-                                <div className="d-flex justify-content-end">
-                                  <div className="Das-loader"></div>
-                                </div>
-                              </>
-                            )}
-                          </div>
-                          <div className="text-start">
-                            <h3 className="fontStyling">
-                              To Do / Non traité / Non signé
-                            </h3>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ rotate: 360, scale: 1 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 120,
+                    damping: 70,
+                  }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.8 }}
+                  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
+                >
+                  <Link to="/clientTodo">
+                    <div
+                      className="card HoveRESTClassCardDash"
+                      style={{ padding: "5px 10px", borderRadius: "10px" }}
+                    >
+                      <div className="card-content">
+                        <div className="card-body">
+                          <div className="row media d-flex">
+                            <div className="col-6 align-self-center">
+                              <img alt="..." 
+                                src={require("../images/Oval.svg").default}
+                              />
+                            </div>
+                            <div className="col-6 media-body text-right">
+                              {loader ? (
+                                <>
+                                  <h3 className="pt-1 NumberStyling text-end">
+                                    {toDoClientCount}
+                                  </h3>
+                                </>
+                              ) : (
+                                <>
+                                  <div className="d-flex justify-content-end">
+                                    <div className="Das-loader"></div>
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                            <div className="text-start">
+                              <h3 className="fontStyling">
+                                To Do / Non traité / Non signé
+                              </h3>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                   </Link>
-              
-</motion.div>
-             
-               
-<motion.div
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true }}
-    transition={{ duration: 0.7, delay: 0.2 }}
-    variants={{
-      visible: { opacity: 1, y: 0 },
-      hidden: { opacity: 0, y: -50 }
-    }}  
-  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
-  whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }} 
->
-     
+                </motion.div>
+
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.2 }}
+                  variants={{
+                    visible: { opacity: 1, y: 0 },
+                    hidden: { opacity: 0, y: -50 },
+                  }}
+                  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.8 }}
+                >
                   <Link to="/clientProgress">
-                  <div
-                    className="card HoveRESTClassCardDash"
-                    style={{ padding: "5px 10px", borderRadius: "10px" }}
-                  >
-                    <div className="card-content">
-                      <div className="card-body">
-                        <div className="row media d-flex">
-                          <div className="col-6 align-self-center">
-                            <img src={require("../images/CardPre.svg").default} />
-                          </div>
-                          <div className="col-6 media-body text-right">
-                          {loader? (<><h3 className="pt-1 NumberStyling text-end">{signedClientCount}</h3></>):(<> <div className="d-flex justify-content-end">
-                                  <div className="Das-loader"></div>
-                                </div></>)}
-                          </div>
-                          <div className="text-start">
-                            <h3 className="fontStyling">
-                            Recherche en cours / Proposal Signed
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  </Link>
-</motion.div>
-       
-               
-<motion.div
-  initial={{ scale: 0 }}
-  animate={{ rotate: 360, scale:1}}
-  transition={{
-    type: "spring",
-    stiffness: 120,
-    damping: 70
-  }}
-  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
-  whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.8 }} 
->
-                <Link to="/clientContract">
-                  <div
-                    className="card HoveRESTClassCardDash"
-                    style={{ padding: "5px 10px", borderRadius: "10px" }}
-                  >
-                    <div className="card-content">
-                      <div className="card-body">
-                        <div className="row media d-flex">
-                          <div className="col-6 align-self-center">
-                            <img src={require("../images/CardTick.svg").default} />
-                          </div>
-                          <div className="col-6 media-body text-right">
-                          {loader? (<><h3 className="pt-1 NumberStyling text-end">{inProgressClientCount}</h3></>):(<> <div className="d-flex justify-content-end">
-                                  <div className="Das-loader"></div>
-                                </div></>)}
-                          </div>
-                          <div className="text-start">
-                            <h3 className="fontStyling">
-                            Contrat en cours / Done
-                            </h3>
+                    <div
+                      className="card HoveRESTClassCardDash"
+                      style={{ padding: "5px 10px", borderRadius: "10px" }}
+                    >
+                      <div className="card-content">
+                        <div className="card-body">
+                          <div className="row media d-flex">
+                            <div className="col-6 align-self-center">
+                              <img alt="..." 
+                                src={require("../images/CardPre.svg").default}
+                              />
+                            </div>
+                            <div className="col-6 media-body text-right">
+                              {loader ? (
+                                <>
+                                  <h3 className="pt-1 NumberStyling text-end">
+                                    {signedClientCount}
+                                  </h3>
+                                </>
+                              ) : (
+                                <>
+                                  {" "}
+                                  <div className="d-flex justify-content-end">
+                                    <div className="Das-loader"></div>
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                            <div className="text-start">
+                              <h3 className="fontStyling">
+                                Recherche en cours / Proposal Signed
+                              </h3>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                   </Link>
-                  </motion.div>
+                </motion.div>
 
-  
-                         
-<motion.div
-  initial={{ scale: 0 }}
-  animate={{ rotate: 360, scale:1}}
-  transition={{
-    type: "spring",
-    stiffness: 120,
-    damping: 70
-  }}
-  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
-  whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }} 
->
-                <Link to="/archived">
-                  <div
-                    className="card HoveRESTClassCardArchived"
-                    style={{ padding: "5px 10px", borderRadius: "10px" }}
-                  >
-                    <div className="card-content">
-                      <div className="card-body">
-                        <div className="row media d-flex">
-                          <div className="col-6 align-self-center">
-                            <img src={require("../images/multiply.svg").default} />
-                          </div>
-                          <div className="col-6 media-body text-right">
-                          {loader? (<><h3 className="pt-1 NumberStylingARchived text-end">{archivedClientCount}</h3></>):(<> <div className="d-flex justify-content-end">
-                                  <div className="Das-loader"></div>
-                                </div></>)}
-                          </div>
-                          <div className="text-start">
-                            <h3 className="fontStyling">
-                            Annulé / Archivé / Canceled
-                            </h3>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ rotate: 360, scale: 1 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 120,
+                    damping: 70,
+                  }}
+                  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.8 }}
+                >
+                  <Link to="/clientContract">
+                    <div
+                      className="card HoveRESTClassCardDash"
+                      style={{ padding: "5px 10px", borderRadius: "10px" }}
+                    >
+                      <div className="card-content">
+                        <div className="card-body">
+                          <div className="row media d-flex">
+                            <div className="col-6 align-self-center">
+                              <img alt="..." 
+                                src={require("../images/CardTick.svg").default}
+                              />
+                            </div>
+                            <div className="col-6 media-body text-right">
+                              {loader ? (
+                                <>
+                                  <h3 className="pt-1 NumberStyling text-end">
+                                    {inProgressClientCount}
+                                  </h3>
+                                </>
+                              ) : (
+                                <>
+                                  {" "}
+                                  <div className="d-flex justify-content-end">
+                                    <div className="Das-loader"></div>
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                            <div className="text-start">
+                              <h3 className="fontStyling">
+                                Contrat en cours / Done
+                              </h3>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                   </Link>
-                  </motion.div>
+                </motion.div>
 
-
-                
-  
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ rotate: 360, scale: 1 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 120,
+                    damping: 70,
+                  }}
+                  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.8 }}
+                >
+                  <Link to="/archived">
+                    <div
+                      className="card HoveRESTClassCardArchived"
+                      style={{ padding: "5px 10px", borderRadius: "10px" }}
+                    >
+                      <div className="card-content">
+                        <div className="card-body">
+                          <div className="row media d-flex">
+                            <div className="col-6 align-self-center">
+                              <img alt="..." 
+                                src={require("../images/multiply.svg").default}
+                              />
+                            </div>
+                            <div className="col-6 media-body text-right">
+                              {loader ? (
+                                <>
+                                  <h3 className="pt-1 NumberStylingARchived text-end">
+                                    {archivedClientCount}
+                                  </h3>
+                                </>
+                              ) : (
+                                <>
+                                  {" "}
+                                  <div className="d-flex justify-content-end">
+                                    <div className="Das-loader"></div>
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                            <div className="text-start">
+                              <h3 className="fontStyling">
+                                Annulé / Archivé / Canceled
+                              </h3>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
               </div>
             </section>
           </div>
 
-
-
-          <div className="col-12 card-tops " style={{padding:"0px",marginBottom:"20px"}}>
-            <div className="card d-flex justify-content-center" style={{padding:"0px 15px",borderRadius:"10px",marginBottom:"0px",height:"77px"}}>
-             
-                <h2 className="card-Leads mb-0">Stats Candidats / Employees</h2>
-             
+          <div
+            className="col-12 card-tops "
+            style={{ padding: "0px", marginBottom: "20px" }}
+          >
+            <div
+              className="card d-flex justify-content-center"
+              style={{
+                padding: "0px 15px",
+                borderRadius: "10px",
+                marginBottom: "0px",
+                height: "77px",
+              }}
+            >
+              <h2 className="card-Leads mb-0">Stats Candidats / Employees</h2>
             </div>
           </div>
 
           <div className=" container-fluid">
             <section id="minimal-statistics">
               <div className="row">
-              
-              <motion.div
-  initial={{ scale: 0 }}
-  animate={{ rotate: 360, scale:1}}
-  transition={{
-    type: "spring",
-    stiffness: 120,
-    damping: 70
-  }}
-  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
-  whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }} 
->
-                <Link to="/todolist">
-                  <div
-                    className="card HoveRESTClassCardDash mb-0"
-                    style={{ padding: "5px 10px", borderRadius: "10px" }}
-                  >
-                    <div className="card-content">
-                      <div className="card-body">
-                        <div className="row media d-flex">
-                          <div className="col-6 align-self-center">
-                            <img src={require("../images/Oval.svg").default} />
-                          </div>
-                          <div className="col-6 media-body text-right">
-                            {loader ? (
-                              <>
-                                <h3 className="pt-1 NumberStyling text-end">
-
-                                  {toDoCandidatCount}
-                                </h3>
-                              </>
-                            ) : (
-                              <>
-                                <div className="d-flex justify-content-end">
-                                  <div className="Das-loader"></div>
-                                </div>
-                              </>
-                            )}
-                          </div>
-                          <div className="text-start">
-                            <h3 className="fontStyling">
-                            En sommeil / To do
-                            </h3>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ rotate: 360, scale: 1 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 120,
+                    damping: 70,
+                  }}
+                  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.8 }}
+                >
+                  <Link to="/todolist">
+                    <div
+                      className="card HoveRESTClassCardDash mb-0"
+                      style={{ padding: "5px 10px", borderRadius: "10px" }}
+                    >
+                      <div className="card-content">
+                        <div className="card-body">
+                          <div className="row media d-flex">
+                            <div className="col-6 align-self-center">
+                              <img alt="..." 
+                                src={require("../images/Oval.svg").default}
+                              />
+                            </div>
+                            <div className="col-6 media-body text-right">
+                              {loader ? (
+                                <>
+                                  <h3 className="pt-1 NumberStyling text-end">
+                                    {toDoCandidatCount}
+                                  </h3>
+                                </>
+                              ) : (
+                                <>
+                                  <div className="d-flex justify-content-end">
+                                    <div className="Das-loader"></div>
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                            <div className="text-start">
+                              <h3 className="fontStyling">
+                                En sommeil / To do
+                              </h3>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                   </Link>
-                  </motion.div>
-                  <motion.div
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true }}
-    transition={{ duration: 0.7, delay: 0.2 }}
-    variants={{
-      visible: { opacity: 1, y: 0 },
-      hidden: { opacity: 0, y: -50 }
-    }}  
-  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
-  whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }} 
->
+                </motion.div>
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.2 }}
+                  variants={{
+                    visible: { opacity: 1, y: 0 },
+                    hidden: { opacity: 0, y: -50 },
+                  }}
+                  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.8 }}
+                >
                   <Link to="/preSelected">
-                  <div
-                    className="card HoveRESTClassCardDash"
-                    style={{ padding: "5px 10px", borderRadius: "10px" }}
-                  >
-                    <div className="card-content">
-                      <div className="card-body">
-                        <div className="row media d-flex">
-                          <div className="col-6 align-self-center">
-                            <img src={require("../images/Preselected.svg").default} />
-                          </div>
-                          <div className="col-6 media-body text-right">
-                          {loader? (<><h3 className="pt-1 NumberStyling text-end">{preSelectedCount}</h3></>):(<> <div className="d-flex justify-content-end">
-                                  <div className="Das-loader"></div>
-                                </div></>)}
-                          </div>
-                          <div className="text-start">
-                            <h3 className="fontStyling">
-                            Selected / Pre Selected
-                            </h3>
+                    <div
+                      className="card HoveRESTClassCardDash"
+                      style={{ padding: "5px 10px", borderRadius: "10px" }}
+                    >
+                      <div className="card-content">
+                        <div className="card-body">
+                          <div className="row media d-flex">
+                            <div className="col-6 align-self-center">
+                              <img alt="..." 
+                                src={
+                                  require("../images/Preselected.svg").default
+                                }
+                              />
+                            </div>
+                            <div className="col-6 media-body text-right">
+                              {loader ? (
+                                <>
+                                  <h3 className="pt-1 NumberStyling text-end">
+                                    {preSelectedCount}
+                                  </h3>
+                                </>
+                              ) : (
+                                <>
+                                  {" "}
+                                  <div className="d-flex justify-content-end">
+                                    <div className="Das-loader"></div>
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                            <div className="text-start">
+                              <h3 className="fontStyling">
+                                Selected / Pre Selected
+                              </h3>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                   </Link>
-                  </motion.div>
+                </motion.div>
 
-                  <motion.div
-  initial={{ scale: 0 }}
-  animate={{ rotate: 360, scale:1}}
-  transition={{
-    type: "spring",
-    stiffness: 120,
-    damping: 70
-  }}
-  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
-  whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.8 }} 
->
-                <Link to="/embauchlist">
-                  <div
-                    className="card HoveRESTClassCardDash"
-                    style={{ padding: "5px 10px", borderRadius: "10px" }}
-                  >
-                    <div className="card-content">
-                      <div className="card-body">
-                        <div className="row media d-flex">
-                          <div className="col-6 align-self-center">
-                            <img src={require("../images/CardTick.svg").default} />
-                          </div>
-                          <div className="col-6 media-body text-right">
-                          {loader? (<><h3 className="pt-1 NumberStyling text-end">{inProgressCandidatCount}</h3></>):(<> <div className="d-flex justify-content-end">
-                                  <div className="Das-loader"></div>
-                                </div></>)}
-                          </div>
-                          <div className="text-start">
-                            <h3 className="fontStyling">
-                            Embauché / Work with us
-                            </h3>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ rotate: 360, scale: 1 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 120,
+                    damping: 70,
+                  }}
+                  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.8 }}
+                >
+                  <Link to="/embauchlist">
+                    <div
+                      className="card HoveRESTClassCardDash"
+                      style={{ padding: "5px 10px", borderRadius: "10px" }}
+                    >
+                      <div className="card-content">
+                        <div className="card-body">
+                          <div className="row media d-flex">
+                            <div className="col-6 align-self-center">
+                              <img alt="..." 
+                                src={require("../images/CardTick.svg").default}
+                              />
+                            </div>
+                            <div className="col-6 media-body text-right">
+                              {loader ? (
+                                <>
+                                  <h3 className="pt-1 NumberStyling text-end">
+                                    {inProgressCandidatCount}
+                                  </h3>
+                                </>
+                              ) : (
+                                <>
+                                  {" "}
+                                  <div className="d-flex justify-content-end">
+                                    <div className="Das-loader"></div>
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                            <div className="text-start">
+                              <h3 className="fontStyling">
+                                Embauché / Work with us
+                              </h3>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  </Link> 
-                  </motion.div>
-
- 
-                  <motion.div
-  initial={{ scale: 0 }}
-  animate={{ rotate: 360, scale:1}}
-  transition={{
-    type: "spring",
-    stiffness: 120,
-    damping: 70
-  }}
-  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
-  whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }} 
->
-                <Link to="/archivedlist">
-                  <div
-                    className="card HoveRESTClassCardArchived"
-                    style={{ padding: "5px 10px", borderRadius: "10px" }}
-                  >
-                    <div className="card-content">
-                      <div className="card-body">
-                        <div className="row media d-flex">
-                          <div className="col-6 align-self-center">
-                            <img src={require("../images/multiply.svg").default} />
-                          </div>
-                          <div className="col-6 media-body text-right">
-                          {loader? (<><h3 className="pt-1 NumberStylingARchived text-end" >{archivedCandidatCount}</h3></>):(<> <div className="d-flex justify-content-end">
-                                  <div className="Das-loader"></div>
-                                </div></>)}
-                          </div>
-                          <div className="text-start">
-                            <h3 className="fontStyling">
-                            Archivé / Archived
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                   </Link>
-                  </motion.div>
+                </motion.div>
 
-               
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ rotate: 360, scale: 1 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 120,
+                    damping: 70,
+                  }}
+                  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.8 }}
+                >
+                  <Link to="/archivedlist">
+                    <div
+                      className="card HoveRESTClassCardArchived"
+                      style={{ padding: "5px 10px", borderRadius: "10px" }}
+                    >
+                      <div className="card-content">
+                        <div className="card-body">
+                          <div className="row media d-flex">
+                            <div className="col-6 align-self-center">
+                              <img alt="..." 
+                                src={require("../images/multiply.svg").default}
+                              />
+                            </div>
+                            <div className="col-6 media-body text-right">
+                              {loader ? (
+                                <>
+                                  <h3 className="pt-1 NumberStylingARchived text-end">
+                                    {archivedCandidatCount}
+                                  </h3>
+                                </>
+                              ) : (
+                                <>
+                                  {" "}
+                                  <div className="d-flex justify-content-end">
+                                    <div className="Das-loader"></div>
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                            <div className="text-start">
+                              <h3 className="fontStyling">
+                                Archivé / Archived
+                              </h3>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
               </div>
             </section>
           </div>
-          
         </div>
       </div>
     </>

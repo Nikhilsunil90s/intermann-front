@@ -78,7 +78,6 @@ let Amountarr = "";
 let Hours = "";
 
 const SalaryTotal = [] as any;
-const SalaryTotalcheck = [] as any;
 const TauxH = [];
 let arr = [] as any;
 let Tauxarr = [] as any;
@@ -100,26 +99,20 @@ function ClientInProgressEdit() {
   const navigate = useNavigate();
   const [data, setData] = useState(ClientDataFormat);
   const [formTouched, setFormTouched] = useState(false);
-  const [profile, setProfile] = useState<any>(state);
+  const [profile] = useState<any>(state);
   const [activitySectors, setActivitySectors] = useState([]);
   const [selectedSector, setSelectedSector] = useState("");
   const [jobs, setJobs] = useState([]);
   const [clientMotivation, setClientMotivation] = useState(
     profile.clientMotivation
   );
-  const [selectedLanguages, setSelectedLanguages] = useState(
-    profile.clientLanguages
-  );
-  const [clientImportance, setClientImportance] = useState(
-    profile.clientImportance
-  );
+
+ 
   const [clientImage, setClientImage] = useState("");
-  const hiddenFileInput = React.useRef(null);
   const [imgSource, setImgSource] = useState("");
   const [sectorOptions, setSectorOptions] = useState([]) as any;
   const [jobOptions, setJobOptions] = useState([]);
   const [StarRatings, setRatings] = useState(profile.clientImportance);
-  const [Language, setLanguage] = useState([]);
   const [showHour, setShowHour] = useState("");
   const [id, setID] = useState("");
   const hiddenImageInput = React.useRef(null);
@@ -309,7 +302,6 @@ function ClientInProgressEdit() {
 
   const changeClientImportance = (value: any) => {
     setData((prev) => ({ ...prev, ["clientImportance"]: value }));
-    setClientImportance(value);
   };
 
   const handleSectorChange = (e: any) => {
@@ -961,7 +953,7 @@ function ClientInProgressEdit() {
     selectedOption.map((el) => {
       arr.push(el.value);
     });
-    setLanguage(arr);
+
     setData({ ...data, clientLanguages: arr });
   };
 
@@ -993,7 +985,7 @@ function ClientInProgressEdit() {
                 <div className="stable">
                   <Link to={path}>
                     <button type="button" className="btn FontStyle-TODOSEE">
-                      <img src={require("../../images/return.svg").default} />
+                      <img  alt="..." src={require("../../images/return.svg").default} />
                       Client File : {profile.clientCompanyName}
                     </button>
                   </Link>
