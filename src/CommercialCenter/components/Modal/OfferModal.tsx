@@ -3,12 +3,13 @@ import toast from "react-hot-toast";
 import { API_BASE_URL } from "../../../config/serverApiConfig";
 import { PostRoute } from "../../../components/ApisFunction/FunctionsApi";
 import { useNavigate } from "react-router";
+import Cookies from 'js-cookie'
+
+
 function OfferModal(props) {
-  const navigate = useNavigate();
   let FilePath = "";
   let MailTo;
   let link;
-  console.log(props,"props")
   const [genOfferData, setDataGenOffer] = useState({
     company_name: props.props.companyName,
     company_email: props.props.email,
@@ -59,13 +60,16 @@ function OfferModal(props) {
     }
   };
 
+
+
   const GenOffer = async () => {
     setResponse(false);
     PostRoute(genOfferData, "generate-offer")
       .then((res) => {
-        setResponse(true);
         if (res.status) {
           props.setUpdate(true)
+        setResponse(true);
+
           FilePath = res.filepath;
 
           MailTo = `mailto:${
@@ -101,6 +105,8 @@ function OfferModal(props) {
           }, 2000);
         } else {
           toast.error(res.message);
+        setResponse(true);
+
         }
       })
       .catch((err) => err);

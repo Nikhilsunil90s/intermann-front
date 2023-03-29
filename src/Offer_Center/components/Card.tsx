@@ -118,7 +118,7 @@ function Card(props: any) {
             </b>
             - Generated :
             <b className="d-flex align-items-center">
-              {props.props.offer_made_date}
+              {props.props.offer_made_date.slice(0,10)}
             </b>
           </p>
         </div>

@@ -25,7 +25,7 @@ function VoirOfferModal(props){
     return(<>
       <div className="modal d-block" style={{ backgroundColor: "#00000052" }} id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div   
-      className="modal-dialog modal-lg" style={{width:"1064px"}}>
+      className="modal-dialog modal-lg" style={{maxWidth:"1198px"}}>
                 <div className="modal-content">
                     <div className="modal-header p-0">
                     <div className="col-12">
@@ -39,7 +39,7 @@ function VoirOfferModal(props){
                     </div>
                     </div>
                     </div>
-                    <div className="modal-body scrollbarModal text-start" style={{height:"70vh"}}>
+                    <div className="modal-body scrollbarModal text-start" style={{height:"77vh"}}>
                      
                        <p className="mb-0" style={{
                             fontFamily: 'Poppins',
