@@ -62,8 +62,18 @@ import BillingCenter from "./BILLING-CENTER/Pages/billing-Center";
 import MainCenterOffer from "./Offer_Center/MainCenter";
 import OfferSigned from "./Offer_Center/components/LastStepOfSign"
 import ViewOffer from "./Offer_Center/components/DocumentSign";
+import {Helmet} from "react-helmet";
+// import Favicon from "../src/images/logo-header.svg"
+import Favicon from "../src/images/logo-header.svg"
+
 function App() {
   return (
+    <>
+     <Helmet>
+    <meta charSet="utf-8" />
+    <title>Intermann CRM</title>
+     <link rel="icon" type="image/png" href={Favicon} sizes="16x16" />
+</Helmet>
     <Provider store={configureStore}>
       <Router>
         <Routes>
@@ -575,7 +585,7 @@ function App() {
         </Routes>
       </Router>
     </Provider>
-  );
+    </> );
 }
 
 export default App;
