@@ -228,7 +228,7 @@ function JobAdsList() {
               ))
             ) : (
               <div className="col-12 my-2 d-flex justify-content-center">
-                <p className="mb-0 d-flex align-items-center ErrorSearchBox">
+                <p className="mb-0 d-flex align-items-center ErrorSearchBox noData">
                   <Warning /> NO ACTIVE RESULTS FOUND ✘✘!
                 </p>
               </div>
@@ -298,7 +298,7 @@ function JobAdsList() {
                   ))
                 ) : (
                   <div className="col-12 my-2 d-flex justify-content-center">
-                    <p className="mb-0 d-flex align-items-center ErrorSearchBox">
+                    <p className="mb-0 d-flex align-items-center ErrorSearchBox noData">
                       <Warning />
                       NO INACTIVE RESULTS FOUND ✘✘!
                     </p>

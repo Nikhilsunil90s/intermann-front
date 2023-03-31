@@ -515,7 +515,7 @@ function ProgressCard() {
                 </>
               ) : (
                 <p
-                  className="d-flex  justify-content-center align-items-center mb-0"
+                  className="d-flex  justify-content-center align-items-center mb-0 noData"
                   style={{
                     fontFamily: "Poppins",
                     fontStyle: "normal",
@@ -601,7 +601,7 @@ function ProgressCard() {
                 ) : (
                   <tr className="">
                     <td colSpan={3} className="text-center">
-                      <b className="d-flex align-items-center justify-content-center my-1">
+                      <b className="d-flex align-items-center justify-content-center my-1 noData">
                         <ErrorLoader />
                         No Experience Details Available!
                       </b>
@@ -825,7 +825,7 @@ function ProgressCard() {
                   />
                 </>
               ) : (
-                <div className="col-12 d-flex justify-content-center align-items-center py-2">
+                <div className="col-12 d-flex justify-content-center align-items-center py-2 noData">
                   <ErrorLoader />
                   <p className="mb-0 ErrorSearchBox">
                     ✘ No Contract Available for this Candidat! Please add a New

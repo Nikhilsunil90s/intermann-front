@@ -760,7 +760,7 @@ function ArchivedViewPage() {
                   />
                 </>
               ) : (
-                <div className="col-12 d-flex justify-content-center align-items-center py-2">
+                <div className="col-12 d-flex justify-content-center align-items-center py-2 noData">
                   <ErrorLoader />
                   <p className="mb-0 ErrorSearchBox">
                     ✘ No Contract Available for this Archived Client! Please add

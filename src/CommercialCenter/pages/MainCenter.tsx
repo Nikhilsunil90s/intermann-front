@@ -117,7 +117,7 @@ function MainCenter() {
                   ))
                 ) : (
                   <>
-                    <div className="col-12 my-2 d-flex align-items-center justify-content-center">
+                    <div className="col-12 my-2 d-flex align-items-center justify-content-center noData text-black">
                       <Warning />
                       <p
                         className="TotalLeads mb-0"

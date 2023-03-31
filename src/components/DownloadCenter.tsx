@@ -529,7 +529,7 @@ export default function DownloadCenter() {
                     </motion.div>
                   ))
                 ) : (
-                  <div className="col-12 d-flex justify-content-center align-items-center ErrorSearchBox my-1 ">
+                  <div className="col-12 d-flex justify-content-center align-items-center ErrorSearchBox my-1 noData">
                     {activeTab === 0 || activeTab === 1 ? (
                       <>
                         <Error /> <span> ✘ No Contract Available ✘</span>

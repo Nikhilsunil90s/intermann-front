@@ -34,10 +34,17 @@ function BillingCenter() {
   const isMulti = (e) => {
     if (e.target.checked) {
       data.map((el) => {
-        id.push(el._id);
+        if(!JSON.stringify(id).includes(JSON.stringify(el._id))){
+          id.push(el._id);
+          setActive(id)
+        }else{
+       
+        }
+        // 
       });
       setMultiselect(true);
     } else {
+      setActive([])
       id = [];
       setMultiselect(false);
     }

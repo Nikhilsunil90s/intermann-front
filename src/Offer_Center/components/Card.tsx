@@ -68,9 +68,14 @@ function Card(props: any) {
     let data = {
       offerId: id,
     };
+    setDsBtn({ ...dsBtn, ["DSBTN"]: true });
     PostRoute(data, "mark-offer-as-signed")
       .then((res) => {
         if (res.status) {
+          setDsBtn({
+            id: "",
+            DSBTN: false,
+          });
           toast.success(res.message);
           const newArr = props.cards.filter(
             (el: any) => el._id !== props.props._id
@@ -148,6 +153,7 @@ function Card(props: any) {
                 </button>
                 {props.props.offer_signed ? null : (
                   <button
+                  disabled={dsBtn.DSBTN}
                     onClick={() => MoveToSigned(props.props._id)}
                     className="btn SignedMark"
                   >

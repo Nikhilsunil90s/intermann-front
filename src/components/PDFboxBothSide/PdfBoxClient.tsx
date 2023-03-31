@@ -363,7 +363,7 @@ function PDFBoxClient({ props, value, updated }) {
                 Patager ce lien avec le client
               </p>
               <div
-                className="d-flex justify-content-center align-items-center "
+                className="d-flex justify-content-center align-items-center noData"
                 style={{ paddingLeft: "5px" }}
               >
                 {" "}

@@ -367,10 +367,10 @@ function PDFBoxCandidate({ props, value }) {
             </div>
           </div>
           <div
-            className="col-1 d-flex justify-content-center align-items-center "
+            className="col-1 d-flex justify-content-center align-items-center noData"
             style={{ paddingLeft: "5px" }}
           >
-            {" "}
+         
             <Share width={25} />
             <b className="pl-1 fw-bold"> :</b>
           </div>

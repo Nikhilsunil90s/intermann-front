@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { GetRoute } from "../../components/ApisFunction/FunctionsApi";
 
-let id = [] as any;
 function Card(props: any) {
   const [isMulti, setIsMulti] = useState([
     {
       index: "",
     },
   ]) as any;
-
+ 
   const onSelectRowActive = async (iD, i) => {
-    if (id.includes(iD)) {
-      id = id.filter((el) => el !== iD);
+    if (props.id.includes(iD)) {
+      props.id = props.id.filter((el) => el !== iD);
       setIsMulti({ ...isMulti, index: iD });
-      props.setActive(id);
+      props.setActive(props.id);
     } else {
-      id.push(iD);
+      props.id.push(iD);
       setIsMulti({ ...isMulti, index: iD });
-      props.setActive(id);
+      props.setActive(props.id);
     }
   };
 
