@@ -20,7 +20,6 @@ function MainCenter() {
   }) as any;
 
   const fetchLeads = async () => {
-    //  setLeadScHeck(false)
     await fetch(API_BASE_URL + `getAllCommercialLeads`, {
       method: "GET",
       headers: {
@@ -47,9 +46,7 @@ function MainCenter() {
       })
       .catch((err) => err);
   };
-  // console.log(state,"state")
   useEffect(() => {
-    // dispatch<any>(CommercialCenter())
     if (CurrentFilter.filterApplied == false) {
       fetchLeads();
     }
@@ -134,9 +131,7 @@ function MainCenter() {
                   <span className="Leads002"></span>
                 </div>
               )}
-               {
-        // <DownloadGmail    />
-      }
+       
             </div>
           </div>
         </div>

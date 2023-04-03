@@ -3,9 +3,7 @@ import toast from "react-hot-toast";
 import { PostRoute } from "../../../components/ApisFunction/FunctionsApi";
 
 function OfferModal(props) {
-  console.log(props.Data);
   let FilePath = "";
-  let MailTo;
   const [genOfferData, setDataGenOffer] = useState({
     company_name: props.props.companyName,
     company_email: props.props.email,
@@ -113,16 +111,18 @@ function OfferModal(props) {
           toast.error("already exists!");
         } else {
           toast.success("job added successfully!");
-
           props.Data.push(Metier);
-          console.log(props.Data, "he");
+          setMetier({
+            metier: "",
+            salaire_35H: "",
+            tax_35H: "",  
+            heure_fait: "",  
+            tax_heure_fait: "", 
+            supplymentry_tax: "",  
+            total_salaire: "",  
+          })
         }
-        // if (JSON.stringify(data?.metier).includes(JSON.stringify(Metier))) {
-        //   toast.error("already exists!");
-        // } else {
-        //   data.push(Metier);
-        //
-        // }
+  
       }
     }
   };
@@ -331,6 +331,7 @@ function OfferModal(props) {
                         lineHeight: "24px",
                         color: "#000000",
                       }}
+                      defaultValue={Metier.tax_35H}
                       type="number"
                       onChange={(e) => onChangeGenOfferset(e)}
                       placeholder="TAUX HORRAIRE 35H"
@@ -360,6 +361,7 @@ function OfferModal(props) {
                         lineHeight: "24px",
                         color: "#000000",
                       }}
+                      defaultValue={Metier.heure_fait}
                       type="number"
                       onChange={(e) => onChangeGenOfferset(e)}
                       placeholder="NOMBRE HEURE FORFAIT"
@@ -389,6 +391,7 @@ function OfferModal(props) {
                         lineHeight: "24px",
                         color: "#000000",
                       }}
+                      defaultValue={Metier.tax_heure_fait}
                       type="number"
                       onChange={(e) => onChangeGenOfferset(e)}
                       placeholder="TAUX HORAIRE FORFAIT"
@@ -419,6 +422,7 @@ function OfferModal(props) {
                         color: "#000000",
                       }}
                       type="number"
+                      defaultValue={Metier.supplymentry_tax}
                       onChange={(e) => onChangeGenOfferset(e)}
                       placeholder="TAUX HORAIRE HEURE SUPPLEMENTAIRE"
                       name="supplymentry_tax"
@@ -448,6 +452,7 @@ function OfferModal(props) {
                         lineHeight: "24px",
                         color: "#000000",
                       }}
+                      defaultValue={Metier.total_salaire}
                       type="number"
                       onChange={(e) => onChangeGenOfferset(e)}
                       placeholder="SALAIRE TOTAL"

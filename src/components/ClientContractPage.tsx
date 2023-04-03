@@ -49,7 +49,7 @@ function ClientContractPage() {
     fetchCandidat(id)
       .then((resData) => {
         if (resData.status == true) {
-          console.log(resData.data);
+      
           // setProfile(resData.data)
           resData.data.map((el) => {
             setProfile(el);
@@ -379,13 +379,13 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {contrat_client ? (
-                    documentList?.map((el) =>
+                    documentList?.map((el,i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("contrat_client")) ? (
                         <>
                           {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.url)}
@@ -423,7 +423,7 @@ function ClientContractPage() {
                           JSON.stringify("contrat_client")
                         ) ? (
                         <>
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.link)}
@@ -490,13 +490,13 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {contrat_employes ? (
-                    documentList?.map((el) =>
+                    documentList?.map((el,i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("contrat_employes")) ? (
                         <>
                           {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.url)}
@@ -534,7 +534,7 @@ function ClientContractPage() {
                           JSON.stringify("contrat_employes")
                         ) ? (
                         <>
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.link)}
@@ -599,13 +599,13 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {id_card_employer ? (
-                    documentList?.map((el) =>
+                    documentList?.map((el,i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("id_card_employer")) ? (
                         <>
                           {" "}
-                          <div className="col-md-6 col-sm-12  mb-1">
+                          <div className="col-md-6 col-sm-12  mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.url)}
@@ -643,7 +643,7 @@ function ClientContractPage() {
                           JSON.stringify("id_card_employer")
                         ) ? (
                         <>
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.link)}
@@ -708,13 +708,13 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {al ? (
-                    documentList?.map((el) =>
+                    documentList?.map((el,i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("al")) ? (
                         <>
                           {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.url)}
@@ -752,7 +752,7 @@ function ClientContractPage() {
                           JSON.stringify("al")
                         ) ? (
                         <>
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.link)}
@@ -817,7 +817,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {contrats_assurances_employes ? (
-                    documentList?.map((el) =>
+                    documentList?.map((el,i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(
@@ -825,7 +825,7 @@ function ClientContractPage() {
                       ) ? (
                         <>
                           {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.url)}
@@ -863,7 +863,7 @@ function ClientContractPage() {
                           JSON.stringify("contrats_assurances_employes")
                         ) ? (
                         <>
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.link)}
@@ -928,13 +928,13 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {sispi ? (
-                    documentList?.map((el) =>
+                    documentList?.map((el,i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("sispi")) ? (
                         <>
                           {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.url)}
@@ -972,7 +972,7 @@ function ClientContractPage() {
                           JSON.stringify("sispi")
                         ) ? (
                         <>
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.link)}
@@ -1039,7 +1039,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {document_de_represntation ? (
-                    documentList?.map((el) =>
+                    documentList?.map((el,i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(
@@ -1047,7 +1047,7 @@ function ClientContractPage() {
                       ) ? (
                         <>
                           {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.url)}
@@ -1085,7 +1085,7 @@ function ClientContractPage() {
                           JSON.stringify("document_de_represntation")
                         ) ? (
                         <>
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.link)}
@@ -1150,13 +1150,13 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {offre_signee ? (
-                    documentList?.map((el) =>
+                    documentList?.map((el,i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("offre_signee")) ? (
                         <>
                           {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.url)}
@@ -1194,7 +1194,7 @@ function ClientContractPage() {
                           JSON.stringify("offre_signee")
                         ) ? (
                         <>
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.link)}
@@ -1261,7 +1261,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {attestations_societe_intermann ? (
-                    documentList?.map((el) =>
+                    documentList?.map((el,i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(
@@ -1269,7 +1269,7 @@ function ClientContractPage() {
                       ) ? (
                         <>
                           {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.url)}
@@ -1309,7 +1309,7 @@ function ClientContractPage() {
                           JSON.stringify("attestations_societe_intermann")
                         ) ? (
                         <>
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.link)}
@@ -1374,13 +1374,13 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {cvs ? (
-                    documentList?.map((el) =>
+                    documentList?.map((el,i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("cvs")) ? (
                         <>
                           {" "}
-                          <div className="col-md-6 col-sm-12  mb-1">
+                          <div className="col-md-6 col-sm-12  mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.url)}
@@ -1445,13 +1445,13 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {autres_documents ? (
-                    documentList?.map((el) =>
+                    documentList?.map((el,i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("autres_documents")) ? (
                         <>
                           {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.url)}
@@ -1489,7 +1489,7 @@ function ClientContractPage() {
                           el.folderName ? el.folderName : null
                         ).includes(JSON.stringify("autres_documents")) ? (
                         <>
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.link)}
@@ -1554,13 +1554,13 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {factures ? (
-                    documentList?.map((el) =>
+                    documentList?.map((el,i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("factures_payes")) ? (
                         <>
                           {" "}
-                          <div className="col-md-6 col-sm-12  mb-1">
+                          <div className="col-md-6 col-sm-12  mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.url)}
@@ -1598,7 +1598,7 @@ function ClientContractPage() {
                           JSON.stringify("factures_payes")
                         ) ? (
                         <>
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.link)}
@@ -1663,13 +1663,13 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {facturesimpayes ? (
-                    documentList?.map((el) =>
+                    documentList?.map((el,i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("factures_impayes")) ? (
                         <>
                           {" "}
-                          <div className="col-md-6 col-sm-12  mb-1">
+                          <div className="col-md-6 col-sm-12  mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.url)}
@@ -1707,7 +1707,7 @@ function ClientContractPage() {
                           JSON.stringify("factures_impayes")
                         ) ? (
                         <>
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.link)}
@@ -1783,13 +1783,13 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12 ">
                 <div className="row justify-content-end align-items-center">
                   {rapport_activite ? (
-                    documentList?.map((el) =>
+                    documentList?.map((el,i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("rapport_activite")) ? (
                         <>
                           {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.url)}
@@ -1828,7 +1828,7 @@ function ClientContractPage() {
                           JSON.stringify("rapport_activite")
                         ) ? (
                         <>
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.link)}
@@ -1865,7 +1865,7 @@ function ClientContractPage() {
                       ) : null
                     )
                   ) : docUploaded ? (
-                    <div className="col-12 d-flex align-items-center">
+                    <div className="col-12 d-flex align-items-center" >
                       {" "}
                       <ProfileLoader
                         width={150}
@@ -1949,13 +1949,13 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {offre_envoye_et_nonsigne ? (
-                    documentList?.map((el) =>
+                    documentList?.map((el,i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("offre_envoye_et_nonsigne")) ? (
                         <>
                           {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG "
                               onClick={() => ViewDownloadFiles(el.url)}
@@ -1975,9 +1975,9 @@ function ClientContractPage() {
                                 title={el.originalName}
                               >
                                 <p className="mb-0 contractEMPStyle">
-                                  {el.originalName.length > 20
+                                  {el.originalName ?  el.originalName.length > 20
                                     ? el.originalName.slice(0, 21) + "..."
-                                    : el.originalName}
+                                    : el.originalName : "..."}
                                 </p>
                               </div>
                               <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
@@ -1993,7 +1993,7 @@ function ClientContractPage() {
                           JSON.stringify("offre_envoye_et_nonsigne")
                         ) ? (
                         <>
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.link)}
@@ -2058,13 +2058,13 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {fiche_medicale ? (
-                    documentList?.map((el) =>
+                    documentList?.map((el,i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("fiche_medicale")) ? (
                         <>
                           {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.url)}
@@ -2102,7 +2102,7 @@ function ClientContractPage() {
                           JSON.stringify("fiche_medicale")
                         ) ? (
                         <>
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.link)}
@@ -2167,13 +2167,13 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {reges ? (
-                    documentList?.map((el) =>
+                    documentList?.map((el,i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("reges")) ? (
                         <>
                           {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.url)}
@@ -2238,7 +2238,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {fiche_de_mise_a_disposition ? (
-                    documentList?.map((el) =>
+                    documentList?.map((el,i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(
@@ -2246,7 +2246,7 @@ function ClientContractPage() {
                       ) ? (
                         <>
                           {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.url)}
@@ -2284,7 +2284,7 @@ function ClientContractPage() {
                           JSON.stringify("fiche_de_mise_a_disposition")
                         ) ? (
                         <>
-                          <div className="col-md-6 col-sm-12 mb-1">
+                          <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
                               className="row PDFcardBG cursor-pointer"
                               onClick={() => ViewDownloadFiles(el.link)}

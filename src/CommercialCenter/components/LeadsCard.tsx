@@ -1005,9 +1005,7 @@ function LeadCard(props) {
   };
 
   let date = new Date(props.props.createdAt);
-  const switchCheckk = (e) => {
-    console.log(e, "check");
-  };
+
 
   return (
     <>
