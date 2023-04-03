@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import Warning from "../../components/Loader/SearchBarError";
 import { Toaster } from "react-hot-toast";
 import Cookies from "js-cookie";
+
 function MainCenter() {
   const [Leads, setLeads] = useState([]);
   const [update, setUpdate] = useState(false);
@@ -133,6 +134,9 @@ function MainCenter() {
                   <span className="Leads002"></span>
                 </div>
               )}
+               {
+        // <DownloadGmail    />
+      }
             </div>
           </div>
         </div>

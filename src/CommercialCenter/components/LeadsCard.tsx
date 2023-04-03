@@ -10,7 +10,9 @@ import DeleteLeadModal from "./Modal/DeleteLeadsModal";
 import OfferModal from "./Modal/OfferModal";
 import Cookies from "js-cookie";
 import VoirOfferModal from "../components/Modal/VoirOfferModal";
+import DownloadGmail from "./Modal/DowloadAndGmailModal";
 
+let Data = [] as any;
 function LeadCard(props) {
   const colourStyles: StylesConfig<ColourOption, true> = {
     control: (styles) => ({ ...styles, backgroundColor: "white" }),
@@ -77,10 +79,20 @@ function LeadCard(props) {
 
   const [GenOffer, setGenOffer] = useState(false);
   const [voir_offer, setVoirOffer] = useState(false) as any;
+  const [downloadMailModal,setDownloadMailModal]=useState({
+    content:"",
+    status:false,
+    filePath:""
+  })
 
   function padTo2DigitsCH(num) {
     return num.toString().padStart(2, "0");
   }
+  useEffect(()=>{
+  if(downloadMailModal.status){
+    Data=[]
+  }
+  },[downloadMailModal.status])
 
   useEffect(() => {
     setResponsable([
@@ -1724,11 +1736,20 @@ function LeadCard(props) {
                   closeModal={setGenOffer}
                   props={props.props}
                   setUpdate={props.update}
+                  setDownloadMailModal={setDownloadMailModal}
+                  downloadMailModal={downloadMailModal}
+                  Data={Data}
                 />
               ) : null}
               {voir_offer ? (
                 <VoirOfferModal props={props.props} closeModal={setVoirOffer} />
               ) : null}
+              {
+                downloadMailModal.status ?
+                <DownloadGmail  setDownloadMailModal={setDownloadMailModal}  props={downloadMailModal}   /> 
+                :
+                null
+              }
             </div>
           </div>
         </div>
@@ -1736,6 +1757,7 @@ function LeadCard(props) {
       <div className="row pr-2">
         <hr />
       </div>
+     
     </>
   );
 }

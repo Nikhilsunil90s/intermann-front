@@ -100,7 +100,8 @@ function MainCenter() {
   useEffect(() => {
     if (cards.length > 0 && filters.length === 0) {
       cards.map((el: any) => {
-        if (el.company_name) {
+   
+        if (!JSON.stringify(name).includes(JSON.stringify(el.company_name))) {
           name.push({
             value: el.company_name,
             label: el.company_name.toUpperCase(),
