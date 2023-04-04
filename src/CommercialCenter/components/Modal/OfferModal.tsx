@@ -145,7 +145,7 @@ function OfferModal(props) {
       enfin, vous avez deux possibilités pour accepter cette offre.</br>
       1) la première c’est de la renvoyer signer par email à contact@intermann.ro</br>
       2) la seconde c’est de la signer digitalement depuis votre pc/smartphone en cliquant sur ce lien : <a target="_blank" style={{color:"#FE8700"}} href={${
-        API_BASE_URL + `ViewOffer/${id}`
+        `ViewOffer/${id}`
       }} >${API_BASE_URL + `ViewOffer/${id}`}</a>
       </div>`,
     });
