@@ -122,10 +122,6 @@ function OfferModal(props) {
     props.setUpdate(true);
     setResponse(true);
     // FilePath = res.filepath;
-    let url={
-      urlLink:`ViewOffer/${id}`
-    }
-    console.log(url.urlLink)
     toast.success(res.message);
     props.setDownloadMailModal({
       status: true,
@@ -141,12 +137,10 @@ function OfferModal(props) {
       nous vous demandons d'être le plus réactif possible dès réception de nos cvs pour ne pas perdre les candidats.</br>
       nous nous donnons un délai de 3 semaines pour trouver le candidat correspondant à votre demande.</br>
       nous vous invitons à regarder notre vidéo explictive de l’offre sur notre chaine youtube ici :</br>
-      <a style={{color:"#FE8700"}} target="_blank" href={"https://www.youtube.com/watch?v=a5ug5ulpliq&t=1s}> https://www.youtube.com/watch?v=a5ug5ulpliq&t=1s</a></br>
+      <a style="color:"#FE8700"" target="_blank" href="https://www.youtube.com/watch?v=a5ug5ulpliq&t=1s"> https://www.youtube.com/watch?v=a5ug5ulpliq&t=1s</a></br>
       enfin, vous avez deux possibilités pour accepter cette offre.</br>
       1) la première c’est de la renvoyer signer par email à contact@intermann.ro</br>
-      2) la seconde c’est de la signer digitalement depuis votre pc/smartphone en cliquant sur ce lien : <a target="_blank" style={{color:"#FE8700"}} href={${
-        `ViewOffer/${id}`
-      }} >${API_BASE_URL + `ViewOffer/${id}`}</a>
+      2) la seconde c’est de la signer digitalement depuis votre pc/smartphone en cliquant sur ce lien : <a target="_blank" style="color:"#FE8700"" href="https://intermann.herokuapp.com/ViewOffer/${id}"> https://intermann.herokuapp.com/ViewOffer/${id}</a>
       </div>`,
     });
     props.closeModal(false);

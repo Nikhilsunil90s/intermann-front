@@ -22,7 +22,7 @@ function Card(props: any) {
     setDsBtn({ ...dsBtn, ["DSBTN"]: true });
     setDsBtn({ ...dsBtn, ["id"]: id });
 
-    GetRouteWithoutAuth(`get-offer/?offerId=${props.props._id}`).then((res) => {
+    GetRouteWithoutAuth(`get-offer/?offerId=${props.props._id }`).then((res) => {
       if (res.status) {
         window.open(API_BASE_URL + res.filepath.replace("/app/", ""));
         setDsBtn({
@@ -35,7 +35,8 @@ function Card(props: any) {
           DSBTN: false,
         });
       }
-    });
+    })
+    .catch((err)=>console.log(err));
   };
 
   const DeleteOffer = (path, id) => {
