@@ -28,6 +28,18 @@ export const   GetRouteWithoutAuth =async(path)=>{
    .then(res=>res)
    .catch(err=>err)
 }
+export const   GetWithoutAuth =async(path)=>{
+  return   await fetch(API_BASE_URL +path,{
+    method: "GET",
+    headers:{
+      "Accept": 'application/json',
+      'Content-Type': 'application/json',
+    } ,
+   })
+   .then(res=>res.json())
+   .then(res=>res)
+   .catch(err=>err)
+}
 
 export  const  PostRoute=async(data,path)=>{
    return   await fetch(API_BASE_URL +path,{

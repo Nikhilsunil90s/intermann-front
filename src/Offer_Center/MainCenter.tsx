@@ -109,14 +109,22 @@ function MainCenter() {
             name: "company_name",
           });
         }
-        if (el?.metier) {
-          job.push({
-            value: el.metier,
-            label: el.metier.toUpperCase(),
-            color: "#FF8B00",
-            name: "metier",
-          });
+        el?.metiers.map(jb=>
+          {
+            if (jb.metier) {
+            job.push({
+              value: jb.metier,
+              label: jb.metier.toUpperCase(),
+              color: "#FF8B00",
+              name: "metier",
+            });
+          }
         }
+
+          )
+       
+        
+       
       });
       setFilters({ ...filters, name: [...name], job: [...job] });
     }

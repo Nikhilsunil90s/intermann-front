@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import $ from "jquery"
+import Parser from 'html-react-parser';
 
 function DownloadGmail(props: any) {
   const [copied,setCopied]=useState(false)
@@ -37,7 +38,7 @@ function DownloadGmail(props: any) {
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog modal-lg" style={{ width: "795px" }}>
+        <div className="modal-dialog modal-lg" style={{ maxWidth: "1020px" }}>
           <div className="modal-content">
             <div className="modal-header p-0">
               <div className="col-12">
@@ -105,7 +106,7 @@ function DownloadGmail(props: any) {
                           color: "#000000",
                         }}
                       >
-                        {props.props.content}
+                        {Parser(props.props.content)}
                       </p>
                      :
                      steps.step1 ?

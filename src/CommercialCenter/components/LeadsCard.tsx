@@ -82,7 +82,8 @@ function LeadCard(props) {
   const [downloadMailModal,setDownloadMailModal]=useState({
     content:"",
     status:false,
-    filePath:""
+    filePath:"",
+    id:""
   })
 
   function padTo2DigitsCH(num) {
