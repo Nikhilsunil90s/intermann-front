@@ -21,6 +21,7 @@ function Sidebar(props: any) {
   const LogNotify = () => toast.success("Log-Out!");
   const [onClickBarOpenClose, setOnClickBarOpen] = useState(true);
 
+
   const LogOut = async () => {
     await dispatch(logout());
     await Cookies.remove("token");
@@ -767,7 +768,7 @@ function Sidebar(props: any) {
                     </Link>
                   </motion.li>
 
-                  {LoginUser.username == "TestOne" ? (
+                  {LoginUser.username == "Test" ? (
                     <motion.li
                       initial="hidden"
                       whileInView="visible"
@@ -1122,7 +1123,7 @@ function Sidebar(props: any) {
                     </div>
                   )}
                 </li>
-                {LoginUser.username === "TestOne" ? (
+                {LoginUser.username === "Test" ? (
                   <li className=" d-flex align-items-center justify-content-center">
                     {window.location.href.includes("billing") ? (
                       <div className={"activeDiv "}>

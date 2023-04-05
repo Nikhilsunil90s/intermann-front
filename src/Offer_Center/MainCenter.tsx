@@ -109,7 +109,7 @@ function MainCenter() {
             name: "company_name",
           });
         }
-        el?.metiers.map(jb=>
+        el?.metiers.map((jb)=>
           {
             if (jb.metier) {
             job.push({

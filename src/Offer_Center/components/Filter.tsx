@@ -242,7 +242,7 @@ function Filter(props: any) {
           </div>
           <div className="col-4">
             <label>filtrer par Métier/job name</label>
-            {props.filterOP?.job?.length > 0 ? (
+            {/* {props.filterOP?.job?.length > 0 ? ( */}
               <Select
                 name="market"
                 closeMenuOnSelect={true}
@@ -262,7 +262,7 @@ function Filter(props: any) {
                   } as any
                 }
               />
-            ) : (
+            {/* ) : (
               <>
                 <div className="spinner-grow text-primary" role="status">
                   <span className="visually-hidden">Loading...</span>
@@ -283,7 +283,7 @@ function Filter(props: any) {
                   <span className="visually-hidden">Loading...</span>
                 </div>
               </>
-            )}
+            )} */}
           </div>
         </div>
         <div className="row">
