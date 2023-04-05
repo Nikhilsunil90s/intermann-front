@@ -9,6 +9,8 @@ import { logout } from "../redux/actions/userActions";
 import $ from "jquery";
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
+import { GetRoute } from "./ApisFunction/FunctionsApi";
+
 function Sidebar(props: any) {
   const [onHover, setOnHover] = useState({
     miniBar: false,
@@ -20,6 +22,7 @@ function Sidebar(props: any) {
   const navigate = useNavigate();
   const LogNotify = () => toast.success("Log-Out!");
   const [onClickBarOpenClose, setOnClickBarOpen] = useState(true);
+  const [refresh,setRefresh]=useState(false)
 
 
   const LogOut = async () => {
@@ -35,6 +38,24 @@ function Sidebar(props: any) {
   };
   let login = Cookies.get("token");
   let token = localStorage.getItem("token");
+  const check=()=>{
+    GetRoute("check-heroku-updates").then((res)=>{
+      if(res.logout_and_refresh){
+        LogOut();
+        window.location.reload()
+      }
+    }).catch(err=>console.log(err))
+  }
+
+  if(refresh){
+    check()
+    setRefresh(false)
+  }
+  useEffect(()=>{
+    setTimeout(()=>{
+      setRefresh(true)
+     },30000)
+  })
 
   useEffect(() => {
     if (token) {
