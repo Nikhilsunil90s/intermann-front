@@ -89,6 +89,7 @@ const EmployeeDataFormat = {
   bankName_euro: "",
   iban_ron_lei: "",
   bankName_lei: "",
+  employee_hosting:""
 };
 
 interface State {
@@ -769,6 +770,13 @@ function EditProgress() {
             ? data.fin_mision
             : profile.candidatContract
             ? profile.candidatContract.fin_mision
+            : "",
+            employee_hosting:
+
+            data.employee_hosting != ""
+            ? data?.employee_hosting
+            : profile.candidatContract
+            ? profile.candidatContract?.employee_hosting
             : "",
         contractId:
           data.contractId != ""

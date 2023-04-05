@@ -84,6 +84,7 @@ const EmployeeDataFormat = {
   indemnisationJour: "",
   fin_mision: "",
   contractId: "",
+  employee_hosting:""
 };
 
 interface State {
@@ -753,8 +754,16 @@ function EditDo() {
             : profile.candidatContract
             ? profile.candidatContract.fin_mision
             : "",
+            employee_hosting:
+
+            data.employee_hosting != ""
+            ? data?.employee_hosting
+            : profile.candidatContract
+            ? profile.candidatContract?.employee_hosting
+            : "",
+            
         contractId:
-          data.contractId != ""
+          data.contractId !== ""
             ? data.contractId
             : profile.candidatContract
             ? profile.candidatContract._id

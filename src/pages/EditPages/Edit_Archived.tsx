@@ -80,6 +80,7 @@ const EmployeeDataFormat = {
   indemnisationJour: "",
   fin_mision: "",
   contractId: "",
+  employee_hosting:""
 };
 
 interface State {
@@ -682,6 +683,13 @@ function EditArchive() {
             : profile.candidatContract
             ? profile.candidatContract._id
             : null,
+            employee_hosting:
+
+            data.employee_hosting != ""
+            ? data?.employee_hosting
+            : profile.candidatContract
+            ? profile.candidatContract?.employee_hosting
+            : "",
       };
       console.log(updatedData);
       let formdata = new FormData();
