@@ -10,19 +10,33 @@ import $ from "jquery";
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 import { GetRoute } from "./ApisFunction/FunctionsApi";
+import useCountDown from 'react-countdown-hook';
+
 
 function Sidebar(props: any) {
   const [onHover, setOnHover] = useState({
     miniBar: false,
     SideBar: false,
   });
+  const initialTime = 10 * 1000; // initial time in milliseconds, defaults to 60000
+  const interval = 1000; // interval to change remaining time amount, defaults to 1000
 
+  const [timeLeft, { start, pause, resume, reset }] = useCountDown(initialTime, interval);
+  // React.useEffect(() => {
+  //   start();
+  // }, []);
+    
+  const restart = React.useCallback(() => {
+    // you can start existing timer with an arbitrary value
+    // if new value is not passed timer will start with initial value
+    const newTime = 20 * 1000;
+    start(newTime);
+  }, []);
   const LoginUser = JSON.parse(localStorage.getItem("LoginUser"));
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const LogNotify = () => toast.success("Log-Out!");
   const [onClickBarOpenClose, setOnClickBarOpen] = useState(true);
-  const [refresh,setRefresh]=useState(false)
 
 
   const LogOut = async () => {
@@ -38,7 +52,8 @@ function Sidebar(props: any) {
   };
   let login = Cookies.get("token");
   let token = localStorage.getItem("token");
-  const check=async()=>{
+
+  const checkHerokuUpdates=async()=>{
    await GetRoute("check-heroku-updates").then((res)=>{
       if(res.logout_and_refresh){
          dispatch(logout());
@@ -53,16 +68,13 @@ function Sidebar(props: any) {
       }
     }).catch(err=>console.log(err))
   }
+ 
 
-  if(refresh){
-    check()
-    setRefresh(false)
-  }
-  useEffect(()=>{
-    setTimeout(()=>{
-      setRefresh(true)
-     },20000)
-  })
+  // if(timeLeft === 0){
+  //   restart()
+  //   checkHerokuUpdates()
+  // }
+
 
   useEffect(() => {
     if (token) {
@@ -102,55 +114,6 @@ function Sidebar(props: any) {
     }
   
   };
-
-  // useEffect(() => {
-  //   if (
-  //     window.location.href.includes("clientTodo") ||
-  //     window.location.href.includes("clientProgress") ||
-  //     window.location.href.includes("clientContract") ||
-  //     window.location.href.includes("archived")
-  //   ) {
-  //     setOnClickBarOpen(true);
-  //   }
-  //   if (
-  //     window.location.href.includes("todolist") ||
-  //     window.location.href.includes("preSelected") ||
-  //     window.location.href.includes("embauchlist") ||
-  //     window.location.href.includes("archivedlist")
-  //   ) {
-  //     setOnClickBarOpen(true);
-  //   }
-  // });
-
-  // const fetchUsers = async () => {
-  //   //  setLeadScHeck(false)
-
-  //   return await fetch(API_BASE_URL + `allusers`, {
-  //     method: "GET",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //       Authorization: "Bearer " + localStorage.getItem("token"),
-  //     },
-  //   })
-  //     .then((red) => red.json())
-  //     .then((resData) => resData)
-  //     .catch((err) => err);
-  // };
-
-  // useEffect(()=>{
-  //   fetchUsers().then((resData) => {
-  //     {
-  //       if (resData.status) {
-  //         if (resData.data.length > 0) {
-  //           CurrentUser = resData.data.filter(
-  //             // (el) => el?.username === LoginUserS?.username
-  //           );
-  //         }
-  //       }
-  //     }
-  //   });
-  // })
 
   return (
     <>
