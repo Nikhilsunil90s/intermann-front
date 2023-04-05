@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import Header from "../components/Header";
-import { GetRoute } from "../../components/ApisFunction/FunctionsApi";
+import { GetRoute ,PostRoute} from "../../components/ApisFunction/FunctionsApi";
 import Error404Loader from "../../components/Loader/404Error";
+import { Toaster } from "react-hot-toast";
 let id = [] as any;
 function BillingCenter() {
   const [data, setData] = useState([]);
@@ -49,9 +50,24 @@ function BillingCenter() {
       setMultiselect(false);
     }
   };
+  const SelectedList =(iD,i,setIsMulti,isMulti)=>{
+    let newArr=[]
+    if (id.includes(iD)) {
+      newArr =   id.filter((el) => el !== iD);
+      id = newArr
+      setIsMulti({ ...isMulti, index: iD });
+      setActive(id);
+    } else {
+      id.push(iD);
+      setIsMulti({ ...isMulti, index: iD });
+      setActive(id);
+    }
+  }
+
 
   return (
     <>
+    <Toaster  position="top-right"   containerStyle={{zIndex:"9999999999999999999999999999999999999"}}            />
       <div className="container-fluid">
         <div className="row ">
           <div className="p-0">
@@ -98,6 +114,7 @@ function BillingCenter() {
                         setMultiselect={setMultiselect}
                         multiSelect={multiSelect}
                         id={id}
+                        SelectedList={SelectedList}
                       />
                     ))}
                   </tbody>

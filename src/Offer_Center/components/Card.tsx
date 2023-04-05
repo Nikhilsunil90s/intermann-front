@@ -97,9 +97,10 @@ function Card(props: any) {
         style={{ margin: props.voir == "voir" ? "10px" : "" }}
       >
         <div
+            onClick={() => DownLoadOffer(props.props._id)}
           className={` ${
             props.voir == "voir" ? "col-9" : "col-7"
-          } d-flex align-items-center pl-0`}
+          } d-flex align-items-center pl-0 cursor-pointer`}
         >
           <p className="mb-0 d-flex justify-content-center">
             société :
@@ -118,23 +119,47 @@ function Card(props: any) {
               className="d-flex align-items-center"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
-              title={props.props.metier}
+              title={props.props.metiers.map((jb)=>jb.metier)}
             >
-              {props.props.metier
-                ? props.props.metier.length > 9
-                  ? props.props.metier.slice(0, 9) + "..."
-                  : props.props.metier
-                  ? props.props.metier
-                  : "✘✘!  "
-                : "✘✘!"}
+              {props.props.metiers.map((jb,i)=>
+              (
+                jb ?
+                jb.metier.length > 9 ?
+                  jb.metier.slice(0, 9) + "..."
+                : jb.metier 
+                : "✘✘!"
+              )
+             )
+             
+              }
             </b>
             - Forfait :
             <b className="d-flex align-items-center">
-              {props.props.heure_fait ? props.props.heure_fait : "0H"}
+              { props.props.metiers.map((jb,i)=>
+              (
+                jb ?
+                jb.heure_fait ?
+                 jb.heure_fait 
+                : "✘✘!"
+                : "✘✘!"
+                
+              )
+             )
+              }
             </b>
             - salaire :
             <b className="d-flex align-items-center">
-              {props.props.total_salaire ? props.props.total_salaire : "0€"}
+              { props.props.metiers.map((jb,i)=>
+              (
+                jb ?
+                jb.total_salaire ?
+                 jb.total_salaire 
+                : "0€"
+                : "0€"
+                
+              )
+             )
+              }
             </b>
             - Generated :
             <b className="d-flex align-items-center">

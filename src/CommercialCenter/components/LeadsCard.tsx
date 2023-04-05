@@ -1007,6 +1007,8 @@ function LeadCard(props) {
 
   let date = new Date(props.props.createdAt);
 
+  let offerCreatedDate = new Date(props.props.offer_sent_date)
+
 
   return (
     <>
@@ -1017,7 +1019,7 @@ function LeadCard(props) {
       >
         <div className="col-12 ">
           <div className="row">
-            <div className="col-4 d-flex align-items-center">
+            <div className="col-3 d-flex align-items-center">
               <p className="mb-0 d-flex align-items-center">
                 <img
                   src={require("../../images/calendar.png")}
@@ -1026,19 +1028,21 @@ function LeadCard(props) {
                 Lead ajouté le {formatDateCha(date)}
               </p>
             </div>
-            <div className="col-6 d-flex justify-content-end align-items-center">
+            <div className="col-7 d-flex justify-content-end align-items-center">
               {props.props.offerSent ? (
                 <button
                   className="leadsAddToCRM mx-1"
                   onClick={() => setVoirOffer(true)}
+                  style={{width:"275px"}}
                 >
-                  Voir les offres
+                Voir offre envoyé le {formatDateCha(offerCreatedDate)}
                 </button>
               ) : null}
-              <button className="leadsAddToCRM">Add to CRM</button>
+              <button className="leadsAddToCRM"   style={{width:"148px"}}>Add to CRM</button>
               <button
                 className="leadsAddToCRM mx-1"
                 onClick={() => setGenOffer(true)}
+                style={{width:"148px"}}
               >
                 GENERATE OFFER
               </button>
@@ -1051,6 +1055,7 @@ function LeadCard(props) {
               <button
                 className="deleteAd mx-1"
                 onClick={() => setDeleteModal(true)}
+              
               >
                 <img src={require("../../images/Deletebucket.svg").default} />
               </button>

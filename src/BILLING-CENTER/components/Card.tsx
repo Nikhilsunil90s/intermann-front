@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { GetRoute ,PostRoute} from "../../components/ApisFunction/FunctionsApi";
+import toast from "react-hot-toast";
 
 function Card(props: any) {
   const [isMulti, setIsMulti] = useState([
@@ -8,25 +10,28 @@ function Card(props: any) {
   ]) as any;
  
   const onSelectRowActive = async (iD, i) => {
-    if (props.id.includes(iD)) {
-      props.id = props.id.filter((el) => el !== iD);
-      setIsMulti({ ...isMulti, index: iD });
-      props.setActive(props.id);
-    } else {
-      props.id.push(iD);
-      setIsMulti({ ...isMulti, index: iD });
-      props.setActive(props.id);
-    }
+    props.SelectedList(iD,i,setIsMulti,isMulti)
   };
 
+  const DeleteBills=()=>{
+    let  data ={
+      toDeleteArray:props.id
+    } 
+    PostRoute(data,"deleteInvoices").then((res)=>{
+      if(res.status){
+        toast.success(res.message)
+      }else{
+        toast.success(res.message)
+      }
+    })
+    .catch((err)=>console.log(err))
+  }
   return (
     <>
       <tr
         className="cursor-pointer"
         key={props.index}
-        onClick={() => {
-          onSelectRowActive(props.props._id, props.index);
-        }}
+      
         style={{
           background: props.multiSelect
             ? "#E7F5FF"
@@ -35,8 +40,10 @@ function Card(props: any) {
             : "",
         }}
       >
-        <th scope="row">
-          <div className="align-items-center">
+        <th scope="row"   onClick={() => {
+          onSelectRowActive(props.props._id, props.index);
+        }}>
+          <div className="align-items-center" >
             <label className="InputContainer">
               <input
                 type="checkbox"
@@ -54,14 +61,18 @@ function Card(props: any) {
             {/* <input type={"checkbox"} /> */}
           </div>
         </th>
-        <td className="">
+        <td className=""   onClick={() => {
+          onSelectRowActive(props.props._id, props.index);
+        }}>
           <div className="">
             <p className="mb-0 d-flex align-items-center">
               {props.props.factureNumber}
             </p>
           </div>
         </td>
-        <td className="">
+        <td className=""   onClick={() => {
+          onSelectRowActive(props.props._id, props.index);
+        }}>
           <div className="">
             <p
               className="mb-0 d-flex align-items-center"
@@ -75,7 +86,9 @@ function Card(props: any) {
             </p>
           </div>
         </td>
-        <td className="">
+        <td className=""   onClick={() => {
+          onSelectRowActive(props.props._id, props.index);
+        }}>
           <div className="">
             <p className="mb-0 d-flex align-items-center">
               {props.props.factureCreateDate
@@ -88,7 +101,9 @@ function Card(props: any) {
             </p>
           </div>
         </td>
-        <td className="">
+        <td className=""   onClick={() => {
+          onSelectRowActive(props.props._id, props.index);
+        }}>
           <div className="">
             <p
               className={`mb-0 d-flex align-items-center ${
@@ -171,6 +186,7 @@ function Card(props: any) {
               <button
                 className="border-white RoundDiv"
                 style={{ background: "#F3F4F6", width: "37px" }}
+                onClick={()=>DeleteBills()}
               >
                 <img alt="..." src={require("../../images/Deletebucket.svg").default} />
               </button>

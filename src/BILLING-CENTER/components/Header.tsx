@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 export default function Header(props: any) {
   const [activeTab, setActiveTab] = useState("All");
-  console.log(props);
   return (
     <>
       {props.props == "header" ? (
