@@ -1996,6 +1996,24 @@ function EditDo() {
                           placeholder="‎ ‎ ‎ indemnisation jour"
                         />
                       </div>
+                      <div className="col-4  d-grid ">
+        <label className="PDFFormlabel">Hébergement de l'employé (hosting)</label>
+        <input
+          className="form-control inputStyling"
+          type="text"
+          name="employee_hosting"
+          defaultValue={
+            profile.candidatContract
+              ? profile.candidatContract?.employee_hosting != ""
+                ? profile.candidatContract?.employee_hosting 
+                : ""
+              : ""
+          }
+          onChange={onFormDataChange}
+         
+          placeholder="‎ ‎ ‎ Hébergement de l'employé (hosting)"
+        />
+      </div>
 
                       <div className="col-12  d-grid ">
                         <label className="PDFFormlabel">Company Adress</label>

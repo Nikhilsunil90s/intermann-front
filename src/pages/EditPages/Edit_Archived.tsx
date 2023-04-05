@@ -8,11 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import UploadDow from "../../components/Modal/SelectUploadDownload";
 import axios from "axios";
 import Switch from "react-switch";
-import {
-  ColourOption,
-  colourOptions,
-
-} from "../../Selecteddata/data";
+import { ColourOption, colourOptions } from "../../Selecteddata/data";
 import chroma from "chroma-js";
 import Select, { StylesConfig } from "react-select";
 import { ReactComponent as TurnoFF } from "../../images/FatX.svg";
@@ -1971,7 +1967,25 @@ function EditArchive() {
                         placeholder="‎ ‎ ‎ indemnisation jour"
                       />
                     </div>
-
+                    <div className="col-4  d-grid ">
+                      <label className="PDFFormlabel">
+                        Hébergement de l'employé (hosting)
+                      </label>
+                      <input
+                        className="form-control inputStyling"
+                        type="text"
+                        name="employee_hosting"
+                        defaultValue={
+                          profile.candidatContract
+                            ? profile.candidatContract?.employee_hosting != ""
+                              ? profile.candidatContract?.employee_hosting
+                              : ""
+                            : ""
+                        }
+                        onChange={onFormDataChange}
+                        placeholder="‎ ‎ ‎ Hébergement de l'employé (hosting)"
+                      />
+                    </div>
                     <div className="col-12  d-grid ">
                       <label className="PDFFormlabel">Company Adress</label>
                       <textarea

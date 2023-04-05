@@ -138,6 +138,11 @@ function PdfModal({ props, closeModal, LinkModal, path }) {
         ? props.candidatContract.fin_mision
         : ""
       : "",
+    employee_hosting: props.candidatContract
+      ? props.candidatContract?.employee_hosting
+        ? props.candidatContract?.employee_hosting
+        : ""
+      : "",
   };
   const [data, setData] = useState(PdfFormat);
   const [loader, setLoader] = useState(false);
@@ -720,6 +725,25 @@ function PdfModal({ props, closeModal, LinkModal, path }) {
                           data ? (data.fin_mision != "" ? fin_mision : "") : ""
                         }
                         placeholder="‎ ‎ ‎ indemnisation jour"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="PDFFormlabel">
+                        Hébergement de l'employé (hosting)
+                      </label>
+                      <input
+                        className="form-control inputStyling"
+                        type="text"
+                        name="employee_hosting"
+                        onChange={onFormDataChange}
+                        defaultValue={
+                          data
+                            ? data.employee_hosting != ""
+                              ? data.employee_hosting
+                              : ""
+                            : ""
+                        }
+                        placeholder="‎ ‎ ‎ Hébergement de l'employé (hosting)"
                       />
                     </div>
 

@@ -859,7 +859,7 @@ function ToDoProfile() {
                   JSON.stringify(profile.candidatContract)
                 ) ? (
                   <>
-                    <CandidateContract props={profile} path={"/editToDo"} />
+                    <CandidateContract props={profile} path={"/todolist/editToDo"} />
                     {/* <div className='col-4  d-grid text-start'>
                                 <label className="PDFFormlabel">Lieu_Mission</label>
                                 <input className='form-control inputStylingForView'  onClick={editCandidatProfile} value={profile.candidatContract ? profile.candidatContract.lieu_mission ? profile.candidatContract.lieu_mission: "input Not Available!" : "input Not Available!"}  placeholder="‎ ‎ ‎ Lieu_Mission" />

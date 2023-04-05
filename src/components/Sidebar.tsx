@@ -38,11 +38,18 @@ function Sidebar(props: any) {
   };
   let login = Cookies.get("token");
   let token = localStorage.getItem("token");
-  const check=()=>{
-    GetRoute("check-heroku-updates").then((res)=>{
+  const check=async()=>{
+   await GetRoute("check-heroku-updates").then((res)=>{
       if(res.logout_and_refresh){
-        LogOut();
-        window.location.reload()
+         dispatch(logout());
+         Cookies.remove("token");
+         localStorage.removeItem("token");
+         localStorage.removeItem("archive");
+         localStorage.removeItem("embauch");
+         localStorage.removeItem("profile");
+         localStorage.removeItem("LoginUser");
+        LogNotify();
+        window.location.href = "/"
       }
     }).catch(err=>console.log(err))
   }
@@ -54,7 +61,7 @@ function Sidebar(props: any) {
   useEffect(()=>{
     setTimeout(()=>{
       setRefresh(true)
-     },30000)
+     },20000)
   })
 
   useEffect(() => {

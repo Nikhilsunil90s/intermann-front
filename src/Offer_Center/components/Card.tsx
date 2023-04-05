@@ -22,21 +22,22 @@ function Card(props: any) {
     setDsBtn({ ...dsBtn, ["DSBTN"]: true });
     setDsBtn({ ...dsBtn, ["id"]: id });
 
-    GetRouteWithoutAuth(`get-offer/?offerId=${props.props._id }`).then((res) => {
-      if (res.status) {
-        window.open(API_BASE_URL + res.filepath.replace("/app/", ""));
-        setDsBtn({
-          id: "",
-          DSBTN: false,
-        });
-      } else {
-        setDsBtn({
-          id: "",
-          DSBTN: false,
-        });
-      }
-    })
-    .catch((err)=>console.log(err));
+    GetRouteWithoutAuth(`get-offer/?offerId=${props.props._id}`)
+      .then((res) => {
+        if (res.status) {
+          window.open(API_BASE_URL + res.filepath.replace("/app/", ""));
+          setDsBtn({
+            id: "",
+            DSBTN: false,
+          });
+        } else {
+          setDsBtn({
+            id: "",
+            DSBTN: false,
+          });
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   const DeleteOffer = (path, id) => {
@@ -97,7 +98,7 @@ function Card(props: any) {
         style={{ margin: props.voir == "voir" ? "10px" : "" }}
       >
         <div
-            onClick={() => DownLoadOffer(props.props._id)}
+          onClick={() => DownLoadOffer(props.props._id)}
           className={` ${
             props.voir == "voir" ? "col-9" : "col-7"
           } d-flex align-items-center pl-0 cursor-pointer`}
@@ -119,47 +120,30 @@ function Card(props: any) {
               className="d-flex align-items-center"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
-              title={props.props.metiers.map((jb)=>jb.metier)}
+              title={props.props.metiers.map((jb) => jb.metier)}
             >
-              {props.props.metiers.map((jb,i)=>
-              (
-                jb ?
-                jb.metier.length > 9 ?
-                  jb.metier.slice(0, 9) + "..."
-                : jb.metier 
-                : "✘✘!"
-              )
-             )
-             
-              }
+              {props.props.metiers.length ? null : "✘✘!"}
+              {props.props.metiers.map((jb, i) =>
+                jb
+                  ? jb.metier.length > 9
+                    ? jb.metier.slice(0, 9) + "..."
+                    : jb.metier
+                  : "✘✘!"
+              )}
             </b>
             - Forfait :
             <b className="d-flex align-items-center">
-              { props.props.metiers.map((jb,i)=>
-              (
-                jb ?
-                jb.heure_fait ?
-                 jb.heure_fait 
-                : "✘✘!"
-                : "✘✘!"
-                
-              )
-             )
-              }
+              {props.props.metiers.length > 0 ? null : "✘✘!"}
+              {props.props.metiers.map((jb, i) =>
+                jb ? (jb.heure_fait ? jb.heure_fait : "✘✘!") : "✘✘!"
+              )}
             </b>
             - salaire :
             <b className="d-flex align-items-center">
-              { props.props.metiers.map((jb,i)=>
-              (
-                jb ?
-                jb.total_salaire ?
-                 jb.total_salaire 
-                : "0€"
-                : "0€"
-                
-              )
-             )
-              }
+              {props.props.metiers.length > 0 ? null : "0€"}
+              {props.props.metiers.map((jb, i) =>
+                jb ? (jb.total_salaire ? jb.total_salaire : "0€") : "0€"
+              )}
             </b>
             - Generated :
             <b className="d-flex align-items-center">
@@ -179,7 +163,7 @@ function Card(props: any) {
                 </button>
                 {props.props.offer_signed ? null : (
                   <button
-                  disabled={dsBtn.DSBTN}
+                    disabled={dsBtn.DSBTN}
                     onClick={() => MoveToSigned(props.props._id)}
                     className="btn SignedMark"
                   >

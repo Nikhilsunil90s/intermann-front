@@ -407,6 +407,24 @@ function CandidateContract({ props, path }) {
           placeholder="‎ ‎ ‎ indemnisation jour"
         />
       </div>
+      <div className="col-4  d-grid ">
+        <label className="PDFFormlabel">Hébergement de l'employé (hosting)</label>
+        <input
+          className="form-control inputStyling"
+          type=""
+          readOnly
+          name="employee_hosting"
+          onClick={editCandidatProfile}
+          value={
+            props.candidatContract
+              ?  props.candidatContract?.employee_hosting 
+                ?props.candidatContract?.employee_hosting
+                : "input Not Available!"
+              : "input Not Available!"
+          }
+          placeholder="‎ ‎ ‎ indemnisation jour"
+        />
+      </div>
 
       <div className="col-12  d-grid text-start">
         <label className="PDFFormlabel">Company_Adress</label>
