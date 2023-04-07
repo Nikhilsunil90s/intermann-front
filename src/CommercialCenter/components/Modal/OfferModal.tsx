@@ -100,19 +100,44 @@ function OfferModal(props) {
             })
             .catch((err) => err);
         } else {
-          let newData = { ...genOfferData, metiers: props.Data };
+         
+          if (Metier.metier !== "") {
+            if(!JSON.stringify(props.Data).includes(JSON.stringify(Metier))){
+              props.Data.push(Metier);
+              let newData = { ...genOfferData, metiers: props.Data };
+              setResponse(false);
+              PostRoute(newData, "generate-offer")
+                .then((res) => {
+                  if (res.status) {
+                    DownLoadOffer(res, res.data._id);
+                  } else {
+                    toast.error(res.message);
+                    setResponse(true);
+                  }
+                })
+                .catch((err) => err);
+            }else{
+              let newData = { ...genOfferData, metiers: props.Data };
+              setResponse(false);
+              PostRoute(newData, "generate-offer")
+                .then((res) => {
+                  if (res.status) {
+                    DownLoadOffer(res, res.data._id);
+                  } else {
+                    toast.error(res.message);
+                    setResponse(true);
+                  }
+                })
+                .catch((err) => err);
+            }
 
-          setResponse(false);
-          PostRoute(newData, "generate-offer")
-            .then((res) => {
-              if (res.status) {
-                DownLoadOffer(res, res.data._id);
-              } else {
-                toast.error(res.message);
-                setResponse(true);
-              }
-            })
-            .catch((err) => err);
+        
+          }else{
+      
+
+          }
+
+     
         }
       }
     } else {
