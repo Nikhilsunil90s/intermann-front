@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import toast from "react-hot-toast";
 import { PostRoute } from "../../../components/ApisFunction/FunctionsApi";
 import { GetWithoutAuth } from "../../../components/ApisFunction/FunctionsApi";
@@ -11,9 +11,18 @@ function OfferModal(props) {
     company_email: props.props.email,
     commercialLeadId: props.props._id,
   }) as any;
+  const [form_values,setformValues]=useState({
+    metier: "",
+    salaire_35H:"", // will come with euro sign:,
+    tax_35H: "", // will come with euro sign
+    heure_fait: "", // will come with H
+    tax_heure_fait: "", // will come with euaro sign
+    supplymentry_tax: "", // will come with euro sign
+    total_salaire: "", 
+  })
   const [Metier, setMetier] = useState({
     metier: "",
-    salaire_35H: "", // will come with euro sign:,
+    salaire_35H:"", // will come with euro sign:,
     tax_35H: "", // will come with euro sign
     heure_fait: "", // will come with H
     tax_heure_fait: "", // will come with euaro sign
@@ -60,6 +69,7 @@ function OfferModal(props) {
     } else {
       setDataGenOffer({ ...genOfferData, [e.target.name]: e.target.value });
     }
+    setformValues({...form_values,[e.target.name]: e.target.value})
   };
 
   const DownLoadOffer = (response, id) => {
@@ -114,6 +124,15 @@ function OfferModal(props) {
         } else {
           toast.success("job added successfully!");
           props.Data.push(Metier);
+          setformValues({
+            metier: "",
+            salaire_35H:"", // will come with euro sign:,
+            tax_35H: "", // will come with euro sign
+            heure_fait: "", // will come with H
+            tax_heure_fait: "", // will come with euaro sign
+            supplymentry_tax: "", // will come with euro sign
+            total_salaire: "", 
+          })
         }
       }
     }
@@ -185,17 +204,7 @@ function OfferModal(props) {
               className="modal-body scrollbarModal text-start"
               style={{ height: "78vh" }}
             >
-              <p
-                className="mb-0"
-                style={{
-                  fontFamily: "Poppins",
-                  fontStyle: "normal",
-                  fontWeight: "400",
-                  fontSize: "15px",
-                  lineHeight: "24px",
-                  color: "#000000",
-                }}
-              ></p>
+            
               <div className="col-12">
                 <div className="row">
                   <div className="col-6">
@@ -225,15 +234,16 @@ function OfferModal(props) {
                         </span>
                       </label>
                       <input
+                        
                         style={{
                           fontFamily: "Poppins",
                           fontStyle: "normal",
-                          fontWeight: "400",
+                         fontWeight: "400",
                           fontSize: "13px",
                           lineHeight: "24px",
                           color: "#000000",
                         }}
-                        defaultValue={Metier.metier}
+                        value={form_values.metier || ""}
                         onChange={(e) => onChangeGenOfferset(e)}
                         placeholder="JOB NAME"
                         name="metier"
@@ -256,6 +266,7 @@ function OfferModal(props) {
                       NOM SOCIETE
                     </label>
                     <input
+                  
                       style={{
                         fontFamily: "Poppins",
                         fontStyle: "normal",
@@ -285,6 +296,7 @@ function OfferModal(props) {
                       SALAIRE 35H
                     </label>
                     <input
+                  
                       style={{
                         fontFamily: "Poppins",
                         fontStyle: "normal",
@@ -297,8 +309,8 @@ function OfferModal(props) {
                       onChange={(e) => onChangeGenOfferset(e)}
                       placeholder="SALAIRE 35H"
                       name="salaire_35H"
-                      defaultValue={
-                        Metier.salaire_35H ? Metier.salaire_35H : ""
+                      value={
+                       form_values.salaire_35H || ""
                       }
                       className="form-control fontsizeModal"
                     />
@@ -317,6 +329,7 @@ function OfferModal(props) {
                       TAUX HORRAIRE 35H
                     </label>
                     <input
+                  
                       style={{
                         fontFamily: "Poppins",
                         fontStyle: "normal",
@@ -325,7 +338,7 @@ function OfferModal(props) {
                         lineHeight: "24px",
                         color: "#000000",
                       }}
-                      defaultValue={Metier.tax_35H}
+                      value={form_values.tax_35H || ""}
                       type="number"
                       onChange={(e) => onChangeGenOfferset(e)}
                       placeholder="TAUX HORRAIRE 35H"
@@ -347,6 +360,7 @@ function OfferModal(props) {
                       NOMBRE HEURE FORFAIT
                     </label>
                     <input
+                  
                       style={{
                         fontFamily: "Poppins",
                         fontStyle: "normal",
@@ -355,7 +369,7 @@ function OfferModal(props) {
                         lineHeight: "24px",
                         color: "#000000",
                       }}
-                      defaultValue={Metier.heure_fait}
+                      value={form_values.heure_fait || ""}
                       type="number"
                       onChange={(e) => onChangeGenOfferset(e)}
                       placeholder="NOMBRE HEURE FORFAIT"
@@ -377,6 +391,7 @@ function OfferModal(props) {
                       TAUX HORAIRE FORFAIT
                     </label>
                     <input
+                  
                       style={{
                         fontFamily: "Poppins",
                         fontStyle: "normal",
@@ -385,7 +400,7 @@ function OfferModal(props) {
                         lineHeight: "24px",
                         color: "#000000",
                       }}
-                      defaultValue={Metier.tax_heure_fait}
+                      value={form_values.tax_heure_fait || ""}
                       type="number"
                       onChange={(e) => onChangeGenOfferset(e)}
                       placeholder="TAUX HORAIRE FORFAIT"
@@ -407,6 +422,7 @@ function OfferModal(props) {
                       TAUX HORAIRE HEURE SUPPLEMENTAIRE
                     </label>
                     <input
+                  
                       style={{
                         fontFamily: "Poppins",
                         fontStyle: "normal",
@@ -416,7 +432,7 @@ function OfferModal(props) {
                         color: "#000000",
                       }}
                       type="number"
-                      defaultValue={Metier.supplymentry_tax}
+                      value={form_values.supplymentry_tax || ""}
                       onChange={(e) => onChangeGenOfferset(e)}
                       placeholder="TAUX HORAIRE HEURE SUPPLEMENTAIRE"
                       name="supplymentry_tax"
@@ -438,6 +454,7 @@ function OfferModal(props) {
                       SALAIRE TOTAL
                     </label>
                     <input
+                  
                       style={{
                         fontFamily: "Poppins",
                         fontStyle: "normal",
@@ -446,7 +463,7 @@ function OfferModal(props) {
                         lineHeight: "24px",
                         color: "#000000",
                       }}
-                      defaultValue={Metier.total_salaire}
+                      value={form_values.total_salaire || ""}
                       type="number"
                       onChange={(e) => onChangeGenOfferset(e)}
                       placeholder="SALAIRE TOTAL"
