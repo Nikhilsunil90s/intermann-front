@@ -13,11 +13,11 @@ function OfferModal(props) {
   }) as any;
   const [form_values,setformValues]=useState({
     metier: "",
-    salaire_35H:"", // will come with euro sign:,
-    tax_35H: "", // will come with euro sign
-    heure_fait: "", // will come with H
-    tax_heure_fait: "", // will come with euaro sign
-    supplymentry_tax: "", // will come with euro sign
+    salaire_35H:"",  
+    tax_35H: "", 
+    heure_fait: "",  
+    tax_heure_fait: "",  
+    supplymentry_tax: "",
     total_salaire: "", 
   })
   const [Metier, setMetier] = useState({
