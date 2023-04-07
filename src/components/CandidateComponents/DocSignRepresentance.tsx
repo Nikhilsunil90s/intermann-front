@@ -3,9 +3,9 @@ import "../../CSS/Client/ArchivedCardClient.css";
 import SignatureCanvas from "react-signature-canvas";
 import { Toaster, toast } from "react-hot-toast";
 import { API_BASE_URL } from "../../config/serverApiConfig";
-import { useLocation } from "react-router";
 import Cookies from "js-cookie";
 import ProfileLoader from "../../components/Loader/ProfilesLoader";
+import { useLocation } from "react-router";
 
 let Data;
 function RepresentanceSign() {
@@ -13,7 +13,6 @@ function RepresentanceSign() {
   const { state } = useLocation();
   const SignPad = useRef(undefined);
   const [SignError, setSignError] = useState(false);
-  console.log(state, "state");
   const [contractID] = useState(state) as any;
   console.log(contractID.id);
 

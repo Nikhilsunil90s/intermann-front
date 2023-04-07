@@ -64,6 +64,8 @@ import OfferSigned from "./Offer_Center/components/LastStepOfSign"
 import ViewOffer from "./Offer_Center/components/DocumentSign";
 import {Helmet} from "react-helmet";
 import Favicon from "../src/images/Tablogo.svg"
+import EditBillingCenter from "./BILLING-CENTER/Pages/EditInvoice";
+
 
 function App() {
   return (
@@ -548,11 +550,20 @@ function App() {
           />
           {/* End */}
           {/* Billing Center */}
+        
           <Route
             path={"/billing-Center/AddInvoice"}
             element={
             
                 <AddInvoice />
+            
+            }
+          />
+            <Route
+            path={"/edit_Billing_center"}
+            element={
+            
+                <EditBillingCenter />
             
             }
           />

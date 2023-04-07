@@ -103,7 +103,7 @@ function Card(props: any) {
             props.voir == "voir" ? "col-9" : "col-7"
           } d-flex align-items-center pl-0 cursor-pointer`}
         >
-          <p className="mb-0 d-flex justify-content-center">
+          <p className="mb-0 d-flex justify-content-center align-items-center">
             société :
             <b
               className="d-flex align-items-center"
@@ -123,27 +123,46 @@ function Card(props: any) {
               title={props.props.metiers.map((jb) => jb.metier)}
             >
               {props.props.metiers.length ? null : "✘✘!"}
+              <ul style={{listStyle:"none",margin:"5px 0px 0px 0px",padding:"0px"}}>
               {props.props.metiers.map((jb, i) =>
-                jb
+              (
+                <li>
+              {  jb
                   ? jb.metier.length > 9
                     ? jb.metier.slice(0, 9) + "..."
                     : jb.metier
-                  : "✘✘!"
+                  : "✘✘!"}
+                  </li>
+              )
               )}
+              </ul>
             </b>
             - Forfait :
             <b className="d-flex align-items-center">
+              <ul  style={{listStyle:"none",margin:"5px 0px 0px 0px",padding:"0px"}}>
               {props.props.metiers.length > 0 ? null : "✘✘!"}
               {props.props.metiers.map((jb, i) =>
-                jb ? (jb.heure_fait ? jb.heure_fait : "✘✘!") : "✘✘!"
+              (
+                <li>
+               { jb ? (jb.heure_fait ? jb.heure_fait : "✘✘!")  : "✘✘!"}
+                </li>
+              )
               )}
+              </ul>
             </b>
             - salaire :
             <b className="d-flex align-items-center">
               {props.props.metiers.length > 0 ? null : "0€"}
+              <ul style={{listStyle:"none",margin:"5px 0px 0px 0px",padding:"0px"}}>
               {props.props.metiers.map((jb, i) =>
-                jb ? (jb.total_salaire ? jb.total_salaire : "0€") : "0€"
+              (
+                <li>
+                  {
+                jb ? (jb.total_salaire ? jb.total_salaire : "0€") : "0€"}
+                </li>
+              )
               )}
+              </ul>
             </b>
             - Generated :
             <b className="d-flex align-items-center">

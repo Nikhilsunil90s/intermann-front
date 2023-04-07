@@ -53,21 +53,21 @@ function Sidebar(props: any) {
   let login = Cookies.get("token");
   let token = localStorage.getItem("token");
 
-  const checkHerokuUpdates=async()=>{
-   await GetRoute("check-heroku-updates").then((res)=>{
-      if(res.logout_and_refresh){
-         dispatch(logout());
-         Cookies.remove("token");
-         localStorage.removeItem("token");
-         localStorage.removeItem("archive");
-         localStorage.removeItem("embauch");
-         localStorage.removeItem("profile");
-         localStorage.removeItem("LoginUser");
-        LogNotify();
-        window.location.href = "/"
-      }
-    }).catch(err=>console.log(err))
-  }
+  // const checkHerokuUpdates=async()=>{
+  //  await GetRoute("check-heroku-updates").then((res)=>{
+  //     if(res.logout_and_refresh){
+  //        dispatch(logout());
+  //        Cookies.remove("token");
+  //        localStorage.removeItem("token");
+  //        localStorage.removeItem("archive");
+  //        localStorage.removeItem("embauch");
+  //        localStorage.removeItem("profile");
+  //        localStorage.removeItem("LoginUser");
+  //       LogNotify();
+  //       window.location.href = "/"
+  //     }
+  //   }).catch(err=>console.log(err))
+  // }
  
 
   // if(timeLeft === 0){

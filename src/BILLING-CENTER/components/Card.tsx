@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { GetRoute ,PostRoute} from "../../components/ApisFunction/FunctionsApi";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 function Card(props: any) {
+  const navigate =useNavigate()
   const [isMulti, setIsMulti] = useState([
     {
       index: "",
@@ -25,6 +27,10 @@ function Card(props: any) {
       }
     })
     .catch((err)=>console.log(err))
+  }
+
+  const MoveToeditScreen=(data)=>{
+    navigate("/edit_Billing_center",{state:data})
   }
   return (
     <>
@@ -178,6 +184,7 @@ function Card(props: any) {
               <button
                 className="border-white RoundDiv"
                 style={{ background: "#F3F4F6", width: "37px" }}
+                onClick={()=>MoveToeditScreen(props.props)}
               >
                 <img alt="..." src={require("../../images/penPng.svg").default} />
               </button>

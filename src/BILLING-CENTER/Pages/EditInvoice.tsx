@@ -1,6 +1,7 @@
+import { de } from "date-fns/locale";
 import React, { useState, useRef, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useNavigate, useLocation } from "react-router";
+import { useNavigate } from "react-router";
 import "../CSS/Billing.css";
 import { Calendar } from "react-date-range";
 import format from "date-fns/format";
@@ -8,24 +9,26 @@ import { PostRoute } from "../../components/ApisFunction/FunctionsApi";
 import { motion } from "framer-motion";
 import Select from "react-select";
 import { currency, colourStyles } from "../Functions/ReactSelect";
+import { useLocation } from "react-router";
 
 let GlobalRow = [];
 let toTalamount = 0.0;
 let Prix = 0;
 let Qua = 0;
-function AddInvoice() {
+function EditBillingCenter() {
+  const { state } = useLocation();
   const navigate = useNavigate();
-  console.log(toTalamount === 0 ? "0.00" : toTalamount);
   const ref = useRef() as any;
   const refOne = useRef(null);
   const reftwo = useRef(null);
   const [Startopen, setStartOpen] = useState(false);
+  const [old_data,setOld_data]=useState(state)as any
   const [open, setOpen] = useState(false);
-  const [totalA, setA] = useState([]);
+  const [totalA, setA] = useState(old_data.details ? old_data.details: [])as any;
   const [displayRow, setDisplayRow] = useState(false);
   const [totalAmount, setTotalAmount] = useState(0.0) as any;
   const [DS, setDS] = useState(false);
-  const [CurrencyValue, setCurrencyValue] = useState({
+  const [CurrencyValue, setCurrencyValue] = useState( {
     value: "Euro",
     label: "€",
   });
@@ -35,15 +38,28 @@ function AddInvoice() {
     price: 0,
     montant: 0,
   }) as any;
+
+
+
   const [data, setData] = useState({
-    factureCurrency: CurrencyValue.value,
-    factureNumber: "",
-    factureCreateDate: "",
-    factureDueDate: "",
-    factureTo: "",
-    factureVAT: "",
-    details: [],
-  });
+    factureCurrency: old_data.factureCurrency !== "" ?  old_data.factureCurrency  : CurrencyValue.value,
+    factureNumber:old_data.factureNumber !== "" ?  old_data.factureNumber  : "",
+    factureCreateDate: old_data.factureCreateDate !== "" ?  old_data.factureCreateDate  : "",
+    factureDueDate: old_data.factureDueDate !== "" ?  old_data.factureDueDate  : "",
+    factureTo:  old_data.factureTo !== "" ?  old_data.factureTo  : "",
+    factureVAT:  old_data.factureVAT !== "" ?  old_data.factureVAT  : "",
+    details:old_data.details ? old_data.details : [],
+  })as any;
+
+  useEffect(()=>{
+    if(totalA.length){
+        GlobalRow=old_data.details ? old_data.details: []
+        setDisplayRow(true) 
+        toTalamount = old_data?.total_h_t_tva
+        setTotalAmount(toTalamount)
+      }
+  },[])
+
   const onClickLineAdd = () => {
     if (Row.quantity === "" || Row.price == "" || Row.description == "") {
       if (totalA.length > 0) {
@@ -89,7 +105,6 @@ function AddInvoice() {
 
   const onChangeFormFill = (e: any) => {
     if (e.target.name === "Submit") {
-      console.log(data, "data");
       setDS(true);
       PostRoute(data, "saveInvoice").then((res) => {
         if (res.status) {
@@ -226,6 +241,7 @@ function AddInvoice() {
                     <div className="col-6">
                       <input
                         type={"text"}
+                        value={data.factureNumber}
                         placeholder="Factura N"
                         onChange={onChangeFormFill}
                         name="factureNumber"
@@ -367,6 +383,7 @@ function AddInvoice() {
                         <textarea
                           typeof="text"
                           className="x1102Textarea"
+                          value={data.factureTo}
                           onChange={onChangeFormFill}
                           name="factureTo"
                         />
@@ -379,6 +396,7 @@ function AddInvoice() {
                         <input
                           className="x1102input"
                           type={"text"}
+                          value={data.factureVAT}
                           name="factureVAT"
                           onChange={onChangeFormFill}
                         />
@@ -396,17 +414,20 @@ function AddInvoice() {
                         className="x1103Totalpayer"
                         type={"number"}
                         value={
-                          toTalamount === 0 ? "0.00" : toTalamount.toFixed(2)
+                          toTalamount === 0 ? "0.00" : toTalamount.toFixed(1)
                         }
                       />
                       <span className="totalSign">
-                        {CurrencyValue.label.includes("Lei")
+                        {/* {CurrencyValue.label.includes("Lei")
                           ? "Lei"
                           : CurrencyValue.label.includes("$")
                           ? "$"
                           : CurrencyValue.label.includes("€")
                           ? "€"
-                          : ""}
+                          : ""} */}
+                          {
+                            data.factureCurrency == "Euro" ?  "€" :  data.factureCurrency == "USD" ?  "$"  : "Lei"
+                          }
                       </span>
                     </div>
                   </div>
@@ -427,24 +448,30 @@ function AddInvoice() {
                   </th>
                   <th className="text-center" scope="col">
                     price / PREȚ (
-                    {CurrencyValue.label.includes("Lei")
+                    {/* {CurrencyValue.label.includes("Lei")
                       ? "Lei"
                       : CurrencyValue.label.includes("$")
                       ? "$"
                       : CurrencyValue.label.includes("€")
                       ? "€"
-                      : ""}
+                      : ""} */}
+                       {
+                            data.factureCurrency == "Euro" ?  "€" :  data.factureCurrency == "USD" ?  "$"  : "Lei"
+                          }
                     )
                   </th>
                   <th className="text-center" scope="col">
                     MONTANT (
-                    {CurrencyValue.label.includes("Lei")
+                    {/* {CurrencyValue.label.includes("Lei")
                       ? "Lei"
                       : CurrencyValue.label.includes("$")
                       ? "$"
                       : CurrencyValue.label.includes("€")
                       ? "€"
-                      : ""}
+                      : ""} */}
+                     {
+                            data.factureCurrency == "Euro" ?  "€" :  data.factureCurrency == "USD" ?  "$"  : "Lei"
+                          }
                     )
                   </th>
                   {totalA.length > 0 ? (
@@ -710,13 +737,16 @@ Antonica Ionut"
                     <div className="px-1 d-flex align-items-center justify-content-center">
                       <p className="mb-0">
                         {toTalamount === 0 ? "0.00" : toTalamount.toFixed(2)}{" "}
-                        {CurrencyValue.label.includes("Lei")
+                        {/* {CurrencyValue.label.includes("Lei")
                           ? "Lei"
                           : CurrencyValue.label.includes("$")
                           ? "$"
                           : CurrencyValue.label.includes("€")
                           ? "€"
-                          : ""}
+                          : ""} */}
+                         {
+                            data.factureCurrency == "Euro" ?  "€" :  data.factureCurrency == "USD" ?  "$"  : "Lei"
+                          }
                       </p>
                     </div>
                   </td>
@@ -757,8 +787,8 @@ Antonica Ionut"
                   classNamePrefix="select"
                   // menuIsOpen={true}
                   defaultValue={{
-                    value: "Euro",
-                    label: "€  Euro",
+                    value: data.factureCurrency,
+                    label: data.factureCurrency,
                     color: "#1372b5",
                   }}
                   onChange={OnReactSelect}
@@ -794,4 +824,4 @@ Antonica Ionut"
     </>
   );
 }
-export default AddInvoice;
+export default EditBillingCenter;
