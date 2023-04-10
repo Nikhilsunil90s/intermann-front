@@ -39,6 +39,10 @@ export default function DownloadCenter() {
       text: "Représentance",
       value: "Représentance",
     },
+    {
+      text: "Offre Client Signé ",
+      value: "Offre_Client",
+    },
   ]) as any;
 
   const fetchCandidatContracts = async () => {
@@ -333,6 +337,11 @@ export default function DownloadCenter() {
     if (index === 3) {
       setAllProfiles(representance.filter((el) => el));
     }
+    if(index === 4){
+      setAllProfiles([]);
+      window.open("/offer_center_view_page")
+
+    }
   };
   return (
     <>
@@ -534,7 +543,10 @@ export default function DownloadCenter() {
                       <>
                         <Error /> <span> ✘ No Contract Available ✘</span>
                       </>
-                    ) : (
+                    ) : activeTab === 4 ?
+                    "Offer Center Opened in New Tab!"
+                    :
+                    (
                       <>
                         <Error /> <span> ✘ No data yet ✘</span>
                       </>

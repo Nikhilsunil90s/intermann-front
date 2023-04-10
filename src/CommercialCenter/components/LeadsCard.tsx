@@ -11,6 +11,8 @@ import OfferModal from "./Modal/OfferModal";
 import Cookies from "js-cookie";
 import VoirOfferModal from "../components/Modal/VoirOfferModal";
 import DownloadGmail from "./Modal/DowloadAndGmailModal";
+import { PostRoute } from "../../components/ApisFunction/FunctionsApi";
+import { notify } from "precise-ui/dist/es6";
 
 let Data = [] as any;
 function LeadCard(props) {
@@ -76,6 +78,40 @@ function LeadCard(props) {
   const [responsable, setResponsable] = useState([]) as any;
 
   const [status, setStatus] = useState() as any;
+  const [add_TO_crm_Data,setAddtocrmData]=useState(
+    {
+           clientCompanyName :props.props.companyName, // commercialLead.companyName
+            clientEmail :props.props.email, // commercialLead.email
+            clientPhone :props.props.phoneNumber1 + " ; "+ props.props.phoneNumber2, // commercialLead.phoneNumber1 + " ; " + commercialLead.phoneNumber2
+            clientAddress : "", // ""
+            clientActivitySector : "", // ""
+            clientJob : "", // ""
+            clientReferenceName : "", // ""
+            clientReferenceNumber : "", // ""
+            clientRequiredSkills :  props.props.companyNote + " " +  props.props.agencyNote, // commercialLead.clientNote + commercialLead.agencyNote
+            numberOfPosts : "", // ""
+            clientMotivation : 0, // 0
+            jobStartDate : "", // ""
+            jobEndDate : "", // ""
+            jobTotalBudget : 0, // 0
+            netSalary : 0, // 0
+            clientImportance : 0, // 0
+            enteredBy : "Commercial Center", // "Commercial Center"
+            jobStatus : "To-Do", // "To-Do"
+            note_cofac : 0, // 0
+            leadOrigin : "", // ""
+            salary_hours : [], // []
+            rate_hours : [], // []
+            offerSent :props.props.offerSent, // commercialLead.offerSent
+            signatureSent : false, // false
+            contractSigned : false, // false
+            publicityStarted : false,// false
+            A1selected : false, // false
+            assuranceFaite : false, // false
+            agenceDeVoyage : false, // false
+            sispiDeclared : false, // false
+    
+  })
 
   const [GenOffer, setGenOffer] = useState(false);
   const [voir_offer, setVoirOffer] = useState(false) as any;
@@ -944,6 +980,17 @@ function LeadCard(props) {
       .catch((err) => err);
   };
 
+  const AddTOcrm=()=>{
+    PostRoute(add_TO_crm_Data,"addClient").then((res)=>{
+      if(res.status){
+        toast.success(res.message)
+      }else{
+        toast.error(res.message)
+      }
+    })
+    .catch(err=>console.log(err))
+  }
+
   const onReactSelect = async (e) => {
     let UserData = {
       leadId: props.props._id,
@@ -1038,7 +1085,7 @@ function LeadCard(props) {
                 Voir offre envoyé le {formatDateCha(offerCreatedDate)}
                 </button>
               ) : null}
-              <button className="leadsAddToCRM"   style={{width:"148px"}}>Add to CRM</button>
+              <button className="leadsAddToCRM"   style={{width:"148px"}} onClick={()=>AddTOcrm()}>Add to CRM</button>
               <button
                 className="leadsAddToCRM mx-1"
                 onClick={() => setGenOffer(true)}

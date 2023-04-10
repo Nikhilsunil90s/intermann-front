@@ -171,20 +171,16 @@ function OfferModal(props) {
       status: true,
       filePath: FilePath,
       id: id,
-      content: `<div>bonjour, suite à notre entretien téléphonique voici l’offre pour les travailleurs détachés.</br>
-      vous y trouverez ${res.data.metiers.map((el) =>
-        el.tax_35H ? el.tax_35H : "0"
-      )} en bleu le taux horaire pour les profils demandés.</br>
-      une fois l’offre retourné signée, nous allons lancer les recherches auprès de notre réseau en roumanie, de notre base de donnée, et en publiant des annonces publicitaire dans toute la région.</br>
-      nous vous enverrons ainsi règulièrement des cvs par mail que vous devrez valider ou refuser.</br>
-      nous vous rappelons que vous avez toujours la possibilité de renvoyer sans frais pendant une semaine votre travailleur si jamais celui ne convenant pas.</br>
-      nous vous demandons d'être le plus réactif possible dès réception de nos cvs pour ne pas perdre les candidats.</br>
-      nous nous donnons un délai de 3 semaines pour trouver le candidat correspondant à votre demande.</br>
-      nous vous invitons à regarder notre vidéo explictive de l’offre sur notre chaine youtube ici :</br>
-      <a style="color:"#FE8700"" target="_blank" href="https://www.youtube.com/watch?v=a5ug5ulpliq&t=1s"> https://www.youtube.com/watch?v=a5ug5ulpliq&t=1s</a></br>
-      enfin, vous avez deux possibilités pour accepter cette offre.</br>
+      content: `<div>Bonjour, suite à notre entretien téléphonique voici l’offre pour les travailleurs détachés.</br></br>
+      Vous y trouverez en bleu le taux horaire pour les profils demandés.</br></br>
+      Une fois l’offre retourné signée, nous allons lancer les recherches auprès de notre réseau en Roumanie, de notre base de donnée, et en publiant des annonces publicitaire dans toute la région.</br></br>
+      Nous vous enverrons ainsi régulièrement des CVs par mail que vous devrez valider ou refuser.  Aussi, nous vous rappelons que vous avez toujours la possibilité de renvoyer sans frais pendant une semaine votre travailleur si jamais celui ne convenait pas.</br></br>
+      Nous vous demandons d'être le plus réactif possible dès réception de nos CVs pour ne pas perdre les candidats.</br>
+      Nous nous donnons un délai de 3 semaines pour trouver le candidat correspondant à votre demande.</br>
+      Vous pouvez regarder notre vidéo explicative de l’offre sur notre chaine YouTube ici :      <a target="_blank" style="color:#FE8700" href="https://www.youtube.com/watch?v=a5ug5ulpliq&t=1s"> https://www.youtube.com/watch?v=a5ug5ulpliq&t=1s </a></br></br>
+      Enfin, vous avez deux possibilités pour accepter cette offre.</br>
       1) la première c’est de la renvoyer signer par email à contact@intermann.ro</br>
-      2) la seconde c’est de la signer digitalement depuis votre pc/smartphone en cliquant sur ce lien : <a target="_blank" style="color:"#FE8700"" href="https://intermann.herokuapp.com/ViewOffer/${id}"> https://intermann.herokuapp.com/ViewOffer/${id}</a>
+      2) la seconde c’est de la signer digitalement depuis votre PC/Smartphone en cliquant sur ce lien :      <a target="_blank" style="color:#FE8700" href="https://intermann.herokuapp.com/ViewOffer/${id}"> https://intermann.herokuapp.com/ViewOffer/${id}</a>
       </div>`,
     });
     props.closeModal(false);

@@ -135,7 +135,7 @@ function DownloadGmail(props: any) {
                        <a
                     //    onClick={()=>nextStep()}
                     target="_blank"
-                    href={"http://www.gmail.com"}
+                    href={"https://mail.google.com/mail/u/0/#inbox?compose=new"}
               
                          className=""
                          style={{
@@ -151,7 +151,6 @@ function DownloadGmail(props: any) {
                            display: "flex",
                            alignItems: "center",
                            justifyContent: "center",
-                           textDecorationLine: "underline",
                            textTransform: "capitalize",
                            color: " #FFFFFF",
                            border: "none",
@@ -190,7 +189,6 @@ function DownloadGmail(props: any) {
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          textDecorationLine: "underline",
                           textTransform: "capitalize",
                           color: " #FFFFFF",
                           border: "none",
@@ -219,7 +217,6 @@ function DownloadGmail(props: any) {
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          textDecorationLine: "underline",
                           textTransform: "capitalize",
                           color: " #FFFFFF",
                           border: "none",
@@ -256,7 +253,6 @@ null
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        textDecorationLine: "underline",
                         textTransform: "capitalize",
                         color: " #FFFFFF",
                         border: "none",

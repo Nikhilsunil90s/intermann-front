@@ -136,7 +136,7 @@ function MainCenter() {
         position="top-right"
         containerStyle={{ zIndex: "999999999999999999" }}
       />
-      <div className="container-fluid mt-4 mb-2">
+      <div className={`container-fluid ${window.location.href.includes("offer_center_view_page") ? " mt-0" : "mt-4"} mb-2`}>
         <div className="row">
           <div>
             <Header setUploadPdfModal={setUploadPdfModal} />

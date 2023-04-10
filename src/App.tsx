@@ -586,6 +586,14 @@ function App() {
             
             }
           />
+           <Route
+            path={"/offer_center_view_page"}
+            element={
+            
+      <MainCenterOffer   />
+            
+            }
+          />
           
           {/* End */}
 
