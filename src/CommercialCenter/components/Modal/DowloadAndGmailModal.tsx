@@ -1,22 +1,28 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import $ from "jquery"
 import Parser from 'html-react-parser';
 
 function DownloadGmail(props: any) {
+  const copyElement = useRef(null);
   const [copied,setCopied]=useState(false)
   const [steps,setSteps]=useState({
     step1:false,
     step2:false
   })
-  function copyToClipboard(element:any) {
-    var $temp = $("<input>");
-    $("body").append($temp);
-    $temp.val($(element).text()).select();
-    document.execCommand("copy");
-    $temp.remove();
-    setCopied(true)
-    toast.success("Copied successfully !!")
+ 
+  async function copyToClipboard(element:any) {
+    const textToCopy = copyElement.current.outerHTML;
+    const tempElement = document.createElement("div");
+    tempElement.innerHTML = textToCopy;
+    document.body.focus();
+    await navigator.clipboard.write([
+        new ClipboardItem({
+          "text/html": new Blob([tempElement.innerHTML], { type: 'text/html' })
+        })
+      ])
+      setCopied(true)
+      toast.success("Copied To Clipboard!")
   }
 
   const nextStep=()=>{
@@ -92,6 +98,7 @@ function DownloadGmail(props: any) {
                         <p
                         className=""
                         id="p1"
+                        ref={copyElement}
                         style={{
                           fontFamily: "Poppins",
                           fontStyle: "normal",
