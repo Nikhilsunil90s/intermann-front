@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Sidebar from "./components/Sidebar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -68,6 +68,17 @@ import EditBillingCenter from "./BILLING-CENTER/Pages/EditInvoice";
 
 
 function App() {
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    // Perform any necessary refresh actions here
+
+    // Simulate a delay for demonstration purposes
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+  },[])
   return (
     <>
      <Helmet>
@@ -75,7 +86,12 @@ function App() {
     <title>Intermann CRM</title>
      <link rel="icon" type="image/png" href={Favicon} sizes="26x26" />
 </Helmet>
-    <Provider store={configureStore}>
+{
+  isLoading ?
+"kajdhw"
+
+  :
+<Provider store={configureStore}>
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
@@ -603,6 +619,8 @@ function App() {
         </Routes>
       </Router>
     </Provider>
+}
+    
     </> );
 }
 

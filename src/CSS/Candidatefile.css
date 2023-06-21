@@ -10,12 +10,7 @@ body::-webkit-scrollbar {
     border-radius: 10px;       /* roundness of the scroll thumb */  /* creates padding around scroll thumb */
   }
 
-.dateStart
-    .rdrDateRangePickerWrapper {
 
-        top: 95px;
-    
-    }
 
   
 .overFlowHeight::-webkit-scrollbar {
@@ -30,7 +25,12 @@ body::-webkit-scrollbar {
   }
 
  
+  .dateStart
+  .rdrDateRangePickerWrapper {
 
+      top: 95px;
+  
+  }
 .cardScrollBar::-webkit-scrollbar {
     width: 5px;               /* width of the entire scrollbar */
   }

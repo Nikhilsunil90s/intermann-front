@@ -168,9 +168,10 @@ function Dashboard() {
                     visible: { opacity: 1, y: 0 },
                     hidden: { opacity: 0, y: -50 },
                   }}
-                  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.8 }}
+                  className="col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-lg-4 cursor-pointer"
+
                 >
                   <Link to="/clientProgress">
                     <div
