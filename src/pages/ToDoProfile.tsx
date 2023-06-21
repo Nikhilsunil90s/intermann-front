@@ -64,7 +64,7 @@ function ToDoProfile() {
   const [Avance, setAvance] = useState(false);
   const [docUploaded, setDocUploaded] = useState(false);
   const [candidatImage, setCandidatImage] = useState(
-    profile.candidatPhoto && profile.candidatPhoto?.url !== undefined
+    profile?.candidatPhoto && profile?.candidatPhoto?.url !== undefined
       ? profile.candidatPhoto?.url
       : ""
   );

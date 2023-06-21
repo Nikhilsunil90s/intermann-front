@@ -1056,7 +1056,6 @@ function LeadCard(props) {
 
   let offerCreatedDate = new Date(props.props.offer_sent_date)
 
-
   return (
     <>
       <div
@@ -1082,7 +1081,7 @@ function LeadCard(props) {
                   onClick={() => setVoirOffer(true)}
                   style={{width:"275px"}}
                 >
-                Voir offre envoyé le {formatDateCha(offerCreatedDate)}
+                {props.props.offer_sent_date === undefined ? "Voir offre envoyé" : "Voir offre envoyé le " + formatDateCha(offerCreatedDate) }
                 </button>
               ) : null}
               <button className="leadsAddToCRM"   style={{width:"148px"}} onClick={()=>AddTOcrm()}>Add to CRM</button>

@@ -60,6 +60,7 @@ import MainCenter from "./CommercialCenter/pages/MainCenter";
 import AddInvoice from "./BILLING-CENTER/Pages/AddInvoice";
 import BillingCenter from "./BILLING-CENTER/Pages/billing-Center";
 import MainCenterOffer from "./Offer_Center/MainCenter";
+import DocumentGenerator from "./DocGenerator/documentGenerator";
 import OfferSigned from "./Offer_Center/components/LastStepOfSign"
 import ViewOffer from "./Offer_Center/components/DocumentSign";
 import {Helmet} from "react-helmet";
@@ -595,6 +596,25 @@ function App() {
             }
           />
           
+          {/* End */}
+
+          {/* Document Generator */}
+          <Route
+            path={"/document-generator"}
+            element={
+            
+            <Sidebar > <DocumentGenerator /></Sidebar>
+            
+            }
+          />
+           <Route
+            path={"/document-generator"}
+            element={
+            
+            <DocumentGenerator />
+            
+            }
+          />
           {/* End */}
 
           <Route path="/Error404" element={<Error404 />} />

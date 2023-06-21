@@ -579,8 +579,7 @@ function EditDo() {
 
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formTouched, data, "data1");
-    if (formTouched == true) {
+    if (formTouched) {
       const updatedData = {
         candidatId: profile._id,
         candidatName:
@@ -769,7 +768,6 @@ function EditDo() {
             ? profile.candidatContract._id
             : null,
       };
-      console.log(updatedData);
       // fileData.append('data', JSON.stringify(updatedData))
       let formdata = new FormData();
       formdata.append("image", candidatImage);

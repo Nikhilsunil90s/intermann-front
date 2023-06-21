@@ -30,6 +30,7 @@ function OfferModal(props) {
     tax_heure_fait: "", // will come with euaro sign
     supplymentry_tax: "", // will come with euro sign
     total_salaire: "", // will come with euro sign
+    text_libre: "",
   });
   const [response, setResponse] = useState(true);
   const [panierDisponible, setPanierDisponible] = useState("Non");
@@ -56,6 +57,7 @@ function OfferModal(props) {
       tax_heure_fait: "", // will come with euaro sign
       supplymentry_tax: "", // will come with euro sign
       total_salaire: "",
+      text_libre: ""
     })
     setDataGenOffer({
       company_name: "",
@@ -108,8 +110,13 @@ function OfferModal(props) {
         [e.target.name]: e.target.value,
       });
       setformValues({ ...form_values, [e.target.name]: e.target.value })
-    } else {
-      console.log(e.target.name, e.target.value);
+    } else if (e.target.name === 'text_libre') {
+      setMetier({
+        ...Metier,
+        [e.target.name]: e.target.value,
+      });
+      }
+     else {
       setDataGenOffer({ ...genOfferData, [e.target.name]: e.target.value });
       setformValues({ ...form_values, [e.target.name]: e.target.value })
     }
@@ -214,6 +221,7 @@ function OfferModal(props) {
             tax_heure_fait: "", // will come with euaro sign
             supplymentry_tax: "", // will come with euro sign
             total_salaire: "",
+            text_libre: ""
           })
         }
       }
@@ -229,16 +237,16 @@ function OfferModal(props) {
       status: true,
       filePath: FilePath,
       id: id,
-      content: `<div><p>Bonjour, suite à notre entretien téléphonique voici l’offre pour les travailleurs détachés.</p>
+      content: `<div><p>Bonjour,<br>Suite à notre entretien téléphonique voici l’offre pour les travailleurs détachés.</p>
       <p><strong>Vous y trouverez en bleu le taux horaire pour les profils demandés.</strong></p>
-      <p>Une fois l’offre retourné signée, nous allons lancer les recherches auprès de notre réseau en Roumanie, de notre base de donnée, et en publiant des annonces publicitaire dans toute la région.</p>
-      <p>Nous vous enverrons ainsi régulièrement des CVs par mail que vous devrez valider ou refuser.  Aussi, nous vous rappelons que vous avez toujours la possibilité de renvoyer sans frais pendant une semaine votre travailleur si jamais celui ne convenait pas.</p>
+      <p>Une fois l’offre retournée signée, nous allons lancer les recherches auprès de notre réseau en Roumanie, de notre base de données, et en publiant des annonces publicitaires dans toute la région.</p>
+      <p>Nous vous enverrons ainsi régulièrement des CVs par mail que vous devrez valider ou refuser.  Aussi, nous vous rappelons que vous avez toujours la possibilité de renvoyer sans frais pendant une semaine votre travailleur si jamais celui-ci ne convient pas.</p>
       <p>Nous vous demandons d'être le plus réactif possible dès réception de nos CVs pour ne pas perdre les candidats.</p>
       <p>Nous nous donnons un délai de 3 semaines pour trouver le candidat correspondant à votre demande.</p>
-      <p>Vous pouvez regarder notre vidéo explicative de l’offre sur notre chaine YouTube ici :      <a target="_blank" href="https://www.youtube.com/watch?v=a5ug5ulpliq&t=1s"> https://www.youtube.com/watch?v=a5ug5ulpliq&t=1s </a></p>
+      <p>Vous pouvez regarder notre vidéo explicative de l’offre sur notre chaine YouTube ici :  <a target="_blank" href="https://www.youtube.com/watch?v=a5ug5ulpliq&t=1s"> https://www.youtube.com/watch?v=a5ug5ulpliq&t=1s </a></p>
       <p>Enfin, vous avez deux possibilités pour accepter cette offre.</p>
       <p>1) la première c’est de la renvoyer signer par email à contact@intermann.ro</p>
-      <p>2) la seconde c’est de la signer digitalement depuis votre PC/Smartphone en cliquant sur ce lien :      <a target="_blank" href="https://intermann.herokuapp.com/ViewOffer/${id}"> https://intermann.herokuapp.com/ViewOffer/${id}</a></p>
+      <p>2) la seconde c’est de la signer digitalement depuis votre PC/Smartphone en cliquant sur ce lien :  <a target="_blank" href="https://intermann.herokuapp.com/ViewOffer/${id}"> https://intermann.herokuapp.com/ViewOffer/${id}</a></p>
       </div>`,
     });
     props.closeModal(false);
@@ -404,7 +412,7 @@ function OfferModal(props) {
                       color: "#000000",
                     }}>PANIER REPAS ?
                     </p>
-                    <div className="check-box flex flex-row d-flex justify-content-center align-items-center">
+                    <div className="col-6 check-box flex flex-row d-flex justify-content-center align-items-center">
                       <input
                         className=""
                         type="checkbox"
@@ -558,7 +566,14 @@ function OfferModal(props) {
                       className="form-control fontsizeModal"
                     />
                   </div>
-
+                  <div className="col-12">
+                    <div className="p-1">
+                      <label className="Form-styling">
+                      Texte libre à rajouter à l'offre (facultatif)
+                      </label>
+                      <textarea className="form-control placeHolder" placeholder='Text Libre ...' name='text_libre' rows={4} style={{ overflow: 'hidden' }} onChange={(e) => onChangeGenOfferset(e)}></textarea>
+                    </div>
+                  </div>
                   <div className="col-12 d-flex justify-content-end align-items-center mt-2">
                     {response ? (
                       <button

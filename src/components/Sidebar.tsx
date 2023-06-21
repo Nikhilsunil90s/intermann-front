@@ -758,7 +758,48 @@ function Sidebar(props: any) {
                       Commercial Center
                     </Link>
                   </motion.li>
-
+                  <motion.li
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.7, delay: 0.8 }}
+                    variants={{
+                      visible: { opacity: 1, x: 0 },
+                      hidden: { opacity: 0, x: -50 },
+                    }}
+                    style={{
+                      border: "none",
+                      borderBottom: "0px",
+                      borderLeft: "0px",
+                      padding: "12px ",
+                      paddingLeft: "23px",
+                    }}
+                    onClick={() => OnClickColorChange("kine-center")}
+                    className={
+                      window.location.href.includes("kine-center")
+                        ? "sideBarBackGactive"
+                        : "cursor-pointer sideBarBackG"
+                    }
+                  >
+                    <a
+                      href="https://docs.google.com/spreadsheets/d/1H5CClpD-iddzYeoUg6OtoXgJCPJQDymUsNtGMNh9XGs/edit#gid=0"
+                      target="_blank"
+                      className="signOut"
+                      aria-current="page"
+                    >
+                      <span className="pe-2">
+                        <img alt="..." 
+                          className={
+                            window.location.href.includes("kine-center")
+                              ? "FilterMinibar logoutImage"
+                              : "logoutImage"
+                          }
+                          src={require("../images/kine-center.svg").default}
+                        />
+                      </span>
+                      Kiné Center
+                    </a>
+                  </motion.li>
                   {LoginUser.username == "Test" ? (
                     <motion.li
                       initial="hidden"
@@ -842,6 +883,47 @@ function Sidebar(props: any) {
                         />
                       </span>
                       Offer Center
+                    </Link>
+                  </motion.li>
+                  <motion.li
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.7, delay: 0.8 }}
+                    variants={{
+                      visible: { opacity: 1, x: 0 },
+                      hidden: { opacity: 0, x: -50 },
+                    }}
+                    style={{
+                      border: "none",
+                      borderBottom: "0px",
+                      borderLeft: "0px",
+                      padding: "12px ",
+                      paddingLeft: "23px",
+                    }}
+                    onClick={() => OnClickColorChange("document-generator")}
+                    className={
+                      window.location.href.includes("document-generator")
+                        ? "sideBarBackGactive"
+                        : "cursor-pointer sideBarBackG"
+                    }
+                  >
+                    <Link
+                      to="/document-generator"
+                      className="signOut"
+                      aria-current="page"
+                    >
+                      <span className="pe-2">
+                        <img alt="..." 
+                          className={
+                            window.location.href.includes("document-generator")
+                              ? "FilterMinibar logoutImage"
+                              : "logoutImage"
+                          }
+                          src={require("../images/doc-generator.svg").default}
+                        />
+                      </span>
+                      Document Generator
                     </Link>
                   </motion.li>
                   <motion.li
@@ -1111,6 +1193,32 @@ function Sidebar(props: any) {
                           src={require("../images/comIcon.svg").default}
                         />
                       </Link>
+                    </div>
+                  )}
+                </li>
+                <li
+                  className=" d-flex align-items-center justify-content-center"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  title="Kiné Center"
+                >
+                  {window.location.href.includes("kine-center") ? (
+                    <div className={"activeDiv "}>
+                      <img alt="..." 
+                        style={{ height: "25px", width: "35px" }}
+                        className="FilterMinibar"
+                        src={require("../images/kine-center.svg").default}
+                      />
+                    </div>
+                  ) : (
+                    <div className={""}>
+                      <a href={"https://docs.google.com/spreadsheets/d/1H5CClpD-iddzYeoUg6OtoXgJCPJQDymUsNtGMNh9XGs/edit#gid=0"} target="_blank">
+                        <img alt="..." 
+                          style={{ height: "25px", width: "35px" }}
+                          className=""
+                          src={require("../images/kine-center.svg").default}
+                        />
+                      </a>
                     </div>
                   )}
                 </li>
