@@ -14,6 +14,7 @@ export default function DownloadCenter() {
   const [ClientContracts, setClientContracts] = useState([]);
   const [representance, setRepresentance] = useState([]);
   const [Avance, setAvance] = useState([]);
+  const [custom, setCustom] = useState([]);
   const [AllProfiles, setAllProfiles] = useState([]);
   const [Status, setStatus] = useState(false);
   const [deleteCanContract, setdeleteCanContract] = useState(false);
@@ -41,6 +42,10 @@ export default function DownloadCenter() {
     },
     {
       text: "Offre Client Signé ",
+      value: "Offre_Client",
+    },
+    {
+      text: "Custom Signed",
       value: "Offre_Client",
     },
   ]) as any;
@@ -90,6 +95,18 @@ export default function DownloadCenter() {
 
   const fetchCandidatAvance = async () => {
     return await fetch(API_BASE_URL + `getSignedAvances`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    })
+      .then((resp) => resp.json())
+      .then((respData) => respData)
+      .catch((err) => err);
+  };
+  const fetchCustomeFiles = async () => {
+    return await fetch(API_BASE_URL + `getAllSignedCustomDocuments`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -222,6 +239,31 @@ export default function DownloadCenter() {
         setBtnDS({ ...btnDS, active: false, deleteId: "" });
       });
   };
+
+  const deleteCustome = async (id: any) => {
+    setBtnDS({ ...btnDS, active: false, deleteId: id });
+    return await fetch(API_BASE_URL + `deleteCustomDocument/?docId=${id}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    })
+      .then((resp) => resp.json())
+      .then((respData) => {
+        if (respData.status) {
+          let newArr = custom.filter((el) => el._id !== id);
+          setAllProfiles([...newArr]);
+          toast.success("PDF Removed Successfully!");
+          setdeleteCanContract(true);
+          setBtnDS({ ...btnDS, active: false, deleteId: "" });
+        }
+      })
+      .catch((err) => {
+        toast.error("PDF Not Removed!");
+        setBtnDS({ ...btnDS, active: false, deleteId: "" });
+      });
+  };
   useEffect(() => {
     fetchCandidatContracts().then((res) => {
       if (res.status) {
@@ -311,6 +353,28 @@ export default function DownloadCenter() {
         }
       }
     });
+    fetchCustomeFiles().then((res) => {
+      if (res.status) {
+        setCustom([...res.data]);
+        // console.log(...res.data);
+        setdeleteCanContract(false);
+
+        if (activeTab === 5) {
+          setAllProfiles([...res.data]);
+          setTimeout(() => {
+            setStatus(true);
+          }, 2000);
+        }
+      } else {
+        setTimeout(() => {
+          setStatus(true);
+        }, 2000);
+        if (activeTab === 5) {
+          setAllProfiles([]);
+          setAvance([]);
+        }
+      }
+    });
   }, [deleteCanContract]);
   function padTo2DigitsCH(num) {
     return num.toString().padStart(2, "0");
@@ -341,6 +405,9 @@ export default function DownloadCenter() {
       setAllProfiles([]);
       window.open("/offer_center_view_page")
 
+    }
+    if(index === 5){
+      setAllProfiles(custom.filter((el) => el));
     }
   };
   return (
@@ -416,7 +483,9 @@ export default function DownloadCenter() {
                               ? el.candidatName
                               : el.initial_client_company
                               ? el.initial_client_company
-                              : el.candidat_name}
+                              :el.name ?el.name:
+                               
+                              el.candidat_name}
                             {el.amount_avance
                               ? `- Amount : ${el.amount_avance + " €"}`
                               : null}
@@ -469,7 +538,11 @@ export default function DownloadCenter() {
                                   ? deleteClientsContracts(el.clientId, el._id)
                                   : el.signed_representence_url
                                   ? deleteRepresentance(el._id)
-                                  : deleteAvance(el._id)
+                                  : 
+                                  el?.signed_document_url ?
+                                      deleteCustome(el._id)
+                                  :
+                                  deleteAvance(el._id)
                               }
                             >
                               {btnDS.active ? (
@@ -502,6 +575,10 @@ export default function DownloadCenter() {
                               style={{ border: "none" }}
                               onClick={(e) =>
                                 // window.open(el.signed_contract_url ?  el.signed_contract_url  : el.signed_representence_url ? el.signed_representence_url : el.signed_avance_url)
+                              el?.signed_document_url ?
+                              window.open(el?.signed_document_url)
+
+                              :
                                 fetchContract(
                                   el.candidatName
                                     ? `getSignedCandidatContract/?contractId=${el._id}`
