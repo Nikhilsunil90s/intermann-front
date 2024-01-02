@@ -60,8 +60,8 @@ function DocumentRepresentPDFVIEW() {
 
     navigate(
       ReAvance === "Representance"
-        ? "/RepresentenceContractSigend"
-        : "/AvanceContractSigend",
+        ? "/RepresentenceContractSigned"
+        : "/AvanceContractSigned",
       { state: ContractSignData }
     );
   };

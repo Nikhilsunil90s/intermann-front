@@ -1,27 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
-import { API_BASE_URL } from "../config/serverApiConfig";
-import "../CSS/AddClient.css";
-import "../CSS/Candidatefile.css";
-import Loader from "../components/Loader/loader";
-import ProfileLoader from "../components/Loader/ProfilesLoader";
-import PDFreader from "./AddClientRating/PDFreader";
+import { API_BASE_URL } from "../../config/serverApiConfig";
+import Loader from "../../components/Loader/loader";
+import ProfileLoader from "../../components/Loader/ProfilesLoader";
+import PDFreader from "../../components/AddClientRating/PDFreader";
 import $ from "jquery";
-import CountDown from "../../src/components/Loader/CountDown";
+import CountDown from "../../../src/components/Loader/CountDown";
 let ContractData = {
   id: "",
   filePath: "",
-  public_id: "",
-  user: "",
 };
 function DocumentSign() {
   const [ContractSignData] = useState(ContractData) as any;
   const [pdfTimeOut, setpdfTimeOut] = useState(false);
   const { id } = useParams();
-  const { ClientEmp } = useParams();
   const [profile, setProfile] = useState([]) as any;
-  const [Clientprofile, setClientProfile] = useState() as any;
-  const [pdfUrl, setUrl] = useState('') as any;
+  const [pdfUrl, setUrl] = useState() as any;
 
   const navigate = useNavigate();
 
@@ -37,101 +31,24 @@ function DocumentSign() {
       }, 7000);
     });
 
-    if (profile.length == 0) {
-      if (ClientEmp === "Candidate") {
-        fetchCandidat(id).then((resData) => {
-          if (resData.status == true) {
-            // setProfile(resData.data)
-
-            setProfile(resData.data);
-          } else {
-            return false;
-          }
-        });
-      }
-
-      if (ClientEmp === "Client") {
-        fetchClient(id)
-          .then((resData) => {
-            if (resData.status == true) {
-              // setProfile(resData.data)
-
-              setClientProfile(...resData.data);
-            } else {
-              return false;
-            }
-          })
-
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    }
+    fetchDocumentPDF(id)
   }, [id, profile]);
 
   useEffect(() => {
     setTimeout(() => {
-      pdfUrl !== '' ? setpdfTimeOut(true) : setpdfTimeOut(false);
+      setpdfTimeOut(true);
     }, 5000);
-  }, [pdfUrl]);
-
-  useEffect(() => {
-    if (pdfUrl === '') {
-      if (profile.candidatName) {
-        fetchThePDF(profile.candidatContract._id);
-      }
-      if (Clientprofile) {
-        fetchTheClientPDF(Clientprofile?.clientContract?._id);
-      }
-    }
   });
 
   const SignDocu = (e) => {
-    ContractData.user = ClientEmp;
     ContractData.filePath = pdfUrl;
-    ContractData.id =
-      ClientEmp === "Candidate"
-        ? profile.candidatContract._id
-        : Clientprofile?.clientContract?._id;
-
-    navigate("/ContractSigned", { state: ContractSignData });
+    ContractData.id =id
+    navigate(`/sign-page/${id}`, { state: ContractSignData });
   };
 
-  const fetchCandidat = async (candidatId: any) => {
-    return await fetch(
-      API_BASE_URL + `getCandidatDetailsById/?candidatId=${candidatId}`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-        },
-      }
-    )
-      .then((resp) => resp.json())
-      .then((respData) => {
-        return respData;
-      })
-      .catch((err) => err);
-  };
 
-  const fetchClient = async (ClientId: any) => {
-    return await fetch(
-      API_BASE_URL + `getClientDetailsById/?clientId=${ClientId}`,
-      {
-        mode: 'no-cors',
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-        },
-      }
-    )
-      .then((resp) => resp.json())
-      .then((respData) => respData)
-      .catch((err) => err);
-  };
-
-  const fetchThePDF = async (id: any) => {
-    return await fetch(API_BASE_URL + `getContract/?contractId=${id}`, {
+  const fetchDocumentPDF = async (id: any) => {
+    return await fetch(API_BASE_URL + `getDocumentForSignatures/?docId=${id}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -140,34 +57,11 @@ function DocumentSign() {
     })
       .then((resp) => resp.json())
       .then((respData) => {
-        let _url = respData.filePath.replace("/app/", "");
-        setUrl(_url.replace("http", "https"));
-        ContractData.public_id = respData.public_id;
+        setUrl(API_BASE_URL+respData.filepath.replace("/app/", ""));
       })
       .catch((err) => err);
   };
 
-  const fetchTheClientPDF = async (id: any) => {
-    return await fetch(API_BASE_URL + `getClientContract/?contractId=${id}`, {
-      mode: 'no-cors',
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-      .then((resp) => resp.json())
-      .then((respData) => {
-        setUrl(respData.filePath.replace("/app/", ""));
-        setUrl(respData.filePath.replace("http", "https"));
-        ContractData.public_id = respData.public_id;
-      })
-      .catch((err) => err);
-  };
-
-  const onError = () => {
-    return "error in file-viewer";
-  };
 
   return (
     <>
@@ -200,24 +94,23 @@ function DocumentSign() {
           <div className="col-12 d-flex justify-content-center  bg-ContractPage p-2">
             <span>
               <img alt="..."
-                src={require("../images/logo-header.svg").default}
+                src={require("../../images/logo-header.svg").default}
                 className="filter-logo"
                 style={{ width: "150%" }}
               />
             </span>
             <img
             alt="..."
-              src={require("../images/LogoName.svg").default}
+              src={require("../../images/LogoName.svg").default}
               className="filter-text LogoIntermann"
               style={{ paddingLeft: "30px" }}
             />
           </div>
-
           <div
             className="col-12 d-flex justify-content-center  overFlowHeight"
             style={{ msOverflowY: "scroll" }}
           >
-            {pdfUrl !== '' ? (
+            {pdfUrl ? (
               <>
                 <div className="iFrameView">
                   <iframe
@@ -233,7 +126,14 @@ function DocumentSign() {
               <Loader />
             )}
           </div>
-      
+          {/* {
+            ContractSignModal ? 
+             <DocSignCandidate  props={profile.candidatContract._id} closeModal={setContractSignModal} />
+
+            :
+
+            null
+        } */}
           <div className="col-12 footerDocSign bg-ContractPage">
             {pdfTimeOut ? (
               <button className="btn" onClick={(e) => SignDocu(e)}>

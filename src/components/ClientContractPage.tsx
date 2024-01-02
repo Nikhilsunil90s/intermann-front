@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {  useParams } from "react-router";
+import { useParams } from "react-router";
 import { API_BASE_URL } from "../config/serverApiConfig";
-import ErrorLoader from "../components/Loader/SearchBarError";
+import ErrorLoader from "./Loader/SearchBarError";
 import { FileUploader } from "react-drag-drop-files";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
-import ProfileLoader from "../components/Loader/ProfilesLoader";
+import ProfileLoader from "./Loader/ProfilesLoader";
 import { ProgressBar } from "react-bootstrap";
 import Cookies from "js-cookie";
 
@@ -46,11 +46,12 @@ function ClientContractPage() {
   });
 
   useEffect(() => {
-    fetchCandidat(id)
+    fetchClient(id)
       .then((resData) => {
         if (resData.status == true) {
-      
+
           // setProfile(resData.data)
+          console.log(resData);
           resData.data.map((el) => {
             setProfile(el);
             setDocumentList([...el.clientDocuments, ...el.clientLinks]);
@@ -110,7 +111,7 @@ function ClientContractPage() {
           JSON.stringify("carte_d'identite_employes")
         )
       ) {
-        
+
       }
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(
@@ -266,7 +267,7 @@ function ClientContractPage() {
     });
   }, [documentList]);
 
-  const fetchCandidat = async (clientId: any) => {
+  const fetchClient = async (clientId: any) => {
     return await fetch(
       API_BASE_URL + `getClientDetailsById/?clientId=${clientId}`,
       {
@@ -366,11 +367,81 @@ function ClientContractPage() {
                   <br />
                   INTERMANN WORK S.R.L <br />
                   VAT : RO44515629 <br />
-                  +40 770 504 158
+                  +40 770 504 158 ; Numéro agence:+33 1 87 66 52 98
                 </p>
               </div>
             </div>
           </div>
+
+          <div className="col-12 px-3 mt-1 mb-1">
+            <div className="row Social-CardClient p-1" style={{ backgroundColor: '#EAEAEA' }}>
+              <div className="row md-4">
+
+                <div className="text-center p-1">
+                  <span className="custom-text-size" style={{ color: '#3F76E2', fontWeight: 'bold', textShadow: '2px 4px 4px rgba(46,91,173,0.6)', border: '1px' }}>
+                    TRAVAILLEUR EN COURS ACTUELLEMENT:
+                  </span>
+                </div>
+
+                {
+                  profile?.employeesWorkingUnder?.length > 0 ?
+
+                  profile?.employeesWorkingUnder?.map(ew => (
+                      ew.candidatStatus !== 'Archived' ? 
+                      <div className="col-md-6 my-1">
+                        <div className="p-1" style={{ backgroundColor: '#D9D9D9' }}>
+                          <div className="d-flex align-items-center">
+                            <img
+                              alt="Candidat"
+                              src={require("../images/candidat-dummy-logo.svg").default}
+                              className="Candidat-image"
+                              style={{ width: "75px", height: "75px" }}
+                            />
+                            <div className="ml-1">
+                              <p
+                                className="mb-0"
+                                style={{
+                                  fontFamily: "Poppins",
+                                  fontStyle: "normal",
+                                  fontWeight: 500,
+                                  fontSize: "18px",
+                                  color: "#000000",
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {ew.candidatName}
+                              </p>
+      
+                              <a
+                                className="btn btn-blue d-flex align-items-center"
+                                href={'https://intermann.herokuapp.com/candidateDocumentbox/' + ew.candidatName + '/' + ew._id}
+                                target="_blank"
+                                style={{
+                                  fontFamily: "Poppins",
+                                  fontStyle: "normal",
+                                  fontSize: "12px",
+                                  color: "#FFFFFF",
+                                  height: '12px',
+                                }}
+                              >
+                                {'->'} Voir les documents
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      : null
+                  ))
+                  : <p className="text-center">No Employees Working Under this Company.</p>
+                }
+
+                
+              </div>
+            </div>
+          </div>
+
+
+
           <div className="col-12 px-3 mb-1 ">
             <div className="row Social-CardClient p-1">
               <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
@@ -379,7 +450,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {contrat_client ? (
-                    documentList?.map((el,i) =>
+                    documentList?.map((el, i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("contrat_client")) ? (
@@ -420,8 +491,8 @@ function ClientContractPage() {
                           </div>
                         </>
                       ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("contrat_client")
-                        ) ? (
+                        JSON.stringify("contrat_client")
+                      ) ? (
                         <>
                           <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
@@ -490,7 +561,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {contrat_employes ? (
-                    documentList?.map((el,i) =>
+                    documentList?.map((el, i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("contrat_employes")) ? (
@@ -531,8 +602,8 @@ function ClientContractPage() {
                           </div>
                         </>
                       ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("contrat_employes")
-                        ) ? (
+                        JSON.stringify("contrat_employes")
+                      ) ? (
                         <>
                           <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
@@ -599,7 +670,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {id_card_employer ? (
-                    documentList?.map((el,i) =>
+                    documentList?.map((el, i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("id_card_employer")) ? (
@@ -640,8 +711,8 @@ function ClientContractPage() {
                           </div>
                         </>
                       ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("id_card_employer")
-                        ) ? (
+                        JSON.stringify("id_card_employer")
+                      ) ? (
                         <>
                           <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
@@ -708,7 +779,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {al ? (
-                    documentList?.map((el,i) =>
+                    documentList?.map((el, i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("al")) ? (
@@ -749,8 +820,8 @@ function ClientContractPage() {
                           </div>
                         </>
                       ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("al")
-                        ) ? (
+                        JSON.stringify("al")
+                      ) ? (
                         <>
                           <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
@@ -817,7 +888,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {contrats_assurances_employes ? (
-                    documentList?.map((el,i) =>
+                    documentList?.map((el, i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(
@@ -860,8 +931,8 @@ function ClientContractPage() {
                           </div>
                         </>
                       ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("contrats_assurances_employes")
-                        ) ? (
+                        JSON.stringify("contrats_assurances_employes")
+                      ) ? (
                         <>
                           <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
@@ -928,7 +999,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {sispi ? (
-                    documentList?.map((el,i) =>
+                    documentList?.map((el, i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("sispi")) ? (
@@ -969,8 +1040,8 @@ function ClientContractPage() {
                           </div>
                         </>
                       ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("sispi")
-                        ) ? (
+                        JSON.stringify("sispi")
+                      ) ? (
                         <>
                           <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
@@ -1039,7 +1110,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {document_de_represntation ? (
-                    documentList?.map((el,i) =>
+                    documentList?.map((el, i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(
@@ -1082,8 +1153,8 @@ function ClientContractPage() {
                           </div>
                         </>
                       ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("document_de_represntation")
-                        ) ? (
+                        JSON.stringify("document_de_represntation")
+                      ) ? (
                         <>
                           <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
@@ -1150,7 +1221,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {offre_signee ? (
-                    documentList?.map((el,i) =>
+                    documentList?.map((el, i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("offre_signee")) ? (
@@ -1191,8 +1262,8 @@ function ClientContractPage() {
                           </div>
                         </>
                       ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("offre_signee")
-                        ) ? (
+                        JSON.stringify("offre_signee")
+                      ) ? (
                         <>
                           <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
@@ -1261,7 +1332,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {attestations_societe_intermann ? (
-                    documentList?.map((el,i) =>
+                    documentList?.map((el, i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(
@@ -1304,10 +1375,10 @@ function ClientContractPage() {
                           </div>
                         </>
                       ) : JSON.stringify(
-                          el.folderName ? el.folderName : null
-                        ).includes(
-                          JSON.stringify("attestations_societe_intermann")
-                        ) ? (
+                        el.folderName ? el.folderName : null
+                      ).includes(
+                        JSON.stringify("attestations_societe_intermann")
+                      ) ? (
                         <>
                           <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
@@ -1374,7 +1445,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {cvs ? (
-                    documentList?.map((el,i) =>
+                    documentList?.map((el, i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("cvs")) ? (
@@ -1445,7 +1516,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {autres_documents ? (
-                    documentList?.map((el,i) =>
+                    documentList?.map((el, i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("autres_documents")) ? (
@@ -1486,8 +1557,8 @@ function ClientContractPage() {
                           </div>
                         </>
                       ) : JSON.stringify(
-                          el.folderName ? el.folderName : null
-                        ).includes(JSON.stringify("autres_documents")) ? (
+                        el.folderName ? el.folderName : null
+                      ).includes(JSON.stringify("autres_documents")) ? (
                         <>
                           <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
@@ -1554,7 +1625,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {factures ? (
-                    documentList?.map((el,i) =>
+                    documentList?.map((el, i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("factures_payes")) ? (
@@ -1595,8 +1666,8 @@ function ClientContractPage() {
                           </div>
                         </>
                       ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("factures_payes")
-                        ) ? (
+                        JSON.stringify("factures_payes")
+                      ) ? (
                         <>
                           <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
@@ -1663,7 +1734,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {facturesimpayes ? (
-                    documentList?.map((el,i) =>
+                    documentList?.map((el, i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("factures_impayes")) ? (
@@ -1704,8 +1775,8 @@ function ClientContractPage() {
                           </div>
                         </>
                       ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("factures_impayes")
-                        ) ? (
+                        JSON.stringify("factures_impayes")
+                      ) ? (
                         <>
                           <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
@@ -1783,7 +1854,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12 ">
                 <div className="row justify-content-end align-items-center">
                   {rapport_activite ? (
-                    documentList?.map((el,i) =>
+                    documentList?.map((el, i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("rapport_activite")) ? (
@@ -1825,8 +1896,8 @@ function ClientContractPage() {
                           </div>
                         </>
                       ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("rapport_activite")
-                        ) ? (
+                        JSON.stringify("rapport_activite")
+                      ) ? (
                         <>
                           <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
@@ -1949,7 +2020,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {offre_envoye_et_nonsigne ? (
-                    documentList?.map((el,i) =>
+                    documentList?.map((el, i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("offre_envoye_et_nonsigne")) ? (
@@ -1975,7 +2046,7 @@ function ClientContractPage() {
                                 title={el.originalName}
                               >
                                 <p className="mb-0 contractEMPStyle">
-                                  {el.originalName ?  el.originalName.length > 20
+                                  {el.originalName ? el.originalName.length > 20
                                     ? el.originalName.slice(0, 21) + "..."
                                     : el.originalName : "..."}
                                 </p>
@@ -1990,8 +2061,8 @@ function ClientContractPage() {
                           </div>
                         </>
                       ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("offre_envoye_et_nonsigne")
-                        ) ? (
+                        JSON.stringify("offre_envoye_et_nonsigne")
+                      ) ? (
                         <>
                           <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
@@ -2058,7 +2129,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {fiche_medicale ? (
-                    documentList?.map((el,i) =>
+                    documentList?.map((el, i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("fiche_medicale")) ? (
@@ -2099,8 +2170,8 @@ function ClientContractPage() {
                           </div>
                         </>
                       ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("fiche_medicale")
-                        ) ? (
+                        JSON.stringify("fiche_medicale")
+                      ) ? (
                         <>
                           <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div
@@ -2167,7 +2238,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {reges ? (
-                    documentList?.map((el,i) =>
+                    documentList?.map((el, i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(JSON.stringify("reges")) ? (
@@ -2238,7 +2309,7 @@ function ClientContractPage() {
               <div className="col-md-8 col-sm-12">
                 <div className="row justify-content-end">
                   {fiche_de_mise_a_disposition ? (
-                    documentList?.map((el,i) =>
+                    documentList?.map((el, i) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
                       ).includes(
@@ -2281,8 +2352,8 @@ function ClientContractPage() {
                           </div>
                         </>
                       ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("fiche_de_mise_a_disposition")
-                        ) ? (
+                        JSON.stringify("fiche_de_mise_a_disposition")
+                      ) ? (
                         <>
                           <div className="col-md-6 col-sm-12 mb-1" key={i}>
                             <div

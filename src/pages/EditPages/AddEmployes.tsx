@@ -188,8 +188,8 @@ export default function Employes() {
 
   const notifyNameError = () => toast.error("Please Provide Candidat Name !");
 
-  const notifyDateError = () =>
-    toast.error("Ajouter les dates pour valider cette fiche !");
+  const notifyActivitySectorError = () =>
+    toast.error("Ajouter les Secteur D'Activite et Le Job pour Candidat!");
 
   const notifyAddressError = () =>
     toast.error("Please Provide Candidat Address !");
@@ -566,22 +566,22 @@ export default function Employes() {
 
       return false;
     }
-    if (data.candidatStartDate == "") {
-      notifyDateError();
-      setdsBtn(false);
 
-      return false;
-    }
-    if (data.candidatAddress == "") {
-      notifyAddressError();
-      setdsBtn(false);
+    // if (data.candidatActivitySector === "" || data.candidatJob === "") {
+    //   notifyActivitySectorError();
+    //   setdsBtn(false);
+    //   return false;
+    // }
+    // if (data.candidatAddress == "") {
+    //   notifyAddressError();
+    //   setdsBtn(false);
 
-      return false;
-    }
-    if (data.candidatEndDate == "") {
-      setData((prev) => ({ ...prev, ["candidatEndDate"]: "2027-12-12" }));
-      return false;
-    }
+    //   return false;
+    // }
+    // if (data.candidatEndDate == "") {
+    //   setData((prev) => ({ ...prev, ["candidatEndDate"]: "2027-12-12" }));
+    //   return false;
+    // }
     saveCandidatData()
       .then((data) => {
         console.log(data);
@@ -753,7 +753,7 @@ export default function Employes() {
                         onChange={onFormDataChange}
                       />
                       <span className="text-small">
-                        Mandatory, Enter candidat adress (address, zip, city,
+                        NOT Mandatory, Enter candidat adress (address, zip, city,
                         country)
                       </span>
                     </div>
@@ -838,7 +838,7 @@ export default function Employes() {
                         onChange={onFormDataChange}
                       />
                       <span className="text-small">
-                        NOT Mendatory, please add contact person on this
+                        NOT Mandatory, please add contact person on this
                         company.
                       </span>
                     </div>
@@ -1435,7 +1435,7 @@ export default function Employes() {
                         onChange={onFormDataChange}
                       />
                       <span className="text-small">
-                        NOT Mendatory, NUMBER ONLY
+                        NOT Mandatory, NUMBER ONLY
                       </span>
                     </div>
                   </div>

@@ -1,0 +1,31 @@
+.banner {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    text-align: center;
+    padding: 5px;
+    align-items: center;
+    justify-content: space-around;
+    background-color:  #DC3545;
+    color: white;
+    font-weight: bold;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 1000000000000000000;
+}
+
+.bannerText {
+    align-items: center;
+}
+
+.updateCRMBtn {
+    border: none;
+    height: 40px;
+    font-weight: normal;
+}
+
+.updateCRMBtn:hover {
+    background-color: #FE8700;
+    color: white;
+}

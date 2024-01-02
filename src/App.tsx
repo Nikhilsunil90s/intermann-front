@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React,{useEffect,useState} from "react";
 import "./App.css";
 import Sidebar from "./components/Sidebar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -39,589 +39,552 @@ import ClientSignedEdit from "./pages/EditPages/SignedContractEdit";
 import SignedView from "../src/pages/ClientPages/FullViewProfile/SignedContract";
 import Error404 from "./pages/ErrorPages/Error404";
 import Error500 from "./pages/ErrorPages/Error500";
-import clientSignedGlobalCard from './pages/GlobalCards/ClientPages/ClientContractGlobalCard'
-import ClientContractPage from './components/ClientContractPage'
-import GlobalDocumentPage from './components/GlobalDocumentCandidatePage'
-import DocumentChecker from './components/Document-checker'
+import clientSignedGlobalCard from "./pages/GlobalCards/ClientPages/ClientContractGlobalCard";
+import ClientContractPage from "./components/ClientContractPage";
+import GlobalDocumentPage from "./components/GlobalDocumentCandidatePage";
+import DocumentChecker from "./components/Document-checker";
 import DocumentSign from "./components/DocumentSignCandidatePage";
 import DocSignCandidate from "./components/Modal/DocSignCandidate";
 import ThankYouPage from "./components/ThankYouPage";
 import DownloadCenter from "./components/DownloadCenter";
-import DocumentRepresentPDFVIEW from "../src/pages/DocumentRepresentPDFVIEW"
-import RepresentanceSign from '../src/components/CandidateComponents/DocSignRepresentance'
+import DocumentRepresentPDFVIEW from "../src/pages/DocumentRepresentPDFVIEW";
+import RepresentanceSign from "../src/components/CandidateComponents/DocSignRepresentance";
 import LeadsCenter from "./Leads/LeadsCenter";
-import AddCandidate from './Leads/LeadToCandidate/AddCandidate'
-import AddLeads from "./Leads/AddLeads"
+import AddCandidate from "./Leads/LeadToCandidate/AddCandidate";
+import AddLeads from "./Leads/AddLeads";
 import JobAdsList from "./JobAdsCenter/JobAdsList";
 import AddReaserch from "./JobAdsCenter/AddReaserch";
-import EditPage from "./JobAdsCenter/EditPage"
-import AddLeadsCom from './CommercialCenter/pages/AddLeads'
+import EditPage from "./JobAdsCenter/EditPage";
+import AddLeadsCom from "./CommercialCenter/pages/AddLeads";
 import MainCenter from "./CommercialCenter/pages/MainCenter";
 import AddInvoice from "./BILLING-CENTER/Pages/AddInvoice";
 import BillingCenter from "./BILLING-CENTER/Pages/billing-Center";
 import MainCenterOffer from "./Offer_Center/MainCenter";
-import OfferSigned from "./Offer_Center/components/LastStepOfSign"
+import DocumentGenerator from "./DocGenerator/documentGenerator";
+import OfferSigned from "./Offer_Center/components/LastStepOfSign";
 import ViewOffer from "./Offer_Center/components/DocumentSign";
-import {Helmet} from "react-helmet";
-import Favicon from "../src/images/Tablogo.svg"
+import { Helmet } from "react-helmet";
+import Favicon from "../src/images/Tablogo.svg";
 import EditBillingCenter from "./BILLING-CENTER/Pages/EditInvoice";
-
+import DocumentGenSign from "./DocGenerator/components/DocumentView";
+import DocSign from "./DocGenerator/DocumentSignPage";
+import { API_BASE_URL } from "./config/serverApiConfig";
+import ReleaseVersionBanner from "./components/ReleaseVersionBanner/releaseVersionBanner";
 
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [releaseVersionAlert, setReleaseVersionAlert] = useState(false);
+  const [storedVersion, setStoredVersion] = useState(JSON.parse(localStorage.getItem('versionData')) || null)
 
   useEffect(() => {
-    setIsLoading(true);
-    // Perform any necessary refresh actions here
+    const checkReleaseVersion = async () => {
+      let versionResponse = await fetch(API_BASE_URL + 'check-heroku-updates')
+      let versionData = await versionResponse.json();
 
-    // Simulate a delay for demonstration purposes
+      if (storedVersion !== null && JSON.stringify(storedVersion) === JSON.stringify(versionData)) {
+        console.log("Version Data Not Changed - ", storedVersion, versionData);
+        setReleaseVersionAlert(false);
+      } else {
+        localStorage.setItem('versionData', JSON.stringify(versionData));
+        console.log("Version Data Changed - ", storedVersion, versionData);
+        setReleaseVersionAlert(true);
+      }
+    }
+
+    checkReleaseVersion()
+  }, [])
+
+  useEffect(() => {
+    // Simulating a delay for loading purposes
     setTimeout(() => {
       setIsLoading(false);
-    }, 500);
-  },[])
+    }, 1000); // Change the delay as needed
+  }, []);
   return (
     <>
-     <Helmet>
-    <meta charSet="utf-8" />
-    <title>Intermann CRM</title>
-     <link rel="icon" type="image/png" href={Favicon} sizes="26x26" />
-</Helmet>
-{
-  isLoading ?
-"kajdhw"
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Intermann CRM</title>
+        <link rel="icon" type="image/png" href={Favicon} sizes="26x26" />
+      </Helmet>
+      <Provider store={configureStore}>
+        <Router>
+          {
+            releaseVersionAlert ? <ReleaseVersionBanner versionAlert={setReleaseVersionAlert} message={"A New Version for Intermann CRM has been released. Please Click on the Button on Right to update your CRM!"}/> : null
+          }
+          {
+            isLoading ?
+            <div style={{height:"100vh" ,width:"100%"}} className="d-flex justify-content-center align-items-center ">
+              <span className="page_loader"  />
+            </div>
+            :
+            <Routes>
+            <Route path="/" element={<Login />} />
 
-  :
-<Provider store={configureStore}>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Login />} />
-
-          <Route
-            path={"/todolist"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={ToDoList} />
-              </Sidebar>
-            }
-          />
-          {/* <Route path="/todolist" element={<Sidebar><ListTodo /></Sidebar>} /> */}
-          <Route
-            path={"/todolist/todoprofile"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={ToDoProfile} />{" "}
-              </Sidebar>
-            }
-          />
-
-          <Route
-            path={"/embauchlist"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={Embauch} />
-              </Sidebar>
-            }
-          />
-          <Route
-            path={"/embauchlist/embauchprofile"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={ProgressCard} />{" "}
-              </Sidebar>
-            }
-          />
-
-          <Route
-            path={"/archivedlist"}
-            element={
-              <Sidebar>
-               
-                <PrivateRoute Component={ArchivedList} />
-              </Sidebar>
-            }
-          />
-          <Route
-            path={"/archivedlist/archivedprofile"}
-            element={
-              <Sidebar>
-               
-                <PrivateRoute Component={ArchivedProfile} />{" "}
-              </Sidebar>
-            }
-          />
-
-          <Route
-            path={"/dashboard"}
-            element={
-              <Sidebar>
-               
-                <PrivateRoute Component={Dashboard} />{" "}
-              </Sidebar>
-            }
-          />
-
-          <Route
-            path={"/addCandidate"}
-            element={
-              <Sidebar>
-               
-                <PrivateRoute Component={AddEmployes} />
-              </Sidebar>
-            }
-          />
-          <Route
-            path={"/addCustomer"}
-            element={
-              <Sidebar>
-               
-                <AddClient />
-              </Sidebar>
-            }
-          />
-
-          <Route
-            path={"/todolist/editTodo"}
-            element={
-              <Sidebar>
-               
-                <PrivateRoute Component={EditDo} />
-              </Sidebar>
-            }
-          />
-          <Route
-            path={"/embauchlist/editInProgress"}
-            element={
-              <Sidebar>
-               
-                <PrivateRoute Component={EditProgress} />
-              </Sidebar>
-            }
-          />
-          <Route
-            path={"/archivedlist/editArchived"}
-            element={
-              <Sidebar>
-               
-                <PrivateRoute Component={EditArchive} />
-              </Sidebar>
-            }
-          />
-          <Route
-            path={"/preSelected/editPreSelected"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={PreSelectedEdit} />
-              </Sidebar>
-            }
-          />
-
-          <Route
-            path={"/addNewSector"}
-            element={
-              <Sidebar>
-               
-                <PrivateRoute Component={AddSector} />{" "}
-              </Sidebar>
-            }
-          />
-          <Route
-            path={"/userList"}
-            element={
-              <Sidebar>
-               
-                <PrivateRoute Component={UserList} />{" "}
-              </Sidebar>
-            }
-          />
-
-          <Route
-            path={"/clientTodo"}
-            element={
-              <Sidebar>
-               
-                <PrivateRoute Component={ClientToDoList} />
-              </Sidebar>
-            }
-          />
-          <Route
-            path={"/clientProgress"}
-            element={
-              <Sidebar>
-               
-                <PrivateRoute Component={ClientProgress} />
-              </Sidebar>
-            }
-          />
-
-          <Route
-            path={"/clientContract"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={ClientContract} />
-              </Sidebar>
-            }
-          />
-          <Route
-            path={"/archived"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={ClientArchived} />
-              </Sidebar>
-            }
-          />
-
-          <Route
-            path={"/clientTodo/clientToDoProfile"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={ClientView} />
-              </Sidebar>
-            }
-          />
-          <Route
-            path={"/clientProgress/clientInProgressProfile"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={ClientProgressView} />
-              </Sidebar>
-            }
-          />
-
-          <Route
-            path={"/clientContract/clientSigned"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={Signed} />
-              </Sidebar>
-            }
-          />
-          <Route
-            path={"/joblist"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={RenameSector} />
-              </Sidebar>
-            }
-          />
-
-          <Route
-            path={"/clientTodo/clientToDoEdit"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={ClientTodoEdit} />
-              </Sidebar>
-            }
-          />
-          <Route
-            path={"/clientProgress/clientInProgressEdit"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={ClientinProgressEdit} />
-              </Sidebar>
-            }
-          />
-
-          <Route
-            path={"/preSelected"}
-            element={
-              <Sidebar>
-               
-                <PrivateRoute Component={Preselected} />{" "}
-              </Sidebar>
-            }
-          />
-          <Route
-            path={"/preSelected/preSelectedView"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={PreSelectedView} />
-              </Sidebar>
-            }
-          />
-
-          <Route
-            path={"/archived/archivedClientSeeprofile"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={ClientArchivedView} />
-              </Sidebar>
-            }
-          />
-          <Route
-            path={"/archived/archivedClientEditprofile"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={ClientArchivedEdit} />
-              </Sidebar>
-            }
-          />
-
-          <Route
-            path={"/clientContract/ClientContractEditprofile"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={ClientSignedEdit} />
-              </Sidebar>
-            }
-          />
-<Route
-            path={"/clientSignedView"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={SignedView} />
-              </Sidebar>
-            }
-          />
-          {/* Download Center */}
-          <Route
-            path={"/downloadCenter"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={DownloadCenter} />
-              </Sidebar>
-            }
-          />
-
-          {/* End */}
-          {/* Leads Center */}
-
-          <Route
-            path={"/LeadsCenter"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={LeadsCenter} />
-              </Sidebar>
-            }
-          />
-          
-          <Route
-            path={"/AddLeadToCandidate"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={AddCandidate} />
-              </Sidebar>
-            }
-          />
-  <Route
-            path={"/LeadsCenter/AddLeads"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={AddLeads} />
-              </Sidebar>
-            }
-          />
-          {/* End */}
-
-          {/* Job Ads */}
-          <Route
-            path={"/JobAdsCenter"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={JobAdsList} />
-              </Sidebar>
-            }
-          />
- <Route
-            path={"/JobAdsCenter/AddReaserch"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={AddReaserch} />
-              </Sidebar>
-            }
-          />
-           <Route
-            path={"/JobAdsCenter/EditPage"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={EditPage} />
-              </Sidebar>
-            }
-          />
-
-          {/* End Job Ads */}
-
-          {/* commercialCenter */}
-
-          <Route
-            path={"commercialCenter/AddLeads"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={AddLeadsCom} />
-              </Sidebar>
-            }
-          />
-           <Route
-            path={"/commercialCenter"}
-            element={
-              <Sidebar>
-                <PrivateRoute Component={MainCenter} />
-              </Sidebar>
-            }
-          />
-
-<Route
-            path={"/ViewOffer/OfferSigned"}
-            element={
-            
-                <OfferSigned />
-            
-            }
-          />
-             <Route
-            path={"/ViewOffer/:id"}
-            element={
-            
-                <ViewOffer />
-            
-            }
-          />
-       
-
-
-
-
-          {/* end commercialCenter */}
-          {/* Global Search Routes  */}
-        
-           <Route 
-           path={"/clientSignedGlobalCard"}
-           element={
-            <Sidebar>
-              <PrivateRoute Component={clientSignedGlobalCard} />
-            </Sidebar>
-           }
-
-           />
-       <Route
-            path={"/documentbox/:clientCompanyName/:id"}
-            element={
-            
-                <ClientContractPage />
-            
-            }
-          />
-           <Route
-            path={"/ContractSigend"}
-            element={
-            
-                <DocSignCandidate />
-            
-            }
-          />
             <Route
-            path={"/RepresentenceContractSigend"}
-            element={
-            
-                <RepresentanceSign />
-            
-            }
-          />
+              path={"/todolist"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={ToDoList} />
+                </Sidebar>
+              }
+            />
+            {/* <Route path="/todolist" element={<Sidebar><ListTodo /></Sidebar>} /> */}
             <Route
-            path={"/AvanceContractSigend"}
-            element={
-            
-                <RepresentanceSign />
-            
-            }
-          />
-           <Route
-            path={"/documentSigned/thankYou"}
-            element={
-            
-                <ThankYouPage />
-            
-            }
-          />
-                <Route
-            path={"/:ClientEmp/documentSign/:Candidate/:id"}
-            element={
-            
-                <DocumentSign />
-            
-            }
-          />
-              <Route
-            path={"/:ReAvance/documentSignForReAvance/:Candidate/:id"}
-            element={
-            
-                <DocumentRepresentPDFVIEW />
-            
-            }
-          />
-              <Route
-            path={"/document-checker"}
-            element={
-            
-                <DocumentChecker />
-            
-            }
-          />
-              <Route
-            path={"/candidateDocumentbox/:candidateName/:id"}
-            element={
-            
-                <GlobalDocumentPage />
-            
-            }
-          />
-          {/* End */}
-          {/* Billing Center */}
-        
-          <Route
-            path={"/billing-Center/AddInvoice"}
-            element={
-            
-                <AddInvoice />
-            
-            }
-          />
+              path={"/todolist/todoprofile"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={ToDoProfile} />{" "}
+                </Sidebar>
+              }
+            />
+
             <Route
-            path={"/edit_Billing_center"}
-            element={
-            
-                <EditBillingCenter />
-            
-            }
-          />
-           <Route
-            path={"/billing-Center"}
-            element={
-            
-             <Sidebar >  <BillingCenter /></Sidebar>
-            
-            }
-          />
+              path={"/embauchlist"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={Embauch} />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/embauchlist/embauchprofile"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={ProgressCard} />{" "}
+                </Sidebar>
+              }
+            />
 
-          {/* End */}
-          {/* Offer - Center */}
-          <Route
-            path={"/offerCenter"}
-            element={
-            
-             <Sidebar > <MainCenterOffer   /></Sidebar>
-            
-            }
-          />
-           <Route
-            path={"/offer_center_view_page"}
-            element={
-            
-      <MainCenterOffer   />
-            
-            }
-          />
-          
-          {/* End */}
+            <Route
+              path={"/archivedlist"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={ArchivedList} />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/archivedlist/archivedprofile"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={ArchivedProfile} />{" "}
+                </Sidebar>
+              }
+            />
 
-          <Route path="/Error404" element={<Error404 />} />
-          <Route path="/Error500" element={<Error500 />} />
+            <Route
+              path={"/dashboard"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={Dashboard} />{" "}
+                </Sidebar>
+              }
+            />
 
-        </Routes>
-      </Router>
-    </Provider>
-}
-    
-    </> );
+            <Route
+              path={"/addCandidate"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={AddEmployes} />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/addCustomer"}
+              element={
+                <Sidebar>
+                  <AddClient />
+                </Sidebar>
+              }
+            />
+
+            <Route
+              path={"/todolist/editTodo"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={EditDo} />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/embauchlist/editInProgress"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={EditProgress} />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/archivedlist/editArchived"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={EditArchive} />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/preSelected/editPreSelected"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={PreSelectedEdit} />
+                </Sidebar>
+              }
+            />
+
+            <Route
+              path={"/addNewSector"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={AddSector} />{" "}
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/userList"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={UserList} />{" "}
+                </Sidebar>
+              }
+            />
+
+            <Route
+              path={"/clientTodo"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={ClientToDoList} />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/clientProgress"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={ClientProgress} />
+                </Sidebar>
+              }
+            />
+
+            <Route
+              path={"/clientContract"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={ClientContract} />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/archived"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={ClientArchived} />
+                </Sidebar>
+              }
+            />
+
+            <Route
+              path={"/clientTodo/clientToDoProfile"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={ClientView} />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/clientProgress/clientInProgressProfile"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={ClientProgressView} />
+                </Sidebar>
+              }
+            />
+
+            <Route
+              path={"/clientContract/clientSigned"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={Signed} />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/joblist"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={RenameSector} />
+                </Sidebar>
+              }
+            />
+
+            <Route
+              path={"/clientTodo/clientToDoEdit"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={ClientTodoEdit} />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/clientProgress/clientInProgressEdit"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={ClientinProgressEdit} />
+                </Sidebar>
+              }
+            />
+
+            <Route
+              path={"/preSelected"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={Preselected} />{" "}
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/preSelected/preSelectedView"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={PreSelectedView} />
+                </Sidebar>
+              }
+            />
+
+            <Route
+              path={"/archived/archivedClientSeeprofile"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={ClientArchivedView} />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/archived/archivedClientEditprofile"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={ClientArchivedEdit} />
+                </Sidebar>
+              }
+            />
+
+            <Route
+              path={"/clientContract/ClientContractEditprofile"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={ClientSignedEdit} />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/clientSignedView"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={SignedView} />
+                </Sidebar>
+              }
+            />
+            {/* Download Center */}
+            <Route
+              path={"/downloadCenter"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={DownloadCenter} />
+                </Sidebar>
+              }
+            />
+
+            {/* End */}
+            {/* Leads Center */}
+
+            <Route
+              path={"/LeadsCenter"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={LeadsCenter} />
+                </Sidebar>
+              }
+            />
+
+            <Route
+              path={"/AddLeadToCandidate"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={AddCandidate} />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/LeadsCenter/AddLeads"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={AddLeads} />
+                </Sidebar>
+              }
+            />
+            {/* End */}
+
+            {/* Job Ads */}
+            <Route
+              path={"/JobAdsCenter"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={JobAdsList} />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/JobAdsCenter/AddReaserch"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={AddReaserch} />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/JobAdsCenter/EditPage"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={EditPage} />
+                </Sidebar>
+              }
+            />
+
+            {/* End Job Ads */}
+
+            {/* commercialCenter */}
+
+            <Route
+              path={"commercialCenter/AddLeads"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={AddLeadsCom} />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/commercialCenter"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={MainCenter} />
+                </Sidebar>
+              }
+            />
+
+            <Route path={"/ViewOffer/OfferSigned"} element={<OfferSigned />} />
+            <Route path={"/ViewOffer/:id"} element={<ViewOffer />} />
+
+            {/* end commercialCenter */}
+            {/* Global Search Routes  */}
+
+            <Route
+              path={"/clientSignedGlobalCard"}
+              element={
+                <Sidebar>
+                  <PrivateRoute Component={clientSignedGlobalCard} />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/documentbox/:clientCompanyName/:id"}
+              element={<ClientContractPage />}
+            />
+            <Route path={"/ContractSigned"} element={<DocSignCandidate />} />
+            <Route
+              path={"/RepresentenceContractSigned"}
+              element={<RepresentanceSign />}
+            />
+            <Route
+              path={"/AvanceContractSigned"}
+              element={<RepresentanceSign />}
+            />
+            <Route
+              path={"/documentSigned/thankYou"}
+              element={<ThankYouPage />}
+            />
+            <Route
+              path={"/:ClientEmp/documentSign/:Candidate/:id"}
+              element={<DocumentSign />}
+            />
+            <Route
+              path={"/:ReAvance/documentSignForReAvance/:Candidate/:id"}
+              element={<DocumentRepresentPDFVIEW />}
+            />
+            <Route path={"/document-checker"} element={<DocumentChecker />} />
+            <Route
+              path={"/candidateDocumentbox/:candidateName/:id"}
+              element={<GlobalDocumentPage />}
+            />
+            {/* End */}
+            {/* Billing Center */}
+
+            <Route
+              path={"/billing-Center/AddInvoice"}
+              element={<AddInvoice />}
+            />
+            <Route
+              path={"/edit_Billing_center"}
+              element={<EditBillingCenter />}
+            />
+            <Route
+              path={"/billing-Center"}
+              element={
+                <Sidebar>
+                  {" "}
+                  <BillingCenter />
+                </Sidebar>
+              }
+            />
+
+            {/* End */}
+            {/* Offer - Center */}
+            <Route
+              path={"/offerCenter"}
+              element={
+                <Sidebar>
+                  {" "}
+                  <MainCenterOffer />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/offer_center_view_page"}
+              element={<MainCenterOffer />}
+            />
+
+            {/* End */}
+
+            {/* Document Generator */}
+            <Route
+              path={"/document-generator"}
+              element={
+                <Sidebar>
+                  {" "}
+                  <DocumentGenerator />
+                </Sidebar>
+              }
+            />
+            <Route
+              path={"/document-generator"}
+              element={<DocumentGenerator />}
+            />
+            {/* End */}
+            {/* Document Generator */}
+
+            <Route path={"/document/:id"} element={<DocumentGenSign />} />
+            <Route path={"sign-page/:id"} element={<DocSign />} />
+            {/* end */}
+
+            <Route path="/Error404" element={<Error404 />} />
+            <Route path="/Error500" element={<Error500 />} />
+          </Routes>
+
+          }
+         
+        </Router>
+      </Provider>
+    </>
+  );
 }
 
 export default App;

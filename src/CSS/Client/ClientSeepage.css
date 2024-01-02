@@ -5,6 +5,14 @@
   padding: 20px;
 }
 
+.current-work-section {
+  background-color: white;
+  text-transform: uppercase;
+  color: #3F76E2;
+  font-family: 'poppins';
+  font-weight: bold;
+}
+
 /* ClientContractPage */
 .bg-ContractPage{
   background: #032339;
@@ -324,7 +332,9 @@ color: #FE8700;
 }
 .sigCanvas{
   background-color: #E7E7E7;;
-  width: 100%;}
+  width: 100%;
+}
+
 .overFlowHeight{
   overflow-y: scroll;
 }
@@ -995,6 +1005,59 @@ margin-top: 5px;
   box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
   border-radius: 10px;
 }
+
+.travail-client {
+  background: #EAEAEA;
+  box-shadow: 0px 2px 48px rgb(0 0 0 / 4%);
+  border-radius: 10px;
+}
+
+.company-name-style {
+  font-size: large;
+}
+
+.client-employee-card {
+  display: flex;
+  background-color: #D9D9D9;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+}
+
+.company-card-style {
+  background-color: #D9D9D9;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.voirlesdocs {
+  color: white;
+  background-color: #3F76E2;
+  padding: 4px;
+}
+
+.voirlesdocs:hover {
+  color: black;
+  background-color: #3F76E2;
+}
+
+.custom-text-style {
+  color: '#3F76E2';
+  font-weight: 600;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: large;
+  text-transform: uppercase;
+}
+
+@media (min-width:320px) {
+  .dummy-logo {
+    height: 25%;
+    width: 25%;
+  }  
+}
+
+
 
 .upload-Client .css-1s2u09g-control{
   width: 25px;

@@ -16,7 +16,7 @@ function LeadList({
   activeUser,
   TabName,
   setFilter,
-  DAta,
+  Data,
   setrest,
 }) {
   const LoginUser = JSON.parse(localStorage.getItem("LoginUser"));
@@ -32,20 +32,12 @@ function LeadList({
   const [Added, setAdded] = useState(props.leadAddedToCRM.toString()) as any;
   const [Qual, setQual] = useState(props.leadQualified);
 
-  const [LeadeCreateDate, setLeadeCreateDate] = useState() as any;
-  var today = props.createdAt.slice(0, 10);
   useEffect(() => {
     activeUser(LoginUser);
-    if (today) {
-      let tempdate = new Date(today);
-      let Month = tempdate.getMonth() + 1;
-      NewCdate = [tempdate.getDate(), Month, tempdate.getFullYear()].join("-");
-      setLeadeCreateDate(NewCdate);
-    }
   }, []);
 
   useEffect(() => {
-    setPrecontacted(props?.leadPreContacted);
+    // setPrecontacted(props?.leadPreContacted);
     setAgency(props.leadContactedByAgency);
     setQual(props.leadQualified);
   }, [
@@ -109,7 +101,7 @@ function LeadList({
       })
       .catch((err) => err);
   };
-  const ContAgency = (id, status) => {
+  const ContactAgency = (id, status) => {
     fetch(
       API_BASE_URL +
         `changeLeadContactedStatus/?userId=${LoginUserS._id}&leadId=${id}&status=${status}`,
@@ -191,13 +183,13 @@ function LeadList({
   };
 
   const OnChangeRadio = (e, id) => {
-    if (e.target.name === `preContact${length}`) {
-      setPrecontacted(e.target.value);
-      PreContact(id, e.target.value);
-    }
+    // if (e.target.name === `preContact${length}`) {
+    //   setPrecontacted(e.target.value);
+    //   PreContact(id, e.target.value);
+    // }
     if (e.target.name === `CAgency${length}`) {
       setAgency(e.target.value);
-      ContAgency(id, e.target.value);
+      ContactAgency(id, e.target.value);
     }
     if (e.target.name === `QUALIFIED${length}`) {
       setQual(e.target.value);
@@ -266,7 +258,11 @@ function LeadList({
                   src={require("../../images/calendar.png")}
                   style={{ width: "12px", marginRight: "4px" }}
                 />
-                Lead Created on {LeadeCreateDate}
+                Lead Created on {new Date(props.createdAt).toLocaleDateString('en-GB', {
+                                  day: '2-digit',
+                                  month: '2-digit',
+                                  year: 'numeric'
+                                })}
               </p>
             </div>
             <div
@@ -426,124 +422,17 @@ function LeadList({
         </div>
         <div className="col-12 leadBottom">
           <div className="row">
-            <div className="col-4 d-grid PrECONTACTED">
-              <div className="row p-1">
-                <div
-                  className="col-12"
-                  style={{
-                    background: `${
-                      Precontacted === "No"
-                        ? `#d42424`
-                        : Precontacted === "Not Interested"
-                        ? `#d42424`
-                        : Precontacted === "Not Yet"
-                        ? `#d42424`
-                        : `#489767`
-                    }`,
-                    padding: "10px 15px",
-                    borderRadius: "10px",
-                  }}
-                >
-                  <p className="mb-0 m-0">Precontacted</p>
-                </div>
-              </div>
-
-              <div className="row PrECONTACTEDInput mb-1">
-                <div className="col-4 pr-0 d-flex align-items-start ">
-                  <label
-                    htmlFor={`pre1${length}`}
-                    className={`btn d-flex align-items-center ${
-                      Precontacted === "Not Yet" || Precontacted === "No"
-                        ? "offRedBtn"
-                        : "offBtns"
-                    }`}
-                  >
-                    <div className="d-flex justify-content-center align-item-center inputBorder">
-                      <input
-                        id={`pre1${length}`}
-                        name={`preContact${length}`}
-                        value={"Not Yet"}
-                        onChange={(e) => OnChangeRadio(e, props._id)}
-                        type={"radio"}
-                        className="cursor-pointer d-flex"
-                        checked={
-                          Precontacted === "Not Yet"
-                            ? true
-                            : Precontacted === "No"
-                            ? true
-                            : false
-                        }
-                      />
-                    </div>
-                    Not yet
-                  </label>
-                </div>
-                <div className="col-4 d-flex  align-items-start">
-                  <label
-                    htmlFor={`pre2${length}`}
-                    className={`btn d-flex align-items-center ${
-                      Precontacted === "Interested" ? "onGreenBtn" : "offBtns"
-                    }`}
-                  >
-                    {" "}
-                    <div className="d-flex justify-content-center align-item-center inputBorder">
-                      <input
-                        id={`pre2${length}`}
-                        type={"radio"}
-                        name={`preContact${length}`}
-                        value={"Interested"}
-                        onChange={(e) => OnChangeRadio(e, props._id)}
-                        className="cursor-pointer d-flex"
-                        checked={Precontacted === "Interested" ? true : false}
-                      />
-                    </div>
-                    Interested
-                  </label>
-                </div>
-                <div className="col-4 d-flex  align-items-start">
-                  <label
-                    htmlFor={`pre3${length}`}
-                    className={`btn d-flex align-items-center ${
-                      Precontacted === "Not Interested"
-                        ? "offRedBtn"
-                        : "offBtns"
-                    }`}
-                  >
-                    <div className="d-flex justify-content-center align-item-center inputBorder">
-                      {" "}
-                      <input
-                        id={`pre3${length}`}
-                        type={"radio"}
-                        className="cursor-pointer d-flex"
-                        name={`preContact${length}`}
-                        value={"Not Interested"}
-                        onChange={(e) => OnChangeRadio(e, props._id)}
-                        checked={
-                          Precontacted === "Not Interested" ? true : false
-                        }
-                      />
-                    </div>
-                    Not Interested
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-8 d-grid PrECONTACTED">
+            <div className="col-12 d-grid PrECONTACTED">
               <div className="row p-1">
                 <div
                   className="col-12 "
                   style={{
                     background: `${
-                      Agency === "Not Yet" || Agency === "No"
-                        ? `#d42424`
-                        : Agency === "Not Interested"
+                      Agency === "Not Yet" || Agency === "No" || Agency === "Not Interested"
                         ? `#d42424`
                         : Agency === "Yes"
                         ? `#489767`
                         : Agency === "Recall"
-                        ? `#FE8700`
-                        : Agency === "Phone Closed"
                         ? `#FE8700`
                         : ``
                     }`,
@@ -556,12 +445,12 @@ function LeadList({
                   {/* <span>(BY {LoginUser.emailAddress.substring(0,LoginUserS.emailAddress.lastIndexOf("@")).toUpperCase()})</span> */}
                 </div>
               </div>
-              <div className="row PrECONTACTEDInput justify-content-around mb-1">
+              <div className="row justify-content-around mb-1">
                 <div className="col-2 pr-0 d-flex  align-items-center ">
                   <label
                     htmlFor={`1${length}`}
                     className={`btn d-flex align-items-center  ${
-                      Agency === "Not Yet" || Agency === "No"
+                      Agency === "Not Yet"
                         ? "offRedBtnAgency"
                         : "offBtns"
                     }`}
@@ -575,8 +464,7 @@ function LeadList({
                         value="Not Yet"
                         className="cursor-pointer d-flex justify-content-center align-items-center"
                         checked={
-                          props.leadContactedByAgency == "Not Yet" ||
-                          props.leadContactedByAgency == "No"
+                          Agency === "Not Yet"
                             ? true
                             : false
                         }
@@ -603,7 +491,7 @@ function LeadList({
                         value="Not Interested"
                         className="cursor-pointer d-flex justify-content-center align-items-center"
                         checked={
-                          props.leadContactedByAgency == "Not Interested"
+                          Agency === "Not Interested"
                             ? true
                             : false
                         }
@@ -629,7 +517,7 @@ function LeadList({
                         value="Yes"
                         className="cursor-pointer d-flex justify-content-center align-items-center"
                         checked={
-                          props.leadContactedByAgency == "Yes" ? true : false
+                          Agency === "Yes" ? true : false
                         }
                       />
                     </div>
@@ -641,7 +529,7 @@ function LeadList({
                   <label
                     htmlFor={`3${length}`}
                     className={`btn d-flex align-items-center  ${
-                      Agency === "Recall" ? "themeColorAgency" : "offBtns"
+                      Agency === "No" ? "offRedBtnAgency" : "offBtns"
                     }`}
                   >
                     <div className="d-flex justify-content-center align-item-center inputBorder">
@@ -650,14 +538,14 @@ function LeadList({
                         id={`3${length}`}
                         name={`CAgency${length}`}
                         onChange={(e) => OnChangeRadio(e, props._id)}
-                        value="Recall"
+                        value="No"
                         className="cursor-pointer d-flex justify-content-center align-items-center"
                         checked={
-                          props.leadContactedByAgency == "Recall" ? true : false
+                          Agency === "No" ? true : false
                         }
                       />
                     </div>
-                    Recall
+                    No
                   </label>
                 </div>
                 <div className="col-3  d-flex  align-items-center">
@@ -665,7 +553,7 @@ function LeadList({
                   <label
                     htmlFor={`4${length}`}
                     className={`btn d-flex align-items-center  ${
-                      Agency === "Phone Closed" ? "themeColorAgency" : "offBtns"
+                      Agency === "Recall" ? "themeColorAgency" : "offBtns"
                     }`}
                   >
                     <div className="d-flex justify-content-center align-item-center inputBorder">
@@ -674,16 +562,16 @@ function LeadList({
                         id={`4${length}`}
                         name={`CAgency${length}`}
                         onChange={(e) => OnChangeRadio(e, props._id)}
-                        value="Phone Closed"
+                        value="Recall"
                         className="cursor-pointer d-flex justify-content-center align-items-center"
                         checked={
-                          props.leadContactedByAgency == "Phone Closed"
+                          Agency === "Recall"
                             ? true
                             : false
                         }
                       />
                     </div>
-                    Phone Closed
+                    Recall
                   </label>
                 </div>
               </div>
@@ -701,7 +589,7 @@ function LeadList({
                   borderTop: "1px solid #dcd9d9",
                 }}
               >
-                <div
+                {/* <div
                   className="col-3 py-1 px-0"
                   style={{
                     borderRight: "1px solid #dcd9d9",
@@ -778,12 +666,9 @@ function LeadList({
                       </div>
                     </div>
                   </div>
-                  {/* <div className="col-6 pr-2">
-              
-            </div> */}
-                </div>
+                </div> */}
                 <div
-                  className="col-5"
+                  className="col-6"
                   style={{
                     borderRight: "1px solid #dcd9d9",
                   }}
@@ -823,9 +708,7 @@ function LeadList({
                             type={"radio"}
                             className="cursor-pointer d-flex justify-content-center align-items-center"
                             checked={
-                              Qual === 0
-                                ? true
-                                : props.leadQualified === 0
+                              Qual == 0
                                 ? true
                                 : false
                             }
@@ -853,9 +736,7 @@ function LeadList({
                             type={"radio"}
                             className="cursor-pointer d-flex justify-content-center align-items-center"
                             checked={
-                              Qual === 1
-                                ? true
-                                : props.leadQualified === 1
+                              Qual == 1
                                 ? true
                                 : false
                             }
@@ -883,9 +764,7 @@ function LeadList({
                             type={"radio"}
                             className="cursor-pointer d-flex justify-content-center align-items-center"
                             checked={
-                              Qual === 2
-                                ? true
-                                : props.leadQualified === 2
+                              Qual == 2
                                 ? true
                                 : false
                             }
@@ -913,9 +792,7 @@ function LeadList({
                             type={"radio"}
                             className="cursor-pointer d-flex justify-content-center align-items-center"
                             checked={
-                              Qual === 3
-                                ? true
-                                : props.leadQualified === 3
+                              Qual == 3
                                 ? true
                                 : false
                             }
@@ -946,9 +823,7 @@ function LeadList({
                             type={"radio"}
                             className="cursor-pointer d-flex justify-content-center align-items-center"
                             checked={
-                              Qual === 4
-                                ? true
-                                : props.leadQualified === 4
+                              Qual == 4
                                 ? true
                                 : false
                             }
@@ -979,9 +854,7 @@ function LeadList({
                             type={"radio"}
                             className="cursor-pointer d-flex justify-content-center align-items-center"
                             checked={
-                              Qual === 5
-                                ? true
-                                : props.leadQualified === 5
+                              Qual == 5
                                 ? true
                                 : false
                             }
@@ -993,7 +866,7 @@ function LeadList({
                   </div>
                 </div>
                 <div
-                  className="col-4 addToCrmLabel d-grid"
+                  className="col-6 addToCrmLabel d-grid"
                   style={{ background: "transparent" }}
                 >
                   <p className="mb-0 mt-1">Notes by Agency</p>
@@ -1033,7 +906,7 @@ function LeadList({
           Notes={LeadNotes}
           setDelete={setDeleteLeads}
           setFilter={setFilter}
-          DAta={DAta}
+          Data={Data}
         />
       ) : null}
       {NoteModal ? (

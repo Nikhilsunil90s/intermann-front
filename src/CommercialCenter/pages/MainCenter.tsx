@@ -86,13 +86,13 @@ function MainCenter() {
             </motion.div>
             <div
               className="col-12 py-1 px-2 my-1"
-              style={{ background: "#FE8700", borderRadius: " 9px" }}
+              style={{ background: "#FFFFFF", borderRadius: " 9px" }}
             >
               <div className="row">
-                <div className="col-8">
+                <div className="col-6">
                   <p className="LeadsTopHeading mb-0">Leads à traiter</p>
                 </div>
-                <div className="col-4 d-flex align-items-center justify-content-end ">
+                <div className="col-6 d-flex align-items-center justify-content-end ">
                   <p className="TotalLeads mb-0 text-black">
                     Il y a {Leads.length} leads en tout , et {Currentleads}{" "}
                     nouveaux leads non contacté

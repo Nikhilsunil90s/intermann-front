@@ -56,7 +56,7 @@ function Card(props: any) {
             DSBTN: false,
           });
         } else {
-          toast.success(res.message);
+          toast.error(res.message);
           setDeleteDsBtn({
             id: "",
             DSBTN: false,

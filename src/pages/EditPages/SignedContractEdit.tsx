@@ -93,6 +93,8 @@ function ClientSignedEdit() {
     toast.error("Cannot Edit This Candidat, Since No Data Changed!");
 
   const locationObject = useLocation();
+
+  console.log(locationObject);
   const { state, path } = locationObject.state as State;
 
   const navigate = useNavigate();
@@ -337,7 +339,7 @@ function ClientSignedEdit() {
         if (resData.status) {
           resData.data.map((el) => {
             setProfile(el);
-            setImgSource(el.clientPhoto.url);
+            setImgSource(el.clientPhoto?.url);
           });
         }
       })

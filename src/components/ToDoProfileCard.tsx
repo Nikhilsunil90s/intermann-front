@@ -12,12 +12,12 @@ const ToDoProfileCard = (props: any) => {
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const [startStatus] = useState(
-    props.data.candidatStartDate !== undefined
+    props.data.candidatStartDate != undefined || props.data.candidatStartDate != ""
       ? props.data.candidatStartDate.slice(0, 4).includes("-")
       : null
   );
   const [endStatus] = useState(
-    props.data.candidatEndDate !== undefined
+    props.data.candidatEndDate != undefined || props.data.candidatEndDate != ""
       ? props.data.candidatEndDate.slice(0, 4).includes("-")
       : null
   );
@@ -61,6 +61,9 @@ const ToDoProfileCard = (props: any) => {
   // console.log(props.data.jobStartDate.slice(0,4).includes("-"))
 
   function formatDateCha(date) {
+    if (date === "") {
+      return false;
+    }
     return [
       padTo2DigitsCH(date.getDate()),
       padTo2DigitsCH(date.getMonth() + 1),
@@ -71,21 +74,21 @@ const ToDoProfileCard = (props: any) => {
 
   let date = new Date(datenow);
 
-  let start = new Date(props.data.candidatStartDate);
-  let end = new Date(props.data.candidatEndDate);
+  let start = props.data.candidatStartDate !== "" ? new Date(props.data.candidatStartDate) : '';
+  let end = props.data.candidatEndDate !== "" ? new Date(props.data.candidatEndDate) : '';
 
   useEffect(() => {
-    if (startStatus) {
-      setStartDate(props.data.candidatStartDate);
+    if (startStatus) { 
+      setStartDate(props.data.candidatStartDate !== "" ? props.data.candidatStartDate : '');
     } else {
       let data = formatDateCha(start);
-      setStartDate(data.replaceAll("/", "-"));
+      setStartDate(data ? data.replaceAll("/", "-") : '');
     }
     if (endStatus) {
       setEndDate(props.data.candidatEndDate);
     } else {
       let data = formatDateCha(end);
-      setEndDate(data.replaceAll("/", "-"));
+      setEndDate(data ? data.replaceAll("/", "-") : '');
     }
   });
 
@@ -337,10 +340,10 @@ const ToDoProfileCard = (props: any) => {
             }}
           >
             Ready for work :{" "}
-            {props.data.candidatStartDate !== undefined
-              ? date >= start && date <= end
+            {props.data.candidatStartDate != undefined || props.data.candidatStartDate != "" 
+              ? startDate != "" && EndDate != ""
                 ? " 📆" + startDate + "  To  " + EndDate
-                : "⚠️" + startDate + "  To  " + EndDate
+                : "✘No Dates!"
               : "✘No Dates!"}
           </p>
         </div>

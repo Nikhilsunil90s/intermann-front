@@ -1,0 +1,79 @@
+.DG_Header {
+    margin-top: 7%;
+}
+
+.DG_HeaderContent {
+    background: #ffffff;
+    box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);
+    border: 0px;
+    border-radius: 10px;
+    font-family: "Poppins";
+    padding: 20px;
+}
+
+.DG_HeaderContent p {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #252726;
+}
+
+.DG_HeaderContent span {
+    font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 35px;
+  display: flex;
+  align-items: center;
+  color: #373a3c;
+}
+
+.DC_Btn {
+    background-color: #3F76E2;
+    color: #ffffff;
+    border-radius: 100px;
+    border-color: #3F76E2;
+    box-shadow: none;
+    padding: 10px 8px 10px 9px;
+}
+
+.submit_doc_btn{
+    background-color: #3F76E2;
+    color: #ffffff;
+    border-radius: 100px;
+    border-color: #3F76E2;
+    box-shadow: none;
+    padding: 10px 8px 10px 9px;
+}
+
+.docGenForm {
+    background-color: #ffffff;
+    border-radius: 25px;
+    width: 100%;
+    margin-top: 2%;
+    padding: 2%;
+}
+
+.docRow {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dateSortCal {
+    font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  text-transform: capitalize;
+  color: #92929d;
+  border-radius: 25px !important;
+  min-height: 45px !important;
+  padding-left:10px;
+  width: 100%;
+  border: 1px solid #92929D;
+}

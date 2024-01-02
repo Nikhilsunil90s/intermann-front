@@ -45,6 +45,13 @@
   color: #92929d;
 }
 
+.exportSMSDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .ApplyFilter {
   font-family: "Poppins";
   font-style: normal;

@@ -124,7 +124,7 @@ function LeadCenterMiniCard({ props, activeUser, setUserCardList, allUsers }) {
             </div>
             <div className="col-12" style={{ marginTop: "8px" }}>
               <div className="row justify-content-between">
-                <div className="col-3 px-0 text-center">
+                <div className="col-sm px-1 text-center">
                   <div className="CardDetails">
                     <p className="mb-0">
                       {MWDuser.contactedLeads
@@ -134,7 +134,7 @@ function LeadCenterMiniCard({ props, activeUser, setUserCardList, allUsers }) {
                     </p>
                   </div>
                 </div>
-                <div className="col-4 px-0 text-center">
+                <div className="col-sm px-1 text-center">
                   <div className="CardDetails">
                     <p className="mb-0">
                       {MWDuser.qualifiedLeads
@@ -144,19 +144,9 @@ function LeadCenterMiniCard({ props, activeUser, setUserCardList, allUsers }) {
                     </p>
                   </div>
                 </div>
-                <div className="col-4 px-0 text-center">
-                  <div className="CardDetails">
-                    <p className="mb-0">
-                      {MWDuser.preContactedLeads
-                        ? MWDuser.preContactedLeads
-                        : props.preContactedLeads.count}{" "}
-                      PreCalls
-                    </p>
-                  </div>
-                </div>
+                
                 <div
-                  className="col-6 pl-0 text-center"
-                  style={{ paddingTop: "7px" }}
+                  className="col-sm px-1 text-center"
                 >
                   <div className="CardDetails">
                     <p className="mb-0">
@@ -167,7 +157,7 @@ function LeadCenterMiniCard({ props, activeUser, setUserCardList, allUsers }) {
                     </p>
                   </div>
                 </div>
-                <div className="col-6 d-flex justify-content-end align-items-end">
+                <div className="col-12 d-flex justify-content-end align-items-end">
                   <span
                     className={
                       props?.emailAddress === activeUser?.emailAddress

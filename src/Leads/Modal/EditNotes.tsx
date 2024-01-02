@@ -13,7 +13,7 @@ function NotesEditModal({
   deleteModal,
   setDelete,
   setFilter,
-  DAta,
+  Data,
   setrest,
 }) {
   const [editNotes, setEditNotes] = useState("");
@@ -105,7 +105,7 @@ function NotesEditModal({
     if (Notes == "Leads") {
       LeadsNotes().then((res) => {
         if (res.status) {
-          if (DAta === undefined) {
+          if (Data === undefined) {
             update(true);
           }
           setBTNds(false);
@@ -116,7 +116,7 @@ function NotesEditModal({
           setTimeout(() => {
             closeModal(false);
           }, 2000);
-          if (DAta !== undefined) {
+          if (Data !== undefined) {
             setTimeout(() => {
               setFilter(true);
             }, 2000);
@@ -129,7 +129,7 @@ function NotesEditModal({
     } else {
       AgencyNotes().then((res) => {
         if (res.status) {
-          if (DAta === undefined) {
+          if (Data === undefined) {
             update(true);
           }
           setBTNds(false);
@@ -139,7 +139,7 @@ function NotesEditModal({
           setTimeout(() => {
             closeModal(false);
           }, 2000);
-          if (DAta !== undefined) {
+          if (Data !== undefined) {
             setTimeout(() => {
               setFilter(true);
             }, 2000);
