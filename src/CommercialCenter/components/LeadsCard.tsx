@@ -10,6 +10,7 @@ import DeleteLeadModal from "./Modal/DeleteLeadsModal";
 import OfferModal from "./Modal/OfferModal";
 import Cookies from "js-cookie";
 import VoirOfferModal from "../components/Modal/VoirOfferModal";
+import UploadCofaceModal from "./Modal/uploadCofaceModal";
 import DownloadGmail from "./Modal/DowloadAndGmailModal";
 import { PostRoute } from "../../components/ApisFunction/FunctionsApi";
 import { notify } from "precise-ui/dist/es6";
@@ -78,6 +79,7 @@ function LeadCard(props) {
   const [responsable, setResponsable] = useState([]) as any;
 
   const [status, setStatus] = useState() as any;
+  const [deletingCoface, setDeletingCoface] = useState(false);
   const [add_TO_crm_Data,setAddtocrmData]=useState(
     {
            clientCompanyName :props.props.companyName, // commercialLead.companyName
@@ -115,6 +117,7 @@ function LeadCard(props) {
 
   const [GenOffer, setGenOffer] = useState(false);
   const [voir_offer, setVoirOffer] = useState(false) as any;
+  const [cofaceModal, setCofaceModal] = useState(false) as any;
   const [downloadMailModal,setDownloadMailModal]=useState({
     content:"",
     status:false,
@@ -1056,6 +1059,40 @@ function LeadCard(props) {
 
   let offerCreatedDate = new Date(props.props.offer_sent_date)
 
+  const sendDeleteCofaceRequest = async () => {
+    return await fetch(API_BASE_URL + "deleteCoface", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+      body: JSON.stringify({ leadId: props.props._id })
+    })
+      .then((resD) => resD.json())
+      .then((reD) => reD)
+      .catch((err) => err);
+  }
+
+  const deleteCoface = async (e) => {
+    e.stopPropagation();
+    setDeletingCoface(true);
+    sendDeleteCofaceRequest().then(delSuc => {
+      if (delSuc.status) {
+        toast.success(delSuc.message);
+      } else {
+        toast.error(delSuc.message);
+      }
+      setDeletingCoface(false);
+      props.update(true);
+    })
+    .catch(delErr => {
+      toast.error(delErr.message);
+      setDeletingCoface(false);
+    })
+  }
+
+
   return (
     <>
       <div
@@ -1063,301 +1100,301 @@ function LeadCard(props) {
         style={{ width: "102%" }}
         key={props.props._id}
       >
-        <div className="col-12 ">
-          <div className="row">
-            <div className="col-3 d-flex align-items-center">
-              <p className="mb-0 d-flex align-items-center">
-                <img
-                  src={require("../../images/calendar.png")}
-                  style={{ width: "12px", marginRight: "4px" }}
-                />
-                Lead ajouté le {formatDateCha(date)}
-              </p>
-            </div>
-            <div className="col-7 d-flex justify-content-end align-items-center">
-              {props.props.offerSent ? (
-                <button
-                  className="leadsAddToCRM mx-1"
-                  onClick={() => setVoirOffer(true)}
-                  style={{width:"275px"}}
-                >
-                {props.props.offer_sent_date === undefined ? "Voir offre envoyé" : "Voir offre envoyé le " + formatDateCha(offerCreatedDate) }
-                </button>
-              ) : null}
-              <button className="leadsAddToCRM"   style={{width:"148px"}} onClick={()=>AddTOcrm()}>Add to CRM</button>
+        <div className="row">
+          <div className="col-3 d-flex align-items-center">
+            <p className="mb-0 d-flex align-items-center">
+              <img
+                src={require("../../images/calendar.png")}
+                style={{ width: "12px", marginRight: "4px" }}
+              />
+              Lead ajouté le {formatDateCha(date)}
+            </p>
+          </div>
+          <div className="col-7 my-1 d-flex justify-content-end align-items-center">
+            { props.props.cofaceAdded
+              ? deletingCoface ? <button className="deleteCoface mx-1 position-relative" style={{width:"148px"}} disabled={true}>DELETING COFACE...</button> :  <button className="voirCoface mx-1 position-relative" style={{width:"148px"}} onClick={() => window.open(props.props.cofaceURL, '_blank')}>VOIR LA COFACE <span className="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger" onClick={deleteCoface}>X</span></button>
+              : <button className="pasCoface mx-1" style={{width:"148px"}} onClick={() => setCofaceModal(true)}>PAS DE COFACE !</button>
+            }
+            {props.props.offerSent ? (
               <button
-                className="leadsAddToCRM mx-1"
-                onClick={() => setGenOffer(true)}
-                style={{width:"148px"}}
+                className="leadsAddToCRM"
+                onClick={() => setVoirOffer(true)}
+                style={{width:"275px"}}
               >
-                GENERATE OFFER
+              {props.props.offer_sent_date === undefined ? "Voir offre envoyé" : "Voir offre envoyé le " + formatDateCha(offerCreatedDate) }
               </button>
-            </div>
-
-            <div
-              className="col-2 d-flex justify-content-end align-items-center"
-              style={{ height: "50px" }}
+            ) : null}
+            <button className="leadsAddToCRM mx-1"   style={{width:"148px"}} onClick={()=>AddTOcrm()}>Add to CRM</button>
+            <button
+              className="leadsAddToCRM"
+              onClick={() => setGenOffer(true)}
+              style={{width:"148px"}}
             >
-              <button
-                className="deleteAd mx-1"
-                onClick={() => setDeleteModal(true)}
-              
-              >
-                <img src={require("../../images/Deletebucket.svg").default} />
-              </button>
-            </div>
+              GENERATE OFFER
+            </button>
+          </div>
+
+          <div
+            className="col-2 d-flex justify-content-end align-items-center my-1"
+            style={{ height: "50px" }}
+          >
+            <button
+              className="deleteAd mx-1"
+              onClick={() => setDeleteModal(true)}
+            
+            >
+              <img src={require("../../images/Deletebucket.svg").default} />
+            </button>
           </div>
         </div>
-        <div className="col-12">
-          <div className="row">
-            <div className="col-3 d-grid px-0">
-              <div className="colorBoxLead d-flex justify-content-start align-items-center">
-                <p className="mb-0">Société 👇</p>
-              </div>
-              <div className="BoxHeight">
-                <span>
-                  <div
-                    className="col-9 d-flex align-items-center cursor-pointer leadsChipColor"
-                    onClick={() => CurrentModal("Name")}
-                  >
-                    {props.props.companyName
-                      ? props.props.companyName.toLocaleUpperCase()
-                      : "Pas de Société sur ce lead"}
-                  </div>
-                  <div
-                    className="col-4 d-flex align-items-center justify-content-center cursor-pointer"
-                    onClick={() => CurrentModal("Name")}
-                  >
-                    <img src={require("../../images/pen.svg").default} />
-                  </div>
-                </span>
-              </div>
+        <div className="row">
+          <div className="col-3 d-grid px-0">
+            <div className="colorBoxLead d-flex justify-content-start align-items-center">
+              <p className="mb-0">Société 👇</p>
             </div>
-            <div className="col-3  d-grid px-0">
-              <div className="grayboxLeads d-flex justify-content-start align-items-center ">
-                <p className="mb-0">Téléphone(s) 👇</p>
-              </div>
-              <div className="BoxHeight">
-                <span>
-                  <div
-                    className="col-9 d-flex align-items-center cursor-pointer leadsChipColor"
-                    onClick={() => CurrentModal("Num1")}
-                  >
-                    {props.props.phoneNumber1
-                      ? props.props.phoneNumber1.includes("+")
-                        ? props.props.phoneNumber1
-                        : "+" + props.props.phoneNumber1
-                      : "Pas de Téléphone sur ce lead"}
-                  </div>
-                  <div
-                    className="col-4 d-flex align-items-center justify-content-center cursor-pointer"
-                    onClick={() => CurrentModal("Num1")}
-                  >
-                    <img src={require("../../images/pen.svg").default} />
-                  </div>
-                </span>
-              </div>
-              <div className="BoxHeight ">
-                <span>
-                  <div
-                    className="col-9 d-flex align-items-center cursor-pointer leadsChipColor"
-                    onClick={() => CurrentModal("Num2")}
-                  >
-                    {props.props.phoneNumber2
-                      ? props.props.phoneNumber2.includes("+")
-                        ? props.props.phoneNumber2
-                        : "+" + props.props.phoneNumber2
-                      : "Pas de Téléphone 2 sur ce lead"}
-                  </div>
-                  <div
-                    className="col-4 d-flex align-items-center justify-content-center cursor-pointer"
-                    onClick={() => CurrentModal("Num2")}
-                  >
-                    <img src={require("../../images/pen.svg").default} />
-                  </div>
-                </span>
-              </div>
-            </div>
-            <div className="col-3  d-grid px-0">
-              <div className="grayboxLeads d-flex justify-content-start align-items-center">
-                <p className="mb-0">Email Adress 👇</p>
-              </div>
-              <div className="BoxHeight">
-                <span
-                  className=""
-                  style={{ height: "auto", wordBreak: "break-all" }}
+            <div className="BoxHeight">
+              <span>
+                <div
+                  className="col-9 d-flex align-items-center cursor-pointer leadsChipColor"
+                  onClick={() => CurrentModal("Name")}
                 >
-                  <div
-                    className="col-9 d-flex align-items-center cursor-pointer leadsChipColor text-break "
-                    onClick={() => CurrentModal("email")}
-                  >
-                    {props.props.email
-                      ? props.props.email
-                      : "Pas de Email sur ce lead"}
-                  </div>
-                  <div
-                    className="col-4 d-flex align-items-center justify-content-center  cursor-pointer"
-                    onClick={() => CurrentModal("email")}
-                  >
-                    <img src={require("../../images/pen.svg").default} />
-                  </div>
-                </span>
-              </div>
+                  {props.props.companyName
+                    ? props.props.companyName.toLocaleUpperCase()
+                    : "Pas de Société sur ce lead"}
+                </div>
+                <div
+                  className="col-4 d-flex align-items-center justify-content-center cursor-pointer"
+                  onClick={() => CurrentModal("Name")}
+                >
+                  <img src={require("../../images/pen.svg").default} />
+                </div>
+              </span>
             </div>
-            <div className="col-3  d-grid px-0">
-              <div
-                className="grayboxLeads d-flex justify-content-start align-items-center"
-                style={{ borderTopRightRadius: "10px" }}
+          </div>
+          <div className="col-3  d-grid px-0">
+            <div className="grayboxLeads d-flex justify-content-start align-items-center ">
+              <p className="mb-0">Téléphone(s) 👇</p>
+            </div>
+            <div className="BoxHeight">
+              <span>
+                <div
+                  className="col-9 d-flex align-items-center cursor-pointer leadsChipColor"
+                  onClick={() => CurrentModal("Num1")}
+                >
+                  {props.props.phoneNumber1
+                    ? props.props.phoneNumber1.includes("+")
+                      ? props.props.phoneNumber1
+                      : "+" + props.props.phoneNumber1
+                    : "Pas de Téléphone sur ce lead"}
+                </div>
+                <div
+                  className="col-4 d-flex align-items-center justify-content-center cursor-pointer"
+                  onClick={() => CurrentModal("Num1")}
+                >
+                  <img src={require("../../images/pen.svg").default} />
+                </div>
+              </span>
+            </div>
+            <div className="BoxHeight ">
+              <span>
+                <div
+                  className="col-9 d-flex align-items-center cursor-pointer leadsChipColor"
+                  onClick={() => CurrentModal("Num2")}
+                >
+                  {props.props.phoneNumber2
+                    ? props.props.phoneNumber2.includes("+")
+                      ? props.props.phoneNumber2
+                      : "+" + props.props.phoneNumber2
+                    : "Pas de Téléphone 2 sur ce lead"}
+                </div>
+                <div
+                  className="col-4 d-flex align-items-center justify-content-center cursor-pointer"
+                  onClick={() => CurrentModal("Num2")}
+                >
+                  <img src={require("../../images/pen.svg").default} />
+                </div>
+              </span>
+            </div>
+          </div>
+          <div className="col-3  d-grid px-0">
+            <div className="grayboxLeads d-flex justify-content-start align-items-center">
+              <p className="mb-0">Email Adress 👇</p>
+            </div>
+            <div className="BoxHeight">
+              <span
+                className=""
+                style={{ height: "auto", wordBreak: "break-all" }}
               >
-                <p className="mb-0">Notes Client 👇</p>
-              </div>
-              <div className="BoxHeight">
-                <span style={{ height: "70px" }}>
-                  <div
-                    className="col-9 d-flex align-items-center text-capitalize cursor-pointer leadsChipColor"
-                    onClick={() => CurrentModal("CNote")}
-                  >
-                    {props.props.companyNote.length > 40
-                      ? props.props.companyNote.slice(0, 40) + "..."
-                      : props.props.companyNote
-                      ? props.props.companyNote
-                      : "Pas de Notes Client sur ce lead"}
-                  </div>
-                  <div className="col-4 d-grid align-items-center justify-content-center">
-                    <div className="cursor-pointer">
-                      <img
-                        src={require("../../images/pen.svg").default}
-                        onClick={() => CurrentModal("CNote")}
-                      />
-                    </div>
-                    <div className="cursor-pointer">
-                      <img
-                        src={require("../../images/expand.svg").default}
-                        onClick={() => {
-                          setStatusModal("Note Client");
-                          setModalView(true);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </span>
-              </div>
+                <div
+                  className="col-9 d-flex align-items-center cursor-pointer leadsChipColor text-break "
+                  onClick={() => CurrentModal("email")}
+                >
+                  {props.props.email
+                    ? props.props.email
+                    : "Pas de Email sur ce lead"}
+                </div>
+                <div
+                  className="col-4 d-flex align-items-center justify-content-center  cursor-pointer"
+                  onClick={() => CurrentModal("email")}
+                >
+                  <img src={require("../../images/pen.svg").default} />
+                </div>
+              </span>
             </div>
-
-            <div className="col-3 d-grid px-0">
-              <div className="grayboxLeads d-flex justify-content-start align-items-center ">
-                <p className="mb-0">Notes Internes 👇</p>
-              </div>
-              <div className="BoxHeight">
-                <span style={{ height: "70px" }}>
-                  <div
-                    className="col-9 d-flex align-items-center text-capitalize cursor-pointer leadsChipColor"
-                    onClick={() => CurrentModal("ANote")}
-                  >
-                    {props.props.agencyNote.length > 40
-                      ? props.props.agencyNote.slice(0, 40) + "..."
-                      : props.props.agencyNote
-                      ? props.props.agencyNote
-                      : "Pas de Notes Internes sur ce lead"}
+          </div>
+          <div className="col-3  d-grid px-0">
+            <div
+              className="grayboxLeads d-flex justify-content-start align-items-center"
+              style={{ borderTopRightRadius: "10px" }}
+            >
+              <p className="mb-0">Notes Client 👇</p>
+            </div>
+            <div className="BoxHeight">
+              <span style={{ height: "70px" }}>
+                <div
+                  className="col-9 d-flex align-items-center text-capitalize cursor-pointer leadsChipColor"
+                  onClick={() => CurrentModal("CNote")}
+                >
+                  {props.props.companyNote.length > 40
+                    ? props.props.companyNote.slice(0, 40) + "..."
+                    : props.props.companyNote
+                    ? props.props.companyNote
+                    : "Pas de Notes Client sur ce lead"}
+                </div>
+                <div className="col-4 d-grid align-items-center justify-content-center">
+                  <div className="cursor-pointer">
+                    <img
+                      src={require("../../images/pen.svg").default}
+                      onClick={() => CurrentModal("CNote")}
+                    />
                   </div>
-                  <div className="col-4 d-grid align-items-center justify-content-center">
-                    <div
-                      className="cursor-pointer"
-                      onClick={() => CurrentModal("ANote")}
-                    >
-                      <img src={require("../../images/pen.svg").default} />
-                    </div>
-                    <div
-                      className="cursor-pointer"
+                  <div className="cursor-pointer">
+                    <img
+                      src={require("../../images/expand.svg").default}
                       onClick={() => {
-                        setStatusModal("Nos notes Internes");
+                        setStatusModal("Note Client");
                         setModalView(true);
                       }}
-                    >
-                      <img src={require("../../images/expand.svg").default} />
-                    </div>
+                    />
                   </div>
-                </span>
-              </div>
-            </div>
-            <div className="col-3 d-grid px-0">
-              <div className="grayboxLeads d-flex justify-content-start align-items-center">
-                <p className="mb-0 ">Offre envoyé? 👇</p>
-              </div>
-              <div className="BoxHeight d-grid align-items-center justify-content-center">
-                <div className="check-box d-flex align-items-center ">
-                  <input
-                    type="checkbox"
-                    checked={props.props.offerSent}
-                    id={`offer${props.length}`}
-                    onChange={(e) => {
-                      switchCheck("Offre", props.props._id, e.target.checked);
-                    }}
-                  />
-                  <label
-                    className="ToggleLabel mb-0 cursor-pointer"
-                    htmlFor={`offer${props.length}`}
-                  >
-                    {props.props.offerSent == false ? "Non" : "Oui"}
-                  </label>
                 </div>
-                {props.props.offerSent == false ? null : (
+              </span>
+            </div>
+          </div>
+
+          <div className="col-3 d-grid px-0">
+            <div className="grayboxLeads d-flex justify-content-start align-items-center ">
+              <p className="mb-0">Notes Internes 👇</p>
+            </div>
+            <div className="BoxHeight">
+              <span style={{ height: "70px" }}>
+                <div
+                  className="col-9 d-flex align-items-center text-capitalize cursor-pointer leadsChipColor"
+                  onClick={() => CurrentModal("ANote")}
+                >
+                  {props.props.agencyNote.length > 40
+                    ? props.props.agencyNote.slice(0, 40) + "..."
+                    : props.props.agencyNote
+                    ? props.props.agencyNote
+                    : "Pas de Notes Internes sur ce lead"}
+                </div>
+                <div className="col-4 d-grid align-items-center justify-content-center">
                   <div
                     className="cursor-pointer"
-                    style={{ height: "11px" }}
-                    onClick={() => setVoirOffer(true)}
+                    onClick={() => CurrentModal("ANote")}
                   >
-                    <p className="mb-0 offerVoir">Voir offre</p>
+                    <img src={require("../../images/pen.svg").default} />
                   </div>
-                )}
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => {
+                      setStatusModal("Nos notes Internes");
+                      setModalView(true);
+                    }}
+                  >
+                    <img src={require("../../images/expand.svg").default} />
+                  </div>
+                </div>
+              </span>
+            </div>
+          </div>
+          <div className="col-3 d-grid px-0">
+            <div className="grayboxLeads d-flex justify-content-start align-items-center">
+              <p className="mb-0 ">Offre envoyé? 👇</p>
+            </div>
+            <div className="BoxHeight d-grid align-items-center justify-content-center">
+              <div className="check-box d-flex align-items-center ">
+                <input
+                  type="checkbox"
+                  checked={props.props.offerSent}
+                  id={`offer${props.length}`}
+                  onChange={(e) => {
+                    switchCheck("Offre", props.props._id, e.target.checked);
+                  }}
+                />
+                <label
+                  className="ToggleLabel mb-0 cursor-pointer"
+                  htmlFor={`offer${props.length}`}
+                >
+                  {props.props.offerSent == false ? "Non" : "Oui"}
+                </label>
+              </div>
+              {props.props.offerSent == false ? null : (
+                <div
+                  className="cursor-pointer"
+                  style={{ height: "11px" }}
+                  onClick={() => setVoirOffer(true)}
+                >
+                  <p className="mb-0 offerVoir">Voir offre</p>
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="col-3 d-grid px-0">
+            <div className="grayboxLeads d-flex justify-content-start align-items-center">
+              <p className="mb-0">A rappeler? 👇</p>
+            </div>
+            <div className="BoxHeight align-items-center justify-content-center">
+              <div className="check-box d-flex align-items-center ">
+                <input
+                  type="checkbox"
+                  id={`rappeler${props.length}`}
+                  onChange={(e) =>
+                    switchCheck("rappel", props.props._id, e.target.checked)
+                  }
+                  defaultChecked={props.props.rappeler}
+                />
+                <label
+                  className="ToggleLabel mb-0 cursor-pointer"
+                  htmlFor={`rappeler${props.length}`}
+                >
+                  {props.props.rappeler == false ? "Non" : "Oui"}
+                </label>
               </div>
             </div>
-            <div className="col-3 d-grid px-0">
-              <div className="grayboxLeads d-flex justify-content-start align-items-center">
-                <p className="mb-0">A rappeler? 👇</p>
-              </div>
-              <div className="BoxHeight align-items-center justify-content-center">
-                <div className="check-box d-flex align-items-center ">
-                  <input
-                    type="checkbox"
-                    id={`rappeler${props.length}`}
-                    onChange={(e) =>
-                      switchCheck("rappel", props.props._id, e.target.checked)
-                    }
-                    defaultChecked={props.props.rappeler}
-                  />
-                  <label
-                    className="ToggleLabel mb-0 cursor-pointer"
-                    htmlFor={`rappeler${props.length}`}
-                  >
-                    {props.props.rappeler == false ? "Non" : "Oui"}
-                  </label>
-                </div>
-              </div>
+          </div>
+          <div className="col-3 d-grid px-0">
+            <div className="grayboxLeads d-flex justify-content-start align-items-center">
+              <p className="mb-0">Client Intéréssé? 👇</p>
             </div>
-            <div className="col-3 d-grid px-0">
-              <div className="grayboxLeads d-flex justify-content-start align-items-center">
-                <p className="mb-0">Client Intéréssé? 👇</p>
-              </div>
-              <div className="BoxHeight align-items-center justify-content-center">
-                <div className="check-box d-flex align-items-center ">
-                  <input
-                    type="checkbox"
-                    id={`Intéréssé${props.length}`}
-                    onChange={(e) =>
-                      switchCheck("", props.props._id, e.target.checked)
-                    }
-                    defaultChecked={props.props.companyInterested}
-                  />
-                  <label
-                    className="ToggleLabel mb-0 cursor-pointer"
-                    htmlFor={`Intéréssé${props.length}`}
-                  >
-                    {props.props.companyInterested == false
-                      ? "Pas déterminé"
-                      : "Oui"}
-                  </label>
-                </div>
+            <div className="BoxHeight align-items-center justify-content-center">
+              <div className="check-box d-flex align-items-center ">
+                <input
+                  type="checkbox"
+                  id={`Intéréssé${props.length}`}
+                  onChange={(e) =>
+                    switchCheck("", props.props._id, e.target.checked)
+                  }
+                  defaultChecked={props.props.companyInterested}
+                />
+                <label
+                  className="ToggleLabel mb-0 cursor-pointer"
+                  htmlFor={`Intéréssé${props.length}`}
+                >
+                  {props.props.companyInterested == false
+                    ? "Pas déterminé"
+                    : "Oui"}
+                </label>
               </div>
             </div>
           </div>
@@ -1799,6 +1836,11 @@ function LeadCard(props) {
                 <DownloadGmail  setDownloadMailModal={setDownloadMailModal}  props={downloadMailModal}   /> 
                 :
                 null
+              }
+              {
+                cofaceModal ? 
+                <UploadCofaceModal props={props.props} closeModal={setCofaceModal} setUpdate={props.update}/>
+                : null
               }
             </div>
           </div>

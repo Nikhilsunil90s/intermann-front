@@ -567,11 +567,11 @@ export default function Employes() {
       return false;
     }
 
-    if (data.candidatActivitySector === "" || data.candidatJob === "") {
-      notifyActivitySectorError();
-      setdsBtn(false);
-      return false;
-    }
+    // if (data.candidatActivitySector === "" || data.candidatJob === "") {
+    //   notifyActivitySectorError();
+    //   setdsBtn(false);
+    //   return false;
+    // }
     // if (data.candidatAddress == "") {
     //   notifyAddressError();
     //   setdsBtn(false);
@@ -585,16 +585,16 @@ export default function Employes() {
     saveCandidatData()
       .then((data) => {
         console.log(data);
-        // if (data.status) {
-        //   notifyCandidatAddSuccess();
-        //   setdsBtn(false);
-        //   setTimeout(() => {
-        //     window.location.href = "/addCandidate";
-        //   }, 2000);
-        // } else {
-        //   notifyCandidatAddError();
-        //   setdsBtn(false);
-        // }
+        if (data.status) {
+          notifyCandidatAddSuccess();
+          setdsBtn(false);
+          setTimeout(() => {
+            window.location.href = "/addCandidate";
+          }, 2000);
+        } else {
+          notifyCandidatAddError();
+          setdsBtn(false);
+        }
       })
       .catch((err) => {
         console.log(err);

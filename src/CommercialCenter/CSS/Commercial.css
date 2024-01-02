@@ -1,5 +1,99 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap");
 
+.pasCoface {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  color: white;
+  background-color: red;
+  padding: 10px;
+  border: 2px solid red;
+  border-radius: 49px;
+  width: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pasCoface:active {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
+.voirCoface {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  color: white;
+  background: green;
+  padding: 10px;
+  border: 2px solid green;
+  border-radius: 49px;
+  width: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deleteCoface {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  color: white;
+  background: orange;
+  padding: 10px;
+  border: 2px solid orange;
+  border-radius: 49px;
+  width: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deleteCofaceBtn {
+  height: 25px;
+  width: 25px;
+}
+
+.cofaceUploadBtn {
+  font-size: large;
+  font-weight: "400";
+  color: "blue";
+  background: 'transparent';
+  border: '1px solid blue';
+  border-radius: '20px';
+  text-align: 'center';
+  padding: '10px';
+}
+
+.no-arrows::-webkit-inner-spin-button,
+.no-arrows::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0; 
+}
+
+.cofaceUploadBtn:hover {
+  color: white;
+  background-color: blue;
+}
+
 .headerCommercial {
   background: #ffffff;
   box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.04);

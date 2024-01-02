@@ -36,7 +36,6 @@ let DetailsEdit;
 let DetailsAds;
 function Signed() {
   const { state } = useLocation();
-
   const profileData = JSON.parse(localStorage.getItem("archive"));
   const [profile, setProfile] = useState<any>(state ? state : profileData);
   const navigate = useNavigate();
@@ -392,7 +391,7 @@ function Signed() {
   };
 
   useEffect(() => {
-    fetchCandidat(state ? stateid._id : profileData._id)
+    fetchClient(state ? stateid._id : profileData._id)
       .then((resData) => {
         if (resData.status == true) {
           resData.data.map((el) => {
@@ -412,7 +411,7 @@ function Signed() {
       });
   }, [docUploaded]);
 
-  const fetchCandidat = async (clientId: any) => {
+  const fetchClient = async (clientId: any) => {
     return await fetch(API_BASE_URL + `getClientById/?clientId=${clientId}`, {
       method: "GET",
       headers: {
@@ -682,9 +681,6 @@ function Signed() {
       <div className="containet-fluid">
         <div className="row px-1">
           <div className="col-12 top-pd mt-1">
-            {/* <div className="col-12 top-pd text-center">
-              <h1 style={{ textDecoration: 'underline' }}>CLIENT FILE: {profile.clientCompanyName}</h1>
-            </div> */}
             <div className="row">
               <div className="col-8">
                 <div className="stable">
@@ -1346,44 +1342,6 @@ function Signed() {
                               >
                                 "⚠️This Candidat is Preselected But Don't Work
                                 for the Company yet!"
-                              </b>
-                            </div>
-                          </>
-                        ))
-                      : null}
-                    {Archived
-                      ? Archived.map((el, i) => (
-                          <>
-                            {" "}
-                            <div
-                              className="col-3 pr-0 mb-1 d-flex align-items-center"
-                              key={i}
-                            >
-                              <img
-                                style={{ width: "20%" }}
-                                className="pr-1"
-                                src={
-                                  require("../../images/menSigned.svg").default
-                                }
-                              />
-                              <p className="mb-0" style={{ color: "red" }}>
-                                {el.candidatName.toLocaleUpperCase()}
-                              </p>
-                            </div>
-                            <div className="col-9 text-end">
-                              <b
-                                style={{
-                                  fontFamily: "Poppins",
-                                  fontStyle: "normal",
-                                  fontWeight: "700",
-                                  fontSize: "10px",
-                                  lineHeight: "24px",
-                                  color: "#000000",
-                                }}
-                              >
-                                "⚠️This candidat previously worked for this
-                                company but have been archived, please reset to
-                                todo if something changed"
                               </b>
                             </div>
                           </>

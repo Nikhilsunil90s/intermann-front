@@ -800,7 +800,7 @@ function Sidebar(props: any) {
                       Kiné Center
                     </a>
                   </motion.li>
-                  {LoginUser.username == "Test" ? (
+                  {LoginUser?.username === "Test" ? (
                     <motion.li
                       initial="hidden"
                       whileInView="visible"
@@ -1222,7 +1222,7 @@ function Sidebar(props: any) {
                     </div>
                   )}
                 </li>
-                {LoginUser.username === "Test" ? (
+                {LoginUser?.username === "Test" ? (
                   <li className=" d-flex align-items-center justify-content-center">
                     {window.location.href.includes("billing") ? (
                       <div className={"activeDiv "}>

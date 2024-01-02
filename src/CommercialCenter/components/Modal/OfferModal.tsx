@@ -69,6 +69,11 @@ function OfferModal(props) {
 
   const onChangeGenOfferset = (e) => {
     if (e.target.name === "salaire_35H") {
+      document.getElementById('salaire').addEventListener('keydown', function(e) {
+        if (e.code === "ArrowUp" || e.code === "ArrowDown") {
+            e.preventDefault();
+        }
+      });
       setMetier({
         ...Metier,
         [e.target.name]: e.target.value + "€",
@@ -81,24 +86,44 @@ function OfferModal(props) {
       });
       setformValues({ ...form_values, [e.target.name]: e.target.checked })
     } else if (e.target.name === "heure_fait") {
+      document.getElementById('heure_forfait').addEventListener('keydown', function(e) {
+        if (e.code === "ArrowUp" || e.code === "ArrowDown") {
+            e.preventDefault();
+        }
+      });
       setMetier({
         ...Metier,
         [e.target.name]: e.target.value + "H",
       });
       setformValues({ ...form_values, [e.target.name]: e.target.value })
     } else if (e.target.name === "tax_heure_fait") {
+      document.getElementById('taux_heure_forfait').addEventListener('keydown', function(e) {
+        if (e.code === "ArrowUp" || e.code === "ArrowDown") {
+            e.preventDefault();
+        }
+      });
       setMetier({
         ...Metier,
         [e.target.name]: e.target.value + "€",
       });
       setformValues({ ...form_values, [e.target.name]: e.target.value })
     } else if (e.target.name === "supplymentry_tax") {
+      document.getElementById('heure_supplementaire').addEventListener('keydown', function(e) {
+        if (e.code === "ArrowUp" || e.code === "ArrowDown") {
+            e.preventDefault();
+        }
+      });
       setMetier({
         ...Metier,
         [e.target.name]: e.target.value + "€",
       });
       setformValues({ ...form_values, [e.target.name]: e.target.value })
     } else if (e.target.name === "total_salaire") {
+      document.getElementById('salaire_total').addEventListener('keydown', function(e) {
+        if (e.code === "ArrowUp" || e.code === "ArrowDown") {
+            e.preventDefault();
+        }
+      });
       setMetier({
         ...Metier,
         [e.target.name]: e.target.value + "€",
@@ -132,7 +157,6 @@ function OfferModal(props) {
   };
 
   const GenOffer = async (e: any) => {
-    console.log(e.target.name);
     if (e.target.name === "downloadPDF") {
       if (Metier.metier === "") {
         toast.error("please fill all required fields!");
@@ -243,7 +267,7 @@ function OfferModal(props) {
       <p>Nous vous enverrons ainsi régulièrement des CVs par mail que vous devrez valider ou refuser.  Aussi, nous vous rappelons que vous avez toujours la possibilité de renvoyer sans frais pendant une semaine votre travailleur si jamais celui-ci ne convient pas.</p>
       <p>Nous vous demandons d'être le plus réactif possible dès réception de nos CVs pour ne pas perdre les candidats.</p>
       <p>Nous nous donnons un délai de 3 semaines pour trouver le candidat correspondant à votre demande.</p>
-      <p>Vous pouvez regarder notre vidéo explicative de l’offre sur notre chaine YouTube ici :  <a target="_blank" href="https://www.youtube.com/watch?v=a5ug5ulpliq&t=1s"> https://www.youtube.com/watch?v=a5ug5ulpliq&t=1s </a></p>
+      <p>Vous pouvez regarder notre vidéo explicative de l’offre sur notre chaine YouTube ici :  <a target="_blank" href="https://www.youtube.com/watch?v=IuNJKww0g4o&t=2s"> https://www.youtube.com/watch?v=IuNJKww0g4o&t=2s </a></p>
       <p>Enfin, vous avez deux possibilités pour accepter cette offre.</p>
       <p>1) la première c’est de la renvoyer signer par email à contact@intermann.ro</p>
       <p>2) la seconde c’est de la signer digitalement depuis votre PC/Smartphone en cliquant sur ce lien :  <a target="_blank" href="https://intermann.herokuapp.com/ViewOffer/${id}"> https://intermann.herokuapp.com/ViewOffer/${id}</a></p>
@@ -393,13 +417,15 @@ function OfferModal(props) {
                         color: "#000000",
                       }}
                       type="number"
+                      inputMode="numeric"
+                      id="salaire"
                       onChange={(e) => onChangeGenOfferset(e)}
                       placeholder="SALAIRE 35H"
                       name="salaire_35H"
                       value={
                         form_values.salaire_35H || ""
                       }
-                      className="form-control fontsizeModal"
+                      className="form-control fontsizeModal no-arrows"
                     />
                   </div>
                   <div className="col-6 mt-1 align-items-center">
@@ -466,10 +492,11 @@ function OfferModal(props) {
                       }}
                       value={form_values.heure_fait || ""}
                       type="number"
+                      id="heure_forfait"
                       onChange={(e) => onChangeGenOfferset(e)}
                       placeholder="NOMBRE HEURE FORFAIT"
                       name="heure_fait"
-                      className="form-control fontsizeModal"
+                      className="form-control fontsizeModal no-arrows"
                     />
                   </div>
                   <div className="col-6 mt-1">
@@ -497,10 +524,12 @@ function OfferModal(props) {
                       }}
                       value={form_values.tax_heure_fait || ""}
                       type="number"
-                      onChange={(e) => onChangeGenOfferset(e)}
+                      id="taux_heure_forfait"
+                      onChange={(e) => onChangeGenOfferset(e)}   
                       placeholder="TAUX HORAIRE FORFAIT"
                       name="tax_heure_fait"
-                      className="form-control fontsizeModal"
+                      className="form-control fontsizeModal no-arrows"
+                      
                     />
                   </div>
                   <div className="col-12 mt-1">
@@ -527,11 +556,12 @@ function OfferModal(props) {
                         color: "#000000",
                       }}
                       type="number"
+                      id="heure_supplementaire"
                       value={form_values.supplymentry_tax || ""}
                       onChange={(e) => onChangeGenOfferset(e)}
                       placeholder="TAUX HORAIRE HEURE SUPPLEMENTAIRE"
                       name="supplymentry_tax"
-                      className="form-control fontsizeModal"
+                      className="form-control fontsizeModal no-arrows"
                     />
                   </div>
                   <div className="col-12 mt-1">
@@ -560,10 +590,11 @@ function OfferModal(props) {
                       }}
                       value={form_values.total_salaire || ""}
                       type="number"
+                      id="salaire_total"
                       onChange={(e) => onChangeGenOfferset(e)}
                       placeholder="SALAIRE TOTAL"
                       name="total_salaire"
-                      className="form-control fontsizeModal"
+                      className="form-control fontsizeModal no-arrows"
                     />
                   </div>
                   <div className="col-12">

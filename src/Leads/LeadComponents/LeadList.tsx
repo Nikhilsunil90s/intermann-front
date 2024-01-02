@@ -16,7 +16,7 @@ function LeadList({
   activeUser,
   TabName,
   setFilter,
-  DAta,
+  Data,
   setrest,
 }) {
   const LoginUser = JSON.parse(localStorage.getItem("LoginUser"));
@@ -422,109 +422,6 @@ function LeadList({
         </div>
         <div className="col-12 leadBottom">
           <div className="row">
-            {/* <div className="col-4 d-grid PrECONTACTED">
-              <div className="row p-1">
-                <div
-                  className="col-12"
-                  style={{
-                    background: `${
-                      Precontacted === "No"
-                        ? `#d42424`
-                        : Precontacted === "Not Interested"
-                        ? `#d42424`
-                        : Precontacted === "Not Yet"
-                        ? `#d42424`
-                        : `#489767`
-                    }`,
-                    padding: "10px 15px",
-                    borderRadius: "10px",
-                  }}
-                >
-                  <p className="mb-0 m-0">Precontacted</p>
-                </div>
-              </div>
-
-              <div className="row PrECONTACTEDInput mb-1">
-                <div className="col-4 pr-0 d-flex align-items-start ">
-                  <label
-                    htmlFor={`pre1${length}`}
-                    className={`btn d-flex align-items-center ${
-                      Precontacted === "Not Yet" || Precontacted === "No"
-                        ? "offRedBtn"
-                        : "offBtns"
-                    }`}
-                  >
-                    <div className="d-flex justify-content-center align-item-center inputBorder">
-                      <input
-                        id={`pre1${length}`}
-                        name={`preContact${length}`}
-                        value={"Not Yet"}
-                        onChange={(e) => OnChangeRadio(e, props._id)}
-                        type={"radio"}
-                        className="cursor-pointer d-flex"
-                        checked={
-                          Precontacted === "Not Yet"
-                            ? true
-                            : Precontacted === "No"
-                            ? true
-                            : false
-                        }
-                      />
-                    </div>
-                    Not yet
-                  </label>
-                </div>
-                <div className="col-4 d-flex  align-items-start">
-                  <label
-                    htmlFor={`pre2${length}`}
-                    className={`btn d-flex align-items-center ${
-                      Precontacted === "Interested" ? "onGreenBtn" : "offBtns"
-                    }`}
-                  >
-                    {" "}
-                    <div className="d-flex justify-content-center align-item-center inputBorder">
-                      <input
-                        id={`pre2${length}`}
-                        type={"radio"}
-                        name={`preContact${length}`}
-                        value={"Interested"}
-                        onChange={(e) => OnChangeRadio(e, props._id)}
-                        className="cursor-pointer d-flex"
-                        checked={Precontacted === "Interested" ? true : false}
-                      />
-                    </div>
-                    Interested
-                  </label>
-                </div>
-                <div className="col-4 d-flex  align-items-start">
-                  <label
-                    htmlFor={`pre3${length}`}
-                    className={`btn d-flex align-items-center ${
-                      Precontacted === "Not Interested"
-                        ? "offRedBtn"
-                        : "offBtns"
-                    }`}
-                  >
-                    <div className="d-flex justify-content-center align-item-center inputBorder">
-                      {" "}
-                      <input
-                        id={`pre3${length}`}
-                        type={"radio"}
-                        className="cursor-pointer d-flex"
-                        name={`preContact${length}`}
-                        value={"Not Interested"}
-                        onChange={(e) => OnChangeRadio(e, props._id)}
-                        checked={
-                          Precontacted === "Not Interested" ? true : false
-                        }
-                      />
-                    </div>
-                    Not Interested
-                  </label>
-                </div>
-              </div>
-            </div> */}
-
             <div className="col-12 d-grid PrECONTACTED">
               <div className="row p-1">
                 <div
@@ -1009,7 +906,7 @@ function LeadList({
           Notes={LeadNotes}
           setDelete={setDeleteLeads}
           setFilter={setFilter}
-          DAta={DAta}
+          Data={Data}
         />
       ) : null}
       {NoteModal ? (

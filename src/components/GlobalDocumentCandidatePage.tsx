@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {  useParams } from "react-router";
+import { useParams } from "react-router";
 import { API_BASE_URL } from "../config/serverApiConfig";
 import ErrorLoader from "../components/Loader/SearchBarError";
-import {  Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 function GdocumentCandidatePage() {
   const { id } = useParams();
@@ -12,6 +12,9 @@ function GdocumentCandidatePage() {
   const [profile, setProfile] = useState() as any;
   const [CONTRACT_EMPLOYE_INTERMANN, setCONTRACT_EMPLOYE_INTERMANN] =
     useState() as any;
+  
+  const [paiements, setPaiements] = useState() as any;
+  const [clientId, setClientId] = useState() as any;
   const [Fiche_Medicale, setFiche_Medicale] = useState() as any;
   const [Assurance, setAssurance] = useState() as any;
   const [ID_CARD, setID_CARD] = useState() as any;
@@ -31,19 +34,14 @@ function GdocumentCandidatePage() {
             ...resData.data?.candidatDocuments,
             ...resData.data?.candidatLinks,
           ]);
-          // setLinksList(resData.data?.candidatLinks);
-          //   resData.data.map((el) => {
-          // setProfile(el);
-
-          //   });
         } else {
           return false;
         }
       })
-
       .catch((err) => {
         console.log(err);
       });
+
   }, [id]);
 
   const ViewDownloadFiles = (documentName: any) => {
@@ -53,6 +51,13 @@ function GdocumentCandidatePage() {
   useEffect(() => {
     // documentList.map((el) => {
     profile?.candidatDocuments?.map((el) => {
+      if (
+        JSON.stringify(el.folderName ? el.folderName : null).includes(
+          JSON.stringify("paiements")
+        )
+      ) {
+        setPaiements([el]);
+      }
       if (
         JSON.stringify(el.folderName ? el.folderName : null).includes(
           JSON.stringify("Reges")
@@ -166,6 +171,20 @@ function GdocumentCandidatePage() {
     });
   }, [profile]);
 
+  useEffect(() => {
+    if (profile?.candidatCurrentWork[0]?.workingFor !== '') {
+      let clientName = profile?.candidatCurrentWork[0]?.workingFor;
+      console.log(clientName);
+      fetchClient(clientName)
+        .then(resData => {
+          setClientId(resData?.data?._id);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+  }, [profile])
+
   const fetchCandidat = async (CandidateID: any) => {
     return await fetch(
       API_BASE_URL + `getCandidatDetailsById/?candidatId=${CandidateID}`,
@@ -180,6 +199,21 @@ function GdocumentCandidatePage() {
       .then((respData) => respData)
       .catch((err) => err);
   };
+
+  const fetchClient = async (clientName: any) => {
+    return await fetch(
+      API_BASE_URL + `getClientByName/?clientCompanyName=${clientName}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    )
+    .then((resp) => resp.json())
+    .then((respData) => respData)
+    .catch((err) => err);
+  }
 
   // const FilesUploads=(file)=>{
 
@@ -227,7 +261,7 @@ function GdocumentCandidatePage() {
         <div className="row">
           <div className="col-12 d-flex justify-content-center p-1 mt-2">
             <span>
-              <img alt="..." 
+              <img alt="..."
                 src={require("../images/logo-header.svg").default}
                 className="filter-logo"
                 style={{ width: "150%" }}
@@ -257,33 +291,99 @@ function GdocumentCandidatePage() {
             <div className="row Social-CardClient p-1">
               <div className="col-md-3 col-sm-12  d-flex align-items-center justify-content-center">
                 <img alt="..."
-                  src={require("../images/representant.png")}
+                  src={require("../images/logoImForCandidaDoctBox.svg").default}
                   className="representant"
                 />
               </div>
-              <div className="col-md-9 col-sm-12 d-grid align-items-center ">
+              <div className="col-md-9 col-sm-12 d-grid align-items-center mt-2 ">
                 <p className="mb-0 cardPDFDetails">
-                  Votre représentant : Jeremy Roggy
+                  Votre représentant : Gabriela Elena Carevan
                   <br />
                   INTERMANN WORK S.R.L <br />
                   VAT : RO44515629 <br />
-                  +40 770 504 158
+                  +40 770 504 158 / Adrian: +40 770 160 374 / Agence:+40 31 631 4347  <br />
+                  contact@intermann.ro
+
                 </p>
               </div>
             </div>
           </div>
+
+          <div className="col-12 px-3 mt-1 mb-1">
+            <div className="row Social-CardClient pb-1" style={{ backgroundColor: '#EAEAEA' }}>
+              <div className="col-12" >
+
+                <div className="text-center p-1">
+                  <span className="custom-text-size" style={{ color: '#3F76E2', fontWeight: 'bold', textShadow: '2px 4px 4px rgba(46,91,173,0.6)' }}>
+                    TRAVAIL ACTUELLEMENT CHEZ :
+                  </span>
+                </div>
+                <div className="col-12">
+
+                  <div className="p-1" style={{ backgroundColor: '#D9D9D9' }}>
+                    <div className="d-flex align-items-center">
+                      <img
+                        alt="Building"
+                        src={require("../images/company-dummy-logo.svg").default}
+                        className="building-image"
+                        style={{ width: "75px", height: "75px" }}
+                      />
+                      <div className="ml-1">
+                        <p
+                          className="mb-0"
+                          style={{
+                            fontFamily: "Poppins",
+                            fontStyle: "normal",
+                            fontWeight: 500,
+                            fontSize: "18px",
+                            color: "#000000",
+                            textTransform: 'uppercase',
+                          }}
+                        >
+                          { profile?.candidatCurrentWork[0]?.workingFor !== ''
+                            ? profile?.candidatCurrentWork[0]?.workingFor
+                            : "Not Working For Any Company."}
+                        </p>
+                        {
+                          profile?.candidatCurrentWork[0]?.workingFor !== ''
+                          ?
+                          <a
+                            className="btn btn-blue d-flex align-items-center"
+                            href={`https://intermann.herokuapp.com/documentbox/${profile?.candidatCurrentWork[0]?.workingFor}/${clientId}`}
+                            target="_blank"
+                            style={{
+                              fontFamily: "Poppins",
+                              fontStyle: "normal",
+                              fontSize: "12px",
+                              color: "#FFFFFF",
+                              height: '12px',
+                            }}
+                          >
+                          {'->'}Voir les documents
+                        </a>
+                        : null
+                        }
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="col-12 px-3 mb-1 ">
             <div className="row Social-CardClient p-1">
-              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
-                <p className="mb-0 CLIntermann">CONTRACT EMPLOYE x Intermann</p>
+              <div className="col-md-4 col-sm-12 d-flex align-items-center">
+                <p className="mb-0 CLIntermann">Paiements</p>
               </div>
               <div className="col-md-8 col-sm-12">
-                <div className="row justify-content-end">
-                  {CONTRACT_EMPLOYE_INTERMANN ? (
+                <div className="row justify-content-center">
+                  {paiements ? (
                     documentList?.map((el) =>
                       JSON.stringify(
                         el.folderName ? el.folderName : null
-                      ).includes(JSON.stringify("CONTRACT")) ? (
+                      ).includes(JSON.stringify("paiements")) ? (
                         <>
                           {" "}
                           <div className="col-md-6 col-sm-12 mb-1">
@@ -323,771 +423,8 @@ function GdocumentCandidatePage() {
                           </div>
                         </>
                       ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("CONTRACT")
-                        ) ? (
-                        <>
-                          <div className="col-md-6 col-sm-12 mb-1">
-                            <div
-                              className="row PDFcardBG cursor-pointer"
-                              onClick={() => ViewDownloadFiles(el.link)}
-                            >
-                              <div className="col-2 px-0 d-flex align-items-center">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={
-                                    require("../images/newresume.svg").default
-                                  }
-                                />
-                              </div>
-                              <div
-                                className="col-8 px-0 d-flex align-items-center cursor-pointer"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="bottom"
-                                title={el.link}
-                              >
-                                <p className="mb-0 contractEMPStyle">
-                                  {el.link.length > 30
-                                    ? el.link.slice(0, 32) + "..."
-                                    : el.link}
-                                </p>
-                              </div>
-                              <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={require("../images/dowcard.svg").default}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      ) : null
-                    )
-                  ) : (
-                    <p
-                      className="d-flex  justify-content-center align-items-center mb-0"
-                      style={{
-                        fontFamily: "Poppins",
-                        fontStyle: "normal",
-                        fontWeight: "700",
-                        fontSize: "16px",
-                        lineHeight: "24px",
-                        color: "#000000",
-                      }}
-                    >
-                      {" "}
-                      <ErrorLoader />
-                      No Documents Uploaded!
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 px-3 mb-1 ">
-            <div className="row Social-CardClient p-1">
-              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
-                <p className="mb-0 CLIntermann">ID CARD x Intermann</p>
-              </div>
-              <div className="col-md-8 col-sm-12">
-                <div className="row justify-content-end">
-                  {ID_CARD ? (
-                    documentList?.map((el) =>
-                      JSON.stringify(
-                        el.folderName ? el.folderName : null
-                      ).includes(JSON.stringify("BULETIN_/_ID_CARD")) ? (
-                        <>
-                          {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
-                            <div
-                              className="row PDFcardBG cursor-pointer"
-                              onClick={() => ViewDownloadFiles(el.url)}
-                            >
-                              <div className="col-2 px-0 d-flex align-items-center">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={
-                                    require("../images/newresume.svg").default
-                                  }
-                                />
-                              </div>
-                              <div
-                                className="col-8 px-0 d-flex align-items-center cursor-pointer"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="bottom"
-                                title={el.originalName}
-                              >
-                                <p className="mb-0 contractEMPStyle">
-                                  {el.originalName.length > 30
-                                    ? el.originalName.slice(0, 32) + "..."
-                                    : el.originalName}
-                                </p>
-                              </div>
-                              <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={require("../images/dowcard.svg").default}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("BULETIN_/_ID_CARD")
-                        ) ? (
-                        <>
-                          <div className="col-md-6 col-sm-12 mb-1">
-                            <div
-                              className="row PDFcardBG cursor-pointer"
-                              onClick={() => ViewDownloadFiles(el.link)}
-                            >
-                              <div className="col-2 px-0 d-flex align-items-center">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={
-                                    require("../images/newresume.svg").default
-                                  }
-                                />
-                              </div>
-                              <div
-                                className="col-8 px-0 d-flex align-items-center cursor-pointer"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="bottom"
-                                title={el.link}
-                              >
-                                <p className="mb-0 contractEMPStyle">
-                                  {el.link.length > 30
-                                    ? el.link.slice(0, 32) + "..."
-                                    : el.link}
-                                </p>
-                              </div>
-                              <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={require("../images/dowcard.svg").default}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      ) : null
-                    )
-                  ) : (
-                    <p
-                      className="d-flex  justify-content-center align-items-center mb-0"
-                      style={{
-                        fontFamily: "Poppins",
-                        fontStyle: "normal",
-                        fontWeight: "700",
-                        fontSize: "16px",
-                        lineHeight: "24px",
-                        color: "#000000",
-                      }}
-                    >
-                      {" "}
-                      <ErrorLoader />
-                      No Documents Uploaded!
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>{" "}
-          <div className="col-12 px-3 mb-1 ">
-            <div className="row Social-CardClient p-1">
-              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
-                <p className="mb-0 CLIntermann">FICHE MEDICALE</p>
-              </div>
-              <div className="col-md-8 col-sm-12">
-                <div className="row justify-content-end">
-                  {Fiche_Medicale ? (
-                    documentList?.map((el) =>
-                      JSON.stringify(
-                        el.folderName ? el.folderName : null
-                      ).includes(JSON.stringify("Fiche_Medicale")) ? (
-                        <>
-                          {" "}
-                          <div className="col-md-6 col-sm-12  mb-1">
-                            <div
-                              className="row PDFcardBG cursor-pointer"
-                              onClick={() => ViewDownloadFiles(el.url)}
-                            >
-                              <div className="col-2 px-0 d-flex align-items-center">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={
-                                    require("../images/newresume.svg").default
-                                  }
-                                />
-                              </div>
-                              <div
-                                className="col-8 px-0 d-flex align-items-center cursor-pointer"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="bottom"
-                                title={el.originalName}
-                              >
-                                <p className="mb-0 contractEMPStyle">
-                                  {el.originalName.length > 30
-                                    ? el.originalName.slice(0, 32) + "..."
-                                    : el.originalName}
-                                </p>
-                              </div>
-                              <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={require("../images/dowcard.svg").default}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("Fiche_Medicale")
-                        ) ? (
-                        <>
-                          <div className="col-md-6 col-sm-12 mb-1">
-                            <div
-                              className="row PDFcardBG cursor-pointer"
-                              onClick={() => ViewDownloadFiles(el.link)}
-                            >
-                              <div className="col-2 px-0 d-flex align-items-center">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={
-                                    require("../images/newresume.svg").default
-                                  }
-                                />
-                              </div>
-                              <div
-                                className="col-8 px-0 d-flex align-items-center cursor-pointer"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="bottom"
-                                title={el.link}
-                              >
-                                <p className="mb-0 contractEMPStyle">
-                                  {el.link.length > 30
-                                    ? el.link.slice(0, 32) + "..."
-                                    : el.link}
-                                </p>
-                              </div>
-                              <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={require("../images/dowcard.svg").default}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      ) : null
-                    )
-                  ) : (
-                    <p
-                      className="d-flex  justify-content-center align-items-center mb-0"
-                      style={{
-                        fontFamily: "Poppins",
-                        fontStyle: "normal",
-                        fontWeight: "700",
-                        fontSize: "16px",
-                        lineHeight: "24px",
-                        color: "#000000",
-                      }}
-                    >
-                      {" "}
-                      <ErrorLoader />
-                      No Documents Uploaded!
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>{" "}
-          <div className="col-12 px-3 mb-1 ">
-            <div className="row Social-CardClient p-1">
-              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
-                <p className="mb-0 CLIntermann">ASSURANCE</p>
-              </div>
-              <div className="col-md-8 col-sm-12">
-                <div className="row justify-content-end">
-                  {Assurance ? (
-                    documentList?.map((el) =>
-                      JSON.stringify(
-                        el.folderName ? el.folderName : null
-                      ).includes(JSON.stringify("Assurance")) ? (
-                        <>
-                          {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
-                            <div
-                              className="row PDFcardBG cursor-pointer"
-                              onClick={() => ViewDownloadFiles(el.url)}
-                            >
-                              <div className="col-2 px-0 d-flex align-items-center">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={
-                                    require("../images/newresume.svg").default
-                                  }
-                                />
-                              </div>
-                              <div
-                                className="col-8 px-0 d-flex align-items-center cursor-pointer"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="bottom"
-                                title={el.originalName}
-                              >
-                                <p className="mb-0 contractEMPStyle">
-                                  {el.originalName.length > 30
-                                    ? el.originalName.slice(0, 32) + "..."
-                                    : el.originalName}
-                                </p>
-                              </div>
-                              <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={require("../images/dowcard.svg").default}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("Assurance")
-                        ) ? (
-                        <>
-                          <div className="col-md-6 col-sm-12 mb-1">
-                            <div
-                              className="row PDFcardBG cursor-pointer"
-                              onClick={() => ViewDownloadFiles(el.link)}
-                            >
-                              <div className="col-2 px-0 d-flex align-items-center">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={
-                                    require("../images/newresume.svg").default
-                                  }
-                                />
-                              </div>
-                              <div
-                                className="col-8 px-0 d-flex align-items-center cursor-pointer"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="bottom"
-                                title={el.link}
-                              >
-                                <p className="mb-0 contractEMPStyle">
-                                  {el.link.length > 30
-                                    ? el.link.slice(0, 32) + "..."
-                                    : el.link}
-                                </p>
-                              </div>
-                              <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={require("../images/dowcard.svg").default}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      ) : null
-                    )
-                  ) : (
-                    <p
-                      className="d-flex  justify-content-center align-items-center mb-0"
-                      style={{
-                        fontFamily: "Poppins",
-                        fontStyle: "normal",
-                        fontWeight: "700",
-                        fontSize: "16px",
-                        lineHeight: "24px",
-                        color: "#000000",
-                      }}
-                    >
-                      {" "}
-                      <ErrorLoader />
-                      No Documents Uploaded!
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>{" "}
-          <div className="col-12 px-3 mb-1 ">
-            <div className="row Social-CardClient p-1">
-              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
-                <p className="mb-0 CLIntermann">REGES</p>
-              </div>
-              <div className="col-md-8 col-sm-12">
-                <div className="row justify-content-end">
-                  {Reges ? (
-                    documentList?.map((el) =>
-                      JSON.stringify(
-                        el.folderName ? el.folderName : null
-                      ).includes(JSON.stringify("Reges")) ? (
-                        <>
-                          {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
-                            <div
-                              className="row PDFcardBG cursor-pointer"
-                              onClick={() => ViewDownloadFiles(el.url)}
-                            >
-                              <div className="col-2 px-0 d-flex align-items-center">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={
-                                    require("../images/newresume.svg").default
-                                  }
-                                />
-                              </div>
-                              <div
-                                className="col-8 px-0 d-flex align-items-center cursor-pointer"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="bottom"
-                                title={el.originalName}
-                              >
-                                <p className="mb-0 contractEMPStyle">
-                                  {el.originalName.length > 30
-                                    ? el.originalName.slice(0, 32) + "..."
-                                    : el.originalName}
-                                </p>
-                              </div>
-                              <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={require("../images/dowcard.svg").default}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("Reges")
-                        ) ? (
-                        <>
-                          <div className="col-md-6 col-sm-12 mb-1">
-                            <div
-                              className="row PDFcardBG cursor-pointer"
-                              onClick={() => ViewDownloadFiles(el.link)}
-                            >
-                              <div className="col-2 px-0 d-flex align-items-center">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={
-                                    require("../images/newresume.svg").default
-                                  }
-                                />
-                              </div>
-                              <div
-                                className="col-8 px-0 d-flex align-items-center cursor-pointer"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="bottom"
-                                title={el.link}
-                              >
-                                <p className="mb-0 contractEMPStyle">
-                                  {el.link.length > 30
-                                    ? el.link.slice(0, 32) + "..."
-                                    : el.link}
-                                </p>
-                              </div>
-                              <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={require("../images/dowcard.svg").default}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      ) : null
-                    )
-                  ) : (
-                    <p
-                      className="d-flex  justify-content-center align-items-center mb-0"
-                      style={{
-                        fontFamily: "Poppins",
-                        fontStyle: "normal",
-                        fontWeight: "700",
-                        fontSize: "16px",
-                        lineHeight: "24px",
-                        color: "#000000",
-                      }}
-                    >
-                      {" "}
-                      <ErrorLoader />
-                      No Documents Uploaded!
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>{" "}
-          <div className="col-12 px-3 mb-1 ">
-            <div className="row Social-CardClient p-1">
-              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
-                <p className="mb-0 CLIntermann">FICHE MISE A DISPOSITION</p>
-              </div>
-              <div className="col-md-8 col-sm-12">
-                <div className="row justify-content-end">
-                  {Fiche_mise_à_disposition ? (
-                    documentList?.map((el) =>
-                      JSON.stringify(
-                        el.folderName ? el.folderName : null
-                      ).includes(JSON.stringify("Fiche_mise_à_disposition")) ? (
-                        <>
-                          {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
-                            <div
-                              className="row PDFcardBG cursor-pointer"
-                              onClick={() => ViewDownloadFiles(el.url)}
-                            >
-                              <div className="col-2 px-0 d-flex align-items-center">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={
-                                    require("../images/newresume.svg").default
-                                  }
-                                />
-                              </div>
-                              <div
-                                className="col-8 px-0 d-flex align-items-center cursor-pointer"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="bottom"
-                                title={el.originalName}
-                              >
-                                <p className="mb-0 contractEMPStyle">
-                                  {el.originalName.length > 30
-                                    ? el.originalName.slice(0, 32) + "..."
-                                    : el.originalName}
-                                </p>
-                              </div>
-                              <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={require("../images/dowcard.svg").default}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("Fiche_mise_à_disposition")
-                        ) ? (
-                        <>
-                          <div className="col-md-6 col-sm-12 mb-1">
-                            <div
-                              className="row PDFcardBG cursor-pointer"
-                              onClick={() => ViewDownloadFiles(el.link)}
-                            >
-                              <div className="col-2 px-0 d-flex align-items-center">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={
-                                    require("../images/newresume.svg").default
-                                  }
-                                />
-                              </div>
-                              <div
-                                className="col-8 px-0 d-flex align-items-center cursor-pointer"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="bottom"
-                                title={el.link}
-                              >
-                                <p className="mb-0 contractEMPStyle">
-                                  {el.link.length > 30
-                                    ? el.link.slice(0, 32) + "..."
-                                    : el.link}
-                                </p>
-                              </div>
-                              <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={require("../images/dowcard.svg").default}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      ) : null
-                    )
-                  ) : (
-                    <p
-                      className="d-flex  justify-content-center align-items-center mb-0"
-                      style={{
-                        fontFamily: "Poppins",
-                        fontStyle: "normal",
-                        fontWeight: "700",
-                        fontSize: "16px",
-                        lineHeight: "24px",
-                        color: "#000000",
-                      }}
-                    >
-                      {" "}
-                      <ErrorLoader />
-                      No Documents Uploaded!
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 px-3 mb-1 ">
-            <div className="row Social-CardClient p-1">
-              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
-                <p className="mb-0 CLIntermann">FACTURES PAYES</p>
-              </div>
-              <div className="col-md-8 col-sm-12">
-                <div className="row justify-content-end">
-                  {factures_payes ? (
-                    documentList?.map((el) =>
-                      JSON.stringify(
-                        el.folderName ? el.folderName : null
-                      ).includes(JSON.stringify("factures_payes")) ? (
-                        <>
-                          {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
-                            <div
-                              className="row PDFcardBG cursor-pointer"
-                              onClick={() => ViewDownloadFiles(el.url)}
-                            >
-                              <div className="col-2 px-0 d-flex align-items-center">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={
-                                    require("../images/newresume.svg").default
-                                  }
-                                />
-                              </div>
-                              <div
-                                className="col-8 px-0 d-flex align-items-center cursor-pointer"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="bottom"
-                                title={el.originalName}
-                              >
-                                <p className="mb-0 contractEMPStyle">
-                                  {el.originalName.length > 30
-                                    ? el.originalName.slice(0, 32) + "..."
-                                    : el.originalName}
-                                </p>
-                              </div>
-                              <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={require("../images/dowcard.svg").default}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("factures_payes")
-                        ) ? (
-                        <>
-                          <div className="col-md-6 col-sm-12 mb-1">
-                            <div
-                              className="row PDFcardBG cursor-pointer"
-                              onClick={() => ViewDownloadFiles(el.link)}
-                            >
-                              <div className="col-2 px-0 d-flex align-items-center">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={
-                                    require("../images/newresume.svg").default
-                                  }
-                                />
-                              </div>
-                              <div
-                                className="col-8 px-0 d-flex align-items-center cursor-pointer"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="bottom"
-                                title={el.link}
-                              >
-                                <p className="mb-0 contractEMPStyle">
-                                  {el.link.length > 30
-                                    ? el.link.slice(0, 32) + "..."
-                                    : el.link}
-                                </p>
-                              </div>
-                              <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={require("../images/dowcard.svg").default}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      ) : null
-                    )
-                  ) : (
-                    <p
-                      className="d-flex  justify-content-center align-items-center mb-0"
-                      style={{
-                        fontFamily: "Poppins",
-                        fontStyle: "normal",
-                        fontWeight: "700",
-                        fontSize: "16px",
-                        lineHeight: "24px",
-                        color: "#000000",
-                      }}
-                    >
-                      {" "}
-                      <ErrorLoader />
-                      No Documents Uploaded!
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 px-3 mb-1 ">
-            <div className="row Social-CardClient p-1">
-              <div className="col-md-4 col-sm-12 justify-content-center d-flex align-items-center">
-                <p className="mb-0 CLIntermann">FACTURES IMPAYES</p>
-              </div>
-              <div className="col-md-8 col-sm-12">
-                <div className="row justify-content-end">
-                  {factures_impayes ? (
-                    documentList?.map((el) =>
-                      JSON.stringify(
-                        el.folderName ? el.folderName : null
-                      ).includes(JSON.stringify("factures_impayes")) ? (
-                        <>
-                          {" "}
-                          <div className="col-md-6 col-sm-12 mb-1">
-                            <div
-                              className="row PDFcardBG cursor-pointer"
-                              onClick={() => ViewDownloadFiles(el.url)}
-                            >
-                              <div className="col-2 px-0 d-flex align-items-center">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={
-                                    require("../images/newresume.svg").default
-                                  }
-                                />
-                              </div>
-                              <div
-                                className="col-8 px-0 d-flex align-items-center cursor-pointer"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="bottom"
-                                title={el.originalName}
-                              >
-                                <p className="mb-0 contractEMPStyle">
-                                  {el.originalName.length > 30
-                                    ? el.originalName.slice(0, 32) + "..."
-                                    : el.originalName}
-                                </p>
-                              </div>
-                              <div className="col-2 px-0 d-flex align-items-center justify-content-center cursor-pointer">
-                                <img alt="..."
-                                  style={{ width: "73%" }}
-                                  src={require("../images/dowcard.svg").default}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      ) : JSON.stringify(el.folder ? el.folder : null).includes(
-                          JSON.stringify("factures_impayes")
-                        ) ? (
+                        JSON.stringify("CONTRACT")
+                      ) ? (
                         <>
                           <div className="col-md-6 col-sm-12 mb-1">
                             <div

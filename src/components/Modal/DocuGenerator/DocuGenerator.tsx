@@ -58,7 +58,7 @@ function DocuGenerator({ id, closeModal }: any) {
                 id="exampleModalLabel"
                 style={{ width: "100%", fontWeight: 800, fontSize: "22px" }}
               >
-                MODAL TO SEND THIS DOCUMENT TO SIGN
+                STEPS TO SEND THIS DOCUMENT TO SIGN
               </h5>
             </div>
             <div className="modal-body d-flex  text-start mt-1">
@@ -67,7 +67,7 @@ function DocuGenerator({ id, closeModal }: any) {
                   style={{ fontWeight: 500, fontSize: "18px", color: "#000" }}
                 >
                   Please copy and past this link once the document generated
-              <br/>    <a style={{ color: "#3F76E2" }}  id="p1" onClick={()=>copyToClipboard('#p1')}>{"https://intermann.herokuapp.com/"+id}</a>
+              <br/>    <a style={{ color: "#3F76E2" }}  id="p1" onClick={()=>copyToClipboard('#p1')}>{"https://intermann.herokuapp.com/document/"+id}</a>
                 </li>
                 <li
                   style={{ fontWeight: 500, fontSize: "18px", color: "#000" }}
@@ -84,7 +84,7 @@ function DocuGenerator({ id, closeModal }: any) {
                   style={{ fontWeight: 500, fontSize: "18px", color: "#000" }}
                 >
                   You will be able to download the signed version in{" "}
-                  <a target="_blank" href="/downloadCenter" onClick={()=>{closeModal("");window.location.reload()}} style={{ color: "#3F76E2" }}>download center</a> anytime
+                  <a target="_blank" href="/downloadCenter" style={{ color: "#3F76E2" }}>download center</a> anytime
                 </li>
                 <li
                   style={{ fontWeight: 500, fontSize: "18px", color: "#000" }}

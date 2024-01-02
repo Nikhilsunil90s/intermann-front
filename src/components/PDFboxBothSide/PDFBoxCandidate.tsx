@@ -31,6 +31,10 @@ function PDFBoxCandidate({ props, value }) {
   const [DeleteStatus, setDeleteStatus] = useState(false);
   const [tabItems] = useState([
     {
+      text: "PAIEMENTS",
+      value: "paiements",
+    },
+    {
       text: "CONTRACT EMPLOYE INTERMANN",
       value: "CONTRACT",
     },
@@ -672,7 +676,7 @@ function PDFBoxCandidate({ props, value }) {
         <div className="row">
           <div className="col-3 px-0 d-flex align-items-center">
             <p className="mb-0 DriveLinkPDFbox">
-              ORADD AN EXTERNAL LINK (GOOGLE DRIVE) :
+              OR ADD AN EXTERNAL LINK (GOOGLE DRIVE) :
             </p>
           </div>
           <div className="col-6 px-0 d-flex align-items-center">

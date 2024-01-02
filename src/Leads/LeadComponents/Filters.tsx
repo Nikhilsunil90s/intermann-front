@@ -14,17 +14,10 @@ import Cookies from "js-cookie";
 function Filters({
   LeadsCard,
   market,
-  setLeads,
-  statusLeads,
-  update,
-  setcontacted,
-  setFilter,
-  setrest,
-  filter,
-  setTotal,
-  setWait,
-  setFilterActive,
-  setDatA,
+  selectedFilters,
+  setFilterData,
+  disableApplyBtn,
+  deactivateFilter
 }) {
   let CaNam = [] as any;
   let Contact = [] as any;
@@ -37,9 +30,11 @@ function Filters({
     },
   ]);
 
+  const selectJobsRef = useRef();
   const [applyBtn, setApplyBtn] = useState(false);
   const [jobNames, setJobName] = useState([]);
-  const [Data, setData] = useState() as any;
+  const [selectedJob, setSelectedJob] = useState([]);
+  const [selectedData, setSelectedData] = useState() as any;
   const [CanName, setCanName] = useState([]);
   const [ContactOp, setContactOp] = useState([]);
   const [emailOp, setemailOp] = useState([]);
@@ -52,17 +47,17 @@ function Filters({
         backgroundColor: isDisabled
           ? undefined
           : isSelected
-          ? data.color
-          : isFocused
-          ? color.alpha(0.1).css()
-          : undefined,
+            ? data.color
+            : isFocused
+              ? color.alpha(0.1).css()
+              : undefined,
         color: isDisabled
           ? "#ccc"
           : isSelected
-          ? chroma.contrast(color, "white") > 2
-            ? "white"
-            : "black"
-          : data.color,
+            ? chroma.contrast(color, "white") > 2
+              ? "white"
+              : "black"
+            : data.color,
         cursor: isDisabled ? "not-allowed" : "default",
 
         ":active": {
@@ -96,20 +91,6 @@ function Filters({
     }),
   };
 
-  // useEffect(()=>{
-  //   setfromPerson([])
-  // setQUALIFIED([])
-  // setCONTACTED([])
-  // setPrecontacted([])
-  // setJobName([])
-  // setContactOp([])
-  // setemailOp([])
-  // setCanName([])
-  // setDateCheck(false)
-  // setData()
-
-  // },[market])
-
   const [fromPerson, setfromPerson] = useState([]);
 
   const [QUALIFIED, setQUALIFIED] = useState([]);
@@ -121,80 +102,70 @@ function Filters({
   // get the target element to toggle
   const refOne = useRef(null);
 
-  const fetchJobName = async (market) => {
-    await fetch(API_BASE_URL + `allAds/?market=${market}`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        Authorization: "Bearer " + Cookies.get("token"),
-      },
-    })
-      .then((red) => red.json())
-      .then((res) => {
-        if (res.status) {
-          if (res.total > 0) {
-            const JobFl = res.data.map((el) => {
-              return {
-                value: el.adNameFrench + "/" + el.adNameRomanian,
-                label:
-                  el.adNameFrench.toLocaleUpperCase() +
-                  "/" +
-                  el.adNameRomanian.toLocaleUpperCase(),
-                color: "#FF8B00",
-                name: "adName",
-              };
-            });
-
-            setJobName([...JobFl]);
-          } else {
-            setJobName([]);
-          }
-        } else {
-          setJobName([]);
-        }
-      })
-      .catch((err) => err);
-  };
-
-  useEffect(() => {
-    if (Data !== undefined && filter === true) {
-      setApplyBtn(true);
-      setFilterActive(true);
-      fetch(API_BASE_URL + "filterLeads", {
-        method: "POST",
+  const fetchJobNames = async (market) => {
+    if (market !== "") {
+      await fetch(API_BASE_URL + `allAds/?market=${market}`, {
+        method: "GET",
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json",
           Authorization: "Bearer " + Cookies.get("token"),
         },
-        body: JSON.stringify(Data),
       })
-        .then((res) => res.json())
+        .then((red) => red.json())
         .then((res) => {
           if (res.status) {
-            setApplyBtn(false);
-            // setprecontacted(res.notPreContactedCount);
-            setcontacted(res.notContactedCount);
-            setLeads([...res.data]);
-            setTotal(res.data.length);
-            setFilterActive(true);
-            setFilter(false);
+            if (res.total > 0) {
+              const JobFl = res.data.map((el) => {
+                return {
+                  value: el.adNameFrench + "/" + el.adNameRomanian,
+                  label:
+                    el.adNameFrench.toLocaleUpperCase() +
+                    "/" +
+                    el.adNameRomanian.toLocaleUpperCase(),
+                  color: "#FF8B00",
+                  name: "adName",
+                };
+              });
+
+              setJobName([...JobFl]);
+            } else {
+              setJobName([]);
+            }
           } else {
-            setApplyBtn(false);
-            // setprecontacted(res.notPreContactedCount);
-            setFilterActive(true);
-            setcontacted(res.notContactedCount);
-            setTotal(0);
-            setLeads([]);
-            setFilter(false);
+            setJobName([]);
           }
         })
         .catch((err) => err);
     }
-  }, [filter]);
+  };
+
+  // useEffect(() => {
+  //   if (selectedData !== undefined) {
+  //     setApplyBtn(true);
+  //     fetch(API_BASE_URL + "filterLeads", {
+  //       method: "POST",
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //         Authorization: "Bearer " + Cookies.get("token"),
+  //       },
+  //       body: JSON.stringify(selectedData),
+  //     })
+  //       .then((res) => res.json())
+  //       .then((res) => {
+  //         if (res.status) {
+  //           setApplyBtn(false);
+  //         } else {
+  //           setApplyBtn(false);
+  //         }
+  //       })
+  //       .catch((err) => err);
+  //   }
+  // }, []);
+
   useEffect(() => {
     // event listeners
-    fetchJobName(market);
+    fetchJobNames(market);
     if (LeadsCard.length > 0) {
       LeadsCard.map((el) => {
         if (el.leadCandidatName) {
@@ -387,39 +358,7 @@ function Filters({
       ]);
     }
 
-    // if (Precontacted.length === 0) {
-    //   setPrecontacted([
-    //     {
-    //       value: "Not Interested",
-    //       label: "Not Interested",
-    //       name: "leadPreContacted",
-    //       color: "#FF8B00",
-    //     },
-    //     {
-    //       value: "Interested",
-    //       label: "Interested",
-    //       name: "leadPreContacted",
-    //       color: "#FF8B00",
-    //     },
-    //     {
-    //       value: "Not Yet",
-    //       label: "Not Yet",
-    //       name: "leadPreContacted",
-    //       color: "#FF8B00",
-    //     },
-    //   ]);
-    // }
-  }, [LeadsCard, market]);
-
-  const dateChange = (date) => {
-    setRange([date.selection]);
-    console.log(date.selection);
-    setData({
-      ...Data,
-      ["startDate"]: format(date.selection.startDate, "yyyy-MM-dd"),
-      ["endDate"]: format(date.selection.endDate, "yyyy-MM-dd"),
-    });
-  };
+  }, [LeadsCard]);
 
   useEffect(() => {
     // event listeners
@@ -445,82 +384,44 @@ function Filters({
     }
   };
   const FilterChange = (e: any) => {
-    setData({ ...Data, [e.name]: e.value, leadCountryMarket: market });
+    console.log(e.name, e.value);
+    setSelectedData({ ...selectedData, [e.name]: e.value, leadCountryMarket: market });
   };
+
   const JobFilterChange = (e: any) => {
-    let Jb = [];
+    let jobs = [];
     e.map((el) => {
-      Jb.push(el.value);
+      jobs.push(el.value);
     });
-    setData({ ...Data, adName: Jb.toString(), leadCountryMarket: market });
+    setSelectedData({ ...selectedData, adName: jobs.toString(), leadCountryMarket: market });
+    const JobFl = jobs.map((el) => {
+      return {
+        value: el,
+        label: el,
+        color: "#FF8B00",
+        name: "adName",
+      };
+    });
+
+    setSelectedJob([...JobFl]);
   };
 
   const OnClickDataChange = (e) => {
-    if (e.target.name === "ApplyFil") {
-      if (Data !== undefined) {
-        setApplyBtn(true);
-        setFilterActive(true);
-        setWait(false);
-        fetch(API_BASE_URL + "filterLeads", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + Cookies.get("token"),
-          },
-          body: JSON.stringify(Data),
-        })
-          .then((res) => res.json())
-          .then((res) => {
-            if (res.status) {
-              statusLeads(true);
-              setFilterActive(true);
-              setDatA(Data);
-              setWait(true);
-              setTotal(res.data.length);
-              setLeads([...res.data]);
-              setApplyBtn(false);
-              // setprecontacted(res.notPreContactedCount);
-              setcontacted(res.notContactedCount);
-              toast.success("Filter Leads Found Successfully!");
-            } else {
-              statusLeads(true);
-              setFilterActive(true);
-              setDatA(Data);
-              setWait(true);
-              setTotal(0);
-              toast.error("Sorry No Results found!");
-              setApplyBtn(false);
-              // setprecontacted(res.notPreContactedCount);
-              setcontacted(res.notContactedCount);
-
-              setLeads([]);
-            }
-          })
-          .catch((err) => err);
+    if (e.target.name === "ApplyFilters") {
+      if (JSON.stringify(selectedFilters) !== JSON.stringify(selectedData)) {
+        setFilterData(selectedData);
       } else {
-        toast.error("Please Select Any Filter!");
+        toast.error('No Change in selected Filters!')
+        setApplyBtn(true);
       }
     } else {
-      toast.success("Filters Reset Successfully!");
-      setData();
-      setDatA();
-      setrest(true);
-      update(true);
-      setFilterActive(false);
-      statusLeads(false);
-      setfromPerson([]);
-      setQUALIFIED([]);
-      setCONTACTED([]);
-      // setPrecontacted([]);
-      setLeads([]);
-
-      setJobName([]);
-      setContactOp([]);
-      setemailOp([]);
-      setCanName([]);
+      setSelectedData({});
+      setFilterData(undefined);
+      setSelectedJob([]);
+      setApplyBtn(true);
+      deactivateFilter(false);
     }
-  };
+  }
   return (
     <>
       <div className="row">
@@ -536,7 +437,7 @@ function Filters({
               className="basic-multi-select placeHolderLead"
               classNamePrefix="select"
               onChange={FilterChange}
-              options={QUALIFIED}
+              options={QUALIFIED} // Qualified Or Not Array
               styles={colourStyles}
             />
           ) : (
@@ -563,6 +464,7 @@ function Filters({
             </>
           )}
         </div>
+
         <div className="col-4">
           <label style={{ fontSize: "14px" }} className="Form-styling">
             FILTER BY SOURCE
@@ -602,6 +504,7 @@ function Filters({
             </>
           )}
         </div>
+
         <div className="col-4">
           <label style={{ fontSize: "14px" }} className="Form-styling">
             FILTER CONTACTED BY AGENCY ONLY
@@ -641,52 +544,14 @@ function Filters({
             </>
           )}
         </div>
-        {/* <div className="col-4 mt-1">
-          <label style={{ fontSize: "14px" }} className="Form-styling">
-            FILTER PRECONTACTED ONLY
-          </label>
-          {Precontacted.length > 0 ? (
-            <Select
-              name="market"
-              closeMenuOnSelect={true}
-              placeholder="‎  ‎ ‎  ‎ FILTER PRECONTACTED ONLY"
-              className="basic-multi-select placeHolderLead"
-              classNamePrefix="select"
-              onChange={FilterChange}
-              options={Precontacted}
-              styles={colourStyles}
-            />
-          ) : (
-            <>
-              {" "}
-              <div className="spinner-grow text-primary" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-              <div className="spinner-grow text-secondary" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-              <div className="spinner-grow text-success" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-              <div className="spinner-grow text-danger" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-              <div className="spinner-grow text-warning" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-              <div className="spinner-grow text-dark" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-            </>
-          )}
-        </div> */}
+
         <div className="col-4 mt-1">
           <label style={{ fontSize: "14px" }} className="Form-styling">
             FILTER BY JOB
           </label>
           {jobNames.length > 0 ? (
             <Select
-              name="market"
+              name="ads"
               closeMenuOnSelect={true}
               placeholder="‎  ‎ ‎  ‎ FILTER BY JOB"
               className="basic-multi-select placeHolderLead"
@@ -694,6 +559,7 @@ function Filters({
               onChange={JobFilterChange}
               isMulti
               options={jobNames}
+              value={selectedJob}
               styles={colourStyles}
             />
           ) : (
@@ -720,42 +586,7 @@ function Filters({
             </>
           )}
         </div>
-        {/* <div className="col-4 mt-1">
-          <label style={{ fontSize: "14px" }} className="Form-styling">
-            Sort by Date
-          </label>
-          <div className="">
-            <input
-              value={`${format(range[0].startDate, "dd/MM/yyyy")} to ${format(
-                range[0].endDate,
-                "dd/MM/yyyy"
-              )}`}
-              readOnly
-              className="dateSort"
-              onClick={() => setOpen((open) => !open)}
-            />
 
-            <div ref={refOne} className="rdrDateRangePickerWrapper">
-              {open && (
-                <DateRange
-                  onChange={(item) => dateChange(item)}
-                  editableDateInputs={true}
-                  moveRangeOnFirstSelection={false}
-                  ranges={range}
-                  months={1}
-                  direction="vertical"
-                  className="calendarElement"
-                />
-              )}
-            </div>
-            <div
-              onClick={() => setOpen((open) => !open)}
-              className="d-flex justify-content-end eventPos"
-            >
-              <img alt="..." src={require("../../images/event.svg").default} />
-            </div>
-          </div>
-        </div> */}
         <div className="col-4 mt-1">
           <label style={{ fontSize: "14px" }} className="Form-styling">
             FILTER BY CANDIDAT NAME
@@ -795,6 +626,7 @@ function Filters({
             </>
           )}
         </div>
+
         <div className="col-4 mt-1">
           <label style={{ fontSize: "14px" }} className="Form-styling">
             FILTER BY PHONE NUMBER
@@ -834,60 +666,32 @@ function Filters({
             </>
           )}
         </div>
-        {/* <div className="col-4">
-          <label style={{ fontSize: "14px" }} className="Form-styling">
-            Filter by Email
-          </label>
-          {emailOp.length > 0 ? (
-            <Select
-              name="market"
-              closeMenuOnSelect={true}
-              placeholder="‎  ‎ ‎  ‎ Filter by Email"
-              className="basic-multi-select placeHolderLead"
-              classNamePrefix="select"
-              onChange={FilterChange}
-              options={emailOp}
-              styles={colourStyles}
-            />
-          ) : (
-            <>
-              {" "}
-              <div className="spinner-grow text-primary" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-              <div className="spinner-grow text-secondary" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-              <div className="spinner-grow text-success" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-              <div className="spinner-grow text-danger" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-              <div className="spinner-grow text-warning" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-              <div className="spinner-grow text-dark" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-            </>
-          )}
-        </div> */}
+
         <div className="col-12 mt-2">
           <div className="row justify-content-end">
-            <div className="col-2">
-              {" "}
+            {
+              disableApplyBtn ? <div className="col-2">
               <button
                 className="glow-on-hover mr-2"
                 style={{ width: "100%", height: "40px" }}
-                name="ApplyFil"
-                onClick={(e) => OnClickDataChange(e)}
-                disabled={applyBtn}
+                name="ApplyFilters"
               >
-                Apply
+                Applying Filters
               </button>
-            </div>
-            {Data !== undefined ? (
+            </div> : <div className="col-2">
+                <button
+                  className="glow-on-hover mr-2"
+                  style={{ width: "100%", height: "40px" }}
+                  name="ApplyFilters"
+                  onClick={(e) => OnClickDataChange(e)}
+                  disabled={disableApplyBtn}
+                >
+                  Apply
+                </button>
+              </div>
+            }
+
+            {selectedData !== undefined ? (
               <div className="col-2">
                 {" "}
                 <button
