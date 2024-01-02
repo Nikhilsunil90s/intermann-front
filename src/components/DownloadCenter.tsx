@@ -472,6 +472,7 @@ export default function DownloadCenter() {
             style={{ background: "#ffff", borderRadius: "10px" }}
           >
             <div className=" p-1 col-3">
+              <label style={{ fontSize: "14px" }} className="Form-styling">Filter by Name</label>
               <div className="d-flex w-100">
                 <ReactSelect
                   placeholder="filter_by_name"
@@ -509,7 +510,7 @@ export default function DownloadCenter() {
                 />
               </div>
             </div>
-            <div className="col-3 d-flex align-items-center">
+            <div className="col-3 d-flex align-items-center mt-2">
               {filterSelect?.value ? (
                 <button
                   onClick={() => onTabClick("", activeTab)}
