@@ -7,7 +7,10 @@ import Error from "./Loader/SearchBarError";
 import { Toaster, toast } from "react-hot-toast";
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
-
+import ReactSelect from "react-select";
+import Select, { StylesConfig } from "react-select";
+import chroma from "chroma-js";
+import { ColourOption } from "../Selecteddata/data";
 export default function DownloadCenter() {
   const [activeTab, setActiveTab] = React.useState(0) as any;
   const [candidateContracts, setCandidateContracts] = useState([]);
@@ -18,6 +21,10 @@ export default function DownloadCenter() {
   const [AllProfiles, setAllProfiles] = useState([]);
   const [Status, setStatus] = useState(false);
   const [deleteCanContract, setdeleteCanContract] = useState(false);
+  const [filterSelect, setFilterSelect] = useState({
+    value: "",
+    label: "",
+  }) as any;
   const [btnDS, setBtnDS] = useState({
     active: false,
     activeId: "",
@@ -401,13 +408,44 @@ export default function DownloadCenter() {
     if (index === 3) {
       setAllProfiles(representance.filter((el) => el));
     }
-    if(index === 4){
+    if (index === 4) {
       setAllProfiles([]);
-      window.open("/offer_center_view_page")
-
+      window.open("/offer_center_view_page");
     }
-    if(index === 5){
+    if (index === 5) {
       setAllProfiles(custom.filter((el) => el));
+    }
+    setFilterSelect({ value: "", label: "" });
+  };
+
+  const onReactSelectChange = (event: any) => {
+    setFilterSelect(event);
+    if (activeTab === 0) {
+      setAllProfiles(
+        candidateContracts.filter((el) => el.candidatName === event.value)
+      );
+    }
+    if (activeTab === 1) {
+      setAllProfiles(
+        ClientContracts.filter(
+          (el) => el.initial_client_company === event.value
+        )
+      );
+    }
+    if (activeTab === 2) {
+      setAllProfiles(Avance.filter((el) => el.candidat_name === event.value));
+    }
+    if (activeTab === 3) {
+      setAllProfiles(
+        representance.filter((el) => el.candidat_name === event.value)
+      );
+    }
+    if (activeTab === 4) {
+      setAllProfiles([]);
+      window.open("/offer_center_view_page");
+    }
+    if (activeTab === 5) {
+      setAllProfiles(custom.filter((el) => el.name === event.value));
     }
   };
   return (
@@ -427,6 +465,59 @@ export default function DownloadCenter() {
               <p className="mb-0">
                 DOWNLOAD DOCUMENT SIGNED BY DOCUSIGN WITH CRM
               </p>
+            </div>
+          </div>
+          <div
+            className="row mt-2"
+            style={{ background: "#ffff", borderRadius: "10px" }}
+          >
+            <div className=" p-1 col-3">
+              <div className="d-flex w-100">
+                <ReactSelect
+                  placeholder="filter_by_name"
+                  className="download_filter"
+                  onChange={onReactSelectChange}
+                  value={filterSelect}
+                  options={
+                    activeTab === 0
+                      ? (candidateContracts.map((el) => ({
+                          value: el?.candidatName,
+                          label: el?.candidatName.toUpperCase(),
+                        })) as any)
+                      : activeTab === 1
+                      ? (ClientContracts.map((el) => ({
+                          value: el?.initial_client_company,
+                          label: el?.initial_client_company?.toUpperCase(),
+                        })) as any)
+                      : activeTab === 2
+                      ? (Avance.map((el) => ({
+                          value: el?.candidat_name,
+                          label: el?.candidat_name?.toUpperCase(),
+                        })) as any)
+                      : activeTab === 3
+                      ? (representance.map((el) => ({
+                          value: el?.candidat_name,
+                          label: el?.candidat_name?.toUpperCase(),
+                        })) as any)
+                      : activeTab === 5
+                      ? (custom.map((el) => ({
+                          value: el?.name,
+                          label: el?.name?.toUpperCase(),
+                        })) as any)
+                      : {}
+                  }
+                />
+              </div>
+            </div>
+            <div className="col-3 d-flex align-items-center">
+              {filterSelect?.value ? (
+                <button
+                  onClick={() => onTabClick("", activeTab)}
+                  className="resetButton"
+                >
+                  RESET
+                </button>
+              ) : null}
             </div>
           </div>
           <div
@@ -483,9 +574,9 @@ export default function DownloadCenter() {
                               ? el.candidatName
                               : el.initial_client_company
                               ? el.initial_client_company
-                              :el.name ?el.name:
-                               
-                              el.candidat_name}
+                              : el.name
+                              ? el.name
+                              : el.candidat_name}
                             {el.amount_avance
                               ? `- Amount : ${el.amount_avance + " €"}`
                               : null}
@@ -538,11 +629,9 @@ export default function DownloadCenter() {
                                   ? deleteClientsContracts(el.clientId, el._id)
                                   : el.signed_representence_url
                                   ? deleteRepresentance(el._id)
-                                  : 
-                                  el?.signed_document_url ?
-                                      deleteCustome(el._id)
-                                  :
-                                  deleteAvance(el._id)
+                                  : el?.signed_document_url
+                                  ? deleteCustome(el._id)
+                                  : deleteAvance(el._id)
                               }
                             >
                               {btnDS.active ? (
@@ -551,7 +640,8 @@ export default function DownloadCenter() {
                                     <span className="filterLeadsLoader" />
                                   </div>
                                 ) : (
-                                  <img alt="..."
+                                  <img
+                                    alt="..."
                                     src={
                                       require("../images/Deletebucket.svg")
                                         .default
@@ -559,7 +649,8 @@ export default function DownloadCenter() {
                                   />
                                 )
                               ) : (
-                                <img alt="..."
+                                <img
+                                  alt="..."
                                   src={
                                     require("../images/Deletebucket.svg")
                                       .default
@@ -575,20 +666,18 @@ export default function DownloadCenter() {
                               style={{ border: "none" }}
                               onClick={(e) =>
                                 // window.open(el.signed_contract_url ?  el.signed_contract_url  : el.signed_representence_url ? el.signed_representence_url : el.signed_avance_url)
-                              el?.signed_document_url ?
-                              window.open(el?.signed_document_url)
-
-                              :
-                                fetchContract(
-                                  el.candidatName
-                                    ? `getSignedCandidatContract/?contractId=${el._id}`
-                                    : el.clientId
-                                    ? `getSignedClientContract/?contractId=${el._id}`
-                                    : el.signed_representence_url
-                                    ? `getSignedRepresentence/?id=${el._id}`
-                                    : `getSignedAvance/?id=${el._id}`,
-                                  el._id
-                                )
+                                el?.signed_document_url
+                                  ? window.open(el?.signed_document_url)
+                                  : fetchContract(
+                                      el.candidatName
+                                        ? `getSignedCandidatContract/?contractId=${el._id}`
+                                        : el.clientId
+                                        ? `getSignedClientContract/?contractId=${el._id}`
+                                        : el.signed_representence_url
+                                        ? `getSignedRepresentence/?id=${el._id}`
+                                        : `getSignedAvance/?id=${el._id}`,
+                                      el._id
+                                    )
                               }
                             >
                               {btnDS.active ? (
@@ -620,10 +709,9 @@ export default function DownloadCenter() {
                       <>
                         <Error /> <span> ✘ No Contract Available ✘</span>
                       </>
-                    ) : activeTab === 4 ?
-                    "Offer Center Opened in New Tab!"
-                    :
-                    (
+                    ) : activeTab === 4 ? (
+                      "Offer Center Opened in New Tab!"
+                    ) : (
                       <>
                         <Error /> <span> ✘ No data yet ✘</span>
                       </>

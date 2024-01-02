@@ -57,7 +57,7 @@ function Filter(props) {
       },
     }),
   };
-
+  const [phonefilter,setphonefilter]=useState([])
   const [companyName, setCompanyName] = useState() as any;
   useEffect(() => {
     if (responsable.length == 0) {
@@ -192,8 +192,18 @@ function Filter(props) {
   }, [props.leads]);
   useEffect(() => {
     let Name = [];
+    let phone=[];
     if (props.leads.length > 0) {
       props.leads.map((el) => {
+        console.log(el,"ekfa")
+        if(el.phoneNumber1){
+             phone.push({
+              value:el.phoneNumber1,
+              label:el.phoneNumber1,
+              name:"phone",
+              color: "#FF8B00",
+             })
+        }
         Name.push({
           value: el.companyName,
           label: el.companyName,
@@ -202,6 +212,7 @@ function Filter(props) {
         });
       });
       setCompanyName([...Name]);
+      setphonefilter([...phone])
     }
   }, [props.leads]);
 
@@ -289,6 +300,7 @@ function Filter(props) {
         FilterData: [],
       });
       setData();
+      setphonefilter([])
       setBTNds(false);
       setStatus([]);
       setResponsable([]);
@@ -411,7 +423,7 @@ function Filter(props) {
             </div>
           )}
         </div>
-        <div className="col-4 mt-1">
+               <div className="col-4 mt-1">
           <label style={{ fontSize: "14px" }} className="Form-styling">
             Search by Status
           </label>
@@ -432,6 +444,28 @@ function Filter(props) {
             </div>
           )}
         </div>
+        <div className="col-4 mt-1">
+          <label style={{ fontSize: "14px" }} className="Form-styling">
+            Search by Phone
+          </label>
+          {phonefilter?.length > 0 ? (
+            <Select
+              name="market"
+              closeMenuOnSelect={true}
+              placeholder="‎  ‎ ‎  ‎ Assigner a quel resposable ?"
+              className="basic-multi-select placeHolderLead"
+              classNamePrefix="select"
+              onChange={OnReactSelect}
+              options={phonefilter}
+              styles={colourStyles}
+            />
+          ) : (
+            <div className="d-flex justify-content-center align-items-center">
+              <span className="filterLeadsLoader" />
+            </div>
+          )}
+        </div>
+ 
         <div className="col-12 mt-2">
           <div className="row justify-content-end">
             <div className="col-2">

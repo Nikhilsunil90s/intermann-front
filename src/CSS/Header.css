@@ -217,6 +217,7 @@ body {
     animation: loadingSearchBa 5s infinite;
 }
 
+
 @keyframes loadingSearchBa {
   0% { 
     width: 0; 
@@ -226,6 +227,19 @@ body {
   }
 }
 
+.download_filter{
+width: 100% !important;
+padding: 10px;
+font-size: 16px;
+}
+.resetButton{
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #000;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 8px;
+}
 @media (min-width: 768px){
     .LoginModalContainer {
 
