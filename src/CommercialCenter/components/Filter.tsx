@@ -199,7 +199,7 @@ function Filter(props) {
              phone.push({
               value:el.phoneNumber1,
               label:el.phoneNumber1,
-              name:"phoneNumber",
+              name:"phoneNumber1",
               color: "#FF8B00",
              })
         }
