@@ -1133,7 +1133,7 @@ function LeadCard(props) {
           </div>
           <div className="col-9 my-1 d-flex justify-content-end align-items-center">
             <Select
-              placeholder="move lead to En cours"
+              placeholder="MOVE LEAD TO En cours"
               options={CardOptions}
               className="CardOptionsinComLead"
               onChange={MoreOption}
