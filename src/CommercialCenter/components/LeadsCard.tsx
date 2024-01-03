@@ -13,7 +13,6 @@ import VoirOfferModal from "../components/Modal/VoirOfferModal";
 import UploadCofaceModal from "./Modal/uploadCofaceModal";
 import DownloadGmail from "./Modal/DowloadAndGmailModal";
 import { PostRoute } from "../../components/ApisFunction/FunctionsApi";
-import { notify } from "precise-ui/dist/es6";
 
 let Data = [] as any;
 function LeadCard(props) {
@@ -80,59 +79,58 @@ function LeadCard(props) {
 
   const [status, setStatus] = useState() as any;
   const [deletingCoface, setDeletingCoface] = useState(false);
-  const [add_TO_crm_Data,setAddtocrmData]=useState(
-    {
-           clientCompanyName :props.props.companyName, // commercialLead.companyName
-            clientEmail :props.props.email, // commercialLead.email
-            clientPhone :props.props.phoneNumber1 + " ; "+ props.props.phoneNumber2, // commercialLead.phoneNumber1 + " ; " + commercialLead.phoneNumber2
-            clientAddress : "", // ""
-            clientActivitySector : "", // ""
-            clientJob : "", // ""
-            clientReferenceName : "", // ""
-            clientReferenceNumber : "", // ""
-            clientRequiredSkills :  props.props.companyNote + " " +  props.props.agencyNote, // commercialLead.clientNote + commercialLead.agencyNote
-            numberOfPosts : "", // ""
-            clientMotivation : 0, // 0
-            jobStartDate : "", // ""
-            jobEndDate : "", // ""
-            jobTotalBudget : 0, // 0
-            netSalary : 0, // 0
-            clientImportance : 0, // 0
-            enteredBy : "Commercial Center", // "Commercial Center"
-            jobStatus : "To-Do", // "To-Do"
-            note_cofac : 0, // 0
-            leadOrigin : "", // ""
-            salary_hours : [], // []
-            rate_hours : [], // []
-            offerSent :props.props.offerSent, // commercialLead.offerSent
-            signatureSent : false, // false
-            contractSigned : false, // false
-            publicityStarted : false,// false
-            A1selected : false, // false
-            assuranceFaite : false, // false
-            agenceDeVoyage : false, // false
-            sispiDeclared : false, // false
-    
-  })
+  const [add_TO_crm_Data, setAddtocrmData] = useState({
+    clientCompanyName: props.props.companyName, // commercialLead.companyName
+    clientEmail: props.props.email, // commercialLead.email
+    clientPhone: props.props.phoneNumber1 + " ; " + props.props.phoneNumber2, // commercialLead.phoneNumber1 + " ; " + commercialLead.phoneNumber2
+    clientAddress: "", // ""
+    clientActivitySector: "", // ""
+    clientJob: "", // ""
+    clientReferenceName: "", // ""
+    clientReferenceNumber: "", // ""
+    clientRequiredSkills:
+      props.props.companyNote + " " + props.props.agencyNote, // commercialLead.clientNote + commercialLead.agencyNote
+    numberOfPosts: "", // ""
+    clientMotivation: 0, // 0
+    jobStartDate: "", // ""
+    jobEndDate: "", // ""
+    jobTotalBudget: 0, // 0
+    netSalary: 0, // 0
+    clientImportance: 0, // 0
+    enteredBy: "Commercial Center", // "Commercial Center"
+    jobStatus: "To-Do", // "To-Do"
+    note_cofac: 0, // 0
+    leadOrigin: "", // ""
+    salary_hours: [], // []
+    rate_hours: [], // []
+    offerSent: props.props.offerSent, // commercialLead.offerSent
+    signatureSent: false, // false
+    contractSigned: false, // false
+    publicityStarted: false, // false
+    A1selected: false, // false
+    assuranceFaite: false, // false
+    agenceDeVoyage: false, // false
+    sispiDeclared: false, // false
+  });
 
   const [GenOffer, setGenOffer] = useState(false);
   const [voir_offer, setVoirOffer] = useState(false) as any;
   const [cofaceModal, setCofaceModal] = useState(false) as any;
-  const [downloadMailModal,setDownloadMailModal]=useState({
-    content:"",
-    status:false,
-    filePath:"",
-    id:""
-  })
+  const [downloadMailModal, setDownloadMailModal] = useState({
+    content: "",
+    status: false,
+    filePath: "",
+    id: "",
+  });
 
   function padTo2DigitsCH(num) {
     return num.toString().padStart(2, "0");
   }
-  useEffect(()=>{
-  if(downloadMailModal.status){
-    Data=[]
-  }
-  },[downloadMailModal.status])
+  useEffect(() => {
+    if (downloadMailModal.status) {
+      Data = [];
+    }
+  }, [downloadMailModal.status]);
 
   useEffect(() => {
     setResponsable([
@@ -983,16 +981,17 @@ function LeadCard(props) {
       .catch((err) => err);
   };
 
-  const AddTOcrm=()=>{
-    PostRoute(add_TO_crm_Data,"addClient").then((res)=>{
-      if(res.status){
-        toast.success(res.message)
-      }else{
-        toast.error(res.message)
-      }
-    })
-    .catch(err=>console.log(err))
-  }
+  const AddTOcrm = () => {
+    PostRoute(add_TO_crm_Data, "addClient")
+      .then((res) => {
+        if (res.status) {
+          toast.success(res.message);
+        } else {
+          toast.error(res.message);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
   const onReactSelect = async (e) => {
     let UserData = {
@@ -1057,7 +1056,7 @@ function LeadCard(props) {
 
   let date = new Date(props.props.createdAt);
 
-  let offerCreatedDate = new Date(props.props.offer_sent_date)
+  let offerCreatedDate = new Date(props.props.offer_sent_date);
 
   const sendDeleteCofaceRequest = async () => {
     return await fetch(API_BASE_URL + "deleteCoface", {
@@ -1067,32 +1066,54 @@ function LeadCard(props) {
         "Content-Type": "application/json",
         Authorization: "Bearer " + Cookies.get("token"),
       },
-      body: JSON.stringify({ leadId: props.props._id })
+      body: JSON.stringify({ leadId: props.props._id }),
     })
       .then((resD) => resD.json())
       .then((reD) => reD)
       .catch((err) => err);
-  }
+  };
 
   const deleteCoface = async (e) => {
     e.stopPropagation();
     setDeletingCoface(true);
-    sendDeleteCofaceRequest().then(delSuc => {
-      if (delSuc.status) {
-        toast.success(delSuc.message);
-      } else {
-        toast.error(delSuc.message);
-      }
-      setDeletingCoface(false);
-      props.update(true);
-    })
-    .catch(delErr => {
-      toast.error(delErr.message);
-      setDeletingCoface(false);
-    })
-  }
-
-
+    sendDeleteCofaceRequest()
+      .then((delSuc) => {
+        if (delSuc.status) {
+          toast.success(delSuc.message);
+        } else {
+          toast.error(delSuc.message);
+        }
+        setDeletingCoface(false);
+        props.update(true);
+      })
+      .catch((delErr) => {
+        toast.error(delErr.message);
+        setDeletingCoface(false);
+      });
+  };
+  const MoreOption = (event) => {
+    if (event.value === "En Cours") {
+      props.isModalOpen(event,props.props._id);
+    }
+    if (event.value === "Stranger") {
+      props.isModalOpen(event,props.props._id);
+    }
+    if (event.value === "Signed") {
+      props.isModalOpen(event,props.props._id);
+    }
+    if (event.value === "Archived") {
+      props.isModalOpen(event,props.props._id);
+    }
+  };
+  const CardOptions = [
+    {
+      value: "En Cours",
+      label: "En cours",
+    },
+    { value: "Stranger", label: `A l'étranger` },
+    { value: "Signed", label: `A signé ` },
+    { value: "Archived", label: `Archivé` },
+  ];
   return (
     <>
       <div
@@ -1110,31 +1131,75 @@ function LeadCard(props) {
               Lead ajouté le {formatDateCha(date)}
             </p>
           </div>
-          <div className="col-7 my-1 d-flex justify-content-end align-items-center">
-            { props.props.cofaceAdded
-              ? deletingCoface ? <button className="deleteCoface mx-1 position-relative" style={{width:"148px"}} disabled={true}>DELETING COFACE...</button> :  <button className="voirCoface mx-1 position-relative" style={{width:"148px"}} onClick={() => window.open(props.props.cofaceURL, '_blank')}>VOIR LA COFACE <span className="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger" onClick={deleteCoface}>X</span></button>
-              : <button className="pasCoface mx-1" style={{width:"148px"}} onClick={() => setCofaceModal(true)}>PAS DE COFACE !</button>
-            }
+          <div className="col-9 my-1 d-flex justify-content-end align-items-center">
+            <Select
+              placeholder="move lead to En cours"
+              options={CardOptions}
+              className="CardOptionsinComLead"
+              onChange={MoreOption}
+              isSearchable={false}
+            />
+            {props.props.cofaceAdded ? (
+              deletingCoface ? (
+                <button
+                  className="deleteCoface mx-1 position-relative"
+                  style={{ width: "148px" }}
+                  disabled={true}
+                >
+                  DELETING COFACE...
+                </button>
+              ) : (
+                <button
+                  className="voirCoface mx-1 position-relative"
+                  style={{ width: "148px" }}
+                  onClick={() => window.open(props.props.cofaceURL, "_blank")}
+                >
+                  VOIR LA COFACE{" "}
+                  <span
+                    className="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger"
+                    onClick={deleteCoface}
+                  >
+                    X
+                  </span>
+                </button>
+              )
+            ) : (
+              <button
+                className="pasCoface mx-1"
+                style={{ width: "148px" }}
+                onClick={() => setCofaceModal(true)}
+              >
+                PAS DE COFACE !
+              </button>
+            )}
             {props.props.offerSent ? (
               <button
                 className="leadsAddToCRM"
                 onClick={() => setVoirOffer(true)}
-                style={{width:"275px"}}
+                style={{ width: "275px" }}
               >
-              {props.props.offer_sent_date === undefined ? "Voir offre envoyé" : "Voir offre envoyé le " + formatDateCha(offerCreatedDate) }
+                {props.props.offer_sent_date === undefined
+                  ? "Voir offre envoyé"
+                  : "Voir offre envoyé le " + formatDateCha(offerCreatedDate)}
               </button>
             ) : null}
-            <button className="leadsAddToCRM mx-1"   style={{width:"148px"}} onClick={()=>AddTOcrm()}>Add to CRM</button>
+            <button
+              className="leadsAddToCRM mx-1"
+              style={{ width: "148px" }}
+              onClick={() => AddTOcrm()}
+            >
+              Add to CRM
+            </button>
             <button
               className="leadsAddToCRM"
               onClick={() => setGenOffer(true)}
-              style={{width:"148px"}}
+              style={{ width: "148px" }}
             >
               GENERATE OFFER
             </button>
           </div>
-
-          <div
+          {/* delete leads */}
+          {/* <div
             className="col-2 d-flex justify-content-end align-items-center my-1"
             style={{ height: "50px" }}
           >
@@ -1145,7 +1210,7 @@ function LeadCard(props) {
             >
               <img src={require("../../images/Deletebucket.svg").default} />
             </button>
-          </div>
+          </div> */}
         </div>
         <div className="row">
           <div className="col-3 d-grid px-0">
@@ -1831,17 +1896,19 @@ function LeadCard(props) {
               {voir_offer ? (
                 <VoirOfferModal props={props.props} closeModal={setVoirOffer} />
               ) : null}
-              {
-                downloadMailModal.status ?
-                <DownloadGmail  setDownloadMailModal={setDownloadMailModal}  props={downloadMailModal}   /> 
-                :
-                null
-              }
-              {
-                cofaceModal ? 
-                <UploadCofaceModal props={props.props} closeModal={setCofaceModal} setUpdate={props.update}/>
-                : null
-              }
+              {downloadMailModal.status ? (
+                <DownloadGmail
+                  setDownloadMailModal={setDownloadMailModal}
+                  props={downloadMailModal}
+                />
+              ) : null}
+              {cofaceModal ? (
+                <UploadCofaceModal
+                  props={props.props}
+                  closeModal={setCofaceModal}
+                  setUpdate={props.update}
+                />
+              ) : null}
             </div>
           </div>
         </div>
@@ -1849,7 +1916,6 @@ function LeadCard(props) {
       <div className="row pr-2">
         <hr />
       </div>
-     
     </>
   );
 }

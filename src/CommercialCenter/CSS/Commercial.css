@@ -502,6 +502,162 @@ text-decoration-line: underline;
 text-transform: uppercase;
 color: #3F76E2;
 }
+.tab_Is_active{
+  color: #fff;
+  background: #0B3B5C;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 600;
+  border: 1px solid #E5E7EB;
+}
+.tab_In_active{
+  color: #0B3B5C;
+  background: #fff;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 600;
+  border: 1px solid #E5E7EB;
+}
+.tab_In_active:nth-child(1){
+  border-radius: 30px 0px 0px 30px;
+}
+.tab_Is_active:nth-child(1){
+  border-radius: 30px 0px 0px 30px;
+}
+.tab_In_active:nth-child(4){
+  border-radius: 0px 30px 30px 0px;
+}
+.tab_In_active:nth-child(1) img{
+  filter: invert(66%) sepia(22%) saturate(6%) hue-rotate(-187deg) brightness(130%) contrast(118%);
+}
+.tab_Is_active:nth-child(1) img{
+  filter: unset;
+}
+.tab_Is_active:nth-child(4){
+  border-radius: 0px 30px 30px 0px;
+}
+
+.tab_Is_active   img{
+  filter: invert(106%) sepia(2%) saturate(56%) hue-rotate(-187deg) brightness(130%) contrast(250%);
+}
+
+
+.CardOptionsinComLead .css-14el2xx-placeholder{
+  position: relative;
+  margin-right: 5px !important;
+}
+.CardOptionsinComLead .css-tlfecz-indicatorContainer {
+  padding: 0px !important;
+}
+.CardOptionsinComLead .css-1s2u09g-control {
+  border-radius: 25px !important;
+  min-height: 25px !important;
+  display: flex;
+  width: 250px;
+  height: 42px !important;
+}
+.css-1okebmr-indicatorSeparator {
+ display: none;
+}
+.CardOptionsinComLead .css-1okebmr-indicatorSeparator {
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  background-color: #FFFFFF;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  width: 1px;
+  box-sizing: border-box;
+}
+.CardOptionsinComLead .css-14el2xx-placeholder {
+display: flex;
+}
+.CardOptionsinComLead .css-6j8wv5-Input{
+  margin: 0px !important;
+  padding: 0px !important;
+}
+.CardOptionsinComLead .css-1pahdxg-control{
+    box-shadow: 0 0 0 1px #000000 !important;
+    max-height: 17px !important;
+    display: flex;
+    width: 250px;
+    border-radius: 25px !important;
+    border: none !important;
+    min-height: 42px !important;
+}
+.CardOptionsinComLead .css-1pahdxg-control:focus{
+border: #3F3F44 !important;
+}
+.CardOptionsinComLead .css-1gtu0rj-indicatorContainer{
+  padding: 0px !important;
+}
+.CardOptionsinComLead .css-6j8wv5-Input{
+  height: 13px;
+}
+.CardOptionsinComLead .css-26l3qy-menu{
+  margin-top: 6px !important;
+
+}
+.CardOptionsinComLead .css-yt9ioa-option{
+  padding: 5px 5px !important
+}
+.CardOptionsinComLead .css-14el2xx-placeholder{
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 16px;
+display: flex;
+justify-content: center;
+align-items: center;
+color: #000000;
+margin-left: 6px;
+margin-right: 0px !important;
+}
+
+.CardOptionsinComLead .css-1n7v3ny-option{
+  padding: 5px 5px !important;
+  text-align: start;
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 24px;
+color: #373A3C;
+background-color: unset !important;
+padding: 5px 10px !important
+}
+.CardOptionsinComLead .css-1n7v3ny-option:hover{
+  background-color:#fe8700 !important ;
+}
+.CardOptionsinComLead .css-yt9ioa-option{
+  padding: 5px 5px !important;
+  text-align: start;
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 24px;
+color: #373A3C;
+padding: 5px 10px !important
+}
+
+.CardOptionsinComLead
+  .css-qc6sy-singleValue {
+      color: hsl(0, 0%, 20%);
+      grid-area: 1/1/2/3;
+      margin-left: 7px;
+      margin-top: 0px;
+      margin-right: 2px;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      box-sizing: border-box;
+      font-size: 12px;
+      z-index: 9999999;
+}
+
 @media (min-width: 1200px) {
   .leadsChipColor {
     font-family: "Poppins";

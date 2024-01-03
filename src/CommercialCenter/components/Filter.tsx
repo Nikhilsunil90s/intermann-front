@@ -195,7 +195,6 @@ function Filter(props) {
     let phone=[];
     if (props.leads.length > 0) {
       props.leads.map((el) => {
-        console.log(el,"ekfa")
         if(el.phoneNumber1){
              phone.push({
               value:el.phoneNumber1,
