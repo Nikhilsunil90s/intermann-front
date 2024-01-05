@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Filter from "../components/Filter";
 import Header from "../components/Header";
 import LeadCard from "../components/LeadsCard";
@@ -25,11 +25,35 @@ function MainCenter() {
     id:"",
     status:{}
   })
+  const [filterByLead,setFilterByLead] =useState([])
   const [CurrentFilter, setCurrentFilter] = useState({
     filterApplied: false,
     FilterData: [],
   }) as any;
 
+  useEffect(()=>{
+    fetchFilters()
+  },[])
+  const fetchFilters = async () => {
+    await fetch(API_BASE_URL + `getAllCommercialLeads/?leadType=${tab}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    })
+      .then((red) => red.json())
+      .then((resData) => {
+        if (resData.status) {
+          setFilterByLead([...resData.data]);
+        } else {
+          setFilterByLead([]);
+
+        }
+      })
+      .catch((err) => err);
+  };
   const fetchLeads = async () => {
     await fetch(API_BASE_URL + `getAllCommercialLeads/?leadType=${tab}`, {
       method: "GET",
@@ -90,7 +114,7 @@ function MainCenter() {
     setWantToMoveLead(true)
   }
 
-  useEffect(() => {
+  useMemo(() => {
     if (CurrentFilter.filterApplied == false) {
       fetchLeads();
     }
@@ -121,7 +145,7 @@ function MainCenter() {
             >
               <Filter
                 leadsSet={setLeads}
-                leads={leads}
+                leads={filterByLead}
                 setUpdate={setUpdate}
                 setCurrentLeads={setCurrentLeads}
                 setCurrentFilter={setCurrentFilter}
