@@ -232,7 +232,7 @@ function Sidebar(props: any) {
                               }
                             />
                           </span>
-                          Leads / Clients
+                          Customers / Clients
                         </button>
                       </h2>
                       <div
@@ -379,7 +379,7 @@ function Sidebar(props: any) {
                               }
                             />
                           </span>
-                          Candidats / Employés
+                          Candidats / Worker
                         </button>
                       </h2>
                       <div
@@ -413,7 +413,7 @@ function Sidebar(props: any) {
                                     }
                                   />
                                 </span>
-                                En sommeil
+                                To do /  Candidats Potentiels
                               </Link>
                             </li>
                             <li
@@ -470,7 +470,7 @@ function Sidebar(props: any) {
                                     }
                                   />
                                 </span>
-                                Embauché
+                                Embauché / Hired 
                               </Link>
                             </li>
                             <li
@@ -499,7 +499,7 @@ function Sidebar(props: any) {
                                     }
                                   />
                                 </span>
-                                Archivé
+                                Archivé / Deleted 
                               </Link>
                             </li>
                           </ul>

@@ -233,7 +233,7 @@ const Header = (props) => {
                   onClick={() => window.open("/addCustomer")}
                   style={{ backgroundColor: "none", marginRight: "10px" }}
                 >
-                  <button className="btn btn-1">Add customer</button>
+                  <button className="btn btn-1">ADD CLIENT</button>
                 </a>
 
                 <a

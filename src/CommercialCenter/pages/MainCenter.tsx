@@ -31,7 +31,6 @@ function MainCenter() {
   }) as any;
 
   const fetchLeads = async () => {
-    setLoader(false);
     await fetch(API_BASE_URL + `getAllCommercialLeads/?leadType=${tab}`, {
       method: "GET",
       headers: {

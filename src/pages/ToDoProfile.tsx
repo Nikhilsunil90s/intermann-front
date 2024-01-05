@@ -778,7 +778,7 @@ function ToDoProfile() {
                     className="btn text-white btn-CVManual"
                     onClick={() => setShowInProgressModal(true)}
                   >
-                    Move to In Progress
+                  Move to Hired/Embauché 
                   </button>
                 </div>
                 <div className="col-4 px-0 text-start">

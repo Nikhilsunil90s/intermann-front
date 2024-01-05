@@ -1197,6 +1197,13 @@ function LeadCard(props) {
             >
               GENERATE OFFER
             </button>
+            <button
+              className="deleteAd mx-1"
+              onClick={() => setDeleteModal(true)}
+            
+            >
+              <img src={require("../../images/Deletebucket.svg").default} />
+            </button>
           </div>
           {/* delete leads */}
           {/* <div

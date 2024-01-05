@@ -120,12 +120,15 @@ const ToDoProfileCard = (props: any) => {
               <div className="col-xxl-7 col-xl-7 col-lg-7 col-md-7 col-sm-7 fontStylinForcards">
                 <p
                   style={{ width: "100%" }}
+              
                   className="text-dark mb-0"
                   data-bs-toggle="tooltip"
                   data-bs-placement="bottom"
                   title={props.data.candidatName.toLocaleUpperCase()}
                 >
-                  <b className="TopTodoTitle">
+                  <b className="TopTodoTitle"      style={{
+              color: date >= start && date <= end ? "#3F76E2" : "#ca1313",
+            }}>
                     {props.data.candidatName.length > 20
                       ? props.data.candidatName
                           .slice(0, 21)
@@ -181,7 +184,9 @@ const ToDoProfileCard = (props: any) => {
                   data-bs-placement="bottom"
                   title={props.data.candidatName.toLocaleUpperCase()}
                 >
-                  <b className="TopTodoTitle">
+                  <b className="TopTodoTitle"  style={{
+              color: date >= start && date <= end ? "#3F76E2" : "#ca1313",
+            }}>
                     {props.data.candidatName.length > 20
                       ? props.data.candidatName
                           .slice(0, 21)
