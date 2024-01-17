@@ -650,17 +650,17 @@ const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
         return false
     }
-    if (data.jobStartDate == "") {
-        notifyDateError()
-        setDisableButton(false)
+    // if (data.jobStartDate == "") {
+    //     notifyDateError()
+    //     setDisableButton(false)
 
-        return false;
-    }
-    if (data.clientAddress == "") {
-        notifyAddressError()
-        setDisableButton(false)
-        return false;
-    }
+    //     return false;
+    // }
+    // if (data.clientAddress == "") {
+    //     notifyAddressError()
+    //     setDisableButton(false)
+    //     return false;
+    // }
     if (data.jobEndDate == "") {
         setDisableButton(false)
         setData((prev) => ({ ...prev, ["jobEndDate"]: "2027-12-12" }));

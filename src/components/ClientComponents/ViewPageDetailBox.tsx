@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 
-function DetailBox({ props, startDate, EndDate }) {
+function DetailBox({ props, startDate, EndDate ,editClientProfile}) {
   const datenow = moment().format("YYYY-MM-DD");
   let date = new Date(datenow);
 
@@ -21,6 +21,8 @@ function DetailBox({ props, startDate, EndDate }) {
             :
             {props.clientAddress ? "  " + props.clientAddress : "✘ No Address!"}
           </span>
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
         </div>
 
         <div className="d-flex align-items-center ">
@@ -35,6 +37,8 @@ function DetailBox({ props, startDate, EndDate }) {
               ? " 📆" + startDate + "  To  " + EndDate
               : "⚠️" + startDate + "  To  " + EndDate}
           </span>
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
         </div>
         <div className="d-flex align-items-center">
           <p>Langues : </p>
@@ -43,18 +47,24 @@ function DetailBox({ props, startDate, EndDate }) {
               ? "  " + props.clientLanguages.join(", ")
               : " ✘ No Langues!"}
           </span>
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
         </div>
         <div className="d-flex align-items-center">
           <p>Voyage en voiture :</p>
           <span className="Todo-ClinetCardMore-span">
             {props.candidatConduireEnFrance ? `✔ Yes` : "✘ No"}
           </span>
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
         </div>
         <div className="d-flex align-items-center">
           <p>Permis / Licence Drive :</p>
           <span className="Todo-ClinetCardMore-span">
             {props.clientPermis ? `✔ Yes` : "✘ No"}
           </span>
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
         </div>
         <div className="d-flex">
           <p>Client Note:</p>
@@ -66,6 +76,8 @@ function DetailBox({ props, startDate, EndDate }) {
               ? "  " + props.clientRequiredSkills
               : "✘ Not Available!"}
           </span>
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
         </div>
         <div className="d-flex align-items-center">
           <p className="text-dark">Potential Turnover CA</p>
@@ -75,6 +87,8 @@ function DetailBox({ props, startDate, EndDate }) {
               ? props.jobTotalBudget + "€"
               : "No Budget!"}
           </span>
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
         </div>
         <div className="d-flex align-items-center">
           <p className="text-dark">Salary by person </p>
@@ -90,6 +104,8 @@ function DetailBox({ props, startDate, EndDate }) {
                 : "✘ No Salary!"
               : "✘ No Salary!"}{" "}
           </span>
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
         </div>
         <div className="d-flex ">
           <p className="text-dark">Salaire net du salarié </p>
@@ -106,6 +122,8 @@ function DetailBox({ props, startDate, EndDate }) {
                 ))
               : "✘ No Salaire!"}
           </span>
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
         </div>
         <div className="d-flex ">
           <p className="text-dark">Taux horraire </p>
@@ -120,6 +138,8 @@ function DetailBox({ props, startDate, EndDate }) {
                 ))
               : "✘ No horraire!"}
           </span>
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
         </div>
       </div>
     </>

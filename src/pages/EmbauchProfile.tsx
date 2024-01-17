@@ -398,6 +398,8 @@ function ProgressCard() {
                     {profile.candidatAge ? profile.candidatAge : "No Age"}
                   </p>
                   <span className="card-xlSpan">(Age)</span>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
                 </div>
                 <div>
                   <div className="d-flex mb-0">
@@ -412,25 +414,39 @@ function ProgressCard() {
                               .motivation
                           : "No Motivation!"}
                       </b>{" "}
+
                     </p>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
                   </div>
                 </div>
+                <div className="d-flex">
                 <p>
                   Secteur :{" "}
                   {profile.candidatActivitySector
                     ? profile.candidatActivitySector.toLocaleUpperCase()
                     : "No Secteur!"}
                 </p>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
+                </div>
+                <div className="d-flex">
                 <p className="" style={{ width: "150%" }}>
                   Métier/Job :
                   {profile.candidatJob
                     ? profile.candidatJob.toLocaleUpperCase()
                     : "No Job!"}
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
                 </p>
+
+                </div>
               </div>
               <div className="col-4 px-0 text-end end-class d-flex align-items-center justify-content-center">
                 <div className="text-center d-grid justify-content-end align-items-center pr-1">
                   <div className="text-end">
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
                     <button className="InProLargebtn">
                       <img alt="..." src={require("../images/thundermini.svg").default} />
                       IN PROGRESS
@@ -553,6 +569,8 @@ function ProgressCard() {
                   props={profile}
                   startDate={startDate}
                   EndDate={EndDate}
+            editCandidatProfile={editCandidatProfile}
+
                 />
               </motion.div>
               {/* Detail Box */}
@@ -629,6 +647,8 @@ function ProgressCard() {
                     : "0"}
                   years{" "}
                 </span>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
               </div>
               <div className="col-12 d-flex AddressEnteredBy">
                 <p className="">Adresse </p>
@@ -638,10 +658,14 @@ function ProgressCard() {
                     ? profile.candidatAddress
                     : "✘✘  No Adresse!"}
                 </span>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
               </div>
               <div className="col-12 d-flex AddressEnteredBy">
                 <p className="">Ajouté par/Added by </p>
                 <span>: {profile.enteredBy}</span>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
               </div>
               <div className="col-12">
                 <p className="noteThis">

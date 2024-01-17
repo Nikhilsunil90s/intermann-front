@@ -417,6 +417,7 @@ function ToDoProfile() {
                     {profile.candidatAge ? profile.candidatAge : "0"}
                   </p>
                   <span className="card-xlSpan">(Age)</span>
+                  <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
                 </div>
                 <div>
                   <div className="d-flex mb-0">
@@ -432,20 +433,31 @@ function ToDoProfile() {
                           : "✘ No Motivation!"}
                       </b>{" "}
                     </p>
+                  <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+                    
                   </div>
                 </div>
+                <div className="d-flex">
                 <p>
                   Secteur :{" "}
                   {profile.candidatActivitySector
                     ? profile.candidatActivitySector.toLocaleUpperCase()
                     : "No Sector!"}
                 </p>
+                <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
+                </div>
+                <div className="d-flex">
                 <p className="" style={{ width: "150%" }}>
                   Métier/Job :
                   {profile.candidatJob
                     ? profile.candidatJob.toLocaleUpperCase()
                     : "No Job!"}
+                <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
                 </p>
+
+                </div>
               </div>
               <div
                 className="col-3  text-end end-class"
@@ -453,6 +465,8 @@ function ToDoProfile() {
               >
                 <div className="text-center d-grid justify-content-end align-items-center mt-2">
                   <div className="text-center">
+                <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
                     <button className="todoBtnStyle">
                       <img
                         alt="..."
@@ -460,6 +474,7 @@ function ToDoProfile() {
                         src={require("../images/briefcase2.svg").default}
                       />
                     </button>
+                    
                   </div>
                   <p
                     className="fw-boldEn text-center  pl-0 pt-1"
@@ -485,7 +500,8 @@ function ToDoProfile() {
                   className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-1 Social-btns"
                   style={{ maxWidth: "49%" }}
                 >
-                  <SocialButtons props={profile} />
+                  <SocialButtons props={profile} 
+                   />
                 </motion.div>
                 {/* Details Box */}
                 <motion.div
@@ -504,6 +520,7 @@ function ToDoProfile() {
                     props={profile}
                     startDate={startDate}
                     EndDate={EndDate}
+                    editCandidatProfile={editCandidatProfile} 
                   />
                 </motion.div>
                 {/* End Box */}
@@ -563,6 +580,8 @@ function ToDoProfile() {
                       ? profile.candidatYearsExperience + "years"
                       : "✘✘!"}{" "}
                   </span>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
                 </div>
                 <div className="col-12 d-flex AddressEnteredBy">
                   <p className="">Adresse </p>
@@ -573,10 +592,14 @@ function ToDoProfile() {
                       ? profile.candidatAddress
                       : "✘✘No Address!"}
                   </span>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
                 </div>
                 <div className="col-12 d-flex AddressEnteredBy">
                   <p className="">Ajouté par/Added by</p>
                   <span>: {profile.enteredBy}</span>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
                 </div>
                 <div className="col-12">
                   <p className="noteThis mb-0">

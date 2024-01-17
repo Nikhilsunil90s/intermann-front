@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 
-function CandidateDetialBox({ props, startDate, EndDate }) {
+function CandidateDetialBox({ props, startDate, EndDate ,editCandidatProfile}) {
   const datenow = moment().format("YYYY-MM-DD");
 
   let date = new Date(datenow);
@@ -21,6 +21,8 @@ function CandidateDetialBox({ props, startDate, EndDate }) {
                 ? props.candidatLanguages.join(", ")
                 : "✘✘No Language!"}
             </span>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
           </div>
         </div>
         <div className="d-flex align-items-center">
@@ -37,18 +39,24 @@ function CandidateDetialBox({ props, startDate, EndDate }) {
                 : "⚠️" + startDate + "  To  " + EndDate
               : "✘✘No Dates! "}
           </span>
+          <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
         </div>
         <div className="d-flex align-items-center">
           <p>Permis </p>
           <span className="Todo-CardMore-span">
             : {props.candidatLicensePermis ? `✔ Yes` : "✘ No"}
           </span>
+          <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
         </div>
         <div className="d-flex align-items-center">
           <p>Voyage en voiture </p>
           <span className="Todo-CardMore-span">
             : {props.candidatConduireEnFrance ? "✔ Yes" : "✘ No"}
           </span>
+          <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
         </div>
 
         <div className="d-flex align-items-center">
@@ -58,6 +66,8 @@ function CandidateDetialBox({ props, startDate, EndDate }) {
             <span className="Todo-CardMore-span text-capitalize">
               : {props.candidatSkills ? props.candidatSkills : "✘✘No Skills!"}
             </span>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
           </div>
         </div>
         <div className="d-flex align-items-center">
@@ -65,6 +75,8 @@ function CandidateDetialBox({ props, startDate, EndDate }) {
           <span className="text-dark Todo-CardMore-span text-capitalize">
             : {props.candidatJob ? props.candidatJob : "✘✘No Trouvé!"}
           </span>
+          <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
         </div>
       </div>
     </>

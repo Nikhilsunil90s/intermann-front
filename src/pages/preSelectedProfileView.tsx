@@ -317,6 +317,8 @@ function PreSelectedView() {
                     {profile.candidatAge}
                   </p>
                   <span className="card-xlSpan">(Age)</span>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
                 </div>
                 <div>
                   <div className="d-flex mb-0">
@@ -332,24 +334,36 @@ function PreSelectedView() {
                           : "✘✘!"}
                       </b>{" "}
                     </p>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
                   </div>
                 </div>
+                <div className="d-flex">
                 <p>
                   Secteur :{" "}
                   {profile.candidatActivitySector
                     ? profile.candidatActivitySector.toLocaleUpperCase()
                     : "✘✘No Sector!"}
                 </p>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
+                </div>
+                <div className="d-flex">
                 <p className="" style={{ width: "150%" }}>
                   Métier/Job :
                   {profile.candidatJob
                     ? profile.candidatJob.toLocaleUpperCase()
                     : "✘✘No Jobs!"}
                 </p>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
+                </div>
               </div>
               <div className="col-4 px-0 text-end end-class">
                 <div className="text-center d-grid justify-content-end align-items-center mt-2 pr-1">
                   <div className="text-end">
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
                     <button className="preLargebtn">
                       <img
                         alt="..."
@@ -423,6 +437,8 @@ function PreSelectedView() {
                   props={profile}
                   startDate={startDate}
                   EndDate={EndDate}
+            editCandidatProfile={editCandidatProfile}
+
                 />
               </motion.div>
               {/* DetailsBox */}
@@ -497,6 +513,8 @@ function PreSelectedView() {
                     ? profile.candidatYearsExperience + "years"
                     : "✘✘!"}{" "}
                 </span>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
               </div>
               <div className="col-12 d-flex AddressEnteredBy">
                 <p className="">Adresse : </p>
@@ -506,10 +524,14 @@ function PreSelectedView() {
                     ? profile.candidatAddress
                     : "✘✘No Address!"}
                 </span>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
               </div>
               <div className="col-12 d-flex AddressEnteredBy">
                 <p className="">Ajouté par/Added by :</p>
                 <span> {profile.enteredBy}</span>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
               </div>
               <div className="col-12">
                 <p className="noteThis">

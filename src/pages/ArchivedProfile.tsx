@@ -375,6 +375,8 @@ const ArchivedProfile = () => {
                     {profile.candidatAge ? profile.candidatAge : "No"}
                   </p>
                   <span className="card-xlSpan">(Age)</span>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
                 </div>
                 <div>
                   <div className="d-flex mb-0">
@@ -390,23 +392,36 @@ const ArchivedProfile = () => {
                           : "No Motivation!"}{" "}
                       </b>
                     </p>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
                   </div>
                 </div>
+                <div className="d-flex">
                 <p>
                   Secteur :{" "}
                   {profile.candidatActivitySector
                     ? profile.candidatActivitySector.toLocaleUpperCase()
                     : "No Secteur!"}
                 </p>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
+                </div>
+                <div className="d-flex">
                 <p className="" style={{ width: "150%" }}>
                   Métier/Job :{" "}
                   {profile.candidatJob
                     ? profile.candidatJob.toLocaleUpperCase()
                     : "No Job!"}
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
                 </p>
+
+                </div>
               </div>
               <div className="col-4 px-0 text-end end-class align-items-center justify-content-end pt-1 pr-2">
                 <div className="d-grid justify-content-end align-items-center pb-1">
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+                
                   <button className="ArchiveLargebtn pb-1 p-0">
                     <img alt="..." src={require("../images/ArchivedBtn.svg").default} />
                   </button>
@@ -450,6 +465,8 @@ const ArchivedProfile = () => {
                   props={profile}
                   startDate={startDate}
                   EndDate={EndDate}
+           editCandidatProfile={editCandidatProfile}
+
                 />
               </motion.div>
               {/* detailBox */}
@@ -525,12 +542,16 @@ const ArchivedProfile = () => {
                     : "0"}
                   years{" "}
                 </span>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
               </div>
               <div className="col-12 d-flex AddressEnteredBy">
                 <p className="">Ajouté par/Added by </p>
                 <span className="text-capitalize">
                   : {profile.enteredBy ? profile.enteredBy : "✘ No Added by!"}
                 </span>
+            <span className="mx-1 cursor-pointer" onClick={editCandidatProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../images/Edit.svg").default} /></span>
+
               </div>
               <div className="col-12">
                 <p className="noteThis">

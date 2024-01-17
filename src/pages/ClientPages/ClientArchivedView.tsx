@@ -533,12 +533,16 @@ function ArchivedViewPage() {
                       {profile.candidatAge ? profile.candidatAge : "No "}
                     </p>
                     <span className="card-xlSpan">(Age)</span>
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                   </div>
                   <p>
                     Number of Positions :
                     {profile.numberOfPosts
                       ? profile.numberOfPosts
                       : "No Posts!"}
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                   </p>
 
                   <p>
@@ -546,27 +550,37 @@ function ArchivedViewPage() {
                     {profile.clientActivitySector
                       ? profile.clientActivitySector
                       : "No Sector"}
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                   </p>
                   <p>
                     Métier/Job :
                     {profile.clientJob ? profile.clientJob : "No Job!"}
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                   </p>
                   <p style={{ width: "120%" }}>
                     Contact Name :
                     {profile.clientReferenceName
                       ? profile.clientReferenceName.toLocaleUpperCase()
                       : "No Contact Name!"}
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                   </p>
                 </div>
                 {/* <div className="col-4 text-end end-class d-grid justify-content-center align-items-center"> */}
                 <div className="col-4 d-grid align-items-center">
                   <div className="text-end ">
                     <div className="d-grid justify-content-end align-items-center">
+                      <div className="d-flex align-items-center ">
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                       <button className="ArchiveLargebtn pb-1 p-0">
                         <img alt="..."
                           src={require("../../images/ArchivedBtn.svg").default}
                         />
                       </button>
+                      </div>
                     </div>
                     <div className="Lead-encore">
                       <p className="mb-0  pt-1">Lead en recherche active</p>
@@ -613,6 +627,8 @@ function ArchivedViewPage() {
                     props={profile}
                     startDate={startDate}
                     EndDate={EndDate}
+          editClientProfile={editClientProfile}
+
                   />
                 </motion.div>
               </div>
@@ -655,7 +671,10 @@ function ArchivedViewPage() {
                               profile.clientImportance - 1
                             ]?.icon
                           : "✘✘!"}
+
                       </b>
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                     </p>
                     <p className="mb-0 pt-1" style={{ width: "130%" }}>
                       Motivation :
@@ -666,6 +685,8 @@ function ArchivedViewPage() {
                           candidatMotivationIcons[profile.clientMotivation]
                             ?.motivation}
                       </b>
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                     </p>
 
                     <div className="d-flex align-items-center">
@@ -678,6 +699,8 @@ function ArchivedViewPage() {
                       >
                         {profile.enteredBy ? profile.enteredBy : "✘✘!"}
                       </span>
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                     </div>
                     <div>
                       <p className="clientNote">

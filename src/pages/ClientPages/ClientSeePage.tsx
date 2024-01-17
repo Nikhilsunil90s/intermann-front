@@ -737,12 +737,16 @@ function ClientSee() {
                       {profile.candidatAge ? profile.candidatAge : "No "}
                     </p>
                     <span className="card-xlSpan">(Age)</span>
+            <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                   </div>
                   <p>
                     Number of Positions :
                     {profile.numberOfPosts
                       ? profile.numberOfPosts
                       : "✘ No Posts!"}
+            <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                   </p>
 
                   <p>
@@ -750,23 +754,31 @@ function ClientSee() {
                     {profile.clientActivitySector
                       ? profile.clientActivitySector.toLocaleUpperCase()
                       : "✘ No Sector"}
+            <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                   </p>
                   <p>
                     Métier/Job :
                     {profile.clientJob
                       ? profile.clientJob.toLocaleUpperCase()
                       : "✘ No Job!"}
+            <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                   </p>
                   <p style={{ width: "120%" }}>
                     Contact Name :
                     {profile.clientReferenceName
                       ? profile.clientReferenceName.toLocaleUpperCase()
                       : "✘ No Contact Name!"}
+            <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                   </p>
                 </div>
                 {/* <div className="col-4 text-end end-class d-grid justify-content-center align-items-center"> */}
                 <div className="col-4 d-grid align-items-center">
                   <div className="text-end ">
+            <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                     <button className="ClientSEEBtnStyle">
                       <img alt="..."
                         src={require("../../images/briefcase2.svg").default}
@@ -1111,7 +1123,10 @@ function ClientSee() {
                   className="col-xxl-5 col-xl-5 col-md-5 col-lg-5 Social-Card text-center p-1 Social-cardDiv"
                   style={{ maxWidth: "49%" }}
                 >
-                  <SocialButton props={profile} />
+                  <SocialButton props={profile}
+                  
+
+                  />
                 </motion.div>
                 <motion.div
                   initial="hidden"
@@ -1130,6 +1145,8 @@ function ClientSee() {
                     props={profile}
                     startDate={startDate}
                     EndDate={EndDate}
+                    editClientProfile={editClientProfile}
+
                   />
                 </motion.div>
               </div>
@@ -1322,7 +1339,10 @@ function ClientSee() {
                             candidatMotivationIcons[profile.clientMotivation]
                               ?.motivation
                           : "✘✘!"}
+                          
                       </b>
+            <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                     </p>
 
                     {/* <p>
@@ -1352,7 +1372,10 @@ function ClientSee() {
                               profile.clientImportance - 1
                             ]?.icon
                           : "✘✘!"}
+            <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                       </b>
+                      
                     </p>
 
                     <div className="d-flex align-items-center">
@@ -1365,6 +1388,8 @@ function ClientSee() {
                       >
                         {profile.enteredBy ? profile.enteredBy : "✘✘!"}
                       </span>
+            <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                     </div>
                     <div>
                       <p className="clientNote">

@@ -741,12 +741,16 @@ function ClientProgressView() {
                       {profile.candidatAge ? profile.candidatAge : "No "}
                     </p>
                     <span className="card-xlSpan">(Age)</span>
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                   </div>
                   <p>
                     Number of Positions :{" "}
                     {profile.numberOfPosts
                       ? profile.numberOfPosts
                       : "No Posts!"}
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                   </p>
 
                   <p>
@@ -754,21 +758,29 @@ function ClientProgressView() {
                     {profile.clientActivitySector
                       ? profile.clientActivitySector
                       : "No Sector"}
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                   </p>
                   <p>
                     Métier/Job :{" "}
                     {profile.clientJob ? profile.clientJob : "No Job!"}
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                   </p>
                   <p style={{ width: "120%" }}>
                     Contact Name :{" "}
                     {profile.clientReferenceName
                       ? profile.clientReferenceName.toLocaleUpperCase()
                       : "No Contact Name!"}
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                   </p>
                 </div>
                 {/* <div className="col-4 text-end end-class d-grid justify-content-center align-items-center"> */}
                 <div className="col-4 d-grid align-items-center">
                   <div className="text-end ">
+          <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                     <button className="InProLargebtn">
                       <img alt="..."
                         src={require("../../images/thundermini.svg").default}
@@ -1133,6 +1145,8 @@ function ClientProgressView() {
                     props={profile}
                     startDate={startDate}
                     EndDate={EndDate}
+                    editClientProfile={editClientProfile}
+
                   />
                 </motion.div>
               </div>
@@ -1217,6 +1231,8 @@ function ClientProgressView() {
                               profile.clientImportance - 1
                             ]?.icon
                           : "✘✘!"}
+                              <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                       </b>
                     </p>
                     <p className="mb-0 pt-1" style={{ width: "130%" }}>
@@ -1228,6 +1244,8 @@ function ClientProgressView() {
                           candidatMotivationIcons[profile.clientMotivation]
                             .motivation}
                       </b>
+                      <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                     </p>
 
                     <div className="d-flex align-items-center">
@@ -1240,6 +1258,8 @@ function ClientProgressView() {
                       >
                         {profile.enteredBy ? profile.enteredBy : "✘✘!"}
                       </span>
+                      <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
+
                     </div>
                     <div>
                       <p className="clientNote">

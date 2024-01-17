@@ -151,8 +151,8 @@ function EditDo() {
       JSON.stringify(profile).includes(JSON.stringify(profile.candidatContract))
     ) {
       if (profile.candidatContract !== null) {
-        if (profile.candidatContract.contract_date) {
-          let tempdate = new Date(profile.candidatContract.contract_date);
+        if (profile?.candidatContract?.contract_date) {
+          let tempdate = new Date(profile?.candidatContract?.contract_date);
           setMonth(tempdate.getMonth() + 1);
 
           setcontract_date(
@@ -161,7 +161,7 @@ function EditDo() {
             )
           );
         }
-        if (profile.candidatContract.debutMissionDate) {
+        if (profile?.candidatContract?.debutMissionDate) {
           let tempdate2 = new Date(profile.candidatContract.debutMissionDate);
           setMonth2(tempdate2.getMonth() + 1);
           setdebutMissionDate(
@@ -173,8 +173,8 @@ function EditDo() {
           );
         }
 
-        if (profile.candidatContract.fin_mision) {
-          let tempdate3 = new Date(profile.candidatContract.fin_mision);
+        if (profile.candidatContract?.fin_mision) {
+          let tempdate3 = new Date(profile.candidatContract?.fin_mision);
           setMonth3(tempdate3.getMonth() + 1);
           setfin_mision(
             [
@@ -658,10 +658,10 @@ function EditDo() {
             ? profile.candidatContract.cmp_candidat
             : "",
         contract_date:
-          data.contract_date != ""
-            ? data.contract_date
+          data?.contract_date != ""
+            ? data?.contract_date
             : profile.candidatContract
-            ? profile.candidatContract.contract_date
+            ? profile.candidatContract?.contract_date
             : "",
         company_contact_name:
           data.company_contact_name != ""
@@ -724,10 +724,10 @@ function EditDo() {
             ? profile.candidatContract.diurnaTotalParJour
             : "",
         debutMissionDate:
-          data.debutMissionDate != ""
-            ? data.debutMissionDate
+          data?.debutMissionDate != ""
+            ? data?.debutMissionDate
             : profile.candidatContract
-            ? profile.candidatContract.debutMissionDate
+            ? profile.candidatContract?.debutMissionDate
             : "",
         heurePerSemaine:
           data.heurePerSemaine != ""
@@ -1586,7 +1586,7 @@ function EditDo() {
                         placeholder="Candidat Address"
                         className="form-control"
                         name="candidatAddress"
-                        defaultValue={profile.candidatAddress}
+                        defaultValue={profile?.candidatAddress}
                         onChange={onFormDataChange}
                       />
                     </div>
@@ -1922,7 +1922,7 @@ function EditDo() {
                           onChange={onFormDataChange}
                           defaultValue={
                             profile.candidatContract
-                              ? profile.candidatContract.debutMissionDate != ""
+                              ? profile?.candidatContract?.debutMissionDate != ""
                                 ? debutMissionDate
                                 : ""
                               : ""
@@ -2027,11 +2027,10 @@ function EditDo() {
                         <textarea
                           className="TextArea form-control"
                           defaultValue={
-                            profile.candidatContract
-                              ? profile.candidatContract.companyAddress != ""
-                                ? profile.candidatContract.companyAddress
+                          profile?.candidatContract?.companyAddress != ""
+                                ? profile?.candidatContract?.companyAddress
                                 : ""
-                              : ""
+                             
                           }
                           name="companyAddress"
                           onChange={onFormDataChange}
