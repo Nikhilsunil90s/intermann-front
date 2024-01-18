@@ -667,11 +667,12 @@ const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         return false;
     }
     saveClientData().then(data => {
-        console.log(data)
         if (data.status) {
             notifyClientAddSuccess()
             setTimeout(() => {
-                window.location.href = "/addCustomer";
+                localStorage.setItem("profile", JSON.stringify(data.data));
+                window.location.href = "/clientTodo/clientToDoProfile";
+ 
             }, 2000)
 
         } else {
@@ -869,9 +870,9 @@ console.log(Language, "language")
                       name="clientEmail"
                       value={data.clientEmail} onChange={onFormDataChange}
                     />
-                    <span className="text-small">
+                    {/* <span className="text-small">
                       Mendatory, please add client email address
-                    </span>
+                    </span> */}
                   </div>
                 </div>
                 <div className="col-4">
@@ -884,16 +885,16 @@ console.log(Language, "language")
                       name="clientPhone"
                       value={data.clientPhone} onChange={onFormDataChange}
                     />
-                    <span className="text-smallOG">
+                    {/* <span className="text-smallOG">
                       Important Value, please add phone number
-                    </span>
+                    </span> */}
                   </div>
                 </div>
                 <div className="col-4">
                   <div className="p-1">
                     <label className="Form-styling">Company adress</label>
                     <input type="text" className="form-control placeHolder" placeholder='Enter Client Adress (address, zip, city, country)' name='clientAddress' value={data.clientAddress} onChange={onFormDataChange} />
-                    <span className="text-smallOG">Important value</span>
+                    {/* <span className="text-smallOG">Important value</span> */}
                   </div>
                 </div>
                 <div className="col-4">
@@ -942,9 +943,9 @@ console.log(Language, "language")
                       Nom du contact dans l’entreprise
                     </label>
                     <input type="text" className="form-control placeHolder" placeholder='Contact Name' name='clientReferenceName' value={data.clientReferenceName} onChange={onFormDataChange} />
-                    <span className="text-smallOG">
+                    {/* <span className="text-smallOG">
                       NOT Mendatory, please add contact person on this company.
-                    </span>
+                    </span> */}
                   </div>
                 </div>
                 <div className="col-4 pt-1">
@@ -995,10 +996,10 @@ console.log(Language, "language")
                       Skills / Notes Compétances (will be displayed on CV)
                     </label>
                     <textarea className="form-control placeHolder" placeholder='Enter Skillset Required ... ' name='clientRequiredSkills' rows={4} value={data.clientRequiredSkills} onChange={onFormDataChange} style={{ overflow: 'hidden' }} ></textarea>
-                    <span className="text-smallOG">
+                    {/* <span className="text-smallOG">
                       NOT mandatory, please add some special skills that the
                       customer asks for this reasearch.
-                    </span>
+                    </span> */}
                   </div>
                 </div>
                 <div className="col-6">

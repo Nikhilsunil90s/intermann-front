@@ -33,9 +33,9 @@ function DetailBox({ props, startDate, EndDate ,editClientProfile}) {
               color: date >= start && date <= end ? "#3F76E2" : "#ca1313",
             }}
           >
-            {date >= start && date <= end
+            {props.jobStartDate && props.jobStartDate ? date >= start && date <= end
               ? " 📆" + startDate + "  To  " + EndDate
-              : "⚠️" + startDate + "  To  " + EndDate}
+              : "⚠️" + startDate + "  To  " + EndDate:"No dates!"}
           </span>
           <span className="mx-1 cursor-pointer" onClick={editClientProfile}>  <img style={{filter:"invert(1)",height:"22px"}} alt="..." src={require("../../images/Edit.svg").default} /></span>
 

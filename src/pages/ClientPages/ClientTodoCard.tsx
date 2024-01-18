@@ -26,7 +26,7 @@ const ClientToDoCard = (props: any) => {
   function padTo2DigitsCH(num) {
     return num.toString().padStart(2, "0");
   }
-  // console.log(props.data.jobStartDate.slice(0,4).includes("-"))
+  // console.log(props?.data?.jobStartDate.slice(0,4).includes("-"))
 
   function formatDateCha(date) {
     return [
@@ -39,8 +39,8 @@ const ClientToDoCard = (props: any) => {
 
   let date = new Date(datenow);
 
-  let start = new Date(props.data.jobStartDate);
-  let end = new Date(props.data.jobEndDate);
+  let start = new Date(props?.data?.jobStartDate);
+  let end = new Date(props?.data?.jobEndDate);
 
   const [showInProgressModal, setShowInProgressModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
@@ -53,20 +53,20 @@ const ClientToDoCard = (props: any) => {
   const [Signature, setSignature] = useState(props.data.signatureSent) as any;
   const [Offre, setOffre] = useState(props.data.offerSent) as any;
   const [startStatus] = useState(
-    props.data.jobStartDate.slice(0, 4).includes("-")
+    props?.data?.jobStartDate.slice(0, 4).includes("-")
   );
-  const [endStatus] = useState(props.data.jobEndDate.slice(0, 4).includes("-"));
+  const [endStatus] = useState(props?.data?.jobEndDate.slice(0, 4).includes("-"));
   const [startDate, setStartDate] = useState() as any;
   const [EndDate, setEndDate] = useState() as any;
   useEffect(() => {
     if (startStatus) {
-      setStartDate(props.data.jobStartDate);
+      setStartDate(props?.data?.jobStartDate);
     } else {
       let data = formatDateCha(start);
       setStartDate(data.replaceAll("/", "-"));
     }
     if (endStatus) {
-      setEndDate(props.data.jobEndDate);
+      setEndDate(props?.data?.jobEndDate);
     } else {
       let data = formatDateCha(end);
       setEndDate(data.replaceAll("/", "-"));
@@ -402,9 +402,9 @@ const ClientToDoCard = (props: any) => {
               }}
             >
               Recruiting :{" "}
-              {date >= start && date <= end
+              {props?.data?.jobStartDate && props?.data?.jobEndDate  ? date >= start && date <= end
                 ? " From " + " 📆" + startDate + "  To  " + " 📆" + EndDate
-                : "⚠️ From  " + startDate + "  To  " + EndDate}
+                : "⚠️ From  " + startDate + "  To  " + EndDate : "No dates!"}
             </p>
           </div>
         </div>
@@ -502,16 +502,16 @@ const ClientToDoCard = (props: any) => {
               <p>
                 Contact Name :
                 <b style={{ marginLeft: "3px" }}>
-                  {props.data.clientReferenceName
-                    ? props.data.clientReferenceName
+                  {props?.data?.clientReferenceName
+                    ? props?.data?.clientReferenceName
                     : "✘ No Name!"}
                 </b>
               </p>
               <p>
                 Contact phone :
                 <b style={{ marginLeft: "3px" }}>
-                  {props.data.clientReferenceNumber.length
-                    ? props.data.clientReferenceNumber
+                  {props?.data?.clientReferenceNumber?.length
+                    ? props?.data?.clientReferenceNumber
                     : "✘ No Contact Number!"}
                 </b>
               </p>
