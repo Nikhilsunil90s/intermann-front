@@ -116,23 +116,24 @@ const Header = (props) => {
       }
 
       if (Number.isInteger(Number(e.target.value))) {
+        const FilDataNo = data.filter((el) =>
+        el.clientPhone !== undefined
+          ? el.clientPhone.includes(e.target.value)
+          : null
+      );
         checkCandidatePhone(
           e.target.value.replace("+", "").replace(" ", "")
         ).then((res) => {
           if (res.status) {
-            setFilterData([...res.data]);
+            setFilterData([...res.data,...FilDataNo]);
+            
           } else {
-            return;
+            // return;
+            setFilterData([...FilDataNo]);
+
           }
         });
-
-        const FilDataNo = data.filter((el) =>
-          el.clientPhone !== undefined
-            ? el.clientPhone.includes(e.target.value)
-            : null
-        );
-
-        setFilterData([...FilDataNo]);
+    
       }
       if (e.target.value) {
         FilDataCName = data.filter((el) => {
