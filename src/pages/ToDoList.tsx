@@ -55,6 +55,10 @@ function ToDoList() {
   const [cardTotallength, setTotalLength] = useState(0);
   const [sectorName, setSectorName] = useState("");
   const [JobName, setJobName] = useState([]) as any;
+  const [readyToWorkLength,setreadyToWorkLength]=useState({
+    length:"",
+    readyToWorkLength:""
+  })
   const [AllProfilesForSelect, setAllProfilesForSelects] = useState([]);
   let HaveName = null;
   let MotivationCount = null;
@@ -237,6 +241,7 @@ function ToDoList() {
           setStatus(false);
         } else {
           setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
           setLoader(true);
           setStatus(true);
         }
@@ -306,6 +311,8 @@ function ToDoList() {
             return true;
           } else {
             setFilterData([...filterData, ...resultArr]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:reD.readyToWorkLength,length:reD.length})
+
           }
         }
         if (cardTotallength < page) {
@@ -428,7 +435,7 @@ function ToDoList() {
           if (cardTotallength === 0) {
             setTotalLength(AllProfilesForSelect.length);
           }
-          if (item.candidatEmail) {
+          if (item.candidatEmail && item.candidatEmail !== "-") {
             emailops.push({
               value: item.candidatEmail,
               label: item.candidatEmail.toLocaleLowerCase(),
@@ -669,6 +676,7 @@ function ToDoList() {
             {
               // setFilterData([...result.data]);
               // console.log(result,"result")
+              setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
               setFilterData([...result.data]);
             }
             // setStatus(result.status);
@@ -704,6 +712,7 @@ function ToDoList() {
           .then((result) => {
             {
               // setFilterData([...result.data]);
+              setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
 
               setFilterData([...result.data]);
             }
@@ -740,6 +749,8 @@ function ToDoList() {
           .then((reD) => reD.json())
           .then((result) => {
             {
+              setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
               setFilterData([...result.data]);
             }
           })
@@ -787,6 +798,7 @@ function ToDoList() {
               setLoader(true);
               setStatus(false);
             } else {
+              setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:data.readyToWorkLength,length:data.length})
               setFilterData([...data.data]);
               setLoader(true);
               setStatus(true);
@@ -818,6 +830,7 @@ function ToDoList() {
               setStatus(false);
             } else {
               setFilterData([...data.data]);
+              setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:data.readyToWorkLength,length:data.length})
               setLoader(true);
               setStatus(true);
             }
@@ -848,6 +861,8 @@ function ToDoList() {
         .then((result) => {
           {
             setFilterData([...result.data]);
+            setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           setStatus(result.status);
         })
@@ -876,6 +891,8 @@ function ToDoList() {
             setLoader(true);
             setStatus(true);
             setFilterData([...result.data]);
+            setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           if (result.status === false) {
             setLoader(true);
@@ -911,6 +928,8 @@ function ToDoList() {
             setLoader(true);
             setStatus(true);
             setFilterData([...result.data]);
+            setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           if (result.status === false) {
             setLoader(true);
@@ -944,6 +963,8 @@ function ToDoList() {
             setLoader(true);
             setStatus(true);
             setFilterData([...result.data]);
+            setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           if (result.length === 0) {
             setLoader(true);
@@ -974,6 +995,8 @@ function ToDoList() {
             setLoader(true);
             setStatus(true);
             setFilterData([...result.data]);
+            setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           if (result.data.length === 0) {
             setLoader(true);
@@ -1004,6 +1027,8 @@ function ToDoList() {
             setLoader(true);
             setStatus(true);
             setFilterData([...result.data]);
+            setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           if (result.data.length === 0) {
             setLoader(true);
@@ -1137,6 +1162,10 @@ function ToDoList() {
     emailArr = [];
     setEmail([]);
     contactArr = [];
+    setreadyToWorkLength({
+      length:"",
+      readyToWorkLength:""
+    })
     setContactOptions([]);
     toast.success("Filters Reset Successfully!");
     fetchAllSectors();
@@ -1900,7 +1929,17 @@ function ToDoList() {
               )}
             </div>
           </div>
-
+           {
+            readyToWorkLength.length || readyToWorkLength.readyToWorkLength ? 
+          <>  <div>
+            <p className="filterStyling">
+              There is <span style={{color:"red"}}>{readyToWorkLength.length}{" "}workers total</span>{" "}that match your request and <span style={{color:"blue"}}>{readyToWorkLength.readyToWorkLength}{" "}ready to work</span>
+            </p>
+              </div>
+              </>
+              :
+              ""
+           }
           {loader ? (
             <>
               {status ? (

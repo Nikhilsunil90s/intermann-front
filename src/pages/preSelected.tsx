@@ -56,6 +56,10 @@ function Preselected() {
   const [LoaderTime, setLoaderTime] = useState(false);
   const [sectorName, setSectorName] = useState("");
   const [JobName, setJobName] = useState([]) as any;
+  const [readyToWorkLength,setreadyToWorkLength]=useState({
+    length:"",
+    readyToWorkLength:""
+  })
   let HaveName = null;
   let MotivationCount = null;
 
@@ -206,6 +210,8 @@ function Preselected() {
           setStatus(false);
         } else {
           setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           setLoader(true);
           setStatus(true);
         }
@@ -310,6 +316,8 @@ function Preselected() {
             return true;
           } else {
             setFilterData([...filterData, ...resultArr]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:reD.readyToWorkLength,length:reD.length})
+
           }
         }
         if (cardTotallength < page) {
@@ -645,6 +653,8 @@ function Preselected() {
               setStatus(false);
             } else {
               setFilterData([...data.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:data.readyToWorkLength,length:data.length})
+                        
               setLoader(true);
               setStatus(true);
             }
@@ -675,6 +685,8 @@ function Preselected() {
               setStatus(false);
             } else {
               setFilterData([...data.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:data.readyToWorkLength,length:data.length})
+
               setLoader(true);
               setStatus(true);
             }
@@ -705,6 +717,8 @@ function Preselected() {
               setLoader(true);
               setStatus(true);
               setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
             }
             // setStatus(result.status);
           })
@@ -735,6 +749,8 @@ function Preselected() {
               setLoader(true);
               setStatus(true);
               setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
             }
             // setStatus(result.status);
           })
@@ -766,6 +782,8 @@ function Preselected() {
               setLoader(true);
               setStatus(true);
               setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
             }
             // setStatus(result.status);
           })
@@ -789,6 +807,8 @@ function Preselected() {
         .then((result) => {
           {
             setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           setStatus(result.status);
         })
@@ -821,6 +841,8 @@ function Preselected() {
             setLoader(true);
             setStatus(true);
             setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
         })
         .catch((err) => err);
@@ -847,6 +869,8 @@ function Preselected() {
             setLoader(true);
             setStatus(true);
             setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           if (result.data.length === 0) {
             setLoader(true);
@@ -877,6 +901,8 @@ function Preselected() {
             setLoader(true);
             setStatus(true);
             setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           if (result.data.length === 0) {
             setLoader(true);
@@ -913,6 +939,8 @@ function Preselected() {
             setLoader(true);
             setStatus(true);
             setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
         })
         .catch((err) => err);
@@ -945,6 +973,8 @@ function Preselected() {
             setLoader(true);
             setStatus(true);
             setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
         })
         .catch((err) => err);
@@ -972,6 +1002,8 @@ function Preselected() {
             setLoader(true);
             setStatus(true);
             setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           if (result.status === false) {
             setLoader(true);
@@ -999,6 +1031,7 @@ function Preselected() {
         .then((filteredresponse) => {
           if (filteredresponse.data.length > 0) {
             setStatusProfile(filteredresponse.status);
+            setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:filteredresponse.readyToWorkLength,length:filteredresponse.length})
 
             setFilterData([...filteredresponse.data]);
             setLoader(true);
@@ -1116,6 +1149,10 @@ function Preselected() {
     LicencePermisArr = [];
     setEmail([]);
     setContactOptions([]);
+    setreadyToWorkLength({
+      length:"",
+      readyToWorkLength:""
+    })
     toast.success("Filters Reset Successfully!");
     fetchAllSectors();
     setTimeout(() => {
@@ -1871,7 +1908,17 @@ function Preselected() {
               )}
             </div>
           </div>
-
+          {
+            readyToWorkLength.length || readyToWorkLength.readyToWorkLength ? 
+          <>  <div>
+            <p className="filterStyling">
+              There is <span style={{color:"red"}}>{readyToWorkLength.length}{" "}workers total</span>{" "}that match your request and <span style={{color:"blue"}}>{readyToWorkLength.readyToWorkLength}{" "}ready to work</span>
+            </p>
+              </div>
+              </>
+              :
+              ""
+           }
           {loader ? (
             <>
               {status ? (

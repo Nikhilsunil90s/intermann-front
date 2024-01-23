@@ -66,6 +66,10 @@ function Embauch() {
   const [LoaderTime, setLoaderTime] = useState(false);
   const [sectorName, setSectorName] = useState("");
   const [JobName, setJobName] = useState([]) as any;
+  const [readyToWorkLength,setreadyToWorkLength]=useState({
+    length:"",
+    readyToWorkLength:""
+  })
   let HaveName = null;
 
   const loadMoreHandle = (i) => {
@@ -292,6 +296,8 @@ function Embauch() {
             return true;
           } else {
             setFilterData([...filterData, ...resultArr]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:reD.readyToWorkLength,length:reD.length})
+
           }
         }
         if (page > cardTotallength) {
@@ -367,6 +373,8 @@ function Embauch() {
     ClientFL = [];
     SelectedClient = [];
     setFilterData([]);
+    setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:"",length:""})
+
     if (e.value === "Select Name") {
       SelectedName = [];
       filterFunction();
@@ -471,6 +479,8 @@ function Embauch() {
               // setFilterData([...result.data]);
               // console.log(result,"result")
               setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
             }
             // setStatus(result.status);
           })
@@ -505,6 +515,8 @@ function Embauch() {
               setLoader(true);
               setStatus(true);
               setFilterData([...ClientFL]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:respData.readyToWorkLength,length:respData.length})
+
             }
           }
         })
@@ -533,6 +545,8 @@ function Embauch() {
             setStatus(false);
           } else {
             setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
             setLoader(true);
             setStatus(true);
           }
@@ -563,6 +577,8 @@ function Embauch() {
             setLoader(true);
             setStatus(true);
             setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           if (result.status === false) {
             setLoader(true);
@@ -594,6 +610,8 @@ function Embauch() {
             setLoader(true);
             setStatus(true);
             setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           if (result.data.length === 0) {
             setLoader(true);
@@ -625,6 +643,8 @@ function Embauch() {
             setLoader(true);
             setStatus(true);
             setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           if (result.status === false) {
             setLoader(true);
@@ -654,6 +674,8 @@ function Embauch() {
         .then((result) => {
           {
             setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           setStatus(result.status);
         })
@@ -680,6 +702,8 @@ function Embauch() {
         .then((result) => {
           {
             setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           setStatus(result.status);
         })
@@ -706,6 +730,8 @@ function Embauch() {
         .then((result) => {
           {
             setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           setStatus(result.status);
         })
@@ -795,6 +821,10 @@ function Embauch() {
   const RestFilters = () => {
     setSectors([]);
     setNameOptions([]);
+    setreadyToWorkLength({
+      length:"",
+      readyToWorkLength:""
+    })
     HaveName = null;
     setSectorName("");
     setJobName([]);
@@ -1307,7 +1337,17 @@ function Embauch() {
               )}
             </div>
           </div>
-
+          {
+            readyToWorkLength.length ||readyToWorkLength.readyToWorkLength ? 
+          <>  <div>
+            <p className="filterStyling">
+              There is <span style={{color:"red"}}>{readyToWorkLength.length}{" "}workers total</span>{" "}that match your request and <span style={{color:"blue"}}>{readyToWorkLength.readyToWorkLength}{" "}ready to work</span>
+            </p>
+              </div>
+              </>
+              :
+              ""
+           }
           {Loader ? (
             <>
               {status ? (

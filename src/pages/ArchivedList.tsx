@@ -54,7 +54,10 @@ function ArchivedList() {
   const [LoaderTime, setLoaderTime] = useState(false);
   const [sectorName, setSectorName] = useState("");
   const [JobName, setJobName] = useState([]) as any;
-
+  const [readyToWorkLength,setreadyToWorkLength]=useState({
+    length:"",
+    readyToWorkLength:""
+  })
   const loadMoreHandle = (i) => {
     let bottom =
       i.target.scrollHeight - i.target.clientHeight - i.target.scrollTop < 40;
@@ -375,6 +378,8 @@ function ArchivedList() {
             return true;
           } else {
             setFilterData([...filterData, ...resultArr]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:reD.readyToWorkLength,length:reD.length})
+
           }
         }
         if (page > cardTotallength) {
@@ -421,6 +426,8 @@ function ArchivedList() {
             {
               // setFilterData([...result.data]);
               // console.log(result,"result")
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
               setFilterData([...result.data]);
             }
             // setStatus(result.status);
@@ -456,6 +463,8 @@ function ArchivedList() {
               setLoader(true);
               setStatus(true);
               setFilterData([...ClientFL]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:respData.readyToWorkLength,length:respData.length})
+
             }
           }
         })
@@ -481,6 +490,8 @@ function ArchivedList() {
         .then((result) => {
           {
             setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           setStatus(result.status);
         })
@@ -507,6 +518,8 @@ function ArchivedList() {
         .then((result) => {
           {
             setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           setStatus(result.status);
         })
@@ -534,6 +547,8 @@ function ArchivedList() {
         .then((result) => {
           {
             setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           setStatus(result.status);
         })
@@ -560,6 +575,8 @@ function ArchivedList() {
         .then((result) => {
           {
             setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           setStatus(result.status);
         })
@@ -590,6 +607,8 @@ function ArchivedList() {
         .then((result) => {
           {
             setFilterData([...result.data]);
+          setreadyToWorkLength({...readyToWorkLength,readyToWorkLength:result.readyToWorkLength,length:result.length})
+
           }
           setStatus(result.status);
         })
@@ -638,6 +657,10 @@ function ArchivedList() {
   };
   const ResetFilters = () => {
     setSectorName("");
+    setreadyToWorkLength({
+      length:"",
+      readyToWorkLength:""
+    })
     setJobName([]);
     setSectors([]);
     setNameOptions([]);
@@ -1043,7 +1066,17 @@ function ArchivedList() {
               )}
             </div>
           </div>
-
+          {
+            readyToWorkLength.length|| readyToWorkLength.readyToWorkLength ? 
+          <>  <div>
+            <p className="filterStyling">
+              There is <span style={{color:"red"}}>{readyToWorkLength.length}{" "}workers total</span>{" "}that match your request and <span style={{color:"blue"}}>{readyToWorkLength.readyToWorkLength}{" "}ready to work</span>
+            </p>
+              </div>
+              </>
+              :
+              ""
+           }
           <>
             {loader ? (
               <>

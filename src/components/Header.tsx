@@ -98,6 +98,8 @@ const Header = (props) => {
   };
 
   const NameSearch = (e) => {
+    let FilDataNo=[]
+    let FilDataNocustomer =[]
     setSpinner(true);
     setSearchOpen(true);
     if (e == null) {
@@ -116,23 +118,30 @@ const Header = (props) => {
       }
 
       if (Number.isInteger(Number(e.target.value))) {
-        const FilDataNo = data.filter((el) =>
+         FilDataNo = data.filter((el) =>
         el.clientPhone !== undefined
           ? el.clientPhone.includes(e.target.value)
           : null
       );
-        checkCandidatePhone(
-          e.target.value.replace("+", "").replace(" ", "")
-        ).then((res) => {
-          if (res.status) {
-            setFilterData([...res.data,...FilDataNo]);
-            
-          } else {
-            // return;
-            setFilterData([...FilDataNo]);
 
-          }
-        });
+       FilDataNocustomer = data.filter((el) =>
+      el.candidatPhone !== undefined
+        ? el.candidatPhone.includes(e.target.value)
+        : null
+    );
+    
+        // checkCandidatePhone(
+        //   e.target.value.replace("+", "").replace(" ", "")
+        // ).then((res) => {
+        //   if (res.status) {
+        //     setFilterData([...res.data,...FilDataNo]);
+            
+        //   } else {
+        //     // return;
+        //     setFilterData([...FilDataNo]);
+
+        //   }
+        // });
     
       }
       if (e.target.value) {
@@ -210,7 +219,7 @@ const Header = (props) => {
             : null
         );
 
-        setFilterData([...FilDataCName, ...FilDataCNName, ...FilData]);
+        setFilterData([...FilDataCName, ...FilDataCNName, ...FilData,...FilDataNocustomer,...FilDataNo]);
       }
     } else if (e.target.value == "") {
       setSearchOpen(false);
