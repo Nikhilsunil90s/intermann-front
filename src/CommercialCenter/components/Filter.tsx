@@ -451,7 +451,7 @@ function Filter(props) {
             <Select
               name="market"
               closeMenuOnSelect={true}
-              placeholder="‎  ‎ ‎  ‎ Assigner a quel resposable ?"
+              placeholder="‎  ‎ ‎  ‎ Telephone Number"
               className="basic-multi-select placeHolderLead"
               classNamePrefix="select"
               onChange={OnReactSelect}

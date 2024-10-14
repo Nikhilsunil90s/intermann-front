@@ -71,6 +71,30 @@ const ClientDataFormat = {
   worker_name_7: "",
   worker_number_8: "",
   worker_name_8: "",
+  worker_number_9: "",
+  worker_name_9: "",
+  worker_number_10: "",
+  worker_name_10: "",
+  worker_number_11: "",
+  worker_name_11: "",
+  worker_number_12: "",
+  worker_name_12: "",
+  worker_number_13: "",
+  worker_name_13: "",
+  worker_number_14: "",
+  worker_name_14: "",
+  worker_number_15: "",
+  worker_name_15: "",
+  worker_number_16: "",
+  worker_name_16: "",
+  worker_number_17: "",
+  worker_name_17: "",
+  worker_number_18: "",
+  worker_name_18: "",
+  worker_number_19: "",
+  worker_name_19: "",
+  worker_number_20: "",
+  worker_name_20: "",
   contractId: "",
   poste_du_gerant: "",
 };
@@ -111,7 +135,7 @@ function ClientSignedEdit() {
   const [selectedLanguages, setSelectedLanguages] = useState(
     profile.clientLanguages
   );
- 
+
   const [clientImage, setClientImage] = useState("");
   const hiddenFileInput = React.useRef(null);
   const [imgSource, setImgSource] = useState("");
@@ -152,14 +176,14 @@ function ClientSignedEdit() {
     if (e.target.name === "salaryH") {
       if (salary.hours !== "" && salary.salary_hours !== "") {
         SalaryTotal.push(salary);
-       
+
       }
     }
 
     if (e.target.name === "tauxH") {
       if (rateHours.hours !== "" && rateHours.rate_hours !== "") {
         TauxH.push(rateHours);
-       
+
       }
     }
   };
@@ -566,235 +590,427 @@ function ClientSignedEdit() {
           data.numero_contract !== ""
             ? data.numero_contract
             : profile.clientContract
-            ? profile.clientContract.numero_contract !== ""
-              ? profile.clientContract.numero_contract
-              : ""
-            : "",
+              ? profile.clientContract.numero_contract !== ""
+                ? profile.clientContract.numero_contract
+                : ""
+              : "",
         initial_client_company:
           data.initial_client_company !== ""
             ? data.initial_client_company
             : profile.clientContract
-            ? profile.clientContract.initial_client_company !== ""
-              ? profile.clientContract.initial_client_company
-              : ""
-            : "",
+              ? profile.clientContract.initial_client_company !== ""
+                ? profile.clientContract.initial_client_company
+                : ""
+              : "",
 
         siret:
           data.siret !== ""
             ? data.siret
             : profile.clientContract
-            ? profile.clientContract.siret !== ""
-              ? profile.clientContract.siret
-              : ""
-            : "",
+              ? profile.clientContract.siret !== ""
+                ? profile.clientContract.siret
+                : ""
+              : "",
         numero_tva:
           data.numero_tva !== ""
             ? data.numero_tva
             : profile.clientContract
-            ? profile.clientContract.numero_tva !== ""
-              ? profile.clientContract.numero_tva
-              : ""
-            : "",
+              ? profile.clientContract.numero_tva !== ""
+                ? profile.clientContract.numero_tva
+                : ""
+              : "",
         nom_gerant:
           data.nom_gerant !== ""
             ? data.nom_gerant
             : profile.clientContract
-            ? profile.clientContract.nom_gerant !== ""
-              ? profile.clientContract.nom_gerant
-              : ""
-            : "",
+              ? profile.clientContract.nom_gerant !== ""
+                ? profile.clientContract.nom_gerant
+                : ""
+              : "",
         telephone_gerant:
           data.telephone_gerant !== ""
             ? data.telephone_gerant
             : profile.clientContract
-            ? profile.clientContract.telephone_gerant !== ""
-              ? profile.clientContract.telephone_gerant
-              : ""
-            : "",
+              ? profile.clientContract.telephone_gerant !== ""
+                ? profile.clientContract.telephone_gerant
+                : ""
+              : "",
         metier_en_roumain:
           data.metier_en_roumain !== ""
             ? data.metier_en_roumain
             : profile.clientContract
-            ? profile.clientContract.metier_en_roumain !== ""
-              ? profile.clientContract.metier_en_roumain
-              : ""
-            : "",
+              ? profile.clientContract.metier_en_roumain !== ""
+                ? profile.clientContract.metier_en_roumain
+                : ""
+              : "",
         metier_en_francais:
           data.metier_en_francais !== ""
             ? data.metier_en_francais
             : profile.clientContract
-            ? profile.clientContract.metier_en_francais !== ""
-              ? profile.clientContract.metier_en_francais
-              : ""
-            : "",
+              ? profile.clientContract.metier_en_francais !== ""
+                ? profile.clientContract.metier_en_francais
+                : ""
+              : "",
         debut_date:
           data.debut_date !== ""
             ? data.debut_date
             : profile.clientContract
-            ? profile.clientContract.debut_date !== ""
-              ? profile.clientContract.debut_date
-              : ""
-            : "",
+              ? profile.clientContract.debut_date !== ""
+                ? profile.clientContract.debut_date
+                : ""
+              : "",
         date_fin_mission:
           data.date_fin_mission !== ""
             ? data.date_fin_mission
             : profile.clientContract
-            ? profile.clientContract.date_fin_mission !== ""
-              ? profile.clientContract.date_fin_mission
-              : ""
-            : "",
+              ? profile.clientContract.date_fin_mission !== ""
+                ? profile.clientContract.date_fin_mission
+                : ""
+              : "",
         prix_per_heure:
           data.prix_per_heure !== ""
             ? data.prix_per_heure
             : profile.clientContract
-            ? profile.clientContract.prix_per_heure !== ""
-              ? profile.clientContract.prix_per_heure
-              : ""
-            : "",
+              ? profile.clientContract.prix_per_heure !== ""
+                ? profile.clientContract.prix_per_heure
+                : ""
+              : "",
         salaire_euro:
           data.salaire_euro !== ""
             ? data.salaire_euro
             : profile.clientContract
-            ? profile.clientContract.salaire_euro !== ""
-              ? profile.clientContract.salaire_euro
-              : ""
-            : "",
+              ? profile.clientContract.salaire_euro !== ""
+                ? profile.clientContract.salaire_euro
+                : ""
+              : "",
         nombre_heure:
           data.nombre_heure !== ""
             ? data.nombre_heure
             : profile.clientContract
-            ? profile.clientContract.nombre_heure !== ""
-              ? profile.clientContract.nombre_heure
-              : ""
-            : "",
+              ? profile.clientContract.nombre_heure !== ""
+                ? profile.clientContract.nombre_heure
+                : ""
+              : "",
         worker_number_1:
           data.worker_number_1 !== ""
             ? data.worker_number_1
             : profile.clientContract
-            ? profile.clientContract.worker_number_1 !== ""
-              ? profile.clientContract.worker_number_1
-              : ""
-            : "",
+              ? profile.clientContract.worker_number_1 !== ""
+                ? profile.clientContract.worker_number_1
+                : ""
+              : "",
         worker_name_1:
           data.worker_name_1 !== ""
             ? data.worker_name_1
             : profile.clientContract
-            ? profile.clientContract.worker_name_1 !== ""
-              ? profile.clientContract.worker_name_1
-              : ""
-            : "",
+              ? profile.clientContract.worker_name_1 !== ""
+                ? profile.clientContract.worker_name_1
+                : ""
+              : "",
         worker_number_2:
           data.worker_number_2 !== ""
             ? data.worker_number_2
             : profile.clientContract
-            ? profile.clientContract.worker_number_2 !== ""
-              ? profile.clientContract.worker_number_2
-              : ""
-            : "",
+              ? profile.clientContract.worker_number_2 !== ""
+                ? profile.clientContract.worker_number_2
+                : ""
+              : "",
         worker_name_2:
           data.worker_name_2 !== ""
             ? data.worker_name_2
             : profile.clientContract
-            ? profile.clientContract.worker_name_2 !== ""
-              ? profile.clientContract.worker_name_2
-              : ""
-            : "",
+              ? profile.clientContract.worker_name_2 !== ""
+                ? profile.clientContract.worker_name_2
+                : ""
+              : "",
         worker_number_3:
           data.worker_number_3 !== ""
             ? data.worker_number_3
             : profile.clientContract
-            ? profile.clientContract.worker_number_3 !== ""
-              ? profile.clientContract.worker_number_3
-              : ""
-            : "",
+              ? profile.clientContract.worker_number_3 !== ""
+                ? profile.clientContract.worker_number_3
+                : ""
+              : "",
         worker_name_3:
           data.worker_name_3 !== ""
             ? data.worker_name_3
             : profile.clientContract
-            ? profile.clientContract.worker_name_3 !== ""
-              ? profile.clientContract.worker_name_3
-              : ""
-            : "",
+              ? profile.clientContract.worker_name_3 !== ""
+                ? profile.clientContract.worker_name_3
+                : ""
+              : "",
         worker_number_4:
           data.worker_number_4 !== ""
             ? data.worker_number_4
             : profile.clientContract
-            ? profile.clientContract.worker_number_4 !== ""
-              ? profile.clientContract.worker_number_4
-              : ""
-            : "",
+              ? profile.clientContract.worker_number_4 !== ""
+                ? profile.clientContract.worker_number_4
+                : ""
+              : "",
         worker_name_4:
           data.worker_name_4 !== ""
             ? data.worker_name_4
             : profile.clientContract
-            ? profile.clientContract.worker_name_4 !== ""
-              ? profile.clientContract.worker_name_4
-              : ""
-            : "",
+              ? profile.clientContract.worker_name_4 !== ""
+                ? profile.clientContract.worker_name_4
+                : ""
+              : "",
         worker_number_5:
           data.worker_number_5 !== ""
             ? data.worker_number_5
             : profile.clientContract
-            ? profile.clientContract.worker_number_5 !== ""
-              ? profile.clientContract.worker_number_5
-              : ""
-            : "",
+              ? profile.clientContract.worker_number_5 !== ""
+                ? profile.clientContract.worker_number_5
+                : ""
+              : "",
         worker_name_5:
           data.worker_name_5 !== ""
             ? data.worker_name_5
             : profile.clientContract
-            ? profile.clientContract.worker_name_5 !== ""
-              ? profile.clientContract.worker_name_5
-              : ""
-            : "",
+              ? profile.clientContract.worker_name_5 !== ""
+                ? profile.clientContract.worker_name_5
+                : ""
+              : "",
         worker_number_6:
           data.worker_number_6 !== ""
             ? data.worker_number_6
             : profile.clientContract
-            ? profile.clientContract.worker_number_6 !== ""
-              ? profile.clientContract.worker_number_6
-              : ""
-            : "",
+              ? profile.clientContract.worker_number_6 !== ""
+                ? profile.clientContract.worker_number_6
+                : ""
+              : "",
         worker_name_6:
           data.worker_name_6 !== ""
             ? data.worker_name_6
             : profile.clientContract
-            ? profile.clientContract.worker_name_6 !== ""
-              ? profile.clientContract.worker_name_6
-              : ""
-            : "",
+              ? profile.clientContract.worker_name_6 !== ""
+                ? profile.clientContract.worker_name_6
+                : ""
+              : "",
         worker_number_7:
           data.worker_number_7 !== ""
             ? data.worker_number_7
             : profile.clientContract
-            ? profile.clientContract.worker_number_7 !== ""
-              ? profile.clientContract.worker_number_7
-              : ""
-            : "",
+              ? profile.clientContract.worker_number_7 !== ""
+                ? profile.clientContract.worker_number_7
+                : ""
+              : "",
         worker_name_7:
           data.worker_name_7 !== ""
             ? data.worker_name_7
             : profile.clientContract
-            ? profile.clientContract.worker_name_7 !== ""
-              ? profile.clientContract.worker_name_7
-              : ""
-            : "",
+              ? profile.clientContract.worker_name_7 !== ""
+                ? profile.clientContract.worker_name_7
+                : ""
+              : "",
         worker_number_8:
           data.worker_number_8 !== ""
             ? data.worker_number_8
             : profile.clientContract
-            ? profile.clientContract.worker_number_8 !== ""
-              ? profile.clientContract.worker_number_8
-              : ""
-            : "",
+              ? profile.clientContract.worker_number_8 !== ""
+                ? profile.clientContract.worker_number_8
+                : ""
+              : "",
         worker_name_8:
           data.worker_name_8 !== ""
             ? data.worker_name_8
             : profile.clientContract
-            ? profile.clientContract.worker_name_8 !== ""
-              ? profile.clientContract.worker_name_8
-              : ""
-            : "",
+              ? profile.clientContract.worker_name_8 !== ""
+                ? profile.clientContract.worker_name_8
+                : ""
+              : "",
+        worker_number_9:
+          data.worker_number_9 !== ""
+            ? data.worker_number_9
+            : profile.clientContract
+              ? profile.clientContract.worker_number_9 !== ""
+                ? profile.clientContract.worker_number_9
+                : ""
+              : "",
+        worker_name_9:
+          data.worker_name_9 !== ""
+            ? data.worker_name_9
+            : profile.clientContract
+              ? profile.clientContract.worker_name_9 !== ""
+                ? profile.clientContract.worker_name_9
+                : ""
+              : "",
+        worker_number_10:
+          data.worker_number_10 !== ""
+            ? data.worker_number_10
+            : profile.clientContract
+              ? profile.clientContract.worker_number_10 !== ""
+                ? profile.clientContract.worker_number_10
+                : ""
+              : "",
+        worker_name_10:
+          data.worker_name_10 !== ""
+            ? data.worker_name_10
+            : profile.clientContract
+              ? profile.clientContract.worker_name_10 !== ""
+                ? profile.clientContract.worker_name_10
+                : ""
+              : "",
+        worker_number_11:
+          data.worker_number_11 !== ""
+            ? data.worker_number_11
+            : profile.clientContract
+              ? profile.clientContract.worker_number_11 !== ""
+                ? profile.clientContract.worker_number_11
+                : ""
+              : "",
+        worker_name_11:
+          data.worker_name_11 !== ""
+            ? data.worker_name_11
+            : profile.clientContract
+              ? profile.clientContract.worker_name_11 !== ""
+                ? profile.clientContract.worker_name_11
+                : ""
+              : "",
+        worker_number_12:
+          data.worker_number_12 !== ""
+            ? data.worker_number_12
+            : profile.clientContract
+              ? profile.clientContract.worker_number_12 !== ""
+                ? profile.clientContract.worker_number_12
+                : ""
+              : "",
+        worker_name_12:
+          data.worker_name_12 !== ""
+            ? data.worker_name_12
+            : profile.clientContract
+              ? profile.clientContract.worker_name_12 !== ""
+                ? profile.clientContract.worker_name_12
+                : ""
+              : "",
+        worker_number_13:
+          data.worker_number_13 !== ""
+            ? data.worker_number_13
+            : profile.clientContract
+              ? profile.clientContract.worker_number_13 !== ""
+                ? profile.clientContract.worker_number_13
+                : ""
+              : "",
+        worker_name_13:
+          data.worker_name_13 !== ""
+            ? data.worker_name_13
+            : profile.clientContract
+              ? profile.clientContract.worker_name_13 !== ""
+                ? profile.clientContract.worker_name_13
+                : ""
+              : "",
+        worker_number_14:
+          data.worker_number_14 !== ""
+            ? data.worker_number_14
+            : profile.clientContract
+              ? profile.clientContract.worker_number_14 !== ""
+                ? profile.clientContract.worker_number_14
+                : ""
+              : "",
+        worker_name_14:
+          data.worker_name_14 !== ""
+            ? data.worker_name_14
+            : profile.clientContract
+              ? profile.clientContract.worker_name_14 !== ""
+                ? profile.clientContract.worker_name_14
+                : ""
+              : "",
+        worker_number_15:
+          data.worker_number_15 !== ""
+            ? data.worker_number_15
+            : profile.clientContract
+              ? profile.clientContract.worker_number_15 !== ""
+                ? profile.clientContract.worker_number_15
+                : ""
+              : "",
+        worker_name_15:
+          data.worker_name_15 !== ""
+            ? data.worker_name_15
+            : profile.clientContract
+              ? profile.clientContract.worker_name_15 !== ""
+                ? profile.clientContract.worker_name_15
+                : ""
+              : "",
+        worker_number_16:
+          data.worker_number_16 !== ""
+            ? data.worker_number_16
+            : profile.clientContract
+              ? profile.clientContract.worker_number_16 !== ""
+                ? profile.clientContract.worker_number_16
+                : ""
+              : "",
+        worker_name_16:
+          data.worker_name_16 !== ""
+            ? data.worker_name_16
+            : profile.clientContract
+              ? profile.clientContract.worker_name_16 !== ""
+                ? profile.clientContract.worker_name_16
+                : ""
+              : "",
+        worker_number_17:
+          data.worker_number_17 !== ""
+            ? data.worker_number_17
+            : profile.clientContract
+              ? profile.clientContract.worker_number_17 !== ""
+                ? profile.clientContract.worker_number_17
+                : ""
+              : "",
+        worker_name_17:
+          data.worker_name_17 !== ""
+            ? data.worker_name_17
+            : profile.clientContract
+              ? profile.clientContract.worker_name_17 !== ""
+                ? profile.clientContract.worker_name_17
+                : ""
+              : "",
+        worker_number_18:
+          data.worker_number_18 !== ""
+            ? data.worker_number_18
+            : profile.clientContract
+              ? profile.clientContract.worker_number_18 !== ""
+                ? profile.clientContract.worker_number_18
+                : ""
+              : "",
+        worker_name_18:
+          data.worker_name_18 !== ""
+            ? data.worker_name_18
+            : profile.clientContract
+              ? profile.clientContract.worker_name_18 !== ""
+                ? profile.clientContract.worker_name_18
+                : ""
+              : "",
+        worker_number_19:
+          data.worker_number_19 !== ""
+            ? data.worker_number_19
+            : profile.clientContract
+              ? profile.clientContract.worker_number_19 !== ""
+                ? profile.clientContract.worker_number_19
+                : ""
+              : "",
+        worker_name_19:
+          data.worker_name_19 !== ""
+            ? data.worker_name_19
+            : profile.clientContract
+              ? profile.clientContract.worker_name_19 !== ""
+                ? profile.clientContract.worker_name_19
+                : ""
+              : "",
+        worker_number_20:
+          data.worker_number_20 !== ""
+            ? data.worker_number_20
+            : profile.clientContract
+              ? profile.clientContract.worker_number_20 !== ""
+                ? profile.clientContract.worker_number_20
+                : ""
+              : "",
+        worker_name_20:
+          data.worker_name_20 !== ""
+            ? data.worker_name_20
+            : profile.clientContract
+              ? profile.clientContract.worker_name_20 !== ""
+                ? profile.clientContract.worker_name_20
+                : ""
+              : "",
         contractId: profile.clientContract
           ? profile.clientContract._id !== ""
             ? profile.clientContract._id
@@ -804,10 +1020,10 @@ function ClientSignedEdit() {
           data.poste_du_gerant !== ""
             ? data.poste_du_gerant
             : profile.clientContract
-            ? profile.clientContract.poste_du_gerant !== ""
-              ? profile.clientContract.poste_du_gerant
-              : ""
-            : "",
+              ? profile.clientContract.poste_du_gerant !== ""
+                ? profile.clientContract.poste_du_gerant
+                : ""
+              : "",
       };
       console.log(updatedData);
       let formdata = new FormData();
@@ -970,519 +1186,6 @@ function ClientSignedEdit() {
         reverseOrder={false}
         containerStyle={{ zIndex: "99999999999999999" }}
       />
-      {/* <div className="container-fluid">
-                <div className="row">
-                    <div className="col-12 top-pd text-center">
-                        <h1 style={{ textDecoration: "underline" }}>EDIT FILE: {profile.clientCompanyName}</h1>
-                    </div>
-                    <form className="form" onSubmit={onFormSubmit}>
-
-                        <div className="col-12 d-flex justify-content-end text-end ">
-                            <Link to="/clientTodo" style={{ textDecoration: "none" }}>
-                                <button className="btn bg-red">
-                                    <img alt="..."
-                                        style={{ width: "25%" }}
-                                        src={require("../../images/multiply.svg").default}
-                                    />
-                                    <p>Cancel</p>
-                                </button>
-                            </Link>
-
-                            <button className="btn btn-save" type="submit">
-                                <img alt="..." src={require("../../images/check.svg").default} />
-                                Save
-                            </button>
-                        </div>
-                        <div className="bg-class">
-                            <div className="col-12 p-3 bg-color-card">
-                                <div className="row">
-                                    <div className="col-3 text-center">
-                                        <img alt="..."
-                                            src={imgSource !== "" ? API_BASE_URL + imgSource : require("../../images/menlogos.svg").default}
-                                            style={{ width: "90%" }}
-                                        />
-
-                                        <button type="button" onClick={handleFileUpload} className="btn btn-upload">
-                                            {
-                                                imgSource ?
-
-                                                    "MODIFIER PHOTO" : "UPLOAD PHOTO"
-                                            }
-                                        </button>
-                                        <input
-                                            type="file"
-                                            ref={hiddenFileInput}
-                                            name="clientPhoto"
-                                            onChange={onFormDataChange}
-                                            style={{ display: 'none' }}
-                                        />
-                                    </div>
-                                    <div className="col-5 card-xl">
-                                        <div className="row">
-                                            <div className="col-12 flex-grid">
-                                                <label>Company Name</label>
-                                                <input className="form-control" name="clientCompanyName" defaultValue={profile.clientCompanyName} onChange={onFormDataChange} />
-                                            </div>
-                                            <div className="col-12 flex-grid pt-3">
-                                                <label>Number of position</label>
-                                                <input name="numberOfPosts" className="form-control" defaultValue={profile.numberOfPosts} />
-                                                <label className="fw-normal">Number only</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-3 text-end end-class" style={{width:"315px"}}>
-                                        <div className="text-center">
-                                        <div className="justify-content-end">
-                    <button type="button" className="btn Signed" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{padding:"10px 15px"}}>
-                      <span style={{ marginRight: "3px" }}><img src={require("../../images/Path.svg").default} /></span>     SIGNED CONTRACT
-                    </button>
-                    <p className="fw-bold mx-2">Lead pas encore traité</p>
-                  <p className="mx-2">Ce lead est en sommeil, pas traité</p>
-                  </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-12 ">
-                                <div className="row">
-                                    <div className="col-6">
-                                        <p className="Arial">Secteur d’Activité</p>
-                                        <div className="dropdown">
-                                            <select
-                                                className="form-select"
-                                                name="clientActivitySector"
-                                                onChange={onFormDataChange}
-                                            >
-                                                <option>Select Un Secteur</option>
-
-                                                {activitySectors.map((sector) =>
-                                                    <option defaultValue={sector.sectorName} selected={profile.clientActivitySector === sector.sectorName}>{sector.sectorName}</option> // fetch from api
-                                                )}
-                                            </select>
-                                        </div>
-                                        <p className="last-child">Langues du Client</p>
-                                        <div>
-                                            <div>
-                                                <input
-                                                    type="checkbox"
-                                                    name="clientLanguages"
-                                                    className="form-check-input"
-                                                    value="Roumain"
-                                                    defaultChecked={profile.clientLanguages.indexOf("Roumain") > -1} onChange={onFormDataChange}
-                                                />
-                                                <span className="ps-2">Roumain</span>
-                                            </div>
-                                            <div>
-                                                <input
-                                                    type="checkbox"
-                                                    name="clientLanguages"
-                                                    className="form-check-input"
-                                                    value="Francais"
-                                                    defaultChecked={profile.clientLanguages.indexOf("Francais") > -1} onChange={onFormDataChange}
-                                                />
-                                                <span className="ps-2">Français</span>
-                                            </div>
-                                            <div>
-                                                <input
-                                                    type="checkbox"
-                                                    name="clientLanguages"
-                                                    className="form-check-input"
-                                                    value="Anglais"
-                                                    defaultChecked={profile.clientLanguages.indexOf("Anglais") > -1} onChange={onFormDataChange}
-                                                />
-                                                <span className="ps-2">Anglais</span>
-                                            </div>
-                                            <div>
-                                                <input
-                                                    type="checkbox"
-                                                    name="clientLanguages"
-                                                    className="form-check-input"
-                                                    value="Italien"
-                                                    defaultChecked={profile.clientLanguages.indexOf("Italien") > -1} onChange={onFormDataChange}
-                                                />
-                                                <span className="ps-2">Italien</span>
-                                            </div>
-                                            <div>
-                                                <input
-                                                    type="checkbox"
-                                                    name="clientLanguages"
-                                                    className="form-check-input"
-                                                    value="Russe"
-                                                    defaultChecked={profile.clientLanguages.indexOf("Russe") > -1} onChange={onFormDataChange}
-                                                />
-                                                <span className="ps-2">Russe</span>
-                                            </div>
-                                            <div>
-                                                <input
-                                                    type="checkbox"
-                                                    name="clientLanguages"
-                                                    className="form-check-input"
-                                                    value="Espagnol"
-                                                    defaultChecked={profile.clientLanguages.indexOf("Espagnol") > -1} onChange={onFormDataChange}
-                                                />
-                                                <span className="ps-2">Espagnol</span>
-                                            </div>
-                                            <div>
-                                                <input
-                                                    type="checkbox"
-                                                    name="clientLanguages"
-                                                    className="form-check-input"
-                                                    value="Autre"
-                                                    defaultChecked={profile.clientLanguages.indexOf("Autre") > -1} onChange={onFormDataChange}
-                                                />
-                                                <span className="ps-2">Autre</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-6">
-                                        <p className="Arial">Metier/Job</p>
-                                        <div className="dropdown">
-                                            <div aria-labelledby="dropdownMenuButton1">
-                                                <select
-                                                    name="clientJob"
-                                                    onChange={onFormDataChange}
-                                                    className="form-select"
-                                                >
-                                                    <option>Select Un Job</option>
-                                                    {
-                                                        jobs.map((job) =>
-                                                            <option defaultValue={profile.clientJob} selected={profile.clientJob === job.jobName}>
-                                                                {job.jobName}
-                                                            </option>
-                                                        )
-                                                    }
-                                                </select>
-
-                                            </div>
-                                        </div>
-                                        <div className="pt-2">
-                                            <div className="card " style={{ padding: "15px" }}>
-                                                <label className="fw-bold">
-                                                    Quand ce client a besoin du(des) travailleur détaché  / When this client needs the posted worker
-                                                </label>
-                                                <br />
-                                                <label className="fw-bold">
-                                                    From date / A PARTIR DE
-                                                </label>
-                                                <input
-                                                    type="date"
-                                                    className="form-control"
-                                                    name="jobStartDate"
-                                                    defaultValue={profile.jobStartDate}
-                                                    onChange={onFormDataChange}
-
-                                                />
-                                                <br />
-                                                <label className="fw-bold">UNTIL DATE / Jusqu’à </label>
-                                                <input
-                                                    type="date"
-                                                    className="form-control"
-                                                    name="jobEndDate"
-                                                    defaultValue={profile.jobEndDate}
-                                                    onChange={onFormDataChange}
-
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-12">
-                                        <div className="row">
-                                            <div className="col-6 flex-grid pt-3">
-                                                <div className="row">
-                                                    <label>Client Motivation</label>
-                                                    <div className="d-flex">
-                                                        <div>
-                                                            <input
-                                                                className="form-check-input"
-                                                                type="radio"
-                                                                name="clientMotivation"
-                                                                value={1}
-                                                                onChange={onFormDataChange}
-                                                                defaultChecked={clientMotivation === 1}
-                                                            />
-                                                            <span className="ps-1">1</span>
-                                                        </div>
-                                                        <div className="ps-3">
-                                                            <input
-                                                                className="form-check-input"
-                                                                type="radio"
-                                                                name="clientMotivation"
-                                                                value={2}
-                                                                onChange={onFormDataChange}
-                                                                defaultChecked={clientMotivation === 2}
-
-                                                            />
-                                                            <span className="ps-1">2</span>
-                                                        </div>
-                                                        <div className="ps-3">
-                                                            <input
-                                                                className="form-check-input"
-                                                                type="radio"
-                                                                name="clientMotivation"
-                                                                value={3}
-                                                                onChange={onFormDataChange}
-                                                                defaultChecked={clientMotivation === 3}
-                                                            />
-                                                            <span className="ps-1">3</span>
-                                                        </div>
-                                                        <div className="ps-3">
-                                                            <input
-                                                                className="form-check-input"
-                                                                type="radio"
-                                                                name="clientMotivation"
-                                                                value={4}
-                                                                onChange={onFormDataChange}
-                                                                defaultChecked={clientMotivation === 4}
-                                                            />
-                                                            <span className="ps-1">4</span>
-                                                        </div>
-                                                        <div className="ps-3">
-                                                            <input
-                                                                className="form-check-input"
-                                                                type="radio"
-                                                                name="clientMotivation"
-                                                                value={5}
-                                                                onChange={onFormDataChange}
-                                                                defaultChecked={clientMotivation === 5}
-                                                            />
-                                                            <span className="ps-1">5</span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-6 pt-1">
-                                                        <label>Client importance</label>
-                                                        <div className="d-flex">
-                                                            <div>
-                                                                <input
-                                                                    className="form-check-input"
-                                                                    type="radio"
-                                                                    value={1}
-                                                                    name="clientImportance"
-                                                                    defaultChecked={clientImportance === 1}
-                                                                    onChange={onFormDataChange}
-                                                                />
-                                                                <span className="ps-1">1</span>
-                                                            </div>
-                                                            <div className="ps-3">
-                                                                <input
-                                                                    className="form-check-input"
-                                                                    type="radio"
-                                                                    name="clientImportance"
-                                                                    value={2}
-                                                                    defaultChecked={clientImportance === 2}
-                                                                    onChange={onFormDataChange}
-                                                                />
-                                                                <span className="ps-1">2</span>
-                                                            </div>
-                                                            <div className="ps-3">
-                                                                <input
-                                                                    className="form-check-input"
-                                                                    type="radio"
-                                                                    name="clientImportance"
-                                                                    value={3}
-                                                                    defaultChecked={clientImportance === 3}
-                                                                    onChange={onFormDataChange}
-                                                                />
-                                                                <span className="ps-1">3</span>
-                                                            </div>
-                                                            <div className="ps-3">
-                                                                <input
-                                                                    className="form-check-input"
-                                                                    type="radio"
-                                                                    name="clientImportance"
-                                                                    value={4}
-                                                                    defaultChecked={clientImportance === 4}
-                                                                    onChange={onFormDataChange}
-                                                                />
-                                                                <span className="ps-1">4</span>
-                                                            </div>
-                                                            <div className="ps-3">
-                                                                <input
-                                                                    className="form-check-input"
-                                                                    type="radio"
-                                                                    name="clientImportance"
-                                                                    value={5}
-                                                                    defaultChecked={clientImportance === 5}
-                                                                    onChange={onFormDataChange}
-                                                                />
-                                                                <span className="ps-1">5</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-12 ">
-                                                        <p className="mb-0 fw-bolder">
-                                                            Permis / Licence drive
-                                                        </p>
-                                                        <div>
-                                                            <input
-                                                                type="radio"
-                                                                name="clientPermis"
-                                                                value="true"
-                                                                className="form-check-input"
-                                                                defaultChecked={profile.clientPermis === true}
-                                                                onChange={onFormDataChange}
-                                                            />
-                                                            <span>Yes(B)</span>
-                                                        </div>
-                                                        <div>
-                                                            <input
-                                                                type="radio"
-                                                                name="clientPermis"
-                                                                value="false"
-                                                                className="form-check-input"
-                                                                defaultChecked={profile.clientPermis === false}
-                                                                onChange={onFormDataChange}
-                                                            />
-                                                            <span>No</span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-12 pt-2 d-grid">
-                                                        <label className="salaire">
-                                                            Chiffre d’Affaire Potentiel / Potential turnover
-                                                        </label>
-                                                        <div>
-                                                            <div
-                                                                className="d-flex amount-fields"
-                                                            >
-                                                                <span>€</span>
-                                                                <input
-                                                                    style={{ marginBottom: "0px" }}
-                                                                    type="number"
-                                                                    className="form-control"
-                                                                    name="jobTotalBudget"
-                                                                    placeholder="Amount"
-                                                                    defaultValue={profile.jobTotalBudget}
-                                                                    onChange={onFormDataChange}
-                                                                />
-                                                                <span>.00</span>
-                                                            </div>
-                                                            <label className="fw-normal">
-                                                                Not mandatory / Potentiel CA généré par ce lead
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-12 pt-2 d-grid">
-                                                        <label className="salaire">
-                                                            Salaire net du salarié / Employee's net salary
-                                                        </label>
-                                                        <div>
-                                                            <div
-                                                                className="d-flex amount-fields"
-                                                            >
-                                                                <span>€</span>
-                                                                <input
-                                                                    style={{ marginBottom: "0px" }}
-                                                                    type="number"
-                                                                    className="form-control"
-                                                                    name="netSalary"
-                                                                    placeholder="Amount"
-                                                                    defaultValue={profile.netSalary}
-                                                                    onChange={onFormDataChange}
-                                                                />
-                                                                <span>.00</span>
-                                                            </div>
-                                                            <label className="fw-normal">
-                                                                Not mandatory / Potentiel CA généré par ce lead
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="col-6 pt-3">
-                                                <p className="Arial">Notes about this client</p>
-                                                <textarea
-                                                    id="skills"
-                                                    name="clientRequiredSkills"
-                                                    className="form-control"
-                                                    defaultValue={profile.clientRequiredSkills}
-                                                    rows={7}
-                                                ></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-12 pt-2">
-                                <div className="col-12">
-                                    <div className="row">
-                                        <div className="col-6 pt-3 flex-grid">
-                                            <label>Company Email</label>
-                                            <input
-                                                placeholder="Company email"
-                                                className="form-control"
-                                                name="clientEmail"
-                                                defaultValue={profile.clientEmail}
-                                            />
-                                        </div>
-                                        <div className="col-6 pt-2 flex-grid">
-                                            <label>Company Phone</label>
-                                            <input
-                                                placeholder="Company phone"
-                                                className="form-control"
-                                                name="clientPhone"
-                                                defaultValue={profile.clientPhone}
-
-                                            />
-                                            <p className="child-label">Use international format</p>
-                                        </div>
-                                        <div className="col-6 pt-1 flex-grid">
-                                            <label>Contact in Company Email</label>
-                                            <input
-                                                placeholder="Company Email Of Contact"
-                                                className="form-control"
-                                                name="clientEmail"
-                                                defaultValue={profile.clientReferenceEmail}
-
-                                            />
-                                        </div>
-                                        <div className="col-6 pt-1 flex-grid">
-                                            <label>Contact in Company Phone Number</label>
-                                            <input
-                                                placeholder="Company number"
-                                                className="form-control"
-                                                name="clientReferenceNumber"
-                                                defaultValue={profile.clientReferenceNumber}
-                                            />
-                                            <p className="child-label">Use international format</p>
-                                        </div>
-                                        <div className="col-6 pt-1 flex-grid">
-                                            <label>Company Adress</label>
-                                            <input
-                                                placeholder="Company Adress"
-                                                className="form-control"
-                                                name="clientAddress"
-                                                defaultValue={profile.clientAddress}
-                                            />
-                                            <p className="child-label">Number only</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-12">
-                                    <div className="row">
-                                        <div className="col-6 d-flex">
-                                            <Link to="/clientToDo" style={{ textDecoration: "none" }}>
-                                                <button type="button" className="btn bg-red">
-                                                    <img alt="..."
-                                                        style={{ width: "25%" }}
-                                                        src={require("../../images/multiply.svg").default}
-                                                    />
-                                                    <p>Cancel</p>
-                                                </button>
-                                            </Link>
-                                            <button className="btn btn-save" type="submit">
-                                                <img alt="..." src={require("../../images/check.svg").default} />
-                                                Save
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div> */}
       <div className="container-fluid">
         <div className="row">
           <form className="form px-0" onSubmit={onFormSubmit}>
@@ -1657,14 +1360,14 @@ function ClientSignedEdit() {
                             selectedSector
                               ? null
                               : {
-                                  label: profile.clientJob,
-                                  value: profile.clientJob,
-                                  color: "#FE8700",
-                                }
+                                label: profile.clientJob,
+                                value: profile.clientJob,
+                                color: "#FE8700",
+                              }
                           } // defaultInputValue={{label:profile.clientJob,value:profile.clientJob,color:"#FE8700"}}
                           onChange={jobChange}
                           options={jobOptions}
-                          //   styles={colourStyles}
+                        //   styles={colourStyles}
                         />
                       </div>
                     </div>
@@ -2032,9 +1735,9 @@ function ClientSignedEdit() {
                                 placeholder={
                                   profile.clientContract
                                     ? profile.clientContract
-                                        .initial_client_company !== ""
+                                      .initial_client_company !== ""
                                       ? profile.clientContract
-                                          .initial_client_company
+                                        .initial_client_company
                                       : "Input Not Available!"
                                     : "Input Not Available!"
                                 }
@@ -2102,7 +1805,7 @@ function ClientSignedEdit() {
                                 placeholder={
                                   profile.clientContract
                                     ? profile.clientContract
-                                        .telephone_gerant !== ""
+                                      .telephone_gerant !== ""
                                       ? profile.clientContract.telephone_gerant
                                       : "Input Not Available!"
                                     : "Input Not Available!"
@@ -2120,7 +1823,7 @@ function ClientSignedEdit() {
                                 placeholder={
                                   profile.clientContract
                                     ? profile.clientContract
-                                        .metier_en_roumain !== ""
+                                      .metier_en_roumain !== ""
                                       ? profile.clientContract.metier_en_roumain
                                       : "Input Not Available!"
                                     : "Input Not Available!"
@@ -2138,9 +1841,9 @@ function ClientSignedEdit() {
                                 placeholder={
                                   profile.clientContract
                                     ? profile.clientContract
-                                        .metier_en_francais !== ""
+                                      .metier_en_francais !== ""
                                       ? profile.clientContract
-                                          .metier_en_francais
+                                        .metier_en_francais
                                       : "Input Not Available!"
                                     : "Input Not Available!"
                                 }
@@ -2176,7 +1879,7 @@ function ClientSignedEdit() {
                                 defaultValue={
                                   profile.clientContract
                                     ? profile.clientContract
-                                        .date_fin_mission !== ""
+                                      .date_fin_mission !== ""
                                       ? profile.clientContract.date_fin_mission
                                       : "Input Not Available!"
                                     : "Input Not Available!"
@@ -2237,24 +1940,6 @@ function ClientSignedEdit() {
                             </div>
                             <div className="col-4  d-grid ">
                               <label className="ClientPDFFormlabel">
-                                $ numero de tel du travailleur 1
-                              </label>
-                              <input
-                                className="form-control inputStyling"
-                                onChange={onFormDataChange}
-                                name="worker_number_1"
-                                placeholder={
-                                  profile.clientContract
-                                    ? profile.clientContract.worker_number_1 !==
-                                      ""
-                                      ? profile.clientContract.worker_number_1
-                                      : "Input Not Available!"
-                                    : "Input Not Available!"
-                                }
-                              />
-                            </div>
-                            <div className="col-4  d-grid ">
-                              <label className="ClientPDFFormlabel">
                                 $ Nom Du Travailleur 1
                               </label>
                               <input
@@ -2266,6 +1951,24 @@ function ClientSignedEdit() {
                                     ? profile.clientContract.worker_name_1 !==
                                       ""
                                       ? profile.clientContract.worker_name_1
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 1
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_1"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_1 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_1
                                       : "Input Not Available!"
                                     : "Input Not Available!"
                                 }
@@ -2525,6 +2228,438 @@ function ClientSignedEdit() {
                             </div>
                             <div className="col-4  d-grid ">
                               <label className="ClientPDFFormlabel">
+                                $ Nom Du Travailleur 9
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_name_9"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_9 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_9
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 9
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_9"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_9 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_9
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 10{" "}
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_10"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_10 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_10
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 10
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_name_10"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_10 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_10
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 11
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_11"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_11 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_11
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>{" "}
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 11
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_name_11"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_11 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_11
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 12
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_12"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_12 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_12
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 12
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_name_12"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_12 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_12
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>{" "}
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 13
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_13"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_13 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_13
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 13
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_name_13"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_13 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_13
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 14
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_14"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_14 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_14
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>{" "}
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 14
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_name_14"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_14 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_14
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 15
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_15"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_15 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_15
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 15
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_name_15"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_15 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_15
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 16
+                              </label>
+                              <input
+                                className="inputStyling form-control"
+                                onChange={onFormDataChange}
+                                name="worker_number_16"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_16 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_16
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 16
+                              </label>
+                              <input
+                                className="inputStyling form-control"
+                                onChange={onFormDataChange}
+                                name="worker_name_16"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_16 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_16
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ Nom Du Travailleur 17
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_name_17"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_17 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_17
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 17
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_17"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_17 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_17
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 18{" "}
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_18"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_18 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_18
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 18
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_name_18"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_18 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_18
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 19
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_19"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_19 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_19
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>{" "}
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 19
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_name_19"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_19 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_19
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 20
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_20"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_20 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_20
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 20
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_name_20"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_20 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_20
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>{" "}
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
                                 $ Poste du Gerant
                               </label>
                               <input
@@ -2701,8 +2836,8 @@ function ClientSignedEdit() {
                                 placeholder={
                                   profile.salary_hours
                                     ? profile.salary_hours.map(
-                                        (el) => el.salaryPerHour
-                                      )[0]
+                                      (el) => el.salaryPerHour
+                                    )[0]
                                     : "Amount"
                                 }
                                 onChange={onInputChange}
@@ -2906,12 +3041,12 @@ function ClientSignedEdit() {
                                 placeholder={
                                   profile.rate_hours
                                     ? profile.rate_hours.map(
-                                        (el) => el.ratePerHour
-                                      )[0]
+                                      (el) => el.ratePerHour
+                                    )[0]
                                     : "Amount"
                                 }
                                 onChange={onInputChange}
-                                // disabled={disableTaux}
+                              // disabled={disableTaux}
                               />
                               <span>.00</span>
                             </div>

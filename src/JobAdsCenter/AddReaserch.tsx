@@ -400,10 +400,6 @@ export default function AddReaserch() {
                   name="JobINRomanian"
                   onChange={onInputChange}
                 />
-                <span className="text-small">
-                  Options are France; Suisse; Romania (select is enough)
-                  required*
-                </span>
               </div>
               <div className="col-4 mt-1">
                 <label className="Form-styling">importance </label>
@@ -445,11 +441,7 @@ export default function AddReaserch() {
                     />{" "}
                   </div>
                 )}
-                <span className="text-small">
-                  Options are Facebook; TikTok; SEO; Google Ads; Ejob; Jooble;
-                  Olx; Public21; Income Call; Undefined; Taboola; Outbrain;
-                  Other; Snapchat; SMS lead (select is enough) required*
-                </span>
+                
               </div>
 
               <div className="col-12 d-grid mt-1">

@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { API_BASE_URL } from "../../config/serverApiConfig";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import Select, {  StylesConfig } from "react-select";
+import Select, { StylesConfig } from "react-select";
 import chroma from "chroma-js";
 import { ColourOption, colourOptions } from "../../Selecteddata/data";
 import RatingCmp from "../../components/AddClientRating/Rating";
@@ -72,6 +72,30 @@ const ClientDataFormat = {
   worker_name_7: "",
   worker_number_8: "",
   worker_name_8: "",
+  worker_number_9: "",
+  worker_name_9: "",
+  worker_number_10: "",
+  worker_name_10: "",
+  worker_number_11: "",
+  worker_name_11: "",
+  worker_number_12: "",
+  worker_name_12: "",
+  worker_number_13: "",
+  worker_name_13: "",
+  worker_number_14: "",
+  worker_name_14: "",
+  worker_number_15: "",
+  worker_name_15: "",
+  worker_number_16: "",
+  worker_name_16: "",
+  worker_number_17: "",
+  worker_name_17: "",
+  worker_number_18: "",
+  worker_name_18: "",
+  worker_number_19: "",
+  worker_name_19: "",
+  worker_number_20: "",
+  worker_name_20: "",
   contractId: "",
   poste_du_gerant: "",
 };
@@ -418,17 +442,17 @@ function ClientTodoEdit() {
         backgroundColor: isDisabled
           ? undefined
           : isSelected
-          ? data.color
-          : isFocused
-          ? color.alpha(0.1).css()
-          : undefined,
+            ? data.color
+            : isFocused
+              ? color.alpha(0.1).css()
+              : undefined,
         color: isDisabled
           ? "#ccc"
           : isSelected
-          ? chroma.contrast(color, "white") > 2
-            ? "white"
-            : "black"
-          : data.color,
+            ? chroma.contrast(color, "white") > 2
+              ? "white"
+              : "black"
+            : data.color,
         cursor: isDisabled ? "not-allowed" : "default",
 
         ":active": {
@@ -686,235 +710,427 @@ function ClientTodoEdit() {
           data.numero_contract !== ""
             ? data.numero_contract
             : profile.clientContract
-            ? profile.clientContract.numero_contract !== ""
-              ? profile.clientContract.numero_contract
-              : ""
-            : "",
+              ? profile.clientContract.numero_contract !== ""
+                ? profile.clientContract.numero_contract
+                : ""
+              : "",
         initial_client_company:
           data.initial_client_company !== ""
             ? data.initial_client_company
             : profile.clientContract
-            ? profile.clientContract.initial_client_company !== ""
-              ? profile.clientContract.initial_client_company
-              : ""
-            : "",
+              ? profile.clientContract.initial_client_company !== ""
+                ? profile.clientContract.initial_client_company
+                : ""
+              : "",
 
         siret:
           data.siret !== ""
             ? data.siret
             : profile.clientContract
-            ? profile.clientContract.siret !== ""
-              ? profile.clientContract.siret
-              : ""
-            : "",
+              ? profile.clientContract.siret !== ""
+                ? profile.clientContract.siret
+                : ""
+              : "",
         numero_tva:
           data.numero_tva !== ""
             ? data.numero_tva
             : profile.clientContract
-            ? profile.clientContract.numero_tva !== ""
-              ? profile.clientContract.numero_tva
-              : ""
-            : "",
+              ? profile.clientContract.numero_tva !== ""
+                ? profile.clientContract.numero_tva
+                : ""
+              : "",
         nom_gerant:
           data.nom_gerant !== ""
             ? data.nom_gerant
             : profile.clientContract
-            ? profile.clientContract.nom_gerant !== ""
-              ? profile.clientContract.nom_gerant
-              : ""
-            : "",
+              ? profile.clientContract.nom_gerant !== ""
+                ? profile.clientContract.nom_gerant
+                : ""
+              : "",
         telephone_gerant:
           data.telephone_gerant !== ""
             ? data.telephone_gerant
             : profile.clientContract
-            ? profile.clientContract.telephone_gerant !== ""
-              ? profile.clientContract.telephone_gerant
-              : ""
-            : "",
+              ? profile.clientContract.telephone_gerant !== ""
+                ? profile.clientContract.telephone_gerant
+                : ""
+              : "",
         metier_en_roumain:
           data.metier_en_roumain !== ""
             ? data.metier_en_roumain
             : profile.clientContract
-            ? profile.clientContract.metier_en_roumain !== ""
-              ? profile.clientContract.metier_en_roumain
-              : ""
-            : "",
+              ? profile.clientContract.metier_en_roumain !== ""
+                ? profile.clientContract.metier_en_roumain
+                : ""
+              : "",
         metier_en_francais:
           data.metier_en_francais !== ""
             ? data.metier_en_francais
             : profile.clientContract
-            ? profile.clientContract.metier_en_francais !== ""
-              ? profile.clientContract.metier_en_francais
-              : ""
-            : "",
+              ? profile.clientContract.metier_en_francais !== ""
+                ? profile.clientContract.metier_en_francais
+                : ""
+              : "",
         debut_date:
           data.debut_date !== ""
             ? data.debut_date
             : profile.clientContract
-            ? profile.clientContract.debut_date !== ""
-              ? profile.clientContract.debut_date
-              : ""
-            : "",
+              ? profile.clientContract.debut_date !== ""
+                ? profile.clientContract.debut_date
+                : ""
+              : "",
         date_fin_mission:
           data.date_fin_mission !== ""
             ? data.date_fin_mission
             : profile.clientContract
-            ? profile.clientContract.date_fin_mission !== ""
-              ? profile.clientContract.date_fin_mission
-              : ""
-            : "",
+              ? profile.clientContract.date_fin_mission !== ""
+                ? profile.clientContract.date_fin_mission
+                : ""
+              : "",
         prix_per_heure:
           data.prix_per_heure !== ""
             ? data.prix_per_heure
             : profile.clientContract
-            ? profile.clientContract.prix_per_heure !== ""
-              ? profile.clientContract.prix_per_heure
-              : ""
-            : "",
+              ? profile.clientContract.prix_per_heure !== ""
+                ? profile.clientContract.prix_per_heure
+                : ""
+              : "",
         salaire_euro:
           data.salaire_euro !== ""
             ? data.salaire_euro
             : profile.clientContract
-            ? profile.clientContract.salaire_euro !== ""
-              ? profile.clientContract.salaire_euro
-              : ""
-            : "",
+              ? profile.clientContract.salaire_euro !== ""
+                ? profile.clientContract.salaire_euro
+                : ""
+              : "",
         nombre_heure:
           data.nombre_heure !== ""
             ? data.nombre_heure
             : profile.clientContract
-            ? profile.clientContract.nombre_heure !== ""
-              ? profile.clientContract.nombre_heure
-              : ""
-            : "",
+              ? profile.clientContract.nombre_heure !== ""
+                ? profile.clientContract.nombre_heure
+                : ""
+              : "",
         worker_number_1:
           data.worker_number_1 !== ""
             ? data.worker_number_1
             : profile.clientContract
-            ? profile.clientContract.worker_number_1 !== ""
-              ? profile.clientContract.worker_number_1
-              : ""
-            : "",
+              ? profile.clientContract.worker_number_1 !== ""
+                ? profile.clientContract.worker_number_1
+                : ""
+              : "",
         worker_name_1:
           data.worker_name_1 !== ""
             ? data.worker_name_1
             : profile.clientContract
-            ? profile.clientContract.worker_name_1 !== ""
-              ? profile.clientContract.worker_name_1
-              : ""
-            : "",
+              ? profile.clientContract.worker_name_1 !== ""
+                ? profile.clientContract.worker_name_1
+                : ""
+              : "",
         worker_number_2:
           data.worker_number_2 !== ""
             ? data.worker_number_2
             : profile.clientContract
-            ? profile.clientContract.worker_number_2 !== ""
-              ? profile.clientContract.worker_number_2
-              : ""
-            : "",
+              ? profile.clientContract.worker_number_2 !== ""
+                ? profile.clientContract.worker_number_2
+                : ""
+              : "",
         worker_name_2:
           data.worker_name_2 !== ""
             ? data.worker_name_2
             : profile.clientContract
-            ? profile.clientContract.worker_name_2 !== ""
-              ? profile.clientContract.worker_name_2
-              : ""
-            : "",
+              ? profile.clientContract.worker_name_2 !== ""
+                ? profile.clientContract.worker_name_2
+                : ""
+              : "",
         worker_number_3:
           data.worker_number_3 !== ""
             ? data.worker_number_3
             : profile.clientContract
-            ? profile.clientContract.worker_number_3 !== ""
-              ? profile.clientContract.worker_number_3
-              : ""
-            : "",
+              ? profile.clientContract.worker_number_3 !== ""
+                ? profile.clientContract.worker_number_3
+                : ""
+              : "",
         worker_name_3:
           data.worker_name_3 !== ""
             ? data.worker_name_3
             : profile.clientContract
-            ? profile.clientContract.worker_name_3 !== ""
-              ? profile.clientContract.worker_name_3
-              : ""
-            : "",
+              ? profile.clientContract.worker_name_3 !== ""
+                ? profile.clientContract.worker_name_3
+                : ""
+              : "",
         worker_number_4:
           data.worker_number_4 !== ""
             ? data.worker_number_4
             : profile.clientContract
-            ? profile.clientContract.worker_number_4 !== ""
-              ? profile.clientContract.worker_number_4
-              : ""
-            : "",
+              ? profile.clientContract.worker_number_4 !== ""
+                ? profile.clientContract.worker_number_4
+                : ""
+              : "",
         worker_name_4:
           data.worker_name_4 !== ""
             ? data.worker_name_4
             : profile.clientContract
-            ? profile.clientContract.worker_name_4 !== ""
-              ? profile.clientContract.worker_name_4
-              : ""
-            : "",
+              ? profile.clientContract.worker_name_4 !== ""
+                ? profile.clientContract.worker_name_4
+                : ""
+              : "",
         worker_number_5:
           data.worker_number_5 !== ""
             ? data.worker_number_5
             : profile.clientContract
-            ? profile.clientContract.worker_number_5 !== ""
-              ? profile.clientContract.worker_number_5
-              : ""
-            : "",
+              ? profile.clientContract.worker_number_5 !== ""
+                ? profile.clientContract.worker_number_5
+                : ""
+              : "",
         worker_name_5:
           data.worker_name_5 !== ""
             ? data.worker_name_5
             : profile.clientContract
-            ? profile.clientContract.worker_name_5 !== ""
-              ? profile.clientContract.worker_name_5
-              : ""
-            : "",
+              ? profile.clientContract.worker_name_5 !== ""
+                ? profile.clientContract.worker_name_5
+                : ""
+              : "",
         worker_number_6:
           data.worker_number_6 !== ""
             ? data.worker_number_6
             : profile.clientContract
-            ? profile.clientContract.worker_number_6 !== ""
-              ? profile.clientContract.worker_number_6
-              : ""
-            : "",
+              ? profile.clientContract.worker_number_6 !== ""
+                ? profile.clientContract.worker_number_6
+                : ""
+              : "",
         worker_name_6:
           data.worker_name_6 !== ""
             ? data.worker_name_6
             : profile.clientContract
-            ? profile.clientContract.worker_name_6 !== ""
-              ? profile.clientContract.worker_name_6
-              : ""
-            : "",
+              ? profile.clientContract.worker_name_6 !== ""
+                ? profile.clientContract.worker_name_6
+                : ""
+              : "",
         worker_number_7:
           data.worker_number_7 !== ""
             ? data.worker_number_7
             : profile.clientContract
-            ? profile.clientContract.worker_number_7 !== ""
-              ? profile.clientContract.worker_number_7
-              : ""
-            : "",
+              ? profile.clientContract.worker_number_7 !== ""
+                ? profile.clientContract.worker_number_7
+                : ""
+              : "",
         worker_name_7:
           data.worker_name_7 !== ""
             ? data.worker_name_7
             : profile.clientContract
-            ? profile.clientContract.worker_name_7 !== ""
-              ? profile.clientContract.worker_name_7
-              : ""
-            : "",
+              ? profile.clientContract.worker_name_7 !== ""
+                ? profile.clientContract.worker_name_7
+                : ""
+              : "",
         worker_number_8:
           data.worker_number_8 !== ""
             ? data.worker_number_8
             : profile.clientContract
-            ? profile.clientContract.worker_number_8 !== ""
-              ? profile.clientContract.worker_number_8
-              : ""
-            : "",
+              ? profile.clientContract.worker_number_8 !== ""
+                ? profile.clientContract.worker_number_8
+                : ""
+              : "",
         worker_name_8:
           data.worker_name_8 !== ""
             ? data.worker_name_8
             : profile.clientContract
-            ? profile.clientContract.worker_name_8 !== ""
-              ? profile.clientContract.worker_name_8
-              : ""
-            : "",
+              ? profile.clientContract.worker_name_8 !== ""
+                ? profile.clientContract.worker_name_8
+                : ""
+              : "",
+        worker_name_9:
+          data.worker_name_9 !== ""
+            ? data.worker_name_9
+            : profile.clientContract
+              ? profile.clientContract.worker_name_9 !== ""
+                ? profile.clientContract.worker_name_9
+                : ""
+              : "",
+        worker_number_9:
+          data.worker_number_9 !== ""
+            ? data.worker_number_9
+            : profile.clientContract
+              ? profile.clientContract.worker_number_9 !== ""
+                ? profile.clientContract.worker_number_9
+                : ""
+              : "",
+        worker_name_10:
+          data.worker_name_10 !== ""
+            ? data.worker_name_10
+            : profile.clientContract
+              ? profile.clientContract.worker_name_10 !== ""
+                ? profile.clientContract.worker_name_10
+                : ""
+              : "",
+        worker_number_10:
+          data.worker_number_10 !== ""
+            ? data.worker_number_10
+            : profile.clientContract
+              ? profile.clientContract.worker_number_10 !== ""
+                ? profile.clientContract.worker_number_10
+                : ""
+              : "",
+        worker_name_11:
+          data.worker_name_11 !== ""
+            ? data.worker_name_11
+            : profile.clientContract
+              ? profile.clientContract.worker_name_11 !== ""
+                ? profile.clientContract.worker_name_11
+                : ""
+              : "",
+        worker_number_11:
+          data.worker_number_11 !== ""
+            ? data.worker_number_11
+            : profile.clientContract
+              ? profile.clientContract.worker_number_11 !== ""
+                ? profile.clientContract.worker_number_11
+                : ""
+              : "",
+        worker_name_12:
+          data.worker_name_12 !== ""
+            ? data.worker_name_12
+            : profile.clientContract
+              ? profile.clientContract.worker_name_12 !== ""
+                ? profile.clientContract.worker_name_12
+                : ""
+              : "",
+        worker_number_12:
+          data.worker_number_12 !== ""
+            ? data.worker_number_12
+            : profile.clientContract
+              ? profile.clientContract.worker_number_12 !== ""
+                ? profile.clientContract.worker_number_12
+                : ""
+              : "",
+        worker_name_13:
+          data.worker_name_13 !== ""
+            ? data.worker_name_13
+            : profile.clientContract
+              ? profile.clientContract.worker_name_13 !== ""
+                ? profile.clientContract.worker_name_13
+                : ""
+              : "",
+        worker_number_13:
+          data.worker_number_13 !== ""
+            ? data.worker_number_13
+            : profile.clientContract
+              ? profile.clientContract.worker_number_13 !== ""
+                ? profile.clientContract.worker_number_13
+                : ""
+              : "",
+        worker_name_14:
+          data.worker_name_14 !== ""
+            ? data.worker_name_14
+            : profile.clientContract
+              ? profile.clientContract.worker_name_14 !== ""
+                ? profile.clientContract.worker_name_14
+                : ""
+              : "",
+        worker_number_14:
+          data.worker_number_14 !== ""
+            ? data.worker_number_14
+            : profile.clientContract
+              ? profile.clientContract.worker_number_14 !== ""
+                ? profile.clientContract.worker_number_14
+                : ""
+              : "",
+        worker_name_15:
+          data.worker_name_15 !== ""
+            ? data.worker_name_15
+            : profile.clientContract
+              ? profile.clientContract.worker_name_15 !== ""
+                ? profile.clientContract.worker_name_15
+                : ""
+              : "",
+        worker_number_15:
+          data.worker_number_15 !== ""
+            ? data.worker_number_15
+            : profile.clientContract
+              ? profile.clientContract.worker_number_15 !== ""
+                ? profile.clientContract.worker_number_15
+                : ""
+              : "",
+        worker_name_16:
+          data.worker_name_16 !== ""
+            ? data.worker_name_16
+            : profile.clientContract
+              ? profile.clientContract.worker_name_16 !== ""
+                ? profile.clientContract.worker_name_16
+                : ""
+              : "",
+        worker_number_16:
+          data.worker_number_16 !== ""
+            ? data.worker_number_16
+            : profile.clientContract
+              ? profile.clientContract.worker_number_16 !== ""
+                ? profile.clientContract.worker_number_16
+                : ""
+              : "",
+        worker_name_17:
+          data.worker_name_17 !== ""
+            ? data.worker_name_17
+            : profile.clientContract
+              ? profile.clientContract.worker_name_17 !== ""
+                ? profile.clientContract.worker_name_17
+                : ""
+              : "",
+        worker_number_17:
+          data.worker_number_17 !== ""
+            ? data.worker_number_17
+            : profile.clientContract
+              ? profile.clientContract.worker_number_17 !== ""
+                ? profile.clientContract.worker_number_17
+                : ""
+              : "",
+        worker_name_18:
+          data.worker_name_18 !== ""
+            ? data.worker_name_18
+            : profile.clientContract
+              ? profile.clientContract.worker_name_18 !== ""
+                ? profile.clientContract.worker_name_18
+                : ""
+              : "",
+        worker_number_18:
+          data.worker_number_18 !== ""
+            ? data.worker_number_18
+            : profile.clientContract
+              ? profile.clientContract.worker_number_18 !== ""
+                ? profile.clientContract.worker_number_18
+                : ""
+              : "",
+        worker_name_19:
+          data.worker_name_19 !== ""
+            ? data.worker_name_19
+            : profile.clientContract
+              ? profile.clientContract.worker_name_19 !== ""
+                ? profile.clientContract.worker_name_19
+                : ""
+              : "",
+        worker_number_19:
+          data.worker_number_19 !== ""
+            ? data.worker_number_19
+            : profile.clientContract
+              ? profile.clientContract.worker_number_19 !== ""
+                ? profile.clientContract.worker_number_19
+                : ""
+              : "",
+        worker_name_20:
+          data.worker_name_20 !== ""
+            ? data.worker_name_20
+            : profile.clientContract
+              ? profile.clientContract.worker_name_20 !== ""
+                ? profile.clientContract.worker_name_20
+                : ""
+              : "",
+        worker_number_20:
+          data.worker_number_20 !== ""
+            ? data.worker_number_20
+            : profile.clientContract
+              ? profile.clientContract.worker_number_20 !== ""
+                ? profile.clientContract.worker_number_20
+                : ""
+              : "",
         contractId: profile.clientContract
           ? profile.clientContract._id !== ""
             ? profile.clientContract._id
@@ -924,10 +1140,10 @@ function ClientTodoEdit() {
           data.poste_du_gerant !== ""
             ? data.poste_du_gerant
             : profile.clientContract
-            ? profile.clientContract.poste_du_gerant !== ""
-              ? profile.clientContract.poste_du_gerant
-              : ""
-            : "",
+              ? profile.clientContract.poste_du_gerant !== ""
+                ? profile.clientContract.poste_du_gerant
+                : ""
+              : "",
       };
       console.log(updatedData);
       let formdata = new FormData();
@@ -1180,10 +1396,10 @@ function ClientTodoEdit() {
                               selectedSector
                                 ? null
                                 : {
-                                    label: profile.clientJob,
-                                    value: profile.clientJob,
-                                    color: "#FE8700",
-                                  }
+                                  label: profile.clientJob,
+                                  value: profile.clientJob,
+                                  color: "#FE8700",
+                                }
                             }
                             // defaultInputValue={{label:profile.clientJob,value:profile.clientJob,color:"#FE8700"}}
                             onChange={jobChange}
@@ -1558,9 +1774,9 @@ function ClientTodoEdit() {
                                 placeholder={
                                   profile.clientContract
                                     ? profile.clientContract
-                                        .initial_client_company !== ""
+                                      .initial_client_company !== ""
                                       ? profile.clientContract
-                                          .initial_client_company
+                                        .initial_client_company
                                       : "Input Not Available!"
                                     : "Input Not Available!"
                                 }
@@ -1628,7 +1844,7 @@ function ClientTodoEdit() {
                                 placeholder={
                                   profile.clientContract
                                     ? profile.clientContract
-                                        .telephone_gerant !== ""
+                                      .telephone_gerant !== ""
                                       ? profile.clientContract.telephone_gerant
                                       : "Input Not Available!"
                                     : "Input Not Available!"
@@ -1646,7 +1862,7 @@ function ClientTodoEdit() {
                                 placeholder={
                                   profile.clientContract
                                     ? profile.clientContract
-                                        .metier_en_roumain !== ""
+                                      .metier_en_roumain !== ""
                                       ? profile.clientContract.metier_en_roumain
                                       : "Input Not Available!"
                                     : "Input Not Available!"
@@ -1664,9 +1880,9 @@ function ClientTodoEdit() {
                                 placeholder={
                                   profile.clientContract
                                     ? profile.clientContract
-                                        .metier_en_francais !== ""
+                                      .metier_en_francais !== ""
                                       ? profile.clientContract
-                                          .metier_en_francais
+                                        .metier_en_francais
                                       : "Input Not Available!"
                                     : "Input Not Available!"
                                 }
@@ -1702,7 +1918,7 @@ function ClientTodoEdit() {
                                 defaultValue={
                                   profile.clientContract
                                     ? profile.clientContract
-                                        .date_fin_mission !== ""
+                                      .date_fin_mission !== ""
                                       ? profile.clientContract.date_fin_mission
                                       : "Input Not Available!"
                                     : "Input Not Available!"
@@ -1763,24 +1979,6 @@ function ClientTodoEdit() {
                             </div>
                             <div className="col-4  d-grid ">
                               <label className="ClientPDFFormlabel">
-                                $ numero de tel du travailleur 1
-                              </label>
-                              <input
-                                className="form-control inputStyling"
-                                onChange={onFormDataChange}
-                                name="worker_number_1"
-                                placeholder={
-                                  profile.clientContract
-                                    ? profile.clientContract.worker_number_1 !==
-                                      ""
-                                      ? profile.clientContract.worker_number_1
-                                      : "Input Not Available!"
-                                    : "Input Not Available!"
-                                }
-                              />
-                            </div>
-                            <div className="col-4  d-grid ">
-                              <label className="ClientPDFFormlabel">
                                 $ Nom Du Travailleur 1
                               </label>
                               <input
@@ -1792,6 +1990,24 @@ function ClientTodoEdit() {
                                     ? profile.clientContract.worker_name_1 !==
                                       ""
                                       ? profile.clientContract.worker_name_1
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 1
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_1"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_1 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_1
                                       : "Input Not Available!"
                                     : "Input Not Available!"
                                 }
@@ -1835,7 +2051,7 @@ function ClientTodoEdit() {
                             </div>
                             <div className="col-4  d-grid ">
                               <label className="ClientPDFFormlabel">
-                                $ nom du travailleur3
+                                $ nom du travailleur 3
                               </label>
                               <input
                                 className="form-control inputStyling"
@@ -2051,6 +2267,438 @@ function ClientTodoEdit() {
                             </div>
                             <div className="col-4  d-grid ">
                               <label className="ClientPDFFormlabel">
+                                $ Nom Du Travailleur 9
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_name_9"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_9 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_9
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 9
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_9"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_9 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_9
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 10{" "}
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_10"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_10 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_10
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 10
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_name_10"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_10 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_10
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 11
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_11"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_11 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_11
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>{" "}
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 11
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_name_11"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_11 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_11
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 12
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_12"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_12 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_12
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 12
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_name_12"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_12 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_12
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>{" "}
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 13
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_13"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_13 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_13
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 13
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_name_13"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_13 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_13
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 14
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_14"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_14 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_14
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>{" "}
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 14
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_name_14"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_14 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_14
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 15
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_number_15"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_15 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_15
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 15
+                              </label>
+                              <input
+                                className="form-control inputStyling"
+                                onChange={onFormDataChange}
+                                name="worker_name_15"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_15 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_15
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 16
+                              </label>
+                              <input
+                                className="inputStyling form-control"
+                                onChange={onFormDataChange}
+                                name="worker_number_16"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_16 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_16
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 16
+                              </label>
+                              <input
+                                className="inputStyling form-control"
+                                onChange={onFormDataChange}
+                                name="worker_name_16"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_16 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_16
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 17
+                              </label>
+                              <input
+                                className="inputStyling form-control"
+                                onChange={onFormDataChange}
+                                name="worker_number_17"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_17 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_17
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 17
+                              </label>
+                              <input
+                                className="inputStyling form-control"
+                                onChange={onFormDataChange}
+                                name="worker_name_17"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_17 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_17
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 18
+                              </label>
+                              <input
+                                className="inputStyling form-control"
+                                onChange={onFormDataChange}
+                                name="worker_number_18"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_18 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_18
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 18
+                              </label>
+                              <input
+                                className="inputStyling form-control"
+                                onChange={onFormDataChange}
+                                name="worker_name_18"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_18 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_18
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 19
+                              </label>
+                              <input
+                                className="inputStyling form-control"
+                                onChange={onFormDataChange}
+                                name="worker_number_19"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_19 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_19
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 19
+                              </label>
+                              <input
+                                className="inputStyling form-control"
+                                onChange={onFormDataChange}
+                                name="worker_name_19"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_19 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_19
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ nom du travailleur 20
+                              </label>
+                              <input
+                                className="inputStyling form-control"
+                                onChange={onFormDataChange}
+                                name="worker_number_20"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_number_20 !==
+                                      ""
+                                      ? profile.clientContract.worker_number_20
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
+                                $ numero de tel du travailleur 20
+                              </label>
+                              <input
+                                className="inputStyling form-control"
+                                onChange={onFormDataChange}
+                                name="worker_name_20"
+                                placeholder={
+                                  profile.clientContract
+                                    ? profile.clientContract.worker_name_20 !==
+                                      ""
+                                      ? profile.clientContract.worker_name_20
+                                      : "Input Not Available!"
+                                    : "Input Not Available!"
+                                }
+                              />
+                            </div>
+                            <div className="col-4  d-grid ">
+                              <label className="ClientPDFFormlabel">
                                 $ Poste du Gerant
                               </label>
                               <input
@@ -2226,8 +2874,8 @@ function ClientTodoEdit() {
                                 defaultValue={
                                   profile.salary_hours
                                     ? profile.salary_hours.map(
-                                        (el) => el.salaryPerHour
-                                      )[0]
+                                      (el) => el.salaryPerHour
+                                    )[0]
                                     : "0"
                                 }
                                 name="salary_hours"
@@ -2435,11 +3083,11 @@ function ClientTodoEdit() {
                                 defaultValue={
                                   profile.rate_hours
                                     ? profile.rate_hours.map(
-                                        (el) => el.ratePerHour
-                                      )[0]
+                                      (el) => el.ratePerHour
+                                    )[0]
                                     : "0"
                                 }
-                                // disabled={disableTaux}
+                              // disabled={disableTaux}
                               />
                               <span>.00</span>
                             </div>

@@ -140,7 +140,7 @@ function ViewOffer() {
           <div className="col-12 footerDocSign bg-ContractPage">
             {pdfTimeOut ? (
               <button className="btn" onClick={(e) => SignDocu(e)}>
-                ✒️ incepe CONTRACTUL(sign)
+                ✒️ Signer l'Offre
               </button>
             ) : (
               <div className="col-12 d-flex justify-content-center px-1">

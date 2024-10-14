@@ -72,28 +72,9 @@ import { API_BASE_URL } from "./config/serverApiConfig";
 import ReleaseVersionBanner from "./components/ReleaseVersionBanner/releaseVersionBanner";
 
 function App() {
+
   const [isLoading, setIsLoading] = useState(true);
-  const [releaseVersionAlert, setReleaseVersionAlert] = useState(false);
-  const [storedVersion, setStoredVersion] = useState(JSON.parse(localStorage.getItem('versionData')) || null)
-
-  useEffect(() => {
-    const checkReleaseVersion = async () => {
-      let versionResponse = await fetch(API_BASE_URL + 'check-heroku-updates')
-      let versionData = await versionResponse.json();
-
-      if (storedVersion !== null && JSON.stringify(storedVersion) === JSON.stringify(versionData)) {
-        console.log("Version Data Not Changed - ", storedVersion, versionData);
-        setReleaseVersionAlert(false);
-      } else {
-        localStorage.setItem('versionData', JSON.stringify(versionData));
-        console.log("Version Data Changed - ", storedVersion, versionData);
-        setReleaseVersionAlert(true);
-      }
-    }
-
-    checkReleaseVersion()
-  }, [])
-
+  
   useEffect(() => {
     // Simulating a delay for loading purposes
     setTimeout(() => {
@@ -109,9 +90,6 @@ function App() {
       </Helmet>
       <Provider store={configureStore}>
         <Router>
-          {
-            releaseVersionAlert ? <ReleaseVersionBanner versionAlert={setReleaseVersionAlert} message={"A New Version for Intermann CRM has been released. Please Click on the Button on Right to update your CRM!"}/> : null
-          }
           {
             isLoading ?
             <div style={{height:"100vh" ,width:"100%"}} className="d-flex justify-content-center align-items-center ">

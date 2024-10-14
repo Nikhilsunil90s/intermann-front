@@ -214,9 +214,7 @@ function OfferSigned() {
                 <p className=" mb-0 topTitle">
                   Va rog semnati aici :{" "}
                   <span style={{ color: "#ffff" }}>
-                    I declare that I have read the contract and accept it in its
-                    entirety. Declar că am citit contractul și îl accept în
-                    întregime.Adresa dvs. IP va fi înregistrată
+                    Je déclare avoir lu et compris l'offre, et j'accepte que l'agence Intermann lance des recherches.
                   </span>
                 </p>
               </div>
@@ -298,7 +296,7 @@ function OfferSigned() {
                   />{" "}
                 </div>
               ) : (
-                "📨 acepta si semneaza accept and sign"
+                "📨 J'accepte et Je Signe l'Offre"
               )}
             </button>
           </div>

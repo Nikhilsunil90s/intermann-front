@@ -11,7 +11,8 @@ import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 import { GetRoute } from "./ApisFunction/FunctionsApi";
 import useCountDown from 'react-countdown-hook';
-
+import { API_BASE_URL } from "../config/serverApiConfig";
+import ReleaseVersionBanner from "./ReleaseVersionBanner/releaseVersionBanner";
 
 function Sidebar(props: any) {
   const [onHover, setOnHover] = useState({
@@ -37,6 +38,28 @@ function Sidebar(props: any) {
   const navigate = useNavigate();
   const LogNotify = () => toast.success("Log-Out!");
   const [onClickBarOpenClose, setOnClickBarOpen] = useState(true);
+
+  const [releaseVersionAlert, setReleaseVersionAlert] = useState(false);
+  const [storedVersion, setStoredVersion] = useState(JSON.parse(localStorage.getItem('versionData')) || null)
+
+  useEffect(() => {
+    const checkReleaseVersion = async () => {
+      let versionResponse = await fetch(API_BASE_URL + 'check-heroku-updates')
+      let versionData = await versionResponse.json();
+
+      if (storedVersion !== null && JSON.stringify(storedVersion) === JSON.stringify(versionData)) {
+        console.log("Version Data Not Changed - ", storedVersion, versionData);
+        setReleaseVersionAlert(false);
+      } else {
+        localStorage.setItem('versionData', JSON.stringify(versionData));
+        console.log("Version Data Changed - ", storedVersion, versionData);
+        setReleaseVersionAlert(true);
+      }
+    }
+
+    checkReleaseVersion()
+  }, [])
+
 
 
   const LogOut = async () => {
@@ -118,6 +141,9 @@ function Sidebar(props: any) {
   return (
     <>
       <Toaster position="top-right" />
+      {
+            releaseVersionAlert ? <ReleaseVersionBanner versionAlert={setReleaseVersionAlert} message={"A New Version for Intermann CRM has been released. Please Click on the Button on Right to update your CRM!"}/> : null
+      }
       <div
         className="container-fluid"
         style={{ height: "100%", backgroundColor: "white", zIndex: 9000000 }}

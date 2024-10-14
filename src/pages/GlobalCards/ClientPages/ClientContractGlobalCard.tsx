@@ -1355,13 +1355,13 @@ function Signed() {
                         :{" "}
                         {profile.salary_hours.length > 0
                           ? profile.salary_hours.includes(
-                              profile.salary_hours.salaryPerHour
-                            )
+                            profile.salary_hours.salaryPerHour
+                          )
                             ? profile.salary_hours
-                                .map((el, i) => {
-                                  return el.salaryPerHour + "€";
-                                })
-                                .slice(0, 1)
+                              .map((el, i) => {
+                                return el.salaryPerHour + "€";
+                              })
+                              .slice(0, 1)
                             : "✘ No Salary!"
                           : "✘ No Salary!"}{" "}
                       </span>
@@ -1372,15 +1372,15 @@ function Signed() {
                         :{" "}
                         {profile.salary_hours.length !== 0
                           ? profile.salary_hours.map((el, i) => (
-                              <div className="d-flex" key={i}>
-                                {el.hours ? el.hours : "0"}H ={" "}
-                                <span>
-                                  {el.salaryPerHour
-                                    ? el.salaryPerHour + "€"
-                                    : "0€"}
-                                </span>
-                              </div>
-                            ))
+                            <div className="d-flex" key={i}>
+                              {el.hours ? el.hours : "0"}H ={" "}
+                              <span>
+                                {el.salaryPerHour
+                                  ? el.salaryPerHour + "€"
+                                  : "0€"}
+                              </span>
+                            </div>
+                          ))
                           : "✘ No Salaire!"}
                       </span>
                     </div>
@@ -1390,13 +1390,13 @@ function Signed() {
                         :{" "}
                         {profile.rate_hours.length !== 0
                           ? profile.rate_hours.map((el, i) => (
-                              <div className="d-flex" key={i}>
-                                {el.hours ? el.hours : "0"}H ={" "}
-                                <span>
-                                  {el.ratePerHour ? el.ratePerHour + "€" : "0€"}
-                                </span>
-                              </div>
-                            ))
+                            <div className="d-flex" key={i}>
+                              {el.hours ? el.hours : "0"}H ={" "}
+                              <span>
+                                {el.ratePerHour ? el.ratePerHour + "€" : "0€"}
+                              </span>
+                            </div>
+                          ))
                           : "✘ No horraire!"}
                       </span>
                     </div>
@@ -1416,7 +1416,7 @@ function Signed() {
                   EMPunderWorking?.map((el, i) => (
                     <>
                       {el.candidatStatus === "Archived" ||
-                      el.candidatStatus === "Pre-Selected" ? null : (
+                        el.candidatStatus === "Pre-Selected" ? null : (
                         <>
                           <div className="col-12 pb-1" key={i}>
                             <div className="row">
@@ -1430,29 +1430,29 @@ function Signed() {
                                   }
                                 />
                                 {el.candidatStatus === "Archived" ||
-                                el.candidatStatus === "Pre-Selected"
+                                  el.candidatStatus === "Pre-Selected"
                                   ? null
                                   : el.candidatName}
                                 <span className="pl-1">Since :</span>
                                 {(el.candidatName &&
                                   el.candidatStatus === "Archived") ||
-                                (el.candidatName &&
-                                  el.candidatStatus === "Pre-Selected")
+                                  (el.candidatName &&
+                                    el.candidatStatus === "Pre-Selected")
                                   ? null
                                   : el.candidatCurrentWork.map((el) =>
-                                      el.workingSince
-                                        ? el.workingSince
-                                        : "✘ No Working Since!"
-                                    )}
+                                    el.workingSince
+                                      ? el.workingSince
+                                      : "✘ No Working Since!"
+                                  )}
                                 <span className="pl-1">Salary :</span>
                                 {(el.candidatName &&
                                   el.candidatStatus === "Archived") ||
-                                (el.candidatName &&
-                                  el.candidatStatus === "Pre-Selected")
+                                  (el.candidatName &&
+                                    el.candidatStatus === "Pre-Selected")
                                   ? null
                                   : el.candidatCurrentWork.map((el) =>
-                                      el.salary ? el.salary + "€" : "0€"
-                                    )}
+                                    el.salary ? el.salary + "€" : "0€"
+                                  )}
                               </div>
 
                               <div className="col-4 d-flex">
@@ -1549,88 +1549,88 @@ function Signed() {
                   <div className="row">
                     {preSelect
                       ? preSelect.map((el, i) => (
-                          <>
-                            {" "}
-                            <div
-                              className="col-4 d-flex align-items-center mb-1"
-                              key={i}
+                        <>
+                          {" "}
+                          <div
+                            className="col-4 d-flex align-items-center mb-1"
+                            key={i}
+                          >
+                            <img
+                              alt="..."
+                              style={{ width: "15%" }}
+                              className="pr-1"
+                              src={
+                                require("../../../images/menSigned.svg")
+                                  .default
+                              }
+                            />
+                            <p className="mb-0" style={{ color: "#fd9e02" }}>
+                              {el.candidatName.toLocaleUpperCase()}
+                            </p>
+                          </div>
+                          <div className="col-8 text-end">
+                            <b
+                              style={{
+                                fontFamily: "Poppins",
+                                fontStyle: "normal",
+                                fontWeight: "700",
+                                fontSize: "10px",
+                                lineHeight: "24px",
+                                color: "#000000",
+                              }}
                             >
-                              <img
-                                alt="..."
-                                style={{ width: "15%" }}
-                                className="pr-1"
-                                src={
-                                  require("../../../images/menSigned.svg")
-                                    .default
-                                }
-                              />
-                              <p className="mb-0" style={{ color: "#fd9e02" }}>
-                                {el.candidatName.toLocaleUpperCase()}
-                              </p>
-                            </div>
-                            <div className="col-8 text-end">
-                              <b
-                                style={{
-                                  fontFamily: "Poppins",
-                                  fontStyle: "normal",
-                                  fontWeight: "700",
-                                  fontSize: "10px",
-                                  lineHeight: "24px",
-                                  color: "#000000",
-                                }}
-                              >
-                                "⚠️This Candidat is Preselected But Don't Work
-                                for the Company yet!"
-                              </b>
-                            </div>
-                          </>
-                        ))
+                              "⚠️This Candidat is Preselected But Don't Work
+                              for the Company yet!"
+                            </b>
+                          </div>
+                        </>
+                      ))
                       : null}
                     {Archived
                       ? Archived.map((el, i) => (
-                          <>
-                            {" "}
-                            <div
-                              className="col-3 pr-0 mb-1 d-flex align-items-center"
-                              key={i}
-                            >
-                              <img
+                        <>
+                          {" "}
+                          <div
+                            className="col-3 pr-0 mb-1 d-flex align-items-center"
+                            key={i}
+                          >
+                            <img
                               alt="..."
-                                style={{ width: "20%" }}
-                                className="pr-1"
-                                src={
-                                  require("../../../images/menSigned.svg")
-                                    .default
-                                }
-                              />
-                              <p className="mb-0" style={{ color: "red" }}>
-                                {el.candidatName.toLocaleUpperCase()}
-                              </p>
-                            </div>
-                            <div className="col-9 text-end">
-                              <b
-                                style={{
-                                  fontFamily: "Poppins",
-                                  fontStyle: "normal",
-                                  fontWeight: "700",
-                                  fontSize: "10px",
-                                  lineHeight: "24px",
-                                  color: "#000000",
-                                }}
-                              >
-                                "⚠️This candidat previously worked for this
-                                company but have been archived, please reset to
-                                todo if something changed"
-                              </b>
-                            </div>
-                          </>
-                        ))
+                              style={{ width: "20%" }}
+                              className="pr-1"
+                              src={
+                                require("../../../images/menSigned.svg")
+                                  .default
+                              }
+                            />
+                            <p className="mb-0" style={{ color: "red" }}>
+                              {el.candidatName.toLocaleUpperCase()}
+                            </p>
+                          </div>
+                          <div className="col-9 text-end">
+                            <b
+                              style={{
+                                fontFamily: "Poppins",
+                                fontStyle: "normal",
+                                fontWeight: "700",
+                                fontSize: "10px",
+                                lineHeight: "24px",
+                                color: "#000000",
+                              }}
+                            >
+                              "⚠️This candidat previously worked for this
+                              company but have been archived, please reset to
+                              todo if something changed"
+                            </b>
+                          </div>
+                        </>
+                      ))
                       : null}
                   </div>
                 </div>
 
                 {profile.employeesWorkingUnder !== null &&
-                profile.employeesWorkingUnder.length > 0 ? (
+                  profile.employeesWorkingUnder.length > 0 ? (
                   <div className="col-12">
                     {" "}
                     <div className="row">
@@ -1724,8 +1724,8 @@ function Signed() {
                         {candidatImportanceIcons[profile.clientImportance - 1]
                           ?.icon
                           ? candidatImportanceIcons[
-                              profile.clientImportance - 1
-                            ]?.icon
+                            profile.clientImportance - 1
+                          ]?.icon
                           : "✘✘!"}
                       </b>
                     </p>
@@ -2069,6 +2069,18 @@ function Signed() {
                   </div>
                   <div className="col-4  d-grid ">
                     <label className="ClientPDFFormlabel">
+                      $ Nom Du Travailleur 1
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="worker_name_1"
+                      value={clientContract ? clientContract.worker_name_1 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
                       $ numero de tel du travailleur 1
                     </label>
                     <input
@@ -2077,18 +2089,6 @@ function Signed() {
                       value={
                         clientContract ? clientContract.worker_number_1 : ""
                       }
-                      onClick={editClientProfile}
-                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1"
-                    />
-                  </div>
-                  <div className="col-4  d-grid ">
-                    <label className="ClientPDFFormlabel">
-                      $ Nom Du Travailleur 1
-                    </label>
-                    <input
-                      className="form-control inputStyling"
-                      name="worker_name_1"
-                      value={clientContract ? clientContract.worker_name_1 : ""}
                       onClick={editClientProfile}
                       placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1"
                     />
@@ -2273,6 +2273,318 @@ function Signed() {
                       value={clientContract ? clientContract.worker_name_8 : ""}
                       onClick={editClientProfile}
                       placeholder="‎ ‎ ‎$ numero de tel du travailleur 8"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ Nom Du Travailleur 9
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="worker_name_9"
+                      value={clientContract ? clientContract.worker_name_9 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 9"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 9
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="company_siret"
+                      value={
+                        clientContract ? clientContract.worker_number_9 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 9"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ nom du travailleur 10
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="serie_id"
+                      value={
+                        clientContract ? clientContract.worker_number_10 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ nom du travailleur 10"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 10
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="candidatAddress"
+                      value={clientContract ? clientContract.worker_name_10 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 10"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ nom du travailleur 11
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="company_siret"
+                      value={
+                        clientContract ? clientContract.worker_number_11 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ nom du travailleur 11"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 11
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="serie_id"
+                      value={clientContract ? clientContract.worker_name_11 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 11"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ nom du travailleur 12
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="candidatAddress"
+                      value={
+                        clientContract ? clientContract.worker_number_12 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ nom du travailleur 12"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 12
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="company_siret"
+                      value={clientContract ? clientContract.worker_name_12 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 12"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ nom du travailleur 13
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="serie_id"
+                      value={
+                        clientContract ? clientContract.worker_number_13 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎$ nom du travailleur 13"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 13
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="candidatAddress"
+                      value={clientContract ? clientContract.worker_name_13 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 13"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ nom du travailleur 14
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="company_siret"
+                      value={
+                        clientContract ? clientContract.worker_number_14 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎$ nom du travailleur 14"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 14
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="serie_id"
+                      value={clientContract ? clientContract.worker_name_14 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 14"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ nom du travailleur 15
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="candidatAddress"
+                      value={
+                        clientContract ? clientContract.worker_number_15 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎$ nom du travailleur 15"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 15
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="company_siret"
+                      value={clientContract ? clientContract.worker_name_15 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 15"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ nom du travailleur 16
+                    </label>
+                    <input
+                      className="inputStyling form-control"
+                      name="companyAddress"
+                      value={
+                        clientContract ? clientContract.worker_number_16 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎$ nom du travailleur 16"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 16
+                    </label>
+                    <input
+                      className="inputStyling form-control"
+                      name="companyAddress"
+                      value={clientContract ? clientContract.worker_name_16 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎$ numero de tel du travailleur 16"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ nom du travailleur 17
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="serie_id"
+                      value={
+                        clientContract ? clientContract.worker_number_17 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎$ nom du travailleur 17"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 17
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="candidatAddress"
+                      value={clientContract ? clientContract.worker_name_17 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 17"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ nom du travailleur 18
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="company_siret"
+                      value={
+                        clientContract ? clientContract.worker_number_18 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎$ nom du travailleur 18"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 18
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="serie_id"
+                      value={clientContract ? clientContract.worker_name_18 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 18"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ nom du travailleur 19
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="candidatAddress"
+                      value={
+                        clientContract ? clientContract.worker_number_19 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎$ nom du travailleur 19"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 19
+                    </label>
+                    <input
+                      className="form-control inputStyling"
+                      name="company_siret"
+                      value={clientContract ? clientContract.worker_name_19 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎ $ numero de tel du travailleur 19"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ nom du travailleur 20
+                    </label>
+                    <input
+                      className="inputStyling form-control"
+                      name="companyAddress"
+                      value={
+                        clientContract ? clientContract.worker_number_20 : ""
+                      }
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎$ nom du travailleur 20"
+                    />
+                  </div>
+                  <div className="col-4  d-grid ">
+                    <label className="ClientPDFFormlabel">
+                      $ numero de tel du travailleur 20
+                    </label>
+                    <input
+                      className="inputStyling form-control"
+                      name="companyAddress"
+                      value={clientContract ? clientContract.worker_name_20 : ""}
+                      onClick={editClientProfile}
+                      placeholder="‎ ‎ ‎$ numero de tel du travailleur 20"
                     />
                   </div>
                   <div className="col-4  d-grid ">

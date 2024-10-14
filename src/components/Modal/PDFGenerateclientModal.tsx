@@ -150,6 +150,126 @@ function PdfModal({ props, closeModal, LinkModal, path }) {
         ? props.clientContract.worker_name_8
         : ""
       : "",
+      worker_number_9: props.clientContract
+      ? props.clientContract.worker_number_1 !== ""
+        ? props.clientContract.worker_number_1
+        : ""
+      : "",
+    worker_name_9: props.clientContract
+      ? props.clientContract.worker_name_1 !== ""
+        ? props.clientContract.worker_name_1
+        : ""
+      : "",
+    worker_number_10: props.clientContract
+      ? props.clientContract.worker_number_2 !== ""
+        ? props.clientContract.worker_number_2
+        : ""
+      : "",
+    worker_name_10: props.clientContract
+      ? props.clientContract.worker_name_2 !== ""
+        ? props.clientContract.worker_name_2
+        : ""
+      : "",
+    worker_number_11: props.clientContract
+      ? props.clientContract.worker_number_3 !== ""
+        ? props.clientContract.worker_number_3
+        : ""
+      : "",
+    worker_name_11: props.clientContract
+      ? props.clientContract.worker_name_3 !== ""
+        ? props.clientContract.worker_name_3
+        : ""
+      : "",
+    worker_number_12: props.clientContract
+      ? props.clientContract.worker_number_4 !== ""
+        ? props.clientContract.worker_number_4
+        : ""
+      : "",
+    worker_name_12: props.clientContract
+      ? props.clientContract.worker_name_4 !== ""
+        ? props.clientContract.worker_name_4
+        : ""
+      : "",
+    worker_number_13: props.clientContract
+      ? props.clientContract.worker_number_5 !== ""
+        ? props.clientContract.worker_number_5
+        : ""
+      : "",
+    worker_name_13: props.clientContract
+      ? props.clientContract.worker_name_5 !== ""
+        ? props.clientContract.worker_name_5
+        : ""
+      : "",
+    worker_number_14: props.clientContract
+      ? props.clientContract.worker_number_6 !== ""
+        ? props.clientContract.worker_number_6
+        : ""
+      : "",
+    worker_name_14: props.clientContract
+      ? props.clientContract.worker_name_6 !== ""
+        ? props.clientContract.worker_name_6
+        : ""
+      : "",
+    worker_number_15: props.clientContract
+      ? props.clientContract.worker_number_7 !== ""
+        ? props.clientContract.worker_number_7
+        : ""
+      : "",
+    worker_name_15: props.clientContract
+      ? props.clientContract.worker_name_7 !== ""
+        ? props.clientContract.worker_name_7
+        : ""
+      : "",
+    worker_number_16: props.clientContract
+      ? props.clientContract.worker_number_8 !== ""
+        ? props.clientContract.worker_number_8
+        : ""
+      : "",
+    worker_name_16: props.clientContract
+      ? props.clientContract.worker_name_8 !== ""
+        ? props.clientContract.worker_name_8
+        : ""
+      : "",
+      worker_number_17: props.clientContract
+      ? props.clientContract.worker_number_5 !== ""
+        ? props.clientContract.worker_number_5
+        : ""
+      : "",
+    worker_name_17: props.clientContract
+      ? props.clientContract.worker_name_5 !== ""
+        ? props.clientContract.worker_name_5
+        : ""
+      : "",
+    worker_number_18: props.clientContract
+      ? props.clientContract.worker_number_6 !== ""
+        ? props.clientContract.worker_number_6
+        : ""
+      : "",
+    worker_name_18: props.clientContract
+      ? props.clientContract.worker_name_6 !== ""
+        ? props.clientContract.worker_name_6
+        : ""
+      : "",
+    worker_number_19: props.clientContract
+      ? props.clientContract.worker_number_7 !== ""
+        ? props.clientContract.worker_number_7
+        : ""
+      : "",
+    worker_name_19: props.clientContract
+      ? props.clientContract.worker_name_7 !== ""
+        ? props.clientContract.worker_name_7
+        : ""
+      : "",
+    worker_number_20: props.clientContract
+      ? props.clientContract.worker_number_8 !== ""
+        ? props.clientContract.worker_number_8
+        : ""
+      : "",
+    worker_name_20: props.clientContract
+      ? props.clientContract.worker_name_8 !== ""
+        ? props.clientContract.worker_name_8
+        : ""
+      : "",
     clientId: props._id ? props._id : "",
     contractId: props.clientContract
       ? props.clientContract._id !== ""
@@ -494,20 +614,6 @@ function PdfModal({ props, closeModal, LinkModal, path }) {
                     </div>
                     <div className="col-4  d-grid ">
                       <label className="ClientPDFFormlabel">
-                        $ numero de tel du travailleur 1
-                      </label>
-                      <input
-                        className="form-control inputStyling"
-                        defaultValue={
-                          data.worker_number_1 ? data.worker_number_1 : ""
-                        }
-                        name="worker_number_1"
-                        onChange={onFormDataChange}
-                        placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1"
-                      />
-                    </div>
-                    <div className="col-4  d-grid ">
-                      <label className="ClientPDFFormlabel">
                         $ Nom Du Travailleur 1
                       </label>
                       <input
@@ -518,6 +624,20 @@ function PdfModal({ props, closeModal, LinkModal, path }) {
                         }
                         onChange={onFormDataChange}
                         placeholder="‎ ‎ ‎ $ nom de tel du travailleur 1"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ numero de tel du travailleur 1
+                      </label>
+                      <input
+                        className="form-control inputStyling"
+                        defaultValue={
+                          data.worker_number_1 ? data.worker_number_1 : ""
+                        }
+                        name="worker_number_1"
+                        onChange={onFormDataChange}
+                        placeholder="‎ ‎ ‎ $ numero de tel du travailleur 1"
                       />
                     </div>
                     <div className="col-4  d-grid ">
@@ -714,6 +834,342 @@ function PdfModal({ props, closeModal, LinkModal, path }) {
                         }
                         onChange={onFormDataChange}
                         placeholder="‎ ‎ ‎$ nom du travailleur 8"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ Nom Du Travailleur 9
+                      </label>
+                      <input
+                        className="form-control inputStyling"
+                        name="worker_name_9"
+                        defaultValue={
+                          data.worker_name_9 ? data.worker_name_9 : ""
+                        }
+                        onChange={onFormDataChange}
+                        placeholder="‎ ‎ ‎ $ nom de tel du travailleur 9"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ numero de tel du travailleur 9
+                      </label>
+                      <input
+                        className="form-control inputStyling"
+                        defaultValue={
+                          data.worker_number_9 ? data.worker_number_9 : ""
+                        }
+                        name="worker_number_9"
+                        onChange={onFormDataChange}
+                        placeholder="‎ ‎ ‎ $ numero de tel du travailleur 9"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ numero de tel du travailleur 10{" "}
+                      </label>
+                      <input
+                        className="form-control inputStyling"
+                        name="worker_number_10"
+                        defaultValue={
+                          data.worker_number_10 ? data.worker_number_10 : ""
+                        }
+                        onChange={onFormDataChange}
+                        placeholder="‎ ‎ ‎ $ numero du travailleur 10"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ Nom Du travailleur 10
+                      </label>
+                      <input
+                        className="form-control inputStyling"
+                        name="worker_name_10"
+                        onChange={onFormDataChange}
+                        defaultValue={
+                          data.worker_name_10 ? data.worker_name_10 : ""
+                        }
+                        placeholder="‎ ‎ ‎ $ nom de tel du travailleur 10"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ numero de tel du travailleur 11
+                      </label>
+                      <input
+                        className="form-control inputStyling"
+                        name="worker_number_11"
+                        onChange={onFormDataChange}
+                        defaultValue={
+                          data.worker_number_11 ? data.worker_number_11 : ""
+                        }
+                        placeholder="‎ ‎ ‎ $ numero de tel du travailleur 11"
+                      />
+                    </div>{" "}
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ nom du travailleur 11
+                      </label>
+                      <input
+                        className="form-control inputStyling"
+                        name="worker_name_11"
+                        onChange={onFormDataChange}
+                        defaultValue={
+                          data.worker_name_11 ? data.worker_name_11 : ""
+                        }
+                        placeholder="‎ ‎ ‎ $ nom du travailleur 11"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ numero de tel du travailleur 12
+                      </label>
+                      <input
+                        className="form-control inputStyling"
+                        name="worker_number_12"
+                        defaultValue={
+                          data.worker_number_12 ? data.worker_number_12 : ""
+                        }
+                        onChange={onFormDataChange}
+                        placeholder="‎ ‎ ‎ $ numero de tel du travailleur 12"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ nom du travailleur 12
+                      </label>
+                      <input
+                        className="form-control inputStyling"
+                        name="worker_name_12"
+                        onChange={onFormDataChange}
+                        defaultValue={
+                          data.worker_name_12 ? data.worker_name_12 : ""
+                        }
+                        placeholder="‎ ‎ ‎ $ nom du travailleur 12"
+                      />
+                    </div>{" "}
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ numero de tel du travailleur 13
+                      </label>
+                      <input
+                        className="form-control inputStyling"
+                        name="worker_number_13"
+                        onChange={onFormDataChange}
+                        defaultValue={
+                          data.worker_number_13 ? data.worker_number_13 : ""
+                        }
+                        placeholder="‎ ‎ ‎$ numero de tel du travailleur 13"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ nom du travailleur 13
+                      </label>
+                      <input
+                        className="form-control inputStyling"
+                        name="worker_name_13"
+                        onChange={onFormDataChange}
+                        defaultValue={
+                          data.worker_name_13 ? data.worker_name_13 : ""
+                        }
+                        placeholder="‎ ‎ ‎ $ nom du travailleur 13"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ numero de tel du travailleur 14
+                      </label>
+                      <input
+                        className="form-control inputStyling"
+                        name="worker_number_14"
+                        onChange={onFormDataChange}
+                        defaultValue={
+                          data.worker_number_14 ? data.worker_number_14 : ""
+                        }
+                        placeholder="‎ ‎ ‎$ numero de tel du travailleur 14"
+                      />
+                    </div>{" "}
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ nom du travailleur 14
+                      </label>
+                      <input
+                        className="form-control inputStyling"
+                        defaultValue={
+                          data.worker_name_14 ? data.worker_name_14 : ""
+                        }
+                        name="worker_name_6"
+                        onChange={onFormDataChange}
+                        placeholder="‎ ‎ ‎ $ nom du travailleur 14"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ numero de tel du travailleur 15
+                      </label>
+                      <input
+                        className="form-control inputStyling"
+                        name="worker_number_15"
+                        onChange={onFormDataChange}
+                        defaultValue={
+                          data.worker_number_15 ? data.worker_number_15 : ""
+                        }
+                        placeholder="‎ ‎ ‎$ numero de tel du travailleur 15"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ nom du travailleur 15
+                      </label>
+                      <input
+                        className="form-control inputStyling"
+                        name="worker_name_15"
+                        onChange={onFormDataChange}
+                        defaultValue={
+                          data.worker_name_15 ? data.worker_name_15 : ""
+                        }
+                        placeholder="‎ ‎ ‎ $ nom du travailleur 15"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ numero de tel du travailleur 16
+                      </label>
+                      <input
+                        className="inputStyling form-control"
+                        name="worker_number_16"
+                        onChange={onFormDataChange}
+                        defaultValue={
+                          data.worker_number_16 ? data.worker_number_16 : ""
+                        }
+                        placeholder="‎ ‎ ‎$ numero de tel du travailleur 16"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ nom du travailleur 16
+                      </label>
+                      <input
+                        className="inputStyling form-control"
+                        name="worker_name_16"
+                        defaultValue={
+                          data.worker_name_16 ? data.worker_name_16 : ""
+                        }
+                        onChange={onFormDataChange}
+                        placeholder="‎ ‎ ‎$ nom du travailleur 16"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ numero de tel du travailleur 17
+                      </label>
+                      <input
+                        className="inputStyling form-control"
+                        name="worker_number_17"
+                        onChange={onFormDataChange}
+                        defaultValue={
+                          data.worker_number_17 ? data.worker_number_17 : ""
+                        }
+                        placeholder="‎ ‎ ‎$ numero de tel du travailleur 17"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ nom du travailleur 17
+                      </label>
+                      <input
+                        className="inputStyling form-control"
+                        name="worker_name_17"
+                        defaultValue={
+                          data.worker_name_17 ? data.worker_name_17 : ""
+                        }
+                        onChange={onFormDataChange}
+                        placeholder="‎ ‎ ‎$ nom du travailleur 17"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ numero de tel du travailleur 18
+                      </label>
+                      <input
+                        className="inputStyling form-control"
+                        name="worker_number_18"
+                        onChange={onFormDataChange}
+                        defaultValue={
+                          data.worker_number_18 ? data.worker_number_18 : ""
+                        }
+                        placeholder="‎ ‎ ‎$ numero de tel du travailleur 18"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ nom du travailleur 18
+                      </label>
+                      <input
+                        className="inputStyling form-control"
+                        name="worker_name_18"
+                        defaultValue={
+                          data.worker_name_18 ? data.worker_name_18 : ""
+                        }
+                        onChange={onFormDataChange}
+                        placeholder="‎ ‎ ‎$ nom du travailleur 18"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ numero de tel du travailleur 19
+                      </label>
+                      <input
+                        className="inputStyling form-control"
+                        name="worker_number_19"
+                        onChange={onFormDataChange}
+                        defaultValue={
+                          data.worker_number_19 ? data.worker_number_19 : ""
+                        }
+                        placeholder="‎ ‎ ‎$ numero de tel du travailleur 19"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ nom du travailleur 19
+                      </label>
+                      <input
+                        className="inputStyling form-control"
+                        name="worker_name_19"
+                        defaultValue={
+                          data.worker_name_19 ? data.worker_name_19 : ""
+                        }
+                        onChange={onFormDataChange}
+                        placeholder="‎ ‎ ‎$ nom du travailleur 19"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ numero de tel du travailleur 20
+                      </label>
+                      <input
+                        className="inputStyling form-control"
+                        name="worker_number_20"
+                        onChange={onFormDataChange}
+                        defaultValue={
+                          data.worker_number_20 ? data.worker_number_20 : ""
+                        }
+                        placeholder="‎ ‎ ‎$ numero de tel du travailleur 20"
+                      />
+                    </div>
+                    <div className="col-4  d-grid ">
+                      <label className="ClientPDFFormlabel">
+                        $ nom du travailleur 20
+                      </label>
+                      <input
+                        className="inputStyling form-control"
+                        name="worker_name_20"
+                        defaultValue={
+                          data.worker_name_20 ? data.worker_name_20 : ""
+                        }
+                        onChange={onFormDataChange}
+                        placeholder="‎ ‎ ‎$ nom du travailleur 20"
                       />
                     </div>
                     <div className="col-4  d-grid ">

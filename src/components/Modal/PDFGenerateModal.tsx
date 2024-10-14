@@ -631,7 +631,7 @@ function PdfModal({ props, closeModal, LinkModal, path }) {
                       />
                     </div>
                     <div className="col-4  d-grid ">
-                      <label className="PDFFormlabel">Diurna Par Jour</label>
+                      <label className="PDFFormlabel">Diurna Par Mois</label>
                       <input
                         className="form-control inputStyling"
                         name="diurnaTotalParJour"

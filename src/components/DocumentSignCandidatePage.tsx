@@ -42,7 +42,7 @@ function DocumentSign() {
         fetchCandidat(id).then((resData) => {
           if (resData.status == true) {
             // setProfile(resData.data)
-
+            console.log(resData.data);
             setProfile(resData.data);
           } else {
             return false;
@@ -141,6 +141,7 @@ function DocumentSign() {
       .then((resp) => resp.json())
       .then((respData) => {
         let _url = respData.filePath.replace("/app/", "");
+        console.log(_url);
         setUrl(_url.replace("http", "https"));
         ContractData.public_id = respData.public_id;
       })
